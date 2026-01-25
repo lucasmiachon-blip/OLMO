@@ -1,0 +1,29 @@
+# Variáveis de ambiente e segredos (NUNCA commitar .env)
+.env
+.env.local
+.env.*.local
+
+# Chaves e tokens
+*.pem
+*.key
+secrets/
+credentials/
+
+# Dependências
+node_modules/
+
+# Build e cache
+dist/
+build/
+.cache/
+
+# IDE e SO
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
