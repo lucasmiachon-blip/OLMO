@@ -1,0 +1,118 @@
+# Definicoes de Workflows Automatizados
+# ======================================
+
+workflows:
+  # Workflow: Revisao Matinal
+  morning_review:
+    name: "Revisao Matinal"
+    description: "Revisao diaria automatica para comecar o dia organizado"
+    trigger: "cron"
+    schedule: "0 7 * * *"  # 7h todos os dias
+    steps:
+      - agent: "atualizacao_ai"
+        action: "news_digest"
+        description: "Buscar novidades de AI"
+      - agent: "organizacao"
+        action: "plan_day"
+        description: "Criar plano do dia"
+      - agent: "cientifico"
+        action: "find_trends"
+        area: "artificial_intelligence"
+        description: "Verificar tendencias"
+
+  # Workflow: Revisao Semanal (GTD)
+  weekly_review:
+    name: "Revisao Semanal GTD"
+    description: "Revisao semanal completa no estilo Getting Things Done"
+    trigger: "cron"
+    schedule: "0 18 * * 5"  # Sexta 18h
+    steps:
+      - agent: "organizacao"
+        action: "inbox_process"
+        description: "Processar inbox"
+      - agent: "organizacao"
+        action: "review_week"
+        description: "Revisar semana"
+      - agent: "organizacao"
+        action: "plan_week"
+        description: "Planejar proxima semana"
+      - agent: "cientifico"
+        action: "summarize"
+        topic: "weekly_learnings"
+        description: "Sumarizar aprendizados"
+
+  # Workflow: Pesquisa Cientifica
+  research_pipeline:
+    name: "Pipeline de Pesquisa"
+    description: "Pesquisa cientifica completa sobre um topico"
+    trigger: "manual"
+    steps:
+      - agent: "cientifico"
+        action: "search"
+        description: "Buscar papers"
+      - subagent: "trend_analyzer"
+        action: "analyze"
+        description: "Analisar tendencias nos resultados"
+      - agent: "cientifico"
+        action: "literature_review"
+        description: "Criar revisao de literatura"
+      - agent: "cientifico"
+        action: "generate_hypothesis"
+        description: "Gerar hipoteses"
+
+  # Workflow: Monitoramento AI
+  ai_monitoring:
+    name: "Monitoramento AI"
+    description: "Monitoramento continuo do ecossistema AI"
+    trigger: "cron"
+    schedule: "0 */6 * * *"  # A cada 6 horas
+    steps:
+      - subagent: "web_monitor"
+        action: "check_all"
+        description: "Verificar todas as fontes"
+      - agent: "atualizacao_ai"
+        action: "check_updates"
+        description: "Processar atualizacoes"
+      - agent: "atualizacao_ai"
+        action: "compare_models"
+        description: "Comparar novos modelos"
+      - subagent: "trend_analyzer"
+        action: "analyze"
+        description: "Analisar tendencias"
+
+  # Workflow: Code Review Automatizado
+  code_review:
+    name: "Code Review Automatizado"
+    description: "Review automatico de qualidade de codigo"
+    trigger: "event"
+    event: "git_push"
+    steps:
+      - skill: "code_analyzer"
+        action: "analyze_project"
+        description: "Analisar projeto"
+      - skill: "code_analyzer"
+        action: "security_scan"
+        description: "Scan de seguranca"
+      - skill: "content_writer"
+        action: "write"
+        content_type: "report"
+        description: "Gerar relatorio"
+
+  # Workflow: Organizacao Completa
+  full_organization:
+    name: "Organizacao Completa"
+    description: "Reorganizacao completa de tarefas e projetos"
+    trigger: "manual"
+    steps:
+      - agent: "organizacao"
+        action: "inbox_process"
+        description: "Processar inbox"
+      - agent: "organizacao"
+        action: "prioritize"
+        description: "Priorizar tarefas (Eisenhower)"
+      - agent: "organizacao"
+        action: "status_report"
+        description: "Gerar relatorio de status"
+      - agent: "organizacao"
+        action: "plan_week"
+        description: "Criar plano semanal"

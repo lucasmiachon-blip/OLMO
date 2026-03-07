@@ -1,0 +1,35 @@
+[project]
+name = "ai-agent-ecosystem"
+version = "0.1.0"
+description = "Ecossistema de agentes AI para automacao, pesquisa cientifica e organizacao pessoal"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "openai>=1.50.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "httpx>=0.27.0",
+    "rich>=13.0",
+    "schedule>=1.2.0",
+    "feedparser>=6.0",
+    "arxiv>=2.1.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5.0",
+    "mypy>=1.10",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true

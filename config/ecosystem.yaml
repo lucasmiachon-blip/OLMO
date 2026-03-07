@@ -1,0 +1,106 @@
+# Configuracao do Ecossistema de Agentes AI
+# ==========================================
+
+ecosystem:
+  name: "AI Agent Ecosystem"
+  version: "0.1.0"
+  language: "pt-br"
+  log_level: "INFO"
+
+# Agentes Principais
+agents:
+  orchestrator:
+    enabled: true
+    description: "Coordena todos os agentes do ecossistema"
+
+  cientifico:
+    enabled: true
+    description: "Pesquisa e analise cientifica"
+    research_areas:
+      - artificial_intelligence
+      - machine_learning
+      - natural_language_processing
+      - computer_vision
+      - neuroscience
+    sources:
+      - arxiv
+      - semantic_scholar
+      - pubmed
+
+  automacao:
+    enabled: true
+    description: "Automacao de tarefas e workflows"
+    max_concurrent_tasks: 5
+    retry_attempts: 3
+
+  organizacao:
+    enabled: true
+    description: "Organizacao pessoal e gestao de tarefas"
+    methodology: "GTD"  # Getting Things Done
+    daily_task_limit: 5
+    review_schedule: "weekly"
+
+  atualizacao_ai:
+    enabled: true
+    description: "Monitoramento do ecossistema AI"
+    check_interval_hours: 6
+    monitored_sources:
+      - name: "Anthropic Blog"
+        url: "https://www.anthropic.com/news"
+        type: "blog"
+      - name: "OpenAI Blog"
+        url: "https://openai.com/blog"
+        type: "blog"
+      - name: "Google AI Blog"
+        url: "https://blog.google/technology/ai/"
+        type: "blog"
+      - name: "Hugging Face"
+        url: "https://huggingface.co"
+        type: "hub"
+      - name: "Papers With Code"
+        url: "https://paperswithcode.com"
+        type: "papers"
+      - name: "GitHub Trending"
+        url: "https://github.com/trending"
+        type: "code"
+
+# Subagentes
+subagents:
+  web_monitor:
+    enabled: true
+    check_interval_minutes: 60
+  data_pipeline:
+    enabled: true
+  trend_analyzer:
+    enabled: true
+
+# Skills
+skills:
+  research:
+    - web_search
+    - arxiv_search
+    - summarizer
+  coding:
+    - code_analyzer
+    - code_generator
+  writing:
+    - content_writer
+  data:
+    - data_processor
+  devops:
+    - git_manager
+
+# Modelos AI Configurados
+ai_models:
+  primary:
+    provider: "anthropic"
+    model: "claude-opus-4-6"
+    max_tokens: 8192
+  fast:
+    provider: "anthropic"
+    model: "claude-sonnet-4-6"
+    max_tokens: 4096
+  fallback:
+    provider: "openai"
+    model: "gpt-4o"
+    max_tokens: 4096
