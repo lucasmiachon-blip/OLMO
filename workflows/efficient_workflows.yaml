@@ -1,0 +1,184 @@
+# Workflows Otimizados para Poucos Requests
+# ==========================================
+# Cada workflow maximiza valor por API call
+# Inspirado em: Simon Willison, CrewAI Flows, Anthropic Agent SDK
+
+workflows:
+  # ============================================================
+  # DAILY: 1-2 API calls/dia
+  # ============================================================
+
+  # Batch Morning Digest - 1 UNICA chamada para tudo
+  batch_morning_digest:
+    name: "Digest Matinal Batched"
+    description: "News + Trends + Planning em 1 unica API call"
+    trigger: "cron"
+    schedule: "0 7 * * *"
+    api_calls: 1  # APENAS 1 chamada!
+    strategy: "batch"
+    batch_prompt: |
+      Responda os 3 topicos abaixo de forma concisa:
+
+      1. NOTICIAS AI: Quais as 3 novidades mais importantes de AI
+         das ultimas 24h? (fontes: Anthropic, OpenAI, Google, HuggingFace)
+
+      2. TENDENCIAS: Qual tendencia de AI esta ganhando forca esta semana?
+
+      3. PLANO DO DIA: Baseado nos meus projetos ativos, sugira as
+         3 tarefas mais importantes para hoje usando Eisenhower Matrix.
+    steps:
+      - action: "batch_query"
+        topics: ["ai_news", "trends", "daily_plan"]
+        cache_ttl_hours: 12
+
+  # Quick Status - 0 API calls (100% local)
+  local_status_check:
+    name: "Status Check Local"
+    description: "Verifica status sem usar API"
+    trigger: "manual"
+    api_calls: 0
+    strategy: "local_only"
+    steps:
+      - skill: "local_first"
+        action: "list_files"
+        params: {directory: "data/", pattern: "*.json"}
+      - agent: "organizacao"
+        action: "status_report"
+        note: "Usa dados locais, sem API"
+
+  # ============================================================
+  # WEEKLY: 5-10 API calls/semana
+  # ============================================================
+
+  # Revisao Semanal Deep - 3 API calls
+  weekly_deep_review:
+    name: "Revisao Semanal Profunda"
+    description: "Review completo usando budget sabiamente"
+    trigger: "cron"
+    schedule: "0 18 * * 5"  # Sexta 18h
+    api_calls: 3
+    steps:
+      # Call 1: Review semanal + processamento inbox (batched)
+      - action: "batch_query"
+        batch_prompt: |
+          1. REVIEW SEMANAL: Analise meu progresso esta semana.
+             Tarefas completadas, pendentes, bloqueadas.
+             O que funcionou? O que melhorar?
+
+          2. INBOX: Processe estes items da inbox e classifique
+             como: Acao imediata / Agendar / Delegar / Eliminar
+        cache_ttl_hours: 168  # Cache por 1 semana
+
+      # Call 2: Plano proxima semana
+      - action: "api_query"
+        prompt: |
+          Crie o plano da proxima semana.
+          Distribua tarefas pelos dias com base em:
+          - Prioridade (Eisenhower)
+          - Energia necessaria (deep work vs shallow)
+          - Deadlines
+        cache_ttl_hours: 120
+
+      # Call 3: Pesquisa cientifica semanal
+      - action: "api_query"
+        prompt: |
+          Quais os 5 papers mais relevantes publicados esta semana em:
+          - AI/ML
+          - NLP
+          - Agent Systems
+          Inclua: titulo, autores, 1 frase de resumo, link arXiv
+        cache_ttl_hours: 168
+
+  # Research Sprint - 2-3 API calls
+  research_sprint:
+    name: "Sprint de Pesquisa"
+    description: "Pesquisa profunda sobre 1 topico usando budget com sabedoria"
+    trigger: "manual"
+    api_calls: 3
+    steps:
+      # Call 1: Busca e mapeamento
+      - action: "api_query"
+        prompt: |
+          Mapeie o estado da arte de: {topic}
+          - Top 5 papers mais citados
+          - Top 3 frameworks/tools
+          - Principais autores/labs
+          - Gaps de pesquisa
+        cache_ttl_hours: 72
+
+      # Call 2: Analise profunda
+      - action: "api_query"
+        prompt: |
+          Analise criticamente os achados sobre {topic}:
+          - Metodologias dominantes e suas limitacoes
+          - Tendencias emergentes
+          - Oportunidades de contribuicao
+        cache_ttl_hours: 72
+
+      # Call 3: Sintese e proximos passos
+      - action: "api_query"
+        prompt: |
+          Sintetize a pesquisa sobre {topic} em:
+          1. Resumo executivo (3 paragrafos)
+          2. Tabela comparativa dos approaches
+          3. Recomendacao de proximos passos
+          4. Lista de leitura priorizada (top 5)
+        cache_ttl_hours: 168
+
+  # ============================================================
+  # ON-DEMAND: Usa cache primeiro
+  # ============================================================
+
+  # Query inteligente - 0 ou 1 API call
+  smart_query:
+    name: "Query Inteligente"
+    description: "Verifica cache antes de chamar API"
+    trigger: "manual"
+    api_calls: "0-1"  # 0 se cache hit, 1 se miss
+    strategy: "cache_first"
+    steps:
+      - action: "check_cache"
+        on_hit: "return_cached"
+        on_miss: "api_query"
+      - action: "cache_result"
+        ttl_hours: 24
+
+  # AI Ecosystem Update - 1 API call/semana
+  weekly_ai_update:
+    name: "Update Semanal AI"
+    description: "1 chamada semanal para atualizar conhecimento de AI"
+    trigger: "cron"
+    schedule: "0 10 * * 1"  # Segunda 10h
+    api_calls: 1
+    steps:
+      - action: "batch_query"
+        batch_prompt: |
+          Atualizacao semanal do ecossistema AI:
+
+          1. NOVOS MODELOS: Algum modelo novo lancado esta semana?
+             (Anthropic, OpenAI, Google, Meta, Mistral, open-source)
+
+          2. TOOLS: Novas ferramentas/frameworks relevantes?
+
+          3. BENCHMARKS: Mudancas nos rankings de performance?
+
+          4. PRECOS: Mudancas de precos nos provedores de API?
+
+          5. PAPERS DESTAQUE: 1 paper que todo dev deveria ler?
+        cache_ttl_hours: 168
+
+# ============================================================
+# Resumo de Budget Semanal
+# ============================================================
+#
+# Workflow                    | Calls/semana | Custo estimado
+# ----------------------------|-------------|---------------
+# Batch Morning Digest (5x)   | 5           | ~$0.25
+# Weekly Deep Review (1x)     | 3           | ~$0.15
+# Weekly AI Update (1x)       | 1           | ~$0.05
+# Smart Queries (~5x)         | 0-5         | ~$0.00-0.25
+# Research Sprint (on-demand) | 3           | ~$0.15
+# ----------------------------|-------------|---------------
+# TOTAL SEMANAL               | 12-17       | ~$0.60-0.85
+#
+# Isso e ~$2.50-3.50/mes para um ecossistema completo!
