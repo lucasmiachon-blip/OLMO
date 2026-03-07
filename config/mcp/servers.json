@@ -1,32 +1,48 @@
 {
   "mcpServers": {
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp",
+      "description": "Notion: criar paginas, databases, atualizar conteudo. Publicar resumos MBE, digests, knowledge base.",
+      "priority": "critical",
+      "notes": "OAuth via browser. Setup: claude mcp add --transport http notion https://mcp.notion.com/mcp",
+      "pendencia": "ASSINAR: Notion (free tier funciona, Plus para databases ilimitados)"
+    },
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/google-workspace-mcp"],
+      "description": "Google Workspace: Gmail + Calendar + Drive. Ler emails medicos, newsletters, alertas.",
+      "priority": "critical",
+      "notes": "MCP oficial do Google (marco 2026). Inclui --sanitize para protecao. OAuth Google.",
+      "pendencia": "CONFIGURAR: OAuth Google Workspace"
+    },
     "healthcare-mcp": {
       "command": "npx",
       "args": ["-y", "healthcare-mcp-public"],
       "description": "Healthcare: PubMed, FDA drugs, ClinicalTrials, CID-10, medRxiv, NCBI Bookshelf, DICOM, calculadoras medicas",
       "priority": "critical",
-      "notes": "Essencial para medicos. Acesso a PubMed, trials clinicos, CID-10, FDA."
+      "notes": "Gratuito. Tudo-em-um para medicos."
     },
     "pubmed-mcp": {
       "command": "npx",
       "args": ["-y", "@cyanheads/pubmed-mcp-server"],
       "description": "PubMed avancado: busca, abstracts, artigos relacionados, analise de literatura biomedica",
       "priority": "critical",
-      "notes": "39M+ citacoes. Busca avancada com filtros por data, tipo de estudo, MeSH terms."
+      "notes": "Gratuito. 39M+ citacoes."
     },
     "biomcp": {
       "command": "uvx",
       "args": ["biomcp", "run"],
       "description": "BioMCP: PubMed, ClinicalTrials.gov, MyVariant.info. Queries biomedicas em linguagem natural.",
       "priority": "high",
-      "notes": "GenomOncology. Busca de variantes geneticas, trials por condicao, literature review automatica."
+      "notes": "Gratuito. GenomOncology."
     },
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"],
-      "description": "Documentacao atualizada em tempo real para qualquer lib/framework. Adicione 'use context7' nos prompts.",
+      "description": "Documentacao atualizada em tempo real para qualquer lib/framework.",
       "priority": "critical",
-      "notes": "Free tier: 1000 req/mo, 60 req/h. Essencial para codigo atualizado."
+      "notes": "Free tier: 1000 req/mo."
     },
     "filesystem": {
       "command": "npx",
@@ -69,12 +85,6 @@
       "args": ["-y", "@modelcontextprotocol/server-sqlite", "data/knowledge.db"],
       "description": "Base de dados local para knowledge base",
       "priority": "medium"
-    },
-    "puppeteer": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
-      "description": "Automacao de browser para scraping",
-      "priority": "low"
     }
   }
 }

@@ -2,7 +2,36 @@
 > Atualizado: 7 de Marco de 2026
 > Perfil: Medico + Developer | Low-code workflow
 > Orquestrador: Claude Opus 4.6 | Auditor: ChatGPT 5.4
-> Ferramentas: Claude Code, Cursor, Claude.ai, Gemini, ChatGPT
+> Ferramentas: Claude Code, Cursor, Claude.ai, Gemini, ChatGPT, Perplexity Max
+
+## OBJETIVOS CLAROS
+
+### 1. Informacao Medica Tier 1 da Semana
+- Digest semanal automatico com melhores evidencias
+- PubMed + ClinicalTrials via MCPs (custo $0)
+- Publicado automaticamente no Notion com estetica profissional
+
+### 2. Pipeline: Nota/Paper → Analise MBE → Notion
+- Coloca nota ou paper → sistema dispara buscas
+- Usa Scite (citacoes), Consensus (consenso), Elicit (PICO)
+- Critica com rigor MBE como profissional da especialidade
+- Popula Notion com numeros concretos, evidencias, referencias
+
+### 3. Automacao Gmail → Notion
+- Opus 4.6 monitora emails medicos
+- Classifica, resume, dispara analise se relevante
+- Popula databases Notion automaticamente
+
+### 4. Knowledge Base Unificada
+- Notion: paginas bonitas, databases, digests (compartilhavel)
+- Obsidian: vault local, Zettelkasten, links bidirecionais (pessoal)
+- Zotero: referencias bibliograficas, PDFs, citacoes
+
+### 5. Busca e Pesquisa
+- Perplexity Max: busca web avancada (ja tem)
+- PubMed MCP: 39M+ citacoes (gratuito)
+- arXiv: papers de AI/ML (gratuito)
+- Scite/Consensus/Elicit: critica MBE
 
 ## Visao Geral do Ecossistema
 
@@ -30,6 +59,8 @@
 │  MCP SERVERS (MEDICAL + DEV)                                    │
 │  healthcare │ pubmed │ biomcp │ context7 │ github │ fetch      │
 │  memory │ brave-search │ sqlite │ filesystem │ puppeteer       │
+├─────────────────────────────────────────────────────────────────┤
+│  KNOWLEDGE: Notion │ Obsidian │ Zotero │ Perplexity Max       │
 ├─────────────────────────────────────────────────────────────────┤
 │  TOOLS: Claude Code │ Cursor │ Claude.ai │ ChatGPT │ Gemini   │
 ├─────────────────────────────────────────────────────────────────┤
@@ -151,6 +182,7 @@ fontes_monitoradas:
 
 | Subagente | Agente Pai | Modelo | Funcao |
 |-----------|-----------|--------|--------|
+| KnowledgeOrganizer | Organizacao | Sonnet | Organiza Notion + Obsidian + Zotero autonomamente |
 | TrendAnalyzer | Cientifico | Haiku | Identifica padroes e tendencias |
 | DataPipeline | Automacao | Haiku | ETL e processamento de dados |
 | WebMonitor | AI Update | Haiku | Monitora fontes web (RSS, APIs) |
