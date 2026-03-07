@@ -1,0 +1,151 @@
+# Ecossistema de Ferramentas - Lucas Miachon
+# =============================================
+# Como cada ferramenta se encaixa no workflow
+# Atualizado: 7 de Marco de 2026
+
+# ============================================================
+# FERRAMENTAS PRIMARIAS (uso diario)
+# ============================================================
+
+tools:
+  claude_code:
+    tipo: "CLI Agent"
+    uso: "Desenvolvimento, automacao, gestao de projetos"
+    modelo_padrao: "claude-opus-4-6"
+    modelos_disponiveis:
+      - "claude-opus-4-6"    # Tarefas complexas, orquestracao
+      - "claude-sonnet-4-6"  # Tarefas rapidas (/fast mode)
+    quando_usar:
+      - "Coding em repositorios reais"
+      - "Automacao de tarefas de dev"
+      - "Pesquisa no codebase"
+      - "Git operations (commit, PR)"
+      - "Execucao de workflows multi-step"
+    features_chave:
+      - "Agent SDK - multi-agent com lead/teammates"
+      - "MCP servers - conexao com ferramentas externas"
+      - "Skills - habilidades carregadas sob demanda"
+      - "Hooks - scripts que rodam em eventos"
+      - "Worktrees - branches isoladas para agentes"
+    config: ".claude/skills/, .claude/rules/, CLAUDE.md"
+
+  cursor:
+    tipo: "IDE AI-First"
+    uso: "Desenvolvimento interativo com AI integrada"
+    modelos_disponiveis:
+      - "claude-opus-4-6"
+      - "claude-sonnet-4-6"
+      - "gpt-4o"
+      - "cursor-small"       # Modelo proprio do Cursor
+    quando_usar:
+      - "Desenvolvimento visual com preview"
+      - "Editing rapido de codigo com AI"
+      - "Code completion avancado"
+      - "Chat sobre o codebase atual"
+      - "Multi-file editing"
+    features_chave:
+      - "Composer - edicao multi-arquivo"
+      - "Chat - conversa sobre o codebase"
+      - "Tab completion - autocompletar AI"
+      - "@codebase - referencia ao projeto inteiro"
+    complementa: "Claude Code (Cursor para visual, Claude Code para CLI)"
+
+# ============================================================
+# FERRAMENTAS DE CONSULTA (uso semanal)
+# ============================================================
+
+  claude_ai:
+    tipo: "Chat Web"
+    url: "https://claude.ai"
+    uso: "Conversas longas, brainstorming, analise profunda"
+    modelos_disponiveis:
+      - "claude-opus-4-6"
+      - "claude-sonnet-4-6"
+      - "claude-haiku-4-5"
+    quando_usar:
+      - "Brainstorming e ideacao"
+      - "Analise de documentos longos"
+      - "Conversas multi-turn complexas"
+      - "Artifacts (codigo, diagramas, docs)"
+      - "Projects com knowledge base"
+    features_chave:
+      - "Projects - contexto persistente"
+      - "Artifacts - outputs visuais"
+      - "File upload - analise de docs"
+      - "200K context window"
+
+  chatgpt:
+    tipo: "Chat Web + API"
+    url: "https://chatgpt.com"
+    uso: "Auditor, segunda opiniao, cross-validation"
+    modelos_disponiveis:
+      - "gpt-5.4"            # Mais recente
+      - "gpt-4o"
+      - "gpt-4o-mini"
+      - "o3"                 # Reasoning
+    quando_usar:
+      - "Auditoria de codigo (segunda opiniao)"
+      - "Cross-validation de respostas do Claude"
+      - "Browsing web em tempo real"
+      - "DALL-E para imagens"
+      - "Code Interpreter para dados"
+    features_chave:
+      - "GPTs customizados"
+      - "Web browsing"
+      - "Code Interpreter"
+      - "DALL-E"
+      - "Canvas"
+    papel_no_ecossistema: "AUDITOR - valida outputs criticos"
+
+  gemini:
+    tipo: "Chat Web + API"
+    url: "https://gemini.google.com"
+    uso: "Contexto longo, integracao Google, alternativa"
+    modelos_disponiveis:
+      - "gemini-2.0-pro"
+      - "gemini-2.0-flash"
+    quando_usar:
+      - "Documentos muito longos (1M tokens)"
+      - "Integracao com Google Workspace"
+      - "Terceira opiniao quando Claude e ChatGPT divergem"
+      - "Analise de video/audio"
+    features_chave:
+      - "1M token context window"
+      - "Multimodal (texto, imagem, audio, video)"
+      - "Google Workspace integration"
+      - "Grounding com Google Search"
+    papel_no_ecossistema: "BACKUP + contexto longo"
+
+# ============================================================
+# WORKFLOW DE USO DIARIO
+# ============================================================
+
+workflow_diario:
+  desenvolvimento:
+    primario: "claude_code"        # CLI para coding
+    visual: "cursor"               # IDE para editing
+    consulta: "claude_ai"          # Chat para brainstorm
+
+  pesquisa:
+    primario: "claude_ai"          # Analise profunda
+    papers: "claude_code"          # Skills de pesquisa
+    dados_longos: "gemini"         # 1M tokens
+
+  auditoria:
+    primario: "chatgpt"            # Segunda opiniao
+    cross_check: "gemini"          # Terceira opiniao
+    final: "claude_code"           # Aplicar correcoes
+
+  organizacao:
+    primario: "claude_code"        # Workflows automatizados
+    brainstorm: "claude_ai"        # Planejamento
+    visual: "cursor"               # Editing de configs
+
+# ============================================================
+# REGRA DE OURO
+# ============================================================
+# Claude Code = FAZER (executar, commitar, automatizar)
+# Cursor = EDITAR (coding visual, multi-file)
+# Claude.ai = PENSAR (brainstorm, analise, planejamento)
+# ChatGPT = VALIDAR (auditoria, segunda opiniao)
+# Gemini = ESCALAR (docs longos, multimodal, Google)

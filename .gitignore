@@ -48,8 +48,8 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Claude Code
-.claude/
+# Claude Code (worktrees sao temporarios)
+.claude/worktrees/
 
 # Cache
 .cache/
