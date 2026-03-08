@@ -363,6 +363,11 @@ repositorio/
 - Decisoes de arquitetura ja tomadas
 - TODOs e proximos passos
 
+## Eficiencia e Seguranca
+- Registrar custo no BudgetTracker para todas as chamadas (Opus, ChatGPT, MCPs)
+- Para operacoes Notion: seguir protocolo `.claude/rules/mcp_safety.md`
+- Codigo de automacao deve seguir Python 3.11+, type hints, async/await
+
 ## Output de Estudo para Notion
 
 ```markdown

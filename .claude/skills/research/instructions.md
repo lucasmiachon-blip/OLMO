@@ -37,3 +37,9 @@ o usuario pedir pesquisa, analise de papers, ou revisao de literatura.
 - Cache resultados por 48h
 - Batch multiplas buscas quando possivel
 - Use modelo Sonnet para sumarizacao, Opus para analise profunda
+- Registrar custo de cada API call no BudgetTracker
+
+## Referenciamento
+- Todo paper deve incluir PMID e/ou DOI quando disponivel
+- Formato: `[N] Autor et al. Titulo. Revista. Ano. PMID: XXX. DOI: XX.XXXX`
+- Se publicar no Notion: seguir protocolo `.claude/rules/mcp_safety.md`

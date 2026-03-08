@@ -11,17 +11,21 @@ ecosystem:
 agents:
   orchestrator:
     enabled: true
+    model: "claude-opus-4-6"
+    role: "routing"
     description: "Coordena todos os agentes do ecossistema"
+    budget_tracker: true
 
   cientifico:
     enabled: true
+    model: "claude-sonnet-4-6"
     description: "Pesquisa e analise cientifica"
+    subagents: ["trend_analyzer"]
     research_areas:
       - artificial_intelligence
       - machine_learning
       - natural_language_processing
-      - computer_vision
-      - neuroscience
+      - medicina_baseada_em_evidencias
     sources:
       - arxiv
       - semantic_scholar
@@ -29,20 +33,27 @@ agents:
 
   automacao:
     enabled: true
+    model: "claude-haiku-4-5"
     description: "Automacao de tarefas e workflows"
+    subagents: ["data_pipeline"]
     max_concurrent_tasks: 5
-    retry_attempts: 3
+    retry_reads: 3
+    retry_writes: 0  # Writes NUNCA retry (mcp_safety.md)
 
   organizacao:
     enabled: true
+    model: "claude-sonnet-4-6"
     description: "Organizacao pessoal e gestao de tarefas"
+    subagents: ["knowledge_organizer"]
     methodology: "GTD"  # Getting Things Done
     daily_task_limit: 5
     review_schedule: "weekly"
 
   atualizacao_ai:
     enabled: true
+    model: "claude-sonnet-4-6"
     description: "Monitoramento do ecossistema AI"
+    subagents: ["web_monitor"]
     check_interval_hours: 6
     monitored_sources:
       - name: "Anthropic Blog"
@@ -68,11 +79,22 @@ agents:
 subagents:
   web_monitor:
     enabled: true
+    model: "claude-haiku-4-5"
+    parent: "atualizacao_ai"
     check_interval_minutes: 60
   data_pipeline:
     enabled: true
+    model: "claude-haiku-4-5"
+    parent: "automacao"
   trend_analyzer:
     enabled: true
+    model: "claude-haiku-4-5"
+    parent: "cientifico"
+  knowledge_organizer:
+    enabled: true
+    model: "claude-sonnet-4-6"
+    parent: "organizacao"
+    description: "Integra Notion + Obsidian + Zotero para knowledge management"
 
 # Skills
 skills:
@@ -108,6 +130,11 @@ ai_models:
     model: "claude-sonnet-4-6"
     max_tokens: 4096
     role: "Processamento medio, sumarizacao, queries"
+  simple:
+    provider: "anthropic"
+    model: "claude-haiku-4-5"
+    max_tokens: 4096
+    role: "Tarefas simples, automacao, pipelines, subagentes"
   triage:
     provider: "openai"
     model: "chatgpt-5.4"

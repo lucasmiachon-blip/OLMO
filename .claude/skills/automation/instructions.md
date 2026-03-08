@@ -25,3 +25,8 @@ criar e gerenciar automacoes.
 - Automacoes devem ser rules-based (sem API)
 - Use API apenas para decisoes que precisam de raciocinio
 - Haiku para classificacao simples
+- Registrar custo no BudgetTracker
+
+## Convencoes de Codigo
+- Python 3.11+, type hints, async/await
+- Configuracao em YAML, dados em JSON

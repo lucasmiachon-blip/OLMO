@@ -36,3 +36,5 @@ gestao de tarefas, planejamento e organizacao.
 - Planejamento diario usa Sonnet (1 call)
 - Review semanal usa Sonnet (1 call batched)
 - Status local nao precisa de API
+- Registrar custo no BudgetTracker
+- Se sincronizar com Notion: seguir protocolo `.claude/rules/mcp_safety.md`

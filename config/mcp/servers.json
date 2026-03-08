@@ -187,8 +187,11 @@
         "cross_validation_protocol": [
           "Claude (Opus) propoe acao no Notion (ex: relocate, tag, archive)",
           "ChatGPT 5.4 recebe mesma pagina + proposta e valida independentemente",
-          "Se ambos concordam (>= 0.8 confidence cada): auto-execute",
-          "Se divergem: flag para review humano com ambas justificativas",
+          "Se ambos concordam (>= 0.95 confidence cada): auto-execute",
+          "Se ambos concordam (0.70-0.94): flag para review humano",
+          "Se um deles < 0.70: BLOQUEAR operacao",
+          "Se um deles < 0.50: BLOQUEAR + alertar",
+          "Thresholds UNIFICADOS com modelo_harsh: auto=0.95, review=0.70, block=0.50",
           "Custo extra: $0 (ambos inclusos nos planos)"
         ]
       }
@@ -196,7 +199,7 @@
 
     "sqlite": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sqlite", "data/knowledge.db"],
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "/home/user/organizacao/data/knowledge.db"],
       "description": "Base de dados local para knowledge base, cache, metricas.",
       "priority": "medium",
       "cost": "$0",
@@ -221,7 +224,8 @@
         "Arquivo .env NUNCA commitado (ja no .gitignore)"
       ],
       "scopes_minimos": {
-        "notion": "read_content, update_content, insert_content",
+        "notion_token_readonly": "read_content",
+        "notion_token_readwrite": "read_content, update_content, insert_content",
         "gmail": "gmail.readonly, gmail.labels",
         "github": "repo, read:org",
         "brave": "search (read-only por natureza)"

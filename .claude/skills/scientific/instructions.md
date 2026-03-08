@@ -42,10 +42,12 @@ Paper 2: ...
 - ...
 
 ### Referencias
-- ...
+[N] Autor et al. Titulo. Revista. Ano. PMID: XXX. DOI: XX.XXXX
 ```
 
 ## Eficiencia
 - Busca inicial: Sonnet (1 call)
 - Analise profunda: Opus (1 call para topicos complexos)
 - Cache papers por 48h
+- Registrar custo no BudgetTracker
+- Se publicar no Notion: seguir protocolo `.claude/rules/mcp_safety.md`

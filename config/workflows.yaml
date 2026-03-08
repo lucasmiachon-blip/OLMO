@@ -98,32 +98,70 @@ workflows:
         content_type: "report"
         description: "Gerar relatorio"
 
-  # Workflow: Limpeza Notion (background)
+  # Workflow: Limpeza Notion (seguro, com aprovacao humana)
+  # IMPORTANTE: Segue protocolo mcp_safety.md rigorosamente
+  # - NAO existe API de move (#64) → usar workaround: create+copy+verify+archive
+  # - UMA operacao por vez (#74) → nunca batch automatico
+  # - Cross-validation obrigatoria para classificacao/relocacao
+  # - Aprovacao humana entre fases de audit e execucao
   notion_cleanup:
     name: "Limpeza Notion"
     description: "Varre Notion pagina por pagina, organiza, remove duplicatas"
-    trigger: "manual"  # Rodar sob demanda ate estabilizar
-    model_tier: "triage"  # Sonnet/5.4 para triagem, Opus so se ambiguo
-    background: true
+    trigger: "manual"
+    model_tier: "medium"  # Sonnet para triagem, Opus se ambiguo
+    background: false  # NUNCA background — requer checkpoints humanos
+    requires_human_approval: true  # Gate entre audit e execute
+    mcp_safety: "strict"  # Referencia: .claude/rules/mcp_safety.md
     steps:
-      - subagent: "notion_cleaner"
-        action: "audit"
-        description: "Varrer todas as paginas e classificar"
-      - subagent: "notion_cleaner"
-        action: "deduplicate"
-        description: "Identificar e resolver duplicatas"
-      - subagent: "notion_cleaner"
-        action: "relocate"
-        description: "Mover paginas para o lugar correto"
-      - subagent: "notion_cleaner"
-        action: "tag"
-        description: "Preencher tags e propriedades faltantes"
-      - subagent: "notion_cleaner"
-        action: "archive"
-        description: "Arquivar conteudo obsoleto"
-      - subagent: "notion_cleaner"
-        action: "report"
-        description: "Gerar relatorio (itens que precisam de review humano)"
+      # FASE 1: AUDIT (READ-ONLY — token read-only)
+      - agent: "organizacao"
+        action: "notion_audit"
+        mode: "read_only"
+        description: "Varrer todas as paginas e classificar (READ-ONLY)"
+      - agent: "organizacao"
+        action: "identify_duplicates"
+        mode: "read_only"
+        description: "Identificar duplicatas (READ-ONLY, sem resolver)"
+
+      # CHECKPOINT: Apresentar relatorio ao humano para aprovacao
+      - action: "human_review"
+        description: "Apresentar achados ao usuario para aprovacao antes de writes"
+
+      # FASE 2: EXECUTE (token read-write, UMA operacao por vez)
+      # Cross-validation obrigatoria para cada classificacao/relocacao
+      - agent: "organizacao"
+        action: "deduplicate_approved"
+        mode: "write_one_at_a_time"
+        cross_validation: true  # Claude + ChatGPT 5.4
+        description: "Resolver duplicatas aprovadas (1 por vez, com verificacao)"
+      - agent: "organizacao"
+        action: "safe_relocate"
+        mode: "write_one_at_a_time"
+        cross_validation: true
+        description: "Relocar via workaround: create → copy → verify → archive original"
+        # NAO existe API de move (#64). Workaround seguro:
+        # 1. READ pagina original (snapshot)
+        # 2. CREATE nova pagina no destino
+        # 3. VERIFY nova pagina (comparar)
+        # 4. ARCHIVE original (soft-delete, reversivel)
+      - agent: "organizacao"
+        action: "fill_tags"
+        mode: "write_one_at_a_time"
+        description: "Preencher tags e propriedades faltantes (1 por vez)"
+      - agent: "organizacao"
+        action: "archive_obsolete"
+        mode: "write_one_at_a_time"
+        cross_validation: true
+        description: "Arquivar conteudo obsoleto (NUNCA deletar, apenas archive)"
+
+      # FASE 3: VERIFICACAO
+      - agent: "organizacao"
+        action: "verify_all_writes"
+        mode: "read_only"
+        description: "Re-ler todas as paginas modificadas e confirmar resultado"
+      - agent: "organizacao"
+        action: "generate_report"
+        description: "Gerar relatorio final (executado + pendente + flags)"
 
   # Workflow: Organizacao Completa
   full_organization:

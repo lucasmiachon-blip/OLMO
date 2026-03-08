@@ -30,6 +30,11 @@ defeituosas geradas por LLM, embora 5/8 considerem viavel com revisao [3]
 5. **Convergencia logica** — varias pistas no enunciado apontam pra mesma resposta
 6. **Distratores implausíveis** — alternativas que nenhum estudante real erraria
 7. **"Testwise" cues** — padrao reconhecivel sem conhecer o conteudo
+8. **Position bias** — Gemini favorece B, ChatGPT favorece A/B/C como correta [6]
+9. **Cognitive level bias** — LLMs geram questoes enviesadas para recall/reconhecimento,
+   nao aplicacao/analise. Operam por pattern matching, nao raciocinio genuino [7]
+10. **Sinal latente de corretude** — LLMs embutem "correctness signal" nas representacoes
+    internas; linear probe prediz resposta correta so pela questao, sem alternativas [8]
 
 ### Referencias
 [1] LLM-Generated MCQ practice quizzes for preclinical students.
@@ -42,6 +47,17 @@ defeituosas geradas por LLM, embora 5/8 considerem viavel com revisao [3]
     BMC Med Educ. 2025. PMC11854382
 [5] AI vs human-generated MCQs: cohort study in high-stakes examination.
     BMC Med Educ. 2025. PMC11806894
+[6] Answer position bias in AI-generated MCQs. JMIR Med Educ. 2025. PMC12143854
+[7] Cognitive level bias in LLM-generated questions. PMC11178968
+[8] Cencerrado et al. No Answer Needed: Predicting LLM Answer Accuracy from
+    Question-Only Linear Probes. arXiv:2509.10625. 2025
+[9] Balepur et al. BenchMarker: Education-Inspired Toolkit for Highlighting Flaws
+    in MCQ Benchmarks. arXiv:2602.06221. 2025
+[10] Sabqat et al. AI Meets Item Analysis: ChatGPT trained on NBME guide to detect
+     MCQ flaws. Pak J Med Sci. 2025. PMID: 40103875. DOI: 10.12669/pjms.41.3.11224
+[11] NBME. AI in Assessment: Ethics, Innovation and Research. Mar 2024.
+     https://www.nbme.org/sites/default/files/2024-03/AI_in_Assessment_Executive_Summary.pdf
+[12] Zero-shot performance of generative AI on FMUSP exam. arXiv:2507.19885. 2025
 
 ## Solucao: Protocolo Anti-Cue (NBME-Aligned)
 
@@ -90,6 +106,9 @@ CHECKLIST ANTI-CUE (obrigatorio antes de entregar qualquer questao)
 □ Bloom level >= 3 (aplicacao ou superior, NAO recall puro)
 □ Nivel de dificuldade calibrado pela banca de referencia
 □ Referencia tier 1 para a resposta correta (guideline/RS/RCT)
+□ Posicao da alternativa correta RANDOMIZADA (distribuir a-e uniformemente)
+□ "Cover-the-options" test: lead-in deve ser respondivel SEM ver alternativas
+□ Registrar custo no BudgetTracker (Opus + ChatGPT 5.4 por questao)
 ```
 
 ### Fase 3: Validacao Cruzada
@@ -215,6 +234,23 @@ ACP MKSAP (2025+) e all-digital, subscription-based, com ~2000 questoes.
 - Anotar erros do MKSAP no Error Log → AI gera cards complementares
 - Complementar MKSAP com questoes geradas calibradas por bancas brasileiras
 
+## Eficiencia e Seguranca
+
+### Cache (efficiency.md)
+- Cachear perfis de bancas ja analisados no SQLite (evitar re-parse)
+- Cachear questoes geradas anteriormente (evitar duplicatas)
+- Verificar cache local antes de qualquer API call
+
+### Notion Safety (mcp_safety.md)
+- Para operacoes no Error Log (Notion): seguir protocolo completo de mcp_safety.md
+- READ-ONLY padrao; WRITE so apos snapshot + aprovacao humana
+- UMA operacao por vez; NUNCA batch automatico
+
+### BudgetTracker
+- Registrar custo de cada questao gerada (Opus + ChatGPT 5.4)
+- Estimar: ~$0.15/questao (Opus gera + ChatGPT valida)
+- Simulado 120 questoes ≈ $18 — planejar com antecedencia
+
 ## Regras Fundamentais
 
 1. **So bancas indicadas pelo usuario** — nunca inventar fonte
@@ -225,3 +261,5 @@ ACP MKSAP (2025+) e all-digital, subscription-based, com ~2000 questoes.
 6. **2026 = ano atual** — usar guidelines e evidencias mais recentes
 7. **Bloom >= 3** — aplicacao, analise, sintese. Nunca recall puro
 8. **Calibrar pela banca** — dificuldade e estilo devem espelhar a banca real
+9. **Position randomizada** — distribuir correta uniformemente entre a-e
+10. **Cover-the-options** — lead-in respondivel sem ver alternativas

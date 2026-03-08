@@ -77,3 +77,6 @@ Depois consolide os achados em 1 relatorio.
 ## Cross-Validation com ChatGPT
 Para decisoes criticas, envie o mesmo codigo para ChatGPT 5.4
 como segunda opiniao. Compare os achados.
+
+## Eficiencia
+- Registrar custo no BudgetTracker (multi-agent reviews consomem mais)

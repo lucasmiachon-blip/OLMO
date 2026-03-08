@@ -108,8 +108,10 @@ Custo extra: $0 (ambos inclusos nos planos Pro/Max)
 
 ## MODELO HARSH (na duvida, nao age)
 
-- Confidence < 0.7 → flag para review humano
-- Confidence < 0.5 → BLOQUEAR operacao
+- Confidence >= 0.95 (AMBOS modelos) → auto-execute
+- Confidence 0.70-0.94 → flag para review humano
+- Confidence < 0.70 → BLOQUEAR operacao
+- Confidence < 0.50 → BLOQUEAR + alertar humano urgente
 - Dados de paciente detectados → BLOQUEAR + alertar (LGPD)
 - Erro em write → PARAR (nao retry — pode ir pro lugar errado)
 - Rate limit → parar imediatamente

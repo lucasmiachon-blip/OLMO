@@ -49,3 +49,6 @@ manter o ecossistema atualizado.
 ## Eficiencia
 - 1 call/semana batched com todas as perguntas
 - Cache por 7 dias (modelos mudam devagar)
+- Registrar custo no BudgetTracker
+- Referenciar fontes com URL verificavel e data de acesso
+- Se publicar digest no Notion: seguir protocolo `.claude/rules/mcp_safety.md`

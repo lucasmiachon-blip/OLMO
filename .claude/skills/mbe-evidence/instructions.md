@@ -205,6 +205,11 @@ Para cada paper/estudo analisar:
 8. **Sintese**: Resumo com grau de recomendacao
 9. **Notion**: Popula pagina com template bonito
 
+## Eficiencia e Seguranca
+- Registrar custo no BudgetTracker para cada API call
+- Cross-validation (Claude + ChatGPT 5.4) obrigatoria antes de publicar conclusoes medicas no Notion
+- Para TODAS as operacoes Notion: seguir protocolo `.claude/rules/mcp_safety.md`
+
 ## Output para Notion
 
 O output deve ser formatado para criar paginas Notion bonitas:

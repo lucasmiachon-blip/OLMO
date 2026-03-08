@@ -62,8 +62,11 @@ Sempre classificar evidencias:
 - `biomcp` - Dados biomedicos, variantes geneticas
 
 ## IMPORTANTE
-- Sempre citar fontes com PMID
+- Sempre citar fontes com PMID e DOI quando disponivel
 - Nunca fornecer diagnostico ou prescricao
 - Indicar nivel de evidencia para cada achado
 - Alertar sobre limitacoes dos estudos
 - Recomendar consulta com especialista quando apropriado
+- Registrar custo no BudgetTracker
+- Se publicar no Notion: seguir protocolo `.claude/rules/mcp_safety.md`
+- Para conclusoes medicas criticas: cross-validation (Claude + ChatGPT 5.4)

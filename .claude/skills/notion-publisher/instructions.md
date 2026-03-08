@@ -9,8 +9,24 @@ bem organizadas e com informacao de qualidade referenciada.
 - Organizar knowledge base
 - Formatar outputs de outros agentes para Notion
 
-## MCP: Notion
-Usar o MCP server do Notion para criar e atualizar paginas.
+## MCP: Notion — SEGURANCA OBRIGATORIA
+
+**OBRIGATORIO**: Seguir protocolo completo de `.claude/rules/mcp_safety.md`.
+
+### Protocolo para TODA operacao Notion neste skill:
+
+1. **READ-ONLY por padrao** — usar token read-only para snapshot/busca
+2. **Antes de qualquer WRITE**:
+   - Snapshot completo da pagina (state_before no SQLite)
+   - Aprovacao humana obrigatoria
+   - Cross-validation (Claude + ChatGPT 5.4) para conteudo medico
+3. **UMA operacao por vez** — nunca batch automatico (bug #74)
+4. **Apos cada WRITE**: re-ler pagina para confirmar resultado
+5. **Se resultado != esperado**: PARAR + alertar humano
+6. **NUNCA deletar** — apenas ARQUIVAR (reversivel 30 dias)
+7. **Confidence < 0.7** → flag para review humano
+8. **Registrar custo** no BudgetTracker para cada API call
+
 Setup: `claude mcp add --transport http notion https://mcp.notion.com/mcp`
 
 ## Templates de Pagina
