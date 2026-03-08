@@ -896,13 +896,10 @@ class NotionCleanerSubagent(BaseAgent):
     async def _mcp_relocate(
         self, page_id: str, action: dict[str, Any], db: sqlite3.Connection
     ) -> None:
-        """Relocar pagina via workaround (create+copy+verify+archive).
+        """Relocar pagina via notion-move-pages (#64 resolvida).
 
-        NAO existe API de move (#64). Fluxo seguro:
-        1. READ pagina original (snapshot)
-        2. CREATE nova pagina no destino
-        3. VERIFY nova pagina (re-ler e comparar)
-        4. ARCHIVE original (soft-delete, reversivel)
+        Fluxo: READ (snapshot) → MOVE → VERIFY no novo parent.
+        Fallback: create+copy+archive se move falhar.
         """
         title = action.get("title", "")
         target_db = action.get("to", "")

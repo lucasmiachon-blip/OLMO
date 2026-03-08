@@ -46,11 +46,16 @@ WRITE_OPERATIONS = frozenset({
     "notion-append-block",
     "notion-delete-block",
     "notion-create-database",
+    "notion-move-pages",
+})
+
+# Operacoes de move (agora existem — #64 resolvida)
+MOVE_OPERATIONS = frozenset({
+    "notion-move-pages",      # API de move agora funcional
 })
 
 # Operacoes proibidas (nao existem ou sao inseguras)
 BLOCKED_OPERATIONS = frozenset({
-    "notion-move-page",       # NAO EXISTE na API (#64)
     "notion-delete-page",     # Apenas archive, nunca delete
     "notion-delete-database", # Bloqueado pela API (safety feature)
     "notion-bulk-write",      # Falha (#74), fazer 1 por 1
@@ -168,23 +173,18 @@ def validate_operation(
     )
 
 
-def validate_relocate_workaround(
-    source_page_id: str,
-    target_database: str,
+def validate_move(
+    page_id: str,
+    target_parent_id: str,
     confidence: float,
 ) -> list[SafetyCheck]:
-    """Valida o workaround de 'mover' pagina (create+copy+verify+archive).
+    """Valida move de pagina via notion-move-pages (#64 resolvida).
 
-    Como NAO existe API de move (#64), o fluxo seguro e:
-    1. READ pagina original (snapshot)
-    2. CREATE nova pagina no destino
-    3. VERIFY nova pagina (re-ler e comparar)
-    4. ARCHIVE original (soft-delete, reversivel)
+    Fluxo: READ (snapshot) → MOVE → VERIFY no novo parent.
     """
     steps = [
         validate_operation("notion-retrieve-page", OperationMode.READ_ONLY),
-        validate_operation("notion-create-page", OperationMode.WRITE, confidence),
+        validate_operation("notion-move-pages", OperationMode.WRITE, confidence),
         validate_operation("notion-retrieve-page", OperationMode.READ_ONLY),
-        validate_operation("notion-update-page", OperationMode.WRITE, confidence),
     ]
     return steps

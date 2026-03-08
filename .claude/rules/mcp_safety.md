@@ -8,7 +8,7 @@
 
 1. Serialization bugs (#79, #82, #181): writes vao pro objeto errado
 2. Permissoes nao respeitadas (#80): conteudo criado em workspace errado
-3. NAO existe API para mover paginas entre parents (#64)
+3. API de move agora existe: `notion-move-pages` (issue #64 resolvida, testada sessao 7)
 4. Melhor LLM agent falha 23.9% em tasks de seguranca (ToolEmu)
 5. Update operations quebram consistentemente (#131)
 6. Bulk operations falham repetidamente (#74)
@@ -36,21 +36,21 @@
 
 ## OPERACOES PROIBIDAS (nao existem ou sao inseguras)
 
-- MOVER paginas entre databases/parents → NAO EXISTE NA API (#64)
-  - Workaround: CRIAR nova pagina no destino + COPIAR conteudo + ARQUIVAR original
+- ~~MOVER paginas~~ → `notion-move-pages` agora existe (#64 resolvida)
+  - Usar diretamente em vez do workaround antigo (create+copy+archive)
 - DELETE de databases → bloqueado pela API (safety feature)
 - BULK writes automaticos → falham (#74), fazer 1 por 1
 - "Always Approve" em writes → NUNCA habilitar
 - Confiar em placement automatico → bug #80 coloca em workspace errado
 
-## WORKAROUND PARA "MOVER" PAGINAS (seguro)
+## MOVER PAGINAS
 
-Como nao existe API de move, o fluxo seguro para reorganizar:
-1. READ pagina original (snapshot completo: properties + content)
-2. CREATE nova pagina no database correto com mesmo conteudo
-3. VERIFICAR nova pagina (re-ler e comparar)
-4. So se verificacao OK: ARCHIVE original (soft-delete, reversivel)
-5. NUNCA deletar original antes de verificar a copia
+`notion-move-pages` agora funciona (#64 resolvida). Usar diretamente:
+1. READ pagina (snapshot antes de mover)
+2. MOVE via `notion-move-pages` (page_id + new_parent_id)
+3. VERIFICAR pagina no novo parent (re-ler e confirmar)
+
+Workaround antigo (create+copy+archive) mantido como fallback caso move falhe.
 
 ## ANTI-PERDA (Zero Data Loss)
 
@@ -118,17 +118,12 @@ Custo extra: $0 (ambos inclusos nos planos Pro/Max)
 - Resultado inesperado → PARAR + alertar humano
 - Cross-validation divergente → PARAR + mostrar ambas justificativas
 
-## SETUP RECOMENDADO (2 tokens)
+## SETUP (token unico)
 
 ```
-Token 1 (read-only): uso diario, snapshot, busca, auditoria
-  - Escopo: read_content apenas
-  - Paginas: todas que precisar ler
-
-Token 2 (read-write): so quando vai executar plano aprovado
-  - Escopo: read_content + update_content + insert_content
-  - Paginas: APENAS as que vai modificar
-  - Ativar SOMENTE durante execucao
+NOTION_TOKEN_KEY: read_content + update_content + insert_content
+  - Token unico para read e write (simplificado sessao 7)
+  - Safety via protocolo (fases read→write→verify), nao via token separado
 ```
 
 ## FONTES
