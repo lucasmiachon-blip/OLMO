@@ -62,20 +62,29 @@ class ScientificAgent(BaseAgent):
     - Geracao de hipoteses
     """
 
+    DEFAULT_RESEARCH_AREAS = [
+        "medicina_baseada_em_evidencias",
+        "artificial_intelligence",
+        "machine_learning",
+        "natural_language_processing",
+    ]
+
     def __init__(self) -> None:
         super().__init__(
             name="cientifico",
-            description="Pesquisa, analisa e sintetiza conhecimento cientifico",
+            description="Pesquisa, analisa e sintetiza conhecimento cientifico e medico",
         )
         self.knowledge_base = KnowledgeBase()
-        self.research_areas: list[str] = [
-            "artificial_intelligence",
-            "machine_learning",
-            "natural_language_processing",
-            "computer_vision",
-            "robotics",
-            "neuroscience",
-        ]
+        self.research_areas: list[str] = list(self.DEFAULT_RESEARCH_AREAS)
+        self.sources: list[str] = ["pubmed", "arxiv", "semantic_scholar"]
+
+    def configure_from_yaml(self, config: dict[str, Any]) -> None:
+        """Aplica configuracao do ecosystem.yaml."""
+        super().configure_from_yaml(config)
+        if "research_areas" in config:
+            self.research_areas = config["research_areas"]
+        if "sources" in config:
+            self.sources = config["sources"]
 
     async def execute(self, task: dict[str, Any]) -> TaskResult:
         """Executa uma tarefa de pesquisa cientifica."""
@@ -119,7 +128,7 @@ class ScientificAgent(BaseAgent):
     ) -> TaskResult:
         """Busca papers em multiplas fontes."""
         if sources is None:
-            sources = ["arxiv", "semantic_scholar"]
+            sources = list(self.sources)
 
         # Primeiro busca na base local
         local_results = self.knowledge_base.search(query)

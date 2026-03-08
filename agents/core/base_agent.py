@@ -49,14 +49,21 @@ class TaskResult:
 class BaseAgent(ABC):
     """Classe base abstrata para todos os agentes."""
 
-    def __init__(self, name: str, description: str) -> None:
+    def __init__(self, name: str, description: str, model: str | None = None) -> None:
         self.name = name
         self.description = description
+        self.model = model
         self.status = AgentStatus.IDLE
         self.logger = logging.getLogger(f"agent.{name}")
         self.skills: dict[str, Any] = {}
         self.subagents: list[BaseAgent] = []
         self.context: AgentContext | None = None
+
+    def configure_from_yaml(self, config: dict[str, Any]) -> None:
+        """Aplica configuracao do ecosystem.yaml ao agente."""
+        if "model" in config:
+            self.model = config["model"]
+            self.logger.info(f"Model set to '{self.model}'")
 
     @abstractmethod
     async def execute(self, task: dict[str, Any]) -> TaskResult:

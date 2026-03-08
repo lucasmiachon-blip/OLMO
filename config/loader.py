@@ -11,7 +11,12 @@ import yaml
 logger = logging.getLogger("config")
 
 DEFAULT_CONFIG_PATH = Path(__file__).parent / "ecosystem.yaml"
-WORKFLOWS_PATH = Path(__file__).parent / "workflows.yaml"
+PROJECT_ROOT = Path(__file__).parent.parent
+WORKFLOW_SOURCES = [
+    Path(__file__).parent / "workflows.yaml",
+    PROJECT_ROOT / "workflows" / "medical_workflow.yaml",
+    PROJECT_ROOT / "workflows" / "efficient_workflows.yaml",
+]
 
 
 def load_config(config_path: Path | None = None) -> dict[str, Any]:
@@ -30,18 +35,30 @@ def load_config(config_path: Path | None = None) -> dict[str, Any]:
 
 
 def load_workflows(workflows_path: Path | None = None) -> dict[str, Any]:
-    """Carrega definicoes de workflows."""
-    path = workflows_path or WORKFLOWS_PATH
+    """Carrega e mergea workflows de todas as fontes."""
+    if workflows_path:
+        sources = [workflows_path]
+    else:
+        sources = WORKFLOW_SOURCES
 
-    if not path.exists():
-        logger.warning(f"Workflows file not found: {path}")
-        return {"workflows": {}}
+    merged: dict[str, Any] = {}
 
-    with open(path) as f:
-        workflows = yaml.safe_load(f)
+    for path in sources:
+        if not path.exists():
+            logger.debug(f"Workflow file not found (skipped): {path}")
+            continue
 
-    logger.info(f"Workflows loaded from {path}")
-    return workflows
+        with open(path) as f:
+            data = yaml.safe_load(f)
+
+        if data and "workflows" in data:
+            for name, wf in data["workflows"].items():
+                if name in merged:
+                    logger.warning(f"Duplicate workflow '{name}' in {path}, overwriting")
+                merged[name] = wf
+            logger.info(f"Workflows loaded from {path}")
+
+    return {"workflows": merged}
 
 
 def _default_config() -> dict[str, Any]:

@@ -57,20 +57,29 @@ def build_ecosystem() -> Orchestrator:
         NotionCleanerSubagent(),
     ]
 
-    # Registrar agentes
+    # Aplicar config do YAML e registrar agentes
+    agents_config = config.get("agents", {})
     for agent in agents:
+        if agent.name in agents_config:
+            agent.configure_from_yaml(agents_config[agent.name])
         orch.register_agent(agent)
 
-    # Adicionar subagentes aos agentes relevantes
+    # Aplicar config do YAML aos subagentes e adicionar aos pais
+    subagents_config = config.get("subagents", {})
+    subagent_to_parent = {
+        "web_monitor": "atualizacao_ai",
+        "data_pipeline": "automacao",
+        "trend_analyzer": "cientifico",
+        "notion_cleaner": "organizacao",
+    }
     for subagent in subagents:
-        if subagent.name == "web_monitor":
-            orch.agents.get("atualizacao_ai", agents[3]).add_subagent(subagent)
-        elif subagent.name == "data_pipeline":
-            orch.agents.get("automacao", agents[1]).add_subagent(subagent)
-        elif subagent.name == "trend_analyzer":
-            orch.agents.get("cientifico", agents[0]).add_subagent(subagent)
-        elif subagent.name == "notion_cleaner":
-            orch.agents.get("organizacao", agents[2]).add_subagent(subagent)
+        if subagent.name in subagents_config:
+            subagent.configure_from_yaml(subagents_config[subagent.name])
+        parent_name = subagent_to_parent.get(subagent.name)
+        if parent_name and parent_name in orch.agents:
+            orch.agents[parent_name].add_subagent(subagent)
+        else:
+            logger.warning(f"Parent '{parent_name}' not found for subagent '{subagent.name}'")
 
     # Registrar workflows
     for wf_name, wf_config in workflows_config.get("workflows", {}).items():
