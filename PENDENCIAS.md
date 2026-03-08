@@ -110,9 +110,11 @@
 
 ## CUSTO MENSAL ESTIMADO
 
+Budget definido: **$100/mes** (testar por 30 dias e ajustar)
+
 | Item | Custo/mes | Necessario? |
 |------|----------|-------------|
-| Anthropic API (Opus+Sonnet+Haiku) | $3-4 | Sim |
+| Anthropic API (Opus+Sonnet+Haiku) | $10-40 (depende do routing) | Sim |
 | OpenAI API (auditor, opcional) | $0-0.50 | Opcional (web $0) |
 | Cowork + ChatGPT Agent | $0 | Ja tem planos |
 | Perplexity Max | $0 | Ja tem |
@@ -120,8 +122,12 @@
 | Canva Pro | $0 | Ja tem |
 | Notion Free | $0 | Free funciona |
 | Scite/Consensus/Elicit (browser) | $0 | Free via browser |
-| **TOTAL MINIMO** | **~$3-4** | |
-| **TOTAL COM TUDO** | **~$10-15** | |
+| **TOTAL ESTIMADO** | **~$10-40** | |
+| **BUDGET MAX** | **$100** | Margem para teste |
+
+> Nota: Uma pesquisa PubMed completa (query→triagem→leitura→sintese)
+> gasta ~10-12 requests API. Monitoramento AI 2x/dia = ~240 req/mes.
+> Total estimado: ~400-700 req/mes. Testar e ajustar.
 
 ## ORDEM DE SETUP RECOMENDADA
 

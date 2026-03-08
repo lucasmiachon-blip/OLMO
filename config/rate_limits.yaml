@@ -1,22 +1,23 @@
 # Configuracao de Rate Limits e Budget
 # =====================================
-# Otimizado para poucos requests por dia/semana
-# Baseado em: Simon Willison ($0.61/projeto), Anthropic max_budget_usd
+# Budget: $100/mes - confortavel mas monitorado
+# Fase de teste: acompanhar custo real vs estimado por 30 dias
 
 budget:
   daily:
-    max_requests: 10
-    max_cost_usd: 1.00
+    max_requests: 50
+    max_cost_usd: 5.00
     alert_threshold: 0.80  # Alerta em 80% do limite
 
   weekly:
-    max_requests: 50
-    max_cost_usd: 5.00
+    max_requests: 250
+    max_cost_usd: 30.00
     alert_threshold: 0.80
 
   monthly:
-    max_requests: 150
-    max_cost_usd: 15.00
+    max_requests: 800
+    max_cost_usd: 100.00
+    alert_threshold: 0.70  # Alerta mais cedo pra ter margem
 
 # Priorizacao de tarefas por tier
 priority_tiers:
