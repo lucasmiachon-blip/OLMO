@@ -31,6 +31,7 @@ from config.loader import load_config, load_workflows
 
 console = Console()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s")
+logger = logging.getLogger("orchestrator")
 
 
 def build_ecosystem() -> Orchestrator:

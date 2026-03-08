@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 import logging
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -146,7 +146,7 @@ class BudgetTracker:
     def get_weekly_cost(self) -> float:
         """Custo total da semana."""
         now = datetime.now()
-        week_start = now - __import__("datetime").timedelta(days=now.weekday())
+        week_start = now - timedelta(days=now.weekday())
         week_start_str = week_start.strftime("%Y-%m-%d")
         return sum(
             r.cost_usd for r in self.records
@@ -160,7 +160,7 @@ class BudgetTracker:
             filtered = [r for r in self.records if r.timestamp.startswith(today)]
         elif period == "weekly":
             now = datetime.now()
-            week_start = now - __import__("datetime").timedelta(days=now.weekday())
+            week_start = now - timedelta(days=now.weekday())
             week_start_str = week_start.strftime("%Y-%m-%d")
             filtered = [r for r in self.records if r.timestamp[:10] >= week_start_str]
         else:
