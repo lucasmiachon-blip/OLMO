@@ -40,6 +40,7 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - `teaching-improvement` → ensino, andragogia, concurso, AI fluency, dev AI
 - `review` → code review multi-agente + OWASP
 - `ai-monitoring` → tracking modelos, tools, benchmarks
+- `exam-generator` → simulados calibrados por bancas, Anki cards, anti-cue protocol
 
 ## Conventions
 

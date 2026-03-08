@@ -89,6 +89,12 @@ skills:
     - data_processor
   devops:
     - git_manager
+  exam_generation:
+    - question_generator      # Gera questoes calibradas por bancas
+    - anti_cue_validator      # Checklist NBME anti-pista
+    - cross_validator         # Validacao cruzada Opus + ChatGPT 5.4
+    - anki_card_generator     # Cards a partir de erros
+    - spaced_learning_planner # Agenda revisao + leitura tier 1
 
 # Modelos AI Configurados
 ai_models:
