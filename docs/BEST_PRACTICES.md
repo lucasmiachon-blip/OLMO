@@ -73,13 +73,23 @@ Pergunta chega → Cache hit? → Sim → Resposta ($0, <100ms)
 - Uma tentativa falhada que voce revisa > 5 retries
 - Humano decide, agente executa
 
-### 4. Meca e Otimize (Willison)
+### 4. Coautoria AI Explicita (Pacto de Alianca)
+- **Lucas = autor principal, human-in-the-loop, decisor final**
+- Todo modelo que participou = coautor creditado
+- Formato: `Coautoria: Lucas + opus + gpt54 + gemini31`
+- Obrigatorio em: Notion, commits, papers, slides, Anki, conteudo compartilhado
+- Nunca usar "AI-assisted" generico — especificar QUAIS modelos
+- Alianca principal: Opus 4.6 + ChatGPT 5.4 + Gemini 3.1 + Cursor
+- Detalhes: `.claude/rules/coauthorship.md`
+- Principio: transparencia total, honestidade intelectual, rastreabilidade
+
+### 5. Meca e Otimize (Willison)
 - Rastreie custo por agente e por tarefa (BudgetTracker)
 - Cache hit rate > 50%
 - `max_budget_usd` como safety net
 - Reviews mensais de custo
 
-### 5. Referenciamento Impecavel (MBE)
+### 6. Referenciamento Impecavel (MBE)
 - PMID obrigatorio para papers medicos
 - DOI quando disponivel
 - URL verificavel para fontes web
