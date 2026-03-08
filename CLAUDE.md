@@ -1,8 +1,7 @@
 # CLAUDE.md - AI Agent Ecosystem
 
-Ecossistema modular de agentes AI para medico-professor-developer.
-Pesquisa medica (MBE), ensino (slideologia, retorica, cognicao),
-organizacao pessoal e monitoramento AI. Maximo valor, minimo de API calls.
+Medico + Professor + Pesquisador + Dev AI. Concurso nov/2026 (120 questoes).
+Pesquisa MBE, ensino, organizacao, monitoramento AI. Maximo valor, minimo custo.
 
 ## Architecture
 
@@ -26,10 +25,9 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 
 - `orchestrator.py` → entry point
 - `config/ecosystem.yaml` → agentes + model routing
-- `config/workflows.yaml` → workflows
 - `config/rate_limits.yaml` → budget ($100/mes max)
 - `config/mcp/servers.json` → 13 MCPs + ChatGPT 5.4
-- `ECOSYSTEM.md` → mapa completo do ecossistema
+- `ECOSYSTEM.md` → mapa completo (perfil, objetivos, KPIs, budget)
 - `PENDENCIAS.md` → checklist de setup
 - `HANDOFF.md` → continuidade entre sessoes
 
@@ -39,7 +37,7 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - `mbe-evidence` → GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS...
 - `medical-research` → PubMed, PICO, niveis de evidencia
 - `notion-publisher` → templates Notion com estetica profissional
-- `teaching-improvement` → ensino, andragogia, slideologia, AI fluency, dev AI, concurso
+- `teaching-improvement` → ensino, andragogia, concurso, AI fluency, dev AI
 - `review` → code review multi-agente + OWASP
 - `ai-monitoring` → tracking modelos, tools, benchmarks
 
@@ -48,44 +46,12 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - Python 3.11+, type hints, async/await
 - YAML para config, JSON para dados
 - Todo conteudo medico: referenciamento impecavel (PMID, DOI)
-- Cada projeto tem seu CLAUDE.md especifico
-- `pytest tests/` | `ruff check .`
-
-## Per-Project Pattern
-
-Cada subprojeto/modulo pode ter seu proprio CLAUDE.md com contexto
-especifico, decisoes de arquitetura e TODOs. O root fica enxuto.
-
-## Perfil
-
-Medico + Professor + Pesquisador + Developer AI.
-- **Concurso nov/2026**: 120 questoes multipla escolha — prioridade do ano
-- **Ensino**: slideologia, cognicao, retorica, andragogia, AI fluency
-- **Pesquisa**: publica, bioestatistica, EBM rigorosa
-- **Dev AI**: 2x/semana, alto ROI
-
-## Safety
-
 - Notion MCP: protocolo seguro em `.claude/rules/mcp_safety.md`
-- Cross-validation Claude + ChatGPT 5.4 para writes ($0)
-- Modelo harsh: na duvida, nao age. Ver `config/mcp/servers.json`
-
-## KPIs (medir semanalmente)
-
-- Cache hit rate > 50%
-- Custo mensal < $40
-- Notion pages organizadas vs orfas
-- Workflows executados com sucesso / total
-- Cross-validation agreement rate (Claude vs 5.4)
+- `pytest tests/` | `ruff check .`
 
 ## Self-Improvement
 
-- `HANDOFF.md` → atualizado a cada sessao
+- `HANDOFF.md` atualizado a cada sessao
 - `/insights` semanal → refinar rules e skills
-- Retrospectiva mensal: custo real vs estimado, KPIs, gaps
-
-## Key Docs
-
-- `docs/ARCHITECTURE.md` → decisoes tecnicas e padroes
+- `docs/ARCHITECTURE.md` → decisoes tecnicas
 - `docs/BEST_PRACTICES.md` → convencoes (Karpathy, Willison, Anthropic)
-- `.claude/rules/mcp_safety.md` → protocolo Notion seguro (evidence-based)

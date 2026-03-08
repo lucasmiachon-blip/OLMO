@@ -84,7 +84,15 @@
 - [ ] Definir especialidades/topicos do concurso
 - [ ] Criar database Notion "Concurso Error Log" (ver skill teaching-improvement)
 - [ ] Configurar Anki + deck por especialidade
+- [ ] **Anki MCP** — `claude mcp add anki-mcp npx -- -y @ankimcp/anki-mcp-server`
+  - Requer AnkiConnect add-on no Anki local
+  - CRUD completo: decks, cards, reviews
+- [ ] **MedAdapt MCP** — conteudo educacional medico (PubMed/NCBI Bookshelf)
+  - Setup: verificar `ryoureddy/medadapt-content-server`
 - [ ] Assinar/configurar banco de questoes
+  - Plataformas BR (Estrategia MED, Sanar, etc): SEM API publica
+  - Alternativa: provas anteriores publicas (USP, UNICAMP, UNIFESP)
+  - Alternativa: MedMCQA dataset (194k questoes, open source)
 - [ ] Criar plano macro Mar-Nov no Notion (calendario de estudo)
 - [ ] Configurar Claude como quiz generator (prompt template)
 - [ ] Primeiro simulado baseline (120 questoes cronometrado)

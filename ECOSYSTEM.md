@@ -341,11 +341,20 @@ Canva Pro    = DESIGN (apresentacoes, infograficos, visual)
 - **Karpathy**: Agentic engineering com supervisao humana
 - **Willison**: Sessoes curtas e focadas, custo rastreado
 
+## KPIs (definir metas realistas em sessao futura)
+
+- Cache hit rate
+- Custo mensal real vs estimado
+- Notion pages organizadas vs orfas
+- Workflows executados com sucesso / total
+- Cross-validation agreement rate (Claude vs 5.4)
+- Concurso: % acerto por especialidade, questoes/semana, Anki retention
+
 ## Key Docs (auto-referencia)
 
 | Documento | Funcao |
 |-----------|--------|
-| `CLAUDE.md` | Instrucoes raiz, KPIs, safety, self-improvement |
+| `CLAUDE.md` | Instrucoes raiz (~55 linhas, enxuto) |
 | `ECOSYSTEM.md` | Este arquivo - mapa completo |
 | `PENDENCIAS.md` | Checklist de setup e custos |
 | `HANDOFF.md` | Continuidade entre sessoes |
