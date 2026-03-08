@@ -4,14 +4,31 @@
     "notion": {
       "type": "http",
       "url": "https://mcp.notion.com/mcp",
-      "description": "Notion oficial: criar paginas, databases, atualizar conteudo. Knowledge base, digests, inbox.",
+      "description": "Notion oficial. ATENCAO: bugs conhecidos de serialization (#79,#82,#181), permissoes (#80), sem API de move (#64).",
       "priority": "critical",
-      "auth": "OAuth via browser",
+      "auth": "OAuth via browser (2 tokens: read-only padrao + read-write sob demanda)",
       "setup": "claude mcp add --transport http notion https://mcp.notion.com/mcp",
       "cost": "$0 (via Claude Pro/Max - Opus incluso no plano)",
       "model_routing": {
         "all": "claude-opus-4-6",
-        "notes": "Opus direto para TUDO. Custo $0 via Claude Pro/Max (ja pago). Sem routing - usa o melhor modelo disponivel. Milhares de paginas? Opus aguenta."
+        "notes": "Opus direto. Custo $0 via Pro/Max."
+      },
+      "safety_protocol": {
+        "default_mode": "READ_ONLY",
+        "write_mode": "MANUAL_ACTIVATION_ONLY",
+        "rate_limit": "180 req/min",
+        "known_bugs": [
+          "#79/#82/#181: serialization — writes podem ir pro objeto errado",
+          "#80: ignora teamspace permissions — cria em workspace errado",
+          "#64: NAO EXISTE API de move page (criar+copiar+arquivar)",
+          "#74: bulk operations falham repetidamente",
+          "#131: update operations quebram em agents"
+        ],
+        "operacoes_seguras": ["notion-search", "notion-fetch", "notion-get-comments", "notion-get-user"],
+        "operacoes_arriscadas": ["notion-create-pages", "notion-update-page", "notion-duplicate-page"],
+        "operacoes_proibidas": ["delete database", "bulk write automatico", "always-approve em writes"],
+        "workaround_move": "READ original → CREATE no destino → VERIFICAR copia → ARCHIVE original",
+        "regra_de_ouro": "1 write por vez. Verificar resultado antes do proximo. Erro = PARAR."
       }
     },
 
