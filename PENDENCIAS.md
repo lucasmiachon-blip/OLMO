@@ -78,6 +78,22 @@
 - [ ] **GITHUB_TOKEN** - MCP GitHub (gratuito, 5000 req/h)
 - [ ] **BRAVE_API_KEY** - Busca web alternativa (gratuito, 2000 req/mo)
 
+## ENSINO + CONCURSO NOV/2026
+
+### Concurso (120 questoes multipla escolha — PRIORIDADE DO ANO)
+- [ ] Definir especialidades/topicos do concurso
+- [ ] Criar database Notion "Concurso Error Log" (ver skill teaching-improvement)
+- [ ] Configurar Anki + deck por especialidade
+- [ ] Assinar/configurar banco de questoes
+- [ ] Criar plano macro Mar-Nov no Notion (calendario de estudo)
+- [ ] Configurar Claude como quiz generator (prompt template)
+- [ ] Primeiro simulado baseline (120 questoes cronometrado)
+
+### Ensino (Professor)
+- [ ] Criar database Notion "Teaching Log" (error log de aulas)
+- [ ] Configurar workflow de preparacao de aulas (skill teaching-improvement)
+- [ ] Desenvolver curriculo "AI para Alunos de Medicina" (8 aulas)
+
 ## OPCIONAL (Nice to have)
 
 - [ ] **GOOGLE_AI_KEY** - Gemini API (free tier generoso)

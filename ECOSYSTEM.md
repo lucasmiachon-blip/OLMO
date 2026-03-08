@@ -53,6 +53,14 @@
 - Sessoes 30-60min: curar → deep dive → nota → aplicar
 - Skill: `.claude/skills/teaching-improvement/` (secao Dev AI)
 
+### 8. Concurso Nov/2026 (PRIORIDADE DO ANO)
+- **Formato**: 120 questoes multipla escolha, novembro 2026
+- **Estrategia**: todas as ferramentas e teorias consagradas de estudo
+- **Tecnicas**: spaced repetition, active recall, interleaving, practice testing
+- **Ferramentas AI**: Anki + AI, NotebookLM, Claude quiz generator, Perplexity
+- **Planejamento**: macro (meses) → meso (semanas) → micro (dias)
+- **Skill**: `.claude/skills/teaching-improvement/` (secao Concurso)
+
 ## Visao Geral do Ecossistema
 
 ```
@@ -220,7 +228,7 @@ Skills em `.claude/skills/` carregadas sob demanda quando relevantes:
 ### Research & Learning
 | Skill | Descricao |
 |-------|-----------|
-| teaching-improvement | Estudo, referenciamento impecavel, per-project MD |
+| teaching-improvement | Ensino, andragogia, slideologia, AI fluency, dev AI, concurso |
 | research | Pesquisa academica, arXiv |
 | scientific | Metodologia cientifica |
 
@@ -297,7 +305,10 @@ Canva Pro    = DESIGN (apresentacoes, infograficos, visual)
 | Smart Queries (Sonnet) | ~20 | $0.20 |
 | Cowork/ChatGPT Agent | - | $0 (planos) |
 | MCPs (PubMed, Notion, Gmail) | - | $0 |
-| **TOTAL** | **~130** | **~$3.00-3.60/mes** |
+| **TOTAL (API routing otimizado)** | **~130** | **~$3.00-3.60/mes** |
+
+> Nota: estimativa API-only com routing otimizado. Budget real: $10-40/mes
+> (inclui overhead, spikes, testes). Max: $100/mes. Ver `PENDENCIAS.md`.
 
 ## Stack Tecnologico (Marco 2026)
 

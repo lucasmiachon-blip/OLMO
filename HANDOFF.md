@@ -1,70 +1,52 @@
 # HANDOFF - Proxima Sessao
 
 > Atualizado: 8 de Marco de 2026
-> Sessao atual: Auditoria MDs + Perfil Professor + AI Fluency
+> Sessao: MCP + Safety + Perfil Professor + Concurso + Auditoria MDs
 
-## P0 - Fazer AMANHA
+## CONTEXTO PRINCIPAL
+
+**Concurso nov/2026**: 120 questoes multipla escolha — prioridade do ano.
+Todas as ferramentas e teorias consagradas de estudo devem servir a isso.
+
+## P0 - Proxima Sessao
 
 ### 1. Verificar versao Ultimate Brain
-- [ ] Checar versao atual instalada no Notion do usuario
-- [ ] Comparar com ultima versao de Thomas Frank: https://thomasjfrank.com/brain/
-- [ ] Comparar com templates oficiais do Notion: https://www.notion.com/templates
-- [ ] Se atrasada: avaliar se vale atualizar (backup primeiro!)
-- [ ] Verificar Flylighter (browser extension) — esta instalada?
+- [ ] Checar versao atual instalada no Notion
+- [ ] Comparar com ultima versao de Thomas Frank: thomasjfrank.com/brain/
+- [ ] Se atrasada: avaliar update (backup primeiro!)
 
-### 2. Verificar avancos do Notion (plataforma)
-- [ ] Checar releases recentes do Notion (notion.com/releases)
-- [ ] Notion 3.0 AI agents — o que mudou desde Set 2025?
-- [ ] Novos templates oficiais relevantes pra medico/pesquisador
-- [ ] Novo pricing? Features do free tier mudaram?
+### 2. Verificar avancos Notion
+- [ ] Releases recentes (notion.com/releases)
+- [ ] Notion 3.0 AI agents — mudancas desde Set 2025?
 
-### 3. Snapshot do Notion (P0 do PENDENCIAS.md)
+### 3. Snapshot do Notion
 - [ ] Configurar Notion MCP: `claude mcp add --transport http notion https://mcp.notion.com/mcp`
 - [ ] Executar snapshot READ-ONLY de todas as paginas
 - [ ] Gerar `data/notion_snapshot.md` com inventario completo
-- [ ] Identificar databases, paginas orfas, duplicatas
-- [ ] Mapear estrutura Ultimate Brain atual → nossos databases medicos
+- [ ] Mapear Ultimate Brain → nossos databases medicos
 
-## O QUE FOI FEITO HOJE
+### 4. Setup Concurso
+- [ ] Definir especialidades/topicos do concurso
+- [ ] Criar database Notion "Concurso Error Log"
+- [ ] Configurar Anki + deck por especialidade
+- [ ] Primeiro simulado baseline (120 questoes cronometrado)
 
-### MCP Config Completa
-- `config/mcp/servers.json` — 13 MCPs com model routing definido
-- Notion = Opus direto ($0 via Pro/Max)
-- ChatGPT 5.4 MCP adicionado como cross-validator
+## O QUE FOI FEITO (sessoes 1-2)
 
-### Protocolo Seguro Notion (baseado em evidencia)
-- `.claude/rules/mcp_safety.md` — protocolo completo
-- Bugs reais documentados (#64, #74, #79, #80, #82, #131, #181)
-- READ-ONLY padrao, 2 tokens, 1 write por vez
-- Cross-validation Claude + 5.4 para writes ($0)
-- Workaround para move: criar+copiar+verificar+arquivar
-
-### NotionCleaner Reescrito
-- `subagents/processors/notion_cleaner.py` — modelo harsh
-- Fluxo: snapshot → inventario MD → analyze → plan → aprovacao humana → execute
-- Checkpoints por acao (resumable)
-- Nunca deleta, apenas arquiva
-
-### Ultimate Brain Registrado
-- PENDENCIAS.md atualizado com setup UB + medico
-- tools_ecosystem.yaml com notion_base: ultimate_brain
-
-### 4. Perfil Professor + AI Fluency (FEITO)
-- [x] Perfil atualizado em CLAUDE.md: medico + professor + dev AI
-- [x] Skill teaching-improvement expandida: slideologia, cognicao, retorica, error log
-- [x] AI Fluency: curriculo para ensinar alunos de medicina a usar AI
-- [x] Dev AI 2x/semana: fontes, formato de sessao, foco alto ROI
-- [x] ECOSYSTEM.md: novos objetivos 6 (ensino) e 7 (dev AI continuo)
-
-### 5. Auditoria de MDs (FEITO)
-- [x] CLAUDE.md: adicionado Safety, KPIs, Self-Improvement, Key Docs, Perfil
-- [x] ECOSYSTEM.md: Ultimate Brain, ChatGPT MCP, cross-validation, Key Docs
-- [x] Auto-referenciamento entre MDs corrigido
+1. **MCP Config**: 13 MCPs com model routing, Notion = Opus $0 via Pro/Max
+2. **Protocolo Seguro Notion**: `.claude/rules/mcp_safety.md`, bugs reais, modelo harsh
+3. **NotionCleaner**: `notion_cleaner.py` reescrito, snapshot → inventario → plano → execucao
+4. **Ultimate Brain**: registrado como base Notion (Thomas Frank)
+5. **Perfil**: medico + professor + pesquisador + dev AI
+6. **Teaching skill**: slideologia, cognicao, retorica, andragogia, AI fluency, dev AI 2x/semana
+7. **Concurso nov/2026**: estrategia completa (active recall, spaced rep, interleaving, practice testing)
+8. **Auditoria MDs**: KPIs, safety, self-improvement, cross-references, budget fix
+9. **ChatGPT 5.4 MCP**: cross-validation para writes criticos
 
 ## PENDENTE (nao urgente)
 
-- [ ] Criar database Notion "Teaching Log" (error log de aulas)
 - [ ] Configurar MCPs medicos (healthcare, pubmed, biomcp)
 - [ ] Configurar Gmail MCP
 - [ ] Testar workflows
-- [ ] Desenvolver curriculo completo "AI para Alunos de Medicina" (8 aulas)
+- [ ] Curriculo completo "AI para Alunos de Medicina" (8 aulas)
+- [ ] Criar database Notion "Teaching Log"

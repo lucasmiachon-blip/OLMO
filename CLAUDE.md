@@ -25,11 +25,13 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 ## Key Files
 
 - `orchestrator.py` → entry point
-- `config/ecosystem.yaml` → agentes
+- `config/ecosystem.yaml` → agentes + model routing
 - `config/workflows.yaml` → workflows
-- `config/rate_limits.yaml` → budget
+- `config/rate_limits.yaml` → budget ($100/mes max)
+- `config/mcp/servers.json` → 13 MCPs + ChatGPT 5.4
 - `ECOSYSTEM.md` → mapa completo do ecossistema
 - `PENDENCIAS.md` → checklist de setup
+- `HANDOFF.md` → continuidade entre sessoes
 
 ## Skills (sob demanda)
 
@@ -37,7 +39,7 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - `mbe-evidence` → GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS...
 - `medical-research` → PubMed, PICO, niveis de evidencia
 - `notion-publisher` → templates Notion com estetica profissional
-- `teaching-improvement` → estudo, autoaprimoramento, referenciamento
+- `teaching-improvement` → ensino, andragogia, slideologia, AI fluency, dev AI, concurso
 - `review` → code review multi-agente + OWASP
 - `ai-monitoring` → tracking modelos, tools, benchmarks
 
@@ -56,14 +58,11 @@ especifico, decisoes de arquitetura e TODOs. O root fica enxuto.
 
 ## Perfil
 
-Medico + Professor + Pesquisador + Developer AI. Objetivo: ser referencia em ensino medico.
-- **Clinica**: MBE, GRADE, evidencias tier 1
-- **Pesquisador**: publica artigos, bioestatistica, EBM rigorosa, PMID/DOI sempre
-- **Ensino**: slideologia, psicologia cognitiva, retorica/oratoria, educacao de adultos
-- **Andragogia**: adultos aprendem diferente — autonomia, experiencia, aplicabilidade
-- **AI Fluency**: dominar AI para transmitir fluencia aos alunos de medicina
-- **Dev AI**: aprendizado continuo 2x/semana, alto ROI, ultimas noticias
-- **Diario**: error log de aulas + reflexao continua
+Medico + Professor + Pesquisador + Developer AI.
+- **Concurso nov/2026**: 120 questoes multipla escolha — prioridade do ano
+- **Ensino**: slideologia, cognicao, retorica, andragogia, AI fluency
+- **Pesquisa**: publica, bioestatistica, EBM rigorosa
+- **Dev AI**: 2x/semana, alto ROI
 
 ## Safety
 
@@ -85,11 +84,8 @@ Medico + Professor + Pesquisador + Developer AI. Objetivo: ser referencia em ens
 - `/insights` semanal → refinar rules e skills
 - Retrospectiva mensal: custo real vs estimado, KPIs, gaps
 
-## Key Docs (auto-referencia)
+## Key Docs
 
-- `ECOSYSTEM.md` → mapa completo do ecossistema
-- `PENDENCIAS.md` → checklist de setup
-- `HANDOFF.md` → continuidade entre sessoes
-- `docs/ARCHITECTURE.md` → decisoes tecnicas
-- `docs/BEST_PRACTICES.md` → padroes e convencoes
-- `.claude/rules/mcp_safety.md` → protocolo Notion seguro
+- `docs/ARCHITECTURE.md` → decisoes tecnicas e padroes
+- `docs/BEST_PRACTICES.md` → convencoes (Karpathy, Willison, Anthropic)
+- `.claude/rules/mcp_safety.md` → protocolo Notion seguro (evidence-based)
