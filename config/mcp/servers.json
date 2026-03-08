@@ -8,13 +8,10 @@
       "priority": "critical",
       "auth": "OAuth via browser",
       "setup": "claude mcp add --transport http notion https://mcp.notion.com/mcp",
-      "cost": "$0 (free tier funciona)",
+      "cost": "$0 (via Claude Pro/Max - Opus incluso no plano)",
       "model_routing": {
-        "read": "claude-sonnet-4-6",
-        "triage": "chatgpt-5.4",
-        "write_simple": "claude-sonnet-4-6",
-        "write_complex": "claude-opus-4-6",
-        "notes": "Leitura/triagem → Sonnet/5.4 (barato). Publicacao com formatacao rica → Opus."
+        "all": "claude-opus-4-6",
+        "notes": "Opus direto para TUDO. Custo $0 via Claude Pro/Max (ja pago). Sem routing - usa o melhor modelo disponivel. Milhares de paginas? Opus aguenta."
       }
     },
 

@@ -117,31 +117,31 @@ ai_models:
 # Definicao completa em config/mcp/servers.json
 mcp_routing:
   # 5.4 = triagem barata | Sonnet = medio | Opus = profundo | Local = trivial
-  chatgpt_5_4:  # ~$0.005/call
+  # Notion = Opus direto ($0 via Pro/Max, ja pago)
+  claude_opus_free:  # $0.00 - incluso no Claude Pro/Max
+    - "notion:all"             # Opus pra tudo - ler, classificar, escrever, organizar
+
+  chatgpt_5_4:  # ~$0.005/call (so quando via API separada)
     - "healthcare-mcp:search_filter"
     - "pubmed-mcp:search_triage"
     - "gmail:read_classify"
     - "github:read_triage"
     - "fetch:fetch_parse"
     - "brave-search:search_filter"
-    - "notion:triage"
 
-  claude_sonnet:  # ~$0.01/call
+  claude_sonnet:  # ~$0.01/call (so quando via API separada)
     - "healthcare-mcp:extract_data"
     - "pubmed-mcp:summarize_abstract"
     - "biomcp:query"
-    - "notion:read"
-    - "notion:write_simple"
     - "gmail:summarize"
     - "context7:all"
     - "brave-search:analyze"
     - "memory:synthesize"
 
-  claude_opus:  # ~$0.05-0.10/call
+  claude_opus:  # ~$0.05-0.10/call (so quando via API separada)
     - "healthcare-mcp:analyze_evidence"
     - "pubmed-mcp:systematic_review"
     - "biomcp:interpret"
-    - "notion:write_complex"
     - "gmail:compose"
     - "github:code_review"
 
