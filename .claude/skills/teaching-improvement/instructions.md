@@ -58,6 +58,105 @@ O ecossistema deve melhorar continuamente:
 5. Documentar no CLAUDE.md do projeto
 6. Commitar com mensagem descritiva
 
+## Estrategias de Educacao (Professor)
+
+### Slideologia (Apresentacoes de Alto Impacto)
+- **Principio**: slides sao apoio visual, nao teleprompter
+- **Regra 10-20-30** (Guy Kawasaki): 10 slides, 20 min, 30pt font
+- **Picture Superiority Effect**: imagens > texto para retencao
+- **Assertion-Evidence** (Michael Alley): titulo = afirmacao, corpo = evidencia visual
+- **Fontes**: Garr Reynolds (Presentation Zen), Nancy Duarte (Resonate), Edward Tufte
+
+### Psicologia Cognitiva (Como o Aluno Aprende)
+- **Carga cognitiva** (Sweller): intrinseca vs extrinseca vs germane
+- **Dual Coding** (Paivio): visual + verbal juntos melhoram retencao
+- **Testing Effect** (Roediger): testar > reler para fixacao
+- **Spaced Repetition** (Ebbinghaus): revisao espacada combate esquecimento
+- **Interleaving**: misturar topicos > estudar blocos
+- **Elaborative Interrogation**: "por que isso funciona?" melhora compreensao
+- **Desirable Difficulties** (Bjork): dificuldade produtiva fortalece memoria
+- **Fontes**: Make It Stick (Brown/Roediger), Why Don't Students Like School (Willingham)
+
+### Retorica e Oratoria
+- **Estrutura classica**: Ethos (credibilidade) → Pathos (emocao) → Logos (logica)
+- **Storytelling**: caso clinico como hook, dados como corpo, takeaway como fechamento
+- **Tecnica Feynman**: explicar de forma simples = dominar o conteudo
+- **Pausas estrategicas**: silencio > preencher com "eh", "tipo"
+- **Fontes**: Talk Like TED (Gallo), The Art of Public Speaking (Dale Carnegie)
+
+### Error Log e Diario de Ensino
+- **Formato**: data + aula + o que funcionou + o que nao funcionou + acao
+- **Reflexao**: semanal, revisar padroes de erros e acertos
+- **Template Notion**: criar database "Teaching Log" com properties:
+  - Aula, Data, Topico, Feedback (positivo/negativo), Acao Corretiva, Tags
+- **Growth mindset**: erros sao dados, nao falhas
+
+### AI Fluency (para si e para transmitir aos alunos)
+Objetivo: dominar AI fluentemente para poder transmitir essa fluencia aos alunos.
+Principio: voce nao pode ensinar o que nao domina — primeiro domine, depois simplifique.
+
+#### O Que Ensinar (curriculo progressivo)
+1. **Fundamentos** (aula 1-2)
+   - O que e LLM, o que pode e nao pode fazer
+   - Alucinacoes: por que AI inventa e como detectar
+   - Prompt engineering basico: contexto + instrucao + formato
+   - Etica: plagiarism, LGPD, bias, limites do uso clinico
+
+2. **Uso Responsavel na Medicina** (aula 3-4)
+   - AI como "residente inteligente" — sempre verificar com fontes primarias
+   - PubMed + AI: busca assistida, nao substituicao
+   - Quando AI ajuda: triagem de literatura, resumos, traducao, formatacao
+   - Quando AI atrapalha: diagnostico, prescricao, decisao clinica sem supervisao
+   - Referenciamento: NUNCA confiar em referencias geradas por AI sem verificar PMID/DOI
+
+3. **Ferramentas Praticas** (aula 5-6)
+   - Claude/ChatGPT para estudo: flashcards, explicacoes, quiz
+   - Perplexity para pesquisa com fontes citadas
+   - NotebookLM para estudar papers (podcast, Q&A)
+   - Notion AI para organizacao de estudo
+   - Zotero + AI para referencias
+
+4. **Avancado** (aula 7-8)
+   - Prompt engineering medico: PICO como prompt, sistema GRADE como checklist
+   - AI para apresentacoes: estruturar conteudo, gerar imagens, revisar slides
+   - Workflow pessoal: captura → processamento → publicacao
+   - MCP e agentes: o futuro da automacao medica
+
+#### Principios Pedagogicos para Ensinar AI
+- **Learn by doing**: cada aula tem exercicio pratico com AI
+- **Fail forward**: mostrar exemplos de AI errando (alucinacoes reais)
+- **Critical thinking first**: AI amplifica pensamento critico, nao substitui
+- **Etica sempre**: todo uso tem consequencia para o paciente
+
+### Dev AI - Aprendizado Continuo (2x/semana)
+Sessoes curtas (30-60min) focadas em alto ROI:
+
+#### Fontes Obrigatorias (curar 2x/semana)
+| Fonte | Frequencia | O Que Buscar | ROI |
+|-------|-----------|-------------|-----|
+| Anthropic Blog | Semanal | Novos modelos, features Claude | Muito Alto |
+| OpenAI Blog | Semanal | Novos modelos, features ChatGPT | Alto |
+| Hacker News (AI) | 2x/semana | Trending tools, libraries, debates | Alto |
+| GitHub Trending | Semanal | Repos com alto star velocity | Alto |
+| Simon Willison Blog | Semanal | LLM pragmatico, tools, MCP | Muito Alto |
+| Latent Space Podcast | Quinzenal | Entrevistas com builders AI | Alto |
+| AI News (tldr.tech) | 2x/semana | Curadoria rapida de noticias | Medio |
+
+#### Foco Alto ROI (o que aprender agora)
+1. **MCP servers**: criar, configurar, usar — padrao universal 2026
+2. **Claude Code / Agent SDK**: automacao de workflows reais
+3. **Prompt engineering avancado**: system prompts, tool use, function calling
+4. **Agentic patterns**: orchestrator, evaluator, tool-use loops
+5. **Local models (Ollama)**: quando usar vs API, fine-tuning basico
+
+#### Formato da Sessao Dev AI
+```
+1. Curar fontes (15min) → ler headlines, salvar top 3
+2. Deep dive em 1 topico (30min) → hands-on, testar
+3. Nota no Obsidian (10min) → o que aprendi, como usar
+4. Opcional: aplicar no ecossistema → PR, skill, workflow
+```
+
 ## Fontes de Atualizacao Continua
 
 ### Estatistica e Metodologia
@@ -75,8 +174,18 @@ O ecossistema deve melhorar continuamente:
 ### AI/Dev
 - Anthropic Blog: anthropic.com/blog
 - OpenAI Blog: openai.com/blog
+- Simon Willison: simonwillison.net
 - Hugging Face: huggingface.co
 - Papers With Code: paperswithcode.com
+- Latent Space: latent.space
+- TLDR AI Newsletter: tldr.tech/ai
+
+### Ensino e Apresentacoes
+- Garr Reynolds: presentationzen.com
+- Nancy Duarte: duarte.com/blog
+- Michael Alley: assertion-evidence.com
+- Make It Stick (livro): Brown, Roediger, McDaniel
+- Retrieval Practice: retrievalpractice.org
 
 ## Estrutura de Projetos com CLAUDE.md
 

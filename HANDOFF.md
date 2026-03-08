@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
 > Atualizado: 8 de Marco de 2026
-> Sessao atual: Definicao MCP + Protocolo Seguro Notion
+> Sessao atual: Auditoria MDs + Perfil Professor + AI Fluency
 
 ## P0 - Fazer AMANHA
 
@@ -49,9 +49,22 @@
 - PENDENCIAS.md atualizado com setup UB + medico
 - tools_ecosystem.yaml com notion_base: ultimate_brain
 
+### 4. Perfil Professor + AI Fluency (FEITO)
+- [x] Perfil atualizado em CLAUDE.md: medico + professor + dev AI
+- [x] Skill teaching-improvement expandida: slideologia, cognicao, retorica, error log
+- [x] AI Fluency: curriculo para ensinar alunos de medicina a usar AI
+- [x] Dev AI 2x/semana: fontes, formato de sessao, foco alto ROI
+- [x] ECOSYSTEM.md: novos objetivos 6 (ensino) e 7 (dev AI continuo)
+
+### 5. Auditoria de MDs (FEITO)
+- [x] CLAUDE.md: adicionado Safety, KPIs, Self-Improvement, Key Docs, Perfil
+- [x] ECOSYSTEM.md: Ultimate Brain, ChatGPT MCP, cross-validation, Key Docs
+- [x] Auto-referenciamento entre MDs corrigido
+
 ## PENDENTE (nao urgente)
 
-- [ ] Revisar todos os MDs (enxutos? auto-referenciados? best practices?)
+- [ ] Criar database Notion "Teaching Log" (error log de aulas)
 - [ ] Configurar MCPs medicos (healthcare, pubmed, biomcp)
 - [ ] Configurar Gmail MCP
 - [ ] Testar workflows
+- [ ] Desenvolver curriculo completo "AI para Alunos de Medicina" (8 aulas)

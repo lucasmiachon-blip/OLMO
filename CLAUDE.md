@@ -1,7 +1,8 @@
 # CLAUDE.md - AI Agent Ecosystem
 
-Ecossistema modular de agentes AI para pesquisa medica (MBE), organizacao
-pessoal e monitoramento AI. Maximo valor, minimo de API calls.
+Ecossistema modular de agentes AI para medico-professor-developer.
+Pesquisa medica (MBE), ensino (slideologia, retorica, cognicao),
+organizacao pessoal e monitoramento AI. Maximo valor, minimo de API calls.
 
 ## Architecture
 
@@ -52,3 +53,41 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 
 Cada subprojeto/modulo pode ter seu proprio CLAUDE.md com contexto
 especifico, decisoes de arquitetura e TODOs. O root fica enxuto.
+
+## Perfil
+
+Medico + Professor + Developer AI. Objetivo: ser referencia em ensino medico.
+- **Clinica**: MBE, GRADE, evidencias tier 1
+- **Ensino**: slideologia, psicologia cognitiva, retorica/oratoria, error log
+- **AI Fluency**: dominar AI para transmitir fluencia aos alunos de medicina
+- **Dev AI**: aprendizado continuo 2x/semana, alto ROI, ultimas noticias
+- **Diario**: error log de aulas + reflexao continua
+
+## Safety
+
+- Notion MCP: protocolo seguro em `.claude/rules/mcp_safety.md`
+- Cross-validation Claude + ChatGPT 5.4 para writes ($0)
+- Modelo harsh: na duvida, nao age. Ver `config/mcp/servers.json`
+
+## KPIs (medir semanalmente)
+
+- Cache hit rate > 50%
+- Custo mensal < $40
+- Notion pages organizadas vs orfas
+- Workflows executados com sucesso / total
+- Cross-validation agreement rate (Claude vs 5.4)
+
+## Self-Improvement
+
+- `HANDOFF.md` → atualizado a cada sessao
+- `/insights` semanal → refinar rules e skills
+- Retrospectiva mensal: custo real vs estimado, KPIs, gaps
+
+## Key Docs (auto-referencia)
+
+- `ECOSYSTEM.md` → mapa completo do ecossistema
+- `PENDENCIAS.md` → checklist de setup
+- `HANDOFF.md` → continuidade entre sessoes
+- `docs/ARCHITECTURE.md` → decisoes tecnicas
+- `docs/BEST_PRACTICES.md` → padroes e convencoes
+- `.claude/rules/mcp_safety.md` → protocolo Notion seguro

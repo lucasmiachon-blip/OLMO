@@ -1,6 +1,6 @@
 # ECOSYSTEM.md - Mapa Completo do Ecossistema AI
 > Atualizado: 8 de Marco de 2026
-> Perfil: Medico + Developer | Low-code workflow
+> Perfil: Medico + Professor + Developer AI | Low-code workflow
 > Orquestrador: Claude Opus 4.6 | Auditor: ChatGPT 5.4
 > Ferramentas: Claude Code, Cowork, Cursor, Claude.ai, ChatGPT, Gemini, Perplexity Max
 
@@ -31,14 +31,27 @@
 
 ### 5. Knowledge Base Unificada
 - Notion: paginas bonitas, databases, digests (compartilhavel)
+  - Base: **Ultimate Brain** (Thomas Frank) - GTD + PARA template
+  - Seguranca: protocolo em `.claude/rules/mcp_safety.md`
 - Obsidian: vault local, Zettelkasten, links bidirecionais (pessoal)
 - Zotero: referencias bibliograficas, PDFs, citacoes
 
-### 6. Ensino e Autoaprimoramento
+### 6. Ensino e Autoaprimoramento (Professor)
+- Objetivo: ser referencia em ensino medico + ensinar alunos a usar AI
+- **Slideologia**: Assertion-Evidence, Picture Superiority, Presentation Zen
+- **Psicologia cognitiva**: carga cognitiva, testing effect, spaced repetition
+- **Retorica/oratoria**: Ethos-Pathos-Logos, storytelling clinico, Feynman
+- **Error log**: diario de aulas com acertos, erros e acoes corretivas
+- **AI para alunos**: curriculo progressivo de uso responsavel de AI em medicina
 - Referenciamento impecavel (PMID, DOI obrigatorios)
 - Skills evoluem com novas ferramentas e checklists
 - Cada projeto tem seu CLAUDE.md especifico
-- Blogs/YouTube de estatisticos de referencia para aprendizado continuo
+
+### 7. Dev AI Continuo (2x/semana)
+- Curadoria de fontes: Anthropic, OpenAI, HN, Willison, Latent Space
+- Foco alto ROI: MCP, Agent SDK, prompt engineering, agentic patterns
+- Sessoes 30-60min: curar → deep dive → nota → aplicar
+- Skill: `.claude/skills/teaching-improvement/` (secao Dev AI)
 
 ## Visao Geral do Ecossistema
 
@@ -107,10 +120,12 @@
 - **Quando usar**: Extracao de guidelines/conteudo autenticado
 - **Custo**: $0 (usa planos existentes)
 
-### Auditor: ChatGPT 5.4 (Web)
+### Auditor: ChatGPT 5.4 (Web + MCP)
 - **Papel**: Segunda opiniao, validacao, cross-validation
-- **Quando usar**: Decisoes criticas, code review, auditoria MBE
-- **Custo**: $0 (web)
+- **Quando usar**: Decisoes criticas, code review, auditoria MBE, Notion writes
+- **Cross-validation**: Claude propoe → 5.4 valida → ambos concordam = executa, divergem = humano
+- **Custo**: $0 (web/MCP)
+- **Protocolo**: Ver `.claude/rules/mcp_safety.md` (secao CROSS-VALIDATION)
 
 ## Agents - Detalhamento
 
@@ -225,7 +240,8 @@ Skills em `.claude/skills/` carregadas sob demanda quando relevantes:
 | healthcare-mcp | PubMed, FDA, ClinicalTrials, CID-10, calculadoras | CRITICA |
 | pubmed-mcp | Busca avancada PubMed (39M+ citacoes) | CRITICA |
 | biomcp | PubMed, ClinicalTrials, variantes geneticas | CRITICA |
-| notion | Publicacao de conteudo (HTTP MCP) | CRITICA |
+| notion | Publicacao de conteudo (HTTP MCP, protocolo seguro) | CRITICA |
+| chatgpt-5.4 | Cross-validation para writes criticos | ALTA |
 | gmail | Emails medicos (Google Workspace MCP) | ALTA |
 | context7 | Docs atualizadas para libs/frameworks | ALTA |
 | filesystem | Leitura/escrita de arquivos | ALTA |
@@ -299,9 +315,31 @@ Canva Pro    = DESIGN (apresentacoes, infograficos, visual)
 - **MCP** - Model Context Protocol (Linux Foundation)
 - **Cursor v2.6** - IDE AI-first (Automations, Cloud Agents)
 
+### Notion Base: Ultimate Brain (Thomas Frank)
+- **Template**: GTD + PARA pre-configurado
+- **Fonte**: https://thomasjfrank.com/brain/
+- **Companion**: Flylighter (browser extension)
+- **P0**: Verificar se versao esta atualizada (ver `HANDOFF.md`)
+- **Seguranca**: `.claude/rules/mcp_safety.md` (bugs conhecidos, protocolo harsh)
+- **Cleaner**: `subagents/processors/notion_cleaner.py` (snapshot → inventario → plano → execucao)
+
 ### Padroes de Arquitetura (baseado nas melhores praticas 2026)
 - **Anthropic**: Subagent orchestration, TeammateTool, progressive disclosure
 - **LangGraph**: Subagents, skills, handoffs, routers
 - **CrewAI**: 3-4 agents por team, YAML config, Pydantic output
 - **Karpathy**: Agentic engineering com supervisao humana
 - **Willison**: Sessoes curtas e focadas, custo rastreado
+
+## Key Docs (auto-referencia)
+
+| Documento | Funcao |
+|-----------|--------|
+| `CLAUDE.md` | Instrucoes raiz, KPIs, safety, self-improvement |
+| `ECOSYSTEM.md` | Este arquivo - mapa completo |
+| `PENDENCIAS.md` | Checklist de setup e custos |
+| `HANDOFF.md` | Continuidade entre sessoes |
+| `docs/ARCHITECTURE.md` | Decisoes tecnicas e padroes |
+| `docs/BEST_PRACTICES.md` | Convencoes e boas praticas |
+| `.claude/rules/mcp_safety.md` | Protocolo Notion seguro (evidence-based) |
+| `config/mcp/servers.json` | Configuracao MCP + model routing |
+| `config/rate_limits.yaml` | Budget e rate limits |
