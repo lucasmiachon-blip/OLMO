@@ -27,7 +27,7 @@ Auditoria completa foi feita. 15 categorias de conflitos identificados.
 
 5. **CLAUDE.md:37-43** — Lista 7 skills mas existem 11 no diretorio `.claude/skills/`. Faltam: automation, organization, research, scientific.
 
-6. **PENDENCIAS.md** — Referencia Anki MCP (linha 87) e MedAdapt MCP (linha 92) que NAO existem em `config/mcp/servers.json`.
+6. **Anki MCP** — referenciado em PENDENCIAS.md mas ainda nao em `config/mcp/servers.json`. Adicionar quando configurar.
 
 7. **Notion safety protocol** — Documentado em mcp_safety.md mas NAO enforced no codigo. Workflows usam generic `execute()` sem safety gates.
 
@@ -60,6 +60,18 @@ Auditoria completa foi feita. 15 categorias de conflitos identificados.
 8. **Auditoria MDs**: KPIs, safety, self-improvement, cross-references, budget fix
 9. **ChatGPT 5.4 MCP**: cross-validation para writes criticos
 10. **Diagnostico completo**: 15 categorias de conflitos entre MD/YAML/Python auditados
+11. **MedAdapt descartado**: projeto abandonado (6 stars, 0 commits em 2026), overlap com BioMCP+PubMed MCP
+12. **Decisao: construir, nao comprar** — AMBOSS (sem PT-BR, calibrado USMLE) e Neural Consult (sem MCP, sem PT-BR) descartados. Foco no exam-generator proprio com provas BR reais
+
+## P1 - PRIORIDADE CONCURSO: EXAM-GENERATOR
+
+Aprimorar `exam-generator` skill para concurso BR:
+- [ ] Coletar PDFs provas reais (ENARE, USP, UNICAMP, UNIFESP, AMB)
+- [ ] Parser de questoes PDF → formato estruturado
+- [ ] Calibracao por banca (estilo, complexidade, pegadinhas tipicas)
+- [ ] Subespecialidades: cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato
+- [ ] Justificativas com evidencia via BioMCP + PubMed MCP
+- [ ] Integracao Anki MCP: cards gerados do Error Log
 
 ## PENDENTE (nao urgente)
 

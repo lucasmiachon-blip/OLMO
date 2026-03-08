@@ -89,14 +89,17 @@
   - AI prioriza: erros recorrentes > unicos > conteudo novo
   - Max 20 cards novos/dia, cross-validados
 - [ ] Criar decks por especialidade no Anki
-- [ ] **MedAdapt MCP** — conteudo educacional medico (PubMed/NCBI Bookshelf)
-  - Setup: verificar `ryoureddy/medadapt-content-server`
-- [ ] Assinar/configurar banco de questoes
-  - Plataformas BR (Estrategia MED, Sanar, etc): SEM API publica
-  - Alternativa: provas anteriores publicas (USP, UNICAMP, UNIFESP)
-  - Alternativa: MedMCQA dataset (194k questoes, open source)
+- [ ] Coletar provas anteriores publicas (ENARE, USP, UNICAMP, UNIFESP, AMB)
+  - PDFs publicos: provaderesidencia.com.br, fuvest.br, resmedica.com.br
+  - Alimentar exam-generator skill com questoes reais por banca
+- [ ] Avaliar MedMCQA dataset (194k questoes, open source) como complemento
+- [ ] Aprimorar `exam-generator` skill:
+  - Suporte a subespecialidades (cardio, nefro, pneumo, gastro, etc)
+  - Calibracao por banca brasileira (estilo, complexidade, pegadinhas)
+  - Ingestao de PDFs de provas reais → parser de questoes
+  - Justificativas com evidencia via BioMCP + PubMed MCP
 - [ ] Criar plano macro Mar-Nov no Notion (calendario de estudo)
-- [ ] Configurar Claude como quiz generator (prompt template)
+- [ ] ~~MedAdapt MCP~~ — DESCARTADO: projeto abandonado (6 stars, sem commits desde mar/2025), overlap total com BioMCP + PubMed MCP ja configurados
 - [ ] Primeiro simulado baseline (120 questoes cronometrado)
 
 ### Ensino (Professor)
