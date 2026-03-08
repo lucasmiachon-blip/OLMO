@@ -1,78 +1,54 @@
 # CLAUDE.md - AI Agent Ecosystem
 
-> "The winners won't have the smartest agents; they'll have the architecture
-> that makes agents trustworthy, deployable, and governable." - CrewAI
-
-## Project Identity
-
-Ecossistema modular de agentes AI para automacao, pesquisa cientifica,
-organizacao pessoal e monitoramento AI. Projetado para **maximo valor com
-minimo de API calls** (poucos requests por dia/semana).
+Ecossistema modular de agentes AI para pesquisa medica (MBE), organizacao
+pessoal e monitoramento AI. Maximo valor, minimo de API calls.
 
 ## Architecture
 
 ```
-Orchestrator ─── rota tarefas, executa workflows
-├── Cientifico ─── arXiv, papers, hipoteses, tendencias
-│   └── TrendAnalyzer (subagent)
-├── Automacao ─── regras, pipelines, eventos, cron
-│   └── DataPipeline (subagent)
-├── Organizacao ─── GTD, Eisenhower, projetos, habitos
-└── AtualizacaoAI ─── modelos, tools, news, benchmarks
-    └── WebMonitor (subagent)
-
-SmartScheduler ─── budget, cache, batch, priorizacao
-BudgetTracker ─── custo por agente, alertas, otimizacao
+Orchestrator (Opus 4.6) ─── rota, planeja, decide
+├── Cientifico (Sonnet) ─── papers, PubMed, hipoteses
+│   └── TrendAnalyzer (Haiku)
+├── Automacao (Haiku) ─── regras, pipelines, cron
+│   └── DataPipeline (Haiku)
+├── Organizacao (Sonnet) ─── GTD, Eisenhower, Notion
+│   └── KnowledgeOrganizer (Sonnet) ─── Notion+Obsidian+Zotero
+└── AtualizacaoAI (Sonnet) ─── modelos, tools, benchmarks
+    └── WebMonitor (Haiku)
 ```
 
-## Efficiency-First Design
+## Efficiency: Local-First → Cache → Batch
 
-O sistema usa 3 camadas para minimizar API calls:
-
-1. **Local-First** → processa regex, parsing, files localmente ($0)
-2. **Cache** → mesma pergunta nunca bate na API 2x (TTL por tipo)
-3. **Batching** → combina queries relacionadas em 1 chamada (80% economia)
-
-Model routing por complexidade:
-- `trivial` → Ollama local ($0)
-- `simple` → Haiku ($0.001)
-- `medium` → Sonnet ($0.01)
-- `complex` → Opus ($0.05-0.10)
-
-## Commands
-
-```bash
-python orchestrator.py status      # Status do ecossistema
-python orchestrator.py run         # Inicia ecossistema
-python orchestrator.py workflow X  # Executa workflow X
-```
-
-## Code Conventions
-
-- Python 3.11+, type hints obrigatorios
-- Async/await para operacoes de I/O
-- Pydantic para validacao de dados
-- YAML para configuracao, JSON para dados
-- Testes: `pytest tests/`
-- Lint: `ruff check .`
+Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex→Opus
 
 ## Key Files
 
-- `orchestrator.py` → entry point principal
-- `config/ecosystem.yaml` → configuracao dos agentes
-- `config/workflows.yaml` → definicao de workflows
-- `config/rate_limits.yaml` → budget e limites de API
-- `agents/core/smart_scheduler.py` → agendador inteligente
-- `agents/core/budget_tracker.py` → rastreamento de custos
+- `orchestrator.py` → entry point
+- `config/ecosystem.yaml` → agentes
+- `config/workflows.yaml` → workflows
+- `config/rate_limits.yaml` → budget
+- `ECOSYSTEM.md` → mapa completo do ecossistema
+- `PENDENCIAS.md` → checklist de setup
 
-## Extending
+## Skills (sob demanda)
 
-Para adicionar um novo agente:
-1. Crie em `agents/<nome>/` herdando `BaseAgent`
-2. Implemente `execute()` e `plan()`
-3. Registre no `orchestrator.py` via `orch.register_agent()`
-4. Adicione config em `config/ecosystem.yaml`
+Skills carregadas via `.claude/skills/` quando relevantes:
+- `mbe-evidence` → GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS...
+- `medical-research` → PubMed, PICO, niveis de evidencia
+- `notion-publisher` → templates Notion com estetica profissional
+- `teaching-improvement` → estudo, autoaprimoramento, referenciamento
+- `review` → code review multi-agente + OWASP
+- `ai-monitoring` → tracking modelos, tools, benchmarks
 
-Para adicionar uma nova skill:
-1. Crie em `skills/<categoria>/`
-2. Registre no agente via `agent.register_skill()`
+## Conventions
+
+- Python 3.11+, type hints, async/await
+- YAML para config, JSON para dados
+- Todo conteudo medico: referenciamento impecavel (PMID, DOI)
+- Cada projeto tem seu CLAUDE.md especifico
+- `pytest tests/` | `ruff check .`
+
+## Per-Project Pattern
+
+Cada subprojeto/modulo pode ter seu proprio CLAUDE.md com contexto
+especifico, decisoes de arquitetura e TODOs. O root fica enxuto.

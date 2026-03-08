@@ -210,6 +210,7 @@ workflow_diario:
     url: "https://www.make.com"
     uso: "Conectar ferramentas sem codigo, automacoes visuais"
     custo: "Free (1000 ops/mo) ou Core ($10/mo)"
+    status: "PLANO FUTURO - por agora rodar via MCP 2-3x/semana"
     quando_usar:
       - "Gmail → Notion (quando email medico chega)"
       - "PubMed alert → processar → Notion"
@@ -234,6 +235,7 @@ workflow_diario:
     url: "https://n8n.io"
     uso: "Automacao avancada, self-hosted, sem limites"
     custo: "Free (self-hosted) ou Cloud ($20/mo)"
+    status: "PLANO FUTURO - quando precisar 24/7"
     quando_usar:
       - "Automacoes complexas que excedem free tier do Make"
       - "Precisa de controle total (self-hosted)"
@@ -272,8 +274,26 @@ workflow_diario:
   excalidraw:
     tipo: "Diagramas e whiteboard"
     url: "https://excalidraw.com"
-    custo: "Gratuito"
+    custo: "Gratuito - JA TEM"
     quando_usar: "Diagramas de arquitetura, fluxos, brainstorm visual"
+
+  canva_pro:
+    tipo: "Design e apresentacoes"
+    url: "https://canva.com"
+    custo: "JA TEM (Canva Pro)"
+    quando_usar:
+      - "Apresentacoes profissionais"
+      - "Infograficos medicos"
+      - "Posts para redes sociais"
+      - "Templates bonitos rapidamente"
+      - "Edicao de imagens e videos"
+    features_chave:
+      - "Brand Kit (fontes, cores, logos)"
+      - "Magic Design (AI)"
+      - "Templates profissionais"
+      - "Colaboracao em equipe"
+      - "Export multi-formato"
+    papel_no_ecossistema: "DESIGN visual rapido (custo $0 - ja tem Pro)"
 
 # ============================================================
 # REGRA DE OURO
@@ -288,3 +308,4 @@ workflow_diario:
 # Notion       = PUBLICAR (paginas bonitas, databases)
 # Obsidian     = CONECTAR (Zettelkasten, links, vault local)
 # Zotero       = REFERENCIAR (bibliografias, PDFs, citacoes)
+# Canva Pro    = DESIGN (apresentacoes, infograficos, visual)
