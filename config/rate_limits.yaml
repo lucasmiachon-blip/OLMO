@@ -53,10 +53,15 @@ model_routing:
     model: "local-ollama"        # Custo: $0.00
     use_for: ["formatacao", "regex", "parsing", "classificacao simples"]
 
+  simple:
+    model: "claude-haiku-4-5"    # Custo: ~$0.003/call
+    use_for: ["classificacao rapida", "filtragem", "subagentes auxiliares",
+              "trend_analyzer", "data_pipeline", "web_monitor"]
+
   triage:
     model: "claude-sonnet-4-6"   # Custo: ~$0.01/call
     alternatives: ["chatgpt-5.4"]
-    use_for: ["triagem de papers", "classificacao", "filtragem de resultados",
+    use_for: ["triagem de papers", "classificacao complexa", "filtragem de resultados",
               "extracao de dados", "respostas curtas", "roteamento"]
 
   medium:
@@ -96,18 +101,36 @@ batching:
     - "organization_batch"    # Combina tarefas de organizacao
 
 # Fallback entre provedores (inspirado em Portkey AI Gateway)
+# IMPORTANTE: Writes NUNCA usam fallback (mcp_safety.md: erro em write = PARAR)
 fallback:
   enabled: true
-  chain:
-    - provider: "anthropic"
-      model: "claude-sonnet-4-6"
-    - provider: "openai"
-      model: "gpt-4o-mini"
-    - provider: "local"
-      model: "ollama/llama3"
 
-  # Quando usar fallback
-  triggers:
-    - "rate_limit_exceeded"
-    - "budget_exhausted"
-    - "provider_unavailable"
+  # Fallback para READS apenas (writes = parar imediatamente)
+  read_fallback:
+    chain:
+      - provider: "anthropic"
+        model: "claude-sonnet-4-6"
+      - provider: "anthropic"
+        model: "claude-haiku-4-5"
+      - provider: "openai"
+        model: "gpt-4o-mini"
+      - provider: "local"
+        model: "ollama/llama3"
+    triggers:
+      - "rate_limit_exceeded"
+      - "budget_exhausted"
+      - "provider_unavailable"
+
+  # Writes: NUNCA fallback — parar e alertar humano
+  write_fallback:
+    chain: []  # Vazio = bloquear
+    action: "block_and_alert"
+
+# BudgetTracker — registro de custos por operacao
+budget_tracker:
+  enabled: true
+  storage: "sqlite:/home/user/organizacao/data/knowledge.db"
+  table: "budget_log"
+  fields: ["timestamp", "agent", "model", "operation", "mcp_server", "cost_usd", "tokens_used"]
+  alert_method: "console"
+  daily_report: true

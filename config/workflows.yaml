@@ -8,15 +8,20 @@ workflows:
     description: "Revisao diaria automatica para comecar o dia organizado"
     trigger: "cron"
     schedule: "0 7 * * *"  # 7h todos os dias
+    budget_tracking: true
+    cache: { key: "morning_digest", ttl_hours: 6 }
     steps:
       - agent: "atualizacao_ai"
         action: "news_digest"
+        model_tier: "simple"  # Haiku — buscar headlines
         description: "Buscar novidades de AI"
       - agent: "organizacao"
         action: "plan_day"
+        model_tier: "medium"  # Sonnet — planejar
         description: "Criar plano do dia"
       - agent: "cientifico"
         action: "find_trends"
+        model_tier: "simple"  # Haiku — filtrar tendencias
         area: "artificial_intelligence"
         description: "Verificar tendencias"
 
@@ -26,18 +31,23 @@ workflows:
     description: "Revisao semanal completa no estilo Getting Things Done"
     trigger: "cron"
     schedule: "0 18 * * 5"  # Sexta 18h
+    budget_tracking: true
     steps:
       - agent: "organizacao"
         action: "inbox_process"
+        model_tier: "medium"  # Sonnet
         description: "Processar inbox"
       - agent: "organizacao"
         action: "review_week"
+        model_tier: "medium"
         description: "Revisar semana"
       - agent: "organizacao"
         action: "plan_week"
+        model_tier: "medium"
         description: "Planejar proxima semana"
       - agent: "cientifico"
         action: "summarize"
+        model_tier: "medium"
         topic: "weekly_learnings"
         description: "Sumarizar aprendizados"
 
@@ -46,18 +56,23 @@ workflows:
     name: "Pipeline de Pesquisa"
     description: "Pesquisa cientifica completa sobre um topico"
     trigger: "manual"
+    budget_tracking: true
     steps:
       - agent: "cientifico"
         action: "search"
+        model_tier: "triage"  # Sonnet — busca inicial
         description: "Buscar papers"
       - subagent: "trend_analyzer"
         action: "analyze"
+        model_tier: "simple"  # Haiku — analisar tendencias
         description: "Analisar tendencias nos resultados"
       - agent: "cientifico"
         action: "literature_review"
+        model_tier: "deep"    # Opus — analise profunda
         description: "Criar revisao de literatura"
       - agent: "cientifico"
         action: "generate_hypothesis"
+        model_tier: "deep"    # Opus — raciocinio complexo
         description: "Gerar hipoteses"
 
   # Workflow: Monitoramento AI
@@ -65,19 +80,25 @@ workflows:
     name: "Monitoramento AI"
     description: "Monitoramento continuo do ecossistema AI"
     trigger: "cron"
-    schedule: "0 */6 * * *"  # A cada 6 horas
+    schedule: "0 */6 * * *"  # A cada 6 horas (4x/dia = ~16 calls/dia)
+    budget_tracking: true
+    estimated_cost_per_run: 0.05  # ~$0.20/dia
     steps:
       - subagent: "web_monitor"
         action: "check_all"
+        model_tier: "simple"  # Haiku — scraping basico
         description: "Verificar todas as fontes"
       - agent: "atualizacao_ai"
         action: "check_updates"
+        model_tier: "medium"  # Sonnet — processar
         description: "Processar atualizacoes"
       - agent: "atualizacao_ai"
         action: "compare_models"
+        model_tier: "medium"  # Sonnet — comparar
         description: "Comparar novos modelos"
       - subagent: "trend_analyzer"
         action: "analyze"
+        model_tier: "simple"  # Haiku — tendencias
         description: "Analisar tendencias"
 
   # Workflow: Code Review Automatizado
@@ -86,6 +107,7 @@ workflows:
     description: "Review automatico de qualidade de codigo"
     trigger: "event"
     event: "git_push"
+    budget_tracking: true
     steps:
       - skill: "code_analyzer"
         action: "analyze_project"
@@ -168,6 +190,8 @@ workflows:
     name: "Organizacao Completa"
     description: "Reorganizacao completa de tarefas e projetos"
     trigger: "manual"
+    budget_tracking: true
+    model_tier: "medium"  # Sonnet para todas as tarefas de organizacao
     steps:
       - agent: "organizacao"
         action: "inbox_process"
