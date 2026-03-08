@@ -172,16 +172,26 @@ Para cada paper/estudo analisar:
 | **MarinStatsLectures** | Intro/intermediario stats + R | 168K subs |
 | **Strong Medicine** (Eric Strong, Stanford) | Raciocinio clinico, EBM | Associado Stanford |
 | **MedCram** (Dr. Seheult) | Educacao medica, evidencias | Popular |
+| **Vinay Prasad** (UCSF/FDA) | Epidemio, oncologia, critica MBE | 100K+ subs |
 | **CEBM Oxford** | EBM, treinamento, lectures | Oficial |
+| **CASP** | Critical appraisal methodology | Oficial |
 | **Crash Course Statistics** (PBS) | Introducao geral rapida | Muito acessivel |
 
 ### Educadores MBE Brasil/Portugal
 
 | Nome | Instituicao | Contribuicao |
 |------|------------|-------------|
-| Dr. Luis Correia | Salvador, Cardio | Blog MBE mais influente do BR |
+| Dr. Luis Correia | Salvador, Cardio | Blog + YouTube + Podcast MBE mais influente do BR |
 | Cochrane Brazil | UNIFESP | Treinamento e RS em portugues |
 | Diretrizes AMB | AMB/CFM | Guidelines brasileiras baseadas em evidencia |
+| Sensible Medicine | Vinay Prasad et al. (Substack) | Critica MBE de praticas e politicas medicas |
+
+### Blogs Adicionais
+| Blog | Foco | URL |
+|------|------|-----|
+| Sensible Medicine | Critica MBE, politicas de saude | sensiblemedicine.substack.com |
+| Vinay Prasad | Epidemio, oncologia, Plenary Session podcast | vinayakkprasad.com |
+| hbiostat (Harrell) | E-book free: Biostatistics for Biomedical Research | hbiostat.org/bbr |
 
 ## Workflow: Paper → Notion
 
