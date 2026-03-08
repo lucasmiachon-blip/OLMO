@@ -231,8 +231,7 @@
         "Arquivo .env NUNCA commitado (ja no .gitignore)"
       ],
       "scopes_minimos": {
-        "notion_token_readonly": "read_content",
-        "notion_token_readwrite": "read_content, update_content, insert_content",
+        "NOTION_TOKEN_KEY": "read_content, update_content, insert_content",
         "gmail": "gmail.readonly, gmail.labels",
         "github": "repo, read:org",
         "brave": "search (read-only por natureza)"
