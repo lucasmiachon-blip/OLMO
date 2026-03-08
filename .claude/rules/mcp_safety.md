@@ -79,6 +79,33 @@ Como nao existe API de move, o fluxo seguro para reorganizar:
 - Se workflow falhar no step N: retomar de N, nao do zero
 - Rate limit 180 req/min: respeitar, nao forcar
 
+## CROSS-VALIDATION (Claude + ChatGPT 5.4)
+
+Cruzar dois modelos independentes reduz erros significativamente.
+Evidencia: ensemble/cross-check entre LLMs reduz hallucination e
+erro de classificacao (benchmark literature 2024-2025).
+
+Protocolo para writes no Notion:
+1. Claude (Opus) propoe acao (ex: relocate pagina X para database Y)
+2. ChatGPT 5.4 recebe MESMA pagina + proposta e avalia independentemente
+3. Se AMBOS concordam (>= 0.8 confidence cada): auto-execute
+4. Se DIVERGEM: flag para review humano com ambas justificativas
+5. Se UM deles tem confidence < 0.5: BLOQUEAR
+
+Quando usar cross-validation (OBRIGATORIO):
+- Classificar tipo de pagina (original vs coautoria AI)
+- Decidir relocacao entre databases
+- Merge de duplicatas
+- Archive de conteudo (pode ser referencia importante)
+- Qualquer acao em > 10 paginas
+
+Quando NAO precisa (single model OK):
+- Read-only operations (snapshot, busca)
+- Adicionar tags em pagina ja classificada
+- Criar pagina nova (nao afeta existente)
+
+Custo extra: $0 (ambos inclusos nos planos Pro/Max)
+
 ## MODELO HARSH (na duvida, nao age)
 
 - Confidence < 0.7 → flag para review humano
@@ -87,6 +114,7 @@ Como nao existe API de move, o fluxo seguro para reorganizar:
 - Erro em write → PARAR (nao retry — pode ir pro lugar errado)
 - Rate limit → parar imediatamente
 - Resultado inesperado → PARAR + alertar humano
+- Cross-validation divergente → PARAR + mostrar ambas justificativas
 
 ## SETUP RECOMENDADO (2 tokens)
 

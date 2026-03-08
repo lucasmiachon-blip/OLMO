@@ -233,7 +233,8 @@ workflow_diario:
     final: "claude_code"             # Aplicar correcoes
 
   organizacao:
-    notion: "claude_code"            # MCP Notion automatizado
+    notion: "claude_code"            # MCP Notion (Opus, $0 via Pro/Max)
+    notion_base: "ultimate_brain"    # Template: Thomas Frank Ultimate Brain
     obsidian: "claude_code"          # Sync via subagente
     brainstorm: "claude_ai"          # Planejamento
     storage: "gemini"                # Google Drive 30TB

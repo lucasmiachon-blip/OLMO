@@ -170,6 +170,30 @@
       }
     },
 
+    "chatgpt": {
+      "type": "http",
+      "url": "${CHATGPT_MCP_URL}",
+      "description": "ChatGPT 5.4 via MCP. Cross-validator: valida decisoes do Claude antes de executar writes.",
+      "priority": "high",
+      "auth": "OAuth (ChatGPT Plus/Pro/Business)",
+      "cost": "$0 (incluso no plano ChatGPT)",
+      "model_routing": {
+        "all": "chatgpt-5.4",
+        "notes": "5.4 direto. Custo $0 via plano ChatGPT. Usado como cross-validator pra Notion writes."
+      },
+      "role_in_ecosystem": {
+        "primary": "Cross-validation de writes Notion (segunda opiniao antes de executar)",
+        "secondary": "Deep Research, browsing autenticado, auditoria",
+        "cross_validation_protocol": [
+          "Claude (Opus) propoe acao no Notion (ex: relocate, tag, archive)",
+          "ChatGPT 5.4 recebe mesma pagina + proposta e valida independentemente",
+          "Se ambos concordam (>= 0.8 confidence cada): auto-execute",
+          "Se divergem: flag para review humano com ambas justificativas",
+          "Custo extra: $0 (ambos inclusos nos planos)"
+        ]
+      }
+    },
+
     "sqlite": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-sqlite", "data/knowledge.db"],

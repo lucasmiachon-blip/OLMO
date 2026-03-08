@@ -29,10 +29,12 @@
   - Setup: `claude mcp add biomcp npx -- -y biomcp`
   - Custo: Gratuito
 
-- [ ] **Notion MCP** - Publicacao de conteudo
+- [ ] **Notion MCP** - Publicacao de conteudo (PROTOCOLO SEGURO)
   - Setup: `claude mcp add --transport http notion https://mcp.notion.com/mcp`
-  - Auth: OAuth via browser (vai pedir login no Notion)
-  - Custo: Free tier funciona
+  - Auth: OAuth via browser (2 tokens: read-only padrao + read-write sob demanda)
+  - Custo: $0 via Claude Pro/Max
+  - **SEGURANCA**: Ver `.claude/rules/mcp_safety.md` (bugs conhecidos, protocolo)
+  - **IMPORTANTE**: Nao existe API de move — usar criar+copiar+verificar+arquivar
 
 - [ ] **Gmail/Google Workspace MCP** - Emails medicos
   - Setup: `npx @anthropic-ai/google-workspace-mcp`
@@ -93,9 +95,21 @@
   - `curl -fsSL https://ollama.ai/install.sh | sh`
   - `ollama pull llama3.3`
 
-### Notion Setup
-- [ ] Criar database "Knowledge Base Medica"
-- [ ] Criar database "Inbox Medico"
+### Notion Setup (Ultimate Brain + Medico)
+- [x] **Ultimate Brain** (Thomas Frank) - Template base ja instalado
+  - Fonte: https://thomasjfrank.com/brain/
+  - Funcionalidades: GTD tasks, PARA organization, My Day dashboard, Quick Capture
+  - Companion: Flylighter (browser extension para quick capture)
+- [ ] **P0: Snapshot do estado atual** - Ler TUDO via MCP antes de qualquer mudanca
+  - Usar NotionCleaner.snapshot() → gera notion_snapshot.md local
+  - Identificar: databases existentes, paginas, properties, duplicatas
+  - Entender estrutura atual do Ultimate Brain antes de customizar
+- [ ] Adaptar Ultimate Brain para workflow medico:
+  - Mapear databases UB → nossos databases (Knowledge Base, Inbox, Digests, Projetos)
+  - Adicionar properties medicas (Tipo, Especialidade, PMID, Nivel Evidencia)
+  - Manter dashboard e views do UB (ja sao bons)
+- [ ] Criar database "Knowledge Base Medica" (ou adaptar do UB)
+- [ ] Criar database "Inbox Medico" (ou adaptar do UB)
 - [ ] Criar database "Digests Semanais"
 - [ ] Configurar templates de pagina
 
