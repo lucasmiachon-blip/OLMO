@@ -1,8 +1,8 @@
 # ECOSYSTEM.md - Mapa Completo do Ecossistema AI
-> Atualizado: 7 de Marco de 2026
+> Atualizado: 8 de Marco de 2026
 > Perfil: Medico + Developer | Low-code workflow
 > Orquestrador: Claude Opus 4.6 | Auditor: ChatGPT 5.4
-> Ferramentas: Claude Code, Cursor, Claude.ai, Gemini, ChatGPT, Perplexity Max
+> Ferramentas: Claude Code, Cowork, Cursor, Claude.ai, ChatGPT, Gemini, Perplexity Max
 
 ## OBJETIVOS CLAROS
 
@@ -14,24 +14,31 @@
 ### 2. Pipeline: Nota/Paper → Analise MBE → Notion
 - Coloca nota ou paper → sistema dispara buscas
 - Usa Scite (citacoes), Consensus (consenso), Elicit (PICO)
+- Avalia com GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS conforme tipo
 - Critica com rigor MBE como profissional da especialidade
 - Popula Notion com numeros concretos, evidencias, referencias
 
-### 3. Automacao Gmail → Notion
-- Opus 4.6 monitora emails medicos
+### 3. Extracao de Fontes Pagas (UpToDate, DynaMed, Best Practice)
+- Cowork (browser agent) loga e extrai conteudo/PDF
+- ChatGPT Agent como backup para browsing
+- Claude Code processa com skill MBE + publica no Notion
+- Frequencia: 2-3x/semana
+
+### 4. Automacao Gmail → Notion
+- Opus 4.6 monitora emails medicos (2-3x/semana via MCP)
 - Classifica, resume, dispara analise se relevante
 - Popula databases Notion automaticamente
 
-### 4. Knowledge Base Unificada
+### 5. Knowledge Base Unificada
 - Notion: paginas bonitas, databases, digests (compartilhavel)
 - Obsidian: vault local, Zettelkasten, links bidirecionais (pessoal)
 - Zotero: referencias bibliograficas, PDFs, citacoes
 
-### 5. Busca e Pesquisa
-- Perplexity Max: busca web avancada (ja tem)
-- PubMed MCP: 39M+ citacoes (gratuito)
-- arXiv: papers de AI/ML (gratuito)
-- Scite/Consensus/Elicit: critica MBE
+### 6. Ensino e Autoaprimoramento
+- Referenciamento impecavel (PMID, DOI obrigatorios)
+- Skills evoluem com novas ferramentas e checklists
+- Cada projeto tem seu CLAUDE.md especifico
+- Blogs/YouTube de estatisticos de referencia para aprendizado continuo
 
 ## Visao Geral do Ecossistema
 
@@ -47,24 +54,28 @@
 │  │(Sonnet)  │ │          │ │          │ │                  │  │
 │  └────┬─────┘ └────┬─────┘ └────┬─────┘ └────────┬─────────┘  │
 │       │             │            │                 │            │
-│  ┌────┴────┐  ┌─────┴────┐     │           ┌─────┴─────┐     │
-│  │Trend    │  │Data      │     │           │Web        │     │
-│  │Analyzer │  │Pipeline  │     │           │Monitor    │     │
-│  └─────────┘  └──────────┘     │           └───────────┘     │
-│                                 │                              │
+│  ┌────┴────┐  ┌─────┴────┐  ┌───┴──────┐   ┌─────┴─────┐     │
+│  │Trend    │  │Data      │  │Knowledge │   │Web        │     │
+│  │Analyzer │  │Pipeline  │  │Organizer │   │Monitor    │     │
+│  └─────────┘  └──────────┘  └──────────┘   └───────────┘     │
+│                                                                 │
 ├─────────────────────────────────────────────────────────────────┤
 │  EFFICIENCY LAYER                                               │
 │  SmartScheduler │ BudgetTracker │ Cache │ Batch │ LocalFirst   │
 ├─────────────────────────────────────────────────────────────────┤
 │  MCP SERVERS (MEDICAL + DEV)                                    │
-│  healthcare │ pubmed │ biomcp │ context7 │ github │ fetch      │
-│  memory │ brave-search │ sqlite │ filesystem │ puppeteer       │
+│  healthcare │ pubmed │ biomcp │ notion │ gmail │ context7      │
+│  github │ fetch │ memory │ brave-search │ sqlite │ filesystem  │
+├─────────────────────────────────────────────────────────────────┤
+│  BROWSER AGENTS                                                 │
+│  Cowork (UpToDate/DynaMed/BMJ) │ ChatGPT Agent (backup)       │
 ├─────────────────────────────────────────────────────────────────┤
 │  KNOWLEDGE: Notion │ Obsidian │ Zotero │ Perplexity Max       │
 ├─────────────────────────────────────────────────────────────────┤
-│  TOOLS: Claude Code │ Cursor │ Claude.ai │ ChatGPT │ Gemini   │
+│  TOOLS: Claude Code │ Cowork │ Cursor │ Claude.ai │ Canva Pro │
+│         ChatGPT Web │ Gemini Web │ NotebookLM │ Excalidraw    │
 ├─────────────────────────────────────────────────────────────────┤
-│  AUDITOR (ChatGPT 5.4)                                         │
+│  AUDITOR (ChatGPT 5.4 Web - $0)                                │
 │  Code review │ Quality check │ Second opinion │ Validation     │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -73,19 +84,17 @@
 
 ### Orquestrador Principal: Claude Opus 4.6
 - **Papel**: Lider do ecossistema, toma decisoes complexas
-- **Quando usar**: Planejamento, raciocinio multi-step, pesquisa profunda
+- **Quando usar**: Planejamento, raciocinio multi-step, MBE profunda
 - **Custo**: ~$0.05-0.10 por chamada
-- **Budget**: Reservar para tarefas de alta complexidade
 
 ### Subagentes: Claude Sonnet 4.6
 - **Papel**: Executores de tarefas delegadas pelo Opus
 - **Quando usar**: Sumarizacao, analise, codigo, organizacao
 - **Custo**: ~$0.01 por chamada
-- **Budget**: Maioria das tarefas diarias
 
 ### Tarefas Simples: Claude Haiku 4.5
 - **Papel**: Tarefas rapidas e baratas
-- **Quando usar**: Classificacao, extracao, triagem, respostas curtas
+- **Quando usar**: Classificacao, extracao, triagem
 - **Custo**: ~$0.001 por chamada
 
 ### Local: Ollama (Llama 3 / Mistral)
@@ -93,47 +102,48 @@
 - **Quando usar**: Parsing, regex, formatacao, busca local
 - **Custo**: $0.00
 
-### Auditor: ChatGPT 5.4 (OpenAI)
-- **Papel**: Segunda opiniao, validacao, perspectiva diferente
-- **Quando usar**: Code review critico, decisoes importantes, cross-validation
-- **Custo**: ~$0.02-0.05 por chamada
-- **Budget**: 1-2x por semana para auditoria
+### Browser Agents: Cowork + ChatGPT Agent
+- **Papel**: Acessar fontes pagas com login (UpToDate, DynaMed, BMJ)
+- **Quando usar**: Extracao de guidelines/conteudo autenticado
+- **Custo**: $0 (usa planos existentes)
+
+### Auditor: ChatGPT 5.4 (Web)
+- **Papel**: Segunda opiniao, validacao, cross-validation
+- **Quando usar**: Decisoes criticas, code review, auditoria MBE
+- **Custo**: $0 (web)
 
 ## Agents - Detalhamento
 
-### 1. Agente Cientifico
+### 1. Agente Cientifico + Medico
 ```yaml
 nome: cientifico
 modelo: claude-sonnet-4-6
-papel: Pesquisador e analista
+papel: Pesquisador e analista MBE
 capacidades:
-  - Busca em arXiv, Semantic Scholar, PubMed
-  - Sumarizacao de papers (estilo Andrej Karpathy)
+  - Busca em PubMed, arXiv, Semantic Scholar
+  - Analise critica com GRADE, CASP, CONSORT, STROBE, PRISMA
+  - Extracao PICO, NNT, RR, IC 95%
   - Revisao de literatura automatica
-  - Geracao de hipoteses
   - Mapeamento de tendencias
-  - Analise critica de metodologias
 subagentes:
   - TrendAnalyzer: identifica padroes em dados/papers
 skills:
-  - arxiv_search, web_search, summarizer
+  - mbe-evidence, medical-research, arxiv_search, summarizer
 ```
 
 ### 2. Agente de Automacao
 ```yaml
 nome: automacao
-modelo: claude-haiku-4-5  # Simples e barato
-papel: Executor de automacoes
+modelo: claude-haiku-4-5
+papel: Executor de automacoes (2-3x/semana via MCP)
 capacidades:
-  - Regras trigger/action (event-driven)
   - Pipelines de dados configuraveis
-  - Agendamento cron-like
-  - Integracoes via MCP
+  - Integracoes via MCP (Notion, Gmail)
   - Monitoramento e alertas
 subagentes:
   - DataPipeline: ETL e transformacao
 skills:
-  - code_analyzer, code_generator, data_processor, git_manager
+  - code_analyzer, data_processor, git_manager
 ```
 
 ### 3. Agente de Organizacao
@@ -145,11 +155,11 @@ capacidades:
   - GTD (Getting Things Done) completo
   - Eisenhower Matrix para priorizacao
   - Planejamento diario/semanal/mensal
-  - Gestao de projetos
-  - Rastreamento de habitos
   - Reviews automaticos
+subagentes:
+  - KnowledgeOrganizer: Notion + Obsidian + Zotero autonomo
 skills:
-  - content_writer, summarizer
+  - organization, content_writer, notion-publisher
 ```
 
 ### 4. Agente de Atualizacao AI
@@ -162,187 +172,136 @@ capacidades:
   - Compara modelos (benchmarks, custos)
   - Digest semanal curado
   - Recomendacoes de atualizacao
-  - Tracking de ferramentas e frameworks
 subagentes:
   - WebMonitor: verifica fontes periodicamente
 skills:
-  - web_search, summarizer
+  - ai-monitoring, web_search, summarizer
 fontes_monitoradas:
-  - Anthropic Blog (claude, MCP, agent SDK)
-  - OpenAI Blog (GPT, agents, tools)
-  - Google AI Blog (Gemini, DeepMind)
-  - Hugging Face (modelos open-source)
-  - Papers With Code (benchmarks)
-  - arXiv cs.AI (papers)
-  - GitHub Trending (ferramentas)
-  - Hacker News (comunidade)
+  - Anthropic Blog, OpenAI Blog, Google AI Blog
+  - Hugging Face, Papers With Code, arXiv cs.AI
+  - GitHub Trending, Hacker News
 ```
 
 ## Subagentes
 
 | Subagente | Agente Pai | Modelo | Funcao |
 |-----------|-----------|--------|--------|
-| KnowledgeOrganizer | Organizacao | Sonnet | Organiza Notion + Obsidian + Zotero autonomamente |
+| KnowledgeOrganizer | Organizacao | Sonnet | Notion + Obsidian + Zotero autonomo |
 | TrendAnalyzer | Cientifico | Haiku | Identifica padroes e tendencias |
 | DataPipeline | Automacao | Haiku | ETL e processamento de dados |
 | WebMonitor | AI Update | Haiku | Monitora fontes web (RSS, APIs) |
 
-## Skills Completas
+## Skills (Progressive Disclosure)
 
-### Medical Research Skills
-| Skill | Descricao | API? |
-|-------|-----------|------|
-| medical_research | PubMed, ClinicalTrials, guidelines, PICO | MCP |
-| pubmed_search | Busca avancada PubMed (39M+ citacoes) | MCP |
-| clinical_trials | Busca de ensaios clinicos ativos | MCP |
-| drug_info | FDA drug information e interacoes | MCP |
-| icd10_lookup | Busca de codigos CID-10 | MCP |
-| medical_calc | Calculadoras medicas (BMI, etc) | MCP |
+Skills em `.claude/skills/` carregadas sob demanda quando relevantes:
 
-### Research Skills
-| Skill | Descricao | API? |
-|-------|-----------|------|
-| web_search | Busca web multi-provedor | Sim |
-| arxiv_search | Papers academicos | Sim |
-| summarizer | Sumarizacao inteligente | Sim |
+### Medical & MBE
+| Skill | Descricao | Destaque |
+|-------|-----------|---------|
+| mbe-evidence | GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS, NOS | 10 reporting + 10 quality tools |
+| medical-research | PubMed, ClinicalTrials, PICO, niveis evidencia | MCPs medicos |
+| notion-publisher | Templates Notion com estetica profissional | 3 templates |
 
-### Coding Skills
-| Skill | Descricao | API? |
-|-------|-----------|------|
-| code_analyzer | Qualidade e seguranca | Sim |
-| code_generator | Geracao de codigo | Sim |
+### Research & Learning
+| Skill | Descricao |
+|-------|-----------|
+| teaching-improvement | Estudo, referenciamento impecavel, per-project MD |
+| research | Pesquisa academica, arXiv |
+| scientific | Metodologia cientifica |
 
-### Writing Skills
-| Skill | Descricao | API? |
-|-------|-----------|------|
-| content_writer | Blog, docs, emails, reports | Sim |
-
-### Data Skills
-| Skill | Descricao | API? |
-|-------|-----------|------|
-| data_processor | ETL JSON/CSV/YAML | Local |
-
-### DevOps Skills
-| Skill | Descricao | API? |
-|-------|-----------|------|
-| git_manager | Status, log, diff | Local |
-
-### Efficiency Skills (NOVAS)
-| Skill | Descricao | API? |
-|-------|-----------|------|
-| batch_processor | Combina queries | N/A |
-| local_first | Processamento local | Local |
-| response_cache | Cache inteligente | Local |
+### Dev & Productivity
+| Skill | Descricao |
+|-------|-----------|
+| review | Code review multi-agente + OWASP |
+| ai-monitoring | Tracking modelos, tools, benchmarks |
+| automation | Workflow automation |
+| organization | GTD + Eisenhower |
 
 ## MCP Servers
 
-### Medical MCPs (Prioridade CRITICA)
-| MCP Server | Funcao | Notas |
-|------------|--------|-------|
-| healthcare-mcp | PubMed, FDA drugs, ClinicalTrials, CID-10, medRxiv, DICOM, calculadoras | Tudo-em-um para medicos |
-| pubmed-mcp | Busca avancada PubMed (39M+ citacoes), abstracts, artigos relacionados | Pesquisa biomedica |
-| biomcp | PubMed, ClinicalTrials.gov, MyVariant.info, queries em linguagem natural | GenomOncology, variantes |
-
-### Dev & Productivity MCPs
+### Configurados
 | MCP Server | Funcao | Prioridade |
 |------------|--------|-----------|
-| context7 | Docs atualizadas em tempo real para libs/frameworks | CRITICA |
-| filesystem | Leitura/escrita de arquivos | CRITICA |
-| github | Issues, PRs, repos, code search | ALTA |
-| fetch | Busca web, download de conteudo | ALTA |
-| memory | Persistencia de contexto entre sessoes | ALTA |
-| brave-search | Busca web alternativa (2000 req/mo free) | MEDIA |
-| sqlite | Base de dados local para knowledge | MEDIA |
-| puppeteer | Automacao de browser | BAIXA |
+| healthcare-mcp | PubMed, FDA, ClinicalTrials, CID-10, calculadoras | CRITICA |
+| pubmed-mcp | Busca avancada PubMed (39M+ citacoes) | CRITICA |
+| biomcp | PubMed, ClinicalTrials, variantes geneticas | CRITICA |
+| notion | Publicacao de conteudo (HTTP MCP) | CRITICA |
+| gmail | Emails medicos (Google Workspace MCP) | ALTA |
+| context7 | Docs atualizadas para libs/frameworks | ALTA |
+| filesystem | Leitura/escrita de arquivos | ALTA |
+| github | Issues, PRs, repos | ALTA |
+| fetch | Busca web, download | ALTA |
+| memory | Persistencia de contexto | ALTA |
+| brave-search | Busca web (2000 req/mo free) | MEDIA |
+| sqlite | Knowledge base local | MEDIA |
 
-### Planejados (futuro)
-| MCP Server | Funcao | Quando |
-|------------|--------|--------|
-| google-calendar | Integracao com calendario | v0.2 |
-| notion | Integracao com Notion | v0.2 |
-| slack | Notificacoes e comunicacao | v0.3 |
-| arxiv | Busca direta no arXiv | v0.2 |
-| gmail | Leitura e envio de emails | v0.3 |
-| medical-mcp | Queries medicas multi-DB (JamesANZ) | v0.2 |
+## Workflows
 
-## Workflows Operacionais
+### Medicos (ver `workflows/medical_workflow.yaml`)
+1. **paper_to_notion** - Paper → MBE (GRADE) → Notion
+2. **weekly_medical_digest** - Digest semanal Tier 1
+3. **gmail_to_notion** - Gmail medico → Notion
+4. **quick_note_to_evidence** - Nota rapida → evidencia
+5. **paid_source_extraction** - Cowork → UpToDate/DynaMed → MBE → Notion
 
-### Diario (~1-2 API calls)
+### Operacionais (ver `config/workflows.yaml`)
+6. **morning_review** - Digest AI + plano do dia
+7. **weekly_review** - Review GTD + plano semanal
+8. **research_pipeline** - Busca + analise + sintese
+9. **ai_monitoring** - Update modelos + tools
+10. **code_review** - Multi-agente + OWASP
+11. **full_organization** - Inbox + priorizar + plano
+
+## Regra de Ouro
+
 ```
-07:00 - Batch Morning Digest (1 call)
-        → News AI + Tendencias + Plano do dia
-        → Cache por 12h
-
-Sob demanda - Smart Query (0-1 call)
-        → Cache-first, so chama API se necessario
-```
-
-### Semanal (~5-10 API calls)
-```
-Segunda 10:00 - AI Ecosystem Update (1 call)
-        → Novos modelos + Tools + Benchmarks + Precos
-
-Sexta 18:00 - Weekly Deep Review (3 calls)
-        → Review + Inbox + Plano semana + Papers
-
-Sob demanda - Research Sprint (3 calls)
-        → Mapeamento + Analise + Sintese
-```
-
-### Mensal (~5 API calls)
-```
-1o dia - Monthly Audit (2 calls)
-        → Review de custos + Otimizacoes + Tendencias macro
-
-15o dia - Ecosystem Health Check (1 call)
-        → Status de todos os agentes + Melhorias
-
-Sob demanda - ChatGPT Audit (2 calls)
-        → Cross-validation com ChatGPT 5.4
+Claude Code  = FAZER (executar, commitar, automatizar, MCPs)
+Cowork       = EXTRAIR (browser autenticado, fontes pagas, PDFs)
+Cursor       = EDITAR (coding visual, multi-file)
+Claude.ai    = PENSAR (brainstorm, analise, planejamento)
+ChatGPT Web  = VALIDAR (auditoria, $0, Deep Research, browser agent)
+Gemini Web   = PESQUISAR (Drive 30TB, 1M tokens, $0)
+Perplexity   = BUSCAR (fontes citadas, pesquisa rapida)
+NotebookLM   = ESTUDAR (podcasts, Q&A sobre papers)
+Notion       = PUBLICAR (paginas bonitas, databases)
+Obsidian     = CONECTAR (Zettelkasten, links, vault local)
+Zotero       = REFERENCIAR (bibliografias, PDFs, citacoes)
+Canva Pro    = DESIGN (apresentacoes, infograficos, visual)
 ```
 
 ## Budget Mensal Estimado
 
 | Item | Calls/mes | Custo |
 |------|----------|-------|
+| Medical workflows (Opus) | ~70-78 | $2.20-2.60 |
 | Morning Digest (Sonnet) | ~20 | $0.20 |
 | Weekly Review (Sonnet) | 12 | $0.12 |
 | AI Update (Sonnet) | 4 | $0.04 |
 | Research Sprints (Opus) | 6-9 | $0.30-0.45 |
 | Smart Queries (Sonnet) | ~20 | $0.20 |
-| ChatGPT Audit | 4-8 | $0.10-0.20 |
-| **TOTAL** | **66-73** | **$0.96-1.21/mes** |
-
-## API Keys Necessarias
-
-| Servico | Variavel | Obrigatorio | Free Tier |
-|---------|----------|-------------|-----------|
-| Anthropic | ANTHROPIC_API_KEY | Sim | Pay-per-use |
-| OpenAI | OPENAI_API_KEY | Auditor | Pay-per-use |
-| GitHub | GITHUB_TOKEN | MCP | 5000 req/h |
-| Brave Search | BRAVE_API_KEY | MCP | 2000 req/mo free |
-| HuggingFace | HF_TOKEN | Modelos | Free |
+| Cowork/ChatGPT Agent | - | $0 (planos) |
+| MCPs (PubMed, Notion, Gmail) | - | $0 |
+| **TOTAL** | **~130** | **~$3.00-3.60/mes** |
 
 ## Stack Tecnologico (Marco 2026)
 
 ### Modelos AI
-- **Claude Opus 4.6** - Orquestrador (Anthropic, maio 2025+)
-- **Claude Sonnet 4.6** - Subagentes (Anthropic)
-- **Claude Haiku 4.5** - Tarefas simples (Anthropic)
-- **ChatGPT 5.4** - Auditor (OpenAI)
-- **Llama 3.3** - Local via Ollama (Meta, open-source)
-- **Mistral Large 2** - Alternativa local (Mistral)
+- **Claude Opus 4.6** - Orquestrador + MBE profunda
+- **Claude Sonnet 4.6** - Subagentes (1M context beta)
+- **Claude Haiku 4.5** - Tarefas simples
+- **ChatGPT 5.4** - Auditor (web, $0)
+- **Llama 3.3** - Local via Ollama
 
-### Frameworks & Tools
-- **Claude Agent SDK** - Framework de agentes (Anthropic)
-- **MCP (Model Context Protocol)** - Conexao com tools (Linux Foundation)
-- **LangGraph** - Grafos de execucao multi-agente
-- **CrewAI** - Padrao Flows + Crews
-- **Ollama** - LLMs locais
-- **Rich** - Terminal UI bonito
+### Ferramentas
+- **Claude Code v2.1.69** - CLI agent (/batch, /loop, worktrees, skills)
+- **Claude Cowork** - Desktop/browser agent (Skills, scheduled tasks)
+- **Claude Agent SDK** - Python v0.1.48, TS v0.2.71 (TeammateTool)
+- **MCP** - Model Context Protocol (Linux Foundation)
+- **Cursor v2.6** - IDE AI-first (Automations, Cloud Agents)
 
-### Infraestrutura
-- **Python 3.11+** com asyncio
-- **SQLite** para knowledge base local
-- **JSON/YAML** para configuracao
-- **Git** para versionamento e historico
+### Padroes de Arquitetura (baseado nas melhores praticas 2026)
+- **Anthropic**: Subagent orchestration, TeammateTool, progressive disclosure
+- **LangGraph**: Subagents, skills, handoffs, routers
+- **CrewAI**: 3-4 agents por team, YAML config, Pydantic output
+- **Karpathy**: Agentic engineering com supervisao humana
+- **Willison**: Sessoes curtas e focadas, custo rastreado

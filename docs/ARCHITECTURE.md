@@ -1,113 +1,198 @@
 # Arquitetura do Ecossistema de Agentes AI
 
-## Visao Geral
+> Baseado em: Anthropic Agent SDK, LangGraph, CrewAI, Karpathy, Willison
+> Ref: https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk
+> Ref: https://blog.langchain.com/choosing-the-right-multi-agent-architecture/
+> Ref: https://docs.crewai.com/en/guides/agents/crafting-effective-agents
 
-Este ecossistema e composto por **4 agentes principais**, **3 subagentes** e **7 skills reutilizaveis**, coordenados por um **Orchestrator** central.
+## Padroes de Orquestracao
 
-## Diagrama de Arquitetura
+### Padrao Usado: Orchestrator-Workers (Anthropic)
+
+```
+Orchestrator (Opus 4.6)
+├── route_task() → classifica e despacha
+├── run_workflow() → executa pipelines multi-step
+└── delegate() → subagent com contexto isolado
+    ├── Cientifico (Sonnet) → pesquisa, MBE
+    ├── Automacao (Haiku) → pipelines, regras
+    ├── Organizacao (Sonnet) → GTD, projetos
+    └── AtualizacaoAI (Sonnet) → monitoring
+```
+
+Cada subagente tem **contexto isolado** e retorna apenas o resultado
+relevante ao orchestrator. Isso previne poluicao de contexto.
+
+Ref: Anthropic - "Composable Patterns" (prompt chaining, routing,
+parallelization, orchestrator-workers, evaluator-optimizer)
+https://www.anthropic.com/engineering/advanced-tool-use
+
+### Alternativas Consideradas
+
+| Padrao | Quando Usar | Ref |
+|--------|------------|-----|
+| **Subagents** | Paralelizacao + isolamento (USADO) | Anthropic |
+| **Skills** | Agente unico + prompts dinamicos | LangGraph |
+| **Handoffs** | Agente ativo muda dinamicamente | LangGraph |
+| **Router** | Roteamento deterministico por input | LangGraph |
+| **TeammateTool** | Lead + teammates com task list | Anthropic Opus 4.6 |
+
+Ref: LangGraph Multi-Agent Architecture Guide
+https://blog.langchain.com/choosing-the-right-multi-agent-architecture/
+
+### Regra CrewAI: 3-4 Agents por Team
+Nosso ecossistema tem **4 agentes** (cientifico, automacao, organizacao,
+ai_update) + 4 subagentes. Alinhado com best practice CrewAI.
+
+Ref: CrewAI Crafting Effective Agents
+https://docs.crewai.com/en/guides/agents/crafting-effective-agents
+
+## Diagrama Completo
 
 ```
                     ┌─────────────────────┐
                     │    ORCHESTRATOR      │
-                    │  (Agente Principal)  │
+                    │    (Opus 4.6)        │
+                    │  route / workflow    │
                     └──────────┬──────────┘
                                │
-            ┌──────────────────┼──────────────────┐
-            │                  │                  │
-   ┌────────┴────────┐ ┌──────┴──────┐ ┌────────┴────────┐
-   │   CIENTIFICO    │ │  AUTOMACAO  │ │  ORGANIZACAO    │
-   │                 │ │             │ │                 │
-   │ - Pesquisa      │ │ - Regras    │ │ - GTD           │
-   │ - Analise       │ │ - Pipelines │ │ - Eisenhower    │
-   │ - Hipoteses     │ │ - Eventos   │ │ - Projetos      │
-   │ - Tendencias    │ │ - Schedule  │ │ - Habitos       │
-   └────────┬────────┘ └──────┬──────┘ └────────┬────────┘
-            │                  │                  │
-            │           ┌──────┴──────┐          │
-            │           │ ATUALIZACAO │          │
-            │           │     AI      │          │
-            │           │             │          │
-            │           │ - Modelos   │          │
-            │           │ - Tools     │          │
-            │           │ - News      │          │
-            │           │ - Benchmark │          │
-            │           └──────┬──────┘          │
-            │                  │                  │
-   ┌────────┴────────┐ ┌──────┴──────┐ ┌────────┴────────┐
-   │ SUBAGENTES      │ │             │ │                 │
-   │                 │ │             │ │                 │
-   │ TrendAnalyzer   │ │ WebMonitor  │ │ DataPipeline    │
-   └─────────────────┘ └─────────────┘ └─────────────────┘
+          ┌────────────────────┼────────────────────┐
+          │                    │                    │
+ ┌────────┴────────┐  ┌───────┴───────┐  ┌────────┴────────┐
+ │   CIENTIFICO    │  │  AUTOMACAO    │  │  ORGANIZACAO    │
+ │   (Sonnet)      │  │  (Haiku)      │  │  (Sonnet)       │
+ │                 │  │               │  │                 │
+ │ MBE, GRADE      │  │ Pipelines     │  │ GTD, Eisenhower │
+ │ PubMed, arXiv   │  │ Regras, Cron  │  │ Projetos        │
+ │ CASP, CONSORT   │  │ MCPs          │  │ Reviews         │
+ └────────┬────────┘  └───────┬───────┘  └────────┬────────┘
+          │                    │                    │
+          │           ┌───────┴───────┐            │
+          │           │ ATUALIZACAO   │            │
+          │           │ AI (Sonnet)   │            │
+          │           │ Modelos,Tools │            │
+          │           │ News,Bench    │            │
+          │           └───────┬───────┘            │
+          │                    │                    │
+ ┌────────┴────┐  ┌───────┴──────┐  ┌──────┴──────────┐
+ │TrendAnalyzer│  │ WebMonitor   │  │KnowledgeOrganizer│
+ │  (Haiku)    │  │  (Haiku)     │  │   (Sonnet)       │
+ └─────────────┘  └──────────────┘  │Notion+Obsidian   │
+                                     │+Zotero           │
+          ┌──────────┐               └─────────────────┘
+          │DataPipeline│
+          │  (Haiku)   │
+          └────────────┘
+
+ ┌─────────────────────────────────────────────────────┐
+ │  EFFICIENCY LAYER                                    │
+ │  SmartScheduler │ BudgetTracker │ Cache │ Batch     │
+ │                                                      │
+ │  Model Routing:                                      │
+ │  trivial→Ollama($0) │ simple→Haiku │ medium→Sonnet  │
+ │  complex→Opus │ browser→Cowork/ChatGPT              │
+ └─────────────────────────────────────────────────────┘
+
+ ┌─────────────────────────────────────────────────────┐
+ │  MCP SERVERS                                         │
+ │  Medical: healthcare │ pubmed │ biomcp              │
+ │  Prod: notion │ gmail │ context7 │ github │ fetch   │
+ │  Local: memory │ sqlite │ filesystem │ brave-search │
+ └─────────────────────────────────────────────────────┘
+
+ ┌─────────────────────────────────────────────────────┐
+ │  BROWSER AGENTS (fontes pagas)                       │
+ │  Cowork → UpToDate │ DynaMed │ BMJ Best Practice    │
+ │  ChatGPT Agent → backup browser                     │
+ └─────────────────────────────────────────────────────┘
 ```
 
-## Agentes Principais
+## Skills - Progressive Disclosure
 
-### 1. Orchestrator
-- **Funcao**: Coordena todo o ecossistema
-- **Roteamento**: Direciona tarefas para o agente correto
-- **Workflows**: Executa workflows multi-agente
-- **Contexto**: Mantem contexto global compartilhado
+Seguindo best practice Anthropic: skills carregadas **sob demanda**,
+nao sempre-on. Metadata (~100 tokens) no startup, SKILL.md completo
+apenas quando ativado.
 
-### 2. Agente Cientifico
-- **Pesquisa**: Busca em arXiv, Semantic Scholar, PubMed
-- **Analise**: Sumarizacao e analise de papers
-- **Sintese**: Revisoes de literatura automaticas
-- **Hipoteses**: Geracao de hipoteses de pesquisa
+Ref: Anthropic Skill Authoring Best Practices
+https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 
-### 3. Agente de Automacao
-- **Regras**: Sistema de regras trigger/action
-- **Pipelines**: Pipelines de dados configuraveis
-- **Eventos**: Sistema de eventos publish/subscribe
-- **Agendamento**: Cron-like para tarefas recorrentes
+```
+.claude/skills/
+├── mbe-evidence/          # GRADE, CONSORT, STROBE, PRISMA, RoB2...
+├── medical-research/      # PubMed, PICO, niveis evidencia
+├── notion-publisher/      # Templates Notion profissionais
+├── teaching-improvement/  # Estudo, referenciamento, per-project MD
+├── review/                # Code review multi-agente + OWASP
+├── ai-monitoring/         # Tracking modelos e ferramentas
+├── automation/            # Workflow automation
+├── organization/          # GTD + Eisenhower
+├── research/              # Pesquisa academica
+└── scientific/            # Metodologia cientifica
+```
 
-### 4. Agente de Organizacao
-- **GTD**: Metodologia Getting Things Done completa
-- **Eisenhower**: Priorizacao por matriz de Eisenhower
-- **Projetos**: Gestao de projetos pessoais
-- **Reviews**: Revisoes diarias e semanais automaticas
+### Graus de Liberdade (Anthropic Pattern)
+- **Alta liberdade**: pesquisa aberta, brainstorm (cientifico)
+- **Media liberdade**: analise MBE com checklists (mbe-evidence)
+- **Baixa liberdade**: publicacao Notion com template exato (notion-publisher)
 
-### 5. Agente de Atualizacao AI
-- **Modelos**: Registro e comparacao de modelos AI
-- **Monitoramento**: 8+ fontes monitoradas continuamente
-- **Digest**: Resumos curados de novidades
-- **Benchmarks**: Comparacao automatica de performance
+## Workflow Engine
 
-## Skills Reutilizaveis
+Workflows definidos em YAML, executados pelo orchestrator:
 
-| Skill | Descricao | Usada por |
-|-------|-----------|-----------|
-| WebSearch | Busca web multi-provedor | Cientifico, AI Update |
-| ArxivSearch | Busca academica no arXiv | Cientifico |
-| Summarizer | Sumarizacao inteligente | Cientifico, Organizacao |
-| CodeAnalyzer | Analise de codigo | Automacao |
-| CodeGenerator | Geracao de codigo | Automacao |
-| ContentWriter | Criacao de conteudo | Todos |
-| DataProcessor | ETL de dados | Automacao, Cientifico |
-| GitManager | Operacoes Git | DevOps |
+```python
+# Padrao: Prompt Chaining (Anthropic)
+# Output de um step → input do proximo
+steps = [
+    {"type": "local", "action": "parse_input"},       # $0
+    {"type": "mcp", "server": "pubmed-mcp"},           # $0
+    {"type": "api_call", "model": "opus-4.6"},          # $0.05-0.10
+    {"type": "mcp", "server": "notion"},               # $0
+]
+```
 
-## Subagentes
+Ref: Anthropic Advanced Tool Use - Prompt Chaining
+https://www.anthropic.com/engineering/advanced-tool-use
 
-| Subagente | Agente Pai | Funcao |
-|-----------|-----------|--------|
-| WebMonitor | AI Update | Monitora fontes web |
-| DataPipeline | Automacao | Processa dados em pipelines |
-| TrendAnalyzer | Cientifico | Analisa tendencias |
+## Efficiency Layer
 
-## Workflows Pre-definidos
+3 camadas para minimizar custo (Willison pattern):
 
-1. **Revisao Matinal** - Digest AI + Plano do dia + Tendencias
-2. **Revisao Semanal GTD** - Processar inbox + Review + Plano semanal
-3. **Pipeline de Pesquisa** - Busca + Analise + Literature Review
-4. **Monitoramento AI** - Check fontes + Updates + Comparacao
-5. **Code Review** - Analise + Seguranca + Relatorio
-6. **Organizacao Completa** - Inbox + Priorizar + Status + Plano
+1. **Local-First** → regex, parsing, file ops ($0)
+2. **Cache** → TTL por tipo: news 6h, papers 48h, models 1 semana
+3. **Batching** → combina queries relacionadas (80% economia)
 
-## Inspiracoes
+Ref: Simon Willison - custo rastreado por projeto
+https://simonwillison.net/tags/costs/
 
-Baseado nas melhores praticas de:
-- **Anthropic** - Claude Agent SDK, tool use patterns
-- **LangChain** - Agent/Tool architecture, chains
-- **CrewAI** - Multi-agent collaboration, roles
-- **AutoGPT** - Autonomous agent loops
-- **OpenAI** - Function calling, assistants API
-- **Google DeepMind** - Multi-agent research patterns
+## Per-Project CLAUDE.md
+
+Seguindo Anthropic best practice: CLAUDE.md root <60 linhas,
+contexto especifico em subdiretorios.
+
+Ref: Anthropic CLAUDE.md Best Practices
+https://code.claude.com/docs/en/best-practices
+
+```
+organizacao/
+├── CLAUDE.md              # Root: enxuto (~45 linhas)
+├── .claude/
+│   ├── rules/             # Sempre carregadas
+│   │   ├── quality.md
+│   │   └── efficiency.md
+│   └── skills/            # Sob demanda (progressive disclosure)
+├── agents/
+│   └── CLAUDE.md          # Especifico: como criar/modificar agentes
+├── workflows/
+│   └── CLAUDE.md          # Especifico: como criar/modificar workflows
+└── config/
+    └── CLAUDE.md          # Especifico: configuracao e keys
+```
+
+## Principios Arquiteturais
+
+1. **Reversibilidade** - Toda acao de agente deve ser reversivel (Anthropic)
+2. **Human-in-the-loop** - Humano decide, agente executa (Karpathy)
+3. **Sessoes curtas** - Objetivos claros, sem loops de retry (Willison)
+4. **Modelo certo** - Menor modelo que resolve a tarefa (efficiency)
+5. **Referenciamento** - PMID, DOI obrigatorios em conteudo medico
+6. **Determinismo** - Backbone deterministico + inteligencia seletiva (CrewAI)

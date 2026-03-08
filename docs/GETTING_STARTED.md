@@ -3,7 +3,9 @@
 ## Pre-requisitos
 
 - Python 3.11+
-- pip ou uv
+- Node.js 18+ (para MCPs via npx)
+- Claude Code CLI instalado
+- Claude Desktop (para Cowork)
 
 ## Instalacao
 
@@ -12,7 +14,7 @@
 git clone <repo-url>
 cd organizacao
 
-# Crie um ambiente virtual
+# Crie ambiente virtual
 python -m venv .venv
 source .venv/bin/activate
 
@@ -21,7 +23,26 @@ pip install -e ".[dev]"
 
 # Configure variaveis de ambiente
 cp .env.example .env
-# Edite .env com suas API keys
+# Edite .env com suas API keys (ver PENDENCIAS.md)
+```
+
+## MCPs Medicos (Prioridade CRITICA)
+
+```bash
+# Healthcare MCP (PubMed, FDA, ClinicalTrials, CID-10)
+claude mcp add healthcare-mcp npx -- -y healthcare-mcp
+
+# PubMed MCP (busca avancada 39M+ citacoes)
+claude mcp add pubmed-mcp npx -- -y pubmed-mcp
+
+# BioMCP (queries em linguagem natural)
+claude mcp add biomcp npx -- -y biomcp
+
+# Notion MCP (publicacao de conteudo)
+claude mcp add --transport http notion https://mcp.notion.com/mcp
+
+# Context7 (docs atualizadas de libs)
+claude mcp add context7 npx -- -y @anthropic/context7-mcp
 ```
 
 ## Uso Basico
@@ -30,76 +51,96 @@ cp .env.example .env
 # Ver status do ecossistema
 python orchestrator.py status
 
-# Iniciar ecossistema
-python orchestrator.py run
+# Executar workflow medico
+python orchestrator.py workflow paper_to_notion
+python orchestrator.py workflow weekly_medical_digest
+python orchestrator.py workflow quick_note_to_evidence
 
-# Executar workflow especifico
+# Workflows operacionais
 python orchestrator.py workflow morning_review
 python orchestrator.py workflow weekly_review
-python orchestrator.py workflow research_pipeline
 ```
 
-## Uso Programatico
+## Uso com Claude Code
 
-```python
-import asyncio
-from orchestrator import build_ecosystem
+```bash
+# Pesquisa medica rapida
+claude "busque no PubMed sobre metformina e cancer coloretal"
 
-async def main():
-    # Construir ecossistema
-    orch = build_ecosystem()
+# Analise MBE completa
+claude "analise este paper com GRADE e publique no Notion: [PMID]"
 
-    # Executar tarefa de pesquisa
-    result = await orch.execute({
-        "type": "research",
-        "action": "search",
-        "query": "transformer architecture improvements 2026",
-    })
-    print(result)
-
-    # Adicionar tarefa pessoal
-    result = await orch.execute({
-        "type": "organize",
-        "agent": "organizacao",
-        "action": "add_task",
-        "title": "Estudar novo paper sobre LLMs",
-        "priority": "high",
-        "tags": ["estudo", "ai"],
-    })
-    print(result)
-
-    # Ver status
-    status = orch.get_ecosystem_status()
-    print(status)
-
-asyncio.run(main())
+# Digest semanal
+claude "gere o digest medico semanal e publique no Notion"
 ```
+
+## Uso com Cowork (Fontes Pagas)
+
+1. Abrir Claude Desktop → Cowork
+2. Criar Skill "Extrair UpToDate" com instrucoes
+3. Disparar com 1 clique
+4. Cowork loga, extrai, salva em `data/extracted/`
+5. Claude Code processa com skill MBE
 
 ## Estrutura do Projeto
 
 ```
 organizacao/
-├── CLAUDE.md                 # Configuracao do Claude Code
-├── pyproject.toml            # Configuracao do projeto
+├── CLAUDE.md                 # Instrucoes root (enxuto)
+├── ECOSYSTEM.md              # Mapa completo do ecossistema
+├── PENDENCIAS.md             # Checklist de setup
 ├── orchestrator.py           # Entry point principal
 ├── agents/                   # Agentes principais
-│   ├── core/                 # Base + Orchestrator
-│   ├── scientific/           # Agente cientifico
-│   ├── automation/           # Agente de automacao
-│   ├── organization/         # Agente de organizacao
-│   └── ai_update/            # Agente de atualizacao AI
-├── skills/                   # Habilidades reutilizaveis
-│   ├── research/             # Pesquisa e busca
-│   ├── coding/               # Analise e geracao de codigo
-│   ├── writing/              # Criacao de conteudo
-│   ├── data/                 # Processamento de dados
-│   └── devops/               # Git e infraestrutura
+│   ├── core/                 # Base + Orchestrator + Scheduler + Budget
+│   ├── scientific/           # Cientifico + Medico
+│   ├── automation/           # Automacao
+│   ├── organization/         # Organizacao (GTD)
+│   └── ai_update/            # Atualizacao AI
 ├── subagents/                # Subagentes especializados
-│   ├── monitors/             # Monitoramento
-│   ├── processors/           # Processamento
-│   └── analyzers/            # Analise
+│   ├── processors/           # KnowledgeOrganizer, DataPipeline
+│   ├── monitors/             # WebMonitor
+│   └── analyzers/            # TrendAnalyzer
+├── skills/                   # Skills Python reutilizaveis
+│   ├── research/             # web_search, arxiv, summarizer
+│   ├── coding/               # code_analyzer, code_generator
+│   ├── writing/              # content_writer
+│   ├── data/                 # data_processor
+│   ├── devops/               # git_manager
+│   └── efficiency/           # batch, cache, local_first
+├── .claude/
+│   ├── skills/               # Skills Claude Code (sob demanda)
+│   │   ├── mbe-evidence/     # GRADE, CONSORT, STROBE, PRISMA...
+│   │   ├── medical-research/ # PubMed, PICO
+│   │   ├── notion-publisher/ # Templates Notion
+│   │   └── teaching-improvement/ # Estudo, referenciamento
+│   └── rules/                # Regras sempre carregadas
+│       ├── quality.md
+│       └── efficiency.md
 ├── config/                   # Configuracoes YAML
-├── workflows/                # Definicoes de workflows
+│   ├── ecosystem.yaml        # Agentes
+│   ├── workflows.yaml        # Workflows operacionais
+│   ├── rate_limits.yaml      # Budget e limites
+│   ├── tools_ecosystem.yaml  # Ferramentas do ecossistema
+│   ├── mcp/servers.json      # MCP servers
+│   └── keys/                 # Guia de API keys
+├── workflows/                # Workflows medicos
+│   ├── medical_workflow.yaml
+│   └── efficient_workflows.yaml
 ├── templates/                # Templates de prompts
 └── docs/                     # Documentacao
+    ├── ARCHITECTURE.md
+    ├── BEST_PRACTICES.md
+    └── GETTING_STARTED.md
 ```
+
+## Ordem de Setup Recomendada
+
+Ver `PENDENCIAS.md` para checklist completo. Resumo:
+
+1. API keys Anthropic + OpenAI no `.env`
+2. Instalar MCPs medicos (healthcare, pubmed, biomcp)
+3. Configurar Notion MCP + criar databases
+4. Configurar Gmail MCP + criar labels
+5. Testar workflow `quick_note_to_evidence`
+6. Configurar Cowork para fontes pagas
+7. Agendar workflows semanais
