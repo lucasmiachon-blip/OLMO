@@ -89,15 +89,17 @@
   - AI prioriza: erros recorrentes > unicos > conteudo novo
   - Max 20 cards novos/dia, cross-validados
 - [ ] Criar decks por especialidade no Anki
-- [ ] Coletar provas anteriores publicas (ENARE, USP, UNICAMP, UNIFESP, AMB)
+- [ ] **AGUARDANDO**: Usuario vai fornecer **minimo 10 provas reais** (PDFs) ate segunda
+  - Fontes: ENARE, USP, UNICAMP, UNIFESP, AMB, FMUSP, Santa Casa, etc
   - PDFs publicos: provaderesidencia.com.br, fuvest.br, resmedica.com.br
-  - Alimentar exam-generator skill com questoes reais por banca
-- [ ] Avaliar MedMCQA dataset (194k questoes, open source) como complemento
-- [ ] Aprimorar `exam-generator` skill:
-  - Suporte a subespecialidades (cardio, nefro, pneumo, gastro, etc)
-  - Calibracao por banca brasileira (estilo, complexidade, pegadinhas)
-  - Ingestao de PDFs de provas reais → parser de questoes
+  - Quando receber: parser → analise de padroes → calibracao do exam-generator
+- [ ] Aprimorar `exam-generator` skill (APOS receber provas):
+  - Parser PDF → formato estruturado (enunciado, alternativas, gabarito, banca, ano)
+  - Analise de padroes por banca (dificuldade, materias, pegadinhas)
+  - Calibracao por banca brasileira
+  - Subespecialidades: cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato
   - Justificativas com evidencia via BioMCP + PubMed MCP
+- [ ] Avaliar MedMCQA dataset (194k questoes, open source) como complemento
 - [ ] Criar plano macro Mar-Nov no Notion (calendario de estudo)
 - [ ] ~~MedAdapt MCP~~ — DESCARTADO: projeto abandonado (6 stars, sem commits desde mar/2025), overlap total com BioMCP + PubMed MCP ja configurados
 - [ ] Primeiro simulado baseline (120 questoes cronometrado)

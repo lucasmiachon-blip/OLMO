@@ -65,13 +65,22 @@ Auditoria completa foi feita. 15 categorias de conflitos identificados.
 
 ## P1 - PRIORIDADE CONCURSO: EXAM-GENERATOR
 
-Aprimorar `exam-generator` skill para concurso BR:
-- [ ] Coletar PDFs provas reais (ENARE, USP, UNICAMP, UNIFESP, AMB)
-- [ ] Parser de questoes PDF → formato estruturado
-- [ ] Calibracao por banca (estilo, complexidade, pegadinhas tipicas)
-- [ ] Subespecialidades: cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato
-- [ ] Justificativas com evidencia via BioMCP + PubMed MCP
-- [ ] Integracao Anki MCP: cards gerados do Error Log
+### AGUARDANDO DO USUARIO (segunda-feira)
+O usuario vai fornecer **minimo 10 provas reais** (PDFs) para calibracao.
+Fontes: ENARE, USP, UNICAMP, UNIFESP, AMB, FMUSP, Santa Casa, etc.
+**NAO comecar calibracao sem essas provas.** Aguardar upload.
+
+### Quando receber as provas:
+1. [ ] Ingerir PDFs → parser de questoes (enunciado, alternativas, gabarito, banca, ano)
+2. [ ] Analisar padroes por banca: dificuldade, materias mais cobradas, estilo de pegadinha
+3. [ ] Mapear distribuicao de subespecialidades por prova
+4. [ ] Calibrar exam-generator com esses padroes reais
+5. [ ] Gerar questoes no estilo de cada banca, validadas contra o padrao
+6. [ ] Justificativas com evidencia via BioMCP + PubMed MCP
+7. [ ] Integracao Anki MCP: cards gerados do Error Log
+
+### Subespecialidades alvo
+cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato + clinica geral
 
 ## PENDENTE (nao urgente)
 
