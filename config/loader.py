@@ -12,10 +12,9 @@ logger = logging.getLogger("config")
 
 DEFAULT_CONFIG_PATH = Path(__file__).parent / "ecosystem.yaml"
 PROJECT_ROOT = Path(__file__).parent.parent
+# Fonte unica de verdade: config/workflows.yaml (consolidado)
 WORKFLOW_SOURCES = [
     Path(__file__).parent / "workflows.yaml",
-    PROJECT_ROOT / "workflows" / "medical_workflow.yaml",
-    PROJECT_ROOT / "workflows" / "efficient_workflows.yaml",
 ]
 
 

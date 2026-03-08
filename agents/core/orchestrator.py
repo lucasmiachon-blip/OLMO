@@ -7,6 +7,7 @@ import logging
 from typing import Any
 
 from agents.core.base_agent import AgentContext, AgentStatus, BaseAgent, TaskResult
+from agents.core.mcp_safety import OperationMode, SafetyDecision, validate_operation
 
 logger = logging.getLogger("orchestrator")
 
@@ -112,6 +113,23 @@ class Orchestrator(BaseAgent):
         """Registra um workflow no orquestrador."""
         self.workflows[name] = steps
         logger.info(f"Workflow '{name}' registered with {len(steps)} steps")
+
+    def validate_mcp_step(self, step: dict[str, Any]) -> SafetyDecision:
+        """Valida safety de um step MCP antes de executar."""
+        mode_str = step.get("mode", "read_only")
+        mode = OperationMode.WRITE if "write" in mode_str else OperationMode.READ_ONLY
+
+        mcp_op = step.get("mcp_operation", step.get("action", ""))
+        confidence = step.get("confidence", 1.0)
+
+        check = validate_operation(mcp_op, mode, confidence)
+
+        if check.decision == SafetyDecision.BLOCK:
+            logger.warning(f"MCP safety BLOCK: {check.reason}")
+        elif check.decision == SafetyDecision.NEEDS_HUMAN_REVIEW:
+            logger.info(f"MCP safety REVIEW: {check.reason}")
+
+        return check.decision
 
     def get_ecosystem_status(self) -> dict[str, Any]:
         """Retorna o status completo do ecossistema."""

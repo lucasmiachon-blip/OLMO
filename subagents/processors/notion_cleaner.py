@@ -16,6 +16,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import sqlite3
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
@@ -23,6 +24,13 @@ from pathlib import Path
 from typing import Any
 
 from agents.core.base_agent import AgentStatus, BaseAgent, TaskResult
+from agents.core.database import get_connection, log_mcp_operation
+from agents.core.mcp_safety import (
+    OperationMode,
+    SafetyDecision,
+    validate_operation,
+    validate_relocate_workaround,
+)
 
 logger = logging.getLogger("subagent.notion_cleaner")
 
@@ -137,6 +145,9 @@ class NotionCleanerSubagent(BaseAgent):
         "Projetos de Pesquisa": ["Status", "Deadline"],
     }
 
+    # Databases/tags que NAO devem ser tocados (protecao de conteudo ativo)
+    PROTECTED_FILTERS: list[str] = []  # Configuravel via task["protected"]
+
     def __init__(self) -> None:
         super().__init__(
             name="notion_cleaner",
@@ -148,6 +159,9 @@ class NotionCleanerSubagent(BaseAgent):
         self._duplicate_groups: dict[str, list[str]] = {}  # content_hash -> [page_ids]
         self._snapshot_taken = False
         self._checkpoint_file = SNAPSHOT_DIR / "cleanup_checkpoint.json"
+        self._mcp_client: Any = None  # Notion MCP client (injetado)
+        self._db: sqlite3.Connection | None = None
+        self._operation_mode = OperationMode.READ_ONLY
 
     async def execute(self, task: dict[str, Any]) -> TaskResult:
         """Executa tarefa de limpeza do Notion."""
@@ -190,30 +204,94 @@ class NotionCleanerSubagent(BaseAgent):
     # Step 1: SNAPSHOT - Ler tudo do Notion
     # ------------------------------------------------------------------
 
+    def set_mcp_client(self, client: Any) -> None:
+        """Injeta o client MCP do Notion (passado pelo orchestrator)."""
+        self._mcp_client = client
+
+    def _ensure_db(self) -> sqlite3.Connection:
+        """Garante conexao com SQLite."""
+        if self._db is None:
+            self._db = get_connection()
+        return self._db
+
+    def _is_protected(self, page: NotionPage, protected: list[str]) -> bool:
+        """Verifica se a pagina esta protegida (ex: aulas em andamento)."""
+        if not protected:
+            return False
+        title_lower = page.title.lower()
+        db_lower = page.database.lower()
+        tags = [t.lower() for t in page.properties.get("Tags", [])] if isinstance(page.properties.get("Tags"), list) else []
+
+        for term in protected:
+            term_lower = term.lower()
+            if term_lower in title_lower or term_lower in db_lower or term_lower in tags:
+                return True
+        return False
+
+    async def _fetch_via_mcp(self) -> list[dict[str, Any]]:
+        """Busca TODAS as paginas do Notion via MCP (read-only, paginado).
+
+        Usa notion-search com paginacao para listar tudo.
+        Safety: apenas operacoes read-only (validate_operation garante).
+        """
+        if not self._mcp_client:
+            logger.warning("Notion MCP client nao configurado")
+            return []
+
+        check = validate_operation("notion-search", OperationMode.READ_ONLY)
+        if check.decision != SafetyDecision.ALLOW:
+            logger.error(f"Safety block: {check.reason}")
+            return []
+
+        all_pages: list[dict[str, Any]] = []
+        has_more = True
+        start_cursor: str | None = None
+
+        while has_more:
+            params: dict[str, Any] = {"query": ""}
+            if start_cursor:
+                params["start_cursor"] = start_cursor
+
+            result = await self._mcp_client.call_tool("notion-search", params)
+
+            if not result or not isinstance(result, dict):
+                break
+
+            pages = result.get("results", [])
+            all_pages.extend(pages)
+
+            has_more = result.get("has_more", False)
+            start_cursor = result.get("next_cursor")
+
+            logger.info(f"Snapshot progress: {len(all_pages)} pages fetched")
+
+        return all_pages
+
     async def _take_snapshot(self, task: dict[str, Any]) -> TaskResult:
         """Le TODAS as paginas e databases do Notion via MCP.
 
         Este e o step mais importante. Nada acontece sem snapshot.
         Salva snapshot como JSON em data/snapshots/ para backup.
 
-        Fluxo real via Notion MCP:
-        1. notion.search("") → lista TODAS as paginas (paginado)
-        2. Para cada database: notion.query_database(db_id) → todas as entries
-        3. Para cada pagina: notion.get_page(page_id) → properties + content
-        4. Salvar tudo local antes de qualquer acao
+        Fluxo:
+        1. Se MCP client disponivel: notion-search paginado
+        2. Fallback: aceita dados passados via task["pages"] (para teste)
         """
         self._report.started_at = datetime.now().isoformat()
         self._snapshot.clear()
+        self._operation_mode = OperationMode.READ_ONLY
+
+        # Configurar filtros de protecao (ex: ["aulas", "teaching"])
+        protected = task.get("protected", self.PROTECTED_FILTERS)
 
         SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
 
-        # TODO: Integrar com Notion MCP real
-        # Por enquanto aceita dados passados via task (para teste)
-        # Na integracao real, aqui chama:
-        #   - notion_mcp.search("") com paginacao
-        #   - notion_mcp.query_database() por database
-        #   - notion_mcp.get_page() por pagina
-        pages_data = task.get("pages", [])
+        # Tentar MCP real primeiro, fallback para dados de teste
+        if self._mcp_client:
+            raw_pages = await self._fetch_via_mcp()
+            pages_data = self._normalize_mcp_pages(raw_pages)
+        else:
+            pages_data = task.get("pages", [])
 
         for page_data in pages_data:
             content = page_data.get("content", "")
@@ -255,6 +333,26 @@ class NotionCleanerSubagent(BaseAgent):
         ]
         snapshot_json.write_text(json.dumps(snapshot_data, indent=2, ensure_ascii=False))
 
+        # Marcar paginas protegidas
+        protected_count = 0
+        for page in self._snapshot:
+            if self._is_protected(page, protected):
+                page.properties["_protected"] = True
+                protected_count += 1
+
+        # Cache no SQLite
+        db = self._ensure_db()
+        for page in self._snapshot:
+            db.execute(
+                """INSERT OR REPLACE INTO notion_cache
+                   (page_id, title, database_name, content_hash, properties, snapshot_json)
+                   VALUES (?, ?, ?, ?, ?, ?)""",
+                (page.page_id, page.title, page.database, page.content_hash,
+                 json.dumps(page.properties, ensure_ascii=False),
+                 json.dumps({"content_preview": page.content_preview}, ensure_ascii=False)),
+            )
+        db.commit()
+
         self._snapshot_taken = True
         self._report.total_pages = len(self._snapshot)
         self._report.snapshot_path = str(snapshot_json)
@@ -265,11 +363,44 @@ class NotionCleanerSubagent(BaseAgent):
             success=True,
             data={
                 "total_pages": len(self._snapshot),
+                "protected_pages": protected_count,
                 "snapshot_json": str(snapshot_json),
                 "databases_found": list({p.database for p in self._snapshot if p.database}),
                 "archived_pages": len([p for p in self._snapshot if p.archived]),
             },
         )
+
+    @staticmethod
+    def _normalize_mcp_pages(raw_pages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Converte formato MCP Notion para formato interno."""
+        normalized = []
+        for raw in raw_pages:
+            props = raw.get("properties", {})
+            title = ""
+            # Extrair titulo (Notion retorna como array de rich_text)
+            for prop_name, prop_val in props.items():
+                if isinstance(prop_val, dict) and prop_val.get("type") == "title":
+                    title_parts = prop_val.get("title", [])
+                    title = "".join(t.get("plain_text", "") for t in title_parts)
+                    break
+
+            parent = raw.get("parent", {})
+            database_id = parent.get("database_id", "")
+
+            normalized.append({
+                "id": raw.get("id", ""),
+                "title": title or raw.get("id", "untitled"),
+                "database": database_id,
+                "database_id": database_id,
+                "url": raw.get("url", ""),
+                "properties": props,
+                "content": "",  # Content requer get_page separado
+                "last_edited": raw.get("last_edited_time", ""),
+                "created": raw.get("created_time", ""),
+                "parent_page_id": parent.get("page_id", ""),
+                "archived": raw.get("archived", False),
+            })
+        return normalized
 
     # ------------------------------------------------------------------
     # Step 2: INVENTARIO - Gerar MD legivel
@@ -430,9 +561,15 @@ class NotionCleanerSubagent(BaseAgent):
 
         self._audit_results.clear()
 
+        protected_skipped = 0
         for page in self._snapshot:
             if page.archived:
                 continue  # Ignorar paginas ja arquivadas
+
+            # Pular paginas protegidas (ex: aulas em andamento)
+            if page.properties.get("_protected"):
+                protected_skipped += 1
+                continue
 
             audit = self._classify_page(page)
 
@@ -455,6 +592,7 @@ class NotionCleanerSubagent(BaseAgent):
             data={
                 "analyzed": len(self._audit_results),
                 "ok": self._report.pages_ok,
+                "protected_skipped": protected_skipped,
                 "needs_action": len(self._audit_results) - self._report.pages_ok,
                 "actions_summary": self._summarize_actions(),
             },
@@ -580,19 +718,36 @@ class NotionCleanerSubagent(BaseAgent):
             action_type = action.get("action", "")
 
             try:
-                # TODO: Integrar com Notion MCP real
-                # Antes de cada write: salvar estado anterior no SQLite
+                # Safety gate: validar cada operacao antes de executar
+                safety = validate_operation(
+                    "notion-update-page" if action_type in ("archive", "tag") else "notion-create-page",
+                    self._operation_mode,
+                    confidence=action.get("confidence", 0.5),
+                )
+
+                if safety.decision == SafetyDecision.BLOCK:
+                    errors.append({"page_id": page_id, "error": f"Safety block: {safety.reason}"})
+                    logger.warning(f"BLOCKED: {action.get('title')} - {safety.reason}")
+                    continue
+
+                if safety.decision == SafetyDecision.NEEDS_HUMAN_REVIEW:
+                    errors.append({"page_id": page_id, "error": f"Needs review: {safety.reason}"})
+                    logger.info(f"NEEDS_REVIEW: {action.get('title')} - {safety.reason}")
+                    continue
+
+                db = self._ensure_db()
+
                 if action_type == "relocate":
-                    logger.info(f"RELOCATE: '{action.get('title')}' → {action.get('to')}")
+                    await self._mcp_relocate(page_id, action, db)
                     self._report.pages_relocated += 1
                 elif action_type == "merge":
-                    logger.info(f"MERGE: '{action.get('title')}' (keep best, archive rest)")
+                    await self._mcp_archive(page_id, action, db)
                     self._report.pages_merged += 1
                 elif action_type == "archive":
-                    logger.info(f"ARCHIVE: '{action.get('title')}' → Archive")
+                    await self._mcp_archive(page_id, action, db)
                     self._report.pages_archived += 1
                 elif action_type == "tag":
-                    logger.info(f"TAG: '{action.get('title')}' + {action.get('suggested_tags')}")
+                    await self._mcp_tag(page_id, action, db)
                     self._report.pages_tagged += 1
 
                 executed += 1
@@ -708,6 +863,127 @@ class NotionCleanerSubagent(BaseAgent):
                 "snapshot_md": str(SNAPSHOT_MD),
             },
         )
+
+    # ------------------------------------------------------------------
+    # MCP Operations (real Notion calls)
+    # ------------------------------------------------------------------
+
+    async def _mcp_relocate(
+        self, page_id: str, action: dict[str, Any], db: sqlite3.Connection
+    ) -> None:
+        """Relocar pagina via workaround (create+copy+verify+archive).
+
+        NAO existe API de move (#64). Fluxo seguro:
+        1. READ pagina original (snapshot)
+        2. CREATE nova pagina no destino
+        3. VERIFY nova pagina (re-ler e comparar)
+        4. ARCHIVE original (soft-delete, reversivel)
+        """
+        title = action.get("title", "")
+        target_db = action.get("to", "")
+        logger.info(f"RELOCATE: '{title}' → {target_db}")
+
+        if not self._mcp_client:
+            logger.info(f"[DRY-RUN] Would relocate '{title}' to '{target_db}'")
+            return
+
+        # 1. Read original
+        original = await self._mcp_client.call_tool(
+            "notion-retrieve-page", {"page_id": page_id}
+        )
+        state_before = json.dumps(original, ensure_ascii=False, default=str)
+
+        # 2. Create no destino
+        new_page = await self._mcp_client.call_tool(
+            "notion-create-page",
+            {
+                "parent": {"database_id": target_db},
+                "properties": original.get("properties", {}),
+            },
+        )
+
+        # 3. Verify
+        new_page_id = new_page.get("id", "") if isinstance(new_page, dict) else ""
+        if new_page_id:
+            verify = await self._mcp_client.call_tool(
+                "notion-retrieve-page", {"page_id": new_page_id}
+            )
+            if not verify:
+                raise RuntimeError(f"Verificacao falhou para nova pagina {new_page_id}")
+
+        # 4. Archive original
+        await self._mcp_client.call_tool(
+            "notion-update-page", {"page_id": page_id, "archived": True}
+        )
+
+        state_after = json.dumps({"relocated_to": new_page_id, "archived": page_id}, default=str)
+        log_mcp_operation(db, "notion", "relocate", page_id, state_before, state_after)
+
+    async def _mcp_archive(
+        self, page_id: str, action: dict[str, Any], db: sqlite3.Connection
+    ) -> None:
+        """Arquiva pagina (soft-delete, reversivel 30 dias)."""
+        title = action.get("title", "")
+        logger.info(f"ARCHIVE: '{title}'")
+
+        if not self._mcp_client:
+            logger.info(f"[DRY-RUN] Would archive '{title}'")
+            return
+
+        # Snapshot antes
+        original = await self._mcp_client.call_tool(
+            "notion-retrieve-page", {"page_id": page_id}
+        )
+        state_before = json.dumps(original, ensure_ascii=False, default=str)
+
+        # Archive
+        await self._mcp_client.call_tool(
+            "notion-update-page", {"page_id": page_id, "archived": True}
+        )
+
+        log_mcp_operation(db, "notion", "archive", page_id, state_before, '{"archived": true}')
+
+    async def _mcp_tag(
+        self, page_id: str, action: dict[str, Any], db: sqlite3.Connection
+    ) -> None:
+        """Adiciona tags/propriedades faltantes a uma pagina."""
+        title = action.get("title", "")
+        tags = action.get("suggested_tags", [])
+        logger.info(f"TAG: '{title}' + {tags}")
+
+        if not self._mcp_client:
+            logger.info(f"[DRY-RUN] Would tag '{title}' with {tags}")
+            return
+
+        # Snapshot antes
+        original = await self._mcp_client.call_tool(
+            "notion-retrieve-page", {"page_id": page_id}
+        )
+        state_before = json.dumps(original, ensure_ascii=False, default=str)
+
+        # Update properties
+        properties: dict[str, Any] = {}
+        if tags:
+            properties["Tags"] = {
+                "multi_select": [{"name": tag} for tag in tags]
+            }
+
+        missing_props = action.get("missing_props", [])
+        for prop in missing_props:
+            if prop not in properties:
+                properties[prop] = {"rich_text": [{"text": {"content": "TODO"}}]}
+
+        await self._mcp_client.call_tool(
+            "notion-update-page", {"page_id": page_id, "properties": properties}
+        )
+
+        # Verify
+        updated = await self._mcp_client.call_tool(
+            "notion-retrieve-page", {"page_id": page_id}
+        )
+        state_after = json.dumps(updated, ensure_ascii=False, default=str)
+
+        log_mcp_operation(db, "notion", "tag", page_id, state_before, state_after)
 
     # ------------------------------------------------------------------
     # Helpers

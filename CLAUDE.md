@@ -36,7 +36,11 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 Skills carregadas via `.claude/skills/` quando relevantes:
 - `mbe-evidence` → GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS...
 - `medical-research` → PubMed, PICO, niveis de evidencia
+- `scientific` → pesquisa cientifica, hipoteses, literature review
+- `research` → web search, fontes, analise de resultados
 - `notion-publisher` → templates Notion com estetica profissional
+- `organization` → GTD, Eisenhower, inbox, projetos
+- `automation` → regras, pipelines, cron, workflows
 - `teaching-improvement` → ensino, andragogia, concurso, AI fluency, dev AI
 - `review` → code review multi-agente + OWASP
 - `ai-monitoring` → tracking modelos, tools, benchmarks
