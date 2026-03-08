@@ -47,6 +47,8 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - Python 3.11+, type hints, async/await
 - YAML para config, JSON para dados
 - Todo conteudo medico: referenciamento impecavel (PMID, DOI)
+- **Coautoria AI explicita**: todo output credita quem participou (`.claude/rules/coauthorship.md`)
+- Alianca: Opus 4.6 + ChatGPT 5.4 + Gemini 3.1 + Cursor (+ Sonnet, Haiku, Ollama)
 - Notion MCP: protocolo seguro em `.claude/rules/mcp_safety.md`
 - `pytest tests/` | `ruff check .`
 

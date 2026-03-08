@@ -1,8 +1,9 @@
 # ECOSYSTEM.md - Mapa Completo do Ecossistema AI
 > Atualizado: 8 de Marco de 2026
 > Perfil: Medico + Professor + Pesquisador + Developer AI | Low-code workflow
-> Orquestrador: Claude Opus 4.6 | Auditor: ChatGPT 5.4
+> **Alianca Multi-AI**: Claude Opus 4.6 (orquestrador) + ChatGPT 5.4 (auditor) + Gemini 3.1 (pesquisa) + Cursor (coding)
 > Ferramentas: Claude Code, Cowork, Cursor, Claude.ai, ChatGPT, Gemini, Perplexity Max
+> **Coautoria explicita**: todo output credita quem participou (ver `.claude/rules/coauthorship.md`)
 
 ## OBJETIVOS CLAROS
 
@@ -276,6 +277,32 @@ Skills em `.claude/skills/` carregadas sob demanda quando relevantes:
 9. **ai_monitoring** - Update modelos + tools
 10. **code_review** - Multi-agente + OWASP
 11. **full_organization** - Inbox + priorizar + plano
+
+## Pacto de Alianca Multi-AI
+
+Todos os modelos trabalham juntos. **Coautoria sempre explicita.**
+
+### Alianca Principal (participam da maioria das producoes)
+| Membro | Papel | Custo |
+|--------|-------|-------|
+| **Lucas** | Autor principal, decisor final, responsavel ultimo | - |
+| **Claude Opus 4.6** | Orquestrador, MBE profunda, decisoes complexas | API |
+| **ChatGPT 5.4** | Auditor, cross-validation, Deep Research | $0 (Pro) |
+| **Gemini 3.1** | Pesquisa, Google Drive 30TB, contexto 1M tokens | $0 (Pro) |
+| **Cursor** | Coding visual, multi-file, automations | Pro |
+
+### Alianca Estendida (sob demanda)
+| Membro | Papel | Custo |
+|--------|-------|-------|
+| Claude Sonnet 4.6 | Subagentes, execucao delegada | API |
+| Claude Haiku 4.5 | Triagem, classificacao, tarefas simples | API |
+| Ollama (local) | Parsing, formatacao, privacidade | $0 |
+| Perplexity Max | Busca com fontes citadas | Pro |
+| NotebookLM | Estudo, podcasts, Q&A sobre papers | $0 |
+
+### Protocolo de Atribuicao
+Todo output significativo inclui: `Coautoria: Lucas + [modelos]`
+Detalhes completos: `.claude/rules/coauthorship.md`
 
 ## Regra de Ouro
 
