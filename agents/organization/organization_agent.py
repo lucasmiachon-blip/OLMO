@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -279,6 +280,3 @@ class OrganizationAgent(BaseAgent):
                 "inbox_size": len(self.inbox),
             },
         )
-
-
-import asyncio  # noqa: E402 - needed for iscoroutine check

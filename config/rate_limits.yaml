@@ -129,7 +129,7 @@ fallback:
 # BudgetTracker — registro de custos por operacao
 budget_tracker:
   enabled: true
-  storage: "sqlite:/home/user/organizacao/data/knowledge.db"
+  storage: "sqlite:data/knowledge.db"
   table: "budget_log"
   fields: ["timestamp", "agent", "model", "operation", "mcp_server", "cost_usd", "tokens_used"]
   alert_method: "console"
