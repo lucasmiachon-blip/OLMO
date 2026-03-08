@@ -1,17 +1,18 @@
 # HANDOFF - Proxima Sessao
 
 > Atualizado: 8 de Marco de 2026
-> Sessao: Diagnostico completo de conflitos MD/YAML/Python
+> Sessao 4: Pacto de Alianca Multi-AI + Coautoria Explicita
 
 ## CONTEXTO PRINCIPAL
 
 **Concurso nov/2026**: 120 questoes multipla escolha — prioridade do ano.
-Todas as ferramentas e teorias consagradas de estudo devem servir a isso.
+**Alianca Multi-AI**: Opus 4.6 + ChatGPT 5.4 + Gemini 3.1 + Cursor.
+Coautoria explicita em todo output (`.claude/rules/coauthorship.md`).
 
 ## P0 - PROXIMA SESSAO: CORRIGIR CONFLITOS
 
-Auditoria completa foi feita. 15 categorias de conflitos identificados.
-**Amanha: corrigir por prioridade.**
+Auditoria completa foi feita (sessao 3). 15 categorias de conflitos.
+**Corrigir por prioridade.**
 
 ### CRITICAL (corrigir primeiro)
 
@@ -39,7 +40,7 @@ Auditoria completa foi feita. 15 categorias de conflitos identificados.
 10. **Budget estimates** variam: $2.20-2.60 (medical_workflow.yaml) vs $3.00-3.60 (ECOSYSTEM.md) vs $10-40 (ECOSYSTEM.md real estimate)
 11. **Cross-validation thresholds** — Mesmos valores mas terminologia diferente: `human_review` (servers.json) vs `ask_confirmation` (mcp_safety.md)
 
-### ARQUIVOS NAO VERIFICADOS (checar amanha)
+### ARQUIVOS NAO VERIFICADOS (checar)
 
 - `agents/core/smart_scheduler.py`
 - `agents/core/budget_tracker.py`
@@ -47,21 +48,6 @@ Auditoria completa foi feita. 15 categorias de conflitos identificados.
 - `subagents/processors/knowledge_organizer.py`
 - `subagents/processors/data_pipeline.py`
 - `subagents/monitors/web_monitor.py`
-
-## O QUE FOI FEITO (sessoes 1-3)
-
-1. **MCP Config**: 13 MCPs com model routing, Notion = Opus $0 via Pro/Max
-2. **Protocolo Seguro Notion**: `.claude/rules/mcp_safety.md`, bugs reais, modelo harsh
-3. **NotionCleaner**: `notion_cleaner.py` reescrito, snapshot → inventario → plano → execucao
-4. **Ultimate Brain**: registrado como base Notion (Thomas Frank)
-5. **Perfil**: medico + professor + pesquisador + dev AI
-6. **Teaching skill**: slideologia, cognicao, retorica, andragogia, AI fluency, dev AI 2x/semana
-7. **Concurso nov/2026**: estrategia completa (active recall, spaced rep, interleaving, practice testing)
-8. **Auditoria MDs**: KPIs, safety, self-improvement, cross-references, budget fix
-9. **ChatGPT 5.4 MCP**: cross-validation para writes criticos
-10. **Diagnostico completo**: 15 categorias de conflitos entre MD/YAML/Python auditados
-11. **MedAdapt descartado**: projeto abandonado (6 stars, 0 commits em 2026), overlap com BioMCP+PubMed MCP
-12. **Decisao: construir, nao comprar** — AMBOSS (sem PT-BR, calibrado USMLE) e Neural Consult (sem MCP, sem PT-BR) descartados. Foco no exam-generator proprio com provas BR reais
 
 ## P1 - PRIORIDADE CONCURSO: EXAM-GENERATOR
 
@@ -81,6 +67,23 @@ Fontes: ENARE, USP, UNICAMP, UNIFESP, AMB, FMUSP, Santa Casa, etc.
 
 ### Subespecialidades alvo
 cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato + clinica geral
+
+## O QUE FOI FEITO (sessoes 1-4)
+
+1. **MCP Config**: 13 MCPs com model routing, Notion = Opus $0 via Pro/Max
+2. **Protocolo Seguro Notion**: `.claude/rules/mcp_safety.md`, bugs reais, modelo harsh
+3. **NotionCleaner**: `notion_cleaner.py` reescrito, snapshot → inventario → plano → execucao
+4. **Ultimate Brain**: registrado como base Notion (Thomas Frank)
+5. **Perfil**: medico + professor + pesquisador + dev AI
+6. **Teaching skill**: slideologia, cognicao, retorica, andragogia, AI fluency, dev AI 2x/semana
+7. **Concurso nov/2026**: estrategia completa (active recall, spaced rep, interleaving, practice testing)
+8. **Auditoria MDs**: KPIs, safety, self-improvement, cross-references, budget fix
+9. **ChatGPT 5.4 MCP**: cross-validation para writes criticos
+10. **Diagnostico completo**: 15 categorias de conflitos entre MD/YAML/Python auditados
+11. **MedAdapt descartado**: projeto abandonado (6 stars, 0 commits em 2026), overlap com BioMCP+PubMed MCP
+12. **Decisao: construir, nao comprar** — AMBOSS (sem PT-BR, calibrado USMLE) e Neural Consult (sem MCP, sem PT-BR) descartados
+13. **Pacto de Alianca Multi-AI** — coautoria explicita formalizada (`.claude/rules/coauthorship.md`)
+14. **ECOSYSTEM.md** — secao Alianca com tabela de membros, papeis e protocolo de atribuicao
 
 ## PENDENTE (nao urgente)
 
