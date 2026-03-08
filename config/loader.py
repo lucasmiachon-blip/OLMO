@@ -11,6 +11,7 @@ import yaml
 logger = logging.getLogger("config")
 
 DEFAULT_CONFIG_PATH = Path(__file__).parent / "ecosystem.yaml"
+RATE_LIMITS_PATH = Path(__file__).parent / "rate_limits.yaml"
 PROJECT_ROOT = Path(__file__).parent.parent
 # Fonte unica de verdade: config/workflows.yaml (consolidado)
 WORKFLOW_SOURCES = [
@@ -58,6 +59,21 @@ def load_workflows(workflows_path: Path | None = None) -> dict[str, Any]:
             logger.info(f"Workflows loaded from {path}")
 
     return {"workflows": merged}
+
+
+def load_rate_limits(path: Path | None = None) -> dict[str, Any]:
+    """Carrega configuracao de rate limits e budget."""
+    rate_path = path or RATE_LIMITS_PATH
+
+    if not rate_path.exists():
+        logger.warning(f"Rate limits file not found: {rate_path}, using defaults")
+        return {"budget": {"monthly": {"max_cost_usd": 100.0}}}
+
+    with open(rate_path) as f:
+        config = yaml.safe_load(f)
+
+    logger.info(f"Rate limits loaded from {rate_path}")
+    return config
 
 
 def _default_config() -> dict[str, Any]:
