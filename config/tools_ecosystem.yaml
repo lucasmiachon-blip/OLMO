@@ -50,6 +50,43 @@ tools:
       - "@codebase - referencia ao projeto inteiro"
     complementa: "Claude Code (Cursor para visual, Claude Code para CLI)"
 
+  claude_cowork:
+    tipo: "AI Desktop Agent + Browser Agent"
+    uso: "Automacao desktop, browser autenticado, extracao de conteudo"
+    plano: "Claude Pro/Max (ja tem)"
+    modelo: "claude-opus-4-6"
+    quando_usar:
+      - "Logar em UpToDate, DynaMed, Best Practice via browser"
+      - "Extrair PDFs e conteudo de fontes autenticadas"
+      - "Tarefas multi-step no desktop (organizar arquivos, pesquisa)"
+      - "Rodar multiplas sessoes em paralelo"
+      - "Skills customizadas (workflows salvos)"
+    features_chave:
+      - "Browser agent (Claude in Chrome) - navega autenticado"
+      - "Desktop agent - leitura/escrita de arquivos locais"
+      - "Multi-session - varias tarefas simultaneas"
+      - "Skills - workflows salvos reutilizaveis"
+      - "1M context window (Opus 4.6)"
+    papel_no_ecossistema: "EXTRAIR conteudo de fontes pagas (UpToDate, DynaMed, Best Practice)"
+    workflow_medico: |
+      1. Cowork abre browser → loga na fonte (UpToDate/DynaMed/BMJ)
+      2. Navega ate o topico → extrai conteudo/PDF
+      3. Salva na pasta compartilhada
+      4. Claude Code processa com skill MBE
+      5. Publica no Notion com referenciamento
+
+  chatgpt_agent:
+    tipo: "Browser Agent (ChatGPT Operator/Atlas)"
+    uso: "Browsing autenticado, alternativa ao Cowork"
+    plano: "ChatGPT Plus/Pro"
+    custo_api: "$0 - usar via web"
+    quando_usar:
+      - "Alternativa ao Cowork para browsing autenticado"
+      - "Extrair conteudo de fontes medicas pagas"
+      - "Deep Research com browsing real"
+      - "Quando Cowork nao consegue acessar um site"
+    papel_no_ecossistema: "BACKUP browser agent para extracao de fontes pagas"
+
 # ============================================================
 # FERRAMENTAS DE CONSULTA (uso semanal)
 # ============================================================
@@ -299,9 +336,10 @@ workflow_diario:
 # REGRA DE OURO
 # ============================================================
 # Claude Code  = FAZER (executar, commitar, automatizar, MCPs)
+# Cowork       = EXTRAIR (browser autenticado, fontes pagas, PDFs)
 # Cursor       = EDITAR (coding visual, multi-file)
 # Claude.ai    = PENSAR (brainstorm, analise, planejamento)
-# ChatGPT Web  = VALIDAR (auditoria, $0, Deep Research)
+# ChatGPT Web  = VALIDAR (auditoria, $0, Deep Research, browser agent)
 # Gemini Web   = PESQUISAR (Drive 30TB, 1M tokens, $0)
 # Perplexity   = BUSCAR (fontes citadas, pesquisa rapida)
 # NotebookLM   = ESTUDAR (podcasts, Q&A sobre papers)
