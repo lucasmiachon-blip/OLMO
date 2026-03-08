@@ -96,11 +96,56 @@ ai_models:
     provider: "anthropic"
     model: "claude-opus-4-6"
     max_tokens: 8192
+    role: "Analise profunda, sintese, decisoes criticas"
   fast:
     provider: "anthropic"
     model: "claude-sonnet-4-6"
     max_tokens: 4096
-  fallback:
+    role: "Processamento medio, sumarizacao, queries"
+  triage:
     provider: "openai"
-    model: "gpt-4o"
+    model: "chatgpt-5.4"
     max_tokens: 4096
+    role: "Triagem rapida, classificacao, filtragem"
+  local:
+    provider: "ollama"
+    model: "llama3.3"
+    max_tokens: 4096
+    role: "Operacoes triviais (parsing, file ops, SQL)"
+
+# MCP Servers - Routing por Modelo
+# Definicao completa em config/mcp/servers.json
+mcp_routing:
+  # 5.4 = triagem barata | Sonnet = medio | Opus = profundo | Local = trivial
+  chatgpt_5_4:  # ~$0.005/call
+    - "healthcare-mcp:search_filter"
+    - "pubmed-mcp:search_triage"
+    - "gmail:read_classify"
+    - "github:read_triage"
+    - "fetch:fetch_parse"
+    - "brave-search:search_filter"
+    - "notion:triage"
+
+  claude_sonnet:  # ~$0.01/call
+    - "healthcare-mcp:extract_data"
+    - "pubmed-mcp:summarize_abstract"
+    - "biomcp:query"
+    - "notion:read"
+    - "notion:write_simple"
+    - "gmail:summarize"
+    - "context7:all"
+    - "brave-search:analyze"
+    - "memory:synthesize"
+
+  claude_opus:  # ~$0.05-0.10/call
+    - "healthcare-mcp:analyze_evidence"
+    - "pubmed-mcp:systematic_review"
+    - "biomcp:interpret"
+    - "notion:write_complex"
+    - "gmail:compose"
+    - "github:code_review"
+
+  local_ollama:  # $0.00
+    - "filesystem:all"
+    - "sqlite:all"
+    - "memory:store_retrieve"

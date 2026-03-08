@@ -1,90 +1,216 @@
 {
   "mcpServers": {
+
     "notion": {
       "type": "http",
       "url": "https://mcp.notion.com/mcp",
-      "description": "Notion: criar paginas, databases, atualizar conteudo. Publicar resumos MBE, digests, knowledge base.",
+      "description": "Notion oficial: criar paginas, databases, atualizar conteudo. Knowledge base, digests, inbox.",
       "priority": "critical",
-      "notes": "OAuth via browser. Setup: claude mcp add --transport http notion https://mcp.notion.com/mcp",
-      "pendencia": "ASSINAR: Notion (free tier funciona, Plus para databases ilimitados)"
+      "auth": "OAuth via browser",
+      "setup": "claude mcp add --transport http notion https://mcp.notion.com/mcp",
+      "cost": "$0 (free tier funciona)",
+      "model_routing": {
+        "read": "claude-sonnet-4-6",
+        "triage": "chatgpt-5.4",
+        "write_simple": "claude-sonnet-4-6",
+        "write_complex": "claude-opus-4-6",
+        "notes": "Leitura/triagem → Sonnet/5.4 (barato). Publicacao com formatacao rica → Opus."
+      }
     },
+
     "gmail": {
       "command": "npx",
       "args": ["-y", "@anthropic-ai/google-workspace-mcp"],
-      "description": "Google Workspace: Gmail + Calendar + Drive. Ler emails medicos, newsletters, alertas.",
+      "description": "Google Workspace: Gmail + Calendar + Drive. Emails medicos, newsletters, alertas.",
       "priority": "critical",
-      "notes": "MCP oficial do Google (marco 2026). Inclui --sanitize para protecao. OAuth Google.",
-      "pendencia": "CONFIGURAR: OAuth Google Workspace"
+      "auth": "OAuth Google",
+      "cost": "$0",
+      "model_routing": {
+        "read_classify": "chatgpt-5.4",
+        "summarize": "claude-sonnet-4-6",
+        "compose": "claude-opus-4-6",
+        "notes": "Classificar emails → 5.4 (rapido, barato). Sumarizar → Sonnet. Compor resposta medica → Opus."
+      }
     },
+
     "healthcare-mcp": {
       "command": "npx",
       "args": ["-y", "healthcare-mcp-public"],
-      "description": "Healthcare: PubMed, FDA drugs, ClinicalTrials, CID-10, medRxiv, NCBI Bookshelf, DICOM, calculadoras medicas",
+      "description": "Healthcare all-in-one: PubMed, FDA drugs, ClinicalTrials, CID-10, medRxiv, NCBI Bookshelf, calculadoras medicas.",
       "priority": "critical",
-      "notes": "Gratuito. Tudo-em-um para medicos."
+      "cost": "$0",
+      "model_routing": {
+        "search_filter": "chatgpt-5.4",
+        "extract_data": "claude-sonnet-4-6",
+        "analyze_evidence": "claude-opus-4-6",
+        "notes": "Busca + filtragem inicial → 5.4. Extracao PICO → Sonnet. Analise GRADE/critica → Opus."
+      }
     },
+
     "pubmed-mcp": {
       "command": "npx",
       "args": ["-y", "@cyanheads/pubmed-mcp-server"],
-      "description": "PubMed avancado: busca, abstracts, artigos relacionados, analise de literatura biomedica",
+      "description": "PubMed avancado: busca, abstracts, artigos relacionados, analise de literatura biomedica. 39M+ citacoes.",
       "priority": "critical",
-      "notes": "Gratuito. 39M+ citacoes."
+      "cost": "$0",
+      "model_routing": {
+        "search_triage": "chatgpt-5.4",
+        "summarize_abstract": "claude-sonnet-4-6",
+        "systematic_review": "claude-opus-4-6",
+        "notes": "Triagem de resultados → 5.4. Resumo de abstracts → Sonnet. Revisao sistematica/sintese → Opus."
+      }
     },
+
     "biomcp": {
       "command": "uvx",
       "args": ["biomcp", "run"],
       "description": "BioMCP: PubMed, ClinicalTrials.gov, MyVariant.info. Queries biomedicas em linguagem natural.",
       "priority": "high",
-      "notes": "Gratuito. GenomOncology."
+      "cost": "$0",
+      "model_routing": {
+        "query": "claude-sonnet-4-6",
+        "interpret": "claude-opus-4-6",
+        "notes": "Query formulation → Sonnet. Interpretacao clinica dos resultados → Opus."
+      }
     },
+
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"],
       "description": "Documentacao atualizada em tempo real para qualquer lib/framework.",
       "priority": "critical",
-      "notes": "Free tier: 1000 req/mo."
+      "cost": "$0 (free: 1000 req/mo)",
+      "model_routing": {
+        "all": "claude-sonnet-4-6",
+        "notes": "Sempre Sonnet. Docs de libs sao contexto direto, nao precisa de raciocinio profundo."
+      }
     },
+
     "filesystem": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "/home/user/organizacao"],
-      "description": "Acesso a arquivos do projeto",
-      "priority": "critical"
+      "description": "Acesso a arquivos do projeto.",
+      "priority": "critical",
+      "cost": "$0",
+      "model_routing": {
+        "all": "local-ollama",
+        "notes": "File ops sao triviais. Modelo local quando possivel, senao Sonnet."
+      }
     },
+
     "github": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-github"],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
       },
-      "description": "GitHub: issues, PRs, repos, code search",
-      "priority": "high"
+      "description": "GitHub: issues, PRs, repos, code search.",
+      "priority": "high",
+      "cost": "$0 (5000 req/h)",
+      "model_routing": {
+        "read_triage": "chatgpt-5.4",
+        "code_review": "claude-opus-4-6",
+        "notes": "Listar issues/PRs → 5.4. Code review profundo → Opus."
+      }
     },
+
     "fetch": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-fetch"],
-      "description": "Busca e download de conteudo web",
-      "priority": "high"
+      "description": "Busca e download de conteudo web.",
+      "priority": "high",
+      "cost": "$0",
+      "model_routing": {
+        "fetch_parse": "chatgpt-5.4",
+        "analyze_content": "claude-sonnet-4-6",
+        "notes": "Fetch + parse basico → 5.4. Analise de conteudo → Sonnet."
+      }
     },
+
     "memory": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-memory"],
-      "description": "Persistencia de contexto entre sessoes",
-      "priority": "high"
+      "description": "Persistencia de contexto entre sessoes. Knowledge graph local.",
+      "priority": "high",
+      "cost": "$0",
+      "model_routing": {
+        "store_retrieve": "local-ollama",
+        "synthesize": "claude-sonnet-4-6",
+        "notes": "CRUD de memoria → local. Sintetizar memorias para decisao → Sonnet."
+      }
     },
+
     "brave-search": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-brave-search"],
       "env": {
         "BRAVE_API_KEY": "${BRAVE_API_KEY}"
       },
-      "description": "Busca web via Brave (2000 req/mo free)",
-      "priority": "medium"
+      "description": "Busca web via Brave Search.",
+      "priority": "medium",
+      "cost": "$0 (free: 2000 req/mo)",
+      "model_routing": {
+        "search_filter": "chatgpt-5.4",
+        "analyze": "claude-sonnet-4-6",
+        "notes": "Busca + filtragem → 5.4. Analise de resultados → Sonnet."
+      }
     },
+
     "sqlite": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-sqlite", "data/knowledge.db"],
-      "description": "Base de dados local para knowledge base",
-      "priority": "medium"
+      "description": "Base de dados local para knowledge base, cache, metricas.",
+      "priority": "medium",
+      "cost": "$0",
+      "model_routing": {
+        "all": "local-ollama",
+        "notes": "SQL queries sao triviais. Sempre local."
+      }
+    }
+  },
+
+  "model_routing_summary": {
+    "chatgpt-5.4": {
+      "role": "Triagem rapida, classificacao, filtragem",
+      "cost": "~$0.005/call",
+      "use_for": [
+        "Filtrar resultados de busca (PubMed, Healthcare, Brave)",
+        "Classificar emails (Gmail)",
+        "Triagem de issues/PRs (GitHub)",
+        "Parse de conteudo web (Fetch)"
+      ]
+    },
+    "claude-sonnet-4-6": {
+      "role": "Processamento medio, sumarizacao, queries",
+      "cost": "~$0.01/call",
+      "use_for": [
+        "Sumarizar abstracts e papers",
+        "Escrever paginas Notion simples",
+        "Formular queries biomedicas",
+        "Consultar docs de libs (Context7)",
+        "Sintetizar memorias"
+      ]
+    },
+    "claude-opus-4-6": {
+      "role": "Analise profunda, sintese, decisoes criticas",
+      "cost": "~$0.05-0.10/call",
+      "use_for": [
+        "Analise GRADE de evidencia",
+        "Revisao sistematica (PubMed)",
+        "Publicacao Notion com formatacao rica",
+        "Code review profundo (GitHub)",
+        "Interpretacao clinica (BioMCP)",
+        "Composicao de respostas medicas (Gmail)"
+      ]
+    },
+    "local-ollama": {
+      "role": "Operacoes triviais",
+      "cost": "$0.00",
+      "use_for": [
+        "File operations (Filesystem)",
+        "SQL queries (SQLite)",
+        "CRUD de memoria (Memory)"
+      ]
     }
   }
 }
