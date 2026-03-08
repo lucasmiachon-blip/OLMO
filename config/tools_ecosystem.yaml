@@ -75,46 +75,98 @@ tools:
       - "200K context window"
 
   chatgpt:
-    tipo: "Chat Web + API"
+    tipo: "Chat Web (SEM gastar com CLI/API)"
     url: "https://chatgpt.com"
-    uso: "Auditor, segunda opiniao, cross-validation"
+    uso: "Auditor, segunda opiniao, pesquisa web, analise de dados"
+    custo_api: "$0 - usar via web apenas"
     modelos_disponiveis:
       - "gpt-5.4"            # Mais recente
       - "gpt-4o"
-      - "gpt-4o-mini"
       - "o3"                 # Reasoning
     quando_usar:
-      - "Auditoria de codigo (segunda opiniao)"
+      - "Auditoria de codigo (segunda opiniao via web)"
       - "Cross-validation de respostas do Claude"
       - "Browsing web em tempo real"
-      - "DALL-E para imagens"
-      - "Code Interpreter para dados"
+      - "Code Interpreter para analise de dados"
+      - "Canvas para edicao colaborativa"
+      - "Deep Research para pesquisa longa"
     features_chave:
-      - "GPTs customizados"
-      - "Web browsing"
+      - "GPTs customizados (criar GPT MBE)"
+      - "Web browsing nativo"
       - "Code Interpreter"
-      - "DALL-E"
+      - "DALL-E para imagens"
       - "Canvas"
-    papel_no_ecossistema: "AUDITOR - valida outputs criticos"
+      - "Deep Research"
+    papel_no_ecossistema: "AUDITOR + PESQUISA WEB (custo $0)"
 
   gemini:
-    tipo: "Chat Web + API"
+    tipo: "Chat Web + Google Workspace (SEM gastar com API)"
     url: "https://gemini.google.com"
-    uso: "Contexto longo, integracao Google, alternativa"
+    uso: "Contexto longo, Google Drive 30TB, NotebookLM, pesquisa"
+    custo_api: "$0 - usar via web + Google One Ultra"
+    plano: "Google One Ultra (30TB Drive)"
     modelos_disponiveis:
       - "gemini-2.0-pro"
       - "gemini-2.0-flash"
     quando_usar:
       - "Documentos muito longos (1M tokens)"
-      - "Integracao com Google Workspace"
+      - "Pesquisa com Google Search grounding"
+      - "Analise de PDFs e papers do Google Drive"
       - "Terceira opiniao quando Claude e ChatGPT divergem"
-      - "Analise de video/audio"
+      - "Multimodal (video, audio, imagens)"
+      - "Automacoes com Google Workspace"
     features_chave:
       - "1M token context window"
-      - "Multimodal (texto, imagem, audio, video)"
-      - "Google Workspace integration"
+      - "Multimodal completo"
+      - "Google Workspace integration nativa"
       - "Grounding com Google Search"
-    papel_no_ecossistema: "BACKUP + contexto longo"
+      - "Gems (agentes customizados)"
+      - "Acesso ao Google Drive 30TB"
+    papel_no_ecossistema: "PESQUISADOR + STORAGE (custo $0 - ja tem Ultra)"
+
+  notebooklm:
+    tipo: "Ferramenta Google de Estudo"
+    url: "https://notebooklm.google.com"
+    uso: "Estudar papers, criar podcasts, analise profunda de fontes"
+    custo: "$0 (incluso no Google)"
+    quando_usar:
+      - "Upload de papers/PDFs para estudo profundo"
+      - "Gerar Audio Overview (podcast sobre os papers)"
+      - "Criar notas de estudo a partir de multiplas fontes"
+      - "Comparar fontes lado a lado"
+      - "Estudar para provas, concursos, atualizacao medica"
+    features_chave:
+      - "Upload de PDFs, Google Docs, YouTube, websites"
+      - "Audio Overview (podcast AI sobre seus docs)"
+      - "Q&A sobre suas fontes com citacoes"
+      - "Notas e resumos automaticos"
+      - "Compartilhar notebooks"
+    papel_no_ecossistema: "ESTUDAR papers e gerar material de estudo"
+    workflow_medico: |
+      1. Upload papers relevantes do PubMed
+      2. NotebookLM gera Audio Overview (podcast)
+      3. Usar Q&A para tirar duvidas sobre metodologia
+      4. Exportar notas para Notion/Obsidian
+
+  perplexity:
+    tipo: "Busca AI Avancada"
+    url: "https://perplexity.ai"
+    plano: "Perplexity Max (ja tem)"
+    uso: "Busca web avancada com citacoes, pesquisa medica rapida"
+    custo: "$0 (ja assina)"
+    quando_usar:
+      - "Busca rapida com fontes citadas"
+      - "Pesquisa medica inicial (antes de PubMed deep dive)"
+      - "Noticias e tendencias atuais"
+      - "Comparar informacoes de multiplas fontes"
+      - "Perguntas factuais que precisam de fontes"
+    features_chave:
+      - "Busca web com citacoes inline"
+      - "Pro Search (pesquisa profunda)"
+      - "Spaces (colecoes tematicas)"
+      - "Upload de arquivos"
+      - "API disponivel"
+    papel_no_ecossistema: "BUSCA RAPIDA com fontes (custo $0 - ja tem)"
 
 # ============================================================
 # WORKFLOW DE USO DIARIO
@@ -126,26 +178,113 @@ workflow_diario:
     visual: "cursor"               # IDE para editing
     consulta: "claude_ai"          # Chat para brainstorm
 
-  pesquisa:
-    primario: "claude_ai"          # Analise profunda
-    papers: "claude_code"          # Skills de pesquisa
-    dados_longos: "gemini"         # 1M tokens
+  pesquisa_medica:
+    busca_rapida: "perplexity"       # Pesquisa inicial com fontes
+    pubmed: "claude_code"            # MCP PubMed (gratuito)
+    deep_dive: "gemini"              # 1M tokens, Google Search
+    estudo: "notebooklm"             # Podcast + Q&A sobre papers
+    critica: "chatgpt"               # Segunda opiniao MBE (web, $0)
+
+  pesquisa_dev:
+    primario: "claude_ai"            # Analise profunda
+    papers: "claude_code"            # Skills + MCPs
+    dados_longos: "gemini"           # 1M tokens
 
   auditoria:
-    primario: "chatgpt"            # Segunda opiniao
-    cross_check: "gemini"          # Terceira opiniao
-    final: "claude_code"           # Aplicar correcoes
+    primario: "chatgpt"              # Segunda opiniao (web, $0)
+    cross_check: "gemini"            # Terceira opiniao (web, $0)
+    final: "claude_code"             # Aplicar correcoes
 
   organizacao:
-    primario: "claude_code"        # Workflows automatizados
-    brainstorm: "claude_ai"        # Planejamento
-    visual: "cursor"               # Editing de configs
+    notion: "claude_code"            # MCP Notion automatizado
+    obsidian: "claude_code"          # Sync via subagente
+    brainstorm: "claude_ai"          # Planejamento
+    storage: "gemini"                # Google Drive 30TB
+
+# ============================================================
+# FERRAMENTAS DE AUTOMACAO (Low-Code)
+# ============================================================
+
+  make:
+    tipo: "Automacao Low-Code"
+    url: "https://www.make.com"
+    uso: "Conectar ferramentas sem codigo, automacoes visuais"
+    custo: "Free (1000 ops/mo) ou Core ($10/mo)"
+    quando_usar:
+      - "Gmail → Notion (quando email medico chega)"
+      - "PubMed alert → processar → Notion"
+      - "Agendar digests semanais"
+      - "Webhook triggers para workflows"
+      - "Conectar ferramentas que nao tem MCP"
+    features_chave:
+      - "Visual workflow builder"
+      - "1000+ integracoes (Gmail, Notion, Slack, etc)"
+      - "Webhooks para triggers customizados"
+      - "HTTP module para APIs"
+      - "Scenarios com branching e loops"
+    papel_no_ecossistema: "CONECTAR ferramentas sem codigo"
+    workflows_medicos:
+      - "Email PubMed Alert → Make → Notion database"
+      - "Zotero new item → Make → Obsidian note"
+      - "Google Calendar evento → Make → Notion reminder"
+      - "Form de paciente → Make → Notion + Reminder"
+
+  n8n:
+    tipo: "Automacao Self-Hosted"
+    url: "https://n8n.io"
+    uso: "Automacao avancada, self-hosted, sem limites"
+    custo: "Free (self-hosted) ou Cloud ($20/mo)"
+    quando_usar:
+      - "Automacoes complexas que excedem free tier do Make"
+      - "Precisa de controle total (self-hosted)"
+      - "Integracoes com AI models diretamente"
+      - "Processar dados sensiveis (LGPD/HIPAA)"
+    features_chave:
+      - "Self-hosted (privacidade total)"
+      - "400+ integracoes"
+      - "AI nodes (Claude, GPT, Ollama)"
+      - "Code nodes (Python, JS)"
+      - "Sem limites no self-hosted"
+    papel_no_ecossistema: "AUTOMACAO AVANCADA (quando Make nao basta)"
+    nota: "Usar Make primeiro (mais simples). n8n para casos avancados."
+
+# ============================================================
+# FERRAMENTAS QUE COMPLETAM O ECOSSISTEMA
+# ============================================================
+
+  zapier:
+    tipo: "Automacao (alternativa ao Make)"
+    url: "https://zapier.com"
+    custo: "Free (100 tasks/mo) ou $20/mo"
+    nota: "Make e mais flexivel e barato. Zapier como backup."
+
+  raycast:
+    tipo: "Launcher + AI"
+    url: "https://raycast.com"
+    custo: "Free (launcher) ou Pro ($8/mo para AI)"
+    quando_usar:
+      - "Acesso rapido a qualquer ferramenta"
+      - "Snippets e clipboard history"
+      - "AI chat rapido sem abrir browser"
+      - "Extensoes para Notion, GitHub, etc"
+    nota: "Opcional mas muito produtivo no Mac"
+
+  excalidraw:
+    tipo: "Diagramas e whiteboard"
+    url: "https://excalidraw.com"
+    custo: "Gratuito"
+    quando_usar: "Diagramas de arquitetura, fluxos, brainstorm visual"
 
 # ============================================================
 # REGRA DE OURO
 # ============================================================
-# Claude Code = FAZER (executar, commitar, automatizar)
-# Cursor = EDITAR (coding visual, multi-file)
-# Claude.ai = PENSAR (brainstorm, analise, planejamento)
-# ChatGPT = VALIDAR (auditoria, segunda opiniao)
-# Gemini = ESCALAR (docs longos, multimodal, Google)
+# Claude Code  = FAZER (executar, commitar, automatizar, MCPs)
+# Cursor       = EDITAR (coding visual, multi-file)
+# Claude.ai    = PENSAR (brainstorm, analise, planejamento)
+# ChatGPT Web  = VALIDAR (auditoria, $0, Deep Research)
+# Gemini Web   = PESQUISAR (Drive 30TB, 1M tokens, $0)
+# Perplexity   = BUSCAR (fontes citadas, pesquisa rapida)
+# NotebookLM   = ESTUDAR (podcasts, Q&A sobre papers)
+# Notion       = PUBLICAR (paginas bonitas, databases)
+# Obsidian     = CONECTAR (Zettelkasten, links, vault local)
+# Zotero       = REFERENCIAR (bibliografias, PDFs, citacoes)
