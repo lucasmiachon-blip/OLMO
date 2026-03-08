@@ -3,6 +3,6 @@
 - Type hints em todas as funcoes
 - Docstrings apenas em funcoes publicas
 - Nao refatorar codigo que nao foi pedido
-- **NUNCA criar novos .md** — so editar os existentes
+- Preferir editar .md existentes a criar novos (evitar fantasmas)
 - Sem verbosidade — tudo enxuto, direto ao ponto
 - Testes para logica de negocio, nao para boilerplate
