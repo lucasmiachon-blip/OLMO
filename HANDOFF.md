@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
 > Atualizado: 8 de Marco de 2026
-> Sessao 5: Bug fixes + Consolidacao + Safety Gates + MCP Integration
+> Sessao 6: Corte de docs inflados + prompt diagnostico
 
 ## CONTEXTO PRINCIPAL
 
@@ -9,79 +9,33 @@
 **Alianca Multi-AI**: Opus 4.6 + ChatGPT 5.4 + Gemini 3.1 + Cursor.
 Coautoria explicita em todo output (`.claude/rules/coauthorship.md`).
 
-## STATUS: O QUE ESTA PRONTO PRA USAR
+## P0 - PROXIMA SESSAO: DIAGNOSTICO COMPLETO
 
-### Codigo pronto (so precisa de API keys + MCPs)
-- Orchestrator com safety gates integrados (`agents/core/mcp_safety.py`)
-- NotionCleaner com MCP real + fallback teste + filtro de protecao
-- SQLite bootstrap automatico (`agents/core/database.py`)
-- Workflows consolidados em arquivo unico (`config/workflows.yaml`)
-- Budget tracker + smart scheduler prontos
-- 11 skills documentadas
+Rodar prompt de diagnostico (gerado na sessao 6) num chat Opus limpo.
+Objetivo: auditoria tecnica honesta — cada .py classificado como Real/Stub/Quebrado.
+**O prompt esta na conversa da sessao 6** (ou pedir pra gerar novamente).
 
-### O que voce precisa fazer no PC (setup unico ~30min)
-1. `cp .env.example .env` e preencher API keys
-2. `claude mcp add notion` (+ healthcare, pubmed, biomcp)
-3. Criar 2 tokens Notion em notion.so/my-integrations (read-only + read-write)
-4. `pip install -r requirements.txt` (se existir)
+Apos diagnostico, decidir:
+1. Quais arquivos manter, quais deletar
+2. O que e stub que precisa virar codigo real
+3. O que funciona de verdade end-to-end
 
-## P0 - PROXIMA SESSAO: VARREDURA NOTION
+## P1 - VARREDURA NOTION (quando tiver token)
 
-### Comecar assim que tiver token Notion:
 1. Rodar snapshot read-only: `notion_cleaner.execute({"action": "snapshot", "protected": ["aulas"]})`
 2. Revisar `data/notion_snapshot.md`
-3. Rodar analise: `notion_cleaner.execute({"action": "analyze"})`
-4. Revisar `data/snapshots/cleanup_plan.json`
-5. Aprovar e executar acoes uma a uma
+3. Rodar analise e executar acoes uma a uma
 
-**PROTECAO**: tudo com "aulas" no titulo/database/tags sera **ignorado**.
+## P2 - CONCURSO: EXAM-GENERATOR
 
-## P1 - PRIORIDADE CONCURSO: EXAM-GENERATOR
+**AGUARDANDO**: minimo 10 provas reais (PDFs) para calibracao.
+Fontes: ENARE, USP, UNICAMP, UNIFESP, AMB, FMUSP, Santa Casa.
 
-### AGUARDANDO DO USUARIO
-Fornecer **minimo 10 provas reais** (PDFs) para calibracao.
-Fontes: ENARE, USP, UNICAMP, UNIFESP, AMB, FMUSP, Santa Casa, etc.
-**NAO comecar calibracao sem essas provas.**
+## O QUE FOI FEITO (sessao 6)
 
-### Quando receber as provas:
-1. [ ] Ingerir PDFs → parser de questoes
-2. [ ] Analisar padroes por banca
-3. [ ] Calibrar exam-generator
-4. [ ] Gerar questoes + justificativas com evidencia
-5. [ ] Integracao Anki MCP
-
-### Subespecialidades alvo
-cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato + clinica geral
-
-## CONFLITOS RESOLVIDOS (sessao 5)
-
-- [x] **Workflows**: 3 arquivos → 1 arquivo consolidado (`config/workflows.yaml`)
-- [x] **Loader**: atualizado para carregar apenas fonte unica
-- [x] **CLAUDE.md**: atualizado com todas 11 skills
-- [x] **.env.example**: tokens Notion + todas as keys documentadas
-- [x] **Safety gates**: `agents/core/mcp_safety.py` — modelo harsh implementado
-- [x] **SQLite bootstrap**: `agents/core/database.py` — tabelas auto-criadas
-- [x] **NotionCleaner**: stubs → MCP real + dry-run + protecao de paginas
-- [x] **Orchestrator**: integrado com safety validation
-- [x] **Bug fix**: path hardcoded em rate_limits.yaml
-- [x] **Bug fix**: asyncio import tardio em organization_agent.py
-- [x] **Bug fix**: asyncio nao usado em automation_agent.py
-
-## CONFLITOS PENDENTES (nao criticos)
-
-- [ ] **Model assignments** nao enforced no codigo (agents nao pegam model do YAML)
-- [ ] **scientific_agent.py**: research areas hardcoded AI/ML, deveria ser medicina
-- [ ] **Naming**: docs CamelCase vs codigo snake_case (menor)
-- [ ] **Budget estimates**: variancia entre arquivos ($2.50 vs $3.50 vs $10-40)
-- [ ] **Anki MCP**: referenciado mas nao em servers.json
-
-## ARQUIVOS NAO VERIFICADOS (checar quando possivel)
-
-- `agents/core/smart_scheduler.py`
-- `agents/core/budget_tracker.py`
-- `subagents/analyzers/trend_analyzer.py`
-- `subagents/processors/data_pipeline.py`
-- `subagents/monitors/web_monitor.py`
+14. **Corte de ECOSYSTEM.md**: 393 → 52 linhas (removido duplicacao com CLAUDE.md)
+15. **Corte de coauthorship.md**: 112 → 45 linhas (tabela + regras essenciais)
+16. **Prompt de diagnostico**: gerado para sessao Opus limpa (auditoria completa)
 
 ## O QUE FOI FEITO (sessoes 1-5)
 
@@ -99,6 +53,21 @@ cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato + clinica ger
 12. Pacto de Alianca Multi-AI: coautoria explicita
 13. 6 bug fixes (code quality)
 
+## CONFLITOS PENDENTES (nao criticos)
+
+- [ ] Model assignments nao enforced no codigo
+- [ ] scientific_agent.py: research areas hardcoded AI/ML, deveria ser medicina
+- [ ] Budget estimates: variancia entre arquivos
+- [ ] Anki MCP: referenciado mas nao em servers.json
+
+## ARQUIVOS NAO VERIFICADOS
+
+- `agents/core/smart_scheduler.py`
+- `agents/core/budget_tracker.py`
+- `subagents/analyzers/trend_analyzer.py`
+- `subagents/processors/data_pipeline.py`
+- `subagents/monitors/web_monitor.py`
+
 ## PENDENTE (nao urgente)
 
 - [ ] Configurar MCPs medicos (healthcare, pubmed, biomcp)
@@ -112,5 +81,5 @@ cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato + clinica ger
 
 ---
 Coautoria: Lucas + opus
-Orquestrador: opus (consolidacao + bug fixes)
+Orquestrador: opus (corte de docs + diagnostico)
 Data: 2026-03-08
