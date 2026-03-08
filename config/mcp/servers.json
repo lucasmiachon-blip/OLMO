@@ -169,6 +169,106 @@
     }
   },
 
+  "safety_policies": {
+    "anti_theft": {
+      "description": "Protecao de credenciais e dados sensiveis",
+      "rules": [
+        "NUNCA logar API keys, tokens ou credenciais em output/logs",
+        "Todas as keys via variavel de ambiente (${VAR}), NUNCA hardcoded",
+        "OAuth tokens com escopo MINIMO necessario (read-only quando possivel)",
+        "Notion: escopo limitado a databases especificos, nao workspace inteiro",
+        "Gmail: --sanitize habilitado, filtrar dados sensiveis de pacientes",
+        "GitHub: token com escopo repo apenas, sem admin/delete",
+        "Rotacao de tokens: alertar apos 90 dias sem rotacao",
+        "Arquivo .env NUNCA commitado (ja no .gitignore)"
+      ],
+      "scopes_minimos": {
+        "notion": "read_content, update_content, insert_content",
+        "gmail": "gmail.readonly, gmail.labels",
+        "github": "repo, read:org",
+        "brave": "search (read-only por natureza)"
+      }
+    },
+
+    "anti_perda": {
+      "description": "Prevencao de perda de dados - modelo harsh",
+      "rules": [
+        "NUNCA deletar paginas Notion - apenas ARQUIVAR (mover para Archive)",
+        "NUNCA deletar emails Gmail - apenas LABEL + ARCHIVE",
+        "NUNCA force-push ou delete branches sem confirmacao humana",
+        "Antes de qualquer WRITE em Notion: verificar se pagina ja existe (dedup)",
+        "Antes de qualquer UPDATE: salvar snapshot do estado anterior no SQLite",
+        "Toda operacao destrutiva requer confirmacao humana (confidence < 1.0)",
+        "Backup automatico: toda pagina Notion editada → snapshot em SQLite",
+        "Memory MCP: append-only por padrao, nunca sobrescrever entidades"
+      ],
+      "confirmacao_humana_obrigatoria": [
+        "Deletar qualquer recurso (page, email, file, branch)",
+        "Mover mais de 5 items de uma vez (batch relocate)",
+        "Editar pagina com mais de 30 dias (pode ser referencia importante)",
+        "Qualquer operacao em database 'Projetos de Pesquisa'",
+        "Merge de duplicatas quando confidence < 0.85"
+      ],
+      "snapshots": {
+        "storage": "sqlite:data/knowledge.db",
+        "table": "mcp_snapshots",
+        "retention_days": 90,
+        "fields": ["timestamp", "mcp_server", "operation", "resource_id", "state_before", "state_after"]
+      }
+    },
+
+    "anti_retrabalho": {
+      "description": "Cache agressivo, dedup, checkpoints para minimizar retrabalho",
+      "rules": [
+        "Cache TODAS as respostas de MCPs no SQLite (TTL por tipo)",
+        "Antes de buscar PubMed: verificar cache local primeiro",
+        "Antes de criar pagina Notion: verificar se titulo similar ja existe",
+        "Checkpoints em workflows longos: salvar estado a cada step",
+        "Se workflow falhar no step 5/7: retomar do step 5, nao do zero",
+        "Deduplicar resultados de busca ANTES de processar com modelo caro",
+        "Hash de conteudo para detectar paginas identicas vs similares"
+      ],
+      "cache_ttl": {
+        "pubmed_search": "48h",
+        "notion_page_list": "1h",
+        "gmail_labels": "6h",
+        "healthcare_query": "24h",
+        "brave_search": "12h",
+        "github_issues": "30min",
+        "context7_docs": "168h"
+      },
+      "checkpoints": {
+        "storage": "sqlite:data/knowledge.db",
+        "table": "workflow_checkpoints",
+        "auto_save": true,
+        "fields": ["workflow_id", "step_number", "step_name", "state", "timestamp", "resumable"]
+      },
+      "dedup": {
+        "notion_title_similarity": 0.85,
+        "pubmed_pmid_exact": true,
+        "email_message_id_exact": true,
+        "hash_algorithm": "sha256"
+      }
+    },
+
+    "modelo_harsh": {
+      "description": "Modo conservador - prefere nao agir do que agir errado",
+      "rules": [
+        "Na DUVIDA → nao executar, pedir confirmacao humana",
+        "Confidence < 0.7 → SEMPRE flag para review humano",
+        "Operacao em dados medicos → SEMPRE double-check referencias",
+        "Se MCP retornar erro → nao retry automatico em writes (apenas reads)",
+        "Rate limit atingido → parar imediatamente, nao tentar provider alternativo para writes",
+        "Dados de paciente detectados → BLOQUEAR operacao, alertar usuario (LGPD)"
+      ],
+      "thresholds": {
+        "auto_execute": 0.95,
+        "ask_confirmation": 0.70,
+        "block_operation": 0.50
+      }
+    }
+  },
+
   "model_routing_summary": {
     "chatgpt-5.4": {
       "role": "Triagem rapida, classificacao, filtragem",
