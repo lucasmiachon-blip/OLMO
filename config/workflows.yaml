@@ -98,6 +98,33 @@ workflows:
         content_type: "report"
         description: "Gerar relatorio"
 
+  # Workflow: Limpeza Notion (background)
+  notion_cleanup:
+    name: "Limpeza Notion"
+    description: "Varre Notion pagina por pagina, organiza, remove duplicatas"
+    trigger: "manual"  # Rodar sob demanda ate estabilizar
+    model_tier: "triage"  # Sonnet/5.4 para triagem, Opus so se ambiguo
+    background: true
+    steps:
+      - subagent: "notion_cleaner"
+        action: "audit"
+        description: "Varrer todas as paginas e classificar"
+      - subagent: "notion_cleaner"
+        action: "deduplicate"
+        description: "Identificar e resolver duplicatas"
+      - subagent: "notion_cleaner"
+        action: "relocate"
+        description: "Mover paginas para o lugar correto"
+      - subagent: "notion_cleaner"
+        action: "tag"
+        description: "Preencher tags e propriedades faltantes"
+      - subagent: "notion_cleaner"
+        action: "archive"
+        description: "Arquivar conteudo obsoleto"
+      - subagent: "notion_cleaner"
+        action: "report"
+        description: "Gerar relatorio (itens que precisam de review humano)"
+
   # Workflow: Organizacao Completa
   full_organization:
     name: "Organizacao Completa"

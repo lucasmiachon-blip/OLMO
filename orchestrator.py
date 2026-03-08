@@ -25,6 +25,7 @@ from agents.organization.organization_agent import OrganizationAgent
 from agents.ai_update.ai_update_agent import AIUpdateAgent
 from subagents.monitors.web_monitor import WebMonitorSubagent
 from subagents.processors.data_pipeline import DataPipelineSubagent
+from subagents.processors.notion_cleaner import NotionCleanerSubagent
 from subagents.analyzers.trend_analyzer import TrendAnalyzerSubagent
 from config.loader import load_config, load_workflows
 
@@ -53,6 +54,7 @@ def build_ecosystem() -> Orchestrator:
         WebMonitorSubagent(),
         DataPipelineSubagent(),
         TrendAnalyzerSubagent(),
+        NotionCleanerSubagent(),
     ]
 
     # Registrar agentes
@@ -67,6 +69,8 @@ def build_ecosystem() -> Orchestrator:
             orch.agents.get("automacao", agents[1]).add_subagent(subagent)
         elif subagent.name == "trend_analyzer":
             orch.agents.get("cientifico", agents[0]).add_subagent(subagent)
+        elif subagent.name == "notion_cleaner":
+            orch.agents.get("organizacao", agents[2]).add_subagent(subagent)
 
     # Registrar workflows
     for wf_name, wf_config in workflows_config.get("workflows", {}).items():
