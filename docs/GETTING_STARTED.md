@@ -1,5 +1,8 @@
 # Guia de Inicio Rapido
 
+> Perfil: Medico + Professor + Pesquisador + Developer AI
+> Checklist completo: `PENDENCIAS.md` | Seguranca Notion: `.claude/rules/mcp_safety.md`
+
 ## Pre-requisitos
 
 - Python 3.11+
@@ -39,6 +42,8 @@ claude mcp add pubmed-mcp npx -- -y pubmed-mcp
 claude mcp add biomcp npx -- -y biomcp
 
 # Notion MCP (publicacao de conteudo)
+# IMPORTANTE: ler .claude/rules/mcp_safety.md ANTES de usar (bugs conhecidos)
+# Usar 2 tokens: read-only (padrao) + read-write (sob demanda)
 claude mcp add --transport http notion https://mcp.notion.com/mcp
 
 # Context7 (docs atualizadas de libs)
@@ -86,9 +91,10 @@ claude "gere o digest medico semanal e publique no Notion"
 
 ```
 organizacao/
-├── CLAUDE.md                 # Instrucoes root (enxuto)
+├── CLAUDE.md                 # Instrucoes root (perfil, KPIs, safety)
 ├── ECOSYSTEM.md              # Mapa completo do ecossistema
-├── PENDENCIAS.md             # Checklist de setup
+├── PENDENCIAS.md             # Checklist de setup e custos
+├── HANDOFF.md                # Continuidade entre sessoes
 ├── orchestrator.py           # Entry point principal
 ├── agents/                   # Agentes principais
 │   ├── core/                 # Base + Orchestrator + Scheduler + Budget
@@ -97,7 +103,7 @@ organizacao/
 │   ├── organization/         # Organizacao (GTD)
 │   └── ai_update/            # Atualizacao AI
 ├── subagents/                # Subagentes especializados
-│   ├── processors/           # KnowledgeOrganizer, DataPipeline
+│   ├── processors/           # KnowledgeOrganizer, NotionCleaner, DataPipeline
 │   ├── monitors/             # WebMonitor
 │   └── analyzers/            # TrendAnalyzer
 ├── skills/                   # Skills Python reutilizaveis
@@ -112,25 +118,27 @@ organizacao/
 │   │   ├── mbe-evidence/     # GRADE, CONSORT, STROBE, PRISMA...
 │   │   ├── medical-research/ # PubMed, PICO
 │   │   ├── notion-publisher/ # Templates Notion
-│   │   └── teaching-improvement/ # Estudo, referenciamento
+│   │   ├── teaching-improvement/ # Ensino, andragogia, AI fluency, dev AI
+│   │   └── ...               # + 7 skills (review, ai-monitoring, etc)
 │   └── rules/                # Regras sempre carregadas
-│       ├── quality.md
-│       └── efficiency.md
+│       ├── quality.md        # Qualidade de codigo
+│       ├── efficiency.md     # Eficiencia de API
+│       └── mcp_safety.md     # Protocolo seguro Notion (CRITICO)
 ├── config/                   # Configuracoes YAML
-│   ├── ecosystem.yaml        # Agentes
+│   ├── ecosystem.yaml        # Agentes + model routing
 │   ├── workflows.yaml        # Workflows operacionais
-│   ├── rate_limits.yaml      # Budget e limites
+│   ├── rate_limits.yaml      # Budget $100/mes
 │   ├── tools_ecosystem.yaml  # Ferramentas do ecossistema
-│   ├── mcp/servers.json      # MCP servers
+│   ├── mcp/servers.json      # 13 MCP servers + ChatGPT 5.4
 │   └── keys/                 # Guia de API keys
 ├── workflows/                # Workflows medicos
 │   ├── medical_workflow.yaml
 │   └── efficient_workflows.yaml
 ├── templates/                # Templates de prompts
 └── docs/                     # Documentacao
-    ├── ARCHITECTURE.md
-    ├── BEST_PRACTICES.md
-    └── GETTING_STARTED.md
+    ├── ARCHITECTURE.md       # Decisoes tecnicas e padroes
+    ├── BEST_PRACTICES.md     # Convencoes e boas praticas
+    └── GETTING_STARTED.md    # Este arquivo
 ```
 
 ## Ordem de Setup Recomendada

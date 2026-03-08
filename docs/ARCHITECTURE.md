@@ -121,7 +121,7 @@ https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 ├── mbe-evidence/          # GRADE, CONSORT, STROBE, PRISMA, RoB2...
 ├── medical-research/      # PubMed, PICO, niveis evidencia
 ├── notion-publisher/      # Templates Notion profissionais
-├── teaching-improvement/  # Estudo, referenciamento, per-project MD
+├── teaching-improvement/  # Ensino, andragogia, slideologia, AI fluency, dev AI
 ├── review/                # Code review multi-agente + OWASP
 ├── ai-monitoring/         # Tracking modelos e ferramentas
 ├── automation/            # Workflow automation
@@ -178,7 +178,8 @@ organizacao/
 ├── .claude/
 │   ├── rules/             # Sempre carregadas
 │   │   ├── quality.md
-│   │   └── efficiency.md
+│   │   ├── efficiency.md
+│   │   └── mcp_safety.md  # Protocolo seguro Notion (evidence-based)
 │   └── skills/            # Sob demanda (progressive disclosure)
 ├── agents/
 │   └── CLAUDE.md          # Especifico: como criar/modificar agentes
