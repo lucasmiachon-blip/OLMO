@@ -83,10 +83,12 @@
 ### Concurso (120 questoes multipla escolha — PRIORIDADE DO ANO)
 - [ ] Definir especialidades/topicos do concurso
 - [ ] Criar database Notion "Concurso Error Log" (ver skill teaching-improvement)
-- [ ] Configurar Anki + deck por especialidade
+- [ ] **Anki + AnkiConnect** — instalar Anki Desktop + add-on AnkiConnect (2055492159)
 - [ ] **Anki MCP** — `claude mcp add anki-mcp npx -- -y @ankimcp/anki-mcp-server`
-  - Requer AnkiConnect add-on no Anki local
-  - CRUD completo: decks, cards, reviews
+  - Opus + ChatGPT 5.4 geram cards baseados no Error Log e desempenho
+  - AI prioriza: erros recorrentes > unicos > conteudo novo
+  - Max 20 cards novos/dia, cross-validados
+- [ ] Criar decks por especialidade no Anki
 - [ ] **MedAdapt MCP** — conteudo educacional medico (PubMed/NCBI Bookshelf)
   - Setup: verificar `ryoureddy/medadapt-content-server`
 - [ ] Assinar/configurar banco de questoes

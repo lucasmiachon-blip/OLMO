@@ -205,16 +205,51 @@ MICRO (diario)
 └── Noite: Revisao rapida erros do dia (30min)
 ```
 
+#### Anki Gerido por AI (Opus + ChatGPT 5.4)
+
+O usuario nao cria cards manualmente. AI gera, prioriza e adapta.
+
+**Fluxo:**
+```
+1. Usuario resolve questoes → registra erros no Notion (Error Log)
+2. Opus le Error Log + desempenho → gera cards focados nos gaps
+3. ChatGPT 5.4 valida cards (cross-validation: clareza, corretude, relevancia)
+4. Cards aprovados → push para Anki via MCP (ankimcp/anki-mcp-server)
+5. Anki agenda revisao (FSRS/spaced repetition automatico)
+6. Opus analisa Anki retention rate → ajusta dificuldade e foco
+```
+
+**Tipos de cards gerados por AI:**
+- **Error-based**: gerado direto do erro (ex: confundiu X com Y → card comparativo)
+- **Mechanism**: "Por que X causa Y?" (elaborative interrogation)
+- **Clinical vignette**: mini-caso clinico com 1 pergunta-chave
+- **High-yield**: fatos de alta incidencia em provas (baseado em analise de provas anteriores)
+- **Interleaving**: card misturando 2 especialidades relacionadas
+
+**Regras de geracao:**
+- 1 conceito por card (atomico)
+- Pergunta na frente, resposta curta atras
+- Incluir referencia (fonte, pagina, PMID se aplicavel)
+- Priorizar: erros recorrentes > erros unicos > conteudo novo
+- Max 20 cards novos/dia (evitar overload)
+
+**MCP Setup:**
+```bash
+# Requer Anki Desktop + AnkiConnect add-on (codigo 2055492159)
+claude mcp add anki-mcp npx -- -y @ankimcp/anki-mcp-server
+```
+
 #### Ferramentas AI para o Concurso
 
 | Ferramenta | Uso | Quando |
 |-----------|-----|--------|
-| **Anki + AI** | Spaced repetition, cards gerados por Claude | Diario |
-| **Claude** | Quiz generator, explicacao de erros, "por que?" | Diario |
+| **Anki + MCP** | Spaced repetition, cards gerados por Opus + 5.4 | Diario (review) |
+| **Claude Opus** | Gera cards, analisa erros, adapta plano de estudo | Apos cada sessao |
+| **ChatGPT 5.4** | Cross-valida cards, segunda opiniao em duvidas | Junto com Opus |
 | **NotebookLM** | Estudar guidelines/papers (podcast, Q&A) | 2-3x/semana |
 | **Perplexity** | Tirar duvidas rapidas com fontes | Ad hoc |
 | **Banco de questoes** | Practice testing real | 3-5x/semana |
-| **Notion** | Tracking progresso, error log, plano de estudo | Semanal |
+| **Notion** | Error log, tracking progresso, plano de estudo | Continuo |
 
 #### Error Log de Questoes (Template Notion)
 ```
@@ -226,14 +261,17 @@ Properties:
   - Erro: conceito vs interpretacao vs desatencao (select)
   - Explicacao correta (rich_text)
   - Referencia (rich_text)
+  - Card Anki gerado? (checkbox)
   - Revisado em (date)
   - Acertou na revisao? (checkbox)
+Tags: usado por Opus para gerar cards e identificar padroes de erro
 ```
 
 #### Metricas de Progresso
 - % acerto por especialidade (meta: >70% geral, >80% nas fortes)
 - Questoes resolvidas/semana (meta: 200+)
 - Anki retention rate (meta: >85%)
+- Anki cards gerados por AI / aceitos (quality rate)
 - Simulados completos/mes (meta: 4)
 - Trending: % acerto por semana (deve subir)
 

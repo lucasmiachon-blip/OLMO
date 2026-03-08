@@ -57,7 +57,8 @@
 - **Formato**: 120 questoes multipla escolha, novembro 2026
 - **Estrategia**: todas as ferramentas e teorias consagradas de estudo
 - **Tecnicas**: spaced repetition, active recall, interleaving, practice testing
-- **Ferramentas AI**: Anki + AI, NotebookLM, Claude quiz generator, Perplexity
+- **Anki gerido por AI**: Opus gera cards do Error Log → 5.4 valida → push via MCP
+- **Ferramentas**: Anki MCP, NotebookLM, Perplexity, banco de questoes, Notion
 - **Planejamento**: macro (meses) → meso (semanas) → micro (dias)
 - **Skill**: `.claude/skills/teaching-improvement/` (secao Concurso)
 
