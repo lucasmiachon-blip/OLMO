@@ -47,23 +47,28 @@ priority_tiers:
     max_cost_per_call: 0.00  # Deve ser gratis (local)
 
 # Estrategia de modelos por complexidade
-# Inspirado em CrewAI: "modelo certo para a tarefa certa"
+# Sonnet/ChatGPT 5.4 = triagem rapida | Opus = trabalho pesado
 model_routing:
   trivial:
     model: "local-ollama"        # Custo: $0.00
     use_for: ["formatacao", "regex", "parsing", "classificacao simples"]
 
-  simple:
-    model: "claude-haiku-4-5"    # Custo: ~$0.001/call
-    use_for: ["extracao de dados", "respostas curtas", "triagem"]
+  triage:
+    model: "claude-sonnet-4-6"   # Custo: ~$0.01/call
+    alternatives: ["chatgpt-5.4"]
+    use_for: ["triagem de papers", "classificacao", "filtragem de resultados",
+              "extracao de dados", "respostas curtas", "roteamento"]
 
   medium:
     model: "claude-sonnet-4-6"   # Custo: ~$0.01/call
-    use_for: ["sumarizacao", "codigo simples", "analise basica"]
+    alternatives: ["chatgpt-5.4"]
+    use_for: ["sumarizacao", "codigo simples", "analise basica",
+              "morning review", "organizacao diaria"]
 
-  complex:
+  deep:
     model: "claude-opus-4-6"     # Custo: ~$0.05-0.10/call
-    use_for: ["pesquisa profunda", "codigo complexo", "raciocinio", "hipoteses"]
+    use_for: ["sintese de evidencia", "analise GRADE", "revisao sistematica",
+              "hipoteses", "codigo complexo", "decisoes arquiteturais"]
 
 # Cache
 caching:
