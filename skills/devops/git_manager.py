@@ -45,7 +45,7 @@ class GitManagerSkill:
         """Retorna log de commits."""
         try:
             proc = await asyncio.create_subprocess_exec(
-                "git", "log", f"--oneline", f"-{count}",
+                "git", "log", "--oneline", f"-{count}",
                 cwd=repo_path,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,

@@ -118,7 +118,9 @@ class OrganizationAgent(BaseAgent):
                 call_result = handler()
                 if asyncio.iscoroutine(call_result):
                     call_result = await call_result
-                return call_result if isinstance(call_result, TaskResult) else TaskResult(success=True, data=call_result)
+                if isinstance(call_result, TaskResult):
+                    return call_result
+                return TaskResult(success=True, data=call_result)
             return TaskResult(success=False, error=f"Unknown action: {action}")
         except Exception as e:
             self.status = AgentStatus.ERROR

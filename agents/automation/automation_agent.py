@@ -82,7 +82,7 @@ class AutomationAgent(BaseAgent):
     async def plan(self, objective: str) -> list[dict[str, Any]]:
         """Planeja automacoes necessarias para o objetivo."""
         return [
-            {"step": 1, "action": "identify_tasks", "description": "Identificar tarefas repetitivas"},
+            {"step": 1, "action": "identify_tasks", "desc": "Identificar tarefas repetitivas"},
             {"step": 2, "action": "create_rules", "description": "Criar regras de automacao"},
             {"step": 3, "action": "setup_triggers", "description": "Configurar gatilhos"},
             {"step": 4, "action": "test_automation", "description": "Testar automacoes"},

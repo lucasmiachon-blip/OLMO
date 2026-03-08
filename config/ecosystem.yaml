@@ -95,6 +95,11 @@ subagents:
     model: "claude-sonnet-4-6"
     parent: "organizacao"
     description: "Integra Notion + Obsidian + Zotero para knowledge management"
+  notion_cleaner:
+    enabled: true
+    model: "claude-sonnet-4-6"
+    parent: "organizacao"
+    description: "Limpa e organiza Notion com seguranca (modelo harsh)"
 
 # Skills
 skills:

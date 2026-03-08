@@ -11,23 +11,23 @@ from __future__ import annotations
 import asyncio
 import logging
 import sys
-from typing import Any
 
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.tree import Tree
 
-from agents.core.orchestrator import Orchestrator
-from agents.automation.automation_agent import AutomationAgent
-from agents.scientific.scientific_agent import ScientificAgent
-from agents.organization.organization_agent import OrganizationAgent
 from agents.ai_update.ai_update_agent import AIUpdateAgent
+from agents.automation.automation_agent import AutomationAgent
+from agents.core.orchestrator import Orchestrator
+from agents.organization.organization_agent import OrganizationAgent
+from agents.scientific.scientific_agent import ScientificAgent
+from config.loader import load_config, load_workflows
+from subagents.analyzers.trend_analyzer import TrendAnalyzerSubagent
 from subagents.monitors.web_monitor import WebMonitorSubagent
 from subagents.processors.data_pipeline import DataPipelineSubagent
+from subagents.processors.knowledge_organizer import KnowledgeOrganizerSubagent
 from subagents.processors.notion_cleaner import NotionCleanerSubagent
-from subagents.analyzers.trend_analyzer import TrendAnalyzerSubagent
-from config.loader import load_config, load_workflows
 
 console = Console()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s")
@@ -55,6 +55,7 @@ def build_ecosystem() -> Orchestrator:
         WebMonitorSubagent(),
         DataPipelineSubagent(),
         TrendAnalyzerSubagent(),
+        KnowledgeOrganizerSubagent(),
         NotionCleanerSubagent(),
     ]
 
@@ -71,6 +72,7 @@ def build_ecosystem() -> Orchestrator:
         "web_monitor": "atualizacao_ai",
         "data_pipeline": "automacao",
         "trend_analyzer": "cientifico",
+        "knowledge_organizer": "organizacao",
         "notion_cleaner": "organizacao",
     }
     for subagent in subagents:
@@ -139,7 +141,7 @@ async def run_ecosystem(orch: Orchestrator) -> None:
 
     # Executa workflow de revisao matinal como demonstracao
     console.print("[yellow]Executando revisao matinal...[/yellow]")
-    results = await orch.run_workflow("morning_review")
+    results = await orch.run_workflow("batch_morning_digest")
     for i, result in enumerate(results):
         status_icon = "[green]OK[/green]" if result.success else "[red]FAIL[/red]"
         console.print(f"  Step {i + 1}: {status_icon}")

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -57,9 +57,9 @@ class CodeAnalyzerSkill:
 
         metrics = CodeMetrics(
             total_lines=len(lines),
-            code_lines=len([l for l in lines if l.strip() and not l.strip().startswith("#")]),
-            comment_lines=len([l for l in lines if l.strip().startswith("#")]),
-            blank_lines=len([l for l in lines if not l.strip()]),
+            code_lines=len([ln for ln in lines if ln.strip() and not ln.strip().startswith("#")]),
+            comment_lines=len([ln for ln in lines if ln.strip().startswith("#")]),
+            blank_lines=len([ln for ln in lines if not ln.strip()]),
         )
 
         return {

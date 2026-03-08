@@ -29,7 +29,6 @@ from agents.core.mcp_safety import (
     OperationMode,
     SafetyDecision,
     validate_operation,
-    validate_relocate_workaround,
 )
 
 logger = logging.getLogger("subagent.notion_cleaner")
@@ -192,12 +191,18 @@ class NotionCleanerSubagent(BaseAgent):
 
     async def plan(self, objective: str) -> list[dict[str, Any]]:
         return [
-            {"step": 1, "action": "snapshot", "desc": "Ler TUDO do Notion (paginas, databases, properties)"},
-            {"step": 2, "action": "inventario", "desc": "Gerar notion_snapshot.md com tudo lido"},
-            {"step": 3, "action": "analyze", "desc": "Classificar cada pagina (tipo, local, duplicatas)"},
-            {"step": 4, "action": "plan_actions", "desc": "Gerar plano de acoes para aprovacao humana"},
-            {"step": 5, "action": "execute_plan", "desc": "Executar acoes aprovadas (com checkpoints)"},
-            {"step": 6, "action": "report", "desc": "Gerar relatorio final"},
+            {"step": 1, "action": "snapshot",
+             "desc": "Ler TUDO do Notion"},
+            {"step": 2, "action": "inventario",
+             "desc": "Gerar notion_snapshot.md"},
+            {"step": 3, "action": "analyze",
+             "desc": "Classificar cada pagina"},
+            {"step": 4, "action": "plan_actions",
+             "desc": "Plano para aprovacao humana"},
+            {"step": 5, "action": "execute_plan",
+             "desc": "Executar aprovadas (checkpoints)"},
+            {"step": 6, "action": "report",
+             "desc": "Gerar relatorio final"},
         ]
 
     # ------------------------------------------------------------------
@@ -220,7 +225,8 @@ class NotionCleanerSubagent(BaseAgent):
             return False
         title_lower = page.title.lower()
         db_lower = page.database.lower()
-        tags = [t.lower() for t in page.properties.get("Tags", [])] if isinstance(page.properties.get("Tags"), list) else []
+        raw_tags = page.properties.get("Tags", [])
+        tags = [t.lower() for t in raw_tags] if isinstance(raw_tags, list) else []
 
         for term in protected:
             term_lower = term.lower()
@@ -432,15 +438,15 @@ class NotionCleanerSubagent(BaseAgent):
 
         # Gerar MD
         lines = [
-            f"# Notion Workspace Snapshot",
-            f"",
+            "# Notion Workspace Snapshot",
+            "",
             f"> Gerado em: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             f"> Total de paginas: {len(self._snapshot)}",
             f"> Databases: {len(by_database)}",
             f"> Paginas orfas (sem database): {len(orphan_pages)}",
-            f"",
-            f"---",
-            f"",
+            "",
+            "---",
+            "",
         ]
 
         # Resumo por database
@@ -457,22 +463,25 @@ class NotionCleanerSubagent(BaseAgent):
         for db_name, pages in sorted(by_database.items()):
             lines.append(f"## {db_name}")
             lines.append("")
-            lines.append(f"| # | Titulo | Properties | Editado | Hash |")
-            lines.append(f"|---|--------|------------|---------|------|")
+            lines.append("| # | Titulo | Properties | Editado | Hash |")
+            lines.append("|---|--------|------------|---------|------|")
 
-            for i, page in enumerate(sorted(pages, key=lambda p: p.last_edited or "", reverse=True), 1):
-                props_summary = ", ".join(f"{k}" for k in page.properties.keys())[:60]
+            sorted_pages = sorted(
+                pages, key=lambda p: p.last_edited or "", reverse=True,
+            )
+            for i, page in enumerate(sorted_pages, 1):
+                props_summary = ", ".join(page.properties.keys())[:60]
                 edited = page.last_edited[:10] if page.last_edited else "?"
                 short_hash = page.content_hash[:8] if page.content_hash else "-"
                 archived_flag = " [ARCHIVED]" if page.archived else ""
-                lines.append(
-                    f"| {i} | {page.title}{archived_flag} | {props_summary} | {edited} | {short_hash} |"
-                )
+                row = (f"| {i} | {page.title}{archived_flag} "
+                       f"| {props_summary} | {edited} | {short_hash} |")
+                lines.append(row)
 
             lines.append("")
 
             # Detalhar conteudo preview de cada pagina
-            lines.append(f"<details>")
+            lines.append("<details>")
             lines.append(f"<summary>Preview de conteudo ({len(pages)} paginas)</summary>")
             lines.append("")
             for page in pages:
@@ -480,20 +489,26 @@ class NotionCleanerSubagent(BaseAgent):
                     lines.append(f"### {page.title}")
                     lines.append(f"- **ID**: `{page.page_id}`")
                     lines.append(f"- **URL**: {page.url}")
-                    lines.append(f"- **Properties**: {json.dumps(page.properties, ensure_ascii=False)}")
-                    lines.append(f"- **Preview**:")
-                    lines.append(f"```")
+                    props_json = json.dumps(
+                        page.properties, ensure_ascii=False,
+                    )
+                    lines.append(f"- **Properties**: {props_json}")
+                    lines.append("- **Preview**:")
+                    lines.append("```")
                     lines.append(page.content_preview)
-                    lines.append(f"```")
+                    lines.append("```")
                     lines.append("")
-            lines.append(f"</details>")
+            lines.append("</details>")
             lines.append("")
 
         # Paginas orfas
         if orphan_pages:
             lines.append("## Paginas Orfas (sem database)")
             lines.append("")
-            lines.append("Estas paginas nao estao em nenhum database. Provavelmente precisam ser realocadas.")
+            lines.append(
+                "Estas paginas nao estao em nenhum database. "
+                "Provavelmente precisam ser realocadas."
+            )
             lines.append("")
             for page in orphan_pages:
                 lines.append(f"- **{page.title}** (`{page.page_id}`)")
@@ -686,14 +701,20 @@ class NotionCleanerSubagent(BaseAgent):
         if not self._snapshot_taken:
             return TaskResult(
                 success=False,
-                error="Snapshot nao foi feito. Fluxo obrigatorio: snapshot → inventario → analyze → plan → execute.",
+                error=(
+                    "Snapshot nao foi feito. Fluxo obrigatorio: "
+                    "snapshot → inventario → analyze → plan → execute."
+                ),
             )
 
         approved = task.get("approved_actions", [])
         if not approved:
             return TaskResult(
                 success=False,
-                error="Nenhuma acao aprovada. Passe 'approved_actions' com IDs das paginas aprovadas.",
+                error=(
+                    "Nenhuma acao aprovada. Passe "
+                    "'approved_actions' com IDs aprovadas."
+                ),
             )
 
         # Carregar checkpoint se existir (resume de execucao anterior)
@@ -719,9 +740,10 @@ class NotionCleanerSubagent(BaseAgent):
 
             try:
                 # Safety gate: validar cada operacao antes de executar
+                is_update = action_type in ("archive", "tag")
+                op = "notion-update-page" if is_update else "notion-create-page"
                 safety = validate_operation(
-                    "notion-update-page" if action_type in ("archive", "tag") else "notion-create-page",
-                    self._operation_mode,
+                    op, self._operation_mode,
                     confidence=action.get("confidence", 0.5),
                 )
 
@@ -859,7 +881,10 @@ class NotionCleanerSubagent(BaseAgent):
             data={
                 **results,
                 "status": "AGUARDANDO_APROVACAO_HUMANA",
-                "next_step": "Revise o plano em data/snapshots/cleanup_plan.json e chame 'execute_plan' com approved_actions",
+                "next_step": (
+                    "Revise cleanup_plan.json e chame "
+                    "'execute_plan' com approved_actions"
+                ),
                 "snapshot_md": str(SNAPSHOT_MD),
             },
         )
