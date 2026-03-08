@@ -84,6 +84,25 @@ O ecossistema deve melhorar continuamente:
 - **Pausas estrategicas**: silencio > preencher com "eh", "tipo"
 - **Fontes**: Talk Like TED (Gallo), The Art of Public Speaking (Dale Carnegie)
 
+### Educacao de Adultos (Andragogia - Knowles)
+Alunos de medicina sao adultos. Aprendem diferente de criancas.
+- **Autonomia**: adultos querem controlar seu aprendizado
+- **Experiencia**: usar casos clinicos reais como base (nao teoria abstrata)
+- **Aplicabilidade imediata**: "vou usar isso amanha no plantao?"
+- **Motivacao interna**: resolucao de problemas > nota na prova
+- **Respeito**: tratar como colegas em formacao, nao como subordinados
+- **Principios de Knowles**: self-directed, experience-based, relevancy-oriented
+- **Fontes**: Malcolm Knowles (The Adult Learner), David Kolb (Experiential Learning)
+
+### Pesquisa e Publicacao
+Pesquisador ativo — bioestatistica e EBM como ferramentas centrais.
+- **Bioestatistica**: dominar para publicar E para ensinar (ver skill mbe-evidence)
+- **Publicacao**: todo projeto de pesquisa visa publicacao com rigor
+- **Referenciamento**: PMID e DOI obrigatorios, sempre verificar fontes
+- **Ferramentas**: Zotero, PubMed MCP, Scite, Elicit, Consensus
+- **Checklists**: CONSORT, STROBE, PRISMA conforme tipo de estudo
+- **Mentoria**: orientar alunos em TCC/IC com as mesmas ferramentas
+
 ### Error Log e Diario de Ensino
 - **Formato**: data + aula + o que funcionou + o que nao funcionou + acao
 - **Reflexao**: semanal, revisar padroes de erros e acertos

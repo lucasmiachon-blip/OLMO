@@ -1,6 +1,6 @@
 # ECOSYSTEM.md - Mapa Completo do Ecossistema AI
 > Atualizado: 8 de Marco de 2026
-> Perfil: Medico + Professor + Developer AI | Low-code workflow
+> Perfil: Medico + Professor + Pesquisador + Developer AI | Low-code workflow
 > Orquestrador: Claude Opus 4.6 | Auditor: ChatGPT 5.4
 > Ferramentas: Claude Code, Cowork, Cursor, Claude.ai, ChatGPT, Gemini, Perplexity Max
 

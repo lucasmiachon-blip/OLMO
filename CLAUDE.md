@@ -56,9 +56,11 @@ especifico, decisoes de arquitetura e TODOs. O root fica enxuto.
 
 ## Perfil
 
-Medico + Professor + Developer AI. Objetivo: ser referencia em ensino medico.
+Medico + Professor + Pesquisador + Developer AI. Objetivo: ser referencia em ensino medico.
 - **Clinica**: MBE, GRADE, evidencias tier 1
-- **Ensino**: slideologia, psicologia cognitiva, retorica/oratoria, error log
+- **Pesquisador**: publica artigos, bioestatistica, EBM rigorosa, PMID/DOI sempre
+- **Ensino**: slideologia, psicologia cognitiva, retorica/oratoria, educacao de adultos
+- **Andragogia**: adultos aprendem diferente — autonomia, experiencia, aplicabilidade
 - **AI Fluency**: dominar AI para transmitir fluencia aos alunos de medicina
 - **Dev AI**: aprendizado continuo 2x/semana, alto ROI, ultimas noticias
 - **Diario**: error log de aulas + reflexao continua
