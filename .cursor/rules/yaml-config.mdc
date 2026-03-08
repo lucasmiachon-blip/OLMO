@@ -1,0 +1,26 @@
+---
+description: Convenções para arquivos YAML de config e workflows
+globs: "**/*.yaml,**/*.yml,config/**"
+alwaysApply: false
+---
+
+# YAML e Config
+
+## Escopo
+
+- `config/*.yaml`: ecosystem, rate_limits, workflows, tools_ecosystem.
+- `workflows/*.yaml`: definições de workflows.
+- `templates/prompts.yaml`: prompts reutilizáveis.
+
+## Convenções
+
+- Chaves em **snake_case** (ex.: `budget_tracker`, `log_level`).
+- Comentários em português quando explicarem regra de negócio.
+- Não misturar secrets no YAML; usar `.env` e `config/keys/` (ver `config/keys/keys_setup.md`).
+- Listas e maps bem indentados; evitar YAML aninhado excessivo (quebrar em arquivos se necessário).
+
+## Referência
+
+- Estrutura de agentes e subagentes: `config/ecosystem.yaml`.
+- Rate limits e budget: `config/rate_limits.yaml`.
+- Workflows: `config/workflows.yaml`, `workflows/*.yaml`.

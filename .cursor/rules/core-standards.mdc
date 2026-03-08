@@ -1,0 +1,41 @@
+---
+description: Padrões do projeto, convenções e arquivos-chave do ecossistema AI
+alwaysApply: true
+---
+
+# Core Standards - Organizacao
+
+## Identidade do Projeto
+
+- Ecossistema de agentes AI: Orquestrador (Opus) + Científico, Automação, Organização, AtualizacaoAI (Sonnet/Haiku).
+- Objetivos: digest médico, pipeline MBE→Notion, conhecimento unificado, ensino, concurso nov/2026, dev AI.
+- Regra de ferramentas: Claude Code = FAZER; Cursor = EDITAR; Cowork = EXTRAIR; Notion = PUBLICAR; Zotero = REFERENCIAR.
+- **Notion = workspace principal**: todo o trabalho é executado e publicado na página [Lucas Miachon](https://www.notion.so/Lucas-Miachon-2f6dfe6859a8812b9bb4d93e3bf4f401). MCP Notion: `.claude/rules/mcp_safety.md`.
+
+## Arquivos Canônicos (não duplicar)
+
+| O quê | Onde |
+|-------|------|
+| Arquitetura | `CLAUDE.md`, `docs/ARCHITECTURE.md` |
+| Config agentes | `config/ecosystem.yaml` |
+| Budget/rate limits | `config/rate_limits.yaml` |
+| MCP servers | `config/mcp/servers.json` |
+| Coautoria AI | `.claude/rules/coauthorship.md` |
+| Segurança Notion/MCP | `.claude/rules/mcp_safety.md` |
+| Handoff entre sessões | `HANDOFF.md` |
+| Checklist setup | `PENDENCIAS.md` |
+| Boas práticas | `docs/BEST_PRACTICES.md` |
+
+## Convenções Gerais
+
+- **Coautoria AI explícita**: todo output compartilhado credita modelos (ex.: `Coautoria: Lucas + opus`). Ver `.claude/rules/coauthorship.md`.
+- **YAML** para config, **JSON** para dados.
+- Conteúdo médico: referenciamento impecável (PMID, DOI, nível evidência).
+- Eficiência: Local-First → Cache → Batch; modelo certo por complexidade (Ollama/Haiku/Sonnet/Opus).
+- Ao finalizar sessão: atualizar `HANDOFF.md`.
+
+## O que evitar em regras
+
+- Não duplicar conteúdo que já está em arquivos do repo — referenciar.
+- Não documentar cada comando; usar linter (ruff/mypy) para estilo.
+- Manter regras concisas e acionáveis.
