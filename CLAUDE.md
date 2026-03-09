@@ -56,6 +56,7 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - **Coautoria AI explicita**: todo output credita quem participou (`.claude/rules/coauthorship.md`)
 - Alianca: Opus 4.6 + ChatGPT 5.4 + Gemini 3.1 + Cursor (+ Sonnet, Haiku, Ollama)
 - Notion MCP: protocolo seguro em `.claude/rules/mcp_safety.md`
+- Notion writes (reorganizar/arquivar): cross-validation obrigatoria em `.claude/rules/notion-cross-validation.md`
 - `pytest tests/` | `ruff check .`
 
 ## Self-Improvement

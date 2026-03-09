@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 7d — 2026-03-08
+
+### Cross-Validation Workflow
+- Criada regra `notion-cross-validation.md` — workflow Claude→ChatGPT→User→Execute
+- Prompt padronizado para ChatGPT: auditor independente, naive, sem viés de confirmação
+- Inventário read-only do Masterpiece: ~25 páginas mapeadas, 8 pilares confirmados
+- Ruff instalado (`pip install ruff`, v0.15.5)
+
+---
+Coautoria: Lucas + opus | 2026-03-08
+
 ## Sessao 7c — 2026-03-08
 
 ### Diagnostico & Limpeza
