@@ -1,4 +1,4 @@
-# Variáveis de ambiente e segredos (NUNCA commitar .env)
+# Variáveis de ambiente e segredos
 .env
 .env.local
 .env.*.local
@@ -9,6 +9,31 @@
 secrets/
 credentials/
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
 # Dependências
 node_modules/
 
@@ -16,14 +41,29 @@ node_modules/
 dist/
 build/
 .cache/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
 
-# IDE e SO
+# IDE
 .idea/
 .vscode/
 *.swp
-.DS_Store
-Thumbs.db
+*.swo
+
+# Data
+data/
+*.db
+*.sqlite3
 
 # Logs
 *.log
+logs/
 npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code
+.claude/worktrees/

@@ -1,0 +1,136 @@
+# Configuracao de Rate Limits e Budget
+# =====================================
+# Budget: $100/mes - confortavel mas monitorado
+# Fase de teste: acompanhar custo real vs estimado por 30 dias
+
+budget:
+  daily:
+    max_requests: 50
+    max_cost_usd: 5.00
+    alert_threshold: 0.80  # Alerta em 80% do limite
+
+  weekly:
+    max_requests: 250
+    max_cost_usd: 30.00
+    alert_threshold: 0.80
+
+  monthly:
+    max_requests: 800
+    max_cost_usd: 100.00
+    alert_threshold: 0.70  # Alerta mais cedo pra ter margem
+
+# Priorizacao de tarefas por tier
+priority_tiers:
+  critical:
+    description: "Executa sempre, ignora limites"
+    examples: ["alertas de seguranca", "bugs em producao"]
+    max_cost_per_call: 0.50
+
+  high:
+    description: "Executa se tiver budget"
+    examples: ["pesquisa principal", "code review"]
+    max_cost_per_call: 0.20
+
+  medium:
+    description: "Batcha com outras tarefas"
+    examples: ["resumos", "organizacao diaria", "digest"]
+    max_cost_per_call: 0.10
+
+  low:
+    description: "Defer para quando houver budget sobrando"
+    examples: ["tendencias", "curiosidades", "exploracoes"]
+    max_cost_per_call: 0.05
+
+  background:
+    description: "Usa modelo local ou espera reset"
+    examples: ["formatacao", "parsing", "classificacao simples"]
+    max_cost_per_call: 0.00  # Deve ser gratis (local)
+
+# Estrategia de modelos por complexidade
+# Sonnet/ChatGPT 5.4 = triagem rapida | Opus = trabalho pesado
+model_routing:
+  trivial:
+    model: "local-ollama"        # Custo: $0.00
+    use_for: ["formatacao", "regex", "parsing", "classificacao simples"]
+
+  simple:
+    model: "claude-haiku-4-5"    # Custo: ~$0.003/call
+    use_for: ["classificacao rapida", "filtragem", "subagentes auxiliares",
+              "trend_analyzer", "data_pipeline", "web_monitor"]
+
+  triage:
+    model: "claude-sonnet-4-6"   # Custo: ~$0.01/call
+    alternatives: ["chatgpt-5.4"]
+    use_for: ["triagem de papers", "classificacao complexa", "filtragem de resultados",
+              "extracao de dados", "respostas curtas", "roteamento"]
+
+  medium:
+    model: "claude-sonnet-4-6"   # Custo: ~$0.01/call
+    alternatives: ["chatgpt-5.4"]
+    use_for: ["sumarizacao", "codigo simples", "analise basica",
+              "morning review", "organizacao diaria"]
+
+  deep:
+    model: "claude-opus-4-6"     # Custo: ~$0.05-0.10/call
+    use_for: ["sintese de evidencia", "analise GRADE", "revisao sistematica",
+              "hipoteses", "codigo complexo", "decisoes arquiteturais"]
+
+# Cache
+caching:
+  enabled: true
+  default_ttl_hours: 24
+  max_cache_size_mb: 100
+
+  # TTL por tipo de conteudo
+  ttl_by_type:
+    news_digest: 6          # Noticias: 6h
+    paper_search: 48         # Papers: 48h (mudam pouco)
+    model_comparison: 168    # Comparacao de modelos: 1 semana
+    code_analysis: 24        # Analise de codigo: 24h
+    task_planning: 12        # Planejamento: 12h
+    trend_analysis: 72       # Tendencias: 3 dias
+
+# Batching
+batching:
+  enabled: true
+  max_batch_size: 5           # Max tarefas por batch
+  batch_wait_minutes: 30      # Espera acumular por 30min
+  batch_keys:
+    - "morning_digest"        # Combina news + trends + planning
+    - "research_batch"        # Combina multiplas buscas
+    - "organization_batch"    # Combina tarefas de organizacao
+
+# Fallback entre provedores (inspirado em Portkey AI Gateway)
+# IMPORTANTE: Writes NUNCA usam fallback (mcp_safety.md: erro em write = PARAR)
+fallback:
+  enabled: true
+
+  # Fallback para READS apenas (writes = parar imediatamente)
+  read_fallback:
+    chain:
+      - provider: "anthropic"
+        model: "claude-sonnet-4-6"
+      - provider: "anthropic"
+        model: "claude-haiku-4-5"
+      - provider: "openai"
+        model: "gpt-4o-mini"
+      - provider: "local"
+        model: "ollama/llama3"
+    triggers:
+      - "rate_limit_exceeded"
+      - "budget_exhausted"
+      - "provider_unavailable"
+
+  # Writes: NUNCA fallback — parar e alertar humano
+  write_fallback:
+    chain: []  # Vazio = bloquear
+    action: "block_and_alert"
+
+# BudgetTracker — registro de custos por operacao
+budget_tracker:
+  enabled: true
+  storage: "sqlite:data/knowledge.db"
+  table: "budget_log"
+  fields: ["timestamp", "agent", "model", "operation", "mcp_server", "cost_usd", "tokens_used"]
+  alert_method: "console"
+  daily_report: true

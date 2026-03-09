@@ -1,0 +1,189 @@
+# Configuracao do Ecossistema de Agentes AI
+# ==========================================
+
+ecosystem:
+  name: "AI Agent Ecosystem"
+  version: "0.1.0"
+  language: "pt-br"
+  log_level: "INFO"
+
+# Agentes Principais
+agents:
+  orchestrator:
+    enabled: true
+    model: "claude-opus-4-6"
+    role: "routing"
+    description: "Coordena todos os agentes do ecossistema"
+    budget_tracker: true
+
+  cientifico:
+    enabled: true
+    model: "claude-sonnet-4-6"
+    description: "Pesquisa e analise cientifica"
+    subagents: ["trend_analyzer"]
+    research_areas:
+      - artificial_intelligence
+      - machine_learning
+      - natural_language_processing
+      - medicina_baseada_em_evidencias
+    sources:
+      - arxiv
+      - semantic_scholar
+      - pubmed
+
+  automacao:
+    enabled: true
+    model: "claude-haiku-4-5"
+    description: "Automacao de tarefas e workflows"
+    subagents: ["data_pipeline"]
+    max_concurrent_tasks: 5
+    retry_reads: 3
+    retry_writes: 0  # Writes NUNCA retry (mcp_safety.md)
+
+  organizacao:
+    enabled: true
+    model: "claude-sonnet-4-6"
+    description: "Organizacao pessoal e gestao de tarefas"
+    subagents: ["knowledge_organizer"]
+    methodology: "GTD"  # Getting Things Done
+    daily_task_limit: 5
+    review_schedule: "weekly"
+
+  atualizacao_ai:
+    enabled: true
+    model: "claude-sonnet-4-6"
+    description: "Monitoramento do ecossistema AI"
+    subagents: ["web_monitor"]
+    check_interval_hours: 6
+    monitored_sources:
+      - name: "Anthropic Blog"
+        url: "https://www.anthropic.com/news"
+        type: "blog"
+      - name: "OpenAI Blog"
+        url: "https://openai.com/blog"
+        type: "blog"
+      - name: "Google AI Blog"
+        url: "https://blog.google/technology/ai/"
+        type: "blog"
+      - name: "Hugging Face"
+        url: "https://huggingface.co"
+        type: "hub"
+      - name: "Papers With Code"
+        url: "https://paperswithcode.com"
+        type: "papers"
+      - name: "GitHub Trending"
+        url: "https://github.com/trending"
+        type: "code"
+
+# Subagentes
+subagents:
+  web_monitor:
+    enabled: true
+    model: "claude-haiku-4-5"
+    parent: "atualizacao_ai"
+    check_interval_minutes: 60
+  data_pipeline:
+    enabled: true
+    model: "claude-haiku-4-5"
+    parent: "automacao"
+  trend_analyzer:
+    enabled: true
+    model: "claude-haiku-4-5"
+    parent: "cientifico"
+  knowledge_organizer:
+    enabled: true
+    model: "claude-sonnet-4-6"
+    parent: "organizacao"
+    description: "Integra Notion + Obsidian + Zotero para knowledge management"
+  notion_cleaner:
+    enabled: true
+    model: "claude-sonnet-4-6"
+    parent: "organizacao"
+    description: "Limpa e organiza Notion com seguranca (modelo harsh)"
+
+# Skills
+skills:
+  research:
+    - web_search
+    - arxiv_search
+    - summarizer
+  coding:
+    - code_analyzer
+    - code_generator
+  writing:
+    - content_writer
+  data:
+    - data_processor
+  devops:
+    - git_manager
+  exam_generation:
+    - question_generator      # Gera questoes calibradas por bancas
+    - anti_cue_validator      # Checklist NBME anti-pista
+    - cross_validator         # Validacao cruzada Opus + ChatGPT 5.4
+    - anki_card_generator     # Cards a partir de erros
+    - spaced_learning_planner # Agenda revisao + leitura tier 1
+
+# Modelos AI Configurados
+ai_models:
+  primary:
+    provider: "anthropic"
+    model: "claude-opus-4-6"
+    max_tokens: 8192
+    role: "Analise profunda, sintese, decisoes criticas"
+  fast:
+    provider: "anthropic"
+    model: "claude-sonnet-4-6"
+    max_tokens: 4096
+    role: "Processamento medio, sumarizacao, queries"
+  simple:
+    provider: "anthropic"
+    model: "claude-haiku-4-5"
+    max_tokens: 4096
+    role: "Tarefas simples, automacao, pipelines, subagentes"
+  triage:
+    provider: "openai"
+    model: "chatgpt-5.4"
+    max_tokens: 4096
+    role: "Triagem rapida, classificacao, filtragem"
+  local:
+    provider: "ollama"
+    model: "llama3.3"
+    max_tokens: 4096
+    role: "Operacoes triviais (parsing, file ops, SQL)"
+
+# MCP Servers - Routing por Modelo
+# Definicao completa em config/mcp/servers.json
+mcp_routing:
+  # 5.4 = triagem barata | Sonnet = medio | Opus = profundo | Local = trivial
+  # Notion = Opus direto ($0 via Pro/Max, ja pago)
+  claude_opus_free:  # $0.00 - incluso no Claude Pro/Max
+    - "notion:all"             # Opus pra tudo - ler, classificar, escrever, organizar
+
+  chatgpt_5_4:  # ~$0.005/call (so quando via API separada)
+    - "healthcare-mcp:search_filter"
+    - "pubmed-mcp:search_triage"
+    - "gmail:read_classify"
+    - "github:read_triage"
+    - "fetch:fetch_parse"
+    - "brave-search:search_filter"
+
+  claude_sonnet:  # ~$0.01/call (so quando via API separada)
+    - "healthcare-mcp:extract_data"
+    - "pubmed-mcp:summarize_abstract"
+    - "biomcp:query"
+    - "gmail:summarize"
+    - "context7:all"
+    - "brave-search:analyze"
+    - "memory:synthesize"
+
+  claude_opus:  # ~$0.05-0.10/call (so quando via API separada)
+    - "healthcare-mcp:analyze_evidence"
+    - "pubmed-mcp:systematic_review"
+    - "biomcp:interpret"
+    - "gmail:compose"
+    - "github:code_review"
+
+  local_ollama:  # $0.00
+    - "filesystem:all"
+    - "sqlite:all"
+    - "memory:store_retrieve"

@@ -1,0 +1,581 @@
+# Workflows Unificados do Ecossistema
+# =====================================
+# Fonte unica de verdade — consolidado de:
+#   config/workflows.yaml + workflows/medical_workflow.yaml + workflows/efficient_workflows.yaml
+#
+# Coautoria: Lucas + opus
+# Data: 2026-03-08
+
+workflows:
+  # ============================================================
+  # DAILY WORKFLOWS
+  # ============================================================
+
+  # Batch Morning Digest - 1 UNICA chamada para tudo
+  batch_morning_digest:
+    name: "Digest Matinal Batched"
+    description: "News + Trends + Planning em 1 unica API call"
+    trigger: "cron"
+    schedule: "0 7 * * *"
+    budget_tracking: true
+    api_calls: 1
+    strategy: "batch"
+    batch_prompt: |
+      Responda os 3 topicos abaixo de forma concisa:
+
+      1. NOTICIAS AI: Quais as 3 novidades mais importantes de AI
+         das ultimas 24h? (fontes: Anthropic, OpenAI, Google, HuggingFace)
+
+      2. TENDENCIAS: Qual tendencia de AI esta ganhando forca esta semana?
+
+      3. PLANO DO DIA: Baseado nos meus projetos ativos, sugira as
+         3 tarefas mais importantes para hoje usando Eisenhower Matrix.
+    steps:
+      - action: "batch_query"
+        topics: ["ai_news", "trends", "daily_plan"]
+        cache_ttl_hours: 12
+
+  # Quick Status - 0 API calls (100% local)
+  local_status_check:
+    name: "Status Check Local"
+    description: "Verifica status sem usar API"
+    trigger: "manual"
+    api_calls: 0
+    strategy: "local_only"
+    steps:
+      - skill: "local_first"
+        action: "list_files"
+        params: {directory: "data/", pattern: "*.json"}
+      - agent: "organizacao"
+        action: "status_report"
+        note: "Usa dados locais, sem API"
+
+  # Gmail → Notion (diario)
+  gmail_to_notion:
+    name: "Gmail → Analise → Notion"
+    description: |
+      Monitora Gmail para newsletters medicas e papers.
+      Processa automaticamente e publica no Notion.
+    trigger: "cron"
+    schedule: "0 12 * * *"
+    budget_tracking: true
+    estimated_calls: 1
+    steps:
+      - name: "scan_gmail"
+        type: "mcp"
+        server: "gmail"
+        action: |
+          Buscar emails das ultimas 24h com labels:
+          - "Medical/Newsletters"
+          - "Medical/Papers"
+          - "Medical/Alerts"
+          Extrair: assunto, remetente, corpo, links, PDFs
+        cost: "$0.00"
+      - name: "triage_and_analyze"
+        type: "api_call"
+        model: "claude-sonnet-4-6"
+        action: |
+          Para cada email medico:
+          1. Classificar relevancia (alta/media/baixa)
+          2. Extrair papers/links citados
+          3. Resumir em 1-2 frases
+          4. Se alta relevancia: disparar paper_to_notion
+        cost: "~$0.01"
+      - name: "publish_email_digest"
+        type: "mcp"
+        server: "notion"
+        action: |
+          Adicionar ao database "Inbox Medico" no Notion:
+          - Fonte do email
+          - Resumo
+          - Links para papers
+          - Status: "Para Revisar" / "Arquivado"
+        cost: "$0.00"
+
+  # ============================================================
+  # WEEKLY WORKFLOWS
+  # ============================================================
+
+  # Revisao Semanal Profunda (batched)
+  weekly_deep_review:
+    name: "Revisao Semanal Profunda"
+    description: "Review completo usando budget sabiamente"
+    trigger: "cron"
+    schedule: "0 18 * * 5"  # Sexta 18h
+    budget_tracking: true
+    api_calls: 3
+    steps:
+      - action: "batch_query"
+        batch_prompt: |
+          1. REVIEW SEMANAL: Analise meu progresso esta semana.
+             Tarefas completadas, pendentes, bloqueadas.
+             O que funcionou? O que melhorar?
+
+          2. INBOX: Processe estes items da inbox e classifique
+             como: Acao imediata / Agendar / Delegar / Eliminar
+        cache_ttl_hours: 168
+      - action: "api_query"
+        prompt: |
+          Crie o plano da proxima semana.
+          Distribua tarefas pelos dias com base em:
+          - Prioridade (Eisenhower)
+          - Energia necessaria (deep work vs shallow)
+          - Deadlines
+        cache_ttl_hours: 120
+      - action: "api_query"
+        prompt: |
+          Quais os 5 papers mais relevantes publicados esta semana?
+          Inclua: titulo, autores, 1 frase de resumo, link arXiv/PubMed
+        cache_ttl_hours: 168
+
+  # Digest Medico Semanal
+  weekly_medical_digest:
+    name: "Digest Medico Semanal Tier 1"
+    description: |
+      1 vez por semana: busca as melhores evidencias novas
+      da sua especialidade e publica no Notion
+    trigger: "cron"
+    schedule: "0 8 * * 1"  # Segunda 8h
+    budget_tracking: true
+    orchestrator: "claude-opus-4-6"
+    estimated_calls: 2
+    steps:
+      - name: "search_new_evidence"
+        type: "mcp"
+        servers: ["pubmed-mcp", "healthcare-mcp"]
+        action: |
+          Buscar papers publicados na ultima semana:
+          - Filtro: sua especialidade + subtopicos
+          - Tipo: RCTs, meta-analises, guidelines
+          - Ordenar por relevancia e impacto
+        cost: "$0.00"
+      - name: "analyze_and_rank"
+        type: "api_call"
+        model: "claude-opus-4-6"
+        action: |
+          Analisar os 20 papers encontrados:
+          1. Classificar nivel de evidencia
+          2. Avaliar relevancia pratica (1-10)
+          3. Selecionar TOP 3 mais impactantes
+          4. Resumir cada um em 2 frases + numeros
+          5. Verificar guidelines atualizadas
+          6. Listar trials clinicos novos relevantes
+        cost: "~$0.05-0.10"
+      - name: "publish_digest"
+        type: "mcp"
+        server: "notion"
+        action: |
+          Criar pagina de digest semanal no Notion:
+          - Template: Digest Medico Semanal
+          - Top 3 evidencias com detalhes
+          - Guidelines atualizadas
+          - Trials em andamento
+          - Leitura recomendada
+        template: "digest_semanal_medico"
+        cost: "$0.00"
+
+  # Update Semanal AI
+  weekly_ai_update:
+    name: "Update Semanal AI"
+    description: "1 chamada semanal para atualizar conhecimento de AI"
+    trigger: "cron"
+    schedule: "0 10 * * 1"  # Segunda 10h
+    budget_tracking: true
+    api_calls: 1
+    steps:
+      - action: "batch_query"
+        batch_prompt: |
+          Atualizacao semanal do ecossistema AI:
+
+          1. NOVOS MODELOS: Algum modelo novo lancado esta semana?
+             (Anthropic, OpenAI, Google, Meta, Mistral, open-source)
+
+          2. TOOLS: Novas ferramentas/frameworks relevantes?
+
+          3. BENCHMARKS: Mudancas nos rankings de performance?
+
+          4. PRECOS: Mudancas de precos nos provedores de API?
+
+          5. PAPERS DESTAQUE: 1 paper que todo dev deveria ler?
+        cache_ttl_hours: 168
+
+  # ============================================================
+  # ON-DEMAND WORKFLOWS
+  # ============================================================
+
+  # Paper → Analise MBE → Notion
+  paper_to_notion:
+    name: "Paper → Analise MBE → Notion"
+    description: |
+      Recebe uma nota, paper ou topico medico.
+      Dispara buscas em PubMed/Scite/Consensus/Elicit.
+      Analisa criticamente com MBE profissional.
+      Popula pagina Notion com estetica e qualidade.
+    trigger: "manual"
+    budget_tracking: true
+    orchestrator: "claude-opus-4-6"
+    estimated_calls: 3-5
+    steps:
+      - name: "parse_input"
+        type: "local"
+        action: |
+          Receber input do usuario (nota, paper, topico)
+          Extrair: topico principal, subtopicos, pergunta clinica
+          Formular PICO se possivel
+          Identificar especialidade medica
+        cost: "$0.00"
+      - name: "pubmed_search"
+        type: "mcp"
+        servers: ["healthcare-mcp", "pubmed-mcp", "biomcp"]
+        action: |
+          Buscar em PubMed por MeSH terms relevantes
+          Filtrar: ultimos 5 anos, humanos, idioma
+          Priorizar: RCTs, meta-analises, guidelines
+          Buscar ClinicalTrials.gov para trials ativos
+        max_results: 20
+        cost: "$0.00 (MCP)"
+      - name: "evidence_verification"
+        type: "api_call"
+        model: "claude-opus-4-6"
+        action: |
+          Atuar como especialista MBE senior.
+
+          Para cada paper relevante:
+          1. Classificar nivel de evidencia (Oxford CEBM)
+          2. Aplicar checklist CASP
+          3. Extrair dados PICO
+          4. Identificar vieses e limitacoes
+
+          Sintetizar com grau de recomendacao (A-D)
+        cost: "~$0.05-0.10"
+      - name: "cross_validation"
+        type: "api_call"
+        model: "gpt-5.4"
+        optional: true
+        when: "evidencia ambigua ou decisao critica"
+        action: |
+          Segunda opiniao sobre a analise MBE:
+          - Concordancia com grau de recomendacao?
+          - Algum estudo importante esquecido?
+          - Vieses nao identificados?
+        cost: "~$0.02-0.05"
+      - name: "publish_to_notion"
+        type: "mcp"
+        server: "notion"
+        action: |
+          Criar pagina no Notion usando template MBE:
+          - Titulo com emoji medico
+          - PICO em tabela
+          - Conclusao principal em callout
+          - Tabela comparativa dos estudos
+          - Analise critica com checkmarks
+          - Referencias com PMID
+          - Tag de nivel de evidencia
+        template: "resumo_evidencias_medicas"
+        database: "Knowledge Base Medica"
+        cost: "$0.00 (MCP)"
+
+  # Nota Rapida → Evidencia → Notion
+  quick_note_to_evidence:
+    name: "Nota Rapida → Evidencia → Notion"
+    description: |
+      Voce anota algo rapido (ex: "metformina e cancer?")
+      O sistema busca, analisa e publica no Notion
+    trigger: "manual"
+    budget_tracking: true
+    estimated_calls: 2
+    steps:
+      - name: "parse_note"
+        type: "local"
+        action: "Extrair topico e formular pergunta PICO"
+        cost: "$0.00"
+      - name: "search_evidence"
+        type: "mcp"
+        servers: ["pubmed-mcp", "healthcare-mcp"]
+        action: "Buscar evidencias no PubMed"
+        cost: "$0.00"
+      - name: "analyze_and_publish"
+        type: "api_call"
+        model: "claude-opus-4-6"
+        action: |
+          Analisar evidencias encontradas:
+          - Nivel de evidencia
+          - Numeros concretos (NNT, RR, IC)
+          - Conclusao pratica
+          Formatar como Quick Reference e publicar no Notion
+        cost: "~$0.05-0.10"
+      - name: "publish_notion"
+        type: "mcp"
+        server: "notion"
+        template: "nota_clinica_rapida"
+        cost: "$0.00"
+
+  # Research Sprint
+  research_sprint:
+    name: "Sprint de Pesquisa"
+    description: "Pesquisa profunda sobre 1 topico usando budget com sabedoria"
+    trigger: "manual"
+    budget_tracking: true
+    api_calls: 3
+    steps:
+      - action: "api_query"
+        prompt: |
+          Mapeie o estado da arte de: {topic}
+          - Top 5 papers mais citados
+          - Top 3 frameworks/tools
+          - Principais autores/labs
+          - Gaps de pesquisa
+        cache_ttl_hours: 72
+      - action: "api_query"
+        prompt: |
+          Analise criticamente os achados sobre {topic}:
+          - Metodologias dominantes e suas limitacoes
+          - Tendencias emergentes
+          - Oportunidades de contribuicao
+        cache_ttl_hours: 72
+      - action: "api_query"
+        prompt: |
+          Sintetize a pesquisa sobre {topic} em:
+          1. Resumo executivo (3 paragrafos)
+          2. Tabela comparativa dos approaches
+          3. Recomendacao de proximos passos
+          4. Lista de leitura priorizada (top 5)
+        cache_ttl_hours: 168
+
+  # Smart Query (cache-first)
+  smart_query:
+    name: "Query Inteligente"
+    description: "Verifica cache antes de chamar API"
+    trigger: "manual"
+    api_calls: "0-1"
+    strategy: "cache_first"
+    steps:
+      - action: "check_cache"
+        on_hit: "return_cached"
+        on_miss: "api_query"
+      - action: "cache_result"
+        ttl_hours: 24
+
+  # Code Review Automatizado
+  code_review:
+    name: "Code Review Automatizado"
+    description: "Review automatico de qualidade de codigo"
+    trigger: "event"
+    event: "git_push"
+    budget_tracking: true
+    steps:
+      - skill: "code_analyzer"
+        action: "analyze_project"
+        description: "Analisar projeto"
+      - skill: "code_analyzer"
+        action: "security_scan"
+        description: "Scan de seguranca"
+      - skill: "content_writer"
+        action: "write"
+        content_type: "report"
+        description: "Gerar relatorio"
+
+  # Extracao de Fontes Pagas (UpToDate, DynaMed, Best Practice)
+  paid_source_extraction:
+    name: "Fonte Paga → Extracao → MBE → Notion"
+    description: |
+      Usa Cowork ou ChatGPT Agent para acessar fontes pagas
+      com login, extrair conteudo e processar com MBE.
+    trigger: "manual"
+    budget_tracking: true
+    frequency: "2-3x/semana"
+    estimated_calls: 2
+    steps:
+      - name: "extract_from_source"
+        type: "browser_agent"
+        agents:
+          primario: "claude_cowork"
+          backup: "chatgpt_agent"
+        sources:
+          - name: "UpToDate"
+            url: "https://www.uptodate.com"
+            auth: "login institucional/pessoal"
+          - name: "DynaMed"
+            url: "https://www.dynamed.com"
+            auth: "login institucional"
+          - name: "BMJ Best Practice"
+            url: "https://bestpractice.bmj.com"
+            auth: "login institucional/pessoal"
+        action: |
+          1. Abrir browser autenticado na fonte
+          2. Navegar ate o topico de interesse
+          3. Extrair conteudo completo (texto + tabelas + referencias)
+          4. Se disponivel: baixar PDF
+          5. Salvar na pasta compartilhada para processamento
+        output: "data/extracted/"
+        cost: "$0.00 (usa plano Cowork/ChatGPT)"
+      - name: "process_with_mbe"
+        type: "api_call"
+        model: "claude-opus-4-6"
+        action: |
+          Receber conteudo extraido e processar com skill MBE:
+          1. Identificar guidelines e recomendacoes
+          2. Classificar nivel de evidencia (GRADE)
+          3. Extrair dados numericos (NNT, RR, IC 95%)
+          4. Aplicar checklist correto (AGREE II para guidelines)
+          5. Cross-reference com PubMed MCP
+          6. Sintetizar com grau de recomendacao
+        cost: "~$0.05-0.10"
+      - name: "publish_enriched"
+        type: "mcp"
+        server: "notion"
+        action: |
+          Criar pagina Notion enriquecida:
+          - Fonte original (UpToDate/DynaMed/BMJ)
+          - Resumo da guideline/topico
+          - Nivel de evidencia GRADE
+          - Dados numericos em tabela
+          - Referencias cruzadas com PubMed
+          - Link para fonte original
+        cost: "$0.00"
+
+  # Organizacao Completa
+  full_organization:
+    name: "Organizacao Completa"
+    description: "Reorganizacao completa de tarefas e projetos"
+    trigger: "manual"
+    budget_tracking: true
+    model_tier: "medium"
+    steps:
+      - agent: "organizacao"
+        action: "inbox_process"
+        description: "Processar inbox"
+      - agent: "organizacao"
+        action: "prioritize"
+        description: "Priorizar tarefas (Eisenhower)"
+      - agent: "organizacao"
+        action: "status_report"
+        description: "Gerar relatorio de status"
+      - agent: "organizacao"
+        action: "plan_week"
+        description: "Criar plano semanal"
+
+  # Limpeza Notion (seguro, com aprovacao humana)
+  notion_cleanup:
+    name: "Limpeza Notion"
+    description: "Varre Notion pagina por pagina, organiza, remove duplicatas"
+    trigger: "manual"
+    model_tier: "medium"
+    background: false
+    requires_human_approval: true
+    mcp_safety: "strict"  # Referencia: .claude/rules/mcp_safety.md
+    steps:
+      # FASE 1: AUDIT (READ-ONLY)
+      - agent: "organizacao"
+        action: "notion_audit"
+        mode: "read_only"
+        description: "Varrer todas as paginas e classificar (READ-ONLY)"
+      - agent: "organizacao"
+        action: "identify_duplicates"
+        mode: "read_only"
+        description: "Identificar duplicatas (READ-ONLY, sem resolver)"
+      # CHECKPOINT: Apresentar relatorio ao humano
+      - action: "human_review"
+        description: "Apresentar achados ao usuario para aprovacao antes de writes"
+      # FASE 2: EXECUTE (token read-write, UMA operacao por vez)
+      - agent: "organizacao"
+        action: "deduplicate_approved"
+        mode: "write_one_at_a_time"
+        cross_validation: true
+        description: "Resolver duplicatas aprovadas (1 por vez, com verificacao)"
+      - agent: "organizacao"
+        action: "safe_relocate"
+        mode: "write_one_at_a_time"
+        cross_validation: true
+        description: "Relocar via workaround: create → copy → verify → archive original"
+      - agent: "organizacao"
+        action: "fill_tags"
+        mode: "write_one_at_a_time"
+        description: "Preencher tags e propriedades faltantes (1 por vez)"
+      - agent: "organizacao"
+        action: "archive_obsolete"
+        mode: "write_one_at_a_time"
+        cross_validation: true
+        description: "Arquivar conteudo obsoleto (NUNCA deletar, apenas archive)"
+      # FASE 3: VERIFICACAO
+      - agent: "organizacao"
+        action: "verify_all_writes"
+        mode: "read_only"
+        description: "Re-ler todas as paginas modificadas e confirmar resultado"
+      - agent: "organizacao"
+        action: "generate_report"
+        description: "Gerar relatorio final (executado + pendente + flags)"
+
+  # AI Monitoring (a cada 6h)
+  ai_monitoring:
+    name: "Monitoramento AI"
+    description: "Monitoramento continuo do ecossistema AI"
+    trigger: "cron"
+    schedule: "0 */6 * * *"
+    budget_tracking: true
+    estimated_cost_per_run: 0.05
+    steps:
+      - subagent: "web_monitor"
+        action: "check_all"
+        model_tier: "simple"
+        description: "Verificar todas as fontes"
+      - agent: "atualizacao_ai"
+        action: "check_updates"
+        model_tier: "medium"
+        description: "Processar atualizacoes"
+      - agent: "atualizacao_ai"
+        action: "compare_models"
+        model_tier: "medium"
+        description: "Comparar novos modelos"
+      - subagent: "trend_analyzer"
+        action: "analyze"
+        model_tier: "simple"
+        description: "Analisar tendencias"
+
+  # Pesquisa Cientifica Pipeline
+  research_pipeline:
+    name: "Pipeline de Pesquisa"
+    description: "Pesquisa cientifica completa sobre um topico"
+    trigger: "manual"
+    budget_tracking: true
+    steps:
+      - agent: "cientifico"
+        action: "search"
+        model_tier: "triage"
+        description: "Buscar papers"
+      - subagent: "trend_analyzer"
+        action: "analyze"
+        model_tier: "simple"
+        description: "Analisar tendencias nos resultados"
+      - agent: "cientifico"
+        action: "literature_review"
+        model_tier: "deep"
+        description: "Criar revisao de literatura"
+      - agent: "cientifico"
+        action: "generate_hypothesis"
+        model_tier: "deep"
+        description: "Gerar hipoteses"
+
+# ============================================================
+# BUDGET MENSAL ESTIMADO (Consolidado)
+# ============================================================
+#
+# Workflow                      | Calls/mes | Custo
+# ------------------------------|-----------|--------
+# Batch Morning Digest (30x)    | 30        | ~$1.50
+# Weekly Deep Review (4x)       | 12        | ~$0.60
+# Weekly Medical Digest (4x)    | 8         | ~$0.40
+# Weekly AI Update (4x)         | 4         | ~$0.20
+# Gmail-to-Notion (30x)         | 30        | ~$0.30
+# Paper-to-Notion (~4x)         | 12-20     | ~$0.60-1.00
+# Quick Notes (~8x)             | 16        | ~$0.80
+# AI Monitoring (120x)          | 120       | ~$0.50
+# Smart Queries (~20x)          | 0-20      | ~$0.00-1.00
+# Research Sprint (on-demand)   | 3         | ~$0.15
+# ------------------------------|-----------|--------
+# TOTAL API                     | ~235-290  | ~$5.05-6.45
+# + MCPs (PubMed, Notion, etc)  |           | $0.00
+# + Overhead, spikes, testes    |           | ~$5-35
+# ------------------------------|-----------|--------
+# TOTAL REAL MENSAL             |           | ~$10-40
+# MAX ABSOLUTO                  |           | $100/mes

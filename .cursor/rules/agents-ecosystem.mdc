@@ -1,0 +1,31 @@
+---
+description: Arquitetura de agentes, orquestrador, config e subagentes
+globs: "**/orchestrator*.py,**/agents/**/*.py,**/subagents/**/*.py,config/ecosystem.yaml,config/loader.py"
+alwaysApply: false
+---
+
+# Agents Ecosystem
+
+## Arquitetura
+
+- **Orchestrator** (Opus): roteamento, planejamento, decisão; entry point `orchestrator.py` / `__main__.py`.
+- **Agentes**: Científico (Sonnet + trend_analyzer), Automação (Haiku + data_pipeline), Organização (Sonnet + knowledge_organizer), AtualizacaoAI (Sonnet + web_monitor).
+- Config central: `config/ecosystem.yaml` (agentes, modelos, subagentes); `config/rate_limits.yaml` (budget); `config/mcp/servers.json` (MCPs).
+- Carregar config via `config/loader.py`; não hardcodar modelos ou URLs.
+
+## Model routing
+
+- Trivial → Ollama ($0) | simples → Haiku | médio → Sonnet | complexo → Opus.
+- Budget: `max_budget_usd` como safety net; `BudgetTracker` em `agents/core/budget_tracker.py`.
+- Retries: reads podem retry; **writes nunca** (MCP/Notion) — ver `.claude/rules/mcp_safety.md`.
+
+## Subagentes e skills
+
+- Subagentes em `subagents/` (analyzers, monitors, processors).
+- Skills em `skills/` (research, efficiency, coding, writing, devops) e `.claude/skills/` (mbe-evidence, medical-research, notion-publisher, etc.).
+- Manter um agente por arquivo; expor via `__init__.py` do pacote.
+
+## Ao alterar
+
+- Ao mudar modelo ou role de um agente: atualizar `config/ecosystem.yaml` e, se necessário, `config/rate_limits.yaml`.
+- Documentar decisões de arquitetura em `docs/ARCHITECTURE.md`.
