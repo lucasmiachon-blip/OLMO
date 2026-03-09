@@ -1,19 +1,20 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 8 | 2026-03-08
+> Sessao 9 | 2026-03-08
 
 ## ESTADO ATUAL
 
-Core Python: 30 REAL, 17 STUB. Notion MCP funcional. Workspace auditado.
-Skills: 13 (11 originais + 2 novas Notion). Rules: 6 (+ session-hygiene).
+Python: 28 arquivos (10 redundantes deletados, MCP/Claude nativo substitui).
+3 conflitos corrigidos. Model router criado. Anki MCP adicionado.
+Skills: 13. Rules: 6.
 
 ## PROXIMO
 
-1. Decidir destino dos 17 stubs Python (deletar vs manter)
-2. Organizar conteudo Masterpiece (covers Canva, subpaginas nos pilares)
-3. Testar Error Log do Sistema de Estudo R3 end-to-end
-4. Instalar Notion plugin oficial (`makenotion/claude-code-notion-plugin`) — 4 skills + 10 slash commands
-5. Avaliar productivity plugin (`anthropics/knowledge-work-plugins`) — memory + task management
+1. Organizar conteudo Masterpiece (covers Canva, subpaginas nos pilares)
+2. Testar Error Log do Sistema de Estudo R3 end-to-end
+3. Instalar Notion plugin oficial (`makenotion/claude-code-notion-plugin`)
+4. Avaliar productivity plugin (`anthropics/knowledge-work-plugins`)
+5. Refactor: knowledge_organizer.py e notion_cleaner.py → usar MCP direto
 
 ## PENDENTE
 
@@ -25,9 +26,7 @@ Skills: 13 (11 originais + 2 novas Notion). Rules: 6 (+ session-hygiene).
 
 ## CONFLITOS
 
-- [ ] scientific_agent.py: areas hardcoded AI/ML, deveria ser medicina
-- [ ] Model assignments nao enforced no codigo
-- [ ] Anki MCP referenciado mas nao em servers.json
+(nenhum ativo — 3 anteriores resolvidos)
 
 ---
 Coautoria: Lucas + opus | 2026-03-08

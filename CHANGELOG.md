@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 7c — 2026-03-08
+
+### Diagnostico & Limpeza
+- Deletados 10 modulos Python redundantes (MCP/Claude nativo substitui): web_search, arxiv_search, summarizer, content_writer, code_analyzer, code_generator, git_manager, response_cache, batch_processor, budget_tracker
+- Python: 48 → 38 arquivos (23 skills/agents + 15 __init__/config)
+
+### Conflitos Resolvidos (3/3)
+- scientific_agent.py: areas AI/ML → especialidades medicas (reumato, cardio, infecto, epidemio)
+- Criado model_router.py: enforce routing trivial→Ollama, simple→Haiku, medium→Sonnet, complex→Opus
+- Adicionado Anki MCP em servers.json
+
+---
+Coautoria: Lucas + opus | 2026-03-08
+
 ## Sessao 7b — 2026-03-08
 
 ### Skills

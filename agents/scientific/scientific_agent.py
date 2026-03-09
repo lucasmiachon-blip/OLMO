@@ -64,9 +64,11 @@ class ScientificAgent(BaseAgent):
 
     DEFAULT_RESEARCH_AREAS = [
         "medicina_baseada_em_evidencias",
-        "artificial_intelligence",
-        "machine_learning",
-        "natural_language_processing",
+        "clinica_medica",
+        "reumatologia",
+        "cardiologia",
+        "infectologia",
+        "epidemiologia_clinica",
     ]
 
     def __init__(self) -> None:

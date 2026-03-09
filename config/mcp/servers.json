@@ -161,6 +161,20 @@
       }
     },
 
+    "anki": {
+      "command": "npx",
+      "args": ["-y", "@ankimcp/anki-mcp-server"],
+      "description": "Anki Desktop integration. Spaced repetition cards para concurso e estudo medico.",
+      "priority": "high",
+      "setup": "Requer: Anki Desktop + AnkiConnect add-on (codigo 2055492159)",
+      "cost": "$0",
+      "model_routing": {
+        "generate_card": "claude-sonnet-4-6",
+        "analyze_retention": "claude-opus-4-6",
+        "notes": "Gerar cards → Sonnet. Analise de retention/dificuldade → Opus."
+      }
+    },
+
     "brave-search": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-brave-search"],
