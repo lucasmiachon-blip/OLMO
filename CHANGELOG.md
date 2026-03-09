@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 7b — 2026-03-08
+
+### Skills
+- Criada `notion-knowledge-capture` — conversa/pesquisa → Masterpiece DB
+- Criada `notion-spec-to-impl` — specs → tasks no Notion Tasks DB
+- Enriquecida `organization` — memory management (2 tiers) + task management + weekly review
+
+### Rules
+- Criada `session-hygiene.md` — CHANGELOG + HANDOFF obrigatorios, sempre enxutos
+- Atualizada `mcp_safety.md` — notion-move-pages (#64 resolvida), token unico
+
+### Config
+- Atualizado CLAUDE.md — novas skills + regra session-hygiene
+
+### Pesquisa
+- Mapeados ferramentas de gestao: anthropics/skills (73k stars), knowledge-work-plugins (produtividade), n8n (177k), Composio (40k), Notion plugin oficial, Todoist MCP oficial
+- Descartados por redundancia: CrewAI, Plane, Airflow, Taskwarrior
+
+---
+Coautoria: Lucas + opus | 2026-03-08
+
 ## Sessao 7 — 2026-03-08
 
 ### Auditoria Notion (workspace completo)

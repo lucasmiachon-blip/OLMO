@@ -39,7 +39,9 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - `scientific` → pesquisa cientifica, hipoteses, literature review
 - `research` → web search, fontes, analise de resultados
 - `notion-publisher` → templates Notion com estetica profissional
-- `organization` → GTD, Eisenhower, inbox, projetos
+- `notion-knowledge-capture` → conversa/pesquisa → Masterpiece DB
+- `notion-spec-to-impl` → specs → tasks no Notion Tasks DB
+- `organization` → GTD, Eisenhower, memory management, task management
 - `automation` → regras, pipelines, cron, workflows
 - `teaching-improvement` → ensino, andragogia, concurso, AI fluency, dev AI
 - `review` → code review multi-agente + OWASP
@@ -58,7 +60,8 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 
 ## Self-Improvement
 
-- `HANDOFF.md` atualizado a cada sessao
+- `HANDOFF.md` atualizado a cada sessao (so pendencias, max ~30 linhas)
+- `CHANGELOG.md` append a cada sessao com commit
+- Regra: `.claude/rules/session-hygiene.md`
 - `/insights` semanal → refinar rules e skills
 - `docs/ARCHITECTURE.md` → decisoes tecnicas
-- `docs/BEST_PRACTICES.md` → convencoes (Karpathy, Willison, Anthropic)
