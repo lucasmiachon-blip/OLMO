@@ -1,82 +1,103 @@
 # Skill: Code Review
 
-Voce e um revisor de codigo experiente. Use esta skill para
-revisar codigo com foco em qualidade, seguranca e eficiencia.
+Revisor de codigo multi-agente com foco em qualidade, seguranca,
+performance e conformidade com o ecossistema.
 
 ## Quando Ativar
-- Review de PR ou mudancas recentes
+- `/review` ou "revisar codigo", "review PR"
+- Antes de merge/deploy
 - Auditoria de seguranca
 - Analise de qualidade de codigo
-- Antes de merge/deploy
 
 ## Processo de Review
 
-### 1. Visao Geral
-- Entender o proposito das mudancas
-- Verificar se atende aos requisitos
-- Avaliar impacto no sistema
+### 1. Contexto
+- `git diff` para ver mudancas (staged + unstaged)
+- Entender proposito das mudancas
+- Verificar impacto no sistema
+- Checar se toca em arquivos protegidos (.claude/rules/, config/)
 
 ### 2. Qualidade
 - Legibilidade e clareza
 - Nomes significativos
-- Complexidade desnecessaria
+- Complexidade desnecessaria (over-engineering)
 - Duplicacao de codigo
-- Type hints e documentacao
+- Type hints (obrigatorio por convencao)
+- Conformidade com `.claude/rules/quality.md`
 
-### 3. Seguranca (OWASP Top 10)
-- Injection (SQL, command, XSS)
-- Autenticacao e autorizacao
-- Exposicao de dados sensiveis
-- Configuracao insegura
-- Dependencias vulneraveis
+### 3. Seguranca (OWASP LLM Top 10 2025)
+- Prompt Injection (LLM01)
+- Insecure Output Handling (LLM02)
+- Supply Chain Vulnerabilities (LLM05)
+- Injection classica (SQL, command, XSS)
+- Exposicao de credenciais/tokens
+- Configuracao insegura de MCP
+- Conformidade com `.claude/rules/mcp_safety.md`
 
 ### 4. Performance
 - Complexidade algoritmica
 - Queries N+1
 - Memory leaks
 - Caching oportunidades
+- Uso excessivo de API (conformidade com rules/efficiency.md)
 
 ### 5. Testes
-- Cobertura adequada
+- Cobertura adequada para logica de negocio
 - Edge cases
-- Testes de integracao
+- Testes de integracao (sem mocks desnecessarios)
+
+### 6. Conformidade Ecossistema
+- Coautoria explicitada? (rules/coauthorship.md)
+- Notion writes seguem protocolo? (rules/mcp_safety.md)
+- Budget respeitado? (config/rate_limits.yaml)
+
+## Severity Levels
+
+| Level | Tag | Acao |
+|-------|-----|------|
+| P0 Critical | `[BLOCK]` | Bloqueia merge, fix imediato |
+| P1 Important | `[WARN]` | Deveria corrigir antes de merge |
+| P2 Suggestion | `[INFO]` | Nice to have, nao bloqueia |
+| P3 Nitpick | `[NIT]` | Estilo, preferencia pessoal |
 
 ## Formato de Output
+
 ```
 ## Code Review: [ARQUIVO/PR]
 
 ### Resumo
 [1-2 frases sobre as mudancas]
 
-### Aprovacao
-[ ] Aprovado | [ ] Mudancas Necessarias | [ ] Bloqueado
+### Veredito: APROVADO | MUDANCAS NECESSARIAS | BLOQUEADO
 
-### Issues Encontradas
+### Issues
 
-#### Criticas (bloqueia merge)
-- ...
+#### [BLOCK] Criticas
+- file:line — descricao — sugestao de fix
 
-#### Importantes (deveria corrigir)
-- ...
+#### [WARN] Importantes
+- file:line — descricao — sugestao de fix
 
-#### Sugestoes (nice to have)
-- ...
+#### [INFO] Sugestoes
+- file:line — descricao
 
 ### Pontos Positivos
 - ...
 ```
 
-## Multi-Agent Review
-Para reviews criticos, use 3 agentes em paralelo:
-1. **Code Quality Agent** - reuso, legibilidade, padronizacao
-2. **Security Agent** - vulnerabilidades, OWASP
-3. **Efficiency Agent** - performance, otimizacao
+## Multi-Agent Review (para mudancas criticas)
+Rodar 3 agentes em paralelo via Agent tool:
+1. **Quality Agent** (Sonnet) — reuso, legibilidade, padronizacao
+2. **Security Agent** (Sonnet) — OWASP, credenciais, MCP safety
+3. **Performance Agent** (Haiku) — complexidade, memory, caching
 
-Depois consolide os achados em 1 relatorio.
+Consolidar achados em 1 relatorio unificado com dedup.
 
 ## Cross-Validation com ChatGPT
-Para decisoes criticas, envie o mesmo codigo para ChatGPT 5.4
-como segunda opiniao. Compare os achados.
+Para decisoes criticas (arquitetura, seguranca), envie o mesmo
+codigo para ChatGPT 5.4 como segunda opiniao independente.
 
 ## Eficiencia
-- Registrar custo no BudgetTracker (multi-agent reviews consomem mais)
+- Review simples: Sonnet (single agent)
+- Review critico: multi-agent (Sonnet + Haiku)
+- Registrar custo no BudgetTracker

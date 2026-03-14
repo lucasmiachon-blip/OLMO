@@ -44,9 +44,13 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - `organization` → GTD, Eisenhower, memory management, task management
 - `automation` → regras, pipelines, cron, workflows
 - `teaching-improvement` → ensino, andragogia, concurso, AI fluency, dev AI
-- `review` → code review multi-agente + OWASP
+- `review` → code review multi-agente + OWASP LLM Top 10 2025
 - `ai-monitoring` → tracking modelos, tools, benchmarks
 - `exam-generator` → simulados calibrados por bancas, Anki cards, anti-cue protocol
+- `skill-creator` → meta-skill para criar/refinar skills interativamente
+- `janitor` → limpeza e manutencao do repositorio
+- `self-evolving` → auto-evolucao PDCA do ecossistema (skills, rules, configs)
+- `continuous-learning` → aprendizado progressivo dev/ML/AI ops com analogias medicas
 
 ## Conventions
 

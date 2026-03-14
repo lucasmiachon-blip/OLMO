@@ -1,25 +1,28 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 10 | 2026-03-08
+> Sessao 11 | 2026-03-14
 
 ## ESTADO ATUAL
 
-Python: 38 arquivos, 0 conflitos. Rules: 7 (+ cross-validation). Skills: 13.
-Inventario Masterpiece: ~25 paginas mapeadas, aguardando cross-validation ChatGPT.
-Workflow definido: Claude→ChatGPT→User→Execute.
+Skills: 17 (4 novas + review upgrade). Rules: 6. Memory: 5 arquivos.
+Evolve diagnosticou score 7.5/10. ecosystem.yaml desincronizado.
 
 ## PROXIMO
 
-1. Executar cross-validation Masterpiece (user cola resultado ChatGPT, Claude compara)
-2. Organizar conteudo Masterpiece (reclassificar, mesclar, arquivar por consenso)
-3. Testar Error Log do Sistema de Estudo R3 end-to-end
-4. Instalar Notion plugin oficial (`makenotion/claude-code-notion-plugin`)
-5. Refactor: knowledge_organizer.py e notion_cleaner.py → usar MCP direto
+1. Rodar janitor (cleanup repo — agente travou, re-rodar)
+2. Sincronizar ecosystem.yaml com 17 skills reais (gap critico do evolve)
+3. Configurar Gmail MCP diario (ler lucas.miachon@hc.fm.usp.br)
+4. Configurar Notion MCP diario (atualizar properties)
+5. Configurar /loop para evolve semanal + Gmail/Notion diario
+6. Cross-validation Masterpiece (pendente desde sessao 10)
 
 ## PENDENTE
 
+- [ ] Gmail diario via MCP (leitura + resumo)
+- [ ] Notion properties update diario via MCP
+- [ ] Split teaching-improvement (392 linhas → 3 skills)
+- [ ] Ativar BudgetTracker (SQLite, configurado mas inativo)
 - [ ] MCPs medicos (healthcare, pubmed, biomcp)
-- [ ] Gmail MCP
 - [ ] Exam-generator (aguarda 10+ provas reais em PDF)
 - [ ] n8n self-hosted (automacao 24/7)
 - [ ] Obsidian + Zotero (futuro)
@@ -29,4 +32,4 @@ Workflow definido: Claude→ChatGPT→User→Execute.
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + opus | 2026-03-08
+Coautoria: Lucas + opus | 2026-03-14

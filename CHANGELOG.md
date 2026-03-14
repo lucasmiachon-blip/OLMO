@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## Sessao 11 — 2026-03-14
+
+### Skills (4 novas)
+- Criada `skill-creator` — meta-skill para criar/refinar skills interativamente
+- Criada `janitor` — limpeza e manutencao do repositorio (6 operacoes)
+- Criada `self-evolving` — auto-evolucao PDCA do ecossistema
+- Criada `continuous-learning` — aprendizado progressivo dev/ML/AI ops (etimologia, filosofia)
+
+### Skills (1 upgrade)
+- `review` — severity levels P0-P3, OWASP LLM Top 10 2025, conformidade ecossistema
+
+### Evolve (diagnostico)
+- Score geral: 7.5/10
+- Gap critico: ecosystem.yaml lista 8 skills deletadas
+- teaching-improvement candidato a split (392 linhas)
+- BudgetTracker configurado mas inativo
+
+### Memory (sistema inicializado)
+- user_profile — perfil completo + ecossistema de ferramentas + emails
+- feedback_no_infantilizar — sem analogias medicas, usar etimologia/filosofia
+- project_recurring_evolve — task recorrente /evolve semanal
+- project_skills_update — registro das 4 novas skills
+- reference_skill_repos — 15+ repos GitHub com skills
+
+### Config
+- CLAUDE.md atualizado com 17 skills
+
+---
+Coautoria: Lucas + opus | 2026-03-14
+
 ## Sessao 7d — 2026-03-08
 
 ### Cross-Validation Workflow
@@ -38,33 +68,3 @@ Coautoria: Lucas + opus | 2026-03-08
 
 ### Config
 - Atualizado CLAUDE.md — novas skills + regra session-hygiene
-
-### Pesquisa
-- Mapeados ferramentas de gestao: anthropics/skills (73k stars), knowledge-work-plugins (produtividade), n8n (177k), Composio (40k), Notion plugin oficial, Todoist MCP oficial
-- Descartados por redundancia: CrewAI, Plane, Airflow, Taskwarrior
-
----
-Coautoria: Lucas + opus | 2026-03-08
-
-## Sessao 7 — 2026-03-08
-
-### Auditoria Notion (workspace completo)
-- Lido conteudo de ~30 paginas antes de classificar
-- Arquivadas 7 paginas redundantes/vazias para pagina "Archived" (`31ddfe6859a88117a7f3ddb10c31c5a7`)
-  - Lucas Miachon v1.2, Plano de Reorganizacao, _WORKBENCH, CHANGELOG-RESOURCES, Databases & Components, AI Hub (container), Claude Workspace Log
-- Reorganizada "Diretrizes Claude — skills.md" → Masterpiece DB (META/SISTEMA, Ferramenta, Arvore)
-- Zero perdas de dados: tudo arquivado, nada deletado
-
-### Auditoria Python (48 arquivos)
-- Classificados: 30 REAL, 17 STUB, 0 BROKEN
-- Core 100% funcional (orchestrator, agents, config, safety)
-
-### Config
-- Unificado 2 tokens Notion → 1 unico `NOTION_TOKEN_KEY` (.env.example + servers.json)
-- Notion MCP testado e funcional
-
-### Snapshots
-- Criado `data/notion_snapshot.md` (local, gitignored) com IDs de todas databases e paginas ativas
-
----
-Coautoria: Lucas + opus | 2026-03-08
