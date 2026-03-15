@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## Sessao 12 — 2026-03-14
+
+### Janitor
+- Deletar AGENTS.md, tools_ecosystem.yaml, workflows/efficient_workflows.yaml, workflows/medical_workflow.yaml (-940 linhas)
+- Limpar referencias em GETTING_STARTED.md, yaml-config.mdc
+- Atualizar PENDENCIAS.md (notion-move-pages disponivel)
+
+### Self-Evolving
+- ecosystem.yaml: skills sync (6 genericas → 18 reais com paths e descricoes)
+
+### Skill Creator
+- Nova skill `daily-briefing` (Gmail→classificar→Notion Emails Digest DB)
+- Formato: properties completas + corpo com Resumo + Conceitos-Chave Expandidos
+
+### Notion
+- Arquivar 100 paginas do Emails Digest DB (movidas para Archived — Auditoria)
+- DB limpo para comecar fresh amanha
+
+### Memory
+- Salvar plano futuro Obsidian + Zotero
+- Adicionar referencia GTD repos (claude-task-master 25k stars)
+- Atualizar user_profile com Zotero e Obsidian
+
+---
+Coautoria: Lucas + opus | 2026-03-14
+
 ## Sessao 11 — 2026-03-14
 
 ### Skills (4 novas)
