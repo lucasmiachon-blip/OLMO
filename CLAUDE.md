@@ -51,6 +51,7 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - `janitor` → limpeza e manutencao do repositorio
 - `self-evolving` → auto-evolucao PDCA do ecossistema (skills, rules, configs)
 - `continuous-learning` → aprendizado progressivo dev/ML/AI ops com analogias medicas
+- `daily-briefing` → email diario (Gmail→classificar→Notion Emails Digest DB)
 
 ## Conventions
 

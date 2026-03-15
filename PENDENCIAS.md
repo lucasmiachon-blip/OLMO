@@ -34,7 +34,7 @@
   - Auth: OAuth via browser (2 tokens: read-only padrao + read-write sob demanda)
   - Custo: $0 via Claude Pro/Max
   - **SEGURANCA**: Ver `.claude/rules/mcp_safety.md` (bugs conhecidos, protocolo)
-  - **IMPORTANTE**: Nao existe API de move — usar criar+copiar+verificar+arquivar
+  - **MOVE**: `notion-move-pages` disponivel (#64 resolvida) — ver `mcp_safety.md`
 
 - [ ] **Gmail/Google Workspace MCP** - Emails medicos
   - Setup: `npx @anthropic-ai/google-workspace-mcp`

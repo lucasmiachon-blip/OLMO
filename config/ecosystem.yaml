@@ -101,27 +101,73 @@ subagents:
     parent: "organizacao"
     description: "Limpa e organiza Notion com seguranca (modelo harsh)"
 
-# Skills
+# Skills (.claude/skills/ — 17 ativas)
 skills:
+  # Pesquisa e ciencia
+  scientific:
+    path: ".claude/skills/scientific"
+    description: "Pesquisa cientifica, hipoteses, literature review"
+  medical-research:
+    path: ".claude/skills/medical-research"
+    description: "PubMed, PICO, niveis de evidencia"
+  mbe-evidence:
+    path: ".claude/skills/mbe-evidence"
+    description: "GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS"
   research:
-    - web_search
-    - arxiv_search
-    - summarizer
-  coding:
-    - code_analyzer
-    - code_generator
-  writing:
-    - content_writer
-  data:
-    - data_processor
-  devops:
-    - git_manager
-  exam_generation:
-    - question_generator      # Gera questoes calibradas por bancas
-    - anti_cue_validator      # Checklist NBME anti-pista
-    - cross_validator         # Validacao cruzada Opus + ChatGPT 5.4
-    - anki_card_generator     # Cards a partir de erros
-    - spaced_learning_planner # Agenda revisao + leitura tier 1
+    path: ".claude/skills/research"
+    description: "Web search, fontes, analise de resultados"
+
+  # Notion e organizacao
+  notion-publisher:
+    path: ".claude/skills/notion-publisher"
+    description: "Templates Notion com estetica profissional"
+  notion-knowledge-capture:
+    path: ".claude/skills/notion-knowledge-capture"
+    description: "Conversa/pesquisa → Masterpiece DB"
+  notion-spec-to-impl:
+    path: ".claude/skills/notion-spec-to-impl"
+    description: "Specs → tasks no Notion Tasks DB"
+  organization:
+    path: ".claude/skills/organization"
+    description: "GTD, Eisenhower, memory, task management"
+
+  # Ensino e concurso
+  teaching-improvement:
+    path: ".claude/skills/teaching-improvement"
+    description: "Ensino, andragogia, concurso, AI fluency"
+  exam-generator:
+    path: ".claude/skills/exam-generator"
+    description: "Simulados calibrados por bancas, Anki cards"
+  continuous-learning:
+    path: ".claude/skills/continuous-learning"
+    description: "Aprendizado progressivo dev/ML/AI ops"
+
+  # Automacao e infra
+  automation:
+    path: ".claude/skills/automation"
+    description: "Regras, pipelines, cron, workflows"
+  ai-monitoring:
+    path: ".claude/skills/ai-monitoring"
+    description: "Tracking modelos, tools, benchmarks"
+  review:
+    path: ".claude/skills/review"
+    description: "Code review multi-agente + OWASP LLM Top 10"
+
+  # Diario
+  daily-briefing:
+    path: ".claude/skills/daily-briefing"
+    description: "Gmail → classificar → Notion Emails Digest DB"
+
+  # Meta-skills
+  skill-creator:
+    path: ".claude/skills/skill-creator"
+    description: "Meta-skill para criar/refinar skills"
+  janitor:
+    path: ".claude/skills/janitor"
+    description: "Limpeza e manutencao do repositorio"
+  self-evolving:
+    path: ".claude/skills/self-evolving"
+    description: "Auto-evolucao PDCA do ecossistema"
 
 # Modelos AI Configurados
 ai_models:

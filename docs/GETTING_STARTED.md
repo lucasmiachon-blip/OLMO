@@ -128,12 +128,8 @@ organizacao/
 │   ├── ecosystem.yaml        # Agentes + model routing
 │   ├── workflows.yaml        # Workflows operacionais
 │   ├── rate_limits.yaml      # Budget $100/mes
-│   ├── tools_ecosystem.yaml  # Ferramentas do ecossistema
 │   ├── mcp/servers.json      # 13 MCP servers + ChatGPT 5.4
 │   └── keys/                 # Guia de API keys
-├── workflows/                # Workflows medicos
-│   ├── medical_workflow.yaml
-│   └── efficient_workflows.yaml
 ├── templates/                # Templates de prompts
 └── docs/                     # Documentacao
     ├── ARCHITECTURE.md       # Decisoes tecnicas e padroes
