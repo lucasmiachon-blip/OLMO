@@ -51,6 +51,9 @@ build/
 *.swp
 *.swo
 
+# Output gerado (copiar para Notion)
+scripts/output/
+
 # Data
 data/
 *.db

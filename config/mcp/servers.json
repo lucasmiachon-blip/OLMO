@@ -95,6 +95,29 @@
       }
     },
 
+    "scite": {
+      "description": "Scite: Smart Citations (suporte vs contraste vs mencao), full-text search, 250M+ artigos. MBE.",
+      "priority": "high",
+      "setup": "https://scite.ai/mcp — requer assinatura Scite. ChatGPT/Claude apps.",
+      "cost": "Assinatura Scite (~$10-20/mo)",
+      "model_routing": {
+        "citation_check": "claude-sonnet-4-6",
+        "verify_claims": "claude-opus-4-6",
+        "notes": "Citation check → Sonnet. Verificacao de claims → Opus."
+      }
+    },
+
+    "consensus": {
+      "description": "Consensus: consenso cientifico, % suporte/contradicao. MBE.",
+      "priority": "high",
+      "setup": "Assinatura direta. MCP via ChatGPT/Claude apps ou integracao nativa.",
+      "cost": "Assinatura Consensus (~$10/mo)",
+      "model_routing": {
+        "consensus_check": "claude-sonnet-4-6",
+        "notes": "Verificar consenso em topicos medicos."
+      }
+    },
+
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"],

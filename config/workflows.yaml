@@ -230,10 +230,20 @@ workflows:
         action: |
           Buscar em PubMed por MeSH terms relevantes
           Filtrar: ultimos 5 anos, humanos, idioma
-          Priorizar: RCTs, meta-analises, guidelines
+          Priorizar: RCTs, meta-analises, guidelines (tier 1)
           Buscar ClinicalTrials.gov para trials ativos
         max_results: 20
         cost: "$0.00 (MCP)"
+      - name: "consensus_scite_triage"
+        type: "mcp"
+        servers: ["consensus", "scite"]
+        optional: true
+        when: "MCPs configurados e assinatura ativa"
+        action: |
+          Consensus: filtrar por Meta-Analysis + Systematic Review, obter % consenso
+          Scite: para papers com evidencia conflitante, verificar supporting vs contrasting
+          Usar como intermediario classificador antes da analise MBE
+        cost: "Assinatura Scite/Consensus"
       - name: "evidence_verification"
         type: "api_call"
         model: "claude-opus-4-6"

@@ -61,11 +61,9 @@
   - **MCP**: `uvx zotero-mcp` — config em `.cursor/mcp.json`. Zotero aberto + Advanced > Allow other applications.
   - Plugins: Better BibTeX, Zotero Connector
 
-### Ferramentas MBE (Free via Browser)
-- [ ] **Scite.ai** - Citacoes suporte vs contraste (free via browser)
-  - Premium opcional: ~$10-20/mo
-- [ ] **Consensus** - Consenso cientifico (free 10/dia)
-  - Premium opcional: ~$10/mo
+### Ferramentas MBE
+- [x] **Scite.ai** - Smart Citations (suporte/contraste/mencao). MCP: scite.ai/mcp (assinatura)
+- [x] **Consensus** - Consenso cientifico. MCP via assinatura direta
 - [ ] **Elicit** - Extracao PICO (free 10 papers/dia)
   - Premium opcional: ~$10/mo
 

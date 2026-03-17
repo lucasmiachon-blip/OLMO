@@ -197,3 +197,9 @@ organizacao/
 4. **Modelo certo** - Menor modelo que resolve a tarefa (efficiency)
 5. **Referenciamento** - PMID, DOI obrigatorios em conteudo medico
 6. **Determinismo** - Backbone deterministico + inteligencia seletiva (CrewAI)
+
+## Documentos Relacionados
+
+- `docs/WORKFLOW_MBE.md` — **Workflow principal** tópico → Notion + Obsidian (passo a passo, cenários)
+- `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` — Detalhes técnicos (PubMed tier1, Consensus, Scite)
+- `docs/OBSIDIAN_CLI_PLAN.md` — Integracao Obsidian CLI

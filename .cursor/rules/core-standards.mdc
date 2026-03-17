@@ -25,6 +25,7 @@ alwaysApply: true
 | Handoff entre sessões | `HANDOFF.md` |
 | Checklist setup | `PENDENCIAS.md` |
 | Boas práticas | `docs/BEST_PRACTICES.md` |
+| Workflow MBE (tópico→Notion+Obsidian) | `docs/WORKFLOW_MBE.md` |
 
 ## Convenções Gerais
 
