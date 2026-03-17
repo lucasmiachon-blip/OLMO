@@ -33,11 +33,10 @@
                                     │
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  PASSO 2: CLASSIFICAÇÃO (manual ou MCP)                                  │
-│  Se evidência conflitante OU decisão crítica:                            │
-│    → Consensus: filtrar tier 1, anotar % consenso                         │
-│    → Scite: ver supporting vs contrasting nos papers principais          │
-│  Senão: pular (PubMed tier1 já filtra)                                   │
+│  PASSO 2: CLASSIFICAÇÃO (Consensus + Scite → Opus)                       │
+│  Consensus: filtrar tier 1, % consenso                                    │
+│  Scite: supporting vs contrasting por paper                              │
+│  Opus: filtra evidência, classifica (Oxford/GRADE), coloca críticas      │
 └─────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼

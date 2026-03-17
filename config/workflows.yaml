@@ -237,26 +237,24 @@ workflows:
       - name: "consensus_scite_triage"
         type: "mcp"
         servers: ["consensus", "scite"]
-        optional: true
         when: "MCPs configurados e assinatura ativa"
         action: |
           Consensus: filtrar por Meta-Analysis + Systematic Review, obter % consenso
-          Scite: para papers com evidencia conflitante, verificar supporting vs contrasting
-          Usar como intermediario classificador antes da analise MBE
+          Scite: supporting vs contrasting citations por paper
+          Entregar output estruturado para o step Opus
         cost: "Assinatura Scite/Consensus"
-      - name: "evidence_verification"
+      - name: "opus_classify_and_critique"
         type: "api_call"
         model: "claude-opus-4-6"
+        agent: "cientifico"
         action: |
-          Atuar como especialista MBE senior.
+          RECEBE: respostas do Scite e Consensus (consenso %, supporting/contrasting)
 
-          Para cada paper relevante:
-          1. Classificar nivel de evidencia (Oxford CEBM)
-          2. Aplicar checklist CASP
-          3. Extrair dados PICO
-          4. Identificar vieses e limitacoes
-
-          Sintetizar com grau de recomendacao (A-D)
+          Opus atua como especialista MBE senior:
+          1. FILTRAR evidencia a partir dos dados Scite/Consensus (priorizar papers com consenso alto, menos contrasting)
+          2. CLASSIFICAR nivel de evidencia (Oxford CEBM) e grau de recomendacao (A-D)
+          3. COLOCAR as criticas mais importantes: vieses, limitacoes, contradicoes (Scite contrasting), incerteza (Consensus baixo)
+          4. Sintetizar em formato estruturado para Notion (PICO, tabela estudos, conclusao, criticas em destaque)
         cost: "~$0.05-0.10"
       - name: "cross_validation"
         type: "api_call"
@@ -284,6 +282,16 @@ workflows:
         template: "resumo_evidencias_medicas"
         database: "Knowledge Base Medica"
         cost: "$0.00 (MCP)"
+      - name: "publish_to_obsidian"
+        type: "local"
+        action: |
+          Criar nota em 03-Resources/ com:
+          - Frontmatter: tags (topico, mbe, evidence_level), last_review, references
+          - Conteudo: definicao, pontos-chave, referencias PMID
+          - Links bidirecionais [[topicos relacionados]]
+          Usar atualizar_tema.py ou script equivalente
+        output: "03-Resources/<tema>.md"
+        cost: "$0.00"
 
   # Nota Rapida → Evidencia → Notion
   quick_note_to_evidence:

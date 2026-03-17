@@ -102,11 +102,12 @@ Arquivo: `scripts/output/notion-<tema>-masterpiece.md`
 
 ## 6. Workflow `paper_to_notion` (config/workflows.yaml)
 
-O workflow `paper_to_notion` já referencia PubMed/Scite/Consensus/Elicit. Quando os MCPs Scite e Consensus estiverem configurados no Cursor:
+Fluxo: PubMed → Consensus + Scite → **Opus** → Notion
 
-- **evidence_verification**: classifica nível (Oxford CEBM), aplica CASP
+- **consensus_scite_triage**: Consensus (% consenso) + Scite (supporting vs contrasting)
+- **opus_classify_and_critique**: Opus recebe Scite/Consensus, filtra evidência, classifica (Oxford CEBM, GRADE), coloca as críticas mais importantes (vieses, contradições Scite, incerteza Consensus)
 - **cross_validation**: segunda opinião quando evidência ambígua
-- **publish_to_notion**: template MBE com PICO, tabela estudos, PMID
+- **publish_to_notion**: template MBE com PICO, tabela estudos, críticas em destaque
 
 ## 7. Atualizações Periódicas
 
