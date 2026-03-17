@@ -1,11 +1,16 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 12 | 2026-03-14
+> Sessao 13 | 2026-03-17
 
 ## ESTADO ATUAL
 
-Skills: 18 (daily-briefing nova). ecosystem.yaml sincronizado. Repo limpo (-940 linhas).
-Emails Digest DB: vazio, pronto para comecar fresh amanha.
+Obsidian CLI + Zotero MCP configurados. Verificacao: `.\scripts\verificar-tudo.ps1`
+
+## VERIFICADO HOJE
+
+- [x] Obsidian CLI 1.12.5 — `scripts\obsidian.cmd` (version, daily, search, files)
+- [x] Zotero MCP — `.cursor/mcp.json` (ZOTERO_LOCAL=true). Reiniciar Cursor para carregar.
+- [x] Vault `data/obsidian-vault` com estrutura PARA
 
 ## PROXIMO
 
@@ -21,11 +26,10 @@ Emails Digest DB: vazio, pronto para comecar fresh amanha.
 - [ ] Exam-generator (aguarda 10+ provas reais em PDF)
 - [ ] Integrar claude-task-master (MCP GTD, 25k stars)
 - [ ] n8n self-hosted (automacao 24/7)
-- [ ] Obsidian + Zotero (futuro)
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + opus | 2026-03-14
+Coautoria: Lucas + opus | 2026-03-17

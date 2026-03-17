@@ -228,6 +228,26 @@
         "all": "local-ollama",
         "notes": "SQL queries sao triviais. Sempre local."
       }
+    },
+
+    "zotero": {
+      "command": "uvx",
+      "args": ["zotero-mcp"],
+      "description": "Zotero: busca, metadata e fulltext da biblioteca. Referencias para papers e MBE.",
+      "priority": "high",
+      "setup": "Zotero aberto + Advanced > Allow other applications to communicate with Zotero. Ou Web API: ZOTERO_API_KEY + ZOTERO_LIBRARY_ID.",
+      "cost": "$0",
+      "env": {
+        "ZOTERO_LOCAL": "true",
+        "ZOTERO_API_KEY": "${ZOTERO_API_KEY}",
+        "ZOTERO_LIBRARY_ID": "${ZOTERO_LIBRARY_ID}"
+      },
+      "model_routing": {
+        "search": "chatgpt-5.4",
+        "metadata_fulltext": "claude-sonnet-4-6",
+        "notes": "Busca referencias → 5.4. Metadata/fulltext para citacoes → Sonnet."
+      },
+      "tools": ["zotero_search_items", "zotero_item_metadata", "zotero_item_fulltext"]
     }
   },
 

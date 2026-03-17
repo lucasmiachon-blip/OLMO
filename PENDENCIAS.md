@@ -53,10 +53,12 @@
 ### Ferramentas para Instalar/Configurar
 - [ ] **Obsidian** - Vault local Zettelkasten (gratuito)
   - Onde: https://obsidian.md/
+  - **CLI**: v1.12.4+ (Settings → General → Command line interface). Ver `docs/OBSIDIAN_CLI_PLAN.md`
   - Plugins: Zotero Integration, Dataview, Templater
 
 - [ ] **Zotero** - Gerenciador de referencias (gratuito)
   - Onde: https://www.zotero.org/
+  - **MCP**: `uvx zotero-mcp` — config em `.cursor/mcp.json`. Zotero aberto + Advanced > Allow other applications.
   - Plugins: Better BibTeX, Zotero Connector
 
 ### Ferramentas MBE (Free via Browser)
