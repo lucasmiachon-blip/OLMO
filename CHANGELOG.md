@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 16 — 2026-03-26
+
+### Cross-Validation Masterpiece (Claude + ChatGPT)
+- Inventario read-only completo do Masterpiece DB (40+ paginas)
+- Analise independente do ChatGPT via MCP Notion
+- Comparacao dos 2 pareceres: convergencias, divergencias, erros factuais do ChatGPT corrigidos
+
+### Notion Writes (7 updates verificados)
+- Musicos, Pintores, Pensadores do cuidado → Tipo: Galeria
+- AI tools, Comportamento, Decision theory → Maturidade: Broto
+- Flammula of uncertainty → Tipo: Mapa
+
+### Triagem Archived
+- ~80 paginas auditadas (email digests, eventos passados, governance)
+- 3 paginas com valor unico identificadas para recuperacao futura
+
+---
+Coautoria: Lucas + opus + gpt54 | 2026-03-26
+
 ## Sessao 15 — 2026-03-26
 
 ### Skills (split)

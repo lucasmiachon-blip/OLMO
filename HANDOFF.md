@@ -1,16 +1,17 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 15 | 2026-03-26
+> Sessao 16 | 2026-03-26
 
 ## ESTADO ATUAL
 
-20 skills ativas. 16 MCPs configurados (13 connected, 3 planned). Gmail + Calendar + Canva autenticados. Google Drive MCP identificado (@piotr-agier/google-drive-mcp).
+20 skills ativas. 16 MCPs (13 connected, 3 planned). Cross-validation Masterpiece concluida (Claude + ChatGPT). 7 properties atualizadas no Notion.
 
 ## PROXIMO
 
 1. Setup Google Drive MCP (Google Cloud Console OAuth + install)
-3. Primeiro ciclo de pesquisa real (pipeline busca → validacao → sintese)
-4. Cross-validation Masterpiece (pendente desde sessao 10)
+2. Primeiro ciclo de pesquisa real (pipeline busca → validacao → sintese)
+3. Decidir: AI Hub como 2o Indice ou reclassificar para Topico
+4. Recuperar 3 paginas do Archived para Masterpiece (Zettelkasten, Estatinas, Terry Underwood)
 
 ## PENDENTE
 
@@ -21,6 +22,8 @@
 - [ ] Autenticar Canva MCP
 - [ ] NotebookLM: criar notebooks por tema de pesquisa ativo
 - [ ] Google Drive MCP: criar Google Cloud Console project + OAuth credentials
+- [ ] Formalizar Conceitos Garimpados como entry do Masterpiece DB
+- [ ] Lixeira: deletar manualmente 2 paginas (rascunho + pagina vazia)
 
 ## CONFLITOS
 
