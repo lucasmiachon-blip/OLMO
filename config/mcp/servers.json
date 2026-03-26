@@ -1,18 +1,17 @@
 {
   "mcpServers": {
 
+    "_comment_connected": "=== CONECTADOS (verificado 2026-03-26) ===",
+
     "notion": {
       "type": "http",
       "url": "https://mcp.notion.com/mcp",
-      "description": "Notion oficial. ATENCAO: bugs conhecidos de serialization (#79,#82,#181), permissoes (#80), sem API de move (#64).",
+      "status": "connected",
+      "description": "Notion oficial. Bugs conhecidos de serialization (#79,#82,#181), permissoes (#80).",
       "priority": "critical",
-      "auth": "OAuth via browser (2 tokens: read-only padrao + read-write sob demanda)",
+      "auth": "OAuth via browser",
       "setup": "claude mcp add --transport http notion https://mcp.notion.com/mcp",
-      "cost": "$0 (via Claude Pro/Max - Opus incluso no plano)",
-      "model_routing": {
-        "all": "claude-opus-4-6",
-        "notes": "Opus direto. Custo $0 via Pro/Max."
-      },
+      "cost": "$0 (via Claude Max)",
       "safety_protocol": {
         "default_mode": "READ_ONLY",
         "write_mode": "MANUAL_ACTIVATION_ONLY",
@@ -27,250 +26,165 @@
         "operacoes_seguras": ["notion-search", "notion-fetch", "notion-get-comments", "notion-get-user"],
         "operacoes_arriscadas": ["notion-create-pages", "notion-update-page", "notion-duplicate-page", "notion-move-pages"],
         "operacoes_proibidas": ["delete database", "bulk write automatico", "always-approve em writes"],
-        "move_api": "notion-move-pages (page_id + new_parent_id). Fallback: create+copy+archive.",
         "regra_de_ouro": "1 write por vez. Verificar resultado antes do proximo. Erro = PARAR.",
         "cross_validation_required": true,
         "confidence_thresholds": {
           "auto_execute": 0.95,
           "human_review": 0.70,
-          "block": 0.50,
-          "reference": "modelo_harsh.thresholds"
+          "block": 0.50
         }
       }
     },
 
-    "gmail": {
-      "command": "npx",
-      "args": ["-y", "@anthropic-ai/google-workspace-mcp"],
-      "description": "Google Workspace: Gmail + Calendar + Drive. Emails medicos, newsletters, alertas.",
+    "pubmed": {
+      "type": "http",
+      "url": "https://pubmed.mcp.claude.com/mcp",
+      "status": "connected",
+      "description": "PubMed nativo claude.ai: busca, abstracts, full-text, artigos relacionados, metadata, copyright. 39M+ citacoes.",
       "priority": "critical",
-      "auth": "OAuth Google",
-      "cost": "$0",
-      "model_routing": {
-        "read_classify": "chatgpt-5.4",
-        "summarize": "claude-sonnet-4-6",
-        "compose": "claude-opus-4-6",
-        "notes": "Classificar emails → 5.4 (rapido, barato). Sumarizar → Sonnet. Compor resposta medica → Opus."
-      }
-    },
-
-    "healthcare-mcp": {
-      "command": "npx",
-      "args": ["-y", "healthcare-mcp-public"],
-      "description": "Healthcare all-in-one: PubMed, FDA drugs, ClinicalTrials, CID-10, medRxiv, NCBI Bookshelf, calculadoras medicas.",
-      "priority": "critical",
-      "cost": "$0",
-      "model_routing": {
-        "search_filter": "chatgpt-5.4",
-        "extract_data": "claude-sonnet-4-6",
-        "analyze_evidence": "claude-opus-4-6",
-        "notes": "Busca + filtragem inicial → 5.4. Extracao PICO → Sonnet. Analise GRADE/critica → Opus."
-      }
-    },
-
-    "pubmed-mcp": {
-      "command": "npx",
-      "args": ["-y", "@cyanheads/pubmed-mcp-server"],
-      "description": "PubMed avancado: busca, abstracts, artigos relacionados, analise de literatura biomedica. 39M+ citacoes.",
-      "priority": "critical",
-      "cost": "$0",
-      "model_routing": {
-        "search_triage": "chatgpt-5.4",
-        "summarize_abstract": "claude-sonnet-4-6",
-        "systematic_review": "claude-opus-4-6",
-        "notes": "Triagem de resultados → 5.4. Resumo de abstracts → Sonnet. Revisao sistematica/sintese → Opus."
-      }
-    },
-
-    "biomcp": {
-      "command": "uvx",
-      "args": ["biomcp", "run"],
-      "description": "BioMCP: PubMed, ClinicalTrials.gov, MyVariant.info. Queries biomedicas em linguagem natural.",
-      "priority": "high",
-      "cost": "$0",
-      "model_routing": {
-        "query": "claude-sonnet-4-6",
-        "interpret": "claude-opus-4-6",
-        "notes": "Query formulation → Sonnet. Interpretacao clinica dos resultados → Opus."
-      }
+      "cost": "$0 (via Claude Max)",
+      "tools": ["search_articles", "get_article_metadata", "get_full_text_article", "find_related_articles", "convert_article_ids", "lookup_article_by_citation", "get_copyright_status"]
     },
 
     "scite": {
+      "type": "http",
+      "url": "https://api.scite.ai/mcp",
+      "status": "connected",
       "description": "Scite: Smart Citations (suporte vs contraste vs mencao), full-text search, 250M+ artigos. MBE.",
-      "priority": "high",
-      "setup": "https://scite.ai/mcp — requer assinatura Scite. ChatGPT/Claude apps.",
-      "cost": "Assinatura Scite (~$10-20/mo)",
-      "model_routing": {
-        "citation_check": "claude-sonnet-4-6",
-        "verify_claims": "claude-opus-4-6",
-        "notes": "Citation check → Sonnet. Verificacao de claims → Opus."
-      }
+      "priority": "critical",
+      "cost": "$0 (via assinatura Scite)",
+      "tools": ["search_literature"]
     },
 
     "consensus": {
-      "description": "Consensus: consenso cientifico, % suporte/contradicao. MBE.",
-      "priority": "high",
-      "setup": "Assinatura direta. MCP via ChatGPT/Claude apps ou integracao nativa.",
-      "cost": "Assinatura Consensus (~$10/mo)",
-      "model_routing": {
-        "consensus_check": "claude-sonnet-4-6",
-        "notes": "Verificar consenso em topicos medicos."
-      }
-    },
-
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"],
-      "description": "Documentacao atualizada em tempo real para qualquer lib/framework.",
-      "priority": "critical",
-      "cost": "$0 (free: 1000 req/mo)",
-      "model_routing": {
-        "all": "claude-sonnet-4-6",
-        "notes": "Sempre Sonnet. Docs de libs sao contexto direto, nao precisa de raciocinio profundo."
-      }
-    },
-
-    "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/home/user/organizacao"],
-      "description": "Acesso a arquivos do projeto.",
-      "priority": "critical",
-      "cost": "$0",
-      "model_routing": {
-        "all": "local-ollama",
-        "notes": "File ops sao triviais. Modelo local quando possivel, senao Sonnet."
-      }
-    },
-
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-      },
-      "description": "GitHub: issues, PRs, repos, code search.",
-      "priority": "high",
-      "cost": "$0 (5000 req/h)",
-      "model_routing": {
-        "read_triage": "chatgpt-5.4",
-        "code_review": "claude-opus-4-6",
-        "notes": "Listar issues/PRs → 5.4. Code review profundo → Opus."
-      }
-    },
-
-    "fetch": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-fetch"],
-      "description": "Busca e download de conteudo web.",
-      "priority": "high",
-      "cost": "$0",
-      "model_routing": {
-        "fetch_parse": "chatgpt-5.4",
-        "analyze_content": "claude-sonnet-4-6",
-        "notes": "Fetch + parse basico → 5.4. Analise de conteudo → Sonnet."
-      }
-    },
-
-    "memory": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"],
-      "description": "Persistencia de contexto entre sessoes. Knowledge graph local.",
-      "priority": "high",
-      "cost": "$0",
-      "model_routing": {
-        "store_retrieve": "local-ollama",
-        "synthesize": "claude-sonnet-4-6",
-        "notes": "CRUD de memoria → local. Sintetizar memorias para decisao → Sonnet."
-      }
-    },
-
-    "anki": {
-      "command": "npx",
-      "args": ["-y", "@ankimcp/anki-mcp-server"],
-      "description": "Anki Desktop integration. Spaced repetition cards para concurso e estudo medico.",
-      "priority": "high",
-      "setup": "Requer: Anki Desktop + AnkiConnect add-on (codigo 2055492159)",
-      "cost": "$0",
-      "model_routing": {
-        "generate_card": "claude-sonnet-4-6",
-        "analyze_retention": "claude-opus-4-6",
-        "notes": "Gerar cards → Sonnet. Analise de retention/dificuldade → Opus."
-      }
-    },
-
-    "brave-search": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
-      "env": {
-        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
-      },
-      "description": "Busca web via Brave Search.",
-      "priority": "medium",
-      "cost": "$0 (free: 2000 req/mo)",
-      "model_routing": {
-        "search_filter": "chatgpt-5.4",
-        "analyze": "claude-sonnet-4-6",
-        "notes": "Busca + filtragem → 5.4. Analise de resultados → Sonnet."
-      }
-    },
-
-    "chatgpt": {
       "type": "http",
-      "url": "${CHATGPT_MCP_URL}",
-      "description": "ChatGPT 5.4 via MCP. Cross-validator: valida decisoes do Claude antes de executar writes.",
+      "url": "https://mcp.consensus.app/mcp",
+      "status": "connected",
+      "description": "Consensus: consenso cientifico, % suporte/contradicao. MBE.",
+      "priority": "critical",
+      "cost": "$0 (via assinatura Consensus)",
+      "tools": ["search"]
+    },
+
+    "scholar-gateway": {
+      "type": "http",
+      "url": "https://connector.scholargateway.ai/mcp",
+      "status": "connected",
+      "description": "Scholar Gateway: busca semantica em literatura academica.",
       "priority": "high",
-      "auth": "OAuth (ChatGPT Plus/Pro/Business)",
-      "cost": "$0 (incluso no plano ChatGPT)",
-      "model_routing": {
-        "all": "chatgpt-5.4",
-        "notes": "5.4 direto. Custo $0 via plano ChatGPT. Usado como cross-validator pra Notion writes."
-      },
-      "role_in_ecosystem": {
-        "primary": "Cross-validation de writes Notion (segunda opiniao antes de executar)",
-        "secondary": "Deep Research, browsing autenticado, auditoria",
-        "cross_validation_protocol": [
-          "Claude (Opus) propoe acao no Notion (ex: relocate, tag, archive)",
-          "ChatGPT 5.4 recebe mesma pagina + proposta e valida independentemente",
-          "Se ambos concordam (>= 0.95 confidence cada): auto-execute",
-          "Se ambos concordam (0.70-0.94): flag para review humano",
-          "Se um deles < 0.70: BLOQUEAR operacao",
-          "Se um deles < 0.50: BLOQUEAR + alertar",
-          "Thresholds UNIFICADOS com modelo_harsh: auto=0.95, review=0.70, block=0.50",
-          "Custo extra: $0 (ambos inclusos nos planos)"
-        ]
+      "cost": "$0",
+      "tools": ["semanticSearch"]
+    },
+
+    "perplexity": {
+      "command": "npx",
+      "args": ["-y", "@perplexity-ai/mcp-server"],
+      "status": "connected",
+      "description": "Perplexity: busca web com citacoes, deep research, raciocinio com fontes.",
+      "priority": "critical",
+      "cost": "$0 (via PERPLEXITY_API_KEY)",
+      "env": {
+        "PERPLEXITY_API_KEY": "${PERPLEXITY_API_KEY}"
       }
     },
 
-    "sqlite": {
+    "gemini": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sqlite", "/home/user/organizacao/data/knowledge.db"],
-      "description": "Base de dados local para knowledge base, cache, metricas.",
-      "priority": "medium",
-      "cost": "$0",
-      "model_routing": {
-        "all": "local-ollama",
-        "notes": "SQL queries sao triviais. Sempre local."
+      "args": ["-y", "@rlabs-inc/gemini-mcp"],
+      "status": "connected",
+      "description": "Gemini 3.1: deep research, analyze, search, summarize, image/video gen, code execution, YouTube analysis.",
+      "priority": "high",
+      "cost": "$0 (via GOOGLE_AI_KEY)",
+      "env": {
+        "GOOGLE_AI_KEY": "${GOOGLE_AI_KEY}"
       }
+    },
+
+    "notebooklm": {
+      "command": "npx",
+      "args": ["-y", "notebooklm-mcp@latest"],
+      "status": "connected",
+      "description": "NotebookLM: query notebooks, library management, research grounded em docs. Community (PleasePrompto).",
+      "priority": "high",
+      "cost": "$0",
+      "auth": "Browser-based Google login (Chrome automation)"
     },
 
     "zotero": {
       "command": "uvx",
       "args": ["zotero-mcp"],
-      "description": "Zotero: busca, metadata e fulltext da biblioteca. Referencias para papers e MBE.",
+      "status": "connected",
+      "description": "Zotero local: busca, metadata e fulltext da biblioteca. Referencias para papers e MBE.",
       "priority": "high",
-      "setup": "Zotero aberto + Advanced > Allow other applications to communicate with Zotero. Ou Web API: ZOTERO_API_KEY + ZOTERO_LIBRARY_ID.",
       "cost": "$0",
+      "setup": "Zotero aberto + Advanced > Allow other applications to communicate with Zotero.",
       "env": {
-        "ZOTERO_LOCAL": "true",
-        "ZOTERO_API_KEY": "${ZOTERO_API_KEY}",
-        "ZOTERO_LIBRARY_ID": "${ZOTERO_LIBRARY_ID}"
-      },
-      "model_routing": {
-        "search": "chatgpt-5.4",
-        "metadata_fulltext": "claude-sonnet-4-6",
-        "notes": "Busca referencias → 5.4. Metadata/fulltext para citacoes → Sonnet."
+        "ZOTERO_LOCAL": "true"
       },
       "tools": ["zotero_search_items", "zotero_item_metadata", "zotero_item_fulltext"]
+    },
+
+    "excalidraw": {
+      "type": "http",
+      "url": "https://excalidraw-mcp-app.vercel.app/mcp",
+      "status": "connected",
+      "description": "Excalidraw: diagramas interativos, fluxogramas, mapas conceituais.",
+      "priority": "medium",
+      "cost": "$0"
+    },
+
+    "_comment_needs_auth": "=== PRECISAM AUTENTICACAO ===",
+
+    "gmail": {
+      "type": "http",
+      "url": "https://gmail.mcp.claude.com/mcp",
+      "status": "needs_auth",
+      "description": "Gmail nativo claude.ai. Emails medicos, newsletters, alertas.",
+      "priority": "critical",
+      "auth": "OAuth Google (autenticar via browser)",
+      "cost": "$0"
+    },
+
+    "google-calendar": {
+      "type": "http",
+      "url": "https://gcal.mcp.claude.com/mcp",
+      "status": "needs_auth",
+      "description": "Google Calendar nativo claude.ai.",
+      "priority": "high",
+      "auth": "OAuth Google (autenticar via browser)",
+      "cost": "$0"
+    },
+
+    "canva": {
+      "type": "http",
+      "url": "https://mcp.canva.com/mcp",
+      "status": "needs_auth",
+      "description": "Canva: design, apresentacoes, material didatico.",
+      "priority": "medium",
+      "auth": "OAuth Canva",
+      "cost": "$0 (via plano Canva)"
+    },
+
+    "_comment_planned": "=== PLANEJADOS (nao instalados) ===",
+
+    "anki": {
+      "command": "npx",
+      "args": ["-y", "@ankimcp/anki-mcp-server"],
+      "status": "planned",
+      "description": "Anki Desktop: spaced repetition cards para concurso.",
+      "priority": "high",
+      "setup": "Requer: Anki Desktop + AnkiConnect add-on (2055492159)",
+      "cost": "$0"
+    },
+
+    "chatgpt": {
+      "type": "http",
+      "url": "${CHATGPT_MCP_URL}",
+      "status": "planned",
+      "description": "ChatGPT 5.4 via MCP. Cross-validator para Notion writes.",
+      "priority": "high",
+      "auth": "OAuth ChatGPT",
+      "cost": "$0 (incluso no plano ChatGPT)"
     }
   },
 
@@ -282,140 +196,37 @@
         "Todas as keys via variavel de ambiente (${VAR}), NUNCA hardcoded",
         "OAuth tokens com escopo MINIMO necessario (read-only quando possivel)",
         "Notion: escopo limitado a databases especificos, nao workspace inteiro",
-        "Gmail: --sanitize habilitado, filtrar dados sensiveis de pacientes",
-        "GitHub: token com escopo repo apenas, sem admin/delete",
-        "Rotacao de tokens: alertar apos 90 dias sem rotacao",
+        "Gmail: filtrar dados sensiveis de pacientes",
         "Arquivo .env NUNCA commitado (ja no .gitignore)"
-      ],
-      "scopes_minimos": {
-        "NOTION_TOKEN_KEY": "read_content, update_content, insert_content",
-        "gmail": "gmail.readonly, gmail.labels",
-        "github": "repo, read:org",
-        "brave": "search (read-only por natureza)"
-      }
+      ]
     },
 
     "anti_perda": {
       "description": "Prevencao de perda de dados - modelo harsh",
       "rules": [
-        "NUNCA deletar paginas Notion - apenas ARQUIVAR (mover para Archive)",
+        "NUNCA deletar paginas Notion - apenas ARQUIVAR",
         "NUNCA deletar emails Gmail - apenas LABEL + ARCHIVE",
         "NUNCA force-push ou delete branches sem confirmacao humana",
         "Antes de qualquer WRITE em Notion: verificar se pagina ja existe (dedup)",
-        "Antes de qualquer UPDATE: salvar snapshot do estado anterior no SQLite",
-        "Toda operacao destrutiva requer confirmacao humana (confidence < 1.0)",
-        "Backup automatico: toda pagina Notion editada → snapshot em SQLite",
-        "Memory MCP: append-only por padrao, nunca sobrescrever entidades"
+        "Antes de qualquer UPDATE: snapshot do estado anterior",
+        "Toda operacao destrutiva requer confirmacao humana"
       ],
       "confirmacao_humana_obrigatoria": [
-        "Deletar qualquer recurso (page, email, file, branch)",
-        "Mover mais de 5 items de uma vez (batch relocate)",
-        "Editar pagina com mais de 30 dias (pode ser referencia importante)",
+        "Deletar qualquer recurso",
+        "Mover mais de 5 items de uma vez",
+        "Editar pagina com mais de 30 dias",
         "Qualquer operacao em database 'Projetos de Pesquisa'",
         "Merge de duplicatas quando confidence < 0.85"
-      ],
-      "snapshots": {
-        "storage": "sqlite:data/knowledge.db",
-        "table": "mcp_snapshots",
-        "retention_days": 90,
-        "fields": ["timestamp", "mcp_server", "operation", "resource_id", "state_before", "state_after"]
-      }
-    },
-
-    "anti_retrabalho": {
-      "description": "Cache agressivo, dedup, checkpoints para minimizar retrabalho",
-      "rules": [
-        "Cache TODAS as respostas de MCPs no SQLite (TTL por tipo)",
-        "Antes de buscar PubMed: verificar cache local primeiro",
-        "Antes de criar pagina Notion: verificar se titulo similar ja existe",
-        "Checkpoints em workflows longos: salvar estado a cada step",
-        "Se workflow falhar no step 5/7: retomar do step 5, nao do zero",
-        "Deduplicar resultados de busca ANTES de processar com modelo caro",
-        "Hash de conteudo para detectar paginas identicas vs similares"
-      ],
-      "cache_ttl": {
-        "pubmed_search": "48h",
-        "notion_page_list": "1h",
-        "gmail_labels": "6h",
-        "healthcare_query": "24h",
-        "brave_search": "12h",
-        "github_issues": "30min",
-        "context7_docs": "168h"
-      },
-      "checkpoints": {
-        "storage": "sqlite:data/knowledge.db",
-        "table": "workflow_checkpoints",
-        "auto_save": true,
-        "fields": ["workflow_id", "step_number", "step_name", "state", "timestamp", "resumable"]
-      },
-      "dedup": {
-        "notion_title_similarity": 0.85,
-        "pubmed_pmid_exact": true,
-        "email_message_id_exact": true,
-        "hash_algorithm": "sha256"
-      }
+      ]
     },
 
     "modelo_harsh": {
       "description": "Modo conservador - prefere nao agir do que agir errado",
-      "rules": [
-        "Na DUVIDA → nao executar, pedir confirmacao humana",
-        "Confidence < 0.7 → SEMPRE flag para review humano",
-        "Operacao em dados medicos → SEMPRE double-check referencias",
-        "Se MCP retornar erro → nao retry automatico em writes (apenas reads)",
-        "Rate limit atingido → parar imediatamente, nao tentar provider alternativo para writes",
-        "Dados de paciente detectados → BLOQUEAR operacao, alertar usuario (LGPD)"
-      ],
       "thresholds": {
         "auto_execute": 0.95,
         "ask_confirmation": 0.70,
         "block_operation": 0.50
       }
-    }
-  },
-
-  "model_routing_summary": {
-    "chatgpt-5.4": {
-      "role": "Triagem rapida, classificacao, filtragem",
-      "cost": "~$0.005/call",
-      "use_for": [
-        "Filtrar resultados de busca (PubMed, Healthcare, Brave)",
-        "Classificar emails (Gmail)",
-        "Triagem de issues/PRs (GitHub)",
-        "Parse de conteudo web (Fetch)"
-      ]
-    },
-    "claude-sonnet-4-6": {
-      "role": "Processamento medio, sumarizacao, queries",
-      "cost": "~$0.01/call",
-      "use_for": [
-        "Sumarizar abstracts e papers",
-        "Escrever paginas Notion simples",
-        "Formular queries biomedicas",
-        "Consultar docs de libs (Context7)",
-        "Sintetizar memorias"
-      ]
-    },
-    "claude-opus-4-6": {
-      "role": "Analise profunda, sintese, decisoes criticas",
-      "cost": "~$0.05-0.10/call",
-      "use_for": [
-        "Analise GRADE de evidencia",
-        "Revisao sistematica (PubMed)",
-        "Publicacao Notion com formatacao rica",
-        "Code review profundo (GitHub)",
-        "Interpretacao clinica (BioMCP)",
-        "Composicao de respostas medicas (Gmail)"
-      ]
-    },
-    "local-ollama": {
-      "role": "Operacoes triviais",
-      "cost": "$0.00",
-      "use_for": [
-        "File operations (Filesystem)",
-        "SQL queries (SQLite)",
-        "CRUD de memoria (Memory)"
-      ]
     }
   }
 }

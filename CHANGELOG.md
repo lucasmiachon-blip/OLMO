@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 14 — 2026-03-26
+
+### MCPs (3 instalados)
+- Perplexity MCP — `@perplexity-ai/mcp-server` (API key da env)
+- NotebookLM MCP — `notebooklm-mcp@latest` (PleasePrompto, auth Chrome)
+- Zotero MCP — `zotero-mcp` (modo local, Zotero app aberto)
+
+### Config
+- `servers.json` reescrito: 14 MCPs com campo `status` (connected/needs_auth/planned), removidos MCPs fantasma
+- `settings.local.json`: permissions para SCite, Perplexity, Gemini, NotebookLM, Zotero
+- HANDOFF.md + PENDENCIAS.md atualizados para estado real
+
+### Workflow
+- Definido pipeline de pesquisa context-efficient: MCPs como memoria externa, nunca full-text no contexto
+
+---
+Coautoria: Lucas + opus | 2026-03-26
+
 ## Sessao 12 — 2026-03-14
 
 ### Janitor

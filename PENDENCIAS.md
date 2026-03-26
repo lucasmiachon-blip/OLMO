@@ -1,188 +1,81 @@
 # PENDENCIAS - O Que Falta Para Rodar
 
-> Checklist de tudo que voce precisa configurar/assinar
-> Atualizado: 8 de Marco de 2026
+> Checklist de setup. Atualizado: 26 de Marco de 2026
 
-## CRITICO (Precisa para funcionar)
+## MCPs (14 configurados)
 
-### API Keys
-- [ ] **ANTHROPIC_API_KEY** - Orquestrador Opus 4.6 + Subagentes Sonnet/Haiku
-  - Onde: https://console.anthropic.com/
-  - Custo: Pay-per-use (~$3-4/mes estimado)
-  - Config: adicionar no `.env`
+### Conectados (10)
+- [x] **Notion** — OAuth, connected
+- [x] **PubMed** — claude.ai nativo, connected
+- [x] **SCite** — assinatura ativa, connected
+- [x] **Consensus** — assinatura ativa, connected
+- [x] **Scholar Gateway** — connected
+- [x] **Perplexity** — API key configurada, connected
+- [x] **Gemini** — npx @rlabs-inc/gemini-mcp, connected
+- [x] **NotebookLM** — npx notebooklm-mcp@latest, connected (auth Google no primeiro uso)
+- [x] **Zotero** — uvx zotero-mcp, local mode (Zotero app precisa estar aberto)
+- [x] **Excalidraw** — connected
 
-- [ ] **OPENAI_API_KEY** - Auditor ChatGPT 5.4 (via API, opcional se usar web)
-  - Onde: https://platform.openai.com/
-  - Custo: Pay-per-use (~$0.50/mes como auditor)
-  - Config: adicionar no `.env`
+### Precisam Autenticacao (3)
+- [ ] **Gmail** — `claude mcp auth gmail`
+- [ ] **Google Calendar** — `claude mcp auth google-calendar`
+- [ ] **Canva** — `claude mcp auth canva`
 
-### MCPs Criticos
-- [ ] **Healthcare MCP** - PubMed, FDA, ClinicalTrials, CID-10
-  - Setup: `claude mcp add healthcare-mcp npx -- -y healthcare-mcp`
-  - Custo: Gratuito
+### Planejados (1)
+- [ ] **ChatGPT 5.4 MCP** — cross-validator para Notion writes
 
-- [ ] **PubMed MCP** - Busca avancada 39M+ citacoes
-  - Setup: `claude mcp add pubmed-mcp npx -- -y pubmed-mcp`
-  - Custo: Gratuito
+## FERRAMENTAS JA TEM
 
-- [ ] **BioMCP** - Queries biomedicas em linguagem natural
-  - Setup: `claude mcp add biomcp npx -- -y biomcp`
-  - Custo: Gratuito
+- [x] Perplexity Max
+- [x] Excalidraw
+- [x] Canva Pro
+- [x] Google One Ultra 30TB (Drive + Gemini)
+- [x] Claude Max (Opus 4.6)
+- [x] Scite.ai (assinatura)
+- [x] Consensus (assinatura)
+- [x] Zotero (desktop)
+- [x] Obsidian (vault local)
 
-- [ ] **Notion MCP** - Publicacao de conteudo (PROTOCOLO SEGURO)
-  - Setup: `claude mcp add --transport http notion https://mcp.notion.com/mcp`
-  - Auth: OAuth via browser (2 tokens: read-only padrao + read-write sob demanda)
-  - Custo: $0 via Claude Pro/Max
-  - **SEGURANCA**: Ver `.claude/rules/mcp_safety.md` (bugs conhecidos, protocolo)
-  - **MOVE**: `notion-move-pages` disponivel (#64 resolvida) — ver `mcp_safety.md`
+## WORKFLOW DE PESQUISA
 
-- [ ] **Gmail/Google Workspace MCP** - Emails medicos
-  - Setup: `npx @anthropic-ai/google-workspace-mcp`
-  - Auth: OAuth Google
-  - Custo: Gratuito
+```
+Artigos → Zotero (biblioteca) + NotebookLM (estudo profundo)
+Busca   → PubMed + Scholar + Perplexity (discovery)
+Validar → SCite + Consensus (smart citations, consenso)
+Sintese → Claude Opus (excerpts, nunca full-text no contexto)
+Output  → Notion / Obsidian / Anki
+```
 
-## RECOMENDADO (Melhora muito a experiencia)
+Regra: **nunca** ler PDF inteiro no contexto do Claude. Usar MCPs.
 
-### Ferramentas JA TEM
-- [x] **Perplexity Max** - Busca web avancada
-- [x] **Excalidraw** - Diagramas e whiteboard
-- [x] **Canva Pro** - Design e apresentacoes
-- [x] **Google One Ultra 30TB** - Google Drive + Gemini
-- [x] **Claude Pro/Max** - Claude.ai + Cowork
+## CONCURSO NOV/2026 (120 questoes)
 
-### Ferramentas para Instalar/Configurar
-- [ ] **Obsidian** - Vault local Zettelkasten (gratuito)
-  - Onde: https://obsidian.md/
-  - **CLI**: v1.12.4+ (Settings → General → Command line interface). Ver `docs/OBSIDIAN_CLI_PLAN.md`
-  - Plugins: Zotero Integration, Dataview, Templater
-
-- [ ] **Zotero** - Gerenciador de referencias (gratuito)
-  - Onde: https://www.zotero.org/
-  - **MCP**: `uvx zotero-mcp` — config em `.cursor/mcp.json`. Zotero aberto + Advanced > Allow other applications.
-  - Plugins: Better BibTeX, Zotero Connector
-
-### Ferramentas MBE
-- [x] **Scite.ai** - Smart Citations (suporte/contraste/mencao). MCP: scite.ai/mcp (assinatura)
-- [x] **Consensus** - Consenso cientifico. MCP via assinatura direta
-- [ ] **Elicit** - Extracao PICO (free 10 papers/dia)
-  - Premium opcional: ~$10/mo
-
-### Cowork Setup
-- [ ] **Claude Desktop** com Cowork habilitado
-  - Criar Skill "Extrair UpToDate" no Cowork
-  - Criar Skill "Extrair DynaMed" no Cowork
-  - Criar Skill "Extrair BMJ Best Practice" no Cowork
-  - Frequencia: 2-3x/semana, disparar manualmente
-
-### API Keys Recomendadas
-- [ ] **GITHUB_TOKEN** - MCP GitHub (gratuito, 5000 req/h)
-- [ ] **BRAVE_API_KEY** - Busca web alternativa (gratuito, 2000 req/mo)
-
-## ENSINO + CONCURSO NOV/2026
-
-### Concurso (120 questoes multipla escolha — PRIORIDADE DO ANO)
-- [ ] Definir especialidades/topicos do concurso
-- [ ] Criar database Notion "Concurso Error Log" (ver skill teaching-improvement)
-- [ ] **Anki + AnkiConnect** — instalar Anki Desktop + add-on AnkiConnect (2055492159)
-- [ ] **Anki MCP** — `claude mcp add anki-mcp npx -- -y @ankimcp/anki-mcp-server`
-  - Opus + ChatGPT 5.4 geram cards baseados no Error Log e desempenho
-  - AI prioriza: erros recorrentes > unicos > conteudo novo
-  - Max 20 cards novos/dia, cross-validados
-- [ ] Criar decks por especialidade no Anki
-- [ ] **AGUARDANDO**: Usuario vai fornecer **minimo 10 provas reais** (PDFs) ate segunda
-  - Fontes: ENARE, USP, UNICAMP, UNIFESP, AMB, FMUSP, Santa Casa, etc
-  - PDFs publicos: provaderesidencia.com.br, fuvest.br, resmedica.com.br
-  - Quando receber: parser → analise de padroes → calibracao do exam-generator
-- [ ] Aprimorar `exam-generator` skill (APOS receber provas):
-  - Parser PDF → formato estruturado (enunciado, alternativas, gabarito, banca, ano)
-  - Analise de padroes por banca (dificuldade, materias, pegadinhas)
-  - Calibracao por banca brasileira
-  - Subespecialidades: cardio, nefro, pneumo, gastro, endocrino, infecto, reumato, hemato
-  - Justificativas com evidencia via BioMCP + PubMed MCP
-- [ ] Avaliar MedMCQA dataset (194k questoes, open source) como complemento
-- [ ] Criar plano macro Mar-Nov no Notion (calendario de estudo)
-- [ ] ~~MedAdapt MCP~~ — DESCARTADO: projeto abandonado (6 stars, sem commits desde mar/2025), overlap total com BioMCP + PubMed MCP ja configurados
+- [ ] Exam-generator (aguarda 10+ provas reais em PDF)
+- [ ] Anki + AnkiConnect (desktop + add-on 2055492159)
+- [ ] Anki MCP (`claude mcp add anki-mcp npx -- -y @ankimcp/anki-mcp-server`)
 - [ ] Primeiro simulado baseline (120 questoes cronometrado)
+- [ ] Plano macro Mar-Nov no Notion
 
-### Ensino (Professor)
-- [ ] Criar database Notion "Teaching Log" (error log de aulas)
-- [ ] Configurar workflow de preparacao de aulas (skill teaching-improvement)
-- [ ] Desenvolver curriculo "AI para Alunos de Medicina" (8 aulas)
+## ENSINO
 
-## OPCIONAL (Nice to have)
+- [ ] Database Notion "Teaching Log"
+- [ ] Curriculo "AI para Alunos de Medicina" (8 aulas)
+- [ ] Split teaching-improvement (392 linhas → 3 skills)
 
-- [ ] **GOOGLE_AI_KEY** - Gemini API (free tier generoso)
-- [ ] **HF_TOKEN** - HuggingFace (gratuito)
-- [ ] **Notion Plus** - Databases ilimitados ($10/mo)
-- [ ] **Make** - Automacao low-code (PLANO FUTURO)
-- [ ] **n8n** - Automacao self-hosted (PLANO FUTURO)
+## INFRA
 
-## SETUP TECNICO
+- [ ] BudgetTracker ativar (SQLite)
+- [ ] claude-task-master (MCP GTD)
+- [ ] n8n self-hosted (automacao 24/7)
+- [ ] Cowork Skills: Extrair UpToDate, DynaMed, BMJ Best Practice
 
-### Software
-- [ ] **Python 3.11+** - Runtime principal
-- [ ] **Node.js 18+** - Necessario para MCPs (npx)
-- [ ] **Ollama** - Modelos locais gratuitos
-  - `curl -fsSL https://ollama.ai/install.sh | sh`
-  - `ollama pull llama3.3`
+## CUSTO MENSAL
 
-### Notion Setup (Ultimate Brain + Medico)
-- [x] **Ultimate Brain** (Thomas Frank) - Template base ja instalado
-  - Fonte: https://thomasjfrank.com/brain/
-  - Funcionalidades: GTD tasks, PARA organization, My Day dashboard, Quick Capture
-  - Companion: Flylighter (browser extension para quick capture)
-- [ ] **P0: Snapshot do estado atual** - Ler TUDO via MCP antes de qualquer mudanca
-  - Usar NotionCleaner.snapshot() → gera notion_snapshot.md local
-  - Identificar: databases existentes, paginas, properties, duplicatas
-  - Entender estrutura atual do Ultimate Brain antes de customizar
-- [ ] Adaptar Ultimate Brain para workflow medico:
-  - Mapear databases UB → nossos databases (Knowledge Base, Inbox, Digests, Projetos)
-  - Adicionar properties medicas (Tipo, Especialidade, PMID, Nivel Evidencia)
-  - Manter dashboard e views do UB (ja sao bons)
-- [ ] Criar database "Knowledge Base Medica" (ou adaptar do UB)
-- [ ] Criar database "Inbox Medico" (ou adaptar do UB)
-- [ ] Criar database "Digests Semanais"
-- [ ] Configurar templates de pagina
-
-### Gmail Setup
-- [ ] Criar labels: `Medical/Newsletters`, `Medical/Papers`, `Medical/Alerts`
-- [ ] Configurar filtros para categorizar emails medicos
-
-### Ambiente
-- [ ] Copiar `.env.example` para `.env`
-- [ ] Preencher API keys no `.env`
-- [ ] Instalar dependencias: `pip install -e ".[dev]"`
-
-## CUSTO MENSAL ESTIMADO
-
-Budget definido: **$100/mes** (testar por 30 dias e ajustar)
-
-| Item | Custo/mes | Necessario? |
-|------|----------|-------------|
-| Anthropic API (Opus+Sonnet+Haiku) | $10-40 (depende do routing) | Sim |
-| OpenAI API (auditor, opcional) | $0-0.50 | Opcional (web $0) |
-| Cowork + ChatGPT Agent | $0 | Ja tem planos |
-| Perplexity Max | $0 | Ja tem |
-| Google One Ultra (Gemini+Drive) | $0 | Ja tem |
-| Canva Pro | $0 | Ja tem |
-| Notion Free | $0 | Free funciona |
-| Scite/Consensus/Elicit (browser) | $0 | Free via browser |
-| **TOTAL ESTIMADO** | **~$10-40** | |
-| **BUDGET MAX** | **$100** | Margem para teste |
-
-> Nota: Uma pesquisa PubMed completa (query→triagem→leitura→sintese)
-> gasta ~10-12 requests API. Monitoramento AI 2x/dia = ~240 req/mes.
-> Total estimado: ~400-700 req/mes. Testar e ajustar.
-
-## ORDEM DE SETUP RECOMENDADA
-
-1. [x] Repositorio criado e estruturado
-2. [ ] API keys Anthropic + OpenAI no `.env`
-3. [ ] Instalar MCPs medicos (healthcare, pubmed, biomcp)
-4. [ ] Configurar Notion MCP + criar databases
-5. [ ] Configurar Gmail MCP + criar labels
-6. [ ] Instalar Context7 MCP
-7. [ ] Configurar Cowork Skills para fontes pagas
-8. [ ] Testar workflow `quick_note_to_evidence`
-9. [ ] Testar workflow `paper_to_notion`
-10. [ ] Configurar Scite/Consensus/Elicit (browser primeiro)
+| Item | Custo/mes |
+|------|----------|
+| Claude Max (Opus 4.6) | incluso no plano |
+| Perplexity Max | incluso no plano |
+| Google One Ultra (Gemini) | incluso no plano |
+| Scite + Consensus | ~$20-30 |
+| Tudo mais | $0 |
+| **TOTAL** | **~$20-30** (dentro do budget $100) |
