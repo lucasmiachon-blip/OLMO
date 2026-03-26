@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 15 — 2026-03-26
+
+### Skills (split)
+- `teaching-improvement` (391 linhas) → 3 skills: `teaching`, `concurso`, `ai-fluency`
+- Removido diretorio `.claude/skills/teaching-improvement/`
+
+### Config
+- `ecosystem.yaml`: 17 → 20 skills, contagem corrigida
+- `servers.json`: adicionado Google Drive MCP (`@piotr-agier/google-drive-mcp`, planned)
+- `CLAUDE.md`: skills list atualizada, MCP count corrigido
+
+### MCPs (3 autenticados)
+- Gmail, Google Calendar, Canva — connected (13/16 MCPs ativos)
+- Google Drive MCP identificado: `@piotr-agier/google-drive-mcp` v1.7.6 (planned)
+
+### Docs
+- CLAUDE.md, PENDENCIAS.md, HANDOFF.md, GETTING_STARTED.md, ARCHITECTURE.md — sync com estado real
+
+---
+Coautoria: Lucas + opus | 2026-03-26
+
 ## Sessao 14 — 2026-03-26
 
 ### MCPs (3 instalados)

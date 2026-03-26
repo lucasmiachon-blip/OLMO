@@ -121,7 +121,9 @@ https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 ├── mbe-evidence/          # GRADE, CONSORT, STROBE, PRISMA, RoB2...
 ├── medical-research/      # PubMed, PICO, niveis evidencia
 ├── notion-publisher/      # Templates Notion profissionais
-├── teaching-improvement/  # Ensino, andragogia, slideologia, AI fluency, dev AI
+├── teaching/              # Metodologia de ensino, andragogia, slideologia
+├── concurso/              # Prep concurso nov/2026, Anki AI, evidence-based learning
+├── ai-fluency/            # AI fluency para ensino + dev AI continuo
 ├── review/                # Code review multi-agente + OWASP
 ├── ai-monitoring/         # Tracking modelos e ferramentas
 ├── automation/            # Workflow automation

@@ -138,27 +138,27 @@
     "gmail": {
       "type": "http",
       "url": "https://gmail.mcp.claude.com/mcp",
-      "status": "needs_auth",
+      "status": "connected",
       "description": "Gmail nativo claude.ai. Emails medicos, newsletters, alertas.",
       "priority": "critical",
-      "auth": "OAuth Google (autenticar via browser)",
+      "auth": "OAuth Google",
       "cost": "$0"
     },
 
     "google-calendar": {
       "type": "http",
       "url": "https://gcal.mcp.claude.com/mcp",
-      "status": "needs_auth",
+      "status": "connected",
       "description": "Google Calendar nativo claude.ai.",
       "priority": "high",
-      "auth": "OAuth Google (autenticar via browser)",
+      "auth": "OAuth Google",
       "cost": "$0"
     },
 
     "canva": {
       "type": "http",
       "url": "https://mcp.canva.com/mcp",
-      "status": "needs_auth",
+      "status": "connected",
       "description": "Canva: design, apresentacoes, material didatico.",
       "priority": "medium",
       "auth": "OAuth Canva",
@@ -175,6 +175,17 @@
       "priority": "high",
       "setup": "Requer: Anki Desktop + AnkiConnect add-on (2055492159)",
       "cost": "$0"
+    },
+
+    "google-drive": {
+      "command": "npx",
+      "args": ["-y", "@piotr-agier/google-drive-mcp"],
+      "status": "planned",
+      "description": "Google Drive + Docs + Sheets + Slides. Community (piotr-agier, v1.7.6). OAuth auto-refresh.",
+      "priority": "high",
+      "auth": "OAuth Google (Google Cloud Console credentials + browser flow)",
+      "cost": "$0",
+      "setup": "Requer: Google Cloud Console project com Drive API, OAuth 2.0 credentials (credentials.json)"
     },
 
     "chatgpt": {

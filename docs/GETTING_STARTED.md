@@ -118,8 +118,10 @@ organizacao/
 │   │   ├── mbe-evidence/     # GRADE, CONSORT, STROBE, PRISMA...
 │   │   ├── medical-research/ # PubMed, PICO
 │   │   ├── notion-publisher/ # Templates Notion
-│   │   ├── teaching-improvement/ # Ensino, andragogia, AI fluency, dev AI
-│   │   └── ...               # + 7 skills (review, ai-monitoring, etc)
+│   │   ├── teaching/          # Metodologia de ensino, andragogia, slideologia
+│   │   ├── concurso/          # Prep concurso nov/2026, Anki AI
+│   │   ├── ai-fluency/        # AI fluency para ensino + dev AI
+│   │   └── ...               # + 14 skills (review, ai-monitoring, etc)
 │   └── rules/                # Regras sempre carregadas
 │       ├── quality.md        # Qualidade de codigo
 │       ├── efficiency.md     # Eficiencia de API
@@ -128,7 +130,7 @@ organizacao/
 │   ├── ecosystem.yaml        # Agentes + model routing
 │   ├── workflows.yaml        # Workflows operacionais
 │   ├── rate_limits.yaml      # Budget $100/mes
-│   ├── mcp/servers.json      # 13 MCP servers + ChatGPT 5.4
+│   ├── mcp/servers.json      # 16 MCPs (10 connected, 3 needs auth, 3 planned)
 │   └── keys/                 # Guia de API keys
 ├── templates/                # Templates de prompts
 └── docs/                     # Documentacao

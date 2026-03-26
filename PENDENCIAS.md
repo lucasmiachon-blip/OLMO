@@ -2,9 +2,9 @@
 
 > Checklist de setup. Atualizado: 26 de Marco de 2026
 
-## MCPs (14 configurados)
+## MCPs (16 configurados)
 
-### Conectados (10)
+### Conectados (13)
 - [x] **Notion** — OAuth, connected
 - [x] **PubMed** — claude.ai nativo, connected
 - [x] **SCite** — assinatura ativa, connected
@@ -12,17 +12,17 @@
 - [x] **Scholar Gateway** — connected
 - [x] **Perplexity** — API key configurada, connected
 - [x] **Gemini** — npx @rlabs-inc/gemini-mcp, connected
-- [x] **NotebookLM** — npx notebooklm-mcp@latest, connected (auth Google no primeiro uso)
+- [x] **NotebookLM** — npx notebooklm-mcp@latest, connected
 - [x] **Zotero** — uvx zotero-mcp, local mode (Zotero app precisa estar aberto)
 - [x] **Excalidraw** — connected
+- [x] **Gmail** — claude.ai nativo, connected (sessao 15)
+- [x] **Google Calendar** — claude.ai nativo, connected (sessao 15)
+- [x] **Canva** — connected (sessao 15)
 
-### Precisam Autenticacao (3)
-- [ ] **Gmail** — `claude mcp auth gmail`
-- [ ] **Google Calendar** — `claude mcp auth google-calendar`
-- [ ] **Canva** — `claude mcp auth canva`
-
-### Planejados (1)
+### Planejados (3)
+- [ ] **Google Drive** — `@piotr-agier/google-drive-mcp` (requer Google Cloud Console OAuth)
 - [ ] **ChatGPT 5.4 MCP** — cross-validator para Notion writes
+- [ ] **Anki MCP** — `@ankimcp/anki-mcp-server` (requer Anki Desktop + AnkiConnect)
 
 ## FERRAMENTAS JA TEM
 
@@ -60,7 +60,7 @@ Regra: **nunca** ler PDF inteiro no contexto do Claude. Usar MCPs.
 
 - [ ] Database Notion "Teaching Log"
 - [ ] Curriculo "AI para Alunos de Medicina" (8 aulas)
-- [ ] Split teaching-improvement (392 linhas → 3 skills)
+- [x] ~~Split teaching-improvement~~ → teaching + concurso + ai-fluency (sessao 15)
 
 ## INFRA
 

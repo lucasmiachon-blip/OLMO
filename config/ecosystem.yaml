@@ -101,7 +101,7 @@ subagents:
     parent: "organizacao"
     description: "Limpa e organiza Notion com seguranca (modelo harsh)"
 
-# Skills (.claude/skills/ — 17 ativas)
+# Skills (.claude/skills/ — 20 ativas)
 skills:
   # Pesquisa e ciencia
   scientific:
@@ -132,9 +132,15 @@ skills:
     description: "GTD, Eisenhower, memory, task management"
 
   # Ensino e concurso
-  teaching-improvement:
-    path: ".claude/skills/teaching-improvement"
-    description: "Ensino, andragogia, concurso, AI fluency"
+  teaching:
+    path: ".claude/skills/teaching"
+    description: "Metodologia de ensino, andragogia, slideologia, diario docente"
+  concurso:
+    path: ".claude/skills/concurso"
+    description: "Prep concurso nov/2026, Anki AI, evidence-based learning"
+  ai-fluency:
+    path: ".claude/skills/ai-fluency"
+    description: "AI fluency para ensino + dev AI continuo"
   exam-generator:
     path: ".claude/skills/exam-generator"
     description: "Simulados calibrados por bancas, Anki cards"

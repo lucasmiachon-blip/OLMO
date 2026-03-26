@@ -26,7 +26,7 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `orchestrator.py` → entry point
 - `config/ecosystem.yaml` → agentes + model routing
 - `config/rate_limits.yaml` → budget ($100/mes max)
-- `config/mcp/servers.json` → 13 MCPs + ChatGPT 5.4
+- `config/mcp/servers.json` → 16 MCPs (13 connected, 3 planned)
 - `ECOSYSTEM.md` → mapa completo (perfil, objetivos, KPIs, budget)
 - `PENDENCIAS.md` → checklist de setup
 - `HANDOFF.md` → continuidade entre sessoes
@@ -43,7 +43,9 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - `notion-spec-to-impl` → specs → tasks no Notion Tasks DB
 - `organization` → GTD, Eisenhower, memory management, task management
 - `automation` → regras, pipelines, cron, workflows
-- `teaching-improvement` → ensino, andragogia, concurso, AI fluency, dev AI
+- `teaching` → metodologia de ensino, andragogia, slideologia, diario docente
+- `concurso` → prep concurso nov/2026, Anki AI, evidence-based learning
+- `ai-fluency` → AI fluency para ensino + dev AI continuo
 - `review` → code review multi-agente + OWASP LLM Top 10 2025
 - `ai-monitoring` → tracking modelos, tools, benchmarks
 - `exam-generator` → simulados calibrados por bancas, Anki cards, anti-cue protocol
