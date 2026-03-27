@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## Sessao 17 — 2026-03-27
+
+### Auditoria Masterpiece — 2o Ciclo (completo)
+- Inventario expandido: 70+ paginas + subpaginas, 8 pilares verificados
+- Cross-validation ciclo 2 executado (Claude + ChatGPT v2 prompt)
+- Comparacao pareceres: 5 convergencias, 1 divergencia (Estatinas), 2 falsos positivos ChatGPT (snapshot stale)
+
+### Notion Writes (8 verificados)
+- Terry Underwood: 3 paginas Archived → 1 entry consolidada (Pessoa, EDUCACAO, Broto, 6 insights)
+- Conceitos Garimpados → META/SISTEMA, Galeria, Arvore, Ativo (curadoria transitoria)
+- Zettelkasten: 2 paginas Archived → 1 entry consolidada (Topico, EDUCACAO, Broto, conteudo merged)
+- Organizacao (wrapper vazio) → Archived
+- Models (subpage quase vazia) → Archived
+- HUB Multidisciplinar → Status: Arquivo
+- Antibioticos: verificado, estrutura ja correta (nenhuma acao)
+
+### Verificacao Properties Sessao 16
+- AI tools, Comportamento, Decision theory: Broto confirmado (ChatGPT flagou erroneamente)
+
+### Docs
+- ARCHITECTURE.md: skills list atualizada (12→20), MCPs atualizados (13 reais)
+- ECOSYSTEM.md: data atualizada
+- HANDOFF.md, CHANGELOG.md: sessao 17 completa
+
+---
+Coautoria: Lucas + opus + gpt54 | 2026-03-27
+
 ## Sessao 16 — 2026-03-26
 
 ### Cross-Validation Masterpiece (Claude + ChatGPT)

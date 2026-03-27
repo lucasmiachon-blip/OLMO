@@ -1,17 +1,18 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 16 | 2026-03-26
+> Sessao 18 | 2026-03-27
 
 ## ESTADO ATUAL
 
-20 skills ativas. 16 MCPs (13 connected, 3 planned). Cross-validation Masterpiece concluida (Claude + ChatGPT). 7 properties atualizadas no Notion.
+20 skills. 16 MCPs (13 connected, 3 planned). Auditoria Masterpiece: 2 ciclos cross-validation completos (Claude+ChatGPT). 8 writes verificados nesta sessao. Conceitos Garimpados classificado. Zettelkasten recuperado. Estatinas pendente decisao.
 
 ## PROXIMO
 
-1. Setup Google Drive MCP (Google Cloud Console OAuth + install)
-2. Primeiro ciclo de pesquisa real (pipeline busca → validacao → sintese)
-3. Decidir: AI Hub como 2o Indice ou reclassificar para Topico
-4. Recuperar 3 paginas do Archived para Masterpiece (Zettelkasten, Estatinas, Terry Underwood)
+1. Resolver AI Hub vs TECNOLOGIA & IA (ambos concordam: preservar AI Hub rico, portal fino vira redirect)
+2. Decidir Estatinas: entry standalone ou merge em Lipides? (ChatGPT recomenda merge)
+3. Subpages Conceitos Garimpados: cross-linking ou super-mapa (cluster AI/agency)
+4. Setup Google Drive MCP (Google Cloud Console OAuth + install)
+5. Primeiro ciclo de pesquisa real (pipeline busca → validacao → sintese)
 
 ## PENDENTE
 
@@ -19,10 +20,8 @@
 - [ ] Exam-generator (aguarda 10+ provas reais em PDF)
 - [ ] Integrar claude-task-master (MCP GTD, 25k stars)
 - [ ] n8n self-hosted (automacao 24/7)
-- [ ] Autenticar Canva MCP
 - [ ] NotebookLM: criar notebooks por tema de pesquisa ativo
 - [ ] Google Drive MCP: criar Google Cloud Console project + OAuth credentials
-- [ ] Formalizar Conceitos Garimpados como entry do Masterpiece DB
 - [ ] Lixeira: deletar manualmente 2 paginas (rascunho + pagina vazia)
 
 ## CONFLITOS
@@ -30,4 +29,4 @@
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + opus | 2026-03-26
+Coautoria: Lucas + opus + gpt54 | 2026-03-27

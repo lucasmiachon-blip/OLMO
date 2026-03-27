@@ -1,6 +1,6 @@
 # ECOSYSTEM.md - Mapa do Ecossistema AI
 
-> Atualizado: 8 de Marco de 2026
+> Atualizado: 27 de Marco de 2026
 > Perfil: Medico + Professor + Pesquisador + Dev AI
 
 ## Objetivos
@@ -49,4 +49,4 @@ Obsidian     = CONECTAR  Zotero      = REFERENCIAR Canva    = DESIGN
 
 ---
 Coautoria: Lucas + opus
-Data: 2026-03-08
+Data: 2026-03-27

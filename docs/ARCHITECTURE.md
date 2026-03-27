@@ -94,10 +94,12 @@ https://docs.crewai.com/en/guides/agents/crafting-effective-agents
  └─────────────────────────────────────────────────────┘
 
  ┌─────────────────────────────────────────────────────┐
- │  MCP SERVERS                                         │
- │  Medical: healthcare │ pubmed │ biomcp              │
- │  Prod: notion │ gmail │ context7 │ github │ fetch   │
- │  Local: memory │ sqlite │ filesystem │ brave-search │
+ │  MCP SERVERS (13 connected, 3 planned)               │
+ │  Medical: PubMed │ SCite │ Consensus │ Scholar GW   │
+ │  Research: Perplexity │ Gemini │ NotebookLM │ Zotero│
+ │  Prod: Notion │ Gmail │ Google Calendar │ Canva     │
+ │  Visual: Excalidraw                                  │
+ │  Planned: Google Drive │ ChatGPT MCP │ Anki MCP     │
  └─────────────────────────────────────────────────────┘
 
  ┌─────────────────────────────────────────────────────┐
@@ -120,16 +122,24 @@ https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 .claude/skills/
 ├── mbe-evidence/          # GRADE, CONSORT, STROBE, PRISMA, RoB2...
 ├── medical-research/      # PubMed, PICO, niveis evidencia
+├── scientific/            # Metodologia cientifica
+├── research/              # Pesquisa academica, web search
 ├── notion-publisher/      # Templates Notion profissionais
+├── notion-knowledge-capture/ # Conversa/pesquisa → Masterpiece DB
+├── notion-spec-to-impl/   # Specs → tasks no Notion Tasks DB
+├── organization/          # GTD, Eisenhower, memory, tasks
+├── automation/            # Regras, pipelines, cron, workflows
 ├── teaching/              # Metodologia de ensino, andragogia, slideologia
 ├── concurso/              # Prep concurso nov/2026, Anki AI, evidence-based learning
 ├── ai-fluency/            # AI fluency para ensino + dev AI continuo
-├── review/                # Code review multi-agente + OWASP
+├── review/                # Code review multi-agente + OWASP LLM Top 10
 ├── ai-monitoring/         # Tracking modelos e ferramentas
-├── automation/            # Workflow automation
-├── organization/          # GTD + Eisenhower
-├── research/              # Pesquisa academica
-└── scientific/            # Metodologia cientifica
+├── exam-generator/        # Simulados calibrados, Anki cards, anti-cue
+├── skill-creator/         # Meta-skill para criar/refinar skills
+├── janitor/               # Limpeza e manutencao do repositorio
+├── self-evolving/         # Auto-evolucao PDCA (skills, rules, configs)
+├── continuous-learning/   # Aprendizado progressivo dev/ML/AI ops
+└── daily-briefing/        # Email diario (Gmail→Notion Emails Digest DB)
 ```
 
 ### Graus de Liberdade (Anthropic Pattern)
