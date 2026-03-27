@@ -1,18 +1,16 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 18 | 2026-03-27
+> Sessao 19 | 2026-03-27
 
 ## ESTADO ATUAL
 
-20 skills. 16 MCPs (13 connected, 3 planned). Auditoria Masterpiece: 2 ciclos cross-validation completos (Claude+ChatGPT). 8 writes verificados nesta sessao. Conceitos Garimpados classificado. Zettelkasten recuperado. Estatinas pendente decisao.
+20 skills. 16 MCPs (13 connected, 3 planned). Auditoria Masterpiece: 3 sessoes completas. Conceitos Garimpados com MOC (7 clusters, ~60 conceitos indexados). Estatinas merged em Lipides. TECNOLOGIA & IA arquivado (AI Hub e a entrada ativa).
 
 ## PROXIMO
 
-1. Resolver AI Hub vs TECNOLOGIA & IA (ambos concordam: preservar AI Hub rico, portal fino vira redirect)
-2. Decidir Estatinas: entry standalone ou merge em Lipides? (ChatGPT recomenda merge)
-3. Subpages Conceitos Garimpados: cross-linking ou super-mapa (cluster AI/agency)
-4. Setup Google Drive MCP (Google Cloud Console OAuth + install)
-5. Primeiro ciclo de pesquisa real (pipeline busca → validacao → sintese)
+1. Distribuir conceitos do MOC de Conceitos Garimpados para paginas existentes do Masterpiece
+2. Setup Google Drive MCP (Google Cloud Console OAuth + install)
+3. Primeiro ciclo de pesquisa real (pipeline busca → validacao → sintese)
 
 ## PENDENTE
 
@@ -29,4 +27,4 @@
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + opus + gpt54 | 2026-03-27
+Coautoria: Lucas + opus | 2026-03-27

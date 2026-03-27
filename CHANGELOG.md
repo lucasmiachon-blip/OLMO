@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Sessao 18 — 2026-03-27
+
+### Notion Writes (3 verificados)
+- TECNOLOGIA & IA → Status: Arquivo (portal fino, AI Hub e a entrada ativa)
+- Estatinas (efeito loteria) merged como subsecao V em Lipides e prevencao primaria
+- Conceitos Garimpados: MOC adicionado no topo (7 clusters, ~60 conceitos indexados)
+
+### Docs
+- HANDOFF.md, CHANGELOG.md: sessao 18 completa
+
+---
+Coautoria: Lucas + opus | 2026-03-27
+
 ## Sessao 17 — 2026-03-27
 
 ### Auditoria Masterpiece — 2o Ciclo (completo)
