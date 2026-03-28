@@ -31,18 +31,25 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `PENDENCIAS.md` → checklist de setup
 - `HANDOFF.md` → continuidade entre sessoes
 
-## Skills (sob demanda)
+## Custom Agents (`.claude/agents/`)
 
-Skills carregadas via `.claude/skills/` quando relevantes:
+Subagents com MCP scoped e maxTurns definido:
+- `researcher` → exploracao de codebase, read-only (Haiku, 15 turns)
+- `notion-ops` → reads/writes Notion com protocolo MCP safety (Sonnet, 10 turns)
+- `literature` → pesquisa cientifica PubMed/SCite/Consensus (Sonnet, 12 turns)
+- `quality-gate` → lint, type-check, testes pre-commit (Haiku, 10 turns)
+
+## Skills (19, sob demanda)
+
+Skills carregadas via `.claude/skills/` quando relevantes (todas com YAML frontmatter):
 - `mbe-evidence` → GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS...
 - `medical-research` → PubMed, PICO, niveis de evidencia
-- `scientific` → pesquisa cientifica, hipoteses, literature review
-- `research` → web search, fontes, analise de resultados
+- `research` → pesquisa cientifica + web search + literature review
 - `notion-publisher` → templates Notion com estetica profissional
 - `notion-knowledge-capture` → conversa/pesquisa → Masterpiece DB
 - `notion-spec-to-impl` → specs → tasks no Notion Tasks DB
 - `organization` → GTD, Eisenhower, memory management, task management
-- `automation` → regras, pipelines, cron, workflows
+- `automation` → regras, pipelines, cron, hooks, scheduled agents
 - `teaching` → metodologia de ensino, andragogia, slideologia, diario docente
 - `concurso` → prep concurso nov/2026, Anki AI, evidence-based learning
 - `ai-fluency` → AI fluency para ensino + dev AI continuo
@@ -52,7 +59,7 @@ Skills carregadas via `.claude/skills/` quando relevantes:
 - `skill-creator` → meta-skill para criar/refinar skills interativamente
 - `janitor` → limpeza e manutencao do repositorio
 - `self-evolving` → auto-evolucao PDCA do ecossistema (skills, rules, configs)
-- `continuous-learning` → aprendizado progressivo dev/ML/AI ops com analogias medicas
+- `continuous-learning` → aprendizado progressivo dev/ML/AI ops
 - `daily-briefing` → email diario (Gmail→classificar→Notion Emails Digest DB)
 
 ## Conventions

@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Sessao 20 — 2026-03-28
+
+### Self-Improvement (pesquisa + implementacao)
+- Pesquisa com 4 agentes paralelos: agents, skills, memory, project structure
+- Memory prune: 3 stale removidas (feedback_modelo_opus, project_skills_update, project_future_obsidian_zotero)
+- Custom agents: .claude/agents/ criado com 4 agents (researcher, notion-ops, literature, quality-gate)
+- Skills frontmatter: YAML padronizado em todas as 20 skills (name + description)
+- Skills consolidation: research absorve scientific, concurso linka exam-generator, automation expandida
+- CLAUDE.md: secao Agents adicionada, skills 20→19, scientific removida
+
+---
+Coautoria: Lucas + opus | 2026-03-28
+
 ## Sessao 18 — 2026-03-27
 
 ### Notion Writes (3 verificados)
