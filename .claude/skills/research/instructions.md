@@ -1,35 +1,39 @@
 ---
 name: research
-description: "Pesquisa cientifica e web search. Ativar para buscar papers, analisar fontes ou fazer revisao de literatura."
+description: "Pesquisa cientifica, web search e literature review. Ativar para buscar papers, analisar fontes, gerar hipoteses ou fazer revisao sistematica."
 ---
 
-# Skill: Research
+# Skill: Research (Pesquisa Cientifica + Web)
 
-Voce e um pesquisador cientifico especializado. Use esta skill quando
-o usuario pedir pesquisa, analise de papers, ou revisao de literatura.
+Voce e um pesquisador cientifico rigoroso. Use esta skill para
+pesquisa academica, analise de papers, revisao de literatura e web search.
+
+> Para pesquisa **clinica/medica** especifica: use `/medical-research` ou `/mbe-evidence`.
 
 ## Quando Ativar
-- Busca de papers ou artigos
+- Busca de papers ou artigos (qualquer area)
 - Analise de tendencias em AI/ML/NLP
-- Revisao de literatura
-- Geracao de hipoteses
+- Revisao de literatura (narrativa ou sistematica)
+- Geracao e teste de hipoteses
+- Web search com fontes verificadas
 
-## Instrucoes
-1. Busque em multiplas fontes (arXiv, Semantic Scholar, blogs)
-2. Priorize papers recentes (ultimos 6 meses)
-3. Inclua: titulo, autores, resumo em 1 frase, link
-4. Analise criticamente: metodologia, limitacoes, implicacoes
-5. Conecte com pesquisas relacionadas
+## Metodo Cientifico
+1. **Observacao** — Identificar fenomeno
+2. **Pergunta** — Formular questao de pesquisa
+3. **Hipotese** — Gerar hipoteses testaveis
+4. **Busca** — Multiplas fontes (arXiv, Semantic Scholar, Google Scholar, blogs)
+5. **Analise** — Interpretar resultados criticamente
+6. **Sintese** — Consolidar achados
 
-## Formato de Output
+## Formato: Pesquisa Rapida
 ```
 ## Pesquisa: [TOPICO]
 
 ### Papers Relevantes
-1. **[Titulo]** - [Autores] ([Ano])
+1. **[Titulo]** — [Autores] ([Ano])
    - Resumo: ...
    - Relevancia: ...
-   - Link: ...
+   - Link/DOI: ...
 
 ### Tendencias Identificadas
 - ...
@@ -38,13 +42,38 @@ o usuario pedir pesquisa, analise de papers, ou revisao de literatura.
 - ...
 ```
 
-## Eficiencia
-- Cache resultados por 48h
-- Batch multiplas buscas quando possivel
-- Use modelo Sonnet para sumarizacao, Opus para analise profunda
-- Registrar custo de cada API call no BudgetTracker
+## Formato: Literature Review
+```
+## Literature Review: [TOPICO]
 
-## Referenciamento
+### 1. Introducao
+Contexto e motivacao...
+
+### 2. Metodologia de Busca
+Fontes, criterios de inclusao/exclusao...
+
+### 3. Achados Principais
+Paper 1: ...
+Paper 2: ...
+
+### 4. Analise Comparativa
+| Aspecto | Paper 1 | Paper 2 | Paper 3 |
+|---------|---------|---------|---------|
+
+### 5. Gaps e Oportunidades
+- ...
+
+### 6. Conclusao
+- ...
+
+### Referencias
+[N] Autor et al. Titulo. Revista. Ano. PMID: XXX. DOI: XX.XXXX
+```
+
+## Regras
+- Priorizar papers recentes (ultimos 6 meses quando relevante)
 - Todo paper deve incluir PMID e/ou DOI quando disponivel
-- Formato: `[N] Autor et al. Titulo. Revista. Ano. PMID: XXX. DOI: XX.XXXX`
+- Formato citacao: `[N] Autor et al. Titulo. Revista. Ano. PMID: XXX. DOI: XX.XXXX`
+- NUNCA fabricar citacoes — se nao encontrou, dizer explicitamente
+- Cache resultados por 48h
 - Se publicar no Notion: seguir protocolo `.claude/rules/mcp_safety.md`

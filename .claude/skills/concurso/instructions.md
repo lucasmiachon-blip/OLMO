@@ -8,6 +8,8 @@ description: "Prep concurso nov/2026 (120 MCQs). Ativar para planejar estudo, ge
 PRIORIDADE DO ANO. Todo o ecossistema deve servir a esse objetivo.
 Ferramentas + ciencia do aprendizado.
 
+> Para **gerar questoes/simulados**: use `/exam-generator` (metodologia de item-writing, anti-cue, calibracao por banca).
+
 ## Quando Ativar
 - Planejamento de estudo para o concurso
 - Resolucao/analise de questoes
