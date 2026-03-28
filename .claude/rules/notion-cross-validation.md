@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*notion*"
+---
+
 # Regra: Cross-Validation Notion (Claude + ChatGPT)
 
 > Toda operacao de write no Notion que envolva reorganizacao, arquivamento

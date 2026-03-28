@@ -27,6 +27,7 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `config/ecosystem.yaml` → agentes + model routing
 - `config/rate_limits.yaml` → budget ($100/mes max)
 - `config/mcp/servers.json` → 16 MCPs (13 connected, 3 planned)
+- `hooks/` → 2 hooks (notification desktop, stop session-hygiene)
 - `ECOSYSTEM.md` → mapa completo (perfil, objetivos, KPIs, budget)
 - `PENDENCIAS.md` → checklist de setup
 - `HANDOFF.md` → continuidade entre sessoes
@@ -72,11 +73,14 @@ Skills carregadas via `.claude/skills/` quando relevantes (todas com YAML frontm
 - Notion MCP: protocolo seguro em `.claude/rules/mcp_safety.md`
 - Notion writes (reorganizar/arquivar): cross-validation obrigatoria em `.claude/rules/notion-cross-validation.md`
 - `pytest tests/` | `ruff check .`
+- Hooks em `hooks/` (bash scripts, config em `.claude/settings.local.json`)
+- Rules pesadas (`mcp_safety`, `notion-cross-validation`) com `paths:` frontmatter — so carregam em sessoes relevantes
 
 ## Self-Improvement
 
 - `HANDOFF.md` atualizado a cada sessao (so pendencias, max ~30 linhas)
 - `CHANGELOG.md` append a cada sessao com commit
 - Regra: `.claude/rules/session-hygiene.md`
+- Hook `Stop`: verifica hygiene + reinjecta HANDOFF pos-compaction
 - `/insights` semanal → refinar rules e skills
 - `docs/ARCHITECTURE.md` → decisoes tecnicas

@@ -68,6 +68,17 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 
+# Hooks
+hooks/*.log
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# UV
+.uv/
+
 # Claude Code
 .claude/worktrees/
 .claude/settings.local.json
