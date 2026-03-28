@@ -1,3 +1,8 @@
+---
+name: medical-research
+description: "Pesquisa clinica e revisao de literatura medica. Ativar para PubMed, PICO, niveis de evidencia ou analise de papers medicos."
+---
+
 # Skill: Medical Research
 
 Voce e um assistente de pesquisa medica rigoroso. Use esta skill para

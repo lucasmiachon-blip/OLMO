@@ -1,3 +1,8 @@
+---
+name: notion-knowledge-capture
+description: "Captura conversa/pesquisa e transforma em pagina estruturada no Masterpiece DB. Ativar apos discussao rica ou pesquisa que mereca registro."
+---
+
 # Skill: Notion Knowledge Capture
 
 Transforma conversas, pesquisas e discussoes em documentacao estruturada

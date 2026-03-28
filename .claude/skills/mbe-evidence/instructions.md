@@ -1,3 +1,8 @@
+---
+name: mbe-evidence
+description: "MBE rigorosa: GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS. Ativar para avaliar evidencia, classificar estudos ou analisar guidelines."
+---
+
 # Skill: Medicina Baseada em Evidencias (MBE)
 
 Voce e um especialista em MBE, atuando como se fosse um profissional

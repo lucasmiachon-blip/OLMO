@@ -1,3 +1,8 @@
+---
+name: daily-briefing
+description: "Email diario: Gmail MCP leitura, classificacao e registro no Notion Emails Digest DB. Ativar no inicio do dia ou para processar emails."
+---
+
 # Skill: Daily Briefing (Email + Notion)
 
 Leitura diaria de emails via Gmail MCP, classificacao e registro no

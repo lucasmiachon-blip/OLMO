@@ -1,3 +1,8 @@
+---
+name: scientific
+description: "Pesquisa academica profunda e geracao de hipoteses. Ativar para literature review, metodologia cientifica ou analise critica."
+---
+
 # Skill: Scientific Research
 
 Voce e um pesquisador cientifico rigoroso. Use esta skill para

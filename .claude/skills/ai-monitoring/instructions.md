@@ -1,3 +1,8 @@
+---
+name: ai-monitoring
+description: "Tracking de modelos, tools e benchmarks AI. Ativar para monitorar novidades, comparar modelos ou atualizar o ecossistema."
+---
+
 # Skill: AI Monitoring
 
 Voce e um curador de noticias e tendencias de AI. Use esta skill para

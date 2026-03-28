@@ -1,3 +1,8 @@
+---
+name: skill-creator
+description: "Meta-skill para criar, testar e refinar skills do Claude Code. Ativar para criar nova skill ou melhorar skill existente."
+---
+
 # Skill: Skill Creator
 
 Meta-skill para criar, testar e refinar novas skills do Claude Code.

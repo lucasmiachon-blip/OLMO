@@ -1,3 +1,8 @@
+---
+name: janitor
+description: "Limpeza e manutencao do repositorio. Ativar para remover dead files, corrigir docs stale ou auditar estrutura."
+---
+
 # Skill: Janitor (Limpeza de Repositorio)
 
 Limpeza, organizacao e manutencao do repositorio.

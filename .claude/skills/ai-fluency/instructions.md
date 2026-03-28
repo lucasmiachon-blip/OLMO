@@ -1,3 +1,8 @@
+---
+name: ai-fluency
+description: "AI fluency para ensino e dev AI continuo. Ativar quando o tema for dominar ferramentas AI ou preparar conteudo sobre AI para alunos."
+---
+
 # Skill: AI Fluency (Ensino + Dev AI)
 
 Dominar AI fluentemente para transmitir essa fluencia aos alunos.

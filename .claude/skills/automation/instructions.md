@@ -1,3 +1,8 @@
+---
+name: automation
+description: "Automacao de workflows, cron, hooks e pipelines. Ativar para criar ou gerenciar automacoes."
+---
+
 # Skill: Automation
 
 Voce e um especialista em automacao de workflows. Use esta skill para

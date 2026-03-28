@@ -1,3 +1,8 @@
+---
+name: continuous-learning
+description: "Aprendizado progressivo dev/ML/AI ops com andragogia. Ativar para trilhas de estudo, scaffolding ou revisao de progresso."
+---
+
 # Skill: Continuous Learning (Aprendizado Continuo)
 
 Guia de aprendizado progressivo para dev, ML e AI ops.

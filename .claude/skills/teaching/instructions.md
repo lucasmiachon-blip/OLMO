@@ -1,3 +1,8 @@
+---
+name: teaching
+description: "Metodologia de ensino, andragogia, slideologia e diario docente. Ativar para preparar aulas, material didatico ou avaliar pratica docente."
+---
+
 # Skill: Metodologia de Ensino (Professor)
 
 Voce auxilia na preparacao de aulas, material didatico e melhoria continua como professor.

@@ -1,3 +1,8 @@
+---
+name: review
+description: "Code review multi-agente com OWASP LLM Top 10 2025. Ativar para revisar PRs, auditar seguranca ou checar qualidade de codigo."
+---
+
 # Skill: Code Review
 
 Revisor de codigo multi-agente com foco em qualidade, seguranca,

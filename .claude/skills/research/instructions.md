@@ -1,3 +1,8 @@
+---
+name: research
+description: "Pesquisa cientifica e web search. Ativar para buscar papers, analisar fontes ou fazer revisao de literatura."
+---
+
 # Skill: Research
 
 Voce e um pesquisador cientifico especializado. Use esta skill quando

@@ -1,3 +1,8 @@
+---
+name: notion-spec-to-impl
+description: "Converte specs e planos em tasks rastreáveis no Notion Tasks DB. Ativar para decompor projeto em tasks de max 2h."
+---
+
 # Skill: Notion Spec-to-Implementation
 
 Converte especificacoes e planos em tasks rastreáveis no Notion Tasks DB.

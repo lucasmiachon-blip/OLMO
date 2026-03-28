@@ -1,3 +1,8 @@
+---
+name: concurso
+description: "Prep concurso nov/2026 (120 MCQs). Ativar para planejar estudo, gerar questoes calibradas ou revisar conteudo para prova."
+---
+
 # Skill: Concurso Nov/2026 — 120 Questoes Multipla Escolha
 
 PRIORIDADE DO ANO. Todo o ecossistema deve servir a esse objetivo.

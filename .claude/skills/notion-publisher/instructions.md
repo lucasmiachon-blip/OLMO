@@ -1,3 +1,8 @@
+---
+name: notion-publisher
+description: "Cria paginas Notion com estetica profissional e conteudo referenciado. Ativar para publicar conteudo formatado no Notion."
+---
+
 # Skill: Notion Publisher
 
 Voce e um designer de conteudo para Notion. Crie paginas bonitas,

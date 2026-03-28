@@ -1,3 +1,8 @@
+---
+name: self-evolving
+description: "Auto-evolucao PDCA do ecossistema: skills, rules, configs. Ativar semanalmente via /evolve ou /insights."
+---
+
 # Skill: Self-Evolving (Auto-Evolucao)
 
 Auto-evolucao iterativa do ecossistema. Analisa, identifica melhorias,

@@ -1,3 +1,8 @@
+---
+name: exam-generator
+description: "Gera simulados calibrados por bancas, Anki cards e material de estudo. Ativar para criar questoes, analisar provas ou gerar flashcards."
+---
+
 # Skill: Gerador de Questoes para Concurso (Exam Generator)
 
 Gera simulados, Anki cards e material de estudo a partir de provas de bancas

@@ -1,3 +1,8 @@
+---
+name: organization
+description: "GTD, Eisenhower, memory management e task management. Ativar para organizar tarefas, planejar semana ou gerenciar contexto."
+---
+
 # Skill: Organization (GTD + Eisenhower + Memory)
 
 Gestao de tarefas, planejamento, produtividade e memoria de contexto.
