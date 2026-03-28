@@ -1,79 +1,69 @@
 # Configuracao de API Keys
 
-## Keys Obrigatorias
+> Referencia: `config/mcp/servers.json` (16 MCPs: 13 connected, 3 planned)
 
-### 1. Anthropic (Orquestrador + Subagentes)
-```bash
-export ANTHROPIC_API_KEY="sk-ant-..."
-```
-- **Modelos**: Opus 4.6, Sonnet 4.6, Haiku 4.5
-- **Uso**: Orquestrador principal, todos os agentes
-- **Pricing**: Pay-per-use (ver config/rate_limits.yaml)
-- **Onde obter**: https://console.anthropic.com/
+## MCPs Nativos claude.ai ($0 via Max — OAuth, sem API key)
 
-### 2. OpenAI (Auditor ChatGPT)
-```bash
-export OPENAI_API_KEY="sk-..."
-```
-- **Modelos**: GPT-5.4 (auditor), GPT-4o-mini (fallback)
-- **Uso**: Auditoria semanal, segunda opiniao, cross-validation
-- **Onde obter**: https://platform.openai.com/
+Notion, PubMed, SCite, Consensus, Scholar Gateway, Gmail, Google Calendar, Canva, Excalidraw.
+Autenticacao via OAuth no browser, sem variaveis de ambiente.
 
-## Keys Recomendadas
+## Keys para MCPs Locais
 
-### 3. GitHub (MCP Server)
-```bash
-export GITHUB_TOKEN="ghp_..."
-```
-- **Uso**: MCP github server, code search, issues, PRs
-- **Free tier**: 5000 requests/hora
-- **Onde obter**: GitHub Settings > Developer Settings > Personal Access Tokens
-
-### 4. Brave Search (MCP Server)
-```bash
-export BRAVE_API_KEY="BSA..."
-```
-- **Uso**: MCP brave-search server, busca web
-- **Free tier**: 2000 queries/mes (suficiente!)
-- **Onde obter**: https://brave.com/search/api/
-
-### 5. HuggingFace (Modelos Open Source)
-```bash
-export HF_TOKEN="hf_..."
-```
-- **Uso**: Download de modelos, inference API
-- **Free tier**: Sim
-- **Onde obter**: https://huggingface.co/settings/tokens
-
-## Keys Opcionais (Futuro)
-
-### 6. Google AI (Gemini)
+### 1. Gemini MCP
 ```bash
 export GOOGLE_AI_KEY="AIza..."
 ```
-- **Modelos**: Gemini 2.0 Pro/Flash
-- **Uso**: Terceira opiniao, contexto 1M tokens
+- **Uso**: MCP Gemini (pesquisa, analise, imagens, video)
 - **Onde obter**: https://aistudio.google.com/
 
-### 7. Serper (Google Search API)
+### 2. Perplexity MCP
 ```bash
-export SERPER_API_KEY="..."
+export PERPLEXITY_API_KEY="pplx-..."
 ```
-- **Uso**: Alternativa ao Brave para busca web
-- **Free tier**: 2500 queries gratis
-- **Onde obter**: https://serper.dev/
+- **Uso**: MCP Perplexity (busca web, pesquisa, raciocinio)
+- **Onde obter**: https://www.perplexity.ai/settings/api
+
+### 3. Zotero MCP
+```bash
+export ZOTERO_LOCAL="true"
+```
+- **Uso**: MCP Zotero local (referencias, PDFs, busca)
+- **Requisito**: Zotero Desktop rodando com Better BibTeX
+
+### 4. NotebookLM MCP
+- **Auth**: via browser (Google account)
+- **Requisito**: NotebookLM server rodando localmente
+
+## Keys Adicionais (codigo Python, nao MCPs)
+
+### 5. Anthropic (scripts Python)
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+```
+- **Nota**: CLI Claude Code usa Max subscription, nao esta key
+- **Uso**: Scripts Python que chamam API diretamente
+- **Onde obter**: https://console.anthropic.com/
+
+### 6. OpenAI (cross-validation)
+```bash
+export OPENAI_API_KEY="sk-..."
+```
+- **Uso**: Cross-validation Notion (ChatGPT 5.4 como auditor)
+- **Onde obter**: https://platform.openai.com/
+
+### 7. GitHub (MCP Server)
+```bash
+export GITHUB_TOKEN="ghp_..."
+```
+- **Uso**: Code search, issues, PRs
+- **Free tier**: 5000 requests/hora
+- **Onde obter**: GitHub Settings > Developer Settings > Personal Access Tokens
 
 ## Setup Rapido
 
 ```bash
-# Copie o template
 cp .env.example .env
-
 # Edite com suas chaves
-nano .env
-
-# Verifique
-python -c "from dotenv import load_dotenv; load_dotenv(); import os; print('Anthropic:', 'OK' if os.getenv('ANTHROPIC_API_KEY') else 'MISSING')"
 ```
 
 ## Seguranca

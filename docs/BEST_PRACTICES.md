@@ -74,14 +74,8 @@ Pergunta chega → Cache hit? → Sim → Resposta ($0, <100ms)
 - Humano decide, agente executa
 
 ### 4. Coautoria AI Explicita (Pacto de Alianca)
-- **Lucas = autor principal, human-in-the-loop, decisor final**
-- Todo modelo que participou = coautor creditado
-- Formato: `Coautoria: Lucas + opus + gpt54 + gemini31`
-- Obrigatorio em: Notion, commits, papers, slides, Anki, conteudo compartilhado
-- Nunca usar "AI-assisted" generico — especificar QUAIS modelos
-- Alianca principal: Opus 4.6 + ChatGPT 5.4 + Gemini 3.1 + Cursor
-- Detalhes: `.claude/rules/coauthorship.md`
-- Principio: transparencia total, honestidade intelectual, rastreabilidade
+Protocolo completo em `.claude/rules/coauthorship.md`.
+Principio: transparencia total, honestidade intelectual, rastreabilidade.
 
 ### 5. Meca e Otimize (Willison)
 - Rastreie custo por agente e por tarefa (BudgetTracker)

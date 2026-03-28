@@ -29,25 +29,19 @@ cp .env.example .env
 # Edite .env com suas API keys (ver PENDENCIAS.md)
 ```
 
-## MCPs Medicos (Prioridade CRITICA)
+## MCPs Configurados (ver `config/mcp/servers.json`)
+
+**Conectados (13)** — maioria via claude.ai (OAuth, $0):
+- **Medicos**: PubMed, SCite, Consensus, Scholar Gateway
+- **Produtividade**: Notion, Gmail, Google Calendar, Canva, Excalidraw
+- **AI/Pesquisa**: Gemini, Perplexity, NotebookLM, Zotero
+
+**Planejados (3)**: Anki, Google Drive, ChatGPT
 
 ```bash
-# Healthcare MCP (PubMed, FDA, ClinicalTrials, CID-10)
-claude mcp add healthcare-mcp npx -- -y healthcare-mcp
-
-# PubMed MCP (busca avancada 39M+ citacoes)
-claude mcp add pubmed-mcp npx -- -y pubmed-mcp
-
-# BioMCP (queries em linguagem natural)
-claude mcp add biomcp npx -- -y biomcp
-
 # Notion MCP (publicacao de conteudo)
 # IMPORTANTE: ler .claude/rules/mcp_safety.md ANTES de usar (bugs conhecidos)
-# Usar 2 tokens: read-only (padrao) + read-write (sob demanda)
 claude mcp add --transport http notion https://mcp.notion.com/mcp
-
-# Context7 (docs atualizadas de libs)
-claude mcp add context7 npx -- -y @anthropic/context7-mcp
 ```
 
 ## Uso Basico
@@ -107,12 +101,7 @@ organizacao/
 │   ├── monitors/             # WebMonitor
 │   └── analyzers/            # TrendAnalyzer
 ├── skills/                   # Skills Python reutilizaveis
-│   ├── research/             # web_search, arxiv, summarizer
-│   ├── coding/               # code_analyzer, code_generator
-│   ├── writing/              # content_writer
-│   ├── data/                 # data_processor
-│   ├── devops/               # git_manager
-│   └── efficiency/           # batch, cache, local_first
+│   └── efficiency/           # local_first (custo zero)
 ├── .claude/
 │   ├── skills/               # Skills Claude Code (sob demanda)
 │   │   ├── mbe-evidence/     # GRADE, CONSORT, STROBE, PRISMA...
@@ -143,10 +132,9 @@ organizacao/
 
 Ver `PENDENCIAS.md` para checklist completo. Resumo:
 
-1. API keys Anthropic + OpenAI no `.env`
-2. Instalar MCPs medicos (healthcare, pubmed, biomcp)
-3. Configurar Notion MCP + criar databases
-4. Configurar Gmail MCP + criar labels
-5. Testar workflow `quick_note_to_evidence`
-6. Configurar Cowork para fontes pagas
-7. Agendar workflows semanais
+1. API keys no `.env` (ver `config/keys/keys_setup.md`)
+2. MCPs nativos claude.ai: ja conectados via OAuth (PubMed, Notion, Gmail, etc.)
+3. MCPs locais: Gemini (`GOOGLE_AI_KEY`), Perplexity (`PERPLEXITY_API_KEY`), Zotero
+4. Testar workflow `quick_note_to_evidence`
+5. Configurar Cowork para fontes pagas
+6. Agendar workflows semanais
