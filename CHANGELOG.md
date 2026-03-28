@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 21 — 2026-03-28
+
+### Arvore de Diretorios
+- `03-Resources/` → `resources/` (PARA numbering removido)
+- `config/keys/keys_setup.md` → `docs/` (doc no lugar certo)
+- `workflows/` removido (pacote vazio, workflows vivem em config/workflows.yaml)
+- `data/obsidian-vault/` removido (7 dirs vazios sem uso)
+
+### Hooks
+- `hooks/notify.sh` — toast notification Windows 11 (evento Notification)
+- `hooks/stop-hygiene.sh` — verifica HANDOFF+CHANGELOG + context recovery (evento Stop)
+- `settings.local.json` atualizado com bloco hooks + 4 permissoes redundantes removidas
+
+### Rules & Configs
+- `mcp_safety.md`: 137→92 linhas (FATOS, FONTES, CROSS-VAL duplicata removidos)
+- Path-scoping: `mcp_safety.md` e `notion-cross-validation.md` com `paths:` frontmatter
+- `pyproject.toml`: +3 ruff lint rules (UP=pyupgrade, B=bugbear, SIM=simplify)
+- `.gitignore`: +hooks/*.log, coverage, .uv/
+- `CLAUDE.md`: Key Files e Conventions atualizados (hooks, path-scoping)
+
+---
+Coautoria: Lucas + opus | 2026-03-28
+
 ## Sessao 20 — 2026-03-28
 
 ### Self-Improvement (pesquisa + implementacao)
