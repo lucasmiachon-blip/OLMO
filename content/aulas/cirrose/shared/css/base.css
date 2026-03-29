@@ -1,0 +1,598 @@
+/* ============================================
+   DESIGN SYSTEM — Base v5 (OKLCH)
+   Zero CDN. Self-hosted fonts. Offline-first.
+   ============================================ */
+
+/* --- Self-hosted fonts --- */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/InstrumentSerif-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/InstrumentSerif-Italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('../assets/fonts/DMSans-Variable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');
+}
+
+:root {
+  /* --- Surfaces (navy recalculated from HEX #0d1a2d) --- */
+  --bg-surface:  oklch(97% 0.005 258);
+  --bg-card:     oklch(99% 0.003 258);
+  --bg-elevated: oklch(100% 0 0);
+  --bg-deep:     oklch(18% 0 0);        /* ≈ #111111 (HEX canônico) */
+  --bg-black:    oklch(0% 0 0);         /* pure black — letterbox */
+  --bg-navy:     oklch(22% 0.042 258);
+  --bg-navy-mid: oklch(28% 0.035 258);
+
+  /* --- Text --- */
+  --text-primary:       oklch(13% 0.02 258);
+  --text-secondary:     oklch(35% 0.01 258);
+  --text-muted:         oklch(48% 0.008 258);
+  --text-on-dark:       oklch(95% 0.005 258);
+  --text-on-dark-muted: oklch(70% 0.01 258);
+
+  /* --- UI Accent (chrome, NOT clinical) --- */
+  --ui-accent:         oklch(35% 0.12 258);
+  --ui-accent-light:   color-mix(in oklch, var(--ui-accent) 15%, oklch(97% 0 0));
+  --ui-accent-on-dark: oklch(75% 0.14 258);
+
+  /* --- Safe / Teal (L=40) --- */
+  --safe:         oklch(40% 0.12 170);
+  --safe-light:   color-mix(in oklch, var(--safe) 15%, oklch(97% 0 0));
+  --safe-on-dark: oklch(75% 0.13 170);
+
+  /* --- Warning / Amber (L=60) --- */
+  --warning:          oklch(60% 0.13 85);
+  --warning-light:    color-mix(in oklch, var(--warning) 15%, oklch(97% 0 0));
+  --warning-on-dark:  oklch(80% 0.14 85);
+  --warning-on-light: oklch(45% 0.10 85);
+
+  /* --- Danger / Red (L=50) --- */
+  --danger:          oklch(50% 0.18 25);
+  --danger-light:    color-mix(in oklch, var(--danger) 15%, oklch(97% 0 0));
+  --danger-on-dark:  oklch(72% 0.16 25);
+
+  /* --- Downgrade / Ocre (L=30, auxiliar, sempre com ícone ↓) --- */
+  --downgrade:          oklch(30% 0.08 55);
+  --downgrade-light:    color-mix(in oklch, var(--downgrade) 15%, oklch(97% 0 0));
+  --downgrade-on-dark:  oklch(68% 0.10 55);
+
+  /* --- Data palette: Tol High-contrast (2-3 series) --- */
+  --cmp-1: #004488;
+  --cmp-2: #DDAA33;
+  --cmp-3: #BB5566;
+
+  /* --- Data palette: Tol Bright (4-7 series) --- */
+  --data-1: #4477AA;
+  --data-2: #EE6677;
+  --data-3: #228833;
+  --data-4: #CCBB44;
+  --data-5: #66CCEE;
+  --data-6: #AA3377;
+  --data-7: #BBBBBB;
+
+  /* --- Borders --- */
+  --border:      oklch(88% 0.005 258);
+  --divider:     oklch(92% 0.003 258);
+  --border-navy: oklch(30% 0.02 258);
+
+  /* --- Shadows (translucent black) --- */
+  --shadow-subtle: oklch(0% 0 0 / 0.04);
+  --shadow-soft:   oklch(0% 0 0 / 0.06);
+  --overlay-border: oklch(0% 0 0 / 0.08);
+
+  /* --- Fonts --- */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* --- Type Scale --- */
+  --text-hero:    clamp(56px, 4.5vw, 86px);
+  --text-h1:      clamp(38px, 3.2vw, 62px);
+  --text-h2:      clamp(28px, 2.2vw, 42px);
+  --text-h3:      clamp(20px, 1.5vw, 30px);
+  --text-body:    clamp(18px, 1.12vw, 26px);
+  --text-small:   clamp(14px, 0.9vw, 20px);
+  --text-caption: clamp(11px, 0.7vw, 15px);
+
+  /* --- Spacing --- */
+  --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
+  --space-lg: 40px; --space-xl: 64px; --space-2xl: 96px;
+
+  /* --- Radius --- */
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
+
+  /* --- Easing --- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Duration --- */
+  --duration-fast: 200ms; --duration-normal: 400ms;
+  --duration-slow: 800ms; --duration-dramatic: 1200ms;
+}
+
+/* --- OKLCH Fallback (Chrome <111, Firefox <113) --- */
+@supports not (color: oklch(50% 0.1 258)) {
+  :root {
+    --bg-surface: #f5f5f7; --bg-card: #fafafa; --bg-elevated: #ffffff;
+    --bg-deep: #111111; --bg-navy: #0d1a2d; --bg-navy-mid: #1a2d47;
+    --text-primary: #1a1a2e; --text-secondary: #4a4a5a;
+    --text-muted: #6a6a78; --text-on-dark: #f0f0f4;
+    --text-on-dark-muted: #a0a0b0;
+    --ui-accent: #2a2a80; --ui-accent-light: #e8e8f4;
+    --ui-accent-on-dark: #8080d0;
+    --safe: #2a8a7a; --safe-light: #e0f4f0; --safe-on-dark: #60d0b8;
+    --warning: #c4922a; --warning-light: #f4ecd8; --warning-on-dark: #e0c060;
+    --warning-on-light: #7a5a18;
+    --danger: #cc4a3a; --danger-light: #f4e0dc; --danger-on-dark: #e08070;
+    --downgrade: #8a7040; --downgrade-light: #f0eadc; --downgrade-on-dark: #c0a870;
+    --border: #d8d8e0; --divider: #e8e8ec; --border-navy: #2a3a50;
+  }
+  .high-contrast {
+    --bg-surface: #ffffff; --bg-card: #ffffff; --bg-navy: #000000;
+    --text-primary: #000000; --text-secondary: #1a1a1a;
+    --text-on-dark: #ffffff;
+  }
+  .stage-bad {
+    --bg-surface: #ffffff; --bg-card: #ffffff; --bg-navy: #ffffff;
+    --text-primary: #000000; --text-secondary: #1a1a1a;
+    --text-muted: #333333; --text-on-dark: #000000;
+    --border: rgba(0,0,0,0.18);
+  }
+  .stage-a {
+    --bg-surface: #0d1a2d; --bg-card: #1a2d47;
+    --bg-navy: #0d1a2d; --bg-navy-mid: #1a2d47;
+    --text-primary: #f0f0f4; --text-secondary: #c0c0d0;
+    --text-muted: #a0a0b0; --text-on-dark: #f0f0f4;
+    --text-on-dark-muted: #a0a0b0; --border: #2a3a50;
+  }
+  .stage-c {
+    --bg-surface: #ededf1; --bg-card: #f9f9fb;
+    --bg-navy: #ededf1; --bg-navy-mid: #e2e3e9;
+    --text-primary: #1c1d28; --text-secondary: #383844;
+    --text-muted: #565a64; --text-on-dark: #1c1d28;
+    --text-on-dark-muted: #444854;
+    --border: rgba(0,0,0,0.10);
+    --safe-on-dark: #2a6a5a; --warning-on-dark: #7a6530;
+    --danger-on-dark: #a04030; --downgrade-on-dark: #5a4828;
+    --ui-accent-on-dark: #2a2a80;
+  }
+}
+.high-contrast {
+  --bg-surface:     oklch(100% 0 0);
+  --bg-card:        oklch(100% 0 0);
+  --bg-navy:        oklch(0% 0 0);
+  --text-primary:   oklch(0% 0 0);
+  --text-secondary: oklch(15% 0 0);
+  --text-on-dark:   oklch(100% 0 0);
+}
+
+/* --- Stage A (Plano A: dark, 1920×1080, GSAP) --- */
+.stage-a {
+  --bg-surface:         oklch(22% 0.042 258);
+  --bg-card:            oklch(28% 0.035 258);
+  --bg-elevated:        oklch(32% 0.035 258);
+  --bg-navy:            oklch(22% 0.042 258);
+  --bg-navy-mid:        oklch(28% 0.035 258);
+  --text-primary:       oklch(95% 0.005 258);
+  --text-secondary:     oklch(80% 0.01 258);
+  --text-muted:         oklch(70% 0.01 258);
+  --text-on-dark:       oklch(95% 0.005 258);
+  --text-on-dark-muted: oklch(70% 0.01 258);
+  --border:             oklch(40% 0.02 258);
+  --border-navy:        oklch(35% 0.02 258);
+  --ui-accent:          oklch(75% 0.14 258);
+}
+.stage-a #deck {
+  background: var(--bg-surface);
+}
+.stage-a #deck h1,
+.stage-a #deck h2 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--text-on-dark);
+}
+.stage-a #deck p {
+  color: var(--text-on-dark-muted);
+  font-weight: 450;
+}
+.stage-a .section-tag {
+  color: var(--ui-accent-on-dark);
+}
+.stage-a .source-tag {
+  color: var(--text-on-dark-muted);
+}
+
+/* --- Stage Bad (Plano B: light, high weight) --- */
+.stage-bad {
+  --bg-surface:     oklch(100% 0 0);
+  --bg-card:        oklch(100% 0 0);
+  --bg-navy:        oklch(100% 0 0);
+  --bg-navy-mid:    oklch(97% 0 0);
+  --text-primary:   oklch(0% 0 0);
+  --text-secondary: oklch(12% 0 0);
+  --text-muted:     oklch(20% 0 0);
+  --text-on-dark:   oklch(0% 0 0);
+  --text-on-dark-muted: oklch(15% 0 0);
+  --border:         oklch(0% 0 0 / 0.25);
+}
+.stage-bad #deck h1,
+.stage-bad #deck h2 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.stage-bad #deck p {
+  font-weight: 500;
+  line-height: 1.35;
+  max-width: 56ch;
+}
+
+/* --- Stage C (Plano C: light bg, WITH animations, 1280×720) ---
+   Sala clara + projetor razoável. Default recomendado.
+   Contraste verificado: todos ≥ AA WCAG 2.1 (texto normal).
+   Tipo scale bumped: mínimos +2-3px para projeção 720p.
+   ------------------------------------------------------------ */
+.stage-c {
+  /* Surfaces — hue 258 consistent, L=95% main */
+  --bg-surface:         oklch(95% 0.005 258);
+  --bg-card:            oklch(98% 0.003 258);
+  --bg-elevated:        oklch(100% 0 0);
+  --bg-navy:            oklch(95% 0.005 258);
+  --bg-navy-mid:        oklch(91% 0.008 258);
+
+  /* Text — all AAA on bg-surface except muted (AA 6.1:1) */
+  --text-primary:       oklch(12% 0.015 258);
+  --text-secondary:     oklch(25% 0.010 258);
+  --text-muted:         oklch(38% 0.008 258);
+  --text-on-dark:       oklch(12% 0.015 258);
+  --text-on-dark-muted: oklch(30% 0.008 258);
+
+  /* Accent — remapped for light bg */
+  --ui-accent:          oklch(35% 0.12 258);
+  --ui-accent-on-dark:  oklch(35% 0.12 258);
+
+  /* Clinical semantics — dark-on-light, all ≥ AA */
+  --safe-on-dark:       oklch(36% 0.10 170);     /* 6.6:1 */
+  --warning-on-dark:    oklch(42% 0.10 85);      /* 5.3:1 */
+  --danger-on-dark:     oklch(45% 0.14 25);      /* 4.7:1 */
+  --downgrade-on-dark:  oklch(30% 0.08 55);      /* 8.2:1 */
+
+  /* Borders — lower opacity than Plan B */
+  --border:             oklch(0% 0 0 / 0.10);
+  --border-navy:        oklch(0% 0 0 / 0.08);
+  --divider:            oklch(0% 0 0 / 0.06);
+
+  /* Type scale — bumped minimums for 720p projection */
+  --text-h2:      clamp(32px, 2.4vw, 42px);
+  --text-h3:      clamp(22px, 1.6vw, 30px);
+  --text-body:    clamp(20px, 1.25vw, 26px);
+  --text-small:   clamp(16px, 1.0vw, 20px);
+  --text-caption: clamp(14px, 0.85vw, 15px);
+}
+
+/* Background: deck surface */
+.stage-c,
+.stage-c #deck {
+  background: var(--bg-surface);
+}
+
+/* Typography: DM Sans 600 headlines, 450 body */
+.stage-c #deck h1,
+.stage-c #deck h2 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.stage-c #deck p {
+  font-weight: 450;
+  line-height: 1.4;
+  max-width: 56ch;
+}
+
+/* Section tag — ui-accent on light bg */
+.stage-c .section-tag {
+  color: var(--ui-accent);
+}
+
+/* Source tag */
+.stage-c .source-tag {
+  color: var(--text-muted);
+  font-size: clamp(10px, 0.55vw, 11px);
+}
+
+/* Cards — subtle elevation */
+.stage-c .card-metric {
+  background: var(--bg-card);
+  border: 1px solid var(--overlay-border);
+  box-shadow: 0 1px 3px var(--shadow-subtle);
+}
+
+/* Paper figures — dual-shadow separation */
+.stage-c .slide-figure img {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--shadow-soft);
+  box-shadow: 0 1px 4px var(--shadow-soft),
+              0 4px 12px var(--shadow-subtle);
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Hide animated elements until GSAP triggers --- */
+[data-animate="fadeUp"] {
+  opacity: 0;
+  transform: translateY(40px);
+}
+[data-animate="stagger"] > * {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* --- Stage Bad: force visible (no GSAP dispatcher) --- */
+.stage-bad [data-animate="fadeUp"],
+.stage-bad [data-animate="stagger"] > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- No-JS fallback --- */
+.no-js [data-animate="fadeUp"],
+.no-js [data-animate="stagger"] > * {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.no-js .fragment {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* ============================================
+   DECK CONTAINER + TYPOGRAPHY
+   ============================================ */
+
+html { background: var(--bg-black); }
+html, body { margin: 0; padding: 0; overflow: hidden; }
+body { width: 100vw; height: 100vh; }
+
+#deck {
+  width: 1280px;
+  height: 720px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  overflow: hidden;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+}
+
+#slide-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  overflow: hidden;
+}
+
+#slide-viewport > section {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-normal);
+}
+
+#slide-viewport > section.slide-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#slide-viewport > section {
+  padding: 0;
+  box-sizing: border-box;
+  /* height/position/opacity/transition set in deck layout block above */
+}
+
+/* Speaker notes: hidden in deck.js (Reveal.js uses plugin) */
+#slide-viewport > section > .notes {
+  display: none;
+}
+
+#slide-viewport > section .slide-inner {
+  width: 100%; height: 100%;
+  padding: 60px 80px;
+  display: flex; flex-direction: column; justify-content: center;
+  box-sizing: border-box;
+}
+
+
+/* --- Typography --- */
+#deck h1, #deck h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text-primary);
+  text-transform: none;
+}
+#deck h1 { font-size: var(--text-h1); }
+#deck h2 { font-size: var(--text-h2); }
+
+#deck h3 {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+#deck p {
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  max-width: 60ch;
+}
+
+.data-number {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* --- Dark slides --- */
+.slide-navy { color: var(--text-on-dark); }
+.slide-navy h1, .slide-navy h2 { color: var(--text-on-dark); }
+.slide-navy h3 { color: var(--text-on-dark-muted); }
+.slide-navy p  { color: var(--text-on-dark-muted); }
+.slide-navy .section-tag { color: var(--ui-accent-on-dark); }
+.slide-navy .text-safe    { color: var(--safe-on-dark); }
+.slide-navy .text-warning { color: var(--warning-on-dark); }
+.slide-navy .text-danger  { color: var(--danger-on-dark); }
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.section-tag {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ui-accent);
+  margin-bottom: var(--space-sm);
+}
+
+.text-safe    { color: var(--safe); }
+.text-warning { color: var(--warning-on-light); }
+.text-danger  { color: var(--danger); }
+.text-muted   { color: var(--text-muted); }
+
+.hero-number {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.card-navy {
+  background: var(--bg-navy-mid);
+  border: 1px solid var(--border-navy);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.checkpoint-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 100px;
+  background: var(--ui-accent-light);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--ui-accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pulse-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ui-accent);
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+/* ============================================
+   TUFTE TABLES
+   ============================================ */
+.tufte {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.tufte thead th {
+  border-bottom: 2px solid var(--text-primary);
+  padding: var(--space-xs) var(--space-sm);
+  font-weight: 600;
+  text-align: left;
+}
+.tufte tbody td {
+  padding: var(--space-xs) var(--space-sm);
+  border: none;
+}
+.tufte tbody tr:last-child td {
+  border-top: 1px solid var(--border);
+}
+.tufte td[data-num],
+.tufte th[data-num] {
+  text-align: right;
+}
+.tufte tr.highlight {
+  background: var(--safe-light);
+}
+
+/* ============================================
+   PRINT / EXPORT
+   ============================================ */
+@media print {
+  body { width: auto; height: auto; overflow: visible; }
+  #deck { position: static; transform: none !important; width: 1280px; height: auto; overflow: visible; }
+  #slide-viewport { position: static; }
+  #slide-viewport > section {
+    opacity: 1 !important;
+    pointer-events: all !important;
+    position: relative !important;
+    overflow: hidden !important;
+    page-break-after: always;
+    height: 720px;
+  }
+  .fragment { opacity: 1 !important; visibility: visible !important; }
+  .checkpoint-timer, .pulse-dot { display: none; }
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

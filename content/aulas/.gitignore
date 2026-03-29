@@ -1,0 +1,26 @@
+# Node.js
+node_modules/
+
+# Build output
+dist/
+
+# Generated HTML (built from slides/ + template)
+*/index.html
+
+# Vite
+.vite/
+
+# QA artifacts
+**/qa-screenshots/
+**/qa-rounds/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

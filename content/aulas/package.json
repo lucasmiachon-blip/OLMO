@@ -1,0 +1,36 @@
+{
+  "name": "organizacao-aulas",
+  "version": "1.0.0",
+  "description": "Aulas — slides interativos para ensino medico",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "dev:cirrose": "vite --open /cirrose/index.html",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "lint:slides": "node scripts/lint-slides.js",
+    "lint:case-sync": "node scripts/lint-case-sync.js",
+    "lint:narrative-sync": "node scripts/lint-narrative-sync.js",
+    "build:cirrose": "powershell -ExecutionPolicy Bypass -File cirrose/scripts/build-html.ps1",
+    "done:cirrose": "node scripts/done-gate.js cirrose",
+    "qa:screenshots:cirrose": "node cirrose/scripts/qa-batch-screenshot.mjs",
+    "research:cirrose": "node cirrose/scripts/content-research.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@google/generative-ai": "^0.24.1",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@notionhq/client": "^2.3.0",
+    "axe-core": "^4.11.1",
+    "decktape": "^3.14.0",
+    "dotenv": "^16.4.0",
+    "playwright": "^1.58.2",
+    "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "gsap": "^3.14.2"
+  }
+}

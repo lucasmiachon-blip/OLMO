@@ -32,7 +32,10 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `PENDENCIAS.md` → checklist de setup
 - `HANDOFF.md` → continuidade entre sessoes
 - `apps/` → frontend/API (futuro)
-- `content/` → aulas, blog (futuro)
+- `content/aulas/` → slides interativos (cirrose live, grade/metanalise/osteoporose scaffolded). Node.js: `cd content/aulas && npm run dev`
+- `content/aulas/STRATEGY.md` → roadmap de interatividade profissional + pesquisa
+- `content/aulas/cirrose/` → 44 slides deck.js + GSAP. Regras em `.claude/rules/slide-rules.md`
+- `content/blog/` → blog (futuro)
 
 ## Conventions
 

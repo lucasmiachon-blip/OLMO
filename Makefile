@@ -32,3 +32,14 @@ status: ## Show agent tree
 clean: ## Remove caches and build artifacts
 	rm -rf __pycache__ .mypy_cache .ruff_cache .pytest_cache htmlcov .coverage
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+
+# --- Aulas (Node.js, runs from content/aulas/) ---
+
+aulas-install: ## Install aulas Node.js dependencies
+	cd content/aulas && npm install
+
+aulas-dev: ## Start Vite dev server for aulas
+	cd content/aulas && npm run dev
+
+aulas-build-cirrose: ## Build cirrose slides
+	cd content/aulas && npm run build:cirrose
