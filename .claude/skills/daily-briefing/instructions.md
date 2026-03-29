@@ -17,12 +17,12 @@ Notion Emails Digest DB, e geracao de briefing consolidado.
 - **Notion** (claude_ai_Notion) — Emails Digest DB
 
 ## Contas de Email
-- `lucas.miachon@hc.fm.usp.br` — institucional HC-FMUSP (prioridade)
-- `lucasmiachon87@gmail.com` — pessoal (Google Drive Ultra)
+- `${EMAIL_INSTITUTIONAL}` — institucional HC-FMUSP (prioridade)
+- `${EMAIL_PERSONAL}` — pessoal (Google Drive Ultra)
 
 ## Emails Digest DB (Notion)
-- **Database ID**: `307dfe6859a88003abdefd4d56925164`
-- **Data Source**: `collection://307dfe68-59a8-8077-b140-000bcc00eb8f`
+- **Database ID**: `${NOTION_EMAILS_DIGEST_DB}`
+- **Data Source**: `${NOTION_EMAILS_DIGEST_DS}`
 
 ### Properties (preencher para cada email relevante)
 | Property | Tipo | Valores |

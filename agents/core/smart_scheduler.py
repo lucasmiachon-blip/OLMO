@@ -24,10 +24,10 @@ logger = logging.getLogger("scheduler")
 class TaskPriority(Enum):
     """Prioridade da tarefa para alocacao de budget."""
 
-    CRITICAL = 1    # Executa sempre (ex: alertas, bugs criticos)
-    HIGH = 2        # Executa se tiver budget (ex: pesquisa principal)
-    MEDIUM = 3      # Batcha com outras tarefas (ex: resumos, organizacao)
-    LOW = 4         # Defer para quando houver budget sobrando
+    CRITICAL = 1  # Executa sempre (ex: alertas, bugs criticos)
+    HIGH = 2  # Executa se tiver budget (ex: pesquisa principal)
+    MEDIUM = 3  # Batcha com outras tarefas (ex: resumos, organizacao)
+    LOW = 4  # Defer para quando houver budget sobrando
     BACKGROUND = 5  # Usa modelo local ou aguarda budget reset
 
 
@@ -51,8 +51,8 @@ class ScheduledTask:
 class APIBudget:
     """Orcamento de API por periodo."""
 
-    daily_limit: int = 10        # Requests por dia
-    weekly_limit: int = 50       # Requests por semana
+    daily_limit: int = 10  # Requests por dia
+    weekly_limit: int = 50  # Requests por semana
     daily_used: int = 0
     weekly_used: int = 0
     last_daily_reset: str = ""
@@ -183,11 +183,17 @@ class SmartScheduler:
 
         key = self._cache_key(task)
         cache_file = self.cache_dir / f"{key}.json"
-        cache_file.write_text(json.dumps({
-            "cached_at": datetime.now().isoformat(),
-            "task": {"agent": task.agent, "action": task.action},
-            "result": result,
-        }, indent=2, default=str))
+        cache_file.write_text(
+            json.dumps(
+                {
+                    "cached_at": datetime.now().isoformat(),
+                    "task": {"agent": task.agent, "action": task.action},
+                    "result": result,
+                },
+                indent=2,
+                default=str,
+            )
+        )
 
     # ------------------------------------------------------------------
     # Batching

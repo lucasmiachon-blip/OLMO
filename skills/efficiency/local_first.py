@@ -47,12 +47,28 @@ class LocalFirstSkill:
     def can_handle_locally(self, task_type: str) -> bool:
         """Verifica se a tarefa pode ser tratada localmente."""
         local_tasks = {
-            "format_text", "parse_json", "parse_yaml", "count_words",
-            "extract_urls", "extract_emails", "file_search", "file_read",
-            "date_calc", "list_files", "filter_data", "sort_data",
-            "template_render", "regex_match", "regex_replace",
-            "json_transform", "csv_parse", "word_count", "char_count",
-            "deduplicate", "merge_lists", "calculate",
+            "format_text",
+            "parse_json",
+            "parse_yaml",
+            "count_words",
+            "extract_urls",
+            "extract_emails",
+            "file_search",
+            "file_read",
+            "date_calc",
+            "list_files",
+            "filter_data",
+            "sort_data",
+            "template_render",
+            "regex_match",
+            "regex_replace",
+            "json_transform",
+            "csv_parse",
+            "word_count",
+            "char_count",
+            "deduplicate",
+            "merge_lists",
+            "calculate",
         }
         return task_type in local_tasks
 
@@ -67,7 +83,7 @@ class LocalFirstSkill:
 
     def extract_emails(self, text: str) -> list[str]:
         """Extrai emails de um texto."""
-        email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+        email_pattern = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
         return re.findall(email_pattern, text)
 
     def count_words(self, text: str) -> dict[str, int]:
@@ -139,9 +155,7 @@ class LocalFirstSkill:
     # File Operations (custo: $0.00)
     # ------------------------------------------------------------------
 
-    def list_files(
-        self, directory: str, pattern: str = "*", recursive: bool = True
-    ) -> list[str]:
+    def list_files(self, directory: str, pattern: str = "*", recursive: bool = True) -> list[str]:
         """Lista arquivos em um diretorio."""
         path = Path(directory)
         if not path.exists():
@@ -165,11 +179,13 @@ class LocalFirstSkill:
                 content = file_path.read_text()
                 for i, line in enumerate(content.split("\n"), 1):
                     if query.lower() in line.lower():
-                        results.append({
-                            "file": str(file_path),
-                            "line": i,
-                            "content": line.strip(),
-                        })
+                        results.append(
+                            {
+                                "file": str(file_path),
+                                "line": i,
+                                "content": line.strip(),
+                            }
+                        )
             except Exception:
                 continue
         return results
@@ -197,10 +213,12 @@ class LocalFirstSkill:
             try:
                 content = file_path.read_text()
                 if query.lower() in content.lower():
-                    results.append({
-                        "key": file_path.stem,
-                        "preview": content[:200],
-                    })
+                    results.append(
+                        {
+                            "key": file_path.stem,
+                            "preview": content[:200],
+                        }
+                    )
             except Exception:
                 continue
         return results
@@ -227,8 +245,11 @@ class LocalFirstSkill:
             "knowledge_files": len(knowledge_files),
             "knowledge_dir": str(self.knowledge_dir),
             "capabilities": [
-                "text_processing", "data_processing",
-                "file_operations", "knowledge_base", "date_time",
+                "text_processing",
+                "data_processing",
+                "file_operations",
+                "knowledge_base",
+                "date_time",
             ],
             "cost_per_operation": "$0.00",
         }

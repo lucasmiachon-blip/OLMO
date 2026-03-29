@@ -42,7 +42,7 @@ Gestao de tarefas, planejamento, produtividade e memoria de contexto.
 
 ## Task Management
 
-### Notion Tasks DB: `2f6dfe6859a881e49736d9b781db0769`
+### Notion Tasks DB: `${NOTION_TASKS_DB}`
 - Fonte de verdade para tasks ativas
 - Sincronizar via Notion MCP (seguir `mcp_safety.md`)
 

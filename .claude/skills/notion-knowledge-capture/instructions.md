@@ -18,8 +18,8 @@ no Masterpiece DB do Notion.
 
 ## Masterpiece DB Target
 
-Database: `307dfe6859a8804c9663e5cbc0f604e4`
-Data Source: `collection://307dfe68-59a8-803e-b8f1-000b0d3a3c44`
+Database: `${NOTION_MASTERPIECE_DB}`
+Data Source: `${NOTION_MASTERPIECE_DS}`
 
 ### Properties obrigatorias
 | Property | Tipo | Valores |

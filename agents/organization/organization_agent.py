@@ -224,7 +224,7 @@ class OrganizationAgent(BaseAgent):
         pending = [t for t in self.tasks if t.status == TaskStatus.TODO]
 
         matrix = {
-            "urgent_important": [],     # Do first
+            "urgent_important": [],  # Do first
             "not_urgent_important": [],  # Schedule
             "urgent_not_important": [],  # Delegate
             "not_urgent_not_important": [],  # Eliminate
@@ -271,12 +271,10 @@ class OrganizationAgent(BaseAgent):
             data={
                 "total_tasks": len(self.tasks),
                 "by_status": {
-                    s.value: len([t for t in self.tasks if t.status == s])
-                    for s in TaskStatus
+                    s.value: len([t for t in self.tasks if t.status == s]) for s in TaskStatus
                 },
                 "by_priority": {
-                    p.value: len([t for t in self.tasks if t.priority == p])
-                    for p in Priority
+                    p.value: len([t for t in self.tasks if t.priority == p]) for p in Priority
                 },
                 "active_projects": len([p for p in self.projects.values() if p.status == "active"]),
                 "inbox_size": len(self.inbox),

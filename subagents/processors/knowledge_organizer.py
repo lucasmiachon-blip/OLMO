@@ -18,7 +18,7 @@ import logging
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, ClassVar
 
 from agents.core.base_agent import AgentStatus, BaseAgent, TaskResult
 
@@ -75,18 +75,18 @@ class KnowledgeOrganizerSubagent(BaseAgent):
     """
 
     # Databases Notion padrao
-    NOTION_DATABASES = {
+    NOTION_DATABASES: ClassVar[dict[str, NotionDatabase]] = {
         "knowledge_base": NotionDatabase(
             name="Knowledge Base Medica",
             properties={
                 "Titulo": "title",
-                "Tipo": "select",        # Paper, Guideline, Nota, Evidence
+                "Tipo": "select",  # Paper, Guideline, Nota, Evidence
                 "Especialidade": "select",
                 "Nivel Evidencia": "select",  # I, II, III, IV, V
-                "Recomendacao": "select",     # A, B, C, D
+                "Recomendacao": "select",  # A, B, C, D
                 "Tags": "multi_select",
                 "PMID": "rich_text",
-                "Status": "select",       # Para Revisar, Revisado, Arquivado
+                "Status": "select",  # Para Revisar, Revisado, Arquivado
                 "Data": "date",
             },
             views=["Gallery", "Table", "Board by Status"],
@@ -124,7 +124,7 @@ class KnowledgeOrganizerSubagent(BaseAgent):
     }
 
     # Estrutura Obsidian vault
-    OBSIDIAN_STRUCTURE = {
+    OBSIDIAN_STRUCTURE: ClassVar[dict[str, str]] = {
         "00-Inbox": "Notas rapidas e captura",
         "01-Projects": "Pesquisas ativas",
         "02-Areas": "Especialidades e topicos",
@@ -308,9 +308,10 @@ class KnowledgeOrganizerSubagent(BaseAgent):
     def _slugify(self, text: str) -> str:
         """Converte titulo em slug para filename."""
         import re
+
         slug = text.lower().strip()
-        slug = re.sub(r'[^\w\s-]', '', slug)
-        slug = re.sub(r'[-\s]+', '-', slug)
+        slug = re.sub(r"[^\w\s-]", "", slug)
+        slug = re.sub(r"[-\s]+", "-", slug)
         return slug[:80]
 
     # ------------------------------------------------------------------
@@ -413,9 +414,7 @@ class KnowledgeOrganizerSubagent(BaseAgent):
             data={
                 "total_items": len(self.items),
                 "total_tags": len(self.index),
-                "top_tags": dict(sorted(
-                    self.index.items(), key=lambda x: -len(x[1])
-                )[:10]),
+                "top_tags": dict(sorted(self.index.items(), key=lambda x: -len(x[1]))[:10]),
             },
         )
 

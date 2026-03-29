@@ -17,8 +17,8 @@ Converte especificacoes e planos em tasks rastreáveis no Notion Tasks DB.
 
 ## Tasks DB Target
 
-Database: `2f6dfe6859a881e49736d9b781db0769` (Tasks UB)
-Data Source: `collection://2f6dfe68-59a8-81df-943b-000b7f7098cf`
+Database: `${NOTION_TASKS_DB}`
+Data Source: `${NOTION_TASKS_DS}`
 
 ## Workflow
 

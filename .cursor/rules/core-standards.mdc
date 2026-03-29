@@ -10,7 +10,7 @@ alwaysApply: true
 - Ecossistema de agentes AI: Orquestrador (Opus) + Científico, Automação, Organização, AtualizacaoAI (Sonnet/Haiku).
 - Objetivos: digest médico, pipeline MBE→Notion, conhecimento unificado, ensino, concurso nov/2026, dev AI.
 - Regra de ferramentas: Claude Code = FAZER; Cursor = EDITAR; Cowork = EXTRAIR; Notion = PUBLICAR; Zotero = REFERENCIAR.
-- **Notion = workspace principal**: todo o trabalho é executado e publicado na página [Lucas Miachon](https://www.notion.so/Lucas-Miachon-2f6dfe6859a8812b9bb4d93e3bf4f401). MCP Notion: `.claude/rules/mcp_safety.md`.
+- **Notion = workspace principal**: todo o trabalho é executado e publicado no workspace Notion. MCP Notion: `.claude/rules/mcp_safety.md`.
 
 ## Arquivos Canônicos (não duplicar)
 

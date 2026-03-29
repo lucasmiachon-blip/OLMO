@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, ClassVar
 
 from agents.core.base_agent import AgentStatus, BaseAgent, TaskResult
 
@@ -63,7 +63,7 @@ class AIUpdateAgent(BaseAgent):
     - Benchmarking automatico
     """
 
-    MONITORED_SOURCES = [
+    MONITORED_SOURCES: ClassVar[list[dict[str, str]]] = [
         {"name": "Anthropic Blog", "type": "blog", "url": "https://www.anthropic.com/news"},
         {"name": "OpenAI Blog", "type": "blog", "url": "https://openai.com/blog"},
         {"name": "Google AI Blog", "type": "blog", "url": "https://blog.google/technology/ai/"},

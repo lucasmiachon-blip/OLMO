@@ -11,7 +11,7 @@ CONTEXTO: Estou reorganizando meu Masterpiece DB no Notion. Um outro AI (Claude)
 
 INSTRUÇÃO:
 1. Acesse meu workspace Notion via seu MCP
-2. Leia o Masterpiece DB (database ID: 307dfe6859a8804c9663e5cbc0f604e4)
+2. Leia o Masterpiece DB (peça o database ID ao usuário, ou use a variável NOTION_MASTERPIECE_DB do .env)
 3. Liste TODAS as páginas que encontrar — título, properties (Pilar, Status, Maturidade, Tipo), e resumo de 1 linha do conteúdo real
 4. Para cada página, avalie INDEPENDENTEMENTE:
    a) O Pilar está correto? Se não, qual deveria ser? Justifique.

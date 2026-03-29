@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, ClassVar
 
 from agents.core.base_agent import AgentStatus, BaseAgent, TaskResult
 
@@ -45,7 +45,8 @@ class KnowledgeBase:
     def search(self, query: str) -> list[ResearchPaper]:
         query_lower = query.lower()
         return [
-            p for p in self.papers
+            p
+            for p in self.papers
             if query_lower in p.title.lower() or query_lower in p.abstract.lower()
         ]
 
@@ -62,7 +63,7 @@ class ScientificAgent(BaseAgent):
     - Geracao de hipoteses
     """
 
-    DEFAULT_RESEARCH_AREAS = [
+    DEFAULT_RESEARCH_AREAS: ClassVar[list[str]] = [
         "medicina_baseada_em_evidencias",
         "clinica_medica",
         "reumatologia",
@@ -125,9 +126,7 @@ class ScientificAgent(BaseAgent):
             {"step": 5, "action": "report", "description": "Gerar relatorio final"},
         ]
 
-    async def _search_papers(
-        self, query: str, sources: list[str] | None = None
-    ) -> TaskResult:
+    async def _search_papers(self, query: str, sources: list[str] | None = None) -> TaskResult:
         """Busca papers em multiplas fontes."""
         if sources is None:
             sources = list(self.sources)

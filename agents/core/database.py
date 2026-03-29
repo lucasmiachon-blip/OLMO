@@ -101,8 +101,15 @@ def log_mcp_operation(
         """INSERT INTO mcp_snapshots
            (mcp_server, operation, resource_id, state_before, state_after, success, error_message)
            VALUES (?, ?, ?, ?, ?, ?, ?)""",
-        (mcp_server, operation, resource_id, state_before,
-         state_after, int(success), error_message),
+        (
+            mcp_server,
+            operation,
+            resource_id,
+            state_before,
+            state_after,
+            int(success),
+            error_message,
+        ),
     )
     conn.commit()
 

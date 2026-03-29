@@ -157,7 +157,7 @@ def main() -> None:
 
     tema = args.tema.strip()
     tags = [t.strip() for t in args.tags.split(",") if t.strip()] or [slugify(tema)]
-    links = [l.strip() for l in args.links.split(",") if l.strip()]
+    links = [link.strip() for link in args.links.split(",") if link.strip()]
 
     obsidian_path = OBSIDIAN_RESOURCES / f"{slugify(tema)}.md"
     OBSIDIAN_RESOURCES.mkdir(parents=True, exist_ok=True)
@@ -169,6 +169,7 @@ def main() -> None:
     # Conteudo: --fetch busca em PubMed/Zotero
     if args.fetch:
         import sys
+
         sys.path.insert(0, str(Path(__file__).resolve().parent))
         from fetch_medical import fetch_all
 
@@ -195,7 +196,7 @@ def main() -> None:
             elif types_seen:
                 evidence_level = "III"
         last_review = datetime.now().strftime("%Y-%m-%d")
-        link_lines = "\n".join(f"- [[{l}]]" for l in links) if links else ""
+        link_lines = "\n".join(f"- [[{link}]]" for link in links) if links else ""
         content = f"""## Definicao
 (adicionar definicao baseada nas referencias)
 

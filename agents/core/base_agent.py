@@ -28,12 +28,14 @@ class AgentContext:
     history: list[dict[str, Any]] = field(default_factory=list)
 
     def add_to_history(self, agent_name: str, action: str, result: Any) -> None:
-        self.history.append({
-            "timestamp": datetime.now().isoformat(),
-            "agent": agent_name,
-            "action": action,
-            "result": result,
-        })
+        self.history.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "agent": agent_name,
+                "action": action,
+                "result": result,
+            }
+        )
 
 
 @dataclass

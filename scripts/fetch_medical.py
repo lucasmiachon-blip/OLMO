@@ -91,6 +91,7 @@ def fetch_pubmed(
             import xml.etree.ElementTree as ET
 
             root = ET.fromstring(r2.text)
+
             # PubMed XML: tags podem ter namespace, usar local name
             def find_text(el: ET.Element | None, path: str) -> str:
                 if el is None:
@@ -189,9 +190,7 @@ def fetch_zotero(query: str, max_results: int = 5) -> list[RefItem]:
             data = item.get("data", {})
             title = data.get("title", "")
             creators = data.get("creators", [])
-            authors = "; ".join(
-                c.get("lastName", "") or c.get("name", "") for c in creators[:5]
-            )
+            authors = "; ".join(c.get("lastName", "") or c.get("name", "") for c in creators[:5])
             year = data.get("date", "")[:4] if data.get("date") else ""
             doi = ""
             for e in data.get("extra", "").split("\n") or []:

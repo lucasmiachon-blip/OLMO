@@ -32,6 +32,6 @@ Voce e o agente de operacoes Notion. Segue o protocolo MCP safety rigorosamente.
 - Log cada operacao (state_before + state_after)
 
 ## Databases conhecidas
-- Masterpiece DB: 307dfe6859a8804c9663e5cbc0f604e4
-- Tasks DB: consultar via notion-search
-- Emails Digest DB: consultar via notion-search
+- Masterpiece DB: `${NOTION_MASTERPIECE_DB}`
+- Tasks DB: `${NOTION_TASKS_DB}`
+- Emails Digest DB: `${NOTION_EMAILS_DIGEST_DB}`

@@ -29,37 +29,45 @@ class SafetyDecision(Enum):
 
 
 # Operacoes que sao sempre read-only (seguras)
-READ_ONLY_OPERATIONS = frozenset({
-    "notion-search",
-    "notion-fetch",
-    "notion-get-comments",
-    "notion-retrieve-page",
-    "notion-retrieve-database",
-    "notion-query-database",
-    "notion-list-databases",
-})
+READ_ONLY_OPERATIONS = frozenset(
+    {
+        "notion-search",
+        "notion-fetch",
+        "notion-get-comments",
+        "notion-retrieve-page",
+        "notion-retrieve-database",
+        "notion-query-database",
+        "notion-list-databases",
+    }
+)
 
 # Operacoes de write (requerem validacao)
-WRITE_OPERATIONS = frozenset({
-    "notion-create-page",
-    "notion-update-page",
-    "notion-append-block",
-    "notion-delete-block",
-    "notion-create-database",
-    "notion-move-pages",
-})
+WRITE_OPERATIONS = frozenset(
+    {
+        "notion-create-page",
+        "notion-update-page",
+        "notion-append-block",
+        "notion-delete-block",
+        "notion-create-database",
+        "notion-move-pages",
+    }
+)
 
 # Operacoes de move (agora existem — #64 resolvida)
-MOVE_OPERATIONS = frozenset({
-    "notion-move-pages",      # API de move agora funcional
-})
+MOVE_OPERATIONS = frozenset(
+    {
+        "notion-move-pages",  # API de move agora funcional
+    }
+)
 
 # Operacoes proibidas (nao existem ou sao inseguras)
-BLOCKED_OPERATIONS = frozenset({
-    "notion-delete-page",     # Apenas archive, nunca delete
-    "notion-delete-database", # Bloqueado pela API (safety feature)
-    "notion-bulk-write",      # Falha (#74), fazer 1 por 1
-})
+BLOCKED_OPERATIONS = frozenset(
+    {
+        "notion-delete-page",  # Apenas archive, nunca delete
+        "notion-delete-database",  # Bloqueado pela API (safety feature)
+        "notion-bulk-write",  # Falha (#74), fazer 1 por 1
+    }
+)
 
 
 @dataclass
@@ -93,7 +101,7 @@ def validate_operation(
         return SafetyCheck(
             decision=SafetyDecision.BLOCK,
             reason=f"Operacao '{operation}' bloqueada (nao existe ou insegura). "
-                   f"Ver .claude/rules/mcp_safety.md",
+            f"Ver .claude/rules/mcp_safety.md",
             operation=operation,
         )
 
@@ -110,7 +118,7 @@ def validate_operation(
         return SafetyCheck(
             decision=SafetyDecision.BLOCK,
             reason="Operacao de write bloqueada em modo READ_ONLY. "
-                   "Troque para modo WRITE apos snapshot + aprovacao humana.",
+            "Troque para modo WRITE apos snapshot + aprovacao humana.",
             operation=operation,
         )
 
