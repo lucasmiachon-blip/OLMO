@@ -8,6 +8,8 @@ from typing import Any
 
 import yaml
 
+from agents.core.exceptions import ConfigError
+
 logger = logging.getLogger("config")
 
 DEFAULT_CONFIG_PATH = Path(__file__).parent / "ecosystem.yaml"
@@ -27,8 +29,11 @@ def load_config(config_path: Path | None = None) -> dict[str, Any]:
         logger.warning(f"Config file not found: {path}, using defaults")
         return _default_config()
 
-    with open(path) as f:
-        config = yaml.safe_load(f)
+    try:
+        with path.open() as f:
+            config = yaml.safe_load(f)
+    except yaml.YAMLError as e:
+        raise ConfigError(f"Invalid YAML in {path}: {e}") from e
 
     logger.info(f"Configuration loaded from {path}")
     return config
@@ -36,10 +41,7 @@ def load_config(config_path: Path | None = None) -> dict[str, Any]:
 
 def load_workflows(workflows_path: Path | None = None) -> dict[str, Any]:
     """Carrega e mergea workflows de todas as fontes."""
-    if workflows_path:
-        sources = [workflows_path]
-    else:
-        sources = WORKFLOW_SOURCES
+    sources = [workflows_path] if workflows_path else WORKFLOW_SOURCES
 
     merged: dict[str, Any] = {}
 
@@ -48,7 +50,7 @@ def load_workflows(workflows_path: Path | None = None) -> dict[str, Any]:
             logger.debug(f"Workflow file not found (skipped): {path}")
             continue
 
-        with open(path) as f:
+        with path.open() as f:
             data = yaml.safe_load(f)
 
         if data and "workflows" in data:
@@ -69,7 +71,7 @@ def load_rate_limits(path: Path | None = None) -> dict[str, Any]:
         logger.warning(f"Rate limits file not found: {rate_path}, using defaults")
         return {"budget": {"monthly": {"max_cost_usd": 100.0}}}
 
-    with open(rate_path) as f:
+    with rate_path.open() as f:
         config = yaml.safe_load(f)
 
     logger.info(f"Rate limits loaded from {rate_path}")

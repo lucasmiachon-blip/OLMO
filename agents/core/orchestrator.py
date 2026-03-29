@@ -6,6 +6,7 @@ import logging
 from typing import Any
 
 from agents.core.base_agent import AgentContext, AgentStatus, BaseAgent, TaskResult
+from agents.core.exceptions import AgentError
 from agents.core.mcp_safety import OperationMode, SafetyDecision, validate_operation
 from agents.core.model_router import ModelRouter
 
@@ -76,9 +77,13 @@ class Orchestrator(BaseAgent):
             result = await self.route_task(task)
             self.context.add_to_history(self.name, "route_task", result)
             return result
+        except AgentError as e:
+            self.status = AgentStatus.ERROR
+            logger.error(f"Agent error: {e}")
+            return TaskResult(success=False, error=str(e))
         except Exception as e:
             self.status = AgentStatus.ERROR
-            logger.error(f"Orchestrator error: {e}")
+            logger.error(f"Unexpected error: {e}")
             return TaskResult(success=False, error=str(e))
         finally:
             self.status = AgentStatus.IDLE

@@ -19,6 +19,7 @@ from rich.tree import Tree
 
 from agents.ai_update.ai_update_agent import AIUpdateAgent
 from agents.automation.automation_agent import AutomationAgent
+from agents.core.log import setup_logging
 from agents.core.orchestrator import Orchestrator
 from agents.organization.organization_agent import OrganizationAgent
 from agents.scientific.scientific_agent import ScientificAgent
@@ -30,7 +31,7 @@ from subagents.processors.knowledge_organizer import KnowledgeOrganizerSubagent
 from subagents.processors.notion_cleaner import NotionCleanerSubagent
 
 console = Console()
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s")
+setup_logging()
 logger = logging.getLogger("orchestrator")
 
 
@@ -96,11 +97,13 @@ def display_status(orch: Orchestrator) -> None:
     status = orch.get_ecosystem_status()
 
     # Header
-    console.print(Panel.fit(
-        "[bold cyan]AI Agent Ecosystem[/bold cyan]\n"
-        f"Status: [green]{status['orchestrator_status']}[/green]",
-        border_style="cyan",
-    ))
+    console.print(
+        Panel.fit(
+            "[bold cyan]AI Agent Ecosystem[/bold cyan]\n"
+            f"Status: [green]{status['orchestrator_status']}[/green]",
+            border_style="cyan",
+        )
+    )
 
     # Arvore de agentes
     tree = Tree("[bold]Ecossistema de Agentes[/bold]")
