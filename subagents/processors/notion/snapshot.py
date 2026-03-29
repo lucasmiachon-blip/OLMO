@@ -29,7 +29,7 @@ SNAPSHOT_MD = Path("data/notion_snapshot.md")
 class SnapshotMixin:
     """Mixin with snapshot and inventory methods for NotionCleanerSubagent."""
 
-    async def _fetch_via_mcp(self: NotionCleanerSubagent) -> list[dict[str, Any]]:
+    async def _fetch_via_mcp(self: NotionCleanerSubagent) -> list[dict[str, Any]]:  # type: ignore[misc]
         """Busca TODAS as paginas do Notion via MCP (read-only, paginado)."""
         if not self._mcp_client:
             logger.warning("Notion MCP client nao configurado")
@@ -64,7 +64,7 @@ class SnapshotMixin:
 
         return all_pages
 
-    async def _take_snapshot(self: NotionCleanerSubagent, task: dict[str, Any]) -> Any:
+    async def _take_snapshot(self: NotionCleanerSubagent, task: dict[str, Any]) -> Any:  # type: ignore[misc]
         """Le TODAS as paginas e databases do Notion via MCP."""
         from agents.core.base_agent import TaskResult
 
@@ -164,7 +164,7 @@ class SnapshotMixin:
             },
         )
 
-    async def _generate_inventory_md(self: NotionCleanerSubagent, task: dict[str, Any]) -> Any:
+    async def _generate_inventory_md(self: NotionCleanerSubagent, task: dict[str, Any]) -> Any:  # type: ignore[misc]
         """Gera arquivo MD com inventario completo do Notion."""
         from agents.core.base_agent import TaskResult
 

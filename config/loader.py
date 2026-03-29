@@ -35,6 +35,9 @@ def load_config(config_path: Path | None = None) -> dict[str, Any]:
     except yaml.YAMLError as e:
         raise ConfigError(f"Invalid YAML in {path}: {e}") from e
 
+    if not isinstance(config, dict):
+        return _default_config()
+
     logger.info(f"Configuration loaded from {path}")
     return config
 
@@ -73,6 +76,9 @@ def load_rate_limits(path: Path | None = None) -> dict[str, Any]:
 
     with rate_path.open() as f:
         config = yaml.safe_load(f)
+
+    if not isinstance(config, dict):
+        return {"budget": {"monthly": {"max_cost_usd": 100.0}}}
 
     logger.info(f"Rate limits loaded from {rate_path}")
     return config

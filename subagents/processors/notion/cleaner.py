@@ -89,7 +89,8 @@ class NotionCleanerSubagent(SnapshotMixin, AnalysisMixin, ExecutorMixin, BaseAge
 
             handler = actions_map.get(action)
             if handler:
-                return await handler(task)
+                result: TaskResult = await handler(task)
+                return result
             return TaskResult(success=False, error=f"Unknown action: {action}")
         except Exception as e:
             self.status = AgentStatus.ERROR

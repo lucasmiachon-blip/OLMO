@@ -27,7 +27,7 @@ SNAPSHOT_DIR = Path("data/snapshots")
 class ExecutorMixin:
     """Mixin with execution methods for NotionCleanerSubagent."""
 
-    async def _execute_approved_plan(
+    async def _execute_approved_plan(  # type: ignore[misc]
         self: NotionCleanerSubagent, task: dict[str, Any]
     ) -> TaskResult:
         """Executa acoes aprovadas pelo humano, com checkpoint por step."""

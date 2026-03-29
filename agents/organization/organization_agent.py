@@ -223,7 +223,7 @@ class OrganizationAgent(BaseAgent):
         """Prioriza tarefas usando Eisenhower Matrix."""
         pending = [t for t in self.tasks if t.status == TaskStatus.TODO]
 
-        matrix = {
+        matrix: dict[str, list[str]] = {
             "urgent_important": [],  # Do first
             "not_urgent_important": [],  # Schedule
             "urgent_not_important": [],  # Delegate

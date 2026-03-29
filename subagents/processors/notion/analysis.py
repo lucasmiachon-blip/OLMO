@@ -21,7 +21,7 @@ logger = logging.getLogger("subagent.notion_cleaner")
 class AnalysisMixin:
     """Mixin with analysis methods for NotionCleanerSubagent."""
 
-    async def _analyze_all(self: NotionCleanerSubagent, task: dict[str, Any]) -> TaskResult:
+    async def _analyze_all(self: NotionCleanerSubagent, task: dict[str, Any]) -> TaskResult:  # type: ignore[misc]
         """Classifica cada pagina: tipo, localizacao correta, duplicatas, tags."""
         if not self._snapshot_taken:
             return TaskResult(

@@ -30,7 +30,7 @@ class Orchestrator(BaseAgent):
         )
         self.agents: dict[str, BaseAgent] = {}
         self.workflows: dict[str, list[dict[str, Any]]] = {}
-        self.context = AgentContext()
+        self.context: AgentContext = AgentContext()
         self.model_router = ModelRouter(agents_config)
 
     def register_agent(self, agent: BaseAgent) -> None:

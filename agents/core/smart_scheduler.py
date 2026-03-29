@@ -174,7 +174,10 @@ class SmartScheduler:
             return None
 
         logger.info(f"Cache HIT for {task.agent}:{task.action}")
-        return cached.get("result")
+        result = cached.get("result")
+        if result is not None and not isinstance(result, dict):
+            return None
+        return result
 
     def set_cache(self, task: ScheduledTask, result: Any) -> None:
         """Salva resultado em cache."""
