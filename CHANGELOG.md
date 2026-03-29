@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## Sessao 23 — 2026-03-29
+
+### Aulas Integration
+- Cirrose aula (44 slides, deck.js+GSAP, assertion-evidence) incorporada em `content/aulas/cirrose/`
+- package.json + vite.config.js adaptados para nova localizacao no monorepo
+- 8 scripts de tooling copiados (linters, QA gate, export)
+- Scaffolds: grade/, metanalise/, osteoporose/ com READMEs descritivos
+
+### Pesquisa & Estrategia
+- `content/aulas/STRATEGY.md`: pesquisa completa de ferramentas profissionais (GSAP, CSS, Lottie, D3)
+- Canva MCP capabilities mapeadas (30 tools, limitacoes de speaker notes)
+- Decisao documentada: hibrido HTML/PPTX/Canva por contexto
+- Roadmap de 9 fases de evolucao tecnica
+
+### Config & Rules
+- `.claude/rules/slide-rules.md` com `paths: ["content/aulas/**"]` (so carrega em contexto de aula)
+- `pyproject.toml`: `exclude = ["content/"]` protege ruff de JS/HTML
+- `.pre-commit-config.yaml`: exclude nos hooks ruff para content/aulas/
+- `Makefile`: targets aulas-install, aulas-dev, aulas-build-cirrose
+- `CLAUDE.md`: referencia atualizada a content/aulas/
+
+### Memories
+- feedback_aulas_improve_not_inherit: melhorar, nao copiar cegamente
+- feedback_no_frankenstein: Lucas deve entender e debugar tudo
+- feedback_mantra_simplicity: beleza com simplicidade, mentor-aprendiz
+- feedback_legacy_vs_professional: separar legacy/professional ao incorporar
+
 ## Sessao 22 — 2026-03-29
 
 ### Build System (Fase 1)

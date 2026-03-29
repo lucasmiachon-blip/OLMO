@@ -1,39 +1,44 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 22 | 2026-03-29
+> Sessao 23 | 2026-03-29
 
 ## ESTADO ATUAL
 
-Monorepo profissional completo. 17 skills, 4 agents, 7 rules (anti-drift research-backed), 2 hooks, pre-commit, Makefile, CI/CD. 47 testes passando. notion_cleaner decomposto (1079→5 modulos). Dirs futuros scaffolded (apps/, content/).
+Monorepo com aulas integradas. Cirrose (44 slides deck.js+GSAP) em `content/aulas/cirrose/`. Scaffolds para grade, metanalise, osteoporose. STRATEGY.md com pesquisa completa. Python CI intacto (47 testes, ruff, mypy). Slide rules com paths: frontmatter.
 
 ## PROXIMO
 
-1. **Merge PR** — branch `refactor/monorepo-professional` pronta para main
-2. **Testar CI no GitHub** — verificar se Actions roda lint+types+tests
-3. **Testar hooks em sessao real** — toast notification + stop-hygiene
-4. **Primeiro ciclo de pesquisa real** — pipeline busca → validacao → sintese
+1. **npm install + testar dev server** — `cd content/aulas && npm install && npm run dev`
+2. **Testar build cirrose** — `npm run build:cirrose` (requer PowerShell)
+3. **Trazer metanalise** — 18 slides de wt-metanalise (branch feat/metanalise-mvp)
+4. **Avaliar formato grade/osteoporose** — Reveal.js frozen, decidir migrar para deck.js ou PPTX
 
 ## PENDENTE
 
-### Infra
+### Aulas
+- [ ] npm install nao foi executado ainda (so copia de arquivos)
+- [ ] Validar que vite.config.js funciona com paths adaptados
+- [ ] Build scripts referem `aulas/cirrose/` — podem precisar ajuste para `cirrose/`
+- [ ] Linters (lint-slides, lint-case-sync) — paths podem precisar ajuste
+- [ ] STRATEGY.md roadmap fase 1: CSS @layer
+
+### Infra (herdado sessao 22)
 - [ ] Haiku 3 se aposenta abr/2026 — verificar configs
 - [ ] Google Drive MCP: OAuth credentials
-- [ ] Ativar BudgetTracker (SQLite, configurado mas inativo)
+- [ ] BudgetTracker (SQLite, configurado mas inativo)
 
-### Funcionalidades
+### Funcionalidades (herdado)
 - [ ] Exam-generator (aguarda 10+ provas reais em PDF)
 - [ ] Integrar claude-task-master (MCP GTD, 25k stars)
-- [ ] NotebookLM: criar notebooks por tema de pesquisa ativo
-- [ ] Conceitos Garimpados → Masterpiece (Notion write)
+- [ ] NotebookLM: notebooks por tema de pesquisa
 
 ### Automacao (longo prazo)
-- [ ] n8n self-hosted (automacao 24/7)
-- [ ] `/schedule` cloud tasks: daily-briefing + /evolve semanal
-- [ ] Lixeira Notion: deletar 2 paginas (rascunho + vazia)
+- [ ] n8n self-hosted
+- [ ] `/schedule` cloud tasks
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + opus | 2026-03-29
+Coautoria: Lucas + Opus 4.6 | 2026-03-29
