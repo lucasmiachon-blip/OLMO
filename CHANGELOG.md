@@ -1,5 +1,52 @@
 # CHANGELOG
 
+## Sessao 22 — 2026-03-29
+
+### Build System (Fase 1)
+- `pyproject.toml` overhaul: v0.2.0, optional-dependencies, hatch build, expanded ruff rules
+- `Makefile` com targets lint/format/type-check/test/check/run/status/clean
+- `.pre-commit-config.yaml`: pre-commit-hooks v5.0.0 + ruff v0.15.6
+- `README.md` criado (requisito hatchling)
+
+### Token Diet (Fase 2-3)
+- `CLAUDE.md`: 87→57 linhas (-500 tokens/prompt). Removidas secoes auto-discovered
+- Rules trimadas: coauthorship (45→27), session-hygiene (57→25), mcp_safety (92→50), notion-cross-validation (79→34)
+- Docs extraidos: `docs/coauthorship_reference.md`, `docs/mcp_safety_reference.md`, `templates/chatgpt_audit_prompt.md`
+- Skills consolidadas 19→17: medical-research→mbe-evidence, ai-fluency+ai-monitoring→ai-learning
+- Heavy skills split: mbe-evidence/REFERENCE.md, exam-generator/REFERENCE.md
+
+### Code Quality (Fase 4)
+- `agents/core/exceptions.py`: hierarquia customizada (EcosystemError→AgentError, ConfigError, etc.)
+- `agents/core/log.py`: setup_logging() centralizado
+- `config/loader.py`: ConfigError wrapping, Path.open(), ternary
+- `orchestrator.py`: setup_logging() + AgentError catch
+
+### Testing (Fase 5)
+- 47 testes: mcp_safety (25), model_router (13), config/loader (9)
+- `tests/conftest.py`: MockAgent + tmp_config_dir fixtures
+
+### CI/CD (Fase 6)
+- `.github/workflows/ci.yml`: lint+format+mypy+pytest, Python 3.11/3.12 matrix
+- `.github/pull_request_template.md`, `.github/dependabot.yml`
+- `agents/py.typed` (PEP 561)
+
+### Anti-Drift (novo)
+- `.claude/rules/anti-drift.md`: guardrails research-backed (Trail of Bits, VIBERAIL, Anthropic practices)
+- Positive framing, consequence pattern, primacy/recency anchoring
+- Memory: feedback sobre aceitacao passiva de Lucas
+
+### Decomposicao (Fase 7)
+- `notion_cleaner.py` (1079 linhas) → subpackage `notion/` (5 modulos)
+- models, snapshot, analysis, executor, cleaner
+- Backward-compat re-export preservado
+- 3 RUF012 pre-existentes corrigidos (→ ClassVar)
+
+### Scaffold (Fase 8)
+- `apps/api/`, `apps/web/`, `content/aulas/`, `content/blog/` com READMEs
+
+---
+Coautoria: Lucas + opus | 2026-03-29
+
 ## Sessao 21 — 2026-03-28
 
 ### Arvore de Diretorios
