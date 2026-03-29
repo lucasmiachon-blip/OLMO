@@ -169,11 +169,11 @@
 
     "anki": {
       "command": "npx",
-      "args": ["-y", "@ankimcp/anki-mcp-server"],
+      "args": ["-y", "@ankimcp/anki-mcp-server", "--stdio"],
       "status": "planned",
-      "description": "Anki Desktop: spaced repetition cards para concurso.",
+      "description": "Anki Desktop: spaced repetition cards para concurso R3 Clinica Medica.",
       "priority": "high",
-      "setup": "Requer: Anki Desktop + AnkiConnect add-on (2055492159)",
+      "setup": "Requer: Anki Desktop + AnkiConnect add-on (2055492159). v0.15.0, 18 tools.",
       "cost": "$0"
     },
 

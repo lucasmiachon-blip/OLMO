@@ -1,40 +1,34 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 23 | 2026-03-29
+> Sessao 24 | 2026-03-29
 
 ## ESTADO ATUAL
 
-Monorepo com aulas integradas. Cirrose (44 slides deck.js+GSAP) em `content/aulas/cirrose/`. Scaffolds para grade, metanalise, osteoporose. STRATEGY.md com pesquisa completa. Python CI intacto (47 testes, ruff, mypy). Slide rules com paths: frontmatter.
+Monorepo funcional end-to-end. Aulas: npm install OK (229 pkgs), vite dev server validado (cirrose HTTP 200 em localhost:3000), build OK (44 slides), lint slides clean. Python CI intacto (47 testes). Concurso mapeado com pipeline concreto.
 
 ## PROXIMO
 
-1. **npm install + testar dev server** — `cd content/aulas && npm install && npm run dev`
-2. **Testar build cirrose** — `npm run build:cirrose` (requer PowerShell)
-3. **Trazer metanalise** — 18 slides de wt-metanalise (branch feat/metanalise-mvp)
-4. **Avaliar formato grade/osteoporose** — Reveal.js frozen, decidir migrar para deck.js ou PPTX
+1. **Instalar AnkiConnect** — Anki Desktop > Tools > Add-ons > 2055492159
+2. **Configurar Anki MCP** — adicionar `@ankimcp/anki-mcp-server` v0.15.0 em servers.json + testar
+3. **Colocar provas reais** em `assets/provas/` — PDFs das bancas para analise
+4. **CSS @layer** — STRATEGY.md fase 1: organizar cascade em base.css
 
 ## PENDENTE
 
-### Aulas
-- [ ] npm install nao foi executado ainda (so copia de arquivos)
-- [ ] Validar que vite.config.js funciona com paths adaptados
-- [ ] Build scripts referem `aulas/cirrose/` — podem precisar ajuste para `cirrose/`
-- [ ] Linters (lint-slides, lint-case-sync) — paths podem precisar ajuste
-- [ ] STRATEGY.md roadmap fase 1: CSS @layer
+### Concurso (foco total a partir de abril)
+- [ ] AnkiConnect + Anki MCP (proximo passo concreto)
+- [ ] Provas reais em assets/ → analise de padroes → questoes calibradas
+- [ ] Primeiro simulado baseline (120 questoes)
+- [ ] Plano macro Abr-Nov no Notion
 
-### Infra (herdado sessao 22)
-- [ ] Haiku 3 se aposenta abr/2026 — verificar configs
+### Aulas
+- [ ] STRATEGY.md fase 1: CSS @layer
+- [ ] Trazer metanalise (conteudo no repo aulas-magnas original, nao neste)
+- [ ] Avaliar grade/osteoporose: migrar para deck.js ou PPTX
+
+### Infra
 - [ ] Google Drive MCP: OAuth credentials
 - [ ] BudgetTracker (SQLite, configurado mas inativo)
-
-### Funcionalidades (herdado)
-- [ ] Exam-generator (aguarda 10+ provas reais em PDF)
-- [ ] Integrar claude-task-master (MCP GTD, 25k stars)
-- [ ] NotebookLM: notebooks por tema de pesquisa
-
-### Automacao (longo prazo)
-- [ ] n8n self-hosted
-- [ ] `/schedule` cloud tasks
 
 ## CONFLITOS
 

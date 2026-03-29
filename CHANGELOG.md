@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 24 — 2026-03-29
+
+### Aulas Infra (validado end-to-end)
+- `npm install` executado: 229 packages, 0 vulnerabilidades
+- Vite dev server: cirrose HTTP 200 em localhost:3000
+- `npm run build:cirrose`: 44 slides concatenados com sucesso
+- `npm run lint:slides`: clean (0 erros)
+
+### Concurso Mapeado
+- Anki MCP pesquisado: `@ankimcp/anki-mcp-server` v0.15.0 (18 tools, publicado 2026-03-28)
+- Pipeline documentado: provas reais → analise padroes → questoes calibradas → Anki → error log
+- PENDENCIAS.md: secao concurso reescrita com proximo passo concreto
+- Memory: project_concurso_timeline (foco total a partir de abril)
+
+### Housekeeping
+- PENDENCIAS.md: removido item stale Haiku 3 (config ja usa haiku-4-5)
+- HANDOFF.md: atualizado para sessao 24
+- Vite background processes limpos
+
 ## Sessao 23 — 2026-03-29
 
 ### Aulas Integration

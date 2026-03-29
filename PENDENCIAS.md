@@ -1,6 +1,6 @@
 # PENDENCIAS - O Que Falta Para Rodar
 
-> Checklist de setup. Atualizado: 26 de Marco de 2026
+> Checklist de setup. Atualizado: 29 de Marco de 2026
 
 ## MCPs (16 configurados)
 
@@ -48,22 +48,41 @@ Output  → Notion / Obsidian / Anki
 
 Regra: **nunca** ler PDF inteiro no contexto do Claude. Usar MCPs.
 
-## CONCURSO NOV/2026 (120 questoes)
+## CONCURSO R3 CLINICA MEDICA NOV/2026 (120 questoes) — PRIORIDADE DO ANO
 
-- [ ] Exam-generator (aguarda 10+ provas reais em PDF)
-- [ ] Anki + AnkiConnect (desktop + add-on 2055492159)
-- [ ] Anki MCP (`claude mcp add anki-mcp npx -- -y @ankimcp/anki-mcp-server`)
+> Foco total a partir de abril/2026. Ate la, 2 frentes (aulas + concurso).
+> R3 Clinica Medica — so especialidades clinicas (sem cirurgia).
+> Fontes: provas reais de bancas + SAPs (MKSAP, outros SAPs de especialidade).
+
+### Proximo Passo Concreto
+- [ ] **Instalar AnkiConnect** — Anki Desktop > Tools > Add-ons > 2055492159
+- [ ] **Configurar Anki MCP** — `npx -y @ankimcp/anki-mcp-server --stdio` (v0.15.0, 18 tools)
+- [ ] **Colocar provas reais em `assets/provas/`** — PDFs de bancas R3 para analise de padroes
+- [ ] **Colocar SAPs em `assets/sap/`** — MKSAP e outros SAPs de especialidade
+
+### Pipeline: Provas + SAPs → Questoes Calibradas
+```
+Provas reais + SAPs (PDF) → Analise de padroes (formato, temas, dificuldade)
+→ Topicos errados → Gerar questoes no mesmo formato (anti-cue protocol)
+→ Anki cards (spaced repetition) → Error log → Revisao dirigida
+```
+
+### Backlog
 - [ ] Primeiro simulado baseline (120 questoes cronometrado)
-- [ ] Plano macro Mar-Nov no Notion
+- [ ] Plano macro Abr-Nov no Notion (fases: fundacao → consolidacao → sprint final)
+- [ ] Criar decks Anki por especialidade clinica (Gastro, Hepato, Cardio, Pneumo, Nefro, etc.)
+- [ ] NotebookLM: notebooks por tema de estudo
 
 ## ENSINO
 
+- [x] ~~Aulas infra~~ — npm install + vite dev + build cirrose validados (sessao 24)
 - [ ] Database Notion "Teaching Log"
 - [ ] Curriculo "AI para Alunos de Medicina" (8 aulas)
 - [x] ~~Split teaching-improvement~~ → teaching + concurso + ai-fluency (sessao 15)
 
 ## INFRA
 
+- [x] ~~Haiku 3 aposentadoria~~ — config ja usa `claude-haiku-4-5` em todos os lugares
 - [ ] BudgetTracker ativar (SQLite)
 - [ ] claude-task-master (MCP GTD)
 - [ ] n8n self-hosted (automacao 24/7)

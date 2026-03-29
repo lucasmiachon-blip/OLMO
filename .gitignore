@@ -88,3 +88,7 @@ htmlcov/
 
 # Notas soltas
 2026-*.md
+
+# Provas e SAPs (PDFs grandes, conteudo protegido)
+assets/provas/*.pdf
+assets/sap/*.pdf
