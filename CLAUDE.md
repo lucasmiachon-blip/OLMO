@@ -32,9 +32,12 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `PENDENCIAS.md` → checklist de setup
 - `HANDOFF.md` → continuidade entre sessoes
 - `apps/` → frontend/API (futuro)
-- `content/aulas/` → slides interativos (cirrose live, grade/metanalise/osteoporose scaffolded). Node.js: `cd content/aulas && npm run dev`
+- `content/aulas/` → slides interativos. Node.js: `cd content/aulas && npm run dev`
+- `content/aulas/shared/` → design system compartilhado (base.css, deck.js, engine.js, fonts)
+- `content/aulas/cirrose/` → 44 slides deck.js + GSAP (live). Regras em `.claude/rules/slide-rules.md`
+- `content/aulas/grade/` → 58 slides deck.js (live). Sistema GRADE + CAC + dislipidemias SBC 2025
 - `content/aulas/STRATEGY.md` → roadmap de interatividade profissional + pesquisa
-- `content/aulas/cirrose/` → 44 slides deck.js + GSAP. Regras em `.claude/rules/slide-rules.md`
+- `assets/provas/` → PDFs de bancas R3 (gitignored). `assets/sap/` → MKSAP e SAPs
 - `content/blog/` → blog (futuro)
 
 ## Conventions

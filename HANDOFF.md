@@ -22,9 +22,11 @@ Monorepo funcional end-to-end. Aulas: npm install OK (229 pkgs), vite dev server
 - [ ] Plano macro Abr-Nov no Notion
 
 ### Aulas
+- [x] Grade migrada (58 slides, deck.js) — `content/aulas/grade/`
+- [x] shared/ promovido para `content/aulas/shared/` (ambas aulas compartilham)
 - [ ] STRATEGY.md fase 1: CSS @layer
-- [ ] Trazer metanalise (conteudo no repo aulas-magnas original, nao neste)
-- [ ] Avaliar grade/osteoporose: migrar para deck.js ou PPTX
+- [ ] Trazer metanalise (conteudo no repo aulas-magnas original)
+- [ ] Trazer osteoporose (70 slides, Reveal.js → deck.js, mesmo pattern que grade)
 
 ### Infra
 - [ ] Google Drive MCP: OAuth credentials

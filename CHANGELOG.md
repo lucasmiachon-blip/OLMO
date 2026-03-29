@@ -14,6 +14,13 @@
 - PENDENCIAS.md: secao concurso reescrita com proximo passo concreto
 - Memory: project_concurso_timeline (foco total a partir de abril)
 
+### Aulas Arquitetura
+- `shared/` promovido: `cirrose/shared/` → `content/aulas/shared/` (compartilhado entre aulas)
+- Cirrose: imports atualizados (`./shared/` → `../shared/`), build + dev OK
+- Grade resgatada de aulas-magnas: 58 slides copiados, template migrado Reveal.js → deck.js
+- Grade: build OK (58 slides), dev server HTTP 200, lint clean
+- `package.json`: +`dev:grade`, +`build:grade`
+
 ### Housekeeping
 - PENDENCIAS.md: removido item stale Haiku 3 (config ja usa haiku-4-5)
 - HANDOFF.md: atualizado para sessao 24
