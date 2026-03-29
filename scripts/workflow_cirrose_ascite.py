@@ -14,7 +14,6 @@ Uso: python scripts/workflow_cirrose_ascite.py
 
 from __future__ import annotations
 
-import json
 import re
 from datetime import datetime
 from pathlib import Path
@@ -65,7 +64,9 @@ def create_obsidian_note(
 
 # Conteudo Cirrose (resumo baseado em StatPearls, diretrizes, MBE)
 CIRROSE_CONTENT = """## Definicao
-Cirrose hepatica e o estagio final e irreversivel de doencas cronicas do figado, caracterizada por substituicao progressiva do tecido hepatico por fibrose e nodulos de regeneracao.
+Cirrose hepatica e o estagio final e irreversivel de doencas cronicas do figado,
+caracterizada por substituicao progressiva do tecido hepatico por fibrose e nodulos
+de regeneracao.
 
 ## Epidemiologia
 - Ascite afeta ~50% dos cirroticos em 10 anos
@@ -175,9 +176,7 @@ def main() -> None:
     print(f"2. Obsidian: {ascite_path}")
 
     # 3. Notion: conteudo para Masterpiece DB
-    notion_content = NOTION_CIRROSE_CONTENT.format(
-        date=datetime.now().strftime("%Y-%m-%d")
-    )
+    notion_content = NOTION_CIRROSE_CONTENT.format(date=datetime.now().strftime("%Y-%m-%d"))
     notion_path = VAULT_ROOT / "scripts" / "output" / "notion-cirrose-masterpiece.md"
     notion_path.parent.mkdir(parents=True, exist_ok=True)
     notion_path.write_text(notion_content, encoding="utf-8")
@@ -185,7 +184,9 @@ def main() -> None:
 
     print("\n=== Concluido ===")
     print("Obsidian: notas em 03-Resources/ com tags #cirrose #ascite")
-    print("Notion: abra scripts/output/notion-cirrose-masterpiece.md e crie pagina no Masterpiece DB")
+    print(
+        "Notion: abra scripts/output/notion-cirrose-masterpiece.md e crie pagina no Masterpiece DB"
+    )
     print("Properties: Pilar=MEDICINA, Maturidade=Broto, Tipo=Topico")
 
 

@@ -1,8 +1,12 @@
 [project]
 name = "ai-agent-ecosystem"
-version = "0.1.0"
-description = "Ecossistema de agentes AI para automacao, pesquisa cientifica e organizacao pessoal"
+version = "0.2.0"
+description = "Ecossistema de agentes AI para pesquisa medica, ensino e automacao"
 requires-python = ">=3.11"
+license = {text = "MIT"}
+readme = "README.md"
+authors = [{name = "Lucas Peres Miachon"}]
+keywords = ["ai-agents", "medical-research", "evidence-based-medicine", "automation"]
 dependencies = [
     "anthropic>=0.40.0",
     "openai>=1.50.0",
@@ -17,11 +21,22 @@ dependencies = [
     "pyzotero>=1.0.0",
 ]
 
+[project.scripts]
+ecosystem = "orchestrator:main"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "pytest-asyncio>=0.24",
     "ruff>=0.5.0",
     "mypy>=1.10",
+    "pre-commit>=3.7",
+    "types-PyYAML",
+]
+api = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
 ]
 
 [tool.ruff]
@@ -29,8 +44,45 @@ line-length = 100
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "N", "W", "UP", "B", "SIM"]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM", "RUF", "PTH", "S", "ASYNC"]
+ignore = ["S112", "S314", "ASYNC240"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+"scripts/**" = ["T20"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["agents", "subagents", "skills", "config"]
 
 [tool.mypy]
 python_version = "3.11"
-strict = true
+strict = false
+warn_return_any = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "agents.core.*"
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+    "slow: long running tests",
+    "integration: requires external services",
+]
+addopts = "-q --tb=short"
+
+[tool.coverage.run]
+source = ["agents", "subagents", "skills", "config"]
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["agents", "subagents", "skills", "config"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
