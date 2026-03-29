@@ -3,7 +3,7 @@
 
 ecosystem:
   name: "AI Agent Ecosystem"
-  version: "0.1.0"
+  version: "0.2.0"
   language: "pt-br"
   log_level: "INFO"
 
@@ -101,18 +101,12 @@ subagents:
     parent: "organizacao"
     description: "Limpa e organiza Notion com seguranca (modelo harsh)"
 
-# Skills (.claude/skills/ — 20 ativas)
+# Skills (.claude/skills/ — 17 ativas)
 skills:
   # Pesquisa e ciencia
-  scientific:
-    path: ".claude/skills/scientific"
-    description: "Pesquisa cientifica, hipoteses, literature review"
-  medical-research:
-    path: ".claude/skills/medical-research"
-    description: "PubMed, PICO, niveis de evidencia"
   mbe-evidence:
     path: ".claude/skills/mbe-evidence"
-    description: "GRADE, CONSORT, STROBE, PRISMA, RoB2, QUADAS"
+    description: "MBE rigorosa: GRADE, CONSORT, STROBE, PRISMA, PubMed, PICO (absorveu medical-research)"
   research:
     path: ".claude/skills/research"
     description: "Web search, fontes, analise de resultados"
@@ -138,9 +132,9 @@ skills:
   concurso:
     path: ".claude/skills/concurso"
     description: "Prep concurso nov/2026, Anki AI, evidence-based learning"
-  ai-fluency:
-    path: ".claude/skills/ai-fluency"
-    description: "AI fluency para ensino + dev AI continuo"
+  ai-learning:
+    path: ".claude/skills/ai-learning"
+    description: "AI fluency (ensino + dev) + monitoring (modelos, tools, benchmarks)"
   exam-generator:
     path: ".claude/skills/exam-generator"
     description: "Simulados calibrados por bancas, Anki cards"
@@ -152,9 +146,6 @@ skills:
   automation:
     path: ".claude/skills/automation"
     description: "Regras, pipelines, cron, workflows"
-  ai-monitoring:
-    path: ".claude/skills/ai-monitoring"
-    description: "Tracking modelos, tools, benchmarks"
   review:
     path: ".claude/skills/review"
     description: "Code review multi-agente + OWASP LLM Top 10"

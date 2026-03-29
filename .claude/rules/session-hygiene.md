@@ -5,26 +5,7 @@
 
 ## HANDOFF.md (max ~30 linhas)
 
-So pendencias. Estrutura fixa:
-
-```
-# HANDOFF - Proxima Sessao
-> Sessao N | DATA
-
-## ESTADO ATUAL
-[2-3 linhas: o que funciona agora]
-
-## PROXIMO
-[lista numerada: proximos passos concretos]
-
-## PENDENTE
-[checklist: backlog medio prazo]
-
-## CONFLITOS
-[checklist: bugs/inconsistencias conhecidas]
-```
-
-### Regras
+So pendencias. Estrutura: ESTADO ATUAL → PROXIMO → PENDENTE → CONFLITOS.
 - Sem historico — so futuro
 - Items completados → remover (ja estao no CHANGELOG)
 - Cada item = 1 linha, acao concreta
@@ -32,22 +13,9 @@ So pendencias. Estrutura fixa:
 
 ## CHANGELOG.md (append-only)
 
-Historico do que foi feito. Estrutura por sessao:
-
-```
-## Sessao N — DATA
-
-### [Categoria]
-- [o que mudou, em 1 linha]
-
----
-Coautoria: Lucas + [modelos] | DATA
-```
-
-### Regras
-- Append new sessao no topo (mais recente primeiro)
+Historico do que foi feito. Append nova sessao no topo (mais recente primeiro).
 - 1 linha por mudanca — sem explicacao longa
-- Categorias: o que faz sentido (Auditoria, Config, Skills, Code, etc.)
+- Categorias: o que faz sentido (Config, Skills, Code, etc.)
 - Nao repetir o que ja esta no HANDOFF
 
 ## Quando atualizar
