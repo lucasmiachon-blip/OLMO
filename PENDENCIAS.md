@@ -73,6 +73,11 @@ Provas reais + SAPs (PDF) → Analise de padroes (formato, temas, dificuldade)
 - [ ] Criar decks Anki por especialidade clinica (Gastro, Hepato, Cardio, Pneumo, Nefro, etc.)
 - [ ] NotebookLM: notebooks por tema de estudo
 
+## AULAS CONGELADAS (migrar em sessao futura)
+
+- **Metanalise** — 18 slides, deck.js, branch `feat/metanalise-mvp` (wt-metanalise)
+- **Osteoporose** — 70 slides, Reveal.js (frozen), repo `aulas-magnas`. Decidir formato.
+
 ## ENSINO
 
 - [x] ~~Aulas infra~~ — npm install + vite dev + build cirrose validados (sessao 24)
