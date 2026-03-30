@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 27 — 2026-03-29
+
+### Tree Cleanup
+- Deletada branch stale `refactor/monorepo-professional` (12 commits atras, 0 proprios)
+- Removidos 5 stubs orfaos: `content/blog/`, `apps/api/`, `apps/web/`, `aulas/metanalise/`, `aulas/osteoporose/`
+- Info migracao preservada em PENDENCIAS.md secao "Aulas Congeladas"
+
+### Path Fix
+- `03-Resources/` → `resources/` em 4 arquivos: `atualizar_tema.py`, `workflow_cirrose_ascite.py`, `workflows.yaml`, `workflow-mbe-opus-classificacao.md`
+- `knowledge_organizer.py` mantido (PARA convention do Obsidian vault)
+
+### Documentation
+- Novo `docs/TREE.md`: mapa completo anotado da arvore do projeto
+- `skills/__init__.py`: docstring clarifica `skills/` (runtime) vs `.claude/skills/` (slash commands)
+- `CLAUDE.md`: secao Misc com cross-refs para skills/ e TREE.md
+
 ## Sessao 26 — 2026-03-29
 
 ### Hardening Documental

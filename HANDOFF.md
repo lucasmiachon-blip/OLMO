@@ -1,12 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 26 | 2026-03-29
+> Sessao 27 | 2026-03-29
 
 ## ESTADO ATUAL
 
-Monorepo funcional. Hardening documental completo (sessao 26). Vite isolado por porta.
+Monorepo funcional. Arvore limpa (5 stubs removidos, paths fixados, TREE.md criado). CI verde.
 
-**Python** — CI verde: ruff clean, mypy OK, 47 testes. Agents scaffolds (~30%), config/safety/routing 100%.
+**Python** — ruff clean, mypy OK, 47 testes. Agents scaffolds (~30%), config/safety/routing 100%.
 
 **Aulas** — 2 aulas live (deck.js unificado):
 - `cirrose/` — 44 slides, producao, lint clean. 7 reference docs cross-linked.
@@ -18,14 +18,13 @@ Monorepo funcional. Hardening documental completo (sessao 26). Vite isolado por 
 ## PROXIMO
 
 1. **Grade readability redesign** — Curadoria slide-a-slide. QA: `npm run qa:screenshots:grade`.
-2. **Resgatar metanalise** — Worktree perdida em aulas_magnas. Localizar e importar.
+2. **Resgatar metanalise** — Branch `feat/metanalise-mvp` (wt-metanalise). 18 slides deck.js.
 3. **Anki MCP setup** — AnkiConnect (add-on 2055492159) + validar MCP.
-4. **Scripts Python: path stale** — `atualizar_tema.py`, `knowledge_organizer.py`, `workflows.yaml` referenciam `03-Resources/`.
 
 ## DECISOES ATIVAS
 
 - Maio/2026: foco total concurso. Abril = housekeeping aulas + preparar terreno.
-- Osteoporose congelada. Metanalise entra em breve.
+- Osteoporose congelada (70 slides Reveal.js, repo aulas-magnas). Decidir formato.
 - Engine: deck.js. STRATEGY.md fase 1 adiada ate grade legivel.
 
 ## CUIDADOS
