@@ -43,6 +43,10 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `assets/sap/` → MKSAP e SAPs de especialidade (gitignored)
 - Skills: `/concurso` (plano de estudo) + `/exam-generator` (questoes anti-cue)
 
+### Misc
+- `skills/` → Python runtime skills (LocalFirst). NAO confundir com `.claude/skills/` (slash commands Claude Code)
+- `docs/TREE.md` → mapa completo da arvore do projeto
+
 ### Docs & Meta
 - `ECOSYSTEM.md` → mapa completo (perfil, objetivos, KPIs, budget)
 - `PENDENCIAS.md` → checklist de setup e backlog
