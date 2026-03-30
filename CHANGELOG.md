@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Sessao 26 — 2026-03-29
+
+### Hardening Documental
+- Novo `docs/SYNC-NOTION-REPO.md`: protocolo Notion↔Repo (source of truth, collection IDs, workflows)
+- `content/aulas/README.md` reescrito: 14 scripts mapeados, status por aula, grafo cross-refs, Notion
+- See-also em 7 reference docs (CASE, narrative, evidence-db, must-read, archetypes, decision-protocol, coautoria)
+- `CLAUDE.md` + `ECOSYSTEM.md` atualizados com referencia ao SYNC-NOTION-REPO
+
+### Vite Safety
+- `vite.config.js`: `strictPort: true`, porta removida (controlada por npm scripts)
+- `package.json`: cirrose=4100, grade=4101, strictPort em todos os dev scripts
+- Corrige problema de servidores fantasma ao rodar multiplos projetos Vite
+
 ## Sessao 25 — 2026-03-29
 
 ### Timeline Fix
