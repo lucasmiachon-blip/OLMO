@@ -6,7 +6,7 @@
 ## Pre-requisitos
 
 - Python 3.11+
-- Node.js 18+ (para MCPs via npx)
+- Node.js 20+ (para MCPs via npx e aulas)
 - Claude Code CLI instalado
 - Claude Desktop (para Cowork)
 
@@ -17,14 +17,15 @@
 git clone <repo-url>
 cd organizacao
 
-# Crie ambiente virtual
+# Python
 python -m venv .venv
 source .venv/bin/activate
-
-# Instale dependencias
 pip install -e ".[dev]"
 
-# Configure variaveis de ambiente
+# Aulas (Node.js)
+cd content/aulas && npm install && cd ../..
+
+# Variaveis de ambiente
 cp .env.example .env
 # Edite .env com suas API keys (ver PENDENCIAS.md)
 ```
@@ -85,14 +86,14 @@ claude "gere o digest medico semanal e publique no Notion"
 
 ```
 organizacao/
-├── CLAUDE.md                 # Instrucoes root (perfil, KPIs, safety)
+├── CLAUDE.md                 # Instrucoes root (~74 linhas)
 ├── ECOSYSTEM.md              # Mapa completo do ecossistema
 ├── PENDENCIAS.md             # Checklist de setup e custos
 ├── HANDOFF.md                # Continuidade entre sessoes
-├── orchestrator.py           # Entry point principal
-├── agents/                   # Agentes principais
-│   ├── core/                 # Base + Orchestrator + Scheduler + Budget
-│   ├── scientific/           # Cientifico + Medico
+├── orchestrator.py           # Entry point Python
+├── agents/                   # Agentes Python (~30% implementados)
+│   ├── core/                 # Base, Orchestrator, ModelRouter, MCP Safety, Scheduler
+│   ├── scientific/           # Cientifico (MBE, AI/ML, DevOps/MLOps)
 │   ├── automation/           # Automacao
 │   ├── organization/         # Organizacao (GTD)
 │   └── ai_update/            # Atualizacao AI
@@ -102,39 +103,32 @@ organizacao/
 │   └── analyzers/            # TrendAnalyzer
 ├── skills/                   # Skills Python reutilizaveis
 │   └── efficiency/           # local_first (custo zero)
+├── content/aulas/            # Subsistema Node.js (deck.js + GSAP)
+│   ├── shared/               # Design system (CSS OKLCH, deck.js, engine.js, fonts)
+│   ├── cirrose/              # 44 slides (producao, lint clean)
+│   ├── grade/                # 58 slides (migrada, precisa redesign)
+│   ├── scripts/              # Linters compartilhados
+│   └── STRATEGY.md           # Roadmap tecnico
+├── assets/                   # Concurso R3 (provas + SAPs, gitignored)
 ├── .claude/
-│   ├── skills/               # Skills Claude Code (sob demanda)
-│   │   ├── mbe-evidence/     # GRADE, CONSORT, STROBE, PRISMA...
-│   │   ├── medical-research/ # PubMed, PICO
-│   │   ├── notion-publisher/ # Templates Notion
-│   │   ├── teaching/          # Metodologia de ensino, andragogia, slideologia
-│   │   ├── concurso/          # Prep concurso nov/2026, Anki AI
-│   │   ├── ai-fluency/        # AI fluency para ensino + dev AI
-│   │   └── ...               # + 14 skills (review, ai-monitoring, etc)
-│   └── rules/                # Regras sempre carregadas
-│       ├── quality.md        # Qualidade de codigo
-│       ├── efficiency.md     # Eficiencia de API
-│       └── mcp_safety.md     # Protocolo seguro Notion (CRITICO)
-├── config/                   # Configuracoes YAML
-│   ├── ecosystem.yaml        # Agentes + model routing
-│   ├── workflows.yaml        # Workflows operacionais
-│   ├── rate_limits.yaml      # Budget $100/mes
-│   ├── mcp/servers.json      # 16 MCPs (10 connected, 3 needs auth, 3 planned)
-│   └── keys/                 # Guia de API keys
-├── templates/                # Templates de prompts
-└── docs/                     # Documentacao
-    ├── ARCHITECTURE.md       # Decisoes tecnicas e padroes
-    ├── BEST_PRACTICES.md     # Convencoes e boas praticas
-    └── GETTING_STARTED.md    # Este arquivo
+│   ├── skills/ (17)          # Sob demanda (progressive disclosure)
+│   ├── rules/ (8)            # Sempre carregadas (2 path-scoped)
+│   └── agents/ (4)           # researcher, notion-ops, literature, quality-gate
+├── hooks/                    # notify.sh, stop-hygiene.sh
+├── config/
+│   ├── ecosystem.yaml        # Agentes + model routing + skills
+│   ├── mcp/servers.json      # 16 MCPs (13 connected, 3 planned)
+│   └── rate_limits.yaml      # Budget $100/mes
+└── docs/                     # Documentacao tecnica
 ```
 
 ## Ordem de Setup Recomendada
 
 Ver `PENDENCIAS.md` para checklist completo. Resumo:
 
-1. API keys no `.env` (ver `config/keys/keys_setup.md`)
+1. API keys no `.env` (ver `docs/keys_setup.md`)
 2. MCPs nativos claude.ai: ja conectados via OAuth (PubMed, Notion, Gmail, etc.)
 3. MCPs locais: Gemini (`GOOGLE_AI_KEY`), Perplexity (`PERPLEXITY_API_KEY`), Zotero
-4. Testar workflow `quick_note_to_evidence`
-5. Configurar Cowork para fontes pagas
-6. Agendar workflows semanais
+4. Aulas: `cd content/aulas && npm install && npm run dev`
+5. Python: `make check` (lint + mypy + pytest)
+6. Configurar Cowork para fontes pagas

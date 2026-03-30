@@ -1,6 +1,6 @@
 # ECOSYSTEM.md - Mapa do Ecossistema AI
 
-> Atualizado: 27 de Marco de 2026
+> Atualizado: 29 de Marco de 2026
 > Perfil: Medico + Professor + Pesquisador + Dev AI
 
 ## Objetivos
@@ -46,7 +46,11 @@ Obsidian     = CONECTAR  Zotero      = REFERENCIAR Canva    = DESIGN
 | Checklist setup | `PENDENCIAS.md` | aqui |
 | Handoff entre sessoes | `HANDOFF.md` | aqui |
 | Decisoes tecnicas | `docs/ARCHITECTURE.md` | aqui |
+| Aulas design system | `content/aulas/shared/` | aqui |
+| Aulas roadmap tecnico | `content/aulas/STRATEGY.md` | aqui |
+| Aulas QA scripts | `content/aulas/*/scripts/` | aqui |
+| Concurso provas/SAPs | `assets/provas/`, `assets/sap/` | aqui |
 
 ---
 Coautoria: Lucas + opus
-Data: 2026-03-27
+Data: 2026-03-29

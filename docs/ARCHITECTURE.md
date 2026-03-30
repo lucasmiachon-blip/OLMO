@@ -119,21 +119,18 @@ Ref: Anthropic Skill Authoring Best Practices
 https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 
 ```
-.claude/skills/
-├── mbe-evidence/          # GRADE, CONSORT, STROBE, PRISMA, RoB2...
-├── medical-research/      # PubMed, PICO, niveis evidencia
-├── scientific/            # Metodologia cientifica
-├── research/              # Pesquisa academica, web search
+.claude/skills/ (17 ativas)
+├── mbe-evidence/          # GRADE, CONSORT, STROBE, PRISMA, RoB2, PubMed, PICO
+├── research/              # Web search, fontes, analise de resultados
 ├── notion-publisher/      # Templates Notion profissionais
 ├── notion-knowledge-capture/ # Conversa/pesquisa → Masterpiece DB
 ├── notion-spec-to-impl/   # Specs → tasks no Notion Tasks DB
-├── organization/          # GTD, Eisenhower, memory, tasks
+├── organization/          # GTD, Eisenhower, memory, task management
 ├── automation/            # Regras, pipelines, cron, workflows
 ├── teaching/              # Metodologia de ensino, andragogia, slideologia
 ├── concurso/              # Prep concurso nov/2026, Anki AI, evidence-based learning
-├── ai-fluency/            # AI fluency para ensino + dev AI continuo
+├── ai-learning/           # AI fluency (ensino + dev) + monitoring (modelos, tools)
 ├── review/                # Code review multi-agente + OWASP LLM Top 10
-├── ai-monitoring/         # Tracking modelos e ferramentas
 ├── exam-generator/        # Simulados calibrados, Anki cards, anti-cue
 ├── skill-creator/         # Meta-skill para criar/refinar skills
 ├── janitor/               # Limpeza e manutencao do repositorio
@@ -141,6 +138,8 @@ https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 ├── continuous-learning/   # Aprendizado progressivo dev/ML/AI ops
 └── daily-briefing/        # Email diario (Gmail→Notion Emails Digest DB)
 ```
+
+Consolidacoes sessao 22: `medical-research` + `scientific` → `mbe-evidence`, `ai-fluency` + `ai-monitoring` → `ai-learning`.
 
 ### Graus de Liberdade (Anthropic Pattern)
 - **Alta liberdade**: pesquisa aberta, brainstorm (cientifico)
@@ -186,20 +185,45 @@ https://code.claude.com/docs/en/best-practices
 
 ```
 organizacao/
-├── CLAUDE.md              # Root: enxuto (~45 linhas)
+├── CLAUDE.md              # Root: enxuto (~74 linhas)
 ├── .claude/
-│   ├── rules/             # Sempre carregadas
-│   │   ├── quality.md
-│   │   ├── efficiency.md
-│   │   └── mcp_safety.md  # Protocolo seguro Notion (evidence-based)
-│   └── skills/            # Sob demanda (progressive disclosure)
-├── agents/
-│   └── CLAUDE.md          # Especifico: como criar/modificar agentes
-├── workflows/
-│   └── CLAUDE.md          # Especifico: como criar/modificar workflows
-└── config/
-    └── CLAUDE.md          # Especifico: configuracao e keys
+│   ├── rules/ (8)         # quality, efficiency, coauthorship, anti-drift,
+│   │                      # mcp_safety, notion-cross-validation (path-scoped),
+│   │                      # session-hygiene, slide-rules (path-scoped)
+│   ├── skills/ (17)       # Sob demanda (progressive disclosure)
+│   └── agents/ (4)        # researcher, notion-ops, literature, quality-gate
+├── config/
+│   ├── ecosystem.yaml     # Agentes + model routing + skills
+│   └── mcp/servers.json   # 16 MCPs (13 connected, 3 planned)
+└── content/aulas/         # Subsistema Node.js (deck.js + GSAP)
 ```
+
+## Aulas — Arquitetura HTML/JS
+
+Decisao sessao 23-24: HTML/JS + deck.js (nao Reveal.js, nao PPTX).
+
+```
+content/aulas/
+├── shared/                # Design system compartilhado (promovido sessao 24)
+│   ├── css/base.css       # OKLCH design tokens, tipografia, layout
+│   ├── js/deck.js         # Navegacao vanilla (170 linhas, scale 1280×720)
+│   ├── js/engine.js       # GSAP dispatcher declarativo (data-animate)
+│   ├── js/click-reveal.js # Progressive reveal (data-reveal)
+│   └── assets/fonts/      # DM Sans, Instrument Serif, JetBrains Mono (woff2)
+├── cirrose/               # 44 slides, producao, lint clean
+├── grade/                 # 58 slides, migrada Reveal→deck.js, precisa redesign
+├── scripts/               # Linters compartilhados (lint-slides, done-gate)
+├── STRATEGY.md            # Roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
+├── package.json           # Scripts: dev, build, lint, QA
+└── vite.config.js         # Multi-page auto-discovery
+```
+
+**Padroes:**
+- Assertion-evidence: `<h2>` = claim clinico, visual = evidencia. Sem bullet lists.
+- Animacao declarativa: `data-animate="countUp|stagger|drawPath|fadeUp|highlight"`
+- Build: PowerShell `build-html.ps1` concatena `slides/*.html` via `_manifest.js`
+- QA: Playwright screenshots + metricas (C1 word count, C8 font-size ≥18px)
+- Rules: `.claude/rules/slide-rules.md` (path-scoped a `content/aulas/**`)
 
 ## Principios Arquiteturais
 
@@ -212,6 +236,9 @@ organizacao/
 
 ## Documentos Relacionados
 
-- `docs/WORKFLOW_MBE.md` — **Workflow principal** tópico → Notion + Obsidian (passo a passo, cenários)
-- `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` — Detalhes técnicos (PubMed tier1, Consensus, Scite)
+- `docs/WORKFLOW_MBE.md` — Workflow principal: topico → Notion + Obsidian
+- `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` — Detalhes tecnicos (PubMed tier1, Consensus, Scite)
 - `docs/OBSIDIAN_CLI_PLAN.md` — Integracao Obsidian CLI
+- `content/aulas/STRATEGY.md` — Roadmap tecnico de aulas (CSS @layer, D3, Lottie, PPTX)
+- `docs/coauthorship_reference.md` — Referencia completa coautoria AI
+- `docs/mcp_safety_reference.md` — Referencia completa seguranca MCP

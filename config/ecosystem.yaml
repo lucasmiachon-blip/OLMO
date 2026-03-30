@@ -22,14 +22,20 @@ agents:
     description: "Pesquisa e analise cientifica"
     subagents: ["trend_analyzer"]
     research_areas:
+      - medicina_baseada_em_evidencias
+      - gastroenterologia_hepatologia
+      - clinica_medica
       - artificial_intelligence
       - machine_learning
-      - natural_language_processing
-      - medicina_baseada_em_evidencias
+      - devops_mlops_aiops
+      - systems_engineering
     sources:
+      - pubmed
+      - scite
+      - consensus
+      - scholar_gateway
       - arxiv
       - semantic_scholar
-      - pubmed
 
   automacao:
     enabled: true
@@ -196,37 +202,33 @@ ai_models:
 
 # MCP Servers - Routing por Modelo
 # Definicao completa em config/mcp/servers.json
+# 13 connected, 3 planned (2026-03-29)
 mcp_routing:
-  # 5.4 = triagem barata | Sonnet = medio | Opus = profundo | Local = trivial
-  # Notion = Opus direto ($0 via Pro/Max, ja pago)
-  claude_opus_free:  # $0.00 - incluso no Claude Pro/Max
-    - "notion:all"             # Opus pra tudo - ler, classificar, escrever, organizar
+  # Todos os MCPs rodam via Claude Max ($0) — nao ha custo por call
+  # Routing abaixo e conceitual: qual modelo USARIA cada MCP se fosse via API
 
-  chatgpt_5_4:  # ~$0.005/call (so quando via API separada)
-    - "healthcare-mcp:search_filter"
-    - "pubmed-mcp:search_triage"
-    - "gmail:read_classify"
-    - "github:read_triage"
-    - "fetch:fetch_parse"
-    - "brave-search:search_filter"
-
-  claude_sonnet:  # ~$0.01/call (so quando via API separada)
-    - "healthcare-mcp:extract_data"
-    - "pubmed-mcp:summarize_abstract"
-    - "biomcp:query"
-    - "gmail:summarize"
-    - "context7:all"
-    - "brave-search:analyze"
-    - "memory:synthesize"
-
-  claude_opus:  # ~$0.05-0.10/call (so quando via API separada)
-    - "healthcare-mcp:analyze_evidence"
-    - "pubmed-mcp:systematic_review"
-    - "biomcp:interpret"
+  claude_opus_free:  # $0.00 - incluso no Claude Max
+    - "notion:all"             # Ler, classificar, escrever, organizar
+    - "pubmed:systematic_review"
+    - "scite:analyze_evidence"
     - "gmail:compose"
-    - "github:code_review"
 
-  local_ollama:  # $0.00
-    - "filesystem:all"
-    - "sqlite:all"
-    - "memory:store_retrieve"
+  claude_sonnet:  # Medio — sumarizacao, queries
+    - "pubmed:summarize_abstract"
+    - "consensus:search"
+    - "scholar-gateway:search"
+    - "perplexity:research"
+    - "gemini:analyze"
+    - "notebooklm:query"
+    - "gmail:summarize"
+    - "zotero:search"
+
+  claude_haiku:  # Simples — triagem, classificacao
+    - "pubmed:search_triage"
+    - "gmail:read_classify"
+    - "excalidraw:create"
+    - "canva:generate"
+    - "google-calendar:read"
+
+  local_ollama:  # $0.00 — parsing, file ops
+    - "file_ops:all"
