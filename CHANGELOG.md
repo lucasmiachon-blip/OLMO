@@ -14,6 +14,12 @@
 - PENDENCIAS.md: secao concurso reescrita com proximo passo concreto
 - Memory: project_concurso_timeline (foco total a partir de abril)
 
+### Grade QA Script
+- `grade/scripts/qa-batch-screenshot.mjs` adaptado do cirrose: Playwright screenshots + metricas
+- Check C8 novo: auditoria font-size minimo para legibilidade a 5m (limiar 18px)
+- Diagnostico: 9/10 slides falham legibilidade (fontes 14px, overflow, >40 palavras/slide)
+- `package.json`: +`qa:screenshots:grade`
+
 ### Aulas Arquitetura
 - `shared/` promovido: `cirrose/shared/` → `content/aulas/shared/` (compartilhado entre aulas)
 - Cirrose: imports atualizados (`./shared/` → `../shared/`), build + dev OK

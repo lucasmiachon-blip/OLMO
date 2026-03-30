@@ -17,6 +17,7 @@
     "lint:narrative-sync": "node scripts/lint-narrative-sync.js",
     "build:cirrose": "powershell -ExecutionPolicy Bypass -File cirrose/scripts/build-html.ps1",
     "build:grade": "powershell -ExecutionPolicy Bypass -File grade/scripts/build-html.ps1",
+    "qa:screenshots:grade": "node grade/scripts/qa-batch-screenshot.mjs",
     "done:cirrose": "node scripts/done-gate.js cirrose",
     "qa:screenshots:cirrose": "node cirrose/scripts/qa-batch-screenshot.mjs",
     "research:cirrose": "node cirrose/scripts/content-research.mjs"
