@@ -1,9 +1,9 @@
 ---
 name: concurso
-description: "Prep concurso nov/2026 (120 MCQs). Ativar para planejar estudo, gerar questoes calibradas ou revisar conteudo para prova."
+description: "Prep concurso dez/2026 (120 MCQs). Ativar para planejar estudo, gerar questoes calibradas ou revisar conteudo para prova."
 ---
 
-# Skill: Concurso Nov/2026 — 120 Questoes Multipla Escolha
+# Skill: Concurso Dez/2026 — 120 Questoes Multipla Escolha
 
 PRIORIDADE DO ANO. Todo o ecossistema deve servir a esse objetivo.
 Ferramentas + ciencia do aprendizado.
@@ -16,7 +16,7 @@ Ferramentas + ciencia do aprendizado.
 - Geracao de cards Anki
 - Simulados e analise de desempenho
 - Error log de questoes
-- Qualquer referencia ao concurso nov/2026
+- Qualquer referencia ao concurso dez/2026
 
 ## Ciencia do Estudo para Provas (Evidence-Based Learning)
 

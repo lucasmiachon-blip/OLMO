@@ -48,9 +48,9 @@ Output  → Notion / Obsidian / Anki
 
 Regra: **nunca** ler PDF inteiro no contexto do Claude. Usar MCPs.
 
-## CONCURSO R3 CLINICA MEDICA NOV/2026 (120 questoes) — PRIORIDADE DO ANO
+## CONCURSO R3 CLINICA MEDICA DEZ/2026 (120 questoes) — PRIORIDADE DO ANO
 
-> Foco total a partir de abril/2026. Ate la, 2 frentes (aulas + concurso).
+> Foco total a partir de maio/2026. Ate la, housekeeping aulas + preparar terreno.
 > R3 Clinica Medica — so especialidades clinicas (sem cirurgia).
 > Fontes: provas reais de bancas + SAPs (MKSAP, outros SAPs de especialidade).
 
@@ -69,7 +69,7 @@ Provas reais + SAPs (PDF) → Analise de padroes (formato, temas, dificuldade)
 
 ### Backlog
 - [ ] Primeiro simulado baseline (120 questoes cronometrado)
-- [ ] Plano macro Abr-Nov no Notion (fases: fundacao → consolidacao → sprint final)
+- [ ] Plano macro Mai-Dez no Notion (fases: fundacao → consolidacao → sprint final)
 - [ ] Criar decks Anki por especialidade clinica (Gastro, Hepato, Cardio, Pneumo, Nefro, etc.)
 - [ ] NotebookLM: notebooks por tema de estudo
 

@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 25 — 2026-03-29
+
+### Timeline Fix
+- Concurso: nov/2026 → dez/2026 (7 ocorrencias: CLAUDE.md, ECOSYSTEM, ecosystem.yaml, ARCHITECTURE, skill concurso)
+- Estudo: "foco total abril" → "foco total maio" (HANDOFF, PENDENCIAS)
+- PENDENCIAS backlog: "Abr-Nov" → "Mai-Dez"
+- Memory: project_concurso_timeline atualizada
+
+### Docs Cleanup
+- `docs/WORKFLOW_MBE.md` + `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md`: `03-Resources/` → `resources/` (path stale desde sessao 21)
+- Auditoria completa: 9 docs, 8 rules, 17 skills, 4 agents — tudo sincronizado
+- Nenhum doc stale ou redundante encontrado
+
+### Housekeeping
+- HANDOFF.md: sessao 25 com estado atualizado + novo item (scripts Python path stale)
+- Flagged: `atualizar_tema.py`, `knowledge_organizer.py`, `workflows.yaml` ainda referenciam `03-Resources/`
+
 ## Sessao 24 — 2026-03-29
 
 ### Aulas Infra

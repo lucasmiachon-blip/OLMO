@@ -128,7 +128,7 @@ https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 ├── organization/          # GTD, Eisenhower, memory, task management
 ├── automation/            # Regras, pipelines, cron, workflows
 ├── teaching/              # Metodologia de ensino, andragogia, slideologia
-├── concurso/              # Prep concurso nov/2026, Anki AI, evidence-based learning
+├── concurso/              # Prep concurso dez/2026, Anki AI, evidence-based learning
 ├── ai-learning/           # AI fluency (ensino + dev) + monitoring (modelos, tools)
 ├── review/                # Code review multi-agente + OWASP LLM Top 10
 ├── exam-generator/        # Simulados calibrados, Anki cards, anti-cue

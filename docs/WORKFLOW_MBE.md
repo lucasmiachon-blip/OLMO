@@ -43,13 +43,13 @@
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  PASSO 3: SÍNTESE (manual ou agente)                                    │
 │  Preencher: Definição, Pontos-Chave (dos abstracts/PDFs)                │
-│  Editar: 03-Resources/<tema>.md ou scripts/output/notion-*.md            │
+│  Editar: resources/<tema>.md ou scripts/output/notion-*.md            │
 └─────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  PASSO 4: PUBLICAÇÃO                                                     │
-│  Obsidian: 03-Resources/<tema>.md (já gerado pelo script)                │
+│  Obsidian: resources/<tema>.md (já gerado pelo script)                │
 │  Notion: copiar scripts/output/notion-<tema>-masterpiece.md → Masterpiece │
 │          OU usar MCP Notion para criar página                            │
 └─────────────────────────────────────────────────────────────────────────┘
@@ -65,7 +65,7 @@
 uv run python scripts/atualizar_tema.py -t "Restrição salina ascite cirrose" --fetch --tier1 --recent --tags ascite,cirrose,hepatologia
 ```
 
-- Cria `03-Resources/restricao-salina-ascite-cirrose.md`
+- Cria `resources/restricao-salina-ascite-cirrose.md`
 - Cria `scripts/output/notion-restricao-salina-ascite-cirrose-masterpiece.md`
 - `evidence_level` e `last_review` preenchidos automaticamente
 
@@ -103,7 +103,7 @@ uv run python scripts/atualizar_tema.py -t "Ascite" --content-file path/to/conte
 
 | Artefato | Local | Propósito |
 |----------|-------|-----------|
-| Notas médicas | `03-Resources/*.md` | Obsidian vault, Zettelkasten |
+| Notas médicas | `resources/*.md` | Obsidian vault, Zettelkasten |
 | Conteúdo Notion | `scripts/output/notion-*-masterpiece.md` | Copiar para Masterpiece DB |
 | Workflow config | `config/workflows.yaml` | paper_to_notion, weekly_medical_digest |
 | Pipeline doc | `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` | Detalhes técnicos |
@@ -115,7 +115,7 @@ uv run python scripts/atualizar_tema.py -t "Ascite" --content-file path/to/conte
 - [ ] Busca executada (`--fetch --tier1 --recent`)
 - [ ] Consensus/Scite consultados (se evidência conflitante)
 - [ ] Definição e Pontos-Chave preenchidos
-- [ ] Nota Obsidian em `03-Resources/`
+- [ ] Nota Obsidian em `resources/`
 - [ ] Página Notion criada no Masterpiece DB
 - [ ] `last_review` atualizado
 - [ ] Links para notas relacionadas (`[[Cirrose]]`, etc.)

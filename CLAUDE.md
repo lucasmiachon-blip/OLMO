@@ -1,6 +1,6 @@
 # CLAUDE.md - AI Agent Ecosystem
 
-Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica nov/2026 (120 questoes).
+Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica dez/2026 (120 questoes).
 Pesquisa MBE, ensino, organizacao, monitoramento AI. Maximo valor, minimo custo.
 
 ## Architecture
@@ -38,7 +38,7 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `content/aulas/scripts/` → linters compartilhados (lint-slides, done-gate, QA)
 - QA: `npm run qa:screenshots:grade` (Playwright + C8 font-size audit)
 
-### Concurso R3 Clinica Medica (nov/2026)
+### Concurso R3 Clinica Medica (dez/2026)
 - `assets/provas/` → PDFs de bancas R3 (gitignored)
 - `assets/sap/` → MKSAP e SAPs de especialidade (gitignored)
 - Skills: `/concurso` (plano de estudo) + `/exam-generator` (questoes anti-cue)

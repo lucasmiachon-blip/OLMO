@@ -137,7 +137,7 @@ skills:
     description: "Metodologia de ensino, andragogia, slideologia, diario docente"
   concurso:
     path: ".claude/skills/concurso"
-    description: "Prep concurso nov/2026, Anki AI, evidence-based learning"
+    description: "Prep concurso dez/2026, Anki AI, evidence-based learning"
   ai-learning:
     path: ".claude/skills/ai-learning"
     description: "AI fluency (ensino + dev) + monitoring (modelos, tools, benchmarks)"

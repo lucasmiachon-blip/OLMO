@@ -12,7 +12,7 @@
 5. **Knowledge base unificada** — Notion (publico) + Obsidian (local) + Zotero (refs)
 6. **Ensino** — slideologia, andragogia, AI fluency, error log
 7. **Dev AI** — curadoria 2x/semana (MCP, Agent SDK, agentic patterns)
-8. **Concurso nov/2026** — 120 questoes, spaced repetition, Anki AI-driven
+8. **Concurso dez/2026** — 120 questoes, spaced repetition, Anki AI-driven
 
 ## Regra de Ouro
 

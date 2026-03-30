@@ -15,7 +15,7 @@ PubMed (tier1) ──► Consensus (consenso %) ──► Scite (citation check)
                                     │
                     ┌───────────────┴───────────────┐
                     ▼                               ▼
-              Obsidian (03-Resources/)        Notion (Masterpiece DB)
+              Obsidian (resources/)        Notion (Masterpiece DB)
               - evidence_level               - Nivel Evidencia
               - last_review                   - Ultima Revisao
               - references [tipo]            - Referencias com PMID
@@ -75,7 +75,7 @@ Quando precisar de classificação intermediária (consenso %, citation intent):
 
 ## 4. Output: Obsidian
 
-Arquivo: `03-Resources/<tema>.md`
+Arquivo: `resources/<tema>.md`
 
 ```yaml
 ---

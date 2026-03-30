@@ -1,38 +1,37 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 24 | 2026-03-29
+> Sessao 25 | 2026-03-29
 
 ## ESTADO ATUAL
 
-Monorepo funcional. 2 subsistemas validados end-to-end:
+Monorepo funcional. Docs sincronizados com timeline correta (concurso dez/2026, estudo mai/2026).
 
-**Python** — CI verde: ruff clean, mypy OK, 47 testes passando. Agents sao scaffolds (~30% implementados), config/safety/routing 100%.
+**Python** — CI verde: ruff clean, mypy OK, 47 testes. Agents scaffolds (~30%), config/safety/routing 100%.
 
-**Aulas** — 2 aulas live em deck.js unificado:
-- `cirrose/` — 44 slides, GSAP animacoes, case-panel, assertion-evidence. Producao. Lint clean.
-- `grade/` — 58 slides, migrada de Reveal.js→deck.js (sessao 24). **QA diagnosticou ilegibilidade: 9/10 slides falham C8 (font <18px a 5m). Precisa redesign.**
-- `shared/` — promovido para `content/aulas/shared/` (design system, deck.js, engine.js, fonts). Ambas aulas compartilham.
-- Infra: npm install OK (229 pkgs), vite dev :3000, build PowerShell, lint-slides clean.
+**Aulas** — 2 aulas live (deck.js unificado):
+- `cirrose/` — 44 slides, producao, lint clean.
+- `grade/` — 58 slides, ilegivel (9/10 falham C8). Precisa redesign.
+- `shared/` — design system compartilhado. Infra OK (npm, vite, build, lint).
 
-**Concurso R3 Clinica Medica** — Mapeado, nao iniciado. Anki MCP pesquisado (v0.15.0, 18 tools), config pronta em servers.json. Falta: instalar AnkiConnect + colocar provas.
+**Concurso R3 dez/2026** — Pipeline desenhado, nao iniciado. Anki MCP config pronta, falta instalar.
 
 ## PROXIMO
 
-1. **Grade readability redesign** — Curadoria slide-a-slide: reduzir texto, aumentar fontes, quebrar slides densos. Rodar `npm run qa:screenshots:grade` apos cada batch para validar progresso.
-2. **Anki MCP setup** — Instalar AnkiConnect (add-on 2055492159) + configurar MCP
-3. **Provas + SAPs em assets/** — Lucas coloca PDFs de bancas R3 e MKSAP
-4. **Trazer metanalise/osteoporose** — Mesmo pattern da grade (copiar de aulas-magnas, rewrite template)
+1. **Grade readability redesign** — Curadoria slide-a-slide. QA: `npm run qa:screenshots:grade`.
+2. **Resgatar metanalise** — Worktree perdida em aulas_magnas. Localizar e importar.
+3. **Anki MCP setup** — AnkiConnect (add-on 2055492159) + validar MCP.
+4. **Scripts Python: path stale** — `atualizar_tema.py`, `knowledge_organizer.py`, `workflows.yaml` referenciam `03-Resources/` (renomeado para `resources/` na sessao 21).
 
 ## DECISOES ATIVAS
 
-- Abril/2026: foco total concurso. Ate la, 2 frentes (aulas + concurso).
-- Engine unificado: deck.js (nao Reveal.js). Toda aula nova usa o mesmo template pattern.
-- STRATEGY.md fase 1 (CSS @layer) adiada ate grade estar legivel.
+- Maio/2026: foco total concurso. Abril = housekeeping aulas + preparar terreno.
+- Osteoporose congelada. Metanalise entra em breve.
+- Engine: deck.js. STRATEGY.md fase 1 adiada ate grade legivel.
 
 ## CUIDADOS
 
-- **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server em paralelo. Matar por PID especifico.
-- Grade tem 404 JS errors (recursos faltando) — investigar na sessao de redesign.
+- **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
+- Grade tem 404 JS errors (recursos faltando).
 
 ## PENDENTE (herdado)
 
