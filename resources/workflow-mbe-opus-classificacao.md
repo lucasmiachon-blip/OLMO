@@ -31,7 +31,7 @@ PubMed → Consensus (% consenso) + Scite (supporting/contrasting)
          ┌──────────┴──────────┐
          ▼                    ▼
     Notion              Obsidian
-  (Masterpiece)      (03-Resources/)
+  (Masterpiece)      (resources/)
 ```
 
 ## Papel do Opus

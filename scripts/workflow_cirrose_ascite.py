@@ -20,7 +20,7 @@ from pathlib import Path
 
 # Vault: projeto root (tem .obsidian) ou data/obsidian-vault
 VAULT_ROOT = Path(__file__).resolve().parent.parent
-OBSIDIAN_RESOURCES = VAULT_ROOT / "03-Resources"
+OBSIDIAN_RESOURCES = VAULT_ROOT / "resources"
 OBSIDIAN_RESOURCES.mkdir(parents=True, exist_ok=True)
 
 
@@ -183,7 +183,7 @@ def main() -> None:
     print(f"3. Notion (copiar para Masterpiece): {notion_path}")
 
     print("\n=== Concluido ===")
-    print("Obsidian: notas em 03-Resources/ com tags #cirrose #ascite")
+    print("Obsidian: notas em resources/ com tags #cirrose #ascite")
     print(
         "Notion: abra scripts/output/notion-cirrose-masterpiece.md e crie pagina no Masterpiece DB"
     )

@@ -285,12 +285,12 @@ workflows:
       - name: "publish_to_obsidian"
         type: "local"
         action: |
-          Criar nota em 03-Resources/ com:
+          Criar nota em resources/ com:
           - Frontmatter: tags (topico, mbe, evidence_level), last_review, references
           - Conteudo: definicao, pontos-chave, referencias PMID
           - Links bidirecionais [[topicos relacionados]]
           Usar atualizar_tema.py ou script equivalente
-        output: "03-Resources/<tema>.md"
+        output: "resources/<tema>.md"
         cost: "$0.00"
 
   # Nota Rapida → Evidencia → Notion

@@ -23,7 +23,7 @@ from pathlib import Path
 
 # Import fetch apenas quando --fetch
 VAULT_ROOT = Path(__file__).resolve().parent.parent
-OBSIDIAN_RESOURCES = VAULT_ROOT / "03-Resources"
+OBSIDIAN_RESOURCES = VAULT_ROOT / "resources"
 OUTPUT_DIR = VAULT_ROOT / "scripts" / "output"
 
 
