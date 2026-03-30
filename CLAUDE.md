@@ -1,6 +1,6 @@
 # CLAUDE.md - AI Agent Ecosystem
 
-Medico + Professor + Pesquisador + Dev AI. Concurso nov/2026 (120 questoes).
+Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica nov/2026 (120 questoes).
 Pesquisa MBE, ensino, organizacao, monitoramento AI. Maximo valor, minimo custo.
 
 ## Architecture
@@ -23,22 +23,31 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 
 ## Key Files
 
+### Python (CI verde: ruff + mypy + 47 testes)
 - `orchestrator.py` → entry point
 - `config/ecosystem.yaml` → agentes + model routing
 - `config/rate_limits.yaml` → budget ($100/mes max)
 - `config/mcp/servers.json` → 16 MCPs (13 connected, 3 planned)
 - `hooks/` → 2 hooks (notification desktop, stop session-hygiene)
+
+### Aulas (Node.js: `cd content/aulas && npm run dev`)
+- `content/aulas/shared/` → design system (base.css OKLCH, deck.js, engine.js, fonts woff2)
+- `content/aulas/cirrose/` → 44 slides deck.js+GSAP (producao). Rules: `.claude/rules/slide-rules.md`
+- `content/aulas/grade/` → 58 slides deck.js (migrada, precisa redesign legibilidade)
+- `content/aulas/STRATEGY.md` → roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
+- `content/aulas/scripts/` → linters compartilhados (lint-slides, done-gate, QA)
+- QA: `npm run qa:screenshots:grade` (Playwright + C8 font-size audit)
+
+### Concurso R3 Clinica Medica (nov/2026)
+- `assets/provas/` → PDFs de bancas R3 (gitignored)
+- `assets/sap/` → MKSAP e SAPs de especialidade (gitignored)
+- Skills: `/concurso` (plano de estudo) + `/exam-generator` (questoes anti-cue)
+
+### Docs & Meta
 - `ECOSYSTEM.md` → mapa completo (perfil, objetivos, KPIs, budget)
-- `PENDENCIAS.md` → checklist de setup
+- `PENDENCIAS.md` → checklist de setup e backlog
 - `HANDOFF.md` → continuidade entre sessoes
-- `apps/` → frontend/API (futuro)
-- `content/aulas/` → slides interativos. Node.js: `cd content/aulas && npm run dev`
-- `content/aulas/shared/` → design system compartilhado (base.css, deck.js, engine.js, fonts)
-- `content/aulas/cirrose/` → 44 slides deck.js + GSAP (live). Regras em `.claude/rules/slide-rules.md`
-- `content/aulas/grade/` → 58 slides deck.js (live). Sistema GRADE + CAC + dislipidemias SBC 2025
-- `content/aulas/STRATEGY.md` → roadmap de interatividade profissional + pesquisa
-- `assets/provas/` → PDFs de bancas R3 (gitignored). `assets/sap/` → MKSAP e SAPs
-- `content/blog/` → blog (futuro)
+- `docs/ARCHITECTURE.md` → decisoes tecnicas
 
 ## Conventions
 
@@ -52,6 +61,7 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `pytest tests/` | `ruff check .`
 - Hooks em `hooks/` (bash scripts, config em `.claude/settings.local.json`)
 - Rules pesadas (`mcp_safety`, `notion-cross-validation`) com `paths:` frontmatter — so carregam em sessoes relevantes
+- **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server. Matar por PID especifico.
 
 ## Self-Improvement
 

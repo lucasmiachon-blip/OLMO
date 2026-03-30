@@ -2,35 +2,34 @@
 
 ## Sessao 24 — 2026-03-29
 
-### Aulas Infra (validado end-to-end)
-- `npm install` executado: 229 packages, 0 vulnerabilidades
-- Vite dev server: cirrose HTTP 200 em localhost:3000
-- `npm run build:cirrose`: 44 slides concatenados com sucesso
-- `npm run lint:slides`: clean (0 erros)
+### Aulas Infra
+- `npm install`: 229 packages, 0 vulnerabilidades. Node v20.20.0.
+- Vite dev server validado: cirrose + grade HTTP 200 em localhost:3000
+- Build: `build:cirrose` (44 slides) + `build:grade` (58 slides) OK
+- Lint slides: clean
 
-### Concurso Mapeado
-- Anki MCP pesquisado: `@ankimcp/anki-mcp-server` v0.15.0 (18 tools, publicado 2026-03-28)
-- Pipeline documentado: provas reais → analise padroes → questoes calibradas → Anki → error log
-- PENDENCIAS.md: secao concurso reescrita com proximo passo concreto
-- Memory: project_concurso_timeline (foco total a partir de abril)
+### Arquitetura Aulas
+- `shared/` promovido de `cirrose/shared/` → `content/aulas/shared/` (design system compartilhado)
+- Imports atualizados: `./shared/` → `../shared/` em cirrose (template + slide-registry)
+- Grade resgatada de `aulas-magnas`: 58 slides, template reescrito Reveal.js → deck.js
+- `package.json`: +`dev:grade`, +`build:grade`, +`qa:screenshots:grade`
 
-### Grade QA Script
-- `grade/scripts/qa-batch-screenshot.mjs` adaptado do cirrose: Playwright screenshots + metricas
-- Check C8 novo: auditoria font-size minimo para legibilidade a 5m (limiar 18px)
-- Diagnostico: 9/10 slides falham legibilidade (fontes 14px, overflow, >40 palavras/slide)
-- `package.json`: +`qa:screenshots:grade`
+### Grade QA (legibilidade)
+- `grade/scripts/qa-batch-screenshot.mjs`: Playwright screenshots + metricas automatizadas
+- Check C8 novo: auditoria font-size minimo 18px (legibilidade a 5m, projecao padrao)
+- **Diagnostico**: 9/10 slides falham C8 (fontes 14px), 8/10 overflow, 6/10 >40 palavras
+- 2 slides com 404 JS errors (recursos faltando)
 
-### Aulas Arquitetura
-- `shared/` promovido: `cirrose/shared/` → `content/aulas/shared/` (compartilhado entre aulas)
-- Cirrose: imports atualizados (`./shared/` → `../shared/`), build + dev OK
-- Grade resgatada de aulas-magnas: 58 slides copiados, template migrado Reveal.js → deck.js
-- Grade: build OK (58 slides), dev server HTTP 200, lint clean
-- `package.json`: +`dev:grade`, +`build:grade`
+### Concurso R3 Clinica Medica
+- Anki MCP: v0.15.0 (18 tools), config `--stdio` em servers.json (status: planned)
+- Pipeline documentado: provas+SAPs → analise padroes → questoes calibradas → Anki
+- `assets/provas/` + `assets/sap/` criados, PDFs gitignored
+- Memory: `project_concurso_timeline` (foco total a partir de abril)
 
 ### Housekeeping
-- PENDENCIAS.md: removido item stale Haiku 3 (config ja usa haiku-4-5)
-- HANDOFF.md: atualizado para sessao 24
-- Vite background processes limpos
+- PENDENCIAS.md: Haiku 3 stale removido, secao concurso reescrita, ensino atualizado
+- CLAUDE.md: Key Files reorganizado por subsistema (Python, Aulas, Concurso, Docs)
+- Documentacao final: HANDOFF, CHANGELOG, CLAUDE.md, PENDENCIAS limpos para hidratacao
 
 ## Sessao 23 — 2026-03-29
 
