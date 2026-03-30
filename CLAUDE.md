@@ -48,6 +48,7 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `PENDENCIAS.md` → checklist de setup e backlog
 - `HANDOFF.md` → continuidade entre sessoes
 - `docs/ARCHITECTURE.md` → decisoes tecnicas
+- `docs/SYNC-NOTION-REPO.md` → protocolo sync Notion ↔ Repo (source of truth, collection IDs)
 
 ## Conventions
 

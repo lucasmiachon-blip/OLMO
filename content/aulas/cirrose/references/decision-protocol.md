@@ -59,3 +59,11 @@ Este protocolo **não** se aplica a:
 - Correções factuais com PMID verificado
 
 Para esses, o agente age e commita normalmente.
+
+## See also
+
+- Arco narrativo (contexto para decisoes) → `narrative.md`
+- Dados clinicos (verificar antes de alterar) → `evidence-db.md`
+- Dados do paciente (source of truth) → `CASE.md`
+- Disclosure AI → `coautoria.md`
+- Regras de edicao de slides → `.claude/rules/slide-rules.md`

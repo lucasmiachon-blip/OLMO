@@ -81,8 +81,13 @@
 | ATTIRE | PBE (A2-05) + LVP (A2-03) | ACLF (A2-11): albumina rotineira NÃO funciona — contraste contextualizado |
 | Carvedilol abandonado | A2-01 (gatilhos) | HDA (A2-06): se não tivesse parado, não sangrava |
 
-## Referência Cruzada
+## See also
 
 - Dados de literatura/trials → `evidence-db.md`
 - Arco narrativo e pacing → `narrative.md`
+- Trials obrigatorios + status PDF → `must-read-trials.md`
+- Skeletons HTML (checkpoint layout) → `archetypes.md`
+- Protocolo de decisoes sobre dados → `decision-protocol.md`
+- Disclosure AI → `coautoria.md`
 - Estrutura de slides → `slides/_manifest.js`
+- Sync Notion ↔ Repo → `docs/SYNC-NOTION-REPO.md`

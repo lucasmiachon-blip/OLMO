@@ -46,6 +46,7 @@ Obsidian     = CONECTAR  Zotero      = REFERENCIAR Canva    = DESIGN
 | Checklist setup | `PENDENCIAS.md` | aqui |
 | Handoff entre sessoes | `HANDOFF.md` | aqui |
 | Decisoes tecnicas | `docs/ARCHITECTURE.md` | aqui |
+| Sync Notion ↔ Repo | `docs/SYNC-NOTION-REPO.md` | aqui |
 | Aulas design system | `content/aulas/shared/` | aqui |
 | Aulas roadmap tecnico | `content/aulas/STRATEGY.md` | aqui |
 | Aulas QA scripts | `content/aulas/*/scripts/` | aqui |

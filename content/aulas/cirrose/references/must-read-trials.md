@@ -105,3 +105,11 @@
 ---
 
 *Atualizado: 03/mar/2026 — gerado a partir de evidence-db.md*
+
+## See also
+
+- Dados clinicos detalhados com PMID → `evidence-db.md`
+- Dados canonicos do paciente → `CASE.md`
+- Arco narrativo (onde cada trial aparece) → `narrative.md`
+- Disclosure AI → `coautoria.md`
+- Sync Notion ↔ Repo (References DB) → `docs/SYNC-NOTION-REPO.md`

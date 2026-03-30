@@ -7,9 +7,9 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "vite",
-    "dev:cirrose": "vite --open /cirrose/index.html",
-    "dev:grade": "vite --open /grade/index.html",
+    "dev": "vite --port 4100 --strictPort",
+    "dev:cirrose": "vite --port 4100 --strictPort --open /cirrose/index.html",
+    "dev:grade": "vite --port 4101 --strictPort --open /grade/index.html",
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "lint:slides": "node scripts/lint-slides.js",

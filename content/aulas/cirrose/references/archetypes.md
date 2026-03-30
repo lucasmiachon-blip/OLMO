@@ -174,3 +174,11 @@ align-content: start;
 | `archetype-recap` | 3 take-homes de fechamento | s-close |
 
 Skeleton HTML será definido quando cada archetype for implementado em `archetypes.css`.
+
+## See also
+
+- Dados canonicos do paciente (checkpoint layouts) → `CASE.md`
+- Arco narrativo (quais archetypes por slide) → `narrative.md`
+- Regras de edicao de slides → `.claude/rules/slide-rules.md`
+- Design system (CSS tokens, grid) → `shared/css/base.css`
+- Engine de animacoes → `shared/js/engine.js`

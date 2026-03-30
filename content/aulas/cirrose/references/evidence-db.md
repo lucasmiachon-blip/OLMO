@@ -351,4 +351,14 @@
 
 ## Notion References DB
 
-15 PMIDs pendentes. IDs: `docs/SYNC-NOTION-REPO.md`
+15 PMIDs pendentes. Protocolo de sync: `docs/SYNC-NOTION-REPO.md`
+Collection ID: `collection://2b24bb6c-91be-42c0-ae28-908a794e5cf5`
+
+## See also
+
+- Dados canonicos do paciente → `CASE.md`
+- Arco narrativo e pacing → `narrative.md`
+- Trials obrigatorios + status PDF → `must-read-trials.md`
+- Protocolo de decisoes sobre dados → `decision-protocol.md`
+- Disclosure AI → `coautoria.md`
+- Sync Notion ↔ Repo → `docs/SYNC-NOTION-REPO.md`

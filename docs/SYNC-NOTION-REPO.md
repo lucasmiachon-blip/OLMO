@@ -1,0 +1,73 @@
+# SYNC-NOTION-REPO — Protocolo de Sincronizacao
+
+> Quais DBs Notion se conectam a quais arquivos do repo, quem e source of truth, e como sincronizar.
+> Referenciado por: `content/aulas/cirrose/references/narrative.md`, `evidence-db.md`
+
+---
+
+## Source of Truth
+
+| Dado | Source of Truth | Espelho |
+|------|----------------|---------|
+| Dados do paciente (labs, MELD, checkpoints) | `cirrose/references/CASE.md` | Notion (read-only copy) |
+| Arco narrativo (atos, pacing, Chekhov's guns) | `cirrose/references/narrative.md` | Notion "Biblia Narrativa" |
+| Dados clinicos com PMID | `cirrose/references/evidence-db.md` | Notion References DB |
+| Lista de trials / PDF status | Notion References DB | `cirrose/references/must-read-trials.md` |
+| Slide HTML/CSS/JS | Repo (`cirrose/slides/`) | — |
+| Coautoria e disclosure | `cirrose/references/coautoria.md` | — |
+
+**Regra:** quando repo e Notion divergem, **repo prevalece** para dados clinicos e narrativa.
+Notion prevalece apenas para **status de PDF** (coluna `Verified` na References DB).
+
+---
+
+## Notion DBs Relevantes
+
+| DB | Collection ID | Uso |
+|----|---------------|-----|
+| **References DB** (trials, PDFs) | `collection://2b24bb6c-91be-42c0-ae28-908a794e5cf5` | Trials com PMID, status de PDF, tier de evidencia |
+| **Biblia Narrativa** | *(page, nao collection — buscar via `notion-search`)* | Draft narrativo original (ChatGPT 5.4). Repo e canonico. |
+| **Teaching Log** | *(planejado, nao criado — ver PENDENCIAS.md)* | Feedback de aulas, acoes corretivas |
+
+---
+
+## Workflows de Sync
+
+### Repo → Notion (push)
+
+Quando: novo PMID verificado em `evidence-db.md`
+
+1. Verificar PMID via PubMed MCP
+2. Atualizar `evidence-db.md` (status: VERIFICADO)
+3. Atualizar `must-read-trials.md` se trial e must-read
+4. No Notion References DB: criar/atualizar entrada, setar `Verified = true`
+5. Seguir protocolo `.claude/rules/mcp_safety.md` (1 write por vez, verificar resultado)
+
+### Notion → Repo (pull)
+
+Quando: Lucas marca PDF como encontrado no Notion
+
+1. No Notion: setar `Verified = true` + upload PDF
+2. No repo: atualizar coluna `PDF?` em `must-read-trials.md` (✓)
+3. Nao copiar conteudo do Notion para o repo — so flags de status
+
+### Auditoria (periodica)
+
+1. Filtrar Notion References DB: `Verified = false`
+2. Comparar com `must-read-trials.md` seção "Pendentes"
+3. Buscar PDFs faltantes
+4. Atualizar ambos (Notion + repo)
+
+---
+
+## Seguranca
+
+- Notion MCP: protocolo em `.claude/rules/mcp_safety.md`
+- Cross-validation para batch > 5: `.claude/rules/notion-cross-validation.md`
+- Operacoes seguras: `notion-search`, `notion-fetch`
+- Operacoes arriscadas: `notion-update-page`, `notion-create-pages`
+- Regra de ouro: 1 write por vez, verificar resultado, erro = PARAR
+
+---
+
+Coautoria: Lucas + Opus 4.6 | 2026-03-29

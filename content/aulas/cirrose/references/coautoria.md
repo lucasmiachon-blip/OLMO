@@ -68,3 +68,10 @@ Adaptar conforme diretrizes da sociedade organizadora. ICMJE é o mínimo.
 - ICMJE Recommendations (jan/2024, jan/2025): IA não pode ser autor; disclosure em Methods/Acknowledgments
 - COPE Position Statement (2024): autores responsáveis por output de IA
 - SAGE AI Author Guidelines: framework assisted vs generated vs author
+
+## See also
+
+- Tabela completa de membros da alianca → `docs/coauthorship_reference.md`
+- Protocolo de decisoes (quando escalar) → `decision-protocol.md`
+- Arco narrativo (coautoria por artefato) → `narrative.md`
+- Regras globais de coautoria → `.claude/rules/coauthorship.md`

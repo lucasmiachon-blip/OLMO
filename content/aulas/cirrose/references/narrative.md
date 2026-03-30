@@ -220,3 +220,13 @@ Ex: s-a2-03 e s-a2-04 herdam `warning` (herdado de s-a2-02).
 8. **MELD intermediários são construções narrativas**, não dados clínicos. Rotular nos speaker notes como `[NARRATIVO]` quando o valor não vier de CASE.md.
 9. **Ato 2 é cascata, não lista.** Cada slide é consequência do anterior. Reordenar = destruir causalidade clínica.
 10. **Albumina é distribuída, não standalone.** Aparece em LVP, PBE e ACLF challenge. Apêndice tem versão consolidada.
+
+## See also
+
+- Dados canonicos do paciente → `CASE.md`
+- Dados clinicos com PMID → `evidence-db.md`
+- Trials obrigatorios + status PDF → `must-read-trials.md`
+- Skeletons HTML para implementar slides → `archetypes.md`
+- Protocolo de decisoes narrativas → `decision-protocol.md`
+- Disclosure AI → `coautoria.md`
+- Sync Notion ↔ Repo → `docs/SYNC-NOTION-REPO.md`
