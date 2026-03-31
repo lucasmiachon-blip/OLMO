@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## Sessao 30 — 2026-03-31
+
+### Skills
+- `skill-creator`: substituido por versao oficial Anthropic (18 arquivos, repo anthropics/skills)
+- `slide-authoring`: nova skill (65 linhas SKILL.md + references/patterns.md com 5 padroes HTML)
+- Avaliadas e descartadas: 7 skills ui-ux-pro-max (irrelevantes para nosso stack deck.js)
+- Avaliado claude-mem (44K stars): decisao de instalar em sessao dedicada futura
+
+### Config
+- `statusline.sh`: nome da sessao em magenta bold (destaque visual)
+- `pyproject.toml`: ruff exclude para `.claude/skills/skill-creator/` (codigo externo)
+
+### Memory
+- Criado sistema de memoria persistente (MEMORY.md + 2 memorias: anti-sycophancy, mentorship)
+
 ## Sessao 29 — 2026-03-31
 
 ### Hooks
