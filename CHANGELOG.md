@@ -14,6 +14,12 @@
 - `slide-rules.md`: +E32, +§7 GSAP armadilhas, +§8 scaling arquitetura
 - `ERROR-LOG.md` metanalise: 5 licoes herdadas do aulas-magnas
 
+### Cirrose — Feedback pós-aula (2026-03-31)
+- Novo `cirrose/NOTES.md`: feedback da aula real
+- Erro: indicação de albumina em HDA (albumina é SBP, não HDA)
+- Tópico novo: coagulopatia no cirrótico (hemostasia rebalanceada, TEG/ROTEM, PVT)
+- Pronúncia cACLD: letra por letra internacionalmente, DHCAc não é usado verbalmente no BR
+
 ### Legacy Cleanup
 - `aulas-magnas` movido para `legacy/` (fora do repo)
 - `wt-metanalise` movido para `legacy/` (worktree pruned)

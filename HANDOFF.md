@@ -9,7 +9,7 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 **Python** — ruff clean, mypy OK, 47 testes. Agents scaffolds (~30%), config/safety/routing 100%.
 
 **Aulas** — 3 aulas live (deck.js unificado):
-- `cirrose/` — 44 slides, producao. Refatoracao gradual: remover archetypes CSS.
+- `cirrose/` — 44 slides, producao. Aula dada 2026-03-31 (feedback em NOTES.md). Pendente: coagulopatia, fix albumina/HDA.
 - `metanalise/` — 18 slides, lint clean, server OK. 3/18 QA DONE, 14 LINT-PASS.
 - `grade/` — 58 slides, ilegivel (9/10 falham C8). Precisa redesign.
 - `shared/` — design system + GSAP + Lottie + D3 + decision-protocol + coautoria. Vite: 4100/4101/4102.
@@ -21,10 +21,11 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 
 ## PROXIMO
 
-1. **Metanalise QA** — QA s-checkpoint-1 (screenshots + scorecard 14-dim), depois 14 restantes.
-2. **Grade readability redesign** — Curadoria slide-a-slide.
-3. **Presenter.js rewrite** — Separar HTML, corrigir timer, corrigir async import.
-4. **Anki MCP setup** — AnkiConnect (add-on 2055492159) + validar MCP.
+1. **Cirrose: migrar conteudo completo** de legacy/aulas-magnas + incorporar feedback pos-aula (coagulopatia, albumina/HDA, cACLD).
+2. **Metanalise QA** — QA s-checkpoint-1 (screenshots + scorecard 14-dim), depois 14 restantes.
+3. **Grade readability redesign** — Curadoria slide-a-slide.
+4. **Presenter.js rewrite** — Separar HTML, corrigir timer, corrigir async import.
+5. **Anki MCP setup** — AnkiConnect (add-on 2055492159) + validar MCP.
 
 ## DECISOES ATIVAS
 
