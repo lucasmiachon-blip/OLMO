@@ -4,7 +4,7 @@
 # Evento: Stop | Timeout: 10s | Exit: sempre 0 (nunca bloqueia)
 
 powershell.exe -NoProfile -Command "
-  [console]::Beep(1200, 150)
+  # [console]::Beep(1200, 150)
   Add-Type -AssemblyName System.Windows.Forms
   \$n = New-Object System.Windows.Forms.NotifyIcon
   \$n.Icon = [System.Drawing.SystemIcons]::Information

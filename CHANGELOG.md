@@ -15,7 +15,7 @@
 - `ERROR-LOG.md` metanalise: 5 licoes herdadas do aulas-magnas
 
 ### Infra
-- Repo renomeado: `organizacao1` → `LM` (via `gh repo rename`)
+- Repo renomeado: `organizacao1` → `LM` → `OLMO` (via `gh repo rename`)
 
 ### Cirrose — Feedback pós-aula (2026-03-31)
 - Novo `cirrose/NOTES.md`: feedback da aula real
