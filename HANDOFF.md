@@ -1,47 +1,52 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 27 | 2026-03-29
+> Sessao 28 | 2026-03-31
 
 ## ESTADO ATUAL
 
-Monorepo funcional. Arvore limpa (5 stubs removidos, paths fixados, TREE.md criado). CI verde.
+Monorepo funcional. CI verde. Docs reestruturados (ECOSYSTEM absorvido, CHANGELOG arquivado).
 
 **Python** — ruff clean, mypy OK, 47 testes. Agents scaffolds (~30%), config/safety/routing 100%.
 
-**Aulas** — 2 aulas live (deck.js unificado):
-- `cirrose/` — 44 slides, producao, lint clean. 7 reference docs cross-linked.
+**Aulas** — 3 aulas live (deck.js unificado):
+- `cirrose/` — 44 slides, producao. Refatoracao gradual: remover archetypes CSS.
+- `metanalise/` — 18 slides, migrada (2026-03-31). 3/18 QA DONE, 14 LINT-PASS.
 - `grade/` — 58 slides, ilegivel (9/10 falham C8). Precisa redesign.
-- `shared/` — design system compartilhado. Vite: cirrose=4100, grade=4101 (strictPort).
+- `shared/` — design system + GSAP + Lottie + D3. Vite: 4100/4101/4102.
+- `presenter.js` criado mas NAO integrado — precisa reescrever (HTML separado, timer fix).
 
-**Concurso R3 dez/2026** — Pipeline desenhado, nao iniciado. Anki MCP config pronta, falta instalar.
+**Concurso R3 dez/2026** — Pipeline desenhado, nao iniciado.
 
 ## PROXIMO
 
-1. **Grade readability redesign** — Curadoria slide-a-slide. QA: `npm run qa:screenshots:grade`.
-2. **Resgatar metanalise** — Branch `feat/metanalise-mvp` (wt-metanalise). 18 slides deck.js.
-3. **Anki MCP setup** — AnkiConnect (add-on 2055492159) + validar MCP.
+1. **Grade readability redesign** — Curadoria slide-a-slide.
+2. **Metanalise QA** — QA s-checkpoint-1, depois 14 slides restantes.
+3. **Presenter.js rewrite** — Separar HTML, corrigir timer, corrigir async import.
+4. **Anki MCP setup** — AnkiConnect (add-on 2055492159) + validar MCP.
 
 ## DECISOES ATIVAS
 
-- Maio/2026: foco total concurso. Abril = housekeeping aulas + preparar terreno.
-- Osteoporose congelada (70 slides Reveal.js, repo aulas-magnas). Decidir formato.
+- CSS: tokens (base.css) + composicao livre por slide. Sem archetypes.
+- Maio/2026: foco total concurso. Abril = housekeeping aulas.
 - Engine: deck.js. STRATEGY.md fase 1 adiada ate grade legivel.
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - Grade tem 404 JS errors (recursos faltando).
-- Vite: outro projeto deve usar range diferente (ex: 4200+) para evitar colisao.
+- Vite: outro projeto deve usar range diferente (ex: 4200+).
 
 ## PENDENTE (herdado)
 
 - [ ] Google Drive MCP: OAuth credentials
 - [ ] BudgetTracker (SQLite, configurado mas inativo)
 - [ ] claude-task-master (MCP GTD)
+- [ ] Osteoporose (70 slides Reveal.js, repo aulas-magnas). Decidir formato.
+- [ ] Font-size audit cirrose: 12+ valores abaixo 28px threshold
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-03-29
+Coautoria: Lucas + Opus 4.6 | 2026-03-31

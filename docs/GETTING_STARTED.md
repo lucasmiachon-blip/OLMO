@@ -87,7 +87,7 @@ claude "gere o digest medico semanal e publique no Notion"
 ```
 organizacao/
 ├── CLAUDE.md                 # Instrucoes root (~74 linhas)
-├── ECOSYSTEM.md              # Mapa completo do ecossistema
+├── CHANGELOG.md              # Historico (ultimas 3 sessoes; arquivo em docs/)
 ├── PENDENCIAS.md             # Checklist de setup e custos
 ├── HANDOFF.md                # Continuidade entre sessoes
 ├── orchestrator.py           # Entry point Python

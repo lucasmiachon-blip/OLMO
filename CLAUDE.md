@@ -17,6 +17,23 @@ Orchestrator (Opus 4.6) ─── rota, planeja, decide
     └── WebMonitor (Haiku)
 ```
 
+## Objectives
+
+1. Digest medico semanal (PubMed→Notion)
+2. Pipeline nota/paper → MBE → Notion (GRADE, CONSORT, STROBE, PRISMA)
+3. Knowledge base: Notion (publico) + Obsidian (local) + Zotero (refs)
+4. Ensino: slideologia + AI fluency
+5. Concurso dez/2026: 120 questoes, Anki AI-driven
+6. Dev AI: curadoria 2x/semana
+
+## Tool Assignment
+
+```
+Claude Code=FAZER  Claude.ai=PENSAR  Cursor=EDITAR  Gemini=PESQUISAR
+Perplexity=BUSCAR  NotebookLM=ESTUDAR ChatGPT=VALIDAR Canva=DESIGN
+Notion=PUBLICAR    Obsidian=CONECTAR  Zotero=REFERENCIAR
+```
+
 ## Efficiency: Local-First → Cache → Batch
 
 Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex→Opus
@@ -33,6 +50,7 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 ### Aulas (Node.js: `cd content/aulas && npm run dev`)
 - `content/aulas/shared/` → design system (base.css OKLCH, deck.js, engine.js, fonts woff2)
 - `content/aulas/cirrose/` → 44 slides deck.js+GSAP (producao). Rules: `.claude/rules/slide-rules.md`
+- `content/aulas/metanalise/` → 18 slides deck.js+GSAP (3/18 QA DONE). Valgimigli 2025 Lancet.
 - `content/aulas/grade/` → 58 slides deck.js (migrada, precisa redesign legibilidade)
 - `content/aulas/STRATEGY.md` → roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
 - `content/aulas/scripts/` → linters compartilhados (lint-slides, done-gate, QA)
@@ -48,8 +66,7 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `docs/TREE.md` → mapa completo da arvore do projeto
 
 ### Docs & Meta
-- `ECOSYSTEM.md` → mapa completo (perfil, objetivos, KPIs, budget)
-- `PENDENCIAS.md` → checklist de setup e backlog
+- `PENDENCIAS.md` → checklist de setup e infra
 - `HANDOFF.md` → continuidade entre sessoes
 - `docs/ARCHITECTURE.md` → decisoes tecnicas
 - `docs/SYNC-NOTION-REPO.md` → protocolo sync Notion ↔ Repo (source of truth, collection IDs)

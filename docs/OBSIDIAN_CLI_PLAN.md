@@ -8,7 +8,7 @@
 - **KnowledgeOrganizer** já escreve notas no vault via file I/O (`Path.write_text`)
 - Obsidian está em PENDENCIAS como "futuro" e HANDOFF como "Obsidian + Zotero (futuro)"
 - **Obsidian CLI** (v1.12.4+, atual 1.12.5) permite comandar o vault via terminal
-- Regra de ouro: `Obsidian = CONECTAR` (ECOSYSTEM.md)
+- Regra de ouro: `Obsidian = CONECTAR` (CLAUDE.md, Tool Assignment)
 
 ## Objetivo
 

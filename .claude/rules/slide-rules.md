@@ -15,7 +15,7 @@ paths:
 
 ```html
 <section id="s-a1-damico">
-  <div class="slide-inner slide-navy">
+  <div class="slide-inner">
     <h2>Carvedilol reduz HVPG em 20% vs placebo</h2>
     <div class="evidence" data-animate="stagger">...</div>
   </div>
@@ -29,9 +29,27 @@ paths:
 **Regras estruturais:**
 - `<h2>` = asserção clínica (NUNCA rótulo genérico). `<ul>`/`<ol>` PROIBIDOS em slides.
 - `<aside class="notes">` obrigatório em TODO `<section>`.
-- Background escuro: CSS `.slide-navy` no `.slide-inner`.
 - NUNCA inline style com `display`/`visibility`/`opacity` no `<section>` (E07).
+- NUNCA CSS inline no HTML. Todo layout vai no `{aula}.css`, scopado por `#s-{id}`.
 - Layout vai dentro de `.slide-inner`, NUNCA no `<section>`.
+
+## 1b. CSS — Tokens + Composição Livre
+
+**Princípio:** tokens padronizam (cor, tipo, espaço), layout é livre por slide.
+Fontes: Duarte (unity), Alley (assertion-evidence), Refactoring UI (design system + composição livre).
+
+**Obrigatório:**
+- Cores, tipografia, espaçamento: via tokens do `base.css`. NUNCA valor literal.
+- Cada slide tem layout próprio no `{aula}.css`, scopado por `#s-{id}`.
+- CSS Grid/Flex direto — sem classes de archetype intermediárias.
+- `references/archetypes.md` = referência visual para consulta, não imposição CSS.
+
+**Proibido:**
+- Classes genéricas de layout (`.slide-cards`, `.slide-headline`, `.slide-figure`) em slides novos.
+- Agente escolher layout sem aprovação do Lucas.
+- CSS inline no HTML (exceto `data-background-color` HEX quando necessário).
+
+**Decisão de layout:** Lucas decide a composição visual. Agente implementa.
 
 ## 2. Checklist Pré-Edição (OBRIGATÓRIO)
 

@@ -10,7 +10,7 @@ README.md            # Quick start
 CHANGELOG.md         # Historico sessao-a-sessao
 HANDOFF.md           # Continuidade entre sessoes (max ~30 linhas)
 PENDENCIAS.md        # Checklist setup + backlog
-ECOSYSTEM.md         # Mapa completo (perfil, objetivos, KPIs, budget)
+CHANGELOG.md         # Historico sessoes recentes (arquivo: docs/CHANGELOG-archive.md)
 orchestrator.py      # Entry point principal
 __main__.py          # Package entry
 pyproject.toml       # Config Python (uv, ruff, mypy, pytest)

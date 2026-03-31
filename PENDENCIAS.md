@@ -1,6 +1,7 @@
-# PENDENCIAS - O Que Falta Para Rodar
+# PENDENCIAS — Setup & Infraestrutura
 
-> Checklist de setup. Atualizado: 29 de Marco de 2026
+> Checklist de instalacao e configuracao. Atualizado: 31 de Marco de 2026.
+> Backlog de projeto → ver HANDOFF.md.
 
 ## MCPs (16 configurados)
 
@@ -48,50 +49,24 @@ Output  → Notion / Obsidian / Anki
 
 Regra: **nunca** ler PDF inteiro no contexto do Claude. Usar MCPs.
 
-## CONCURSO R3 CLINICA MEDICA DEZ/2026 (120 questoes) — PRIORIDADE DO ANO
+## CONCURSO R3 — Setup Pendente
 
-> Foco total a partir de maio/2026. Ate la, housekeeping aulas + preparar terreno.
-> R3 Clinica Medica — so especialidades clinicas (sem cirurgia).
-> Fontes: provas reais de bancas + SAPs (MKSAP, outros SAPs de especialidade).
-
-### Proximo Passo Concreto
 - [ ] **Instalar AnkiConnect** — Anki Desktop > Tools > Add-ons > 2055492159
 - [ ] **Configurar Anki MCP** — `npx -y @ankimcp/anki-mcp-server --stdio` (v0.15.0, 18 tools)
-- [ ] **Colocar provas reais em `assets/provas/`** — PDFs de bancas R3 para analise de padroes
+- [ ] **Colocar provas reais em `assets/provas/`** — PDFs de bancas R3
 - [ ] **Colocar SAPs em `assets/sap/`** — MKSAP e outros SAPs de especialidade
 
-### Pipeline: Provas + SAPs → Questoes Calibradas
-```
-Provas reais + SAPs (PDF) → Analise de padroes (formato, temas, dificuldade)
-→ Topicos errados → Gerar questoes no mesmo formato (anti-cue protocol)
-→ Anki cards (spaced repetition) → Error log → Revisao dirigida
-```
+## AULAS — Migracoes Pendentes
 
-### Backlog
-- [ ] Primeiro simulado baseline (120 questoes cronometrado)
-- [ ] Plano macro Mai-Dez no Notion (fases: fundacao → consolidacao → sprint final)
-- [ ] Criar decks Anki por especialidade clinica (Gastro, Hepato, Cardio, Pneumo, Nefro, etc.)
-- [ ] NotebookLM: notebooks por tema de estudo
-
-## AULAS CONGELADAS (migrar em sessao futura)
-
-- **Metanalise** — 18 slides, deck.js, branch `feat/metanalise-mvp` (wt-metanalise)
 - **Osteoporose** — 70 slides, Reveal.js (frozen), repo `aulas-magnas`. Decidir formato.
 
-## ENSINO
+## INFRA PENDENTE
 
-- [x] ~~Aulas infra~~ — npm install + vite dev + build cirrose validados (sessao 24)
-- [ ] Database Notion "Teaching Log"
-- [ ] Curriculo "AI para Alunos de Medicina" (8 aulas)
-- [x] ~~Split teaching-improvement~~ → teaching + concurso + ai-fluency (sessao 15)
-
-## INFRA
-
-- [x] ~~Haiku 3 aposentadoria~~ — config ja usa `claude-haiku-4-5` em todos os lugares
 - [ ] BudgetTracker ativar (SQLite)
 - [ ] claude-task-master (MCP GTD)
 - [ ] n8n self-hosted (automacao 24/7)
 - [ ] Cowork Skills: Extrair UpToDate, DynaMed, BMJ Best Practice
+- [ ] Database Notion "Teaching Log"
 
 ## CUSTO MENSAL
 

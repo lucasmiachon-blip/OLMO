@@ -1,0 +1,1051 @@
+/* ============================================
+   META-ANÁLISE — Lecture-specific components
+   Depends: ../../shared/css/base.css (tokens)
+   ============================================ */
+
+/* --- Page reset ---
+   deck.js handles viewport scaling via transform: scale() on #deck.
+   NO CSS zoom — it double-scales with deck.js's transform (ERRO-008).
+   base.css sets body { width: 100vw; height: 100vh; overflow: hidden }. */
+aside.notes { display: none; }
+
+/* 720p projection scale — fixed px for 1280 canvas (ERRO-008).
+   deck.js scales #deck via transform: scale(viewport/1280).
+   base.css clamp() uses vw which references viewport (1920), not canvas (1280).
+   At 1920: clamp(28px, 2.2vw, 42px) = 42px * scale(1.5) = 63px visual.
+   Fixed px computes in canvas space: 34px * scale(1.5) = 51px visual. Correct. */
+#deck {
+  --text-hero:    56px;
+  --text-h1:      38px;
+  --text-h2:      34px;
+  --text-h3:      24px;
+  --text-body:    20px;
+  --text-small:   16px;
+  --text-caption: 14px;
+}
+
+/* --- Slide layout (override base.css safe-center pseudo-elements
+   which compete with flex:1 content components) --- */
+#slide-viewport > section .slide-inner {
+  padding: 40px 64px;
+  justify-content: center;
+}
+#slide-viewport > section .slide-inner::before,
+#slide-viewport > section .slide-inner::after {
+  display: none;
+}
+
+/* --- Title slide (capa centrada) --- */
+.slide-title {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+/* Custom choreography: all elements start hidden, GSAP reveals (slide-registry.js) */
+#s-title h1,
+#s-title .title-subtitle,
+#s-title .title-identity { opacity: 0; }
+.no-js #s-title h1,
+.no-js #s-title .title-subtitle,
+.no-js #s-title .title-identity { opacity: 1; }
+@media print {
+  #s-title h1,
+  #s-title .title-subtitle,
+  #s-title .title-identity { opacity: 1; }
+}
+/* Bold idea #1: inverted weight hierarchy — h1 light 400/64px, subtitle bold 600/20px uppercase.
+   Specificity: #deck .slide-title h1 (0,1,1,1) > #deck h1 (0,1,0,1). */
+#deck .slide-title h1 {
+  font-size: 64px;
+  font-weight: 400;
+  max-width: 18ch;
+  margin: 0 auto;
+}
+
+/* --- Title: subtitle row (inverted: bold uppercase) --- */
+#deck .slide-title p.title-subtitle {
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--text-secondary);
+  margin-top: var(--space-sm);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* --- Title: pillars row — masking reveal via custom anim in slide-registry.js --- */
+.title-pillars {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.pillar {
+  overflow: hidden;
+  display: inline-block;
+}
+.pillar > span {
+  display: inline-block;
+}
+
+.pillar-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0;
+  transform: translateY(1px); /* optical center with uppercase text */
+}
+.no-js .pillar-dot {
+  opacity: 1;
+}
+
+/* --- Title: author identity block (merged — bold idea #2) --- */
+.title-identity {
+  text-align: center;
+  margin-top: 40px;
+}
+#deck .slide-title p.title-author {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+}
+#deck .slide-title .title-affiliation {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: oklch(0.42 0.008 258);
+  font-weight: 400;
+  margin: var(--space-xs) 0 0;
+}
+
+/* --- Assertion headline (shared across content slides) --- */
+.slide-headline {
+  font-size: var(--text-h2);
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  line-height: 1.15;
+}
+
+/* --- Source tag (reference footer) ---
+   Specificity must beat .stage-c #deck p (0,1,1,1) which sets max-width: 56ch.
+   Using #deck p.source-tag (0,1,1,1) — wins by cascade order (loaded after base.css). */
+#deck p.source-tag {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  margin-top: auto;
+  padding-bottom: var(--space-xs);
+  text-align: center;
+  max-width: none;
+  width: 100%;
+}
+
+/* --- Hook slide: asymmetric "volume vs reality" layout --- */
+.hook-content {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  margin: auto 0;
+}
+.hook-volume {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  opacity: 0;
+  transform: translateX(-24px);
+}
+.hook-divider {
+  width: 1px;
+  height: 200px;
+  background: var(--border);
+  transform: scaleY(0);
+  transform-origin: center;
+}
+.hook-reality {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.hook-fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  opacity: 0;
+  transform: translateX(24px);
+}
+/* Numbers — deconstructed: number + affix */
+.hook-value {
+  display: flex;
+  align-items: baseline;
+  line-height: 0.9;
+}
+.hook-num {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--ui-accent);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.04em;
+}
+.hook-volume .hook-num { font-size: 96px; }
+.hook-reality .hook-num { font-size: 72px; }
+.hook-affix {
+  font-family: var(--font-body);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin: 0 2px;
+}
+.hook-volume .hook-affix { font-size: 36px; }
+/* Labels */
+.hook-label {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  max-width: 22ch;
+}
+.hook-volume .hook-label { text-align: right; }
+/* Tags (AMSTAR-2, GRADE) */
+.hook-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  vertical-align: middle;
+  margin-left: 4px;
+}
+/* Failsafes */
+.no-js #s-hook .hook-volume,
+.no-js #s-hook .hook-fact { opacity: 1; transform: none; }
+.no-js #s-hook .hook-divider { transform: scaleY(1); }
+.no-js #s-hook .hook-num { /* show final values via CSS attr fallback */ }
+.stage-bad #s-hook .hook-volume,
+.stage-bad #s-hook .hook-fact { opacity: 1; transform: none; }
+.stage-bad #s-hook .hook-divider { transform: scaleY(1); }
+@media print {
+  #s-hook .hook-volume,
+  #s-hook .hook-fact { opacity: 1; transform: none; }
+  #s-hook .hook-divider { transform: scaleY(1); }
+}
+/* --- Compare layout (two-column RS vs MA) --- */
+.compare-layout {
+  display: flex;
+  gap: var(--space-lg);
+  flex: 1;
+  align-items: stretch;
+}
+.compare-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--bg-navy-mid);
+}
+.compare-abbr {
+  font-family: var(--font-mono);
+  font-size: var(--text-h1);
+  color: var(--ui-accent-on-dark);
+  font-weight: 600;
+  line-height: 1;
+}
+.compare-name {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: var(--space-xs);
+}
+.compare-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin-top: var(--space-sm);
+}
+.compare-footer {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  color: var(--text-primary);
+  text-align: center;
+  margin-top: var(--space-md);
+  font-weight: 500;
+}
+
+/* --- Anchor card (article identity + metrics) --- */
+.anchor-card {
+  background: var(--bg-navy-mid);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.anchor-citation {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  border-left: 3px solid var(--ui-accent-on-dark);
+  padding-left: var(--space-sm);
+}
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-h1);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1;
+}
+.metric-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* --- PICO grid (2×2 with letter emphasis) --- */
+.pico-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  flex: 1;
+  align-content: center;
+}
+.pico-item {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  background: var(--bg-navy-mid);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+}
+.pico-letter {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  color: var(--ui-accent-on-dark);
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 1.5ch;
+}
+.pico-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.pico-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pico-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* --- Pipeline flow (abstract structure) --- */
+.pipeline-flow {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: stretch;
+  flex: 1;
+  align-content: center;
+}
+.pipeline-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-md) var(--space-sm);
+  background: var(--bg-navy-mid);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.pipeline-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.pipeline-detail {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+.pipeline-arrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: var(--text-h3);
+  flex-shrink: 0;
+}
+
+/* --- Anatomy grid (forest plot components) --- */
+.anatomy-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+  justify-content: center;
+}
+.anatomy-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-navy-mid);
+  border-radius: var(--radius-sm);
+}
+.anatomy-symbol {
+  font-family: var(--font-mono);
+  font-size: var(--text-h2);
+  color: var(--ui-accent-on-dark);
+  min-width: 3ch;
+  text-align: center;
+  line-height: 1;
+}
+.anatomy-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.anatomy-name {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.anatomy-what {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+}
+
+/* --- GRADE stack (certainty levels) --- */
+.grade-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+  justify-content: center;
+}
+.grade-level {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  background: var(--bg-navy-mid);
+}
+.grade-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  min-width: 10ch;
+}
+.grade-meaning {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.grade-icon {
+  font-size: var(--text-h3);
+  min-width: 1.5ch;
+  text-align: center;
+  flex-shrink: 0;
+}
+.grade-high { border-left: 4px solid var(--safe-on-dark); }
+.grade-high .grade-label { color: var(--safe-on-dark); }
+.grade-high .grade-icon { color: var(--safe-on-dark); }
+.grade-moderate { border-left: 4px solid var(--warning-on-dark); }
+.grade-moderate .grade-label { color: var(--warning-on-dark); }
+.grade-moderate .grade-icon { color: var(--warning-on-dark); }
+.grade-low { border-left: 4px solid var(--danger-on-dark); }
+.grade-low .grade-label { color: var(--danger-on-dark); }
+.grade-low .grade-icon { color: var(--danger-on-dark); }
+.grade-very-low { border-left: 4px solid var(--text-secondary); }
+.grade-very-low .grade-label { color: var(--text-secondary); }
+.grade-very-low .grade-icon { color: var(--text-secondary); }
+
+/* --- Concept card (heterogeneity, general concepts) --- */
+.concept-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+.concept-highlight {
+  font-family: var(--font-mono);
+  font-size: var(--text-hero);
+  color: var(--ui-accent-on-dark);
+  text-align: center;
+  line-height: 1;
+}
+.concept-definition {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  text-align: center;
+  max-width: 50ch;
+  line-height: 1.4;
+}
+.concept-question {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  color: var(--text-primary);
+  max-width: 50ch;
+  padding: var(--space-md);
+  background: var(--bg-navy-mid);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--ui-accent-on-dark);
+  line-height: 1.35;
+}
+
+/* --- Semantic symbols (benefit/harm) --- */
+.symbol-safe { color: var(--safe-on-dark); }
+.symbol-danger { color: var(--danger-on-dark); }
+
+/* --- Contrato layout (3 cards + scope footer) --- */
+/* Base flex — shared with s-takehome */
+.contrato-grid {
+  display: flex;
+  gap: var(--space-md);
+}
+/* s-contrato: CSS Grid + subgrid for perfect cross-card alignment */
+#s-contrato .contrato-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr auto;
+  gap: var(--space-lg);
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.contrato-card {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--divider);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 4px 6px -1px oklch(0% 0 0 / 0.02),
+    0 10px 15px -3px oklch(0% 0 0 / 0.04),
+    0 24px 38px 3px oklch(0% 0 0 / 0.02);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+/* Bleeding numbers watermark */
+.contrato-card:nth-child(1)::after { content: "1"; }
+.contrato-card:nth-child(2)::after { content: "2"; }
+.contrato-card:nth-child(3)::after { content: "3"; }
+.contrato-card::after {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -0.5rem;
+  font-family: var(--font-mono);
+  font-size: 14rem;
+  font-weight: 700;
+  line-height: 0.8;
+  color: var(--ui-accent);
+  opacity: 0.35;
+  z-index: 0;
+  user-select: none;
+  pointer-events: none;
+}
+.contrato-question {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--text-primary);
+  line-height: 1.15;
+  align-self: start;
+  text-wrap: balance;
+  position: relative;
+  z-index: 1;
+}
+.contrato-skill {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-secondary);
+  align-self: end;
+  border-top: 1px solid var(--divider);
+  padding-top: var(--space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+.contrato-accent { color: var(--ui-accent); }
+/* Animation initial states (custom choreography via slide-registry.js) */
+#s-contrato .contrato-card { opacity: 0; transform: translateY(40px) scale(0.98); }
+#s-contrato .contrato-question { opacity: 0; transform: translateY(12px); }
+#s-contrato .contrato-skill { opacity: 0; transform: translateY(10px); }
+/* Failsafes */
+.no-js #s-contrato .contrato-card,
+.no-js #s-contrato .contrato-question,
+.no-js #s-contrato .contrato-skill { opacity: 1; transform: none; }
+.stage-bad #s-contrato .contrato-card,
+.stage-bad #s-contrato .contrato-question,
+.stage-bad #s-contrato .contrato-skill { opacity: 1; transform: none; }
+[data-qa] #s-contrato .contrato-card,
+[data-qa] #s-contrato .contrato-question,
+[data-qa] #s-contrato .contrato-skill { opacity: 1; transform: none; }
+@media print {
+  #s-contrato .contrato-card,
+  #s-contrato .contrato-question,
+  #s-contrato .contrato-skill { opacity: 1; transform: none; }
+}
+
+/* --- Checkpoint: initial hidden state (controlled by state machine) --- */
+.checkpoint--hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.no-js .checkpoint--hidden,
+[data-qa] .checkpoint--hidden {
+  opacity: 1 !important;
+  transform: none !important;
+}
+@media print {
+  .checkpoint--hidden,
+  .checkpoint-step, .checkpoint-verdict {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+}
+
+/* --- Dark background slides (narrative rhythm — Duarte)
+   stage-c remaps on-dark tokens for light bg.
+   Override at slide scope to restore correct contrast.
+   Add new slide IDs here when they become dark in the pipeline.
+   HEX #162032 (lighter than canonical --bg-navy #0d1a2d) — decisao Lucas,
+   consistencia cross-aula com cirrose. --- */
+#s-checkpoint-1 .slide-inner,
+#s-checkpoint-2 .slide-inner,
+#s-forest-plot .slide-inner,
+#s-heterogeneity .slide-inner,
+#s-ancora .slide-inner,
+#s-absoluto .slide-inner {
+  background-color: #162032;
+  --text-primary:       oklch(95% 0.005 258);
+  --text-secondary:     oklch(70% 0.01 258);
+  --text-on-dark:       oklch(95% 0.005 258);
+  --text-on-dark-muted: oklch(70% 0.01 258);
+  --text-muted:         oklch(70% 0.01 258);
+  --bg-navy-mid:        oklch(28% 0.035 258);
+  --safe-on-dark:       oklch(75% 0.13 170);
+  --warning-on-dark:    oklch(80% 0.14 85);
+  --danger-on-dark:     oklch(72% 0.16 25);
+}
+
+/* --- Checkpoint layout (scenario + question + reveal) --- */
+.checkpoint-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+  gap: var(--space-md);
+  text-align: center;
+}
+.checkpoint-layout p { margin: 0; }
+.checkpoint-scenario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: auto;
+}
+.checkpoint-context {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+}
+.checkpoint-result {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.checkpoint-metric {
+  font-family: var(--font-mono);
+  font-size: var(--text-hero);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1;
+}
+.checkpoint-ci {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  color: var(--text-secondary);
+}
+.checkpoint-grade {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--safe-on-dark);
+  font-weight: 500;
+}
+.checkpoint-grade--low {
+  color: var(--danger-on-dark);
+}
+.checkpoint-outcome {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  color: var(--text-primary);
+}
+.checkpoint-question {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-style: italic;
+  color: var(--text-primary);
+  max-width: 20ch;
+  line-height: 1.2;
+}
+/* --- Checkpoint 1: ACCORD "liquidificador" visual --- */
+#s-checkpoint-1 .checkpoint-question { max-width: 24ch; }
+
+.ck1-forest {
+  position: relative;
+  width: 540px;
+  height: 150px;
+}
+.ck1-null {
+  position: absolute;
+  left: 55%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: oklch(70% 0.01 258 / 0.35);
+}
+.ck1-diamond {
+  position: absolute;
+  left: 42%;
+  top: 48%;
+  width: 24px;
+  height: 24px;
+  background: var(--safe-on-dark);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.ck1-axis {
+  position: absolute;
+  bottom: -4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+.ck1-axis--left { left: 80px; }
+.ck1-axis--right { right: 0; }
+
+/* Trial markers — hidden until beat 2 (GSAP reveals) */
+.ck1-trial {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  opacity: 0;
+}
+.ck1-trial--ukpds   { top: 6px; }
+.ck1-trial--advance  { top: 42px; }
+.ck1-trial--vadt     { top: 78px; }
+.ck1-trial--accord   { top: 118px; }
+
+.ck1-name {
+  position: absolute;
+  left: 0;
+  width: 78px;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 18px;
+}
+.ck1-ci {
+  position: absolute;
+  height: 2px;
+  top: 8px;
+  background: var(--text-primary);
+}
+.ck1-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  top: 4px;
+  background: var(--text-primary);
+  transform: translateX(-50%);
+}
+
+/* Trial-specific positions (dot at point estimate, CI = confidence interval) */
+/* Null line at 55% = 297px. Benefit = left, Harm = right */
+.ck1-trial--ukpds .ck1-ci    { left: 155px; width: 105px; }
+.ck1-trial--ukpds .ck1-dot   { left: 207px; }
+
+.ck1-trial--advance .ck1-ci  { left: 240px; width: 80px; }
+.ck1-trial--advance .ck1-dot { left: 280px; }
+
+.ck1-trial--vadt .ck1-ci     { left: 210px; width: 95px; }
+.ck1-trial--vadt .ck1-dot    { left: 257px; }
+
+.ck1-trial--accord .ck1-ci   { left: 290px; width: 130px; background: var(--danger-on-dark); }
+.ck1-trial--accord .ck1-dot  { left: 360px; width: 16px; height: 16px; top: 1px; background: var(--danger-on-dark); }
+.ck1-trial--accord .ck1-name { color: var(--danger-on-dark); font-weight: 600; }
+
+/* Stats below forest */
+.ck1-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.ck1-context {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+.ck1-hero {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* ACCORD reveal box */
+.ck1-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-navy-mid);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--danger-on-dark);
+  max-width: 45ch;
+}
+.ck1-twist {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--danger-on-dark);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Failsafes: no-js, QA mode, print */
+.no-js #s-checkpoint-1 .ck1-trial,
+[data-qa] #s-checkpoint-1 .ck1-trial {
+  opacity: 1 !important;
+}
+.no-js #s-checkpoint-1 .ck1-diamond,
+[data-qa] #s-checkpoint-1 .ck1-diamond {
+  opacity: 0.15 !important;
+}
+@media print {
+  #s-checkpoint-1 .ck1-trial { opacity: 1 !important; }
+  #s-checkpoint-1 .ck1-diamond { opacity: 0.15 !important; }
+}
+
+/* --- Checkpoint: multi-step reveal (checkpoint-2) --- */
+.checkpoint-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 55ch;
+}
+.checkpoint-step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-navy-mid);
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  transform: translateY(12px);
+}
+.checkpoint-step-icon {
+  font-size: var(--text-h3);
+  flex-shrink: 0;
+  min-width: 1.5ch;
+  text-align: center;
+}
+.checkpoint-step-text {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.checkpoint-step--safe { border-left: 4px solid var(--safe-on-dark); }
+.checkpoint-step--safe .checkpoint-step-icon { color: var(--safe-on-dark); }
+.checkpoint-step--warning { border-left: 4px solid var(--warning-on-dark); }
+.checkpoint-step--warning .checkpoint-step-icon { color: var(--warning-on-dark); }
+.checkpoint-step--danger { border-left: 4px solid var(--danger-on-dark); }
+.checkpoint-step--danger .checkpoint-step-icon { color: var(--danger-on-dark); }
+.checkpoint-verdict {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  color: var(--danger-on-dark);
+  text-align: center;
+  max-width: 45ch;
+  line-height: 1.3;
+  opacity: 0;
+  transform: translateY(12px);
+}
+.no-js .checkpoint-step,
+.no-js .checkpoint-verdict {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* --- Conversion layout (relative → absolute effect) --- */
+.conversion-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.conversion-hero-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-hero);
+  color: var(--ui-accent-on-dark);
+  font-weight: 600;
+  line-height: 1;
+}
+.conversion-hero-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.conversion-scenarios {
+  display: flex;
+  gap: var(--space-lg);
+  width: 100%;
+}
+.conversion-scenario {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--bg-navy-mid);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.conversion-baseline {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.conversion-arr {
+  font-family: var(--font-mono);
+  font-size: var(--text-h2);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.conversion-nnt {
+  font-family: var(--font-mono);
+  font-size: var(--text-h1);
+  font-weight: 600;
+  line-height: 1;
+}
+.conversion-nnt-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+}
+.conversion-impact .conversion-nnt { color: var(--safe-on-dark); }
+.conversion-negligible .conversion-nnt { color: var(--text-secondary); }
+
+/* --- Compare footer: GRADE gap variant (warning callout) --- */
+.compare-footer--gap {
+  color: var(--warning-on-dark);
+  border-top: 2px solid var(--warning-on-dark);
+  padding-top: var(--space-sm);
+}
+
+/* --- Neutral symbol (NS result, no significant difference) --- */
+.symbol-neutral { color: var(--text-secondary); }
+
+/* --- Take-home: echoes contrato with upgraded content --- */
+.takehome-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--bg-navy-mid);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.takehome-number {
+  font-family: var(--font-mono);
+  font-size: var(--text-hero);
+  color: var(--ui-accent-on-dark);
+  font-weight: 600;
+  line-height: 1;
+}
+.takehome-question {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.takehome-detail {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+  line-height: 1.3;
+}

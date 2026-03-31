@@ -9,6 +9,9 @@
 
 ### Padrao Usado: Orchestrator-Workers (Anthropic)
 
+> **Status: scaffold (~30%).** Config/safety/routing implementados.
+> Agents sao stubs — a orquestracao real acontece via Claude Code CLI.
+
 ```
 Orchestrator (Opus 4.6)
 ├── route_task() → classifica e despacha
@@ -118,28 +121,7 @@ apenas quando ativado.
 Ref: Anthropic Skill Authoring Best Practices
 https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 
-```
-.claude/skills/ (17 ativas)
-├── mbe-evidence/          # GRADE, CONSORT, STROBE, PRISMA, RoB2, PubMed, PICO
-├── research/              # Web search, fontes, analise de resultados
-├── notion-publisher/      # Templates Notion profissionais
-├── notion-knowledge-capture/ # Conversa/pesquisa → Masterpiece DB
-├── notion-spec-to-impl/   # Specs → tasks no Notion Tasks DB
-├── organization/          # GTD, Eisenhower, memory, task management
-├── automation/            # Regras, pipelines, cron, workflows
-├── teaching/              # Metodologia de ensino, andragogia, slideologia
-├── concurso/              # Prep concurso dez/2026, Anki AI, evidence-based learning
-├── ai-learning/           # AI fluency (ensino + dev) + monitoring (modelos, tools)
-├── review/                # Code review multi-agente + OWASP LLM Top 10
-├── exam-generator/        # Simulados calibrados, Anki cards, anti-cue
-├── skill-creator/         # Meta-skill para criar/refinar skills
-├── janitor/               # Limpeza e manutencao do repositorio
-├── self-evolving/         # Auto-evolucao PDCA (skills, rules, configs)
-├── continuous-learning/   # Aprendizado progressivo dev/ML/AI ops
-└── daily-briefing/        # Email diario (Gmail→Notion Emails Digest DB)
-```
-
-Consolidacoes sessao 22: `medical-research` + `scientific` → `mbe-evidence`, `ai-fluency` + `ai-monitoring` → `ai-learning`.
+17 skills em `.claude/skills/` — lista derivavel via `ls .claude/skills/`.
 
 ### Graus de Liberdade (Anthropic Pattern)
 - **Alta liberdade**: pesquisa aberta, brainstorm (cientifico)
