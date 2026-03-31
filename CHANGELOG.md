@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 29 — 2026-03-31
+
+### Hooks
+- Novo `hooks/stop-notify.sh`: beep 1200Hz + toast "Pronto" no evento Stop
+- Todos os 3 hooks corrigidos para paths absolutos (CWD-independent)
+
+### Docs Promovidos
+- `decision-protocol.md` e `coautoria.md` promovidos de cirrose → `shared/`
+- Cirrose originais viram redirects (tabela de artefatos preservada)
+
+### Lessons Absorbed
+- `slide-rules.md`: +E32, +§7 GSAP armadilhas, +§8 scaling arquitetura
+- `ERROR-LOG.md` metanalise: 5 licoes herdadas do aulas-magnas
+
+### Legacy Cleanup
+- `aulas-magnas` movido para `legacy/` (fora do repo)
+- `wt-metanalise` movido para `legacy/` (worktree pruned)
+
+### PENDENCIAS
+- `Osteoporose` atualizado: agora em `legacy/aulas-magnas`
+
 ## Sessao 28 — 2026-03-31
 
 ### Metanalise Migration

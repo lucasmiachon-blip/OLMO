@@ -1,6 +1,6 @@
 # TREE.md — Mapa do Projeto
 
-> Atualizado: Sessao 27 | 2026-03-29
+> Atualizado: Sessao 29 | 2026-03-31
 
 ## Raiz (operacional)
 
@@ -76,15 +76,21 @@ config/
 ```
 content/aulas/
 ├── package.json         # npm scripts: dev, build, lint, QA
-├── vite.config.js       # Bundler (ports: cirrose=4100, grade=4101)
+├── vite.config.js       # Bundler (ports: cirrose=4100, grade=4101, metanalise=4102)
 ├── shared/              # Design system compartilhado
 │   ├── css/             # base.css (OKLCH tokens)
 │   ├── js/              # deck.js, engine.js, fonts loader
-│   └── assets/          # Fontes woff2
+│   ├── assets/          # Fontes woff2
+│   ├── decision-protocol.md  # Governanca DR-NNN para decisoes nao-triviais
+│   └── coautoria.md     # Template ICMJE/SAGE disclosure AI
 ├── cirrose/             # 44 slides, PRODUCAO, lint clean
 │   ├── slides/          # HTMLs individuais
 │   ├── references/      # 7 docs referencia (CASE, narrative, evidence-db...)
 │   └── scripts/         # Build, screenshot, QA
+├── metanalise/          # 18 slides, QA em progresso (3 DONE, 14 LINT-PASS)
+│   ├── slides/          # HTMLs individuais
+│   ├── references/      # 6 docs (archetypes, blueprint, evidence-db, narrative...)
+│   └── scripts/         # Build
 ├── grade/               # 58 slides, ILEGIVEL (9/10 fail C8). Redesign pendente.
 │   ├── slides/
 │   ├── scripts/
@@ -177,8 +183,9 @@ docs/
 
 ```
 hooks/
-├── notify.sh            # Toast notification Windows 11
-└── stop-hygiene.sh      # Verifica HANDOFF+CHANGELOG ao parar
+├── notify.sh            # Toast notification Windows 11 (evento Notification)
+├── stop-hygiene.sh      # Verifica HANDOFF+CHANGELOG (evento Stop)
+└── stop-notify.sh       # Beep + toast "Pronto" (evento Stop)
 
 templates/
 ├── chatgpt_audit_prompt.md  # Prompt cross-validation ChatGPT

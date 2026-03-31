@@ -58,7 +58,7 @@ Regra: **nunca** ler PDF inteiro no contexto do Claude. Usar MCPs.
 
 ## AULAS — Migracoes Pendentes
 
-- **Osteoporose** — 70 slides, Reveal.js (frozen), repo `aulas-magnas`. Decidir formato.
+- **Osteoporose** — 70 slides, Reveal.js (frozen), em `legacy/aulas-magnas`. Decidir formato.
 
 ## INFRA PENDENTE
 
