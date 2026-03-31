@@ -14,6 +14,9 @@
 - `slide-rules.md`: +E32, +§7 GSAP armadilhas, +§8 scaling arquitetura
 - `ERROR-LOG.md` metanalise: 5 licoes herdadas do aulas-magnas
 
+### Infra
+- Repo renomeado: `organizacao1` → `LM` (via `gh repo rename`)
+
 ### Cirrose — Feedback pós-aula (2026-03-31)
 - Novo `cirrose/NOTES.md`: feedback da aula real
 - Erro: indicação de albumina em HDA (albumina é SBP, não HDA)
