@@ -155,4 +155,26 @@ Alguns docs (CHANGELOG, AUDIT-VISUAL) referenciam ERRO-034 (data-background-colo
 
 ---
 
+## Lições herdadas (aulas-magnas, pré-migração)
+
+> Extraídas de `aulas-magnas/tasks/lessons.md` antes de arquivar o repo em legacy/.
+> Não são erros locais — são padrões aprendidos aplicáveis a qualquer aula deck.js.
+
+### GSAP opacity:0 infla scrollHeight
+Elementos com `opacity:0` (estado inicial GSAP) ocupam espaço de layout. `scrollHeight > clientHeight` pode ser artefato, não overflow real. Diagnóstico: verificar se overflow desaparece quando GSAP revela os elementos.
+
+### Flip.getState() antes da transição
+`Flip.getState(el)` DEVE ser chamado ANTES de `opacity→0`. Se estado anterior não existe (primeira visita), usar fallback `gsap.from`.
+
+### .no-js failsafe para [data-animate]
+CSS: `[data-animate] { opacity: 0; }` + `.no-js [data-animate] { opacity: 1; }`. Sem isso, GSAP offline/quebrado = slide em branco. Deve existir em `base.css`.
+
+### Write tool preserva encoding
+`.gitattributes` em UTF-16 LE foi reescrito pelo Write tool mantendo UTF-16. Para forçar UTF-8, usar `printf` via Bash.
+
+### Hook matcher deve cobrir todas as tools de escrita
+`"Write|Edit|StrReplace"` — matcher com apenas uma tool deixa brecha para as outras.
+
+---
+
 *Append-only. Não remover erros antigos.*

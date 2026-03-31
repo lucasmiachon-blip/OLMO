@@ -86,6 +86,7 @@ Max 4 reveals por slide. Click handlers: `stopPropagation()` (E38).
 - E20: "Só ajusta X" = escopo APENAS X
 - E21: Fonte Tier 1 obrigatória para dado numérico
 - E26: NUNCA flex:1 igualitário em containers desiguais
+- E32: NUNCA `::before/::after { flex: 1 }` em containers base compartilhados (competem com children)
 - E38: Click handlers: `stopPropagation()`
 - E52: NUNCA `vw`/`vh` em font-size (deck.js scale)
 
@@ -99,3 +100,15 @@ Max 4 reveals por slide. Click handlers: `stopPropagation()` (E38).
 | Max duration | ≤ 2s |
 
 Easing: `power2.out` ou `power3.out`. PROIBIDO: bounce, elastic, linear em UI.
+
+## 7. GSAP — Armadilhas
+
+- **Failsafe obrigatório:** `[data-animate] { opacity: 0; }` + `.no-js [data-animate] { opacity: 1; }`. Sem isso, GSAP offline = slide em branco.
+- **Flip:** `Flip.getState()` DEVE ser chamado ANTES da transição (antes de opacity→0). Se estado anterior não existe, fallback com `gsap.from`.
+- **Overflow fantasma:** Elementos com `opacity:0` (estado inicial GSAP) ocupam espaço de layout → `scrollHeight` inflado. Verificar se overflow desaparece quando GSAP revela os elementos ANTES de "corrigir" com CSS.
+
+## 8. Scaling — Arquitetura
+
+- `scaleDeck()`: `Math.min(vw/1280, vh/720)` + `translate(-50%,-50%) scale(s)` em `#deck`.
+- Scaling é responsabilidade do `shared/js/deck.js`. CSS local NUNCA redefine zoom/transform no body ou `#deck`.
+- PROIBIDO: `zoom` CSS (não dispara resize event, causa double-scaling com deck.js transform).
