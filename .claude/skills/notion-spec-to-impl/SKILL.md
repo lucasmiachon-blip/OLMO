@@ -1,17 +1,17 @@
 ---
 name: notion-spec-to-impl
-description: "Converte specs e planos em tasks rastreáveis no Notion Tasks DB. Ativar para decompor projeto em tasks de max 2h."
+description: >
+  Convert specs and plans into trackable Notion Tasks DB entries decomposed
+  into atomic tasks (max 2h each) with dependencies and time estimates. Use
+  this skill when decomposing projects into tasks, creating implementation
+  roadmaps, planning sprints, or converting any specification into actionable
+  task lists. Trigger for 'decompor', 'criar tasks', 'planejar implementacao',
+  'sprint planning', or 'transformar spec em tarefas'.
 ---
 
 # Skill: Notion Spec-to-Implementation
 
 Converte especificacoes e planos em tasks rastreáveis no Notion Tasks DB.
-
-## Quando Ativar
-- Converter spec/plano em tasks
-- Decompor feature/projeto em subtarefas
-- Criar roadmap de implementacao com dependencias
-- Planejar sprint/semana a partir de objetivos
 
 ## MCP: Seguir `.claude/rules/mcp_safety.md` INTEGRALMENTE
 

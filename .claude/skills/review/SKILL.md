@@ -1,18 +1,17 @@
 ---
 name: review
-description: "Code review multi-agente com OWASP LLM Top 10 2025. Ativar para revisar PRs, auditar seguranca ou checar qualidade de codigo."
+description: >
+  Multi-agent code review with OWASP LLM Top 10 2025, quality checks, and
+  ecosystem conformance. Use this skill for PR reviews, security audits, code
+  quality checks, or before any merge/deploy. Trigger for 'revisar codigo',
+  'code review', 'review PR', 'auditoria', 'checar seguranca', or whenever
+  significant code changes need validation before merging.
 ---
 
 # Skill: Code Review
 
 Revisor de codigo multi-agente com foco em qualidade, seguranca,
 performance e conformidade com o ecossistema.
-
-## Quando Ativar
-- `/review` ou "revisar codigo", "review PR"
-- Antes de merge/deploy
-- Auditoria de seguranca
-- Analise de qualidade de codigo
 
 ## Processo de Review
 
@@ -44,7 +43,7 @@ performance e conformidade com o ecossistema.
 - Queries N+1
 - Memory leaks
 - Caching oportunidades
-- Uso excessivo de API (conformidade com rules/efficiency.md)
+- Uso excessivo de API (rules/efficiency.md)
 
 ### 5. Testes
 - Cobertura adequada para logica de negocio
@@ -76,7 +75,6 @@ performance e conformidade com o ecossistema.
 ### Veredito: APROVADO | MUDANCAS NECESSARIAS | BLOQUEADO
 
 ### Issues
-
 #### [BLOCK] Criticas
 - file:line — descricao — sugestao de fix
 
@@ -85,24 +83,11 @@ performance e conformidade com o ecossistema.
 
 #### [INFO] Sugestoes
 - file:line — descricao
-
-### Pontos Positivos
-- ...
 ```
 
 ## Multi-Agent Review (para mudancas criticas)
-Rodar 3 agentes em paralelo via Agent tool:
 1. **Quality Agent** (Sonnet) — reuso, legibilidade, padronizacao
 2. **Security Agent** (Sonnet) — OWASP, credenciais, MCP safety
 3. **Performance Agent** (Haiku) — complexidade, memory, caching
 
 Consolidar achados em 1 relatorio unificado com dedup.
-
-## Cross-Validation com ChatGPT
-Para decisoes criticas (arquitetura, seguranca), envie o mesmo
-codigo para ChatGPT 5.4 como segunda opiniao independente.
-
-## Eficiencia
-- Review simples: Sonnet (single agent)
-- Review critico: multi-agent (Sonnet + Haiku)
-- Registrar custo no BudgetTracker

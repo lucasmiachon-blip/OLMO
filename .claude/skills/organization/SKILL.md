@@ -1,18 +1,16 @@
 ---
 name: organization
-description: "GTD, Eisenhower, memory management e task management. Ativar para organizar tarefas, planejar semana ou gerenciar contexto."
+description: >
+  GTD, Eisenhower matrix, Deep Work, and session memory management (HANDOFF
+  + CHANGELOG). Use this skill for daily/weekly planning, task prioritization,
+  weekly reviews, context management between sessions, productivity systems,
+  or any organizational request. Trigger for 'planejar', 'organizar', 'weekly
+  review', 'priorizar', 'o que fazer', or questions about task management.
 ---
 
 # Skill: Organization (GTD + Eisenhower + Memory)
 
 Gestao de tarefas, planejamento, produtividade e memoria de contexto.
-
-## Quando Ativar
-- Planejamento diario/semanal
-- Gestao de tarefas e projetos
-- Priorizacao de atividades
-- Weekly review
-- Gestao de contexto entre sessoes
 
 ## Metodologias
 1. **GTD**: Capture > Clarify > Organize > Reflect > Engage
@@ -31,7 +29,6 @@ Gestao de tarefas, planejamento, produtividade e memoria de contexto.
 ### Tier 2: Deep Storage (CHANGELOG.md + auto memory)
 - Historico de sessoes (append-only)
 - Decisoes e rationale
-- Padroes descobertos
 - `~/.claude/projects/.../memory/` para notas persistentes
 
 ### Regras de memoria
@@ -55,9 +52,6 @@ Gestao de tarefas, planejamento, produtividade e memoria de contexto.
 
 ### Tarefas Rapidas (Shallow Work)
 - [ ] ...
-
-### Habitos
-- [ ] ...
 ```
 
 ### Weekly Review Checklist
@@ -70,5 +64,4 @@ Gestao de tarefas, planejamento, produtividade e memoria de contexto.
 ## Eficiencia
 - Planejamento diario: Sonnet (1 call)
 - Weekly review: Sonnet (1 call batched)
-- Status local: sem API
 - Notion sync: seguir `.claude/rules/mcp_safety.md`

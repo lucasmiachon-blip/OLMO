@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 30 | 2026-03-31
+> Sessao 31 | 2026-03-31
 
 ## ESTADO ATUAL
 
@@ -15,19 +15,19 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 - `osteoporose/` — 70 slides Reveal.js em legacy/. Frozen. Decidir formato.
 - `shared/` — design system OKLCH + GSAP + decision-protocol + coautoria. Vite: 4100-4102.
 
-**Skills** — 18 skills em `.claude/skills/`:
-- `skill-creator` — versao oficial Anthropic (com eval pipeline, benchmark scripts)
-- `slide-authoring` — nova, 65 linhas + patterns.md (Assertion-Evidence, deck.js)
-- 16 existentes (muitas aspiracionais, auditoria pendente)
+**Skills** — 14 skills em `.claude/skills/`, todas SKILL.md (formato oficial):
+- Auditadas: 3 merges (ai-learning→continuous-learning, research→mbe-evidence, notion-knowledge-capture→notion-publisher), 1 prune (self-evolving)
+- Descriptions pushy (anti-undertrigger) em todas
+- Gap identificado: NotebookLM skill (workflow de estudo)
 
 **Concurso R3 dez/2026** — Pipeline desenhado, nao iniciado.
 
 ## PROXIMO
 
-1. **Auditar 16 skills existentes** — podar redundantes, refinar uteis, padronizar formato SKILL.md
-2. **Cirrose: migrar conteudo** + feedback pos-aula (coagulopatia, albumina/HDA)
-3. **Metanalise QA** — QA restantes (14 slides)
-4. **Grade readability redesign** — curadoria slide-a-slide
+1. **Cirrose: migrar conteudo** + feedback pos-aula (coagulopatia, albumina/HDA)
+2. **Metanalise QA** — QA restantes (14 slides)
+3. **Grade readability redesign** — curadoria slide-a-slide
+4. **NotebookLM skill** — criar skill para workflow de estudo (gap identificado)
 5. **claude-mem install** — sessao dedicada (pesado, 6 hooks, worker service)
 
 ## DECISOES ATIVAS

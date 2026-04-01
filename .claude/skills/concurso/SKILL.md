@@ -1,6 +1,13 @@
 ---
 name: concurso
-description: "Prep concurso dez/2026 (120 MCQs). Ativar para planejar estudo, gerar questoes calibradas ou revisar conteudo para prova."
+description: >
+  Prep for R3 Clinica Medica exam (Dec 2026, 120 MCQs) — study planning,
+  Anki cards, spaced repetition, error logs, simulados, performance tracking.
+  Use this skill whenever the user mentions the concurso, study planning,
+  exam prep, 'plano de estudo', Anki, spaced repetition, error log, simulados,
+  'questoes', or any reference to the December 2026 exam. This is the year's
+  top priority — trigger aggressively for anything study-related. For generating
+  actual exam questions, defer to exam-generator skill.
 ---
 
 # Skill: Concurso Dez/2026 — 120 Questoes Multipla Escolha
@@ -9,14 +16,6 @@ PRIORIDADE DO ANO. Todo o ecossistema deve servir a esse objetivo.
 Ferramentas + ciencia do aprendizado.
 
 > Para **gerar questoes/simulados**: use `/exam-generator` (metodologia de item-writing, anti-cue, calibracao por banca).
-
-## Quando Ativar
-- Planejamento de estudo para o concurso
-- Resolucao/analise de questoes
-- Geracao de cards Anki
-- Simulados e analise de desempenho
-- Error log de questoes
-- Qualquer referencia ao concurso dez/2026
 
 ## Ciencia do Estudo para Provas (Evidence-Based Learning)
 
@@ -33,23 +32,19 @@ Ferramentas + ciencia do aprendizado.
 
 3. **Interleaving** (Rohrer & Taylor, 2007)
    - Misturar topicos diferentes numa sessao > blocos isolados
-   - Ex: 20min cardio + 20min pneumo + 20min neuro > 60min so cardio
    - Parece mais dificil = aprende mais (desirable difficulty)
 
 4. **Elaborative Interrogation** (Pressley et al.)
    - Perguntar "POR QUE?" para cada fato
    - Conecta novo conhecimento com o que ja sabe
-   - AI: Claude explica mecanismo, voce tenta antes
 
 5. **Practice Testing** (Dunlosky et al., 2013 - meta-analise 10 tecnicas)
    - Alta utilidade: practice testing + distributed practice
    - Media: elaborative interrogation + interleaving
    - Baixa: reler, grifar, resumir passivamente
-   - Ref: "Improving Students' Learning With Effective Learning Techniques"
 
 6. **Pomodoro + Deep Work** (Cal Newport)
    - Blocos 50min estudo focado + 10min pausa
-   - Sem celular/notificacoes durante bloco
    - Meta: 4-6 blocos/dia nos meses finais
 
 ## Planejamento Macro -> Micro
@@ -87,10 +82,10 @@ O usuario nao cria cards manualmente. AI gera, prioriza e adapta.
 ```
 
 **Tipos de cards gerados por AI:**
-- **Error-based**: gerado direto do erro (ex: confundiu X com Y -> card comparativo)
+- **Error-based**: gerado direto do erro (confundiu X com Y -> card comparativo)
 - **Mechanism**: "Por que X causa Y?" (elaborative interrogation)
 - **Clinical vignette**: mini-caso clinico com 1 pergunta-chave
-- **High-yield**: fatos de alta incidencia em provas (baseado em analise de provas anteriores)
+- **High-yield**: fatos de alta incidencia em provas
 - **Interleaving**: card misturando 2 especialidades relacionadas
 
 **Regras de geracao:**
@@ -131,13 +126,11 @@ Properties:
   - Card Anki gerado? (checkbox)
   - Revisado em (date)
   - Acertou na revisao? (checkbox)
-Tags: usado por Opus para gerar cards e identificar padroes de erro
 ```
 
 ## Metricas de Progresso
 - % acerto por especialidade (meta: >70% geral, >80% nas fortes)
 - Questoes resolvidas/semana (meta: 200+)
 - Anki retention rate (meta: >85%)
-- Anki cards gerados por AI / aceitos (quality rate)
 - Simulados completos/mes (meta: 4)
 - Trending: % acerto por semana (deve subir)

@@ -121,7 +121,7 @@ apenas quando ativado.
 Ref: Anthropic Skill Authoring Best Practices
 https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 
-17 skills em `.claude/skills/` — lista derivavel via `ls .claude/skills/`.
+14 skills em `.claude/skills/` — todas com SKILL.md (formato oficial). Lista derivavel via `ls .claude/skills/`.
 
 ### Graus de Liberdade (Anthropic Pattern)
 - **Alta liberdade**: pesquisa aberta, brainstorm (cientifico)
@@ -172,7 +172,7 @@ organizacao/
 │   ├── rules/ (8)         # quality, efficiency, coauthorship, anti-drift,
 │   │                      # mcp_safety, notion-cross-validation (path-scoped),
 │   │                      # session-hygiene, slide-rules (path-scoped)
-│   ├── skills/ (17)       # Sob demanda (progressive disclosure)
+│   ├── skills/ (14)       # Sob demanda (progressive disclosure, SKILL.md)
 │   └── agents/ (4)        # researcher, notion-ops, literature, quality-gate
 ├── config/
 │   ├── ecosystem.yaml     # Agentes + model routing + skills

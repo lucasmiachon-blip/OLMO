@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## Sessao 31 — 2026-03-31
+
+### Skills Audit (18 → 14)
+- **3 merges**: ai-learning → continuous-learning, research → mbe-evidence, notion-knowledge-capture → notion-publisher
+- **1 prune**: self-evolving removida (PDCA ja coberto por concurso e review)
+- **12 migracoes**: instructions.md → SKILL.md (formato oficial Anthropic)
+- Todas 14 skills com descriptions "pushy" (anti-undertrigger, trigger phrases PT-BR)
+- Descoberta: skills com `instructions.md` nao carregavam no auto-trigger — so `SKILL.md` funciona
+
+### Docs
+- `ARCHITECTURE.md`: contagem atualizada (17 → 14 skills)
+
+### Memory
+- Atualizada `user_mentorship.md`: Opus mentor full-stack (dev, ML, AI, eng sistemas, gestao, orquestracao)
+
 ## Sessao 30 — 2026-03-31
 
 ### Skills

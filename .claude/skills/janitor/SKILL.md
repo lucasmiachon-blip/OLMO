@@ -1,17 +1,16 @@
 ---
 name: janitor
-description: "Limpeza e manutencao do repositorio. Ativar para remover dead files, corrigir docs stale ou auditar estrutura."
+description: >
+  Repository cleanup and maintenance — dead code removal, doc consolidation,
+  structure audit, orphan detection. Use this skill when the repo needs
+  cleaning, before releases, when docs are stale, when files are orphaned,
+  or for general housekeeping. Trigger for 'limpar', 'cleanup', 'organizar
+  arquivos', 'dead code', 'repo maintenance', or 'audit structure'.
 ---
 
 # Skill: Janitor (Limpeza de Repositorio)
 
 Limpeza, organizacao e manutencao do repositorio.
-Baseada em Claude-Janitor (danielrosehill) + adaptacoes do ecossistema.
-
-## Quando Ativar
-- `/janitor` ou "limpar repo", "cleanup", "organizar arquivos"
-- Antes de release ou merge importante
-- Repositorio com arquivos orfaos, docs desatualizados, codigo morto
 
 ## Operacoes (sequenciais, uma por vez)
 
@@ -40,11 +39,6 @@ Baseada em Claude-Janitor (danielrosehill) + adaptacoes do ecossistema.
 - Consolidar em docs existentes em vez de criar novos
 - Preservar README, CLAUDE.md, CHANGELOG, HANDOFF
 
-### 6. Limpar Conteudo de Docs
-- Remover linguagem excessiva e redundante
-- Garantir precisao tecnica
-- Manter tom enxuto e direto
-
 ## Processo de Seguranca
 
 1. **ANTES**: `git status` — garantir working tree limpo
@@ -56,27 +50,18 @@ Baseada em Claude-Janitor (danielrosehill) + adaptacoes do ecossistema.
 
 ```
 ## Janitor Report
-
 ### Operacao: [nome]
 - Removidos: [lista]
 - Movidos: [de → para]
 - Consolidados: [lista]
-- Mantidos (justificativa): [lista]
 
 ### Resumo
 - Arquivos removidos: N
-- Arquivos movidos: N
 - Linhas removidas: ~N
-- Espaco liberado: ~N KB
 ```
 
 ## Protecoes
 
 - NUNCA deletar: CLAUDE.md, HANDOFF.md, CHANGELOG.md, .claude/
 - NUNCA deletar sem git commit anterior (safety net)
-- Arquivos > 30 dias sem modificacao: flag para review, nao auto-delete
 - Em duvida: perguntar ao usuario
-
-## Eficiencia
-- Modelo recomendado: Sonnet (analise) + Haiku (listagem)
-- Registrar custo no BudgetTracker

@@ -1,18 +1,21 @@
 ---
 name: continuous-learning
-description: "Aprendizado progressivo dev/ML/AI ops com andragogia. Ativar para trilhas de estudo, scaffolding ou revisao de progresso."
+description: >
+  Progressive learning for dev, ML, AI, systems engineering, management,
+  and orchestration — plus AI fluency for teaching students. Use this skill
+  whenever Lucas asks to learn something, wants an explanation of a technical
+  concept, requests a study roadmap, needs AI fluency content for teaching,
+  or asks about AI news/models/benchmarks. Also trigger for 'como funciona',
+  'explica', 'quero aprender', 'o que e [conceito]', or any variation of
+  learning/studying technical topics. Even casual questions like 'por que
+  isso funciona assim?' should trigger this skill.
 ---
 
-# Skill: Continuous Learning (Aprendizado Continuo)
+# Skill: Continuous Learning (Aprendizado Continuo + AI Fluency)
 
-Guia de aprendizado progressivo para dev, ML e AI ops.
+Guia de aprendizado progressivo para dev, ML, AI ops, gestao e orquestracao.
 Trata o aprendiz como adulto inteligente explorando dominio novo.
-
-## Quando Ativar
-- `/learn` ou "quero aprender", "como funciona", "explica"
-- Quando usuario pede para entender conceito tecnico
-- Quando usuario quer roadmap de aprendizado
-- Duvidas sobre dev, ML, AI ops, ferramentas
+Inclui curriculo de AI para alunos de medicina e monitoramento de AI.
 
 ## Principios Pedagogicos
 
@@ -47,9 +50,8 @@ Ancorar em:
 - **Etimologia**: origem da palavra para intuir o conceito
   (ex: "compile" = com+pilare, juntar pilhas → reunir partes em um todo)
 - **Filosofia/Epistemologia**: como o conceito se encaixa em sistemas de pensamento
-  (ex: versionamento como dialogo socratico com o codigo — tese, antitese, sintese)
 - **Historia**: quem criou, que problema resolvia, contexto
-- **Conexoes genuinas**: quando um conceito realmente se conecta a outro dominio, apontar
+- **Conexoes genuinas**: quando um conceito realmente se conecta a outro dominio
 - **NUNCA**: analogias forcadas ou simplificacoes condescendentes
 
 ### Passo 3: Hands-On Minimo
@@ -95,6 +97,77 @@ Registrar no Notion ou local:
 5. Agentes (orquestracao, skills, memory)
 6. Deploy (hosting, monitoramento, custos)
 
+## Dev AI — Aprendizado Continuo (2x/semana)
+
+Sessoes curtas (30-60min) focadas em alto ROI.
+
+### Fontes Obrigatorias
+| Fonte | Frequencia | ROI |
+|-------|-----------|-----|
+| Anthropic Blog | Semanal | Muito Alto |
+| OpenAI Blog | Semanal | Alto |
+| Simon Willison Blog | Semanal | Muito Alto |
+| GitHub Trending | Semanal | Alto |
+| Hacker News (AI) | 2x/semana | Alto |
+| Latent Space Podcast | Quinzenal | Alto |
+
+### Foco Alto ROI
+1. MCP servers: criar, configurar, usar
+2. Claude Code / Agent SDK: automacao real
+3. Prompt engineering avancado: system prompts, tool use
+4. Agentic patterns: orchestrator, evaluator, tool-use loops
+5. Local models (Ollama): quando usar vs API
+
+### Formato da Sessao
+```
+1. Curar fontes (15min) → top 3 headlines
+2. Deep dive 1 topico (30min) → hands-on
+3. Nota Obsidian (10min) → o que aprendi
+4. Opcional: aplicar no ecossistema → PR, skill, workflow
+```
+
+## AI Monitoring — Modelos e Benchmarks
+
+### Fontes Prioritarias
+Anthropic, OpenAI, Google, Meta, Mistral, HuggingFace, Papers With Code, GitHub Trending.
+
+### Formato do Digest
+```
+## AI Digest - [DATA]
+### Lancamentos | Tendencias | Precos/Mudancas | Paper da Semana
+```
+
+## Curriculo AI para Alunos de Medicina (8 aulas)
+
+### 1. Fundamentos (aula 1-2)
+- O que e LLM, o que pode e nao pode fazer
+- Alucinacoes: por que AI inventa e como detectar
+- Prompt engineering basico: contexto + instrucao + formato
+- Etica: plagiarism, LGPD, bias, limites do uso clinico
+
+### 2. Uso Responsavel na Medicina (aula 3-4)
+- AI como "residente inteligente" — sempre verificar com fontes primarias
+- PubMed + AI: busca assistida, nao substituicao
+- Quando AI ajuda: triagem, resumos, traducao, formatacao
+- Quando AI atrapalha: diagnostico, prescricao, decisao clinica sem supervisao
+
+### 3. Ferramentas Praticas (aula 5-6)
+- Claude/ChatGPT para estudo: flashcards, explicacoes, quiz
+- Perplexity para pesquisa com fontes citadas
+- NotebookLM para estudar papers (podcast, Q&A)
+- Notion AI para organizacao, Zotero + AI para referencias
+
+### 4. Avancado (aula 7-8)
+- Prompt engineering medico: PICO como prompt, GRADE como checklist
+- Workflow pessoal: captura → processamento → publicacao
+- MCP e agentes: o futuro da automacao medica
+
+### Principios Pedagogicos (para dar aula)
+- **Learn by doing**: cada aula tem exercicio pratico
+- **Fail forward**: exemplos de AI errando (alucinacoes reais)
+- **Critical thinking first**: AI amplifica, nao substitui
+- **Etica sempre**: todo uso tem consequencia para o paciente
+
 ## Formato de Output
 
 ```
@@ -126,4 +199,7 @@ Registrar no Notion ou local:
 
 ## Eficiencia
 - Modelo recomendado: Sonnet (explicacoes) + Haiku (exemplos rapidos)
+- AI monitoring: 1 call/semana batched, cache por 7 dias
 - Registrar progresso em memory (tipo: user, tracking de nivel)
+- Registrar custo no BudgetTracker
+- Notion: seguir `.claude/rules/mcp_safety.md`
