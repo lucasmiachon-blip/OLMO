@@ -11,8 +11,10 @@
 
 ### Tooling
 - `dream-skill` instalada (~/.claude/skills/dream/) — memory consolidation 4 fases, Stop hook global, auto-trigger 24h
-- `@openai/codex` CLI v0.118.0 instalado globalmente (npm -g)
-- `codex-plugin-cc`: pendente auth (`codex login`) + plugin install
+- `@openai/codex` CLI v0.118.0 instalado globalmente (npm -g), autenticado (API key)
+- `codex-plugin-cc` (openai) instalado — `/codex:review`, `/codex:adversarial-review`, `/codex:rescue`
+- Global CLAUDE.md: Auto Dream trigger adicionado
+- Global settings.json: dream Stop hook + codex marketplace
 
 ### Research
 - Superpowers (128K stars): avaliado, cherry-picked debugging + verification
