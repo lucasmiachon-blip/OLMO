@@ -28,4 +28,8 @@ fi
 # Sempre output HANDOFF para context recovery pos-compaction
 echo ""
 echo "=== HANDOFF.md ==="
-cat "$HANDOFF"
+if [ -f "$HANDOFF" ]; then
+  cat "$HANDOFF"
+else
+  echo "(HANDOFF.md not found)"
+fi

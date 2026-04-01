@@ -51,8 +51,8 @@ class ScheduledTask:
 class APIBudget:
     """Orcamento de API por periodo."""
 
-    daily_limit: int = 10  # Requests por dia
-    weekly_limit: int = 50  # Requests por semana
+    daily_limit: int = 50  # Requests por dia (sync with rate_limits.yaml)
+    weekly_limit: int = 250  # Requests por semana (sync with rate_limits.yaml)
     daily_used: int = 0
     weekly_used: int = 0
     last_daily_reset: str = ""
@@ -89,8 +89,11 @@ class SmartScheduler:
         """Carrega budget do disco."""
         budget_file = self.cache_dir / "budget.json"
         if budget_file.exists():
-            data = json.loads(budget_file.read_text())
-            self.budget = APIBudget(**data)
+            try:
+                data = json.loads(budget_file.read_text())
+                self.budget = APIBudget(**data)
+            except (json.JSONDecodeError, TypeError) as e:
+                logger.warning(f"Corrupted budget.json, using defaults: {e}")
         self._check_reset()
 
     def _save_budget(self) -> None:
@@ -165,7 +168,11 @@ class SmartScheduler:
         if not cache_file.exists():
             return None
 
-        cached = json.loads(cache_file.read_text())
+        try:
+            cached = json.loads(cache_file.read_text())
+        except json.JSONDecodeError:
+            cache_file.unlink()
+            return None
         cached_at = datetime.fromisoformat(cached.get("cached_at", "2000-01-01"))
         max_age = timedelta(hours=task.max_age_hours)
 

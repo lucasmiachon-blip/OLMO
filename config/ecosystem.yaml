@@ -107,23 +107,16 @@ subagents:
     parent: "organizacao"
     description: "Limpa e organiza Notion com seguranca (modelo harsh)"
 
-# Skills (.claude/skills/ — 17 ativas)
+# Skills (.claude/skills/ — 13 ativas)
 skills:
   # Pesquisa e ciencia
   mbe-evidence:
     path: ".claude/skills/mbe-evidence"
     description: "MBE rigorosa: GRADE, CONSORT, STROBE, PRISMA, PubMed, PICO (absorveu medical-research)"
-  research:
-    path: ".claude/skills/research"
-    description: "Web search, fontes, analise de resultados"
-
   # Notion e organizacao
   notion-publisher:
     path: ".claude/skills/notion-publisher"
     description: "Templates Notion com estetica profissional"
-  notion-knowledge-capture:
-    path: ".claude/skills/notion-knowledge-capture"
-    description: "Conversa/pesquisa → Masterpiece DB"
   notion-spec-to-impl:
     path: ".claude/skills/notion-spec-to-impl"
     description: "Specs → tasks no Notion Tasks DB"
@@ -138,9 +131,6 @@ skills:
   concurso:
     path: ".claude/skills/concurso"
     description: "Prep concurso dez/2026, Anki AI, evidence-based learning"
-  ai-learning:
-    path: ".claude/skills/ai-learning"
-    description: "AI fluency (ensino + dev) + monitoring (modelos, tools, benchmarks)"
   exam-generator:
     path: ".claude/skills/exam-generator"
     description: "Simulados calibrados por bancas, Anki cards"
@@ -168,9 +158,6 @@ skills:
   janitor:
     path: ".claude/skills/janitor"
     description: "Limpeza e manutencao do repositorio"
-  self-evolving:
-    path: ".claude/skills/self-evolving"
-    description: "Auto-evolucao PDCA do ecossistema"
 
 # Modelos AI Configurados
 ai_models:

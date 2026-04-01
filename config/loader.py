@@ -53,8 +53,12 @@ def load_workflows(workflows_path: Path | None = None) -> dict[str, Any]:
             logger.debug(f"Workflow file not found (skipped): {path}")
             continue
 
-        with path.open() as f:
-            data = yaml.safe_load(f)
+        try:
+            with path.open() as f:
+                data = yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            logger.error(f"Invalid YAML in {path}: {e}")
+            continue
 
         if data and "workflows" in data:
             for name, wf in data["workflows"].items():
@@ -74,8 +78,12 @@ def load_rate_limits(path: Path | None = None) -> dict[str, Any]:
         logger.warning(f"Rate limits file not found: {rate_path}, using defaults")
         return {"budget": {"monthly": {"max_cost_usd": 100.0}}}
 
-    with rate_path.open() as f:
-        config = yaml.safe_load(f)
+    try:
+        with rate_path.open() as f:
+            config = yaml.safe_load(f)
+    except yaml.YAMLError as e:
+        logger.error(f"Invalid YAML in {rate_path}: {e}")
+        return {"budget": {"monthly": {"max_cost_usd": 100.0}}}
 
     if not isinstance(config, dict):
         return {"budget": {"monthly": {"max_cost_usd": 100.0}}}

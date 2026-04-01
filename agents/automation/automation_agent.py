@@ -100,11 +100,18 @@ class AutomationAgent(BaseAgent):
             return TaskResult(success=False, error=f"Rule '{rule_name}' is disabled")
 
         results = []
+        skipped = []
         for action in rule.actions:
             action_type = action.get("type", "")
             if action_type in self.handlers:
                 result = await self.handlers[action_type](action)
                 results.append(result)
+            else:
+                skipped.append(action_type)
+                logger.warning(f"Rule '{rule_name}': no handler for action type '{action_type}'")
+
+        if not results and skipped:
+            return TaskResult(success=False, error=f"No handlers matched. Skipped: {skipped}")
 
         return TaskResult(success=True, data=results)
 

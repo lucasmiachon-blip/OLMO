@@ -141,10 +141,16 @@ class OrganizationAgent(BaseAgent):
 
     def _add_task(self, task_data: dict[str, Any]) -> TaskResult:
         """Adiciona uma nova tarefa."""
+        try:
+            priority = Priority(task_data.get("priority", "medium"))
+        except ValueError:
+            logger.warning(f"Invalid priority '{task_data.get('priority')}', defaulting to medium")
+            priority = Priority.MEDIUM
+
         new_task = PersonalTask(
             title=task_data.get("title", ""),
             description=task_data.get("description", ""),
-            priority=Priority(task_data.get("priority", "medium")),
+            priority=priority,
             tags=task_data.get("tags", []),
             project=task_data.get("project", ""),
             due_date=task_data.get("due_date"),
