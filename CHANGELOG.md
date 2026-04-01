@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 37 — 2026-04-01 (self-improvement via ERROR-LOGs)
+
+### Rules — 8 lacunas codificadas (86 erros analisados)
+- `slide-rules.md`: +§9 GSAP jurisdiction/FOUC, §10 stage-c dark, §11 specificity, §12 bootstrap nova aula
+- `design-reference.md`: +§1 hierarquia semantica, §3 PMID propagation (56% erro LLM), +§4 color safety OKLCH
+- `qa-pipeline.md`: nova rule — attention separation, cor semantica QA, anti-sycophancy com rubrica
+
+### Governanca
+- 11 rules (antes 10). CI verde (47 testes). Dream: nada novo a consolidar.
+
 ## Sessao 36 — 2026-04-01 (CSS fixes + Codex review)
 
 ### Cirrose CSS Fixes (post-import)

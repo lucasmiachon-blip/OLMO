@@ -1,25 +1,22 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 37 | proximo login
+> Sessao 38 | proximo login
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde (47 testes). Cirrose importada e testada no Vite.
+Monorepo funcional. CI verde (47 testes). 11 rules (antes 10).
 
 **Python** — ruff clean, mypy OK. Defensive patterns aplicados.
 
-**Aulas** — Cirrose: 11 slides ativos (Act 1) + 35 archive. CSS single-file (~3224L), font paths + source-tag fixados. Metanalise: 18 slides, deadline 15/abr. Grade: 58 slides, ilegivel.
+**Aulas** — Cirrose: 11 slides ativos (Act 1) + 35 archive. Metanalise: 18 slides, deadline 15/abr. Grade: 58 slides, ilegivel.
 
-**Governanca** — 7 hooks ativos (.claude/hooks/), 8 agents, 20 skills, 3 commands.
-
-**Aula_cirrose standalone** — movida para `C:\Dev\Projetos\Legacy\Aula_cirrose`. Git intacto.
+**Governanca** — 11 rules, 7 hooks, 8 agents, 20 skills, 3 commands. Self-improvement S37 completo.
 
 ## PROXIMO
 
 1. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework para novo formato. Lucas guia.
-2. **Metanalise QA** — 14 slides pendentes (deadline 15/abr, 13 dias)
-3. **Self-improvement** — Analisar ERROR-LOG + lessons do Aula_cirrose para extrair novas rules/skills
-4. **Notion: mover Calendario DB** — esta em area Archived, inacessivel
+2. **Metanalise QA** — 14 slides pendentes (deadline 15/abr, 14 dias)
+3. **Notion: mover Calendario DB** — esta em area Archived, inacessivel
 
 ## DECISOES ATIVAS
 
