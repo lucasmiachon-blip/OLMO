@@ -4,11 +4,11 @@
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde (47 testes). 11 rules. Codex Review P1+P2 completos.
+Monorepo funcional. CI verde (47 testes). 11 rules. Codex Review P0-P3 COMPLETO.
 
 **Python** — ruff clean, mypy OK.
 
-**Scripts** — 6 scripts corrigidos (paths, parser, WARN counter, parametrizacao). Todos verificados com execucao real.
+**Scripts** — 10 scripts corrigidos (root paths, parser, WARN counter, parametrizacao, fail-hard, pipefail). Todos verificados com execucao real.
 
 **Aulas** — Cirrose: 11 slides ativos (Act 1) + 35 archive. Metanalise: 18 slides, deadline 15/abr. Grade: 58 slides, ilegivel.
 
@@ -16,9 +16,8 @@ Monorepo funcional. CI verde (47 testes). 11 rules. Codex Review P1+P2 completos
 
 ## PROXIMO
 
-1. **Codex Review P0** — root path 5 scripts + export-pdf fail-hard. Plano em `docs/CODEX-REVIEW-S37.md`. Rodar Codex sem truncar por max tokens (Lucas pediu S38).
-2. **Codex Review P3** — polish: validate-css WARN, notes regex, install-fonts HTTP, agents fallback
-3. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework. Lucas guia.
+1. **Metanalise: adaptar tooling cirrose** — mjs, md, prompts de cirrose serao adaptados para metanalise (Lucas pediu S38).
+4. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework. Lucas guia.
 4. **Metanalise QA** — 14 slides pendentes (deadline 15/abr, 14 dias)
 5. **Notion: mover Calendario DB** — esta em area Archived, inacessivel
 

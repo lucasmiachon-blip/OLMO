@@ -33,7 +33,7 @@ function detectAula() {
   return 'cirrose';
 }
 const aula = detectAula();
-const aulaDir = join(root, 'aulas', aula);
+const aulaDir = join(root, aula);
 
 let errors = 0;
 let warnings = 0;

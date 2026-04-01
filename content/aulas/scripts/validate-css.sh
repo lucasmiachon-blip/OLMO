@@ -9,8 +9,10 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+AULA_ROOT="$(dirname "$SCRIPT_DIR")"
 AULA="${1:-cirrose}"
-DIR="content/aulas/$AULA"
+DIR="$AULA_ROOT/$AULA"
 FAIL=0
 WARN=0
 
@@ -103,11 +105,11 @@ echo ""
 echo "--- [4] Inline style audit (slides) ---"
 SLIDES_DIR="$DIR/slides"
 if [ -d "$SLIDES_DIR" ]; then
-  INLINE_COUNT=$(grep -rl 'style="[^"]*\(opacity\|display\|visibility\)' "$SLIDES_DIR"/*.html 2>/dev/null | wc -l || echo 0)
+  INLINE_COUNT=$(grep -rl 'style="[^"]*\(opacity\|display\|visibility\)' "$SLIDES_DIR"/*.html 2>/dev/null | wc -l) || INLINE_COUNT=0
   echo "  INFO: $INLINE_COUNT slide files have inline opacity/display/visibility"
   if [ "$INLINE_COUNT" -gt 0 ]; then
     grep -l 'style="[^"]*\(opacity\|display\|visibility\)' "$SLIDES_DIR"/*.html 2>/dev/null | while read -r f; do
-      count=$(grep -c 'style="[^"]*\(opacity\|display\|visibility\)' "$f" || echo 0)
+      count=$(grep -c 'style="[^"]*\(opacity\|display\|visibility\)' "$f" 2>/dev/null) || count=0
       echo "    $(basename "$f"): $count inline style(s) — expected for GSAP"
     done
   fi

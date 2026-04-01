@@ -52,7 +52,7 @@ for (const lecture of toCheck) {
 
     // Check: sections without speaker notes
     const sections = content.match(/<section[\s>]/gi) || [];
-    const notes = content.match(/<aside class="notes">/gi) || [];
+    const notes = content.match(/<aside\b[^>]*\bnotes\b[^>]*>/gi) || [];
     if (sections.length > notes.length) {
       issues.push(`  ⚠ Sections without notes: ${sections.length - notes.length} of ${sections.length}`);
     }

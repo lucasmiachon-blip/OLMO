@@ -63,6 +63,7 @@ const server = spawn('npx', ['vite', 'preview', '--port', String(PORT)], {
 const decktapeBin = process.platform === 'win32' ? DECKTAPE + '.cmd' : DECKTAPE;
 
 async function run() {
+  let failures = 0;
   try {
     await waitForServer(PORT);
     console.log(`  ✓ Server ready on port ${PORT}`);
@@ -80,12 +81,17 @@ async function run() {
           });
           console.log(`  ✓ ${out}`);
         } catch {
-          console.error(`  ✗ Failed`);
+          console.error(`  ✗ Failed: ${lecture} ${suffix}`);
+          failures++;
         }
       }
     }
   } finally {
     server.kill();
+    if (failures > 0) {
+      console.error(`\n✗ ${failures} export(s) failed.`);
+      process.exit(1);
+    }
     console.log('\n✓ Export complete. Files in /exports/');
   }
 }

@@ -72,7 +72,7 @@ function checkHtml(file, content) {
     }
 
     // Track notes
-    if (/<aside\s+class="notes">/.test(line)) {
+    if (/<aside\b[^>]*\bnotes\b[^>]*>/.test(line)) {
       insideNotes = true;
       currentSectionHasNotes = true;
       notesCount++;
@@ -229,9 +229,9 @@ function checkCssBalance(file, content) {
 // ============================================
 console.log('🔍 Linting slides (v6)...\n');
 
-const htmlFiles = walk(join(root, 'aulas'), '.html');
+const htmlFiles = walk(root, '.html');
 const sharedCssFiles = walk(join(root, 'shared'), '.css');
-const aulaCssFiles = walk(join(root, 'aulas'), '.css');
+const aulaCssFiles = walk(root, '.css');
 
 htmlFiles.forEach(f => checkHtml(f, readFileSync(f, 'utf-8')));
 // Token checks (COLOR/HEX) only for shared/ — aula CSS uses oklch() legitimately

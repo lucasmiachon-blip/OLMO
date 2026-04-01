@@ -8,6 +8,19 @@
 - `medical-researcher.md`: PMID verification tiered (VERIFIED/WEB-VERIFIED/CANDIDATE, fallback MCP→WebSearch)
 - `design-reference.md`: vocabulario canonico de verificacao (5 status: VERIFIED→UNRESOLVED)
 
+### P0 — Root path fixes + fail-hard (Codex Review CRITICAL)
+- `lint-slides.js`: `walk(join(root, 'aulas'), ...)` → `walk(root, ...)` (path duplication fix)
+- `lint-narrative-sync.js`: `join(root, 'aulas', aula)` → `join(root, aula)`
+- `lint-gsap-css-race.mjs`: CLI arg + dynamic aulaDir/CSS filename + shared/ paths via root
+- `export-pdf.js`: failures counter + `process.exit(1)` on any export failure
+
+### P3 — Polish (Codex Review LOW)
+- `validate-css.sh`: SCRIPT_DIR-based root (CWD-independent) + pipefail-safe wc -l
+- `qa-accessibility.js`: notes regex relaxed `/<aside\b[^>]*\bnotes\b[^>]*>/`
+- `install-fonts.js`: HTTP status >= 400 validation in fetch()
+- `qa-engineer.md`: RALPH commands with `2>/dev/null || echo` fallback
+- `medical-researcher.md`: "skip if not found" for aula CLAUDE.md + §3 ref fix
+
 ### P2 — Scripts parametrizados (Codex Review fixes)
 - `browser-qa-act1.mjs`: detectAula() + PORT_MAP + auto-detect branch (cirrose IDs preservados)
 - `pre-commit.sh`: branch matching generalizado (cirrose + grade + metanalise)

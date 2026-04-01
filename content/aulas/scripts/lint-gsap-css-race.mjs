@@ -19,7 +19,8 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const root = join(__dirname, '..');
-const aulaDir = join(root, 'aulas', 'cirrose');
+const aula = process.argv[2] || 'cirrose';
+const aulaDir = join(root, aula);
 
 let warnings = 0;
 
@@ -37,13 +38,13 @@ function info(msg) {
 // ============================================
 const JS_FILES = [
   join(aulaDir, 'slide-registry.js'),
-  join(aulaDir, 'shared', 'js', 'engine.js'),
-  join(aulaDir, 'shared', 'js', 'click-reveal.js'),
-  join(aulaDir, 'shared', 'js', 'case-panel.js'),
+  join(root, 'shared', 'js', 'engine.js'),
+  join(root, 'shared', 'js', 'click-reveal.js'),
+  join(root, 'shared', 'js', 'case-panel.js'),
 ];
 
 const CSS_FILES = [
-  join(aulaDir, 'cirrose.css'),
+  join(aulaDir, `${aula}.css`),
 ];
 
 // Properties that cause race conditions when both GSAP and CSS control them

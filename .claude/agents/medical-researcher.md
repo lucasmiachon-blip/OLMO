@@ -74,8 +74,8 @@ Additionally, **claude.ai native MCPs** are always available:
 1. If given a **slide-id** (e.g., `s-a1-damico`): read the slide HTML + evidence-db of the aula
 2. If given a **topic** (e.g., "hepatorenal syndrome"): free-form research
 3. Detect aula context: `git branch --show-current` or ask
-4. Read `content/aulas/{aula}/CLAUDE.md` for audience, Tier-1 sources, constraints
-5. Read `.claude/rules/design-reference.md` §5 for verification rules
+4. Read `content/aulas/{aula}/CLAUDE.md` for audience, Tier-1 sources, constraints (skip if not found — not all aulas have one)
+5. Read `.claude/rules/design-reference.md` §3 for verification rules
 
 ### Phase 2 — Multi-Source Search
 

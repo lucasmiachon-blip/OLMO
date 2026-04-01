@@ -75,6 +75,10 @@ function fetch(url, headers = {}) {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         return fetch(res.headers.location, headers).then(ok).catch(fail);
       }
+      if (res.statusCode >= 400) {
+        fail(new Error(`HTTP ${res.statusCode} for ${url}`));
+        return;
+      }
       const chunks = [];
       res.on('data', (c) => chunks.push(c));
       res.on('end', () => ok(Buffer.concat(chunks)));
