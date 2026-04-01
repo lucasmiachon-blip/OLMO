@@ -2571,6 +2571,7 @@ section#s-a1-01 .slide-inner {
 #s-a1-elasto .slide-inner {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: var(--space-sm);
 }
 
