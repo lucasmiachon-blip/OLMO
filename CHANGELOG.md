@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## Sessao 35 — 2026-04-01 (cirrose import from standalone)
+
+### Cirrose Import (Aula_cirrose → OLMO)
+- 11 slides ativos (Act 1) + 35 arquivados em _archive/ (substituem 44 antigos)
+- cirrose.css single-file 3224L (absorveu base.css + archetypes.css eliminado)
+- slide-registry.js, _manifest.js, references/ atualizados
+- Meta files: ERROR-LOG (67 erros), AUDIT-VISUAL (14 dim), WT-OPERATING, DONE-GATE
+
+### Shared JS Updates (backwards-compatible)
+- deck.js: bugfix child transition bubbling
+- engine.js: animation timing (slide:changed vs slide:entered)
+- case-panel.js: MELD/MELD-Na/MELD 3.0 tabs
+
+### Governance Ported
+- 1 rule (design-reference), 3 agents, 8 agent-memories, 5 skills, 3 commands
+- 7 hooks (.claude/hooks/): guard-generated, guard-secrets, check-evidence-db, build-monitor, task-completed-gate
+- Hooks registrados em settings.local.json (PreToolUse, PostToolUse)
+
+### Docs & Scripts
+- 5 cirrose-specific docs + 15 QA prompt templates (Gate 0/2/4)
+- 4 universal docs → docs/aulas/ (design-principles, css-error-codes, pedagogy, hardening)
+- 3 scripts evoluidos (gemini-qa3, content-research, qa-batch-screenshot)
+- 5 scripts novos (browser-qa-act1, validate-css, qa-video, pre-commit, install-hooks)
+- .gitignore: qa-screenshots/, qa-rounds/, index.html, .playwright-mcp/
+
 ## Sessao 34 — 2026-04-01 (self-improvement + INFO fixes)
 
 ### Robustness Fixes (I6-I12 do Codex review)

@@ -1,6 +1,6 @@
 # TREE.md — Mapa do Projeto
 
-> Atualizado: Sessao 29 | 2026-03-31
+> Atualizado: Sessao 35 | 2026-04-01
 
 ## Raiz (operacional)
 
@@ -83,10 +83,19 @@ content/aulas/
 │   ├── assets/          # Fontes woff2
 │   ├── decision-protocol.md  # Governanca DR-NNN para decisoes nao-triviais
 │   └── coautoria.md     # Template ICMJE/SAGE disclosure AI
-├── cirrose/             # 44 slides, PRODUCAO, lint clean
-│   ├── slides/          # HTMLs individuais
-│   ├── references/      # 7 docs referencia (CASE, narrative, evidence-db...)
-│   └── scripts/         # Build, screenshot, QA
+├── cirrose/             # 11 ativos (Act 1) + 35 archive. CSS single-file.
+│   ├── slides/          # 11 HTMLs ativos + _archive/ (33 Act 2/3/appendix)
+│   ├── slides/_manifest.js  # SOURCE OF TRUTH: ordem, archetypes, panelStates
+│   ├── cirrose.css      # 3224L self-contained (OKLCH tokens + per-slide)
+│   ├── slide-registry.js # Animacoes GSAP customizadas por slide
+│   ├── references/      # 7 docs (CASE, narrative, evidence-db, must-read-trials...)
+│   ├── scripts/         # Build, QA (gemini-qa3, content-research, screenshots)
+│   ├── docs/            # biblia-narrativa, blueprint, lessons, prompts/ (15 QA)
+│   ├── ERROR-LOG.md     # 67 erros → rules (feedback loop)
+│   ├── AUDIT-VISUAL.md  # Scorecard 14 dimensoes por slide
+│   ├── WT-OPERATING.md  # State machine QA (6 substages)
+│   ├── HANDOFF-CIRROSE.md  # Tracking especifico da aula
+│   └── CHANGELOG-CIRROSE.md
 ├── metanalise/          # 18 slides, QA em progresso (3 DONE, 14 LINT-PASS)
 │   ├── slides/          # HTMLs individuais
 │   ├── references/      # 6 docs (archetypes, blueprint, evidence-db, narrative...)
@@ -95,7 +104,8 @@ content/aulas/
 │   ├── slides/
 │   ├── scripts/
 │   └── qa-screenshots/
-├── scripts/             # Linters compartilhados (lint-slides, done-gate, QA)
+├── scripts/             # Linters compartilhados (lint-slides, done-gate, QA, validate-css)
+│   └── qa/              # qa-video.js
 ├── STRATEGY.md          # Roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
 └── README.md            # Overview com status por aula
 ```
@@ -147,36 +157,39 @@ tests/
 docs/
 ├── ARCHITECTURE.md                # Decisoes tecnicas (orchestration, skills, model routing)
 ├── TREE.md                        # Este arquivo
-├── SYNC-NOTION-REPO.md            # Protocolo sync Notion↔Repo (source of truth, collection IDs)
+├── SYNC-NOTION-REPO.md            # Protocolo sync Notion↔Repo
 ├── WORKFLOW_MBE.md                # Workflow MBE completo
 ├── PIPELINE_MBE_NOTION_OBSIDIAN.md  # Pipeline PubMed→Notion→Obsidian
-├── BEST_PRACTICES.md              # Boas praticas
+├── BEST_PRACTICES.md              # Boas praticas dev/agents
 ├── GETTING_STARTED.md             # Setup inicial
 ├── OBSIDIAN_CLI_PLAN.md           # Plano CLI Obsidian (PARA structure)
 ├── keys_setup.md                  # Setup de API keys
 ├── coauthorship_reference.md      # Tabela membros alianca AI
-└── mcp_safety_reference.md        # Referencia completa MCP safety
+├── mcp_safety_reference.md        # Referencia completa MCP safety
+└── aulas/                         # Docs universais para todas as aulas
+    ├── design-principles.md       # 27 principios (Cowan, Gestalt, Duarte, Tufte)
+    ├── css-error-codes.md         # 52 E-codes CSS
+    ├── slide-pedagogy.md          # Andragogia (Knowles, Sweller, Mayer)
+    └── HARDENING-SCRIPTS.md       # Seguranca Node scripts
 ```
 
 ## .claude/ — Configuracao Claude Code
 
 ```
 .claude/
-├── agents/              # 4 agentes especializados
-│   ├── literature.md    # Pesquisa cientifica
-│   ├── notion-ops.md    # Operacoes Notion
-│   ├── quality-gate.md  # QA pre-commit
-│   └── researcher.md    # Exploracao codebase
-├── rules/               # 8 regras comportamentais
-│   ├── anti-drift.md    # Guardrails contra drift
-│   ├── coauthorship.md  # Coautoria AI explicita
-│   ├── efficiency.md    # Eficiencia API
-│   ├── mcp_safety.md    # Protocolo Notion MCP (path-scoped)
-│   ├── notion-cross-validation.md  # Cross-validation (path-scoped)
-│   ├── quality.md       # Qualidade de codigo
-│   ├── session-hygiene.md  # HANDOFF+CHANGELOG obrigatorios
-│   └── slide-rules.md   # Regras aulas (path-scoped: content/aulas/**)
-└── skills/              # 18 slash commands instrucao-based
+├── agents/              # 7 agentes especializados
+│   ├── literature.md, notion-ops.md, quality-gate.md, researcher.md  # gerais
+│   └── medical-researcher.md, qa-engineer.md, repo-janitor.md       # aulas
+├── agent-memory/        # Memorias persistentes de agentes
+│   └── medical-researcher/  # 7 memories hepatologia (elastografia, MELD, etc.)
+├── commands/            # 3 custom commands (audit-docs, evidence, new-slide)
+├── hooks/               # 7 hooks bash (guard-generated, guard-secrets, etc.)
+├── rules/               # 9 regras comportamentais
+│   ├── anti-drift.md, coauthorship.md, efficiency.md, quality.md
+│   ├── mcp_safety.md, notion-cross-validation.md (path-scoped)
+│   ├── session-hygiene.md, slide-rules.md (path-scoped: content/aulas/**)
+│   └── design-reference.md  # Cores semanticas, tipografia, dados medicos Tier-1
+└── skills/              # 20 slash commands instrucao-based
 ```
 
 ## Outros

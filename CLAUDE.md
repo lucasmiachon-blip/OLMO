@@ -46,10 +46,11 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - `config/rate_limits.yaml` → budget ($100/mes max)
 - `config/mcp/servers.json` → 16 MCPs (13 connected, 3 planned)
 - `hooks/` → 2 hooks (notification desktop, stop session-hygiene)
+- `.claude/hooks/` → 7 hooks (guard-generated, guard-secrets, check-evidence-db, build-monitor, etc.)
 
 ### Aulas (Node.js: `cd content/aulas && npm run dev`)
 - `content/aulas/shared/` → design system (base.css OKLCH, deck.js, engine.js, fonts woff2)
-- `content/aulas/cirrose/` → 44 slides deck.js+GSAP (producao). Rules: `.claude/rules/slide-rules.md`
+- `content/aulas/cirrose/` → 11 slides ativos (Act 1) + 35 archive. CSS single-file (3224L). QA: Gate 0/2/4.
 - `content/aulas/metanalise/` → 18 slides deck.js+GSAP (3/18 QA DONE). Valgimigli 2025 Lancet.
 - `content/aulas/grade/` → 58 slides deck.js (migrada, precisa redesign legibilidade)
 - `content/aulas/STRATEGY.md` → roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
