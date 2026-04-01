@@ -139,7 +139,7 @@ try {
   const aulaFiles = status.split('\n')
     .filter(l => l.length > 3)
     .map(l => l.slice(3).trim())
-    .filter(f => f.startsWith(`aulas/${aula}/`));
+    .filter(f => f.startsWith(`content/aulas/${aula}/`));
   if (aulaFiles.length > 0) {
     console.log(`  WARN  ${aulaFiles.length} uncommitted file(s):`);
     aulaFiles.forEach(f => console.log(`        ${f}`));

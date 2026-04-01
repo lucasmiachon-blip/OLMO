@@ -24,7 +24,7 @@ Inspirado no research-agent da Anthropic (fan-out paralelo + consolidacao + repo
 1. **Slide-id fornecido** (ex: `s-a1-damico`) → ler slide HTML + evidence-db da aula
 2. **Topico livre** (ex: "hepatorenal syndrome") → pesquisar sem slide de referencia
 3. **Detectar aula:** `git branch --show-current` → `feat/{aula}-*` ou exigir argumento
-4. Ler `aulas/{aula}/CLAUDE.md` → publico-alvo, fontes Tier-1 especificas da aula
+4. Ler `content/aulas/{aula}/CLAUDE.md` → publico-alvo, fontes Tier-1 especificas da aula
 5. Ler `.claude/rules/design-reference.md` §5 → regras de verificacao, tabela Tier-1
 
 ## Step 1 — Discovery (4 agentes paralelos)
