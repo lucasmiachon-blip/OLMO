@@ -16,6 +16,8 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 
 **Skills** — 15 skills em `.claude/skills/`, todas SKILL.md (formato oficial).
 - Nova: `systematic-debugging` (4 fases, adaptada de superpowers 128K stars)
+- `dream-skill` instalada global (~/.claude/skills/dream/), hook Stop ativo
+- Codex CLI v0.118.0 instalado. Pendente: `codex login` + plugin install
 - Gap: NotebookLM skill (workflow de estudo)
 
 **Notion** — Calendario DB + Tasks DB (Ultimate Brain) mapeados. Calendario dentro de path Archived (precisa mover).
@@ -34,7 +36,8 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 - Skills: formato SKILL.md (oficial), descriptions "pushy" anti-undertrigger.
 - Maio/2026: foco total concurso. Abril = housekeeping aulas.
 - GSD descartado (dev workflow, nao organizacao). Superpowers: cherry-picked.
-- Hooks: 3 ativos (notify, stop-hygiene, stop-notify). Paths absolutos.
+- Hooks: 3 ativos projeto (notify, stop-hygiene, stop-notify) + 1 global (dream Stop). Paths absolutos.
+- Codex billing: usa quota ChatGPT (Plus/Pro). Adversarial-review consome mais.
 
 ## CUIDADOS
 

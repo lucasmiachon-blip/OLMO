@@ -9,13 +9,22 @@
 ### Rules
 - `anti-drift.md`: verification gate 5-step (cherry-pick superpowers verification-before-completion)
 
+### Tooling
+- `dream-skill` instalada (~/.claude/skills/dream/) — memory consolidation 4 fases, Stop hook global, auto-trigger 24h
+- `@openai/codex` CLI v0.118.0 instalado globalmente (npm -g)
+- `codex-plugin-cc`: pendente auth (`codex login`) + plugin install
+
 ### Research
 - Superpowers (128K stars): avaliado, cherry-picked debugging + verification
 - GSD (32K stars): avaliado, descartado (dev workflow, nao organizacao)
 - Notion Calendario + Tasks DB: mapeados (schema, views, data source IDs)
+- Auto Dream (oficial Anthropic): rolling out mar/2026, behind feature flag
 
 ### Notion
 - 3 compromissos criados no Calendario DB para 01/abr (Dr Fernanda ICESP, Psicologo 11h, OLMO skills+metanalise)
+
+### Memory
+- 3 novas memorias: notion-databases (reference), tooling-pipeline (project), metanalise-deadline (project)
 
 ## Sessao 31 — 2026-03-31
 
