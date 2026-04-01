@@ -37,8 +37,8 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 - Maio/2026: foco total concurso. Abril = housekeeping aulas.
 - GSD descartado (dev workflow, nao organizacao). Superpowers: cherry-picked.
 - Hooks: 3 ativos projeto (notify, stop-hygiene, stop-notify) + 1 global (dream Stop). Paths absolutos.
-- Codex billing: API key pay-per-use (centavos/review). Adversarial-review consome mais.
-- Dream: Auto Dream oficial (Anthropic) rolling out — dream-skill e ponte.
+- Codex billing: API key pay-per-use (centavos/review). Monitorar em platform.openai.com/usage.
+- Dream: Auto Dream oficial (Anthropic) rolling out — dream-skill e ponte. claude-mem descartado.
 
 ## CUIDADOS
 
@@ -57,7 +57,7 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 - [ ] Font-size audit cirrose: 12+ valores abaixo 28px threshold
 - [ ] Presenter.js rewrite (HTML separado, timer fix)
 - [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
-- [ ] claude-mem install (44K stars, sessao dedicada)
+- [ ] daily-briefing: adicionar Notion Calendario + Tasks "Due Today"
 
 ## CONFLITOS
 
