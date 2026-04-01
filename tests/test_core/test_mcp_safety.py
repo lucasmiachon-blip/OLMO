@@ -57,7 +57,7 @@ class TestReadOnlyOperations:
 
 class TestWriteInReadOnlyMode:
     def test_create_page_blocked_in_read_mode(self) -> None:
-        result = validate_operation("notion-create-page", OperationMode.READ_ONLY)
+        result = validate_operation("notion-create-pages", OperationMode.READ_ONLY)
         assert result.decision == SafetyDecision.BLOCK
         assert "READ_ONLY" in result.reason
 
@@ -72,13 +72,13 @@ class TestWriteInReadOnlyMode:
 
 class TestBatchSize:
     def test_batch_over_5_needs_review(self) -> None:
-        result = validate_operation("notion-create-page", OperationMode.WRITE, batch_size=6)
+        result = validate_operation("notion-create-pages", OperationMode.WRITE, batch_size=6)
         assert result.decision == SafetyDecision.NEEDS_HUMAN_REVIEW
         assert "6" in result.reason
 
     def test_batch_5_or_less_passes(self) -> None:
         result = validate_operation(
-            "notion-create-page", OperationMode.WRITE, confidence=0.99, batch_size=5
+            "notion-create-pages", OperationMode.WRITE, confidence=0.99, batch_size=5
         )
         assert result.decision == SafetyDecision.ALLOW
 
@@ -100,26 +100,26 @@ class TestConfidenceThresholds:
     """Harsh model: <0.50=block+urgent, <0.70=block, <0.95=review, >=0.95=allow."""
 
     def test_very_low_confidence_blocks(self) -> None:
-        result = validate_operation("notion-create-page", OperationMode.WRITE, confidence=0.30)
+        result = validate_operation("notion-create-pages", OperationMode.WRITE, confidence=0.30)
         assert result.decision == SafetyDecision.BLOCK
         assert "0.50" in result.reason
 
     def test_low_confidence_blocks(self) -> None:
-        result = validate_operation("notion-create-page", OperationMode.WRITE, confidence=0.60)
+        result = validate_operation("notion-create-pages", OperationMode.WRITE, confidence=0.60)
         assert result.decision == SafetyDecision.BLOCK
         assert "0.70" in result.reason
 
     def test_medium_confidence_needs_review(self) -> None:
-        result = validate_operation("notion-create-page", OperationMode.WRITE, confidence=0.85)
+        result = validate_operation("notion-create-pages", OperationMode.WRITE, confidence=0.85)
         assert result.decision == SafetyDecision.NEEDS_HUMAN_REVIEW
         assert result.requires_cross_validation
 
     def test_high_confidence_allowed(self) -> None:
-        result = validate_operation("notion-create-page", OperationMode.WRITE, confidence=0.99)
+        result = validate_operation("notion-create-pages", OperationMode.WRITE, confidence=0.99)
         assert result.decision == SafetyDecision.ALLOW
 
     def test_exact_threshold_095(self) -> None:
-        result = validate_operation("notion-create-page", OperationMode.WRITE, confidence=0.95)
+        result = validate_operation("notion-create-pages", OperationMode.WRITE, confidence=0.95)
         assert result.decision == SafetyDecision.ALLOW
 
 

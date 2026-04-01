@@ -194,14 +194,21 @@ class LocalFirstSkill:
     # Knowledge Base Local (custo: $0.00)
     # ------------------------------------------------------------------
 
+    def _safe_knowledge_path(self, key: str) -> Path:
+        """Resolve path and reject traversal outside knowledge_dir."""
+        file_path = (self.knowledge_dir / f"{key}.json").resolve()
+        if not file_path.is_relative_to(self.knowledge_dir.resolve()):
+            raise ValueError(f"Key '{key}' resolves outside knowledge_dir")
+        return file_path
+
     def save_knowledge(self, key: str, data: Any) -> None:
         """Salva conhecimento local."""
-        file_path = self.knowledge_dir / f"{key}.json"
+        file_path = self._safe_knowledge_path(key)
         file_path.write_text(json.dumps(data, indent=2, ensure_ascii=False, default=str))
 
     def get_knowledge(self, key: str) -> Any:
         """Recupera conhecimento local."""
-        file_path = self.knowledge_dir / f"{key}.json"
+        file_path = self._safe_knowledge_path(key)
         if file_path.exists():
             return json.loads(file_path.read_text())
         return None

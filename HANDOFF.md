@@ -1,51 +1,37 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 32 | 2026-03-31
+> Sessao 33 | 2026-03-31
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Legacy repos arquivados.
+Monorepo funcional. CI verde (47 testes). Codex CLI OAuth ativo (GPT-5.4, $0).
 
-**Python** — ruff clean, mypy OK, 47 testes. Agents scaffolds (~30%), config/safety/routing 100%.
+**Python** — ruff clean, mypy OK. 5 security fixes aplicados (path traversal, XSS, MCP drift, async import).
 
 **Aulas** — 4 aulas (deck.js unificado). Metanalise deadline 15/abr (15 dias).
-- `metanalise/` — 18 slides, 3/18 QA DONE, 14 LINT-PASS. **Prioridade: retomar QA.**
-- `cirrose/` — 44 slides, producao. Pendente: coagulopatia, fix albumina/HDA, cACLD.
-- `grade/` — 58 slides, ilegivel (9/10 falham C8). Precisa redesign.
-- `shared/` — design system OKLCH + GSAP. Vite: 4100-4102.
 
-**Skills** — 15 skills em `.claude/skills/`, todas SKILL.md (formato oficial).
-- Nova: `systematic-debugging` (4 fases, adaptada de superpowers 128K stars)
-- `dream-skill` instalada global (~/.claude/skills/dream/), hook Stop ativo, auto-trigger 24h
-- Codex plugin completo: CLI v0.118.0 + plugin-cc + auth OK. Commands: `/codex:review`, `/codex:rescue`
-- Gap: NotebookLM skill (workflow de estudo)
-
-**Notion** — Calendario DB + Tasks DB (Ultimate Brain) mapeados. Calendario dentro de path Archived (precisa mover).
+**Codex** — OAuth ChatGPT. Config: `~/.codex/config.toml` (forced_login_method=chatgpt). gpt-5.3-codex NAO disponivel via API (rollout fechado).
 
 ## PROXIMO
 
-1. **Metanalise QA** — 14 slides restantes (deadline 15/abr)
-2. **Notion cleanup** — mover Calendario, criar views Today/Tomorrow, consolidar
-3. **Cirrose: migrar conteudo** + feedback pos-aula
-4. **NotebookLM skill** — workflow de estudo
-5. **Grade readability redesign** — curadoria slide-a-slide
+1. **Ensinar Lucas os findings do Codex review** — explicar cada WARN/INFO, conceitos de seguranca (path traversal, XSS, name drift). Ref: `docs/CODEX-REVIEW-S33.md`
+2. **Self-improvement** — consolidar learnings em memoria (Codex workflow, model availability)
+3. **INFO fixes (I6-I12)** — 7 issues de robustez pendentes do Codex review
+4. **Metanalise QA** — 14 slides restantes (deadline 15/abr)
+5. **Notion cleanup** — mover Calendario, criar views Today/Tomorrow
 
 ## DECISOES ATIVAS
 
-- CSS: tokens (base.css) + composicao livre por slide. Sem archetypes.
-- Skills: formato SKILL.md (oficial), descriptions "pushy" anti-undertrigger.
+- Codex: OAuth ChatGPT ($0, GPT-5.4). API key mantida como fallback (gpt-5.2-pro).
+- CSS: tokens (base.css) + composicao livre por slide.
+- Skills: formato SKILL.md (oficial), descriptions "pushy".
 - Maio/2026: foco total concurso. Abril = housekeeping aulas.
-- GSD descartado (dev workflow, nao organizacao). Superpowers: cherry-picked.
-- Hooks: 3 ativos projeto (notify, stop-hygiene, stop-notify) + 1 global (dream Stop). Paths absolutos.
-- Codex billing: API key pay-per-use (centavos/review). Monitorar em platform.openai.com/usage.
-- Dream: Auto Dream oficial (Anthropic) rolling out — dream-skill e ponte. claude-mem descartado.
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
-- Grade tem 404 JS errors (recursos faltando).
-- Vite: outro projeto deve usar range diferente (ex: 4200+).
-- skill-creator scripts excluidos do ruff (codigo externo Anthropic).
+- Codex OAuth: so aceita modelo default (GPT-5.4). Modelos especificos exigem API key.
+- gpt-5.3-codex: NAO disponivel via API (rollout fechado, mar/2026).
 - Notion Calendario DB: `collection://308dfe68-59a8-81c2-8d7f-000bf3da6ec4`
 - Notion Tasks DB: `collection://2f6dfe68-59a8-81df-943b-000b7f7098cf`
 
@@ -53,7 +39,6 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 
 - [ ] Google Drive MCP: OAuth credentials
 - [ ] BudgetTracker (SQLite, configurado mas inativo)
-- [ ] claude-task-master (MCP GTD)
 - [ ] Font-size audit cirrose: 12+ valores abaixo 28px threshold
 - [ ] Presenter.js rewrite (HTML separado, timer fix)
 - [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
@@ -64,4 +49,4 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-03-31
+Coautoria: Lucas + Opus 4.6 + GPT-5.4 (reviewer) | 2026-03-31

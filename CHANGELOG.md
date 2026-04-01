@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 33 — 2026-03-31 (OAuth do Codex e Limpeza)
+
+### Codex CLI
+- Codex login: OAuth via ChatGPT (forced_login_method=chatgpt) — modelo GPT-5.4, $0
+- Primeiro code review com Codex: 12 findings (5 WARN, 7 INFO) em 6 diretorios
+
+### Security Fixes (via Codex review)
+- Fix W1: XSS — `presenter.js` innerHTML → textContent
+- Fix W2: Path traversal — `local_first.py` _safe_knowledge_path() com resolve + is_relative_to
+- Fix W3: Path traversal — `run_eval.py` sanitiza skill_name com re.sub
+- Fix W4: MCP name drift — sync mcp_safety.py + servers.json + testes com API real do Notion
+- Fix W5: Async import — `presenter.js` import().then() em vez de assignment sincrono
+
+### Docs
+- `docs/CODEX-REVIEW-S33.md` — findings completos do primeiro Codex review
+
 ## Sessao 32 — 2026-03-31 (skill-debugging)
 
 ### Skills

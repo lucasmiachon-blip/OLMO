@@ -29,26 +29,32 @@ class SafetyDecision(Enum):
 
 
 # Operacoes que sao sempre read-only (seguras)
+# Synced with actual Notion MCP API names (2026-03-31)
 READ_ONLY_OPERATIONS = frozenset(
     {
         "notion-search",
         "notion-fetch",
         "notion-get-comments",
-        "notion-retrieve-page",
-        "notion-retrieve-database",
-        "notion-query-database",
-        "notion-list-databases",
+        "notion-get-users",
+        "notion-get-teams",
+        "notion-query-database-view",
+        "notion-query-meeting-notes",
+        "notion-retrieve-page",  # usado em validate_move + executor
     }
 )
 
 # Operacoes de write (requerem validacao)
+# Synced with actual Notion MCP API names (2026-03-31)
 WRITE_OPERATIONS = frozenset(
     {
-        "notion-create-page",
+        "notion-create-pages",
         "notion-update-page",
-        "notion-append-block",
-        "notion-delete-block",
+        "notion-create-comment",
         "notion-create-database",
+        "notion-create-view",
+        "notion-update-view",
+        "notion-update-data-source",
+        "notion-duplicate-page",
         "notion-move-pages",
     }
 )

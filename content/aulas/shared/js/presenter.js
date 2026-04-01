@@ -23,8 +23,7 @@ export function initPresenter() {
   // Listen for navigation commands from presenter window
   channel.onmessage = (e) => {
     if (e.data.type === 'navigate') {
-      const { navigate } = import('./deck.js');
-      navigate(e.data.delta);
+      import('./deck.js').then(({ navigate }) => navigate(e.data.delta));
     }
   };
 
@@ -64,7 +63,7 @@ function broadcastState(slide, index) {
 function extractNotes(section) {
   if (!section) return '';
   const aside = section.querySelector('aside.notes, .notes');
-  return aside ? aside.innerHTML : '';
+  return aside ? aside.textContent : '';
 }
 
 function openPresenter() {
@@ -170,9 +169,9 @@ function presenterHTML() {
     const d = e.data;
     document.getElementById('p-slide-id').textContent = d.slideId;
     document.getElementById('p-progress').textContent = (d.index + 1) + ' / ' + d.total;
-    document.getElementById('p-notes').innerHTML = d.notes || '<em>No notes</em>';
+    document.getElementById('p-notes').textContent = d.notes || 'No notes';
     document.getElementById('p-next-id').textContent = d.nextId || 'End';
-    document.getElementById('p-next-notes').innerHTML = d.nextNotes || '';
+    document.getElementById('p-next-notes').textContent = d.nextNotes || '';
     timerOffset = d.elapsed;
   };
 
