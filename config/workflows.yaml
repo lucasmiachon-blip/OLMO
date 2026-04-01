@@ -258,7 +258,7 @@ workflows:
         cost: "~$0.05-0.10"
       - name: "cross_validation"
         type: "api_call"
-        model: "gpt-5.4"
+        model: "chatgpt-5.4"
         optional: true
         when: "evidencia ambigua ou decisao critica"
         action: |
