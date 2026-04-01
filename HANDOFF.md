@@ -6,21 +6,22 @@
 
 Monorepo funcional. CI verde (47 testes). Codex review 12/12 findings resolvidos.
 
-**Python** — ruff clean, mypy OK. Defensive patterns aplicados (try/except, enum validation, handler coverage).
+**Python** — ruff clean, mypy OK. Defensive patterns aplicados.
 
 **Aulas** — 4 aulas (deck.js unificado). Metanalise deadline 15/abr (14 dias).
 
-**Codex** — OAuth ChatGPT (GPT-5.4, $0). Primeiro review completo e ensinado.
+**Notion** — Calendario DB com views Diario/Semanal/Mensal. Tasks triadas (GTD: Do Next/Someday). Calendario DB dentro de area Archived — considerar mover.
 
 ## PROXIMO
 
-1. **Metanalise QA** — 14 slides restantes (deadline 15/abr)
-2. **Notion cleanup** — mover Calendario, criar views Today/Tomorrow
-3. **Proximo Codex review** — agendar apos proxima feature major
+1. **Metanalise QA** — 14 slides html-ready pendentes QA (deadline 15/abr)
+2. **Notion: mover Calendario DB** — esta dentro de "Archived", usuario nao acha facilmente
+3. **Notion: dashboard unificado** — pagina com Calendario + Tasks Do Next lado a lado
 
 ## DECISOES ATIVAS
 
-- Codex: OAuth ChatGPT ($0, GPT-5.4). API key mantida como fallback (gpt-5.2-pro).
+- Calendario DB = compromissos com hora. Tasks DB = acoes (GTD: Do Next/Someday).
+- Codex: OAuth ChatGPT ($0, GPT-5.4). API key mantida como fallback.
 - CSS: tokens (base.css) + composicao livre por slide.
 - Skills: formato SKILL.md (oficial), descriptions "pushy".
 - Maio/2026: foco total concurso. Abril = housekeeping aulas.
@@ -28,10 +29,9 @@ Monorepo funcional. CI verde (47 testes). Codex review 12/12 findings resolvidos
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
-- Codex OAuth: so aceita modelo default (GPT-5.4). Modelos especificos exigem API key.
-- gpt-5.3-codex: NAO disponivel via API (rollout fechado, mar/2026).
-- Notion Calendario DB: `collection://308dfe68-59a8-81c2-8d7f-000bf3da6ec4`
-- Notion Tasks DB: `collection://2f6dfe68-59a8-81df-943b-000b7f7098cf`
+- Calendario DB: `collection://308dfe68-59a8-81c2-8d7f-000bf3da6ec4`
+- Tasks DB: `collection://2f6dfe68-59a8-81df-943b-000b7f7098cf`
+- Psicologo: quartas 11h (recorrente). Notion event ID: 335dfe6859a881f783b5cc1f04b80567
 
 ## PENDENTE (herdado)
 

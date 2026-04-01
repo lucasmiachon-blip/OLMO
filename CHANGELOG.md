@@ -16,6 +16,12 @@
 - Memoria consolidada: defensive coding patterns, review findings 12/12 complete
 - Teaching: explicacao dos 12 findings (XSS, path traversal, name drift, async, defensive patterns)
 
+### Notion Organization
+- Calendario DB: views Diario/Semanal/Mensal melhoradas (Categoria, Prioridade, Status)
+- Tasks DB: triagem GTD — 2 Do Next, 11 Someday, 1 Done (Aula Cirrose 31/03)
+- Tasks DB: calendar view criada (📅 Calendar)
+- Eventos criados: Psicologo 11h (semanal), Profa Fernanda Hemato ICESP 14h
+
 ## Sessao 33 — 2026-03-31 (OAuth do Codex e Limpeza)
 
 ### Codex CLI
