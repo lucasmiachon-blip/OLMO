@@ -14,9 +14,11 @@ Monorepo funcional. CI verde (47 testes). 11 rules (antes 10).
 
 ## PROXIMO
 
-1. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework para novo formato. Lucas guia.
-2. **Metanalise QA** — 14 slides pendentes (deadline 15/abr, 14 dias)
-3. **Notion: mover Calendario DB** — esta em area Archived, inacessivel
+1. **Codex Review fixes P0** — root path 5 scripts + export-pdf fail-hard. Plano em `docs/CODEX-REVIEW-S37.md`
+2. **Codex Review fixes P1** — agents: anti-drift revert, qa-engineer scope, medical-researcher verification tiers
+3. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework para novo formato. Lucas guia.
+4. **Metanalise QA** — 14 slides pendentes (deadline 15/abr, 14 dias)
+5. **Notion: mover Calendario DB** — esta em area Archived, inacessivel
 
 ## DECISOES ATIVAS
 

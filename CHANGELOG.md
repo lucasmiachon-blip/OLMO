@@ -7,6 +7,12 @@
 - `design-reference.md`: +§1 hierarquia semantica, §3 PMID propagation (56% erro LLM), +§4 color safety OKLCH
 - `qa-pipeline.md`: nova rule — attention separation, cor semantica QA, anti-sycophancy com rubrica
 
+### Codex Review (GPT-5.4)
+- Scripts: 16 findings (2 CRITICAL root path + export-pdf, 5 HIGH, 6 MEDIUM, 2 LOW)
+- Agents+Rules: 39 findings (3 CRITICAL verification deadlock + impossible QA + memory conflict)
+- 3 problemas sistemicos: "verified" ambiguo, tensao exhaustive/restrained, fallback ausente
+- Plano de implementacao P0-P3 documentado em `docs/CODEX-REVIEW-S37.md`
+
 ### Governanca
 - 11 rules (antes 10). CI verde (47 testes). Dream: nada novo a consolidar.
 
