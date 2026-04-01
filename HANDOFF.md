@@ -16,7 +16,7 @@ Monorepo funcional. CI verde (47 testes). 11 rules. Codex Review P1+P2 completos
 
 ## PROXIMO
 
-1. **Codex Review P0** — root path 5 scripts + export-pdf fail-hard. Plano em `docs/CODEX-REVIEW-S37.md`
+1. **Codex Review P0** — root path 5 scripts + export-pdf fail-hard. Plano em `docs/CODEX-REVIEW-S37.md`. Rodar Codex sem truncar por max tokens (Lucas pediu S38).
 2. **Codex Review P3** — polish: validate-css WARN, notes regex, install-fonts HTTP, agents fallback
 3. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework. Lucas guia.
 4. **Metanalise QA** — 14 slides pendentes (deadline 15/abr, 14 dias)
