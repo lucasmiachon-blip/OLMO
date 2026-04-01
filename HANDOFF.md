@@ -1,24 +1,22 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 33 | 2026-03-31
+> Sessao 34 | 2026-04-01
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde (47 testes). Codex CLI OAuth ativo (GPT-5.4, $0).
+Monorepo funcional. CI verde (47 testes). Codex review 12/12 findings resolvidos.
 
-**Python** — ruff clean, mypy OK. 5 security fixes aplicados (path traversal, XSS, MCP drift, async import).
+**Python** — ruff clean, mypy OK. Defensive patterns aplicados (try/except, enum validation, handler coverage).
 
-**Aulas** — 4 aulas (deck.js unificado). Metanalise deadline 15/abr (15 dias).
+**Aulas** — 4 aulas (deck.js unificado). Metanalise deadline 15/abr (14 dias).
 
-**Codex** — OAuth ChatGPT. Config: `~/.codex/config.toml` (forced_login_method=chatgpt). gpt-5.3-codex NAO disponivel via API (rollout fechado).
+**Codex** — OAuth ChatGPT (GPT-5.4, $0). Primeiro review completo e ensinado.
 
 ## PROXIMO
 
-1. **Ensinar Lucas os findings do Codex review** — explicar cada WARN/INFO, conceitos de seguranca (path traversal, XSS, name drift). Ref: `docs/CODEX-REVIEW-S33.md`
-2. **Self-improvement** — consolidar learnings em memoria (Codex workflow, model availability)
-3. **INFO fixes (I6-I12)** — 7 issues de robustez pendentes do Codex review
-4. **Metanalise QA** — 14 slides restantes (deadline 15/abr)
-5. **Notion cleanup** — mover Calendario, criar views Today/Tomorrow
+1. **Metanalise QA** — 14 slides restantes (deadline 15/abr)
+2. **Notion cleanup** — mover Calendario, criar views Today/Tomorrow
+3. **Proximo Codex review** — agendar apos proxima feature major
 
 ## DECISOES ATIVAS
 
@@ -49,4 +47,4 @@ Monorepo funcional. CI verde (47 testes). Codex CLI OAuth ativo (GPT-5.4, $0).
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 + GPT-5.4 (reviewer) | 2026-03-31
+Coautoria: Lucas + Opus 4.6 | 2026-04-01

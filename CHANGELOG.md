@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 34 — 2026-04-01 (self-improvement + INFO fixes)
+
+### Robustness Fixes (I6-I12 do Codex review)
+- I6: try/except em YAML loading (`config/loader.py`)
+- I7: scheduler limits sync com rate_limits.yaml (50/250 vs hardcoded 10/50)
+- I8: try/except em JSON parse (`smart_scheduler.py` budget + cache)
+- I9: stop hook fallback se HANDOFF ausente (`stop-hygiene.sh`)
+- I10: warn + fail em actions sem handler (`automation_agent.py`)
+- I11: validacao de priority com fallback (`organization_agent.py`)
+- I12: removidas 4 skills fantasma do `ecosystem.yaml`
+
+### Self-Improvement
+- Statusline: indicador context window % com cores (green/yellow/red)
+- Memoria consolidada: defensive coding patterns, review findings 12/12 complete
+- Teaching: explicacao dos 12 findings (XSS, path traversal, name drift, async, defensive patterns)
+
 ## Sessao 33 — 2026-03-31 (OAuth do Codex e Limpeza)
 
 ### Codex CLI
