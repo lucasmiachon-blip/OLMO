@@ -112,3 +112,57 @@ Easing: `power2.out` ou `power3.out`. PROIBIDO: bounce, elastic, linear em UI.
 - `scaleDeck()`: `Math.min(vw/1280, vh/720)` + `translate(-50%,-50%) scale(s)` em `#deck`.
 - Scaling é responsabilidade do `shared/js/deck.js`. CSS local NUNCA redefine zoom/transform no body ou `#deck`.
 - PROIBIDO: `zoom` CSS (não dispara resize event, causa double-scaling com deck.js transform).
+
+## 9. GSAP — Jurisdição e FOUC
+
+> Fonte: Cirrose E054, E046, E060, E065, E066
+
+**Jurisdição CSS vs GSAP:**
+- GSAP controla: `opacity`, `transform` (layout props). CSS controla: `background`, `border`, `filter` (paint props). NUNCA competir — GSAP inline styles vencem qualquer specificity CSS.
+- GSAP opacity em texto projetado NUNCA < 0.85. Contraste efetivo = cor × opacity × bg (E060).
+- NUNCA GSAP em elemento gerenciado por outro sistema (e.g., case-panel.js). Race condition garantida (E046).
+
+**FOUC cross-slide (E065):**
+- Containers animados DEVEM ter `opacity: 0` no CSS base. GSAP revela com `set(container, { opacity: 1 })`.
+- `animate()` roda em `slide:changed` (imediato). Delays GSAP (0.3-0.4s) alinham com transição CSS 400ms. NUNCA `slide:entered` (400ms tarde = flash).
+- Cleanup do slide anterior: delay 450ms com proteção contra re-entrada.
+
+**FOUC intra-slide — eras stacked (E066):**
+- TODO filho animado de era stacked DEVE ter `opacity: 0` no CSS.
+- `gsap.set({opacity:0})` no init para eras futuras (S1, S2).
+- Re-hide filhos ANTES de `showEra()`, não depois no callback.
+
+**Reset defensivo (E062):**
+- Custom animations com advance/retreat DEVEM ter reset defensivo no início da factory. `ctx.revert()` insuficiente para inline styles e SplitText char divs.
+
+## 10. stage-c — Slides com Fundo Escuro
+
+> Fonte: Cirrose E071, Metanalise E001, E009
+
+- stage-c remapeia TODOS os tokens `--*-on-dark` para valores light. Slide navy fica light-on-light sem override.
+- Background navy: via CSS `#s-{id} .slide-inner { background-color: #HEX; }`. NUNCA `data-background-color` (atributo morto em deck.js).
+- **Token restoration scope** obrigatório: re-declarar 8 tokens on-dark no seletor do slide para sobrescrever o remap de stage-c.
+- `.slide-navy` só em slides que efetivamente têm bg navy via CSS.
+
+## 11. Specificity & Cascading
+
+> Fonte: Cirrose E036, E057, E070, Metanalise E005, E007
+
+- `#deck p` herda `max-width: 56ch` de base.css. Para `<p>` full-width (source-tag, footer): `max-width: none; width: 100%` com seletor `#deck p.className` (0,1,1,1).
+- NUNCA sobrescrever `display` do `.slide-inner`. Adicionar propriedades ao flex existente (como `.slide-title` faz) (E070).
+- `::before/::after { flex: 1 }` de base.css competem com children `flex: 1`. Se layout quebra: override `::before, ::after { display: none }` no escopo da aula (E005).
+- Import order CSS: base → aula. Validado por `validate-css.sh` Check 1 (E057).
+
+## 12. Bootstrap — Nova Aula deck.js
+
+> Fonte: Metanalise E001, E002, E004, E008, E010
+
+Checklist obrigatória ao criar nova aula deck.js:
+
+- [ ] `<body class="stage-c">` (ou `stage-a`). Sem stage class = renderização quebrada (E001).
+- [ ] `body { margin: 0; overflow: hidden; }` no CSS da aula (E002).
+- [ ] `aside.notes { display: none; }` no CSS da aula (E002).
+- [ ] Zero `reveal.js` em `package.json` — Vite cache poisoning (E010).
+- [ ] Zero `zoom` CSS — double-scaling com deck.js (E008).
+- [ ] `vite.config.js`: aula incluída em `discoverEntries()`, frozen excluídas (E010).
+- [ ] Testar `npx vite --force` após setup inicial.
