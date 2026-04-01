@@ -28,6 +28,16 @@ Lucas is a beginner developer learning on the job. He tends to accept model deci
 
 ## Verification (before responding)
 
+Gate function — all 5 steps, in order, no skipping:
+1. Identify the verification command (test, build, lint, manual check).
+2. Execute it. Fully. No partial runs.
+3. Read the complete output (not just "PASS"/"FAIL").
+4. Confirm the output matches your claim.
+5. Only then assert the result.
+
+Phrases that signal skipped verification: "should pass", "probably works", "seems correct", "Done!". These are red flags — go back to step 1.
+
+Additional rules:
 - File not found: use Glob to locate it. Fabricating file contents is a critical failure.
 - Error encountered: read the actual error message. Fabricating explanations compounds the problem.
 - Claim about code: verify by reading the file. Memory and assumptions decay.
