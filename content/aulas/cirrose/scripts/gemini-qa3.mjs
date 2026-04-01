@@ -48,9 +48,9 @@ const ROUND = parseInt(getArg('round', '11'), 10);
 const QA_DIR = join(AULA_DIR, 'qa-screenshots', SLIDE_ID);
 const CUSTOM_OUTPUT = getArg('output', null);
 const CUSTOM_TEMP = getArg('temp', null);
-const CONTEXT_PARAGRAPH = getArg('context', '');
-const DIAGNOSTIC = getArg('diagnostic', '');
+// Legacy args removed: --context, --diagnostic (used by old single-call Gate 4)
 const REF_SLIDE = getArg('ref-slide', null);
+const NO_REF = hasFlag('no-ref'); // A3: opt-out of auto ref-slide
 
 // --- Mode flags ---
 function hasFlag(name) { return args.includes(`--${name}`); }
@@ -76,7 +76,8 @@ Options:
   --output <path>    Custom output path
   --context <text>   Additional context paragraph
   --diagnostic <cls> CSS class to diagnose (cascade analysis)
-  --ref-slide <id>   Reference slide for cross-slide consistency
+  --ref-slide <id>   Reference slide for cross-slide consistency (auto-detected from manifest if omitted)
+  --no-ref           Disable auto ref-slide detection
   --force-gate4      Override Gate 0 FAIL block (for known false positives)
 
 Env: GEMINI_API_KEY (required), GEMINI_MODEL (global override)`);
@@ -94,34 +95,134 @@ if (hasFlag('full')) {
 // --- G2: Retry with exponential backoff (429, 500, 503, 504) ---
 async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 } = {}) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    const res = await fetch(url, options);
-    if (res.ok) return res;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 120_000);
+    try {
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timeout);
+      if (res.ok) return res;
 
-    const status = res.status;
-    const body = await res.text();
+      const status = res.status;
+      const body = await res.text();
 
-    // Non-retryable: 4xx except 429
-    if (status >= 400 && status < 500 && status !== 429) {
-      throw new Error(`API ${status}: ${body.slice(0, 300)}`);
+      // Non-retryable: 4xx except 429
+      if (status >= 400 && status < 500 && status !== 429) {
+        throw new Error(`API ${status}: ${body.slice(0, 300)}`);
+      }
+
+      // Retryable: 429, 5xx
+      if (attempt < maxRetries) {
+        const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+        console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (HTTP ${status})`);
+        await new Promise(r => setTimeout(r, delay));
+        continue;
+      }
+
+      throw new Error(`API ${status} after ${maxRetries} retries: ${body.slice(0, 300)}`);
+    } catch (err) {
+      clearTimeout(timeout);
+      // Non-retryable errors (formatted HTTP errors): re-throw immediately
+      if (err.message?.startsWith('API ')) throw err;
+
+      // Network/timeout errors: retry if attempts remain
+      if (attempt < maxRetries) {
+        const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
+        const reason = err.name === 'AbortError' ? 'timeout' : 'network';
+        console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (${reason}: ${err.message})`);
+        await new Promise(r => setTimeout(r, delay));
+        continue;
+      }
+
+      throw err;
     }
-
-    // Retryable: 429, 5xx
-    if (attempt < maxRetries) {
-      const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
-      console.warn(`  Retry ${attempt + 1}/${maxRetries} in ${Math.round(delay)}ms (HTTP ${status})`);
-      await new Promise(r => setTimeout(r, delay));
-      continue;
-    }
-
-    throw new Error(`API ${status} after ${maxRetries} retries: ${body.slice(0, 300)}`);
   }
 }
 
 // --- Gate 0 constants ---
 const REPO_ROOT = join(AULA_DIR, '..', '..');
 const GATE0_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gemini-gate0-inspector.md');
-const GATE4_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gemini-gate4-editorial.md');
+const CALL_A_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gate4-call-a-visual.md');
+const CALL_B_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gate4-call-b-uxcode.md');
+const CALL_C_PROMPT_PATH = join(REPO_ROOT, 'docs', 'prompts', 'gate4-call-c-motion.md');
 const ERROR_DIGEST_PATH = join(REPO_ROOT, 'docs', 'prompts', 'error-digest.md');
+
+// --- Response schemas (Gemini constrained decoding) ---
+const BOOLEAN_NODE = { type: "OBJECT", properties: { pass: { type: "BOOLEAN" } } };
+const GATE0_SCHEMA = {
+  type: "OBJECT",
+  properties: {
+    slide_id: { type: "STRING" },
+    states_received: { type: "ARRAY", items: { type: "STRING" } },
+    must_pass: { type: "BOOLEAN" },
+    should_pass: { type: "BOOLEAN" },
+    summary: { type: "STRING" },
+    checks: {
+      type: "OBJECT",
+      properties: Object.fromEntries(
+        ['CLIPPING', 'OVERFLOW', 'OVERLAP', 'INVISIBLE', 'MISSING_MEDIA',
+         'ANIMATION_STATE', 'ALIGNMENT', 'SPACING', 'READABILITY']
+          .map(k => [k, BOOLEAN_NODE])
+      ),
+    },
+  },
+  required: ["slide_id", "states_received", "checks", "must_pass", "should_pass", "summary"],
+};
+
+const DIM_PROP = {
+  type: "OBJECT",
+  properties: {
+    evidencia: { type: "STRING" },
+    problemas: { type: "ARRAY", items: { type: "STRING" } },
+    fixes: { type: "ARRAY", items: { type: "STRING" } },
+    nota: { type: "NUMBER" },
+  },
+  required: ["evidencia", "problemas", "fixes", "nota"],
+};
+
+const SCHEMAS_GATE4 = {
+  visual: {
+    type: "OBJECT",
+    properties: {
+      distribuicao: DIM_PROP, proporcao: DIM_PROP, cor: DIM_PROP,
+      tipografia: DIM_PROP, composicao: DIM_PROP,
+      media_visual: { type: "NUMBER" },
+      impressao_geral: { type: "STRING" },
+    },
+    required: ["distribuicao", "proporcao", "cor", "tipografia", "composicao", "media_visual"],
+  },
+  uxcode: {
+    type: "OBJECT",
+    properties: {
+      gestalt: DIM_PROP, carga_cognitiva: DIM_PROP, information_design: DIM_PROP,
+      css_cascade: DIM_PROP, failsafes: DIM_PROP,
+      media_uxcode: { type: "NUMBER" },
+      dead_css: { type: "ARRAY", items: { type: "STRING" } },
+      specificity_conflicts: { type: "ARRAY", items: { type: "STRING" } },
+      proposals: {
+        type: "ARRAY",
+        items: {
+          type: "OBJECT",
+          properties: {
+            severity: { type: "STRING" }, titulo: { type: "STRING" },
+            fix: { type: "STRING" }, arquivo: { type: "STRING" }, tipo: { type: "STRING" },
+          },
+        },
+      },
+    },
+    required: ["gestalt", "carga_cognitiva", "information_design", "css_cascade", "failsafes", "media_uxcode", "proposals"],
+  },
+  motion: {
+    type: "OBJECT",
+    properties: {
+      timing: DIM_PROP, easing: DIM_PROP, narrativa_motion: DIM_PROP,
+      crossfade: DIM_PROP, proposito: DIM_PROP, artefatos: DIM_PROP,
+      media_motion: { type: "NUMBER" },
+      inventory: { type: "ARRAY", items: { type: "STRING" } },
+      animation_value: { type: "STRING" },
+    },
+    required: ["timing", "easing", "narrativa_motion", "crossfade", "proposito", "artefatos", "media_motion", "inventory"],
+  },
+};
 
 // --- Dynamic source extraction (E42) ---
 
@@ -153,27 +254,53 @@ function extractSlideCSS(slideId) {
   const cssPath = join(AULA_DIR, 'cirrose.css');
   const css = readFileSync(cssPath, 'utf8');
   const lines = css.split('\n');
-  const sectionBoundary = /[━═]{3,}/;
+  const sectionBoundary = /[━═=]{3,}/;
 
-  // Pass 1: section-based — find comment section marker containing slideId
-  // e.g. /* ═══ s-a1-fib4 ═══ */ or /* ━━━... s-a1-fib4 ...━━━ */
-  let sectionStart = -1;
+  // Pass 1: section-based — find ALL comment blocks containing slideId near a boundary
+  // Supports both single-line (/* === s-a1-fib4 === */) and multi-line:
+  //   /* ============================================
+  //      s-a1-elasto — description
+  //      ============================================ */
+  // A1 fix: collect ALL matching sections (no break on first match)
+  const allSections = [];
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i].includes(slideId) && sectionBoundary.test(lines[i])) {
-      sectionStart = i;
-      break;
+    if (lines[i].includes(slideId)) {
+      // Check same line OR adjacent lines (±1) for boundary
+      if (sectionBoundary.test(lines[i])
+          || (i > 0 && sectionBoundary.test(lines[i - 1]))
+          || (i + 1 < lines.length && sectionBoundary.test(lines[i + 1]))) {
+        // Walk back to the opening boundary line
+        let sectionStart = i;
+        while (sectionStart > 0 && !sectionBoundary.test(lines[sectionStart])) sectionStart--;
+
+        // Find the closing boundary of this header comment block
+        let contentStart = sectionStart + 1;
+        while (contentStart < lines.length && (lines[contentStart].includes(slideId) || sectionBoundary.test(lines[contentStart]) || lines[contentStart].trim() === '')) {
+          contentStart++;
+        }
+        // Collect until next section boundary that doesn't belong to this slide
+        const sectionResult = [];
+        for (let j = sectionStart; j < lines.length; j++) {
+          if (j >= contentStart && sectionBoundary.test(lines[j]) && !lines[j].includes(slideId)) {
+            break;
+          }
+          sectionResult.push(lines[j]);
+        }
+        allSections.push(sectionResult);
+        // Skip past this section to avoid re-matching lines within it
+        i = sectionStart + sectionResult.length;
+      }
     }
   }
 
-  if (sectionStart >= 0) {
-    const sectionResult = [];
-    for (let i = sectionStart; i < lines.length; i++) {
-      if (i > sectionStart && sectionBoundary.test(lines[i]) && !lines[i].includes(slideId)) {
-        break;
-      }
-      sectionResult.push(lines[i]);
+  if (allSections.length > 0) {
+    // Concatenate all matching sections
+    const merged = [];
+    for (const section of allSections) {
+      if (merged.length > 0) merged.push('');
+      merged.push(...section);
     }
-    return sectionResult;
+    return merged;
   }
 
   // Pass 2 (fallback): existing logic — find rules with #slideId selectors
@@ -214,67 +341,25 @@ function extractSlideCSS(slideId) {
 }
 
 function extractBaseTokens() {
-  const basePath = join(AULA_DIR, 'shared', 'css', 'base.css');
-  if (!existsSync(basePath)) return '/* base.css not found */';
-  const css = readFileSync(basePath, 'utf8');
+  const cssPath = join(AULA_DIR, 'cirrose.css');
+  if (!existsSync(cssPath)) return '/* cirrose.css not found */';
+  const css = readFileSync(cssPath, 'utf8');
 
   // Extract :root block (design tokens)
   const rootMatch = css.match(/:root\s*\{[^}]*\}/s);
-  if (!rootMatch) return '/* :root not found in base.css */';
+  if (!rootMatch) return '/* :root not found in cirrose.css */';
   return rootMatch[0];
 }
 
-function extractArchetypeCSS(html) {
-  const archPath = join(AULA_DIR, 'archetypes.css');
-  if (!existsSync(archPath)) return '/* archetypes.css not found */';
-  const css = readFileSync(archPath, 'utf8');
-
-  // Find archetype class used by this slide
-  const archMatch = html.match(/archetype-([a-z-]+)/);
-  if (!archMatch) return '/* No archetype class found in HTML */';
-  const archClass = `.archetype-${archMatch[1]}`;
-
-  // Extract all rule blocks that reference this archetype class
-  const lines = css.split('\n');
-  const result = [];
-  let capturing = false;
-  let braceDepth = 0;
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (!capturing && line.includes(archClass)) {
-      capturing = true;
-      braceDepth = 0;
-    }
-    if (capturing) {
-      result.push(line);
-      braceDepth += (line.match(/\{/g) || []).length;
-      braceDepth -= (line.match(/\}/g) || []).length;
-      if (braceDepth === 0 && result.length > 1) {
-        capturing = false;
-        result.push('');
-      }
-    }
-  }
-  return result.join('\n');
-}
-
-function extractCSS(slideId, html) {
+function extractCSS(slideId) {
   const sections = [];
 
-  // 1. Design tokens from base.css
+  // 1. Design tokens from cirrose.css :root
   const tokens = extractBaseTokens();
-  sections.push('/* === Design Tokens (base.css :root) === */');
+  sections.push('/* === Design Tokens (:root) === */');
   sections.push(tokens);
 
-  // 2. Archetype CSS (matched to this slide's archetype class)
-  const archCSS = extractArchetypeCSS(html);
-  if (archCSS && !archCSS.startsWith('/*')) {
-    sections.push('\n/* === Archetype CSS === */');
-    sections.push(archCSS);
-  }
-
-  // 3. Slide-specific CSS from cirrose.css (#slideId selectors)
+  // 2. Slide-specific CSS from cirrose.css (#slideId selectors)
   const slideLines = extractSlideCSS(slideId);
   if (slideLines.length > 0) {
     sections.push('\n/* === Slide-specific CSS (cirrose.css) === */');
@@ -283,38 +368,8 @@ function extractCSS(slideId, html) {
 
   const combined = sections.join('\n');
   const lineCount = combined.split('\n').length;
-  console.log(`  CSS: ${lineCount} lines (tokens + archetype + slide-specific)`);
+  console.log(`  CSS: ${lineCount} lines (tokens + slide-specific)`);
   return combined;
-}
-
-// --- Extract global CSS rules for a class (cascade without #s- slide IDs) ---
-function extractGlobalClassCSS(className) {
-  const files = [
-    { label: 'base.css', file: join(AULA_DIR, 'shared/css/base.css') },
-    { label: 'cirrose.css', file: join(AULA_DIR, 'cirrose.css') },
-  ];
-  const out = [];
-  for (const { label, file: fpath } of files) {
-    const lines = readFileSync(fpath, 'utf8').split('\n');
-    const rules = [];
-    let cap = false, depth = 0;
-    for (let i = 0; i < lines.length; i++) {
-      const l = lines[i];
-      if (!cap && l.includes(`.${className}`) && !/#s-/.test(l)) {
-        cap = true; depth = 0;
-      }
-      if (cap) {
-        rules.push(l);
-        depth += (l.match(/\{/g) || []).length;
-        depth -= (l.match(/\}/g) || []).length;
-        if (depth <= 0 && rules.length > 0) {
-          cap = false; depth = 0; rules.push('');
-        }
-      }
-    }
-    if (rules.length) out.push(`/* --- ${label} --- */\n${rules.join('\n')}`);
-  }
-  return out.join('\n\n') || '(no global rules found)';
 }
 
 function extractJS(slideId) {
@@ -377,12 +432,14 @@ function getSlideMetadata(slideId) {
   }
 
   const idx = slides.findIndex(s => s.id === slideId);
-  if (idx === -1) return { pos: '?/?', prev: '(unknown)', next: '(unknown)', slide: null };
+  if (idx === -1) return { pos: '?/?', prev: '(unknown)', next: '(unknown)', prevId: null, nextId: null, slide: null };
 
   return {
     pos: `${idx + 1}/${slides.length}`,
     prev: idx > 0 ? `${slides[idx - 1].id} (${slides[idx - 1].narrativeRole})` : '(first)',
     next: idx < slides.length - 1 ? `${slides[idx + 1].id} (${slides[idx + 1].narrativeRole})` : '(last)',
+    prevId: idx > 0 ? slides[idx - 1].id : null,       // A3: raw ID for auto --ref-slide
+    nextId: idx < slides.length - 1 ? slides[idx + 1].id : null,
     slide: slides[idx],
   };
 }
@@ -446,7 +503,8 @@ function buildGate0Payload(slideId, qaDir) {
       contents: [{ parts }],
       generationConfig: {
         temperature: 0.1, topP: 0.9, maxOutputTokens: 8192,
-        responseMimeType: 'application/json', // G1: guaranteed valid JSON
+        responseMimeType: 'application/json',
+        responseSchema: GATE0_SCHEMA,
       },
     },
     statesReceived,
@@ -580,7 +638,7 @@ async function uploadFile(filePath, mimeType, displayName) {
   const data = readFileSync(filePath);
   const size = data.length;
 
-  const startRes = await fetch(`${BASE}/upload/v1beta/files?key=${API_KEY}`, {
+  const startRes = await fetchWithRetry(`${BASE}/upload/v1beta/files?key=${API_KEY}`, {
     method: 'POST',
     headers: {
       'X-Goog-Upload-Protocol': 'resumable',
@@ -595,7 +653,7 @@ async function uploadFile(filePath, mimeType, displayName) {
   const uploadUrl = startRes.headers.get('x-goog-upload-url');
   if (!uploadUrl) throw new Error('No upload URL returned');
 
-  const uploadRes = await fetch(uploadUrl, {
+  const uploadRes = await fetchWithRetry(uploadUrl, {
     method: 'POST',
     headers: {
       'X-Goog-Upload-Offset': '0',
@@ -612,137 +670,97 @@ async function uploadFile(filePath, mimeType, displayName) {
 
 async function waitForProcessing(fileName) {
   let state = 'PROCESSING';
+  const deadline = Date.now() + 300_000; // 5 min max
   while (state === 'PROCESSING') {
+    if (Date.now() > deadline) {
+      throw new Error(`File ${fileName} still processing after 300s`);
+    }
     await new Promise(r => setTimeout(r, 2000));
-    const res = await fetch(`${BASE}/v1beta/${fileName}?key=${API_KEY}`);
-    const file = await res.json();
-    state = file.state;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 60_000);
+    try {
+      const res = await fetch(`${BASE}/v1beta/${fileName}?key=${API_KEY}`, { signal: controller.signal });
+      const file = await res.json();
+      state = file.state;
+    } catch (err) {
+      console.warn(`  Poll error (will retry): ${err.message}`);
+    } finally {
+      clearTimeout(timeout);
+    }
     if (state === 'PROCESSING') process.stdout.write('.');
   }
   console.log(` ${state}`);
   return state === 'ACTIVE';
 }
 
-// --- Prompt builder (loads from external template: docs/prompts/gemini-gate4-editorial.md) ---
-function buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris) {
-  if (!existsSync(GATE4_PROMPT_PATH)) {
-    throw new Error(`Gate 4 prompt not found: ${GATE4_PROMPT_PATH}`);
+// --- Gate 4 split: build payload for one of the 3 focused calls ---
+// callType: 'visual' | 'uxcode' | 'motion'
+// includeMedia: { video, s0, s2, ref } — which files to attach
+// Prompt template uses same {{PLACEHOLDER}} syntax as legacy Gate 4.
+function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
+  rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest, includeMedia, maxTokens) {
+
+  if (!existsSync(templatePath)) {
+    throw new Error(`Call ${callType} prompt not found: ${templatePath}`);
   }
-  const roundCtx = readRoundContext(slideId);
+  let text = readFileSync(templatePath, 'utf8');
 
-  // Build conditional sections
-  const mediaList = [
-    mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720. ASSISTA e comente RITMO.' : '(sem video)',
-    mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : '(sem S0)',
-    mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis, animacoes completadas)' : '(sem S2)',
-    mediaUris.ref ? `4. PNG REF — slide ANTERIOR (${mediaUris.refSlideId}) estado final. REFERENCIA OBRIGATORIA: comparar grid vertical (margens, baseline), hierarquia tipografica (h2 size, body size, caption size), spacing (padding, gap), paleta de cor, e peso visual. Diferenca injustificada = proposta SHOULD.` : '',
-  ].filter(Boolean).join('\n');
-
-  const diagnosticSection = DIAGNOSTIC ? `### CSS global reference — cascade da classe alvo (regras SEM #slideId)
-\`\`\`css
-${extractGlobalClassCSS(DIAGNOSTIC.split(/[\s:,]/)[0].replace('.', '') || 'source-tag')}
-\`\`\`
-
-> Compare estas regras globais com as regras slide-specific acima. A diferenca explica o bug.
-` : '';
-
-  const animationSection = mediaUris.video ? `### AVALIACAO DE ANIMACAO (video presente — PROVA DE VISUALIZACAO)
-
-O video mostra buildup progressivo GSAP via click-reveals.
-VOCE DEVE ASSISTIR O VIDEO E DESCREVER O QUE VIU — nao inferir do codigo JS.
-
-**PARTE A — INVENTARIO COM TIMESTAMPS (obrigatoria):**
-
-Para CADA transicao, descrever O QUE VIU no video:
-  ~X.Xs: [descricao visual concreta do que aconteceu na tela] | tipo: [fade/slide/scale/cor] | duracao estimada: ~Xms
-  Artefato: [sim/nao — se sim, descrever: ghosting, overlap, flash, pulo de layout]
-
-Exemplo BOM: "~1.5s: cards VPN/VPP sobem e somem, mas as 3 armadilhas ja comecam a aparecer ANTES dos cards desaparecerem — entre ~1.6s e ~1.9s vejo textos sobrepostos (ghosting)."
-Exemplo RUIM: "~1.5s: cross-fade com delay 0.1s causa overlap" (isso e leitura de codigo, nao do video)
-
-Se nao identificar transicoes no video, diga "transicoes indistinguiveis" e pontue animation_score: 0.
-
-**PARTE B — Para cada transicao da Parte A:**
-
-1. DURATION: <200ms=rapido demais | 300-800ms=adequado | >1500ms=lento
-2. STAGING: 1 foco (bom) | 2+ simultaneos nao-relacionados (ruim)
-3. PURPOSE: didatica (guia raciocinio) | decorativa (so estetica)
-4. LEGIBILIDADE: texto parado=ok | texto em movimento=ruim
-5. ARTEFATO: se viu artefato visual, descrever QUANDO e O QUE viu
-
-**PARTE C — Adicionar ao JSON de resposta:**
-
-"animation_score": <1-10>,
-"transitions_found": <numero>,
-"inventory": ["~X.Xs: [descricao visual] | tipo | ~Xms | artefato: sim/nao"],
-"animation_issues": ["~X.Xs: [o que vi] -> [fix concreto com valores]"],
-"animation_value": "didatica" | "decorativa" | "prejudicial"
-
-Se animation_score < 7, cada item em animation_issues DEVE ser implementavel com valores concretos:
-  "~1.5s: vi ghosting de 400ms entre cards e armadilhas, aumentar delay de 0.1s pra 0.4s"
-  "~3.0s: vi flash branco ao trocar estado, adicionar ease power2.inOut"
-NAO aceito descricoes genericas como "melhorar animacao" ou "cross-fade encavalado".
-` : '';
-
-  const diagnosticTask = DIAGNOSTIC ? `### DIAGNOSTICO (OBRIGATORIO — responder ANTES das propostas)
-**Problema reportado:** ${DIAGNOSTIC}
-
-Voce recebeu o CSS slide-specific (materials) E o CSS global reference (cascade sem #slideId).
-Voce tambem tem o HTML raw e o JS raw. Investigue:
-1. **CAUSA RAIZ** — qual propriedade/regra no CSS e/ou HTML provoca o comportamento incorreto
-2. **POR QUE DIFERENTE** — o que torna ESTE slide divergente dos demais (specificity, position, layout context, inheritance)
-3. **FIX** — snippet CSS/HTML copyavel com arquivo indicado
-
-Seja forense: leia a cascade inteira, identifique conflitos de specificity, position contexts e layout modes.
-` : '';
-
-  // Load template and substitute placeholders
-  let text = readFileSync(GATE4_PROMPT_PATH, 'utf8');
-
-  // Strip markdown frontmatter (lines starting with # before first <system>)
+  // Strip markdown frontmatter before <system>
   const systemIdx = text.indexOf('<system>');
   if (systemIdx > 0) text = text.slice(systemIdx);
+
+  // Media list (describes what files are attached — model sees this)
+  const mediaList = [
+    includeMedia.video && mediaUris.video ? '1. VIDEO .webm — gravacao completa da animacao a 1280x720.' : null,
+    includeMedia.s0 && mediaUris.s0 ? '2. PNG S0 — estado inicial (pre-animacao)' : null,
+    includeMedia.s2 && mediaUris.s2 ? '3. PNG S2 — estado final (todos elementos visiveis)' : null,
+    includeMedia.ref && mediaUris.ref ? `4. PNG REF — slide anterior (${mediaUris.refSlideId}) para comparacao.` : null,
+  ].filter(Boolean).join('\n') || '(nenhum material visual anexado)';
 
   const replacements = {
     '{{SLIDE_ID}}': slideId,
     '{{SLIDE_POS}}': String(meta.pos),
-    '{{NARRATIVE_ROLE}}': meta.slide?.narrativeRole || 'null',
-    '{{TENSION_LEVEL}}': String(meta.slide?.tensionLevel || '?'),
     '{{PREV_SLIDE}}': meta.prev,
     '{{NEXT_SLIDE}}': meta.next,
     '{{INTERACTION_FLOW}}': buildInteractionFlow(meta.slide?.clickReveals || 0),
-    '{{CONTEXT_EXTRA}}': CONTEXT_PARAGRAPH ? `\n### Contexto adicional\n${CONTEXT_PARAGRAPH}` : '',
-    '{{ERROR_DIGEST}}': readErrorDigest() || '(no error digest found)',
-    '{{ROUND_CTX}}': roundCtx,
-    '{{RAW_HTML}}': rawHTML,
-    '{{RAW_CSS}}': rawCSS,
-    '{{RAW_JS}}': rawJS,
-    '{{NOTES}}': notes,
-    '{{DIAGNOSTIC_SECTION}}': diagnosticSection,
     '{{MEDIA_LIST}}': mediaList,
-    '{{ANIMATION_SECTION}}': animationSection,
-    '{{DIAGNOSTIC_TASK}}': diagnosticTask,
-    '{{MAX_TOKENS}}': mediaUris.video ? '5000' : '2500',
+    '{{RAW_HTML}}': rawHTML || '',
+    '{{RAW_CSS}}': rawCSS || '',
+    '{{RAW_JS}}': rawJS || '// No custom animation',
+    '{{NOTES}}': notes || '(no notes)',
+    '{{ROUND_CTX}}': roundCtx || `Round ${ROUND}. Primeiro review.`,
+    '{{ERROR_DIGEST}}': errorDigest || '',
   };
 
-  for (const [placeholder, value] of Object.entries(replacements)) {
-    text = text.replaceAll(placeholder, value);
+  for (const [ph, val] of Object.entries(replacements)) {
+    text = text.replaceAll(ph, val);
   }
 
-  // Build parts array with text + media
+  // Attach only the media files this call needs
   const parts = [{ text }];
-  if (mediaUris.video) parts.push({ fileData: { mimeType: 'video/webm', fileUri: mediaUris.video } });
-  if (mediaUris.s0) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s0 } });
-  if (mediaUris.s2) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s2 } });
-  if (mediaUris.ref) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.ref } });
+  if (includeMedia.video && mediaUris.video) parts.push({ fileData: { mimeType: 'video/webm', fileUri: mediaUris.video } });
+  if (includeMedia.s0 && mediaUris.s0) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s0 } });
+  if (includeMedia.s2 && mediaUris.s2) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s2 } });
+  if (includeMedia.ref && mediaUris.ref) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.ref } });
 
-  return {
-    contents: [{ parts }],
-    generationConfig: { temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0, topP: 0.95, maxOutputTokens: 16384 },
+  const config = {
+    temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0,
+    topP: 0.95,
+    maxOutputTokens: maxTokens || 8192,
+    responseMimeType: 'application/json',
   };
+  if (SCHEMAS_GATE4[callType]) config.responseSchema = SCHEMAS_GATE4[callType];
+
+  return { contents: [{ parts }], generationConfig: config };
 }
 
-// --- Gate 4: Editorial Review (existing behavior) ---
+function safeNum(obj, ...path) {
+  let val = obj;
+  for (const key of path) { val = val?.[key]; }
+  return typeof val === 'number' ? val : null;
+}
+
+// --- Gate 4: Editorial Review — 3 parallel focused calls ---
 async function runEditorial(slideId, round, qaDir) {
   console.log(`\n=== GATE 4 — Editorial Review — ${slideId} R${round} ===`);
   console.log(`Model: ${MODEL}\n`);
@@ -750,11 +768,15 @@ async function runEditorial(slideId, round, qaDir) {
   // Step 0: Extract source code dynamically (E42)
   console.log('0. Extracting source code from files...');
   const rawHTML = extractHTML(slideId);
-  const rawCSS = extractCSS(slideId, rawHTML);
+  const rawCSS = extractCSS(slideId);
   const rawJS = extractJS(slideId);
   const notes = extractNotes(rawHTML);
   const meta = getSlideMetadata(slideId);
   console.log(`  Metadata: pos=${meta.pos}, prev=${meta.prev}, next=${meta.next}\n`);
+
+  // Hoist upload refs for cleanup in finally
+  let video = null, s0 = null, s2 = null, refPng = null;
+  try {
 
   // Step 1: Upload media
   console.log('1. Uploading media...');
@@ -765,20 +787,26 @@ async function runEditorial(slideId, round, qaDir) {
   const s2Path = findStatePng(qaDir, 'S2');
 
   // Video é obrigatório se existe no disco. Sem skip.
-  const video = await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
-  const s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
-  const s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
+  video = await uploadFile(videoPath, 'video/webm', `${slideId}-animation`);
+  s0 = s0Path ? await uploadFile(s0Path, 'image/png', `${slideId}-S0-initial`) : null;
+  s2 = s2Path ? await uploadFile(s2Path, 'image/png', `${slideId}-S2-final`) : null;
 
-  // Reference slide PNG (--ref-slide): upload final state for cross-slide consistency check
-  let refPng = null;
-  if (REF_SLIDE) {
-    const refQaDir = join(AULA_DIR, 'qa-screenshots', REF_SLIDE);
+  // A3: Reference slide PNG — auto-detect from manifest if not provided, --no-ref to disable
+  let refSlideId = REF_SLIDE;
+  if (!refSlideId && !NO_REF && meta.prevId) {
+    refSlideId = meta.prevId;
+    console.log(`  Auto ref-slide: ${refSlideId} (from manifest prev)`);
+  }
+  if (refSlideId) {
+    const refQaDir = join(AULA_DIR, 'qa-screenshots', refSlideId);
     const refPath = findStatePng(refQaDir, 'S2') || findStatePng(refQaDir, 'S0');
     if (refPath) {
-      refPng = await uploadFile(refPath, 'image/png', `${REF_SLIDE}-ref-final`);
-      console.log(`  Reference slide: ${REF_SLIDE} (${refPath})`);
+      refPng = await uploadFile(refPath, 'image/png', `${refSlideId}-ref-final`);
+      console.log(`  Reference slide: ${refSlideId} (${refPath})`);
     } else {
-      console.warn(`  WARN: no PNG found for ref-slide ${REF_SLIDE}`);
+      if (REF_SLIDE) console.warn(`  WARN: no PNG found for ref-slide ${refSlideId}`);
+      // Auto-detect silently skips if no PNG exists
+      refSlideId = null;
     }
   }
 
@@ -789,111 +817,216 @@ async function runEditorial(slideId, round, qaDir) {
     if (!ok) throw new Error('Video processing failed');
   }
 
-  // Step 2: Build and send prompt
-  console.log('\n2. Sending prompt...');
+  // Step 2: Build 3 focused payloads (visual / UX+code / motion)
+  console.log('\n2. Building 3 focused call payloads...');
   const mediaUris = {
     video: video?.uri,
     s0: s0?.uri,
     s2: s2?.uri,
     ref: refPng?.uri,
-    refSlideId: REF_SLIDE,
+    refSlideId: refSlideId,
   };
-  const payload = buildPrompt(slideId, round, rawHTML, rawCSS, rawJS, notes, meta, mediaUris);
+  const roundCtx = readRoundContext(slideId);
+  const errorDigest = readErrorDigest();
 
-  const res = await fetchWithRetry(
-    `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+  // Call A — Visual Design: PNGs + video, NO code
+  const payloadA = buildSplitCallPayload('visual', CALL_A_PROMPT_PATH,
+    slideId, meta, mediaUris, null, null, null, null, null, null,
+    { video: true, s0: true, s2: true, ref: true }, 8192);
+
+  // Call B — UI/UX + Code: PNGs + raw code, NO video (needs more tokens: 5 dims + proposals)
+  const payloadB = buildSplitCallPayload('uxcode', CALL_B_PROMPT_PATH,
+    slideId, meta, mediaUris, rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest,
+    { video: false, s0: true, s2: true, ref: true }, 16384);
+
+  // Call C — Motion Design: PNGs + video + animation JS only
+  const payloadC = buildSplitCallPayload('motion', CALL_C_PROMPT_PATH,
+    slideId, meta, mediaUris, null, null, rawJS, null, null, null,
+    { video: true, s0: true, s2: true, ref: false }, 8192);
+
+  // Step 3: Fire 3 calls in parallel
+  const apiUrl = `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
+  const headers = { 'Content-Type': 'application/json' };
+  const callLabels = ['A-visual', 'B-uxcode', 'C-motion'];
+  console.log(`\n3. Sending 3 calls in parallel (${MODEL})...`);
+
+  const [resA, resB, resC] = await Promise.all([
+    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadA) }),
+    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadB) }),
+    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadC) }),
+  ]);
+
+  const results = await Promise.all([resA.json(), resB.json(), resC.json()]);
+
+  // Step 4: Parse responses and calculate costs
+  let totalTokensIn = 0, totalTokensOut = 0, totalCost = 0;
+  const parsedCalls = [];
+  const pr = modelCost(MODEL);
+
+  for (let i = 0; i < 3; i++) {
+    const result = results[i];
+    const label = callLabels[i];
+    const usage = result.usageMetadata || {};
+    const tokIn = usage.promptTokenCount || 0;
+    const tokOut = usage.candidatesTokenCount || 0;
+    const cost = (tokIn / 1e6 * pr.input) + (tokOut / 1e6 * pr.output);
+    totalTokensIn += tokIn; totalTokensOut += tokOut; totalCost += cost;
+
+    const finishReason = result.candidates?.[0]?.finishReason || 'UNKNOWN';
+    const rawText = result.candidates?.[0]?.content?.parts
+      ?.map(p => p.text).filter(Boolean).join('') || '{}';
+
+    if (finishReason !== 'STOP') {
+      console.warn(`  WARN: Call ${label} finishReason=${finishReason} (expected STOP)`);
     }
-  );
 
-  const result = await res.json();
-
-  // Extract text
-  const text = result.candidates?.[0]?.content?.parts
-    ?.map(p => p.text)
-    .filter(Boolean)
-    .join('\n') || 'No text in response';
-
-  // Usage
-  const usage = result.usageMetadata || {};
-  console.log(`  Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out`);
-  const p = modelCost(MODEL);
-  const totalCost = ((usage.promptTokenCount || 0) / 1e6 * p.input) + ((usage.candidatesTokenCount || 0) / 1e6 * p.output);
-  console.log(`  Cost: ~$${totalCost.toFixed(3)}`);
-
-  // Save response
-  const temp = CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0;
-  const outPath = CUSTOM_OUTPUT || join(qaDir, `gemini-qa3-r${round}.md`);
-  writeFileSync(outPath, `# QA.3 Gemini Review — ${slideId} (R${round})\n\n` +
-    `Model: ${MODEL} | Temp: ${temp} | Date: ${new Date().toISOString().slice(0, 10)}\n` +
-    `Tokens: ${usage.promptTokenCount || '?'} in / ${usage.candidatesTokenCount || '?'} out | Cost: ~$${totalCost.toFixed(3)}\n\n---\n\n` +
-    text + '\n');
-  console.log(`\n3. Response saved -> ${outPath}`);
-
-  // Print response
-  console.log('\n' + '='.repeat(60));
-  console.log(text);
-
-  // Extract structured JSON from response (section 5 of Gate 4 prompt)
-  console.log('\n4. Extracting structured scorecard...');
-  const jsonFences = [...text.matchAll(/```json\s*\n([\s\S]*?)```/g)];
-  let scorecard = null;
-  if (jsonFences.length > 0) {
-    // Take the last ```json block (the structured output section)
-    const lastJson = jsonFences[jsonFences.length - 1][1].trim();
+    let parsed = {};
     try {
-      scorecard = JSON.parse(lastJson);
-      const scorecardPath = join(qaDir, `gate4-scorecard-r${round}.json`);
-      writeFileSync(scorecardPath, JSON.stringify(scorecard, null, 2));
-      console.log(`  Scorecard parsed OK -> ${scorecardPath}`);
-      if (scorecard.scorecard) {
-        const dims = Object.entries(scorecard.scorecard);
-        const avg = dims.reduce((a, [, v]) => a + v, 0) / dims.length;
-        console.log(`  Dims: ${dims.map(([k, v]) => `${k}=${v}`).join(', ')}`);
-        console.log(`  Media: ${avg.toFixed(1)}/10 | MUST: ${scorecard.must_count || 0} | SHOULD: ${scorecard.should_count || 0} | COULD: ${scorecard.could_count || 0}`);
-      }
+      parsed = JSON.parse(rawText);
+      if (Array.isArray(parsed)) parsed = parsed[0];
     } catch (e) {
-      console.warn(`  WARN: JSON block found but parse failed: ${e.message}`);
-      writeFileSync(join(qaDir, `gate4-scorecard-r${round}-raw.txt`), lastJson);
-      console.warn(`  Raw saved -> gate4-scorecard-r${round}-raw.txt`);
+      console.warn(`  WARN: Call ${label} JSON parse failed: ${e.message}`);
+      writeFileSync(join(qaDir, `gate4-${label}-r${round}-raw.txt`), rawText);
     }
-  } else {
-    console.warn('  WARN: No ```json block found in Gemini response — scorecard not extracted');
+
+    parsedCalls.push({ label, parsed, tokIn, tokOut, cost });
+    console.log(`  ${label}: ${tokIn} in / ${tokOut} out | ~$${cost.toFixed(3)} | ${finishReason}`);
   }
 
-  // Auto-append round summary to qa-rounds file
-  console.log('\n5. Appending round summary...');
-  // Use scorecard media if available, fallback to regex
-  let score;
-  if (scorecard?.scorecard) {
-    const dims = Object.values(scorecard.scorecard);
-    const avg = dims.reduce((a, v) => a + v, 0) / dims.length;
-    score = `${avg.toFixed(1)}/10`;
-  } else {
-    const scoreMatch = text.match(/\*\*M[EÉ]DIA\*\*\s*\|\s*\*?\*?([\d.]+)/i);
-    score = scoreMatch ? scoreMatch[1] + '/10' : '?/10';
+  console.log(`  TOTAL: ${totalTokensIn} in / ${totalTokensOut} out | ~$${totalCost.toFixed(3)}`);
+
+  // Step 5: Consolidate into unified scorecard + report
+  console.log('\n4. Consolidating scorecard...');
+  const [callA_result, callB_result, callC_result] = parsedCalls.map(c => c.parsed);
+
+  // Merge all dimensions into one scorecard (defensive: skip non-numeric values)
+  const allDims = {};
+  // Call A — visual dimensions
+  for (const key of ['distribuicao', 'proporcao', 'cor', 'tipografia', 'composicao']) {
+    const val = safeNum(callA_result, key, 'nota');
+    if (val !== null) allDims[key] = val;
   }
-  // Match both old format (### Proposta N: ...) and new format (**P1 [MUST]: ...**)
-  const proposalMatches = [
-    ...text.matchAll(/###\s*Proposta\s*\d+[:\s]*([^\n]+)/gi),
-    ...text.matchAll(/\*\*P\d+\s*\[(?:MUST|SHOULD|COULD)\][:\s]*([^\n*]+)/gi),
+  // Call B — UX+code dimensions
+  for (const key of ['gestalt', 'carga_cognitiva', 'information_design', 'css_cascade', 'failsafes']) {
+    const val = safeNum(callB_result, key, 'nota');
+    if (val !== null) allDims[key] = val;
+  }
+  // Call C — motion dimensions
+  for (const key of ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito', 'artefatos']) {
+    const val = safeNum(callC_result, key, 'nota');
+    if (val !== null) allDims[key] = val;
+  }
+
+  if (Object.keys(allDims).length === 0) {
+    console.warn('  WARN: No valid dimension scores found in any call — scorecard will be empty');
+  }
+
+  const dimValues = Object.values(allDims);
+  const overallAvg = dimValues.length > 0 ? dimValues.reduce((a, v) => a + v, 0) / dimValues.length : 0;
+  const visualAvg = safeNum(callA_result, 'media_visual') ?? 0;
+  const uxcodeAvg = safeNum(callB_result, 'media_uxcode') ?? 0;
+  const motionAvg = safeNum(callC_result, 'media_motion') ?? 0;
+
+  // Count MUSTs (any dim < 7)
+  const mustFixes = Object.entries(allDims).filter(([, v]) => v < 7);
+  const proposals = [
+    ...(callB_result.proposals || []).map(p => `[${p.severity}] ${p.titulo}`),
+    ...mustFixes.map(([k, v]) => `[MUST] ${k}: ${v}/10`),
   ];
-  const proposals = proposalMatches.length > 0
-    ? proposalMatches.map(m => m[1].trim())
-    : ['(parse proposals manually from response)'];
-  appendRoundSummary(slideId, round, score, proposals);
 
-  // Cleanup uploaded files
-  console.log('\n6. Cleaning up uploads...');
+  // Build consolidated scorecard
+  const scorecard = {
+    scorecard: allDims,
+    media_visual: visualAvg,
+    media_uxcode: uxcodeAvg,
+    media_motion: motionAvg,
+    media_overall: parseFloat(overallAvg.toFixed(1)),
+    must_count: mustFixes.length + (callB_result.proposals || []).filter(p => p.severity === 'MUST').length,
+    should_count: (callB_result.proposals || []).filter(p => p.severity === 'SHOULD').length,
+    could_count: (callB_result.proposals || []).filter(p => p.severity === 'COULD').length,
+    dead_css: callB_result.dead_css || [],
+    animation_value: callC_result.animation_value || 'unknown',
+    animation_inventory: callC_result.inventory || [],
+    calls: {
+      A: { label: 'visual', tokens: `${parsedCalls[0].tokIn}/${parsedCalls[0].tokOut}`, cost: parsedCalls[0].cost },
+      B: { label: 'uxcode', tokens: `${parsedCalls[1].tokIn}/${parsedCalls[1].tokOut}`, cost: parsedCalls[1].cost },
+      C: { label: 'motion', tokens: `${parsedCalls[2].tokIn}/${parsedCalls[2].tokOut}`, cost: parsedCalls[2].cost },
+    },
+    total_cost: parseFloat(totalCost.toFixed(3)),
+  };
+
+  const scorecardPath = join(qaDir, `gate4-scorecard-r${round}.json`);
+  writeFileSync(scorecardPath, JSON.stringify(scorecard, null, 2));
+  console.log(`  Scorecard -> ${scorecardPath}`);
+  console.log(`  Dims: ${Object.entries(allDims).map(([k, v]) => `${k}=${v}`).join(', ')}`);
+  console.log(`  Visual: ${visualAvg}/10 | UX+Code: ${uxcodeAvg}/10 | Motion: ${motionAvg}/10`);
+  console.log(`  Overall: ${overallAvg.toFixed(1)}/10 | MUST: ${scorecard.must_count} | SHOULD: ${scorecard.should_count} | COULD: ${scorecard.could_count}`);
+
+  // Save detailed report (3 sections)
+  const temp = CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0;
+  const reportPath = CUSTOM_OUTPUT || join(qaDir, `gemini-qa3-r${round}.md`);
+  const reportContent = `# QA.3 Gate 4 — ${slideId} (R${round}) — 3 Calls
+
+Model: ${MODEL} | Temp: ${temp} | Date: ${new Date().toISOString().slice(0, 10)}
+Total: ${totalTokensIn} in / ${totalTokensOut} out | Cost: ~$${totalCost.toFixed(3)}
+Visual: ${visualAvg}/10 | UX+Code: ${uxcodeAvg}/10 | Motion: ${motionAvg}/10 | **Overall: ${overallAvg.toFixed(1)}/10**
+
+---
+
+## Call A — Visual Design (${parsedCalls[0].tokIn}/${parsedCalls[0].tokOut} tokens, ~$${parsedCalls[0].cost.toFixed(3)})
+
+\`\`\`json
+${JSON.stringify(callA_result, null, 2)}
+\`\`\`
+
+---
+
+## Call B — UI/UX + Code (${parsedCalls[1].tokIn}/${parsedCalls[1].tokOut} tokens, ~$${parsedCalls[1].cost.toFixed(3)})
+
+\`\`\`json
+${JSON.stringify(callB_result, null, 2)}
+\`\`\`
+
+---
+
+## Call C — Motion Design (${parsedCalls[2].tokIn}/${parsedCalls[2].tokOut} tokens, ~$${parsedCalls[2].cost.toFixed(3)})
+
+\`\`\`json
+${JSON.stringify(callC_result, null, 2)}
+\`\`\`
+`;
+  writeFileSync(reportPath, reportContent);
+  console.log(`\n5. Report saved -> ${reportPath}`);
+
+  // Print consolidated summary
+  console.log('\n' + '='.repeat(60));
+  console.log(`Gate 4 R${round} — ${slideId} — 3-Call Summary`);
+  console.log('='.repeat(60));
+  if (callA_result.impressao_geral) console.log(`Visual: ${callA_result.impressao_geral}`);
+  if (callC_result.animation_value) console.log(`Motion: ${callC_result.animation_value}`);
+  console.log(`\nScores: ${Object.entries(allDims).map(([k, v]) => `${k}=${v}`).join(' | ')}`);
+  console.log(`Overall: ${overallAvg.toFixed(1)}/10`);
+  if (mustFixes.length > 0) {
+    console.log(`\nMUST fixes (dim < 7):`);
+    for (const [k, v] of mustFixes) console.log(`  - ${k}: ${v}/10`);
+  }
+
+  // Auto-append round summary
+  console.log('\n6. Appending round summary...');
+  const score = `${overallAvg.toFixed(1)}/10 (V:${visualAvg} U:${uxcodeAvg} M:${motionAvg})`;
+  const proposalSummary = proposals.length > 0 ? proposals : ['(no proposals)'];
+  appendRoundSummary(slideId, round, score, proposalSummary);
+
+  } finally {
+  // Cleanup uploaded files (runs even if steps above throw)
+  console.log('\n7. Cleaning up uploads...');
   for (const f of [video, s0, s2, refPng].filter(Boolean)) {
     try {
       await fetch(`${BASE}/v1beta/${f.name}?key=${API_KEY}`, { method: 'DELETE' });
     } catch (_) {}
   }
   console.log('  Done.');
+  }
 }
 
 // --- Main ---

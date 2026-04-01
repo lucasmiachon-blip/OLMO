@@ -12,7 +12,7 @@
  *
  * Options:
  *   --act    A1|A2|A3|CP|APP|PRE|ALL (default: A1)
- *   --port   Dev server port (default: 3000)
+ *   --port   Dev server port (default: 4100)
  *   --slide  Single slide ID (overrides --act)
  *   --scale  Device scale factor (default: 2)
  *   --video  Record .webm video per slide (for Gate 4)
@@ -42,7 +42,7 @@ if (args.includes('--help') || args.includes('-h')) {
 Options:
   --act <ACT>    A1|A2|A3|CP|APP|ALL (default: A1)
   --slide <id>   Single slide ID (overrides --act)
-  --port <N>     Dev server port (default: 3000)
+  --port <N>     Dev server port (default: 4100)
   --scale <N>    Device scale factor (default: 2)
   --video        Record .webm video per slide (for Gate 4)
 
@@ -54,7 +54,7 @@ function getArg(name, fallback) {
   return idx >= 0 && args[idx + 1] ? args[idx + 1] : fallback;
 }
 const ACT_FILTER = getArg('act', 'A1').toUpperCase();
-const PORT = getArg('port', '3000');
+const PORT = getArg('port', '4100');
 const SINGLE_SLIDE = getArg('slide', null);
 const SCALE = parseInt(getArg('scale', '2'));
 const RECORD_VIDEO = args.includes('--video');
@@ -298,7 +298,13 @@ async function main() {
   page.on('pageerror', err => consoleErrors.push(err.message));
 
   console.log(`Loading ${PAGE_URL}...`);
-  await page.goto(PAGE_URL, { waitUntil: 'networkidle' });
+  try {
+    await page.goto(PAGE_URL, { waitUntil: 'networkidle' });
+  } catch (err) {
+    console.error(`ERRO: Dev server não respondeu em ${PAGE_URL}`);
+    console.error(`  Rode 'npm run dev' ou 'npx vite' antes de rodar este script.`);
+    process.exit(1);
+  }
   await page.waitForTimeout(2000); // wait for deck init + first slide animations
 
   const results = [];
@@ -310,7 +316,9 @@ async function main() {
 
     // Delete previous round's PNGs and old videos (keep gate0.json and metrics.json)
     const oldFiles = readdirSync(slideDir).filter(f => f.endsWith('.png') || f.endsWith('.webm'));
-    for (const f of oldFiles) unlinkSync(join(slideDir, f));
+    for (const f of oldFiles) {
+      try { unlinkSync(join(slideDir, f)); } catch (e) { console.warn(`  [I/O WARN] Skipping locked file: ${f}`); }
+    }
     if (oldFiles.length > 0) console.log(`  Cleaned ${oldFiles.length} old file(s)`);
 
     // Navigate to target slide (direct jump — never ArrowRight between slides)
@@ -398,14 +406,16 @@ async function main() {
         if (slide.clickReveals > 0) {
           for (let beat = 1; beat <= slide.clickReveals; beat++) {
             await videoPage.keyboard.press('ArrowRight');
-            await videoPage.waitForTimeout(1000);
+            await videoPage.waitForTimeout(2500);
           }
         }
         await videoPage.waitForTimeout(500);
         // saveAs waits for ffmpeg flush — no race condition vs renameSync
         const destVideo = join(slideDir, 'animation-1280x720.webm');
+        const videoObj = videoPage.video();
         await videoPage.close();
-        await videoPage.video().saveAs(destVideo);
+        await videoObj.saveAs(destVideo);
+        await videoObj.delete().catch(() => {});
         hasVideo = true;
         console.log(`  Video: animation-1280x720.webm`);
       } finally {

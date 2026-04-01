@@ -93,3 +93,14 @@ htmlcov/
 # Provas e SAPs (PDFs grandes, conteudo protegido)
 assets/provas/*.pdf
 assets/sap/*.pdf
+
+# Aulas: QA artifacts (binarios, regeneraveis)
+content/aulas/*/qa-screenshots/
+content/aulas/*/qa-rounds/
+
+# Aulas: generated index.html (built from _manifest.js + template)
+content/aulas/*/index.html
+
+# Playwright
+.playwright-mcp/
+test-results/

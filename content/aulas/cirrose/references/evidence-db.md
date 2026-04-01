@@ -192,8 +192,11 @@
 | s-a1-01 | FIB-4 >=2,67: especificidade 98,7% (PPV 35,6%) | LiverPRO: Lindvig 2025 (PMID 39674225) |
 | s-a1-01 | FIB-4 -> elastografia -> CSPH pathway | Baveno VII (PMID 35120736) |
 | s-a1-fib4 / s-a1-rule5 | FIB-4 -> elastografia -> CSPH muda conduta | Baveno VII (PMID 35120736) |
+| s-a1-rule5 | NITs discriminam F3 vs F4 poorly; F3 ja tem varizes 16%, HR 8.15 MALO | Barrett 2026, Liver Int (PMID 41546486) |
+| s-a1-rule5 | VCTE AUROC >=F3 = 0.87 vs F4 = 0.94 (63 estudos, 19199 pts) | Chon 2024, Clin Mol Hepatol (PMID 39165159) |
+| s-a1-rule5 | Critical CSPH (>50 kPa): decompensacao 11.24 vs 4.20/100 pac-anos vs 25-50 kPa | Vutien 2025, Hepatology (PMID 39689352) N=17076 |
 | s-a1-fib4 | FIB-4 criado p/ HIV/HCV, universalizado por conveniencia | Sterling 2006 (PMID 16729309) [LANDMARK] |
-| s-a1-fib4 | FIB-4 <1,30 descarta cACLD: VPN >90% (Step 1 universal) | EASL NITs CPG 2021 (PMID 34052326) [GUIDELINE] |
+| s-a1-fib4 | FIB-4 <1,30 descarta cACLD: VPN >90% (Step 1 universal) | EASL NITs CPG 2021 (PMID 34166721) [GUIDELINE] |
 | s-a1-fib4 | FIB-4 >=65a: cutoff 2,0 — spec melhora 35%→70%, sens 77% | McPherson 2017 (PMID 27530706) N=634 |
 | s-a1-fib4 | AUROC NAFLD: 0,76 (IPD meta n=5735) | Gut 2021 (DOI:10.1136/gutjnl-2019-318505) |
 | s-a1-fib4 | Acuracia global 68,8% em MASLD — abaixo do minimo EASL (80%) | J Hepatol 2024 (FIB-9 paper) |
@@ -202,7 +205,15 @@
 | s-a1-fib4 | FIB-3: age-independent, superior ao FIB-4 em >=60a | Hep Res 2024, n=1398 |
 | s-a1-fib4 | 79% dos FIB-4 "alto risco" NAO sao alto risco por LSM (pop. geral) | NHANES CGH 2024 |
 | s-a1-fib4 | EASL pathway: sens apenas 27,7% p/ LSM>=8 em pop. geral | Aliment Pharmacol Ther 2024 |
-| s-a1-meld | MELD-Na: semaforo da cirrose | Formula UNOS padrao |
+| s-a1-meld | MELD derivacao: TIPS 2000, validacao ESLD 2001, UNOS 2002. c-stat 0,83 (n=3437) | Malinchoc 2000 (PMID 10733541) + Kamath 2001 (PMID 11172350) + Wiesner 2003 (PMID 12512033) |
+| s-a1-meld | MELD-Na: +Na (125-140). HR 1,05/mEq/L. Adotado UNOS jan 2016 | Kim 2008 NEJM (PMID 18768945) + Biggins 2006 (PMID 16697729) |
+| s-a1-meld | MELD 3.0: +albumina, +sexo (+1,33 fem), Cr cap 3,0. c-stat 0,869 vs 0,862. 8,8% reclassificados. OPTN jul 2023 | Kim 2021 (PMID 34481845) |
+| s-a1-meld | Brasil: MELD original (Portaria 1160/2006). MELD 3.0 adotado via Portaria GM/MS 8.041/2025 (set 2025, republicada jan 2026). SP MELD otimo=26 (n=22522) | Chaib 2023 (PMID 37729279) + Portaria 8.041/2025 (DOU) + Editora Pasteur 2025 (confirmacao secundaria) |
+| s-a1-meld | MELD >40: 30d mort 58% (40-44), 82% (≥50). Cap em 40 perde discriminacao | Tarlow 2022 (PMID 36052665) |
+| s-a1-meld | Vies sexo: TODAS 4 variaveis MELD-Na desfavorecem mulheres (n=623931) | Sealock 2022 JAMA Surg (PMID 35583884) |
+| s-a1-meld | GEMA-Na: Hc 0,753 vs MELD 3.0 0,726 (P=.001). Supera em TODAS validacoes externas. Nao adotado | Rodriguez-Peralvarez 2024 (PMID 39114271) |
+| s-a1-meld | ACLF: CLIF-C ACLF > MELD em todos timepoints (19-28% menos erro). MELD subestima mortalidade ACLF | Jalan 2014 (PMID 24950482) |
+| s-a1-meld | Sarcopenia: RR 1,84 (1,41-2,39) pos-TX. MELD nao captura frailty/sarcopenia | Markakis 2025 meta-analise (PMID 39876624) |
 | s-a2-04 | Infeccao = 33% das internacoes | PREDICT study (PMID 33227350 — precipitating events; original PMID 32673741) |
 | s-app-etio | 10 etiologias em 3 perguntas | EASL CPG 2024 + AASLD 2024 |
 | s-a1-classify | Mortalidade por estagio D'Amico + further decomp. PREDESCI callout removido (movido p/ baveno 26/mar) | D'Amico 2006 (PMID 16298014) |
@@ -218,7 +229,7 @@
 | s-a1-elasto | XL probe cutoff F avancada: M=12,0 vs XL=10,7 kPa | EASL NITs 2021 (PMID 34166721) |
 | s-a1-elasto | SSM Cochrane 2026: sensibilidade 72,9% a especificidade 90% para CSPH | Vranic 2026 (PMID 41498616) |
 | s-a1-elasto | Esteatose severa (S3): discordancia >=2 estagios em 38,6% | Losurdo 2025 (PMID 40807038) |
-| s-a1-damico | Evolucao D'Amico 2006→2024: 4→5→6 estagios, further decomp, mortalidade 1%→57% | D'Amico 2006 (PMID 16298014) + D'Amico 2024 (PMID 37916970) |
+| s-a1-cpt | CTP historia 1964→1973, limitacoes (kappa 0,41, ceiling, sem Cr), uso atual (cirurgia A10%/B30%/C75%, TIPS preemptivo, recompensacao) | Pugh 1973 (PMID 4541913) + Durand & Valla 2005 (PMID 15777564) + Baveno VII (PMID 35120736) + AASLD 2024 (PMID 37870298) |
 | s-a1-baveno | Paradigma cACLD/dACLD + PREDESCI HR 0,51 (IC 0,26-0,97) descomp 3a | Baveno VII (PMID 35120736) + PREDESCI (PMID 30910320) |
 | s-a2-01 | Gatilhos descomp: infeccao (33%), alcool, nao-adesao | PREDICT (PMID 32673741) + EASL CPG 2024 |
 | s-a2-02 | Ascite DX: GASA >1,1 confirma hipertensao portal | EASL CPG 2024 |
@@ -249,8 +260,16 @@
 | s-app-07 | Estatina adjuvante: HVPG -2 mmHg | LIVERHOPE (PMID [CANDIDATE — VERIFICAR VIA MCP]) |
 | s-app-08 | CIRROXABAN 2025: p=0,058 NS | CIRROXABAN (PMID [NOT INDEXED — searched 2026-03-07]) |
 
-> **Slides sem row intencional:** s-title (display-only), s-hook (labs de CASE.md, sem clinical assertion propria), s-cp1/s-cp2/s-cp3 (checkpoints interativos, dados cumulativos do caso), s-close (fechamento narrativo). Esses slides nao projetam dados clinicos novos — conferir CASE.md para valores baseline.
-> **IDs corrigidos 29/mar/2026:** 6 rows renomeados (s-a2-01→07, s-a2-02→15, s-a2-03→app-alb, s-a2-04→05, s-a2-05→11, s-a2-06→08) + 8 rows adicionados (s-a1-damico, s-a2-01/02/03/06/09/10/12) apos rewrite Ato 2 em 08/mar.
+> **Slides sem row intencional:** s-title (display-only), s-hook (labs de CASE.md, sem clinical assertion propria), s-cp2/s-cp3 (checkpoints interativos, dados cumulativos do caso), s-close (fechamento narrativo). Esses slides nao projetam dados clinicos novos — conferir CASE.md para valores baseline.
+> **s-cp1 tem rows:** checkpoint com decisao clinica baseada em evidencia (Baveno VII, PREDESCI).
+
+| Slide | Assertion / Dado | Fonte |
+|-------|-----------------|-------|
+| s-cp1 | Antonio LSM 26 kPa → CSPH confirmado (s-a1-baveno rule-in). Conduta: NSBB + dispensar EDA (Baveno VII 5.15/5.17) | Baveno VII (PMID 35120736). Criterios base → s-a1-elasto, s-a1-baveno |
+| s-cp1 | PREDESCI: HR 0,51 (IC 0,26-0,97). NNT 9 em 37 meses. Beneficio dirigido por ascite HR 0,44 (IC 0,20-0,97) | PREDESCI (PMID 30910320) |
+| s-cp1 | Alcool ativo superestima LSM ~2,6 kPa. Medir apos ≥2 sem abstinencia | Gianni 2017 (PMID 27542989) + Legros 2022 (PMID 33588101) |
+| s-cp1 | Carvedilol dose-alvo 12,5 mg/dia. Iniciar 6,25 mg/dia. PAS >90, FC >50 | Turco 2023 (PMID 36897563) + AASLD 2024 (PMID 37870298) |
+> **IDs corrigidos 29/mar/2026:** 6 rows renomeados (s-a2-01→07, s-a2-02→15, s-a2-03→app-alb, s-a2-04→05, s-a2-05→11, s-a2-06→08) + 8 rows adicionados (s-a1-cpt, s-a2-01/02/03/06/09/10/12) apos rewrite Ato 2 em 08/mar.
 
 ## Screening cACLD — Rastreamento Primario
 
@@ -351,14 +370,4 @@
 
 ## Notion References DB
 
-15 PMIDs pendentes. Protocolo de sync: `docs/SYNC-NOTION-REPO.md`
-Collection ID: `collection://2b24bb6c-91be-42c0-ae28-908a794e5cf5`
-
-## See also
-
-- Dados canonicos do paciente → `CASE.md`
-- Arco narrativo e pacing → `narrative.md`
-- Trials obrigatorios + status PDF → `must-read-trials.md`
-- Protocolo de decisoes sobre dados → `decision-protocol.md`
-- Disclosure AI → `coautoria.md`
-- Sync Notion ↔ Repo → `docs/SYNC-NOTION-REPO.md`
+15 PMIDs pendentes. IDs: `docs/SYNC-NOTION-REPO.md`

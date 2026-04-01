@@ -1,49 +1,26 @@
-# NOTES — Cirrose Masterclass
+# NOTES — Cirrose
 
-> Feedback de aulas dadas, decisões, pendências de conteúdo.
-
----
-
-## 2026-03-31 — Feedback pós-aula (apresentação real)
-
-### O que funcionou
-- **Tempo:** não foi problema — aula fluiu dentro do previsto
-- **Slides:** qualidade visual adequada, não foi limitante
-- **Gestalt geral:** Lucas avalia 6/10 — espaço para melhorar domínio do conteúdo
-
-### Erros de conteúdo
-
-**1. Indicação de albumina em HDA — falou errado**
-- Albumina tem indicação Tier-1 em **PBE/SBP** (Sort 1999, NEJM — NNT 5 mortalidade, NNT 4 renal)
-- Em HDA varicosa: ressuscitação restritiva, vasoativo, EDA <12h, ATB profilático. Albumina **não** é protocolo padrão
-- ATTIRE (NEJM 2021): albumina targeted em cirrose aguda **não** melhora outcomes
-- Ação: revisar evidence-db.md — delimitar indicações de albumina por contexto (SBP vs HDA vs ascite refratária)
-
-**2. Termo "doença hepática crônica avançada compensada" (cACLD/DHCAc) travou múltiplas vezes**
-- Termo longo e pouco natural na fala — tropeçou repetidamente durante a apresentação
-- PT-BR oficial (SBH): **doença hepática crônica avançada compensada (DHCAc)** — mas sigla DHCAc NÃO é usada verbalmente em congressos brasileiros
-- Em inglês: **cACLD**. Pronúncia varia entre palestrantes internacionais:
-  - Letra por letra: "see-ay-see-el-dee" (Dr. Schattenberg, NASH lecture)
-  - Fonético: "cow" /kaʊ/ (JHEP Live, Baveno VI)
-- Ação: introduzir nome completo uma vez ("doença hepática crônica avançada compensada"), depois usar **cACLD** (cê-a-cê-ele-dê) — inequívoco e reconhecível
-
-**3. Domínio do conteúdo e estrutura**
-- Faltou fluência nos dados-chave e na sequência narrativa
-- Ação: ensaio com timer + revisão do evidence-db antes da próxima
-
-### Tópico novo a adicionar
-
-**3. Coagulopatia no cirrótico**
-- Tema ausente no deck atual (44 slides não cobrem)
-- Conceitos-chave:
-  - Hemostasia rebalanceada (Tripodi & Mannucci, NEJM 2011)
-  - INR **não** reflete risco de sangramento no cirrótico
-  - Tromboelastografia (TEG/ROTEM) como alternativa
-  - Risco trombótico real (PVT — trombose de veia porta)
-  - Contraindicação relativa de plasma fresco (volume, TRALI)
-- Decisão pendente: slide novo ou mini-bloco (2-3 slides)?
-- Ação: pesquisar e propor estrutura
+> Decisoes de design e observacoes inter-agente que NAO cabem em CHANGELOG (o que mudou),
+> ERROR-LOG (erros + regras), ou HANDOFF (estado atual).
+> Sessoes pre-20/mar removidas (rationalization audit 26/mar). Historico: `git log`.
 
 ---
 
-*Append-only. Feedback de aulas reais é prioridade máxima para melhoria.*
+## Decisoes de design travadas pelo usuario
+
+### s-a1-classify (R3-R10, 21/mar)
+- **Blur state 2:** opacity 0.5 + blur 2px. Gemini propôs remover — REJEITADO.
+- **Sidebar verde PREDESCI:** `writing-mode: vertical-lr`, bg `oklch(30% 0.10 170)`. Gemini propôs remover — REJEITADO.
+- **Cards inset box-shadow:** `inset 4px 0 0 0 var(--safe/warning/danger)`. Gemini propôs pseudo-element — revertido (perdia efeito).
+- **MorphSVG ✕→L-arrow:** Aprovado. Gemini chamou de "gimmick" — mantido.
+
+### s-a1-fib4 (23/mar)
+- Quiz interativo removido. Refatorado para hero FIB-4 5,91 + cutoff + burnt-out. Archetype poll→hero-stat.
+
+---
+
+## Observacoes operacionais
+
+- **Playwright MCP nao navega deck.js (E56).** ArrowRight, hash, scrollIntoView, CustomEvent — nenhum funciona. Workaround: script Node standalone.
+- **Agent drift:** Agente tende a ler MDs em vez de inspecionar CSS/JS real. `validate-css.sh` mitiga.
+- **Env:** PERPLEXITY_API_KEY ausente. SCITE = OAuth (sem API key).

@@ -130,7 +130,7 @@ align-content: start;
     <h2>Pergunta clínica provocativa?</h2>
     <div class="checkpoint-layout">
       <div class="case-expanded">
-        <h3>📋 Seu Antônio — Estado Atual</h3>
+        <h3>📋 Antônio — Estado Atual</h3>
         <div class="case-data">
           <div class="data-item">
             <span class="data-label">{param}</span>
@@ -174,11 +174,3 @@ align-content: start;
 | `archetype-recap` | 3 take-homes de fechamento | s-close |
 
 Skeleton HTML será definido quando cada archetype for implementado em `archetypes.css`.
-
-## See also
-
-- Dados canonicos do paciente (checkpoint layouts) → `CASE.md`
-- Arco narrativo (quais archetypes por slide) → `narrative.md`
-- Regras de edicao de slides → `.claude/rules/slide-rules.md`
-- Design system (CSS tokens, grid) → `shared/css/base.css`
-- Engine de animacoes → `shared/js/engine.js`

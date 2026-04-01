@@ -8,7 +8,7 @@
  */
 
 import { panelStates } from './slides/_manifest.js';
-import { getCurrentSlide } from '../shared/js/deck.js';
+import { getCurrentSlide } from './shared/js/deck.js';
 import { SplitText } from 'gsap/SplitText';
 import { Flip } from 'gsap/Flip';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
@@ -278,13 +278,10 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-damico — Escores Prognósticos (6 eras)
-     Era 0: Child 1964 (auto) — boxes stagger
-     Era 1: CTP 1973 (click) — boxes + limitations stagger sequencial
-     Era 2: MELD 2001 (click) — formula stagger + c-stat CountUp
-     Era 3: MELD-Na 2006 (click) — highlight no termo sódio
-     Era 4: MELD 3.0 2021 (click) — dual CountUp c-stat
-     Era 5: D'Amico (click) — dois datasets, CountUp estágios
+     s-a1-cpt — Child-Turcotte-Pugh: história, limitações, uso atual
+     Era 0: História 1964→1973 (auto) — variables + classes stagger
+     Era 1: Limitações (click) — 4 limit-cards stagger
+     Era 2: Uso atual (click) — 3 role-cards stagger
      Plan B: todos eras visíveis via CSS failsafe — retorna cedo
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
@@ -303,75 +300,79 @@ export const customAnimations = {
     const masldBlock = slide.querySelector('.elasto-masld');
     const mreBlock = slide.querySelector('.elasto-mre');
     const sourceTag = slide.querySelector('.source-tag');
+    const masldValues = masldBlock.querySelectorAll('.elasto-masld-value, .elasto-masld-arrow');
 
-    /* Reset all */
-    function resetAll() {
-      gsap.set(confCards, { autoAlpha: 0, y: 8 });
-      gsap.set([masldBlock, mreBlock], { autoAlpha: 0, y: 10 });
-      if (sourceTag) gsap.set(sourceTag, { autoAlpha: 0 });
-      state = 0;
+    /* Initial state: hide everything */
+    const confGrid = slide.querySelector('.elasto-confounders');
+    if (confGrid) gsap.set(confGrid, { opacity: 1 });
+    gsap.set(confCards, { autoAlpha: 0, y: 8, scale: 0.97 });
+    gsap.set([masldBlock, mreBlock], { autoAlpha: 0, y: 12, scale: 0.97 });
+    gsap.set(masldValues, { autoAlpha: 0, y: 6 });
+    if (sourceTag) gsap.set(sourceTag, { autoAlpha: 0 });
+
+    /* State 0 (auto): confounders timeline with overlap */
+    const tl0 = gsap.timeline({ delay: 0.3 });
+    confCards.forEach((card, i) => {
+      tl0.to(card, {
+        autoAlpha: 1, y: 0, scale: 1,
+        duration: 0.4, ease: 'power2.out',
+      }, i * 0.12);
+    });
+
+    function advance() {
+      if (state >= maxState) return false;
+      state++;
+
+      if (state === 1) {
+        /* MASLD hero: scale emphasis + power3.out (baveno pattern) */
+        gsap.fromTo(masldBlock,
+          { autoAlpha: 0, y: 12, scale: 0.97 },
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.5, ease: 'power3.out' }
+        );
+        /* Stagger interno: 90% → arrow → 63% (bom → mau) */
+        gsap.fromTo(masldValues,
+          { autoAlpha: 0, y: 6 },
+          { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.35, ease: 'power2.out' }
+        );
+      } else if (state === 2) {
+        /* MRE: snappy, supporting */
+        gsap.fromTo(mreBlock,
+          { autoAlpha: 0, y: 8 },
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.35, ease: 'power3.out' }
+        );
+        if (sourceTag) {
+          gsap.to(sourceTag, { autoAlpha: 1, duration: 0.3, delay: 0.2 });
+        }
+      }
+      return true;
     }
 
-    resetAll();
+    function retreat() {
+      if (state <= 0) return false;
 
-    return {
-      enter() {
-        resetAll();
-        /* State 0: confounders stagger in */
-        gsap.to(confCards, {
-          autoAlpha: 1, y: 0,
-          duration: 0.45, stagger: 0.12, delay: 0.3,
-          ease: 'power2.out',
+      if (state === 2) {
+        gsap.to([mreBlock, sourceTag].filter(Boolean), {
+          autoAlpha: 0, y: 8, duration: 0.2, ease: 'power2.in',
         });
-      },
+      } else if (state === 1) {
+        /* Valores primeiro, depois card com scale reverso */
+        gsap.to(masldValues, { autoAlpha: 0, y: 6, duration: 0.15, ease: 'power2.in' });
+        gsap.to(masldBlock, {
+          autoAlpha: 0, y: 8, scale: 0.97,
+          duration: 0.25, delay: 0.1, ease: 'power2.in',
+        });
+      }
 
-      advance() {
-        if (state >= maxState) return false;
-        state++;
+      state--;
+      return true;
+    }
 
-        if (state === 1) {
-          /* MASLD gap card */
-          gsap.to(masldBlock, {
-            autoAlpha: 1, y: 0,
-            duration: 0.4, ease: 'power2.out',
-          });
-        } else if (state === 2) {
-          /* MRE escape + source */
-          gsap.to(mreBlock, {
-            autoAlpha: 1, y: 0,
-            duration: 0.4, ease: 'power2.out',
-          });
-          if (sourceTag) {
-            gsap.to(sourceTag, {
-              autoAlpha: 1,
-              duration: 0.3, delay: 0.3,
-            });
-          }
-        }
-
-        return true;
-      },
-
-      retreat() {
-        if (state <= 0) return false;
-
-        if (state === 2) {
-          gsap.to([mreBlock, sourceTag].filter(Boolean), { autoAlpha: 0, y: 10, duration: 0.25 });
-        } else if (state === 1) {
-          gsap.to(masldBlock, { autoAlpha: 0, y: 10, duration: 0.25 });
-        }
-
-        state--;
-        return true;
-      },
-
-      leave() {
-        resetAll();
-      },
-    };
+    slide.__hookAdvance = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => state;
   },
 
-  's-a1-damico': (slide, gsap) => {
+  's-a1-cpt': (slide, gsap) => {
     if (document.body.classList.contains('stage-bad')) return;
 
     let state = 0;
@@ -381,68 +382,100 @@ export const customAnimations = {
     const eras = slide.querySelectorAll('.scores-era');
     const sourceTag = slide.querySelector('.source-tag');
 
-    eras.forEach((era, i) => gsap.set(era, { opacity: i === 0 ? 1 : 0 }));
-
+    eras.forEach((era, i) => gsap.set(era, { autoAlpha: i === 0 ? 1 : 0 }));
 
     function showEra(idx, onComplete) {
       eras.forEach(e => {
         if (parseFloat(getComputedStyle(e).opacity) > 0.01) {
-          gsap.to(e, { opacity: 0, duration: 0.3 });
+          gsap.to(e, { autoAlpha: 0, duration: 0.3 });
         }
       });
       const target = slide.querySelector(`.scores-era[data-era="${idx}"]`);
       if (!target) { busy = false; return; }
       gsap.to(target, {
-        opacity: 1, duration: 0.45, delay: 0.35, ease: 'power2.out',
+        autoAlpha: 1, duration: 0.45, delay: 0.35, ease: 'power2.out',
         onComplete: onComplete || (() => { busy = false; }),
       });
     }
 
-    // Era 0 auto: CTP classes stagger
-    const ctpClasses = slide.querySelectorAll('.scores-era[data-era="0"] .ctp-class');
-    gsap.set(ctpClasses, { opacity: 0, y: 12 });
-    gsap.to(ctpClasses, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.4, ease: 'power2.out' });
+    // S0 auto: nodes stagger → kappa fade → ceiling countUp
+    const nodes = slide.querySelectorAll('.cpt-node');
+    const flawCallout = slide.querySelector('.cpt-flaw-callout');
+    const ceiling = slide.querySelector('.cpt-ceiling');
+    const ceilingHigh = slide.querySelector('.cpt-ceiling-high');
+    const ceilingResult = slide.querySelector('.cpt-ceiling-result');
 
-    function runEra1Anims() {
-      const terms = slide.querySelectorAll('.scores-era[data-era="1"] .formula-term');
-      gsap.set(terms, { opacity: 0, y: 10 });
-      gsap.to(terms, { opacity: 1, y: 0, duration: 0.35, stagger: 0.15, delay: 0.1, ease: 'power2.out' });
+    gsap.set(nodes, { opacity: 0, y: 8 });
+    if (flawCallout) gsap.set(flawCallout, { opacity: 0, y: 6 });
+    if (ceiling) gsap.set(ceiling, { opacity: 0, y: 6 });
+    if (ceilingResult) gsap.set(ceilingResult, { opacity: 0 });
 
-      const sodiumTerm = slide.querySelector('[data-meldna-sodium]');
-      if (sodiumTerm) {
-        gsap.fromTo(sodiumTerm,
-          { backgroundColor: 'transparent' },
-          { backgroundColor: 'var(--ui-accent-light)', color: 'var(--ui-accent)', duration: 0.6, delay: 0.8, ease: 'power2.out' }
+    // Pre-hide S1/S2 children — prevents flash when era fades in before postAnim fires
+    gsap.set(slide.querySelectorAll('.cpt-surgery-stat'), { opacity: 0, y: 12 });
+    gsap.set(slide.querySelectorAll('.cpt-guideline-card'), { opacity: 0, y: 12 });
+
+    // Nodes stagger
+    gsap.to(nodes, { opacity: 1, y: 0, duration: 0.35, stagger: 0.1, delay: 0.3, ease: 'power2.out' });
+    // Kappa callout after nodes
+    if (flawCallout) gsap.to(flawCallout, { opacity: 1, y: 0, duration: 0.4, delay: 0.9, ease: 'power2.out' });
+    // Ceiling card
+    if (ceiling) gsap.to(ceiling, { opacity: 1, y: 0, duration: 0.4, delay: 1.4, ease: 'power2.out' });
+    // CountUp on ceiling high value (3.1 → 30)
+    if (ceilingHigh) {
+      inlineCountUp(gsap, ceilingHigh, 30, 1.2, 1.8);
+    }
+    // Ceiling result punch ("= mesmos 3 pontos")
+    if (ceilingResult) gsap.to(ceilingResult, { opacity: 1, duration: 0.3, delay: 3.2, ease: 'power2.out' });
+
+    // CTP panel field: scale pulse after nodes stagger in
+    const ctpLabel = [...document.querySelectorAll('.panel-field-label')]
+      .find(el => el.textContent.trim() === 'CTP');
+    if (ctpLabel) {
+      const ctpVal = ctpLabel.closest('.panel-field')?.querySelector('.panel-field-value');
+      if (ctpVal) {
+        gsap.fromTo(ctpVal,
+          { scale: 1 },
+          { scale: 1.15, duration: 0.3, delay: 1.0, ease: 'power2.inOut',
+            yoyo: true, repeat: 1 }
         );
-      }
-
-      const cstatEl = slide.querySelector('.scores-era[data-era="1"] .scores-cstat-value');
-      if (cstatEl) {
-        inlineCountUp(gsap, cstatEl, parseFloat(cstatEl.dataset.target), 1.2, 0.8);
       }
     }
 
-    function runEra2Anims() {
-      const stages = slide.querySelectorAll('.scores-era[data-era="2"] .pathway-stage');
-      gsap.set(stages, { scaleX: 0, transformOrigin: 'left' });
-      gsap.to(stages, { scaleX: 1, duration: 0.6, stagger: 0.15, delay: 0.2, ease: 'power2.out' });
-
-      const vals = slide.querySelectorAll('.scores-era[data-era="2"] .pathway-value[data-target]');
-      vals.forEach((el, i) => {
-        inlineCountUp(gsap, el, parseFloat(el.dataset.target), 1, 0.4 + i * 0.15);
+    function runS1Anims() {
+      const stats = slide.querySelectorAll('.cpt-surgery-stat');
+      const pcts = slide.querySelectorAll('.cpt-surgery-pct[data-target]');
+      gsap.set(stats, { opacity: 0, y: 12 });
+      gsap.to(stats, { opacity: 1, y: 0, duration: 0.4, stagger: 0.2, delay: 0.1, ease: 'power2.out' });
+      // CountUp on each percentage
+      pcts.forEach((el, i) => {
+        inlineCountUp(gsap, el, parseFloat(el.dataset.target), 1, 0.3 + i * 0.2);
       });
+      // Von Restorff: scale C stat after countUp
+      const cStat = slide.querySelector('.cpt-surgery-stat--danger');
+      if (cStat) {
+        gsap.to(cStat, { scale: 1.16, boxShadow: '0 8px 24px oklch(0.65 0.19 8 / 0.4)', duration: 0.5, delay: 1.2, ease: 'power2.out' });
+        gsap.to(cStat, { scale: 1, boxShadow: 'none', duration: 0.4, delay: 2.5, ease: 'power2.inOut' });
+      }
+    }
 
-      const further = slide.querySelector('.damico-further-decomp');
-      if (further) gsap.fromTo(further, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, delay: 1.2, ease: 'power2.out' });
-
-      if (sourceTag) gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 1.5 });
+    function runS2Anims() {
+      const cards = slide.querySelectorAll('.cpt-guideline-card');
+      gsap.set(cards, { opacity: 0, y: 12 });
+      gsap.to(cards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.2, delay: 0.1, ease: 'power3.out' });
     }
 
     function advance() {
       if (busy || state >= maxState) return false;
       state++;
       busy = true;
-      const postAnim = state === 1 ? runEra1Anims : state === 2 ? runEra2Anims : null;
+      // Pre-hide incoming era children before fade-in (prevents content flash)
+      if (state === 1) {
+        gsap.set(slide.querySelectorAll('.cpt-surgery-stat'), { opacity: 0, y: 12 });
+        slide.querySelectorAll('.cpt-surgery-pct[data-target]').forEach(el => { el.textContent = '0'; });
+      } else if (state === 2) {
+        gsap.set(slide.querySelectorAll('.cpt-guideline-card'), { opacity: 0, y: 12 });
+      }
+      const postAnim = state === 1 ? runS1Anims : state === 2 ? runS2Anims : null;
       showEra(state, () => {
         busy = false;
         if (postAnim) postAnim();
@@ -452,10 +485,13 @@ export const customAnimations = {
 
     function retreat() {
       if (busy || state <= 0) return false;
-      if (state === 2) {
-        if (sourceTag) gsap.to(sourceTag, { opacity: 0, duration: 0.2 });
-        slide.querySelectorAll('.scores-era[data-era="2"] .pathway-value[data-target]')
-          .forEach(el => { gsap.killTweensOf(el); el.textContent = '0'; });
+      if (state === 1) {
+        // Reset countUp values and Von Restorff scale
+        slide.querySelectorAll('.cpt-surgery-pct[data-target]').forEach(el => {
+          gsap.killTweensOf(el); el.textContent = '0';
+        });
+        const cStat = slide.querySelector('.cpt-surgery-stat--danger');
+        if (cStat) gsap.set(cStat, { scale: 1 });
       }
       state--;
       busy = true;
@@ -575,6 +611,8 @@ export const customAnimations = {
     const sourceTag = slide.querySelector('.source-tag');
 
     /* ── Initial states ── */
+    const spectrum = slide.querySelector('.fib4-spectrum');
+    if (spectrum) gsap.set(spectrum, { opacity: 1 });
     /* Bar segments: safe+danger start collapsed, gray hidden */
     gsap.set(safeSeg, { scaleX: 0, transformOrigin: 'left center' });
     gsap.set(dangerSeg, { scaleX: 0, transformOrigin: 'right center' });
@@ -649,24 +687,27 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-rule5 — Rule-of-5 + Antonio plotado
-     States: 0=zones stagger (auto), 1=Antonio highlight, 2=source
+     s-a1-rule5 — Rule-of-5 (reference scale + holofote ≥25)
+     States: 0=zones stagger+gray (auto), 1=holofote ≥25+sidebar LSM (click)
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-rule5': (slide, gsap) => {
     let state = 0;
-    const maxState = 2;
+    const maxState = 1;
 
     const ruleOf5 = slide.querySelector('.rule-of-5');
     const zones = slide.querySelectorAll('.rule-zone');
     const grayZone = slide.querySelector('.rule-gray-zone');
-    const antonioPlot = slide.querySelector('.antonio-plot');
-    const antonioPin = slide.querySelector('.antonio-pin');
-    const caveats = slide.querySelector('.rule-caveats');
-    const banner = slide.querySelector('.rule-conclusion-banner');
+    const criticalZone = slide.querySelector('.rule-zone[data-zone-idx="4"]');
+    const dimZones = slide.querySelectorAll('.rule-zone:not([data-zone-idx="4"])');
     const sourceTag = slide.querySelector('.source-tag');
+    const caveats = slide.querySelector('.rule-caveats');
 
-    gsap.set(zones, { scaleY: 0, opacity: 1 });
+    // Beat 0 (auto): zones scaleY stagger from bottom
     if (ruleOf5) gsap.set(ruleOf5, { opacity: 1 });
+    gsap.set(zones, { scaleY: 0, opacity: 1, transformOrigin: 'bottom center' });
+    if (grayZone) gsap.set(grayZone, { opacity: 0 });
+    if (sourceTag) gsap.set(sourceTag, { opacity: 0 });
+    if (caveats) gsap.set(caveats, { opacity: 0, y: 8 });
 
     gsap.to(zones, {
       scaleY: 1,
@@ -675,33 +716,61 @@ export const customAnimations = {
     });
 
     if (grayZone) {
-      gsap.to(grayZone, { opacity: 1, duration: 0.5, delay: 0.4 + zones.length * 0.15 + 0.3 });
+      gsap.to(grayZone, {
+        opacity: 1, duration: 0.5,
+        delay: 0.4 + zones.length * 0.15 + 0.3,
+      });
     }
 
     function advance() {
       if (state >= maxState) return false;
       state++;
 
-      if (state === 1) {
-        const targetZone = slide.querySelector('[data-zone-idx="3"]');
-        if (targetZone) targetZone.classList.add('rule-zone--highlighted');
+      // Holofote: dim non-critical zones, glow critical (≥25)
+      gsap.to(dimZones, {
+        opacity: 0.35, filter: 'grayscale(80%)',
+        duration: 0.6, ease: 'power2.out',
+      });
+      if (criticalZone) {
+        gsap.to(criticalZone, {
+          scale: 1.05,
+          boxShadow: '0 0 24px rgba(204, 74, 58, 0.5)',
+          duration: 0.6, ease: 'power2.out',
+        });
+      }
+      // Source tag + caveats
+      if (sourceTag) gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
+      if (caveats) gsap.to(caveats, { opacity: 1, y: 0, duration: 0.5, delay: 0.3, ease: 'power2.out' });
 
-        gsap.to(antonioPlot, { opacity: 1, duration: 0.4 });
+      // Sidebar: LSM '—' → '26 kPa'
+      // 3 layers: row highlight (persistent) + value punch + label cue
+      document.querySelectorAll('#case-panel .panel-field').forEach(f => {
+        if (f.querySelector('.panel-field-label')?.textContent === 'LSM') {
+          const val = f.querySelector('.panel-field-value');
+          const label = f.querySelector('.panel-field-label');
+          if (val) {
+            // Set final text + persistent styling
+            val.textContent = '26 kPa';
+            val.classList.add('changed');
+            f.classList.add('panel-field--danger');
 
-        if (antonioPin) {
-          gsap.fromTo(antonioPin,
-            { y: -40, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, delay: 0.2, ease: 'back.out(1.4)' }
-          );
+            // Value: scale punch delayed 0.3s (after zone dim settles)
+            val.style.display = 'inline-block';
+            gsap.fromTo(val,
+              { scale: 1.6, opacity: 0 },
+              { scale: 1, opacity: 1, duration: 0.6, delay: 0.3, ease: 'power3.out' }
+            );
+
+            // Label: brief flash so audience notices the row
+            if (label) {
+              gsap.fromTo(label,
+                { color: 'var(--danger)' },
+                { color: 'var(--text-muted)', duration: 1.5, delay: 0.3, ease: 'power2.out' }
+              );
+            }
+          }
         }
-
-        if (caveats) gsap.to(caveats, { opacity: 1, duration: 0.4, delay: 0.8 });
-        if (banner) gsap.to(banner, { opacity: 1, duration: 0.4, delay: 1.2 });
-      }
-
-      if (state === 2) {
-        gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
-      }
+      });
 
       return true;
     }
@@ -709,17 +778,40 @@ export const customAnimations = {
     function retreat() {
       if (state <= 0) return false;
 
-      if (state === 2) {
-        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      // Undo holofote
+      gsap.to(dimZones, {
+        opacity: 1, filter: 'grayscale(0%)',
+        duration: 0.4, ease: 'power2.out',
+      });
+      if (criticalZone) {
+        gsap.to(criticalZone, {
+          scale: 1, boxShadow: 'none',
+          duration: 0.4, ease: 'power2.out',
+        });
       }
+      // Hide source tag + caveats
+      if (sourceTag) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+      if (caveats) gsap.to(caveats, { opacity: 0, y: 8, duration: 0.3 });
 
-      if (state === 1) {
-        const targetZone = slide.querySelector('[data-zone-idx="3"]');
-        if (targetZone) targetZone.classList.remove('rule-zone--highlighted');
-        gsap.to(antonioPlot, { opacity: 0, duration: 0.3 });
-        if (caveats) gsap.to(caveats, { opacity: 0, duration: 0.3 });
-        if (banner) gsap.to(banner, { opacity: 0, duration: 0.3 });
-      }
+      // Reset sidebar LSM
+      document.querySelectorAll('#case-panel .panel-field').forEach(f => {
+        if (f.querySelector('.panel-field-label')?.textContent === 'LSM') {
+          const val = f.querySelector('.panel-field-value');
+          const label = f.querySelector('.panel-field-label');
+          if (val) {
+            gsap.killTweensOf(val);
+            val.textContent = '—';
+            val.classList.remove('changed');
+            val.style.display = '';
+            gsap.set(val, { scale: 1, opacity: 1, clearProps: 'all' });
+          }
+          if (label) {
+            gsap.killTweensOf(label);
+            gsap.set(label, { clearProps: 'color' });
+          }
+          f.classList.remove('panel-field--danger');
+        }
+      });
 
       state--;
       return true;
@@ -731,36 +823,56 @@ export const customAnimations = {
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-     s-a1-meld — MELD-Na semáforo + threshold
-     States: 0=bands stagger (auto), 1=threshold line, 2=source
+     s-a1-meld — MELD: história, importância e evoluções
+     States: 0=evolution cards stagger (auto), 1=mortality bar, 2=limitations+source
      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
   's-a1-meld': (slide, gsap) => {
     let state = 0;
     const maxState = 2;
 
-    const bands = slide.querySelectorAll('.meld-band');
-    const threshold = slide.querySelector('.meld-threshold');
+    const cards = slide.querySelectorAll('.meld-evo-card');
+    const mortSection = slide.querySelector('.meld-mort-section');
+    const mortBands = slide.querySelectorAll('.meld-mort-band');
+    const limits = slide.querySelector('.meld-limits');
     const sourceTag = slide.querySelector('.source-tag');
 
-    gsap.set(bands, { opacity: 0, y: 12 });
-    gsap.to(bands, { opacity: 1, y: 0, duration: 0.4, stagger: 0.15, delay: 0.3, ease: 'power2.out' });
+    /* S0 init — hide all animated elements */
+    gsap.set(cards, { opacity: 0, y: 16 });
+    gsap.set(mortSection, { opacity: 0 });
+    gsap.set(limits, { opacity: 0, y: 8 });
+    gsap.set(sourceTag, { opacity: 0 });
+
+    /* S0 auto — cards stagger as atoms (no internal build) */
+    cards.forEach((card, i) => {
+      const cardDelay = 0.3 + i * 0.2;
+      gsap.to(card, { opacity: 1, y: 0, duration: 0.4, delay: cardDelay, ease: 'power2.out' });
+    });
 
     function advance() {
       if (state >= maxState) return false;
       state++;
-      if (state === 1 && threshold) {
-        gsap.to(threshold, { width: '100%', duration: 0.8, ease: 'power2.out' });
+      if (state === 1) {
+        /* Mortality bar: section fades, bands stagger */
+        gsap.to(mortSection, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        gsap.set(mortBands, { opacity: 0, y: 8 });
+        gsap.to(mortBands, { opacity: 1, y: 0, duration: 0.35, stagger: 0.12, delay: 0.15, ease: 'power2.out' });
       }
       if (state === 2) {
-        gsap.to(sourceTag, { opacity: 1, duration: 0.4 });
+        gsap.to(limits, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+        gsap.to(sourceTag, { opacity: 1, duration: 0.4, delay: 0.15 });
       }
       return true;
     }
 
     function retreat() {
       if (state <= 0) return false;
-      if (state === 2) gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
-      if (state === 1 && threshold) gsap.to(threshold, { width: 0, duration: 0.3 });
+      if (state === 2) {
+        gsap.to(sourceTag, { opacity: 0, duration: 0.3 });
+        gsap.to(limits, { opacity: 0, y: 8, duration: 0.3 });
+      }
+      if (state === 1) {
+        gsap.to(mortSection, { opacity: 0, duration: 0.3 });
+      }
       state--;
       return true;
     }
@@ -768,6 +880,25 @@ export const customAnimations = {
     slide.__hookAdvance = advance;
     slide.__hookRetreat = retreat;
     slide.__hookCurrentBeat = () => state;
+  },
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     s-cp1 — Breathing slide: body bg navy to eliminate letterbox bars
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  's-cp1': (slide) => {
+    const navy = 'oklch(22% 0.042 258)';
+    const deck = document.getElementById('deck');
+    document.body.style.background = navy;
+    if (deck) deck.style.background = navy;
+
+    const cleanup = (e) => {
+      if (e.detail.currentSlide !== slide) {
+        document.body.style.background = '';
+        if (deck) deck.style.background = '';
+        document.removeEventListener('slide:changed', cleanup);
+      }
+    };
+    document.addEventListener('slide:changed', cleanup);
   },
 
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

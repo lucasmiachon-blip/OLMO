@@ -10,12 +10,12 @@
 
 Masterclass segue o **Sparkline de Duarte**: alternância contínua entre
 "o que é" (realidade clínica) e "o que poderia ser" (ação que muda desfecho).
-O paciente-caso (Seu Antônio) é o fio condutor — sua trajetória clínica
+O paciente-caso (Antônio) é o fio condutor — sua trajetória clínica
 acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperança.
 
 **Subtítulo programático:** *Classificar · Intervir · Reverter*
 
-## Personagem-caso: Seu Antônio
+## Personagem-caso: Antônio
 
 > **DADOS CANÔNICOS — ver CASE.md** (este arquivo contém apenas contexto narrativo)
 
@@ -60,10 +60,10 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | 4 | s-a1-baveno | Doença hepática avançada é espectro, não diagnóstico binário | Ferramental: cACLD/dACLD, CSPH | ●○○○○ |
 | 5 | s-a1-fib4 | Modelos Preditivos: FIB-4 | VPN/VPP assimetria → 3 armadilhas (idade, álcool, MASLD) → zona cinza 30-60%. Sidebar calc ao vivo. | ●●○○○ |
 | 6 | s-a1-elasto | Fibroscan, MRE e outros métodos não invasivos | Apreciação crítica do laudo: 4 confounders (ALT, pós-prandial, ICC, colestase) → MASLD gap (PPV 90→63%) → MRE escape. | ●●○○○ |
-| 7 | s-a1-damico | De Child-Pugh a D'Amico: prognóstico virou preditivo | **Setup**: D'Amico 2006→2014→2024 | ●●○○○ |
-| 8 | s-a1-rule5 | A cada 5 kPa, muda o estágio e a conduta | Rule of 5: LSM + PLQ → risco | ●●○○○ |
-| 9 | s-a1-meld | MELD-Na estratifica urgência: cada faixa muda a conduta | **Interactive**: calculadora, aplica ao Seu Antônio (~10) | ●●○○○ |
-| 10 | s-cp1 | LSM 21 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
+| 7 | s-a1-rule5 | Rule of Five | Rule of 5: holofote ≥25 kPa, conduta acionável por faixa | ●●○○○ |
+| 8 | s-a1-cpt | Child-Pugh-Turcotte: aspectos históricos, limitações e uso atual | **Setup**: CTP 1964→1973, limitações, uso atual apesar do MELD | ●●○○○ |
+| 9 | s-a1-meld | MELD: história, importância e evoluções | **Interactive**: 3 gerações MELD, mortalidade, calculadora 3-mode, aplica ao Antônio (~10) | ●●○○○ |
+| 10 | s-cp1 | LSM 26 kPa, plaquetas 112k. Como você estadia? | **CHECKPOINT 1**: audiência decide. Pausa deliberada. | ●●●○○ |
 
 - **Panel:** neutral → caution (no CP1)
 - **Arc:** Rastreio → classificação → FIB-4 aplicado → ferramentas → checkpoint. Audiência segura — "sei classificar".
@@ -71,7 +71,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 - **s-a1-01 nota:** Slide de rastreio ancora na entrada do Antônio (UBS, assintomático, FIB-4 5,91). Dado-âncora: Prince 2024 (83% diagnósticos novos).
 - **s-a1-baveno nota:** Auto: SplitText dissolve "Cirrose" → espectro cACLD/dACLD. Click 1: PREDESCI lockup (HR 0,51). autoComplete guard bloqueia click durante dissolve. Source-tag removido (PMIDs nos notes). PREDESCI movido de classify (26/mar).
 - **s-a1-classify nota:** D'Amico é protagonista (3 cards mortalidade por estágio + further decomp callout). PREDESCI removido (agora em baveno).
-- **s-a1-damico nota:** D'Amico abrange 2006→2014→2024 (4→5→6 estágios + further decomp). Inclui pathway visual.
+- **s-a1-cpt nota:** CTP história (Child 1964, Pugh 1973), limitações (κ 0,41, ceiling, tratamento, sem creatinina), uso atual (cirurgia, TIPS, recompensação). Era-track 3 states.
 
 ### ATO 2 — INTERVIR (slides 10-25)
 
@@ -185,7 +185,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 
 ```
 s-hook    → neutral   (apresentação: ver CASE.md — baseline labs)
-s-cp1     → caution   (LSM 21 kPa · MELD ~10 · cACLD→CSPH)
+s-cp1     → caution   (LSM 26 kPa · MELD ~10 · CSPH confirmado)
 s-a2-01   → caution   (MELD 12 — piora basal, etilismo + não-adesão)
 s-a2-02   → warning   (MELD 14 — 1ª descompensação: ascite. Tag +Ascite)
 s-a2-05   → warning   (MELD 17 — PBE. Tag +PBE. Cr 1,4)
@@ -212,7 +212,7 @@ Ex: s-a2-03 e s-a2-04 herdam `warning` (herdado de s-a2-02).
 4. **Chekhov's Guns ativos:**
    - "Caminhoneiro" → encefalopatia (A2-08) impede ele de trabalhar
    - "ATTIRE" → contraste: albumina funciona em PBE (A2-05) e LVP (A2-03), não funciona rotineiramente em ACLF (A2-11)
-   - "LSM 32→18" → recompensação (s-cp3) é o arco completo do Seu Antônio
+   - "LSM 32→18" → recompensação (s-cp3) é o arco completo do Antônio
    - "Carvedilol abandonado" → HDA (A2-06): se nunca tivesse parado, não estaria sangrando
 5. **Cinematic blackouts** (planejados, não implementados): slides navy puro com 1 pergunta, zero UI. Candidatos: antes de cada checkpoint.
 6. **Dados clínicos são sagrados.** Antes de refatorar qualquer slide com NNT, HR, ou p-value, executar `grep "s-{id}" references/evidence-db.md` e verificar PMID. Nunca arredondar, inventar, ou omitir IC 95%.
@@ -220,13 +220,3 @@ Ex: s-a2-03 e s-a2-04 herdam `warning` (herdado de s-a2-02).
 8. **MELD intermediários são construções narrativas**, não dados clínicos. Rotular nos speaker notes como `[NARRATIVO]` quando o valor não vier de CASE.md.
 9. **Ato 2 é cascata, não lista.** Cada slide é consequência do anterior. Reordenar = destruir causalidade clínica.
 10. **Albumina é distribuída, não standalone.** Aparece em LVP, PBE e ACLF challenge. Apêndice tem versão consolidada.
-
-## See also
-
-- Dados canonicos do paciente → `CASE.md`
-- Dados clinicos com PMID → `evidence-db.md`
-- Trials obrigatorios + status PDF → `must-read-trials.md`
-- Skeletons HTML para implementar slides → `archetypes.md`
-- Protocolo de decisoes narrativas → `decision-protocol.md`
-- Disclosure AI → `coautoria.md`
-- Sync Notion ↔ Repo → `docs/SYNC-NOTION-REPO.md`
