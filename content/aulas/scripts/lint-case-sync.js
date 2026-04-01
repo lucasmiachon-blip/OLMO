@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const root = join(__dirname, '..');
 const aula = process.argv[2] || 'cirrose';
-const aulaDir = join(root, 'aulas', aula);
+const aulaDir = join(root, aula);
 
 let errors = 0;
 
@@ -100,12 +100,20 @@ function normalizeValue(v) {
 function parseManifest(path) {
   const text = readFileSync(path, 'utf-8');
 
-  // Extract panelStates object using regex (avoid eval)
-  const panelMatch = text.match(/export const panelStates\s*=\s*\{([\s\S]*)\};?\s*$/);
-  if (!panelMatch) return {};
+  // Extract panelStates object with brace-balanced parsing
+  const startMatch = text.match(/export const panelStates\s*=\s*\{/);
+  if (!startMatch) return {};
+
+  let depth = 1;
+  let i = startMatch.index + startMatch[0].length;
+  while (i < text.length && depth > 0) {
+    if (text[i] === '{') depth++;
+    else if (text[i] === '}') depth--;
+    i++;
+  }
 
   const states = {};
-  const body = panelMatch[1];
+  const body = text.substring(startMatch.index + startMatch[0].length, i - 1);
 
   // Find each state key
   const keyRegex = /'(s-[\w-]+)':\s*\{/g;
@@ -190,6 +198,14 @@ function compare(caseStates, manifestStates) {
 
     if (valuesChecked === 0) {
       console.log(`  ⚠️  ${cpId}: no comparable values found (check CASE.md format)`);
+    }
+  }
+
+  // Reverse check: CASE.md checkpoints missing from manifest
+  const caseCheckpoints = Object.keys(caseStates).filter(id => id.startsWith('s-cp'));
+  for (const cpId of caseCheckpoints) {
+    if (!manifestStates[cpId]) {
+      err(`${cpId} in CASE.md but missing from _manifest.js panelStates`);
     }
   }
 }

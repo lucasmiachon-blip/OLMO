@@ -63,6 +63,16 @@ Hierarquia: **NNT > ARR > HR**. NNT=decisão (hero, --safe). HR=acadêmico (meno
 - **HR ≠ RR (E25):** HR = trial isolado. RR = meta-análise. NUNCA misturar.
 - **Speaker notes:** `[DATA] Fonte: EASL 2024, Tab.3 | Verificado: 2026-02-12`
 
+### Vocabulário de Verificação (canônico)
+
+| Status | Significado | Quando usar |
+|--------|------------|-------------|
+| `VERIFIED` | PubMed MCP confirmou (author + title + patient count match) | Fonte ideal. Requer MCP funcional |
+| `WEB-VERIFIED` | PubMed web ou WebSearch confirmou (MCP indisponível) | Fallback aceitável para reports |
+| `CANDIDATE` | Não verificado — gerado por LLM, aguardando verificação | NUNCA em report final ou slide projetado |
+| `SECONDARY` | Confirmado por 2+ fontes independentes | Cross-referência adicional |
+| `UNRESOLVED` | Fontes discordam — flagged para revisão humana | Requer decisão do Lucas |
+
 ### Conteúdo — Permitido vs Proibido
 **OK:** Reduzir texto mantendo significado, reorganizar hierarquia, adicionar de fontes verificadas, remover drogas não disponíveis no Brasil.
 **PROIBIDO:** Inventar dados/referências, modificar números sem fonte, extrapolar entre estudos.

@@ -24,7 +24,7 @@ Lucas is a beginner developer learning on the job. He tends to accept model deci
 - One concern per commit. Bundling unrelated changes hides drift.
 - When reading a file to make a change, change only what was asked. Resist the urge to "improve" nearby code.
 
-**When violated**: stop, revert the extra work, and explain what happened.
+**When violated**: stop, identify the extra work, and ask Lucas before reverting — automatic revert can destroy work in progress.
 
 ## Verification (before responding)
 

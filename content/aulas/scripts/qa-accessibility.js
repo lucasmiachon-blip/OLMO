@@ -5,8 +5,12 @@
  * Usage: npm run qa:a11y
  * Or:    node scripts/qa-accessibility.js cirrose
  */
-import { readFileSync, readdirSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const root = join(__dirname, '..');
 
 const lectures = ['grade', 'cirrose', 'metanalise'];
 const target = process.argv[2];
@@ -15,7 +19,11 @@ const toCheck = target ? [target] : lectures;
 let totalIssues = 0;
 
 for (const lecture of toCheck) {
-  const dir = resolve('aulas', lecture);
+  const dir = join(root, lecture, 'slides');
+  if (!existsSync(dir)) {
+    console.log(`\n📋 QA: ${lecture} — SKIP (no slides/ directory)`);
+    continue;
+  }
   const files = readdirSync(dir).filter(f => f.endsWith('.html'));
 
   console.log(`\n📋 QA: ${lecture} (${files.length} files)`);

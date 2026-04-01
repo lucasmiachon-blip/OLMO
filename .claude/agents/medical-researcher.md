@@ -107,7 +107,11 @@ Execute searches across ALL available MCPs. For each source type, use the most a
 
 After searches complete:
 
-1. **PMID Verification:** EVERY PMID must be verified via PubMed MCP `get_article_metadata`. No exceptions. 404 or wrong article = INVALID, remove from report.
+1. **PMID Verification (tiered):**
+   - **VERIFIED:** PubMed MCP `get_article_metadata` confirmed (author + title + patient count match).
+   - **WEB-VERIFIED:** PubMed web/WebSearch confirmed (when MCP unavailable). Acceptable for reports.
+   - **CANDIDATE:** Not verified — LLM-generated, awaiting verification. NEVER in final report.
+   PubMed MCP down → use WebSearch on pubmed.ncbi.nlm.nih.gov, mark as WEB-VERIFIED (not VERIFIED). 404 or wrong article = INVALID, remove from report.
 
 2. **Cross-reference:** Same numeric claim from >=2 independent sources = VERIFIED. Single source = UNCONFIRMED. Sources disagree = CONFLICT (flag for human).
 

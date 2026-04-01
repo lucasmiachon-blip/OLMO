@@ -13,7 +13,9 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
 if [ "$BRANCH" != "main" ]; then
   AULA=""
   case "$BRANCH" in
-    *cirrose*) AULA="cirrose" ;;
+    *cirrose*)    AULA="cirrose" ;;
+    *grade*)      AULA="grade" ;;
+    *metanalise*) AULA="metanalise" ;;
   esac
 
   if [ -n "$AULA" ]; then

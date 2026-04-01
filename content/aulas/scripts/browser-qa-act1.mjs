@@ -18,14 +18,34 @@
 import { chromium } from 'playwright';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
+import { execSync } from 'node:child_process';
 
-const BASE = 'http://localhost:4100/cirrose/index.html';
-const OUT = join(process.cwd(), 'content/aulas/cirrose/qa-screenshots/browser-qa');
+const PORT_MAP = { cirrose: 4100, grade: 4101, metanalise: 4102 };
 
+function detectAula() {
+  for (const arg of process.argv.slice(2)) {
+    if (arg !== 'act2' && PORT_MAP[arg]) return arg;
+  }
+  try {
+    const branch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
+    const m = branch.match(/^feat\/([a-z]+)/);
+    if (m && PORT_MAP[m[1]]) return m[1];
+  } catch {}
+  return 'cirrose';
+}
+
+const aula = detectAula();
+const port = PORT_MAP[aula] || 4100;
+const actArg = process.argv.includes('act2');
+
+const BASE = `http://localhost:${port}/${aula}/index.html`;
+const OUT = join(process.cwd(), `content/aulas/${aula}/qa-screenshots/browser-qa`);
+
+// Cirrose-specific slide IDs (other aulas: adaptive navigation only)
 const ACT1_IDS = ['s-title','s-hook','s-a1-01','s-a1-classify','s-a1-baveno','s-a1-fib4','s-a1-cpt','s-a1-rule5','s-a1-meld','s-cp1'];
 const ACT2_IDS = ['s-a2-01','s-a2-02','s-a2-03','s-a2-04','s-a2-05','s-a2-06','s-a2-07','s-a2-08','s-a2-09','s-a2-10','s-a2-11','s-a2-12','s-a2-13','s-a2-14','s-a2-15','s-cp2'];
-const STOP_AFTER = process.argv[2] === 'act2' ? 's-cp2' : 's-cp1';
-const TARGET_IDS = process.argv[2] === 'act2' ? [...ACT1_IDS, ...ACT2_IDS] : ACT1_IDS;
+const STOP_AFTER = aula === 'cirrose' ? (actArg ? 's-cp2' : 's-cp1') : null;
+const TARGET_IDS = aula === 'cirrose' ? (actArg ? [...ACT1_IDS, ...ACT2_IDS] : ACT1_IDS) : null;
 
 async function getActiveSlide(page) {
   return await page.evaluate(() => {
@@ -102,7 +122,7 @@ async function getActiveSlide(page) {
   page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
   page.on('pageerror', e => errors.push('PAGE: ' + e.message));
 
-  console.log('Config: 1280x720 Chromium headless');
+  console.log(`Config: 1280x720 Chromium headless | ${aula} @ port ${port}`);
   await page.goto(BASE, { waitUntil: 'networkidle', timeout: 30000 });
   await page.waitForSelector('section.slide-active', { timeout: 15000 });
   await page.waitForTimeout(1500);
@@ -137,7 +157,7 @@ async function getActiveSlide(page) {
 
       lastId = id;
 
-      if (id === STOP_AFTER) {
+      if (STOP_AFTER && id === STOP_AFTER) {
         console.log(`\nReached ${STOP_AFTER} — stopping.`);
         break;
       }
@@ -162,9 +182,10 @@ async function getActiveSlide(page) {
   console.log(`Slides seen: ${seen.size}`);
   console.log(`Total screenshots: ${[...seen.values()].reduce((n, v) => n + v.screenshots.length, 0)}`);
 
-  const targetAct = process.argv[2] === 'act2' ? ACT2_IDS : ACT1_IDS;
-  const missing = targetAct.filter(id => !seen.has(id));
-  if (missing.length) console.log(`⚠ MISSING slides: ${missing.join(', ')}`);
+  if (TARGET_IDS) {
+    const missing = TARGET_IDS.filter(id => !seen.has(id));
+    if (missing.length) console.log(`⚠ MISSING slides: ${missing.join(', ')}`);
+  }
 
   const issueSlides = [];
   for (const [id, entry] of seen) {

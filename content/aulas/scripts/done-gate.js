@@ -39,7 +39,7 @@ function detectAula() {
 }
 
 const aula = detectAula();
-const aulaDir = join(root, 'content', 'aulas', aula);
+const aulaDir = join(root, aula);
 
 if (!existsSync(aulaDir)) {
   console.error(`ERROR: content/aulas/${aula}/ does not exist.`);
@@ -135,7 +135,7 @@ if (newestScreenshot === 0) {
 
 // Uncommitted changes (staged + unstaged + untracked)
 try {
-  const status = execSync('git status --porcelain 2>/dev/null', { cwd: root, encoding: 'utf-8', shell: true }).trim();
+  const status = execSync('git status --porcelain', { cwd: root, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
   const aulaFiles = status.split('\n')
     .filter(l => l.length > 3)
     .map(l => l.slice(3).trim())

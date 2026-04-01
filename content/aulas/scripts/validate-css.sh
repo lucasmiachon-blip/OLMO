@@ -23,13 +23,13 @@ TEMPLATE="$DIR/index.template.html"
 if [ -f "$TEMPLATE" ]; then
   # Extract CSS import lines (preserve order)
   IMPORTS=$(grep -n "import '.*\.css'" "$TEMPLATE" | sed "s/.*import '\(.*\)'.*/\1/")
-  EXPECTED_ORDER="./cirrose.css"
+  EXPECTED_ORDER="./${AULA}.css"
 
   if [ "$IMPORTS" = "$EXPECTED_ORDER" ]; then
-    echo "  PASS: single-file (cirrose.css)"
+    echo "  PASS: single-file (${AULA}.css)"
   else
     echo "  FAIL: Import order is wrong!"
-    echo "  Expected: cirrose.css only"
+    echo "  Expected: ${AULA}.css only"
     echo "  Got:"
     echo "$IMPORTS" | sed 's/^/    /'
     FAIL=$((FAIL + 1))
@@ -49,22 +49,29 @@ done
 
 if [ ${#CSS_FILES[@]} -ge 2 ]; then
   # Extract bare class selectors from each CSS file
-  # Format: filename<TAB>selector
-  for file in "${CSS_FILES[@]}"; do
-    grep -oE '^\.[a-zA-Z][a-zA-Z0-9_-]*' "$file" | sort -u | while read -r sel; do
-      printf "%s\t%s\n" "$(basename "$file")" "$sel"
-    done
-  done | awk -F'\t' '{
-    file = $1; sel = $2
-    if (sel != "") {
-      if (seen[sel] && seen[sel] != file) {
-        printf "  WARN: \"%s\" defined in %s AND %s\n", sel, seen[sel], file
-        warn++
+  # Capture output to count WARNs back in bash
+  SELECTOR_OUTPUT=$(
+    for file in "${CSS_FILES[@]}"; do
+      grep -oE '^\.[a-zA-Z][a-zA-Z0-9_-]*' "$file" | sort -u | while read -r sel; do
+        printf "%s\t%s\n" "$(basename "$file")" "$sel"
+      done
+    done | awk -F'\t' '{
+      file = $1; sel = $2
+      if (sel != "") {
+        if (seen[sel] && seen[sel] != file) {
+          printf "  WARN: \"%s\" defined in %s AND %s\n", sel, seen[sel], file
+          warn++
+        }
+        seen[sel] = file
       }
-      seen[sel] = file
     }
-  }
-  END { if (warn == 0) print "  PASS: No bare selector conflicts found" }'
+    END { if (warn == 0) print "  PASS: No bare selector conflicts found" }'
+  )
+  echo "$SELECTOR_OUTPUT"
+  if echo "$SELECTOR_OUTPUT" | grep -q "WARN:"; then
+    SELECTOR_WARNS=$(echo "$SELECTOR_OUTPUT" | grep -c "WARN:")
+    WARN=$((WARN + SELECTOR_WARNS))
+  fi
 else
   echo "  SKIP: Less than 2 CSS files found"
 fi
@@ -76,8 +83,8 @@ IMPORTANT_ISSUES=0
 
 for file in "${CSS_FILES[@]}"; do
   # Find !important lines, exclude .no-js / .stage-bad / @media print blocks
-  # Simple heuristic: check if the selector line contains .no-js or .stage-bad
-  grep -n '!important' "$file" 2>/dev/null | grep -v '^\s*/\*\|^\s*\*\|^\s*//' | while IFS= read -r line; do
+  # Process substitution avoids subshell so WARN increments persist
+  while IFS= read -r line; do
     linenum=$(echo "$line" | cut -d: -f1)
     # Check surrounding context (20 lines before for @media blocks)
     context=$(sed -n "$((linenum > 20 ? linenum - 20 : 1)),${linenum}p" "$file")
@@ -86,8 +93,9 @@ for file in "${CSS_FILES[@]}"; do
     else
       echo "  WARN: $(basename "$file"):$linenum — !important outside allowed context"
       echo "    $line"
+      WARN=$((WARN + 1))
     fi
-  done
+  done < <(grep -n '!important' "$file" 2>/dev/null | grep -v '^\s*/\*\|^\s*\*\|^\s*//')
 done
 echo ""
 

@@ -1,6 +1,6 @@
 ---
 name: qa-engineer
-description: "Runs QA perfection loop on slides: audit → fix → re-audit until ALL 14 dimensions ≥ 9/10. Dimensions (AUDIT-VISUAL.md): H(hierarquia) T(tipografia) E(layout) C(cor/contraste) V(visuais) K(consistência) S(sofisticação) M(comunicação) I(interações) D(dados clínicos) A(acessibilidade) L(carga cognitiva/Sweller) P(aprendiz adulto/Knowles) N(arco narrativo/Duarte). Tools: playwright, lighthouse, eslint, perplexity_reason, axe-core, ui-ux-pro, design-comparison (pixel diff), floto (smart diff). NÃO usar a princípio: attention-insight, frontend-review (Hyperbolic). Use PROACTIVELY after any slide is created or modified."
+description: "Runs QA perfection loop on slides: audit → fix → re-audit until ALL 14 dimensions ≥ 9/10. Dimensions (AUDIT-VISUAL.md): H(hierarquia) T(tipografia) E(layout) C(cor/contraste) V(visuais) K(consistência) S(sofisticação) M(comunicação) I(interações) D(dados clínicos) A(acessibilidade) L(carga cognitiva/Sweller) P(aprendiz adulto/Knowles) N(arco narrativo/Duarte). Tools: playwright, lighthouse, eslint, perplexity_reason, axe-core, ui-ux-pro, design-comparison (pixel diff), floto (smart diff). NÃO usar a princípio: attention-insight, frontend-review (Hyperbolic). Only runs on slides explicitly requested by Lucas. Default = Gate 1-2 (lint+build). Full 14-dim audit (--deep) = on demand."
 tools:
   - Read
   - Write
@@ -18,6 +18,16 @@ ralph_phase: learn
 ---
 
 # QA Engineer — Perfection Loop
+
+## Scope & Mode
+
+**Default (economic):** Gate 1 (lint:slides + build) + Gate 2 (browser QA freshness). Runs on slides explicitly requested by Lucas.
+
+**Deep mode (--deep / --full-qa):** Full 14-dimension audit loop. Only when Lucas explicitly requests: "rodar QA completo", "full QA", "--deep".
+
+**Proactive use: DISABLED.** Anti-drift rule: "implement exactly what was requested, nothing more." QA runs when asked, not automatically.
+
+---
 
 ## RALPH Gate (Learn) — OBRIGATÓRIO antes de qualquer ação
 

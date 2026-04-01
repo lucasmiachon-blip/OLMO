@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 38 — 2026-04-01 (Scripts + Prompts)
+
+### P1 — Prompt Engineering (Codex Review fixes)
+- `anti-drift.md`: "revert extra work" → "ask Lucas before reverting" (protege WIP)
+- `qa-engineer.md`: removido "Use PROACTIVELY", adicionado Scope & Mode (economic default, --deep on demand)
+- `medical-researcher.md`: PMID verification tiered (VERIFIED/WEB-VERIFIED/CANDIDATE, fallback MCP→WebSearch)
+- `design-reference.md`: vocabulario canonico de verificacao (5 status: VERIFIED→UNRESOLVED)
+
+### P2 — Scripts parametrizados (Codex Review fixes)
+- `browser-qa-act1.mjs`: detectAula() + PORT_MAP + auto-detect branch (cirrose IDs preservados)
+- `pre-commit.sh`: branch matching generalizado (cirrose + grade + metanalise)
+- `validate-css.sh`: import order `${AULA}.css` dinamico + WARN counter via process substitution
+- `lint-case-sync.js`: path fix + brace-balanced parser + diff bidirecional (CASE.md→manifest)
+- `qa-accessibility.js`: __dirname-based path → slides/ + existsSync guard
+- `done-gate.js`: aulaDir path fix + Windows-safe git status (sem shell:true)
+
 ## Sessao 37 — 2026-04-01 (self-improvement via ERROR-LOGs)
 
 ### Rules — 8 lacunas codificadas (86 erros analisados)
