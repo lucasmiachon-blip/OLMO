@@ -51,7 +51,7 @@ const batchArg = args.find(a => a.startsWith('--batch='))?.split('=')[1];
 const aulaArg = args.find(a => a.startsWith('--aula='))?.split('=')[1] || 'cirrose';
 const urlArg = args.find(a => a.startsWith('--url='))?.split('=')[1];
 
-const BASE_URL = urlArg || `http://localhost:${PORT}/aulas/${aulaArg}/index.html`;
+const BASE_URL = urlArg || `http://localhost:${PORT}/${aulaArg}/index.html`;
 const FRAMEWORK = (aulaArg === 'grade' || aulaArg === 'osteoporose')
   ? 'reveal' : 'deck';
 

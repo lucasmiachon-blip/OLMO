@@ -13,7 +13,7 @@ model: fast
 
 ## Pré-condição obrigatória
 
-Antes de qualquer tarefa: detectar aula via `git branch --show-current` → `feat/{aula}-*`. Ler `aulas/{aula}/CLAUDE.md` para contexto.
+Antes de qualquer tarefa: detectar aula via `git branch --show-current` → `feat/{aula}-*`. Ler `content/aulas/{aula}/CLAUDE.md` para contexto.
 
 ## Mode: REPORT ONLY (default)
 
@@ -21,9 +21,9 @@ Audit and report. NEVER modify files unless user passes `--fix` after reviewing 
 
 ## Phase 1 — Manifest vs Disk
 
-Read `aulas/{aula}/slides/_manifest.js`.
+Read `content/aulas/{aula}/slides/_manifest.js`.
 Extract all slide IDs and file paths referenced.
-List all `aulas/{aula}/slides/*.html` on disk.
+List all `content/aulas/{aula}/slides/*.html` on disk.
 
 | File | In manifest? | Suggested action |
 |------|-------------|-----------------|
@@ -32,7 +32,7 @@ List all `aulas/{aula}/slides/*.html` on disk.
 
 ## Phase 2 — Orphan MDs
 
-List all `*.md` recursively under `aulas/{aula}/`.
+List all `*.md` recursively under `content/aulas/{aula}/`.
 For each MD, check if referenced by:
 - Any other MD (grep for filename)
 - CLAUDE.md (root or aula-specific)
@@ -53,7 +53,7 @@ Verify the target file exists on disk.
 
 ## Phase 4 — Temp Files & Empty Dirs
 
-Search recursively in `aulas/` and `shared/`:
+Search recursively in `content/aulas/` and `content/aulas/shared/`:
 - Files: `*.tmp`, `*.bak`, `*-copy.*`, `*-old.*`, `.DS_Store`
 - Empty directories
 

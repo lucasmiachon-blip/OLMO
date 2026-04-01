@@ -16,7 +16,7 @@ cat > "$HOOKS_DIR/pre-commit" << 'EOF'
 set -e
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
-bash "$REPO_ROOT/scripts/pre-commit.sh"
+bash "$REPO_ROOT/content/aulas/scripts/pre-commit.sh"
 EOF
 
 chmod +x "$HOOKS_DIR/pre-commit"
@@ -30,7 +30,8 @@ cat > "$HOOKS_DIR/pre-push" << 'PUSHEOF'
 set -e
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
-bash "$REPO_ROOT/scripts/pre-push.sh"
+SCRIPT="$REPO_ROOT/content/aulas/scripts/pre-push.sh"
+[ -f "$SCRIPT" ] && bash "$SCRIPT" || echo "pre-push.sh not found, skipping"
 PUSHEOF
 
 chmod +x "$HOOKS_DIR/pre-push"
@@ -41,7 +42,8 @@ cat > "$HOOKS_DIR/post-merge" << 'MERGEEOF'
 #!/usr/bin/env bash
 set -e
 REPO_ROOT="$(git rev-parse --show-toplevel)"
-bash "$REPO_ROOT/scripts/post-merge.sh"
+SCRIPT="$REPO_ROOT/content/aulas/scripts/post-merge.sh"
+[ -f "$SCRIPT" ] && bash "$SCRIPT" || echo "post-merge.sh not found, skipping"
 MERGEEOF
 
 chmod +x "$HOOKS_DIR/post-merge"

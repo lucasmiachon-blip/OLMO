@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 36 — 2026-04-01 (CSS fixes + Codex review)
+
+### Cirrose CSS Fixes (post-import)
+- Font paths: `shared/` → `../shared/` nas 4 @font-face (monorepo sibling fix)
+- Source-tag specificity: `.stage-c #deck .source-tag` (1,2,1) vence `#deck p` (1,0,1)
+- Source-tag: 16px + max-width:none (legibilidade 55" TV @ 6m confirmada)
+
+### Housekeeping
+- Aula_cirrose standalone movida para Legacy/
+- Memory: facts_projection_setup (55" TV, 6m baseline)
+
 ## Sessao 35 — 2026-04-01 (cirrose import from standalone)
 
 ### Cirrose Import (Aula_cirrose → OLMO)

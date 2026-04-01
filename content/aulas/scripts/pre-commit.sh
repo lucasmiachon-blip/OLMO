@@ -17,10 +17,10 @@ if [ "$BRANCH" != "main" ]; then
   esac
 
   if [ -n "$AULA" ]; then
-    MANIFEST="aulas/$AULA/slides/_manifest.js"
+    MANIFEST="content/aulas/$AULA/slides/_manifest.js"
     if [ -f "$MANIFEST" ]; then
       EXPECTED=$(grep -c "id:" "$MANIFEST" 2>/dev/null || echo "0")
-      SLIDE_DIR="aulas/$AULA/slides"
+      SLIDE_DIR="content/aulas/$AULA/slides"
       ACTUAL=$(find "$SLIDE_DIR" -name '*.html' -not -name '_*' 2>/dev/null | wc -l | tr -d ' ')
 
       if [ "$ACTUAL" -lt "$EXPECTED" ]; then
@@ -48,7 +48,7 @@ fi
 # If slide HTMLs changed but .slide-integrity didn't, the build was skipped.
 # This catches cases where a merge changed slides but nobody ran build:cirrose.
 if [ "$BRANCH" != "main" ]; then
-  SLIDES_STAGED=$(git diff --cached --name-only | grep -E 'aulas/.*/slides/.*\.html$' || true)
+  SLIDES_STAGED=$(git diff --cached --name-only | grep -E 'content/aulas/.*/slides/.*\.html$' || true)
   INTEGRITY_STAGED=$(git diff --cached --name-only | grep -E '\.slide-integrity$' || true)
 
   if [ -n "$SLIDES_STAGED" ] && [ -z "$INTEGRITY_STAGED" ]; then
@@ -75,7 +75,7 @@ fi
 # Bypass: ALLOW_GHOST_ROLLBACK=1 git commit (DANGEROUS — name is intentional)
 if [ -z "$ALLOW_GHOST_ROLLBACK" ]; then
   GHOST_FAIL=""
-  for CANARY_FILE in aulas/*/.ghost-canary; do
+  for CANARY_FILE in content/aulas/*/.ghost-canary; do
     [ -f "$CANARY_FILE" ] || continue
     AULA_DIR=$(dirname "$CANARY_FILE")
     while IFS= read -r line; do
@@ -110,7 +110,7 @@ if [ -z "$ALLOW_GHOST_ROLLBACK" ]; then
 fi
 
 # ── Lints ──
-SLIDES_CHANGED=$(git diff --cached --name-only | grep -E 'aulas/.*/slides/.*\.html$' || true)
+SLIDES_CHANGED=$(git diff --cached --name-only | grep -E 'content/aulas/.*/slides/.*\.html$' || true)
 CASE_OR_MANIFEST=$(git diff --cached --name-only | grep -E '(CASE\.md|_manifest\.js)$' || true)
 
 if [ -n "$SLIDES_CHANGED" ]; then

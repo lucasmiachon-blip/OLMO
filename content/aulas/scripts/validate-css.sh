@@ -10,7 +10,7 @@
 set -euo pipefail
 
 AULA="${1:-cirrose}"
-DIR="aulas/$AULA"
+DIR="content/aulas/$AULA"
 FAIL=0
 WARN=0
 

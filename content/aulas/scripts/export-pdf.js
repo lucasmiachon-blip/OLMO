@@ -71,7 +71,7 @@ async function run() {
       for (const [plan, size, suffix] of [
         ['index.html', '1920x1080', 'plan-a'],
       ]) {
-        const url = `http://localhost:${PORT}/aulas/${lecture}/${plan}`;
+        const url = `http://localhost:${PORT}/${lecture}/${plan}`;
         const out = resolve(EXPORTS, `${lecture}-${suffix}.pdf`);
         console.log(`\n📄 ${lecture} ${suffix}...`);
         try {

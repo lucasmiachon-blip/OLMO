@@ -6,7 +6,7 @@
 
 | Script | Comportamento | Exit | Logica |
 |--------|--------------|------|--------|
-| `guard-generated.sh` | **BLOCK** writes em `aulas/*/index.html` | 2 | Arquivo gerado por build; editar slides/*.html + rebuild |
+| `guard-generated.sh` | **BLOCK** writes em `content/aulas/*/index.html` | 2 | Arquivo gerado por build; editar slides/*.html + rebuild |
 | `guard-product-files.sh` | **BLOCK** writes em slides/*.html, CSS, JS, slide-registry | 2 | Product files requerem aprovacao humana |
 | `check-evidence-db.sh` | **BLOCK** edits de slides se evidence-db.md nao foi lido na sessao | 2 | Forca research-before-edit |
 | `guard-evidence-db.sh` | **WARN** em writes para evidence-db.md | 0+msg | Non-blocking; alerta para dados clinicos |

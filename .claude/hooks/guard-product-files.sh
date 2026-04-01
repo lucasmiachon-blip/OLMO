@@ -26,7 +26,7 @@ fi
 FILE_PATH=$(echo "$FILE_PATH" | tr '\\' '/' | sed 's|//|/|g')
 
 # Product file patterns
-if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/slides/[^/]+\.html$'; then
+if echo "$FILE_PATH" | grep -qE '(^|/)content/aulas/cirrose/slides/[^/]+\.html$'; then
   if [ "$SPRINT_MODE" = "1" ]; then
     echo "AVISO: editando arquivo de produto $FILE_PATH (sprint mode)" >&2
     exit 0
@@ -35,7 +35,7 @@ if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/slides/[^/]+\.html$'; then
   exit 2
 fi
 
-if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/(cirrose|archetypes)\.css$'; then
+if echo "$FILE_PATH" | grep -qE '(^|/)content/aulas/cirrose/(cirrose|archetypes)\.css$'; then
   if [ "$SPRINT_MODE" = "1" ]; then
     echo "AVISO: editando arquivo de produto $FILE_PATH (sprint mode)" >&2
     exit 0
@@ -44,7 +44,7 @@ if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/(cirrose|archetypes)\.css$';
   exit 2
 fi
 
-if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/shared/css/base\.css$'; then
+if echo "$FILE_PATH" | grep -qE '(^|/)content/aulas/cirrose/shared/css/base\.css$'; then
   if [ "$SPRINT_MODE" = "1" ]; then
     echo "AVISO: editando arquivo de produto $FILE_PATH (sprint mode)" >&2
     exit 0
@@ -53,7 +53,7 @@ if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/shared/css/base\.css$'; then
   exit 2
 fi
 
-if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/shared/js/[^/]+\.js$'; then
+if echo "$FILE_PATH" | grep -qE '(^|/)content/aulas/cirrose/shared/js/[^/]+\.js$'; then
   if [ "$SPRINT_MODE" = "1" ]; then
     echo "AVISO: editando arquivo de produto $FILE_PATH (sprint mode)" >&2
     exit 0
@@ -62,7 +62,7 @@ if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/shared/js/[^/]+\.js$'; then
   exit 2
 fi
 
-if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/slide-registry\.js$'; then
+if echo "$FILE_PATH" | grep -qE '(^|/)content/aulas/cirrose/slide-registry\.js$'; then
   if [ "$SPRINT_MODE" = "1" ]; then
     echo "AVISO: editando arquivo de produto $FILE_PATH (sprint mode)" >&2
     exit 0
@@ -71,7 +71,7 @@ if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/slide-registry\.js$'; then
   exit 2
 fi
 
-if echo "$FILE_PATH" | grep -qE '(^|/)aulas/cirrose/index\.html$'; then
+if echo "$FILE_PATH" | grep -qE '(^|/)content/aulas/cirrose/index\.html$'; then
   if [ "$SPRINT_MODE" = "1" ]; then
     echo "AVISO: editando arquivo de produto $FILE_PATH (sprint mode)" >&2
     exit 0

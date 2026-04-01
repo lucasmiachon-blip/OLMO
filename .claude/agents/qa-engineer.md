@@ -24,11 +24,11 @@ ralph_phase: learn
 ```bash
 # Auto-detectar aula: git branch --show-current → feat/{aula}-mvp → {aula}
 # Ler contexto da aula ativa:
-cat aulas/{aula}/CLAUDE.md                    # escopo, público, constraints
-cat aulas/{aula}/HANDOFF.md                   # issues já conhecidos
-tail -50 aulas/{aula}/ERROR-LOG.md 2>/dev/null # erros históricos (se existir)
+cat content/aulas/{aula}/CLAUDE.md                    # escopo, público, constraints
+cat content/aulas/{aula}/HANDOFF.md                   # issues já conhecidos
+tail -50 content/aulas/{aula}/ERROR-LOG.md 2>/dev/null # erros históricos (se existir)
 cat docs/slide-pedagogy.md                    # teorias pedagógicas operacionalizadas
-# Se existir: cat aulas/{aula}/references/CASE.md (caso clínico âncora)
+# Se existir: cat content/aulas/{aula}/references/CASE.md (caso clínico âncora)
 ```
 
 **Loop termina APENAS quando todas 14 dimensões ≥ 9/10 em todos os slides auditados.**
@@ -69,7 +69,7 @@ perplexity_reason({
     role: "user",
     content: `
       Você é especialista em design instrucional para educação médica de adultos.
-      Avalie este slide de aula médica para o público-alvo descrito em aulas/{aula}/CLAUDE.md.
+      Avalie este slide de aula médica para o público-alvo descrito em content/aulas/{aula}/CLAUDE.md.
 
       SLIDE ID: [id]
       HEADLINE (h2): "[texto do h2]"

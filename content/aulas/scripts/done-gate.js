@@ -39,10 +39,10 @@ function detectAula() {
 }
 
 const aula = detectAula();
-const aulaDir = join(root, 'aulas', aula);
+const aulaDir = join(root, 'content', 'aulas', aula);
 
 if (!existsSync(aulaDir)) {
-  console.error(`ERROR: aulas/${aula}/ does not exist.`);
+  console.error(`ERROR: content/aulas/${aula}/ does not exist.`);
   process.exit(1);
 }
 let gate1Pass = true;
@@ -52,7 +52,7 @@ let gate3Warnings = [];
 const SEP = '='.repeat(60);
 
 console.log(`\n${SEP}`);
-console.log(`  DONE GATE — aulas/${aula}${strict ? '  [STRICT]' : ''}`);
+console.log(`  DONE GATE — content/aulas/${aula}${strict ? '  [STRICT]' : ''}`);
 console.log(`${SEP}\n`);
 
 // ── Gate 1: Technical ────────────────────────────────────────────

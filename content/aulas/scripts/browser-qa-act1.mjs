@@ -19,8 +19,8 @@ import { chromium } from 'playwright';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
 
-const BASE = 'http://localhost:4100/aulas/cirrose/index.html';
-const OUT = join(process.cwd(), 'aulas/cirrose/qa-screenshots/browser-qa');
+const BASE = 'http://localhost:4100/cirrose/index.html';
+const OUT = join(process.cwd(), 'content/aulas/cirrose/qa-screenshots/browser-qa');
 
 const ACT1_IDS = ['s-title','s-hook','s-a1-01','s-a1-classify','s-a1-baveno','s-a1-fib4','s-a1-cpt','s-a1-rule5','s-a1-meld','s-cp1'];
 const ACT2_IDS = ['s-a2-01','s-a2-02','s-a2-03','s-a2-04','s-a2-05','s-a2-06','s-a2-07','s-a2-08','s-a2-09','s-a2-10','s-a2-11','s-a2-12','s-a2-13','s-a2-14','s-a2-15','s-cp2'];

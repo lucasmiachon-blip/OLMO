@@ -18,12 +18,17 @@ let startTime = null;
  * Adds 'p' keypress listener to open presenter view.
  */
 export function initPresenter() {
+  if (typeof BroadcastChannel === 'undefined') {
+    console.warn('[presenter] BroadcastChannel not supported — presenter view disabled');
+    return;
+  }
   channel = new BroadcastChannel('deck-presenter');
 
   // Listen for navigation commands from presenter window
   channel.onmessage = (e) => {
     if (e.data.type === 'navigate') {
-      import('./deck.js').then(({ navigate }) => navigate(e.data.delta));
+      import('./deck.js').then(({ navigate }) => navigate(e.data.delta))
+        .catch(err => console.error('[presenter] Failed to import deck.js:', err));
     }
   };
 

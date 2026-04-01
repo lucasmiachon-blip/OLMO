@@ -19,8 +19,8 @@ console.log((d.task_subject||'').slice(0,100));
 " "$INPUT" 2>/dev/null)
 
 # Check for uncommitted changes in slide files
-UNCOMMITTED=$(git diff --name-only 2>/dev/null | grep "aulas/.*/slides/" || true)
-STAGED=$(git diff --cached --name-only 2>/dev/null | grep "aulas/.*/slides/" || true)
+UNCOMMITTED=$(git diff --name-only 2>/dev/null | grep "content/aulas/.*/slides/" || true)
+STAGED=$(git diff --cached --name-only 2>/dev/null | grep "content/aulas/.*/slides/" || true)
 
 if [ -n "$UNCOMMITTED" ] || [ -n "$STAGED" ]; then
   if [ "$SPRINT_MODE" = "1" ]; then
