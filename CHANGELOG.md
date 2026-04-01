@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 32 — 2026-03-31 (skill-debugging)
+
+### Skills
+- `systematic-debugging`: nova skill, 4 fases (root cause → padroes → hipotese → fix), adaptada de obra/superpowers (128K stars)
+- Skills: 14 → 15
+
+### Rules
+- `anti-drift.md`: verification gate 5-step (cherry-pick superpowers verification-before-completion)
+
+### Research
+- Superpowers (128K stars): avaliado, cherry-picked debugging + verification
+- GSD (32K stars): avaliado, descartado (dev workflow, nao organizacao)
+- Notion Calendario + Tasks DB: mapeados (schema, views, data source IDs)
+
+### Notion
+- 3 compromissos criados no Calendario DB para 01/abr (Dr Fernanda ICESP, Psicologo 11h, OLMO skills+metanalise)
+
 ## Sessao 31 — 2026-03-31
 
 ### Skills Audit (18 → 14)

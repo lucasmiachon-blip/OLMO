@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 31 | 2026-03-31
+> Sessao 32 | 2026-03-31
 
 ## ESTADO ATUAL
 
@@ -8,44 +8,42 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 
 **Python** — ruff clean, mypy OK, 47 testes. Agents scaffolds (~30%), config/safety/routing 100%.
 
-**Aulas** — 4 aulas (deck.js unificado):
+**Aulas** — 4 aulas (deck.js unificado). Metanalise deadline 15/abr (15 dias).
+- `metanalise/` — 18 slides, 3/18 QA DONE, 14 LINT-PASS. **Prioridade: retomar QA.**
 - `cirrose/` — 44 slides, producao. Pendente: coagulopatia, fix albumina/HDA, cACLD.
-- `metanalise/` — 18 slides, 3/18 QA DONE, 14 LINT-PASS.
 - `grade/` — 58 slides, ilegivel (9/10 falham C8). Precisa redesign.
-- `osteoporose/` — 70 slides Reveal.js em legacy/. Frozen. Decidir formato.
-- `shared/` — design system OKLCH + GSAP + decision-protocol + coautoria. Vite: 4100-4102.
+- `shared/` — design system OKLCH + GSAP. Vite: 4100-4102.
 
-**Skills** — 14 skills em `.claude/skills/`, todas SKILL.md (formato oficial):
-- Auditadas: 3 merges (ai-learning→continuous-learning, research→mbe-evidence, notion-knowledge-capture→notion-publisher), 1 prune (self-evolving)
-- Descriptions pushy (anti-undertrigger) em todas
-- Gap identificado: NotebookLM skill (workflow de estudo)
+**Skills** — 15 skills em `.claude/skills/`, todas SKILL.md (formato oficial).
+- Nova: `systematic-debugging` (4 fases, adaptada de superpowers 128K stars)
+- Gap: NotebookLM skill (workflow de estudo)
 
-**Concurso R3 dez/2026** — Pipeline desenhado, nao iniciado.
+**Notion** — Calendario DB + Tasks DB (Ultimate Brain) mapeados. Calendario dentro de path Archived (precisa mover).
 
 ## PROXIMO
 
-1. **Cirrose: migrar conteudo** + feedback pos-aula (coagulopatia, albumina/HDA)
-2. **Metanalise QA** — QA restantes (14 slides)
-3. **Grade readability redesign** — curadoria slide-a-slide
-4. **NotebookLM skill** — criar skill para workflow de estudo (gap identificado)
-5. **claude-mem install** — sessao dedicada (pesado, 6 hooks, worker service)
+1. **Metanalise QA** — 14 slides restantes (deadline 15/abr)
+2. **Notion cleanup** — mover Calendario, criar views Today/Tomorrow, consolidar
+3. **Cirrose: migrar conteudo** + feedback pos-aula
+4. **NotebookLM skill** — workflow de estudo
+5. **Grade readability redesign** — curadoria slide-a-slide
 
 ## DECISOES ATIVAS
 
 - CSS: tokens (base.css) + composicao livre por slide. Sem archetypes.
 - Skills: formato SKILL.md (oficial), descriptions "pushy" anti-undertrigger.
 - Maio/2026: foco total concurso. Abril = housekeeping aulas.
-- Engine: deck.js. STRATEGY.md fase 1 adiada ate grade legivel.
+- GSD descartado (dev workflow, nao organizacao). Superpowers: cherry-picked.
 - Hooks: 3 ativos (notify, stop-hygiene, stop-notify). Paths absolutos.
-- claude-mem: avaliado (44K stars), instalar em sessao dedicada.
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - Grade tem 404 JS errors (recursos faltando).
 - Vite: outro projeto deve usar range diferente (ex: 4200+).
-- Hooks usam paths absolutos — funciona independente do CWD.
 - skill-creator scripts excluidos do ruff (codigo externo Anthropic).
+- Notion Calendario DB: `collection://308dfe68-59a8-81c2-8d7f-000bf3da6ec4`
+- Notion Tasks DB: `collection://2f6dfe68-59a8-81df-943b-000b7f7098cf`
 
 ## PENDENTE (herdado)
 
@@ -55,6 +53,7 @@ Monorepo funcional. CI verde. Legacy repos arquivados.
 - [ ] Font-size audit cirrose: 12+ valores abaixo 28px threshold
 - [ ] Presenter.js rewrite (HTML separado, timer fix)
 - [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
+- [ ] claude-mem install (44K stars, sessao dedicada)
 
 ## CONFLITOS
 
