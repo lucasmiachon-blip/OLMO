@@ -378,18 +378,33 @@ qa-engineer threshold impossivel, mcp_safety auto-execute vs human gate, slide-r
 9. ~~**#121** slide-rules: data-background-color exception removed~~ ✅
 10. ~~**S5** Stale paths: 4 fixed in 3 rules~~ ✅
 
-### P2 — Quality (parcial S41)
-11. **S1** Font-size audit: 21 instancias documentadas (ver secao acima). Lucas decide por categoria.
+### P2 — Quality (parcial S41-S42, concluido S43)
+11. ~~**S1** Font-size audit: tokens bumped S42 (20px small, 18px caption, 16px source-tags). Title-affiliation 18px min S43~~ ✅
 12. ~~**S3** Print/PDF reset: stagger children + data-reveal + inline opacity~~ ✅
-13. **S4** GSAP jurisdiction: 7 instancias — mover per-slide init states para JS
-14. **#61** cirrose [data-reveal] .no-js fallback
-15. Dark-slide token restoration (#57, #60)
+13. ~~**S4** GSAP jurisdiction: 5 elements fromTo() S42. #56 checkpoint = state machine (CSS correto). #67 base = failsafe (intencional)~~ ✅ (dismissidos com reflexao)
+14. ~~**#61** cirrose [data-reveal] .no-js fallback~~ ✅ (S43)
+15. ~~Dark-slide token restoration (#57): --ui-accent-on-dark + --downgrade-on-dark adicionados~~ ✅ (S43)
+    **#60** cirrose s-hook/s-title: stage-c remapeia para light corretamente — DISMISS (s-cp1 ja tem override proprio)
 
 ### P3 — Polish (LOW findings, edge cases)
-16. Script hardening: getArg validation, try/finally Playwright, install-fonts exit code
-17. Lint improvements: multi-line aside, bidirectional checks, scope-aware detection
-18. HTML: aria-hidden em symbols, heading hierarchy, notes [DATA] markers
+16. ~~Script hardening: qa-batch-screenshot process.exit→throw (browser leak fix)~~ ✅ (S43). Restante: getArg, install-fonts exit code — deferred
+17. Lint improvements: multi-line aside, bidirectional checks, scope-aware detection — deferred
+18. ~~HTML: aria-hidden em symbols~~ ✅ (S42). heading hierarchy, notes [DATA] markers — deferred
 19. h2 assertion-evidence rewrite (11+ slides) — Lucas guia, slide por slide
+
+### Dismissidos com reflexao critica (S43)
+- **#4** API key query string: Gemini API exige por design
+- **#5-6** Gate bypass --force: escape hatch intencional
+- **#9** process.cwd(): scripts invocados via npm da raiz
+- **#67** base.css global GSAP: failsafe pattern (slide-rules §7)
+- **#56** checkpoint GSAP: state machine (.checkpoint--hidden), nao GSAP
+- **#60** cirrose dark tokens s-hook/s-title: stage-c remapeia corretamente
+- **#69** p max-width:56ch: constraint tipografica intencional
+- **#79-80** .no-js redundante: belt-and-suspenders, nao bug
+- **#122-123** medical-researcher: dominios diferentes (pesquisa vs code)
+- **#130** BudgetTracker: intent valido sem implementacao
+- **#132** Git trailer: funciona na pratica
+- **#133** PMID invalido: ja marcado [VERIFY], nao usado em slide — defer para QA sweep
 
 ---
 

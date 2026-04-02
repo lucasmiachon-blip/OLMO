@@ -131,6 +131,7 @@ async function getActiveSlide(page) {
   mkdirSync(OUT, { recursive: true });
 
   const browser = await chromium.launch({ headless: true });
+  try {
   const page = await (await browser.newContext({
     viewport: { width: 1280, height: 720 },
     deviceScaleFactor: 1,
@@ -229,5 +230,7 @@ async function getActiveSlide(page) {
     console.log('\nZero console errors');
   }
 
-  await browser.close();
+  } finally {
+    await browser.close();
+  }
 })();

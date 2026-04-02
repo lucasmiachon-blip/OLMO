@@ -8,7 +8,7 @@
  * After running, shared/assets/fonts/ will contain all 4 WOFF2 files
  * referenced by shared/css/base.css.
  */
-import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import https from 'node:https';
 
@@ -23,8 +23,12 @@ const EXPECTED = [
   'JetBrainsMono-Variable.woff2',
 ];
 
+function fileOk(path) {
+  return existsSync(path) && statSync(path).size > 0;
+}
+
 // Check if already installed
-const allExist = EXPECTED.every(f => existsSync(join(FONTS_DIR, f)));
+const allExist = EXPECTED.every(f => fileOk(join(FONTS_DIR, f)));
 if (allExist) {
   console.log('✓ All fonts already installed in shared/assets/fonts/');
   process.exit(0);
@@ -89,7 +93,7 @@ function fetch(url, headers = {}) {
 
 async function downloadFont(font) {
   const dest = join(FONTS_DIR, font.file);
-  if (existsSync(dest)) {
+  if (fileOk(dest)) {
     console.log(`  ⏭ ${font.file} (already exists)`);
     return;
   }
@@ -124,10 +128,11 @@ for (const font of FONTS) {
 }
 
 // Final check
-const missing = EXPECTED.filter(f => !existsSync(join(FONTS_DIR, f)));
+const missing = EXPECTED.filter(f => !fileOk(join(FONTS_DIR, f)));
 if (missing.length) {
   console.log(`\n⚠ Missing fonts: ${missing.join(', ')}`);
   console.log('  Download manually — see shared/assets/fonts/README.md');
+  process.exitCode = 1;
 } else {
   console.log('\n✓ All fonts installed. Ready for offline presentations.');
 }

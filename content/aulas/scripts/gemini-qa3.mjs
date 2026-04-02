@@ -58,7 +58,8 @@ function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }
 const args = process.argv.slice(2);
 function getArg(name, fallback) {
   const idx = args.indexOf(`--${name}`);
-  return idx >= 0 && args[idx + 1] ? args[idx + 1] : fallback;
+  const val = idx >= 0 ? args[idx + 1] : undefined;
+  return val && !val.startsWith('--') ? val : fallback;
 }
 
 const SLIDE_ID = getArg('slide', 's-a1-01');

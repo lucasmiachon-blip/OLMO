@@ -43,7 +43,8 @@ const AULA_DIR = join(SCRIPTS_DIR, '..', aula);
 const args = process.argv.slice(2);
 function getArg(name, fallback) {
   const idx = args.indexOf(`--${name}`);
-  return idx >= 0 && args[idx + 1] ? args[idx + 1] : fallback;
+  const val = idx >= 0 ? args[idx + 1] : undefined;
+  return val && !val.startsWith('--') ? val : fallback;
 }
 function hasFlag(name) { return args.includes(`--${name}`); }
 

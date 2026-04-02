@@ -72,7 +72,8 @@ Output: {aula}/qa-screenshots/{slide-id}/{slide}_{date}_{time}_{state}.png`);
 }
 function getArg(name, fallback) {
   const idx = args.indexOf(`--${name}`);
-  return idx >= 0 && args[idx + 1] ? args[idx + 1] : fallback;
+  const val = idx >= 0 ? args[idx + 1] : undefined;
+  return val && !val.startsWith('--') ? val : fallback;
 }
 const ACT_FILTER = getArg('act', 'ALL').toUpperCase();
 const PORT = getArg('port', String(PORT_MAP[aula] || 4100));
@@ -328,7 +329,7 @@ async function main() {
   } catch (err) {
     console.error(`ERRO: Dev server não respondeu em ${PAGE_URL}`);
     console.error(`  Rode 'npm run dev' ou 'npx vite' antes de rodar este script.`);
-    process.exit(1);
+    throw new Error(`Dev server not responding at ${PAGE_URL}`);
   }
   await page.waitForTimeout(2000); // wait for deck init + first slide animations
 

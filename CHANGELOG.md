@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## Sessao 43 — 2026-04-01 (Fixes Chat + Prioridades HANDOFF)
+
+### Dream Run 5
+- Memory consolidation: 5 files updated, 1 new (feedback_context_rot)
+- decisions_active.md: type fix + reorganized by theme, removed completed migrations
+- project_codex_review_findings.md: P0-P3 status updated to reality
+- Quick Reference: added Codex framing + context rot mitigation
+
+### P2 — Quality (conclusion)
+- Dark-slide tokens: --ui-accent-on-dark + --downgrade-on-dark added to metanalise restoration block
+- Cirrose .no-js [data-reveal] fallback (cirrose doesn't import base.css)
+- Cirrose .title-affiliation: 16px → 18px min
+
+### P3 — Script fix
+- qa-batch-screenshot.mjs: process.exit(1) → throw (honors finally, closes browser)
+
+### Cleanup
+- Removed 5 stale cirrose/scripts/ files (capture-*.mjs, content-research.mjs, gemini-qa3.mjs, qa-batch-screenshot.mjs) — superseded by shared scripts/
+
+### Reflexao Critica (anti-sycophancy)
+- 12 Codex findings dismissidos com justificativa (documented in CODEX-REVIEW-S40.md)
+- Key: #67 base.css GSAP = failsafe, #56 checkpoint = state machine, #60 cirrose dark = stage-c correct
+
+### Docs
+- CODEX-REVIEW-S40.md: P2 marked done, dismissals documented
+- HANDOFF → S44
+
 ## Sessao 42 — 2026-04-01 (Codex Review Exec cont.)
 
 ### P2 — Quality (cont.)
