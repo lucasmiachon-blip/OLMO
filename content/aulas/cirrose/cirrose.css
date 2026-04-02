@@ -497,7 +497,7 @@ body { width: 100vw; height: 100vh; }
 /* --- Source tag (reference footer) --- */
 .source-tag {
   font-family: var(--font-body);
-  font-size: 10px;
+  font-size: 16px;
   color: var(--text-on-dark-muted);
   margin-top: auto;
   padding-bottom: var(--space-xs);
@@ -1019,7 +1019,7 @@ body { width: 100vw; height: 100vh; }
 
 .title-author {
   font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: clamp(16px, 1.8vw, 22px);
+  font-size: clamp(18px, 1.8vw, 24px);
   font-weight: 600;
   color: var(--text-on-dark, oklch(90% 0 0));
   margin: 0;
@@ -1028,7 +1028,7 @@ body { width: 100vw; height: 100vh; }
 
 .title-affiliation {
   font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: clamp(12px, 1.4vw, 16px);
+  font-size: clamp(16px, 1.4vw, 20px);
   font-weight: 400;
   color: var(--text-on-dark-muted, oklch(60% 0 0));
   margin: 0;
@@ -1125,7 +1125,7 @@ section#s-a1-01 .slide-inner {
 }
 #s-a1-01 .screening-hero-label {
   max-width: 32ch;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1.15;
@@ -1153,7 +1153,7 @@ section#s-a1-01 .slide-inner {
 #s-a1-01 .screening-metric-label {
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
   color: oklch(45% 0 0);
   white-space: normal;
@@ -1243,7 +1243,7 @@ section#s-a1-01 .slide-inner {
 
 #s-a1-01 .guideline-rec-source {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 16px;
   color: oklch(45% 0 0);
   margin: 0;
 }

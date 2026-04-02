@@ -66,10 +66,10 @@
   --warning-on-dark:  oklch(80% 0.14 85);
   --warning-on-light: oklch(45% 0.10 85);
 
-  /* --- Danger / Red (L=50) --- */
-  --danger:          oklch(50% 0.18 25);
+  /* --- Danger / Red (L=50, hue≤10, chroma≥0.20 per design-reference §4) --- */
+  --danger:          oklch(50% 0.22 8);
   --danger-light:    color-mix(in oklch, var(--danger) 15%, oklch(97% 0 0));
-  --danger-on-dark:  oklch(72% 0.16 25);
+  --danger-on-dark:  oklch(72% 0.20 8);
 
   /* --- Downgrade / Ocre (L=30, auxiliar, sempre com ícone ↓) --- */
   --downgrade:          oklch(30% 0.08 55);
@@ -111,8 +111,8 @@
   --text-h2:      clamp(28px, 2.2vw, 42px);
   --text-h3:      clamp(20px, 1.5vw, 30px);
   --text-body:    clamp(18px, 1.12vw, 26px);
-  --text-small:   clamp(14px, 0.9vw, 20px);
-  --text-caption: clamp(11px, 0.7vw, 15px);
+  --text-small:   clamp(20px, 1.2vw, 24px);
+  --text-caption: clamp(18px, 1.0vw, 20px);
 
   /* --- Spacing --- */
   --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
@@ -285,8 +285,8 @@
   --text-h2:      clamp(32px, 2.4vw, 42px);
   --text-h3:      clamp(22px, 1.6vw, 30px);
   --text-body:    clamp(20px, 1.25vw, 26px);
-  --text-small:   clamp(16px, 1.0vw, 20px);
-  --text-caption: clamp(14px, 0.85vw, 15px);
+  --text-small:   clamp(20px, 1.2vw, 24px);
+  --text-caption: clamp(18px, 1.0vw, 20px);
 }
 
 /* Background: deck surface */
@@ -316,7 +316,7 @@
 /* Source tag */
 .stage-c .source-tag {
   color: var(--text-muted);
-  font-size: clamp(10px, 0.55vw, 11px);
+  font-size: 16px;
 }
 
 /* Cards — subtle elevation */
@@ -361,9 +361,14 @@
 }
 
 /* --- No-JS fallback --- */
-.no-js [data-animate="fadeUp"],
+.no-js [data-animate],
 .no-js [data-animate="stagger"] > * {
   opacity: 1 !important;
+  transform: none !important;
+}
+.no-js [data-reveal] {
+  opacity: 1 !important;
+  visibility: visible !important;
   transform: none !important;
 }
 .no-js .fragment {

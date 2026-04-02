@@ -20,8 +20,8 @@ aside.notes { display: none; }
   --text-h2:      34px;
   --text-h3:      24px;
   --text-body:    20px;
-  --text-small:   16px;
-  --text-caption: 14px;
+  --text-small:   20px;
+  --text-caption: 18px;
 }
 
 /* --- Slide layout (override base.css safe-center pseudo-elements
@@ -221,7 +221,7 @@ aside.notes { display: none; }
 .hook-tag {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--text-primary);
@@ -609,7 +609,7 @@ aside.notes { display: none; }
 }
 .contrato-skill {
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 18px;
   color: var(--text-secondary);
   align-self: end;
   border-top: 1px solid var(--divider);
@@ -803,9 +803,9 @@ aside.notes { display: none; }
   width: 78px;
   text-align: right;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 16px;
   color: var(--text-secondary);
-  line-height: 18px;
+  line-height: 20px;
 }
 .ck1-ci {
   position: absolute;
