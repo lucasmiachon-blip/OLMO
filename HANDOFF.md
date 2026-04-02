@@ -1,25 +1,28 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 40 | proximo login
+> Sessao 41 | proximo login
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde (47 testes). 11 rules. QA tooling multi-aula.
+Monorepo funcional. CI verde (47 testes). 11 rules. Codex Review S40 completo: 135 findings documentados.
 
 **Python** — ruff clean, mypy OK.
 
-**Scripts** — 3 QA scripts compartilhados em scripts/ (qa-batch-screenshot, gemini-qa3, content-research). Todos com detectAula() + --aula CLI. Scripts antigos ainda em cirrose/scripts/ (backup).
+**Scripts** — 13 scripts em scripts/. 47 findings (3 CRITICAL, 17 HIGH). Top: Windows file URL, --strictPort, GSAP rule desabilitada no Windows.
 
-**Aulas** — Cirrose: 11 slides ativos (Act 1) + 35 archive. Metanalise: 18 slides, **deadline 15/abr (14 dias)**, 14 QA pendentes, tooling pronto. Grade: 58 slides, ilegivel.
+**CSS** — 35 findings (21 HIGH). Font-size < 18px sistematico (13 instancias). Print/PDF incompleto. GSAP jurisdiction.
 
-**Governanca** — 11 rules, 7 hooks, 8 agents, 20 skills, 3 commands.
+**HTML** — 37 findings (22 HIGH). 11+ h2 genericos (Lucas reescreve). MELD 14 vs 10 contradictorio.
+
+**Governanca** — 16 findings (4 CRITICAL). qa-engineer threshold impossivel. mcp_safety auto-execute contradiz human gate.
 
 ## PROXIMO
 
-1. **Codex Review: scripts + docs + CSS + HTML** — reframing objetivo e adversarial (S38 excedeu tokens, resposta incompleta). Escopo bem definido, framing curto. Anti-sycophancy: so aceitar o que for adequado.
-2. **Metanalise QA** — 14 slides pendentes. Tooling pronto: `npm run qa:screenshots:metanalise` → gate0 → gate4.
-3. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework. Lucas guia.
-4. **Notion: mover Calendario DB** — esta em area Archived, inacessivel.
+1. **P0 fixes** — 5 silent failures: pathToFileURL(), --strictPort, MELD reconcile, Windows path separator, Gemini response validation
+2. **P1 governance** — resolver contradicoes: qa-engineer threshold, mcp_safety, slide-rules, stale paths
+3. **P2 audits** — font-size 18px, print/PDF reset, GSAP jurisdiction, dark-slide tokens
+4. **C15 relaunch** — docs/prompts review. Bug: codex:codex-rescue trava com .md files (2x). Investigar.
+5. **Metanalise QA** — 14 slides pendentes. Deadline 2026-04-15. Tooling pronto.
 
 ## DECISOES ATIVAS
 
@@ -27,14 +30,16 @@ Monorepo funcional. CI verde (47 testes). 11 rules. QA tooling multi-aula.
 - Codex: OAuth ChatGPT ($0, GPT-5.4). API key fallback gpt-5.2-pro.
 - CSS cirrose: self-contained. Metanalise: imports base.css.
 - Maio/2026: foco total concurso. Abril = housekeeping aulas.
-- Scripts antigos em cirrose/scripts/: manter como backup ate confirmar shared em producao.
+- Inline opacity:0 para GSAP init = OK. "NUNCA inline" e forte demais.
+- h2 assertion rewrite = trabalho do Lucas. AI so flaggeia, nao reescreve.
 - qa-engineer: economic mode default, deep mode on demand (--deep).
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - Cirrose _archive: nao deletar sem branch de backup. Lucas decide o que sai.
-- Codex Review: framing curto (< 2000 tokens prompt). Adversarial, nao servil. Chunk por area.
+- P0 fixes: testar no Windows (muitos findings sao Windows-specific).
+- Codex doc review: bug ativo, nao confiar em codex:codex-rescue para .md files.
 
 ## PENDENTE (herdado)
 
@@ -51,4 +56,4 @@ Monorepo funcional. CI verde (47 testes). 11 rules. QA tooling multi-aula.
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-01
+Coautoria: Lucas + Opus 4.6 + GPT-5.4 (Codex) | 2026-04-01

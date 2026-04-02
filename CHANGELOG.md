@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## Sessao 40 — 2026-04-01 (Codex Review Adversarial)
+
+### Codex Review GPT-5.4 — 135 findings (full-scope adversarial)
+- 15 chunks: 13 scripts, 3 CSS, 29 slides HTML, 7 agents, 11 rules
+- 7 CRITICAL, 68 HIGH, 36 MEDIUM, 24 LOW (apos filtragem)
+- 1 falso positivo filtrado (taskkill // em Git Bash)
+- 5 rebaixados CRITICAL→LOW (inline opacity:0 pragmatico)
+- C15 (docs/prompts) falhou 2x — bug no codex:codex-rescue com .md files
+
+### Padroes sistemicos identificados
+- S1: font-size < 18px (13 instancias across 3 CSS files)
+- S2: h2 generico (11+ slides, rewrite e trabalho do Lucas)
+- S3: print/PDF incompleto (GSAP-hidden elements invisiveis)
+- S4: GSAP jurisdiction (CSS per-slide compete com GSAP)
+- S5: stale monorepo paths em 4 rules
+- S6: governance contradictions (4 CRITICAL em agents/rules)
+
+### Plano P0-P3 documentado
+- P0: 5 fixes (Windows file URL, --strictPort, MELD contradiction, path separator)
+- P1: 5 governance fixes (qa-engineer threshold, mcp_safety, slide-rules)
+- P2: 5 systemic audits (font-size, print, GSAP, tokens)
+- P3: polish + h2 rewrite (Lucas guia)
+
+### Memory
+- feedback_css_inline: inline opacity:0 para GSAP e OK
+- feedback_h2_assertions: AI-generated h2 sao terriveis, Lucas reescreve
+- project_codex_doc_review_bug: C15 falhou 2x, investigar
+
+### Docs
+- docs/CODEX-REVIEW-S40.md: review completo com 135 findings + plano P0-P3
+
 ## Sessao 39 — 2026-04-01 (Metanalise Tooling)
 
 ### Scripts — 3 movidos para scripts/ compartilhado (multi-aula)
