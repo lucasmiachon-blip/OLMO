@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## Sessao 41 — 2026-04-01 (Codex Review Exec)
+
+### P0 — Silent Failures (5 fixes)
+- pathToFileURL() em 3 qa-batch-screenshot.mjs (Windows file URL)
+- Gemini response validation em content-research.mjs (fail-fast)
+- --strictPort em export-pdf.js
+- Windows path separator em lint-slides.js (GSAP rule)
+- MELD 14 reconciliado em 07-cp1.html (notes corrigidas)
+
+### P1 — Governance (5 fixes)
+- qa-engineer threshold: 9/10 → 7/10 (economic), 9/10 so --deep
+- qa-engineer tools: 5 MCP tools removidas (inalcancaveis)
+- mcp_safety: auto-execute removido, writes sempre humano
+- slide-rules: data-background-color excecao removida (morto)
+- Stale monorepo paths: 4 corrigidos em 3 rules
+
+### P2 — Quality (parcial)
+- Print/PDF reset: +stagger children, +[data-reveal], +inline opacity:0
+- Font-size audit: 21 instancias < 18px documentadas por categoria
+
+### C15 Relaunch
+- Bug skill wrapper contornado: `codex exec --sandbox read-only` via stdin pipe
+- 12 findings (1 CRITICAL, 7 HIGH, 2 MEDIUM, 1 LOW). Total: 147.
+
+### Meta (anotado)
+- Context rot e dream/memorias nao funcionando — investigar proxima sessao
+
 ## Sessao 40 — 2026-04-01 (Codex Review Adversarial)
 
 ### Codex Review GPT-5.4 — 135 findings (full-scope adversarial)
