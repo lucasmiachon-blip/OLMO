@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## Sessao 49 — 2026-04-02 (s-rs-vs-ma DONE)
+
+### Slide s-rs-vs-ma
+- Redesign: 3 colunas (Revisoes, Revisao Sistematica, Meta-analise) com hierarquia visual E073-E075
+- Col1: lista com % (Zhao 2022) + itens secundarios (Escopo, Umbrella) em .compare-minor
+- Col2: 4 termos verticalizados (Protocolo, Busca, Selecao, Vies) + label "= PROCESSO"
+- Col3: header unico "Meta-analise" + SVG forest plot (opacity melhorada) + label "= CALCULO"
+- Footer: specificity fix (#deck p.compare-footer) para evitar max-width: 56ch do base.css
+
+### Evidence HTML
+- PMID 35725647: corrigido Shen→Zhao em todas as secoes. WEB-VERIFIED
+- PMID 27620683: Ioannidis CANDIDATE→WEB-VERIFIED em depth rubric, convergencia, numeros
+- Badges CANDIDATE→WEB-VERIFIED consistentes em todo o documento
+
+### Infra
+- lint-slides.js: evidence/ excluido da varredura de slides
+- vite.config.js: host:true para acesso Playwright IPv4
+
+### Memorias
+- feedback_no_parameter_guessing: nunca chutar parametros, verificar API antes
+- feedback_qa_screenshots_cleanup: screenshots com timestamp, deletar apos QA
+
 ## Sessao 48 — 2026-04-02 (Primeiro Living HTML Real)
 
 ### Evidence HTML

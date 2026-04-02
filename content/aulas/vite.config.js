@@ -28,6 +28,7 @@ export default defineConfig(({ command }) => ({
   base: command === 'serve' ? '/' : './',
   server: {
     strictPort: true,
+    host: true,
     browser: 'google chrome'
   },
   build: {

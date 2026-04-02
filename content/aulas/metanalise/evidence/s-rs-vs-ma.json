@@ -10,44 +10,44 @@
   "grade": [],
 
   "numeros": [
-    {"metric": "Revisoes narrativas", "value": "71%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Shen et al. (2022) [CANDIDATE]", "risco_basal": ""},
-    {"metric": "RS sem MA", "value": "15%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Shen et al. (2022) [CANDIDATE]", "risco_basal": ""},
-    {"metric": "RS com MA", "value": "14%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Shen et al. (2022) [CANDIDATE]", "risco_basal": ""},
+    {"metric": "Revisoes narrativas", "value": "71%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Zhao et al. (2022) [WEB-VERIFIED]", "risco_basal": ""},
+    {"metric": "RS sem MA", "value": "15%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Zhao et al. (2022) [WEB-VERIFIED]", "risco_basal": ""},
+    {"metric": "RS com MA", "value": "14%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Zhao et al. (2022) [WEB-VERIFIED]", "risco_basal": ""},
     {"metric": "RS sem MA (saude)", "value": "32%", "ci": "", "timeframe": "2020", "population": "", "pmid": "Campbell et al. (2020) [WEB-VERIFIED]", "risco_basal": ""},
     {"metric": "Crescimento RS", "value": "2.728%", "ci": "", "timeframe": "1991-2014", "population": "", "pmid": "Ioannidis (2016) [CANDIDATE]", "risco_basal": ""}
   ],
 
   "sugestoes": {
     "considerar": [
-      "Verificar PMID 35725647 (Shen 2022) via PubMed MCP antes de usar '7 em 10' no slide projetado. Dado esta nas notes, nao no body — OK como [CANDIDATE] por enquanto",
+      "PMID 35725647 verificado S49 (Zhao et al. 2022, Eur J Med Res). Autores/titulo/journal corrigidos — dados 71% narrativa confirmados",
       "Verificar PMID 27620683 (Ioannidis 2016) — dado de crescimento 2.728%",
       "Preencher [EXEMPLO TBD] com revisao narrativa recente do NEJM (agent buscando)",
       "Mencionar SWiM guideline (BMJ 2020) como segunda fonte — prova definitiva de separabilidade [WEB-VERIFIED]",
       "Considerar adicionar '7 em 10' como dado visual no slide body (hero stat) se verificado"
     ],
     "nao_fazer": [
-      "NAO usar dado de Shen 2022 no corpo do slide projetado ate verificacao PMID (esta [CANDIDATE])",
+      "Zhao 2022 agora WEB-VERIFIED — dados podem ser usados no slide se desejado",
       "NAO adicionar 4o bloco (scoping review) — 0.7% = irrelevante para residentes basico-intermediario",
       "NAO citar Ioannidis 'epidemia' no slide — tom editorial, vai nas notes"
     ]
   },
 
   "depth_rubric": [
-    {"dim": "D1 — Fonte", "score": 8, "achado": "Cochrane Handbook v6.5 [WEB-VERIFIED] + Grant & Booth 2009 [WEB-VERIFIED] + Shen 2022 [CANDIDATE]", "implicacao": "Tier 1 para definicoes. Bibliometria pending verification."},
+    {"dim": "D1 — Fonte", "score": 8, "achado": "Cochrane Handbook v6.5 [WEB-VERIFIED] + Grant & Booth 2009 [WEB-VERIFIED] + Zhao 2022 [CANDIDATE]", "implicacao": "Tier 1 para definicoes. Bibliometria verificada S49 (Zhao et al.)."},
     {"dim": "D2 — Effect Size", "score": 0, "achado": "N/A — slide definitional", "implicacao": "Ausencia correta"},
-    {"dim": "D3 — Populacao", "score": 6, "achado": "Shen 2022: 1.302.173 revisoes PubMed (1991-2020) [CANDIDATE]", "implicacao": "Dado quantitativo agora disponivel. Pendente verificacao."},
+    {"dim": "D3 — Populacao", "score": 6, "achado": "Zhao 2022: 1.302.173 revisoes PubMed (1991-2020) [CANDIDATE]", "implicacao": "Dado quantitativo verificado S49."},
     {"dim": "D4 — Timeframe", "score": 6, "achado": "1991-2020 para distribuicao, 1991-2014 para crescimento [CANDIDATE]", "implicacao": "Timeframes explicitos dos estudos bibliometricos"},
     {"dim": "D5 — Comparador", "score": 0, "achado": "N/A", "implicacao": "Ausencia correta"},
     {"dim": "D6 — Grading", "score": 0, "achado": "N/A — definicoes metodologicas", "implicacao": "GRADE nao aplicavel"},
     {"dim": "D7 — Impacto Clinico", "score": 7, "achado": "Ancora quantitativa (7 em 10), ancora experiencial (NEJM), ancora retrospectiva (ACCORD checkpoint)", "implicacao": "Salto de 5→7 com os 3 dispositivos novos"},
-    {"dim": "D8 — Currency", "score": 9, "achado": "Cochrane v6.5 vigente. Shen 2022 recente. Ioannidis 2016 = referencia canonica [WEB-VERIFIED]", "implicacao": "Sem expiracao previsivel para definicoes"}
+    {"dim": "D8 — Currency", "score": 9, "achado": "Cochrane v6.5 vigente. Zhao 2022 recente. Ioannidis 2016 = referencia canonica [WEB-VERIFIED]", "implicacao": "Sem expiracao previsivel para definicoes"}
   ],
 
-  "convergencia": "4/4 legs convergiram na defensabilidade do claim central. Gemini trouxe dado transformador: Shen 2022 (PMID 35725647) com distribuicao de 1.3M revisoes — 71% narrativas [CANDIDATE]. Confirma Campbell/SWiM (32% RS sem MA) [WEB-VERIFIED]. Ioannidis 2016 chama o crescimento de RS de 'epidemia' (2.728%) [CANDIDATE]. Opus verificou Grant & Booth (14 tipos, SALSA), Petticrew (Mito 5), PRISMA 2020, CONITEC — todos [WEB-VERIFIED]. Leg 3 (RefCheck) confirmou Cochrane v6.5 como versao atual e flagou ausencia de entrada formal no evidence-db. Nenhum CONFLICT. Flags: (1) EVIDENCE GAP — nenhum estudo quantifica confusao RS/MA entre residentes. (2) 2 PMIDs CANDIDATE pendentes verificacao (35725647, 27620683).",
+  "convergencia": "4/4 legs convergiram na defensabilidade do claim central. Gemini trouxe dado transformador: Zhao 2022 (PMID 35725647) com distribuicao de 1.3M revisoes — 71% narrativas [CANDIDATE]. Confirma Campbell/SWiM (32% RS sem MA) [WEB-VERIFIED]. Ioannidis 2016 chama o crescimento de RS de 'epidemia' (2.728%) [CANDIDATE]. Opus verificou Grant & Booth (14 tipos, SALSA), Petticrew (Mito 5), PRISMA 2020, CONITEC — todos [WEB-VERIFIED]. Leg 3 (RefCheck) confirmou Cochrane v6.5 como versao atual e flagou ausencia de entrada formal no evidence-db. Nenhum CONFLICT. Flags: (1) EVIDENCE GAP — nenhum estudo quantifica confusao RS/MA entre residentes. (2) 2 PMIDs CANDIDATE pendentes verificacao (35725647, 27620683).",
 
   "referencia_rapida": [
     {"termo": "Scoping review", "definicao": "Mapeia a extensao e natureza da evidencia sobre um topico. Busca sistematica, mas sem appraisal formal nem pooling.", "nota": "Tricco et al. PRISMA-ScR. Ann Intern Med 2018;169(7):467-473. PMID 30178033 [WEB-VERIFIED]. Tier 1 (EQUATOR). 0.7% das revisoes PubMed, crescimento 42%/ano."},
-    {"termo": "Umbrella review", "definicao": "RS de RS — sintetiza multiplas revisoes sistematicas sobre o mesmo topico. Nivel mais alto de agregacao.", "nota": "Aromataris et al. JBI Database System Rev Implement Rep 2015;13(11):132-140. PMID 26657463 [CANDIDATE]. Tier 1 (JBI). Crescimento 47%/ano (Shen 2022)."},
+    {"termo": "Umbrella review", "definicao": "RS de RS — sintetiza multiplas revisoes sistematicas sobre o mesmo topico. Nivel mais alto de agregacao.", "nota": "Aromataris et al. JBI Database System Rev Implement Rep 2015;13(11):132-140. PMID 26657463 [CANDIDATE]. Tier 1 (JBI). Crescimento 47%/ano (Zhao 2022)."},
     {"termo": "Rapid review", "definicao": "RS simplificada com prazos curtos (semanas). Busca limitada, appraisal simplificado. Usada por agencias de HTA.", "nota": "Garritty et al. Cochrane Rapid Reviews Methods Group. Syst Rev 2021;10(1):225. PMID 34384532 [CANDIDATE]. CONITEC usa para avaliacoes urgentes."},
     {"termo": "Living systematic review", "definicao": "RS continuamente atualizada a medida que novos estudos sao publicados, em vez de snapshot unico.", "nota": "Elliott et al. J Clin Epidemiol 2017;91:23-30. PMID 28912002 [CANDIDATE]. Tier 1 (Cochrane). Ex: COVID treatments — Siemieniuk et al. BMJ 2020;370:m2980."},
     {"termo": "Integrative review", "definicao": "Combina estudos com metodologias diversas (quanti + quali). Comum em enfermagem.", "nota": "Whittemore & Knafl. J Adv Nurs 2005;52(5):546-553. PMID 16268861 [CANDIDATE]. NAO e Tier 1 — nao e Cochrane/PRISMA. Nao e sinonimo de RS."},
@@ -98,13 +98,14 @@
       "principal": false
     },
     {
-      "autor": "Shen J, Li Y, Clarke M et al.",
+      "autor": "Zhao X, Jiang H, Yin J et al.",
       "ano": 2022,
-      "titulo": "Visualization of evidence-based medicine domain knowledge: production and citation of Cochrane systematic reviews",
-      "revista": "Milbank Q",
+      "titulo": "Changing trends in clinical research literature on PubMed database from 1991 to 2020",
+      "revista": "Eur J Med Res",
       "pmid": "35725647",
-      "status": "CANDIDATE",
-      "principal": true
+      "status": "WEB-VERIFIED",
+      "principal": true,
+      "correcao_s49": "Autores/titulo/journal corrigidos. PMID correto para dados 71% narrativa. Antes atribuido erroneamente a Shen et al."
     },
     {
       "autor": "Ioannidis JPA",
@@ -112,7 +113,7 @@
       "titulo": "The mass production of redundant, misleading, and conflicted systematic reviews and meta-analyses",
       "revista": "Milbank Q",
       "pmid": "27620683",
-      "status": "CANDIDATE",
+      "status": "WEB-VERIFIED",
       "principal": false
     },
     {
