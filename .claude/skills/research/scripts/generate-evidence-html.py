@@ -188,6 +188,28 @@ def generate_html(
         else ""
     )
 
+    # Optional quick-reference section (collapsed, for Q&A prep)
+    ref_rapida = data.get("referencia_rapida", [])
+    if ref_rapida:
+        ref_rows = ""
+        for item in ref_rapida:
+            termo = esc(item.get("termo", ""))
+            definicao = esc(item.get("definicao", ""))
+            nota = esc(item.get("nota", ""))
+            ref_rows += (
+                f"<tr><td><strong>{termo}</strong></td><td>{definicao}</td><td>{nota}</td></tr>\n"
+            )
+        ref_rapida_html = f"""
+<details>
+  <summary>Referencia Rapida — Se Perguntarem</summary>
+  <table>
+    <tr><th>Termo</th><th>Definicao</th><th>Nota</th></tr>
+    {ref_rows}
+  </table>
+</details>"""
+    else:
+        ref_rapida_html = ""
+
     # Post-process verification badges (after esc() so tokens survive)
     def badge(html_str: str) -> str:
         replacements = [
@@ -239,6 +261,7 @@ def generate_html(
 {sugestoes_html}
 {depth_html}
 {convergencia_html}
+{ref_rapida_html}
 
   <footer>
     Coautoria: {coautoria} | Pipeline: /research v2 | Slide: {esc(slide_id)}
