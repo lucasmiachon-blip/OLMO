@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 42 — 2026-04-01 (Codex Review Exec cont.)
+
+### P2 — Quality (cont.)
+- Font tokens bumped: --text-small 20px, --text-caption 18px (base + metanalise + cirrose)
+- Source-tags 16px, hook-tag/contrato-skill 18px, ck1-name 16px, screening labels 18px
+- --danger hue: 25° → 8° everywhere (root + stage-c on-dark in both base + cirrose)
+- Cirrose --danger aligned to base.css canonical (50% 0.22 8)
+- GSAP jurisdiction: 5 elements converted from .to() → .fromTo() (hook + contrato)
+  CSS stripped of transforms, keeps only opacity:0. Divider/checkpoint exceptions kept.
+- .no-js fallback: generalized [data-animate] + added [data-reveal]
+- aria-hidden on 5 forest-plot anatomy symbols (a11y)
+
+### Docs
+- HANDOFF → S43
+- Memory: project_metanalise_projetor (projetor gigante 10m, Canva fallback)
+
 ## Sessao 41 — 2026-04-01 (Codex Review Exec)
 
 ### P0 — Silent Failures (5 fixes)
