@@ -16,7 +16,7 @@
  *   L (Carga cognitiva), P (Aprendiz adulto), N (Arco narrativo)
  */
 import { chromium } from 'playwright';
-import { mkdirSync } from 'fs';
+import { mkdirSync, readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { execSync } from 'node:child_process';
 
@@ -41,11 +41,29 @@ const actArg = process.argv.includes('act2');
 const BASE = `http://localhost:${port}/${aula}/index.html`;
 const OUT = join(process.cwd(), `content/aulas/${aula}/qa-screenshots/browser-qa`);
 
-// Cirrose-specific slide IDs (other aulas: adaptive navigation only)
-const ACT1_IDS = ['s-title','s-hook','s-a1-01','s-a1-classify','s-a1-baveno','s-a1-fib4','s-a1-cpt','s-a1-rule5','s-a1-meld','s-cp1'];
-const ACT2_IDS = ['s-a2-01','s-a2-02','s-a2-03','s-a2-04','s-a2-05','s-a2-06','s-a2-07','s-a2-08','s-a2-09','s-a2-10','s-a2-11','s-a2-12','s-a2-13','s-a2-14','s-a2-15','s-cp2'];
-const STOP_AFTER = aula === 'cirrose' ? (actArg ? 's-cp2' : 's-cp1') : null;
-const TARGET_IDS = aula === 'cirrose' ? (actArg ? [...ACT1_IDS, ...ACT2_IDS] : ACT1_IDS) : null;
+// Load slide IDs from manifest (dynamic) or fallback to hardcoded (cirrose legacy)
+function loadManifestIds(aulaName) {
+  const manifestPath = join(process.cwd(), `content/aulas/${aulaName}/slides/_manifest.js`);
+  if (!existsSync(manifestPath)) return null;
+  const text = readFileSync(manifestPath, 'utf-8');
+  const ids = [...text.matchAll(/id:\s*'([^']+)'/g)].map(m => m[1]);
+  return ids.length > 0 ? ids : null;
+}
+
+// Cirrose: hardcoded acts (legacy, kept for act2 split support)
+const CIRROSE_ACT1 = ['s-title','s-hook','s-a1-01','s-a1-classify','s-a1-baveno','s-a1-fib4','s-a1-cpt','s-a1-rule5','s-a1-meld','s-cp1'];
+const CIRROSE_ACT2 = ['s-a2-01','s-a2-02','s-a2-03','s-a2-04','s-a2-05','s-a2-06','s-a2-07','s-a2-08','s-a2-09','s-a2-10','s-a2-11','s-a2-12','s-a2-13','s-a2-14','s-a2-15','s-cp2'];
+
+let STOP_AFTER = null;
+let TARGET_IDS = null;
+
+if (aula === 'cirrose') {
+  STOP_AFTER = actArg ? 's-cp2' : 's-cp1';
+  TARGET_IDS = actArg ? [...CIRROSE_ACT1, ...CIRROSE_ACT2] : CIRROSE_ACT1;
+} else {
+  // Other aulas: load all IDs from manifest
+  TARGET_IDS = loadManifestIds(aula);
+}
 
 async function getActiveSlide(page) {
   return await page.evaluate(() => {
