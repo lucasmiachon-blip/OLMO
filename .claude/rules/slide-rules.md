@@ -42,12 +42,12 @@ Fontes: Duarte (unity), Alley (assertion-evidence), Refactoring UI (design syste
 - Cores, tipografia, espaçamento: via tokens do `base.css`. NUNCA valor literal.
 - Cada slide tem layout próprio no `{aula}.css`, scopado por `#s-{id}`.
 - CSS Grid/Flex direto — sem classes de archetype intermediárias.
-- `references/archetypes.md` = referência visual para consulta, não imposição CSS.
+- `content/aulas/{aula}/references/archetypes.md` = referência visual para consulta, não imposição CSS.
 
 **Proibido:**
 - Classes genéricas de layout (`.slide-cards`, `.slide-headline`, `.slide-figure`) em slides novos.
 - Agente escolher layout sem aprovação do Lucas.
-- CSS inline no HTML (exceto `data-background-color` HEX quando necessário).
+- CSS inline no HTML. Background via CSS `#s-{id} .slide-inner { background-color }` (§10).
 
 **Decisão de layout:** Lucas decide a composição visual. Agente implementa.
 

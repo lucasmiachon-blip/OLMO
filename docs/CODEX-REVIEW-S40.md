@@ -272,11 +272,41 @@ qa-engineer threshold impossivel, mcp_safety auto-execute vs human gate, slide-r
 
 ---
 
-## Docs/Prompts (C15) — FALHOU
+## Docs/Prompts (C15) — 12 findings
 
-C15 falhou 2x. O agente codex:codex-rescue lanca Codex CLI task em background mas nunca recebe retorno (output 0 bytes). Bug a investigar.
+> Relançado S41 via `codex exec --sandbox read-only` (stdin pipe). Bug do skill wrapper contornado.
 
-**Escopo pendente:** narrative.md, blueprint.md, evidence-db.md, archetypes.md, 5 gate prompts, metanalise/CLAUDE.md.
+### CRITICAL (1)
+
+| # | File | Issue | Fix |
+|---|------|-------|-----|
+| 133 | evidence-db.md (metanalise) | Murad et al JAMA 2014: PMID 25005654 resolve para outro artigo (doc auto-reconhece). Fonte canônica inválida. | Verificar PMID correto ou marcar [TBD]. Não usar em slide até validação. |
+
+### HIGH (7)
+
+| # | File | Issue |
+|---|------|-------|
+| 134 | blueprint.md + narrative.md (metanalise) | GRADE numeração: slide 14 diz "valida pergunta 2", mas GRADE é pergunta 3 no takehome |
+| 135 | blueprint.md (metanalise) | Slide numbers desalinhados com filenames (Slide 05→04-pico.html, etc.) |
+| 136 | archetypes.md + regras metanalise | Forest plot: regra exige "crop de artigo real, NUNCA SVG", mas archetype descreve grid Unicode e slide 07 está ✅ FEITO |
+| 137 | gate2-opus-visual.md | Mistura "avaliar SOMENTE visual, ZERO código" com "UI/UX + análise de código" no mesmo doc |
+| 138 | gate2-opus-visual.md | Contaminação de audiência: alterna Cirrose (hepatologistas) e Metanalise (residentes CM) |
+| 139 | narrative.md + evidence-db.md (cirrose) | Recompensação alcoólica: narrative A3-04 "[TBD SOURCE]" mas evidence-db já tem Semmler 2023 PMID 37469291 |
+| 140 | evidence-db.md (cirrose) | CCM Ann Saudi Med 2025 prevalência 48%: [TBD — buscar PMID]. Dado quantitativo sem rastreabilidade |
+| 141 | evidence-db.md (cirrose) | s-a2-09 sarcopenia: [TBD SOURCE]. Slide ancorado em evidência não citável |
+
+### MEDIUM (2)
+
+| # | File | Issue |
+|---|------|-------|
+| 142 | gate2-opus-visual.md | Refs a tools/APIs inexistentes: sharp create_session_by_path, a11y test_html_string |
+| 143 | blueprint.md (metanalise) | Terminology drift: mesmo slide = s-hook / 01-hook.html / Slide 01 sem mapeamento canônico |
+
+### LOW (1)
+
+| # | File | Issue |
+|---|------|-------|
+| 144 | narrative.md + blueprint.md | Blueprint derivado de narrative v2.4, mas narrative está em v2.5 |
 
 ---
 

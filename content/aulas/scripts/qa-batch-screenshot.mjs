@@ -27,7 +27,7 @@
 import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync, readdirSync, unlinkSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { execSync } from 'node:child_process';
 
 const SCRIPTS_DIR = dirname(fileURLToPath(import.meta.url));
@@ -88,7 +88,7 @@ const TIME_STAMP = String(NOW.getHours()).padStart(2, '0') + String(NOW.getMinut
 const PAGE_URL = `http://localhost:${PORT}/${aula}/index.html`;
 
 // Import manifest — we need slide order and metadata
-const { slides } = await import(`file://${join(AULA_DIR, 'slides', '_manifest.js').replace(/\\/g, '/')}`);
+const { slides } = await import(pathToFileURL(join(AULA_DIR, 'slides', '_manifest.js')).href);
 
 // Determine which slides to capture
 // Supports cirrose acts (A1, A2, CP) AND metanalise phases (F1, I1, F2, I2, F3)

@@ -689,11 +689,22 @@ async function callGemini(systemPrompt, userPrompt) {
   const usage = result.usageMetadata || {};
   const finishReason = result.candidates?.[0]?.finishReason || 'UNKNOWN';
 
+  // Validate response before extracting
+  if (result.error) {
+    throw new Error(`Gemini API error: ${result.error.message || JSON.stringify(result.error)}`);
+  }
+  if (!result.candidates?.length || finishReason === 'SAFETY') {
+    throw new Error(`Gemini response blocked or empty (finishReason: ${finishReason})`);
+  }
+
   // Extract text, skip thinking parts
-  const parts = result.candidates?.[0]?.content?.parts || [];
+  const parts = result.candidates[0].content?.parts || [];
   const textParts = parts.filter(p => p.text && !p.thought);
   const thinkingParts = parts.filter(p => p.thought);
-  const text = textParts.map(p => p.text).join('\n') || '(empty response)';
+  const text = textParts.map(p => p.text).join('\n');
+  if (!text) {
+    throw new Error(`Gemini returned no text content (finishReason: ${finishReason}, parts: ${parts.length})`);
+  }
 
   // Grounding metadata
   const groundingMeta = result.candidates?.[0]?.groundingMetadata;

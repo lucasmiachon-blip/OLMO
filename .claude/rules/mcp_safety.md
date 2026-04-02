@@ -40,9 +40,9 @@ paths:
 
 ## MODELO HARSH (na duvida, nao age)
 
-- Confidence >= 0.95 → auto-execute
-- Confidence 0.70-0.94 → flag para review humano
-- Confidence < 0.70 → BLOQUEAR
+- Writes SEMPRE requerem aprovacao humana (sem auto-execute)
+- Confidence scoring serve como INPUT para decisao do Lucas, nao como gate automatico
+- Confidence < 0.70 → BLOQUEAR (nem apresentar ao Lucas)
 - Dados de paciente → BLOQUEAR (LGPD)
 - Erro em write → PARAR (nao retry)
 

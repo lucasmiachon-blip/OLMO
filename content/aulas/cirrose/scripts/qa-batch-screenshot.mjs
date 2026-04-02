@@ -26,7 +26,7 @@
 import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync, readdirSync, unlinkSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CIRROSE = join(__dirname, '..');
@@ -67,7 +67,7 @@ const TIME_STAMP = String(NOW.getHours()).padStart(2, '0') + String(NOW.getMinut
 const PAGE_URL = `http://localhost:${PORT}/aulas/cirrose/index.html`;
 
 // Import manifest — we need slide order and metadata
-const { slides } = await import(`file://${join(CIRROSE, 'slides', '_manifest.js').replace(/\\/g, '/')}`);
+const { slides } = await import(pathToFileURL(join(CIRROSE, 'slides', '_manifest.js')).href);
 
 // Determine which slides to capture
 function getActFilter(act) {

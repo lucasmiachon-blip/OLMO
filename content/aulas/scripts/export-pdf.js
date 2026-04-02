@@ -54,7 +54,7 @@ function waitForServer(port, timeout = 15000) {
 
 // Use vite preview instead of npx serve
 console.log('Starting vite preview...');
-const server = spawn('npx', ['vite', 'preview', '--port', String(PORT)], {
+const server = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], {
   stdio: 'ignore',
   detached: false,
   shell: process.platform === 'win32',

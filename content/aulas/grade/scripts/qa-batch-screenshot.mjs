@@ -27,7 +27,7 @@
 import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync, readdirSync, unlinkSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GRADE = join(__dirname, '..');
@@ -67,7 +67,7 @@ const TIME_STAMP = String(NOW.getHours()).padStart(2, '0') + String(NOW.getMinut
 const PAGE_URL = `http://localhost:${PORT}/grade/index.html`;
 
 // Import manifest
-const { slides } = await import(`file://${join(GRADE, 'slides', '_manifest.js').replace(/\\/g, '/')}`);
+const { slides } = await import(pathToFileURL(join(GRADE, 'slides', '_manifest.js')).href);
 
 // Build index map
 const slideIndexMap = new Map();

@@ -1,18 +1,13 @@
 ---
 name: qa-engineer
-description: "Runs QA perfection loop on slides: audit → fix → re-audit until ALL 14 dimensions ≥ 9/10. Dimensions (AUDIT-VISUAL.md): H(hierarquia) T(tipografia) E(layout) C(cor/contraste) V(visuais) K(consistência) S(sofisticação) M(comunicação) I(interações) D(dados clínicos) A(acessibilidade) L(carga cognitiva/Sweller) P(aprendiz adulto/Knowles) N(arco narrativo/Duarte). Tools: playwright, lighthouse, eslint, perplexity_reason, axe-core, ui-ux-pro, design-comparison (pixel diff), floto (smart diff). NÃO usar a princípio: attention-insight, frontend-review (Hyperbolic). Only runs on slides explicitly requested by Lucas. Default = Gate 1-2 (lint+build). Full 14-dim audit (--deep) = on demand."
+description: "Runs QA on slides: audit → fix → re-audit. 14 dimensions. Default (economic): Gate 1-2 (lint+build+browser). Deep mode (--deep): full 14-dim loop, ≥7/10 all dimensions. Tools: playwright, perplexity. Only runs on slides explicitly requested by Lucas."
 tools:
   - Read
   - Write
   - StrReplace
   - Bash
   - mcp:playwright
-  - mcp:lighthouse
-  - mcp:eslint
   - mcp:perplexity
-  - mcp:ui-ux-pro
-  - mcp:design-comparison
-  - mcp:floto
 model: sonnet
 ralph_phase: learn
 ---
@@ -37,11 +32,11 @@ ralph_phase: learn
 cat content/aulas/{aula}/CLAUDE.md 2>/dev/null || echo "No CLAUDE.md for {aula} — use general constraints"
 cat content/aulas/{aula}/HANDOFF.md 2>/dev/null || echo "No HANDOFF.md for {aula}"
 tail -50 content/aulas/{aula}/ERROR-LOG.md 2>/dev/null
-cat docs/slide-pedagogy.md 2>/dev/null
+cat docs/aulas/slide-pedagogy.md 2>/dev/null
 # Se existir: cat content/aulas/{aula}/references/CASE.md (caso clínico âncora)
 ```
 
-**Loop termina APENAS quando todas 14 dimensões ≥ 9/10 em todos os slides auditados.**
+**Loop termina quando todas 14 dimensões ≥ 7/10 em todos os slides auditados (≥ 9/10 em --deep mode).**
 MAX 3 iterações por slide. Se não atingir após 3 → escalar para Lucas com fix list precisa.
 
 ---
@@ -57,14 +52,7 @@ MAX 3 iterações por slide. Se não atingir após 3 → escalar para Lucas com 
 | `mcp:playwright browser_click` | Testar interações clicáveis |
 | `mcp:playwright browser_evaluate` | axe-core contraste + DOM audit programático |
 | `mcp:playwright browser_console_messages` | Erros JS |
-| `mcp:lighthouse run_audit(url, ['accessibility'])` | Score Lighthouse a11y |
-| `mcp:eslint lint-files` | Qualidade JS |
 | `mcp:perplexity perplexity_reason` | Avaliação pedagógica (CLT, Mayer, Knowles, Miller) |
-| `mcp:ui-ux-pro` | Padrões UX: tipografia, espaçamento, cores, landing patterns (103 styles, 170 UX guidelines) |
-| `mcp:design-comparison compare(before, after)` | Pixel diff GRATUITO — before/after CSS fixes, % de diferença, imagem diff |
-| `mcp:floto compare_design(design, impl)` | Smart diff semântico — AI detecta discrepâncias visuais além de pixels (requer FLOTO_API_KEY) |
-| ~~`mcp:attention-insight`~~ | **NÃO usar a princípio** — clarity/focus score (sharp fallback ou API paga) |
-| ~~`mcp:frontend-review` (Hyperbolic)~~ | **NÃO usar a princípio** — before/after visual diff via Qwen-VL |
 | `Bash: npm run lint:slides` | Assertion-evidence lint |
 | `Bash: npm run build:{aula}` | Build check |
 | `Bash: grep` | HEX literals, px font-size, ul/ol |
@@ -88,7 +76,7 @@ perplexity_reason({
       CASO CLÍNICO REFERENCIADO: [sim/não — qual]
       IMPLICAÇÃO DE CONDUTA: "[texto da conclusão se houver]"
 
-      Avalie em 3 dimensões (nota 0-10, mínimo 9 para PASS):
+      Avalie em 3 dimensões (nota 0-10, mínimo 7 para PASS, 9 para --deep):
 
       DIMENSÃO L — CARGA COGNITIVA (Sweller CLT):
       - Quantos elementos distintos o espectador deve processar simultaneamente?
@@ -171,7 +159,7 @@ async () => {
 
 ---
 
-## Rubrica 0–10 — 14 dimensões (mínimo 9 = PASS)
+## Rubrica 0–10 — 14 dimensões (mínimo 7 = PASS, 9 = --deep)
 
 > Alinhada com AUDIT-VISUAL.md. Códigos letra H,T,E,C,V,K,S,M,I,D,A,L,P,N.
 
@@ -323,5 +311,5 @@ Escalados para Lucas: [lista]
 
 ## Regra Absoluta
 
-**Não existe "parcialmente ok". Qualquer dimensão < 9 = FAIL.**
+**Não existe "parcialmente ok". Qualquer dimensão < 7 = FAIL (< 9 em --deep mode).**
 Escalação ≠ fracasso — é disciplina clínica.

@@ -1,7 +1,7 @@
 # Design Reference — Semântica, Dados Médicos
 
-> Apenas o que NÃO está no código. Tokens/tipografia/spacing → `aulas/cirrose/cirrose.css` (seção :root).
-> Princípios de design (27) → `docs/design-principles.md` (consultar sob demanda).
+> Apenas o que NÃO está no código. Tokens/tipografia/spacing → `content/aulas/cirrose/cirrose.css` (seção :root).
+> Princípios de design (27) → `docs/aulas/design-principles.md` (consultar sob demanda).
 
 ---
 

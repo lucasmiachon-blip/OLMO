@@ -102,7 +102,7 @@ function checkHtml(file, content) {
     }
 
     // --- Inline gsap in aulas ---
-    if (/gsap\.(to|from|fromTo|timeline)\s*\(/i.test(line) && file.includes('content/aulas/')) {
+    if (/gsap\.(to|from|fromTo|timeline)\s*\(/i.test(line) && file.replace(/\\/g, '/').includes('content/aulas/')) {
       err(file, n, 'GSAP', 'Inline gsap in slide. Use data-animate.');
     }
 
