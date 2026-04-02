@@ -54,13 +54,13 @@ export const slideRegistry = {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     // 1. Volume enters from left (hero moment)
-    tl.to(volume, { opacity: 1, x: 0, duration: 0.9 });
+    tl.fromTo(volume, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.9 });
 
     // 2. Divider scales in like a cut
     tl.to(divider, { scaleY: 1, duration: 0.6, ease: 'expo.inOut' }, '-=0.3');
 
     // 3. Reality facts enter from right, staggered
-    tl.to(facts, { opacity: 1, x: 0, duration: 0.7, stagger: 0.25 }, '-=0.2');
+    tl.fromTo(facts, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.7, stagger: 0.25 }, '-=0.2');
 
     // 4. CountUp on all numbers (reset to 0 first — HTML has final values for no-js)
     nums.forEach((num) => {
@@ -94,22 +94,22 @@ export const slideRegistry = {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     // 1. Cards rise + fade (architectural entrance — watermark numbers appear with card)
-    tl.to(cards, {
-      opacity: 1, y: 0, scale: 1,
-      duration: 0.8, stagger: 0.2
-    })
+    tl.fromTo(cards,
+      { opacity: 0, y: 40, scale: 0.98 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.2 }
+    )
     // 2. Questions fade up
-    .to(questions, {
-      opacity: 1, y: 0,
-      duration: 0.5, stagger: 0.2,
-      ease: 'power2.out'
-    }, '-=0.3')
+    .fromTo(questions,
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.2, ease: 'power2.out' },
+      '-=0.3'
+    )
     // 3. Skills fade up (cohesive with card entrance direction)
-    .to(skills, {
-      opacity: 1, y: 0,
-      duration: 0.5, stagger: 0.15,
-      ease: 'power2.out'
-    }, '-=0.2');
+    .fromTo(skills,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power2.out' },
+      '-=0.2'
+    );
   },
 
   's-checkpoint-1': (slide, gsap) => {

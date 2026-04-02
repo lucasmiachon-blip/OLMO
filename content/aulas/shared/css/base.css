@@ -273,7 +273,7 @@
   /* Clinical semantics — dark-on-light, all ≥ AA */
   --safe-on-dark:       oklch(36% 0.10 170);     /* 6.6:1 */
   --warning-on-dark:    oklch(42% 0.10 85);      /* 5.3:1 */
-  --danger-on-dark:     oklch(45% 0.14 25);      /* 4.7:1 */
+  --danger-on-dark:     oklch(45% 0.14 8);       /* 4.7:1 */
   --downgrade-on-dark:  oklch(30% 0.08 55);      /* 8.2:1 */
 
   /* Borders — lower opacity than Plan B */
