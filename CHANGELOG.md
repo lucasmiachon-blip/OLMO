@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 39 — 2026-04-01 (Metanalise Tooling)
+
+### Scripts — 3 movidos para scripts/ compartilhado (multi-aula)
+- `qa-batch-screenshot.mjs`: +detectAula, +PORT_MAP, dynamic manifest/URL, act filter suporta phases
+- `gemini-qa3.mjs`: +detectAula, dynamic CSS (`${aula}.css`), prompt paths per-aula
+- `content-research.mjs`: +detectAula, dynamic AULA_DIR
+- `browser-qa-act1.mjs`: +loadManifestIds() dinamico (le _manifest.js da aula)
+
+### Prompts — 5 templates criados em metanalise/docs/prompts/
+- gate0-inspector, gate4-call-a/b/c, error-digest (audiencia: residentes CM)
+
+### Infra
+- package.json: +4 npm scripts metanalise (qa:screenshots, qa:gate0, qa:gate4, research)
+- Migrou cirrose/grade scripts para usar shared scripts/ com --aula
+
+### Bugs corrigidos
+- URL Vite em qa-batch-screenshot: `/aulas/cirrose/` → `/${aula}/` (bug monorepo migration)
+- Prompt paths em gemini-qa3: REPO_ROOT nunca resolvia → per-aula AULA_DIR/docs/prompts/
+
 ## Sessao 38 — 2026-04-01 (Scripts + Prompts)
 
 ### P1 — Prompt Engineering (Codex Review fixes)

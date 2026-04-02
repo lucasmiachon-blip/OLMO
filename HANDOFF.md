@@ -1,43 +1,40 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 39 | proximo login
+> Sessao 40 | proximo login
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde (47 testes). 11 rules. Codex Review P0-P3 COMPLETO.
+Monorepo funcional. CI verde (47 testes). 11 rules. QA tooling multi-aula.
 
 **Python** — ruff clean, mypy OK.
 
-**Scripts** — 10 scripts corrigidos (root paths, parser, WARN counter, parametrizacao, fail-hard, pipefail). Todos verificados com execucao real.
+**Scripts** — 3 QA scripts compartilhados em scripts/ (qa-batch-screenshot, gemini-qa3, content-research). Todos com detectAula() + --aula CLI. Scripts antigos ainda em cirrose/scripts/ (backup).
 
-**Aulas** — Cirrose: 11 slides ativos (Act 1) + 35 archive. Metanalise: 18 slides, deadline 15/abr. Grade: 58 slides, ilegivel.
+**Aulas** — Cirrose: 11 slides ativos (Act 1) + 35 archive. Metanalise: 18 slides, **deadline 15/abr (14 dias)**, 14 QA pendentes, tooling pronto. Grade: 58 slides, ilegivel.
 
 **Governanca** — 11 rules, 7 hooks, 8 agents, 20 skills, 3 commands.
 
 ## PROXIMO
 
-1. **Metanalise: adaptar tooling cirrose** — mjs, md, prompts de cirrose serao adaptados para metanalise (Lucas pediu S38).
-4. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework. Lucas guia.
-4. **Metanalise QA** — 14 slides pendentes (deadline 15/abr, 14 dias)
-5. **Notion: mover Calendario DB** — esta em area Archived, inacessivel
+1. **Codex Review: scripts + docs + CSS + HTML** — reframing objetivo e adversarial (S38 excedeu tokens, resposta incompleta). Escopo bem definido, framing curto. Anti-sycophancy: so aceitar o que for adequado.
+2. **Metanalise QA** — 14 slides pendentes. Tooling pronto: `npm run qa:screenshots:metanalise` → gate0 → gate4.
+3. **Cirrose Act 2 reconstituicao** — 33 slides em _archive, precisam rework. Lucas guia.
+4. **Notion: mover Calendario DB** — esta em area Archived, inacessivel.
 
 ## DECISOES ATIVAS
 
 - Calendario DB = compromissos. Tasks DB = acoes GTD (Do Next/Someday).
 - Codex: OAuth ChatGPT ($0, GPT-5.4). API key fallback gpt-5.2-pro.
-- CSS cirrose: self-contained (absorveu base.css). Outras aulas ainda usam base.css.
+- CSS cirrose: self-contained. Metanalise: imports base.css.
 - Maio/2026: foco total concurso. Abril = housekeeping aulas.
-- Source-tag: 16px (legibilidade confirmada 55" TV @ 6m).
-- Verificacao PMID: vocabulario canonico em design-reference.md §3 (VERIFIED/WEB-VERIFIED/CANDIDATE/SECONDARY/UNRESOLVED).
+- Scripts antigos em cirrose/scripts/: manter como backup ate confirmar shared em producao.
 - qa-engineer: economic mode default, deep mode on demand (--deep).
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - Cirrose _archive: nao deletar sem branch de backup. Lucas decide o que sai.
-- Calendario DB: `collection://308dfe68-59a8-81c2-8d7f-000bf3da6ec4`
-- Tasks DB: `collection://2f6dfe68-59a8-81df-943b-000b7f7098cf`
-- Psicologo: quartas 11h. Notion: 335dfe6859a881f783b5cc1f04b80567
+- Codex Review: framing curto (< 2000 tokens prompt). Adversarial, nao servil. Chunk por area.
 
 ## PENDENTE (herdado)
 
@@ -47,6 +44,7 @@ Monorepo funcional. CI verde (47 testes). 11 rules. Codex Review P0-P3 COMPLETO.
 - [ ] Presenter.js rewrite (HTML separado, timer fix)
 - [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
 - [ ] daily-briefing: adicionar Notion Calendario + Tasks "Due Today"
+- [ ] Remover scripts antigos de cirrose/scripts/ apos validar shared
 
 ## CONFLITOS
 
