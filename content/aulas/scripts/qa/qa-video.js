@@ -34,7 +34,6 @@ const ROOT = resolve(__dirname, '..');
 const OUT_ROOT = join(ROOT, 'qa-screenshots', 'videos');
 const TMP_DIR = join(ROOT, 'qa-screenshots', '.video-tmp');
 
-const PORT = process.env.PORT || 4100;
 const VIEWPORT = { width: 1280, height: 720 };
 
 // Quanto tempo esperar entre cada ação (ms)
@@ -51,8 +50,10 @@ const batchArg = args.find(a => a.startsWith('--batch='))?.split('=')[1];
 const aulaArg = args.find(a => a.startsWith('--aula='))?.split('=')[1] || 'cirrose';
 const urlArg = args.find(a => a.startsWith('--url='))?.split('=')[1];
 
+const PORT_MAP = { cirrose: 4100, grade: 4101, metanalise: 4102 };
+const PORT = process.env.PORT || PORT_MAP[aulaArg] || 4100;
 const BASE_URL = urlArg || `http://localhost:${PORT}/${aulaArg}/index.html`;
-const FRAMEWORK = (aulaArg === 'grade' || aulaArg === 'osteoporose')
+const FRAMEWORK = (aulaArg === 'osteoporose')
   ? 'reveal' : 'deck';
 
 let batchRange = null;

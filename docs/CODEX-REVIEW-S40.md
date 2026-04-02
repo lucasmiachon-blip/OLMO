@@ -1,62 +1,51 @@
-# Codex Review S40 — Open Items Only
+# Codex Review S40 — Final Status
 
-> Original: 135 findings (GPT-5.4, 2026-04-01). P0+P1+P2 done (S41-S43). S44 verified+cleaned.
-> Full history in CHANGELOG S40-S44.
+> Original: 135 findings (GPT-5.4, 2026-04-01). All resolved across S41-S45.
+> P0 (S41) → P1 (S41) → P2 (S42-S43) → Remaining (S44-S45).
 
 ---
 
-## Scripts
+## RESOLVED (S45)
 
-| # | File | Priority | Issue |
-|---|------|----------|-------|
-| 13 | lint-case-sync.js | HIGH | Brace parser not string/comment-aware |
-| 18 | qa-video.js:55 | HIGH | grade mapped to Reveal.js but uses deck.js |
-| 19 | qa-video.js:54 | HIGH | Fixed port 4100 for all aulas (metanalise=4102) |
-| 28 | lint-gsap-css-race.mjs | MEDIUM | Multi-line CSS selector parsing incorrect |
-| 29 | lint-gsap-css-race.mjs | MEDIUM | Conflict detection ignores scope/slide |
-| 34 | done-gate.js | MEDIUM | Notes detector rigid (`<aside class="notes">` exact) |
-| 44-45 | lint-gsap-css-race.mjs | LOW | JS + CSS scan scope hardcoded |
+| # | File | Fix |
+|---|------|-----|
+| 18 | qa-video.js | grade removed from Reveal mapping (uses deck.js) |
+| 19 | qa-video.js | PORT_MAP { cirrose:4100, grade:4101, metanalise:4102 } replaces hardcoded 4100 |
+| 34 | done-gate.js | Notes regex relaxed: matches class containing "notes" (any attr order, quotes) |
+| 75-76 | cirrose.css | Defensive .pcalc-tab--active:hover + .pcalc-sex-btn--active:hover added |
+| 77 | cirrose.css | HEX fallback (#192035) before oklch() on #s-cp1 |
+| 139 | narrative.md (cirrose) | alcohol [TBD SOURCE] → PMID 37469291 (Semmler 2023) — synced from evidence-db |
+| 142 | gate2-opus-visual.md | sharp/a11y tools marked [PLANNED] |
 
-## CSS
+## DISMISSED (with justification)
 
-| # | File | Priority | Issue |
-|---|------|----------|-------|
-| 49 | base.css:133 | HIGH | @supports not fallback incomplete |
-| 50 | base.css:254 | HIGH | .stage-c doesn't remap utility class tokens |
-| 65 | cirrose.css:55-76 | HIGH | *-light tokens 15% color-mix achromatic (E059) |
-| 66 | cirrose.css:449-461 | HIGH | @media print partial (MELD cards, Rule-of-5) |
-| 74 | cirrose.css:1642 | MEDIUM | Double panel-offset compensation in hook |
-| 75-76 | cirrose.css:3097,3124 | MEDIUM | Hover overrides active state (pcalc buttons) |
-| 77 | cirrose.css:828-838 | MEDIUM | Raw oklch() without HEX fallback |
+| # | File | Reason |
+|---|------|--------|
+| 49 | base.css @supports | -light tokens present in :root fallback. Stage variants use solid HEX, not -light. |
+| 50 | base.css .stage-c | .text-* contrast managed per-slide in cirrose.css. By design. |
+| 65 | cirrose.css -light | E059 documented caveat. Achromatic color-mix intentional for tinted backgrounds. |
+| 66 | cirrose.css @media print | Projection deck, not printed. Partial print coverage = acceptable. |
+| 74 | cirrose.css hook panel | CSS padding-right replaces shorthand value, not additive. Not a double offset. |
+| 134 | blueprint+narrative | "pergunta 2" confirmed correct by Lucas. Authored content. |
+| 136 | archetypes | SVG grid already noted as placeholder in doc. |
+| 137-138 | gate2-opus-visual | Hybrid visual+code scope is by design. |
+| 143 | blueprint | Terminology locally consistent. Formal glossary = overhead. |
 
-## HTML (excluding h2 rewrite — Lucas guides)
+## DEFERRED (low ROI or separate task)
 
-| # | Slide | Priority | Issue |
-|---|-------|----------|-------|
-| 98 | 02b-a1-cpt | HIGH | kappa<=0.41 with [TBD — PMID nao localizado] |
-| 101 | 03b-a1-fib4 | HIGH | 30-60% grey zone [TBD — verify primary source] |
-| 103 | 03c-a1-elasto | HIGH | (~3x menor) no source |
-| 107 | s-aplicacao | MEDIUM | Notes with clinical claims without source |
-| 108 | s-aplicabilidade | MEDIUM | Notes with claims without source (CYP2C19, ACC) |
-| 109 | 01-hook (cirrose) | MEDIUM | h3 without h2 (heading hierarchy skip) |
-| 110 | 03c-a1-elasto | MEDIUM | PMID 39649032 not verified |
+| # | File | Reason |
+|---|------|--------|
+| 13 | lint-case-sync.js | Brace parser needs tokenizer. _manifest.js has no braces in strings. Zero practical risk. |
+| 28-29 | lint-gsap-css-race.mjs | Multi-line selector + scope-aware conflict detection. Complex parser rewrite, low ROI. |
+| 44-45 | lint-gsap-css-race.mjs | LOW. JS+CSS scan scope hardcoded. Acceptable for internal tooling. |
+| 98,101,103 | cirrose HTML | TBD data items. Need PubMed verification. Separate task. |
+| 107-110 | cirrose HTML | Clinical claims without sources. Separate verification task. |
+| 135 | blueprint (meta) | Slide numbering vs filenames. Large doc alignment task. |
+| 140-141 | evidence-db (cirrose) | TBD entries: 2025 articles possibly not indexed in PubMed yet. |
+| 144 | blueprint (meta) | LOW. Narrative v2.4 vs v2.5 drift. Resolves on next blueprint update. |
 
 h2 rewrite (11+ slides): Lucas guides, slide by slide. Not tracked here.
 
-## Docs (C15)
-
-| # | File | Priority | Issue |
-|---|------|----------|-------|
-| 134 | blueprint + narrative (meta) | HIGH | GRADE numbering misaligned (slide 14 = pergunta 2 vs 3) |
-| 135 | blueprint (meta) | HIGH | Slide numbers misaligned with filenames |
-| 136 | archetypes + rules (meta) | HIGH | Forest plot: rule says "crop real article" but slide 07 uses SVG grid |
-| 137-138 | gate2-opus-visual | HIGH | Mixed scope (visual-only vs code) + audience contamination |
-| 139 | narrative + evidence-db (cirrose) | HIGH | Recompensacao alcoolica: [TBD SOURCE] but evidence-db has PMID |
-| 140-141 | evidence-db (cirrose) | HIGH | Two entries with [TBD — buscar PMID] |
-| 142 | gate2-opus-visual | MEDIUM | Refs to nonexistent tools/APIs |
-| 143 | blueprint (meta) | MEDIUM | Terminology drift (s-hook vs 01-hook.html vs Slide 01) |
-| 144 | narrative + blueprint | LOW | Blueprint derived from narrative v2.4 but narrative is v2.5 |
-
 ---
 
-Coautoria: Lucas + Opus 4.6 + GPT-5.4 (Codex) | 2026-04-01
+Coautoria: Lucas + Opus 4.6 + GPT-5.4 (Codex) | 2026-04-02

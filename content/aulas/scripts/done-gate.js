@@ -187,7 +187,7 @@ try {
     const content = readFileSync(join(slidesDir, f), 'utf-8');
     let inNotes = false;
     for (const line of content.split('\n')) {
-      if (/<aside\s+class="notes">/.test(line)) inNotes = true;
+      if (/<aside\b[^>]*\bclass\s*=\s*["'][^"']*\bnotes\b[^"']*["'][^>]*>/.test(line)) inNotes = true;
       if (/<\/aside>/.test(line)) inNotes = false;
       if (!inNotes && /\[TBD/.test(line)) {
         console.log(`  WARN  ${f}: [TBD] in projected content (not notes)`);

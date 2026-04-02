@@ -1,6 +1,6 @@
 # Gate 2 — Opus Visual Audit
 
-> Protocolo conversacional. Claude Opus executa usando MCP tools (sharp, a11y).
+> Protocolo conversacional. Claude Opus executa usando MCP tools (sharp [PLANNED], a11y [PLANNED]).
 > Custo: $0 (Max subscription). Roda APOS Gate 0, ANTES de Gate 4.
 > MUST failures bloqueiam Gate 4 (nao gastar Gemini API em slide com defeito mensuravel).
 > Criado: 2026-03-30. v1.1: 2026-03-31 (cross-state consistency, S1 blind spot).
@@ -26,7 +26,7 @@
 
 ---
 
-## Layer A — Instrumental (sharp + a11y)
+## Layer A — Instrumental (sharp + a11y) [PLANNED — tools not yet available]
 
 Numeros concretos, zero subjetividade. Cada medida tem valor esperado e threshold.
 

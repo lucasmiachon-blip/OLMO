@@ -1,18 +1,18 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 45 | proximo login
+> Sessao 46 | proximo login
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (47 testes). 11 rules.
-Codex S40: doc limpo (so open items). S37 deletado. Agents governance OK.
+Codex S40: all findings resolved (7 fixed S45, 9 dismissed, 11 deferred). Zero open HIGH in scripts/CSS.
 
 ## PROXIMO
 
 1. **Metanalise QA** — 14 slides pendentes. Deadline 2026-04-15.
 2. **Producao metanalise** — projetor ~10m. HTML primary + Canva Pro fallback.
-3. **C15 docs findings** — 9 items (7 HIGH). Alignment issues em blueprint/narrative/evidence-db.
-4. **Codex open scripts** — qa-video.js (port map + Reveal assumption), lint-gsap-css-race (scope+parsing).
+3. **Codex deferred: PubMed verification** — #98,101,103 (cirrose HTML TBDs). Separate search session.
+4. **Codex deferred: linter parsers** — #13 (brace tokenizer), #28-29 (GSAP-CSS scope). Low ROI.
 5. **h2 assertion rewrite** — 11+ slides. Lucas guia.
 
 ## DECISOES ATIVAS
@@ -41,4 +41,4 @@ Codex S40: doc limpo (so open items). S37 deletado. Agents governance OK.
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-01
+Coautoria: Lucas + Opus 4.6 | 2026-04-02

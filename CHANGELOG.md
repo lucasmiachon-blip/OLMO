@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 45 — 2026-04-02 (Codex Cleanup Final)
+
+### Scripts
+- qa-video.js: PORT_MAP per-aula (cirrose:4100, grade:4101, metanalise:4102) replaces hardcoded 4100
+- qa-video.js: grade removed from Reveal.js mapping (confirmed deck.js)
+- done-gate.js: notes regex relaxed (any attribute order, quotes, multiple classes)
+
+### CSS
+- cirrose.css: defensive .pcalc-tab--active:hover + .pcalc-sex-btn--active:hover
+- cirrose.css: HEX fallback (#192035) for #s-cp1 oklch background
+
+### Docs
+- narrative.md (cirrose): alcohol [TBD SOURCE] → PMID 37469291 (Semmler 2023)
+- gate2-opus-visual.md: sharp/a11y tools marked [PLANNED]
+- CODEX-REVIEW-S40.md: restructured — 7 resolved, 9 dismissed, 11 deferred. Zero open HIGH.
+- HANDOFF → S46
+
 ## Sessao 44 — 2026-04-01 (Codex Cleanup + Verification)
 
 ### Cleanup

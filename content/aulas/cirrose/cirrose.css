@@ -827,7 +827,7 @@ body { width: 100vw; height: 100vh; }
    Navy bg, centered composition, visual pause
    ============================================ */
 /* Section-level navy — eliminates light frame bleed */
-#s-cp1 { background: oklch(22% 0.042 258); }
+#s-cp1 { background: #192035; background: oklch(22% 0.042 258); }
 
 /* Force dark navy even in stage-c — deliberate cinematic blackout */
 #s-cp1 .slide-inner {
@@ -3105,6 +3105,9 @@ section#s-a1-01 .slide-inner {
   background: var(--ui-accent);
   color: var(--text-on-dark);
 }
+.panel-calc-area .pcalc-tab--active:hover {
+  color: var(--text-on-dark);
+}
 
 /* --- Sex toggle (MELD 3.0) --- */
 .panel-calc-area .pcalc-sex-toggle {
@@ -3130,6 +3133,9 @@ section#s-a1-01 .slide-inner {
 }
 .panel-calc-area .pcalc-sex-btn--active {
   background: var(--ui-accent);
+  color: var(--text-on-dark);
+}
+.panel-calc-area .pcalc-sex-btn--active:hover {
   color: var(--text-on-dark);
 }
 

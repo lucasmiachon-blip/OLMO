@@ -147,7 +147,7 @@ acompanha os 3 atos, com o case panel evoluindo de neutro → perigo → esperan
 | 26 | s-a3-01 | Após ascite como 1ª descompensação, cura etiológica reduziu nova descompensação (HR 0,46) e mortalidade (HR 0,35) | **Bridge**: transição do nadir. Cenário contrafactual. Tonon 2023 PMID 37190823. | ●●○○○ |
 | 27 | s-a3-02 | Recompensação é real — e Baveno VII a definiu | **Barra alta**: esperança com freio. Tonon 2025 PMID 40228583. Baveno VII PMID 36646527. | ●●○○○ |
 | 28 | s-a3-03 | Critério expandido ampliou o grupo para 37,6% — sem pior prognóstico na coorte de validação | **Nuance**: pesquisa vs consenso. Tonon 2025 PMID 40228583. | ●●○○○ |
-| 29 | s-a3-04 | A chance de recompensar muda com a etiologia: HBV >50%, HCV ~37%, álcool menor | **Etiologia importa**: HCV PMID 40378989, HBV PMID 36038017, álcool [TBD SOURCE]. | ●●○○○ |
+| 29 | s-a3-04 | A chance de recompensar muda com a etiologia: HBV >50%, HCV ~37%, álcool menor | **Etiologia importa**: HCV PMID 40378989, HBV PMID 36038017, álcool PMID 37469291 (Semmler 2023). | ●●○○○ |
 | 30 | s-a3-05 | SVR cura o vírus mas não a hipertensão portal — CSPH persiste em 53% | **Cura ≠ normalização**: Lens 2020 PMID 32535060. 3 colunas: melhora/persiste/vigília. | ●●●○○ |
 | 31 | s-a3-06 | Vigilância a cada 6 meses — nunca dar alta, mesmo após "cura" | **Vigilância vitalícia**: AASLD 2023 PMID 37199193. HCC não reduziu nos recompensados. | ●●○○○ |
 | 32 | s-a3-07 | Recompensação é estado de menor risco — não certificado de cura estrutural | **Fechamento Ato 3**: síntese. TIPS ≠ recompensação. Esperança + vigilância. | ●○○○○ |
