@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## Sessao 44 — 2026-04-01 (Codex Cleanup + Verification)
+
+### Cleanup
+- Deleted CODEX-REVIEW-S37.md (100% resolved — verified)
+- Condensed CODEX-REVIEW-S40.md: 411 → 55 lines (open items only, strikethroughs removed)
+- Verified 6 findings as already fixed (done-gate path, qa-a11y path, lint-case-sync bidirectional, getArg, install-fonts, --danger hue)
+- Dismissed 4 findings (specificity .source-tag = intentional, session-hygiene = OK, notion-cross-validation = design, med-researcher memory = moot)
+
+### Script fixes
+- validate-css.sh: hardcoded `cirrose.css` scan → dynamic discovery (shared/css/base.css + aula.css)
+- validate-css.sh: import order check accepts `base.css → aula.css` pattern (not just single-file)
+- lint-case-sync.js: table regex 3-column only → N-column (`{2,}` quantifier)
+
+### CSS
+- metanalise.css: removed dead `::before/::after { display: none }` override (base.css has no pseudo-elements on .slide-inner)
+
+### Agents
+- repo-janitor.md: added "skip if not found" fallback for CLAUDE.md pre-condition
+
+### Docs
+- HANDOFF → S45 (removed already-fixed items)
+
 ## Sessao 43 — 2026-04-01 (Fixes Chat + Prioridades HANDOFF)
 
 ### Dream Run 5

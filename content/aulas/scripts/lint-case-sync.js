@@ -37,7 +37,7 @@ function parseCaseMd(path) {
 
   // Parse baseline labs (table format: | Exame | Valor | ...)
   const baseline = {};
-  const tableRows = text.match(/^\|[^|]+\|[^|]+\|[^|]+\|$/gm) || [];
+  const tableRows = text.match(/^\|(?:[^|]+\|){2,}$/gm) || [];
   for (const row of tableRows) {
     const cols = row.split('|').map(c => c.trim()).filter(Boolean);
     if (cols.length < 2 || cols[0] === 'Exame') continue;

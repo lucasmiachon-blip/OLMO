@@ -13,7 +13,7 @@ model: fast
 
 ## Pré-condição obrigatória
 
-Antes de qualquer tarefa: detectar aula via `git branch --show-current` → `feat/{aula}-*`. Ler `content/aulas/{aula}/CLAUDE.md` para contexto.
+Antes de qualquer tarefa: detectar aula via `git branch --show-current` → `feat/{aula}-*`. Ler `content/aulas/{aula}/CLAUDE.md` para contexto (skip if not found — not all aulas have one).
 
 ## Mode: REPORT ONLY (default)
 

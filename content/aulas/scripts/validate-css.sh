@@ -25,13 +25,18 @@ TEMPLATE="$DIR/index.template.html"
 if [ -f "$TEMPLATE" ]; then
   # Extract CSS import lines (preserve order)
   IMPORTS=$(grep -n "import '.*\.css'" "$TEMPLATE" | sed "s/.*import '\(.*\)'.*/\1/")
-  EXPECTED_ORDER="./${AULA}.css"
 
-  if [ "$IMPORTS" = "$EXPECTED_ORDER" ]; then
+  # Valid patterns: single-file OR base.css then aula.css
+  SINGLE="./${AULA}.css"
+  BASE_THEN_AULA=$(printf '../shared/css/base.css\n./%s.css' "$AULA")
+
+  if [ "$IMPORTS" = "$SINGLE" ]; then
     echo "  PASS: single-file (${AULA}.css)"
+  elif [ "$IMPORTS" = "$BASE_THEN_AULA" ]; then
+    echo "  PASS: base.css → ${AULA}.css (correct cascade order)"
   else
-    echo "  FAIL: Import order is wrong!"
-    echo "  Expected: ${AULA}.css only"
+    echo "  FAIL: Unexpected import order!"
+    echo "  Expected: ${AULA}.css only, or base.css → ${AULA}.css"
     echo "  Got:"
     echo "$IMPORTS" | sed 's/^/    /'
     FAIL=$((FAIL + 1))
@@ -45,9 +50,10 @@ echo ""
 echo "--- [2] Shared bare selectors (potential cascade conflicts) ---"
 
 CSS_FILES=()
-for f in "$DIR/cirrose.css" "$DIR/$AULA.css"; do
-  [ -f "$f" ] && CSS_FILES+=("$f")
-done
+# Discover CSS files for this aula (shared base + aula-specific)
+SHARED_CSS="$(dirname "$DIR")/shared/css/base.css"
+[ -f "$SHARED_CSS" ] && CSS_FILES+=("$SHARED_CSS")
+[ -f "$DIR/$AULA.css" ] && CSS_FILES+=("$DIR/$AULA.css")
 
 if [ ${#CSS_FILES[@]} -ge 2 ]; then
   # Extract bare class selectors from each CSS file

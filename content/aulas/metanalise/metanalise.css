@@ -24,15 +24,10 @@ aside.notes { display: none; }
   --text-caption: 18px;
 }
 
-/* --- Slide layout (override base.css safe-center pseudo-elements
-   which compete with flex:1 content components) --- */
+/* --- Slide layout --- */
 #slide-viewport > section .slide-inner {
   padding: 40px 64px;
   justify-content: center;
-}
-#slide-viewport > section .slide-inner::before,
-#slide-viewport > section .slide-inner::after {
-  display: none;
 }
 
 /* --- Title slide (capa centrada) --- */
