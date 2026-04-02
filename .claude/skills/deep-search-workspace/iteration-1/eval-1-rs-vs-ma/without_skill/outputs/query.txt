@@ -1,0 +1,34 @@
+Systematic review vs meta-analysis vs umbrella review: formal definitions, historical milestones, and bibliometric data.
+
+I need concrete, citable data for a medical education lecture (clinical medicine residents). Specifically:
+
+1. FORMAL DEFINITIONS: What is the precise, accepted definition of each term — systematic review (SR), meta-analysis (MA), and umbrella review (UR)? Use Cochrane Handbook, PRISMA, and other authoritative sources. Clarify the common confusion: SR is a methodology, MA is a statistical technique — they overlap but are not synonymous. What percentage of systematic reviews actually include a meta-analysis? (bibliometric data from Cochrane or PubMed analyses)
+
+2. HISTORICAL MILESTONES: Who coined each term and when? Key dates:
+- Karl Pearson 1904 (first pooled analysis?)
+- Glass 1976 (coined "meta-analysis")
+- Cochrane Collaboration founding (1993)
+- PRISMA statement (2009, 2020)
+- First umbrella review — who, when?
+- Evolution of the term "systematic review" — when did it replace "overview"?
+
+3. BIBLIOMETRIC PROPORTIONS: What fraction of published SRs include a quantitative MA? Data from studies analyzing Cochrane Database or PubMed trends. How has the SR/MA publication volume grown over the decades (1990s → 2000s → 2010s → 2020s)? Any data on how many umbrella reviews are published annually?
+
+4. TERMINOLOGY PRECISION:
+- "Systematic review with meta-analysis" vs "systematic review without meta-analysis" — is this the correct formal distinction?
+- Scoping review vs systematic review — key difference
+- Narrative review vs systematic review — key difference
+- Network meta-analysis — brief definition
+- Individual patient data (IPD) meta-analysis — brief definition
+- Living systematic review — definition
+
+5. HIERARCHY OF EVIDENCE: Where do SR, MA, and UR sit in evidence pyramids? Is "meta-analysis at the top" actually correct, or is it more nuanced? (hint: a meta-analysis of garbage RCTs is still garbage — GIGO principle)
+
+Please provide specific numbers, dates, PMIDs or DOIs where possible. I need facts, not generalities.
+
+---
+Format requested: Technical reference document with numbered sections, tables where appropriate, and a references section at the end. Each claim should have its source indicated inline.
+
+---
+Research ID: v1_Chc2SkRPYWRtRkp2ZnF6N0lQaWNfdmdROBIXNkpET2FkbUZKdmZxejdJUGljX3ZnUTg
+Timestamp: 2026-04-02T15:53:13Z

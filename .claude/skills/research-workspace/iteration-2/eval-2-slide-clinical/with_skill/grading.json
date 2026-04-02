@@ -1,0 +1,11 @@
+{
+  "expectations": [
+    {"text": "Report opens with 3-5 sentences of prose feedback for the professor", "passed": true, "evidence": "Section 1 'Sintese Narrativa': 3 paragraphs prose. Opens: 'O slide s-aplicacao e o momento pedagogico mais importante da Fase 3'. Covers what evidence says, where pernas agree, what professor must decide."},
+    {"text": "Report includes depth rubric with 8 dimensions, numeric scores, AND implication column", "passed": true, "evidence": "Section 2: D1-D8 table with Score, Achado, 'Implicacao para o slide' columns. D7=5: 'Gap mais importante. O residente ve 14% de reducao relativa mas nao sabe quantos pacientes precisa tratar. NNT calculavel: ~38.'"},
+    {"text": "Report applies GRADE to at least 1 clinical claim with specific reasoning (not N/A)", "passed": true, "evidence": "Section 3: Full GRADE for MACCE (MODERATE: -1 RoB from open-label trials) and bleeding (LOW: -1 RoB, -1 imprecision). 5-domain table with detailed justification per domain. Real GRADE, not N/A."},
+    {"text": "Report analyzes the slide's position in the narrative arc", "passed": true, "evidence": "Section 11 'Posicionamento Pedagogico': connects backward (framework, beneficio-dano, GRADE slide 09), forward (aplicabilidade slide 15, efeito absoluto slide 16). Identifies risk: 'residente saia sem substrato para exercitar a resposta.'"},
+    {"text": "Report cross-references evidence-db against slide HTML", "passed": true, "evidence": "Section 4: 8-item table (PMID, HR, CI, N, GRADE status, Giacoppo, PANTHER, evidence-db v5.7 consistency). All items VERIFIED or OK. Zero discrepancies."},
+    {"text": "Report suggests changes in prose explaining WHY they matter", "passed": true, "evidence": "Section 10: 4 'Considerar' items with reasoning. Ex: 'da contexto de populacao ao corpo visivel do slide. O residente que ve a projecao a 6m nao tem acesso ao notes.' Also 3 'Nao fazer' with reasoning."},
+    {"text": "Report includes synthesis across legs with interpreted convergences", "passed": true, "evidence": "Section 7: 'Nao e porque 3 MAs dizem a mesma coisa (isso seria circular — compartilham trials). E porque: (a) direcao consistente com diferentes selecoes de trials, (b) magnitude biologicamente plausivel...'"}
+  ]
+}

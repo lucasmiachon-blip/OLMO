@@ -1,0 +1,10 @@
+{
+  "expectations": [
+    {"text": "Report contains PMID 30910320", "passed": true, "evidence": "Present in title, study profile table, and footer."},
+    {"text": "Report includes at least one author name", "passed": true, "evidence": "Full 15-author list in citation."},
+    {"text": "Report describes the study design", "passed": true, "evidence": "'Multicenter RCT, double-blind, placebo-controlled' + NCT01059396."},
+    {"text": "Report includes sample size (n)", "passed": true, "evidence": "'631 screened, 201 randomized' with arm breakdown (100 BB, 101 placebo)."},
+    {"text": "Report is concise (<80 lines), does NOT contain multi-leg comparative table", "passed": true, "evidence": "49 lines. No comparative table. Clean fast-path."},
+    {"text": "Report includes primary endpoint result with effect size", "passed": true, "evidence": "HR 0.51 (0.26-0.97), p=0.041. Ascites HR 0.44 (0.20-0.97). NNT ~9."}
+  ]
+}

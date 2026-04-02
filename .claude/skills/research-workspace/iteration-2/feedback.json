@@ -1,0 +1,35 @@
+{
+  "reviews": [
+    {
+      "run_id": "eval-1-topic-queries-with_skill",
+      "feedback": "Muito melhor,  so senti falta de risco basal numero mais precisa, NNT , criticas metodologicas aos principais trials  (isso pode vir via scite, consensus e outros, pensei tb aqui em construir uma linha do tempo ou arvore genealogica da producao,  criar uma pagina no notion ou algo assim formato html para cada html, nao sei ",
+      "timestamp": "2026-04-02T20:33:36.153Z"
+    },
+    {
+      "run_id": "eval-1-topic-queries-without_skill",
+      "feedback": "Muito melhor tb, poderia incluir aqui prcura por ensaios de critica metodologia mais importante.",
+      "timestamp": "2026-04-02T20:33:36.153Z"
+    },
+    {
+      "run_id": "eval-2-slide-clinical-with_skill",
+      "feedback": "muito bom, aqui talvez acrescenta algo de retorica, mas ja esta muito bom, como falei talvez em vez de notion fazermos um living html de cada slide, nessa forma com algumas cores, esse esquema de feedmack e melhora esta muito bom",
+      "timestamp": "2026-04-02T20:33:36.153Z"
+    },
+    {
+      "run_id": "eval-2-slide-clinical-without_skill",
+      "feedback": "",
+      "timestamp": "2026-04-02T20:33:36.153Z"
+    },
+    {
+      "run_id": "eval-3-fast-path-with_skill",
+      "feedback": "",
+      "timestamp": "2026-04-02T20:33:36.153Z"
+    },
+    {
+      "run_id": "eval-3-fast-path-without_skill",
+      "feedback": "",
+      "timestamp": "2026-04-02T20:33:36.153Z"
+    }
+  ],
+  "status": "complete"
+}

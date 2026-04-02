@@ -1,0 +1,15 @@
+{
+  "eval_id": 3,
+  "eval_name": "clopidogrel-topic-livre",
+  "prompt": "pesquisa profunda clopidogrel vs aspirina prevencao secundaria AVC isquemico — NNT, divergencia entre ESC e AHA, dados do CAPRIE e meta-analises recentes",
+  "assertions": [
+    {"id": "A1", "text": "Tier 1 sources present (guidelines, landmark trials, or textbooks cited)", "type": "data_quality"},
+    {"id": "A2", "text": "Convergence/divergence content present naturally in output", "type": "data_quality"},
+    {"id": "A3", "text": "3+ PMIDs/DOIs cited", "type": "data_quality"},
+    {"id": "A4", "text": "All PMIDs marked CANDIDATE", "type": "cleanup"},
+    {"id": "A5", "text": "2+ concrete numbers with sources (%, NNT, n=)", "type": "anti_vagueness"},
+    {"id": "A6", "text": "No unsourced claims (no 'estudos mostram' without citation)", "type": "anti_vagueness"},
+    {"id": "A7", "text": "Report header with CANDIDATE status warning", "type": "format"},
+    {"id": "A8", "text": "Reference books or textbooks mentioned", "type": "data_quality"}
+  ]
+}

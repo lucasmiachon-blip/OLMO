@@ -1,0 +1,7 @@
+{
+  "total_tokens": 89671,
+  "duration_ms": 316995,
+  "total_duration_seconds": 317.0,
+  "tool_uses": 36,
+  "note": "Ad-hoc research. 10 PMIDs verified. PubMed MCP unavailable, fell back to SCite+Consensus+WebSearch."
+}

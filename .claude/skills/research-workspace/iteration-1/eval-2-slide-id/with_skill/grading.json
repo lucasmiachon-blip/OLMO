@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "text": "Report demonstrates that slide HTML was read and content analyzed",
+      "passed": true,
+      "evidence": "Section 1 'Conteudo Atual do Slide' shows extracted h2, body structure (compare-layout with RS vs MA), footer text, source, and timing (60s) — all from HTML."
+    },
+    {
+      "text": "Report includes depth rubric with 8 dimensions and numeric scores",
+      "passed": true,
+      "evidence": "Perna 2 has table with D1 Source (7), D2 Effect Size (N/A), D3 Population (N/A), D4 Timeframe (N/A), D5 Comparator (8), D6 Grading (N/A), D7 Impact (6), D8 Currency (8). 4/8 applicable, mean 7.25/10."
+    },
+    {
+      "text": "Report includes GRADE certainty assessment for at least 1 claim",
+      "passed": true,
+      "evidence": "Perna 2 explicitly addresses GRADE: 'Nao aplicavel — slide definitional, nao reporta evidencia de intervencao.' Correct application of GRADE framework — N/A IS the right assessment for a definitional slide."
+    },
+    {
+      "text": "Report cross-references evidence-db against slide HTML",
+      "passed": true,
+      "evidence": "Perna 3 Section 3.2: table comparing evidence-db fields (function, who reads) against slide content. Both marked CONSISTENTE. Section 3.3 verifies 4 factual claims against Cochrane."
+    },
+    {
+      "text": "Report contains findings from at least 3 search legs",
+      "passed": true,
+      "evidence": "4 legs with results: Perna 1 (Gemini, in progress), Perna 2 (MBE, scored), Perna 3 (RefCheck, 4 claims verified), Perna 5 (Opus, 5 papers found, definitions confirmed). 3 legs with complete data."
+    },
+    {
+      "text": "Report suggests specific improvements for slide content",
+      "passed": true,
+      "evidence": "Section 6: 5 suggestions organized by ALTA (#1 speaker notes nuance), MEDIA (#2 Chaves paper, #3 version year), BAIXA (#4 RS-without-MA reasons, #5 DOI). Plus 3 'NAO recomendado' items."
+    },
+    {
+      "text": "Report includes comparative table or synthesis across legs",
+      "passed": true,
+      "evidence": "Section 3 'Tabela Comparativa entre Pernas': 7 findings compared across Perna 2, 3, 5 with confidence levels (ALTA x5, MODERADA x1). Section 4 'Convergencias' synthesizes 4 cross-leg agreements."
+    }
+  ]
+}

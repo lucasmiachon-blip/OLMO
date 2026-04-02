@@ -1,0 +1,7 @@
+{
+  "total_tokens": 67358,
+  "duration_ms": 271927,
+  "total_duration_seconds": 271.9,
+  "tool_uses": 39,
+  "note": "4 legs executed (Gemini still processing). MBE score 7.25/10. References verified. Slide consistent with evidence-db."
+}

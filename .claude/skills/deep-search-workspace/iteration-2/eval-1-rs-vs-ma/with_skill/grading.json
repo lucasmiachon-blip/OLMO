@@ -1,0 +1,13 @@
+{
+  "expectations": [
+    {"text": "Tier 1 sources present (guidelines, landmark trials, or textbooks cited)", "passed": true, "evidence": "Cochrane Handbook, PRISMA 2020, IOM/NAM, Glass 1976, Pearson 1904, CONITEC/REBRATS, SWiM guideline, Grant & Booth 2009, Ioannidis 2016"},
+    {"text": "Convergence/divergence content present naturally in output", "passed": true, "evidence": "Section 7 'Onde as Autoridades Concordam (Convergencia)' with 4 items. Section 8 'Divergencias Autorais e Confusao Terminologica' with 2 items. Both in Gemini's chosen structure"},
+    {"text": "3+ PMIDs/DOIs cited", "passed": true, "evidence": "PMID: 27620683 (Ioannidis), DOI: 10.1136/bmj.n71 (PRISMA), plus 21 references with journal/year citations"},
+    {"text": "All PMIDs marked CANDIDATE", "passed": true, "evidence": "Every single reference has [CANDIDATE] tag. Line 174 explicit: 'PMIDs e DOIs sao CANDIDATE'"},
+    {"text": "2+ concrete numbers with sources (%, NNT, n=)", "passed": true, "evidence": "63% RS with MA (Page 2016), 2728% growth (Ioannidis 2016), 88-99% critically low quality, 70.4% surgery, 69.6% radiology, 1010 terminology labels"},
+    {"text": "No unsourced claims (no 'estudos mostram' without citation)", "passed": true, "evidence": "Every claim has author/year/journal citation"},
+    {"text": "Report header with CANDIDATE status warning", "passed": true, "evidence": "Line 3: 'Status PMIDs: CANDIDATE (verificar via PubMed antes de usar)'"},
+    {"text": "Reference books or textbooks mentioned", "passed": true, "evidence": "Cochrane Handbook v6.x, 'Effectiveness and Efficiency' (Cochrane 1972), 'Benefits of Psychotherapy' (Glass/Smith 1980), Grant & Booth framework SALSA"}
+  ],
+  "summary": {"passed": 8, "failed": 0, "total": 8, "pass_rate": 1.0}
+}

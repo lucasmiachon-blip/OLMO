@@ -1,0 +1,7 @@
+{
+  "total_tokens": 39318,
+  "duration_ms": 72788,
+  "total_duration_seconds": 72.8,
+  "tool_uses": 7,
+  "note": "Baseline PMID lookup. Used PubMed MCP + Consensus. Similar result to with_skill."
+}

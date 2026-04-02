@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## Sessao 47 — 2026-04-02 (/research v2 + Living HTML)
+
+### Skills
+- /research v2 criada: 5 pernas paralelas (deep-search + mbe-evaluator + reference-checker + mcp-query-runner + opus-researcher) + orquestrador
+- SKILL.md: output Notion → living HTML per slide (evidence/{slide-id}.html)
+- SKILL.md: NNT mandate + risco basal obrigatorio
+- opus-researcher: NNT mandate + SCite contrasting citations para critica metodologica
+- mbe-evaluator: analise retorica adicionada (§6: assertion-evidence, carga cognitiva, dispositivos)
+- generate-evidence-html.py: script gerador de HTML standalone per slide
+
+### Agents
+- opus-researcher.md, mbe-evaluator.md, reference-checker.md, mcp-query-runner.md: novos agents para pipeline /research
+
+### Evals
+- research iteration 2: 6 runs (3 with + 3 without), 21/21 WITH (100%), 14/21 WITHOUT (66.7%)
+- Delta: +31pp (honesto — assertions testam utilidade, nao estrutura)
+- WITH skill mais rapido que baseline (-33.8s avg)
+- Eval viewer com benchmark tab funcional
+
+### Decisoes
+- Living HTML substitui: evidence-db.md, aside.notes, Notion slide DB, blueprint.md (5→2 fontes)
+- /research e /teaching NAO fundem (lifecycle diferente). mbe-evaluator e a ponte
+- aside.notes deprecated (cleanup futuro)
+
+### Docs
+- HANDOFF → S48
+
+## Sessao 46 — 2026-04-02 (Deep-Search v2.1 Eval Loop)
+
+### Skills
+- deep-search v2.0 → v2.1: PRIMARY DIRECTIVE em query-template.md (Tier 1 sources como core deliverable)
+- deep-search v2.1: post-processing simplificado (7 steps → 3 regras de limpeza minima)
+- skill-creator eval-viewer: fix UTF-8 encoding (7 read_text/write_text calls → encoding="utf-8")
+
+### Evals
+- deep-search iteration 2: 3 evals × 2 configs (with_skill + old_skill), grading, benchmark.json
+- Benchmark: v2.1=91.7% vs v2.0=95.8% (delta -4.1pp, por Gemini PMID variability, nao skill)
+- Eval viewer static HTML funcional com benchmark tab
+
+### Docs
+- HANDOFF → S47 (skill merge roadmap: new-slide→slide-authoring, /research unificada)
+
 ## Sessao 45 — 2026-04-02 (Codex Cleanup Final)
 
 ### Scripts

@@ -1,0 +1,74 @@
+TOPICO: Clopidogrel vs aspirina na prevenção secundária do AVC isquêmico — NNT, divergência entre ESC e AHA, dados do CAPRIE e meta-análises recentes
+CONTEXTO: Residentes clínica médica, nível básico-intermediário. Pesquisa nova, partindo do zero. Não há slide existente. Objetivo é levantar evidência fundacional para decisão clínica: quando preferir clopidogrel sobre aspirina após AVC isquêmico, com dados concretos (NNT, ARR, HR), fontes Tier 1, e mapeamento das divergências entre guidelines europeu (ESC) e americano (AHA/ASA).
+FOCO: Descoberta de conteúdo — dados do trial CAPRIE (subgrupo AVC), meta-análises recentes comparando antiagregantes na prevenção secundária de AVC, NNT com IC 95% e timeframe, posições divergentes ESC vs AHA/ASA sobre clopidogrel como primeira linha, e dados de custo-efetividade no contexto Brasil (SUS/RENAME).
+
+=== MANDATO DE PESQUISA ===
+
+Você está conduzindo pesquisa médica profunda para uma apresentação de ensino.
+Público: residentes de clínica médica (nível básico-intermediário).
+País: Brasil (ANVISA, SUS, realidade local).
+
+O objetivo é retornar DADOS CONCRETOS com fontes verificáveis.
+Respostas vagas são inúteis neste contexto — cada achado precisa de números, citação, e classificação.
+
+=== HIERARQUIA DE FONTES (seguir esta ordem de prioridade) ===
+
+1. GUIDELINES: Guidelines vigentes de sociedades médicas (EASL, AASLD, AGA, ACG, ESC, AHA, WHO, Cochrane, SBH, SBC).
+   Extrair: sociedade, ano, grau de recomendação, nível de evidência, recomendação específica.
+
+2. META-ANÁLISES: Revisões sistemáticas com meta-análise (preferencialmente >=3 estudos pooled).
+   Extrair: k estudos, n pacientes total, estimativa pooled + IC 95%, I-squared, certeza GRADE.
+
+3. RCTs LANDMARK: Ensaios clínicos randomizados multicêntricos (preferencialmente n>=200).
+   Extrair: acrônimo, n, braços, endpoint primário, effect size + IC 95%, NNT se calculável, p-value.
+
+4. LIVROS-REFERÊNCIA: Edições mais recentes apenas.
+   Extrair: autor, edição, capítulo, páginas, argumento central do trecho.
+
+5. COORTES GRANDES: Apenas quando não há evidência de níveis superiores.
+   Extrair: n, follow-up, desfecho, medida de associação + IC 95%.
+
+=== OLHAR CRÍTICO — aplicar a CADA achado ===
+
+Para cada evidência encontrada, avaliar criticamente:
+- População do estudo vs contexto do ensino (generalizável? spectrum bias?)
+- Endpoint: clínico (mortalidade, evento) ou surrogate (marcador laboratorial)?
+- Financiamento: indústria farmacêutica? Potencial viés?
+- Replicação: achado confirmado por estudos independentes?
+- Temporalidade: dado ainda vigente ou superseded por evidência mais recente?
+
+Quando um achado é robusto, dizer que é robusto. Quando é frágil, dizer por quê.
+O objetivo não é demolir — é ser preciso sobre o grau de confiança.
+
+=== DIVERGÊNCIAS E CONVERGÊNCIAS (obrigatório quando 2+ fontes tocam o tema) ===
+
+CONVERGÊNCIAS: Onde 2+ sociedades/estudos concordam → alta confiança. Listar com fontes.
+DIVERGÊNCIAS: Onde discordam → listar posição de cada, ano, base de evidência, qual é mais recente.
+Divergências mudam conduta clínica — omiti-las é desinformar.
+
+=== REQUISITOS DE DADOS ===
+
+Cada achado reportado precisa incluir:
+- Números concretos (effect size, IC 95%, p-value, n, NNT quando aplicável)
+- Identificação da fonte (PMID, DOI, ou citação completa)
+- Ano de publicação
+- Tag de tipo: [GUIDELINE] [META/SR] [RCT] [LANDMARK] [COHORT] [BOOK] [EXPERT]
+- Qualidade GRADE: HIGH / MODERATE / LOW / VERY LOW
+
+Achados sem números concretos não são aceitáveis.
+"Estudos mostram que..." sem citação = excluir do output.
+
+=== CONTEXTO BRASIL ===
+
+- Sinalizar drogas/intervenções não disponíveis no Brasil (ANVISA/CONITEC)
+- Incluir guidelines brasileiras quando existirem (SBH, SBC, SBHPA, PCDT/CONITEC, protocolos SUS)
+- Contexto padrão de população: pacientes brasileiros
+
+=== PERGUNTAS ESPECÍFICAS ===
+
+1. CAPRIE trial: qual o resultado no subgrupo AVC isquêmico especificamente? HR ou RRR, IC 95%, NNT, n do subgrupo. O resultado do subgrupo foi estatisticamente significativo?
+2. ESC vs AHA/ASA: qual a recomendação de cada sociedade para antiagregação pós-AVC isquêmico? Onde divergem sobre clopidogrel como primeira linha vs alternativa?
+3. Meta-análises recentes (2015-2026): existem meta-análises comparando clopidogrel vs aspirina especificamente para prevenção secundária de AVC? Pooled estimates?
+4. DAPT curta (aspirina + clopidogrel 21 dias): dados do CHANCE e POINT — como mudaram as guidelines?
+5. Custo-efetividade: clopidogrel genérico vs aspirina no contexto SUS/RENAME.
+6. NNT: calcular NNT com IC 95% e timeframe para os desfechos principais (AVC recorrente, eventos vasculares compostos).

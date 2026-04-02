@@ -1,0 +1,42 @@
+{
+  "eval_id": 2,
+  "eval_name": "slide-id",
+  "prompt": "avaliar profundidade do slide s-rs-vs-ma na aula metanalise",
+  "assertions": [
+    {
+      "id": "slide-read",
+      "text": "Report demonstrates that slide HTML (04-rs-vs-ma.html) was actually read and its content analyzed",
+      "type": "structural"
+    },
+    {
+      "id": "depth-rubric",
+      "text": "Report includes depth rubric with 8 dimensions (D1-D8) and numeric scores",
+      "type": "structural"
+    },
+    {
+      "id": "grade-assessment",
+      "text": "Report includes GRADE certainty assessment for at least 1 claim (High/Moderate/Low/Very Low)",
+      "type": "evidence"
+    },
+    {
+      "id": "reference-check",
+      "text": "Report cross-references evidence-db.md against slide HTML (consistency check)",
+      "type": "structural"
+    },
+    {
+      "id": "multi-leg-findings",
+      "text": "Report contains findings from at least 3 search legs",
+      "type": "structural"
+    },
+    {
+      "id": "improvement-suggestions",
+      "text": "Report suggests specific improvements for the slide content",
+      "type": "quality"
+    },
+    {
+      "id": "comparative-synthesis",
+      "text": "Report includes comparative table or synthesis across search legs",
+      "type": "structural"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "expectations": [
+    {
+      "text": "Report contains PMID 30910320",
+      "passed": true,
+      "evidence": "PMID 30910320 appears in title, study details table, and verification note."
+    },
+    {
+      "text": "Report includes at least one author name from the paper",
+      "passed": true,
+      "evidence": "Full 15-author list: 'Villanueva C, Albillos A, Genesca J, Garcia-Pagan JC, Calleja JL, Aracil C, Banares R, Morillas RM, Poca M, Penas B, Augustin S, Abraldes JG, Alvarado E, Torres F, Bosch J.'"
+    },
+    {
+      "text": "Report describes the study design",
+      "passed": true,
+      "evidence": "'Randomized, double-blind, placebo-controlled, multicentre trial' — plus details: 8 hospitals Spain, NCT01059396."
+    },
+    {
+      "text": "Report includes sample size (n)",
+      "passed": true,
+      "evidence": "'n = 201 randomized (631 evaluated); 100 active treatment, 101 placebo.'"
+    },
+    {
+      "text": "Report is concise, does NOT contain multi-leg comparative table",
+      "passed": true,
+      "evidence": "Report is 51 lines. Focused on single PMID verification. No comparative table, no multi-leg structure. Clean fast-path routing."
+    },
+    {
+      "text": "Report includes primary endpoint result with effect size",
+      "passed": true,
+      "evidence": "Primary composite: '16% vs 27%, HR 0.51 (0.26-0.97), p=0.041'. Ascites driver: 'HR 0.44 (0.20-0.97), p=0.030'."
+    }
+  ]
+}

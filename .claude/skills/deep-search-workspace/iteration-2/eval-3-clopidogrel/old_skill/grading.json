@@ -1,0 +1,13 @@
+{
+  "expectations": [
+    {"text": "Tier 1 sources present (guidelines, landmark trials, or textbooks cited)", "passed": true, "evidence": "12 Tier 1 sources: CAPRIE, CHANCE, POINT, Cochrane NMA 2021, PANTHER, AHA/ASA 2021, ESO 2022, ESC 2023, INSPIRES 2024, PCDT/CONITEC, SBC 2019"},
+    {"text": "Convergence/divergence content present naturally in output", "passed": true, "evidence": "Convergencias section with 3 items (monoterapia, DAPT curta, ESUS). Divergencias section with 2 detailed items including comparison table"},
+    {"text": "3+ PMIDs/DOIs cited", "passed": true, "evidence": "PMID: 8918275 (CAPRIE), PMID: 34399713 (Cochrane NMA), PMID: 23803136 (CHANCE), PMID: 29766750 (POINT), PMID: 34024117 (AHA/ASA), PMID: 33657294 (pooled CHANCE+POINT). 6+ actual PMIDs"},
+    {"text": "All PMIDs marked CANDIDATE", "passed": true, "evidence": "Every reference in Fontes completas marked [CANDIDATE]"},
+    {"text": "2+ concrete numbers with sources (%, NNT, n=)", "passed": true, "evidence": "NNT 121 (CAPRIE AVC), NNT 29 (CHANCE), NNT 67 (POINT), HR 0.86 (PANTHER), NNH 200, NNT 53 (INSPIRES), NNT 31/131 (POINT risk stratification)"},
+    {"text": "No unsourced claims (no 'estudos mostram' without citation)", "passed": true, "evidence": "All claims sourced with trial name and citation"},
+    {"text": "Report header with CANDIDATE status warning", "passed": true, "evidence": "Line 3: 'Status PMIDs: CANDIDATE'"},
+    {"text": "Reference books or textbooks mentioned", "passed": false, "evidence": "No textbooks mentioned. Report cites only RCTs, guidelines, and meta-analyses. Same limitation as with_skill — clinical pharmacology topic"}
+  ],
+  "summary": {"passed": 7, "failed": 1, "total": 8, "pass_rate": 0.875}
+}

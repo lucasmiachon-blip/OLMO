@@ -1,0 +1,34 @@
+{
+  "expectations": [
+    {
+      "text": "Report contains PMID 30910320",
+      "passed": true,
+      "evidence": "PMID 30910320 present in title, multiple tables, sources section, and verification checklist."
+    },
+    {
+      "text": "Report includes at least one author name from the paper",
+      "passed": true,
+      "evidence": "Full author list present: 'Villanueva C, Albillos A, Genesca J...' (15 authors) plus institutional affiliations."
+    },
+    {
+      "text": "Report describes the study design",
+      "passed": true,
+      "evidence": "'Investigator-initiated, randomised, double-blind, placebo-controlled, multicentre trial' — with enrollment period, funding source."
+    },
+    {
+      "text": "Report includes sample size (n)",
+      "passed": true,
+      "evidence": "'Screened: 631 patients evaluated. Randomised (n): 201. Intervention group: 100 (67 propranolol + 33 carvedilol). Placebo group: 101.'"
+    },
+    {
+      "text": "Report is concise, does NOT contain multi-leg comparative table",
+      "passed": false,
+      "evidence": "Report is 147 lines (vs 51 for with_skill). Includes NNT analysis, subgroup breakdowns, AIM commentary, clinical significance, verification checklist. No multi-leg table, but NOT concise — nearly 3x longer."
+    },
+    {
+      "text": "Report includes primary endpoint result with effect size",
+      "passed": true,
+      "evidence": "'Primary composite (decompensation or death): 16% vs 27%, HR 0.51 (0.26-0.97), p=0.041'. Also NNT 9 (CI 6-146) and subgroup analysis."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "eval_id": 1,
+  "eval_name": "rs-vs-ma-definitions",
+  "prompt": "preciso de dados concretos sobre a diferenca entre revisao sistematica, meta-analise e umbrella review — definicoes formais, proporcoes bibliometricas (% de RS que incluem MA), marcos historicos, terminologia. Slide novo partindo do zero, aula pra residentes de clinica medica",
+  "assertions": [
+    {"id": "A1", "text": "Output contém seção CONVERGENCIAS", "type": "structure"},
+    {"id": "A2", "text": "Output contém seção DIVERGENCIAS", "type": "structure"},
+    {"id": "A3", "text": "Output contém seção EVIDENCIA TIER 1", "type": "structure"},
+    {"id": "A4", "text": "Pelo menos 3 PMIDs/DOIs citados", "type": "data_quality"},
+    {"id": "A5", "text": "Pelo menos 2 números concretos (%, NNT, n=)", "type": "anti_vagueness"},
+    {"id": "A6", "text": "Nenhuma frase 'estudos mostram' sem citação", "type": "anti_vagueness"},
+    {"id": "A7", "text": "Tags de tipo presentes ([GUIDELINE], [META/SR], etc.)", "type": "structure"},
+    {"id": "A8", "text": "GRADE quality rating presente", "type": "rigor"}
+  ]
+}

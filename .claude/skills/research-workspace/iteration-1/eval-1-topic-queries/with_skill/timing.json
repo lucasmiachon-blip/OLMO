@@ -1,0 +1,7 @@
+{
+  "total_tokens": 120738,
+  "duration_ms": 438921,
+  "total_duration_seconds": 438.9,
+  "tool_uses": 76,
+  "note": "3 legs executed: Gemini deep-search (4m29s), SCite+Consensus, PubMed (6 PMIDs verified). Consensus had 502 on first query."
+}

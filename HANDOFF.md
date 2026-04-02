@@ -1,33 +1,36 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 46 | proximo login
+> Sessao 48 | proximo login
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (47 testes). 11 rules.
-Codex S40: all findings resolved (7 fixed S45, 9 dismissed, 11 deferred). Zero open HIGH in scripts/CSS.
+/research v2 validada (21/21, +31pp vs baseline, iteration 2 completa).
+Living HTML per slide: SKILL.md atualizado, script gerador criado, template definido.
 
 ## PROXIMO
 
-1. **Metanalise QA** — 14 slides pendentes. Deadline 2026-04-15.
-2. **Producao metanalise** — projetor ~10m. HTML primary + Canva Pro fallback.
-3. **Codex deferred: PubMed verification** — #98,101,103 (cirrose HTML TBDs). Separate search session.
-4. **Codex deferred: linter parsers** — #13 (brace tokenizer), #28-29 (GSAP-CSS scope). Low ROI.
-5. **h2 assertion rewrite** — 11+ slides. Lucas guia.
+1. **Rodar /research em s-aplicacao** — primeiro HTML real, validar template + script
+2. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
+3. **Metanalise QA** — 14 slides pendentes. Deadline 2026-04-15 (~13 dias)
+4. **aside.notes deprecation** — atualizar slide-rules.md + linters (apos HTML validado)
+5. **Merge new-slide → slide-authoring** — overlap critico
+6. **Producao metanalise** — projetor ~10m. HTML primary + Canva Pro fallback
 
 ## DECISOES ATIVAS
 
-- Projetor ~10m: HTML primary + Canva Pro fallback (design only, no interactivity)
-- GSAP jurisdiction: CSS keeps opacity:0 only, JS owns fromTo()
-- Calendario DB = compromissos. Tasks DB = acoes GTD (Do Next/Someday)
-- Maio/2026: foco total concurso. Abril = housekeeping aulas
-- h2 assertion rewrite = trabalho do Lucas. AI so flaggeia
-- qa-engineer: economic >=7/10 default, deep >=9/10 on --deep
+- Living HTML per slide substitui: evidence-db.md, aside.notes, Notion slide DB, blueprint.md
+- Fontes por slide: de 5 para 2 (evidence HTML + narrative.md)
+- /research e /teaching NAO fundem (lifecycle diferente). mbe-evaluator e a ponte.
+- Notion slide DB metanalise: NAO popular (HTML e source of truth)
+- NNT e hero metric. Risco basal obrigatorio quando disponivel.
+- SCite contrasting citations para critica metodologica.
+- Projetor ~10m: HTML primary + Canva Pro fallback
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
-- Context rot: commit + update docs antes de degradar. Janelas frescas.
+- Context rot: commit + update docs antes de degradar.
 
 ## PENDENTE (herdado)
 
@@ -35,6 +38,8 @@ Codex S40: all findings resolved (7 fixed S45, 9 dismissed, 11 deferred). Zero o
 - [ ] Presenter.js rewrite (HTML separado, timer fix)
 - [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
 - [ ] daily-briefing: adicionar Notion Calendario + Tasks "Due Today"
+- [ ] Codex deferred: linter parsers — #13, #28-29. Low ROI.
+- [ ] h2 assertion rewrite — 11+ slides. Lucas guia.
 
 ## CONFLITOS
 

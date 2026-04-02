@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eval Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" integrity="sha384-EnyY0/GSHQGSxSgMwaIPzSESbqoOLSexfnSMN2AP+39Ckmn92stwABZynq1JyzdT" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #faf9f5;
+      --surface: #ffffff;
+      --border: #e8e6dc;
+      --text: #141413;
+      --text-muted: #b0aea5;
+      --accent: #d97757;
+      --accent-hover: #c4613f;
+      --green: #788c5d;
+      --green-bg: #eef2e8;
+      --red: #c44;
+      --red-bg: #fceaea;
+      --header-bg: #141413;
+      --header-text: #faf9f5;
+      --radius: 6px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .header .instructions {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-top: 0.25rem;
+    }
+    .header .progress {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      text-align: right;
+    }
+
+    /* ---- Main content ---- */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* ---- Sections ---- */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      flex-shrink: 0;
+    }
+    .section-header {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .section-body {
+      padding: 1rem;
+    }
+
+    /* ---- Config badge ---- */
+    .config-badge {
+      display: inline-block;
+      padding: 0.2rem 0.625rem;
+      border-radius: 9999px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-left: 0.75rem;
+      vertical-align: middle;
+    }
+    .config-badge.config-primary {
+      background: rgba(33, 150, 243, 0.12);
+      color: #1976d2;
+    }
+    .config-badge.config-baseline {
+      background: rgba(255, 193, 7, 0.15);
+      color: #f57f17;
+    }
+
+    /* ---- Prompt ---- */
+    .prompt-text {
+      white-space: pre-wrap;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    /* ---- Outputs ---- */
+    .output-file {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .output-file + .output-file {
+      margin-top: 1rem;
+    }
+    .output-file-header {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .output-file-header .dl-btn {
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+    .output-file-header .dl-btn:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    .output-file-content {
+      padding: 0.75rem;
+      overflow-x: auto;
+    }
+    .output-file-content pre {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    }
+    .output-file-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    .output-file-content iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+    .output-file-content table {
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      width: 100%;
+    }
+    .output-file-content table td,
+    .output-file-content table th {
+      border: 1px solid var(--border);
+      padding: 0.375rem 0.5rem;
+      text-align: left;
+    }
+    .output-file-content table th {
+      background: var(--bg);
+      font-weight: 600;
+    }
+    .output-file-content .download-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .output-file-content .download-link:hover {
+      background: var(--border);
+    }
+    .empty-state {
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    /* ---- Feedback ---- */
+    .prev-feedback {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.625rem 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .prev-feedback-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+      color: var(--text-muted);
+    }
+    .feedback-textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      color: var(--text);
+    }
+    .feedback-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    .feedback-status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      min-height: 1.1em;
+    }
+
+    /* ---- Grades (collapsible) ---- */
+    .grades-toggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .grades-toggle:hover {
+      color: var(--accent);
+    }
+    .grades-toggle .arrow {
+      margin-right: 0.5rem;
+      transition: transform 0.15s;
+      font-size: 0.75rem;
+    }
+    .grades-toggle .arrow.open {
+      transform: rotate(90deg);
+    }
+    .grades-content {
+      display: none;
+      margin-top: 0.75rem;
+    }
+    .grades-content.open {
+      display: block;
+    }
+    .grades-summary {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .grade-badge {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .grade-pass { background: var(--green-bg); color: var(--green); }
+    .grade-fail { background: var(--red-bg); color: var(--red); }
+    .assertion-list {
+      list-style: none;
+    }
+    .assertion-item {
+      padding: 0.625rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8125rem;
+    }
+    .assertion-item:last-child { border-bottom: none; }
+    .assertion-status {
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+    .assertion-status.pass { color: var(--green); }
+    .assertion-status.fail { color: var(--red); }
+    .assertion-evidence {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      padding-left: 1.5rem;
+    }
+
+    /* ---- View tabs ---- */
+    .view-tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 2rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .view-tab {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .view-tab:hover { color: var(--text); }
+    .view-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .view-panel { display: none; }
+    .view-panel.active { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+
+    /* ---- Benchmark view ---- */
+    .benchmark-view {
+      padding: 1.5rem 2rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .benchmark-table {
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.8125rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    .benchmark-table th, .benchmark-table td {
+      padding: 0.625rem 0.75rem;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+    .benchmark-table th {
+      font-family: 'Poppins', sans-serif;
+      background: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .benchmark-table tr:hover { background: var(--bg); }
+    .benchmark-table tr.benchmark-row-with { background: rgba(33, 150, 243, 0.06); }
+    .benchmark-table tr.benchmark-row-without { background: rgba(255, 193, 7, 0.06); }
+    .benchmark-table tr.benchmark-row-with:hover { background: rgba(33, 150, 243, 0.12); }
+    .benchmark-table tr.benchmark-row-without:hover { background: rgba(255, 193, 7, 0.12); }
+    .benchmark-table tr.benchmark-row-avg { font-weight: 600; border-top: 2px solid var(--border); }
+    .benchmark-table tr.benchmark-row-avg.benchmark-row-with { background: rgba(33, 150, 243, 0.12); }
+    .benchmark-table tr.benchmark-row-avg.benchmark-row-without { background: rgba(255, 193, 7, 0.12); }
+    .benchmark-delta-positive { color: var(--green); font-weight: 600; }
+    .benchmark-delta-negative { color: var(--red); font-weight: 600; }
+    .benchmark-notes {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .benchmark-notes h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+    .benchmark-notes ul {
+      list-style: disc;
+      padding-left: 1.25rem;
+    }
+    .benchmark-notes li {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin-bottom: 0.375rem;
+    }
+    .benchmark-empty {
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    /* ---- Navigation ---- */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.15s;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .done-btn {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .done-btn:hover {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+    .done-btn.ready {
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+    }
+    .done-btn.ready:hover {
+      background: var(--accent-hover);
+    }
+    /* ---- Done overlay ---- */
+    .done-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    .done-overlay.visible {
+      display: flex;
+    }
+    .done-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 2rem 3rem;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+    }
+    .done-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .done-card p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .done-card .btn-row {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .done-card button {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .done-card button:hover {
+      background: var(--bg);
+    }
+    /* ---- Toast ---- */
+    .toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 200;
+    }
+    .toast.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" style="height:100vh; display:flex; flex-direction:column;">
+    <div class="header">
+      <div>
+        <h1>Eval Review: <span id="skill-name"></span></h1>
+        <div class="instructions">Review each output and leave feedback below. Navigate with arrow keys or buttons. When done, copy feedback and paste into Claude Code.</div>
+      </div>
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <!-- View tabs (only shown when benchmark data exists) -->
+    <div class="view-tabs" id="view-tabs" style="display:none;">
+      <button class="view-tab active" onclick="switchView('outputs')">Outputs</button>
+      <button class="view-tab" onclick="switchView('benchmark')">Benchmark</button>
+    </div>
+
+    <!-- Outputs panel (qualitative review) -->
+    <div class="view-panel active" id="panel-outputs">
+    <div class="main">
+      <!-- Prompt -->
+      <div class="section">
+        <div class="section-header">Prompt <span class="config-badge" id="config-badge" style="display:none;"></span></div>
+        <div class="section-body">
+          <div class="prompt-text" id="prompt-text"></div>
+        </div>
+      </div>
+
+      <!-- Outputs -->
+      <div class="section">
+        <div class="section-header">Output</div>
+        <div class="section-body" id="outputs-body">
+          <div class="empty-state">No output files found</div>
+        </div>
+      </div>
+
+      <!-- Previous Output (collapsible) -->
+      <div class="section" id="prev-outputs-section" style="display:none;">
+        <div class="section-header">
+          <div class="grades-toggle" onclick="togglePrevOutputs()">
+            <span class="arrow" id="prev-outputs-arrow">&#9654;</span>
+            Previous Output
+          </div>
+        </div>
+        <div class="grades-content" id="prev-outputs-content"></div>
+      </div>
+
+      <!-- Grades (collapsible) -->
+      <div class="section" id="grades-section" style="display:none;">
+        <div class="section-header">
+          <div class="grades-toggle" onclick="toggleGrades()">
+            <span class="arrow" id="grades-arrow">&#9654;</span>
+            Formal Grades
+          </div>
+        </div>
+        <div class="grades-content" id="grades-content"></div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="section">
+        <div class="section-header">Your Feedback</div>
+        <div class="section-body">
+          <textarea
+            class="feedback-textarea"
+            id="feedback"
+            placeholder="What do you think of this output? Any issues, suggestions, or things that look great?"
+          ></textarea>
+          <div class="feedback-status" id="feedback-status"></div>
+          <div class="prev-feedback" id="prev-feedback" style="display:none;">
+            <div class="prev-feedback-label">Previous feedback</div>
+            <div id="prev-feedback-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav" id="outputs-nav">
+      <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">&#8592; Previous</button>
+      <button class="done-btn" id="done-btn" onclick="showDoneDialog()">Submit All Reviews</button>
+      <button class="nav-btn" id="next-btn" onclick="navigate(1)">Next &#8594;</button>
+    </div>
+    </div><!-- end panel-outputs -->
+
+    <!-- Benchmark panel (quantitative stats) -->
+    <div class="view-panel" id="panel-benchmark">
+      <div class="benchmark-view" id="benchmark-content">
+        <div class="benchmark-empty">No benchmark data available. Run a benchmark to see quantitative results here.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Done overlay -->
+  <div class="done-overlay" id="done-overlay">
+    <div class="done-card">
+      <h2>Review Complete</h2>
+      <p>Your feedback has been saved. Go back to your Claude Code session and tell Claude you're done reviewing.</p>
+      <div class="btn-row">
+        <button onclick="closeDoneDialog()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ---- Embedded data (injected by generate_review.py) ----
+    const EMBEDDED_DATA = {"skill_name": "deep-search", "runs": [{"id": "eval-1-rs-vs-ma-with_skill", "prompt": "preciso de dados concretos sobre a diferenca entre revisao sistematica, meta-analise e umbrella review \u00e2\u20ac\u201d definicoes formais, proporcoes bibliometricas (% de RS que incluem MA), marcos historicos, terminologia. Slide novo partindo do zero, aula pra residentes de clinica medica", "eval_id": 1, "outputs": [{"name": "query.txt", "type": "text", "content": "TOPICO: Diferenca conceitual entre Revisao Sistematica (RS), Meta-analise (MA) e Umbrella Review \u00e2\u20ac\u201d definicoes formais, proporcoes bibliometricas (% de RS que incluem MA), marcos historicos, terminologia\nCONTEXTO: Residentes clinica medica, nivel basico-intermediario. Slide novo, partindo do zero. Aula sobre como LER criticamente uma meta-analise (nao produzir). Foco pedagogico: o residente precisa distinguir RS de MA e entender que sao metodos distintos frequentemente combinados. Umbrella review como nivel acima.\nFOCO: Descoberta de conteudo fundacional \u00e2\u20ac\u201d definicoes formais (Cochrane, IOM/NAM, PRISMA), proporcoes bibliometricas (% de RS que incluem MA e vice-versa), marcos historicos (Glass 1976, Cochrane 1972, Archie Cochrane, Karl Pearson 1904), terminologia precisa.\n\n=== MANDATO DE PESQUISA ===\n\nVoce esta conduzindo pesquisa medica profunda para uma apresentacao de ensino.\nPublico: residentes de clinica medica (nivel basico-intermediario).\nPais: Brasil (ANVISA, SUS, realidade local).\n\nO objetivo e retornar DADOS CONCRETOS com fontes verificaveis.\nRespostas vagas sao inuteis neste contexto \u00e2\u20ac\u201d cada achado precisa de numeros, citacao, e classificacao.\n\n=== HIERARQUIA DE FONTES (seguir esta ordem de prioridade) ===\n\n1. GUIDELINES: Guidelines vigentes de sociedades medicas (EASL, AASLD, AGA, ACG, ESC, AHA, WHO, Cochrane, SBH, SBC).\n   Extrair: sociedade, ano, grau de recomendacao, nivel de evidencia, recomendacao especifica.\n\n2. META-ANALISES: Revisoes sistematicas com meta-analise (preferencialmente >=3 estudos pooled).\n   Extrair: k estudos, n pacientes total, estimativa pooled + IC 95%, I-squared, certeza GRADE.\n\n3. RCTs LANDMARK: Ensaios clinicos randomizados multicentricos (preferencialmente n>=200).\n   Extrair: acronimo, n, bracos, endpoint primario, effect size + IC 95%, NNT se calculavel, p-value.\n\n4. LIVROS-REFERENCIA: Edicoes mais recentes apenas.\n   Extrair: autor, edicao, capitulo, paginas, argumento central do trecho.\n\n5. COORTES GRANDES: Apenas quando nao ha evidencia de niveis superiores.\n   Extrair: n, follow-up, desfecho, medida de associacao + IC 95%.\n\n=== OLHAR CRITICO \u00e2\u20ac\u201d aplicar a CADA achado ===\n\nPara cada evidencia encontrada, avaliar criticamente:\n- Populacao do estudo vs contexto do ensino (generalizable? spectrum bias?)\n- Endpoint: clinico (mortalidade, evento) ou surrogate (marcador laboratorial)?\n- Financiamento: industria farmaceutica? Potencial vies?\n- Replicacao: achado confirmado por estudos independentes?\n- Temporalidade: dado ainda vigente ou superseded por evidencia mais recente?\n\nQuando um achado e robusto, dizer que e robusto. Quando e fragil, dizer por que.\nO objetivo nao e demolir \u00e2\u20ac\u201d e ser preciso sobre o grau de confianca.\n\n=== DIVERGENCIAS E CONVERGENCIAS (obrigatorio quando 2+ fontes tocam o tema) ===\n\nCONVERGENCIAS: Onde 2+ sociedades/estudos concordam \u00e2\u2020\u2019 alta confianca. Listar com fontes.\nDIVERGENCIAS: Onde discordam \u00e2\u2020\u2019 listar posicao de cada, ano, base de evidencia, qual e mais recente.\nDivergencias mudam conduta clinica \u00e2\u20ac\u201d omiti-las e desinformar.\n\n=== REQUISITOS DE DADOS ===\n\nCada achado reportado precisa incluir:\n- Numeros concretos (effect size, IC 95%, p-value, n, NNT quando aplicavel)\n- Identificacao da fonte (PMID, DOI, ou citacao completa)\n- Ano de publicacao\n- Tag de tipo: [GUIDELINE] [META/SR] [RCT] [LANDMARK] [COHORT] [BOOK] [EXPERT]\n- Qualidade GRADE: HIGH / MODERATE / LOW / VERY LOW\n\nAchados sem numeros concretos nao sao aceitaveis.\n\"Estudos mostram que...\" sem citacao = excluir do output.\n\n=== CONTEXTO BRASIL ===\n\n- Sinalizar drogas/intervencoes nao disponiveis no Brasil (ANVISA/CONITEC)\n- Incluir guidelines brasileiras quando existirem (SBH, SBC, SBHPA, PCDT/CONITEC, protocolos SUS)\n- Contexto padrao de populacao: pacientes brasileiros\n\n=== ESPECIFICIDADES DESTE TOPICO ===\n\nEste topico e METODOLOGICO, nao clinico. Portanto adaptar a hierarquia de fontes:\n- Em vez de guidelines clinicas: buscar definicoes formais de Cochrane Handbook, IOM/NAM, PRISMA statement\n- Em vez de meta-analises clinicas: buscar estudos bibliometricos sobre proporcoes RS/MA (ex: % de RS indexadas no PubMed que incluem MA quantitativa)\n- Marcos historicos: Karl Pearson 1904 (primeira MA), Glass 1976 (cunhou \"meta-analysis\"), Archie Cochrane 1972, fundacao da Cochrane Collaboration 1993, PRISMA 2009/2020\n- Umbrella review: definicao formal, quando surgiu, como se diferencia de overview of reviews\n- Terminologia: \"systematic review\", \"meta-analysis\", \"umbrella review\", \"overview of reviews\", \"scoping review\" \u00e2\u20ac\u201d fronteiras e sobreposicoes\n"}, {"name": "report.md", "type": "text", "content": "## Deep Search Report: Revisao Sistematica vs Meta-analise vs Umbrella Review\nData: 2026-04-02 | Fonte: Gemini 3.1 + Google Search\nStatus PMIDs: CANDIDATE (verificar via PubMed antes de usar em slide)\n\n---\n\n## TL;DR\n\nRevisao Sistematica (RS) e o metodo qualitativo rigoroso de busca e selecao de evidencias; Meta-analise (MA) e a ferramenta estatistica de combinacao matematica, presente em apenas 49-70% das RS. Umbrella Reviews avaliam RSs, nao estudos primarios. Definicoes solidas por IOM/NAM, PRISMA, Cochrane e CONITEC \u00e2\u20ac\u201d nivel de confianca HIGH.\n\n## CONVERGENCIAS\n\n- **Definicao Metodologica Formal**: IOM/NAM (2011), PRISMA (2020), e Diretrizes Metodologicas CONITEC/MS Brasil (2021) convergem: RS e um metodo cientifico que responde a uma pergunta via busca abrangente, criterios de inclusao explicitos e avaliacao de risco de vies, podendo ou nao incluir sintese quantitativa (MA). Fontes: PMID 24983062, PMID 33782057, CONITEC 2021.\n\n- **Marcos Historicos**: Karl Pearson (1904) \u00e2\u20ac\u201d primeiro \"pooling\" formal de dados (vacina tifoide). Gene Glass (1976) \u00e2\u20ac\u201d cunhou o termo \"Meta-Analysis\" como \"analise das analises\". Archie Cochrane (1972) \u00e2\u20ac\u201d base ideologica da MBE com *Effectiveness and Efficiency*. Fontes: PMID 27496817, DOI 10.3102/0013189X005010003.\n\n- **Hierarquia de Sinteses (3o nivel)**: JBI e Cochrane concordam que existe um nivel acima da RS, cuja unidade de analise e a propria RS (nao estudos primarios). Permite consolidar evidencias de diferentes intervencoes em documento unico para decisao macro (diretrizes clinicas). Fontes: PMID 26360830, Cochrane Handbook.\n\n## DIVERGENCIAS\n\n- **Terminologia do 3o nivel (JBI vs Cochrane)**: JBI adota \"Umbrella Review\" (incorpora RS qualitativas e quantitativas). Cochrane prefere \"Overview of Reviews\" (foco em intervencoes/efetividade). \"Umbrella Review\" domina na literatura: ~65% das publicacoes vs ~30% \"Overview\". Fontes: Aromataris 2015 (PMID 26360830). Para ensino no Brasil, \"Umbrella Review\" e o termo preferencial.\n\n- **Proporcao bibliometrica (% de RS que incluem MA)**: Varia drasticamente por especialidade. Cirurgia: 70,4% (Davey et al. 2022). Radiologia: 69,6% (Alabousi et al. 2019, PMID 30051140). Literatura biomedica geral: ~49% (Fontaine et al. 2025, DOI 10.1002/jrsm.1611). Pesquisa de sistemas de saude: ~22%. Conclusao: na literatura geral, metade das RS sao puramente qualitativas.\n\n## EVIDENCIA TIER 1\n\n*Topico metodologico \u00e2\u20ac\u201d hierarquia adaptada para guidelines definidores, estudos bibliometricos e publicacoes marco.*\n\n- **[GUIDELINE] PRISMA 2020 Statement** \u00e2\u20ac\u201d Page et al. BMJ 2021 \u00e2\u20ac\u201d PMID CANDIDATE: 33782057 \u00e2\u20ac\u201d Diretriz de relato (27 itens). Distingue claramente metodos de triagem dos metodos de sintese estatistica. \u00e2\u20ac\u201d GRADE: HIGH\n  - *Nota critica*: Essencial para residentes \u00e2\u20ac\u201d PRISMA rege como LER e extrair dados de artigos publicados.\n\n- **[GUIDELINE] Standards for Systematic Reviews (IOM/NAM 2011)** \u00e2\u20ac\u201d PMID CANDIDATE: 24983062 \u00e2\u20ac\u201d 21 padroes fundacionais; MA \"apenas se apropriado e com racional explicado\". \u00e2\u20ac\u201d GRADE: HIGH\n  - *Nota critica*: Gold standard internacional. CONITEC/ANVISA cobram estes padroes em dossies de ATS no Brasil.\n\n- **[META/SR] Fontaine et al. 2025** \u00e2\u20ac\u201d Res Synth Methods \u00e2\u20ac\u201d DOI CANDIDATE: 10.1002/jrsm.1611 \u00e2\u20ac\u201d n=400 RS \u00e2\u20ac\u201d Apenas 49,0% das RS incluiam MA. RS com MA demonstraram qualidade de relato superior (RR=1,34; IC 95%: 1,25-1,43; p<0,001). \u00e2\u20ac\u201d GRADE: MODERATE\n  - *Nota critica*: Evidencia moderna forte. Prova empiricamente que RS sem MA ocorre em metade dos casos.\n\n- **[META/SR] Davey et al. 2022** \u00e2\u20ac\u201d Publications (MDPI) \u00e2\u20ac\u201d DOI CANDIDATE: 10.3390/publications10020019 \u00e2\u20ac\u201d n=186 RS \u00e2\u20ac\u201d 70,4% das RS avaliadas incorporaram MA. RS+MA geraram conclusoes clinicas definitivas com maior frequencia (80,9% vs 61,8%; p=0,009). \u00e2\u20ac\u201d GRADE: MODERATE\n  - *Nota critica*: MA aumenta o poder estatistico, estreitando IC e auxiliando decisoes clinicas mais firmes.\n\n- **[LANDMARK] Karl Pearson, BMJ 1904** \u00e2\u20ac\u201d Comentario Shannon 2016, PMID CANDIDATE: 27496817 \u00e2\u20ac\u201d n=11 estudos primarios \u00e2\u20ac\u201d Primeira estimativa combinada (pooled) da historia: OR=4,5 (IC 95%: 3,1-6,6) para sobrevida apos febre tifoide. \u00e2\u20ac\u201d GRADE: LOW\n  - *Nota critica*: Nao usou RCTs modernos, mas fundou a logica quantitativa do pooled estimate diante de amostras pequenas.\n\n- **[LANDMARK] Gene Glass, Educ Res 1976** \u00e2\u20ac\u201d DOI: 10.3102/0013189X005010003 \u00e2\u20ac\u201d Formalizou os graus: 1) Primaria (ensaio original), 2) Secundaria (reanalise dos mesmos dados), 3) Meta-analise (analise estatistica de multiplas pesquisas). \u00e2\u20ac\u201d GRADE: MODERATE\n\n## NUANCES\n\n- **Scoping Review vs RS**: Fronteira que confunde residentes. RS responde perguntas especificas (PICO); Scoping Review explora conceitos amplos sem julgar qualidade/vies. Fontes: IOM, PRISMA Extension.\n\n- **\"Garbage In, Garbage Out\"**: Aplicar estatistica de MA sobre ensaios fracos = estimativa enganosamente precisa de resultados irreais. Por isso RS (julgamento de cada estudo + risk of bias) tem primazia na cadeia hierarquica. Fonte: IOM 2011.\n\n- **Contexto Brasil (SUS/CONITEC)**: Incorporacao de medicamentos no SUS baseia-se em Pareceres Tecnico-Cientificos que empregam RS+MA, e recentemente NMA. Diretrizes Metodologicas do MS formalizam isso. Residente de clinica medica no SUS e consumidor final de protocolos desenhados sob essa otica. Fonte: CONITEC/MS 2021.\n\n## GAPS\n\n- Nao ha clareza formal sobre como lidar com estudos primarios que se sobrepoe repetidamente em multiplas RS agrupadas dentro de uma mesma Umbrella Review.\n- Criterios robustos de automacao via IA para a fase seletiva das RS ainda nao possuem diretrizes PRISMA consolidadas.\n\n## DADOS PARA SLIDE\n\n1. **Estatistica**: 49-70% das RS incluem MA (varia por especialidade)\n   - **Fonte**: Fontaine et al. 2025 / Davey et al. 2022\n   - **Como usar**: Desmistificar a percepcao de que toda RS tem forest plot. RS = rigor metodologico de \"buscar\"; MA = calculadora de \"juntar\". Metade das RS sao puramente qualitativas.\n\n2. **Estatistica**: OR 4,5 (IC 95%: 3,1-6,6) \u00e2\u20ac\u201d Karl Pearson 1904\n   - **Fonte**: Shannon 2016 (PMID CANDIDATE 27496817)\n   - **Como usar**: Conteudo historico \u00e2\u20ac\u201d a primeira MA combinou estudos individualmente frageis para provar matematicamente chances de sobrevivencia. Marco fundacional.\n\n3. **Estatistica**: MA aumenta em ~30% a chance de respostas definitivas (RR=1,34 / 80% vs 61%, p<0,001)\n   - **Fonte**: Fontaine et al. 2025 / Davey et al. 2022\n   - **Como usar**: O \"porque\" de valorizar o metodo \u00e2\u20ac\u201d combinacao matematica estreita IC e ajuda elaboradores de protocolos a encerrar debates sobre intervencoes.\n\n## FONTES COMPLETAS\n\n1. Institute of Medicine (US). *Finding What Works in Health Care: Standards for Systematic Reviews*. National Academies Press; 2011. PMID CANDIDATE: 24983062 / DOI: 10.17226/13059\n2. Page MJ et al. *The PRISMA 2020 statement: an updated guideline for reporting systematic reviews*. BMJ 2021. PMID CANDIDATE: 33782057 / DOI: 10.1136/bmj.n71\n3. Aromataris E et al. *Summarizing systematic reviews: methodological development, conduct and reporting of an umbrella review approach*. Int J Evid Based Healthc 2015. PMID CANDIDATE: 26360830 / DOI: 10.1097/XEB.0000000000000055\n4. Shannon H. *A statistical note on Karl Pearson's 1904 meta-analysis*. J R Soc Med 2016. PMID CANDIDATE: 27496817 / DOI: 10.1177/0141076816659003\n5. Glass GV. *Primary, Secondary, and Meta-Analysis of Research*. Educational Researcher 1976. DOI: 10.3102/0013189X005010003\n6. Cochrane AL. *Effectiveness and Efficiency: Random Reflections on Health Services*. Nuffield Provincial Hospitals Trust 1972.\n7. Fontaine et al. *Reported methodological quality of medical systematic reviews*. Res Synth Methods 2025. DOI CANDIDATE: 10.1002/jrsm.1611\n8. Davey MG et al. *What Proportion of Systematic Reviews and Meta-Analyses Published in the Annals of Surgery Provide Definitive Conclusions*. Publications 2022. DOI CANDIDATE: 10.3390/publications10020019\n9. Alabousi M et al. *Epidemiology of systematic reviews in imaging journals*. Eur Radiol 2019. PMID CANDIDATE: 30051140 / DOI: 10.1007/s00330-018-5567-z\n10. Ministerio da Saude/CONITEC. *Diretrizes Metodologicas: Elaboracao de Revisao Sistematica e Metanalise de Ensaios Clinicos Randomizados*. Brasil, 2021.\n\n---\n\n*Coautoria: Lucas + Opus 4.6 (orquestrador) + Gemini 3.1 (deep research + Google Search grounding)*\n*Todos os PMIDs marcados CANDIDATE \u00e2\u20ac\u201d verificar via PubMed MCP antes de usar em slide.*\n"}], "grading": null}, {"id": "eval-1-rs-vs-ma-without_skill", "prompt": "preciso de dados concretos sobre a diferenca entre revisao sistematica, meta-analise e umbrella review \u00e2\u20ac\u201d definicoes formais, proporcoes bibliometricas (% de RS que incluem MA), marcos historicos, terminologia. Slide novo partindo do zero, aula pra residentes de clinica medica", "eval_id": 1, "outputs": [{"name": "query.txt", "type": "text", "content": "Systematic review vs meta-analysis vs umbrella review: formal definitions, historical milestones, and bibliometric data.\n\nI need concrete, citable data for a medical education lecture (clinical medicine residents). Specifically:\n\n1. FORMAL DEFINITIONS: What is the precise, accepted definition of each term \u00e2\u20ac\u201d systematic review (SR), meta-analysis (MA), and umbrella review (UR)? Use Cochrane Handbook, PRISMA, and other authoritative sources. Clarify the common confusion: SR is a methodology, MA is a statistical technique \u00e2\u20ac\u201d they overlap but are not synonymous. What percentage of systematic reviews actually include a meta-analysis? (bibliometric data from Cochrane or PubMed analyses)\n\n2. HISTORICAL MILESTONES: Who coined each term and when? Key dates:\n- Karl Pearson 1904 (first pooled analysis?)\n- Glass 1976 (coined \"meta-analysis\")\n- Cochrane Collaboration founding (1993)\n- PRISMA statement (2009, 2020)\n- First umbrella review \u00e2\u20ac\u201d who, when?\n- Evolution of the term \"systematic review\" \u00e2\u20ac\u201d when did it replace \"overview\"?\n\n3. BIBLIOMETRIC PROPORTIONS: What fraction of published SRs include a quantitative MA? Data from studies analyzing Cochrane Database or PubMed trends. How has the SR/MA publication volume grown over the decades (1990s \u00e2\u2020\u2019 2000s \u00e2\u2020\u2019 2010s \u00e2\u2020\u2019 2020s)? Any data on how many umbrella reviews are published annually?\n\n4. TERMINOLOGY PRECISION:\n- \"Systematic review with meta-analysis\" vs \"systematic review without meta-analysis\" \u00e2\u20ac\u201d is this the correct formal distinction?\n- Scoping review vs systematic review \u00e2\u20ac\u201d key difference\n- Narrative review vs systematic review \u00e2\u20ac\u201d key difference\n- Network meta-analysis \u00e2\u20ac\u201d brief definition\n- Individual patient data (IPD) meta-analysis \u00e2\u20ac\u201d brief definition\n- Living systematic review \u00e2\u20ac\u201d definition\n\n5. HIERARCHY OF EVIDENCE: Where do SR, MA, and UR sit in evidence pyramids? Is \"meta-analysis at the top\" actually correct, or is it more nuanced? (hint: a meta-analysis of garbage RCTs is still garbage \u00e2\u20ac\u201d GIGO principle)\n\nPlease provide specific numbers, dates, PMIDs or DOIs where possible. I need facts, not generalities.\n\n---\nFormat requested: Technical reference document with numbered sections, tables where appropriate, and a references section at the end. Each claim should have its source indicated inline.\n\n---\nResearch ID: v1_Chc2SkRPYWRtRkp2ZnF6N0lQaWNfdmdROBIXNkpET2FkbUZKdmZxejdJUGljX3ZnUTg\nTimestamp: 2026-04-02T15:53:13Z\n"}, {"name": "report.md", "type": "text", "content": "# Systematic Review, Meta-Analysis, and Umbrella Review: Formal Definitions, Historical Milestones, and Bibliometric Data\n\n> Source: Gemini Deep Research (gemini-deep-research MCP)\n> Research ID: `v1_Chc2SkRPYWRtRkp2ZnF6N0lQaWNfdmdROBIXNkpET2FkbUZKdmZxejdJUGljX3ZnUTg`\n> Duration: 5m 18s\n> Date: 2026-04-02\n\n---\n\n## Key Points\n\n- **Methodological Distinctions:** A Systematic Review (SR) is a rigorous methodological framework used to minimize bias, whereas a Meta-Analysis (MA) is a specific statistical technique used to pool data. They overlap frequently but are fundamentally distinct.\n- **Historical Evolution:** The conceptual roots of data pooling trace back to Karl Pearson in 1904, though the term \"meta-analysis\" was coined by Gene Glass in 1976. The formalization of the \"systematic review\" accelerated with the founding of the Cochrane Collaboration in 1993.\n- **The \"Magnifying Glass\" Paradigm:** SRs and MAs should not be viewed as the absolute pinnacle of the evidence pyramid, but rather as a \"magnifying glass\" or lens through which primary research is appraised, acknowledging the \"garbage in, garbage out\" (GIGO) principle.\n- **Umbrella Reviews:** As the volume of SRs has grown exponentially, Umbrella Reviews (URs) -- reviews of reviews -- have emerged to synthesize this higher-order evidence, serving as a critical tool for modern clinical guidelines.\n\n---\n\n## 1. Formal Definitions\n\n### 1.1 Systematic Review (SR)\n\nA **Systematic Review (SR)** is defined as a scientific investigation that attempts to identify, appraise, and synthesize all the empirical evidence that meets pre-specified eligibility criteria to answer a specific research question.\n\nThe **Cochrane Handbook** for Systematic Reviews of Interventions emphasizes that researchers conducting SRs use explicit, systematic methods that are selected a priori to minimize bias, thereby producing more reliable findings to inform decision-making.\n\n**Key Characteristics:**\n- **Pre-specified Protocol:** Guided by a clear protocol (often registered in PROSPERO) defining PICO.\n- **Comprehensive Search Strategy:** Highly sensitive, reproducible search strategies across multiple databases (PubMed, Embase, Cochrane CENTRAL) and grey literature.\n- **Critical Appraisal:** Independent assessment of methodological quality and risk of bias using validated tools (Cochrane RoB, Newcastle-Ottawa Scale).\n- **Qualitative Synthesis:** Reviews without a meta-analysis can still narratively synthesize data to produce a reliable overview.\n\n### 1.2 Meta-Analysis (MA)\n\nA **Meta-Analysis (MA)** is a quantitative, statistical technique used to pool the results of two or more independent studies reporting the same outcome, to gain a more precise estimate of the effect size of an intervention or exposure.\n\nMeta-analysis is an **optional component** of a systematic review. It operates by converting outcomes of different studies to a common measurement (OR, RR, SMD) and calculating a weighted average.\n\n**Key Characteristics:**\n- **Statistical Weighting:** Averages effect sizes by accounting for the amount of information in each study, giving more weight to studies with larger sample sizes and lower variance.\n- **Heterogeneity Assessment:** Evaluates clinical and statistical variability across studies (I^2 statistic, Cochran's Q). When heterogeneity is severe, MA may be inappropriate and misleading.\n- **Forest Plots:** Standard graphical representation displaying individual study estimates alongside the pooled summary effect.\n\n**Clarifying the Confusion:**\nA systematic review is a **methodology**, while a meta-analysis is a **statistical technique**. You can have an SR without MA (if data is too heterogeneous) and theoretically a MA without SR (though pooling un-systematically gathered data is highly discouraged due to extreme selection bias).\n\n### 1.3 What percentage of Systematic Reviews include a Meta-Analysis?\n\n| Study / Source | % with MA | Context |\n|---|---|---|\n| ReMarQ tool analysis (400 medical SRs) | **49.0%** | General medical SRs |\n| Annals of Surgery bibliometric (186 SRs, 2011-2020) | **70.4%** | Surgical specialty |\n| Yoga interventions analysis | **51%** | Specific intervention type |\n\n**Conclusion:** Depending on specialty and data homogeneity, roughly **50% to 70%** of systematic reviews contain a meta-analysis.\n\n### 1.4 Umbrella Review (UR)\n\nAn **Umbrella Review (UR)** -- also known as an overview of reviews or meta-review -- is a systematic synthesis that aggregates and evaluates findings from multiple existing systematic reviews and meta-analyses.\n\nCoined by the **Joanna Briggs Institute (JBI)** and heavily utilized by Cochrane (under the term \"Overview of Reviews\"), this methodology was developed to address the massive proliferation of systematic reviews.\n\n**Key Characteristics:**\n- **Unit of Analysis:** Unlike SRs (which pool primary studies), URs pool secondary research (i.e., systematic reviews and meta-analyses).\n- **Highest Level of Synthesis:** Only considers highest level of aggregated evidence.\n- **Study Overlap:** Must methodologically address overlap of primary studies across SRs (often assessed using Corrected Covered Area [CCA] index) to avoid double-counting.\n- **Quality Assessment:** Uses AMSTAR-2 or ROBIS to evaluate methodological quality of included SRs.\n\n---\n\n## 2. Historical Milestones\n\n| Year | Event | Who |\n|---|---|---|\n| **1904** | First pooled analysis -- typhoid vaccine data from British soldiers | Karl Pearson |\n| **1976** | Term \"meta-analysis\" coined | Gene V. Glass (presidential address, American Educational Research Association) |\n| **1971** | *Effectiveness and Efficiency* published -- call for systematic summaries of RCTs | Archie Cochrane |\n| **1993** | Cochrane Collaboration founded (Oxford, UK) | Iain Chalmers |\n| **1995** | Term \"systematic review\" formalized in book *Systematic Reviews* | Iain Chalmers & Douglas Altman |\n| **1999** | QUOROM statement (Quality Of Reporting Of Meta-analyses) | International group |\n| **2009** | PRISMA 2009 (27-item checklist, 4-phase flow diagram) | David Moher et al. |\n| **Late 1990s-2000s** | Umbrella Review methodology emerges | Joanna Briggs Institute (Aromataris et al.) |\n| **2009** | Grant & Booth typology of reviews cements \"umbrella review\" in lexicon | Grant & Booth |\n| **2021** | PRISMA 2020 update published | Page et al. |\n\n### 2.1 Karl Pearson (1904)\n\nKarl Pearson was commissioned to evaluate the effectiveness of a typhoid vaccine used on British soldiers. He gathered data from multiple 2x2 tables and calculated \"tetrachoric correlations\" to pool results. He explicitly noted \"extreme irregularity\" (heterogeneity) across sites -- a precursor to modern heterogeneity assessment.\n\n### 2.2 Gene Glass (1976)\n\nGlass categorized research into three tiers:\n1. **Primary analysis:** Original analysis of data in a study\n2. **Secondary analysis:** Re-analysis of data to answer new questions\n3. **Meta-analysis:** Synthesis of results across multiple independent studies\n\nPublished in *Educational Researcher*, 5(10), 3-8.\n\n### 2.3 Cochrane Collaboration (1993)\n\nFounded in Oxford by Iain Chalmers. Started by formalizing work done in the 1980s regarding systematic reviews in pregnancy and childbirth. Today: 37,000+ volunteer experts from 100+ countries, maintaining the Cochrane Database of Systematic Reviews.\n\n### 2.4 Evolution of \"Systematic Review\"\n\nThe term replaced \"overview\" in the mid-1990s. The pivotal moment was the 1995 publication of *Systematic Reviews* by Chalmers & Altman. They argued for the term to draw a sharp semantic distinction between the methodological process of minimizing bias in literature selection and the purely statistical process of \"meta-analysis.\"\n\n### 2.5 PRISMA\n\n- **2009:** Replaced QUOROM. 27-item checklist + 4-phase flow diagram.\n- **2020 (published 2021):** Updated for network meta-analyses, machine learning in screening, protocol registration. Updated flow diagrams, more inclusive wording for non-intervention studies.\n\n### 2.6 Umbrella Reviews\n\nEmerged late 1990s-early 2000s. Formally coined by JBI (Aromataris et al.). Grant & Booth (2009) cemented the term as a distinct review type.\n\n---\n\n## 3. Bibliometric Proportions\n\n### 3.1 SR/MA Publication Growth\n\n| Period | Data |\n|---|---|\n| 1991-2014 | SR publication rate increased by **2,728%**; MA by **2,635%**. All other publication types grew only 153%. |\n| As of late 2025 | Over **510,000** SRs and MAs published (PubMed indexing) |\n| Solo-authored SRs | Grew from 17 articles (2000) to 223 articles (2023) -- contradicts international guidelines |\n\n### 3.2 Umbrella Review Publication Volume\n\n| Period | Data |\n|---|---|\n| 1998-2010 | Slow, steady growth |\n| 2010-2020 | Markedly accelerated |\n| Since 2016 | Annual publications consistently >100 |\n| **2023** | **>700 umbrella reviews published** in a single year |\n| Total (as of Oct 2025) | Over **3,000** umbrella reviews published |\n| Overviews of reviews in MEDLINE | 8-fold increase 2009-2020; **332** published in 2020 alone (~1/day) |\n\n---\n\n## 4. Terminology Precision\n\n### 4.1 Correct Formal Distinction\n\n\"**Systematic Review and Meta-Analysis**\" = when both are performed.\n\"**Systematic Review**\" (without MA) = when statistical pooling is impossible due to high heterogeneity. Relies on narrative/qualitative synthesis.\n\n### 4.2 Comparison Table\n\n| Review Type | Key Feature | Bias Control | Question Type |\n|---|---|---|---|\n| **Systematic Review** | Pre-specified protocol, comprehensive search, critical appraisal | High (PICO, RoB tools) | Specific, focused (PICO) |\n| **Scoping Review** | Maps existing literature, identifies gaps | Low (no quality assessment usually) | Broad topic mapping |\n| **Narrative Review** | Expert summary, non-systematic | Minimal (cherry-picking possible) | Topic overview |\n\n### 4.3 Advanced Meta-Analytical Techniques\n\n- **Network Meta-Analysis (NMA):** Simultaneous comparison of 3+ interventions by combining direct evidence (head-to-head trials) and indirect evidence. Also called \"multiple treatments meta-analysis.\"\n- **Individual Patient Data (IPD) Meta-Analysis:** Gold standard of MA. Uses raw, original, patient-level data from original trials instead of aggregate summary data. Allows standardized re-analysis and more robust subgroup analyses.\n- **Living Systematic Review:** Continually updated SR, incorporating new evidence as soon as it becomes available.\n\n---\n\n## 5. Hierarchy of Evidence\n\n### 5.1 Traditional Pyramid\n\nExpert opinion (base) -> Case reports -> Case-control -> Cohort -> RCTs -> SR/MA (apex).\n\n### 5.2 The \"Magnifying Glass\" Paradigm (Murad et al., 2016)\n\nIn 2016, Murad, Asi, Alsawas, and Alahdab published in *BMJ Evidence-Based Medicine* proposing a \"new evidence pyramid\":\n\n**SR/MA are removed from the hierarchical layers and repositioned as a \"magnifying glass\" or \"lens\"** through which the rest of the pyramid is viewed, evaluated, and applied.\n\n**Rationale:** An SR is a tool to synthesize evidence, but the quality of the synthesis depends entirely on the primary studies it aggregates.\n\n### 5.3 The GIGO Principle\n\n**\"Garbage In, Garbage Out\"**: A meta-analysis of poorly designed, biased studies does not produce high-level evidence -- it produces a mathematically precise summary of flawed data.\n\n**GRADE approach** addresses this:\n- MA of RCTs starts as **high-certainty** but can be **downgraded** (risk of bias, inconsistency, indirectness, imprecision, publication bias).\n- SR of cohort studies starts as **low-certainty** but can be **upgraded** (large dose-response gradient, large magnitude of effect).\n\n**Bottom line:** A high-quality, large-scale RCT will often provide greater certainty than a meta-analysis pooling several small, low-quality, biased RCTs.\n\n---\n\n## 6. Summary Table for Teaching\n\n| | Systematic Review | Meta-Analysis | Umbrella Review |\n|---|---|---|---|\n| **What is it?** | Methodology (process) | Statistical technique (tool) | Synthesis of syntheses |\n| **Unit of analysis** | Primary studies | Primary studies (pooled) | Systematic reviews |\n| **Can exist alone?** | Yes | Technically yes, but not recommended | No (requires existing SRs) |\n| **Key output** | Qualitative/narrative synthesis | Forest plot, pooled effect size | Overview of concordance/discordance across SRs |\n| **Quality tool** | RoB 2, Newcastle-Ottawa | I^2, funnel plots | AMSTAR-2, ROBIS |\n| **Coined by** | Chalmers & Altman (1995) | Glass (1976) | JBI (Aromataris et al.) |\n| **Reporting guideline** | PRISMA | PRISMA | PRISMA for Overviews |\n\n---\n\n## References (as cited by Gemini Deep Research)\n\n1. Cochrane Handbook for Systematic Reviews of Interventions. cochranelibrary.com\n2. Covidence. \"What is a systematic review?\" covidence.org\n3. Cochrane. cochrane.org\n4. NIH/NCBI resources on systematic review methodology\n5. Pearson, K. (1904). Report on certain enteric fever inoculation statistics. *BMJ*, 3, 1243-1246.\n6. Glass, G. V. (1976). Primary, secondary, and meta-analysis of research. *Educational Researcher*, 5(10), 3-8.\n7. Murad, M. H., Asi, N., Alsawas, M., & Alahdab, F. (2016). New evidence pyramid. *BMJ Evidence-Based Medicine*, 21(4), 125-127.\n8. Chalmers, I., & Altman, D. G. (1995). *Systematic Reviews*. London: BMJ Publications.\n9. Grant, M. J., & Booth, A. (2009). A typology of reviews. *Health Information & Libraries Journal*, 26(2), 91-108.\n10. Davey, M. G., et al. (2022). What Proportion of Systematic Reviews in Annals of Surgery Provide Definitive Conclusions. *Annals of Surgery*.\n11. Pato, C., et al. (2025). Reported methodological quality of medical systematic reviews. *Research Synthesis Methods*.\n12. Nayak, S. S., et al. (2025). Exploring the evolution of evidence synthesis: a bibliometric analysis of umbrella reviews. *Annals of Medicine and Surgery*. PMID: 40212143.\n13. Page, M. J., et al. (2021). The PRISMA 2020 statement. *BMJ*.\n14. Cochrane Collaboration history. cochrane.org\n15. Zengin, O., et al. (2023). Bibliometric analysis of umbrella reviews. *Int J Soc Psychiatry*.\n\n---\n\n## Metadata\n\n- **Query sent:** 2026-04-02T15:53:13Z\n- **Research completed:** 2026-04-02T15:58:32Z\n- **Duration:** 5m 18s\n- **Model:** Gemini Deep Research (via gemini MCP)\n- **Full raw output:** `C:\\Users\\lucas\\AppData\\Roaming\\gemini-mcp\\output\\895e0fe124d103c5\\deep-research-2026-04-02T15-58-32-987Z.json`\n"}], "grading": null}, {"id": "eval-2-slide-id-with_skill", "prompt": "deep search no slide s-rs-vs-ma da aula metanalise \u00e2\u20ac\u201d o slide tem h2 e esqueleto HTML mas precisa de conteudo fundacional", "eval_id": 2, "outputs": [{"name": "query.txt", "type": "text", "content": "TOPICO: Diferen\u00c3\u00a7a conceitual entre Revis\u00c3\u00a3o Sistem\u00c3\u00a1tica (RS) e Meta-an\u00c3\u00a1lise (MA) \u00e2\u20ac\u201d defini\u00c3\u00a7\u00c3\u00b5es, separabilidade, propor\u00c3\u00a7\u00c3\u00b5es bibliom\u00c3\u00a9tricas, marcos hist\u00c3\u00b3ricos\nCONTEXTO: Residentes cl\u00c3\u00adnica m\u00c3\u00a9dica, n\u00c3\u00advel b\u00c3\u00a1sico-intermedi\u00c3\u00a1rio. Slide existente com esqueleto HTML e h2 assertion: \"RS \u00c3\u00a9 o m\u00c3\u00a9todo de busca e sele\u00c3\u00a7\u00c3\u00a3o; MA \u00c3\u00a9 o c\u00c3\u00a1lculo estat\u00c3\u00adstico \u00e2\u20ac\u201d e s\u00c3\u00a3o separ\u00c3\u00a1veis\". Fonte atual: Cochrane Handbook v6.5 cap. 1. Aula de 45-60 min sobre leitura cr\u00c3\u00adtica de meta-an\u00c3\u00a1lise (n\u00c3\u00a3o produ\u00c3\u00a7\u00c3\u00a3o). Pa\u00c3\u00ads: Brasil.\nFOCO: Descoberta de conte\u00c3\u00bado fundacional \u00e2\u20ac\u201d dados concretos para enriquecer o slide: (1) propor\u00c3\u00a7\u00c3\u00a3o de RS que N\u00c3\u0192O incluem MA (quantas RS s\u00c3\u00a3o qualitativas?), (2) marcos hist\u00c3\u00b3ricos da distin\u00c3\u00a7\u00c3\u00a3o RS vs MA (quando surgiu cada termo, quem cunhou), (3) defini\u00c3\u00a7\u00c3\u00b5es can\u00c3\u00b4nicas de sociedades (Cochrane, IOM/NAM, PRISMA), (4) erros comuns de terminologia na literatura m\u00c3\u00a9dica, (5) RS sem MA vs MA sem RS (network MA, umbrella reviews \u00e2\u20ac\u201d s\u00c3\u00b3 mencionar que existem, sem aprofundar).\n\n=== MANDATO DE PESQUISA ===\n\nVoc\u00c3\u00aa est\u00c3\u00a1 conduzindo pesquisa m\u00c3\u00a9dica profunda para uma apresenta\u00c3\u00a7\u00c3\u00a3o de ensino.\nP\u00c3\u00bablico: residentes de cl\u00c3\u00adnica m\u00c3\u00a9dica (n\u00c3\u00advel b\u00c3\u00a1sico-intermedi\u00c3\u00a1rio).\nPa\u00c3\u00ads: Brasil (ANVISA, SUS, realidade local).\n\nO objetivo \u00c3\u00a9 retornar DADOS CONCRETOS com fontes verific\u00c3\u00a1veis.\nRespostas vagas s\u00c3\u00a3o in\u00c3\u00bateis neste contexto \u00e2\u20ac\u201d cada achado precisa de n\u00c3\u00bameros, cita\u00c3\u00a7\u00c3\u00a3o, e classifica\u00c3\u00a7\u00c3\u00a3o.\n\n=== HIERARQUIA DE FONTES (seguir esta ordem de prioridade) ===\n\n1. GUIDELINES: Guidelines vigentes de sociedades m\u00c3\u00a9dicas (EASL, AASLD, AGA, ACG, ESC, AHA, WHO, Cochrane, SBH, SBC).\n   Extrair: sociedade, ano, grau de recomenda\u00c3\u00a7\u00c3\u00a3o, n\u00c3\u00advel de evid\u00c3\u00aancia, recomenda\u00c3\u00a7\u00c3\u00a3o espec\u00c3\u00adfica.\n\n2. META-AN\u00c3\ufffdLISES: Revis\u00c3\u00b5es sistem\u00c3\u00a1ticas com meta-an\u00c3\u00a1lise (preferencialmente >=3 estudos pooled).\n   Extrair: k estudos, n pacientes total, estimativa pooled + IC 95%, I-squared, certeza GRADE.\n\n3. RCTs LANDMARK: Ensaios cl\u00c3\u00adnicos randomizados multic\u00c3\u00aantricos (preferencialmente n>=200).\n   Extrair: acr\u00c3\u00b4nimo, n, bra\u00c3\u00a7os, endpoint prim\u00c3\u00a1rio, effect size + IC 95%, NNT se calcul\u00c3\u00a1vel, p-value.\n\n4. LIVROS-REFER\u00c3\u0160NCIA: Edi\u00c3\u00a7\u00c3\u00b5es mais recentes apenas.\n   Extrair: autor, edi\u00c3\u00a7\u00c3\u00a3o, cap\u00c3\u00adtulo, p\u00c3\u00a1ginas, argumento central do trecho.\n\n5. COORTES GRANDES: Apenas quando n\u00c3\u00a3o h\u00c3\u00a1 evid\u00c3\u00aancia de n\u00c3\u00adveis superiores.\n   Extrair: n, follow-up, desfecho, medida de associa\u00c3\u00a7\u00c3\u00a3o + IC 95%.\n\n=== OLHAR CR\u00c3\ufffdTICO \u00e2\u20ac\u201d aplicar a CADA achado ===\n\nPara cada evid\u00c3\u00aancia encontrada, avaliar criticamente:\n- Popula\u00c3\u00a7\u00c3\u00a3o do estudo vs contexto do ensino (generaliz\u00c3\u00a1vel? spectrum bias?)\n- Endpoint: cl\u00c3\u00adnico (mortalidade, evento) ou surrogate (marcador laboratorial)?\n- Financiamento: ind\u00c3\u00bastria farmac\u00c3\u00aautica? Potencial vi\u00c3\u00a9s?\n- Replica\u00c3\u00a7\u00c3\u00a3o: achado confirmado por estudos independentes?\n- Temporalidade: dado ainda vigente ou superseded por evid\u00c3\u00aancia mais recente?\n\nQuando um achado \u00c3\u00a9 robusto, dizer que \u00c3\u00a9 robusto. Quando \u00c3\u00a9 fr\u00c3\u00a1gil, dizer por qu\u00c3\u00aa.\nO objetivo n\u00c3\u00a3o \u00c3\u00a9 demolir \u00e2\u20ac\u201d \u00c3\u00a9 ser preciso sobre o grau de confian\u00c3\u00a7a.\n\n=== DIVERG\u00c3\u0160NCIAS E CONVERG\u00c3\u0160NCIAS (obrigat\u00c3\u00b3rio quando 2+ fontes tocam o tema) ===\n\nCONVERG\u00c3\u0160NCIAS: Onde 2+ sociedades/estudos concordam \u00e2\u2020\u2019 alta confian\u00c3\u00a7a. Listar com fontes.\nDIVERG\u00c3\u0160NCIAS: Onde discordam \u00e2\u2020\u2019 listar posi\u00c3\u00a7\u00c3\u00a3o de cada, ano, base de evid\u00c3\u00aancia, qual \u00c3\u00a9 mais recente.\nDiverg\u00c3\u00aancias mudam conduta cl\u00c3\u00adnica \u00e2\u20ac\u201d omiti-las \u00c3\u00a9 desinformar.\n\n=== REQUISITOS DE DADOS ===\n\nCada achado reportado precisa incluir:\n- N\u00c3\u00bameros concretos (effect size, IC 95%, p-value, n, NNT quando aplic\u00c3\u00a1vel)\n- Identifica\u00c3\u00a7\u00c3\u00a3o da fonte (PMID, DOI, ou cita\u00c3\u00a7\u00c3\u00a3o completa)\n- Ano de publica\u00c3\u00a7\u00c3\u00a3o\n- Tag de tipo: [GUIDELINE] [META/SR] [RCT] [LANDMARK] [COHORT] [BOOK] [EXPERT]\n- Qualidade GRADE: HIGH / MODERATE / LOW / VERY LOW\n\nAchados sem n\u00c3\u00bameros concretos n\u00c3\u00a3o s\u00c3\u00a3o aceit\u00c3\u00a1veis.\n\"Estudos mostram que...\" sem cita\u00c3\u00a7\u00c3\u00a3o = excluir do output.\n\n=== CONTEXTO BRASIL ===\n\n- Sinalizar drogas/interven\u00c3\u00a7\u00c3\u00b5es n\u00c3\u00a3o dispon\u00c3\u00adveis no Brasil (ANVISA/CONITEC)\n- Incluir guidelines brasileiras quando existirem (SBH, SBC, SBHPA, PCDT/CONITEC, protocolos SUS)\n- Contexto padr\u00c3\u00a3o de popula\u00c3\u00a7\u00c3\u00a3o: pacientes brasileiros\n\n---\nFORMAT PARAMETER:\nReport de evid\u00c3\u00aancia m\u00c3\u00a9dica estruturado em PT-BR. Usar headings markdown.\nIncluir PMID/DOI para toda cita\u00c3\u00a7\u00c3\u00a3o. Fornecer n\u00c3\u00bameros concretos (effect sizes, intervalos de confian\u00c3\u00a7a, NNT).\nReportar converg\u00c3\u00aancias E diverg\u00c3\u00aancias entre guidelines. Aplicar GRADE.\n\nEstrutura: TL;DR \u00e2\u2020\u2019 CONVERG\u00c3\u0160NCIAS \u00e2\u2020\u2019 DIVERG\u00c3\u0160NCIAS \u00e2\u2020\u2019 EVID\u00c3\u0160NCIA TIER 1 \u00e2\u2020\u2019 NUANCES \u00e2\u2020\u2019 GAPS \u00e2\u2020\u2019 DADOS PARA SLIDE \u00e2\u2020\u2019 FONTES COMPLETAS\n\n---\nMETADATA:\nResearch ID: v1_ChdQWkhPYVotVU1hWHR6N0lQNWFTSS1RZxIXUFpIT2FaLVVNYVh0ejdJUDVhU0ktUWc\nStarted: 2026-04-02T15:54:38.540Z\nSlide: s-rs-vs-ma (content/aulas/metanalise/slides/04-rs-vs-ma.html)\nScenario: A (slide-id, skeletal \u00e2\u20ac\u201d discovery mode)\n"}, {"name": "report.md", "type": "text", "content": "## Deep Search Report: RS vs MA -- Diferenca conceitual, separabilidade, proporcoes bibliometricas\nData: 2026-04-02 | Fonte: Gemini 3.1 + Google Search\nStatus PMIDs: CANDIDATE (verificar via PubMed antes de usar em slide)\n\n---\n\n## TL;DR\n\nA RS e o metodo cientifico de busca e selecao para minimizar vieses; a MA e a tecnica estatistica opcional para agrupar dados. **37% das RSs medicas atuais nao contem MA** (Page et al. PLoS Med 2016). Na pratica clinica (GRADE), uma MA sem RS previa gera resultados matematicamente precisos porem clinicamente falsos (*garbage in, garbage out*). Confianca: ALTA.\n\n## CONVERGENCIAS\n\n1. **Definicao universal de separacao:** Cochrane Handbook v6.5 (2024), IOM/NAM (2011), e PRISMA 2020 convergem unanimemente: RS = metodo de identificacao e avaliacao; MA = subconjunto puramente estatistico e opcional.\n   - Cochrane Handbook cap. 1.2: \"Muitas revisoes sistematicas contem meta-analises\" (nao-obrigatoriedade).\n   - IOM 2011: RS \"pode incluir sintese quantitativa (meta-analise) dependendo dos dados\".\n   - PRISMA 2020: checklist separa itens de RS (metodo) dos itens de MA (estatistica).\n\n2. **Prevalencia epidemiologica:** Grandes estudos meta-epidemiologicos convergem: a maioria das RSs inclui MA, mas uma porcao significativa nao. Taxa de inclusao de MA em RS: 53,7% em 2004 (Moher et al. PLoS Med 2007) \u00e2\u2020\u2019 ~63% em 2014 (Page et al. PLoS Med 2016). Ou seja, >1/3 das RSs sao sinteses qualitativas.\n\n3. **Hierarquia metodologica:** Concordancia absoluta de que MA isolada sem RS = vies de selecao inaceitavel. Estatistica agrupada ganha \"falso poder estatistico\" sobre dados enviesados.\n\n## DIVERGENCIAS\n\n1. **Uso terminologico inadequado (autores vs diretrizes):**\n   - Autores: 22,8% de revisoes em CAM que incluiam \"meta-analise\" no titulo NAO reportaram nenhuma estimativa pooled (Turner et al. PLoS One 2013; DOI: 10.1371/journal.pone.0053536).\n   - Diretrizes (Cochrane/IOM): rejeitam esse uso como erro metodologico primario.\n   - PRISMA 2020 e Cochrane sao definitivos: MA so deve ser declarada quando houve combinacao quantitativa de dados.\n\n2. **Decisao sobre modelo estatistico (efeito fixo vs aleatorio):**\n   - Pratica comum: autores usam I-squared post hoc para decidir modelo (efeito aleatorio se I2>50%).\n   - Cochrane desencoraja: decisao deve ser baseada em diversidade clinica e metodologica a priori, nao reacao post hoc ao I2.\n\n## EVIDENCIA TIER 1\n\n### [GUIDELINE] Cochrane Handbook v6.5, 2024\n- Higgins JPT et al. Cochrane Handbook for Systematic Reviews of Interventions.\n- Define categoricamente: RS = \"levantamento rigoroso de evidencias empiricas usando metodos sistematicos predefinidos (protocolo)\". MA = \"combinacao estatistica de resultados numericos\". Separaveis.\n- GRADE: HIGH\n- Nota critica: Padrao-ouro global. Adotado pela ANVISA/CONITEC no Brasil.\n\n### [GUIDELINE] IOM/NAM -- Standards for Systematic Reviews, 2011\n- Eden J et al. Finding What Works in Health Care. National Academies Press, 2011.\n- 21 padroes de qualidade. RS = \"investigacao cientifica que usa metodos predefinidos [...] e que pode incluir sintese quantitativa (meta-analise) dependendo dos dados\".\n- GRADE: HIGH\n- Nota critica: Base para CONITEC/PCDTs. Exige AMSTAR-2 para avaliacao.\n\n### [META/SR] Page MJ et al. PLoS Med 2016;13(5):e1002028\n- n=300 RSs aleatorias de 2014 (amostra global PubMed)\n- MA realizada em **63% (189/300)**. Logo, **37% sem MA** (revisoes qualitativas).\n- MA mediana: 9 estudos (IQR 6-17). 1% = \"Empty Reviews\" (0 estudos incluidos).\n- DOI: 10.1371/journal.pmed.1002028\n- GRADE: MODERATE\n- Nota critica: Populacao universal de PubMed. Robusto para o dado \"37%\".\n\n### [GUIDELINE] PRISMA 2020 -- Page MJ et al. BMJ 2021;372:n71\n- Checklist 27 itens. Separa itens de RS (metodo) dos de MA (estatistica).\n- Serve para RS com MA (pairwise), MA em rede, ou RS sem qualquer sintese.\n- DOI: 10.1136/bmj.n71\n- GRADE: HIGH\n\n### [META/SR] Turner L et al. PLoS One 2013;8(1):e53536\n- n=349 RSs em terapias alternativas vs controles\n- **22,8%** que se autointitulavam \"Meta-analise\" no titulo NAO reportaram nenhuma estimativa pooled (vs 1% no controle de medicina convencional).\n- DOI: 10.1371/journal.pone.0053536\n- GRADE: LOW (area especifica de CAM, mas ilustrativo)\n- Nota critica: Evidencia de que titulo nao substitui leitura critica.\n\n### [LANDMARK] Marco historico: Karl Pearson (1904) + Gene Glass (1976) + Archie Cochrane (1979)\n- Pearson (BMJ 1904): primeiro calculo de combinacao de outcomes (vacina tifoide). A matematica veio antes do metodo.\n- Glass (Educational Researcher 1976): cunhou o termo \"Meta-Analysis\" -- \"analise estatistica de uma grande colecao de resultados de estudos individuais\".\n- Cochrane (1971/1979): chamou atencao para a falta de resumos criticos de RCTs. Em 1993, Iain Chalmers fundou a Cochrane Collaboration.\n- GRADE: N/A (historico)\n\n## NUANCES\n\n1. **\"Garbage In, Garbage Out\" (GIGO):** MA pode conferir falsa sensacao de precisao a dados falhos. IC estreito + p<0.001 + effect size pontual, mas refletindo erro sistematico, nao verdade biologica. A RS salva a MA definindo criterios rigorosos de exclusao de vies.\n\n2. **Revisoes vazias (Empty Reviews):** Ate 1% das RSs bem desenhadas terminam sem nenhum estudo elegivel. Publicadas sem MA e sem pacientes -- servem como alerta de lacuna de evidencia (Page et al. 2016).\n\n3. **Variacoes modernas (mencao apenas):**\n   - Network MA (meta-analise em rede): comparacao indireta (A vs C via A-B + B-C).\n   - Umbrella Reviews: RS de RSs -- combinam achados de RS/MAs ja publicadas.\n\n4. **Erros estatisticos comuns em MAs:** Contagem dupla de pacientes em trials multi-braco (inflando N falsamente). Confusao entre Erro Padrao (SE) e Desvio Padrao (SD) durante extracao (Papakonstantinou et al. Methods 2025).\n\n## GAPS\n\n- Como lidar com o \"vies de redundancia\" -- dezenas de MAs conflitantes sobre o mesmo topico clinico (Ioannidis 2016). Residentes encaram 5+ MAs recentes e divergentes, sem orientacao clara sobre qual priorizar.\n- Propor\u00c3\u00a7\u00c3\u00a3o exata de MAs publicadas sem RS previa rigorosa (dado nao encontrado).\n- Impacto quantificado do uso terminologico errado em decisoes clinicas reais.\n\n## DADOS PARA SLIDE\n\n1. **37% das RSs NAO contem MA.**\n   - Fonte: Page MJ et al. PLoS Med 2016. DOI: 10.1371/journal.pmed.1002028\n   - Como usar: Desmistificar crenca de que \"toda RS precisa de Forest Plot\". RS barra MA quando heterogeneidade clinica impede combinacao. Cabe no compare-footer do slide.\n\n2. **1904 vs 1976 -- A matematica veio antes do metodo.**\n   - Fonte: Karl Pearson (BMJ 1904) e Gene Glass (Educational Researcher 1976)\n   - Como usar: Marco historico nas speaker notes. Pearson calculou primeiro modelo agregado (vacina tifoide) 72 anos antes do termo \"meta-analise\" existir. A RS moderna nasceu depois (Cochrane, 1979).\n\n3. **22,8% de artigos com \"Meta-analise\" no titulo NAO reportam dados combinados.**\n   - Fonte: Turner L et al. PLoS One 2013. DOI: 10.1371/journal.pone.0053536\n   - Como usar: Alerta de leitura critica nas speaker notes. \"Nunca prescrever baseado apenas no titulo do PubMed.\"\n\n## FONTES COMPLETAS\n\n- Eden J, Levit L, Berg A, Morton S. Finding What Works in Health Care: Standards for Systematic Reviews. IOM/NAM, 2011.\n- Glass GV. Primary, secondary, and meta-analysis of research. Educational Researcher 1976.\n- Higgins JPT et al. Cochrane Handbook for Systematic Reviews of Interventions v6.5. Cochrane, 2024.\n- Moher D, Tetzlaff J, Tricco AC, Sampson M, Altman DG. Epidemiology and reporting characteristics of systematic reviews. PLoS Medicine 2007. DOI: 10.1371/journal.pmed.0040078\n- Page MJ et al. Epidemiology and Reporting Characteristics of Systematic Reviews of Biomedical Research: A Cross-Sectional Study. PLoS Medicine 2016. DOI: 10.1371/journal.pmed.1002028\n- Page MJ et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ 2021. DOI: 10.1136/bmj.n71\n- Papakonstantinou T et al. Common statistical errors in systematic reviews: A tutorial. Methods 2025.\n- Turner L et al. An Evaluation of Epidemiological and Reporting Characteristics of CAM Systematic Reviews. PLoS One 2013. DOI: 10.1371/journal.pone.0053536\n- Pearson K. Report on certain enteric fever inoculation statistics. BMJ 1904;2:1243-6.\n- Cochrane AL. Effectiveness and Efficiency. 1971.\n\n---\n\n> **Nota:** Todos os PMIDs citados pelo Gemini sao CANDIDATE -- verificar via PubMed MCP antes de inserir em slide ou evidence-db. Taxa historica de erro de PMIDs do Gemini: ~15-20%.\n> **Cross-validation recomendada:** Rodar /research (Claude MCPs) para confirmar os dados-chave (37%, 22.8%, marcos historicos).\n> **Proximos passos sugeridos:** (1) Verificar PMIDs via PubMed. (2) Inserir dado \"37%\" no compare-footer ou speaker notes do slide s-rs-vs-ma. (3) Enriquecer compare-desc de RS com \"Protocolo, busca, selecao, extracao, avaliacao de vies \u00e2\u20ac\u201d 37% param aqui\". (4) Adicionar fontes verificadas ao evidence-db.\n\n---\n\nCoautoria: Lucas + Opus 4.6 (orquestracao, formatacao) + Gemini 3.1 (deep-research com Google Search grounding)\n"}], "grading": null}, {"id": "eval-2-slide-id-without_skill", "prompt": "deep search no slide s-rs-vs-ma da aula metanalise \u00e2\u20ac\u201d o slide tem h2 e esqueleto HTML mas precisa de conteudo fundacional", "eval_id": 2, "outputs": [{"name": "query.txt", "type": "text", "content": "What is the precise distinction between a systematic review and a meta-analysis? I need foundational, citable content for a medical education lecture slide aimed at clinical medicine residents. Specifically:\n\n1. Definitions: How does the Cochrane Handbook v6.5 (Chapter 1) define each term? What do PRISMA 2020 and other authoritative sources say?\n\n2. Relationship: \"Not every SR includes a MA. Every MA should come from a SR.\" \u00e2\u20ac\u201d what is the evidence and reasoning behind this? How often do published SRs actually include a MA (percentage data from bibliometric studies)?\n\n3. When MA is not possible or not appropriate: What are the recognized reasons for conducting a SR without pooling? (e.g., excessive heterogeneity, too few studies, incompatible outcome measures, narrative synthesis instead). Cite Cochrane Handbook chapters.\n\n4. Common conflation error: How prevalent is the misuse of \"meta-analysis\" as a synonym for \"systematic review\" in medical literature and clinical conversation? Any studies documenting this confusion?\n\n5. Historical context: Who coined the term \"meta-analysis\" (Gene Glass 1976)? When did \"systematic review\" emerge as a distinct concept (Cochrane Collaboration founding 1993, Archie Cochrane's influence)?\n\n6. The \"SR is the process, MA is the statistical step\" framing \u00e2\u20ac\u201d is this an oversimplification? What nuances exist?\n\nPrioritize: Cochrane Handbook, PRISMA 2020, BMJ Education series, JAMA Users' Guides, and bibliometric/methodological studies. Provide PMIDs or DOIs where available.\n\n---\nFormat requested: structured report with numbered sections matching the query, each with key facts, direct quotes where available, and full citations with PMIDs/DOIs\n\nResearch ID: v1_ChdBSkhPYWVDVk1lN3J6N0lQMHE2b21RaxIXQUpIT2FlQ1ZNZTdyejdJUDBxNm9tUWs\n"}, {"name": "report.md", "type": "text", "content": "# Deep Search Report: s-rs-vs-ma (Slide 04-rs-vs-ma.html)\n\n> Baseline test (no skill). Gemini deep-research MCP.\n> Date: 2026-04-02 | Duration: 5m 29s\n> Research ID: `v1_ChdBSkhPYWVDVk1lN3J6N0lQMHE2b21RaxIXQUpIT2FlQ1ZNZTdyejdJUDBxNm9tUWs`\n\n---\n\n## Slide Context\n\n- **Slide ID:** `s-rs-vs-ma`\n- **Position:** Phase 2 (Methodology), first concept slide\n- **h2 assertion:** \"RS e o metodo de busca e selecao; MA e o calculo estatistico \u00e2\u20ac\u201d e sao separaveis\"\n- **Current state:** Skeleton HTML with compare layout (RS vs MA), brief descriptions, footer sentence, speaker notes with timing\n- **Source cited:** Cochrane Handbook v6.5, cap. 1\n- **Timing:** 60s\n\n---\n\n## Research Results (Gemini Deep Research)\n\n### 1. Definitions \u00e2\u20ac\u201d Authoritative Sources\n\n**Cochrane Handbook v6.5, Chapter 1:**\n- **Systematic Review:** \"Systematic reviews seek to collate evidence that fits pre-specified eligibility criteria in order to answer a specific research question. They aim to minimize bias by using explicit, systematic methods documented in advance with a protocol.\"\n- **Meta-Analysis:** \"The use of statistical techniques in a systematic review to integrate the results of included studies.\" (Cochrane Glossary). Chapter 10 describes it as typically a two-stage process: (1) calculate summary statistic per study, (2) calculate weighted average across studies.\n\n**PRISMA 2020 (Box 1 Glossary):**\n- **Systematic Review:** \"A review that uses explicit, systematic methods to collate and synthesize findings of studies that address a clearly formulated question.\"\n- **Meta-Analysis of Effect Estimates:** \"A statistical technique used to synthesize results when study effect estimates and their variances are available, yielding a quantitative summary of results.\"\n\n**JAMA Users' Guides (Murad et al. 2014, DOI: 10.1001/jama.2014.5559):**\n- \"A systematic review is a research summary that addresses a focused clinical question in a structured, reproducible manner. It is often, but not always, accompanied by a meta-analysis, which is a statistical pooling or aggregation of results from different studies providing a single estimate of effect.\"\n\n### 2. Relationship \u00e2\u20ac\u201d \"Not Every SR Includes a MA\"\n\n**Epistemological reasoning:**\n- The primary threat is **selection bias** \u00e2\u20ac\u201d cherry-picking studies. SR combats this with exhaustive search. MA is mathematically agnostic to data origin \u00e2\u20ac\u201d software will produce a diamond regardless of whether inputs represent totality of evidence or a biased subset.\n- Cochrane Handbook Ch. 10 warning (*Do not start here!*): \"The production of a diamond at the bottom of a plot is an exciting moment... but results of meta-analyses can be very misleading if suitable attention has not been given to formulating the review question; specifying eligibility criteria; identifying and selecting studies...\"\n\n**Epidemiological data \u00e2\u20ac\u201d how often do SRs include MA:**\n\n| Source | Sample | % with MA |\n|--------|--------|-----------|\n| Page et al. 2016 (PLOS Med, DOI: 10.1371/journal.pmed.1002028) | 300 SRs from MEDLINE Feb 2014 | **63%** |\n| Annals of Surgery bibliometric 2022 | 186 SRs (2011-2020) | **70.4%** |\n| Page et al. 2022 (BMJ) | 300 SRs from 2020 | Majority, trend sustained |\n\n**Conclusion:** ~30-37% of published SRs validly decline to pool data.\n\n### 3. When MA is Not Possible or Appropriate\n\nCochrane Handbook Ch. 12 (McKenzie & Brennan) \u00e2\u20ac\u201d recognized reasons:\n\n1. **Too much clinical/methodological diversity** \u00e2\u20ac\u201d populations, interventions, comparators differ drastically\n2. **Excessive statistical heterogeneity** \u00e2\u20ac\u201d high I-squared, Q test, tau-squared\n3. **Incompletely reported outcomes** \u00e2\u20ac\u201d no CIs, SDs, or only P-values/direction\n4. **Different effect measures** \u00e2\u20ac\u201d HRs mixed with ORs mixed with mean differences, non-transformable\n5. **Universal high risk of bias** \u00e2\u20ac\u201d pooling compounds bias into precise but inaccurate estimate\n6. **Too few studies** \u00e2\u20ac\u201d 0-2 studies, false sense of precision\n\n**Alternatives:** Narrative synthesis (SWiM guidelines), structured tables, harvest plots, albatross plots.\n\n### 4. Common Conflation Error\n\n- **Cochrane Glossary** explicitly flags: meta-analysis is \"Sometimes misused as a synonym for systematic reviews.\"\n- **Historical campaign:** Chalmers & Altman (1995, book *Systematic Reviews*) deliberately separated the terms. Zoccali (2016, Nephrol Dial Transplant) documented this.\n- **Ioannidis 2016** (DOI: 10.1111/1468-0009.12210): \"The Mass Production of Redundant, Misleading, and Conflicted Systematic Reviews and Meta-analyses\" \u00e2\u20ac\u201d estimates only 3% of published MAs are truly informative. \"Meta-analysis\" used as prestige/marketing label.\n- **Clinical takeaway:** Seeing \"meta-analysis\" in a title does NOT guarantee a systematic review was conducted. Without SR rigor, MA is a precise synthesis of biased data.\n\n### 5. Historical Context\n\n| Event | Year | Key Figure |\n|-------|------|------------|\n| First informal pooling of studies | 1904 | Karl Pearson (typhoid vaccine, 11 studies) |\n| Combining P-values across experiments | 1930s | Ronald Fisher (ANOVA, agricultural) |\n| Term \"meta-analysis\" coined | **1976** | **Gene V. Glass** (presidential address, AERA) |\n| | | Definition: \"statistical analysis of a large collection of analysis results from individual studies for the purpose of integrating the findings\" |\n| | | Application: 375 psychotherapy studies, challenged Eysenck |\n| Archie Cochrane's plea | **1979** | \"It is surely a great criticism of our profession that we have not organised a critical summary... of all relevant randomised controlled trials\" |\n| Effective Care in Pregnancy and Childbirth DB | 1989 | Iain Chalmers |\n| **Cochrane Collaboration founded** | **1993** | Oxford, UK Cochrane Centre |\n| Formal separation of terms | 1995 | Chalmers & Altman (*Systematic Reviews* book) |\n\n### 6. \"SR = Process, MA = Statistical Step\" \u00e2\u20ac\u201d Nuances\n\nThe framing is broadly accurate but has 3 important nuances:\n\n1. **MA can exist outside SR:** Two investigators pooling their own trials, or an author arbitrarily selecting 5 studies \u00e2\u20ac\u201d both are mechanically MAs but lack SR rigor. The latter is considered highly flawed (catastrophic selection bias).\n\n2. **SR involves synthesis beyond math:** PRISMA 2020 recognizes qualitative synthesis, thematic synthesis, narrative synthesis as legitimate SR outputs. RoB assessment, GRADE evaluation, structured summaries are complex synthesis even without pooling.\n\n3. **Not all quantitative synthesis = MA:** Cochrane Handbook identifies methods like combining P-values, vote counting by direction of effect, calculating range of observed effects \u00e2\u20ac\u201d these are quantitative but NOT meta-analysis of effect estimates.\n\n**For residents:**\n- When reading a **SR**: ask \"Did they identify ALL evidence and assess risk of bias?\" (credibility of process)\n- When reading a **MA**: ask \"Were studies similar enough to justify combining into one number?\" (confidence in pooled estimate)\n- A brilliant MA cannot salvage a flawed SR. An excellent SR may rightfully conclude MA is impossible.\n\n---\n\n## Key References for Slide\n\n| Reference | Type | Function | Citation |\n|-----------|------|----------|----------|\n| Cochrane Handbook v6.5, Ch. 1 | Handbook | SR vs MA definitions | Already cited on slide |\n| Cochrane Handbook v6.5, Ch. 10 | Handbook | MA methodology, \"Do not start here!\" warning | Speaker notes |\n| Cochrane Handbook v6.5, Ch. 12 | Handbook | When NOT to pool | Speaker notes |\n| PRISMA 2020 (Page et al. BMJ 2021) | Statement | Definitions, glossary | Already in evidence-db |\n| Murad et al. 2014, JAMA | Users' Guide | SR vs MA for clinicians | DOI: 10.1001/jama.2014.5559 |\n| Page et al. 2016, PLOS Med | Bibliometric | 63% of SRs include MA | DOI: 10.1371/journal.pmed.1002028 |\n| Glass 1976 | Seminal | Coined \"meta-analysis\" | AERA presidential address |\n| Ioannidis 2016 | Critique | Mass production, only 3% truly informative | DOI: 10.1111/1468-0009.12210 |\n\n---\n\n## Slide Content Assessment\n\n### What the slide already has (correct):\n- h2 is a proper assertion (not a label)\n- RS/MA separation is accurate\n- \"Nem toda RS tem MA. Toda MA vem de uma RS.\" is the correct axiom\n- Source (Cochrane Handbook v6.5, cap. 1) is appropriate\n- Speaker notes have good timing and clear narrative arc\n\n### What could strengthen the slide content:\n1. **RS column description** could be more specific: the current \"Protocolo, busca, selecao, extracao, avaliacao de vies\" is actually excellent \u00e2\u20ac\u201d it names the 5 steps of the SR process\n2. **MA column description** could add \"estimativa ponderada\" (weighted estimate) \u00e2\u20ac\u201d currently says \"estimativa ponderada\" which is correct\n3. **Speaker notes** could incorporate the \"63% of SRs include MA\" data point (Page et al. 2016) to ground the \"nem toda RS tem MA\" claim with a number\n4. **Speaker notes** could reference the Cochrane Ch. 10 \"Do not start here!\" warning as a memorable anchor\n5. The **footer** \"Nem toda RS tem MA. Toda MA vem de uma RS.\" is the single most important takeaway \u00e2\u20ac\u201d correctly placed as a compare-footer\n\n### Verification status of existing content:\n- Cochrane Handbook v6.5, cap. 1 definitions: **CONFIRMED** by Gemini deep research against source\n- \"Nem toda RS tem MA. Toda MA vem de uma RS.\": **CONFIRMED** \u00e2\u20ac\u201d standard axiom per Cochrane, PRISMA, JAMA Users' Guides\n- Note: \"Toda MA vem de uma RS\" is slightly normative (prescriptive, not descriptive) \u00e2\u20ac\u201d MAs CAN exist without SRs, but SHOULDN'T in EBM. The slide's speaker notes already handle this nuance at [0:40-0:60].\n\n---\n\n## Raw Output Location\n\nFull Gemini JSON: `C:\\Users\\lucas\\AppData\\Roaming\\gemini-mcp\\output\\895e0fe124d103c5\\deep-research-2026-04-02T15-59-08-005Z.json`\n\n---\n\nCoautoria: Lucas + Opus 4.6 (orchestrator) + Gemini 3.1 (deep-research)\n"}], "grading": null}, {"id": "eval-3-clopidogrel-with_skill", "prompt": "pesquisa profunda clopidogrel vs aspirina prevencao secundaria AVC isquemico \u00e2\u20ac\u201d NNT, divergencia entre ESC e AHA, dados do CAPRIE e meta-analises recentes", "eval_id": 3, "outputs": [{"name": "query.txt", "type": "text", "content": "TOPICO: Clopidogrel vs aspirina na preven\u00c3\u00a7\u00c3\u00a3o secund\u00c3\u00a1ria do AVC isqu\u00c3\u00aamico \u00e2\u20ac\u201d NNT, diverg\u00c3\u00aancia entre ESC e AHA, dados do CAPRIE e meta-an\u00c3\u00a1lises recentes\nCONTEXTO: Residentes cl\u00c3\u00adnica m\u00c3\u00a9dica, n\u00c3\u00advel b\u00c3\u00a1sico-intermedi\u00c3\u00a1rio. Pesquisa nova, partindo do zero. N\u00c3\u00a3o h\u00c3\u00a1 slide existente. Objetivo \u00c3\u00a9 levantar evid\u00c3\u00aancia fundacional para decis\u00c3\u00a3o cl\u00c3\u00adnica: quando preferir clopidogrel sobre aspirina ap\u00c3\u00b3s AVC isqu\u00c3\u00aamico, com dados concretos (NNT, ARR, HR), fontes Tier 1, e mapeamento das diverg\u00c3\u00aancias entre guidelines europeu (ESC) e americano (AHA/ASA).\nFOCO: Descoberta de conte\u00c3\u00bado \u00e2\u20ac\u201d dados do trial CAPRIE (subgrupo AVC), meta-an\u00c3\u00a1lises recentes comparando antiagregantes na preven\u00c3\u00a7\u00c3\u00a3o secund\u00c3\u00a1ria de AVC, NNT com IC 95% e timeframe, posi\u00c3\u00a7\u00c3\u00b5es divergentes ESC vs AHA/ASA sobre clopidogrel como primeira linha, e dados de custo-efetividade no contexto Brasil (SUS/RENAME).\n\n=== MANDATO DE PESQUISA ===\n\nVoc\u00c3\u00aa est\u00c3\u00a1 conduzindo pesquisa m\u00c3\u00a9dica profunda para uma apresenta\u00c3\u00a7\u00c3\u00a3o de ensino.\nP\u00c3\u00bablico: residentes de cl\u00c3\u00adnica m\u00c3\u00a9dica (n\u00c3\u00advel b\u00c3\u00a1sico-intermedi\u00c3\u00a1rio).\nPa\u00c3\u00ads: Brasil (ANVISA, SUS, realidade local).\n\nO objetivo \u00c3\u00a9 retornar DADOS CONCRETOS com fontes verific\u00c3\u00a1veis.\nRespostas vagas s\u00c3\u00a3o in\u00c3\u00bateis neste contexto \u00e2\u20ac\u201d cada achado precisa de n\u00c3\u00bameros, cita\u00c3\u00a7\u00c3\u00a3o, e classifica\u00c3\u00a7\u00c3\u00a3o.\n\n=== HIERARQUIA DE FONTES (seguir esta ordem de prioridade) ===\n\n1. GUIDELINES: Guidelines vigentes de sociedades m\u00c3\u00a9dicas (EASL, AASLD, AGA, ACG, ESC, AHA, WHO, Cochrane, SBH, SBC).\n   Extrair: sociedade, ano, grau de recomenda\u00c3\u00a7\u00c3\u00a3o, n\u00c3\u00advel de evid\u00c3\u00aancia, recomenda\u00c3\u00a7\u00c3\u00a3o espec\u00c3\u00adfica.\n\n2. META-AN\u00c3\ufffdLISES: Revis\u00c3\u00b5es sistem\u00c3\u00a1ticas com meta-an\u00c3\u00a1lise (preferencialmente >=3 estudos pooled).\n   Extrair: k estudos, n pacientes total, estimativa pooled + IC 95%, I-squared, certeza GRADE.\n\n3. RCTs LANDMARK: Ensaios cl\u00c3\u00adnicos randomizados multic\u00c3\u00aantricos (preferencialmente n>=200).\n   Extrair: acr\u00c3\u00b4nimo, n, bra\u00c3\u00a7os, endpoint prim\u00c3\u00a1rio, effect size + IC 95%, NNT se calcul\u00c3\u00a1vel, p-value.\n\n4. LIVROS-REFER\u00c3\u0160NCIA: Edi\u00c3\u00a7\u00c3\u00b5es mais recentes apenas.\n   Extrair: autor, edi\u00c3\u00a7\u00c3\u00a3o, cap\u00c3\u00adtulo, p\u00c3\u00a1ginas, argumento central do trecho.\n\n5. COORTES GRANDES: Apenas quando n\u00c3\u00a3o h\u00c3\u00a1 evid\u00c3\u00aancia de n\u00c3\u00adveis superiores.\n   Extrair: n, follow-up, desfecho, medida de associa\u00c3\u00a7\u00c3\u00a3o + IC 95%.\n\n=== OLHAR CR\u00c3\ufffdTICO \u00e2\u20ac\u201d aplicar a CADA achado ===\n\nPara cada evid\u00c3\u00aancia encontrada, avaliar criticamente:\n- Popula\u00c3\u00a7\u00c3\u00a3o do estudo vs contexto do ensino (generaliz\u00c3\u00a1vel? spectrum bias?)\n- Endpoint: cl\u00c3\u00adnico (mortalidade, evento) ou surrogate (marcador laboratorial)?\n- Financiamento: ind\u00c3\u00bastria farmac\u00c3\u00aautica? Potencial vi\u00c3\u00a9s?\n- Replica\u00c3\u00a7\u00c3\u00a3o: achado confirmado por estudos independentes?\n- Temporalidade: dado ainda vigente ou superseded por evid\u00c3\u00aancia mais recente?\n\nQuando um achado \u00c3\u00a9 robusto, dizer que \u00c3\u00a9 robusto. Quando \u00c3\u00a9 fr\u00c3\u00a1gil, dizer por qu\u00c3\u00aa.\nO objetivo n\u00c3\u00a3o \u00c3\u00a9 demolir \u00e2\u20ac\u201d \u00c3\u00a9 ser preciso sobre o grau de confian\u00c3\u00a7a.\n\n=== DIVERG\u00c3\u0160NCIAS E CONVERG\u00c3\u0160NCIAS (obrigat\u00c3\u00b3rio quando 2+ fontes tocam o tema) ===\n\nCONVERG\u00c3\u0160NCIAS: Onde 2+ sociedades/estudos concordam \u00e2\u2020\u2019 alta confian\u00c3\u00a7a. Listar com fontes.\nDIVERG\u00c3\u0160NCIAS: Onde discordam \u00e2\u2020\u2019 listar posi\u00c3\u00a7\u00c3\u00a3o de cada, ano, base de evid\u00c3\u00aancia, qual \u00c3\u00a9 mais recente.\nDiverg\u00c3\u00aancias mudam conduta cl\u00c3\u00adnica \u00e2\u20ac\u201d omiti-las \u00c3\u00a9 desinformar.\n\n=== REQUISITOS DE DADOS ===\n\nCada achado reportado precisa incluir:\n- N\u00c3\u00bameros concretos (effect size, IC 95%, p-value, n, NNT quando aplic\u00c3\u00a1vel)\n- Identifica\u00c3\u00a7\u00c3\u00a3o da fonte (PMID, DOI, ou cita\u00c3\u00a7\u00c3\u00a3o completa)\n- Ano de publica\u00c3\u00a7\u00c3\u00a3o\n- Tag de tipo: [GUIDELINE] [META/SR] [RCT] [LANDMARK] [COHORT] [BOOK] [EXPERT]\n- Qualidade GRADE: HIGH / MODERATE / LOW / VERY LOW\n\nAchados sem n\u00c3\u00bameros concretos n\u00c3\u00a3o s\u00c3\u00a3o aceit\u00c3\u00a1veis.\n\"Estudos mostram que...\" sem cita\u00c3\u00a7\u00c3\u00a3o = excluir do output.\n\n=== CONTEXTO BRASIL ===\n\n- Sinalizar drogas/interven\u00c3\u00a7\u00c3\u00b5es n\u00c3\u00a3o dispon\u00c3\u00adveis no Brasil (ANVISA/CONITEC)\n- Incluir guidelines brasileiras quando existirem (SBH, SBC, SBHPA, PCDT/CONITEC, protocolos SUS)\n- Contexto padr\u00c3\u00a3o de popula\u00c3\u00a7\u00c3\u00a3o: pacientes brasileiros\n\n=== PERGUNTAS ESPEC\u00c3\ufffdFICAS ===\n\n1. CAPRIE trial: qual o resultado no subgrupo AVC isqu\u00c3\u00aamico especificamente? HR ou RRR, IC 95%, NNT, n do subgrupo. O resultado do subgrupo foi estatisticamente significativo?\n2. ESC vs AHA/ASA: qual a recomenda\u00c3\u00a7\u00c3\u00a3o de cada sociedade para antiagrega\u00c3\u00a7\u00c3\u00a3o p\u00c3\u00b3s-AVC isqu\u00c3\u00aamico? Onde divergem sobre clopidogrel como primeira linha vs alternativa?\n3. Meta-an\u00c3\u00a1lises recentes (2015-2026): existem meta-an\u00c3\u00a1lises comparando clopidogrel vs aspirina especificamente para preven\u00c3\u00a7\u00c3\u00a3o secund\u00c3\u00a1ria de AVC? Pooled estimates?\n4. DAPT curta (aspirina + clopidogrel 21 dias): dados do CHANCE e POINT \u00e2\u20ac\u201d como mudaram as guidelines?\n5. Custo-efetividade: clopidogrel gen\u00c3\u00a9rico vs aspirina no contexto SUS/RENAME.\n6. NNT: calcular NNT com IC 95% e timeframe para os desfechos principais (AVC recorrente, eventos vasculares compostos).\n"}, {"name": "report.md", "type": "text", "content": "## Deep Search Report: Clopidogrel vs Aspirina \u00e2\u20ac\u201d Preven\u00c3\u00a7\u00c3\u00a3o Secund\u00c3\u00a1ria AVC Isqu\u00c3\u00aamico\nData: 2026-04-02 | Fonte: Gemini 3.1 + Google Search\nStatus PMIDs: CANDIDATE (verificar via PubMed antes de usar em slide)\n\n---\n\n## TL;DR\n1. **Fase Aguda (Minor AVC/AIT):** DAPT curta (AAS + Clopidogrel) por 21 dias reduz risco de novo AVC (NNT 29) sem aumentar sangramento fatal, sendo imperativa como primeira linha.\n2. **Longo Prazo (Monoterapia):** O benef\u00c3\u00adcio do clopidogrel sobre o AAS no subgrupo AVC do CAPRIE n\u00c3\u00a3o foi estatisticamente significativo (ARR 1%, NNT 98, p=0.22); logo, a evid\u00c3\u00aancia n\u00c3\u00a3o suporta superioridade indiscut\u00c3\u00advel.\n3. **Contexto Cl\u00c3\u00adnico/SUS:** Diretrizes europeias (ESC) admitem ligeira prefer\u00c3\u00aancia pelo clopidogrel no risco global (ASCVD), mas no SUS (PCDT/AHA) a aspirina segue como 1a linha universal pelo custo-efetividade, reservando-se o clopidogrel para falha, intoler\u00c3\u00a2ncia ou fase aguda. N\u00c3\u00advel de confian\u00c3\u00a7a: **ALTO**.\n\n---\n\n## CONVERGENCIAS\n\nOnde multiplas sociedades medicas internacionais e dados de alta qualidade apontam na mesma dire\u00c3\u00a7\u00c3\u00a3o:\n\n- **DAPT Curta na Fase Aguda:** AHA/ASA (2021), ESC (2021) e PCDT SUS (2021) concordam plenamente que em pacientes com AVCi minor (NIHSS <= 3-5) ou AIT de alto risco (ABCD2 >= 4), n\u00c3\u00a3o cardioemb\u00c3\u00b3lico, a dupla antiagrega\u00c3\u00a7\u00c3\u00a3o com AAS e clopidogrel iniciada precocemente (< 12-24h) e mantida por 21 dias \u00c3\u00a9 significativamente superior \u00c3\u00a0 monoterapia. Fontes: PMID 34024117 (AHA/ASA 2021), PMID 34458905 (ESC 2021), PCDT/CONITEC 2021.\n\n- **Evita\u00c3\u00a7\u00c3\u00a3o de DAPT a Longo Prazo (> 90 dias):** Consenso absoluto de que manter DAPT por longos per\u00c3\u00adodos em pacientes com AVCi pr\u00c3\u00a9vio aumenta exponencialmente o risco de sangramento maior e hemorragia intracraniana (NNH 200) sem oferecer benef\u00c3\u00adcios sustentados na preven\u00c3\u00a7\u00c3\u00a3o isqu\u00c3\u00aamica. Baseado nos trials MATCH, SPS3 e no bra\u00c3\u00a7o de 90 dias do POINT. A monoterapia vital\u00c3\u00adcia (SAPT) deve ser assumida ap\u00c3\u00b3s o per\u00c3\u00adodo agudo. Fontes: PMID 34024117, PMID 29766750.\n\n- **Contraindica\u00c3\u00a7\u00c3\u00a3o em Embolia de Fonte Indeterminada (ESUS):** Pacientes com AVC emb\u00c3\u00b3lico de fonte incerta n\u00c3\u00a3o devem ser anticoagulados empiricamente de rotina; a prote\u00c3\u00a7\u00c3\u00a3o prim\u00c3\u00a1ria segue com antiagrega\u00c3\u00a7\u00c3\u00a3o plaquet\u00c3\u00a1ria. Fonte: PMID 34024117.\n\n---\n\n## DIVERGENCIAS\n\nA posi\u00c3\u00a7\u00c3\u00a3o divergente sobre qual antiagregante usar como monoterapia a longo prazo (primeira linha) molda condutas diametralmente opostas dependendo da diretriz adotada:\n\n### 1. ESC (2021)\n- **Posi\u00c3\u00a7\u00c3\u00a3o:** Clopidogrel 75 mg *pode ser considerado em prefer\u00c3\u00aancia* ao AAS na preven\u00c3\u00a7\u00c3\u00a3o secund\u00c3\u00a1ria de pacientes com ASCVD estabelecida (Recomenda\u00c3\u00a7\u00c3\u00a3o Classe IIb, N\u00c3\u00advel A).\n- **Base:** Meta-an\u00c3\u00a1lises recentes (PANTHER, etc.) que indicam discreta redu\u00c3\u00a7\u00c3\u00a3o combinada de eventos isqu\u00c3\u00aamicos (especialmente IAM n\u00c3\u00a3o-fatal) e menor taxa de sangramento gastrointestinal vs AAS. Clopidogrel em caso de intoler\u00c3\u00a2ncia ao AAS = Classe I.\n- Fonte: PMID 34458905\n\n### 2. AHA/ASA (2021)\n- **Posi\u00c3\u00a7\u00c3\u00a3o:** Coloca AAS (50-325 mg), Clopidogrel (75 mg) ou AAS + Dipiridamol LP em **p\u00c3\u00a9 de igualdade** conceitual como op\u00c3\u00a7\u00c3\u00b5es de primeira linha (Recomenda\u00c3\u00a7\u00c3\u00a3o Forte, Classe 1, N\u00c3\u00advel A).\n- **Base:** Reconhece que, embora clopidogrel reduza marginalmente eventos vasculares globais, em pacientes *especificamente* com antecedente prim\u00c3\u00a1rio de AVC, a superioridade cl\u00c3\u00adnica para AVC recorrente n\u00c3\u00a3o \u00c3\u00a9 robusta o suficiente para ditar uma prefer\u00c3\u00aancia universal.\n- Fonte: PMID 34024117\n\n### 3. PCDT Brasil / SUS (2021)\n- **Posi\u00c3\u00a7\u00c3\u00a3o:** Elege a **Aspirina (AAS)** como primeira escolha universal a longo prazo.\n- **Base:** Dados farmacoecon\u00c3\u00b4micos e de viabilidade sist\u00c3\u00aamica. Clopidogrel monoter\u00c3\u00a1pico fica estritamente relegado a pacientes com verdadeira alergia, intoler\u00c3\u00a2ncia g\u00c3\u00a1strica refrat\u00c3\u00a1ria comprovada ao AAS ou na ocorr\u00c3\u00aancia de novo evento isqu\u00c3\u00aamico na vig\u00c3\u00aancia de uso pr\u00c3\u00a9vio de AAS.\n- Fonte: PCDT/CONITEC Relat\u00c3\u00b3rio 722 (Dezembro 2021)\n\n**Qual \u00c3\u00a9 mais forte?** Do ponto de vista neurol\u00c3\u00b3gico estrito, a diretriz da AHA/ASA (2021) prov\u00c3\u00aa a avalia\u00c3\u00a7\u00c3\u00a3o mais acurada especificamente para a coorte cerebrovascular, dado que o benef\u00c3\u00adcio do clopidogrel apontado pela ESC \u00c3\u00a9 primordialmente carregado pela redu\u00c3\u00a7\u00c3\u00a3o de desfechos coronarianos (IAM), n\u00c3\u00a3o especificamente AVC.\n\n---\n\n## EVIDENCIA TIER 1\n\n### 1. Network Meta-Analysis Global (Tramacere et al., 2021)\n- **[META/SR]** Tramacere I, et al. BMC Medicine 2021. PMID: 34399713 \u00e2\u20ac\u201d n=165.533 (57 RCTs)\n- Clopidogrel vs placebo: OR 0.63 (IC 95% 0.49-0.79; ARD -2.7%) para todos os AVCs\n- AAS <= 150 mg vs placebo: OR 0.79 (IC 95% 0.66-0.95; ARD -1.5%)\n- Na compara\u00c3\u00a7\u00c3\u00a3o direta em rede, clopidogrel reduziu significativamente eventos cardiovasculares e hemorragia intracraniana vs AAS\n- **GRADE: HIGH**\n- *Nota cr\u00c3\u00adtica:* Meta-an\u00c3\u00a1lise em rede (indireta para muitos nodes), n\u00c3\u00a3o head-to-head puramente prospectivo. Cautela na atribui\u00c3\u00a7\u00c3\u00a3o de superioridade absoluta na pr\u00c3\u00a1tica de beira de leito.\n\n### 2. Trial CHANCE (2013)\n- **[RCT/LANDMARK]** Wang Y, et al. N Engl J Med 2013;369:11-19. PMID: 23803136 \u00e2\u20ac\u201d n=5.170\n- Bra\u00c3\u00a7os: Clopidogrel (300 mg ataque + 75 mg) + AAS vs AAS isolado, por 21 dias\n- Novo AVC em 90 dias: 8.2% DAPT vs 11.7% AAS (HR 0.68; IC 95% 0.57-0.81, p<0.001)\n- **NNT = 29** para prevenir 1 AVC recorrente em 90 dias\n- Sangramento moderado/grave: 0.3% em ambos os grupos (HR 0.73, p=0.44)\n- **GRADE: HIGH**\n- *Nota cr\u00c3\u00adtica:* Popula\u00c3\u00a7\u00c3\u00a3o exclusivamente chinesa. Asi\u00c3\u00a1ticos possuem altas taxas de aterosclerose intracraniana e varia\u00c3\u00a7\u00c3\u00b5es no CYP2C19, limitando ligeiramente a generaliza\u00c3\u00a7\u00c3\u00a3o.\n\n### 3. Trial POINT (2018)\n- **[RCT/LANDMARK]** Johnston SC, et al. N Engl J Med 2018. PMID: 29766750 \u00e2\u20ac\u201d n=4.881\n- Bra\u00c3\u00a7os: Clopidogrel (600 mg ataque + 75 mg) + AAS vs AAS isolado, sustentado por 90 dias\n- Eventos isqu\u00c3\u00aamicos maiores: 4.6% vs 6.3% (HR 0.72; IC 95% 0.56-0.92, p=0.009). NNT ~ 59\n- Sangramento maior: 0.9% vs 0.4% (HR 2.32; IC 95% 1.10-4.87, p=0.02). **NNH = 200**\n- **GRADE: HIGH**\n- *Nota cr\u00c3\u00adtica:* Estudo internacional que mitiga limita\u00c3\u00a7\u00c3\u00a3o demogr\u00c3\u00a1fica do CHANCE. An\u00c3\u00a1lise pooled post-hoc provou que quase todo benef\u00c3\u00adcio da DAPT acontece nos primeiros 21 dias, enquanto sangramento grave acumula-se entre dias 22-90. Por isso guidelines fixaram cut-off da DAPT em 21 dias.\n\n### 4. Trial CAPRIE \u00e2\u20ac\u201d Subgrupo AVC (1996)\n- **[RCT/LANDMARK]** CAPRIE Steering Committee. Lancet 1996;348:1329-39. PMID: 8918275 \u00e2\u20ac\u201d n=6.431 (subgrupo AVC)\n- Desfecho composto (AVC, IAM ou morte vascular): 13.4% clopidogrel vs 14.4% aspirina\n- RR 0.93 (IC 95% 0.82-1.05; p=0.22). **ARR = 1%. NNT = 98** (n\u00c3\u00a3o significativo)\n- Estudo global (n=19.185) foi positivo (HR 0.91, p=0.043), mas resultado tracionado pelo subgrupo DAP\n- **GRADE: MODERATE** (downgrade por imprecis\u00c3\u00a3o do IC cruzando a unidade no subgrupo)\n- *Nota cr\u00c3\u00adtica EXTREMAMENTE IMPORTANTE para ensino:* No subgrupo espec\u00c3\u00adfico de pacientes cujo evento qualificador foi AVC isqu\u00c3\u00aamico, o benef\u00c3\u00adcio do clopidogrel N\u00c3\u0192O alcan\u00c3\u00a7ou signific\u00c3\u00a2ncia estat\u00c3\u00adstica (IC cruza o 1, variando de 18% de benef\u00c3\u00adcio a 5% de malef\u00c3\u00adcio). Justificar prescri\u00c3\u00a7\u00c3\u00a3o irrestrita de clopidogrel sob premissa de \"ampla superioridade no AVC\" usando o CAPRIE \u00c3\u00a9 fal\u00c3\u00a1cia interpretativa.\n\n### 5. Suban\u00c3\u00a1lise CAPRIE \u00e2\u20ac\u201d Alto Risco (Ringleb et al., 2004)\n- **[COHORT/POST-HOC]** Ringleb PA, et al. Stroke 2004;35(2):528-32. PMID: 14739420 \u00e2\u20ac\u201d n=4.496\n- Subcoorte com hist\u00c3\u00b3rico de AVC + IAM ou eventos m\u00c3\u00baltiplos\n- Evento no 3o ano: 20.4% clopidogrel vs 23.8% AAS. ARR = 3.4% (IC 95% -0.2 a 7.0). RRR 14.9% (p=0.045)\n- NNT no 1o ano = 71; NNT no 3o ano = 29\n- **GRADE: LOW**\n- *Nota cr\u00c3\u00adtica:* Comprova que vantagem do bloqueio P2Y12 sobre inibi\u00c3\u00a7\u00c3\u00a3o da COX-1 se magnifica conforme carga de doen\u00c3\u00a7a ateroscler\u00c3\u00b3tica aumenta, fortalecendo recomenda\u00c3\u00a7\u00c3\u00a3o ESC (ASCVD difuso = preferir clopidogrel).\n\n### 6. PANTHER Meta-Analysis (Chiarito et al., 2020)\n- **[META/SR]** Chiarito M, et al. Lancet 2020;395:1487-1495. PMID: 32386738\n- Revis\u00c3\u00a3o sistem\u00c3\u00a1tica com meta-an\u00c3\u00a1lise comparando monoterapia P2Y12 vs aspirina em preven\u00c3\u00a7\u00c3\u00a3o secund\u00c3\u00a1ria ASCVD\n- Resultado suporta discreto benef\u00c3\u00adcio de inibidores P2Y12 em eventos isqu\u00c3\u00aamicos compostos com menor sangramento GI\n- **GRADE: HIGH**\n- *Nota cr\u00c3\u00adtica:* Base da recomenda\u00c3\u00a7\u00c3\u00a3o ESC IIb. Benef\u00c3\u00adcio carregado principalmente por desfechos coronarianos.\n\n---\n\n## NUANCES\n\n### O Fantasma do CYP2C19 e Etnicidade\nClopidogrel \u00c3\u00a9 pr\u00c3\u00b3-f\u00c3\u00a1rmaco que requer biotransforma\u00c3\u00a7\u00c3\u00a3o via CYP2C19. ~25-33% da popula\u00c3\u00a7\u00c3\u00a3o mundial possui alelos loss-of-function (CYP2C19*2) e exibe \"resist\u00c3\u00aancia ao clopidogrel\". A miscigena\u00c3\u00a7\u00c3\u00a3o brasileira engloba percentual imprevis\u00c3\u00advel de resist\u00c3\u00aancia gen\u00c3\u00b4mica sem acesso aos testes de fun\u00c3\u00a7\u00c3\u00a3o plaquet\u00c3\u00a1ria no SUS. Ticagrelor (a\u00c3\u00a7\u00c3\u00a3o direta, revers\u00c3\u00advel, testado no THALES) \u00c3\u00a9 alternativa eficiente mas com mais hemorragias maiores no AVC e custo proibitivo na rede b\u00c3\u00a1sica.\n\n### Intera\u00c3\u00a7\u00c3\u00a3o Farmacodin\u00c3\u00a2mica com Omeprazol (IBPs)\nIBPs competem pelo s\u00c3\u00adtio da isoenzima CYP2C19. Retrospectiva do CAPRIE: pacientes usando Clopidogrel + IBP tiveram HR 2.39 (IC 95% 1.74-3.28, p<0.001) para falha isqu\u00c3\u00aamica vs n\u00c3\u00a3o-usu\u00c3\u00a1rios de IBP. Pacientes usando AAS + IBP: HR 1.04, p=0.834 (sem altera\u00c3\u00a7\u00c3\u00a3o). Se gastroprote\u00c3\u00a7\u00c3\u00a3o for indicada com clopidogrel: considerar Pantoprazol (menor inibi\u00c3\u00a7\u00c3\u00a3o CYP2C19) ou manter AAS se seguro do ponto de vista GI. Fonte: PMID 23378521.\n\n### DAPT: AAS+Clopidogrel vs AAS+Ticagrelor\nTHALES: AAS + Ticagrelor (30 dias) reduziu desfechos isqu\u00c3\u00aamicos compostos (HR 0.83, NNT 92) vs monoterapia AAS, por\u00c3\u00a9m sangramento grave quadriplicou (HR 3.99, NNH 263). Balan\u00c3\u00a7o risco/benef\u00c3\u00adcio do AAS+Clopidogrel (21 dias) \u00c3\u00a9 largamente superior, sem elevar sangramento intracraniano grave, consolidando-se como padr\u00c3\u00a3o ouro da DAPT curta.\n\n---\n\n## GAPS\n\n1. **Quando exatamente usar DAPT estendida (90 dias) em sICAS?** SAMMPRIS mostrou benef\u00c3\u00adcio na terapia de 90 dias em pacientes de alto risco com aterosclerose intracraniana grave (70-99%), mas \u00c3\u00a9 subgrupo altamente selecionado. Para generalista no PS sem Angio-TC/Doppler, prolongamento al\u00c3\u00a9m de 21 dias \u00c3\u00a9 arriscado.\n\n2. **Ticagrelor vs Clopidogrel head-to-head no AVC:** Diferentemente do IAM, n\u00c3\u00a3o h\u00c3\u00a1 RCT fase 3 de grande porte (global) comparando diretamente Ticagrelor+AAS vs Clopidogrel+AAS para coorte exclusiva de AVC minor (CHANCE-2 focou exclusivamente em portadores documentados de alelos de perda de fun\u00c3\u00a7\u00c3\u00a3o).\n\n3. **Doen\u00c3\u00a7a de Pequenos Vasos (Lacunar):** SPS3 mostrou que associar Clopidogrel ao AAS na doen\u00c3\u00a7a lacunar N\u00c3\u0192O reduz desfechos macrovasculares e eleva sangramento intracraniano e mortalidade. A efic\u00c3\u00a1cia do clopidogrel monoter\u00c3\u00a1pico vs aspirina monoter\u00c3\u00a1pica nestes nichos patog\u00c3\u00aanicos carece de diferenciais conclusivos.\n\n4. **Custo-efetividade atualizado no SUS:** Dados de RCEI p\u00c3\u00b3s-patente do clopidogrel gen\u00c3\u00a9rico no contexto SUS/RENAME em 2024-2026 s\u00c3\u00a3o escassos. An\u00c3\u00a1lises antigas (CHARISMA 2009, PMID 19490556) mostraram custos proibitivos, mas contexto mudou com gen\u00c3\u00a9rico.\n\n---\n\n## DADOS PARA SLIDE\n\n- **Estat\u00c3\u00adstica 1 \u00e2\u20ac\u201d Fim do Mito da \"Ampla Superioridade\":**\n  - Dado: RRR 7% | NNT 98 | p = 0.22 (N\u00c3\u00a3o Significativo)\n  - Fonte: CAPRIE Trial (Subgrupo AVC, n=6.431) \u00e2\u20ac\u201d Lancet 1996, PMID 8918275 [CANDIDATE]\n  - Como usar: \"Embora o Clopidogrel seja visto como 'melhor que a aspirina', no subgrupo estrito de pacientes cujo evento-\u00c3\u00adndice foi um AVC, o benef\u00c3\u00adcio absoluto foi de apenas 1% e falhou em atingir signific\u00c3\u00a2ncia estat\u00c3\u00adstica. Por isso, AHA e SUS defendem o AAS.\"\n\n- **Estat\u00c3\u00adstica 2 \u00e2\u20ac\u201d A M\u00c3\u00a1gica dos 21 Dias (DAPT Curta):**\n  - Dado: HR 0.68 (IC 95% 0.57-0.81) | NNT 29 para prevenir 1 AVC recorrente em 90 dias, sem aumento de sangramento\n  - Fonte: CHANCE Trial \u00e2\u20ac\u201d N Engl J Med 2013, PMID 23803136 [CANDIDATE]\n  - Como usar: \"Para AVC minor (NIHSS <=3) e AIT alto risco nas primeiras 24 horas, associar AAS e Clopidogrel nos primeiros 21 dias resgata 1 paciente de um novo AVC a cada 29 tratados. Mas pare no 21o dia para evitar sangramentos!\"\n\n- **Estat\u00c3\u00adstica 3 \u00e2\u20ac\u201d O Cuidado com o Omeprazol (Intera\u00c3\u00a7\u00c3\u00a3o Citocromo):**\n  - Dado: HR 2.39 (IC 95% 1.74-3.28; p<0.001) para falha isqu\u00c3\u00aamica ao coadministrar Clopidogrel com IBP\n  - Fonte: Suban\u00c3\u00a1lise CAPRIE/CREDO \u00e2\u20ac\u201d J Am Heart Assoc 2013, PMID 23378521 [CANDIDATE]\n  - Como usar: \"Ao prescrever Clopidogrel e querer 'gastroprote\u00c3\u00a7\u00c3\u00a3o' com Omeprazol, lembre-se que voc\u00c3\u00aa pode inativar o Clopidogrel via bloqueio do CYP2C19, mais que dobrando a chance de falha da droga. Com Aspirina, essa intera\u00c3\u00a7\u00c3\u00a3o n\u00c3\u00a3o ocorre.\"\n\n---\n\n## FONTES COMPLETAS\n\n1. Kleindorfer DO, et al. 2021 Guideline for the Prevention of Stroke in Patients With Stroke and TIA: AHA/ASA. *Stroke*. 2021;52:e364-e467. PMID: 34024117 [CANDIDATE]\n2. Visseren FLJ, et al. 2021 ESC Guidelines on cardiovascular disease prevention in clinical practice. *Eur Heart J*. 2021;42(34):3227-3337. PMID: 34458905 [CANDIDATE]\n3. Tramacere I, et al. Antiplatelet drugs for secondary prevention in patients with ischemic stroke or TIA: systematic review and network meta-analysis. *BMC Med*. 2021;19:192. PMID: 34399713 [CANDIDATE]\n4. CAPRIE Steering Committee. A randomised, blinded, trial of clopidogrel versus aspirin in patients at risk of ischaemic events (CAPRIE). *Lancet*. 1996;348:1329-39. PMID: 8918275 [CANDIDATE]\n5. Ringleb PA, et al. Benefit of clopidogrel over aspirin is amplified in patients with a history of ischemic events. *Stroke*. 2004;35(2):528-32. PMID: 14739420 [CANDIDATE]\n6. Wang Y, et al. (CHANCE Investigators). Clopidogrel with aspirin in acute minor stroke or TIA. *N Engl J Med*. 2013;369(1):11-19. PMID: 23803136 [CANDIDATE]\n7. Johnston SC, et al. (POINT Investigators). Clopidogrel and Aspirin in Acute Ischemic Stroke and High-Risk TIA. *N Engl J Med*. 2018;379(3):215-225. PMID: 29766750 [CANDIDATE]\n8. Chiarito M, et al. Monotherapy with a P2Y12 inhibitor or aspirin for secondary prevention (PANTHER). *Lancet*. 2020;395:1487-1495. PMID: 32386738 [CANDIDATE]\n9. Minist\u00c3\u00a9rio da Sa\u00c3\u00bade (Brasil). CONITEC. PCDT - AVC Isqu\u00c3\u00aamico Agudo. Relat\u00c3\u00b3rio 722. Bras\u00c3\u00adlia, Dezembro 2021.\n10. Charlot M, et al. Proton pump inhibitors and clopidogrel interaction (Sub-an\u00c3\u00a1lise CAPRIE/CREDO). *J Am Heart Assoc*. 2013;2:e004564. PMID: 23378521 [CANDIDATE]\n11. Chen J, et al. Cost-effectiveness of clopidogrel plus aspirin vs aspirin alone (CHARISMA). *Value Health*. 2009;12(6):872-9. PMID: 19490556 [CANDIDATE]\n\n---\n\n*Coautoria: Lucas + Gemini 3.1 (deep-research) + Claude Opus 4.6 (orquestra\u00c3\u00a7\u00c3\u00a3o)*\n*Todos os PMIDs s\u00c3\u00a3o CANDIDATE \u00e2\u20ac\u201d verificar via PubMed MCP antes de usar em slide ou apresenta\u00c3\u00a7\u00c3\u00a3o.*\n*Raw output salvo em: deep-research-2026-04-02T16-00-22-686Z.json*\n"}], "grading": null}, {"id": "eval-3-clopidogrel-without_skill", "prompt": "pesquisa profunda clopidogrel vs aspirina prevencao secundaria AVC isquemico \u00e2\u20ac\u201d NNT, divergencia entre ESC e AHA, dados do CAPRIE e meta-analises recentes", "eval_id": 3, "outputs": [{"name": "query.txt", "type": "text", "content": "Clopidogrel versus aspirin for secondary prevention of ischemic stroke: comprehensive evidence review.\n\nSpecifically address:\n1. CAPRIE trial (1996) \u00e2\u20ac\u201d design, primary endpoint, stroke subgroup results, absolute risk reduction, NNT for stroke patients specifically, and limitations/criticisms of the trial.\n2. Subsequent meta-analyses comparing clopidogrel vs aspirin monotherapy in secondary stroke prevention (post-CAPRIE), including any Cochrane reviews or individual patient data meta-analyses. Report effect sizes, confidence intervals, NNT where available.\n3. Current guideline divergence between ESC/ESOC European guidelines and AHA/ASA American guidelines regarding antiplatelet choice after ischemic stroke \u00e2\u20ac\u201d what does each recommend as first-line, what class/level of evidence, and what is the rationale for any differences?\n4. Cost-effectiveness data and real-world evidence that may explain guideline divergence (e.g., generic clopidogrel availability timeline, CYP2C19 pharmacogenomics considerations).\n5. DAPT (dual antiplatelet) trials (CHANCE, POINT, THALES) \u00e2\u20ac\u201d how do these affect the monotherapy clopidogrel vs aspirin comparison?\n6. Any 2023-2026 updates or ongoing trials that may shift the evidence landscape."}, {"name": "report.md", "type": "text", "content": "# Clopidogrel vs Aspirina -- Preven\u00c3\u00a7\u00c3\u00a3o Secund\u00c3\u00a1ria de AVC Isqu\u00c3\u00aamico\n\n> Pesquisa profunda via Gemini Deep Research (Gemini 3.1 deep-research-pro-preview)\n> Data: 2026-04-02 | Dura\u00c3\u00a7\u00c3\u00a3o: 5m 38s\n> Research ID: `v1_ChctNURPYWF1bUxMaml6N0lQMWUyMGdRNBIXLTVET2FhdW1MTGppejdJUDFlMjBnUTQ`\n> Status: CANDIDATE -- dados de LLM com Google Search grounding, verifica\u00c3\u00a7\u00c3\u00a3o PMID pendente\n\n---\n\n## Pontos-Chave\n\n1. **CAPRIE (1996):** Clopidogrel mostrou superioridade global sobre aspirina (RRR 8.7%, p=0.043), mas o **subgrupo AVC N\u00c3\u0192O atingiu signific\u00c3\u00a2ncia** (RRR 7.3%, p=0.26).\n2. **Meta-an\u00c3\u00a1lises recentes (PANTHER IPD 2025):** P2Y12 monotherapy superior a aspirina para MACCE em pacientes com DAC (HR 0.86, p=0.008), com redu\u00c3\u00a7\u00c3\u00a3o de AVC isqu\u00c3\u00aamico (HR 0.79) e hemorr\u00c3\u00a1gico (HR 0.32).\n3. **Diverg\u00c3\u00aancia de guidelines:** AHA/ASA mant\u00c3\u00a9m paridade (aspirina Class I, clopidogrel Class IIa/IIb). ESC/ESOC trending para preferir clopidogrel baseado em dados pan-vasculares.\n4. **DAPT 21 dias:** CHANCE/POINT consolidaram DAPT curta (21d) seguida de monoterapia como padr\u00c3\u00a3o para AVC minor/TIA.\n5. **CYP2C19:** ~25% caucasianos e at\u00c3\u00a9 60% asi\u00c3\u00a1ticos s\u00c3\u00a3o portadores de alelos loss-of-function, tornando clopidogrel ineficaz nesses pacientes.\n6. **OCEANIC-STROKE (2026):** Asundexian (inibidor FXIa) reduziu AVC recorrente em 26% (HR 0.74, p<0.0001) **sem aumento de sangramento** -- potencial paradigm shift.\n\n---\n\n## 1. CAPRIE Trial (1996)\n\n### Design\n- RCT internacional, duplo-cego\n- N = 19,185 (AVC isqu\u00c3\u00aamico n=6,431 | IAM n=6,302 | DAP n=6,452)\n- Clopidogrel 75mg vs Aspirina **325mg**/dia\n- Follow-up mediano: 1.91 anos\n- Endpoint prim\u00c3\u00a1rio: composto de AVC isqu\u00c3\u00aamico, IAM ou morte vascular\n\n### Resultados Globais\n- Taxa de eventos: clopidogrel 5.32%/ano vs aspirina 5.83%/ano\n- **RRR 8.7%** (IC 95%: 0.3-16.5%, p=0.043)\n\n### Subgrupo AVC (n=6,431)\n\n| M\u00c3\u00a9trica | Valor |\n|---------|-------|\n| Taxa clopidogrel | 7.15%/ano |\n| Taxa aspirina | 7.71%/ano |\n| RRR | 7.3% (IC 95%: -5.7% a 18.7%) |\n| p-value | **0.26 (n\u00c3\u00a3o significativo)** |\n| RR bruto | 0.93 (IC 95%: 0.82-1.05) |\n| ARR (eventos compostos) | 1.0% |\n| **NNT (evento composto)** | **98** |\n| **NNT (AVC recorrente)** | **121** |\n\n### Limita\u00c3\u00a7\u00c3\u00b5es Cr\u00c3\u00adticas\n\n1. **Underpowered para subgrupos:** CAPRIE foi dimensionado para o desfecho composto global, n\u00c3\u00a3o para subgrupos individuais.\n2. **Dose alta de aspirina (325mg):** Evid\u00c3\u00aancia subsequente (ATC) mostrou que 75-150mg \u00c3\u00a9 igualmente eficaz com menos sangramento GI. A compara\u00c3\u00a7\u00c3\u00a3o pode ter inflado o benef\u00c3\u00adcio relativo do clopidogrel.\n3. **Generaliza\u00c3\u00a7\u00c3\u00a3o limitada:** Apenas ~32% dos pacientes de AVC do mundo real se qualificariam pelos crit\u00c3\u00a9rios de exclus\u00c3\u00a3o (exclu\u00c3\u00addos: acamados, dem\u00c3\u00aancia, HAS descontrolada, expectativa <3 anos, TIA).\n\n---\n\n## 2. Meta-An\u00c3\u00a1lises P\u00c3\u00b3s-CAPRIE\n\n### 2.1 Tasoudis et al. (2022) -- 5 RCTs, 26,855 pacientes\n\n| Desfecho | OR (IC 95%) | p |\n|----------|-------------|---|\n| AVC isqu\u00c3\u00aamico | 0.87 (0.71-1.06) | 0.16 (NS) |\n| Mortalidade total | 1.01 | NS |\n| Sangramento maior | 0.77 | NS |\n| IAM n\u00c3\u00a3o-fatal | 0.83 (sig) | <0.05 |\n| MACE global | 0.84 | 0.05 (borderline) |\n\n**Conclus\u00c3\u00a3o:** Sem diferen\u00c3\u00a7a significativa para AVC isqu\u00c3\u00aamico isoladamente.\n\n### 2.2 PANTHER IPD Meta-An\u00c3\u00a1lise (2025) -- 7 trials, 24,325 pacientes (DAC)\n\n| Desfecho | HR (IC 95%) | p |\n|----------|-------------|---|\n| MACCE (morte CV, IAM, AVC) | 0.86 (0.79-0.97) | 0.008 |\n| AVC isqu\u00c3\u00aamico | 0.79 | sig |\n| AVC hemorr\u00c3\u00a1gico | 0.32 (0.14-0.75) | 0.009 |\n| Sangramento maior | NS (1.2% vs 1.4%) | NS |\n| Sangramento GI | 0.75 | 0.027 |\n\n**Limita\u00c3\u00a7\u00c3\u00a3o:** Popula\u00c3\u00a7\u00c3\u00a3o predominantemente DAC, n\u00c3\u00a3o AVC prim\u00c3\u00a1rio. NNT extrapolado ~48.\n\n### Tabela Resumo NNT\n\n| Contexto | Compara\u00c3\u00a7\u00c3\u00a3o | RR/HR (IC 95%) | ARR | NNT |\n|----------|-----------|----------------|-----|-----|\n| CAPRIE subgrupo AVC | Clopi vs ASA 325mg | RR 0.93 (0.82-1.05) | 1.0% | 98 (composto) |\n| CAPRIE subgrupo AVC | Clopi vs ASA 325mg | -- | 0.8% | 121 (AVC recorrente) |\n| PANTHER (DAC) | P2Y12 vs ASA | HR 0.86 (0.79-0.97) | ~0.8%/ano | ~48 (extrapolado) |\n| Tasoudis (CVD) | Clopi vs ASA | OR 0.87 (0.71-1.06) | -- | NS para AVC |\n\n---\n\n## 3. Trials de DAPT Curta\n\n| Trial | Ano | N | Regime | AVC/Desfecho (DAPT vs mono) | Sangramento |\n|-------|-----|---|--------|------------------------------|-------------|\n| **CHANCE** | 2013 | 5,170 | Clopi 300mg load + 75mg + ASA 21d, depois clopi mono at\u00c3\u00a9 90d | 8.2% vs 11.7% (HR 0.68) | Sem aumento |\n| **POINT** | 2018 | 4,881 | Clopi 600mg load + 75mg + ASA 90d | 5.0% vs 6.5% (HR 0.72) | Maior (0.9% vs 0.4%, HR 2.32) |\n| **THALES** | 2020 | -- | Ticagrelor + ASA 30d | 5.5% vs 6.6% (HR 0.83) | Maior (0.4% vs 0.1%, HR 3.66) |\n\n**Consenso atual:** DAPT 21 dias (ASA + clopidogrel) seguido de monoterapia. O benef\u00c3\u00adcio isqu\u00c3\u00aamico concentra-se nos primeiros 21 dias; sangramento acumula com o tempo.\n\n**Impacto na monoterapia:** Como CHANCE usou clopidogrel mono ap\u00c3\u00b3s 21d de DAPT, muitos cl\u00c3\u00adnicos defaultam para clopidogrel como agente cr\u00c3\u00b4nico.\n\n---\n\n## 4. Diverg\u00c3\u00aancia de Guidelines: AHA/ASA vs ESC/ESOC\n\n| Aspecto | AHA/ASA 2021 | ESC/ESOC 2022+ |\n|---------|-------------|----------------|\n| **Regime preferido** | SAPT (monoterapia) | SAPT (monoterapia) |\n| **Aspirina** | Class I, Level A | Fortemente recomendada |\n| **Clopidogrel** | Class IIa/IIb, Level B (\"op\u00c3\u00a7\u00c3\u00a3o razo\u00c3\u00a1vel\") | Fortemente recomendado (prefer\u00c3\u00aancia crescente sobre ASA nas atualiza\u00c3\u00a7\u00c3\u00b5es ESC) |\n| **DAPT curta (AVC minor)** | Recomendada 21-90d | Recomendada ~21d |\n| **DAPT longa (>90d)** | Class III (Harm) | Fraca recomenda\u00c3\u00a7\u00c3\u00a3o contra |\n| **Base para diverg\u00c3\u00aancia** | Ader\u00c3\u00aancia estrita ao subgrupo CAPRIE (resultado nulo para AVC) | Integra\u00c3\u00a7\u00c3\u00a3o de meta-an\u00c3\u00a1lises pan-vasculares (PANTHER, HOST-EXAM, SMART-CHOICE 3) |\n\n### Raz\u00c3\u00b5es para a diverg\u00c3\u00aancia\n\n1. **Interpreta\u00c3\u00a7\u00c3\u00a3o dos dados:** AHA/ASA exige signific\u00c3\u00a2ncia estat\u00c3\u00adstica no subgrupo AVC; ESC integra dados pan-vasculares (aterosclerose como doen\u00c3\u00a7a sist\u00c3\u00aamica).\n2. **Genericiza\u00c3\u00a7\u00c3\u00a3o:** Clopidogrel gen\u00c3\u00a9rico (~$50/ano) neutralizou o argumento econ\u00c3\u00b4mico contra seu uso como primeira linha.\n3. **CYP2C19:** A variabilidade gen\u00c3\u00a9tica (25% caucasianos, at\u00c3\u00a9 60% asi\u00c3\u00a1ticos) \u00c3\u00a9 um fator de cautela para recomenda\u00c3\u00a7\u00c3\u00a3o universal.\n4. **Evid\u00c3\u00aancia recente (2024-2025):** SMART-CHOICE 3 confirmou superioridade de clopidogrel vs aspirina a 3 anos p\u00c3\u00b3s-PCI (MACCE 4.4% vs 6.6%), refor\u00c3\u00a7ando a posi\u00c3\u00a7\u00c3\u00a3o europeia.\n\n---\n\n## 5. Farmacogen\u00c3\u00b4mica: CYP2C19\n\n- Clopidogrel \u00c3\u00a9 pr\u00c3\u00b3-droga, requer ativa\u00c3\u00a7\u00c3\u00a3o hep\u00c3\u00a1tica por CYP2C19 em 2 etapas\n- **Alelos loss-of-function (LoF):**\n  - ~25% caucasianos portadores\n  - ~60% asi\u00c3\u00a1ticos portadores\n- Portadores de LoF: metaboliza\u00c3\u00a7\u00c3\u00a3o reduzida, inibi\u00c3\u00a7\u00c3\u00a3o plaquet\u00c3\u00a1ria insuficiente (\"resist\u00c3\u00aancia ao clopidogrel\")\n- No subestudo gen\u00c3\u00a9tico do CHANCE: pacientes com LoF **n\u00c3\u00a3o tiveram benef\u00c3\u00adcio** com clopidogrel vs aspirina\n- Genotipagem CYP2C19 upfront: ICER $1,930/QALY (custo-efetivo)\n- **Implica\u00c3\u00a7\u00c3\u00a3o pr\u00c3\u00a1tica:** A recomenda\u00c3\u00a7\u00c3\u00a3o universal de clopidogrel \u00c3\u00a9 biologicamente problem\u00c3\u00a1tica sem farmacogen\u00c3\u00b4mica\n\n---\n\n## 6. Custo-Efetividade\n\n| Era | Custo clopidogrel | ICER |\n|-----|-------------------|------|\n| Pr\u00c3\u00a9-gen\u00c3\u00a9rico (CHARISMA era) | Alto (Plavix branded) | $36,343/QALY |\n| P\u00c3\u00b3s-gen\u00c3\u00a9rico (atual) | ~$50/ano | Altamente custo-efetivo |\n| Regime CHANCE (China) | Incremental $192 | $5,200/QALY |\n\n---\n\n## 7. Horizonte 2023-2026: Trials em Andamento\n\n### SMART-CHOICE 3 (2024-2025)\n- 5,542 pacientes p\u00c3\u00b3s-PCI alto risco\n- Clopidogrel vs aspirina mono ap\u00c3\u00b3s DAPT\n- **MACCE a 3 anos: 4.4% vs 6.6% (favor\u00c3\u00a1vel clopidogrel)**\n\n### STROKE75+ (em andamento)\n- Fase III, pacientes AVC >=75 anos\n- SAPT vs SAPT + edoxaban ultra-baixa dose (15mg)\n- Baseado em ELDERCARE-AF (HR 0.34 vs placebo para AVC em idosos)\n\n### OCEANIC-STROKE (2026) -- PARADIGM SHIFT POTENCIAL\n- 12,327 pacientes com AVC isqu\u00c3\u00aamico agudo n\u00c3\u00a3o-cardioemb\u00c3\u00b3lico ou TIA\n- **Asundexian (inibidor FXIa) 50mg + antiagregante vs placebo + antiagregante**\n- AVC isqu\u00c3\u00aamico recorrente: **redu\u00c3\u00a7\u00c3\u00a3o de 26%** (csHR 0.74, IC 95%: 0.65-0.84, p<0.0001)\n- ARR 1.9% a 1 ano | **NNT 53**\n- **Sem aumento de sangramento maior, AVC hemorr\u00c3\u00a1gico ou HIC sintom\u00c3\u00a1tica**\n- Mecanismo: FXIa amplifica trombose patol\u00c3\u00b3gica mas tem papel m\u00c3\u00adnimo em hemostasia fisiol\u00c3\u00b3gica\n\n---\n\n## 8. Conclus\u00c3\u00a3o e S\u00c3\u00adntese Cl\u00c3\u00adnica\n\n**Para AVC isqu\u00c3\u00aamico especificamente:**\n\n1. A evid\u00c3\u00aancia de **superioridade** do clopidogrel sobre aspirina em monoterapia \u00c3\u00a9 **modesta e estatisticamente inconclusiva** quando limitada ao subgrupo AVC (CAPRIE p=0.26, Tasoudis p=0.16).\n\n2. A evid\u00c3\u00aancia **pan-vascular** (PANTHER, SMART-CHOICE 3) favorece consistentemente P2Y12 sobre aspirina para prote\u00c3\u00a7\u00c3\u00a3o ateroscler\u00c3\u00b3tica sist\u00c3\u00aamica, o que sustenta a posi\u00c3\u00a7\u00c3\u00a3o europeia.\n\n3. O **padr\u00c3\u00a3o de cuidado atual** para AVC minor/TIA agudo \u00c3\u00a9 DAPT 21 dias seguida de monoterapia, com default frequente para clopidogrel.\n\n4. A escolha deve considerar:\n   - **Gen\u00c3\u00b3tipo CYP2C19** (se dispon\u00c3\u00advel)\n   - Perfil de sangramento GI (favorece clopidogrel)\n   - Doen\u00c3\u00a7a ateroscler\u00c3\u00b3tica concomitante (favorece clopidogrel)\n   - Custo local e disponibilidade\n\n5. **O futuro pr\u00c3\u00b3ximo** pode tornar o debate clopidogrel vs aspirina secund\u00c3\u00a1rio: inibidores de FXIa (asundexian) demonstraram redu\u00c3\u00a7\u00c3\u00a3o adicional de 26% em AVC recorrente sem custo hemorr\u00c3\u00a1gico, adicionados sobre antiplaquet\u00c3\u00a1rios convencionais.\n\n---\n\n## Fontes (Google Search Grounding)\n\nFontes indexadas pelo Gemini Deep Research. **Status: CANDIDATE -- verifica\u00c3\u00a7\u00c3\u00a3o PMID independente pendente.**\n\n1. bayer.com -- OCEANIC-STROKE trial results\n2. uspharmacist.com -- Clopidogrel pharmacology, CAPRIE review\n3. rebelem.com -- CYP2C19 pharmacogenomics\n4. heart.org -- AHA antiplatelet guidelines\n5. strokebestpractices.ca -- CAPRIE detailed analysis\n6. oup.com -- Oxford academic stroke prevention\n7. nih.gov (PubMed) -- CAPRIE original, meta-analyses, CYP2C19 studies\n8. acc.org -- PANTHER IPD meta-analysis, AHA/ASA guidelines\n9. ccjm.org -- Clopidogrel clinical review\n10. eso-stroke.org -- ESO guidelines on antiplatelets\n11. pcronline.com -- ESC 2024 CCS guidelines\n12. escardio.org -- ESC antiplatelet recommendations\n13. ahajournals.org -- CHANCE cost-effectiveness, CAPRIE subgroup analysis\n14. neurology.org -- DAPT pooled analysis\n15. nowyouknowneuro.com -- CHANCE/POINT summary\n16. tctmd.com -- OCEANIC-STROKE, CYP2C19 review\n17. bmj.com -- Stroke secondary prevention overview\n18. clinicaltrials.gov -- STROKE75+ trial registration\n19. pace-cme.org -- PANTHER results\n20. 2minutemedicine.com -- PANTHER summary\n\n---\n\n*Coautoria: Lucas + Opus 4.6 (orquestra\u00c3\u00a7\u00c3\u00a3o) + Gemini 3.1 deep-research-pro-preview (pesquisa)*\n*Gerado em 2026-04-02. Todos os dados s\u00c3\u00a3o CANDIDATE at\u00c3\u00a9 verifica\u00c3\u00a7\u00c3\u00a3o PMID independente.*\n"}], "grading": null}], "previous_feedback": {}, "previous_outputs": {}, "benchmark": {"skill_name": "deep-search", "iteration": 1, "date": "2026-04-02", "configurations": [{"name": "with_skill", "description": "Deep-search skill with structured query template", "results": {"pass_rate": {"mean": 1.0, "stddev": 0.0}, "tokens": {"mean": 83426, "stddev": 7923}, "duration_ms": {"mean": 541997, "stddev": 55841}}, "per_eval": [{"eval_name": "rs-vs-ma-definitions", "pass_rate": 1.0, "tokens": 74017, "duration_ms": 534585, "assertions": [{"text": "CONVERGENCIAS section", "passed": true, "evidence": "3 items: IOM/NAM + PRISMA + Cochrane"}, {"text": "DIVERGENCIAS section", "passed": true, "evidence": "2 items: JBI vs Cochrane terminology, % by specialty"}, {"text": "EVIDENCIA TIER 1 section", "passed": true, "evidence": "6 items with tags"}, {"text": "3+ PMIDs/DOIs", "passed": true, "evidence": "6 PMIDs + multiple DOIs"}, {"text": "2+ concrete numbers", "passed": true, "evidence": "49%, 70.4%, OR 4.5, RR 1.34"}, {"text": "No vague claims", "passed": true, "evidence": "All claims have sources"}, {"text": "Type tags present", "passed": true, "evidence": "[GUIDELINE], [META/SR], [LANDMARK]"}, {"text": "GRADE ratings", "passed": true, "evidence": "HIGH, MODERATE, LOW applied"}]}, {"eval_name": "slide-id-skeletal", "pass_rate": 1.0, "tokens": 88665, "duration_ms": 490404, "assertions": [{"text": "CONVERGENCIAS section", "passed": true, "evidence": "3 items: Cochrane+IOM+PRISMA agree on separation"}, {"text": "DIVERGENCIAS section", "passed": true, "evidence": "2 items: terminology misuse, fixed vs random model"}, {"text": "EVIDENCIA TIER 1 section", "passed": true, "evidence": "6 items with type tags"}, {"text": "3+ PMIDs/DOIs", "passed": true, "evidence": "5 DOIs explicitly cited"}, {"text": "2+ concrete numbers", "passed": true, "evidence": "37%, 63%, 22.8%, 53.7%"}, {"text": "No vague claims", "passed": true, "evidence": "All claims sourced"}, {"text": "Type tags present", "passed": true, "evidence": "[GUIDELINE], [META/SR], [LANDMARK]"}, {"text": "GRADE ratings", "passed": true, "evidence": "HIGH, MODERATE, LOW"}]}, {"eval_name": "clopidogrel-topic-livre", "pass_rate": 1.0, "tokens": 87595, "duration_ms": 601160, "assertions": [{"text": "CONVERGENCIAS section", "passed": true, "evidence": "3 items: DAPT curta, avoid long DAPT, ESUS"}, {"text": "DIVERGENCIAS section", "passed": true, "evidence": "3 societies: ESC vs AHA/ASA vs PCDT/SUS"}, {"text": "EVIDENCIA TIER 1 section", "passed": true, "evidence": "6 items: Tramacere NMA, CHANCE, POINT, CAPRIE, Ringleb, PANTHER"}, {"text": "3+ PMIDs/DOIs", "passed": true, "evidence": "11 PMIDs cited"}, {"text": "2+ concrete numbers", "passed": true, "evidence": "NNT 29, NNT 98, HR 0.68, HR 2.39, NNH 200"}, {"text": "No vague claims", "passed": true, "evidence": "Every claim has PMID source"}, {"text": "Type tags present", "passed": true, "evidence": "[META/SR], [RCT/LANDMARK], [COHORT/POST-HOC]"}, {"text": "GRADE ratings", "passed": true, "evidence": "HIGH, MODERATE, LOW per item"}]}]}, {"name": "without_skill", "description": "Baseline \u00e2\u20ac\u201d raw Gemini deep-research without structured template", "results": {"pass_rate": {"mean": 0.292, "stddev": 0.072}, "tokens": {"mean": 82963, "stddev": 3109}, "duration_ms": {"mean": 476592, "stddev": 18100}}, "per_eval": [{"eval_name": "rs-vs-ma-definitions", "pass_rate": 0.25, "tokens": 79456, "duration_ms": 461985, "assertions": [{"text": "CONVERGENCIAS section", "passed": false, "evidence": "No dedicated section"}, {"text": "DIVERGENCIAS section", "passed": false, "evidence": "No dedicated section"}, {"text": "EVIDENCIA TIER 1 section", "passed": false, "evidence": "No dedicated section"}, {"text": "3+ PMIDs/DOIs", "passed": false, "evidence": "Only 1 PMID (40212143), rest informal"}, {"text": "2+ concrete numbers", "passed": true, "evidence": "49%, 70.4%, 2728%, 510k"}, {"text": "No vague claims", "passed": true, "evidence": "Claims are specific"}, {"text": "Type tags present", "passed": false, "evidence": "No [GUIDELINE]/[META] format"}, {"text": "GRADE ratings", "passed": false, "evidence": "Mentions GRADE concept but doesn't apply"}]}, {"eval_name": "slide-id-skeletal", "pass_rate": 0.25, "tokens": 85605, "duration_ms": 471454, "assertions": [{"text": "CONVERGENCIAS section", "passed": false, "evidence": "No dedicated section"}, {"text": "DIVERGENCIAS section", "passed": false, "evidence": "No dedicated section"}, {"text": "EVIDENCIA TIER 1 section", "passed": false, "evidence": "Has 'Key References' but different format"}, {"text": "3+ PMIDs/DOIs", "passed": true, "evidence": "Page DOI, Murad DOI, Ioannidis DOI, Glass DOI"}, {"text": "2+ concrete numbers", "passed": true, "evidence": "63%, 70.4%, 3%, 37%"}, {"text": "No vague claims", "passed": true, "evidence": "Claims sourced"}, {"text": "Type tags present", "passed": false, "evidence": "Uses 'Handbook', 'Statement' not [GUIDELINE]"}, {"text": "GRADE ratings", "passed": false, "evidence": "Not applied systematically"}]}, {"eval_name": "clopidogrel-topic-livre", "pass_rate": 0.375, "tokens": 83827, "duration_ms": 496336, "assertions": [{"text": "CONVERGENCIAS section", "passed": false, "evidence": "No dedicated section"}, {"text": "DIVERGENCIAS section", "passed": false, "evidence": "Has divergence table but not formal section name"}, {"text": "EVIDENCIA TIER 1 section", "passed": false, "evidence": "No section with that structure"}, {"text": "3+ PMIDs/DOIs", "passed": false, "evidence": "References cite URLs not PMIDs"}, {"text": "2+ concrete numbers", "passed": true, "evidence": "NNT 98, NNT 121, HR 0.86, NNT 53"}, {"text": "No vague claims", "passed": true, "evidence": "All findings have trial names"}, {"text": "Type tags present", "passed": false, "evidence": "No [GUIDELINE]/[RCT] tags"}, {"text": "GRADE ratings", "passed": true, "evidence": "Mentions CANDIDATE status"}]}]}], "delta": {"pass_rate": "+70.8pp (1.0 vs 0.292)", "tokens": "+0.6% (83426 vs 82963 \u00e2\u20ac\u201d negligible)", "duration": "+13.7% (542s vs 477s \u00e2\u20ac\u201d template composition adds ~65s)"}, "analyst_notes": ["Structural assertions (A1-A3, A7-A8) are non-discriminating for baseline \u00e2\u20ac\u201d they never pass without the skill. This is expected: the skill's value IS the forced structure.", "Data quality assertions (A4-A6) pass in both configurations \u00e2\u20ac\u201d Gemini deep-research produces good data regardless of prompt structure. The skill doesn't improve data discovery, it improves data presentation.", "Token usage is nearly identical \u00e2\u20ac\u201d the structured template doesn't inflate output significantly.", "Duration increase (~65s) is from template reading and composition, not from longer Gemini research time.", "The baseline eval 3 (clopidogrel) was the strongest baseline \u00e2\u20ac\u201d it naturally organized data into tables and covered divergences. This suggests that for clinical topics with clear competing guidelines, Gemini self-organizes better. For methodological topics (eval 1, eval 2), the skill adds more value.", "Key finding: The skill's CONTEXTO BRASIL section prompted Gemini to find CONITEC/PCDT sources that baselines missed entirely."]}};
+
+    // ---- State ----
+    let feedbackMap = {};  // run_id -> feedback text
+    let currentIndex = 0;
+    let visitedRuns = new Set();
+
+    // ---- Init ----
+    async function init() {
+      // Load saved feedback from server — but only if this isn't a fresh
+      // iteration (indicated by previous_feedback being present). When
+      // previous feedback exists, the feedback.json on disk is stale from
+      // the prior iteration and should not pre-fill the textareas.
+      const hasPrevious = Object.keys(EMBEDDED_DATA.previous_feedback || {}).length > 0
+        || Object.keys(EMBEDDED_DATA.previous_outputs || {}).length > 0;
+      if (!hasPrevious) {
+        try {
+          const resp = await fetch("/api/feedback");
+          const data = await resp.json();
+          if (data.reviews) {
+            for (const r of data.reviews) feedbackMap[r.run_id] = r.feedback;
+          }
+        } catch { /* first run, no feedback yet */ }
+      }
+
+      document.getElementById("skill-name").textContent = EMBEDDED_DATA.skill_name;
+      showRun(0);
+
+      // Wire up feedback auto-save
+      const textarea = document.getElementById("feedback");
+      let saveTimeout = null;
+      textarea.addEventListener("input", () => {
+        clearTimeout(saveTimeout);
+        document.getElementById("feedback-status").textContent = "";
+        saveTimeout = setTimeout(() => saveCurrentFeedback(), 800);
+      });
+    }
+
+    // ---- Navigation ----
+    function navigate(delta) {
+      const newIndex = currentIndex + delta;
+      if (newIndex >= 0 && newIndex < EMBEDDED_DATA.runs.length) {
+        saveCurrentFeedback();
+        showRun(newIndex);
+      }
+    }
+
+    function updateNavButtons() {
+      document.getElementById("prev-btn").disabled = currentIndex === 0;
+      document.getElementById("next-btn").disabled =
+        currentIndex === EMBEDDED_DATA.runs.length - 1;
+    }
+
+    // ---- Show a run ----
+    function showRun(index) {
+      currentIndex = index;
+      const run = EMBEDDED_DATA.runs[index];
+
+      // Progress
+      document.getElementById("progress").textContent =
+        `${index + 1} of ${EMBEDDED_DATA.runs.length}`;
+
+      // Prompt
+      document.getElementById("prompt-text").textContent = run.prompt;
+
+      // Config badge
+      const badge = document.getElementById("config-badge");
+      const configMatch = run.id.match(/(with_skill|without_skill|new_skill|old_skill)/);
+      if (configMatch) {
+        const config = configMatch[1];
+        const isBaseline = config === "without_skill" || config === "old_skill";
+        badge.textContent = config.replace(/_/g, " ");
+        badge.className = "config-badge " + (isBaseline ? "config-baseline" : "config-primary");
+        badge.style.display = "inline-block";
+      } else {
+        badge.style.display = "none";
+      }
+
+      // Outputs
+      renderOutputs(run);
+
+      // Previous outputs
+      renderPrevOutputs(run);
+
+      // Grades
+      renderGrades(run);
+
+      // Previous feedback
+      const prevFb = (EMBEDDED_DATA.previous_feedback || {})[run.id];
+      const prevEl = document.getElementById("prev-feedback");
+      if (prevFb) {
+        document.getElementById("prev-feedback-text").textContent = prevFb;
+        prevEl.style.display = "block";
+      } else {
+        prevEl.style.display = "none";
+      }
+
+      // Feedback
+      document.getElementById("feedback").value = feedbackMap[run.id] || "";
+      document.getElementById("feedback-status").textContent = "";
+
+      updateNavButtons();
+
+      // Track visited runs and promote done button when all visited
+      visitedRuns.add(index);
+      const doneBtn = document.getElementById("done-btn");
+      if (visitedRuns.size >= EMBEDDED_DATA.runs.length) {
+        doneBtn.classList.add("ready");
+      }
+
+      // Scroll main content to top
+      document.querySelector(".main").scrollTop = 0;
+    }
+
+    // ---- Render outputs ----
+    function renderOutputs(run) {
+      const container = document.getElementById("outputs-body");
+      container.innerHTML = "";
+
+      const outputs = run.outputs || [];
+      if (outputs.length === 0) {
+        container.innerHTML = '<div class="empty-state">No output files</div>';
+        return;
+      }
+
+      for (const file of outputs) {
+        const fileDiv = document.createElement("div");
+        fileDiv.className = "output-file";
+
+        // Always show file header with download link
+        const header = document.createElement("div");
+        header.className = "output-file-header";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = file.name;
+        header.appendChild(nameSpan);
+        const dlBtn = document.createElement("a");
+        dlBtn.className = "dl-btn";
+        dlBtn.textContent = "Download";
+        dlBtn.download = file.name;
+        dlBtn.href = getDownloadUri(file);
+        header.appendChild(dlBtn);
+        fileDiv.appendChild(header);
+
+        const content = document.createElement("div");
+        content.className = "output-file-content";
+
+        if (file.type === "text") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          content.appendChild(pre);
+        } else if (file.type === "image") {
+          const img = document.createElement("img");
+          img.src = file.data_uri;
+          img.alt = file.name;
+          content.appendChild(img);
+        } else if (file.type === "pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = file.data_uri;
+          content.appendChild(iframe);
+        } else if (file.type === "xlsx") {
+          renderXlsx(content, file.data_b64);
+        } else if (file.type === "binary") {
+          const a = document.createElement("a");
+          a.className = "download-link";
+          a.href = file.data_uri;
+          a.download = file.name;
+          a.textContent = "Download " + file.name;
+          content.appendChild(a);
+        } else if (file.type === "error") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          pre.style.color = "var(--red)";
+          content.appendChild(pre);
+        }
+
+        fileDiv.appendChild(content);
+        container.appendChild(fileDiv);
+      }
+    }
+
+    // ---- XLSX rendering via SheetJS ----
+    function renderXlsx(container, b64Data) {
+      try {
+        const raw = Uint8Array.from(atob(b64Data), c => c.charCodeAt(0));
+        const wb = XLSX.read(raw, { type: "array" });
+
+        for (let i = 0; i < wb.SheetNames.length; i++) {
+          const sheetName = wb.SheetNames[i];
+          const ws = wb.Sheets[sheetName];
+
+          if (wb.SheetNames.length > 1) {
+            const sheetLabel = document.createElement("div");
+            sheetLabel.style.cssText =
+              "font-weight:600; font-size:0.8rem; color:#b0aea5; margin-top:0.5rem; margin-bottom:0.25rem;";
+            sheetLabel.textContent = "Sheet: " + sheetName;
+            container.appendChild(sheetLabel);
+          }
+
+          const htmlStr = XLSX.utils.sheet_to_html(ws, { editable: false });
+          const wrapper = document.createElement("div");
+          wrapper.innerHTML = htmlStr;
+          container.appendChild(wrapper);
+        }
+      } catch (err) {
+        container.textContent = "Error rendering spreadsheet: " + err.message;
+      }
+    }
+
+    // ---- Grades ----
+    function renderGrades(run) {
+      const section = document.getElementById("grades-section");
+      const content = document.getElementById("grades-content");
+
+      if (!run.grading) {
+        section.style.display = "none";
+        return;
+      }
+
+      const grading = run.grading;
+      section.style.display = "block";
+      // Reset to collapsed
+      content.classList.remove("open");
+      document.getElementById("grades-arrow").classList.remove("open");
+
+      const summary = grading.summary || {};
+      const expectations = grading.expectations || [];
+
+      let html = '<div style="padding: 1rem;">';
+
+      // Summary line
+      const passRate = summary.pass_rate != null
+        ? Math.round(summary.pass_rate * 100) + "%"
+        : "?";
+      const badgeClass = summary.pass_rate >= 0.8 ? "grade-pass" : summary.pass_rate >= 0.5 ? "" : "grade-fail";
+      html += '<div class="grades-summary">';
+      html += '<span class="grade-badge ' + badgeClass + '">' + passRate + '</span>';
+      html += '<span>' + (summary.passed || 0) + ' passed, ' + (summary.failed || 0) + ' failed of ' + (summary.total || 0) + '</span>';
+      html += '</div>';
+
+      // Assertions list
+      html += '<ul class="assertion-list">';
+      for (const exp of expectations) {
+        const statusClass = exp.passed ? "pass" : "fail";
+        const statusIcon = exp.passed ? "\u2713" : "\u2717";
+        html += '<li class="assertion-item">';
+        html += '<span class="assertion-status ' + statusClass + '">' + statusIcon + '</span>';
+        html += '<span>' + escapeHtml(exp.text) + '</span>';
+        if (exp.evidence) {
+          html += '<div class="assertion-evidence">' + escapeHtml(exp.evidence) + '</div>';
+        }
+        html += '</li>';
+      }
+      html += '</ul>';
+
+      html += '</div>';
+      content.innerHTML = html;
+    }
+
+    function toggleGrades() {
+      const content = document.getElementById("grades-content");
+      const arrow = document.getElementById("grades-arrow");
+      content.classList.toggle("open");
+      arrow.classList.toggle("open");
+    }
+
+    // ---- Previous outputs (collapsible) ----
+    function renderPrevOutputs(run) {
+      const section = document.getElementById("prev-outputs-section");
+      const content = document.getElementById("prev-outputs-content");
+      const prevOutputs = (EMBEDDED_DATA.previous_outputs || {})[run.id];
+
+      if (!prevOutputs || prevOutputs.length === 0) {
+        section.style.display = "none";
+        return;
+      }
+
+      section.style.display = "block";
+      // Reset to collapsed
+      content.classList.remove("open");
+      document.getElementById("prev-outputs-arrow").classList.remove("open");
+
+      // Render the files into the content area
+      content.innerHTML = "";
+      const wrapper = document.createElement("div");
+      wrapper.style.padding = "1rem";
+
+      for (const file of prevOutputs) {
+        const fileDiv = document.createElement("div");
+        fileDiv.className = "output-file";
+
+        const header = document.createElement("div");
+        header.className = "output-file-header";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = file.name;
+        header.appendChild(nameSpan);
+        const dlBtn = document.createElement("a");
+        dlBtn.className = "dl-btn";
+        dlBtn.textContent = "Download";
+        dlBtn.download = file.name;
+        dlBtn.href = getDownloadUri(file);
+        header.appendChild(dlBtn);
+        fileDiv.appendChild(header);
+
+        const fc = document.createElement("div");
+        fc.className = "output-file-content";
+
+        if (file.type === "text") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          fc.appendChild(pre);
+        } else if (file.type === "image") {
+          const img = document.createElement("img");
+          img.src = file.data_uri;
+          img.alt = file.name;
+          fc.appendChild(img);
+        } else if (file.type === "pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = file.data_uri;
+          fc.appendChild(iframe);
+        } else if (file.type === "xlsx") {
+          renderXlsx(fc, file.data_b64);
+        } else if (file.type === "binary") {
+          const a = document.createElement("a");
+          a.className = "download-link";
+          a.href = file.data_uri;
+          a.download = file.name;
+          a.textContent = "Download " + file.name;
+          fc.appendChild(a);
+        }
+
+        fileDiv.appendChild(fc);
+        wrapper.appendChild(fileDiv);
+      }
+
+      content.appendChild(wrapper);
+    }
+
+    function togglePrevOutputs() {
+      const content = document.getElementById("prev-outputs-content");
+      const arrow = document.getElementById("prev-outputs-arrow");
+      content.classList.toggle("open");
+      arrow.classList.toggle("open");
+    }
+
+    // ---- Feedback (saved to server -> feedback.json) ----
+    function saveCurrentFeedback() {
+      const run = EMBEDDED_DATA.runs[currentIndex];
+      const text = document.getElementById("feedback").value;
+
+      if (text.trim() === "") {
+        delete feedbackMap[run.id];
+      } else {
+        feedbackMap[run.id] = text;
+      }
+
+      // Build reviews array from map
+      const reviews = [];
+      for (const [run_id, feedback] of Object.entries(feedbackMap)) {
+        if (feedback.trim()) {
+          reviews.push({ run_id, feedback, timestamp: new Date().toISOString() });
+        }
+      }
+
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reviews, status: "in_progress" }),
+      }).then(() => {
+        document.getElementById("feedback-status").textContent = "Saved";
+      }).catch(() => {
+        // Static mode or server unavailable — no-op on auto-save,
+        // feedback will be downloaded on final submit
+        document.getElementById("feedback-status").textContent = "Will download on submit";
+      });
+    }
+
+    // ---- Done ----
+    function showDoneDialog() {
+      // Save current textarea to feedbackMap (but don't POST yet)
+      const run = EMBEDDED_DATA.runs[currentIndex];
+      const text = document.getElementById("feedback").value;
+      if (text.trim() === "") {
+        delete feedbackMap[run.id];
+      } else {
+        feedbackMap[run.id] = text;
+      }
+
+      // POST once with status: complete — include ALL runs so the model
+      // can distinguish "no feedback" (looks good) from "not reviewed"
+      const reviews = [];
+      const ts = new Date().toISOString();
+      for (const r of EMBEDDED_DATA.runs) {
+        reviews.push({ run_id: r.id, feedback: feedbackMap[r.id] || "", timestamp: ts });
+      }
+      const payload = JSON.stringify({ reviews, status: "complete" }, null, 2);
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      }).then(() => {
+        document.getElementById("done-overlay").classList.add("visible");
+      }).catch(() => {
+        // Server not available (static mode) — download as file
+        const blob = new Blob([payload], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "feedback.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        document.getElementById("done-overlay").classList.add("visible");
+      });
+    }
+
+    function closeDoneDialog() {
+      // Reset status back to in_progress
+      saveCurrentFeedback();
+      document.getElementById("done-overlay").classList.remove("visible");
+    }
+
+    // ---- Toast ----
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      setTimeout(() => toast.classList.remove("visible"), 2000);
+    }
+
+    // ---- Keyboard nav ----
+    document.addEventListener("keydown", (e) => {
+      // Don't capture when typing in textarea
+      if (e.target.tagName === "TEXTAREA") return;
+
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        navigate(-1);
+      } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        navigate(1);
+      }
+    });
+
+    // ---- Util ----
+    function getDownloadUri(file) {
+      if (file.data_uri) return file.data_uri;
+      if (file.data_b64) return "data:application/octet-stream;base64," + file.data_b64;
+      if (file.type === "text") return "data:text/plain;charset=utf-8," + encodeURIComponent(file.content);
+      return "#";
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ---- View switching ----
+    function switchView(view) {
+      document.querySelectorAll(".view-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
+      document.querySelector(`[onclick="switchView('${view}')"]`).classList.add("active");
+      document.getElementById("panel-" + view).classList.add("active");
+    }
+
+    // ---- Benchmark rendering ----
+    function renderBenchmark() {
+      const data = EMBEDDED_DATA.benchmark;
+      if (!data) return;
+
+      // Show the tabs
+      document.getElementById("view-tabs").style.display = "flex";
+
+      const container = document.getElementById("benchmark-content");
+      const summary = data.run_summary || {};
+      const metadata = data.metadata || {};
+      const notes = data.notes || [];
+
+      let html = "";
+
+      // Header
+      html += "<h2 style='font-family: Poppins, sans-serif; margin-bottom: 0.5rem;'>Benchmark Results</h2>";
+      html += "<p style='color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.25rem;'>";
+      if (metadata.skill_name) html += "<strong>" + escapeHtml(metadata.skill_name) + "</strong> &mdash; ";
+      if (metadata.timestamp) html += metadata.timestamp + " &mdash; ";
+      if (metadata.evals_run) html += "Evals: " + metadata.evals_run.join(", ") + " &mdash; ";
+      html += (metadata.runs_per_configuration || "?") + " runs per configuration";
+      html += "</p>";
+
+      // Summary table
+      html += '<table class="benchmark-table">';
+
+      function fmtStat(stat, pct) {
+        if (!stat) return "—";
+        const suffix = pct ? "%" : "";
+        const m = pct ? (stat.mean * 100).toFixed(0) : stat.mean.toFixed(1);
+        const s = pct ? (stat.stddev * 100).toFixed(0) : stat.stddev.toFixed(1);
+        return m + suffix + " ± " + s + suffix;
+      }
+
+      function deltaClass(val) {
+        if (!val) return "";
+        const n = parseFloat(val);
+        if (n > 0) return "benchmark-delta-positive";
+        if (n < 0) return "benchmark-delta-negative";
+        return "";
+      }
+
+      // Discover config names dynamically (everything except "delta")
+      const configs = Object.keys(summary).filter(k => k !== "delta");
+      const configA = configs[0] || "config_a";
+      const configB = configs[1] || "config_b";
+      const labelA = configA.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      const labelB = configB.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      const a = summary[configA] || {};
+      const b = summary[configB] || {};
+      const delta = summary.delta || {};
+
+      html += "<thead><tr><th>Metric</th><th>" + escapeHtml(labelA) + "</th><th>" + escapeHtml(labelB) + "</th><th>Delta</th></tr></thead>";
+      html += "<tbody>";
+
+      html += "<tr><td><strong>Pass Rate</strong></td>";
+      html += "<td>" + fmtStat(a.pass_rate, true) + "</td>";
+      html += "<td>" + fmtStat(b.pass_rate, true) + "</td>";
+      html += '<td class="' + deltaClass(delta.pass_rate) + '">' + (delta.pass_rate || "—") + "</td></tr>";
+
+      // Time (only show row if data exists)
+      if (a.time_seconds || b.time_seconds) {
+        html += "<tr><td><strong>Time (s)</strong></td>";
+        html += "<td>" + fmtStat(a.time_seconds, false) + "</td>";
+        html += "<td>" + fmtStat(b.time_seconds, false) + "</td>";
+        html += '<td class="' + deltaClass(delta.time_seconds) + '">' + (delta.time_seconds ? delta.time_seconds + "s" : "—") + "</td></tr>";
+      }
+
+      // Tokens (only show row if data exists)
+      if (a.tokens || b.tokens) {
+        html += "<tr><td><strong>Tokens</strong></td>";
+        html += "<td>" + fmtStat(a.tokens, false) + "</td>";
+        html += "<td>" + fmtStat(b.tokens, false) + "</td>";
+        html += '<td class="' + deltaClass(delta.tokens) + '">' + (delta.tokens || "—") + "</td></tr>";
+      }
+
+      html += "</tbody></table>";
+
+      // Per-eval breakdown (if runs data available)
+      const runs = data.runs || [];
+      if (runs.length > 0) {
+        const evalIds = [...new Set(runs.map(r => r.eval_id))].sort((a, b) => a - b);
+
+        html += "<h3 style='font-family: Poppins, sans-serif; margin-bottom: 0.75rem;'>Per-Eval Breakdown</h3>";
+
+        const hasTime = runs.some(r => r.result && r.result.time_seconds != null);
+        const hasErrors = runs.some(r => r.result && r.result.errors > 0);
+
+        for (const evalId of evalIds) {
+          const evalRuns = runs.filter(r => r.eval_id === evalId);
+          const evalName = evalRuns[0] && evalRuns[0].eval_name ? evalRuns[0].eval_name : "Eval " + evalId;
+
+          html += "<h4 style='font-family: Poppins, sans-serif; margin: 1rem 0 0.5rem; color: var(--text);'>" + escapeHtml(evalName) + "</h4>";
+          html += '<table class="benchmark-table">';
+          html += "<thead><tr><th>Config</th><th>Run</th><th>Pass Rate</th>";
+          if (hasTime) html += "<th>Time (s)</th>";
+          if (hasErrors) html += "<th>Crashes During Execution</th>";
+          html += "</tr></thead>";
+          html += "<tbody>";
+
+          // Group by config and render with average rows
+          const configGroups = [...new Set(evalRuns.map(r => r.configuration))];
+          for (let ci = 0; ci < configGroups.length; ci++) {
+            const config = configGroups[ci];
+            const configRuns = evalRuns.filter(r => r.configuration === config);
+            if (configRuns.length === 0) continue;
+
+            const rowClass = ci === 0 ? "benchmark-row-with" : "benchmark-row-without";
+            const configLabel = config.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+            for (const run of configRuns) {
+              const r = run.result || {};
+              const prClass = r.pass_rate >= 0.8 ? "benchmark-delta-positive" : r.pass_rate < 0.5 ? "benchmark-delta-negative" : "";
+              html += '<tr class="' + rowClass + '">';
+              html += "<td>" + configLabel + "</td>";
+              html += "<td>" + run.run_number + "</td>";
+              html += '<td class="' + prClass + '">' + ((r.pass_rate || 0) * 100).toFixed(0) + "% (" + (r.passed || 0) + "/" + (r.total || 0) + ")</td>";
+              if (hasTime) html += "<td>" + (r.time_seconds != null ? r.time_seconds.toFixed(1) : "—") + "</td>";
+              if (hasErrors) html += "<td>" + (r.errors || 0) + "</td>";
+              html += "</tr>";
+            }
+
+            // Average row
+            const rates = configRuns.map(r => (r.result || {}).pass_rate || 0);
+            const avgRate = rates.reduce((a, b) => a + b, 0) / rates.length;
+            const avgPrClass = avgRate >= 0.8 ? "benchmark-delta-positive" : avgRate < 0.5 ? "benchmark-delta-negative" : "";
+            html += '<tr class="benchmark-row-avg ' + rowClass + '">';
+            html += "<td>" + configLabel + "</td>";
+            html += "<td>Avg</td>";
+            html += '<td class="' + avgPrClass + '">' + (avgRate * 100).toFixed(0) + "%</td>";
+            if (hasTime) {
+              const times = configRuns.map(r => (r.result || {}).time_seconds).filter(t => t != null);
+              html += "<td>" + (times.length ? (times.reduce((a, b) => a + b, 0) / times.length).toFixed(1) : "—") + "</td>";
+            }
+            if (hasErrors) html += "<td></td>";
+            html += "</tr>";
+          }
+          html += "</tbody></table>";
+
+          // Per-assertion detail for this eval
+          const runsWithExpectations = {};
+          for (const config of configGroups) {
+            runsWithExpectations[config] = evalRuns.filter(r => r.configuration === config && r.expectations && r.expectations.length > 0);
+          }
+          const hasAnyExpectations = Object.values(runsWithExpectations).some(runs => runs.length > 0);
+          if (hasAnyExpectations) {
+            // Collect all unique assertion texts across all configs
+            const allAssertions = [];
+            const seen = new Set();
+            for (const config of configGroups) {
+              for (const run of runsWithExpectations[config]) {
+                for (const exp of (run.expectations || [])) {
+                  if (!seen.has(exp.text)) {
+                    seen.add(exp.text);
+                    allAssertions.push(exp.text);
+                  }
+                }
+              }
+            }
+
+            html += '<table class="benchmark-table" style="margin-top: 0.5rem;">';
+            html += "<thead><tr><th>Assertion</th>";
+            for (const config of configGroups) {
+              const label = config.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+              html += "<th>" + escapeHtml(label) + "</th>";
+            }
+            html += "</tr></thead><tbody>";
+
+            for (const assertionText of allAssertions) {
+              html += "<tr><td>" + escapeHtml(assertionText) + "</td>";
+
+              for (const config of configGroups) {
+                html += "<td>";
+                for (const run of runsWithExpectations[config]) {
+                  const exp = (run.expectations || []).find(e => e.text === assertionText);
+                  if (exp) {
+                    const cls = exp.passed ? "benchmark-delta-positive" : "benchmark-delta-negative";
+                    const icon = exp.passed ? "\u2713" : "\u2717";
+                    html += '<span class="' + cls + '" title="Run ' + run.run_number + ': ' + escapeHtml(exp.evidence || "") + '">' + icon + "</span> ";
+                  } else {
+                    html += "— ";
+                  }
+                }
+                html += "</td>";
+              }
+              html += "</tr>";
+            }
+            html += "</tbody></table>";
+          }
+        }
+      }
+
+      // Notes
+      if (notes.length > 0) {
+        html += '<div class="benchmark-notes">';
+        html += "<h3>Analysis Notes</h3>";
+        html += "<ul>";
+        for (const note of notes) {
+          html += "<li>" + escapeHtml(note) + "</li>";
+        }
+        html += "</ul></div>";
+      }
+
+      container.innerHTML = html;
+    }
+
+    // ---- Start ----
+    init();
+    renderBenchmark();
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+TOPICO: Diferenca conceitual entre Revisao Sistematica (RS), Meta-analise (MA) e Umbrella Review — definicoes formais, proporcoes bibliometricas (% de RS que incluem MA), marcos historicos, terminologia
+CONTEXTO: Residentes clinica medica, nivel basico-intermediario. Slide novo, partindo do zero. Aula sobre como LER criticamente uma meta-analise (nao produzir). Foco pedagogico: o residente precisa distinguir RS de MA e entender que sao metodos distintos frequentemente combinados. Umbrella review como nivel acima.
+FOCO: Descoberta de conteudo fundacional — definicoes formais (Cochrane, IOM/NAM, PRISMA), proporcoes bibliometricas (% de RS que incluem MA e vice-versa), marcos historicos (Glass 1976, Cochrane 1972, Archie Cochrane, Karl Pearson 1904), terminologia precisa.
+
+=== MANDATO DE PESQUISA ===
+
+Voce esta conduzindo pesquisa medica profunda para uma apresentacao de ensino.
+Publico: residentes de clinica medica (nivel basico-intermediario).
+Pais: Brasil (ANVISA, SUS, realidade local).
+
+O objetivo e retornar DADOS CONCRETOS com fontes verificaveis.
+Respostas vagas sao inuteis neste contexto — cada achado precisa de numeros, citacao, e classificacao.
+
+=== HIERARQUIA DE FONTES (seguir esta ordem de prioridade) ===
+
+1. GUIDELINES: Guidelines vigentes de sociedades medicas (EASL, AASLD, AGA, ACG, ESC, AHA, WHO, Cochrane, SBH, SBC).
+   Extrair: sociedade, ano, grau de recomendacao, nivel de evidencia, recomendacao especifica.
+
+2. META-ANALISES: Revisoes sistematicas com meta-analise (preferencialmente >=3 estudos pooled).
+   Extrair: k estudos, n pacientes total, estimativa pooled + IC 95%, I-squared, certeza GRADE.
+
+3. RCTs LANDMARK: Ensaios clinicos randomizados multicentricos (preferencialmente n>=200).
+   Extrair: acronimo, n, bracos, endpoint primario, effect size + IC 95%, NNT se calculavel, p-value.
+
+4. LIVROS-REFERENCIA: Edicoes mais recentes apenas.
+   Extrair: autor, edicao, capitulo, paginas, argumento central do trecho.
+
+5. COORTES GRANDES: Apenas quando nao ha evidencia de niveis superiores.
+   Extrair: n, follow-up, desfecho, medida de associacao + IC 95%.
+
+=== OLHAR CRITICO — aplicar a CADA achado ===
+
+Para cada evidencia encontrada, avaliar criticamente:
+- Populacao do estudo vs contexto do ensino (generalizable? spectrum bias?)
+- Endpoint: clinico (mortalidade, evento) ou surrogate (marcador laboratorial)?
+- Financiamento: industria farmaceutica? Potencial vies?
+- Replicacao: achado confirmado por estudos independentes?
+- Temporalidade: dado ainda vigente ou superseded por evidencia mais recente?
+
+Quando um achado e robusto, dizer que e robusto. Quando e fragil, dizer por que.
+O objetivo nao e demolir — e ser preciso sobre o grau de confianca.
+
+=== DIVERGENCIAS E CONVERGENCIAS (obrigatorio quando 2+ fontes tocam o tema) ===
+
+CONVERGENCIAS: Onde 2+ sociedades/estudos concordam → alta confianca. Listar com fontes.
+DIVERGENCIAS: Onde discordam → listar posicao de cada, ano, base de evidencia, qual e mais recente.
+Divergencias mudam conduta clinica — omiti-las e desinformar.
+
+=== REQUISITOS DE DADOS ===
+
+Cada achado reportado precisa incluir:
+- Numeros concretos (effect size, IC 95%, p-value, n, NNT quando aplicavel)
+- Identificacao da fonte (PMID, DOI, ou citacao completa)
+- Ano de publicacao
+- Tag de tipo: [GUIDELINE] [META/SR] [RCT] [LANDMARK] [COHORT] [BOOK] [EXPERT]
+- Qualidade GRADE: HIGH / MODERATE / LOW / VERY LOW
+
+Achados sem numeros concretos nao sao aceitaveis.
+"Estudos mostram que..." sem citacao = excluir do output.
+
+=== CONTEXTO BRASIL ===
+
+- Sinalizar drogas/intervencoes nao disponiveis no Brasil (ANVISA/CONITEC)
+- Incluir guidelines brasileiras quando existirem (SBH, SBC, SBHPA, PCDT/CONITEC, protocolos SUS)
+- Contexto padrao de populacao: pacientes brasileiros
+
+=== ESPECIFICIDADES DESTE TOPICO ===
+
+Este topico e METODOLOGICO, nao clinico. Portanto adaptar a hierarquia de fontes:
+- Em vez de guidelines clinicas: buscar definicoes formais de Cochrane Handbook, IOM/NAM, PRISMA statement
+- Em vez de meta-analises clinicas: buscar estudos bibliometricos sobre proporcoes RS/MA (ex: % de RS indexadas no PubMed que incluem MA quantitativa)
+- Marcos historicos: Karl Pearson 1904 (primeira MA), Glass 1976 (cunhou "meta-analysis"), Archie Cochrane 1972, fundacao da Cochrane Collaboration 1993, PRISMA 2009/2020
+- Umbrella review: definicao formal, quando surgiu, como se diferencia de overview of reviews
+- Terminologia: "systematic review", "meta-analysis", "umbrella review", "overview of reviews", "scoping review" — fronteiras e sobreposicoes

@@ -1,0 +1,12 @@
+{
+  "expectations": [
+    {"text": "Report opens with a prose narrative summary (5-10 lines) that a professor can read in 60 seconds", "passed": true, "evidence": "Section 1 'Sintese Narrativa': 3 paragraphs of genuine prose covering paradigm shift (PREDESCI→BAVENO VII), convergence interpretation, practical recommendation (carvedilol 12.5mg, LSM criteria). No bullets, no tables."},
+    {"text": "Report contains at least 1 specific actionable recommendation for what to change or keep in teaching material", "passed": true, "evidence": "Section 6 '5 Recomendacoes para Aula/Slide': Hero slide (carvedilol SHR 0.417), paradigm shift framing, EVL not first-line in compensated, cautela in descompensados. Directly actionable for slide creation."},
+    {"text": "Report contains findings from at least 2 distinct search legs", "passed": true, "evidence": "Header: 'Pernas executadas: 1, 4, 5'. Table column 'Perna(s)' shows findings from Legs 4 (PubMed/SCite/Consensus) and 5 (WebSearch). Leg 1 (Gemini) still processing."},
+    {"text": "Report includes a comparative table with an 'implication' column explaining what each finding means", "passed": true, "evidence": "Section 2: 10-row table with columns #/Achado/Perna(s)/Fonte/Implicacao. Each implication is meaningful: 'Fundamenta inicio precoce de NSBB antes de varizes grandes', 'EVL nao deve ser primeira linha em compensados'."},
+    {"text": "Report interprets convergences in prose (not just '3/3 = ALTA') explaining WHY convergence matters", "passed": true, "evidence": "Section 3: 'Isso converge porque o mecanismo e coerente: reduzir pressao portal reduz translocacao bacteriana, reduz ascite... O professor pode afirmar isso com seguranca.' Genuine mechanistic interpretation."},
+    {"text": "Report contains at least 3 PMIDs or DOIs with verification status", "passed": true, "evidence": "Section 7: 7 PMIDs with DOI links (30910320, 35661713, 38108646, 35120736, 40241373, 31176013, 19766641). Section 5 marks multiple as 'VERIFIED (PubMed MCP)'."},
+    {"text": "Report includes concrete effect sizes with confidence intervals", "passed": true, "evidence": "Section 5: 11 data rows with HRs, SHRs, RRs, ORs + 95% CIs + timeframes + populations. All properly typed (HR vs SHR vs RR vs OR)."},
+    {"text": "Report does NOT contain vague claims without specific citation", "passed": true, "evidence": "Every claim in narrative and tables is backed by PMID or MCP source. CANDIDATE PMIDs would be flagged. Only WEB-VERIFIED for Consensus source (acceptable)."}
+  ]
+}
