@@ -310,26 +310,78 @@ qa-engineer threshold impossivel, mcp_safety auto-execute vs human gate, slide-r
 
 ---
 
+## P2 Audit: Font-size < 18px (21 instancias)
+
+> 55" TV @ 6m. Minimo 18px para conteudo projetado. Lucas decide por categoria.
+
+### Tokens (base.css) — afeta todas as aulas
+
+| Linha | Token | Valor atual | Proposta |
+|-------|-------|-------------|----------|
+| 115 | `--text-caption` | `clamp(11px, 0.7vw, 15px)` | `clamp(16px, 0.9vw, 18px)` ? |
+| 114 | `--text-small` | `clamp(14px, 0.9vw, 20px)` | `clamp(18px, 1.0vw, 22px)` ? |
+| 289 | `.stage-c --text-caption` | `clamp(14px, 0.85vw, 15px)` | segue token base |
+| 288 | `.stage-c --text-small` | `clamp(16px, 1.0vw, 20px)` | segue token base |
+| 319 | `.source-tag` | `clamp(10px, 0.55vw, 11px)` | **16px?** (atribuicao, decidir) |
+
+### metanalise.css — 4 diretas
+
+| Linha | Seletor | Valor | Contexto |
+|-------|---------|-------|----------|
+| 23 | `#deck --text-small` | 16px | override token |
+| 24 | `#deck --text-caption` | 14px | override token |
+| 224 | `.hook-tag` | 12px | labels AMSTAR/GRADE |
+| 612 | `.contrato-skill` | 12px | skill text contrato |
+| 780 | `.ck1-axis` | 10px | eixo checkpoint |
+| 806 | `.ck1-name` | 12px | nome trial checkpoint |
+
+### cirrose.css — 12 diretas
+
+| Linha | Seletor | Valor | Contexto |
+|-------|---------|-------|----------|
+| 500 | `.source-tag` | 10px | atribuicao fonte |
+| 511 | `.stage-c .source-tag` | 16px | stage-c override |
+| 1022 | `.title-author` | clamp(16px,..,22px) | titulo autor |
+| 1031 | `.title-affiliation` | clamp(12px,..,16px) | titulo afiliacao |
+| 1128 | `.screening-hero-label` | 17px | quase la |
+| 1156 | `.screening-metric-label` | 14px | label metrica |
+| 1246 | `.guideline-rec-source` | 12px | fonte guideline |
+| 1738 | `.hook-lab-value small` | 0.35em (~16px) | unidade lab |
+| 1747 | `.hook-lab-ref` | 0.65rem (~10px) | ref range |
+| 1845 | `.classify-card-icon` | 16px | icone card |
+| 2838 | `.panel-name` | 14px | case panel |
+| 2892-2922 | `.panel-field-*`, `.panel-event` | 10-13px | case panel UI |
+
+### Categorias para decisao
+
+- **A. Tokens base** (5): Bumpar minimos para 18px = mais impacto, menos esforco
+- **B. Eixos/labels de grafico** (3): ck1-axis, ck1-name, hook-tag — talvez OK menores
+- **C. Source-tags** (3): atribuicao de fonte — intencionalmente discreto
+- **D. Case panel** (4): UI overlay, nao conteudo projetado principal
+- **E. Title slide dark** (3): autor/afiliacao — legibilidade importa
+
+---
+
 ## Plano de Implementacao
 
-### P0 — Fix Now (silent failures, data corruption)
-1. **#1** qa-batch-screenshot.mjs: pathToFileURL() para Windows
-2. **#2** content-research.mjs: validar Gemini response antes de salvar
-3. **#3** export-pdf.js: --strictPort
-4. **#12** lint-slides.js: normalizar path separators para Windows
-5. **#106** s-cp1: reconciliar MELD 14 vs MELD 10
+### P0 — Fix Now ✅ (S41)
+1. ~~**#1** qa-batch-screenshot.mjs: pathToFileURL()~~ ✅
+2. ~~**#2** content-research.mjs: validar Gemini response~~ ✅
+3. ~~**#3** export-pdf.js: --strictPort~~ ✅
+4. ~~**#12** lint-slides.js: Windows path separator~~ ✅
+5. ~~**#106** s-cp1: MELD 14 reconciliado~~ ✅
 
-### P1 — Governance (contradictions that cause drift)
-6. **#118** qa-engineer threshold: ship threshold realista (ex: 7/10)
-7. **#119** qa-engineer tools: alinhar com allowlist
-8. **#120** mcp_safety: remover auto-execute para writes
-9. **#121** slide-rules: resolver data-background-color
-10. **S5** Batch update stale monorepo paths em 4 rules
+### P1 — Governance ✅ (S41)
+6. ~~**#118** qa-engineer threshold: 9→7 (economic), 9 (--deep)~~ ✅
+7. ~~**#119** qa-engineer tools: 5 removed~~ ✅
+8. ~~**#120** mcp_safety: auto-execute removed~~ ✅
+9. ~~**#121** slide-rules: data-background-color exception removed~~ ✅
+10. ~~**S5** Stale paths: 4 fixed in 3 rules~~ ✅
 
-### P2 — Quality (font-size audit, print, GSAP jurisdiction)
-11. **S1** Font-size audit completo: minimo 18px no canvas
-12. **S3** Print/PDF reset completo
-13. **S4** GSAP jurisdiction: mover per-slide init states para JS
+### P2 — Quality (parcial S41)
+11. **S1** Font-size audit: 21 instancias documentadas (ver secao acima). Lucas decide por categoria.
+12. ~~**S3** Print/PDF reset: stagger children + data-reveal + inline opacity~~ ✅
+13. **S4** GSAP jurisdiction: 7 instancias — mover per-slide init states para JS
 14. **#61** cirrose [data-reveal] .no-js fallback
 15. Dark-slide token restoration (#57, #60)
 
