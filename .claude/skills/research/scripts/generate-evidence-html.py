@@ -40,7 +40,15 @@ from typing import Any
 CSS = (
     "body{font-family:'Segoe UI',system-ui,sans-serif;"
     "max-width:800px;margin:2rem auto;padding:0 1rem;"
-    "color:#1a1a2e;line-height:1.6}"
+    "color:#1a1a2e;line-height:1.6;text-align:justify}"
+    ".v{display:inline-block;font-size:.65rem;font-weight:700;"
+    "color:#fff;background:#2563eb;border-radius:3px;"
+    "padding:0 .3rem;margin:0 .1rem;vertical-align:middle;"
+    "letter-spacing:.02em}"
+    ".c{display:inline-block;font-size:.65rem;font-weight:700;"
+    "color:#fff;background:#dc2626;border-radius:3px;"
+    "padding:0 .3rem;margin:0 .1rem;vertical-align:middle;"
+    "letter-spacing:.02em}"
     "h1{font-size:1.4rem;border-bottom:2px solid #2d6a4f;"
     "padding-bottom:.5rem}"
     "h2{font-size:1.1rem;color:#2d6a4f;margin-top:1.5rem}"
@@ -57,7 +65,7 @@ CSS = (
     "border-top:1px solid #ccc;font-size:.8rem;color:#777}"
     ".speaker-notes{background:#fffbea;"
     "border-left:4px solid #d4a017;padding:.8rem 1rem;"
-    "margin:.5rem 0}"
+    "margin:.5rem 0;white-space:pre-line}"
     ".suggestion-do{color:#2d6a4f}"
     ".suggestion-dont{color:#8b0000}"
 )
@@ -180,7 +188,18 @@ def generate_html(
         else ""
     )
 
-    return f"""<!DOCTYPE html>
+    # Post-process verification badges (after esc() so tokens survive)
+    def badge(html_str: str) -> str:
+        replacements = [
+            ("[VERIFIED]", '<span class="v">VERIFIED</span>'),
+            ("[WEB-VERIFIED]", '<span class="v">WEB-VERIFIED</span>'),
+            ("[CANDIDATE]", '<span class="c">CANDIDATE</span>'),
+        ]
+        for token, span in replacements:
+            html_str = html_str.replace(token, span)
+        return html_str
+
+    raw = f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -227,6 +246,7 @@ def generate_html(
 </body>
 </html>
 """
+    return badge(raw)
 
 
 def main() -> None:

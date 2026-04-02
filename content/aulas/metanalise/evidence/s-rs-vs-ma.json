@@ -1,0 +1,43 @@
+{
+  "sintese_narrativa": "A separabilidade RS/MA e conhecimento consolidado. O Cochrane Handbook v6.5 (Ch.10.10.3) lista 'nao fazer meta-analise' como desfecho valido de uma RS [WEB-VERIFIED]. A SWiM guideline (BMJ 2020, PMID 31948937) codifica 9 itens de reporte para RS SEM MA [WEB-VERIFIED]. 32% das RS em saude nao incluem meta-analise (Campbell et al. BMJ 2020, PMID 32066558) [CANDIDATE]. Grant & Booth 2009 (PMID 19490148) documenta 14 tipos de revisao no framework SALSA, mostrando o espectro completo: narrative review (busca nao-sistematica, sem appraisal) ate SR+MA (tudo sistematico + pooling) [WEB-VERIFIED]. Petticrew 2001 (PMID 11154628) desmonta diretamente o Mito 5: 'RS necessariamente envolve sintese estatistica' [WEB-VERIFIED]. O footer 'Toda MA vem de uma RS' e simplificacao pedagogica: Pearson (1904) e Glass (1976) fizeram MAs antes de RS existir como protocolo [WEB-VERIFIED]. Hoje, fazer MA sem RS e considerado problematico, mas nao e impossivel. CONITEC 2021 define MA explicitamente 'em uma RS', reforcando o framework Cochrane/PRISMA no contexto brasileiro [WEB-VERIFIED]. PRISMA 2020 (PMID 33782057) cobre explicitamente RS 'que incluem sintese... ou nao incluem sintese' [WEB-VERIFIED]. Nenhum estudo publicado quantifica a prevalencia de confusao RS/MA entre residentes — e um gap na literatura de ensino.",
+
+  "speaker_notes": "[0:00-0:15] 'A confusao mais comum que preciso resolver primeiro — e a mesma que quase pegou voces no checkpoint.' [PAUSA. Apontar de volta para slide checkpoint-1.] 'Quando alguem diz a meta-analise mostrou, esta falando so do calculo. Quando diz a revisao sistematica incluiu, esta falando do processo.'\n\n[0:15-0:30] 'Revisao sistematica e o PROCESSO: protocolo, busca reproduzivel, selecao com criterios, avaliacao de vies. Meta-analise e UM PASSO dentro desse processo — o calculo que combina resultados num efeito unico.' [WEB-VERIFIED] Cochrane Handbook v6.5, cap. 1+10\n\n[0:30-0:45] 'E nem toda RS tem MA. Na verdade, quase 1 em 3 revisoes sistematicas em saude nao tem meta-analise.' [CANDIDATE] Campbell 2020, PMID 32066558. 'A SWiM guideline de 2020 ate criou um checklist especifico para RS sem MA — 9 itens de reporte.' [WEB-VERIFIED] PMID 31948937\n\n[0:45-0:60] 'Mas no contexto atual, toda MA deveria vir de uma RS. Meta-analise sem busca sistematica amplifica vieses em vez de corrigi-los. Quando voces virem so um diamante num forest plot, lembrem: aquilo e o calculo. Os quadrados dentro dele — os estudos individuais — vieram de um processo. E esse processo que voces precisam saber ler.'\n\n[TRANSICAO] → PICO (proximo slide)\n\n[DATA] Fontes: Cochrane Handbook v6.5, cap. 1+10 (PMID 31643080) [WEB-VERIFIED] | SWiM BMJ 2020 (PMID 31948937) [WEB-VERIFIED] | Grant & Booth 2009 (PMID 19490148) [WEB-VERIFIED] | Petticrew 2001 (PMID 11154628) [WEB-VERIFIED] | PRISMA 2020 (PMID 33782057) [WEB-VERIFIED] | Campbell 2020 (PMID 32066558) [CANDIDATE] | CONITEC 2021 [WEB-VERIFIED] | Verificado: 2026-04-02",
+
+  "pedagogia": "TENSAO ANTERIOR: O checkpoint-1 (ACCORD trap) terminou com o residente em confusao calibrada — o diamante da MA disse beneficio, o maior trial dentro dela disse dano. O residente nao sabe porque confunde 'meta-analise' (o calculo) com 'revisao sistematica' (o processo que inclui os estudos individuais). RESOLUCAO: Este slide nomeia os dois componentes. 'A meta-analise do checkpoint nao era a revisao — era o passo do calculo. A revisao inclui os estudos individuais. O residente agora tem linguagem para separar o processo do produto.' O QUE O SLIDE NAO MOSTRA: O slide ensina taxonomia sem custo do erro (D7=5). O residente aprende a diferenca mas nao aprende o que acontece quando confunde: ler so o diamante sem saber o que tem dentro dele. A ponte com o ACCORD esta apenas nas speaker notes, nao visivel no slide. Um professor menos experiente pode entregar a taxonomia sem amarrar ao momento pedagogico anterior.",
+
+  "retorica": "ASSERTION-EVIDENCE: A h2 'RS e o metodo de busca e selecao; MA e o calculo estatistico — e sao separaveis' e assercao dupla com conclusao ('separaveis'). Defensavel e precisa [WEB-VERIFIED] Cochrane v6.5. Evidence: compare-layout + footer punchline. Padrao completo. CARGA COGNITIVA: Dois conceitos (RS, MA), uma regra (separabilidade), uma fonte. ~25 palavras visiveis. Para 60s com professor falando, carga ideal. DISPOSITIVOS PRESENTES: (1) Contraste estruturado — compare-layout RS/MA lado a lado. (2) Regra mnemonica — 'Nem toda RS tem MA. Toda MA vem de uma RS' — assimetria logica (condicional vs universal), precisa e memoravel. Porem: a segunda metade ('Toda MA vem de uma RS') e simplificacao historicamente imprecisa [WEB-VERIFIED] Pearson 1904, Glass 1976. (3) Autoridade citada (Cochrane). DISPOSITIVOS AUSENTES: (1) Consequencia — o que acontece quando confunde os dois? Taxonomia sem urgencia. (2) Ancoragem retrospectiva — referencia visual ao checkpoint anterior transformaria definicao em resolucao narrativa. O slide e correto mas narrativamente isolado.",
+
+  "grade": [],
+  "numeros": [],
+
+  "sugestoes": {
+    "considerar": [
+      "Adicionar consequencia clinica visivel: 'Confundir os dois e ler o diamante sem saber o que tem dentro'. Converte taxonomia em urgencia (D7: 5 -> 7+)",
+      "Ancorar no ACCORD: elemento visual ou textual minimo referenciando checkpoint-1. Transforma definicao em resolucao narrativa",
+      "Suavizar footer para: 'Nem toda RS tem MA. No contexto atual, toda MA deveria vir de uma RS.' Remove claim universal nao sustentado historicamente [WEB-VERIFIED]",
+      "Mencionar SWiM guideline (BMJ 2020, PMID 31948937) como segunda fonte — prova definitiva de separabilidade [WEB-VERIFIED]",
+      "Nas speaker notes: mencionar o espectro completo de revisoes (narrativa -> scoping -> RS -> RS+MA) usando Grant & Booth 2009 (PMID 19490148) como referencia [WEB-VERIFIED]",
+      "Dado novo: '32% das RS em saude nao tem MA' (Campbell et al. BMJ 2020, PMID 32066558) — numero concreto para sustentar separabilidade [CANDIDATE] aguardando verificacao PubMed"
+    ],
+    "nao_fazer": [
+      "NAO transformar em 3 colunas (narrativa + RS + MA) no slide — carga cognitiva excessiva para 60s. O espectro vai nas notes, nao no body",
+      "NAO remover o footer punchline — e memoravel e funciona pedagogicamente mesmo com a simplificacao",
+      "NAO citar Pearson 1904 ou Glass 1976 no slide — edge case historico para notes, nao para corpo"
+    ]
+  },
+
+  "depth_rubric": [
+    {"dim": "D1 — Fonte", "score": 8, "achado": "Cochrane Handbook v6.5 cap.1 — tier 1, versao atual, capitulo correto [WEB-VERIFIED]", "implicacao": "Melhoria possivel: adicionar DOI/URL do Handbook para rastreabilidade"},
+    {"dim": "D2 — Effect Size", "score": 0, "achado": "N/A — slide definitional sem claims quantitativos", "implicacao": "Ausencia correta e intencional"},
+    {"dim": "D3 — Populacao", "score": 0, "achado": "N/A", "implicacao": "Ausencia correta"},
+    {"dim": "D4 — Timeframe", "score": 0, "achado": "N/A", "implicacao": "Ausencia correta"},
+    {"dim": "D5 — Comparador", "score": 0, "achado": "N/A", "implicacao": "Ausencia correta"},
+    {"dim": "D6 — Grading", "score": 0, "achado": "N/A — GRADE nao aplicavel a definicoes", "implicacao": "GRADE ensinado no slide 09"},
+    {"dim": "D7 — Impacto Clinico", "score": 5, "achado": "Taxonomia sem custo do erro. Residente aprende diferenca sem saber consequencia", "implicacao": "Adicionar consequencia clinica eleva D7 para 7+"},
+    {"dim": "D8 — Currency", "score": 9, "achado": "Cochrane v6.5 (Aug 2024, patch v6.5.1 early 2025) vigente [WEB-VERIFIED]", "implicacao": "Definicoes fundamentais sem expiracao previsivel"}
+  ],
+
+  "convergencia": "4/4 legs convergiram na defensabilidade do claim central (RS e metodo, MA e calculo, sao separaveis). Todas identificaram o footer 'Toda MA vem de uma RS' como simplificacao pedagogica — Cochrane nao afirma em forma universal, MAs historicas (Pearson 1904, Glass 1976) precederam RS como protocolo [WEB-VERIFIED]. Convergencia em D7=5 (taxonomia sem consequencia) como gap principal. Leg 2 (MBE) e Leg 3 (Ref Checker) convergem que o Cochrane Handbook nao tem entrada formal no evidence-db apesar de ser citado em 8 arquivos. Leg 5 (Opus) trouxe SWiM guideline (prova definitiva) e Grant & Booth 2009 (14 tipos de revisao — framework SALSA) [WEB-VERIFIED]. Leg 1 (Gemini) trouxe dado quantitativo: 32% RS sem MA (Campbell 2020, PMID 32066558) [CANDIDATE]. Nenhum CONFLICT encontrado. Flag: EVIDENCE GAP — nenhum estudo publicado quantifica confusao RS/MA entre residentes.",
+
+  "coautoria": "Lucas + Opus 4.6 + Sonnet 4.6 (MBE + RefCheck) + Gemini 3.1 (Deep Search)"
+}
