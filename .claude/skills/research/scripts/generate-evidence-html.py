@@ -65,9 +65,15 @@ CSS = (
     "border-top:1px solid #ccc;font-size:.8rem;color:#777}"
     ".speaker-notes{background:#fffbea;"
     "border-left:4px solid #d4a017;padding:.8rem 1rem;"
-    "margin:.5rem 0;white-space:pre-line}"
+    "margin:.5rem 0;white-space:pre-line;border-radius:.5rem}"
     ".suggestion-do{color:#2d6a4f}"
     ".suggestion-dont{color:#8b0000}"
+    ".ref-list{padding-left:1.5rem}"
+    ".ref-list li{margin:.5rem 0;font-size:.88rem;line-height:1.5}"
+    ".ref-list li{border-left:3px solid #2d6a4f;"
+    "padding-left:.5rem;margin-left:-.5rem}"
+    ".ref-pmid{color:#2563eb;text-decoration:none;font-size:.82rem}"
+    ".ref-pmid:hover{text-decoration:underline}"
 )
 
 
@@ -113,7 +119,7 @@ def render_numeros_table(numeros: list[dict[str, Any]]) -> str:
   <h2>Numeros-Chave</h2>
   <table>
     <tr><th>Metrica</th><th>Valor</th><th>IC 95%</th><th>Tempo</th>
-    <th>Populacao</th><th>PMID</th><th>Risco Basal</th></tr>
+    <th>Populacao</th><th>Fonte</th><th>Risco Basal</th></tr>
     {rows}
   </table>
 </section>"""
@@ -137,6 +143,42 @@ def render_depth_rubric(rubric: list[dict[str, Any]]) -> str:
     {rows}
   </table>
 </details>"""
+
+
+def render_referencias(refs: list[dict[str, Any]]) -> str:
+    """Render academic references: Author (year). Title. Journal. PMID. [status]."""
+    if not refs:
+        return ""
+    items = ""
+    for r in refs:
+        autor = esc(r.get("autor", ""))
+        ano = esc(str(r.get("ano", "")))
+        titulo = esc(r.get("titulo", ""))
+        revista = esc(r.get("revista", ""))
+        pmid = r.get("pmid", "")
+        status = r.get("status", "")
+        principal = r.get("principal", False)
+
+        cls = ' class="ref-principal"' if principal else ""
+        pmid_html = (
+            f' PMID: <a class="ref-pmid"'
+            f' href="https://pubmed.ncbi.nlm.nih.gov/{esc(pmid)}"'
+            f' target="_blank">{esc(pmid)}</a>'
+            if pmid
+            else ""
+        )
+        status_html = f" [{status}]" if status else ""
+
+        items += (
+            f"<li{cls}>{autor} ({ano}). {titulo}."
+            f" <em>{revista}</em>.{pmid_html}{status_html}</li>\n"
+        )
+
+    return f"""
+<section id="referencias">
+  <h2>Referencias</h2>
+  <ol class="ref-list">{items}</ol>
+</section>"""
 
 
 def render_sugestoes(sugestoes: dict[str, Any]) -> str:
@@ -176,6 +218,7 @@ def generate_html(
     numeros_html = render_numeros_table(data.get("numeros", []))
     depth_html = render_depth_rubric(data.get("depth_rubric", []))
     sugestoes_html = render_sugestoes(data.get("sugestoes", {}))
+    referencias_html = render_referencias(data.get("referencias", []))
 
     convergencia = data.get("convergencia", "")
     convergencia_html = (
@@ -262,6 +305,7 @@ def generate_html(
 {depth_html}
 {convergencia_html}
 {ref_rapida_html}
+{referencias_html}
 
   <footer>
     Coautoria: {coautoria} | Pipeline: /research v2 | Slide: {esc(slide_id)}

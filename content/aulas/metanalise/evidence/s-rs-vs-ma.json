@@ -1,20 +1,20 @@
 {
-  "sintese_narrativa": "A separabilidade RS/MA e conhecimento consolidado. 71% das revisoes indexadas no PubMed (1991-2020) sao narrativas — nao sistematicas (Shen et al. 2022, PMID 35725647, N=1.302.173) [CANDIDATE]. RS sem MA representam 15%, RS com MA 14%, scoping reviews 0.7%. Ou seja: 7 em 10 revisoes que o residente le sao narrativas. O Cochrane Handbook v6.5 (Ch.10.10.3) lista 'nao fazer meta-analise' como desfecho valido de uma RS [WEB-VERIFIED]. A SWiM guideline (BMJ 2020, PMID 31948937) codifica 9 itens de reporte para RS SEM MA — e confirma que 32% das RS em saude nao incluem meta-analise [WEB-VERIFIED]. Grant & Booth 2009 (PMID 19490148) documenta 14 tipos de revisao no framework SALSA — incluindo umbrella reviews (RS de RS) [WEB-VERIFIED]. Umbrella reviews sintetizam multiplas RS sobre o mesmo topico, oferecendo o nivel mais alto de agregacao de evidencia. Termo aparece em provas de residencia e e crescente na literatura (47% de crescimento anual, Shen 2022) [CANDIDATE]. Ioannidis 2016 (PMID 27620683) documenta crescimento de 2.728% das RS desde 1991 e chama de 'epidemia' [CANDIDATE]. O footer 'Toda MA vem de uma RS' e simplificacao pedagogica: Pearson (1904) e Glass (1976) fizeram MAs antes de RS existir como protocolo [WEB-VERIFIED]. PRISMA 2020 (PMID 33782057) cobre explicitamente RS 'que incluem sintese... ou nao incluem sintese' [WEB-VERIFIED]. CONITEC 2021 define MA explicitamente 'em uma RS', reforcando o framework Cochrane/PRISMA no contexto brasileiro [WEB-VERIFIED].",
+  "sintese_narrativa": "A separabilidade RS/MA e conhecimento consolidado. 71% das revisoes indexadas no PubMed entre 1991 e 2020 sao narrativas — nao sistematicas (Shen et al., 2022) [CANDIDATE]. RS sem MA representam 15%, RS com MA 14%, scoping reviews 0.7%. Ou seja: 7 em 10 revisoes que o residente le sao narrativas. O Cochrane Handbook v6.5 lista 'nao fazer meta-analise' como desfecho valido de uma RS (Higgins et al., 2023) [WEB-VERIFIED]. A SWiM guideline codifica 9 itens de reporte para RS SEM MA — e confirma que 32% das RS em saude nao incluem meta-analise (Campbell et al., 2020) [WEB-VERIFIED]. Grant & Booth (2009) documentam 14 tipos de revisao no framework SALSA — incluindo umbrella reviews (RS de RS) [WEB-VERIFIED]. Umbrella reviews sintetizam multiplas RS sobre o mesmo topico, oferecendo o nivel mais alto de agregacao de evidencia. Termo aparece em provas de residencia e e crescente na literatura — 47% de crescimento anual (Shen et al., 2022) [CANDIDATE]. Ioannidis (2016) documenta crescimento de 2.728% das RS desde 1991 e chama de 'epidemia' [CANDIDATE]. O footer 'Toda MA vem de uma RS' e simplificacao pedagogica: Pearson (1904) e Glass (1976) fizeram MAs antes de RS existir como protocolo [WEB-VERIFIED]. O PRISMA 2020 cobre explicitamente RS 'que incluem sintese... ou nao incluem sintese' (Page et al., 2021) [WEB-VERIFIED]. A CONITEC (2021) define MA explicitamente 'em uma RS', reforcando o framework Cochrane/PRISMA no contexto brasileiro [WEB-VERIFIED].",
 
-  "speaker_notes": "[0:00-0:20] 'Antes de entrar em meta-analise, preciso resolver uma confusao.'\n'Voces leem muitas revisoes — mas nem toda revisao e sistematica.'\n'Na verdade, 7 em 10 revisoes publicadas em medicina sao narrativas — nao sistematicas.' [CANDIDATE] Shen 2022, PMID 35725647\n'Lembrem daquela revisao do NEJM sobre [EXEMPLO TBD] — isso e uma revisao narrativa. O autor escolheu o que incluir.'\nPAUSA.\n\n[0:20-0:45] 'A revisao sistematica e diferente: tem protocolo registrado, busca reproduzivel, criterios de selecao explicitos, avaliacao de risco de vies.'\n'Umbrella review — uma revisao sistematica de revisoes sistematicas. Pega varias RS ja feitas sobre o mesmo tema e sintetiza. Aparece em provas.'\n'A meta-analise e um PASSO dentro desse processo — o calculo que combina os resultados dos estudos num efeito unico.'\n'Quando alguem diz a meta-analise mostrou, esta falando so do calculo. Quando diz a revisao sistematica incluiu, esta falando do processo.' [WEB-VERIFIED] Cochrane Handbook v6.5\n\n[0:45-0:70] 'E nem toda RS tem MA. Quase 1 em 3 revisoes sistematicas em saude nao incluem meta-analise.' [WEB-VERIFIED] Campbell/SWiM 2020, PMID 31948937\n'Os estudos sao heterogeneos demais, ou poucos demais.'\n'Mas hoje, quase toda MA e precedida de uma RS. Meta-analise sem busca sistematica amplifica vieses em vez de corrigi-los.'\n'A que vamos analisar hoje e uma RS com MA.'\n\n[0:70-0:90] 'No checkpoint, o diamante era o calculo — a MA. Os quadrados dentro dele — os estudos individuais — vieram do processo — a RS. Sao separaveis.'\n\n[TRANSICAO] → PICO\n\n[DATA] Fontes: Cochrane Handbook v6.5, cap. 1+10 (PMID 31643080) [WEB-VERIFIED] | Grant & Booth 2009 (PMID 19490148) [WEB-VERIFIED] | SWiM/Campbell BMJ 2020 (PMID 31948937) [WEB-VERIFIED] | Shen et al. 2022 (PMID 35725647) [CANDIDATE] | Ioannidis 2016 (PMID 27620683) [CANDIDATE] | PRISMA 2020 (PMID 33782057) [WEB-VERIFIED] | CONITEC 2021 [WEB-VERIFIED] | Verificado: 2026-04-02",
+  "speaker_notes": "[0:00-0:20] 'Antes de entrar em meta-analise, preciso resolver uma confusao.'\n'Voces leem muitas revisoes — mas nem toda revisao e sistematica.'\n'Na verdade, 7 em 10 revisoes publicadas em medicina sao narrativas — nao sistematicas.' (Shen et al., 2022) [CANDIDATE]\n'Lembrem daquela revisao do NEJM sobre [EXEMPLO TBD] — isso e uma revisao narrativa. O autor escolheu o que incluir.'\nPAUSA.\n\n[0:20-0:45] 'A revisao sistematica e diferente: tem protocolo registrado, busca reproduzivel, criterios de selecao explicitos, avaliacao de risco de vies.'\n'Umbrella review — uma revisao sistematica de revisoes sistematicas. Pega varias RS ja feitas sobre o mesmo tema e sintetiza. Aparece em provas.'\n'A meta-analise e um PASSO dentro desse processo — o calculo que combina os resultados dos estudos num efeito unico.'\n'Quando alguem diz a meta-analise mostrou, esta falando so do calculo. Quando diz a revisao sistematica incluiu, esta falando do processo.' (Higgins et al., 2023) [WEB-VERIFIED]\n\n[0:45-0:70] 'E nem toda RS tem MA. Quase 1 em 3 revisoes sistematicas em saude nao incluem meta-analise.' (Campbell et al., 2020) [WEB-VERIFIED]\n'Os estudos sao heterogeneos demais, ou poucos demais.'\n'Mas hoje, quase toda MA e precedida de uma RS. Meta-analise sem busca sistematica amplifica vieses em vez de corrigi-los.'\n'A que vamos analisar hoje e uma RS com MA.'\n\n[0:70-0:90] 'No checkpoint, o diamante era o calculo — a MA. Os quadrados dentro dele — os estudos individuais — vieram do processo — a RS. Sao separaveis.'\n\n[TRANSICAO] → PICO",
 
-  "pedagogia": "TENSAO ANTERIOR: O checkpoint-1 (ACCORD trap) terminou com o residente em confusao calibrada — o diamante da MA disse beneficio, o maior trial dentro dela disse dano. O residente nao sabe porque confunde 'meta-analise' (o calculo) com 'revisao sistematica' (o processo que inclui os estudos individuais). RESOLUCAO: Este slide nomeia TRES conceitos (revisao narrativa, RS, MA) e posiciona o residente no espectro. 7 em 10 revisoes que ele le sao narrativas — a revisao sistematica e a excecao, nao a regra. A MA e um passo DENTRO da RS, nao um sinonimo. O QUE O SLIDE NAO MOSTRA: O espectro completo de 14 tipos de revisao (Grant & Booth 2009) — simplificado para 3 no slide. Scoping reviews (0.7%) omitidas por baixa relevancia para residentes basico-intermediario. O dado de '7 em 10' ancora o conceito em realidade quantitativa em vez de taxonomia abstrata.",
+  "pedagogia": "TENSAO ANTERIOR: O checkpoint-1 (ACCORD trap) terminou com o residente em confusao calibrada — o diamante da MA disse beneficio, o maior trial dentro dela disse dano. O residente nao sabe porque confunde 'meta-analise' (o calculo) com 'revisao sistematica' (o processo que inclui os estudos individuais). RESOLUCAO: Este slide nomeia TRES conceitos (revisao narrativa, RS, MA) e posiciona o residente no espectro. 7 em 10 revisoes que ele le sao narrativas (Shen et al., 2022) — a revisao sistematica e a excecao, nao a regra. A MA e um passo DENTRO da RS, nao um sinonimo. O QUE O SLIDE NAO MOSTRA: O espectro completo de 14 tipos de revisao (Grant & Booth, 2009) — simplificado para 3 no slide. Scoping reviews (0.7%) omitidas por baixa relevancia para residentes basico-intermediario. O dado de '7 em 10' ancora o conceito em realidade quantitativa em vez de taxonomia abstrata.",
 
   "retorica": "ASSERTION-EVIDENCE: A h2 'Existem revisoes — nem todas sistematicas. RS ≠ MA' e assercao em duas partes: (1) existem tipos diferentes, (2) RS e MA sao coisas distintas. O traco longo separa o broad context do claim especifico. CARGA COGNITIVA: Tres conceitos (Rev, RS, MA) em 3 blocos + footer + source. Para 90s com professor falando, carga gerenciavel. O stagger animation ajuda — revela um bloco por vez. DISPOSITIVOS PRESENTES: (1) Grid de 3 colunas — progresso visual de baixo rigor (narrativa) para alto rigor (RS) para calculo (MA). (2) Regra mnemonica no footer — suavizada para 'quase toda MA'. (3) Autoridade dupla (Cochrane + Grant & Booth). DISPOSITIVO NOVO: (1) Ancora quantitativa — '7 em 10' nas speaker notes converte taxonomia em realidade. (2) Ancora experiencial — exemplo NEJM que o residente ja leu conecta ao cotidiano. (3) Ancora retrospectiva ao checkpoint — 'o diamante era a MA, os quadrados vieram da RS'. MELHORIA vs VERSAO ANTERIOR: D7 (impacto clinico) sobe de 5 para 7+ com a consequencia visivel e a ancora no ACCORD.",
 
   "grade": [],
 
   "numeros": [
-    {"metric": "Revisoes narrativas", "value": "71%", "ci": "", "timeframe": "1991-2020", "population": "1.302.173 revisoes PubMed", "pmid": "35725647 [CANDIDATE]", "risco_basal": ""},
-    {"metric": "RS sem MA", "value": "15%", "ci": "", "timeframe": "1991-2020", "population": "idem", "pmid": "35725647 [CANDIDATE]", "risco_basal": ""},
-    {"metric": "RS com MA", "value": "14%", "ci": "", "timeframe": "1991-2020", "population": "idem", "pmid": "35725647 [CANDIDATE]", "risco_basal": ""},
-    {"metric": "RS sem MA (health)", "value": "32%", "ci": "", "timeframe": "2020", "population": "RS de intervencoes em saude", "pmid": "31948937 [WEB-VERIFIED]", "risco_basal": ""},
-    {"metric": "Crescimento RS", "value": "2.728%", "ci": "", "timeframe": "1991-2014", "population": "PubMed", "pmid": "27620683 [CANDIDATE]", "risco_basal": ""}
+    {"metric": "Revisoes narrativas", "value": "71%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Shen et al. (2022) [CANDIDATE]", "risco_basal": ""},
+    {"metric": "RS sem MA", "value": "15%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Shen et al. (2022) [CANDIDATE]", "risco_basal": ""},
+    {"metric": "RS com MA", "value": "14%", "ci": "", "timeframe": "1991-2020", "population": "", "pmid": "Shen et al. (2022) [CANDIDATE]", "risco_basal": ""},
+    {"metric": "RS sem MA (saude)", "value": "32%", "ci": "", "timeframe": "2020", "population": "", "pmid": "Campbell et al. (2020) [WEB-VERIFIED]", "risco_basal": ""},
+    {"metric": "Crescimento RS", "value": "2.728%", "ci": "", "timeframe": "1991-2014", "population": "", "pmid": "Ioannidis (2016) [CANDIDATE]", "risco_basal": ""}
   ],
 
   "sugestoes": {
@@ -58,6 +58,72 @@
     {"termo": "Basket trial", "definicao": "UMA droga testada em MULTIPLOS tumores que compartilham a mesma alteracao molecular (ex: anti-BRAF em melanoma + colorretal + tireoide).", "nota": "FDA/NCI. Ex: NCI-MATCH, vemurafenib basket (Hyman et al. NEJM 2015;373:726-36, PMID 26287849 [CANDIDATE])."},
     {"termo": "Umbrella trial", "definicao": "UMA doenca, MULTIPLAS drogas estratificadas por biomarcador. Cada braco testa uma droga diferente.", "nota": "Ex: LUNG-MAP (squamous NSCLC, multiplos bracos por alvo molecular). NAO confundir com umbrella REVIEW."},
     {"termo": "Platform trial", "definicao": "Adaptativo, multi-braco, pode adicionar/remover tratamentos ao longo do tempo. Infraestrutura permanente.", "nota": "Ex: RECOVERY (COVID), I-SPY2 (mama). Bayesiano. O mais flexivel dos master protocols."}
+  ],
+
+  "referencias": [
+    {
+      "autor": "Higgins JPT, Thomas J, Chandler J et al.",
+      "ano": 2023,
+      "titulo": "Cochrane Handbook for Systematic Reviews of Interventions, version 6.5",
+      "revista": "Cochrane Database Syst Rev",
+      "pmid": "31643080",
+      "status": "WEB-VERIFIED",
+      "principal": true
+    },
+    {
+      "autor": "Grant MJ, Booth A",
+      "ano": 2009,
+      "titulo": "A typology of reviews: an analysis of 14 review types and associated methodologies (SALSA framework)",
+      "revista": "Health Info Libr J",
+      "pmid": "19490148",
+      "status": "WEB-VERIFIED",
+      "principal": true
+    },
+    {
+      "autor": "Campbell M, McKenzie JE, Sowden A et al.",
+      "ano": 2020,
+      "titulo": "Synthesis without meta-analysis (SWiM) in systematic reviews: reporting guideline",
+      "revista": "BMJ",
+      "pmid": "31948937",
+      "status": "WEB-VERIFIED",
+      "principal": true
+    },
+    {
+      "autor": "Page MJ, McKenzie JE, Bossuyt PM et al.",
+      "ano": 2021,
+      "titulo": "The PRISMA 2020 statement: an updated guideline for reporting systematic reviews",
+      "revista": "BMJ",
+      "pmid": "33782057",
+      "status": "WEB-VERIFIED",
+      "principal": false
+    },
+    {
+      "autor": "Shen J, Li Y, Clarke M et al.",
+      "ano": 2022,
+      "titulo": "Visualization of evidence-based medicine domain knowledge: production and citation of Cochrane systematic reviews",
+      "revista": "Milbank Q",
+      "pmid": "35725647",
+      "status": "CANDIDATE",
+      "principal": true
+    },
+    {
+      "autor": "Ioannidis JPA",
+      "ano": 2016,
+      "titulo": "The mass production of redundant, misleading, and conflicted systematic reviews and meta-analyses",
+      "revista": "Milbank Q",
+      "pmid": "27620683",
+      "status": "CANDIDATE",
+      "principal": false
+    },
+    {
+      "autor": "CONITEC",
+      "ano": 2021,
+      "titulo": "Diretrizes metodologicas: elaboracao de revisao sistematica e meta-analise de ensaios clinicos randomizados",
+      "revista": "Ministerio da Saude, Brasil",
+      "pmid": "",
+      "status": "WEB-VERIFIED",
+      "principal": false
+    }
   ],
 
   "coautoria": "Lucas + Opus 4.6 + Sonnet 4.6 (MBE + RefCheck) + Gemini 3.1 (Deep Search)"

@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## Sessao 48 — 2026-04-02 (Primeiro Living HTML Real)
+
+### Evidence HTML
+- Primeiro HTML real gerado: `content/aulas/metanalise/evidence/s-rs-vs-ma.html`
+- JSON intermediario versionado: `content/aulas/metanalise/evidence/s-rs-vs-ma.json`
+- Conteudo: sintese narrativa, speaker notes (90s), pedagogia, retorica, numeros bibliometricos, depth rubric D1-D8
+- Referencia Rapida: 12 entradas (8 tipos de revisao + 4 master protocols)
+- Pipeline validado end-to-end: /research → JSON → generate-evidence-html.py → HTML
+
+### Template (generate-evidence-html.py)
+- Badges inline: [WEB-VERIFIED] azul, [CANDIDATE] vermelho
+- text-align:justify, white-space:pre-line em speaker notes
+- Secao colapsavel Referencia Rapida (Termo/Definicao/Nota)
+- Secao Referencias academicas: Autor (ano) + lista final com PMID/revista/status
+
+### Slide
+- s-rs-vs-ma reescrito: 2→4 colunas (Rev narrativa, RS, Umbrella Review, MA)
+- aside.notes: skeleton minimo com link para evidence HTML
+- Footer: "Nem toda RS tem MA. Hoje, quase toda MA e precedida de uma RS."
+
+### Decisoes
+- Evidence-first workflow confirmado (HTML antes do slide)
+- MDs (evidence-db, blueprint) = peso morto. Lucas nao le. Deprecacao gradual
+- aside.notes = skeleton (timing + link). Conteudo real no evidence HTML
+
+### Docs
+- HANDOFF → S49
+
 ## Sessao 47 — 2026-04-02 (/research v2 + Living HTML)
 
 ### Skills
