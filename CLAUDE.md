@@ -40,13 +40,13 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 
 ## Key Files
 
-### Python (CI verde: ruff + mypy + 47 testes)
+### Python (CI verde: ruff + mypy + 53 testes)
 - `orchestrator.py` → entry point
 - `config/ecosystem.yaml` → agentes + model routing
 - `config/rate_limits.yaml` → budget ($100/mes max)
 - `config/mcp/servers.json` → 16 MCPs (13 connected, 3 planned)
-- `hooks/` → 2 hooks (notification desktop, stop session-hygiene)
-- `.claude/hooks/` → 7 hooks (guard-generated, guard-secrets, check-evidence-db, build-monitor, etc.)
+- `hooks/` → 4 hooks (notification desktop, stop session-hygiene, build-monitor, session-name)
+- `.claude/hooks/` → 4 hooks (guard-generated, guard-secrets, guard-product-files, check-evidence-db)
 
 ### Aulas (Node.js: `cd content/aulas && npm run dev`)
 - `content/aulas/shared/` → design system (base.css OKLCH, deck.js, engine.js, fonts woff2)
@@ -81,7 +81,9 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 - Alianca: Opus 4.6 + ChatGPT 5.4 + Gemini 3.1 + Cursor (+ Sonnet, Haiku, Ollama)
 - Notion MCP: protocolo seguro em `.claude/rules/mcp_safety.md`
 - Notion writes (reorganizar/arquivar): cross-validation obrigatoria em `.claude/rules/notion-cross-validation.md`
-- `pytest tests/` | `ruff check .`
+- `pytest tests/` | `ruff check .` | `mypy agents/`
+- **Living HTML per slide** = source of truth. Evidence-first workflow: HTML gerado ANTES do slide.
+- Fontes por slide: evidence HTML + narrative.md. `evidence-db.md` e `aside.notes` deprecated.
 - Hooks em `hooks/` (bash scripts, config em `.claude/settings.local.json`)
 - Rules pesadas (`mcp_safety`, `notion-cross-validation`) com `paths:` frontmatter — so carregam em sessoes relevantes
 - **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server. Matar por PID especifico.

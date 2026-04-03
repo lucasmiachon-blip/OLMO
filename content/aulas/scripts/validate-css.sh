@@ -24,7 +24,8 @@ echo "--- [1] Import order in index.template.html ---"
 TEMPLATE="$DIR/index.template.html"
 if [ -f "$TEMPLATE" ]; then
   # Extract CSS import lines (preserve order)
-  IMPORTS=$(grep -n "import '.*\.css'" "$TEMPLATE" | sed "s/.*import '\(.*\)'.*/\1/")
+  # Strip CRLF + exclude HTML comments
+  IMPORTS=$(grep "import '.*\.css'" "$TEMPLATE" | grep -v '<!--' | tr -d '\r' | sed "s/.*import '\(.*\)'.*/\1/")
 
   # Valid patterns: single-file OR base.css then aula.css
   SINGLE="./${AULA}.css"
@@ -60,7 +61,7 @@ if [ ${#CSS_FILES[@]} -ge 2 ]; then
   # Capture output to count WARNs back in bash
   SELECTOR_OUTPUT=$(
     for file in "${CSS_FILES[@]}"; do
-      grep -oE '^\.[a-zA-Z][a-zA-Z0-9_-]*' "$file" | sort -u | while read -r sel; do
+      grep -oE '^[[:space:]]*\.[a-zA-Z][a-zA-Z0-9_-]*' "$file" | sed 's/^[[:space:]]*//' | sort -u | while read -r sel; do
         printf "%s\t%s\n" "$(basename "$file")" "$sel"
       done
     done | awk -F'\t' '{
@@ -103,7 +104,7 @@ for file in "${CSS_FILES[@]}"; do
       echo "    $line"
       WARN=$((WARN + 1))
     fi
-  done < <(grep -n '!important' "$file" 2>/dev/null | grep -v '^\s*/\*\|^\s*\*\|^\s*//')
+  done < <(grep -n '!important' "$file" 2>/dev/null | grep -v '[0-9]*:[[:space:]]*/\*\|[0-9]*:[[:space:]]*\*\|[0-9]*:[[:space:]]*//')
 done
 echo ""
 

@@ -52,28 +52,28 @@
 
   /* --- UI Accent (chrome, NOT clinical) --- */
   --ui-accent:         oklch(35% 0.12 258);
-  --ui-accent-light:   color-mix(in oklch, var(--ui-accent) 15%, oklch(97% 0 0));
+  --ui-accent-light:   color-mix(in oklch, var(--ui-accent) 15%, oklch(97% 0.002 258));
   --ui-accent-on-dark: oklch(75% 0.14 258);
 
   /* --- Safe / Teal (L=40) --- */
   --safe:         oklch(40% 0.12 170);
-  --safe-light:   color-mix(in oklch, var(--safe) 15%, oklch(97% 0 0));
+  --safe-light:   color-mix(in oklch, var(--safe) 15%, oklch(97% 0.002 258));
   --safe-on-dark: oklch(75% 0.13 170);
 
   /* --- Warning / Amber (L=60) --- */
   --warning:          oklch(60% 0.13 85);
-  --warning-light:    color-mix(in oklch, var(--warning) 15%, oklch(97% 0 0));
+  --warning-light:    color-mix(in oklch, var(--warning) 15%, oklch(97% 0.002 258));
   --warning-on-dark:  oklch(80% 0.14 85);
   --warning-on-light: oklch(45% 0.10 85);
 
   /* --- Danger / Red (L=50, hue≤10, chroma≥0.20 per design-reference §4) --- */
   --danger:          oklch(50% 0.22 8);
-  --danger-light:    color-mix(in oklch, var(--danger) 15%, oklch(97% 0 0));
+  --danger-light:    color-mix(in oklch, var(--danger) 15%, oklch(97% 0.002 258));
   --danger-on-dark:  oklch(72% 0.20 8);
 
   /* --- Downgrade / Ocre (L=30, auxiliar, sempre com ícone ↓) --- */
   --downgrade:          oklch(30% 0.08 55);
-  --downgrade-light:    color-mix(in oklch, var(--downgrade) 15%, oklch(97% 0 0));
+  --downgrade-light:    color-mix(in oklch, var(--downgrade) 15%, oklch(97% 0.002 258));
   --downgrade-on-dark:  oklch(68% 0.10 55);
 
   /* --- Data palette: Tol High-contrast (2-3 series) --- */
@@ -145,6 +145,10 @@
     --danger: #cc4a3a; --danger-light: #f4e0dc; --danger-on-dark: #e08070;
     --downgrade: #8a7040; --downgrade-light: #f0eadc; --downgrade-on-dark: #c0a870;
     --border: #d8d8e0; --divider: #e8e8ec; --border-navy: #2a3a50;
+    --bg-black: #000000;
+    --shadow-subtle: rgba(0,0,0,0.04);
+    --shadow-soft: rgba(0,0,0,0.06);
+    --overlay-border: rgba(0,0,0,0.08);
   }
   .high-contrast {
     --bg-surface: #ffffff; --bg-card: #ffffff; --bg-navy: #000000;
@@ -358,6 +362,16 @@
 .stage-bad [data-animate="stagger"] > * {
   opacity: 1;
   transform: none;
+}
+.stage-bad [data-reveal] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+.stage-bad .fragment {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
 }
 
 /* --- No-JS fallback --- */

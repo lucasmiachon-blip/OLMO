@@ -21,9 +21,11 @@ if [ "$BRANCH" != "main" ]; then
   if [ -n "$AULA" ]; then
     MANIFEST="content/aulas/$AULA/slides/_manifest.js"
     if [ -f "$MANIFEST" ]; then
-      EXPECTED=$(grep -c "id:" "$MANIFEST" 2>/dev/null || echo "0")
+      # Read manifest from staged index (not working-tree)
+      EXPECTED=$(git show ":$MANIFEST" 2>/dev/null | grep -c "id:" 2>/dev/null || echo "0")
       SLIDE_DIR="content/aulas/$AULA/slides"
-      ACTUAL=$(find "$SLIDE_DIR" -name '*.html' -not -name '_*' 2>/dev/null | wc -l | tr -d ' ')
+      # Count staged slide files (not working-tree)
+      ACTUAL=$(git ls-files -- "$SLIDE_DIR/*.html" 2>/dev/null | grep -v '_' | wc -l | tr -d ' ')
 
       if [ "$ACTUAL" -lt "$EXPECTED" ]; then
         echo ""

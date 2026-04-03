@@ -41,6 +41,20 @@ class Orchestrator(BaseAgent):
 
     async def route_task(self, task: dict[str, Any]) -> TaskResult:
         """Roteia uma tarefa para o agente mais adequado."""
+        # MCP safety gate — validate before routing
+        if task.get("mcp_operation"):
+            decision = self.validate_mcp_step(task)
+            if decision == SafetyDecision.BLOCK:
+                return TaskResult(
+                    success=False,
+                    error=f"MCP safety BLOCK: operation '{task['mcp_operation']}' rejected",
+                )
+            if decision == SafetyDecision.NEEDS_HUMAN_REVIEW:
+                return TaskResult(
+                    success=False,
+                    error=f"MCP safety: operation '{task['mcp_operation']}' requires human review",
+                )
+
         task_type = task.get("type", "")
         target_agent = task.get("agent")
 
@@ -62,8 +76,9 @@ class Orchestrator(BaseAgent):
         if agent_name and agent_name in self.agents:
             agent = self.agents[agent_name]
             resolved_model = self.model_router.resolve(agent_name, task)
-            agent.model = resolved_model
-            return await agent.execute(task)
+            # Pass resolved model via task dict to avoid shared mutation race
+            task_with_model = {**task, "_resolved_model": resolved_model}
+            return await agent.execute(task_with_model)
 
         return TaskResult(
             success=False,
@@ -86,7 +101,9 @@ class Orchestrator(BaseAgent):
             logger.error(f"Unexpected error: {e}")
             return TaskResult(success=False, error=str(e))
         finally:
-            self.status = AgentStatus.IDLE
+            # Preserve ERROR state — only reset to IDLE on success
+            if self.status != AgentStatus.ERROR:
+                self.status = AgentStatus.IDLE
 
     async def plan(self, objective: str) -> list[dict[str, Any]]:
         """Cria um plano multi-agente para atingir o objetivo."""
@@ -107,7 +124,11 @@ class Orchestrator(BaseAgent):
 
         for step in self.workflows[workflow_name]:
             task = {**step, "data": current_data}
-            result = await self.route_task(task)
+            try:
+                result = await self.route_task(task)
+            except Exception as e:
+                logger.error(f"Workflow '{workflow_name}' step exception: {e}")
+                result = TaskResult(success=False, error=str(e))
             results.append(result)
 
             if not result.success:

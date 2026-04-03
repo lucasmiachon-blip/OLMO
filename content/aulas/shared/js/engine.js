@@ -166,7 +166,7 @@ function animateSlide(gsap, slide) {
 
 export function createAnimationDispatcher(gsap) {
   const contexts = new Map();
-  let activeTimers = [];
+  const slideTimers = new Map(); // per-slide timer tracking (prevents cross-slide cleanup)
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const printing = isPrintPdf();
   const qa = isQaMode();
@@ -176,13 +176,16 @@ export function createAnimationDispatcher(gsap) {
     if (!slide) return;
     const ctx = contexts.get(slide);
     if (ctx) { ctx.revert(); contexts.delete(slide); }
-    activeTimers.forEach(id => clearInterval(id));
-    activeTimers = [];
+    const timers = slideTimers.get(slide);
+    if (timers) {
+      timers.forEach(id => clearInterval(id));
+      slideTimers.delete(slide);
+    }
   }
 
   function animate(slide, indexh) {
     if (prefersReduced || printing || qa) {
-      if ((printing || qa) && slide) {
+      if (slide) {
         forceAnimFinalState(slide);
         if (qa) {
           slide.querySelectorAll('[data-reveal]').forEach(el => {
@@ -220,8 +223,12 @@ export function createAnimationDispatcher(gsap) {
             prevCtx.revert();
             contexts.delete(prev);
           }
-          activeTimers.forEach(id => clearInterval(id));
-          activeTimers = [];
+          // Clean only the PREVIOUS slide's timers (not current)
+          const prevTimers = slideTimers.get(prev);
+          if (prevTimers) {
+            prevTimers.forEach(id => clearInterval(id));
+            slideTimers.delete(prev);
+          }
         }, 450);
 
         if (qa) {
@@ -254,7 +261,12 @@ export function createAnimationDispatcher(gsap) {
       }
     },
 
-    trackTimer(id) { activeTimers.push(id); },
+    trackTimer(id) {
+      const slide = getCurrentSlide();
+      if (!slide) return;
+      if (!slideTimers.has(slide)) slideTimers.set(slide, []);
+      slideTimers.get(slide).push(id);
+    },
 
     /** Register custom animation for a specific slide ID */
     registerCustom(slideId, fn) {

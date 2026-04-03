@@ -15,6 +15,8 @@ let sections = [];
 let currentIndex = 0;
 let enteredTimer = null;
 let lastEnteredSlide = null;
+let activeTransitionEnd = null; // track stale transitionend listener
+let initialized = false;
 
 function dispatch(name, detail) {
   document.dispatchEvent(new CustomEvent(name, { detail, bubbles: false }));
@@ -25,6 +27,12 @@ function goTo(next) {
 
   const previousSlide = sections[currentIndex];
   const currentSlide = sections[next];
+
+  // Clean up stale transitionend from previous navigation (race condition fix)
+  if (activeTransitionEnd) {
+    activeTransitionEnd.target.removeEventListener('transitionend', activeTransitionEnd.handler);
+    activeTransitionEnd = null;
+  }
 
   dispatch('slide:changed', { currentSlide, previousSlide, indexh: next });
 
@@ -44,14 +52,18 @@ function goTo(next) {
   function fireEntered() {
     if (lastEnteredSlide === currentSlide) return;
     lastEnteredSlide = currentSlide;
+    activeTransitionEnd = null;
     dispatch('slide:entered', { currentSlide, indexh: next });
   }
 
-  currentSlide.addEventListener('transitionend', function onEnd(evt) {
+  function onEnd(evt) {
     if (evt.target !== currentSlide) return; // ignore child transitions bubbling up
     currentSlide.removeEventListener('transitionend', onEnd);
     fireEntered();
-  });
+  }
+
+  currentSlide.addEventListener('transitionend', onEnd);
+  activeTransitionEnd = { target: currentSlide, handler: onEnd };
 
   // Fallback: --duration-normal is 400ms; 600ms gives comfortable buffer
   enteredTimer = setTimeout(fireEntered, 600);
@@ -107,11 +119,18 @@ function onKeydown(e) {
  * @param {string} viewportSelector — CSS selector for #slide-viewport
  */
 export function initDeck(viewportSelector = '#slide-viewport') {
+  if (initialized) {
+    console.warn('[deck] initDeck() called twice — ignoring duplicate init');
+    return;
+  }
+
   const viewport = document.querySelector(viewportSelector);
   if (!viewport) {
     console.error('[deck] viewport not found:', viewportSelector);
     return;
   }
+
+  initialized = true;
 
   sections = Array.from(viewport.querySelectorAll(':scope > section'));
   if (!sections.length) {
@@ -134,7 +153,11 @@ export function initDeck(viewportSelector = '#slide-viewport') {
 
   document.addEventListener('keydown', onKeydown);
 
-  viewport.addEventListener('click', () => navigate(+1));
+  viewport.addEventListener('click', (e) => {
+    // Don't hijack clicks on interactive elements inside slides
+    if (e.target.closest('a, button, input, select, textarea, [role="button"], [data-reveal]')) return;
+    navigate(+1);
+  });
 
   // Dispatch initial slide:entered so engine animations run on first slide
   setTimeout(() => {

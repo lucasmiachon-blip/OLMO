@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import threading
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
@@ -79,6 +80,7 @@ class SmartScheduler:
         self.budget = APIBudget()
         self.queue: list[ScheduledTask] = []
         self.batch_buffer: dict[str, list[ScheduledTask]] = {}
+        self._budget_lock = threading.Lock()
         self._load_budget()
 
     # ------------------------------------------------------------------
@@ -97,9 +99,17 @@ class SmartScheduler:
         self._check_reset()
 
     def _save_budget(self) -> None:
-        """Salva budget no disco."""
+        """Salva budget no disco (atomic write: temp → rename)."""
         budget_file = self.cache_dir / "budget.json"
-        budget_file.write_text(json.dumps(self.budget.__dict__, indent=2))
+        data = json.dumps(self.budget.__dict__, indent=2)
+        tmp = budget_file.with_suffix(".tmp")
+        try:
+            tmp.write_text(data, encoding="utf-8")
+            tmp.replace(budget_file)
+        except Exception:
+            if tmp.exists():
+                tmp.unlink()
+            raise
 
     def _check_reset(self) -> None:
         """Reseta contadores se passou o periodo."""
@@ -120,11 +130,12 @@ class SmartScheduler:
 
     def has_budget(self) -> bool:
         """Verifica se ainda tem budget disponivel."""
-        self._check_reset()
-        return (
-            self.budget.daily_used < self.budget.daily_limit
-            and self.budget.weekly_used < self.budget.weekly_limit
-        )
+        with self._budget_lock:
+            self._check_reset()
+            return (
+                self.budget.daily_used < self.budget.daily_limit
+                and self.budget.weekly_used < self.budget.weekly_limit
+            )
 
     def remaining_daily(self) -> int:
         """Requests restantes hoje."""
@@ -137,12 +148,13 @@ class SmartScheduler:
         return max(0, self.budget.weekly_limit - self.budget.weekly_used)
 
     def record_usage(self, tokens: int = 0, cost_usd: float = 0.0) -> None:
-        """Registra uso de API."""
-        self.budget.daily_used += 1
-        self.budget.weekly_used += 1
-        self.budget.total_tokens_used += tokens
-        self.budget.estimated_cost_usd += cost_usd
-        self._save_budget()
+        """Registra uso de API (thread-safe, atomic save)."""
+        with self._budget_lock:
+            self.budget.daily_used += 1
+            self.budget.weekly_used += 1
+            self.budget.total_tokens_used += tokens
+            self.budget.estimated_cost_usd += cost_usd
+            self._save_budget()
         logger.info(
             f"API used: {self.budget.daily_used}/{self.budget.daily_limit} daily, "
             f"{self.budget.weekly_used}/{self.budget.weekly_limit} weekly"

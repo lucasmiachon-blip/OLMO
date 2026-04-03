@@ -11,6 +11,7 @@ Implementa o protocolo de .claude/rules/mcp_safety.md:
 from __future__ import annotations
 
 import logging
+import math
 from dataclasses import dataclass
 from enum import Enum
 
@@ -128,6 +129,27 @@ def validate_operation(
             operation=operation,
         )
 
+    # Input validation: NaN/negative bypass prevention
+    if math.isnan(confidence) or math.isinf(confidence):
+        return SafetyCheck(
+            decision=SafetyDecision.BLOCK,
+            reason=f"Confidence invalido ({confidence}). BLOQUEADO.",
+            operation=operation,
+            confidence=0.0,
+        )
+    if batch_size < 0:
+        return SafetyCheck(
+            decision=SafetyDecision.BLOCK,
+            reason=f"batch_size negativo ({batch_size}). BLOQUEADO.",
+            operation=operation,
+        )
+    if page_age_days < 0:
+        return SafetyCheck(
+            decision=SafetyDecision.BLOCK,
+            reason=f"page_age_days negativo ({page_age_days}). BLOQUEADO.",
+            operation=operation,
+        )
+
     # Batch > 5 = precisa confirmacao humana
     if batch_size > 5:
         return SafetyCheck(
@@ -195,7 +217,25 @@ def validate_move(
     """Valida move de pagina via notion-move-pages (#64 resolvida).
 
     Fluxo: READ (snapshot) → MOVE → VERIFY no novo parent.
+    page_id e target_parent_id sao validados: nao podem ser vazios.
     """
+    if not page_id or not page_id.strip():
+        return [
+            SafetyCheck(
+                decision=SafetyDecision.BLOCK,
+                reason="page_id vazio. BLOQUEADO.",
+                operation="notion-move-pages",
+            )
+        ]
+    if not target_parent_id or not target_parent_id.strip():
+        return [
+            SafetyCheck(
+                decision=SafetyDecision.BLOCK,
+                reason="target_parent_id vazio. BLOQUEADO.",
+                operation="notion-move-pages",
+            )
+        ]
+
     steps = [
         validate_operation("notion-retrieve-page", OperationMode.READ_ONLY),
         validate_operation("notion-move-pages", OperationMode.WRITE, confidence),

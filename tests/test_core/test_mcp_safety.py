@@ -149,6 +149,41 @@ class TestValidateMove:
         assert steps[1].decision == SafetyDecision.BLOCK
 
 
+class TestInputValidation:
+    """S51: NaN/negative/empty bypass prevention."""
+
+    def test_nan_confidence_blocks(self) -> None:
+        """NaN in confidence must BLOCK, not bypass thresholds (IEEE 754 comparison trap)."""
+        result = validate_operation(
+            "notion-create-pages", OperationMode.WRITE, confidence=float("nan")
+        )
+        assert result.decision == SafetyDecision.BLOCK
+
+    def test_inf_confidence_blocks(self) -> None:
+        result = validate_operation(
+            "notion-create-pages", OperationMode.WRITE, confidence=float("inf")
+        )
+        assert result.decision == SafetyDecision.BLOCK
+
+    def test_negative_batch_size_blocks(self) -> None:
+        result = validate_operation("notion-create-pages", OperationMode.WRITE, batch_size=-1)
+        assert result.decision == SafetyDecision.BLOCK
+
+    def test_negative_page_age_blocks(self) -> None:
+        result = validate_operation("notion-update-page", OperationMode.WRITE, page_age_days=-100)
+        assert result.decision == SafetyDecision.BLOCK
+
+    def test_validate_move_empty_page_id_blocks(self) -> None:
+        steps = validate_move("", "parent_456", confidence=0.99)
+        assert len(steps) == 1
+        assert steps[0].decision == SafetyDecision.BLOCK
+
+    def test_validate_move_empty_target_blocks(self) -> None:
+        steps = validate_move("page_123", "  ", confidence=0.99)
+        assert len(steps) == 1
+        assert steps[0].decision == SafetyDecision.BLOCK
+
+
 class TestSafetyCheckDataclass:
     def test_defaults(self) -> None:
         check = SafetyCheck(

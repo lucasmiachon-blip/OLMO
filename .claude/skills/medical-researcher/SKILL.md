@@ -89,7 +89,9 @@ Instrucao compartilhada: "Retorne JSON estruturado. NUNCA invente PMID. Marque i
 - Populacao: criterios inclusao resumidos
 - Intervencao vs comparador (droga, dose, regime)
 - Primary endpoint + resultado: effect size (HR, RR, OR) com IC 95%
-- NNT calculado quando possivel: `NNT = ceil(1/ARR)`, com IC derivado
+- NNT calculado quando aplicavel (ver restricoes abaixo): `NNT = ceil(1/ARR)`, com IC derivado
+  - **NNT NAO se aplica a:** HR sem baseline risk, desfechos continuos (SMD/MD), ARR=0 (efeito nulo), outcomes nao-binarios
+  - Quando NNT inaplicavel: reportar a metrica nativa do trial (HR, SMD, MD) com IC 95%
 - p-value
 - Follow-up medio
 - Mortalidade (se reportada): direcao + magnitude
@@ -214,10 +216,16 @@ Apos os 4 agentes retornarem, o orquestrador consolida:
 - Dado em apenas 1 fonte → **UNCONFIRMED** (flag amarelo)
 - Fontes discordam sobre mesmo dado → **CONFLICT** (flag vermelho, decisao humana)
 
-### 2.2 PMID verification
+### 2.2 PMID verification + retraction check
 - TODO PMID retornado deve ser verificado: PubMed MCP `get_article_metadata` ou WebSearch `pubmed.ncbi.nlm.nih.gov/{PMID}`
 - PMID que retorna 404 ou artigo diferente → **INVALID** (remover do report)
-- Status final: VERIFIED / CANDIDATE / INVALID
+- **Retraction/erratum check (OBRIGATORIO antes de VERIFIED):**
+  - SCite MCP: verificar `editorialNotices` no resultado de `search_literature`
+  - PubMed MCP: `get_full_text_article` retorna `retraction_notices`
+  - Se retratado → **RETRACTED** (NUNCA usar como evidencia)
+  - Se erratum publicado → **CORRECTED** (usar versao corrigida, citar erratum)
+  - Se superado por versao mais recente → **SUPERSEDED** (preferir versao atual)
+- Status final: VERIFIED / CANDIDATE / INVALID / RETRACTED / CORRECTED / SUPERSEDED
 
 ### 2.3 Currency check
 - Guideline >5 anos sem atualizacao → **AGING** (flag)
@@ -248,7 +256,7 @@ Ler o HTML do slide e avaliar em 8 dimensoes (1-10 cada):
 | **D4 Timeframe** | Ausente | "Ao longo do tempo" | "Em 5 anos" + follow-up medio |
 | **D5 Comparador** | Ausente | "vs controle" | "vs [droga] [dose] [regime]" |
 | **D6 Grading** | Ausente | "Recomendado" | GRADE nivel + forca + sociedade |
-| **D7 Impacto Clinico** | "Melhora desfechos" | NNT sem CI | NNT (CI 95%) + traducao clinica |
+| **D7 Impacto Clinico** | "Melhora desfechos" | NNT sem CI (ou metrica nativa sem IC) | NNT (CI 95%) + traducao clinica OU metrica nativa com IC quando NNT inaplicavel |
 | **D8 Atualidade** | >10 anos ou desconhecido | 5-10 anos, vigente | <5 anos ou guideline vigente |
 
 **Score total:** media das 8 dimensoes.
@@ -299,12 +307,16 @@ Score: [X.X]/10 — [SUPERFICIAL/ADEQUADO/PROFUNDO/EXEMPLAR]
 - **Brasil:** [fonte] — [recomendacao]
 
 ### Flags de Verificacao
-- VERIFIED: [dado] confirmado por [N] fontes
+- VERIFIED: [dado] confirmado por [N] fontes + retraction check passed
 - CONFLICT: [dado] — [Fonte A] diz X, [Fonte B] diz Y → decisao humana
 - MISMATCH: Slide cita [pop A], trial estudou [pop B]
 - AGING: [fonte] com [N] anos
 - MIXED-METRICS: HR e RR misturados sem explicitar
 - CANDIDATE: PMID [X] nao verificado
+- RETRACTED: Paper retratado — NUNCA citar como evidencia
+- CORRECTED: Erratum publicado — usar versao corrigida
+- SUPERSEDED: Versao mais recente disponivel — preferir a atual
+- DISPUTED: Fontes de alto nivel discordam sobre validade
 
 ### Sugestoes de Melhoria (se slide fornecido)
 1. **h2 sugerido:** "[Assertion atualizada com dado mais forte]"
@@ -371,7 +383,13 @@ Locais (linhas 4-7) requerem `npm run mcp:{profile}`. Reportar perfil ativo no c
 - p < 0.05 sem effect size → Significancia ≠ relevancia clinica
 - Guideline sem grau de recomendacao → INCOMPLETO
 - NNT sem timeframe → INCOMPLETO
+- NNT derivado de HR sem baseline risk explicitado → INVALIDO
+- NNT para desfecho nao-binario (SMD, MD, escala continua) → INAPLICAVEL
 - Dados de trial aplicados a populacao diferente → FLAG MISMATCH
+- Subgroup analysis apresentada como resultado principal → FLAG
+- Surrogate endpoint sem desfecho clinico → FLAG
+- Preprint nao peer-reviewed como fonte primaria → FLAG
+- Paper retratado citado como evidencia → BLOCK
 - Forest plot construido do zero → PROIBIDO (cropar de artigo real)
 - Numero "redondo demais" sem fonte → provavelmente inventado
 
