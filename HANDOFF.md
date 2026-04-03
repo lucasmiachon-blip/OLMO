@@ -1,21 +1,21 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 50 | proximo login
+> Sessao 51 | proximo login
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (47 testes). 11 rules.
-Pipeline /research v2 validado. Living HTML per slide.
-Slide s-rs-vs-ma DONE: 3 colunas (Revisoes, RS, MA), hierarquia visual, SVG forest plot, PMIDs verificados.
+Adversarial review S50 DONE: 118 findings (9 CRIT, 61 HIGH) em `docs/ADVERSARIAL-REVIEW-S50.md`.
+4 padroes sistemicos: security theater, working-tree vs staged, fail-open, docs drift.
 
-## PROXIMO
+## PROXIMO (prioritizado por adversarial review)
 
-1. **Preencher [EXEMPLO TBD]** — revisao narrativa recente NEJM para speaker notes s-rs-vs-ma
-2. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos reais
-3. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
-4. **Metanalise QA** — 13 slides pendentes. Deadline 2026-04-15 (~13 dias)
-5. **aside.notes deprecation** — atualizar slide-rules.md + linters
-6. **Merge new-slide → slide-authoring** — overlap critico
+1. **Corrigir CRITICAL** — mcp_safety.py (NaN guard), orchestrator.py (wire validate_mcp_step), guard-secrets.sh (staged blob), validate-css.sh (exit code), medical-researcher (NNT + retraction)
+2. **Corrigir HIGH pre-deadline** — deck.js (race condition), engine.js (reduced-motion), base.css (OKLCH fallback), pre-commit.sh (staged blob)
+3. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos reais
+4. **Metanalise QA** — 13 slides pendentes. Deadline 2026-04-15 (~11 dias)
+5. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
+6. **Docs sync** — CLAUDE.md, ARCHITECTURE.md, slide-rules.md, design-reference.md
 
 ## DECISOES ATIVAS
 
@@ -29,6 +29,7 @@ Slide s-rs-vs-ma DONE: 3 colunas (Revisoes, RS, MA), hierarquia visual, SVG fore
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - Context rot: commit + update docs antes de degradar.
+- **Security theater**: 4 gates existem mas nao protegem — ver adversarial review.
 
 ## PENDENTE (herdado)
 
@@ -44,4 +45,4 @@ Slide s-rs-vs-ma DONE: 3 colunas (Revisoes, RS, MA), hierarquia visual, SVG fore
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-02
+Coautoria: Lucas + Opus 4.6 + GPT-5.4 | 2026-04-02

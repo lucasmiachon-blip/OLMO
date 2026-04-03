@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 50 — 2026-04-02 (Adversarial Review)
+
+### Adversarial Review via Codex GPT-5.4
+- 17 arquivos revisados: Python (3), JS (3), CSS (2), Rules/Skills (3), Shell hooks (4), Docs (2)
+- 118 findings: 9 CRITICAL, 61 HIGH, 36 MEDIUM, 12 LOW
+- 4 cross-cutting patterns: security theater, working-tree vs staged blob, fail-open, docs drift
+- Relatorio completo: `docs/ADVERSARIAL-REVIEW-S50.md`
+
+### Findings mais graves
+- mcp_safety.py: NaN bypassa thresholds, unknown ops escapam via batch_size
+- orchestrator.py: validate_mcp_step() nunca chamado (dead code)
+- guard-secrets.sh: escaneia working-tree em vez de staged blob
+- validate-css.sh: sempre retorna exit 0 (nunca bloqueia)
+- medical-researcher: NNT forcado como universal, sem check de retraction
+
+### Infra
+- Dream run 10 (maintenance-only, no new signal)
+
 ## Sessao 49 — 2026-04-02 (s-rs-vs-ma DONE)
 
 ### Slide s-rs-vs-ma
