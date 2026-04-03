@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 53 — 2026-04-03 (NLM Skill Rewrite)
+
+### nlm-skill v1.0
+- Rewrite SKILL.md: 702→191 linhas (-73%), workflow-first para medical education
+- 3 workflow recipes: Paper to Study Materials, Research Pipeline, Batch Concurso Prep
+- Fix MCP prefix bug: `mcp__notebooklm-mcp__*` → `mcp__notebooklm__*`
+- Clinical `--focus` prompt templates (ICA-AKI, trial endpoints, NNT)
+- Windows cp1252 encoding workaround documented
+- Expanded reference.md: 52→363 linhas (detailed command catalog)
+- PubMed URL pattern: `https://pubmed.ncbi.nlm.nih.gov/{PMID}/`
+- OLMO ecosystem integration table (/research, /concurso, /exam-generator, Zotero)
+
+### Eval Loop (skill-creator)
+- 3 evals, 25 assertions, 6 parallel agents (new vs old skill)
+- Result: 100% pass rate (new) vs 96% (old), 12.5% fewer tokens
+- Workspace + benchmark + grading preserved in nlm-skill-workspace/
+
 ## Sessao 52 — 2026-04-02 (Secondary Review)
 
 ### Fixes (5)

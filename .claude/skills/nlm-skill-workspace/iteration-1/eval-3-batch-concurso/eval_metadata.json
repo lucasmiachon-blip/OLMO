@@ -1,0 +1,14 @@
+{
+  "eval_id": 3,
+  "eval_name": "batch-concurso",
+  "prompt": "Estou criando notebooks por especialidade para o concurso R3. Ja tenho: 'Hepatologia Concurso' (alias: hepato), 'Cardio Concurso' (alias: cardio), 'Nefro Concurso' (alias: nefro). Quero: 1) Adicionar uma URL em todos: https://www.nejm.org/doi/full/10.1056/NEJMra2310713 2) Gerar flashcards difficulty hard em todos os 3 notebooks 3) Cross-notebook query: 'Compare o manejo de hipertensao portal entre especialidades' 4) Taguear todos com 'concurso,r3,2026'",
+  "assertions": [
+    {"text": "Uses batch add-source (not 3 individual source add commands) for efficiency", "type": "efficiency"},
+    {"text": "Uses batch studio --type flashcards for all 3 notebooks (not individual creates)", "type": "efficiency"},
+    {"text": "Uses nlm cross query for the comparative question across notebooks", "type": "workflow"},
+    {"text": "Uses tag add command with correct --tags syntax for all 3 notebooks", "type": "workflow"},
+    {"text": "References aliases (hepato, cardio, nefro) instead of placeholder UUIDs", "type": "efficiency"},
+    {"text": "Includes --confirm on batch operations", "type": "safety"},
+    {"text": "Does NOT use nlm chat start for the cross-notebook question", "type": "safety"}
+  ]
+}

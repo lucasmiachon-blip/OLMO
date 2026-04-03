@@ -1,0 +1,16 @@
+{
+  "eval_id": 1,
+  "eval_name": "paper-study-concurso",
+  "prompt": "Tenho 3 papers sobre hepatorenal syndrome (CONFIRM trial PMID 34233093, ATTIRE trial PMID 34388394, e o guideline EASL 2023). Quero: 1) Criar notebook 'HRS Concurso' e ingerir os 3 papers 2) Gerar quiz com 10 questoes difficulty hard focado em criterios diagnosticos e manejo 3) Gerar flashcards difficulty medium sobre os numeros-chave dos trials 4) Gerar podcast formato deep_dive para ouvir na corrida 5) Baixar o podcast como mp3. Usar MCP tools se disponiveis, senao CLI.",
+  "assertions": [
+    {"text": "Creates notebook with descriptive medical title (not generic 'Untitled')", "type": "workflow"},
+    {"text": "Adds all 3 sources using PubMed URLs (https://pubmed.ncbi.nlm.nih.gov/{PMID}/) or DOIs — not hallucinated URLs", "type": "data_quality"},
+    {"text": "Generates quiz with --count 10 --difficulty 3 AND --focus containing clinical terminology (diagnostic criteria, management, etc.)", "type": "workflow"},
+    {"text": "Generates flashcards with --difficulty medium AND --focus mentioning trial endpoints or numbers", "type": "workflow"},
+    {"text": "Generates audio with --format deep_dive --confirm", "type": "workflow"},
+    {"text": "Sets an alias early and uses it throughout (avoids repeating UUID)", "type": "efficiency"},
+    {"text": "Downloads audio to .mp3 file with meaningful filename", "type": "workflow"},
+    {"text": "Captures IDs from each creation step for use in subsequent steps (e.g., studio status before download)", "type": "sequencing"},
+    {"text": "Uses --confirm on every generation command", "type": "safety"}
+  ]
+}

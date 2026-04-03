@@ -1,0 +1,16 @@
+{
+  "eval_id": 2,
+  "eval_name": "research-pipeline",
+  "prompt": "Preciso montar um notebook de estudo aprofundado sobre TIPS (Transjugular Intrahepatic Portosystemic Shunt) -- indicacoes, contraindicacoes, e o impacto na sobrevida. Pipeline completo: 1) Criar notebook 'TIPS Deep Dive' 2) Rodar deep research para encontrar fontes atuais (guidelines + trials) 3) Importar as fontes encontradas 4) Gerar Study Guide report 5) Query: 'Quais as contraindicacoes absolutas vs relativas do TIPS segundo AASLD?' 6) Gerar audio debate format pra ouvir",
+  "assertions": [
+    {"text": "Creates notebook with topic-descriptive title", "type": "workflow"},
+    {"text": "Uses research start with --mode deep AND --notebook-id flag (mandatory)", "type": "workflow"},
+    {"text": "Polls research status or waits before attempting import (proper sequencing)", "type": "sequencing"},
+    {"text": "Imports research results with research import command", "type": "workflow"},
+    {"text": "Generates report with --format \"Study Guide\" (exact string with capital S and G and space)", "type": "accuracy"},
+    {"text": "Uses notebook query (NOT chat start) for the clinical question", "type": "safety"},
+    {"text": "Generates audio with --format debate --confirm", "type": "workflow"},
+    {"text": "Checks studio status between generation requests", "type": "sequencing"},
+    {"text": "Does NOT hallucinate nlm commands that do not exist in v0.5.1", "type": "accuracy"}
+  ]
+}

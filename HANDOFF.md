@@ -1,17 +1,17 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 53 | proximo login
+> Sessao 54 | proximo login
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). 11 rules.
-S51 adversarial fix DONE. S52 secondary review: 5 fixes, 2 vestigial hooks removidos, guard-product-files wired.
+nlm-skill v1.0 reescrita: 702→191 linhas, workflows medicos, MCP prefix fix, eval loop completo.
 5 hooks ativos e verificados. Git audit limpo.
 
 ## PROXIMO
 
 1. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos reais
-2. **Metanalise QA** — 13 slides pendentes. Deadline 2026-04-15 (~13 dias)
+2. **Metanalise QA** — 13 slides pendentes. Deadline 2026-04-15 (~12 dias)
 3. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
 4. **ARCHITECTURE.md sync** — alinhar com implementacao real (parcialmente feito S51)
 5. **design-reference.md** — expandir E21, add RETRACTED status, chroma floor
@@ -26,6 +26,7 @@ S51 adversarial fix DONE. S52 secondary review: 5 fixes, 2 vestigial hooks remov
 - Projetor ~10m: HTML primary + Canva Pro fallback
 - validate-css.sh: !important fora de contexto permitido agora = FAIL (nao WARN)
 - base.css: OKLCH chroma 0.001 (minimo para resolver E059 sem tint visivel)
+- nlm-skill: workflow-first (paper study, research pipeline, batch concurso), reference.md para detalhes
 
 ## CUIDADOS
 
@@ -48,4 +49,4 @@ S51 adversarial fix DONE. S52 secondary review: 5 fixes, 2 vestigial hooks remov
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-02
+Coautoria: Lucas + Opus 4.6 | 2026-04-03
