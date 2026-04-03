@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 56 — 2026-04-03 (PICO Evidence + NLM Research Leg)
+
+### Evidence
+- Generated `evidence/s-pico.html` via /research pipeline (5 legs + NLM)
+- 7 verified refs: Cochrane v6.5, GRADE 8, Core GRADE 5, Goldkuhle 2023, PRISMA 2020, PICOS, Borenstein
+- Jia et al. 2026 (Gemini) marked INVALID — DOI doesn't resolve, paper not found
+- Reference table: 8 terms (indirectness, target/study PICO, treatment switching, tautologia, PICOS, PICOT, SPIDER)
+
+### Pipeline
+- NotebookLM validated as /research leg — Borenstein tautology discovery (textbook content PubMed can't find)
+- Command: `PYTHONIOENCODING=utf-8 nlm notebook query <id> "query" --json`
+
+### Memories (3 new)
+- `feedback_research_non_deterministic.md` — queries exploratorias, nao deterministas
+- `feedback_narrative_citation_format.md` — narrativa sem PMID/badges, formato cientifico
+- `project_nlm_research_leg.md` — NLM como perna, notebook IDs, auth pattern
+
 ## Sessao 55 — 2026-04-03 (Arch Diagnosis Review)
 
 ### CSS Architecture

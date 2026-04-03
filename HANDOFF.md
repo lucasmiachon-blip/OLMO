@@ -1,33 +1,35 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 56 | proximo login
+> Sessao 57 | proximo login
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). 11 rules (5 path-scoped).
-`.theme-dark` class em base.css — dark slides sem IDs hardcoded.
-CLAUDE.md 72 linhas (era 98). process-hygiene e design-reference path-scoped.
+s-pico evidence HTML completo (7 refs verified, NLM leg validado).
+/research pipeline agora inclui NotebookLM como perna adicional.
 
 ## PROXIMO
 
-1. **Construir slides metanalise** — Lucas vai indicar foco
+1. **Slide s-pico** — evidence pronto, decidir mudancas no slide (source-tag, notes)
 2. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos reais
-3. **Metanalise QA** — 13 slides pendentes. Deadline 2026-04-15 (~12 dias)
-4. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
-5. **ARCHITECTURE.md sync** — alinhar com implementacao real + CLAUDE.md line count
+3. **Metanalise QA** — 13 slides pendentes. Deadline 2026-04-15 (~11 dias)
+4. **Integrar NLM leg no /research skill** — formalizar no SKILL.md
+5. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
 
 ## DECISOES ATIVAS
 
 - Living HTML per slide = source of truth. Evidence-first workflow.
-- `.theme-dark` class para dark slides (substitui IDs hardcoded). slide-rules.md §10 atualizado.
-- /research e /teaching NAO fundem. /insights semanal + /dream diario.
-- Projetor ~10m: HTML primary + Canva Pro fallback (design only).
+- NLM como perna do /research (query aberta a fontes curadas por Lucas).
+- Queries de pesquisa: exploratorias, NAO deterministas.
+- Narrativa evidence: citacao cientifica (Autor, ano) sem PMID inline.
+- `.theme-dark` class para dark slides. /research e /teaching NAO fundem.
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - Context rot: commit + update docs antes de degradar.
 - Security gates fail-closed. NaN/negative input → BLOCK.
+- Jia et al. 2026 (Gemini) = INVALID. DOI nao resolve. Dado removido.
 
 ## PENDENTE (herdado)
 
@@ -38,6 +40,7 @@ CLAUDE.md 72 linhas (era 98). process-hygiene e design-reference path-scoped.
 - [ ] h2 assertion rewrite — 11+ slides. Lucas guia.
 - [ ] reduced-motion visual test — Chrome --force-prefers-reduced-motion
 - [ ] Cirrose: migrar dark slides para .theme-dark (mesmo pattern)
+- [ ] ARCHITECTURE.md sync — alinhar com implementacao real
 
 ## CONFLITOS
 
