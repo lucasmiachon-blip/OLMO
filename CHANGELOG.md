@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 55 — 2026-04-03 (Arch Diagnosis Review)
+
+### CSS Architecture
+- New `.theme-dark` class in base.css — restores 11 on-dark tokens inside stage-c
+- metanalise.css: replaced 6 hardcoded slide IDs with `.theme-dark .slide-inner` (24→3 lines)
+- 6 HTML slides: added `class="theme-dark"` to `<section>`
+- slide-rules.md §10 updated: `.theme-dark` is canonical, `.slide-navy` marked legacy
+
+### Governance
+- CLAUDE.md: Key Files trimmed 33→4 lines (link to TREE.md). Total 98→72 lines
+- process-hygiene.md: added `paths: content/aulas/**` frontmatter (lazy load)
+- design-reference.md: added `paths: content/aulas/**` frontmatter (lazy load)
+- Rules path-scoped: 3/11 → 5/11 (45%)
+
+### Architecture Review
+- Evaluated 10 findings from external diagnosis across CSS, governance, Python
+- Agreed: 2 strongly, 4 partially. Disagreed: 4 (clamp overrides correct, Python is stub)
+
 ## Sessao 54 — 2026-04-03 (Insights Skill Creation)
 
 ### insights-skill v1.0

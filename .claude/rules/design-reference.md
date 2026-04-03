@@ -1,3 +1,8 @@
+---
+paths:
+  - content/aulas/**
+---
+
 # Design Reference — Semântica, Dados Médicos
 
 > Apenas o que NÃO está no código. Tokens/tipografia/spacing → `content/aulas/cirrose/cirrose.css` (seção :root).

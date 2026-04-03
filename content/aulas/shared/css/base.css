@@ -505,6 +505,25 @@ body { width: 100vw; height: 100vh; }
 .slide-navy .text-warning { color: var(--warning-on-dark); }
 .slide-navy .text-danger  { color: var(--danger-on-dark); }
 
+/* Theme: Dark — restores dark-mode tokens inside stage-c slides.
+   stage-c remaps all --*-on-dark tokens to light-on-light values.
+   This class un-remaps them so dark-bg slides render correctly.
+   Usage: <section class="theme-dark"> + background-color in aula CSS.
+   Replaces per-slide-ID token restoration (anti-pattern). */
+.theme-dark .slide-inner {
+  --text-primary:       oklch(95% 0.005 258);
+  --text-secondary:     oklch(80% 0.01 258);
+  --text-muted:         oklch(70% 0.01 258);
+  --text-on-dark:       oklch(95% 0.005 258);
+  --text-on-dark-muted: oklch(70% 0.01 258);
+  --bg-navy-mid:        oklch(28% 0.035 258);
+  --safe-on-dark:       oklch(75% 0.13 170);
+  --warning-on-dark:    oklch(80% 0.14 85);
+  --danger-on-dark:     oklch(72% 0.16 25);
+  --downgrade-on-dark:  oklch(68% 0.10 55);
+  --ui-accent-on-dark:  oklch(75% 0.14 258);
+}
+
 /* ============================================
    UTILITIES
    ============================================ */

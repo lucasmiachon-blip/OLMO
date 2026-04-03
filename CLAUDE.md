@@ -40,37 +40,11 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 
 ## Key Files
 
-### Python (CI verde: ruff + mypy + 53 testes)
-- `orchestrator.py` → entry point
-- `config/ecosystem.yaml` → agentes + model routing
-- `config/rate_limits.yaml` → budget ($100/mes max)
-- `config/mcp/servers.json` → 16 MCPs (13 connected, 3 planned)
-- `hooks/` → 4 hooks (notification desktop, stop session-hygiene, build-monitor, session-name)
-- `.claude/hooks/` → 4 hooks (guard-generated, guard-secrets, guard-product-files, check-evidence-db)
-
-### Aulas (Node.js: `cd content/aulas && npm run dev`)
-- `content/aulas/shared/` → design system (base.css OKLCH, deck.js, engine.js, fonts woff2)
-- `content/aulas/cirrose/` → 11 slides ativos (Act 1) + 35 archive. CSS single-file (3224L). QA: Gate 0/2/4.
-- `content/aulas/metanalise/` → 18 slides deck.js+GSAP (3/18 QA DONE). Valgimigli 2025 Lancet.
-- `content/aulas/grade/` → 58 slides deck.js (migrada, precisa redesign legibilidade)
-- `content/aulas/STRATEGY.md` → roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
-- `content/aulas/scripts/` → linters compartilhados (lint-slides, done-gate, QA)
-- QA: `npm run qa:screenshots:grade` (Playwright + C8 font-size audit)
-
-### Concurso R3 Clinica Medica (dez/2026)
-- `assets/provas/` → PDFs de bancas R3 (gitignored)
-- `assets/sap/` → MKSAP e SAPs de especialidade (gitignored)
-- Skills: `/concurso` (plano de estudo) + `/exam-generator` (questoes anti-cue)
-
-### Misc
-- `skills/` → Python runtime skills (LocalFirst). NAO confundir com `.claude/skills/` (slash commands Claude Code)
-- `docs/TREE.md` → mapa completo da arvore do projeto
-
-### Docs & Meta
-- `PENDENCIAS.md` → checklist de setup e infra
-- `HANDOFF.md` → continuidade entre sessoes
-- `docs/ARCHITECTURE.md` → decisoes tecnicas
-- `docs/SYNC-NOTION-REPO.md` → protocolo sync Notion ↔ Repo (source of truth, collection IDs)
+Mapa completo: `docs/TREE.md`. Entry points:
+- Python: `orchestrator.py` | `config/ecosystem.yaml` | `pytest tests/` | `ruff check .` | `mypy agents/`
+- Aulas: `cd content/aulas && npm run dev` | `shared/` (design system) | `cirrose/` `metanalise/` `grade/`
+- Concurso: `/concurso` + `/exam-generator` | `assets/provas/` `assets/sap/` (gitignored)
+- Meta: `HANDOFF.md` | `docs/ARCHITECTURE.md` | `docs/SYNC-NOTION-REPO.md`
 
 ## Conventions
 

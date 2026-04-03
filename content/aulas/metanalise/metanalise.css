@@ -714,29 +714,13 @@ aside.notes { display: none; }
 }
 
 /* --- Dark background slides (narrative rhythm — Duarte)
-   stage-c remaps on-dark tokens for light bg.
-   Override at slide scope to restore correct contrast.
-   Add new slide IDs here when they become dark in the pipeline.
+   Token restoration now handled by .theme-dark in base.css.
+   Add class="theme-dark" to <section> in HTML — no CSS change needed.
    HEX #162032 (lighter than canonical --bg-navy #0d1a2d) — decisao Lucas,
    consistencia cross-aula com cirrose. --- */
-#s-checkpoint-1 .slide-inner,
-#s-checkpoint-2 .slide-inner,
-#s-forest-plot .slide-inner,
-#s-heterogeneity .slide-inner,
-#s-ancora .slide-inner,
-#s-absoluto .slide-inner {
+.theme-dark .slide-inner {
   background-color: #162032;
-  --text-primary:       oklch(95% 0.005 258);
-  --text-secondary:     oklch(70% 0.01 258);
-  --text-on-dark:       oklch(95% 0.005 258);
-  --text-on-dark-muted: oklch(70% 0.01 258);
-  --text-muted:         oklch(70% 0.01 258);
-  --bg-navy-mid:        oklch(28% 0.035 258);
-  --safe-on-dark:       oklch(75% 0.13 170);
-  --warning-on-dark:    oklch(80% 0.14 85);
-  --danger-on-dark:     oklch(72% 0.16 25);
-  --downgrade-on-dark:  oklch(68% 0.10 55);
-  --ui-accent-on-dark:  oklch(75% 0.14 258);
+  --text-secondary: oklch(70% 0.01 258);  /* dimmer than base default (80%) */
 }
 
 /* --- Checkpoint layout (scenario + question + reveal) --- */

@@ -1,3 +1,8 @@
+---
+paths:
+  - content/aulas/**
+---
+
 # Regra: Higiene de Processos
 
 > Maximo por aula: 1 headed (Vite dev) + 1 headless (Playwright/QA). Matar apos uso.

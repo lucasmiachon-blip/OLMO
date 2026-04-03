@@ -140,9 +140,10 @@ Easing: `power2.out` ou `power3.out`. PROIBIDO: bounce, elastic, linear em UI.
 > Fonte: Cirrose E071, Metanalise E001, E009
 
 - stage-c remapeia TODOS os tokens `--*-on-dark` para valores light. Slide navy fica light-on-light sem override.
-- Background navy: via CSS `#s-{id} .slide-inner { background-color: #HEX; }`. NUNCA `data-background-color` (atributo morto em deck.js).
-- **Token restoration scope** obrigatório: re-declarar 8 tokens on-dark no seletor do slide para sobrescrever o remap de stage-c.
-- `.slide-navy` só em slides que efetivamente têm bg navy via CSS.
+- Background navy: via CSS `.theme-dark .slide-inner { background-color: #HEX; }` no CSS da aula. NUNCA `data-background-color` (atributo morto em deck.js).
+- **Token restoration:** `class="theme-dark"` no `<section>` HTML. base.css `.theme-dark .slide-inner` restaura 11 tokens on-dark automaticamente. NUNCA listar IDs por slide — usar a class.
+- Aula-specific: cor de fundo e overrides de token vão em `.theme-dark .slide-inner` no CSS da aula (carrega depois de base.css, cascade order garante override).
+- `.slide-navy` (legacy): apenas text color remap. Não restaura tokens stage-c. Preferir `.theme-dark`.
 
 ## 11. Specificity & Cascading
 
