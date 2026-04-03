@@ -1,5 +1,56 @@
 # CHANGELOG
 
+## Sessao 52 — 2026-04-02 (Secondary Review)
+
+### Fixes (5)
+- guard-secrets.sh: .env filename blocking (exit 1 for .env* except .env.example)
+- validate-css.sh: !important outside allowed context promoted WARN→FAIL, context window 20→50 lines
+- deck.js: added `details, summary` to click handler exclusion list
+- base.css: OKLCH chroma 0.002→0.001 in 5 tints (reduce P3/OLED blue tint risk)
+- orchestrator.py: documented mcp_operation key assumption in comment
+
+### Hooks
+- guard-product-files.sh wired in settings.local.json (was missing)
+- Removed 2 vestigial hooks: guard-evidence-db.sh, task-completed-gate.sh
+- All 5 hooks tested and verified
+
+### Assessment (10 items reviewed)
+- 3 already OK: AKIA present, NaN guard positioned correctly, threading.Lock sufficient
+- 5 fixed (above)
+- 1 documented (orchestrator gate limitation)
+- 1 pending manual test (reduced-motion screenshot)
+
+## Sessao 51 — 2026-04-02 (Adversarial Fix)
+
+### Tier 1 CRITICAL (5 fixes)
+- mcp_safety.py: NaN/Inf/negative guard, validate_move param validation
+- orchestrator.py: wire validate_mcp_step() into route_task(), fix status overwrite in finally
+- guard-secrets.sh: scan staged blobs, safe word-splitting, 8 new patterns, symlink check
+- medical-researcher SKILL.md: NNT applicability constraints, retraction check, 4 new statuses
+
+### Tier 2 HIGH (3 fixes + 1 gap)
+- engine.js: reduced-motion calls forceAnimFinalState, per-slide timer scoping
+- deck.js: transitionend race cleanup, init idempotency guard, click hijack fix
+- base.css: OKLCH fallback (shadow/overlay tokens), E059 achromatic fix, stage-bad selectors
+
+### Tier 3 (4 fixes)
+- guard-product-files.sh: SPRINT_MODE removed, fail-closed, path canonicalization
+- validate-css.sh: CRLF strip, comment filter, indented selector regex
+- pre-commit.sh: staged index for slide count
+- orchestrator.py: agent.model race via task dict, run_workflow exception boundary
+- smart_scheduler.py: atomic writes (tmp+rename), threading lock
+
+### Tests + Docs
+- 6 new tests (NaN, Inf, negative, empty input) → 53 total
+- CLAUDE.md synced (hook counts, test count, living HTML workflow)
+- Git history audit: clean (no real secrets, only placeholders)
+- Report: docs/ADVERSARIAL-FIX-S51.md
+- Dream run 11: 3 new patterns, 2 updates
+
+### Validation stats
+- 38 findings validated: 30 TRUE, 5 PARTIALLY TRUE, 3 FALSE POSITIVE (~8% FP)
+- False positives: mcp_safety #1 (already blocked), validate-css #1 (by design), pre-commit #1 (intentional)
+
 ## Sessao 50 — 2026-04-02 (Adversarial Review)
 
 ### Adversarial Review via Codex GPT-5.4

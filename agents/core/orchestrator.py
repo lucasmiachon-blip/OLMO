@@ -42,6 +42,9 @@ class Orchestrator(BaseAgent):
     async def route_task(self, task: dict[str, Any]) -> TaskResult:
         """Roteia uma tarefa para o agente mais adequado."""
         # MCP safety gate — validate before routing
+        # NOTE: gate triggers on explicit "mcp_operation" key. All task construction
+        # is internal (orchestrator + tests). If new MCP routes are added, callers
+        # MUST set this key for the gate to fire. See validate_mcp_step() for details.
         if task.get("mcp_operation"):
             decision = self.validate_mcp_step(task)
             if decision == SafetyDecision.BLOCK:

@@ -96,13 +96,13 @@ for file in "${CSS_FILES[@]}"; do
   while IFS= read -r line; do
     linenum=$(echo "$line" | cut -d: -f1)
     # Check surrounding context (20 lines before for @media blocks)
-    context=$(sed -n "$((linenum > 20 ? linenum - 20 : 1)),${linenum}p" "$file")
+    context=$(sed -n "$((linenum > 50 ? linenum - 50 : 1)),${linenum}p" "$file")
     if echo "$context" | grep -qE '\.no-js|\.stage-bad|@media\s+print|@media.*prefers-reduced-motion|\.high-contrast|\.qa-mode|\?qa=1'; then
       : # allowed context
     else
-      echo "  WARN: $(basename "$file"):$linenum — !important outside allowed context"
+      echo "  FAIL: $(basename "$file"):$linenum — !important outside allowed context"
       echo "    $line"
-      WARN=$((WARN + 1))
+      FAIL=$((FAIL + 1))
     fi
   done < <(grep -n '!important' "$file" 2>/dev/null | grep -v '[0-9]*:[[:space:]]*/\*\|[0-9]*:[[:space:]]*\*\|[0-9]*:[[:space:]]*//')
 done

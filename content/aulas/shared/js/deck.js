@@ -155,7 +155,7 @@ export function initDeck(viewportSelector = '#slide-viewport') {
 
   viewport.addEventListener('click', (e) => {
     // Don't hijack clicks on interactive elements inside slides
-    if (e.target.closest('a, button, input, select, textarea, [role="button"], [data-reveal]')) return;
+    if (e.target.closest('a, button, input, select, textarea, details, summary, [role="button"], [data-reveal]')) return;
     navigate(+1);
   });
 

@@ -68,6 +68,12 @@ while IFS= read -r file; do
     continue
   fi
 
+  # Block .env files by filename (secrets by definition)
+  if [[ "$file" == .env || "$file" == .env.* || "$file" == */.env || "$file" == */.env.* ]]; then
+    echo "BLOQUEADO: .env file staged: $file (use .env.example for templates)" >&2
+    exit 1
+  fi
+
   # Read staged blob content (not working-tree)
   CONTENT=$(git show ":$file" 2>/dev/null || true)
   if [ -z "$CONTENT" ]; then
