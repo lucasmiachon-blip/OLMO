@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 57 | proximo login
+> Sessao 56 (cont.) | pos-clear
 
 ## ESTADO ATUAL
 
@@ -10,7 +10,7 @@ s-pico evidence HTML completo (7 refs verified, NLM leg validado).
 
 ## PROXIMO
 
-1. **Slide s-pico** — evidence pronto, decidir mudancas no slide (source-tag, notes)
+1. **Construir slide s-pico** — evidence HTML pronto em `evidence/s-pico.html`. Decidir: source-tag (Guyatt 2025?), speaker notes (indirectness, treatment switching), h2 (manter?)
 2. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos reais
 3. **Metanalise QA** — 13 slides pendentes. Deadline 2026-04-15 (~11 dias)
 4. **Integrar NLM leg no /research skill** — formalizar no SKILL.md
@@ -30,6 +30,7 @@ s-pico evidence HTML completo (7 refs verified, NLM leg validado).
 - Context rot: commit + update docs antes de degradar.
 - Security gates fail-closed. NaN/negative input → BLOCK.
 - Jia et al. 2026 (Gemini) = INVALID. DOI nao resolve. Dado removido.
+- Greenhalgh 7a (Wiley DOI:10.1002/9781394206933) — sem acesso CAPES/USP. Lucas vai procurar.
 
 ## PENDENTE (herdado)
 
