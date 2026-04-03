@@ -1,0 +1,127 @@
+{
+  "skill_name": "insights",
+  "iteration": 1,
+  "date": "2026-04-03",
+  "configs": {
+    "with_skill": {
+      "evals": [
+        {
+          "eval_name": "weekly-retrospective",
+          "pass_rate": 1.0,
+          "passed": 8,
+          "failed": 0,
+          "total": 8,
+          "report_lines": 381,
+          "tokens": 102635,
+          "duration_seconds": 396.7,
+          "notes": "Full 4-phase report. Taxonomy categories used. 15 incidents, compliance matrix, 10 diff-ready proposals. Also saved to insights/references/latest-report.md."
+        },
+        {
+          "eval_name": "focused-error-patterns",
+          "pass_rate": 1.0,
+          "passed": 7,
+          "failed": 0,
+          "total": 7,
+          "report_lines": 215,
+          "tokens": 106717,
+          "duration_seconds": 568.0,
+          "notes": "Focused Recipe 2. 5 patterns with frequency, session IDs, causal chain. Archived previous report."
+        },
+        {
+          "eval_name": "rule-health-check",
+          "pass_rate": 1.0,
+          "passed": 7,
+          "failed": 0,
+          "total": 7,
+          "report_lines": 160,
+          "tokens": 101139,
+          "duration_seconds": 609.4,
+          "notes": "Recipe 3. Full compliance matrix, 8 findings (3 STALE, 4 GAP). Also produced compliance-matrix.md."
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 1.0,
+        "total_passed": 22,
+        "total_failed": 0,
+        "total_assertions": 22,
+        "mean_tokens": 103497,
+        "mean_duration_seconds": 524.7,
+        "mean_report_lines": 252
+      }
+    },
+    "without_skill": {
+      "evals": [
+        {
+          "eval_name": "weekly-retrospective",
+          "pass_rate": 0.75,
+          "passed": 6,
+          "failed": 2,
+          "total": 8,
+          "report_lines": 287,
+          "tokens": 93142,
+          "duration_seconds": 471.5,
+          "notes": "Comprehensive but uses custom categories. A3 (taxonomy) FAIL, A8 (insights/references/) FAIL."
+        },
+        {
+          "eval_name": "focused-error-patterns",
+          "pass_rate": 1.0,
+          "passed": 7,
+          "failed": 0,
+          "total": 7,
+          "report_lines": 188,
+          "tokens": 82520,
+          "duration_seconds": 529.0,
+          "notes": "Good error detection. Uses relative numbering. Tool-error focused (is_error=true). All passed."
+        },
+        {
+          "eval_name": "rule-health-check",
+          "pass_rate": 1.0,
+          "passed": 7,
+          "failed": 0,
+          "total": 7,
+          "report_lines": 323,
+          "tokens": 55446,
+          "duration_seconds": 358.1,
+          "notes": "Very thorough, cross-refs git history. Longer than with_skill. All passed."
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 0.917,
+        "total_passed": 20,
+        "total_failed": 2,
+        "total_assertions": 22,
+        "mean_tokens": 77036,
+        "mean_duration_seconds": 452.8,
+        "mean_report_lines": 266
+      }
+    }
+  },
+  "delta": {
+    "pass_rate": "+8.3pp (100% vs 91.7%)",
+    "passed": "+2 (22 vs 20)",
+    "tokens": "+34% (103k vs 77k avg)",
+    "duration": "+16% (525s vs 453s avg)",
+    "discriminating_assertions": [
+      "A3 (taxonomy categories) — PASS with_skill, FAIL without_skill",
+      "A8 (save to insights/references/) — PASS with_skill, FAIL without_skill"
+    ],
+    "non_discriminating": "Evals 2 and 3 (focused-error-patterns, rule-health-check) — 100% both configs",
+    "qualitative_differences": [
+      "with_skill uses structured taxonomy (7 categories) vs ad-hoc categories",
+      "with_skill has 4-phase structure (SCAN→AUDIT→DIAGNOSE→PRESCRIBE) vs free-form",
+      "with_skill focused report includes causal chain connecting 4 of 5 patterns",
+      "with_skill rule-health-check is 50% shorter (160 vs 323 lines) with more categories",
+      "with_skill saves canonical report + archives previous — enables evolution tracking",
+      "without_skill weekly report has richer raw data extraction but less structured analysis"
+    ]
+  },
+  "analyst_notes": [
+    "22/22 with_skill (100%) vs 20/22 without_skill (91.7%) — +8.3pp delta",
+    "Only Eval 1 discriminates. Evals 2+3 = 100% both configs → assertions too easy for Opus",
+    "Token cost: with_skill uses 34% more tokens on average (103k vs 77k). The skill instructs deeper analysis (4 phases, compliance matrix) which costs tokens but produces structured output.",
+    "Duration: with_skill is 16% slower (525s vs 453s). Acceptable for a weekly audit.",
+    "The real value is qualitative: taxonomy, causal chain analysis, diff-ready proposals, evolution tracking via archived reports. Binary assertions don't capture this.",
+    "Strongest skill signal: with_skill Eval 3 (rule-health-check) produced 50% shorter output with MORE finding categories than without_skill — the Recipe 3 workflow is more efficient.",
+    "with_skill agents correctly followed save-to-references instruction + archived previous reports — enables longitudinal tracking across /insights runs."
+  ]
+}

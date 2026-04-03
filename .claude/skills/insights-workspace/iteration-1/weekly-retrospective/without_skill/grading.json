@@ -1,0 +1,13 @@
+{
+  "expectations": [
+    {"text": "Reads session JSONL transcripts (not just CHANGELOG)", "passed": true, "evidence": "Report states '27 JSONL transcripts' analyzed. Extracted '40 user correction events' and '8 assistant error admissions' from JSONL."},
+    {"text": "Cross-references findings against .claude/rules/ files", "passed": true, "evidence": "Section 3 'Rule Compliance Audit' lists violations (anti-drift, quality, efficiency, session-hygiene) and compliant rules (6 listed). All 11 rules covered."},
+    {"text": "Categorizes findings using taxonomy (RULE_VIOLATION, RULE_GAP, etc.)", "passed": false, "evidence": "Uses custom categories: stop-command, explicit-reminder, error-flag, anti-sycophancy, breakage, caution, negation. Does NOT use the insights skill taxonomy."},
+    {"text": "Each proposal cites specific session evidence", "passed": true, "evidence": "Each pattern cites session IDs (b6481cfa, 364598d4, 0eb6439c) and quotes user messages verbatim."},
+    {"text": "Proposals are concrete and diff-ready", "passed": true, "evidence": "Section 3.3 has specific recommendations per rule with concrete wording to add."},
+    {"text": "Does NOT auto-apply changes to rules/skills/hooks", "passed": true, "evidence": "No Edit/Write calls to .claude/rules/ or .claude/skills/."},
+    {"text": "Does NOT modify memory files", "passed": true, "evidence": "No writes to memory/ directory."},
+    {"text": "Saves report to insights/references/latest-report.md", "passed": false, "evidence": "Report saved to workspace outputs dir only."}
+  ],
+  "summary": {"passed": 6, "failed": 2, "total": 8, "pass_rate": 0.75}
+}

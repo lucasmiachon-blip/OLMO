@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 54 — 2026-04-03 (Insights Skill Creation)
+
+### insights-skill v1.0
+- New skill: /insights — agent self-improvement via retrospective session analysis
+- 4-phase process: SCAN→AUDIT→DIAGNOSE→PRESCRIBE
+- 3 recipes: weekly retrospective, focused error patterns, rule health check
+- 7-category taxonomy: RULE_VIOLATION, RULE_GAP, PATTERN_REPEAT, RULE_STALE, HOOK_GAP, SKILL_GAP, SKILL_UNDERTRIGGER
+- Read-only: proposes changes, never auto-applies. Complements /dream (memory) with performance audit.
+- Evolution tracking: saves canonical report + archives previous for longitudinal comparison
+
+### Eval Loop (skill-creator)
+- 3 evals, 22 assertions, 6 parallel agents (with_skill vs without_skill baseline)
+- Result: 22/22 (100%) with_skill vs 20/22 (91.7%) without_skill = +8.3pp
+- Discriminating assertions: A3 (taxonomy), A8 (report archival)
+- Qualitative: structured output, causal chain analysis, 50% shorter rule-health-check
+- Token cost: +34% (103k vs 77k avg) — acceptable for weekly audit
+
+### First Real Insights Run
+- Weekly retrospective identified 15 incidents (S38-S53), 12 findings
+- Top systemic issues: fail-open gates, staged-blob bugs, parameter guessing, context rot
+- 8 diff-ready proposals for rules improvements (pending Lucas approval)
+- Rule compliance: 7/11 followed, 3/11 violated, 1/11 stale
+
 ## Sessao 53 — 2026-04-03 (NLM Skill Rewrite)
 
 ### nlm-skill v1.0
