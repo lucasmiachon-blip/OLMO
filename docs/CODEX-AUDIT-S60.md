@@ -12,16 +12,16 @@
 | O3 | MED | guard-secrets.sh exit 1 instead of exit 2 | [x] FIXED B3 |
 | O4 | HIGH | guard-bash-write.sh JSON truncation (sed) | [x] FIXED B2 |
 | O5 | HIGH | guard-bash-write.sh missing cp/mv/dd/install/rsync/perl | [x] FIXED B3 |
-| O6 | HIGH | guard-lint-before-build.sh only runs lint-slides | TODO: add case-sync + narrative-sync |
+| O6 | HIGH | guard-lint-before-build.sh only runs lint-slides | [x] FIXED S61 |
 | O7 | HIGH | guard-lint-before-build.sh same JSON parsing fragility | [x] FIXED B2 |
-| O8 | MED | build-monitor.sh no aula resolution for build-html.ps1 | TODO |
+| O8 | MED | build-monitor.sh no aula resolution for build-html.ps1 | ACCEPTED: log-only, low impact |
 | O9 | MED | build-monitor.sh writes NOTES.md outside guard path | ACCEPTED: log != product |
 | O10 | LOW | session-start.sh session number regression | [x] FIXED B3 |
 | O11 | MED | stop-hygiene.sh ignores staged changes | [x] FIXED B3 |
 | O12 | HIGH | Bash(*) broad permission despite incomplete guards | ACCEPTED: workflow requires |
-| O13 | HIGH | lint-slides.js ignores --aula argument | TODO: script fix |
-| O14 | LOW | lint-case-sync.js unreachable branch | TODO: trivial |
-| O15 | MED | lint-narrative-sync.js silent default to cirrose | TODO: script fix |
+| O13 | HIGH | lint-slides.js ignores --aula argument | [x] FIXED S61 |
+| O14 | LOW | lint-case-sync.js unreachable branch | [x] FIXED S61 |
+| O15 | MED | lint-narrative-sync.js silent default to cirrose | [x] FIXED S61 |
 | O16 | LOW | guard-pause.sh whitelist inconsistency file_path vs path | [x] FIXED B2 |
 | A1 | HIGH | Tool choice bypass: cp/mv/dd bypass guards | [x] FIXED B3 |
 | A2 | HIGH | Pattern evasion: JSON truncation hides writes | [x] FIXED B2 |
