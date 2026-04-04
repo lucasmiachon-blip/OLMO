@@ -12,16 +12,16 @@ if [ -z "$INPUT" ]; then
   exit 0  # No input on Read = probably not a file read
 fi
 
-# Extract file_path (try both keys)
-FILE_PATH=$(echo "$INPUT" | sed -n 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-if [ -z "$FILE_PATH" ]; then
-  FILE_PATH=$(echo "$INPUT" | sed -n 's/.*"path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-fi
+# Parse file_path with node — robust JSON (Codex S60 A4)
+FILE_PATH=$(echo "$INPUT" | node -e "
+  try {
+    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
+    const p=(d.tool_input||{}).file_path||(d.tool_input||{}).path||'';
+    console.log(p.replace(/\\\\/g,'/'));
+  } catch(e) { console.log(''); }
+" 2>/dev/null)
 
 [ -z "$FILE_PATH" ] && exit 0
-
-# Normalize path
-FILE_PATH=$(echo "$FILE_PATH" | tr '\\' '/')
 BASENAME=$(echo "$FILE_PATH" | sed 's|.*/||')
 
 # Block patterns: secrets, credentials, private keys

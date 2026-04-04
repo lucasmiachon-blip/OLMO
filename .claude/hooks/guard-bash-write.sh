@@ -6,8 +6,17 @@
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Extract command from tool_input
-CMD=$(echo "$INPUT" | sed -n 's/.*"command"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+# Extract command from tool_input — node parser (not sed, avoids JSON truncation)
+# Fail-closed: if parse fails, block (Codex S60 O4/A2/A4)
+CMD=$(echo "$INPUT" | node -e "
+  try {
+    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
+    console.log((d.tool_input||{}).command||'');
+  } catch(e) { process.exit(1); }
+" 2>/dev/null) || {
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"JSON parse falhou — confirme comando"}}\n'
+  exit 0
+}
 
 [ -z "$CMD" ] && exit 0
 

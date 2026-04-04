@@ -8,13 +8,21 @@ set -u
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Extract command from tool_input
-CMD=$(echo "$INPUT" | sed -n 's/.*"command"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+# Extract command — node parser (not sed, avoids JSON truncation — Codex S60 O7/A4)
+CMD=$(echo "$INPUT" | node -e "
+  try {
+    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
+    console.log((d.tool_input||{}).command||'');
+  } catch(e) { process.exit(1); }
+" 2>/dev/null) || {
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"JSON parse falhou — confirme build"}}\n'
+  exit 0
+}
 
 [ -z "$CMD" ] && exit 0
 
-# Only trigger on build commands
-if ! echo "$CMD" | grep -qE '(npm run build:|build-html\.ps1)'; then
+# Only trigger on build commands (expanded: npm run build, vite build, npx vite — Codex S60 A9)
+if ! echo "$CMD" | grep -qE '(npm run build(:|$)|vite build|npx vite build|build-html\.ps1)'; then
   exit 0
 fi
 

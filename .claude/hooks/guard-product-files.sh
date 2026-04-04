@@ -15,28 +15,26 @@ if [ -z "$INPUT" ]; then
   exit 2
 fi
 
-FILE_PATH=$(echo "$INPUT" | sed -n 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+# Parse file_path with node — robust JSON parsing (Codex S60 O4/A2/A4)
+FILE_PATH=$(echo "$INPUT" | node -e "
+  try {
+    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
+    const p=(d.tool_input||{}).file_path||(d.tool_input||{}).path||'';
+    console.log(p.replace(/\\\\/g,'/').replace(/\/\//g,'/').replace(/[^/]+\/\.\.\//g,'').replace(/^\.\//,''));
+  } catch(e) { process.exit(1); }
+" 2>/dev/null) || {
+  echo "BLOQUEADO: guard-product-files falhou ao parsear JSON (fail-closed)" >&2
+  exit 2
+}
 
-# Fallback: some tools use "path" instead of "file_path"
+# Fail-closed: if no path extracted but input has tool_input
 if [ -z "$FILE_PATH" ]; then
-  FILE_PATH=$(echo "$INPUT" | sed -n 's/.*"path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-fi
-
-# Fail-closed: if no path extracted, block rather than silently allow
-if [ -z "$FILE_PATH" ]; then
-  # Check if input looks like a file operation (has JSON with tool_input)
   if echo "$INPUT" | grep -q '"tool_input"'; then
     echo "BLOQUEADO: guard-product-files falhou ao extrair path do input (fail-closed)" >&2
     exit 2
   fi
-  # Not a file operation at all — allow
   exit 0
 fi
-
-# Normalize: backslashes → forward slashes, collapse //, resolve ../ sequences
-FILE_PATH=$(echo "$FILE_PATH" | tr '\\' '/' | sed 's|//|/|g')
-# Canonicalize: remove ../ traversals
-FILE_PATH=$(echo "$FILE_PATH" | sed -E 's|[^/]+/\.\./||g; s|^\./||')
 
 # CRITICAL GUARD: Block edits to hook infrastructure (A6 — Codex S60)
 # These files control the guard system itself. Editing them disables all protection.

@@ -7,22 +7,23 @@
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Extract file path (handles both file_path and path keys, backslash normalization)
-FILE_PATH=$(echo "$INPUT" | sed -n 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-if [ -z "$FILE_PATH" ]; then
-  FILE_PATH=$(echo "$INPUT" | sed -n 's/.*"path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-fi
-FILE_PATH=$(echo "$FILE_PATH" | tr '\\' '/' | sed 's|.*/||')  # basename only for display
+# Parse file path with node — robust JSON (Codex S60 O16/A4)
+FULL_PATH=$(echo "$INPUT" | node -e "
+  try {
+    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
+    const p=(d.tool_input||{}).file_path||(d.tool_input||{}).path||'';
+    console.log(p.replace(/\\\\/g,'/'));
+  } catch(e) { console.log(''); }
+" 2>/dev/null)
+
+FILE_PATH=$(echo "$FULL_PATH" | sed 's|.*/||')  # basename for display
 
 # Whitelist: memory files and session metadata — don't nag on these
+if echo "$FULL_PATH" | grep -q '/memory/'; then
+  exit 0  # allow memory writes silently
+fi
+
 case "$FILE_PATH" in
-  MEMORY.md|*.md)
-    # Check if it's a memory file
-    FULL_PATH=$(echo "$INPUT" | sed -n 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-    if echo "$FULL_PATH" | tr '\\' '/' | grep -q '/memory/'; then
-      exit 0  # allow memory writes silently
-    fi
-    ;;
   .session-name)
     exit 0  # allow session name writes silently
     ;;
