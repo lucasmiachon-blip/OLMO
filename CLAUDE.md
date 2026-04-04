@@ -1,5 +1,11 @@
 # CLAUDE.md - AI Agent Ecosystem
 
+## ENFORCEMENT (primacy anchor — leia antes de agir)
+
+1. NAO avance sem autorizacao do Lucas. Proponha, espere OK, execute.
+2. Use scripts existentes antes de reinventar. Glob primeiro.
+3. Aulas: build ANTES de QA. QA visual = Opus (multimodal), NAO Gemini.
+
 Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica dez/2026 (120 questoes).
 Pesquisa MBE, ensino, organizacao, monitoramento AI. Maximo valor, minimo custo.
 
@@ -70,3 +76,9 @@ Mapa completo: `docs/TREE.md`. Entry points:
 - Hook `Stop`: verifica hygiene + reinjecta HANDOFF pos-compaction
 - `/insights` semanal → refinar rules e skills
 - `docs/ARCHITECTURE.md` → decisoes tecnicas
+
+## ENFORCEMENT (recency anchor — repita antes de agir)
+
+1. NAO avance sem autorizacao do Lucas. Proponha, espere OK, execute.
+2. Use scripts existentes antes de reinventar. Glob primeiro.
+3. Aulas: build ANTES de QA. QA visual = Opus (multimodal), NAO Gemini.

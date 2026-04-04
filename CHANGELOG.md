@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## Sessao 57 — 2026-04-03 (Behavioral Enforcement + Codex Audit)
+
+### Enforcement (novo)
+- `guard-pause.sh` — PreToolUse "ask" em todo Edit/Write (whitelist: memory files, .session-name)
+- `session-compact.sh` — SessionStart compact matcher, re-injeta 5 regras criticas + HANDOFF
+- CLAUDE.md primacy/recency anchors (ENFORCEMENT section top + bottom)
+- `settings.local.json` atualizado com novos hooks
+
+### Codex Audit
+- Two-frame audit (objetivo + adversarial): 2 CRITICAL, 4 HIGH, 4 MEDIUM
+- Findings em `docs/CODEX-AUDIT-S57.md`
+- Shell bypass (Bash > file) e memory omission = CRITICAL
+- 6+ policy contradictions identificadas (mentor_autonomy, metanalise/CLAUDE.md, etc.)
+
+### QA
+- Batch QA screenshots gerados (18 slides, 20 PNGs) via `qa-batch-screenshot.mjs`
+- s-pico h2 stale detectado e corrigido no build (nao no index.html direto)
+- `_manifest.js` headline de s-pico atualizada
+
+### Memories (2 novas)
+- `feedback_qa_use_cli_not_mcp.md` — usar CLI script, nunca MCP Playwright manual
+- `feedback_rebuild_before_qa.md` — build obrigatorio antes de QA
+
+### Cleanup
+- Deletados: `docs/ADVERSARIAL-FIX-S51.md`, `docs/ADVERSARIAL-REVIEW-S50.md`, `docs/CODEX-REVIEW-S40.md` (resolvidos)
+
 ## Sessao 56 — 2026-04-03 (PICO Evidence + NLM Research Leg)
 
 ### Evidence

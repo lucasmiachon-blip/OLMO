@@ -1,46 +1,47 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 56 (cont.) | pos-clear
+> Sessao 57 | 2026-04-03
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). 11 rules (5 path-scoped).
-s-pico evidence HTML completo (7 refs verified, NLM leg validado).
-/research pipeline agora inclui NotebookLM como perna adicional.
+Enforcement layer implementada: guard-pause.sh (ask on Edit/Write), session-compact.sh (pos-compaction), CLAUDE.md primacy/recency anchors.
+Codex audit completo: 2 CRITICAL, 4 HIGH, 4 MEDIUM — ver `docs/CODEX-AUDIT-S57.md`.
 
-## PROXIMO
+## PROXIMO (P0 — enforcement fixes)
 
-1. **Construir slide s-pico** — evidence HTML pronto em `evidence/s-pico.html`. Decidir: source-tag (Guyatt 2025?), speaker notes (indirectness, treatment switching), h2 (manter?)
-2. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos reais
-3. **Metanalise QA** — 13 slides pendentes. Deadline 2026-04-15 (~11 dias)
-4. **Integrar NLM leg no /research skill** — formalizar no SKILL.md
-5. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
+1. **guard-bash-write.sh** — bloquear shell redirects (`>`, `>>`, `sed -i`, `writeFileSync`)
+2. **Resolver contradicoes de policy** — 6+ arquivos contradizem root CLAUDE.md (mentor_autonomy, metanalise/CLAUDE.md, slide-rules, design-reference, qa-pipeline)
+3. **Expandir guard-product-files.sh** — cobrir metanalise e grade (so protege cirrose hoje)
+
+## PROXIMO (P1 — aulas)
+
+4. **Metanalise QA** — 18 slides, QA visual incompleto. Deadline 2026-04-15 (~12 dias)
+5. **Construir slide s-pico** — evidence HTML pronto. Decidir h2, source-tag, speaker notes
+6. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos
+7. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
 
 ## DECISOES ATIVAS
 
 - Living HTML per slide = source of truth. Evidence-first workflow.
-- NLM como perna do /research (query aberta a fontes curadas por Lucas).
-- Queries de pesquisa: exploratorias, NAO deterministas.
-- Narrativa evidence: citacao cientifica (Autor, ano) sem PMID inline.
-- `.theme-dark` class para dark slides. /research e /teaching NAO fundem.
+- guard-pause.sh: "ask" em todo Edit/Write (exceto memory files).
+- QA visual = Opus (multimodal). NAO Gemini. NAO delegar.
+- Build ANTES de QA: `npm run build:{aula}` obrigatorio.
+- QA screenshots: usar CLI (`qa-batch-screenshot.mjs`), NUNCA MCP Playwright manual.
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
+- Shell bypass: `Bash("echo > file")` bypassa guard-pause — fix pendente (P0).
 - Context rot: commit + update docs antes de degradar.
-- Security gates fail-closed. NaN/negative input → BLOCK.
-- Jia et al. 2026 (Gemini) = INVALID. DOI nao resolve. Dado removido.
-- Greenhalgh 7a (Wiley DOI:10.1002/9781394206933) — sem acesso CAPES/USP. Lucas vai procurar.
+- Security gates fail-closed. NaN/negative input -> BLOCK.
 
 ## PENDENTE (herdado)
 
 - [ ] Google Drive MCP: OAuth credentials
 - [ ] Presenter.js rewrite (HTML separado, timer fix)
 - [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
-- [ ] daily-briefing: adicionar Notion Calendario + Tasks "Due Today"
 - [ ] h2 assertion rewrite — 11+ slides. Lucas guia.
-- [ ] reduced-motion visual test — Chrome --force-prefers-reduced-motion
-- [ ] Cirrose: migrar dark slides para .theme-dark (mesmo pattern)
 - [ ] ARCHITECTURE.md sync — alinhar com implementacao real
 
 ## CONFLITOS
