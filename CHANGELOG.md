@@ -1,12 +1,26 @@
 # CHANGELOG
 
+## Sessao 59 — 2026-04-03 (Hook Hardening)
+
+### Hooks (code fixes)
+- **guard-bash-write.sh** — +3 padroes: `curl -o`, `wget -O`, `python -c` (ask, nao block)
+- **build-monitor.sh** — reescrito: checa `tool_response.exit_code` em vez de PostToolUseFailure (dead code desde criacao). Aula detectada do comando antes de branch.
+
+### Docs
+- **CODEX-AUDIT-S57.md** — tabela cross-reference objetivo↔adversarial, V8 rejeitado (hooks sequenciais)
+- **CODEX-FIXES-S58.md** — 3 anotacoes: re-review disclaimer (Fix 4), gap preexistente (Fix 10), inconsistencia enforcement passivo (Rejeicao 16)
+
+### Cleanup
+- Removidos workspace artifacts (insights-workspace, nlm-skill-workspace)
+- `.gitignore` — `*-workspace/` pattern adicionado
+
 ## Sessao 58 — 2026-04-03 (Codex Audit Fixes)
 
 ### Enforcement (fixes)
 - **guard-bash-write.sh** — novo hook PreToolUse(Bash), fecha shell redirect escape (CRITICAL)
 - **guard-product-files.sh** — expandido para todas as aulas (era so cirrose), mudou block→ask
 - **check-evidence-db.sh** — removido (dead code: transcript_path nunca existiu no hook input)
-- **build-monitor.sh** — registrado em PostToolUseFailure (failure branch era dead code)
+- **build-monitor.sh** — PostToolUseFailure tentado e revertido (evento nao existe). Dead code identificado
 - **settings.local.json** — 3 mudancas (add bash guard, remove evidence-db, add failure hook)
 
 ### Policy (contradicoes resolvidas)

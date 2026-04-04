@@ -1,12 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 58 | 2026-04-03
+> Sessao 59 | 2026-04-03
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). 11 rules (5 path-scoped).
-Enforcement layer completa: guard-pause.sh, guard-bash-write.sh, guard-product-files.sh (all aulas), session-compact.sh.
-Codex audit S57 resolvido: 10 fixes aplicados, 1 dead code removido, 6 rejeitados (justificados). Ver `docs/CODEX-FIXES-S58.md`.
+Hooks hardened: guard-bash-write (7 patterns), build-monitor (exit_code fix), guard-product-files (all aulas).
+Codex audit S57 FECHADO: 10 fixes + cross-reference table + 3 anotacoes criticas.
 
 ## PROXIMO (P0 — aulas)
 
@@ -16,15 +16,15 @@ Codex audit S57 resolvido: 10 fixes aplicados, 1 dead code removido, 6 rejeitado
 
 ## PROXIMO (P1 — infra)
 
-4. **Cleanup old skills** ��� remover evidence/, mbe-evidence/, agent literature.md
+4. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
 5. **h2 assertion rewrite** — 11+ slides. Lucas guia.
 
 ## DECISOES ATIVAS
 
 - Living HTML per slide = source of truth. Evidence-first workflow.
 - guard-pause.sh: "ask" em todo Edit/Write (exceto memory files).
-- guard-bash-write.sh: "ask" em shell redirects (>, >>, sed -i, tee, writeFile).
-- guard-product-files.sh: "ask" em todas as aulas (generalizado).
+- guard-bash-write.sh: "ask" em shell redirects + curl -o + wget -O + python -c.
+- guard-product-files.sh: "ask" em todas as aulas (generalizado, sem FROZEN).
 - QA visual = Opus (multimodal) + Gemini script (gemini-qa3.mjs). Ambos coexistem.
 - Build ANTES de QA: `npm run build:{aula}` obrigatorio.
 - QA screenshots: usar CLI (`qa-batch-screenshot.mjs`), NUNCA MCP Playwright manual.
