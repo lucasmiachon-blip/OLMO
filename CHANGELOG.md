@@ -12,7 +12,7 @@
 - OAuth piggybacking inviavel (scope insuficiente) — verificado e documentado
 
 ### Config
-- GEMINI.md v3.3: anti-hallucination clause (Search-Before-Cite, temporal differentiation)
+- GEMINI.md v3.3→v3.4: anti-hallucination + skepticism mandate, backtracking protocol, retraction check, self-adversarial reasoning
 - AGENTS.md: command-first refactor, copy-pasteable audit commands
 - ~/.codex/config.toml: project_doc_fallback_filenames = ["CLAUDE.md"]
 

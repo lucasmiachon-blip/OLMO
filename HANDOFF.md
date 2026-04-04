@@ -6,7 +6,7 @@
 
 Monorepo funcional. CI verde (53 testes). 9 rules (5 path-scoped).
 Gemini MCP removido — deep-search agora via CLI ($0 OAuth Ultra).
-GEMINI.md v3.3 (anti-hallucination clause). AGENTS.md command-first.
+GEMINI.md v3.4 (skepticism mandate + backtracking + retraction check). AGENTS.md command-first.
 content-research.mjs: `--cli` flag funcional (OAuth, $0).
 
 ## P0 — BENCHMARK CLI vs API
