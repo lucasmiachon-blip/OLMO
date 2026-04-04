@@ -44,5 +44,23 @@ if echo "$CMD" | grep -qE 'writeFile(Sync)?'; then
   exit 0
 fi
 
+# Pattern 5: curl download to file (-o / --output)
+if echo "$CMD" | grep -qE 'curl\b.*(-o\b|--output\b)'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"curl -o detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 6: wget download to file (-O / --output-document)
+if echo "$CMD" | grep -qE 'wget\b.*(-O\b|--output-document\b)'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"wget -O detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 7: Python one-liner (-c flag can write files via open())
+if echo "$CMD" | grep -qE 'python3?\s+-c\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"python -c detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
 # No write pattern — allow silently
 exit 0
