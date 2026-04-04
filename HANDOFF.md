@@ -18,15 +18,16 @@ Round 1 objetivo completo. Demais pendentes (agents podem ter expirado).
 
 ## PROXIMO (P1 — memory cleanup)
 
-4. **Cross-reference real dos 38 memory files** — Codex round 1 propoe 9 DELETE, 17 CONSOLIDATE, 3 UPDATE, 10 KEEP. Verdicts NAO validados (Lucas flaggou aceitacao passiva). Cada file precisa de leitura + grep nos canonicos antes de decidir.
-5. **Governance rules para memories** — cap 20 files, criterios de criacao, review cycle. Proposta em `docs/CODEX-MEMORY-AUDIT-S61.md`
-6. **MEMORY.md index** — stale, mixes status/policy/index. Reescrever como pure index apos cleanup.
-7. **`.claude/hooks/README.md`** — documenta hooks deletados, faltam os 8 atuais
+4. **Cross-reference real dos 38 memory files** — Codex round 1 propoe 9 DELETE, 17 CONSOLIDATE, 3 UPDATE, 10 KEEP. Verdicts NAO validados. Cada file precisa de leitura + grep nos canonicos antes de decidir. Report: `docs/CODEX-MEMORY-AUDIT-S61.md`
+5. **Relancar Codex memory audit** — S61 lancou 4 rounds, 3 travaram. Melhor: 1 round focado, conteudo inline, batches de 8-10 files, criterio binario (ver `feedback_codex_prompting.md`)
+6. **Governance rules para memories** — cap 20 files, criterios de criacao, review cycle
+7. **MEMORY.md index** — stale, mixes status/policy/index. Reescrever como pure index apos cleanup
+8. **`.claude/hooks/README.md`** — documenta hooks deletados, faltam os 8 atuais
 
 ## PROXIMO (P2 — infra herdado)
 
-8. **h2 assertion rewrite** — 11+ slides. Lucas guia.
-9. **Merge new-slide into slide-authoring** — ultimo cleanup de skills
+9. **h2 assertion rewrite** — 11+ slides. Lucas guia.
+10. **Merge new-slide into slide-authoring** — ultimo cleanup de skills
 
 ## DECISOES ATIVAS
 
