@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## Sessao 60 — 2026-04-03 (Hardening + Cleanup + Codex Dual-Frame)
+
+### Cleanup
+- Archived 4 workspace dirs (1.7MB): deep-search, research, insights, nlm-skill
+- Deleted deprecated skills: evidence/, mbe-evidence/, agents/literature.md
+- Archived project_codex_review_findings.md (100% resolved)
+- Updated MEMORY.md index, CLAUDE.md refs
+
+### New Hooks
+- `guard-lint-before-build.sh` — BLOCKS builds if lint-slides.js fails
+- `guard-read-secrets.sh` — BLOCKS Read of .env, .pem, credentials, SSH keys
+- Both wired in settings.local.json
+
+### Hook Hardening (Codex S60 — 24 findings, 16 fixed)
+- **CRITICAL A6:** guard-product-files now BLOCKS edits to settings.local.json and hooks/
+- **CRITICAL A10:** guard-read-secrets blocks Read of secret files
+- **HIGH O4/A2/A4:** ALL hooks migrated from sed to node JSON parsing (no more truncation)
+- **HIGH O5/A1:** guard-bash-write: +4 new patterns (cp/mv/dd/install/rsync/perl/ruby/fs.promises)
+- **HIGH A9:** guard-lint-before-build: expanded build detection (vite build, npx)
+- **MED O2:** guard-product-files: added _manifest.js to protected patterns
+- **MED O3:** guard-secrets: exit 2 + structured JSON (was exit 1)
+- **MED O11:** stop-hygiene: checks staged + unstaged changes
+- **LOW O10:** session-start: takes max session number (was first match)
+- **LOW O16:** guard-pause: unified path extraction
+
+### Remaining (TODO next session)
+- O6: Add lint-case-sync + lint-narrative-sync to build gate
+- O13: lint-slides.js --aula argument parsing
+- O15: lint-narrative-sync.js silent default to cirrose
+
+### Dream Skill
+- Removed ONBOARDING section (~120 lines) — setup already complete, run 12
+
+### Docs
+- Created docs/CODEX-AUDIT-S60.md (full findings + tracker)
+
 ## Sessao 59 — 2026-04-03 (Hook Hardening)
 
 ### Hooks (code fixes)

@@ -12,23 +12,23 @@
 | O3 | MED | guard-secrets.sh exit 1 instead of exit 2 | [x] FIXED B3 |
 | O4 | HIGH | guard-bash-write.sh JSON truncation (sed) | [x] FIXED B2 |
 | O5 | HIGH | guard-bash-write.sh missing cp/mv/dd/install/rsync/perl | [x] FIXED B3 |
-| O6 | HIGH | guard-lint-before-build.sh only runs lint-slides | [ ] |
+| O6 | HIGH | guard-lint-before-build.sh only runs lint-slides | TODO: add case-sync + narrative-sync |
 | O7 | HIGH | guard-lint-before-build.sh same JSON parsing fragility | [x] FIXED B2 |
-| O8 | MED | build-monitor.sh no aula resolution for build-html.ps1 | [ ] |
-| O9 | MED | build-monitor.sh writes NOTES.md outside guard path | [ ] |
+| O8 | MED | build-monitor.sh no aula resolution for build-html.ps1 | TODO |
+| O9 | MED | build-monitor.sh writes NOTES.md outside guard path | ACCEPTED: log != product |
 | O10 | LOW | session-start.sh session number regression | [x] FIXED B3 |
 | O11 | MED | stop-hygiene.sh ignores staged changes | [x] FIXED B3 |
-| O12 | HIGH | Bash(*) broad permission despite incomplete guards | [ ] |
-| O13 | HIGH | lint-slides.js ignores --aula argument | [ ] |
-| O14 | LOW | lint-case-sync.js unreachable branch | [ ] |
-| O15 | MED | lint-narrative-sync.js silent default to cirrose | [ ] |
+| O12 | HIGH | Bash(*) broad permission despite incomplete guards | ACCEPTED: workflow requires |
+| O13 | HIGH | lint-slides.js ignores --aula argument | TODO: script fix |
+| O14 | LOW | lint-case-sync.js unreachable branch | TODO: trivial |
+| O15 | MED | lint-narrative-sync.js silent default to cirrose | TODO: script fix |
 | O16 | LOW | guard-pause.sh whitelist inconsistency file_path vs path | [x] FIXED B2 |
 | A1 | HIGH | Tool choice bypass: cp/mv/dd bypass guards | [x] FIXED B3 |
 | A2 | HIGH | Pattern evasion: JSON truncation hides writes | [x] FIXED B2 |
-| A3 | HIGH | Symlink traversal bypasses path guards | [ ] |
+| A3 | HIGH | Symlink traversal bypasses path guards | ACCEPTED: edge case, low risk |
 | A4 | HIGH | Fail-open: malformed JSON disables 4 guards | [x] FIXED B2 |
 | A6 | **CRIT** | Config attack: Edit settings.local.json removes hooks | [x] FIXED B1 |
-| A8 | MED | Compaction exploit: post-compact loses rules | [ ] |
+| A8 | MED | Compaction exploit: post-compact loses rules | ACCEPTED: documented, session-compact mitigates |
 | A9 | HIGH | Script evasion: npm run build / npx vite build bypass | [x] FIXED B2 |
 | A10 | **CRIT** | Secret exfiltration: Read .env + WebFetch | [x] FIXED B1 |
 
