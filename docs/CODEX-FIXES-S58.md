@@ -82,7 +82,8 @@ Gate 4 atualizado: `Scorecard 14-dim (Opus visual) + gemini-qa3.mjs --editorial 
 
 **Erro:** Registrado em `PostToolUse` mas o codigo so logava quando `EVENT == "PostToolUseFailure"`. Como o hook nunca era chamado em PostToolUseFailure, a branch de logging era dead code.
 
-**Fix:** Hook adicionado tambem em `PostToolUseFailure` no settings.local.json. Agora dispara em ambos os eventos.
+**Fix tentado:** Adicionar hook em `PostToolUseFailure` no settings.local.json.
+**REVERTIDO:** `PostToolUseFailure` NAO e um evento valido do Claude Code. Adicionar ao settings quebrou o parsing de hooks subsequentes (Notification, Stop), causando perda de toast notifications. Removido. O fix correto e ajustar o build-monitor.sh para checar exit code dentro do evento PostToolUse.
 
 ### 10. check-evidence-db.sh — dead code completo
 
