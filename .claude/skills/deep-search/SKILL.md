@@ -1,19 +1,19 @@
 ---
 name: deep-search
 description: |
-  Pesquisa profunda via Gemini 3.1 deep-research com Google Search grounding em tempo real. Busca fontes Tier 1 (guidelines, meta-analises, RCTs landmark), dados concretos com numeros, divergencias e convergencias entre sociedades medicas. Use para "deep search", "pesquisa gemini", "buscar tier 1", "gemini profundo", "pesquisa profunda", "divergencia guidelines", "fontes fortes", "gemini search", "preciso de dados concretos sobre". Complementa /research (Claude MCPs) — ideal para cross-validation dual-model. Tambem funciona standalone quando o objetivo e descoberta ampla com grounding web.
-version: 2.1.0
+  Pesquisa profunda via Gemini CLI (OAuth Ultra, $0) com Google Search grounding em tempo real. Busca fontes Tier 1 (guidelines, meta-analises, RCTs landmark), dados concretos com numeros, divergencias e convergencias entre sociedades medicas. Use para "deep search", "pesquisa gemini", "buscar tier 1", "gemini profundo", "pesquisa profunda", "divergencia guidelines", "fontes fortes", "gemini search", "preciso de dados concretos sobre". Complementa /research (Claude MCPs) — ideal para cross-validation dual-model. Tambem funciona standalone quando o objetivo e descoberta ampla com grounding web.
+version: 3.0.0
 context: fork
 agent: general-purpose
-allowed-tools: Read, Grep, Glob
+allowed-tools: Read, Grep, Glob, Bash
 argument-hint: "[topico clinico OU slide-id OU ideia/h2] [--followup pergunta]"
 ---
 
-# Deep Search — Gemini 3.1 Deep Research
+# Deep Search — Gemini CLI (v3.0)
 
 Pesquisa para: `$ARGUMENTS`
 
-Gemini deep-research usa Google Search grounding — acessa dados em tempo real. PMIDs do Gemini tem ~15-20% de erro, por isso todo PMID sai como CANDIDATE.
+Gemini CLI usa Google Search grounding via OAuth Ultra ($0, 2000 req/dia). PMIDs do Gemini tem ~15-20% de erro, por isso todo PMID sai como CANDIDATE.
 
 Esta skill separa duas responsabilidades: o Gemini PESQUISA (prompt aberto, sem estrutura forcada) e o Claude ORGANIZA (pos-processamento em formato padrao). Isso evita leading the witness — o Gemini pensa livremente, depois nos extraimos o que importa.
 
@@ -32,12 +32,21 @@ Ler `references/query-template.md` e preencher os campos. O template e intencion
 
 O `format` parameter e minimo: pede citacoes e numeros, nao seccoes pre-definidas.
 
-## Step 3 — Executar
+## Step 3 — Executar via Gemini CLI
 
-1. `mcp__gemini__gemini-deep-research` com query aberta + format minimo
-2. Guardar `researchId`
-3. `mcp__gemini__gemini-check-research` ate completar (~2-5 min)
-4. Se nao completo: informar usuario
+1. Montar o prompt completo (query + format do template)
+2. Executar via Bash:
+   ```bash
+   gemini -p "PROMPT_COMPLETO" -o text
+   ```
+3. O CLI e **sincrono** — retorna quando completo (tipicamente 30-90s)
+4. Se timeout: aumentar timeout do Bash para 120000ms
+
+**Notas de execucao:**
+- O GEMINI.md v3.2 garante Deep Think (HIGH) + Google Search grounding automaticamente
+- Model default: o que estiver configurado no CLI (Ultra plan)
+- Para forcar modelo: `gemini -m gemini-2.5-pro -p "PROMPT"`
+- Output vem como texto plano — capturar stdout
 
 ## Step 4 — Limpeza minima
 
@@ -59,7 +68,7 @@ Deep-search nao faz essas analises — quem cruza e o orquestrador.
 
 ```
 ## Deep Search Report: [Topico]
-Data: [YYYY-MM-DD] | Fonte: Gemini 3.1 + Google Search
+Data: [YYYY-MM-DD] | Fonte: Gemini CLI + Google Search (OAuth Ultra)
 Status PMIDs: CANDIDATE (verificar via PubMed antes de usar)
 
 [output do Gemini limpo — estrutura original preservada]
@@ -70,7 +79,7 @@ Status PMIDs: CANDIDATE (verificar via PubMed antes de usar)
 
 ## Step 5b — Follow-up (opcional)
 
-Se gaps criticos: `gemini-research-followup` com pergunta especifica.
+Se gaps criticos: nova chamada `gemini -p "FOLLOWUP_QUESTION"` com contexto adicional.
 
 ## Arquitetura
 
@@ -78,7 +87,7 @@ Esta skill e UMA PERNA de pesquisa. O fluxo completo:
 
 ```
 /research (orquestrador)
-├── /deep-search (Gemini) ── pesquisa livre, grounding web ── ESTA SKILL
+├── /deep-search (Gemini CLI) ── pesquisa livre, grounding web ── ESTA SKILL
 ├── Claude MCPs ── PubMed, SCite, Consensus, Scholar Gateway
 └── Cruzamento ── convergencias/divergencias entre pernas, GRADE, verificacao PMID
 ```
@@ -93,3 +102,4 @@ O cruzamento entre os dois e onde a confianca real emerge.
 - **Limpeza minima.** Nao reorganizar, nao reclassificar, nao inventar.
 - **PMIDs CANDIDATE.** Sem excecao. Verificacao e trabalho do orquestrador.
 - **Materia-prima, nao produto final.** O orquestrador cruza e decide.
+- **$0 via OAuth Ultra.** Sem custo por query. Budget = 2000 req/dia.

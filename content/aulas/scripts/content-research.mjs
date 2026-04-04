@@ -10,7 +10,8 @@
  *   node scripts/content-research.mjs --aula cirrose --slide s-a1-fib4 --prompt-only
  *   node scripts/content-research.mjs --aula cirrose --slide s-a1-fib4 --fields "AUROC por etiologia;;Cutoffs age-adjusted"
  *
- * Requires: GEMINI_API_KEY env var (unless --prompt-only)
+ * Requires: GEMINI_API_KEY env var (unless --prompt-only or --cli)
+ * --cli mode uses Gemini CLI (OAuth Ultra, $0) instead of API key.
  */
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
@@ -51,6 +52,7 @@ function hasFlag(name) { return args.includes(`--${name}`); }
 const SLIDE_ID = getArg('slide', null);
 const REASON = getArg('reason', null);
 const PROMPT_ONLY = hasFlag('prompt-only');
+const CLI_MODE = hasFlag('cli');
 const FIELDS_RAW = getArg('fields', null);
 
 // J4: --help
@@ -63,8 +65,9 @@ Options:
   --reason <text>    Manual weakness reason
   --fields <path|">  Research fields file or inline (;; separator)
   --prompt-only      Print prompts without API call
+  --cli              Use Gemini CLI (OAuth, $0) instead of API key
 
-Env: GEMINI_API_KEY (required unless --prompt-only)`);
+Env: GEMINI_API_KEY (required unless --prompt-only or --cli)`);
   process.exit(0);
 }
 
@@ -108,9 +111,9 @@ const PRICING = {
 };
 function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
 
-if (!PROMPT_ONLY) {
+if (!PROMPT_ONLY && !CLI_MODE) {
   const API_KEY = process.env.GEMINI_API_KEY;
-  if (!API_KEY) { console.error('GEMINI_API_KEY not set. Use --prompt-only to skip API call.'); process.exit(1); }
+  if (!API_KEY) { console.error('GEMINI_API_KEY not set. Use --prompt-only to skip API call, or --cli for OAuth.'); process.exit(1); }
 }
 
 // ============================================================
@@ -644,7 +647,58 @@ async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 }
 }
 
 // ============================================================
-// PHASE 4: GEMINI API
+// PHASE 4a: GEMINI CLI ($0 via OAuth Ultra)
+// ============================================================
+
+async function callGeminiCLI(systemPrompt, userPrompt) {
+  const { execFileSync } = await import('node:child_process');
+  const { writeFileSync: wfs, unlinkSync, tmpdir } = await import('node:fs');
+  const { join: pjoin } = await import('node:path');
+  const os = await import('node:os');
+
+  // Write combined prompt to temp file (avoids shell escaping issues)
+  const combinedPrompt = `${systemPrompt}\n\n---\n\n${userPrompt}`;
+  const tmpFile = pjoin(os.tmpdir(), `gemini-research-${Date.now()}.txt`);
+  wfs(tmpFile, combinedPrompt, 'utf-8');
+
+  console.log(`\n2. Sending to Gemini CLI (OAuth, $0)...`);
+  const startTime = Date.now();
+
+  try {
+    const cliArgs = ['-p', `@${tmpFile}`, '-o', 'text'];
+    const output = execFileSync('gemini', cliArgs, {
+      encoding: 'utf-8',
+      timeout: 120_000,
+      maxBuffer: 10 * 1024 * 1024,
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    const text = output.trim();
+
+    if (!text) {
+      throw new Error('Gemini CLI returned empty output');
+    }
+
+    console.log(`  CLI response: ${text.length} chars | ${elapsed}s | Cost: $0 (OAuth Ultra)`);
+
+    return {
+      text,
+      inputTokens: 0,
+      outputTokens: 0,
+      thinkingTokens: 0,
+      totalCost: 0,
+      elapsed,
+      finishReason: 'CLI',
+      groundingChunks: [],
+    };
+  } finally {
+    try { unlinkSync(tmpFile); } catch {}
+  }
+}
+
+// ============================================================
+// PHASE 4b: GEMINI API (API key)
 // ============================================================
 
 async function callGemini(systemPrompt, userPrompt) {
@@ -812,7 +866,7 @@ ${groundingSources}
 
 async function main() {
   console.log(`Content Research Pipeline — ${SLIDE_ID}`);
-  console.log(`Mode: ${PROMPT_ONLY ? 'prompt-only' : 'full (Gemini API)'}\n`);
+  console.log(`Mode: ${PROMPT_ONLY ? 'prompt-only' : CLI_MODE ? 'CLI (OAuth, $0)' : 'API key'}\n`);
 
   // Phase 1: Extract
   console.log('1. Extracting slide context...');
@@ -862,8 +916,13 @@ async function main() {
     process.exit(0);
   }
 
-  // Phase 4: Call Gemini
-  const geminiResult = await callGemini(systemPrompt, userPrompt);
+  // Phase 4: Call Gemini (API key or CLI)
+  let geminiResult;
+  if (CLI_MODE) {
+    geminiResult = await callGeminiCLI(systemPrompt, userPrompt);
+  } else {
+    geminiResult = await callGemini(systemPrompt, userPrompt);
+  }
 
   // Phase 5: Save output
   const outDir = join(AULA_DIR, 'qa-screenshots', SLIDE_ID);

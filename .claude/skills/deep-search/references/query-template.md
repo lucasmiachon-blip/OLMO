@@ -1,7 +1,7 @@
-# Query Template — Gemini Deep Research v2.1
+# Query Template — Gemini Deep Search v3.0
 
-> v2.1: prompt aberto com diretiva primaria Tier 1. Gemini pesquisa livre, Claude faz limpeza minima.
-> Preencher campos `{...}` antes de chamar gemini-deep-research.
+> v3.0: prompt aberto com diretiva primaria Tier 1. Gemini pesquisa livre, Claude faz limpeza minima.
+> Preencher campos `{...}` e enviar via `gemini -p "QUERY_COMPLETA" -o text`.
 
 ---
 
@@ -92,7 +92,7 @@ Output enxuto. Materia-prima para o orquestrador, nao produto final.
 
 ## Notas
 
-- **Tempo**: ~2-5 min (assincrono)
-- **Custo**: ~$0.02-0.05 por query
-- **Follow-up**: `gemini-research-followup` para aprofundar gaps
+- **Tempo**: ~30-90s (sincrono via CLI)
+- **Custo**: $0 (OAuth Ultra, 2000 req/dia)
+- **Follow-up**: nova chamada `gemini -p "FOLLOWUP"` com contexto adicional
 - **Cross-validation**: rodar /research (Claude MCPs) em paralelo e comparar

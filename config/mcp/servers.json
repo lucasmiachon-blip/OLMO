@@ -91,10 +91,12 @@
     "gemini": {
       "command": "npx",
       "args": ["-y", "@rlabs-inc/gemini-mcp"],
-      "status": "connected",
+      "status": "removed",
+      "removed_date": "2026-04-04",
+      "migration_note": "Replaced by Gemini CLI (OAuth Ultra, $0). Deep research via 'gemini -p'. Scripts keep API key for structured output.",
       "description": "Gemini 3.1: deep research, analyze, search, summarize, image/video gen, code execution, YouTube analysis.",
       "priority": "high",
-      "cost": "$0 (via GOOGLE_AI_KEY)",
+      "cost": "was $0 (via GOOGLE_AI_KEY) → now CLI OAuth ($0)",
       "env": {
         "GOOGLE_AI_KEY": "${GOOGLE_AI_KEY}"
       }

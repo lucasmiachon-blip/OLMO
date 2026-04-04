@@ -1,0 +1,12 @@
+# Large/sensitive assets — exclude from Gemini CLI context
+assets/provas/
+assets/sap/
+
+# Build artifacts
+node_modules/
+dist/
+.git/
+
+# Temporary files
+.claude/tmp/
+*.log
