@@ -1,3 +1,7 @@
+---
+description: CHANGELOG e HANDOFF obrigatorios ao final de toda sessao
+---
+
 # Regra: Higiene de Sessao
 
 > CHANGELOG e HANDOFF sao obrigatorios ao final de toda sessao com mudancas.

@@ -25,12 +25,7 @@ Orchestrator (Opus 4.6) ─── rota, planeja, decide
 
 ## Objectives
 
-1. Digest medico semanal (PubMed→Notion)
-2. Pipeline nota/paper → MBE → Notion (GRADE, CONSORT, STROBE, PRISMA)
-3. Knowledge base: Notion (publico) + Obsidian (local) + Zotero (refs)
-4. Ensino: slideologia + AI fluency
-5. Concurso dez/2026: 120 questoes, Anki AI-driven
-6. Dev AI: curadoria 2x/semana
+MBE, ensino (slideologia), concurso R3 dez/2026, dev AI. Detalhes: `docs/ARCHITECTURE.md`.
 
 ## Tool Assignment
 
@@ -71,12 +66,9 @@ Mapa completo: `docs/TREE.md`. Entry points:
 
 ## Self-Improvement
 
-- `HANDOFF.md` atualizado a cada sessao (so pendencias, max ~30 linhas)
-- `CHANGELOG.md` append a cada sessao com commit
-- Regra: `.claude/rules/session-hygiene.md`
+- Session docs: `HANDOFF.md` (pendencias) + `CHANGELOG.md` (historico). Regra: `session-hygiene.md`
 - Hook `Stop`: verifica hygiene + reinjecta HANDOFF pos-compaction
-- `/insights` semanal → refinar rules e skills
-- `docs/ARCHITECTURE.md` → decisoes tecnicas
+- `/insights` semanal. `docs/ARCHITECTURE.md` para decisoes tecnicas
 
 ## ENFORCEMENT (recency anchor — repita antes de agir)
 

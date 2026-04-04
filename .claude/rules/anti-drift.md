@@ -46,8 +46,15 @@ Additional rules:
 
 ## Budget awareness
 
+- Resolve locally first (regex, parsing, file search, cache) before any API call.
 - Prefer the cheapest model that solves the task (Ollama → Haiku → Sonnet → Opus).
 - Batch related API calls. Avoid redundant searches.
 - Skip optional tool calls when the answer is already known.
+
+## Code quality
+
+- Type hints in all functions. Docstrings only on public functions.
+- Prefer editing existing .md files over creating new ones.
+- Tests for business logic, not boilerplate.
 
 Declare intent. Follow the plan. Implement only what was asked. When uncertain, ask.

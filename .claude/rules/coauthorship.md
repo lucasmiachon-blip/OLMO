@@ -1,3 +1,7 @@
+---
+description: Coautoria AI explicita em todo output compartilhado
+---
+
 # Regra: Coautoria AI Explicita
 
 > Toda producao AI-assistida deve explicitar quem participou.

@@ -86,18 +86,8 @@ Detalhes QA por slide: `HANDOFF.md`. Histórico: `WT-OPERATING.md` (arquivo de r
 
 ## Status
 
-| Campo | Valor |
-|-------|-------|
-| Slides | 18/18 deck completo (F1+I1+F2+I2+F3) |
-| Âncora | Valgimigli 2025 Lancet (PMID 40902613) |
-| Gates 1-4 | 18/18 PASS |
-| Scorecards 14-dim | 3/18 (F1 DONE) |
-| DONE | s-title, s-hook, s-contrato |
-| QA | s-checkpoint-1 (screenshots pendentes) |
-| LINT-PASS | 14 restantes |
-| Docs | narrative v2.5, blueprint v2.0, evidence-db v5.7 |
-| HEX navy | #162032 (decisão Lucas) |
-| Dark-bg | 6 slides (ver NOTES.md) |
+Tracking: `HANDOFF.md` (project-level) | `NOTES.md` §Fila QA (slide-level).
+18/18 slides. Âncora: Valgimigli 2025 Lancet (PMID 40902613). HEX navy: #162032.
 
 ## Display de apresentação
 
