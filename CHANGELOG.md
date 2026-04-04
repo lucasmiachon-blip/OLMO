@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 62 — 2026-04-04 (Memory Cleanup + Infra)
+
+### Memory Consolidation (40 → 21 files)
+- 9 files migrated to canonical docs: slide-rules.md (+h2 authorship, +CSS inline exception), aulas/README.md (+build pipeline, +rebuild-before-QA, +screenshot cleanup), global CLAUDE.md (+autonomy contract, +screenshots path, +notification prefs)
+- 1 redundant deleted (project_codex_doc_review_bug.md — absorbed by project_tooling_pipeline.md)
+- 5 thematic merges: living-html (2→1), metanalise (4→1), research (3→1), defensive (2→1), tooling (+2 absorbed)
+- MEMORY.md rebuilt as pure index (20 entries + quick reference)
+- Memory governance rule added to global CLAUDE.md (cap 20, creation criteria, review cadence)
+
+### Skill Merge
+- new-slide merged INTO slide-authoring v2.0: 9-surface checklist, PT-BR triggers, pre-flight, `context: fork`
+- HTML template moved to references/patterns.md section 0
+- new-slide/ directory deleted
+
+### Docs
+- hooks README rewritten: 13 active hooks documented, 4 retired removed, PostToolUseFailure warning added
+- Codex memory audit report unchanged (docs/CODEX-MEMORY-AUDIT-S61.md) — verdicts were validated manually this session
+
 ## Sessao 61 — 2026-04-04 (Codex S60 TODOs + Memory Audit)
 
 ### Lint Script Fixes (Codex S60 remainders)

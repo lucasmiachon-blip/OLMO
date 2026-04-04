@@ -1,50 +1,43 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 61 | 2026-04-04
+> Sessao 62 | 2026-04-04
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). 11 rules (5 path-scoped).
-8 hooks (.claude/hooks/) + 5 hooks (hooks/). Todos com node JSON parsing.
-Codex S60 audit 100% resolvido: 24/24 (20 fixed, 4 accepted). Report em `.archive/`.
-Codex Memory Audit S61 em andamento: 4 frames lancados (obj+adv x round1+round2).
-Round 1 objetivo completo. Demais pendentes (agents podem ter expirado).
+8 hooks (.claude/hooks/) + 5 hooks (hooks/). Docs atualizados (hooks README reescrito).
+Memory system: 20 topic files + MEMORY.md (consolidado de 39). Governance: cap 20.
+Skill merge: new-slide absorbed into slide-authoring v2.0.
 
-## PROXIMO (P0 — aulas)
+## PROXIMO (P0 — S63 planejado)
 
-1. **Metanalise QA** — 18 slides, QA visual incompleto. Deadline 2026-04-15 (~11 dias)
-2. **Construir slide s-pico** — evidence HTML pronto. Decidir h2, source-tag, speaker notes
-3. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos
+1. **Pesquisa best practices CLAUDE.md + rules** — pesquisar como projetos de referencia estruturam CLAUDE.md e rules. Avaliar se os nossos seguem melhores praticas. Melhorar onde necessario.
+2. **Codex audit batches** — mandar 2 rounds focados ao Codex (objetivo + adversarial), com prompts reestruturados: conteudo inline, pares de comparacao, criterio binario, batches de 8-10 files. Alvo: CLAUDE.md (project + global), rules/, hooks/, skills/. Validar o que acabou de ser consolidado.
 
-## PROXIMO (P1 — memory cleanup)
+## PROXIMO (P1 — aulas)
 
-4. **Cross-reference real dos 38 memory files** — Codex round 1 propoe 9 DELETE, 17 CONSOLIDATE, 3 UPDATE, 10 KEEP. Verdicts NAO validados. Cada file precisa de leitura + grep nos canonicos antes de decidir. Report: `docs/CODEX-MEMORY-AUDIT-S61.md`
-5. **Relancar Codex memory audit** — S61 lancou 4 rounds, 3 travaram. Melhor: 1 round focado, conteudo inline, batches de 8-10 files, criterio binario (ver `feedback_codex_prompting.md`)
-6. **Governance rules para memories** — cap 20 files, criterios de criacao, review cycle
-7. **MEMORY.md index** — stale, mixes status/policy/index. Reescrever como pure index apos cleanup
-8. **`.claude/hooks/README.md`** — documenta hooks deletados, faltam os 8 atuais
+3. **Metanalise QA** — 18 slides, QA visual incompleto. Deadline 2026-04-15 (~11 dias)
+4. **Construir slide s-pico** — evidence HTML pronto. Decidir h2, source-tag, speaker notes
+5. **Rodar /research em s-aplicacao** — segundo HTML, validar com dados clinicos
 
 ## PROXIMO (P2 — infra herdado)
 
-9. **h2 assertion rewrite** — 11+ slides. Lucas guia.
-10. **Merge new-slide into slide-authoring** — ultimo cleanup de skills
+6. **h2 assertion rewrite** — 11+ slides. Lucas guia.
 
 ## DECISOES ATIVAS
 
 - Living HTML per slide = source of truth. Evidence-first workflow.
-- guard-lint-before-build.sh: roda 3 linters (lint-slides + case-sync + narrative-sync). BLOQUEIA se qualquer falhar.
-- guard-product-files.sh: BLOQUEIA edits a settings.local.json e hooks/ (exit 2).
-- guard-bash-write.sh: 11 patterns, ASK (nao block). Usado para escrever hooks protegidos.
+- guard-lint-before-build.sh: roda 3 linters. BLOQUEIA se qualquer falhar.
+- guard-product-files.sh: BLOQUEIA edits a settings.local.json e hooks/.
 - QA visual = Opus (multimodal) + Gemini script. Build ANTES de QA.
-- Memory audit: NAO aceitar verdicts do Codex sem cross-reference real (file × canonical).
+- Memory governance: cap 20 files, review a cada 3 sessoes, merge antes de criar.
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - Context rot: commit + update docs antes de degradar.
 - Security gates fail-closed. NaN/negative input -> BLOCK.
-- settings.local.json e hooks/ BLOQUEADOS contra Edit/Write (bypass via Bash ask).
-- **Memory governance pendente** — nao criar novos memories ate cleanup completo.
+- settings.local.json e hooks/ BLOQUEADOS contra Edit/Write.
 
 ## PENDENTE (herdado)
 
@@ -58,4 +51,4 @@ Round 1 objetivo completo. Demais pendentes (agents podem ter expirado).
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 + Codex GPT-5.4 | 2026-04-04
+Coautoria: Lucas + Opus 4.6 | 2026-04-04
