@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 65 — 2026-04-04 (MCP + Scripts Migration)
+
+### MCP Migration
+- Gemini MCP removido: permission, server registration, status→removed
+- deep-search SKILL.md v3.0: MCP tools → gemini CLI via Bash ($0 OAuth)
+- .geminiignore criado (assets/provas, assets/sap, node_modules)
+
+### Scripts
+- content-research.mjs: `--cli` flag (Gemini CLI OAuth, $0) como alternativa ao API key
+- OAuth piggybacking inviavel (scope insuficiente) — verificado e documentado
+
+### Config
+- GEMINI.md v3.3: anti-hallucination clause (Search-Before-Cite, temporal differentiation)
+- AGENTS.md: command-first refactor, copy-pasteable audit commands
+- ~/.codex/config.toml: project_doc_fallback_filenames = ["CLAUDE.md"]
+
+### Descobertas
+- Gemini CLI Deep Research funciona via prompt (nao e endpoint separado)
+- CLI `-o json` e envelope, nao structured output com schema
+- CLI flags limitados: sem --temperature, --thinking-level, --system-instruction
+
 ## Sessao 64 — 2026-04-04 (Instalacao CLI)
 
 ### CLI Setup
