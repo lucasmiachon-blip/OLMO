@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 63 — 2026-04-04 (CLAUDE.md + Rules Audit)
+
+### Consolidacao (P0.1)
+- Merge efficiency.md + quality.md INTO anti-drift.md (11 → 9 rules)
+- Trim root CLAUDE.md: Objectives + Self-Improvement compactados (86 → 77 linhas)
+- Trim process-hygiene.md: bash snippets removidos (49 → 26 linhas)
+- Compact metanalise/CLAUDE.md status table (107 → 96 linhas)
+- Frontmatter description adicionado a coauthorship.md e session-hygiene.md
+
+### Codex Audit (P0.2)
+- Round 1A (CLAUDE.md + unscoped rules): 35 criterios, 8 FIX pendentes, 3 REJECT (FP)
+- Round 1B (path-scoped rules): 30 criterios, 2 FIX pendentes, 2 REJECT (FP)
+- Round 2 prompts preparados (adversarial + dead refs) — execucao em S64
+- Report completo: `docs/S63-AUDIT-REPORT.md`
+
+### Memory
+- feedback_anti-sycophancy.md: +Regra 4 (audit findings → report first, execute next session)
+
 ## Sessao 62 — 2026-04-04 (Memory Cleanup + Infra)
 
 ### Memory Consolidation (40 → 21 files)
