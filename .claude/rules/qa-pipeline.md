@@ -13,7 +13,7 @@ paths:
 ## 1. Execução
 
 - "Rodar QA" = apresentar plano dos gates ANTES de executar. NUNCA atalhar pipeline (E053).
-- NUNCA batch Gemini — 1 slide por ciclo QA completo.
+- NUNCA batch QA — 1 slide por ciclo completo (vale para Opus visual e Gemini script).
 - Gates são sequenciais: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
 
 ## 2. Separação de Atenção (E068)

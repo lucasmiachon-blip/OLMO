@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## Sessao 58 — 2026-04-03 (Codex Audit Fixes)
+
+### Enforcement (fixes)
+- **guard-bash-write.sh** — novo hook PreToolUse(Bash), fecha shell redirect escape (CRITICAL)
+- **guard-product-files.sh** — expandido para todas as aulas (era so cirrose), mudou block→ask
+- **check-evidence-db.sh** — removido (dead code: transcript_path nunca existiu no hook input)
+- **build-monitor.sh** — registrado em PostToolUseFailure (failure branch era dead code)
+- **settings.local.json** — 3 mudancas (add bash guard, remove evidence-db, add failure hook)
+
+### Policy (contradicoes resolvidas)
+- **metanalise/CLAUDE.md** — QA dual: Opus visual + Gemini script (era so "Gemini CLI")
+- **slide-rules.md** — aside.notes de obrigatorio→opcional (deprecated, Lucas nao usa presenter mode)
+- **design-reference.md** — "evidence-db canonico"→"living HTML canonico"
+- **qa-pipeline.md** — "NUNCA batch Gemini"→"NUNCA batch QA" (vale para ambos)
+
+### Memories (2 reescritas)
+- **feedback_mentor_autonomy.md** — autonomia condicionada a plano aprovado, CLAUDE.md e teto
+- **user_mentorship.md** — "decidir, executar, explicar depois"→"propor, explicar, executar apos OK"
+
+### Docs
+- `docs/CODEX-FIXES-S58.md` — relatorio completo (10 fixes, 6 rejeicoes justificadas)
+
 ## Sessao 57 — 2026-04-03 (Behavioral Enforcement + Codex Audit)
 
 ### Enforcement (novo)

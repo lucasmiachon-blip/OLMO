@@ -28,7 +28,7 @@ paths:
 
 **Regras estruturais:**
 - `<h2>` = asserção clínica (NUNCA rótulo genérico). `<ul>`/`<ol>` PROIBIDOS em slides.
-- `<aside class="notes">` obrigatório em TODO `<section>`.
+- `<aside class="notes">` opcional (Lucas não usa presenter mode). Manter se já existir, não exigir em slides novos.
 - NUNCA inline style com `display`/`visibility`/`opacity` no `<section>` (E07).
 - NUNCA CSS inline no HTML. Todo layout vai no `{aula}.css`, scopado por `#s-{id}`.
 - Layout vai dentro de `.slide-inner`, NUNCA no `<section>`.
@@ -55,7 +55,7 @@ Fontes: Duarte (unity), Alley (assertion-evidence), Refactoring UI (design syste
 
 - [ ] `<h2>` é asserção clínica
 - [ ] Sem `<ul>`/`<ol>` no slide
-- [ ] `<aside class="notes">` com timing e fontes
+- [ ] `<aside class="notes">` se existir: timing e fontes (opcional em slides novos)
 - [ ] `<section>` sem `style` com `display` (E07)
 - [ ] Dados numéricos verificados
 - [ ] Animações via `data-animate`, NUNCA gsap inline

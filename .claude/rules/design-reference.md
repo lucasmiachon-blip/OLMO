@@ -62,7 +62,7 @@ Hierarquia: **NNT > ARR > HR**. NNT=decisão (hero, --safe). HR=acadêmico (meno
 
 ### Regras
 - **PMIDs:** NUNCA usar PMID de LLM sem verificar em PubMed. Marcar `[CANDIDATE]` até verificado. Taxa de erro observada: **56% (5/9)** — é frequente, não excepcional (Meta E011).
-- **Propagação:** Ao corrigir PMID/dado: `grep -rn "VALOR_ANTIGO" content/aulas/{aula}/`. Atualizar TODOS no mesmo batch. evidence-db é canônico.
+- **Propagação:** Ao corrigir PMID/dado: `grep -rn "VALOR_ANTIGO" content/aulas/{aula}/`. Atualizar TODOS no mesmo batch. Living HTML por slide é canônico (substitui evidence-db.md).
 - **Verificação PMID:** Confirmar author + title + patient count. PMID errado pode ser de paper similar (mesmo journal, tema próximo).
 - **População:** Verificar população do trial. Prevenção 1ª ≠ 2ª. Trial de pop A ≠ hero de slide pop B.
 - **HR ≠ RR (E25):** HR = trial isolado. RR = meta-análise. NUNCA misturar.

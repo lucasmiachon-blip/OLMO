@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# guard-product-files.sh — BLOCK (exit 2) edits to product files, forcing human confirmation.
-# PreToolUse: Write|Edit|StrReplace
+# guard-product-files.sh — ASK confirmation before editing product files (all aulas).
+# PreToolUse: Write|Edit
 # Motivation: ERRO-053 (QA pipeline bypassed), ERRO-049 (approved elements removed)
 # Fixed S51: removed SPRINT_MODE bypass, fail-closed on parse errors, path canonicalization
+# Fixed S58: expanded from cirrose-only to all aulas, changed from block to ask
 
 set -u
 
@@ -37,20 +38,20 @@ FILE_PATH=$(echo "$FILE_PATH" | tr '\\' '/' | sed 's|//|/|g')
 # Canonicalize: remove ../ traversals
 FILE_PATH=$(echo "$FILE_PATH" | sed -E 's|[^/]+/\.\./||g; s|^\./||')
 
-# Product file patterns — cirrose production files
+# Product file patterns — all aulas (generalized)
 PRODUCT_PATTERNS=(
-  '(^|/)content/aulas/cirrose/slides/[^/]+\.html$'
-  '(^|/)content/aulas/cirrose/(cirrose|archetypes)\.css$'
-  '(^|/)content/aulas/cirrose/shared/css/base\.css$'
-  '(^|/)content/aulas/cirrose/shared/js/[^/]+\.js$'
-  '(^|/)content/aulas/cirrose/slide-registry\.js$'
-  '(^|/)content/aulas/cirrose/index\.html$'
+  '(^|/)content/aulas/[^/]+/slides/[^/]+\.html$'
+  '(^|/)content/aulas/[^/]+/[^/]+\.css$'
+  '(^|/)content/aulas/shared/css/base\.css$'
+  '(^|/)content/aulas/shared/js/[^/]+\.js$'
+  '(^|/)content/aulas/[^/]+/slide-registry\.js$'
+  '(^|/)content/aulas/[^/]+/index\.html$'
 )
 
 for pattern in "${PRODUCT_PATTERNS[@]}"; do
   if echo "$FILE_PATH" | grep -qE "$pattern"; then
-    echo "BLOQUEADO: arquivo de produto $FILE_PATH" >&2
-    exit 2
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"Produto: %s"}}\n' "$FILE_PATH"
+    exit 0
   fi
 done
 
