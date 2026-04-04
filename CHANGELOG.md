@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 64 — 2026-04-04 (Instalacao CLI)
+
+### CLI Setup
+- Gemini CLI atualizado 0.32.1 → 0.36.0, OAuth Ultra ativo (lucasmiachon87@gmail.com)
+- Codex CLI v0.118.0 confirmado, plugin codex@openai-codex ativo
+- GEMINI.md criado (global + projeto) — papel PESQUISAR, read-only
+- AGENTS.md criado (projeto) — papel VALIDAR, adversarial reviewer
+- ~/.gemini/GEMINI.md global criado (identidade, MBE, budget)
+
+### Pesquisa (3 agentes paralelos)
+- AGENTS.md best practices: comandos > prosa, <150 linhas, padrao universal emergente
+- GEMINI.md best practices: @file imports, 3 tiers concatenam, /init, .geminiignore
+- Orquestracao multi-CLI: task routing matrix, cost optimization, debate pattern
+- Google AI Ultra: 2,000 req/dia, multimodal incluso, Deep Think incluso, $0 via OAuth
+- Deep Research Agent formal: API only (nao incluso no CLI OAuth)
+
+### Pendente (plano para proxima sessao)
+- Fase 1: remover Gemini MCP (claude mcp remove gemini) — parar de gastar API key
+- Fase 2: migrar scripts (gemini-qa3.mjs, content-research.mjs) de API key → CLI OAuth
+- Fase 3: refinar GEMINI.md e AGENTS.md com achados da pesquisa
+
 ## Sessao 63 — 2026-04-04 (CLAUDE.md + Rules Audit)
 
 ### Consolidacao (P0.1)
