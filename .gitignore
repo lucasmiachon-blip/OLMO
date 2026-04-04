@@ -84,6 +84,7 @@ htmlcov/
 .claude/settings.local.json
 .claude/.session-name
 .claude/skills/*-workspace/
+.claude/skills/.archive/
 
 # Obsidian
 .obsidian/
