@@ -1,13 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 65 | 2026-04-04
+> Sessao 66 | 2026-04-04
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). 9 rules (5 path-scoped).
-Gemini MCP removido — deep-search agora via CLI ($0 OAuth Ultra).
-GEMINI.md v3.4 (skepticism mandate + backtracking + retraction check). AGENTS.md command-first.
-content-research.mjs: `--cli` flag funcional (OAuth, $0).
+Memory: 13 files, zero duplicacao com HANDOFF/CLAUDE.md. Next review S69.
+guard-pause.sh: plan files whitelisted (fix plan mode deadlock).
 
 ## P0 — BENCHMARK CLI vs API
 
@@ -24,7 +23,7 @@ content-research.mjs: `--cli` flag funcional (OAuth, $0).
 
 ## P2 — AULAS (herdado)
 
-4. Metanalise QA — 18 slides, 4 DONE, 14 pendentes. Deadline 2026-04-15 (~11 dias)
+4. Metanalise QA — 19 slides, 4 DONE, 15 pendentes. Deadline 2026-04-15 (~11 dias)
 5. Construir slide s-pico — evidence HTML pronto
 6. Rodar /research em s-aplicacao
 
@@ -33,8 +32,7 @@ content-research.mjs: `--cli` flag funcional (OAuth, $0).
 - Living HTML per slide = source of truth. Evidence-first workflow.
 - Gemini CLI (OAuth Ultra) = canal primario de pesquisa ($0, 2000 req/dia).
 - Scripts: API key como default, --cli como opt-in. Benchmark decide migracao.
-- OAuth piggybacking inviavel (scope insuficiente) — verificado S65.
-- Memory governance: cap 20 files, review a cada 3 sessoes.
+- Memory governance: cap 20 files, review a cada 3 sessoes. Next: S69.
 
 ## CUIDADOS
 

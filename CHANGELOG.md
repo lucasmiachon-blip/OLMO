@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Sessao 66 — 2026-04-04 (Memory Deep Cleanup)
+
+### Memory
+- Deep cleanup 19→13 files: eliminacao de duplicacao memory↔HANDOFF↔CLAUDE.md
+- Deletados: decisions_active (80% duplicado), facts_teaching (stale), feedback_monorepo_migration (niche S36)
+- Absorvidos em S66 fase 1: feedback_narrative_citation_format→living_html, project_nlm_research_leg→tooling, patterns_skill_design→tooling
+- Trimados: project_living_html (47→25), project_metanalise (30→21), patterns_staged_blob (29→13), project_tooling_pipeline (88→35)
+- Quick Reference reduzido a 2 items (removido tudo ja em CLAUDE.md/HANDOFF)
+
+### Hooks
+- guard-pause.sh: whitelist para `/.claude/plans/` (fix: plan mode Write bloqueado por hook)
+
 ## Sessao 65 — 2026-04-04 (MCP + Scripts Migration)
 
 ### MCP Migration

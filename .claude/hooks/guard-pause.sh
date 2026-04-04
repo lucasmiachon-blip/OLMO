@@ -18,9 +18,13 @@ FULL_PATH=$(echo "$INPUT" | node -e "
 
 FILE_PATH=$(echo "$FULL_PATH" | sed 's|.*/||')  # basename for display
 
-# Whitelist: memory files and session metadata — don't nag on these
+# Whitelist: memory files, session metadata, plan files — don't nag on these
 if echo "$FULL_PATH" | grep -q '/memory/'; then
   exit 0  # allow memory writes silently
+fi
+
+if echo "$FULL_PATH" | grep -q '/.claude/plans/'; then
+  exit 0  # allow plan file writes silently (plan mode needs this)
 fi
 
 case "$FILE_PATH" in
