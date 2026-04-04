@@ -54,6 +54,8 @@ Gate 4 atualizado: `Scorecard 14-dim (Opus visual) + gemini-qa3.mjs --editorial 
 
 **Nota critica:** O Codex (e eu inicialmente) interpretamos errado. Existem DOIS QA visuais que coexistem — Opus e Gemini script. A contradicao era na exclusividade, nao na existencia do Gemini.
 
+**Re-review S59:** Esta misinterpretação indica que premissas do audit podem ter sido mal interpretadas. Achados 1-10 foram re-verificados individualmente pelo implementador (Opus 4.6) durante S58. Nenhum outro achado apresentou interpretação incorreta.
+
 ### 5. slide-rules.md — aside.notes obrigatorio vs deprecated
 
 **Erro:** `<aside class="notes">` obrigatorio em TODO `<section>`, mas root CLAUDE.md e MEMORY.md dizem aside.notes deprecated (Lucas nao usa presenter mode).
@@ -91,6 +93,8 @@ Gate 4 atualizado: `Scorecard 14-dim (Opus visual) + gemini-qa3.mjs --editorial 
 
 **Fix:** Hook desabilitado (exit 0 imediato com comentario). Removido do settings.local.json. Arquivo mantido para referencia.
 
+**Gap preexistente (S59):** Este hook nunca funcionou — `transcript_path` nao existe no input de PreToolUse hooks. O hook SEMPRE caia no `exit 0` da linha 19. A desabilitacao apenas tornou o dead code explicito. Evidence-based claims dependem exclusivamente do system prompt (enforcement passivo).
+
 ---
 
 ## Rejeitados (nao implementados)
@@ -124,6 +128,8 @@ Gate 4 atualizado: `Scorecard 14-dim (Opus visual) + gemini-qa3.mjs --editorial 
 
 **Achado:** Memorias sem lifecycle metadata.
 **Razao da rejeicao:** 35+ memorias precisariam de datas de expiracao + manutencao recorrente. System prompt ja instrui "verify against current code before asserting as fact." Custo > beneficio.
+
+**Inconsistencia reconhecida (S59):** V2 (Memory Omission) classifica enforcement passivo como CRITICAL. Esta rejeicao depende do mesmo enforcement passivo ("system prompt instrui verify") que V2 considera insuficiente. A contradicao e real — o audit aplica criterios diferentes ao mesmo mecanismo.
 
 ---
 

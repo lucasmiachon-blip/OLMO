@@ -59,6 +59,27 @@
 
 ---
 
+## Cross-Reference: Objetivo ↔ Adversarial
+
+Os 10 achados adversariais sobrepõem os 15 objetivos (mesmo problema, perspectivas diferentes):
+
+| Adversarial | Objetivo correspondente | Fix |
+|-------------|------------------------|-----|
+| V1 Shell Escape | P0 guard-pause bypass | Fix 1 (guard-bash-write.sh) |
+| V2 Memory Omission | — (sem equivalente direto) | Rejeitado (sem UserPromptSubmit) |
+| V3 Policy Shopping | P0 mentor_autonomy + user_mentorship | Fixes 2-3 |
+| V4 Compact Drift | P1 session-compact.sh | Rejeitado (fragil) |
+| V5 Metanalise Free Zone | P0 guard-product-files.sh | Fix 8 |
+| V6 Transcript Null Pass | P0 check-evidence-db.sh | Fix 10 (dead code removido) |
+| V7 Dirty Stop | P1 stop-hygiene.sh | Rejeitado (Stop = informativo) |
+| V8 Parallel Hook Race | — (nao listado nos 15) | Rejeitado S59: hooks rodam sequencialmente por evento no Claude Code, e estes hooks sao independentes (sem data dependencies) |
+| V9 Silent Broken Build | P1 build-monitor.sh | Fix 9 S58 + Fix S59 (exit_code) |
+| V10 Stale Memory | P2 prune memorias | Rejeitado (custo > beneficio) |
+
+**Nota:** "15 objetivos + 10 adversariais" ≠ 25 achados distintos. A sobreposição é intencional — dois frames sobre os mesmos gaps.
+
+---
+
 ## Roadmap de Resolucao
 
 ### P0 — Implementar imediatamente
