@@ -1,7 +1,0 @@
-{
-  "total_tokens": 94155,
-  "duration_ms": 511058,
-  "total_duration_seconds": 511.1,
-  "tool_uses": 43,
-  "note": "Baseline research. 300 lines, 11 sections. 13 PMIDs (10 VERIFIED, 2 WEB-VERIFIED, 1 corrected). No multi-leg structure."
-}

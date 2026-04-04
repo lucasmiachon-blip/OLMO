@@ -1,7 +1,0 @@
-{
-  "total_tokens": 52120,
-  "duration_ms": 200196,
-  "total_duration_seconds": 200.2,
-  "tool_uses": 25,
-  "note": "Baseline slide evaluation. Score 3.75/5. Read slide HTML, verified sources via WebSearch."
-}

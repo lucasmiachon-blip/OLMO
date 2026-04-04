@@ -1,12 +1,14 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 59 | 2026-04-03
+> Sessao 60 | 2026-04-03
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). 11 rules (5 path-scoped).
-Hooks hardened: guard-bash-write (7 patterns), build-monitor (exit_code fix), guard-product-files (all aulas).
-Codex audit S57 FECHADO: 10 fixes + cross-reference table + 3 anotacoes criticas.
+7 hooks (6 pre-existing + 1 novo: guard-lint-before-build). Lint enforced antes de builds.
+Cleanup S60: evidence/, mbe-evidence/, literature.md removidos. 4 workspaces arquivados.
+Dream skill: ONBOARDING removido, funcionando (run 12, 2026-04-03).
+Codex dual-frame S60: objetivo + adversarial — findings pendentes review.
 
 ## PROXIMO (P0 — aulas)
 
@@ -16,12 +18,14 @@ Codex audit S57 FECHADO: 10 fixes + cross-reference table + 3 anotacoes criticas
 
 ## PROXIMO (P1 — infra)
 
-4. **Cleanup old skills** — remover evidence/, mbe-evidence/, agent literature.md
+4. **Aplicar fixes do Codex S60** — revisar findings objetivo + adversarial
 5. **h2 assertion rewrite** — 11+ slides. Lucas guia.
+6. **Merge new-slide into slide-authoring** — ultimo cleanup de skills
 
 ## DECISOES ATIVAS
 
 - Living HTML per slide = source of truth. Evidence-first workflow.
+- guard-lint-before-build.sh: BLOQUEIA builds se lint-slides.js falhar.
 - guard-pause.sh: "ask" em todo Edit/Write (exceto memory files).
 - guard-bash-write.sh: "ask" em shell redirects + curl -o + wget -O + python -c.
 - guard-product-files.sh: "ask" em todas as aulas (generalizado, sem FROZEN).

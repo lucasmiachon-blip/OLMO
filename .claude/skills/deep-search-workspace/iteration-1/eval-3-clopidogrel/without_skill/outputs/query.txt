@@ -1,9 +1,0 @@
-Clopidogrel versus aspirin for secondary prevention of ischemic stroke: comprehensive evidence review.
-
-Specifically address:
-1. CAPRIE trial (1996) — design, primary endpoint, stroke subgroup results, absolute risk reduction, NNT for stroke patients specifically, and limitations/criticisms of the trial.
-2. Subsequent meta-analyses comparing clopidogrel vs aspirin monotherapy in secondary stroke prevention (post-CAPRIE), including any Cochrane reviews or individual patient data meta-analyses. Report effect sizes, confidence intervals, NNT where available.
-3. Current guideline divergence between ESC/ESOC European guidelines and AHA/ASA American guidelines regarding antiplatelet choice after ischemic stroke — what does each recommend as first-line, what class/level of evidence, and what is the rationale for any differences?
-4. Cost-effectiveness data and real-world evidence that may explain guideline divergence (e.g., generic clopidogrel availability timeline, CYP2C19 pharmacogenomics considerations).
-5. DAPT (dual antiplatelet) trials (CHANCE, POINT, THALES) — how do these affect the monotherapy clopidogrel vs aspirin comparison?
-6. Any 2023-2026 updates or ongoing trials that may shift the evidence landscape.
