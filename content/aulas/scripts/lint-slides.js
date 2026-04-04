@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const root = join(__dirname, '..');
+const aula = process.argv[2];  // optional: scope to single aula
 let errors = 0;
 let warnings = 0;
 
@@ -229,9 +230,10 @@ function checkCssBalance(file, content) {
 // ============================================
 console.log('🔍 Linting slides (v6)...\n');
 
-const htmlFiles = walk(root, '.html');
+const scanRoot = aula ? join(root, aula) : root;
+const htmlFiles = walk(scanRoot, '.html');
 const sharedCssFiles = walk(join(root, 'shared'), '.css');
-const aulaCssFiles = walk(root, '.css');
+const aulaCssFiles = walk(scanRoot, '.css');
 
 htmlFiles.forEach(f => checkHtml(f, readFileSync(f, 'utf-8')));
 // Token checks (COLOR/HEX) only for shared/ — aula CSS uses oklch() legitimately

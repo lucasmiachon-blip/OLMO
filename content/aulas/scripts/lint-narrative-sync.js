@@ -12,7 +12,7 @@
  *   5. forbidEarlyReveal: checkpoint must come AFTER its act's setup slides
  *
  * Usage: node scripts/lint-narrative-sync.js [aula]
- *   aula defaults to "cirrose"
+ *   aula auto-detected from feat/*-mvp branch, or required as argv[2]
  */
 import { readFileSync, existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
@@ -30,7 +30,8 @@ function detectAula() {
     const match = branch.match(/^feat\/([\w-]+)-mvp$/);
     if (match) return match[1];
   } catch {}
-  return 'cirrose';
+  console.error('Error: no aula specified. Usage: node scripts/lint-narrative-sync.js <aula>');
+  process.exit(1);
 }
 const aula = detectAula();
 const aulaDir = join(root, aula);

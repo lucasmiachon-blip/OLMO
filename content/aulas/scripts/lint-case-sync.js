@@ -159,11 +159,6 @@ function compare(caseStates, manifestStates) {
       err(`CASE.md: ${cpId} not found`);
       continue;
     }
-    if (!manCp) {
-      err(`_manifest.js: ${cpId} not found in panelStates`);
-      continue;
-    }
-
     // Compare severity
     if (caseCp.severity !== manCp.severity) {
       err(`${cpId} severity: CASE.md="${caseCp.severity}" vs _manifest.js="${manCp.severity}"`);
