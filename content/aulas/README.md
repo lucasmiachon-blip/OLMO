@@ -135,3 +135,24 @@ Seguranca Notion: `.claude/rules/mcp_safety.md`
 | Assets visuais | Canva Pro (MCP) |
 
 Ver `STRATEGY.md` para roadmap completo.
+
+## Build + QA Protocol
+
+### Pipeline de build (sequencia obrigatoria)
+
+1. Editar `content/aulas/{aula}/slides/*.html` (arquivos individuais)
+2. Atualizar `slides/_manifest.js` (headline, timing, metadata)
+3. Rodar `npm run build:{aula}` (ex: `npm run build:metanalise`)
+4. Verificar no browser com Ctrl+Shift+R (hard reload)
+
+`index.html` e arquivo gerado — hook `guard-generated.sh` bloqueia edits diretos. Editar o index = perder mudancas no proximo rebuild.
+
+### Rebuild antes de QA
+
+SEMPRE `npm run build:{aula}` ANTES de `qa-batch-screenshot.mjs`. O Vite serve `index.html` (build output), nao os slides individuais. Se o build nao rodou apos a ultima edicao, QA mostra conteudo stale. Checar tambem que `_manifest.js` headlines estejam sync com `slides/*.html` h2.
+
+### Screenshots QA
+
+- Nome com timestamp: `s-rs-vs-ma_2026-04-02T23-15.png`
+- Deletar todos os PNGs do slide apos QA concluido e Lucas aprovar
+- NUNCA commitar screenshots de QA — artefatos temporarios

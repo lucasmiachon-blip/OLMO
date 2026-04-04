@@ -2,6 +2,32 @@
 
 Concrete HTML examples from the OLMO design system. Each pattern is a starting point — adapt layout freely using CSS Grid/Flex scoped by `#s-{id}`.
 
+## 0. New Slide Template
+
+Base template for creating a new slide from scratch:
+
+```html
+<section id="s-[id]">
+  <div class="slide-inner">
+    <p class="section-tag">[BLOCO: A1 / A2 / A3 / APP]</p>
+    <h2>[AFIRMACAO CLINICA COMPLETA — frase verificavel]</h2>
+    <div class="evidence" data-animate="fadeUp">
+      <!-- evidencia visual: grafico, tabela, numero-chave, diagrama -->
+    </div>
+    <cite class="source-tag">Autor et al. Journal Ano;Vol:Pags. PMID: XXXXX</cite>
+  </div>
+  <aside class="notes">
+    [TEMPO: ~90s]
+    Falar: ...
+    Enfase: ...
+    [DATA] Fonte: | Verificado: AAAA-MM-DD
+    Transicao: proximo slide aborda ...
+  </aside>
+</section>
+```
+
+Rules: `<h2>` = complete claim, zero `<ul>/<ol>`, body <= 30 words, PMID required, OKLCH tokens only, `data-animate` only.
+
 ## 1. Assertion + Data Cards
 
 Two or three metric cards supporting the headline assertion.

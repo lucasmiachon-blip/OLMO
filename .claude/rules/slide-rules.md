@@ -28,9 +28,10 @@ paths:
 
 **Regras estruturais:**
 - `<h2>` = asserção clínica (NUNCA rótulo genérico). `<ul>`/`<ol>` PROIBIDOS em slides.
+- **h2 = trabalho do Lucas.** NUNCA reescrever h2 automaticamente. Flaggear h2 genéricos como "precisa rewrite do Lucas" mas não propor texto. Se Lucas pedir ajuda: oferecer opções como sugestão, nunca como decisão.
 - `<aside class="notes">` opcional (Lucas não usa presenter mode). Manter se já existir, não exigir em slides novos.
 - NUNCA inline style com `display`/`visibility`/`opacity` no `<section>` (E07).
-- NUNCA CSS inline no HTML. Todo layout vai no `{aula}.css`, scopado por `#s-{id}`.
+- NUNCA CSS inline no HTML — exceto `opacity:0` para GSAP init state (pragmático). Inline complexo (layout, cor, fontes) permanece proibido. Todo layout vai no `{aula}.css`, scopado por `#s-{id}`.
 - Layout vai dentro de `.slide-inner`, NUNCA no `<section>`.
 
 ## 1b. CSS — Tokens + Composição Livre
