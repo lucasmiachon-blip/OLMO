@@ -38,6 +38,22 @@ FILE_PATH=$(echo "$FILE_PATH" | tr '\\' '/' | sed 's|//|/|g')
 # Canonicalize: remove ../ traversals
 FILE_PATH=$(echo "$FILE_PATH" | sed -E 's|[^/]+/\.\./||g; s|^\./||')
 
+# CRITICAL GUARD: Block edits to hook infrastructure (A6 — Codex S60)
+# These files control the guard system itself. Editing them disables all protection.
+INFRA_BLOCK_PATTERNS=(
+  '(^|/)\.claude/settings\.local\.json$'
+  '(^|/)\.claude/settings\.json$'
+  '(^|/)\.claude/hooks/[^/]+\.sh$'
+  '(^|/)hooks/[^/]+\.sh$'
+)
+
+for pattern in "${INFRA_BLOCK_PATTERNS[@]}"; do
+  if echo "$FILE_PATH" | grep -qE "$pattern"; then
+    printf '{"error": "BLOQUEADO: %s e infraestrutura de seguranca. Edite manualmente se necessario."}\n' "$(echo "$FILE_PATH" | sed 's|.*/||')"
+    exit 2
+  fi
+done
+
 # Product file patterns — all aulas (generalized)
 PRODUCT_PATTERNS=(
   '(^|/)content/aulas/[^/]+/slides/[^/]+\.html$'
@@ -46,6 +62,7 @@ PRODUCT_PATTERNS=(
   '(^|/)content/aulas/shared/js/[^/]+\.js$'
   '(^|/)content/aulas/[^/]+/slide-registry\.js$'
   '(^|/)content/aulas/[^/]+/index\.html$'
+  '(^|/)content/aulas/[^/]+/slides/_manifest\.js$'
 )
 
 for pattern in "${PRODUCT_PATTERNS[@]}"; do
