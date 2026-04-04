@@ -54,8 +54,8 @@ while IFS= read -r file; do
 
   # Block symlinks in staged files (mode 120000 = symlink)
   if git ls-files -s "$file" 2>/dev/null | grep -q "^120"; then
-    echo "⚠ guard-secrets: BLOCKED symlink in staged files: $file"
-    exit 1
+    printf '{"error": "BLOQUEADO: symlink em staged files: %s"}\n' "$file"
+    exit 2
   fi
 
   # Skip binários
@@ -70,8 +70,8 @@ while IFS= read -r file; do
 
   # Block .env files by filename (secrets by definition)
   if [[ "$file" == .env || "$file" == .env.* || "$file" == */.env || "$file" == */.env.* ]]; then
-    echo "BLOQUEADO: .env file staged: $file (use .env.example for templates)" >&2
-    exit 1
+    printf '{"error": "BLOQUEADO: .env file staged: %s (use .env.example for templates)"}\n' "$file"
+    exit 2
   fi
 
   # Read staged blob content (not working-tree)

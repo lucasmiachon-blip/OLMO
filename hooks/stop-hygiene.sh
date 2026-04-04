@@ -14,8 +14,9 @@ CHANGED=$(cd "$PROJECT_ROOT" && git diff --name-only 2>/dev/null | wc -l)
 STAGED=$(cd "$PROJECT_ROOT" && git diff --cached --name-only 2>/dev/null | wc -l)
 
 if [ "$((CHANGED + STAGED))" -gt 0 ]; then
-  H_MOD=$(cd "$PROJECT_ROOT" && git diff --name-only -- HANDOFF.md 2>/dev/null | wc -l)
-  C_MOD=$(cd "$PROJECT_ROOT" && git diff --name-only -- CHANGELOG.md 2>/dev/null | wc -l)
+  # Check both unstaged AND staged changes (Codex S60 O11)
+  H_MOD=$(cd "$PROJECT_ROOT" && { git diff --name-only -- HANDOFF.md 2>/dev/null; git diff --cached --name-only -- HANDOFF.md 2>/dev/null; } | wc -l)
+  C_MOD=$(cd "$PROJECT_ROOT" && { git diff --name-only -- CHANGELOG.md 2>/dev/null; git diff --cached --name-only -- CHANGELOG.md 2>/dev/null; } | wc -l)
 
   if [ "$H_MOD" -eq 0 ] || [ "$C_MOD" -eq 0 ]; then
     echo "SESSION-HYGIENE WARNING:"

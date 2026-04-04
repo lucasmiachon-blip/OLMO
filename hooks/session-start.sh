@@ -11,8 +11,8 @@ SESSION_FILE="$PROJECT_ROOT/.claude/.session-name"
 # Limpar nome da sessao anterior
 rm -f "$SESSION_FILE"
 
-# Proximo numero de sessao (conta sessoes no CHANGELOG)
-LAST_SESSION=$(grep -o 'Sessao [0-9]*' "$PROJECT_ROOT/CHANGELOG.md" 2>/dev/null | head -1 | grep -o '[0-9]*')
+# Proximo numero de sessao — take max (not first match) to avoid regression (Codex S60 O10)
+LAST_SESSION=$(grep -o 'Sessao [0-9]*' "$PROJECT_ROOT/CHANGELOG.md" 2>/dev/null | grep -o '[0-9]*' | sort -n | tail -1)
 NEXT_SESSION=$((LAST_SESSION + 1))
 
 cat <<EOF

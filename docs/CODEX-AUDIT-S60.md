@@ -9,27 +9,27 @@
 |---|-----|---------|--------|
 | O1 | HIGH | guard-generated.sh fail-open on bad JSON | [x] FIXED B2 |
 | O2 | MED | guard-product-files.sh missing _manifest.js | [x] FIXED B1 |
-| O3 | MED | guard-secrets.sh exit 1 instead of exit 2 | [ ] |
+| O3 | MED | guard-secrets.sh exit 1 instead of exit 2 | [x] FIXED B3 |
 | O4 | HIGH | guard-bash-write.sh JSON truncation (sed) | [x] FIXED B2 |
-| O5 | HIGH | guard-bash-write.sh missing cp/mv/dd/install/rsync/perl | [ ] |
+| O5 | HIGH | guard-bash-write.sh missing cp/mv/dd/install/rsync/perl | [x] FIXED B3 |
 | O6 | HIGH | guard-lint-before-build.sh only runs lint-slides | [ ] |
 | O7 | HIGH | guard-lint-before-build.sh same JSON parsing fragility | [x] FIXED B2 |
 | O8 | MED | build-monitor.sh no aula resolution for build-html.ps1 | [ ] |
 | O9 | MED | build-monitor.sh writes NOTES.md outside guard path | [ ] |
-| O10 | LOW | session-start.sh session number regression | [ ] |
-| O11 | MED | stop-hygiene.sh ignores staged changes | [ ] |
+| O10 | LOW | session-start.sh session number regression | [x] FIXED B3 |
+| O11 | MED | stop-hygiene.sh ignores staged changes | [x] FIXED B3 |
 | O12 | HIGH | Bash(*) broad permission despite incomplete guards | [ ] |
 | O13 | HIGH | lint-slides.js ignores --aula argument | [ ] |
 | O14 | LOW | lint-case-sync.js unreachable branch | [ ] |
 | O15 | MED | lint-narrative-sync.js silent default to cirrose | [ ] |
 | O16 | LOW | guard-pause.sh whitelist inconsistency file_path vs path | [x] FIXED B2 |
-| A1 | HIGH | Tool choice bypass: cp/mv/dd bypass guards | [ ] |
+| A1 | HIGH | Tool choice bypass: cp/mv/dd bypass guards | [x] FIXED B3 |
 | A2 | HIGH | Pattern evasion: JSON truncation hides writes | [x] FIXED B2 |
 | A3 | HIGH | Symlink traversal bypasses path guards | [ ] |
 | A4 | HIGH | Fail-open: malformed JSON disables 4 guards | [x] FIXED B2 |
 | A6 | **CRIT** | Config attack: Edit settings.local.json removes hooks | [x] FIXED B1 |
 | A8 | MED | Compaction exploit: post-compact loses rules | [ ] |
-| A9 | HIGH | Script evasion: npm run build / npx vite build bypass | [ ] |
+| A9 | HIGH | Script evasion: npm run build / npx vite build bypass | [x] FIXED B2 |
 | A10 | **CRIT** | Secret exfiltration: Read .env + WebFetch | [x] FIXED B1 |
 
 Note: A5 (race conditions) and A7 (memory poisoning) had no proven PoC — excluded.

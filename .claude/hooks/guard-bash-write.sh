@@ -71,5 +71,29 @@ if echo "$CMD" | grep -qE 'python3?\s+-c\b'; then
   exit 0
 fi
 
+# Pattern 8: cp/mv/install/rsync — file copy/move primitives (Codex S60 O5/A1)
+if echo "$CMD" | grep -qE '\b(cp|mv|install|rsync)\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"File copy/move detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 9: dd — raw block copy
+if echo "$CMD" | grep -qE '\bdd\b.*\bof='; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"dd of= detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 10: perl -pi (in-place edit) / ruby -e with File.write
+if echo "$CMD" | grep -qE '(perl\s+-[a-zA-Z]*p[a-zA-Z]*i|perl\s+-i|ruby\s+-e)'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"perl/ruby inline edit detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 11: Node.js fs.promises.writeFile / fs.appendFile (Codex S60 A2 evasion)
+if echo "$CMD" | grep -qE '(fs\.promises\.writeFile|fs\.appendFile|fs\.createWriteStream)'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"Node.js fs write detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
 # No write pattern — allow silently
 exit 0
