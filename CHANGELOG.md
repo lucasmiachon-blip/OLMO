@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 61 — 2026-04-04 (Codex S60 TODOs + Memory Audit)
+
+### Lint Script Fixes (Codex S60 remainders)
+- **O13**: lint-slides.js aceita aula arg (process.argv[2]) — scopa ao dir da aula
+- **O15**: lint-narrative-sync.js erro explícito quando sem aula (era silent default cirrose)
+- **O14**: lint-case-sync.js remoção de dead branch (if !manCp unreachable)
+- **O8**: triado como low-impact (log-only), ACCEPTED
+
+### Hook Fix
+- **O6**: guard-lint-before-build.sh roda 3 linters (era só lint-slides.js)
+- Positional arg (consistente com scripts), acumula falhas, bloqueia se qualquer falhar
+
+### Audit
+- Codex S60 audit 100% resolvido: 24/24 findings (20 fixed, 4 accepted)
+- `docs/CODEX-AUDIT-S60.md` → `.archive/` (completo)
+- Codex Memory Audit iniciado (4 frames: obj+adv × round1+round2). Report parcial em `docs/CODEX-MEMORY-AUDIT-S61.md`
+
 ## Sessao 60 — 2026-04-03 (Hardening + Cleanup + Codex Dual-Frame)
 
 ### Cleanup
