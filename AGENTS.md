@@ -14,6 +14,11 @@ Both are READ-ONLY. Report findings. Do NOT implement fixes or edit files.
 # Audit config consistency
 ruff check . && mypy agents/ && pytest tests/
 
+# Lint slides (3 gates — enforced by guard-lint-before-build.sh)
+node content/aulas/scripts/lint-slides.js cirrose
+node content/aulas/scripts/lint-case-sync.js cirrose
+node content/aulas/scripts/lint-narrative-sync.js cirrose
+
 # Find stale references
 grep -rn "CANDIDATE" content/aulas/
 
@@ -30,7 +35,10 @@ git ls-files --others --exclude-standard
 ls -la .claude/hooks/ hooks/
 
 # Validate CSS import order
-node content/aulas/scripts/validate-css.sh
+bash content/aulas/scripts/validate-css.sh
+
+# Definition of Done (per-aula)
+node content/aulas/scripts/done-gate.js cirrose
 ```
 
 ## Codex: Adversarial Review Standards
@@ -52,6 +60,16 @@ Lucas is a beginner developer who accepts model decisions passively. Catch what 
 | Policy | CLAUDE.md violations, hook bypass, MCP safety gaps |
 | Medical data | broken PMIDs, unverified numbers, missing sources |
 
+### Behavioral Heuristics (complement to scope above)
+
+- **Confirmation inertia**: Is the model just agreeing with Lucas? Check for 3+ consecutive agreements without a single objection or risk raised. (See: `feedback_anti-sycophancy.md`)
+- **Context drift**: Do new rules/changes contradict `CLAUDE.md`, `GEMINI.md`, or existing `.claude/rules/`? Cross-file diff required. (See: `anti-drift.md`)
+- **Evidence integrity**: Cross-validate PMIDs against `evidence-db.md` and PubMed. LLM-generated PMIDs have ~56% error rate. (See: `reference-checker.md`)
+
+### Validated Workflow (S50-S51)
+
+Model A (GPT-5.4) generates findings → Model B (Opus) validates against code → Human triages → Fix confirmed TRUE only. FP rate: ~8% (3/38). Without validation: ~30% FP.
+
 ### Output Format
 
 ```
@@ -64,9 +82,11 @@ P0 = security/data integrity. P1 = correctness. P2 = quality.
 
 ### Previous Audits (skip fixed issues)
 
-- `docs/S63-AUDIT-REPORT.md` — Round 1
-- `docs/CODEX-AUDIT-S57.md` — Behavioral enforcement
-- `docs/CODEX-FIXES-S58.md` — Security fixes
+- `docs/CODEX-AUDIT-S57.md` — Behavioral enforcement (15 objective + 10 adversarial)
+- `docs/CODEX-FIXES-S58.md` — 10 fixes applied, 6 rejected with justification
+- `.archive/CODEX-AUDIT-S60.md` — Security hardening (16 objective + 8 adversarial)
+- `docs/CODEX-MEMORY-AUDIT-S61.md` — Memory consolidation audit
+- `.claude/tmp/codex-round2a.md` — Round 2 queued (cross-file contradictions)
 
 ## Gemini: Research Standards
 

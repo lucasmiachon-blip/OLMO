@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## Sessao 67 — 2026-04-04 (GEMINI.md v3.5 + AGENTS.md Hardening)
+
+### GEMINI.md v3.5 (6 fixes do Codex audit)
+- P0: anti-hallucination reescrito — `google_web_search` → grounding-or-flag protocol
+- P0: safe harbor temporal removido — verificacao obrigatoria independente do ano
+- P0: trigger ampliado — "antes de qualquer claim factual" (nao so DOI/PMID)
+- P1: Model Configuration removido (temperature/thinking-level nao sao flags CLI)
+- P1: `<reasoning_path>` → `<analysis_summary>` com counter_evidence-first ordering
+- P1: multimodal wishlist → capability matrix concreta (limites honestos)
+
+### AGENTS.md (melhorias incrementais)
+- Proposta "Adversarial Gatekeeper" rejeitada apos pesquisa (ferramentas fabricadas, anti-patterns)
+- Adicionadas 3 heuristicas comportamentais como complemento (nao substituicao)
+- Workflow validado documentado (S50-S51: 8% FP rate)
+- Quick Commands atualizados (3 lint gates, done-gate, validate-css.sh fix)
+- Previous Audits: paths corrigidos, S60/S61/Round 2 adicionados
+
+### Hooks
+- allow-plan-exit.sh: PreToolUse hook para ExitPlanMode (workaround bug Claude Code)
+
+### Cleanup
+- Arquivados: CODEX-AUDIT-S57.md, CODEX-FIXES-S58.md, CODEX-MEMORY-AUDIT-S61.md, BEST_PRACTICES.md → .archive/
+- S63-AUDIT-REPORT.md mantido (8 fixes pendentes)
+
 ## Sessao 66 — 2026-04-04 (Memory Deep Cleanup)
 
 ### Memory
