@@ -59,7 +59,10 @@ Fontes: Duarte (unity), Alley (assertion-evidence), Refactoring UI (design syste
 - [ ] `<aside class="notes">` se existir: timing e fontes (opcional em slides novos)
 - [ ] `<section>` sem `style` com `display` (E07)
 - [ ] Dados numéricos verificados
+- [ ] `.source-tag`: formato Autor Ano. Recurso conhecido entre parênteses se relevante. Lucas avisa exceções
 - [ ] Animações via `data-animate`, NUNCA gsap inline
+- [ ] Editar `slides/{file}.html` E `index.html` (deck.js lê index, não fonte)
+- [ ] CSS per-slide: `section#s-{id}` (não `#s-{id}`) — base rule tem specificity 0,1,1,1
 
 **Batch:** Max 5 slides por batch.
 
