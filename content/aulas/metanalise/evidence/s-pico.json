@@ -10,8 +10,7 @@
   "grade": [],
 
   "numeros": [
-    {"metric": "Downgrade por indirectness (Cochrane cirurgicas)", "value": "12.26%", "ci": "26/212 desfechos", "timeframe": "", "population": "Revisoes Cochrane de intervencoes cirurgicas para fraturas", "pmid": "Gemini deep-search [CANDIDATE]", "risco_basal": ""},
-    {"metric": "Inflacao de effect size: superioridade vs NI-RCTs (mesmo PICO)", "value": "ratio 1.47", "ci": "1.27-1.70", "timeframe": "2026", "population": "Meta-analises com trials de superioridade e nao-inferioridade", "pmid": "Jia et al. Ann Intern Med 2026 DOI:10.7326/ANNALS-25-01344 [CANDIDATE]", "risco_basal": ""}
+    {"metric": "Downgrade por indirectness (Cochrane cirurgicas)", "value": "~12%", "ci": "26/212 desfechos", "timeframe": "", "population": "Revisoes Cochrane de intervencoes cirurgicas para fraturas", "pmid": "Gemini deep-search [CANDIDATE] — PMID nao localizado, dado nao verificavel", "risco_basal": ""}
   ],
 
   "sugestoes": {
@@ -47,6 +46,9 @@
     {"termo": "Target PICO vs Study PICO", "definicao": "Conceito central do Core GRADE 5: o avaliador especifica SEU PICO-alvo e compara com o PICO de cada estudo. Discrepancia = indirectness.", "nota": "Guyatt et al. BMJ 2025;389:e083865. PMID 40393729 [VERIFIED]."},
     {"termo": "Treatment switching", "definicao": "Pacientes do braco comparador recebem a intervencao durante o trial. Constitui indirectness de comparador.", "nota": "Goldkuhle et al. J Clin Epidemiol 2023;159:40-48. PMID 37146659 [VERIFIED]."},
     {"termo": "PICOS", "definicao": "Extensao do PICO que adiciona Study design (S). Util para definir criterios de elegibilidade.", "nota": "Amir-Behghadami & Janati. Emerg Med J 2020;37(6):387. PMID 32253195 [VERIFIED]. 760+ citacoes."},
+    {"termo": "Tautologia da generalizacao", "definicao": "Afirmar que resultados se aplicam a 'populacoes comparaveis' sem definir quais sao. Definicao precisa mas inutil — a aplicabilidade real fica sujeita ao julgamento subjetivo do leitor.", "nota": "Borenstein M. Introduction to Meta-Analysis, 2nd ed. Wiley, 2021, Cap. 25. Fonte: NotebookLM (Metanalise)."},
+    {"termo": "PICOT", "definicao": "Extensao do PICO que adiciona Timeframe (T). Explicita o horizonte temporal do desfecho (ex: mortalidade em 30 dias vs 1 ano). Comum em guidelines de formulacao de perguntas clinicas.", "nota": "Fineout-Overholt & Johnston. Worldviews Evid Based Nurs 2005;2(3):157-60. PMID 17040536 [VERIFIED]. Variante mais usada em enfermagem baseada em evidencias."},
+    {"termo": "SPIDER", "definicao": "Sample, Phenomenon of Interest, Design, Evaluation, Research type. Alternativa ao PICO para pesquisa qualitativa e metodos mistos, onde 'intervencao' e 'comparador' nao se aplicam.", "nota": "Cooke A, Smith D, Booth A. Qual Health Res 2012;22(10):1435-43. PMID 22829486 [VERIFIED]. Melhor especificidade que PICO para estudos qualitativos."},
     {"termo": "Validade externa", "definicao": "Grau em que os resultados de um estudo podem ser generalizados para outras populacoes, cenarios e condicoes.", "nota": "Sinonimo parcial: applicability, generalizability, transferability. O GRADE prefere 'indirectness' ao inves de 'validade externa'."}
   ],
 
@@ -56,7 +58,9 @@
     {"autor": "Guyatt G, Iorio A, De Beer H, et al.", "ano": 2025, "titulo": "Core GRADE 5: rating certainty of evidence — assessing indirectness", "revista": "BMJ", "pmid": "40393729", "status": "VERIFIED", "principal": true},
     {"autor": "Goldkuhle M, Guyatt GH, Kreuzberger N, et al.", "ano": 2023, "titulo": "GRADE concept 4: Rating the certainty of evidence when study interventions or comparators differ from PICO targets", "revista": "J Clin Epidemiol", "pmid": "37146659", "status": "VERIFIED", "principal": false},
     {"autor": "Balshem H, Helfand M, Schunemann HJ, et al.", "ano": 2011, "titulo": "GRADE guidelines: 3. Rating the quality of evidence", "revista": "J Clin Epidemiol", "pmid": "21208779", "status": "VERIFIED", "principal": false},
-    {"autor": "Amir-Behghadami M, Janati A", "ano": 2020, "titulo": "Population, Intervention, Comparison, Outcomes and Study (PICOS) design as a framework to formulate eligibility criteria in systematic reviews", "revista": "Emerg Med J", "pmid": "32253195", "status": "VERIFIED", "principal": false}
+    {"autor": "Amir-Behghadami M, Janati A", "ano": 2020, "titulo": "Population, Intervention, Comparison, Outcomes and Study (PICOS) design as a framework to formulate eligibility criteria in systematic reviews", "revista": "Emerg Med J", "pmid": "32253195", "status": "VERIFIED", "principal": false},
+    {"autor": "Fineout-Overholt E, Johnston L", "ano": 2005, "titulo": "Teaching EBP: asking searchable, answerable clinical questions", "revista": "Worldviews Evid Based Nurs", "pmid": "17040536", "status": "VERIFIED", "principal": false},
+    {"autor": "Cooke A, Smith D, Booth A", "ano": 2012, "titulo": "Beyond PICO: the SPIDER tool for qualitative evidence synthesis", "revista": "Qual Health Res", "pmid": "22829486", "status": "VERIFIED", "principal": false}
   ],
 
   "coautoria": "Lucas + Opus 4.6 (orquestrador) + Gemini 3.1 (deep-search) + PubMed MCP + Consensus MCP + SCite MCP"

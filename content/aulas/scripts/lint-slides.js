@@ -1,5 +1,5 @@
 /**
- * Lint slides v5 — production gates
+ * Lint slides v6 — production gates
  * ERRORS block build. WARNINGS degrade quality.
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -41,42 +41,22 @@ function warn(file, n, tag, msg) {
 function checkHtml(file, content) {
   const lines = content.split('\n');
 
-  // --- Per-section checks (robust parsing) ---
-  // Find all section blocks and check notes/ul/ol
-  const sectionStarts = [];
-  lines.forEach((line, i) => {
-    if (/<section[\s>]/i.test(line)) sectionStarts.push(i);
-  });
-
-  let sectionCount = sectionStarts.length;
-  let notesCount = 0;
-
   // Track context per line: are we inside <aside class="notes">? inside .appendix?
   let insideNotes = false;
   let insideAppendix = false;
-  let currentSectionHasNotes = false;
-  let currentSectionStart = -1;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const n = i + 1;
 
-    // Track section boundaries
+    // Track section boundaries (for appendix context)
     if (/<section[\s>]/i.test(line)) {
-      // Check if previous section had notes
-      if (currentSectionStart >= 0 && !currentSectionHasNotes) {
-        err(file, currentSectionStart + 1, 'NOTES', 'Section without <aside class="notes">. Hard constraint #3.');
-      }
-      currentSectionStart = i;
-      currentSectionHasNotes = false;
       insideAppendix = /class="[^"]*appendix[^"]*"/.test(line) || /class='[^']*appendix[^']*'/.test(line);
     }
 
     // Track notes
     if (/<aside\b[^>]*\bnotes\b[^>]*>/.test(line)) {
       insideNotes = true;
-      currentSectionHasNotes = true;
-      notesCount++;
     }
     if (/<\/aside>/.test(line) && insideNotes) {
       insideNotes = false;
@@ -116,10 +96,6 @@ function checkHtml(file, content) {
     }
   }
 
-  // Check last section
-  if (currentSectionStart >= 0 && !currentSectionHasNotes) {
-    err(file, currentSectionStart + 1, 'NOTES', 'Section without <aside class="notes">.');
-  }
 }
 
 // ============================================

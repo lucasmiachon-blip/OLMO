@@ -66,13 +66,15 @@ Options:
   --fields <path|">  Research fields file or inline (;; separator)
   --prompt-only      Print prompts without API call
   --cli              Use Gemini CLI (OAuth, $0) instead of API key
+  --nlm              Also query NotebookLM (3 progressive queries, additive)
 
-Env: GEMINI_API_KEY (required unless --prompt-only or --cli)`);
+Env: GEMINI_API_KEY (required unless --prompt-only or --cli)
+NLM: requires prior auth (PYTHONIOENCODING=utf-8 nlm login)`);
   process.exit(0);
 }
 
 if (!SLIDE_ID) {
-  console.error('Usage: node content-research.mjs --slide <id> [--reason "..."] [--fields <file.md|"inline;;fields">] [--prompt-only]');
+  console.error('Usage: node content-research.mjs --slide <id> [--reason "..."] [--fields <file.md|"inline;;fields">] [--prompt-only] [--nlm]');
   process.exit(1);
 }
 
@@ -96,6 +98,15 @@ if (FIELDS_RAW) {
     console.log(`[fields] Inline mode: ${RESEARCH_FIELDS_TEXT.split('\n').length} fields`);
   }
 }
+
+const NLM_FLAG = hasFlag('nlm');
+
+// NLM notebook IDs — verified S71
+const NLM_NOTEBOOKS = {
+  metanalise: 'a274cffb-8f41-4015-8b9b-abf81c6b260a',
+  cirrose:    '2660b1fe-3e01-4e5e-91ef-be060f2e1733',
+  mbe:        '635af766-82ee-454e-b550-f0c4c8120bbd',
+};
 
 const MODEL = process.env.GEMINI_MODEL || 'gemini-3.1-pro-preview';
 const BASE = 'https://generativelanguage.googleapis.com';
@@ -791,22 +802,156 @@ async function callGemini(systemPrompt, userPrompt) {
 }
 
 // ============================================================
+// PHASE 4c: NLM (NotebookLM) — progressive queries
+// ============================================================
+
+function buildNLMQueries(ctx) {
+  const topic = ctx.h2;
+  const body = ctx.bodyText || '';
+  const prevClaim = ctx.prevClaim || '';
+  const nextClaim = ctx.nextClaim || '';
+
+  const slideContext = body
+    ? `O slide afirma: "${body}".`
+    : '';
+  const narrativeContext = prevClaim && nextClaim
+    ? ` Na sequencia narrativa, o slide anterior diz "${prevClaim}" e o proximo diz "${nextClaim}".`
+    : '';
+
+  return [
+    // Q1: Foundation — what's essential about this topic
+    `Estou criando um slide de aula para residentes sobre: "${topic}". ${slideContext}${narrativeContext} Com base nas fontes deste notebook, o que e fundamental sobre este tema? Que conceito central, nuance ou dado um professor deveria incluir para que o residente FIXE algo novo — nao apenas reconheca uma definicao?`,
+
+    // Q2: Convergence — where sources agree, where they diverge
+    `Ainda sobre "${topic}": o que as fontes sao unanimes? Onde convergem? Ha alguma divergencia importante entre os autores ou entre guidelines (ex: Cochrane vs GRADE Working Group)? Traga dados especificos — numeros, paginas, capitulos.`,
+
+    // Q3: Deep content — specific passages, tables, quantitative data
+    `Sobre "${topic}": leia os capitulos e artigos mais relevantes e traga o conteudo principal — citacoes diretas, tabelas-chave, dados quantitativos, definicoes formais que eu possa usar na speaker notes. Priorize o que um residente de clinica medica precisa saber para leitura critica de meta-analises.`,
+  ];
+}
+
+async function callNLM(notebookId, queries) {
+  const { execSync } = await import('node:child_process');
+  const results = [];
+  let conversationId = null;
+
+  console.log(`\n3. Querying NotebookLM (${queries.length} progressive queries)...`);
+  const startTime = Date.now();
+
+  for (let i = 0; i < queries.length; i++) {
+    const query = queries[i];
+    const shortQuery = query.length > 80 ? query.slice(0, 77) + '...' : query;
+    console.log(`  NLM Q${i + 1}/${queries.length}: ${shortQuery}`);
+
+    // Build command — use conversation-id for follow-up queries
+    const escaped = query.replace(/"/g, '\\"');
+    let cmd = `nlm notebook query ${notebookId} "${escaped}" --json`;
+    if (conversationId) {
+      cmd += ` --conversation-id ${conversationId}`;
+    }
+
+    try {
+      const output = execSync(cmd, {
+        encoding: 'utf-8',
+        env: { ...process.env, PYTHONIOENCODING: 'utf-8' },
+        timeout: 60_000,
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
+
+      const data = JSON.parse(output);
+
+      // Capture conversation ID from first query for follow-ups
+      if (!conversationId && data.value?.conversation_id) {
+        conversationId = data.value.conversation_id;
+      }
+
+      const answer = data.value?.answer || '(no answer)';
+      const sourcesUsed = data.value?.sources_used || [];
+      const refs = data.value?.references || [];
+
+      console.log(`    → ${answer.length} chars, ${sourcesUsed.length} sources, ${refs.length} refs`);
+
+      results.push({
+        query,
+        answer,
+        sourcesUsed,
+        citations: data.value?.citations || {},
+        references: refs,
+      });
+    } catch (err) {
+      const msg = err.message || String(err);
+      if (msg.includes('expired') || msg.includes('Cookies') || msg.includes('auth')) {
+        console.error(`    ✗ NLM auth expired — run: PYTHONIOENCODING=utf-8 nlm login`);
+      } else {
+        console.error(`    ✗ NLM error: ${msg.slice(0, 200)}`);
+      }
+      results.push({ query, answer: `(error: ${msg.slice(0, 100)})`, sourcesUsed: [], citations: {}, references: [] });
+    }
+  }
+
+  const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+  console.log(`  NLM total: ${results.length} queries | ${elapsed}s`);
+
+  return { results, elapsed, conversationId };
+}
+
+function formatNLMMarkdown(nlmData) {
+  if (!nlmData || nlmData.results.length === 0) return '';
+
+  let md = `\n## NotebookLM Responses (${nlmData.results.length} queries, ${nlmData.elapsed}s)\n\n`;
+
+  for (let i = 0; i < nlmData.results.length; i++) {
+    const r = nlmData.results[i];
+    const label = i === 0 ? 'Fundacao' : i === 1 ? 'Convergencia' : 'Deep Content';
+    md += `### NLM Q${i + 1}: ${label}\n`;
+    md += `**Query:** ${r.query.slice(0, 120)}${r.query.length > 120 ? '...' : ''}\n\n`;
+    md += `${r.answer}\n\n`;
+
+    if (r.references.length > 0) {
+      md += `**Refs:** `;
+      md += r.references.map((ref, j) =>
+        `[${ref.citation_number || j + 1}] ${ref.cited_text ? ref.cited_text.slice(0, 120) + '...' : '(no excerpt)'}`
+      ).join(' | ');
+      md += '\n\n';
+    }
+  }
+
+  md += `**Conversation ID:** ${nlmData.conversationId || '(none)'}\n`;
+  return md;
+}
+
+// ============================================================
 // PHASE 5: OUTPUT
 // ============================================================
 
-function buildOutputMarkdown(ctx, weakness, geminiResult) {
+function buildOutputMarkdown(ctx, weakness, geminiResult, nlmData) {
   const slide = ctx.meta.slide;
   const date = new Date().toISOString().slice(0, 10);
 
-  // Grounding sources
-  let groundingSources = '(no grounding sources)';
-  if (geminiResult.groundingChunks.length > 0) {
-    groundingSources = geminiResult.groundingChunks
-      .map((c, i) => {
-        const web = c.web || {};
-        return `${i + 1}. [${web.title || 'Source'}](${web.uri || '#'})`;
-      })
-      .join('\n');
+  // Gemini section
+  let geminiSection = '';
+  if (geminiResult) {
+    let groundingSources = '(no grounding sources)';
+    if (geminiResult.groundingChunks.length > 0) {
+      groundingSources = geminiResult.groundingChunks
+        .map((c, i) => {
+          const web = c.web || {};
+          return `${i + 1}. [${web.title || 'Source'}](${web.uri || '#'})`;
+        })
+        .join('\n');
+    }
+    geminiSection = `
+## Gemini 3.1 Pro Response
+${geminiResult.text}
+
+### Grounding Sources
+${groundingSources}
+
+### Gemini Metadata
+- Model: ${MODEL} | Temp: 1.0 | thinkingLevel: HIGH
+- Tokens: ${geminiResult.inputTokens} in / ${geminiResult.thinkingTokens} thinking / ${geminiResult.outputTokens} out
+- Cost: ~$${geminiResult.totalCost.toFixed(3)} | Elapsed: ${geminiResult.elapsed}s
+- Finish reason: ${geminiResult.finishReason}`;
   }
 
   return `# Content Research — ${ctx.slideId}
@@ -821,18 +966,7 @@ Date: ${date} | Weakness: ${weakness.category} (${weakness.severity}/3)
 - **MCP Template:** ${weakness.templateType || 'generic'} (${weakness.templateLabel || 'N/A'})${weakness.templateFields?.length ? ` — fields: ${weakness.templateFields.join(', ')}` : ''}
 
 ---
-
-## Gemini 3.1 Pro Response
-${geminiResult.text}
-
-### Grounding Sources
-${groundingSources}
-
-### Gemini Metadata
-- Model: ${MODEL} | Temp: 1.0 | thinkingLevel: HIGH
-- Tokens: ${geminiResult.inputTokens} in / ${geminiResult.thinkingTokens} thinking / ${geminiResult.outputTokens} out
-- Cost: ~$${geminiResult.totalCost.toFixed(3)} | Elapsed: ${geminiResult.elapsed}s
-- Finish reason: ${geminiResult.finishReason}
+${geminiSection}
 
 ---
 
@@ -858,6 +992,7 @@ ${groundingSources}
 
 ## Divergências (verificar no PubMed)
 (a ser preenchido após comparação)
+${nlmData ? formatNLMMarkdown(nlmData) : ''}
 `;
 }
 
@@ -917,7 +1052,7 @@ async function main() {
     process.exit(0);
   }
 
-  // Phase 4: Call Gemini (API key or CLI)
+  // Phase 4a/b: Call Gemini (API key or CLI) — always runs
   let geminiResult;
   if (CLI_MODE) {
     geminiResult = await callGeminiCLI(systemPrompt, userPrompt);
@@ -925,17 +1060,42 @@ async function main() {
     geminiResult = await callGemini(systemPrompt, userPrompt);
   }
 
+  // Phase 4c: NLM queries (if --nlm)
+  let nlmData = null;
+  if (NLM_FLAG) {
+    const notebookId = NLM_NOTEBOOKS[aula];
+    if (!notebookId) {
+      console.warn(`  NLM: no notebook mapped for aula "${aula}" — skipping`);
+    } else {
+      const queries = buildNLMQueries(ctx);
+      nlmData = await callNLM(notebookId, queries);
+    }
+  }
+
   // Phase 5: Save output
   const outDir = join(AULA_DIR, 'qa-screenshots', SLIDE_ID);
   mkdirSync(outDir, { recursive: true });
-  const outPath = join(outDir, 'content-research.md');
-  const md = buildOutputMarkdown(ctx, weakness, geminiResult);
+  const suffix = 'content-research.md';
+  const outPath = join(outDir, suffix);
+  const md = buildOutputMarkdown(ctx, weakness, geminiResult, nlmData);
   writeFileSync(outPath, md);
-  console.log(`\n3. Saved -> ${outPath}`);
+  console.log(`\n${NLM_FLAG ? '4' : '3'}. Saved -> ${outPath}`);
 
-  // Print Gemini response
-  console.log('\n' + '='.repeat(60));
-  console.log(geminiResult.text);
+  // Print responses
+  if (geminiResult) {
+    console.log('\n' + '='.repeat(60));
+    console.log(geminiResult.text);
+  }
+  if (nlmData) {
+    console.log('\n' + '='.repeat(60));
+    console.log('NLM RESPONSES:');
+    console.log('='.repeat(60));
+    for (let i = 0; i < nlmData.results.length; i++) {
+      const label = i === 0 ? 'Fundacao' : i === 1 ? 'Convergencia' : 'Deep Content';
+      console.log(`\n--- Q${i + 1}: ${label} ---`);
+      console.log(nlmData.results[i].answer.slice(0, 500) + (nlmData.results[i].answer.length > 500 ? '...' : ''));
+    }
+  }
 }
 
 main().catch(err => {
