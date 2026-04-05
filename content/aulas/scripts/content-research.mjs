@@ -40,7 +40,7 @@ function detectAula() {
 const aula = detectAula();
 const AULA_DIR = join(SCRIPTS_DIR, '..', aula);
 
-// --- CLI ---
+// --- CLI --- // TODO(backlog): J1 — extract getArg/hasFlag to shared lib/cli.mjs (DRY with gemini-qa3.mjs)
 const args = process.argv.slice(2);
 function getArg(name, fallback) {
   const idx = args.indexOf(`--${name}`);
@@ -180,6 +180,7 @@ function extractPMIDs(text) {
   return [...new Set(matches.map(m => m[1]))];
 }
 
+// TODO(backlog): G7 — extract to shared lib/manifest-parser.mjs (DRY with gemini-qa3.mjs)
 function getSlideMetadata(slideId) {
   const manifestPath = join(AULA_DIR, 'slides', '_manifest.js');
   const text = readFileSync(manifestPath, 'utf8');

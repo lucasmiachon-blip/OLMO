@@ -331,7 +331,7 @@ async function main() {
     console.error(`  Rode 'npm run dev' ou 'npx vite' antes de rodar este script.`);
     throw new Error(`Dev server not responding at ${PAGE_URL}`);
   }
-  await page.waitForTimeout(2000); // wait for deck init + first slide animations
+  await page.waitForTimeout(2000); // TODO(backlog): P1 — replace with waitForFunction() checking deck.js/GSAP ready state
 
   const results = [];
 
@@ -367,7 +367,7 @@ async function main() {
 
     // State S0 — initial state (after auto animations, before click-reveals)
     const s0File = `${slide.id}_${DATE_STAMP}_${TIME_STAMP}_S0.png`;
-    await page.screenshot({ path: join(slideDir, s0File), type: 'png' });
+    await page.screenshot({ path: join(slideDir, s0File), type: 'png' }); // TODO(backlog): P5 — add animations:'disabled' for pixel-stable S0/S2
 
     // Measure layout
     const metrics = await measureElements(page, slide.id);

@@ -100,7 +100,7 @@ const PRICING = {
 };
 function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
 
-// --- CLI args ---
+// --- CLI args --- // TODO(backlog): J1 — extract getArg/hasFlag to shared lib/cli.mjs (DRY with content-research.mjs)
 const args = process.argv.slice(2);
 function getArg(name, fallback) {
   const idx = args.indexOf(`--${name}`);
@@ -298,6 +298,8 @@ function reportIssues(issues) {
 }
 
 // --- G2: Retry with exponential backoff (429, 500, 503, 504) ---
+// TODO(backlog): G6 — migrate to @google/genai SDK (upload, retry built-in, countTokens, caching)
+// TODO(backlog): G3 — add countTokens pre-flight for accurate cost estimation
 async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 } = {}) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     const controller = new AbortController();
@@ -618,6 +620,7 @@ function extractNotes(html) {
 }
 
 // --- Slide metadata from manifest (absorbed from gemini.mjs) ---
+// TODO(backlog): G7 — extract to shared lib/manifest-parser.mjs (DRY with content-research.mjs)
 function getSlideMetadata(slideId) {
   const manifestPath = join(AULA_DIR, 'slides', '_manifest.js');
   const text = readFileSync(manifestPath, 'utf8');

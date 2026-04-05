@@ -51,6 +51,7 @@ function loadManifestIds(aulaName) {
 }
 
 // Cirrose: hardcoded acts (legacy, kept for act2 split support)
+// TODO(backlog): P6 — import IDs from manifest instead of hardcoding (like qa-batch-screenshot.mjs)
 const CIRROSE_ACT1 = ['s-title','s-hook','s-a1-01','s-a1-classify','s-a1-baveno','s-a1-fib4','s-a1-cpt','s-a1-rule5','s-a1-meld','s-cp1'];
 const CIRROSE_ACT2 = ['s-a2-01','s-a2-02','s-a2-03','s-a2-04','s-a2-05','s-a2-06','s-a2-07','s-a2-08','s-a2-09','s-a2-10','s-a2-11','s-a2-12','s-a2-13','s-a2-14','s-a2-15','s-cp2'];
 
