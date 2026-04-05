@@ -5,7 +5,7 @@ paths:
 
 # Design Reference — Semântica, Dados Médicos
 
-> Apenas o que NÃO está no código. Tokens/tipografia/spacing → `content/aulas/cirrose/cirrose.css` (seção :root).
+> Apenas o que NÃO está no código. Tokens carregam de `base.css` :root (shared), com overrides por aula em `{aula}.css` :root (cascade order).
 > Princípios de design (27) → `docs/aulas/design-principles.md` (consultar sob demanda).
 
 ---
@@ -39,7 +39,7 @@ HEX é verdade. Se OKLCH divergir, HEX vence. Paleta de dados: Tol (daltonism-sa
 | NUNCA peso 300 em projetor | Mínimo 400 para corpo |
 | tabular-nums lining-nums | Em dados numéricos |
 | `font-display: swap` | Obrigatório. WOFF2 em `shared/assets/fonts/` |
-| NUNCA `vw` sem `clamp()` | `scaleDeck()` + vw = overflow (E52) |
+| NUNCA `vw`/`vh` em font-size (E52) | `clamp()` aceito em layout (width, padding), mas font-size = proibido sempre (deck.js scale) |
 
 ## 3. Dados Médicos
 

@@ -23,6 +23,16 @@
 - XML obrigatorio → XML para pesquisa estruturada, formato livre para exploratoria
 - 86 → 55 linhas
 
+### Codex Adversarial Round 2
+- R2A (cross-file contradictions): 1 MINOR + 3 ACTION NEEDED
+- R2B (dead references): WT-OPERATING.md removido, 3 path parciais, 3 UNKNOWN
+- Triagem consolidada em `.claude/tmp/S68-CODEX-TRIAGEM.md`
+
+### Cross-Reference Fixes (parcial)
+- design-reference.md: E52 clarificado (vw proibido font-size, clamp() so layout)
+- design-reference.md: token source corrigido (base.css → aula.css cascade)
+- metanalise/CLAUDE.md: dead ref WT-OPERATING.md removido
+
 ## Sessao 67 — 2026-04-04 (GEMINI.md v3.5 + AGENTS.md Hardening)
 
 ### GEMINI.md v3.5 (6 fixes do Codex audit)

@@ -82,7 +82,7 @@ Gates:
 - **Gate 3 (LINT-PASS→QA):** Build PASS + sem orphans
 - **Gate 4 (QA→DONE):** Scorecard 14-dim (Opus visual) + `gemini-qa3.mjs --editorial` + Lucas approved
 
-Detalhes QA por slide: `HANDOFF.md`. Histórico: `WT-OPERATING.md` (arquivo de referência).
+Detalhes QA por slide: `HANDOFF.md`.
 
 ## Status
 
