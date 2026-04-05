@@ -810,23 +810,50 @@ function buildNLMQueries(ctx) {
   const body = ctx.bodyText || '';
   const prevClaim = ctx.prevClaim || '';
   const nextClaim = ctx.nextClaim || '';
+  const slide = ctx.meta?.slide || {};
+  const narrativeRole = slide.narrativeRole || 'nenhum';
+  const tensionLevel = slide.tensionLevel ?? '?';
+  const position = ctx.meta?.position || '?';
+  const existingPMIDs = ctx.existingPMIDs?.length > 0
+    ? ctx.existingPMIDs.join(', ')
+    : 'nenhum';
+  const sourceTag = ctx.sourceTag || '(nenhum)';
 
-  const slideContext = body
-    ? `O slide afirma: "${body}".`
-    : '';
+  const slideContext = body ? `O slide afirma: "${body}".` : '';
   const narrativeContext = prevClaim && nextClaim
     ? ` Na sequencia narrativa, o slide anterior diz "${prevClaim}" e o proximo diz "${nextClaim}".`
     : '';
 
+  // Preamble with audience, slide metadata, existing evidence (Gemini-proven patterns)
+  const preamble = `Contexto: aula para residentes de clinica medica (R1-R3) sobre leitura critica de meta-analises. Posicao: ${position} | Role narrativo: ${narrativeRole} | Tensao: ${tensionLevel}/5. PMIDs ja citados: ${existingPMIDs}. Source-tag: ${sourceTag}.`;
+
   return [
-    // Q1: Foundation — what's essential about this topic
-    `Estou criando um slide de aula para residentes sobre: "${topic}". ${slideContext}${narrativeContext} Com base nas fontes deste notebook, o que e fundamental sobre este tema? Que conceito central, nuance ou dado um professor deveria incluir para que o residente FIXE algo novo — nao apenas reconheca uma definicao?`,
+    // Q1: Foundation — enriched with preamble, adversarial framing, evidence hierarchy
+    `${preamble} Estou criando um slide sobre: "${topic}". ${slideContext}${narrativeContext}
 
-    // Q2: Convergence — where sources agree, where they diverge
-    `Ainda sobre "${topic}": o que as fontes sao unanimes? Onde convergem? Ha alguma divergencia importante entre os autores ou entre guidelines (ex: Cochrane vs GRADE Working Group)? Traga dados especificos — numeros, paginas, capitulos.`,
+Com base nas fontes deste notebook:
+1. O que e fundamental sobre este tema que um residente deve FIXAR — nao apenas reconhecer uma definicao?
+2. Classifique cada fonte que citar: [BOOK] livro-texto, [GUIDELINE] diretriz, [META/SR] revisao sistematica, [RCT] ensaio clinico.
+3. Se alguma fonte CONTRADIZ ou LIMITA o que o slide afirma, traga primeiro (nuance antes de reforco).
+4. Traga citacoes com autor, edicao/ano, capitulo e pagina quando disponivel.`,
 
-    // Q3: Deep content — specific passages, tables, quantitative data
-    `Sobre "${topic}": leia os capitulos e artigos mais relevantes e traga o conteudo principal — citacoes diretas, tabelas-chave, dados quantitativos, definicoes formais que eu possa usar na speaker notes. Priorize o que um residente de clinica medica precisa saber para leitura critica de meta-analises.`,
+    // Q2: Convergence — enriched with divergence detection, quality assessment
+    `Ainda sobre "${topic}": ${preamble}
+1. Onde as fontes deste notebook CONVERGEM? Que conceitos sao unanimes?
+2. Onde DIVERGEM? Ha posicoes diferentes entre autores ou entre guidelines (ex: Cochrane Handbook vs GRADE Working Group vs livros-texto)?
+3. Para cada achado-chave, avalie a qualidade: ALTO (fontes concordam, dados fortes), MODERADO (maioria concorda, dados limitados), BAIXO (opiniao ou fontes discordam).
+4. Traga dados ESPECIFICOS: numeros, paginas, capitulos, tabelas. Nao generalize.`,
+
+    // Q3: Deep content — enriched with structured output, genealogy
+    `Sobre "${topic}": ${preamble}
+Leia os capitulos e artigos mais relevantes e traga:
+1. **Citacoes diretas** (entre aspas, com pagina) que eu possa usar como speaker notes
+2. **Tabelas-chave** ou frameworks que resumam o conceito
+3. **Dados quantitativos** (percentuais, NNTs, ORs, IC95%) com fonte exata
+4. **Definicoes formais** dos termos centrais do tema
+5. **Genealogia**: quem primeiro descreveu/estabeleceu este conceito e em que contexto original
+
+Classifique cada fonte: [BOOK] Autor, Edicao, Cap, p.XX | [META/SR] ou [RCT] com PMID quando disponivel | [GUIDELINE] sociedade + ano. Priorize o que um residente precisa para leitura critica.`,
   ];
 }
 
@@ -898,25 +925,42 @@ async function callNLM(notebookId, queries) {
 function formatNLMMarkdown(nlmData) {
   if (!nlmData || nlmData.results.length === 0) return '';
 
+  const totalChars = nlmData.results.reduce((sum, r) => sum + r.answer.length, 0);
+  const totalSources = new Set(nlmData.results.flatMap(r => r.sourcesUsed)).size;
+  const totalRefs = nlmData.results.reduce((sum, r) => sum + r.references.length, 0);
+
   let md = `\n## NotebookLM Responses (${nlmData.results.length} queries, ${nlmData.elapsed}s)\n\n`;
+  md += `**Summary:** ${totalChars} chars | ${totalSources} unique sources | ${totalRefs} references\n\n`;
 
   for (let i = 0; i < nlmData.results.length; i++) {
     const r = nlmData.results[i];
     const label = i === 0 ? 'Fundacao' : i === 1 ? 'Convergencia' : 'Deep Content';
     md += `### NLM Q${i + 1}: ${label}\n`;
-    md += `**Query:** ${r.query.slice(0, 120)}${r.query.length > 120 ? '...' : ''}\n\n`;
+    md += `**Query:** ${r.query.slice(0, 150)}${r.query.length > 150 ? '...' : ''}\n\n`;
     md += `${r.answer}\n\n`;
 
+    // Sources used (book/paper names from notebook)
+    if (r.sourcesUsed.length > 0) {
+      md += `**Sources used:** ${r.sourcesUsed.join(', ')}\n\n`;
+    }
+
+    // References with excerpts
     if (r.references.length > 0) {
-      md += `**Refs:** `;
-      md += r.references.map((ref, j) =>
-        `[${ref.citation_number || j + 1}] ${ref.cited_text ? ref.cited_text.slice(0, 120) + '...' : '(no excerpt)'}`
-      ).join(' | ');
-      md += '\n\n';
+      md += `**References:**\n`;
+      for (const ref of r.references) {
+        const num = ref.citation_number || '?';
+        const excerpt = ref.cited_text
+          ? ref.cited_text.slice(0, 200) + (ref.cited_text.length > 200 ? '...' : '')
+          : '(no excerpt)';
+        const source = ref.source_title || '';
+        md += `- [${num}] ${source ? `*${source}*: ` : ''}${excerpt}\n`;
+      }
+      md += '\n';
     }
   }
 
   md += `**Conversation ID:** ${nlmData.conversationId || '(none)'}\n`;
+  md += `**NLM Elapsed:** ${nlmData.elapsed}s\n`;
   return md;
 }
 
