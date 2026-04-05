@@ -1,6 +1,6 @@
 # Configuracao de API Keys
 
-> Referencia: `config/mcp/servers.json` (16 MCPs: 13 connected, 3 planned)
+> Referencia: `config/mcp/servers.json` (16 MCPs: 12 connected, 3 planned, 1 removed)
 
 ## MCPs Nativos claude.ai ($0 via Max — OAuth, sem API key)
 
@@ -9,12 +9,13 @@ Autenticacao via OAuth no browser, sem variaveis de ambiente.
 
 ## Keys para MCPs Locais
 
-### 1. Gemini MCP
+### 1. Gemini API (scripts)
 ```bash
-export GOOGLE_AI_KEY="AIza..."
+export GEMINI_API_KEY="AIza..."
 ```
-- **Uso**: MCP Gemini (pesquisa, analise, imagens, video)
+- **Uso**: Scripts `content-research.mjs`, `gemini-qa3.mjs` (API key, nao MCP)
 - **Onde obter**: https://aistudio.google.com/
+- **Nota**: Gemini MCP descartado S71 (nunca conectou). Usar API via scripts.
 
 ### 2. Perplexity MCP
 ```bash

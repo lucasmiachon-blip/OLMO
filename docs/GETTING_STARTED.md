@@ -15,7 +15,7 @@
 ```bash
 # Clone o repositorio
 git clone <repo-url>
-cd organizacao
+cd OLMO
 
 # Python
 python -m venv .venv
@@ -32,10 +32,10 @@ cp .env.example .env
 
 ## MCPs Configurados (ver `config/mcp/servers.json`)
 
-**Conectados (13)** — maioria via claude.ai (OAuth, $0):
+**Conectados (12)** — maioria via claude.ai (OAuth, $0):
 - **Medicos**: PubMed, SCite, Consensus, Scholar Gateway
 - **Produtividade**: Notion, Gmail, Google Calendar, Canva, Excalidraw
-- **AI/Pesquisa**: Gemini, Perplexity, NotebookLM, Zotero
+- **AI/Pesquisa**: Perplexity, NotebookLM, Zotero
 
 **Planejados (3)**: Anki, Google Drive, ChatGPT
 
@@ -79,14 +79,13 @@ claude "gere o digest medico semanal e publique no Notion"
 1. Abrir Claude Desktop → Cowork
 2. Criar Skill "Extrair UpToDate" com instrucoes
 3. Disparar com 1 clique
-4. Cowork loga, extrai, salva em `data/extracted/`
-5. Claude Code processa com skill MBE
+4. Claude Code processa com skill MBE
 
 ## Estrutura do Projeto
 
 ```
-organizacao/
-├── CLAUDE.md                 # Instrucoes root (~74 linhas)
+OLMO/
+├── CLAUDE.md                 # Instrucoes root
 ├── CHANGELOG.md              # Historico (ultimas 3 sessoes; arquivo em docs/)
 ├── PENDENCIAS.md             # Checklist de setup e custos
 ├── HANDOFF.md                # Continuidade entre sessoes
@@ -105,15 +104,15 @@ organizacao/
 │   └── efficiency/           # local_first (custo zero)
 ├── content/aulas/            # Subsistema Node.js (deck.js + GSAP)
 │   ├── shared/               # Design system (CSS OKLCH, deck.js, engine.js, fonts)
-│   ├── cirrose/              # 44 slides (producao, lint clean)
+│   ├── cirrose/              # 11 slides ativos + 35 archived
 │   ├── grade/                # 58 slides (migrada, precisa redesign)
 │   ├── scripts/              # Linters compartilhados
 │   └── STRATEGY.md           # Roadmap tecnico
 ├── assets/                   # Concurso R3 (provas + SAPs, gitignored)
 ├── .claude/
-│   ├── skills/ (17)          # Sob demanda (progressive disclosure)
-│   ├── rules/ (8)            # Sempre carregadas (2 path-scoped)
-│   └── agents/ (4)           # researcher, notion-ops, literature, quality-gate
+│   ├── skills/ (20)          # Sob demanda (progressive disclosure)
+│   ├── rules/ (9)            # Sempre carregadas (path-scoped)
+│   └── agents/ (10)          # researcher, qa-engineer, medical-researcher, etc.
 ├── hooks/                    # notify.sh, stop-hygiene.sh
 ├── config/
 │   ├── ecosystem.yaml        # Agentes + model routing + skills
