@@ -45,7 +45,7 @@ O `format` parameter e minimo: pede citacoes e numeros, nao seccoes pre-definida
 **Notas de execucao:**
 - O GEMINI.md v3.2 garante Deep Think (HIGH) + Google Search grounding automaticamente
 - Model default: o que estiver configurado no CLI (Ultra plan)
-- Para forcar modelo: `gemini -m gemini-2.5-pro -p "PROMPT"`
+- Para forcar modelo: `gemini -m gemini-3.1-pro-preview -p "PROMPT"`
 - Output vem como texto plano — capturar stdout
 
 ## Step 4 — Limpeza minima

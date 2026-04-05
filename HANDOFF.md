@@ -97,6 +97,18 @@ Security: guard-secrets fail-closed, pre-commit hook, 4 EASY fixes aplicados.
 - [ ] Presenter.js rewrite (HTML separado, timer fix)
 - [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
 
+### Script hardening (ex-HARDENING-SCRIPTS.md, deletado S77)
+- [ ] G3: countTokens pre-flight (custo real antes de enviar)
+- [ ] G6: Migrar para @google/genai SDK (upload, retry built-in) — sprint dedicado
+- [ ] G7: Extrair manifest-parser.mjs (DRY gemini-qa3 + content-research)
+- [ ] J1: Extrair cli.mjs compartilhado (DRY arg parsing)
+- [ ] J2: CSS parser real (css-tree) — sprint dedicado
+- [ ] J3: throw em vez de process.exit(1)
+- [ ] P1: waitForFunction() em vez de waitForTimeout() em screenshots
+- [ ] P2: try/catch per slide + finally cleanup em qa-batch
+- [ ] P5: animations: 'disabled' em screenshots
+- [ ] P6: Import manifest em browser-qa-act1 (nao hardcoded)
+
 ## CONFLITOS
 
 (nenhum ativo)

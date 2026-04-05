@@ -726,33 +726,19 @@ aside.notes { display: none; }
   #s-contrato .contrato-skill { opacity: 1; transform: none; }
 }
 
-/* --- Objetivos: numbered vertical list + highlight sidebar --- */
+/* --- Objetivos: 3×2 grid (6 items) --- */
 section#s-objetivos .slide-inner {
   justify-content: flex-start;
 }
-.objetivos-layout {
+.objetivos-grid {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-xl);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md) var(--space-xl);
   flex: 1;
-  align-items: center;
+  align-content: center;
 }
-.objetivos-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  justify-content: center;
-  max-width: 800px;
-}
-.obj-highlight {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--space-xs);
-  padding: var(--space-lg) var(--space-md);
-  border-left: 3px solid var(--ui-accent);
-  max-width: 260px;
+.obj-item--accent .obj-body {
+  border-left-color: var(--ui-accent);
 }
 .obj-item {
   display: grid;
