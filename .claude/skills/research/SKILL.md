@@ -1,7 +1,7 @@
 ---
 name: research
 description: |
-  Pipeline de pesquisa medica multi-perna com sintese cruzada. 5 buscas independentes em paralelo (Gemini deep-search, MBE evaluator, reference checker, MCP query runner, Opus researcher) + orquestrador que compara, cruza e sintetiza em living HTML per slide. Use sempre que o usuario pedir "pesquisa profunda", "research completa", "buscar evidencia", "deep research", "avaliar profundidade do slide", "pesquisar a fundo", "quality assessment", "verificar dados do slide", "preciso de evidencia para", "rodar SCite/Consensus", "checar referencias". Proativamente usar quando slides precisam de evidencia ou qualidade de dados clinicos e questionada.
+  Pipeline de pesquisa medica multi-perna com sintese cruzada. 6 buscas independentes em paralelo (Gemini deep-search, MBE evaluator, reference checker, MCP query runner, Opus researcher, Perplexity auditor) + orquestrador que compara, cruza e sintetiza em living HTML per slide. Use sempre que o usuario pedir "pesquisa profunda", "research completa", "buscar evidencia", "deep research", "avaliar profundidade do slide", "pesquisar a fundo", "quality assessment", "verificar dados do slide", "preciso de evidencia para", "rodar SCite/Consensus", "checar referencias". Proativamente usar quando slides precisam de evidencia ou qualidade de dados clinicos e questionada.
 version: 1.0.0
 context: fork
 agent: general-purpose
@@ -13,7 +13,7 @@ argument-hint: "[topic OR slide-id] [--queries 'SCite: X, Consensus: Y']"
 
 Pesquisa para: `$ARGUMENTS`
 
-5 pernas independentes em paralelo, cada uma com fontes e vieses diferentes. Convergencia entre pernas = alta confianca. Divergencia = flag para decisao humana.
+6 pernas independentes em paralelo, cada uma com fontes e vieses diferentes. Convergencia entre pernas = alta confianca. Divergencia = flag para decisao humana.
 
 ## Step 1 — Parse
 
@@ -33,8 +33,11 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 | 3 | `reference-checker` (subagent_type) | Sonnet | Slide existe | slide-id + aula path |
 | 4 | `mcp-query-runner` (subagent_type) | Haiku | --queries presente | queries literais |
 | 5 | `opus-researcher` (subagent_type) | Opus | Sempre | topic |
+| 6 | `perplexity-auditor` (subagent_type) | Haiku | Sempre | topic + slide context |
 
-Minimo: Pernas 1+5. Maximo: todas 5.
+Minimo: Pernas 1+5+6. Maximo: todas 6.
+
+**Perna 6 — Perplexity:** Discovery de frameworks e conceitos via web search grounded. Prompt ABERTO (nunca fechado). Todas as citacoes = [CANDIDATE] ate Perna 3 (reference-checker) verificar. Custo: ~$0.80-1.00/call.
 
 ## Step 3 — Sintese (apos retorno)
 

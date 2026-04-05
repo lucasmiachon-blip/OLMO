@@ -85,10 +85,18 @@ if (!SLIDE_ID) {
 let RESEARCH_FIELDS_TEXT = null;
 if (FIELDS_RAW) {
   const candidate = join(process.cwd(), FIELDS_RAW);
-  if (existsSync(FIELDS_RAW) || existsSync(candidate)) {
-    const p = existsSync(FIELDS_RAW) ? FIELDS_RAW : candidate;
-    RESEARCH_FIELDS_TEXT = readFileSync(p, 'utf-8').trim();
-    console.log(`[fields] Loaded from file: ${p} (${RESEARCH_FIELDS_TEXT.length} chars)`);
+  const resolved = existsSync(FIELDS_RAW) ? FIELDS_RAW : candidate;
+  // SEC-006: Path traversal guard — reject absolute paths and parent traversals
+  const { resolve, relative, isAbsolute } = await import('node:path');
+  const canonical = resolve(resolved);
+  const rel = relative(process.cwd(), canonical);
+  const isSafe = !isAbsolute(FIELDS_RAW) && !rel.startsWith('..');
+  if (isSafe && existsSync(resolved)) {
+    RESEARCH_FIELDS_TEXT = readFileSync(resolved, 'utf-8').trim();
+    console.log(`[fields] Loaded from file: ${resolved} (${RESEARCH_FIELDS_TEXT.length} chars)`);
+  } else if (!isSafe) {
+    console.error(`[fields] BLOCKED: path traversal detected in --fields: ${FIELDS_RAW}`);
+    process.exit(1);
   } else {
     // Inline: ";;" separated free-form fields
     RESEARCH_FIELDS_TEXT = FIELDS_RAW.split(';;')

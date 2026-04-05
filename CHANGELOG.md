@@ -1,5 +1,44 @@
 # CHANGELOG
 
+## Sessao 73 — 2026-04-05 (SLIDE s-PICO REDESIGN)
+
+### Slide s-pico — mismatch grid + indirectness punchline
+- h2: "O valor da MA depende em grande parte da concordância entre o study PICO e o seu target PICO"
+- Layout: grid 2×2 com P≠/I≠/C≠/O≠ — cenários de mismatch (andragogia, não definição)
+- Punchline click-reveal: "evidência indireta (indirectness)" — sentir gap antes de nomear
+- Custom anim: stagger P→I→C→O (0.3s) + 1 hookAdvance para punchline
+- CSS: border-left downgrade, .pico-neq, .pico-punchline, GSAP init states
+- Gemini 2.5 Pro deep-think consultado para design (convergiu com Opus no conceito mismatch)
+- Lint clean, build OK (18 slides), 2 screenshots (S0 + S2)
+
+## Sessao 72 — 2026-04-05 (PERPLEXITY PIPELINE + SECURITY HARDENING + s-PICO EVIDENCE)
+
+### Research pipeline — Perplexity (Perna 6)
+- `.claude/agents/perplexity-auditor.md` criado: Sonar deep-research, Tier 1 enforcement, open-ended prompts
+- `.claude/skills/research/SKILL.md`: 5→6 pernas, dispatch table atualizado, minimum legs 1+5+6
+- `.claude/agents/reference-checker.md`: verificacao Perplexity (PMC→PMID, survival rate)
+- `.claude/skills/research/references/methodology.md`: triangulation rules Perna 6
+- `perplexity-findings.md` criado: 8 findings (F1-F8), 3 conceptuais. F1 VERIFIED Tier 1, F7 INVALID (PMID hallucinated)
+- Feedback salvo: queries ABERTAS para discovery, nunca fechadas (memory)
+
+### Security — 4 EASY fixes
+- `guard-secrets.sh`: warn-only → fail-closed (exit 2)
+- `guard-secrets-precommit.sh` criado: standalone git pre-commit, pattern `pplx-` adicionado
+- `.pre-commit-config.yaml`: hook local guard-secrets adicionado
+- `.gitignore`: expandido (*.p12, *.pfx, credentials.json, service-account*.json)
+- `content-research.mjs`: path traversal guard no `--fields` (SEC-006)
+- `package.json`: ExecutionPolicy Bypass → RemoteSigned (SEC-007)
+- Codex adversarial audit: segundo pass com framing adversarial (SEC-002/003/004/005 MODERATE pendentes)
+
+### Living HTML — s-pico
+- Core GRADE Unpacked (PMID 41207400) adicionado como Tier 1 ref-principal
+- 3 numeros-chave novos verificados: PMIDs 17238363 (Huang 2006), 28234219 (Adie 2017), 36398200
+- Convergencia 6/6 pernas documentada (incluindo Perna 6 Perplexity)
+- PMID 37575761 flaggado INVALID (hallucinated by Perplexity — paper real e Autoantibody/AMACR)
+
+### Config
+- Memory: feedback_perplexity_open_queries.md adicionado (15 files, cap 20)
+
 ## Sessao 71 — 2026-04-05 (QUERY + BUILD S-PICO + QA PROFESSIONALIZATION)
 
 ### QA pipeline (gemini-qa3.mjs)

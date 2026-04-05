@@ -10,6 +10,13 @@ repos:
         args: [--maxkb=500]
       - id: check-merge-conflict
       - id: detect-private-key
+  - repo: local
+    hooks:
+      - id: guard-secrets
+        name: Scan staged files for secrets
+        entry: bash .claude/hooks/guard-secrets-precommit.sh
+        language: system
+        stages: [pre-commit]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.6
     hooks:

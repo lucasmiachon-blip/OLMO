@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# guard-secrets.sh — WARN (não bloqueia) se staged files contêm padrões de secrets
+# guard-secrets.sh — BLOQUEIA se staged files contêm padrões de secrets reais
 # Wired: PreToolUse → Bash (git commit/add)
-# Comportamento: exibe alerta, deixa usuário decidir
+# Comportamento: fail-closed (exit 2) em match confirmado. Falsos positivos: allowlist abaixo.
 # Fixed S51: scan staged blobs (not working-tree), safe word-splitting, expanded patterns
 
 set -euo pipefail
@@ -95,9 +95,9 @@ done <<< "$STAGED"
 if [ "$FOUND" -eq 1 ]; then
   echo "⚠ guard-secrets: Possíveis secrets detectados em staged files:"
   echo -e "$WARNINGS"
-  echo "Verifique antes de commitar. Se são falsos positivos, prossiga."
-  # WARN only — não bloqueia (exit 0)
-  exit 0
+  echo "BLOQUEADO: remova os secrets antes de commitar."
+  echo "Se são falsos positivos, adicione o padrão à allowlist em guard-secrets.sh."
+  exit 2
 fi
 
 exit 0

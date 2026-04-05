@@ -171,6 +171,47 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => state;
   },
 
+  's-pico': (slide, gsap) => {
+    const items = slide.querySelectorAll('.pico-item');
+    const punchline = slide.querySelector('.pico-punchline');
+    if (!items.length || !punchline) return;
+
+    let state = 0;
+    const MAX = 1;
+
+    // Beat 0 (auto): stagger P→I→C→O — models expert letter-by-letter check
+    gsap.fromTo(items,
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.3, ease: 'power3.out' }
+    );
+
+    function advance() {
+      if (state >= MAX) return false;
+      state++;
+      if (state === 1) {
+        // Beat 1: punchline — name the concept after feeling the gap
+        gsap.fromTo(punchline,
+          { opacity: 0, y: 8 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+        );
+      }
+      return true;
+    }
+
+    function retreat() {
+      if (state <= 0) return false;
+      if (state === 1) {
+        gsap.to(punchline, { opacity: 0, y: 8, duration: 0.3 });
+      }
+      state--;
+      return true;
+    }
+
+    slide.__hookAdvance = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => state;
+  },
+
   's-checkpoint-2': (slide, gsap) => {
     const scenario = slide.querySelector('.checkpoint-scenario');
     const question = slide.querySelector('.checkpoint-question');

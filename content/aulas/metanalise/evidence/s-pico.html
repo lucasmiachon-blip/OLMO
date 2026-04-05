@@ -43,7 +43,10 @@ PAUSA 1s.
 [DATA] Fonte principal: Cochrane Handbook v6.5, cap. 3 — Defining the review question | Verificado: 2026-04-03
 [DATA] GRADE indirectness: Guyatt et al. J Clin Epidemiol 2011;64(12):1303-10. PMID 21802903 <span class="v">VERIFIED</span>
 [DATA] GRADE indirectness update: Guyatt et al. BMJ 2025;389:e083865. PMID 40393729 <span class="v">VERIFIED</span>
-[DATA] PICO comparator switching: Goldkuhle et al. J Clin Epidemiol 2023;159:40-48. PMID 37146659 <span class="v">VERIFIED</span></div>
+[DATA] PICO comparator switching: Goldkuhle et al. J Clin Epidemiol 2023;159:40-48. PMID 37146659 <span class="v">VERIFIED</span>
+[DATA] Core GRADE Unpacked (summary series 1-7): Colunga-Lozano et al. J Clin Epidemiol 2025;189:112047. PMID 41207400 <span class="v">VERIFIED</span> [Perna 6 — Perplexity discovery]
+[DATA] PICO completo em perguntas reais: apenas 2/59 (3.4%). Huang et al. AMIA 2006. PMID 17238363 <span class="v">VERIFIED</span> [Perna 6]
+[DATA] Desfechos patient-important: 60% em 350 RCTs cirurgicos (29% surrogate, 10% lab). Adie et al. Can J Surg 2017. PMID 28234219 <span class="v">VERIFIED</span> [Perna 6]</div>
   </section>
 
   <section id="pedagogia">
@@ -63,6 +66,8 @@ PAUSA 1s.
     <tr><th>Metrica</th><th>Valor</th><th>IC 95%</th><th>Tempo</th>
     <th>Populacao</th><th>Fonte</th><th>Risco Basal</th></tr>
     <tr><td>Downgrade por indirectness (Cochrane cirurgicas)</td><td>~12%</td><td>26/212 desfechos</td><td></td><td>Revisoes Cochrane de intervencoes cirurgicas para fraturas</td><td>Gemini deep-search <span class="c">CANDIDATE</span> — PMID nao localizado, dado nao verificavel</td><td></td></tr>
+    <tr><td>Perguntas clinicas com PICO completo</td><td>2/59 (3.4%)</td><td></td><td></td><td>59 perguntas reais de medicos em atencion primaria</td><td>Huang et al. AMIA 2006. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17238363" target="_blank">17238363</a> <span class="v">VERIFIED</span> [Perna 6 — Perplexity discovery]</td><td></td></tr>
+    <tr><td>Desfechos patient-important em RCTs cirurgicos</td><td>60%</td><td></td><td>2008-2009</td><td>350 RCTs, 8258 desfechos</td><td>Adie et al. Can J Surg 2017;60(2):86-93. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28234219" target="_blank">28234219</a> <span class="v">VERIFIED</span> [Perna 6 — Perplexity discovery]</td><td></td></tr>
   </table>
 </section>
 
@@ -89,7 +94,7 @@ PAUSA 1s.
 
 <details>
   <summary>Convergencia Entre Fontes</summary>
-  <p>5/5 pernas convergiram. Perna 1 (Gemini deep-search) trouxe a nuance mais importante: a assertion do slide e uma &#x27;simplificacao didatica util&#x27; mas o GRADE adverte contra visao binaria — aplicabilidade e espectro, nao booleano. Empiricamente, indirectness causa downgrade em apenas ~12% dos desfechos; imprecisao e bias dominam. Gemini tambem trouxe Jia et al. 2026 (Annals, ratio 1.47) mas verificacao S56 mostrou DOI invalido e paper nao encontrado no PubMed/Annals — marcado INVALID e removido. Perna 5 (PubMed/Consensus/SCite) confirmou a cadeia GRADE completa: GRADE 8 (Guyatt 2011, PMID 21802903) <span class="v">VERIFIED</span> → Core GRADE 5 (Guyatt 2025, PMID 40393729) <span class="v">VERIFIED</span> → GRADE Concept 4 (Goldkuhle 2023, PMID 37146659) <span class="v">VERIFIED</span>. Cochrane Handbook v6.5 agora estratifica PICO em 3 camadas (Review PICO, Synthesis PICO, Study PICO). Perna 2 (MBE-evaluator) confirmou assertion forte (claim+consequencia, nao rotulo). Nenhuma divergencia entre autoridades sobre o papel fundacional. Divergencia unica: extensoes (PICOS, PICOT, SPIDER, PCC) — complementares, nunca substitutivas. CONVERGENCIA ALTA: todas as pernas concordam que (1) PICO e fundacional, (2) mismatch = indirectness no GRADE, (3) a assertion e pedagogicamente correta como heuristica. NUANCE: o professor deve saber que discrepancia leve nao justifica rejeitar evidencia.</p>
+  <p>6/6 pernas convergiram (Perna 6 adicionada S72). Perna 1 (Gemini deep-search) trouxe a nuance mais importante: a assertion do slide e uma &#x27;simplificacao didatica util&#x27; mas o GRADE adverte contra visao binaria — aplicabilidade e espectro, nao booleano. Empiricamente, indirectness causa downgrade em apenas ~12% dos desfechos; imprecisao e bias dominam. Gemini tambem trouxe Jia et al. 2026 (Annals, ratio 1.47) mas verificacao S56 mostrou DOI invalido e paper nao encontrado no PubMed/Annals — marcado INVALID e removido. Perna 5 (PubMed/Consensus/SCite) confirmou a cadeia GRADE completa: GRADE 8 (Guyatt 2011, PMID 21802903) <span class="v">VERIFIED</span> → Core GRADE 5 (Guyatt 2025, PMID 40393729) <span class="v">VERIFIED</span> → GRADE Concept 4 (Goldkuhle 2023, PMID 37146659) <span class="v">VERIFIED</span>. Cochrane Handbook v6.5 agora estratifica PICO em 3 camadas (Review PICO, Synthesis PICO, Study PICO). Perna 2 (MBE-evaluator) confirmou assertion forte (claim+consequencia, nao rotulo). Nenhuma divergencia entre autoridades sobre o papel fundacional. Divergencia unica: extensoes (PICOS, PICOT, SPIDER, PCC) — complementares, nunca substitutivas. CONVERGENCIA ALTA: todas as pernas concordam que (1) PICO e fundacional, (2) mismatch = indirectness no GRADE, (3) a assertion e pedagogicamente correta como heuristica. NUANCE: o professor deve saber que discrepancia leve nao justifica rejeitar evidencia. Perna 6 (Perplexity deep-research, S72) trouxe 3 achados verificados: (1) Core GRADE Unpacked (Colunga-Lozano et al. 2025, PMID 41207400) <span class="v">VERIFIED</span> — summary da serie Core GRADE 1-7, confirma dominios como continua e flowcharts para aplicacao; (2) apenas 2/59 perguntas clinicas reais contém todos 4 elementos PICO (Huang et al. 2006, PMID 17238363) <span class="v">VERIFIED</span> — dado empirico sobre gap entre PICO teorico e pratica real; (3) 60% dos desfechos em 350 RCTs cirurgicos sao patient-important, 29% surrogate (Adie et al. 2017, PMID 28234219) <span class="v">VERIFIED</span> — ancora quantitativa para o O do PICO. Perna 6 tambem trouxe F7 (VTS med ed, PMID 37575761) mas verificacao mostrou paper ERRADO (case report AMACR, nao VTS) — marcado INVALID. Taxa de erro Perplexity PMIDs: 1/4 (25%) nesta rodada.</p>
 </details>
 
 <details>
@@ -120,11 +125,14 @@ PAUSA 1s.
 <li>Borenstein M, Hedges LV, Higgins JPT, Rothstein HR (2021). Introduction to Meta-Analysis, 2nd ed., Chapter 25: Limitations of the Random-Effects Model. <em>Wiley</em>. Fonte: NotebookLM (Metanalise). <span class="v">WEB-VERIFIED</span></li>
 <li>Fineout-Overholt E, Johnston L (2005). Teaching EBP: asking searchable, answerable clinical questions. <em>Worldviews Evid Based Nurs</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17040536" target="_blank">17040536</a> <span class="v">VERIFIED</span></li>
 <li>Cooke A, Smith D, Booth A (2012). Beyond PICO: the SPIDER tool for qualitative evidence synthesis. <em>Qual Health Res</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/22829486" target="_blank">22829486</a> <span class="v">VERIFIED</span></li>
+<li class="ref-principal">Colunga-Lozano LE, Wang Y, Agoritsas T, et al. (2025). Core GRADE unpacked: a summary of recent innovations in complementary GRADE methodology. <em>J Clin Epidemiol</em>. 189:112047. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41207400" target="_blank">41207400</a>. DOI: <a href="https://doi.org/10.1016/j.jclinepi.2025.112047" target="_blank">10.1016/j.jclinepi.2025.112047</a> <span class="v">VERIFIED</span> [Perna 6 — Perplexity discovery]</li>
+<li>Huang X, Lin J, Demner-Fushman D (2006). Evaluation of PICO as a knowledge representation for clinical questions. <em>AMIA Annu Symp Proc</em>. 2006:359-63. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17238363" target="_blank">17238363</a> <span class="v">VERIFIED</span> [Perna 6]</li>
+<li>Adie S, Harris IA, Naylor JM, Mittal R (2017). Are outcomes reported in surgical randomized trials patient-important? A systematic review and meta-analysis. <em>Can J Surg</em>. 60(2):86-93. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28234219" target="_blank">28234219</a>. DOI: <a href="https://doi.org/10.1503/cjs.010616" target="_blank">10.1503/cjs.010616</a> <span class="v">VERIFIED</span> [Perna 6]</li>
 </ol>
 </section>
 
   <footer>
-    Coautoria: Lucas + Opus 4.6 (orquestrador) + Gemini 3.1 (deep-search) + PubMed MCP + Consensus MCP + SCite MCP | Pipeline: /research v2 | Slide: s-pico
+    Coautoria: Lucas + Opus 4.6 (orquestrador) + Gemini 3.1 (deep-search) + PubMed MCP + Consensus MCP + SCite MCP + Perplexity Sonar (deep-research) | Pipeline: /research v3 (6 pernas) | Slide: s-pico | Atualizado: 2026-04-05
   </footer>
 </body>
 </html>

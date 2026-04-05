@@ -70,6 +70,19 @@ Used by MBE evaluator (Perna 2) and by orchestrator for slide assessment.
 | Pernas disagree on same data point | **CONFLICT** | Present both, flag for human decision |
 | Finding contradicts existing slide data | **MISMATCH** | Flag, do NOT auto-correct |
 
+### Perplexity (Perna 6) — Triangulation Rules
+
+Perplexity citations have **lower initial confidence** than MCP-verified sources:
+
+| Perplexity finding | + Confirmed by Perna 3 (ref-checker) | Confidence |
+|---|---|---|
+| Concept/framework (no PMID) | N/A — conceptual, not citable | Use as context, not as reference |
+| Web URL with PMID extracted | PMID verified via PubMed | **Same as any verified PMID** |
+| PMC URL only | PMCID→PMID converted + verified | **Same as any verified PMID** |
+| Web URL, no PMID/DOI | Not verifiable | **WEB-ONLY** — include as background, never as Tier 1 |
+
+**Key principle:** Perplexity DISCOVERS, reference-checker VERIFIES. A Perplexity finding that survives verification joins the convergence count like any other perna. One that doesn't = contextual background only.
+
 ## Source Hierarchy (priority order)
 
 1. Current guidelines from medical societies
