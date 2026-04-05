@@ -186,10 +186,7 @@ Flash custa ~$0.15/M input vs ~$1.25/M do Pro. Para Gate 0 que processa ~20 slid
 
 **Problema:** O system prompt inteiro esta hardcoded como template literal. Qualquer ajuste requer editar JS. gemini-qa3.mjs ja faz certo — carrega de `docs/prompts/gemini-gate0-inspector.md`.
 
-**Fix:** Externalizar para `docs/prompts/content-research-system.md`. Carregar via:
-```javascript
-const systemPrompt = readFileSync(join(REPO_ROOT, 'docs/prompts/content-research-system.md'), 'utf8');
-```
+**Fix:** Considerar externalizar para arquivo separado. Atualmente o prompt esta embutido em `buildSystemPrompt()` (~150 linhas).
 Beneficio: Claude pode editar o prompt sem tocar no JS. Versionamento independente.
 
 ---
@@ -577,7 +574,7 @@ if (hasFlag('help') || hasFlag('h')) {
 |---|-------|---------|--------|
 | G3 | `countTokens` pre-flight | Custo real antes de enviar | PENDING |
 | G4 | `GEMINI_MODEL` env var + default GA | Resiliencia a deprecacao | **DONE** (2026-03-29) — model-per-gate: Flash Gate 0, Pro Gate 4 |
-| G5 | Externalizar Gate 4 prompt | Versionamento independente | **DONE** (2026-03-29) → `docs/prompts/gemini-gate4-editorial.md` |
+| G5 | Externalizar Gate 4 prompt | Versionamento independente | **DONE** (2026-03-29) — prompt embutido no script |
 | G7 | Extrair manifest-parser.mjs | DRY, single source of truth | PENDING |
 | P1 | `waitForFunction()` em vez de `waitForTimeout()` | Speed + reliability |
 | P2 | try/catch per slide + finally cleanup | Nao crashar batch inteiro |

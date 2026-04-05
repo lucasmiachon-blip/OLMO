@@ -1,7 +1,7 @@
 # CSS Error Codes — Referência Completa
 
-> On-demand. Top 10 mais críticos → `docs/prompts/error-digest.md` (injetado no Gate 4).
-> Incidentes → `aulas/cirrose/ERROR-LOG.md`.
+> On-demand. Referência completa de error codes CSS.
+> Incidentes → `content/aulas/cirrose/ERROR-LOG.md`.
 
 ---
 
