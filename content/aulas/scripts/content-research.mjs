@@ -668,9 +668,10 @@ async function callGeminiCLI(systemPrompt, userPrompt) {
     const cliArgs = ['-p', `@${tmpFile}`, '-o', 'text'];
     const output = execFileSync('gemini', cliArgs, {
       encoding: 'utf-8',
-      timeout: 120_000,
+      timeout: 300_000,
       maxBuffer: 10 * 1024 * 1024,
       stdio: ['pipe', 'pipe', 'pipe'],
+      shell: true,
     });
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);

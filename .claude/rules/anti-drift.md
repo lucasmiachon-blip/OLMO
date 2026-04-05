@@ -29,7 +29,7 @@ Lucas is a beginner developer learning on the job. He tends to accept model deci
 ## Verification (before responding)
 
 Gate function — all 5 steps, in order, no skipping:
-1. Identify the verification command (test, build, lint, manual check).
+1. Identify the verification command (test, build, lint, manual check). Sem comando: verificar manualmente (ler o arquivo, inspecionar output).
 2. Execute it. Fully. No partial runs.
 3. Read the complete output (not just "PASS"/"FAIL").
 4. Confirm the output matches your claim.

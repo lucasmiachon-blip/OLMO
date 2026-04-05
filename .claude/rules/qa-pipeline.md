@@ -2,8 +2,8 @@
 description: "Regras de QA com LLM: attention, rubrica, anti-sycophancy. So carrega em contextos de aula/QA."
 paths:
   - "content/aulas/**"
-  - "**/qa*"
-  - "**/gate*"
+  - "content/aulas/**/qa*"
+  - "content/aulas/**/gate*"
 ---
 
 # QA Pipeline — Regras para Avaliação com LLM

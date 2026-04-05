@@ -5,8 +5,8 @@ paths:
 
 # Regra: Cross-Validation Notion (Claude + ChatGPT)
 
-> Toda operacao de write no Notion que envolva reorganizacao, arquivamento
-> ou reclassificacao de paginas DEVE passar por cross-validation.
+> Writes no Notion que reorganizam, arquivam ou reclassificam paginas DEVEM passar por cross-validation.
+> Writes simples (criar pagina, editar conteudo de 1 pagina, adicionar tag) NAO precisam — ver "Quando NAO precisa".
 
 ## Workflow
 

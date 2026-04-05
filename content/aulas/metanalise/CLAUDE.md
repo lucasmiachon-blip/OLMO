@@ -8,7 +8,7 @@ Parent: `content/aulas/` (ver CLAUDE.md raiz do monorepo).
 - Foco: LEITURA CRÍTICA de MA (não produção de RS)
 - Modelo: pairwise clássico de RCTs
 - Âncora: **Valgimigli 2025 — Clopidogrel vs Aspirina (Lancet, PMID 40902613)**. IPD-MA, 7 RCTs, 28.982 pts
-- Conceitos avançados (NMA, IPD, bayesiana) = fora do escopo
+- Conceitos avançados (NMA, IPD metodologia, bayesiana) = fora do escopo. Ancora usa IPD-MA mas e ensinada como pairwise.
 - Forest plots = imagens cropadas de artigos reais (NUNCA SVG construído do zero)
 - Área do Lucas ≠ hepatologia — artigo pode ser de qualquer área
 - Acesso: CAPES/USP — não precisa ser open access

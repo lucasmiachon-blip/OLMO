@@ -34,6 +34,7 @@ Claude Code=FAZER  Claude.ai=PENSAR  Cursor=EDITAR  Gemini=PESQUISAR
 Perplexity=BUSCAR  NotebookLM=ESTUDAR ChatGPT=VALIDAR Canva=DESIGN
 Notion=PUBLICAR    Obsidian=CONECTAR  Zotero=REFERENCIAR
 ```
+Tabela = funcao, NAO autonomia. "Espere OK" (ENFORCEMENT) sempre prevalece.
 
 ## Efficiency: Local-First → Cache → Batch
 

@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 68 — 2026-04-04 (P0 Benchmark + P1 Audit Fixes + GEMINI.md v3.6)
+
+### P0 — Benchmark CLI vs API
+- content-research.mjs: CLI ($0) vs API ($) benchmark em s-heterogeneity
+- Resultado: CLI falha (6x lento, topico errado, sem grounding). API permanece default
+- Fix: `shell: true` + timeout 300s no callGeminiCLI (bug ENOENT no Windows/fnm)
+
+### P1 — 8 Fixes do S63 Audit
+- CLAUDE.md: "Tabela = funcao, NAO autonomia. Espere OK prevalece."
+- anti-drift.md: fallback "verificar manualmente" no gate de verificacao
+- metanalise/CLAUDE.md: IPD metodologia fora, ancora IPD-MA ensinada como pairwise
+- global CLAUDE.md: /dream skip silently se skill indisponivel
+- qa-pipeline.md: paths narrowed `**/qa*` → `content/aulas/**/qa*`
+- notion-cross-validation.md: opening alinhado com exceptions
+- session-hygiene.md: no-commit state change case
+- slide-rules.md: ja tinha `paths:` (fix pre-aplicado)
+
+### GEMINI.md v3.6 (criatividade + integridade)
+- 7 regras anti-hallucination → 3 gates simples (DOI, busca, backtracking)
+- "Mandato de Ceticismo" → "Pesquise com curiosidade, analise com rigor"
+- XML obrigatorio → XML para pesquisa estruturada, formato livre para exploratoria
+- 86 → 55 linhas
+
 ## Sessao 67 — 2026-04-04 (GEMINI.md v3.5 + AGENTS.md Hardening)
 
 ### GEMINI.md v3.5 (6 fixes do Codex audit)

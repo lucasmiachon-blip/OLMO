@@ -27,3 +27,4 @@ Historico do que foi feito. Append nova sessao no topo (mais recente primeiro).
 - **HANDOFF**: toda sessao que mude estado do projeto
 - **CHANGELOG**: toda sessao com commit
 - **Ambos**: quando usuario pedir commit/wrap-up
+- **Sem commit mas com state change** (ex: decisao, pesquisa): atualizar HANDOFF, CHANGELOG opcional
