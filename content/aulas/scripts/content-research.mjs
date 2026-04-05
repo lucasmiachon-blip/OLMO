@@ -825,7 +825,9 @@ function buildNLMQueries(ctx) {
     : '';
 
   // Preamble with audience, slide metadata, existing evidence (Gemini-proven patterns)
-  const preamble = `Contexto: aula para residentes de clinica medica (R1-R3) sobre leitura critica de meta-analises. Posicao: ${position} | Role narrativo: ${narrativeRole} | Tensao: ${tensionLevel}/5. PMIDs ja citados: ${existingPMIDs}. Source-tag: ${sourceTag}.`;
+  const aulaDesc = { metanalise: 'leitura critica de meta-analises', cirrose: 'manejo de cirrose hepatica', mbe: 'medicina baseada em evidencias' };
+  const aulaLabel = aulaDesc[aula] || aula;
+  const preamble = `Contexto: aula para residentes de clinica medica (R1-R3) sobre ${aulaLabel}. Posicao: ${position} | Role narrativo: ${narrativeRole} | Tensao: ${tensionLevel}/5. PMIDs ja citados: ${existingPMIDs}. Source-tag: ${sourceTag}.`;
 
   return [
     // Q1: Foundation — enriched with preamble, adversarial framing, evidence hierarchy

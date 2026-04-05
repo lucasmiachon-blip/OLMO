@@ -17,7 +17,7 @@ function walk(dir, ext) {
   try {
     for (const entry of readdirSync(dir)) {
       const full = join(dir, entry);
-      if (entry === 'node_modules' || entry === 'dist' || entry === 'evidence') continue;
+      if (entry === 'node_modules' || entry === 'dist' || entry === 'evidence' || entry === '_archive') continue;
       if (statSync(full).isDirectory()) files.push(...walk(full, ext));
       else if (extname(full) === ext) files.push(full);
     }

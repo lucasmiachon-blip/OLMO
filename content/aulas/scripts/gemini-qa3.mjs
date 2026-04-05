@@ -36,6 +36,29 @@ function detectAula() {
   return 'cirrose';
 }
 
+// Early --help check (before API key validation)
+if (process.argv.includes('--help') || process.argv.includes('--h')) {
+  console.log(`Usage: node scripts/gemini-qa3.mjs --aula <name> --slide <id> [options]
+
+Modes (pick one):
+  --inspect          Gate 0 — binary defect check (default)
+  --editorial        Gate 4 — editorial creative review
+
+Options:
+  --aula <name>      cirrose|metanalise|grade (auto-detected if omitted)
+  --slide <id>       Slide ID (default: s-a1-01)
+  --round <N>        Round number for Gate 4 (default: 11)
+  --model <id>       Gemini model override (default: flash for Gate 0, pro for Gate 4)
+  --temp <float>     Override temperature (Gate 4 default: 1.0)
+  --output <path>    Custom output path
+  --ref-slide <id>   Reference slide for cross-slide consistency
+  --no-ref           Disable auto ref-slide detection
+  --force-gate4      Override Gate 0 FAIL block (for known false positives)
+
+Env: GEMINI_API_KEY (required), GEMINI_MODEL (global override)`);
+  process.exit(0);
+}
+
 const aula = detectAula();
 const AULA_DIR = join(SCRIPTS_DIR, '..', aula);
 const API_KEY = process.env.GEMINI_API_KEY;
@@ -79,30 +102,7 @@ const MODE = hasFlag('editorial') ? 'editorial' : 'inspect';
 const MODEL_DEFAULT = MODE === 'inspect' ? 'gemini-3-flash-preview' : 'gemini-3.1-pro-preview';
 const MODEL = getArg('model', null) || process.env.GEMINI_MODEL || MODEL_DEFAULT;
 
-// J4: --help
-if (hasFlag('help') || hasFlag('h')) {
-  console.log(`Usage: node scripts/gemini-qa3.mjs --aula <name> --slide <id> [options]
-
-Modes (pick one):
-  --inspect          Gate 0 — binary defect check (default)
-  --editorial        Gate 4 — editorial creative review
-
-Options:
-  --aula <name>      cirrose|metanalise|grade (auto-detected if omitted)
-  --slide <id>       Slide ID (default: s-a1-01)
-  --round <N>        Round number for Gate 4 (default: 11)
-  --model <id>       Gemini model override (default: flash for Gate 0, pro for Gate 4)
-  --temp <float>     Override temperature (Gate 4 default: 1.0)
-  --output <path>    Custom output path
-  --context <text>   Additional context paragraph
-  --diagnostic <cls> CSS class to diagnose (cascade analysis)
-  --ref-slide <id>   Reference slide for cross-slide consistency (auto-detected from manifest if omitted)
-  --no-ref           Disable auto ref-slide detection
-  --force-gate4      Override Gate 0 FAIL block (for known false positives)
-
-Env: GEMINI_API_KEY (required), GEMINI_MODEL (global override)`);
-  process.exit(0);
-}
+// J4: --help handled early (before API key check)
 
 if (hasFlag('full')) {
   console.error('--full removido. Gate 0 e Gate 4 são invocações separadas.');
