@@ -13,7 +13,7 @@
  * Requires: GEMINI_API_KEY env var
  */
 
-import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
@@ -54,6 +54,9 @@ Options:
   --ref-slide <id>   Reference slide for cross-slide consistency
   --no-ref           Disable auto ref-slide detection
   --force-gate4      Override Gate 0 FAIL block (for known false positives)
+  --skip-preflight   Skip Gate -1 local checks (lint, screenshots, word count)
+
+Gates:  -1 (preflight, local $0) → 0 (inspect, Flash) → [checkpoint] → 4 (editorial, Pro)
 
 Env: GEMINI_API_KEY (required), GEMINI_MODEL (global override)`);
   process.exit(0);
@@ -82,6 +85,11 @@ function validateNota(val) {
   }
   return val;
 }
+
+// --- Pre-flight thresholds (Gate -1: local checks, $0) ---
+const PREFLIGHT_WORD_LIMIT = 30;         // slide body word cap (excl notes, source-tag)
+const PREFLIGHT_FONT_MIN = 18;           // px — minimum projected font-size
+const PREFLIGHT_SCREENSHOT_MAX_AGE_H = 24; // hours — screenshots older than this trigger warning
 
 // G8: Pricing per 1M tokens — update when switching models (verified 2026-03-29)
 const PRICING = {
@@ -127,6 +135,132 @@ if (hasFlag('full')) {
   console.error('  2. [checkpoint Lucas]');
   console.error('  3. node gemini-qa3.mjs --slide X --editorial --round N  (Gate 4)');
   process.exit(1);
+}
+
+// --- Gate -1: Pre-flight local checks ($0, no API) ---
+// Catches measurable issues before spending on Gemini. Principle: "deixe a atencao
+// do gemini somente nas coisas importantes nao gaste com coisas que conseguimos
+// arrumar sem ele."
+
+function runPreflight(slideId, qaDir) {
+  console.log(`\n=== GATE -1 — Pre-flight Local Checks — ${slideId} ===\n`);
+  const issues = [];   // { level: 'ERROR'|'WARN', tag, msg }
+
+  // 1. Lint check — shell out to lint-slides.js (scoped to this aula)
+  try {
+    execSync(`node "${join(SCRIPTS_DIR, 'lint-slides.js')}" ${aula}`, {
+      encoding: 'utf-8', stdio: 'pipe',
+    });
+    console.log('  [LINT]        PASS');
+  } catch (e) {
+    const output = (e.stdout || '') + (e.stderr || '');
+    const errorLines = output.split('\n').filter(l => l.includes('❌')).slice(0, 5);
+    issues.push({ level: 'ERROR', tag: 'LINT', msg: `lint-slides.js failed: ${errorLines.join('; ') || 'see output'}` });
+  }
+
+  // 2. Screenshots exist
+  const s0 = findStatePng(qaDir, 'S0');
+  const s2 = findStatePng(qaDir, 'S2');
+  if (!s0 && !s2) {
+    issues.push({ level: 'ERROR', tag: 'SCREENSHOT', msg: `No PNGs found in ${qaDir}. Run qa-batch-screenshot.mjs first.` });
+  } else {
+    if (!s0) issues.push({ level: 'WARN', tag: 'SCREENSHOT', msg: 'S0 PNG missing — only S2 available' });
+    if (!s2) issues.push({ level: 'WARN', tag: 'SCREENSHOT', msg: 'S2 PNG missing — only S0 available' });
+
+    // 3. Screenshot freshness
+    for (const [label, path] of [['S0', s0], ['S2', s2]]) {
+      if (!path) continue;
+      try {
+        const ageMs = Date.now() - statSync(path).mtimeMs;
+        const ageH = ageMs / (1000 * 60 * 60);
+        if (ageH > PREFLIGHT_SCREENSHOT_MAX_AGE_H) {
+          issues.push({ level: 'WARN', tag: 'FRESHNESS', msg: `${label} is ${Math.round(ageH)}h old (>${PREFLIGHT_SCREENSHOT_MAX_AGE_H}h). Re-capture recommended.` });
+        }
+      } catch {}
+    }
+    console.log(`  [SCREENSHOT]  ${s0 ? 'S0' : '—'} ${s2 ? 'S2' : '—'}`);
+  }
+
+  // 4-6. HTML structure checks
+  try {
+    const html = extractHTML(slideId);
+
+    // Strip notes and source-tag for body analysis
+    const bodyHtml = html
+      .replace(/<aside\b[^>]*>[\s\S]*?<\/aside>/gi, '')
+      .replace(/<p\b[^>]*class="[^"]*source-tag[^"]*"[^>]*>[\s\S]*?<\/p>/gi, '');
+
+    // 4. h2 exists
+    const h2Match = bodyHtml.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i);
+    if (!h2Match) {
+      issues.push({ level: 'ERROR', tag: 'H2', msg: 'No <h2> found in slide' });
+    } else {
+      const h2Text = h2Match[1].replace(/<[^>]*>/g, '').trim();
+      if (h2Text.length < 5) {
+        issues.push({ level: 'WARN', tag: 'H2', msg: `h2 text too short (${h2Text.length} chars): "${h2Text}"` });
+      }
+      console.log(`  [H2]          "${h2Text.slice(0, 60)}${h2Text.length > 60 ? '…' : ''}"`);
+    }
+
+    // 5. Word count (body text, excluding h2, notes, source-tag, HTML tags)
+    const bodyTextOnly = bodyHtml
+      .replace(/<h2[^>]*>[\s\S]*?<\/h2>/gi, '')  // exclude h2 (not counted)
+      .replace(/<[^>]*>/g, ' ')                    // strip tags
+      .replace(/&[a-z]+;/gi, ' ')                 // strip entities
+      .replace(/\s+/g, ' ').trim();
+    const words = bodyTextOnly.split(/\s+/).filter(w => w.length > 0);
+    if (words.length > PREFLIGHT_WORD_LIMIT) {
+      issues.push({ level: 'WARN', tag: 'WORDS', msg: `Body has ${words.length} words (limit ${PREFLIGHT_WORD_LIMIT}). Consider cutting.` });
+    }
+    console.log(`  [WORDS]       ${words.length}/${PREFLIGHT_WORD_LIMIT}`);
+
+    // 6. No ul/ol in projected body (lint also checks this, but verify post-lint)
+    const projectedBody = bodyHtml.replace(/<section[^>]*class="[^"]*appendix[^"]*"[\s\S]*?<\/section>/gi, '');
+    if (/<(ul|ol)[\s>]/i.test(projectedBody)) {
+      issues.push({ level: 'ERROR', tag: 'LIST', msg: '<ul>/<ol> in projected slide body' });
+    }
+  } catch (e) {
+    issues.push({ level: 'ERROR', tag: 'HTML', msg: `Could not parse slide HTML: ${e.message}` });
+  }
+
+  // 7. CSS font-size check (slide-specific CSS)
+  try {
+    const slideLines = extractSlideCSS(slideId);
+    const cssText = slideLines.join('\n');
+    const fontMatches = cssText.matchAll(/font-size:\s*(\d+(?:\.\d+)?)(px|rem)/gi);
+    for (const m of fontMatches) {
+      const val = parseFloat(m[1]);
+      const unit = m[2].toLowerCase();
+      const px = unit === 'rem' ? val * 16 : val;
+      if (px < PREFLIGHT_FONT_MIN) {
+        issues.push({ level: 'WARN', tag: 'FONT_SIZE', msg: `font-size ${m[0]} = ${px}px (< ${PREFLIGHT_FONT_MIN}px min for projection)` });
+      }
+    }
+  } catch {}
+
+  // Report
+  const errors = issues.filter(i => i.level === 'ERROR');
+  const warns = issues.filter(i => i.level === 'WARN');
+  console.log('');
+  if (errors.length === 0 && warns.length === 0) {
+    console.log('  ✅ Pre-flight PASS — all local checks clean\n');
+    return { pass: true, issues };
+  }
+
+  for (const i of issues) {
+    const icon = i.level === 'ERROR' ? '❌' : '⚠️';
+    console.log(`  ${icon} [${i.tag}] ${i.msg}`);
+  }
+  console.log('');
+
+  if (errors.length > 0) {
+    console.error(`  ❌ Pre-flight BLOCKED — ${errors.length} error(s). Fix before running Gemini.`);
+    console.error(`  Tip: Errors are measurable issues. No need to spend API budget on these.\n`);
+    return { pass: false, issues };
+  }
+
+  console.warn(`  ⚠️  Pre-flight PASS with ${warns.length} warning(s) — Gemini will proceed\n`);
+  return { pass: true, issues };
 }
 
 // --- G2: Retry with exponential backoff (429, 500, 503, 504) ---
@@ -212,7 +346,7 @@ const DIM_PROP = {
     evidencia: { type: "STRING" },
     problemas: { type: "ARRAY", items: { type: "STRING" } },
     fixes: { type: "ARRAY", items: { type: "STRING" } },
-    nota: { type: "NUMBER" },
+    nota: { type: "NUMBER", minimum: 0, maximum: 10 },
   },
   required: ["evidencia", "problemas", "fixes", "nota"],
 };
@@ -774,12 +908,13 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
     text = text.replaceAll(ph, val);
   }
 
-  // Attach only the media files this call needs
-  const parts = [{ text }];
+  // Attach media BEFORE text prompt (Google recommends media-first for multimodal)
+  const parts = [];
   if (includeMedia.video && mediaUris.video) parts.push({ fileData: { mimeType: 'video/webm', fileUri: mediaUris.video } });
   if (includeMedia.s0 && mediaUris.s0) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s0 } });
   if (includeMedia.s2 && mediaUris.s2) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s2 } });
   if (includeMedia.ref && mediaUris.ref) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.ref } });
+  parts.push({ text });
 
   const config = {
     temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0,
@@ -788,6 +923,10 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
     responseMimeType: 'application/json',
   };
   if (SCHEMAS_GATE4[callType]) config.responseSchema = SCHEMAS_GATE4[callType];
+  // Gemini 3.x: enable thinking for deeper editorial analysis
+  if (MODEL.includes('3.1') || MODEL.includes('3-')) {
+    config.thinkingConfig = { thinkingLevel: 'HIGH' };
+  }
 
   return { contents: [{ parts }], generationConfig: config };
 }
@@ -982,6 +1121,26 @@ async function runEditorial(slideId, round, qaDir) {
     console.warn(`  WARN: Only ${parsedCount}/${EXPECTED_DIM_COUNT} dimensions parsed (${(completeness * 100).toFixed(0)}% < ${(DIM_COMPLETENESS_MIN * 100).toFixed(0)}% threshold). ${invalidCount} invalid/missing.`);
   }
 
+  // Semantic consistency: low score MUST have problems listed, and vice-versa
+  for (const [callResult, dims] of [
+    [callA_result, ['distribuicao', 'proporcao', 'cor', 'tipografia', 'composicao']],
+    [callB_result, ['gestalt', 'carga_cognitiva', 'information_design', 'css_cascade', 'failsafes']],
+    [callC_result, ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito', 'artefatos']],
+  ]) {
+    for (const dim of dims) {
+      const d = callResult?.[dim];
+      if (!d) continue;
+      const nota = typeof d.nota === 'number' ? d.nota : null;
+      const probs = d.problemas || [];
+      if (nota !== null && nota < MUST_FIX_THRESHOLD && probs.length === 0) {
+        console.warn(`  WARN: ${dim}=${nota} but problemas is empty — model scored low without justification`);
+      }
+      if (probs.length > 0 && nota !== null && nota >= 9) {
+        console.warn(`  WARN: ${dim}=${nota} but has ${probs.length} problem(s) — suspiciously high score with issues`);
+      }
+    }
+  }
+
   const dimValues = Object.values(allDims);
   const overallAvg = dimValues.length > 0 ? dimValues.reduce((a, v) => a + v, 0) / dimValues.length : 0;
   const visualAvg = validateNota(safeNum(callA_result, 'media_visual')) ?? 0;
@@ -1100,6 +1259,17 @@ ${JSON.stringify(callC_result, null, 2)}
 // --- Main ---
 async function main() {
   console.log(`Mode: ${MODE} | Slide: ${SLIDE_ID} | Model: ${MODEL}\n`);
+
+  // Gate -1: Pre-flight local checks ($0) — blocks API spend on measurable issues
+  if (!hasFlag('skip-preflight')) {
+    const preflight = runPreflight(SLIDE_ID, QA_DIR);
+    if (!preflight.pass) {
+      console.error('Fix local issues above, then re-run. Use --skip-preflight to bypass.');
+      process.exit(1);
+    }
+  } else {
+    console.log('  Pre-flight SKIPPED (--skip-preflight)\n');
+  }
 
   if (MODE === 'inspect') {
     const gate0Result = await runGate0(SLIDE_ID, QA_DIR);
