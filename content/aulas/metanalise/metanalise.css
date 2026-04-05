@@ -727,11 +727,15 @@ aside.notes { display: none; }
 }
 
 /* --- Objetivos: numbered vertical list (Cochrane + AMSTAR-2) --- */
+#s-objetivos .slide-inner {
+  justify-content: flex-start;
+}
 .objetivos-list {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  margin: auto 0;
+  flex: 1;
+  justify-content: center;
   max-width: 1000px;
 }
 .obj-item {
