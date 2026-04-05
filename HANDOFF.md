@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 73 | 2026-04-05
+> Sessao 74 | proximo
 
 ## ESTADO ATUAL
 
@@ -11,6 +11,18 @@ Security: guard-secrets fail-closed, pre-commit hook adicionado, 4 EASY fixes ap
 s-pico: redesign concluido (S73) — mismatch grid + indirectness punchline.
 
 ## P0 — PROXIMOS SLIDES (15 sem living HTML)
+
+### Workflow por slide
+1. Evidence HTML (research pipeline 6 pernas) → living HTML
+2. Lucas decide h2 + layout
+3. Build slide (HTML + CSS + anim)
+4. Propagar _manifest.js + lint + build
+5. QA (screenshots + Opus visual + Gemini gates)
+
+### Próxima sessão (S74)
+- [ ] Slide novo: objetivos educacionais da aula
+- [ ] Slide novo: por que meta-análise (motivação/relevância)
+- Ambos precisam: living HTML → h2 + layout → build → lint → QA
 
 ## P1 — QA PIPELINE
 
@@ -36,7 +48,7 @@ s-pico: redesign concluido (S73) — mismatch grid + indirectness punchline.
 - Gemini: API key via scripts. MCP descartado S71. Temp 1.0 para editorial.
 - Perplexity: Sonar deep-research como Perna 6. ~$0.80-1.00/call. Prompts ABERTOS.
 - NLM: `--nlm` flag no content-research.mjs. 3 queries progressivas. Auth expira ~20min.
-- Memory governance: cap 20 files (15 atual), next review S73.
+- Memory governance: cap 20 files (15 atual), next review S76.
 
 ## CUIDADOS
 
