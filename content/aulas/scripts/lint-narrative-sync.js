@@ -183,8 +183,8 @@ function validate(manifestSlides, narrativeTensions) {
   const hookIdx = ids.indexOf('s-hook');
   const closeIdx = ids.indexOf('s-close');
 
-  if (hookIdx > 1) {
-    err(`s-hook at position ${hookIdx} — should be in first 2 slides`);
+  if (hookIdx > 2) {
+    err(`s-hook at position ${hookIdx} — should be in first 3 slides`);
   } else {
     ok('s-hook position correct');
   }

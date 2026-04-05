@@ -8,7 +8,7 @@
 ## Estado atual
 
 - **Fase:** QA slide-a-slide com visual uplift
-- **Slides:** 18/18 no deck. Lint PASS. Orphans: 0.
+- **Slides:** 19/19 no deck. Lint PASS. Orphans: 0.
 - **Âncora:** Valgimigli 2025 Lancet (PMID 40902613) — IPD-MA, 7 RCTs, 28.982 pts
 - **GSAP plugins:** SplitText + Flip + ScrambleTextPlugin
 - **Dark-bg:** 6 slides (s-checkpoint-1/2, s-forest-plot, s-heterogeneity, s-ancora, s-absoluto)
@@ -18,13 +18,14 @@
 
 > Estados: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE
 
-### F1 — Criar importância (3 slides)
+### F1 — Criar importância (4 slides)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 1 | s-title | DONE | Choreography + masking. Gemini beauty 9, legibility 10. |
-| 2 | s-hook | DONE | Asymmetric grid, countUp GSAP. 14-dim avg 9.36. |
-| 3 | s-contrato | DONE | Watermark-only 35% opacity. Gemini+Lucas approved. |
+| 2 | s-objetivos | QA | 6-obj grid 3×2, acentos corrigidos. Gate -1 PASS (C1 exception). customAnim: null. |
+| 3 | s-hook | DONE | Asymmetric grid, countUp GSAP. 14-dim avg 9.36. |
+| 4 | s-contrato | DONE | Watermark-only 35% opacity. Gemini+Lucas approved. |
 
 ### I1 — Checkpoint (1 slide)
 
@@ -64,13 +65,14 @@
 ### Resumo
 
 - **DONE (3):** s-title, s-hook, s-contrato
-- **QA (1):** s-checkpoint-1 — screenshots pendentes
-- **LINT-PASS (14):** restantes — scorecard 14-dim pendente
+- **QA (2):** s-objetivos, s-checkpoint-1
+- **LINT-PASS (14):** restantes
 
 ## Próximo
 
-1. QA s-checkpoint-1 (screenshots + scorecard 14-dim)
-2. QA sequencial F2 (s-rs-vs-ma → s-fixed-random)
+1. QA s-objetivos (qa-engineer → gemini-qa3 Gate -1/0/4)
+2. QA s-checkpoint-1 (screenshots + qa-engineer)
+3. QA sequencial F2 (s-rs-vs-ma → s-fixed-random)
 3. Dark-bg: decidir por slide (propostos: s-forest-plot, s-heterogeneity, s-ancora, s-absoluto)
 4. Build de produção (`npm run build:metanalise`)
 

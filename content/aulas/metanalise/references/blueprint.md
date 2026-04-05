@@ -29,6 +29,15 @@
 - **Evidência:** —
 - **Status:** EXISTENTE (00-title.html) — manter
 
+### Slide 00b — Objetivos educacionais
+
+- **Fase:** 1
+- **Função:** advance organizer — declarar competências da aula
+- **Assertion:** "Objetivos educacionais" (rótulo, exceção aceita — slide pedagógico)
+- **Risco cognitivo:** residente sem mapa do que vai aprender → atenção dispersa
+- **Evidência:** Higgins 2024 (Cochrane Handbook), Shea 2017 AMSTAR-2 (PMID 28935701), Murad 2014 (PMID 25005654)
+- **Status:** ✅ QA em andamento (00b-objetivos.html) — 6 objetivos, grid 3×2, EtD accent
+
 ### Slide 01 — Por que meta-análise importa
 
 - **Fase:** 1

@@ -12,18 +12,20 @@ Security: guard-secrets fail-closed, pre-commit hook, 4 EASY fixes aplicados.
 ## P0 — SLIDE s-objetivos (QA EM ANDAMENTO)
 
 ### Estado atual
-- Conteudo reescrito por Lucas (S76): 5 objetivos, layout 2 colunas (1-4 lista + 5 sidebar EtD)
-- h2: "Objetivos educacionais" alinhado a 68px (flex-start, matching s-hook/s-contrato)
-- Source-tag: formato Autor Ano — Higgins 2024 (Cochrane Handbook) · Shea 2017 (AMSTAR-2) · Murad 2014
-- Gate -1 PASS (C2 overflow resolvido). C1 word count = excecao esperada para slide de objetivos
-- Codex adversarial: CSS OK, content OK, bug notes corrigido
-- Speaker notes atualizadas (5 competencias, stagger 1→5)
+- 6 objetivos, grid 3×2. Reescrito Lucas (S76) + expandido S77
+- h2: "Objetivos educacionais" alinhado flex-start
+- Source-tag: Higgins 2024 (Cochrane Handbook) · Shea 2017 (AMSTAR-2) · Murad 2014
+- Acentos corrigidos (S77). CSS: obj-detail 18px, obj-num opacity 0.5
+- Gate -1 PASS. C1 word count = excecao esperada para slide de objetivos
+- lint-narrative-sync fix: s-hook posicao 2 aceita (hookIdx > 2)
+- customAnim: null (stagger nao wired)
 
-### Proximo passo (S77)
-- [ ] Ajustes visuais finos (beleza) + animacoes stagger (wiring slide-registry.js)
-- [ ] Gate 0 (Opus visual final) + Gate 4 (Gemini editorial)
-- [ ] Verificar 6 PMIDs CANDIDATE via PubMed MCP
-- [ ] lint-narrative-sync: s-hook posicao 2 (pre-existente desde S74)
+### Proximo passo
+- [ ] Gate 0 (gemini-qa3.mjs --inspect)
+- [ ] Gate 4 (gemini-qa3.mjs --editorial, 3 calls)
+- [ ] Verificar PMIDs CANDIDATE via PubMed MCP (evidence HTML)
+- [ ] Animacoes stagger (wiring slide-registry.js) — apos QA visual
+- [ ] narrative.md: 6 objetivos nao mapeiam 1:1 com slide (Lucas decidir)
 
 ## P0 — PROXIMOS SLIDES (14 sem living HTML)
 

@@ -58,7 +58,7 @@ Residentes de clínica médica (básico-intermediário).
 
 **Tensão narrativa:** "eu achava que sabia ler uma MA, mas talvez não saiba tanto"
 
-**Slides:** 00-title, 01-hook, 02-contrato
+**Slides:** 00-title, 00b-objetivos, 01-hook, 02-contrato
 
 ### Interação 1 — Checkpoint de engajamento (entre Fase 1 e Fase 2)
 
