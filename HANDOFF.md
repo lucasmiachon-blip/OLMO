@@ -58,6 +58,12 @@ Convergencia nos 4 tipos de indirectness (GRADE 8, Guyatt 2011 PMID 21802903):
 - NLM CLI no Windows: sempre `PYTHONIOENCODING=utf-8`. Auth expira ~20min.
 - PubMed MCP: dropa sessao frequentemente.
 
+## P3 — SELF-IMPROVEMENT (novo S71)
+
+- [ ] Buscar/criar skill de self-healing (audit→propose→improve automatico)
+- [ ] Pesquisar patterns de devs/projetos elite (Vercel, shadcn, Linear) para quality gates
+- [ ] Quality gates progressivos: thresholds do qa-engineer sobem conforme projeto amadurece
+
 ## PENDENTE (herdado)
 
 - [ ] gemini-qa3.mjs: grade aula crash (missing docs/prompts/) — baixa prioridade
