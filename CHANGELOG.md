@@ -2,21 +2,29 @@
 
 ## Sessao 71 — 2026-04-05 (QUERY + BUILD S-PICO)
 
+### Script: content-research.mjs + NLM integration
+- `--nlm` flag: 3 queries progressivas ao NotebookLM (fundacao, convergencia, deep content)
+- NLM notebooks mapeados: metanalise, cirrose, mbe (UUIDs verificados)
+- Queries enriquecidos com padroes Gemini: preamble contextual, adversarial framing, evidence hierarchy
+- Preamble dinamico por aula (era hardcoded "meta-analises")
+- Pipeline testado: Gemini $0.041 + NLM 139.6s, 10.4k chars, 30 refs
+
+### Codex audit S70 — triagem + fix
+- Batch 2 (rules/agents): 6/14 genuinos corrigidos, 5 FP (~36%)
+- Batch 1 (docs): ~28/42 genuinos corrigidos, ~14 FP (CHANGELOG historico)
+- JS scripts adversarial: 4/6 genuinos (preamble hardcoded, --help UX, _archive lint)
+- OBSIDIAN_CLI_PLAN.md + S63-AUDIT-REPORT.md + CODEX-AUDIT-S70.md → archived
+- ARCHITECTURE.md + TREE.md counts atualizados (skills 20, rules 9, agents 10, MCP 12)
+
 ### Decisoes
 - h2 s-pico decidido: "PICO mismatch e indirectness no GRADE — motivo formal para rebaixar certeza"
 - Boxes: ponte PICO→GRADE (cada letra → tipo de indirectness). Conteudo exato pendente
-- Gemini MCP descartado. Usar API key via scripts existentes (content-research.mjs, gemini-qa3.mjs)
+- Gemini MCP descartado. Usar API key via scripts existentes
 
 ### Triangulacao (5 pernas)
-- Consensus MCP: Core GRADE 5, GRADE 8, Concept 4 confirmados
-- SCite MCP: Core GRADE 5 metadata + secoes do paper mapeadas (pop/int/comp/out)
-- PubMed MCP: session terminated (3a vez consecutiva)
-- Gemini API (content-research.mjs): $0.049, 4 tipos indirectness + exemplos, broad vs focused PICO
-- NLM (notebook Metanalise, 30 fontes): 4 tipos com exemplos dos livros, target vs study PICO
-- PMID falso flaggado: Gemini retornou 37263516 para Goldkuhle → correto e 37146659 (VERIFIED)
-
-### Memoria
-- feedback_gemini_cli_vs_mcp.md: distincao API vs CLI documentada
+- Consensus, SCite, Gemini API, NLM: convergentes nos 4 tipos indirectness
+- PubMed MCP: session terminated (3a vez). Fallback WEB-VERIFIED
+- PMID falso flaggado: Gemini 37263516 para Goldkuhle → correto 37146659
 
 ## Sessao 70 — 2026-04-05 (Criacao Slide — lint fix + research + Codex audit)
 
