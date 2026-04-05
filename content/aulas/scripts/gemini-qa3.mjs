@@ -66,6 +66,23 @@ if (!API_KEY) { console.error('GEMINI_API_KEY not set'); process.exit(1); }
 
 const BASE = 'https://generativelanguage.googleapis.com';
 
+// --- QA thresholds (named constants) ---
+const MUST_FIX_THRESHOLD = 7;        // dim < 7 = MUST fix
+const NOTA_MIN = 0;
+const NOTA_MAX = 10;
+const DIM_COMPLETENESS_MIN = 0.8;    // alert if < 80% of expected dimensions parsed
+const EXPECTED_DIM_COUNT = 16;       // 5 visual + 5 uxcode + 6 motion
+
+/** Clamp nota to [0, 10]. Returns null if not a valid number. */
+function validateNota(val) {
+  if (typeof val !== 'number' || Number.isNaN(val)) return null;
+  if (val < NOTA_MIN || val > NOTA_MAX) {
+    console.warn(`  WARN: nota ${val} outside [${NOTA_MIN}, ${NOTA_MAX}] — clamped`);
+    return Math.max(NOTA_MIN, Math.min(NOTA_MAX, val));
+  }
+  return val;
+}
+
 // G8: Pricing per 1M tokens — update when switching models (verified 2026-03-29)
 const PRICING = {
   'gemini-3.1-pro-preview':        { input: 2.0,  output: 12.0 },
@@ -850,10 +867,10 @@ async function runEditorial(slideId, round, qaDir) {
   const roundCtx = readRoundContext(slideId);
   const errorDigest = readErrorDigest();
 
-  // Call A — Visual Design: PNGs + video, NO code
+  // Call A — Visual Design: PNGs only, NO video/code (static layout + composition)
   const payloadA = buildSplitCallPayload('visual', CALL_A_PROMPT_PATH,
     slideId, meta, mediaUris, null, null, null, null, null, null,
-    { video: true, s0: true, s2: true, ref: true }, 8192);
+    { video: false, s0: true, s2: true, ref: true }, 8192);
 
   // Call B — UI/UX + Code: PNGs + raw code, NO video (needs more tokens: 5 dims + proposals)
   const payloadB = buildSplitCallPayload('uxcode', CALL_B_PROMPT_PATH,
@@ -916,40 +933,63 @@ async function runEditorial(slideId, round, qaDir) {
 
   console.log(`  TOTAL: ${totalTokensIn} in / ${totalTokensOut} out | ~$${totalCost.toFixed(3)}`);
 
+  // Step 4b: Validate Call C video proof-of-viewing
+  const callC_parsed = parsedCalls[2]?.parsed || {};
+  const videoInventory = callC_parsed.inventory || [];
+  if (videoInventory.length === 0) {
+    console.warn('  WARN: Call C returned EMPTY frame inventory — model may not have analyzed video');
+  } else if (videoInventory.length < 3) {
+    console.warn(`  WARN: Call C frame inventory has only ${videoInventory.length} entries — superficial video analysis`);
+  } else {
+    // Check for generic/templated entries (e.g., all same length or same prefix)
+    const unique = new Set(videoInventory.map(s => s.slice(0, 30)));
+    if (unique.size < videoInventory.length * 0.5) {
+      console.warn('  WARN: Call C frame inventory looks templated — entries too similar');
+    }
+  }
+
   // Step 5: Consolidate into unified scorecard + report
   console.log('\n4. Consolidating scorecard...');
   const [callA_result, callB_result, callC_result] = parsedCalls.map(c => c.parsed);
 
-  // Merge all dimensions into one scorecard (defensive: skip non-numeric values)
+  // Merge all dimensions into one scorecard (validate range + skip invalid)
   const allDims = {};
-  // Call A — visual dimensions
-  for (const key of ['distribuicao', 'proporcao', 'cor', 'tipografia', 'composicao']) {
-    const val = safeNum(callA_result, key, 'nota');
-    if (val !== null) allDims[key] = val;
-  }
-  // Call B — UX+code dimensions
-  for (const key of ['gestalt', 'carga_cognitiva', 'information_design', 'css_cascade', 'failsafes']) {
-    const val = safeNum(callB_result, key, 'nota');
-    if (val !== null) allDims[key] = val;
-  }
-  // Call C — motion dimensions
-  for (const key of ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito', 'artefatos']) {
-    const val = safeNum(callC_result, key, 'nota');
-    if (val !== null) allDims[key] = val;
+  let parsedCount = 0;
+  let invalidCount = 0;
+
+  function collectDim(source, keys) {
+    for (const key of keys) {
+      const raw = safeNum(source, key, 'nota');
+      if (raw === null) { invalidCount++; continue; }
+      const validated = validateNota(raw);
+      if (validated !== null) { allDims[key] = validated; parsedCount++; }
+      else { invalidCount++; }
+    }
   }
 
-  if (Object.keys(allDims).length === 0) {
-    console.warn('  WARN: No valid dimension scores found in any call — scorecard will be empty');
+  // Call A — visual dimensions
+  collectDim(callA_result, ['distribuicao', 'proporcao', 'cor', 'tipografia', 'composicao']);
+  // Call B — UX+code dimensions
+  collectDim(callB_result, ['gestalt', 'carga_cognitiva', 'information_design', 'css_cascade', 'failsafes']);
+  // Call C — motion dimensions
+  collectDim(callC_result, ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito', 'artefatos']);
+
+  // Completeness check
+  const completeness = parsedCount / EXPECTED_DIM_COUNT;
+  if (parsedCount === 0) {
+    console.error('  ERROR: No valid dimension scores found in any call — scorecard empty');
+  } else if (completeness < DIM_COMPLETENESS_MIN) {
+    console.warn(`  WARN: Only ${parsedCount}/${EXPECTED_DIM_COUNT} dimensions parsed (${(completeness * 100).toFixed(0)}% < ${(DIM_COMPLETENESS_MIN * 100).toFixed(0)}% threshold). ${invalidCount} invalid/missing.`);
   }
 
   const dimValues = Object.values(allDims);
   const overallAvg = dimValues.length > 0 ? dimValues.reduce((a, v) => a + v, 0) / dimValues.length : 0;
-  const visualAvg = safeNum(callA_result, 'media_visual') ?? 0;
-  const uxcodeAvg = safeNum(callB_result, 'media_uxcode') ?? 0;
-  const motionAvg = safeNum(callC_result, 'media_motion') ?? 0;
+  const visualAvg = validateNota(safeNum(callA_result, 'media_visual')) ?? 0;
+  const uxcodeAvg = validateNota(safeNum(callB_result, 'media_uxcode')) ?? 0;
+  const motionAvg = validateNota(safeNum(callC_result, 'media_motion')) ?? 0;
 
-  // Count MUSTs (any dim < 7)
-  const mustFixes = Object.entries(allDims).filter(([, v]) => v < 7);
+  // Count MUSTs (any dim below threshold)
+  const mustFixes = Object.entries(allDims).filter(([, v]) => v < MUST_FIX_THRESHOLD);
   const proposals = [
     ...(callB_result.proposals || []).map(p => `[${p.severity}] ${p.titulo}`),
     ...mustFixes.map(([k, v]) => `[MUST] ${k}: ${v}/10`),
@@ -968,6 +1008,13 @@ async function runEditorial(slideId, round, qaDir) {
     dead_css: callB_result.dead_css || [],
     animation_value: callC_result.animation_value || 'unknown',
     animation_inventory: callC_result.inventory || [],
+    validation: {
+      dims_parsed: parsedCount,
+      dims_expected: EXPECTED_DIM_COUNT,
+      dims_invalid: invalidCount,
+      completeness: parseFloat(completeness.toFixed(2)),
+      complete: completeness >= DIM_COMPLETENESS_MIN,
+    },
     calls: {
       A: { label: 'visual', tokens: `${parsedCalls[0].tokIn}/${parsedCalls[0].tokOut}`, cost: parsedCalls[0].cost },
       B: { label: 'uxcode', tokens: `${parsedCalls[1].tokIn}/${parsedCalls[1].tokOut}`, cost: parsedCalls[1].cost },
