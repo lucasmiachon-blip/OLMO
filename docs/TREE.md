@@ -84,7 +84,7 @@ content/aulas/
 │   ├── decision-protocol.md  # Governanca DR-NNN para decisoes nao-triviais
 │   └── coautoria.md     # Template ICMJE/SAGE disclosure AI
 ├── cirrose/             # 11 ativos (Act 1) + 35 archive. CSS single-file.
-│   ├── slides/          # 11 HTMLs ativos + _archive/ (33 Act 2/3/appendix)
+│   ├── slides/          # 11 HTMLs ativos + _archive/ (35 Act 2/3/appendix)
 │   ├── slides/_manifest.js  # SOURCE OF TRUTH: ordem, archetypes, panelStates
 │   ├── cirrose.css      # 3224L self-contained (OKLCH tokens + per-slide)
 │   ├── slide-registry.js # Animacoes GSAP customizadas por slide
@@ -141,7 +141,7 @@ resources/
 └── workflow-mbe-opus-classificacao.md
 ```
 
-## tests/ — Suite pytest (47 testes)
+## tests/ — Suite pytest (53 testes)
 
 ```
 tests/
@@ -159,9 +159,7 @@ docs/
 ├── SYNC-NOTION-REPO.md            # Protocolo sync Notion↔Repo
 ├── WORKFLOW_MBE.md                # Workflow MBE completo
 ├── PIPELINE_MBE_NOTION_OBSIDIAN.md  # Pipeline PubMed→Notion→Obsidian
-├── BEST_PRACTICES.md              # Boas praticas dev/agents
 ├── GETTING_STARTED.md             # Setup inicial
-├── OBSIDIAN_CLI_PLAN.md           # Plano CLI Obsidian (PARA structure)
 ├── keys_setup.md                  # Setup de API keys
 ├── coauthorship_reference.md      # Tabela membros alianca AI
 ├── mcp_safety_reference.md        # Referencia completa MCP safety
@@ -176,17 +174,18 @@ docs/
 
 ```
 .claude/
-├── agents/              # 7 agentes especializados
-│   ├── literature.md, notion-ops.md, quality-gate.md, researcher.md  # gerais
-│   └── medical-researcher.md, qa-engineer.md, repo-janitor.md       # aulas
+├── agents/              # 10 agentes especializados
+│   ├── notion-ops.md, quality-gate.md, researcher.md               # gerais
+│   ├── medical-researcher.md, qa-engineer.md, repo-janitor.md      # aulas
+│   └── mbe-evaluator.md, mcp-query-runner.md, opus-researcher.md, reference-checker.md  # /research pipeline
 ├── agent-memory/        # Memorias persistentes de agentes
 │   └── medical-researcher/  # 7 memories hepatologia (elastografia, MELD, etc.)
 ├── commands/            # 3 custom commands (audit-docs, evidence, new-slide)
-├── hooks/               # 7 hooks bash (guard-generated, guard-secrets, etc.)
+├── hooks/               # 9 hooks bash (guard-generated, guard-secrets, guard-lint, etc.)
 ├── rules/               # 9 regras comportamentais
-│   ├── anti-drift.md, coauthorship.md, efficiency.md, quality.md
+│   ├── anti-drift.md, coauthorship.md, process-hygiene.md, qa-pipeline.md
 │   ├── mcp_safety.md, notion-cross-validation.md (path-scoped)
-│   ├── session-hygiene.md, slide-rules.md (path-scoped: content/aulas/**)
+│   ├── session-hygiene.md, slide-rules.md, design-reference.md (path-scoped)
 │   └── design-reference.md  # Cores semanticas, tipografia, dados medicos Tier-1
 └── skills/              # 20 slash commands instrucao-based
 ```

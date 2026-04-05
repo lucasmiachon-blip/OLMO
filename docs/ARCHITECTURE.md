@@ -97,9 +97,9 @@ https://docs.crewai.com/en/guides/agents/crafting-effective-agents
  └─────────────────────────────────────────────────────┘
 
  ┌─────────────────────────────────────────────────────┐
- │  MCP SERVERS (13 connected, 3 planned)               │
+ │  MCP SERVERS (12 connected, 3 planned, 1 removed)    │
  │  Medical: PubMed │ SCite │ Consensus │ Scholar GW   │
- │  Research: Perplexity │ Gemini │ NotebookLM │ Zotero│
+ │  Research: Perplexity │ NotebookLM │ Zotero         │
  │  Prod: Notion │ Gmail │ Google Calendar │ Canva     │
  │  Visual: Excalidraw                                  │
  │  Planned: Google Drive │ ChatGPT MCP │ Anki MCP     │
@@ -121,7 +121,7 @@ apenas quando ativado.
 Ref: Anthropic Skill Authoring Best Practices
 https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 
-14 skills em `.claude/skills/` — todas com SKILL.md (formato oficial). Lista derivavel via `ls .claude/skills/`.
+20 skills em `.claude/skills/` — todas com SKILL.md (formato oficial). Lista derivavel via `ls .claude/skills/`.
 
 ### Graus de Liberdade (Anthropic Pattern)
 - **Alta liberdade**: pesquisa aberta, brainstorm (cientifico)
@@ -166,17 +166,17 @@ Ref: Anthropic CLAUDE.md Best Practices
 https://code.claude.com/docs/en/best-practices
 
 ```
-organizacao/
-├── CLAUDE.md              # Root: enxuto (~74 linhas)
+OLMO/
+├── CLAUDE.md              # Root: enxuto
 ├── .claude/
-│   ├── rules/ (8)         # quality, efficiency, coauthorship, anti-drift,
-│   │                      # mcp_safety, notion-cross-validation (path-scoped),
-│   │                      # session-hygiene, slide-rules (path-scoped)
-│   ├── skills/ (14)       # Sob demanda (progressive disclosure, SKILL.md)
-│   └── agents/ (4)        # researcher, notion-ops, literature, quality-gate
+│   ├── rules/ (9)         # anti-drift, coauthorship, design-reference,
+│   │                      # mcp_safety, notion-cross-validation, process-hygiene,
+│   │                      # qa-pipeline, session-hygiene, slide-rules
+│   ├── skills/ (20)       # Sob demanda (progressive disclosure, SKILL.md)
+│   └── agents/ (10)       # researcher, qa-engineer, medical-researcher, etc.
 ├── config/
 │   ├── ecosystem.yaml     # Agentes + model routing + skills
-│   └── mcp/servers.json   # 16 MCPs (13 connected, 3 planned)
+│   └── mcp/servers.json   # 16 MCPs (12 connected, 3 planned, 1 removed)
 └── content/aulas/         # Subsistema Node.js (deck.js + GSAP)
 ```
 
@@ -192,7 +192,7 @@ content/aulas/
 │   ├── js/engine.js       # GSAP dispatcher declarativo (data-animate)
 │   ├── js/click-reveal.js # Progressive reveal (data-reveal)
 │   └── assets/fonts/      # DM Sans, Instrument Serif, JetBrains Mono (woff2)
-├── cirrose/               # 44 slides, producao, lint clean
+├── cirrose/               # 11 slides ativos + 35 archived
 ├── grade/                 # 58 slides, migrada Reveal→deck.js, precisa redesign
 ├── scripts/               # Linters compartilhados (lint-slides, done-gate)
 ├── STRATEGY.md            # Roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
