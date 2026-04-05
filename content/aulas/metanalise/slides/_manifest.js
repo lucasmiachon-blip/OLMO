@@ -12,6 +12,7 @@
 export const slides = [
   // ── Fase 1: Criar importância ──
   { id: 's-title',        file: '00-title.html',        phase: 'F1', archetype: 'title',      headline: 'Meta-análise — Leitura crítica para decisão clínica',                                                                timing: null, clickReveals: 0, customAnim: 's-title',        narrativeRole: null,         tensionLevel: 0, narrativeCritical: false },
+  { id: 's-objetivos',   file: '00b-objetivos.html',   phase: 'F1', archetype: 'cards',      headline: 'Objetivos educacionais',                                                                                              timing: 30,   clickReveals: 0, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 0, narrativeCritical: false },
   { id: 's-hook',         file: '01-hook.html',         phase: 'F1', archetype: 'cards',       headline: 'Por que isso importa',                                    timing: 60,   clickReveals: 0, customAnim: 's-hook',             narrativeRole: 'hook',       tensionLevel: 2, narrativeCritical: true },
   { id: 's-contrato',     file: '02-contrato.html',     phase: 'F1', archetype: 'cards',      headline: '3 perguntas que você faz a toda meta-análise',                                            timing: 45,   clickReveals: 0, customAnim: 's-contrato',             narrativeRole: 'setup',      tensionLevel: 1, narrativeCritical: false },
 

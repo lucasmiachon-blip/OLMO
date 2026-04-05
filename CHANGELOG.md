@@ -1,5 +1,65 @@
 # CHANGELOG
 
+## Sessao 75 — 2026-04-05 (SLIDES — s-objetivos build + 3-leg research)
+
+### Research — 3 pernas paralelas para s-objetivos
+- Perna A (Gemini API + NLM): `content-research.mjs --slide s-objetivos --fields --nlm` ($0.048, 3 NLM queries)
+- Perna B (Opus web research): PubMed, Semantic Scholar, CrossRef — competency frameworks, resident blind spots
+- Perna C (PMID verification): 2 agents paralelos para PMID 17785646 (Windish) e 28935701 (AMSTAR-2)
+- Convergencia 3/3 pernas nos 3 pilares (credibilidade → resultados → aplicacao)
+- 7 PMIDs VERIFIED, 6 CANDIDATE, 2 WEB-VERIFIED (18 referencias total)
+- Novos achados: Windish 2007 (41.4% biostat score), Nasr 2018 (forest plot teachable 44→76%), Borenstein 2023 (I² misinterpretation)
+
+### Living HTML — s-objetivos reescrito
+- `evidence/s-objetivos.html`: 3 eixos (competencias + blind spots + formato) vs 2 eixos (S74)
+- 11 metricas em Numeros-Chave (vs 5), 4 Evidence Gaps documentados, Assessment Tools catalogados
+- 5 opcoes formato (A-E), convergencia documentada por perna
+
+### Slide s-objetivos — build completo
+- `slides/00b-objetivos.html`: 5 competencias Cochrane + AMSTAR-2, layout vertical numerado
+- h2: "Objetivos educacionais" (decisao Lucas)
+- CSS: `.objetivos-list`, `.obj-item`, `.obj-num`, `.obj-skill`, `.obj-detail` no metanalise.css
+- `_manifest.js`: headline atualizado
+- `index.html`: section injetada (deck.js le DOM, nao manifest em runtime)
+- Lint clean, build OK (19 slides)
+
+### Bug fix — slide nao renderizava
+- Root cause: `index.html` nao incluia `<section id="s-objetivos">` (deck.js le DOM)
+- Fix: injecao manual no index.html entre s-title e s-hook
+- Codex adversarial encontrou root cause em 1 passo
+
+### Mockups
+- v1: 3 variantes (C, D, E) — rejeitado (palheta errada, emojis, sem paralelismo)
+- v2: 2 variantes (F, G) com tokens reais — Lucas escolheu F (lista vertical numerada)
+- Mockups deletados apos decisao
+
+## Sessao 74 — 2026-04-05 (SLIDES — s-objetivos + content-research fix)
+
+### Slide s-objetivos — stub + living HTML parcial
+- `slides/00b-objetivos.html` criado (stub, h2 provisorio)
+- `_manifest.js` atualizado: 19 slides, s-objetivos entre s-title e s-hook
+- `evidence/s-objetivos.html` criado: 2 eixos (conteudo Murad + formato pedagogico)
+- 3 pilares Murad identificados: credibilidade → confianca → aplicacao
+- 4 opcoes de formato mapeadas (verbos, perguntas, roadmap, hibrido)
+- PMIDs verificados: 4 VERIFIED (32870085, 25284006, 37640836, 22225439)
+- PMIDs descartados: 26173516 (Gemini hallucinated), 29713210 (Gemini hallucinated — era inotuzumab)
+
+### Fix: content-research.mjs — contaminacao aula
+- `buildSystemPrompt()`: hardcoded hepatologia → `AULA_PROFILES` object (cirrose, metanalise, mbe, grade)
+- Role, audience, guidelines, tier-1 sources, clinical action, audience level: todos aula-specific
+- Tabela de divergencia: EASL/AASLD/Baveno → Source A/B/C (generico)
+- User prompt: guidelines hardcoded → referencia ao system prompt
+- Re-rodou com contexto correto: Gemini agora responde sobre MA, nao cirrose
+
+### Pesquisa — 4 frentes
+- Opus web search: prequestions d=0.84 (Sana 2020), curiosidade/dopamina (Gruber 2014), advance organizers (Cutrer 2011)
+- Gemini deep-search: assertion-evidence (Alley), 6 design patterns, progressive disclosure
+- Analise conteudo: 16 competencias mapeadas por Bloom, arco emocional, distincao contrato vs objetivos
+- Gemini API (corrigido): 3 pilares Murad, GRADE Working Group, Cochrane Handbook
+
+### Feedback salvo
+- Agentes: perguntas ABERTAS, nao forcar framework (Bloom/andragogia) em todas as frentes
+
 ## Sessao 73 — 2026-04-05 (SLIDE s-PICO REDESIGN)
 
 ### Slide s-pico — mismatch grid + indirectness punchline

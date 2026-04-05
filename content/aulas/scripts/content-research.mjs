@@ -404,8 +404,66 @@ function classifyContentType(h2) {
 // PHASE 3: PROMPT ASSEMBLY
 // ============================================================
 
+const AULA_PROFILES = {
+  cirrose: {
+    role: 'hepatology evidence auditor for a congress-level medical presentation',
+    audience: 'practicing hepatologists — they know the basics cold. Skip fundamentals — provide only advanced, actionable content',
+    guidelines: 'EASL, AASLD, Baveno consensus, ACG, AGA, WHO',
+    tier1: `| Source | Type | ID | Search for |
+|--------|------|----|------------|
+| BAVENO VII | Consensus HP | DOI:10.1016/j.jhep.2021.12.012 | "Baveno VII" + topic keywords |
+| EASL Cirrose 2024 | CPG | J Hepatol 2024 | "EASL cirrhosis 2024 guideline" |
+| AASLD Varizes 2024 | Practice Guidance | Hepatology 2024 | "AASLD varices 2024" |
+| PREDESCI | RCT | PMID:30910320 | "PREDESCI trial NSBB" |
+| CONFIRM | RCT | PMID:33657294 | "CONFIRM trial terlipressin" |
+| ANSWER | RCT | PMID:29861076 | "ANSWER trial TIPS" |
+| D'Amico 2006 | Systematic review | PMID:16298014 | "D'Amico natural history cirrhosis" |`,
+    clinicalAction: 'what clinical action this enables for a hepatologist seeing 20 cirrhosis patients/month',
+    audienceLevel: 'This audience is expert-level (hepatologists at congress). Provide only actionable, advanced content — assume all fundamentals are known.',
+  },
+  metanalise: {
+    role: 'medical education and EBM evidence auditor for a teaching presentation on critical reading of meta-analyses',
+    audience: 'clinical medicine residents (R1-R3, basic-intermediate level). They read meta-analyses but lack systematic critical appraisal skills. Focus on practical reading skills, not production',
+    guidelines: 'Cochrane Handbook v6.5, GRADE Working Group, PRISMA 2020, AMSTAR-2',
+    tier1: `| Source | Type | ID | Search for |
+|--------|------|----|------------|
+| Cochrane Handbook v6.5 | Handbook | cochrane.org | "Cochrane Handbook" + topic keywords |
+| GRADE Working Group | Framework | gradeworkinggroup.org | "GRADE" + topic keywords |
+| PRISMA 2020 | Reporting | PMID:33782057 | "PRISMA 2020 statement" |
+| Higgins & Thompson 2002 | Landmark | PMID:12111919 | "I-squared heterogeneity" |
+| Murad 2014 | Framework | PMID:25005654 | "Murad users guide meta-analysis" |`,
+    clinicalAction: 'what reading skill this teaches a resident who encounters meta-analyses weekly in journal club and clinical decisions',
+    audienceLevel: 'This audience is resident-level (R1-R3 clinical medicine). They know basic statistics but lack structured critical appraisal. Explain with clarity, avoid jargon without definition.',
+  },
+  mbe: {
+    role: 'evidence-based medicine education auditor',
+    audience: 'clinical medicine residents learning EBM methodology',
+    guidelines: 'Cochrane Handbook, GRADE, PRISMA, Oxford CEBM, CONSORT, STROBE',
+    tier1: `| Source | Type | Search for |
+|--------|------|------------|
+| Cochrane Handbook v6.5 | Handbook | "Cochrane Handbook" + topic |
+| GRADE Working Group | Framework | "GRADE" + topic |
+| Guyatt Users Guide | Textbook | "Guyatt users guide" + topic |`,
+    clinicalAction: 'what EBM skill this teaches for bedside clinical decision-making',
+    audienceLevel: 'This audience is resident-level. Explain clearly, connect to clinical practice.',
+  },
+  grade: {
+    role: 'GRADE framework evidence auditor for a teaching presentation',
+    audience: 'clinical medicine residents learning the GRADE approach to certainty of evidence',
+    guidelines: 'GRADE Working Group, Cochrane Handbook v6.5, BMJ GRADE series',
+    tier1: `| Source | Type | Search for |
+|--------|------|------------|
+| GRADE Handbook | Framework | "GRADE handbook" + topic |
+| Cochrane Handbook v6.5 | Handbook | "Cochrane Handbook" + topic |
+| Guyatt GRADE series | Series | "Guyatt GRADE" + topic |`,
+    clinicalAction: 'what GRADE skill this teaches for appraising evidence certainty',
+    audienceLevel: 'This audience is resident-level learning GRADE. Connect to clinical decision-making.',
+  },
+};
+
 function buildSystemPrompt() {
-  return `You are a hepatology evidence auditor for a congress-level medical presentation. Your audience is practicing hepatologists — they know the basics cold. Skip fundamentals — provide only advanced, actionable content.
+  const profile = AULA_PROFILES[aula] || AULA_PROFILES.cirrose;
+  return `You are a ${profile.role}. Your audience is ${profile.audience}.
 
 You are called ONLY for slides flagged as weak in content.
 
@@ -424,7 +482,7 @@ YOUR TASK: Given a weak slide's clinical claim, its position in the narrative ar
 === EVIDENCE HIERARCHY (always classify every source you cite) ===
 
 Tag each reference with its type:
-[GUIDELINE] — Society guidelines: EASL, AASLD, Baveno consensus, ACG, AGA, WHO. State issuing body + year.
+[GUIDELINE] — Society guidelines: ${profile.guidelines}. State issuing body + year.
 [META/SR] — Systematic reviews and meta-analyses. State N studies pooled, total N patients if available.
 [RCT] — Randomized controlled trials. State N=, arms, primary endpoint.
 [LANDMARK] — Foundational/genealogy studies that established a concept (e.g., first description of HVPG threshold). State historical significance.
@@ -446,7 +504,7 @@ When a guideline gives a strong recommendation on low-quality evidence, flag the
 
 === GUIDELINE DIVERGENCE (mandatory when 2+ societies cited) ===
 
-When multiple guidelines address the same topic (e.g., EASL vs AASLD vs Baveno), explicitly compare:
+When multiple guidelines address the same topic, explicitly compare:
 - Where they agree (consensus = high confidence)
 - Where they diverge (state each society's position + year)
 - Which is more recent or based on stronger evidence
@@ -477,25 +535,17 @@ The slide metadata includes narrative role and tension level. Interpret them:
 
 === SOURCE PRIORITY (follow this order) ===
 
-1. Society guidelines: EASL, AASLD, Baveno VII, ACG, AGA, WHO (most authoritative)
+1. Society guidelines/handbooks: ${profile.guidelines} (most authoritative)
 2. Meta-analyses and systematic reviews (last 5 years, N≥500 preferred)
-3. Landmark RCTs: PREDESCI (PMID:30910320), CONFIRM (PMID:33657294), ANSWER (PMID:29861076)
+3. Landmark RCTs and foundational studies
 4. Large prospective cohorts (N≥200, follow-up ≥2 years)
 5. Expert opinion ONLY if nothing above exists — flag explicitly as lowest tier
 
-=== TIER-1 SOURCES — HEPATOLOGY (MANDATORY search) ===
+=== TIER-1 SOURCES (MANDATORY search) ===
 
 You MUST use Google Search to actively look for these sources for EVERY claim. Do NOT rely on training data alone — search to confirm current versions and find updates.
 
-| Source | Type | ID | Search for |
-|--------|------|----|------------|
-| BAVENO VII | Consensus HP | DOI:10.1016/j.jhep.2021.12.012 | "Baveno VII" + topic keywords |
-| EASL Cirrose 2024 | CPG | J Hepatol 2024 | "EASL cirrhosis 2024 guideline" |
-| AASLD Varizes 2024 | Practice Guidance | Hepatology 2024 | "AASLD varices 2024" |
-| PREDESCI | RCT | PMID:30910320 | "PREDESCI trial NSBB" |
-| CONFIRM | RCT | PMID:33657294 | "CONFIRM trial terlipressin" |
-| ANSWER | RCT | PMID:29861076 | "ANSWER trial TIPS" |
-| D'Amico 2006 | Systematic review | PMID:16298014 | "D'Amico natural history cirrhosis" |
+${profile.tier1}
 
 If the slide's topic overlaps with ANY Tier-1 source above, you MUST search for it and cite what you find. Omitting a relevant Tier-1 source = audit failure.
 
@@ -507,7 +557,7 @@ If the slide's topic overlaps with ANY Tier-1 source above, you MUST search for 
 - When confidence is below 90% on any PMID, statistic, or page number, write [VERIFICAR] and state what to look up.
 - When citing textbooks, describe the argument the passage makes. Provide author, edition, chapter, and page range.
 - Prioritize sources from 2020–present. Include older sources only when they are foundational/landmark.
-- This audience is expert-level (hepatologists at congress). Provide only actionable, advanced content — assume all fundamentals are known.
+- ${profile.audienceLevel}
 - Focus exclusively on what is MISSING from the slide. Use the provided existing data as your baseline, then build on top of it.
 
 === OUTPUT FORMAT (follow exactly — use markdown headings) ===
@@ -540,8 +590,8 @@ Para cada PMID já presente:
 
 ## DIVERGÊNCIA ENTRE GUIDELINES
 (MANDATORY if 2+ guidelines cited; skip otherwise)
-| Tópico | EASL | AASLD | Baveno | Outro |
-|--------|------|-------|--------|-------|
+| Tópico | Source A | Source B | Source C | Outro |
+|--------|---------|---------|---------|-------|
 | [topic] | [position + year] | [position + year] | [position + year] | |
 
 ## CONTEÚDO SUGERIDO (max 1)
@@ -549,7 +599,7 @@ Para cada PMID já presente:
 - Visual: [data visualization that would prove the claim]
 
 ## DECISÃO CLÍNICA (max 1)
-- [the "e daí?" — what clinical action this enables for a hepatologist seeing 20 cirrhosis patients/month]
+- [the "e daí?" — ${profile.clinicalAction}]
 
 ## GAPS (max 2)
 - [what an expert would ask that this slide can't answer]
@@ -612,7 +662,7 @@ ${ctx.narrativeBlock}
 === YOUR TASK ===
 FIRST: Attempt to DISPROVE the claim. Search for contradicting evidence, population mismatches, outdated guidelines, surrogate endpoint issues, framing errors (HR≠RR, NNT without timeframe).
 THEN: If the claim survives, reinforce with the strongest available sources.
-Prioritize: society guidelines (EASL, AASLD, Baveno), recent meta-analyses (last 5y), landmark RCTs, textbook references.
+Prioritize: authoritative sources (see TIER-1 SOURCES in system prompt), recent meta-analyses (last 5y), landmark studies, textbook references.
 Classify every source. Rate via GRADE. Flag strength/evidence discrepancies. If evidence is weak or contested, say so — never manufacture strength.${RESEARCH_FIELDS_TEXT ? `
 
 === CAMPOS ESPECÍFICOS SOLICITADOS (responder CADA um) ===
