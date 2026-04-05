@@ -30,7 +30,7 @@ ralph_phase: learn
 # Auto-detectar aula: git branch --show-current → feat/{aula}-mvp → {aula}
 # Ler contexto da aula ativa (skip if not found):
 cat content/aulas/{aula}/CLAUDE.md 2>/dev/null || echo "No CLAUDE.md for {aula} — use general constraints"
-cat content/aulas/{aula}/HANDOFF.md 2>/dev/null || echo "No HANDOFF.md for {aula}"
+cat content/aulas/{aula}/HANDOFF*.md 2>/dev/null || echo "No HANDOFF for {aula}"
 tail -50 content/aulas/{aula}/ERROR-LOG.md 2>/dev/null
 cat docs/aulas/slide-pedagogy.md 2>/dev/null
 # Se existir: cat content/aulas/{aula}/references/CASE.md (caso clínico âncora)

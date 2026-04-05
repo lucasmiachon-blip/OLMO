@@ -45,8 +45,6 @@ Prompt QA DEVE incluir critérios explícitos de avaliação de cor semântica:
 
 ## 5. Checklists de Transição (por estado)
 
-> Migrado de WT-OPERATING.md §3 (S69).
-
 ### BACKLOG → DRAFT
 - [ ] Arquivo HTML criado em `slides/NN-slug.html`
 - [ ] `<section id="s-{act}-{slug}">` com ID correto
@@ -66,8 +64,8 @@ Prompt QA DEVE incluir critérios explícitos de avaliação de cor semântica:
 - [ ] `_manifest.js` customAnim = null ou ID correto
 - [ ] `slide-registry.js` tem wiring se customAnim != null
 - [ ] `{aula}.css` tem seletores `#slide-id` se necessário
-- [ ] `narrative.md` tem linha para este slide
-- [ ] `evidence-db.md` tem referências se slide tem dados
+- [ ] `references/narrative.md` tem linha para este slide
+- [ ] Evidence HTML (`evidence/s-{id}.html`) ou `references/evidence-db.md` tem referências se slide tem dados
 - [ ] HANDOFF registra estado SYNCED
 
 ### SYNCED → LINT-PASS
@@ -82,23 +80,18 @@ Prompt QA DEVE incluir critérios explícitos de avaliação de cor semântica:
 
 ## 6. Tabela de Propagação
 
-> Migrado de WT-OPERATING.md §7 (S69).
-
 | Mudei... | Atualizar também... |
 |----------|---------------------|
-| h2 no HTML | `_manifest.js` headline, `narrative.md` |
+| h2 no HTML | `_manifest.js` headline, `references/narrative.md` |
 | `<section id>` | TODAS 9 superfícies (§5 CONTENT→SYNCED) |
 | CSS do slide | Verificar se afeta score QA |
-| Dados numéricos | `evidence-db.md`, notes `[DATA]` tag, evidence HTML |
-| Posição no deck | `_manifest.js` ordem, `narrative.md` |
+| Dados numéricos | evidence HTML (`evidence/s-{id}.html`), `references/evidence-db.md`, notes `[DATA]` tag |
+| Posição no deck | `_manifest.js` ordem, `references/narrative.md` |
 | Click-reveals | `_manifest.js` clickReveals, `slide-registry.js` |
 | customAnim | `_manifest.js` customAnim, `slide-registry.js` |
 | Qualquer coisa | HANDOFF.md estado do slide |
 
 ## 7. Scorecard 14-dim — Template
-
-> Migrado de metanalise/NOTES.md (S69).
-
 | Dim | Score | Nota |
 |-----|-------|------|
 | H (hierarquia) | ?/10 | |

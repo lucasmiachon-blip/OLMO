@@ -27,7 +27,7 @@ You receive: slide-id + aula path (e.g., `content/aulas/metanalise/`).
 
 Find and read:
 1. Slide HTML: `content/aulas/{aula}/slides/{slide-id}.html` (or grep for the id)
-2. Evidence-db: `content/aulas/{aula}/evidence-db.md`
+2. Evidence-db: `content/aulas/{aula}/references/evidence-db.md`
 3. Other slides citing same PMIDs: `grep -rn "PMID" content/aulas/{aula}/`
 
 ## Checks
