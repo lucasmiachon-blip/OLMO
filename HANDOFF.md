@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 76 | proximo
+> Sessao 77 | proximo
 
 ## ESTADO ATUAL
 
@@ -9,21 +9,21 @@ QA pipeline: qa-engineer (35 checks) → gemini-qa3.mjs Gate -1/0/4.
 Research pipeline: 6 pernas (Perplexity auditor S72). content-research.mjs aula-aware (fix S74).
 Security: guard-secrets fail-closed, pre-commit hook, 4 EASY fixes aplicados.
 
-## P0 — SLIDE s-objetivos (QA PENDENTE)
+## P0 — SLIDE s-objetivos (QA EM ANDAMENTO)
 
 ### Estado atual
-- Slide HTML built: `slides/00b-objetivos.html` (5 competencias Cochrane + AMSTAR-2, layout vertical numerado)
-- h2: "Objetivos educacionais" (decisao Lucas S75)
-- CSS pronto: `.objetivos-list` no metanalise.css
-- Living HTML completo: `evidence/s-objetivos.html` (3 eixos, 7 VERIFIED, 6 CANDIDATE)
-- Manifest atualizado, index.html injetado, lint clean, build OK
-- Animacao: nao implementada (stagger pendente — precisa wiring em slide-registry.js)
+- Conteudo reescrito por Lucas (S76): 5 objetivos, layout 2 colunas (1-4 lista + 5 sidebar EtD)
+- h2: "Objetivos educacionais" alinhado a 68px (flex-start, matching s-hook/s-contrato)
+- Source-tag: formato Autor Ano — Higgins 2024 (Cochrane Handbook) · Shea 2017 (AMSTAR-2) · Murad 2014
+- Gate -1 PASS (C2 overflow resolvido). C1 word count = excecao esperada para slide de objetivos
+- Codex adversarial: CSS OK, content OK, bug notes corrigido
+- Speaker notes atualizadas (5 competencias, stagger 1→5)
 
-### Proximo passo (S76)
-- [ ] QA visual (screenshot + Opus multimodal)
-- [ ] Decidir: quer stagger animation nos 5 itens? (wiring slide-registry.js)
+### Proximo passo (S77)
+- [ ] Ajustes visuais finos (beleza) + animacoes stagger (wiring slide-registry.js)
+- [ ] Gate 0 (Opus visual final) + Gate 4 (Gemini editorial)
 - [ ] Verificar 6 PMIDs CANDIDATE via PubMed MCP
-- [ ] lint-narrative-sync: s-hook posicao 2 (pre-existente desde S74, threshold do lint precisa ajuste)
+- [ ] lint-narrative-sync: s-hook posicao 2 (pre-existente desde S74)
 
 ## P0 — PROXIMOS SLIDES (14 sem living HTML)
 
@@ -49,7 +49,7 @@ Security: guard-secrets fail-closed, pre-commit hook, 4 EASY fixes aplicados.
 | Estado | Count | Slides |
 |--------|-------|--------|
 | DONE | 3 | s-title, s-hook, s-contrato |
-| BUILT (QA pending) | 1 | s-objetivos |
+| QA em andamento | 1 | s-objetivos |
 | LINT-PASS | 14 | s-pico + todos F2 + I2 + F3 |
 | QA pending | 1 | s-checkpoint-1 |
 
@@ -57,17 +57,20 @@ Security: guard-secrets fail-closed, pre-commit hook, 4 EASY fixes aplicados.
 
 - Living HTML per slide = source of truth. Evidence-first workflow.
 - deck.js le DOM, nao manifest em runtime. Slides novos precisam injecao no index.html.
+- Source-tag: formato Autor Ano. Recurso entre parenteses se relevante. Lucas avisa excecoes.
 - Gemini: API key via scripts. MCP descartado S71. Temp 1.0 para editorial.
 - content-research.mjs: aula-aware via AULA_PROFILES (fix S74). Sem contaminacao.
 - Perplexity: Sonar deep-research como Perna 6. ~$0.80-1.00/call. Prompts ABERTOS.
 - NLM: `--nlm` flag no content-research.mjs. 3 queries progressivas. Auth expira ~20min.
-- Memory governance: cap 20 files (14 atual), next review S76.
+- Memory governance: cap 20 files (14 atual), next review S78.
 - Agentes de pesquisa: perguntas ABERTAS, nao pre-mastigar respostas (feedback S74).
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - **index.html e gerado** — slide novo precisa injecao manual (ou rodar build-html.ps1).
+- **Editar slide = AMBOS arquivos** — slides/{file}.html + index.html (rule em slide-rules.md §2).
+- **CSS per-slide: `section#s-{id}`** — nao `#s-{id}` (specificity 0,1,1,1 para empatar com base).
 - NLM CLI no Windows: sempre `PYTHONIOENCODING=utf-8`. Auth expira ~20min.
 - PubMed MCP: dropa sessao frequentemente.
 - Perplexity PMIDs: ~25% erro. SEMPRE verificar via PubMed MCP antes de usar.

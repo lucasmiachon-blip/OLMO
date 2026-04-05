@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 76 — 2026-04-05 (QA + SLIDES — s-objetivos content rewrite)
+
+### QA — s-objetivos
+- Gate -1: overflow (fillRatio 1.04) + h2 clipado (-11px). Resolvido com flex-start + content rewrite
+- h2 alinhado a 68px (matching s-hook, s-contrato) via `section#s-objetivos .slide-inner { justify-content: flex-start }`
+- Codex adversarial: CSS OK, content hierarchy strong, bug notes corrigido (5→4→5)
+
+### Conteudo — reescrito por Lucas
+- 5 objetivos: conceitos, forest plot, heterogeneidade, certeza GRADE, EtD
+- Layout 2 colunas: lista 1-4 esquerda + objetivo 5 (EtD) sidebar direita com destaque
+- Source-tag: formato Autor Ano — Higgins 2024, Shea 2017, Murad 2014
+
+### Rules — erros recorrentes capturados
+- `slide-rules.md` §2: dual-source (slides/*.html + index.html), CSS specificity (`section#s-{id}`), source-tag formato
+- Aprendizado: rules > memory para erros no caminho de acao
+
 ## Sessao 75 — 2026-04-05 (SLIDES — s-objetivos build + 3-leg research)
 
 ### Research — 3 pernas paralelas para s-objetivos
