@@ -61,7 +61,7 @@ Mapa completo: `docs/TREE.md`. Entry points:
 - **Living HTML per slide** = source of truth. Evidence-first workflow: HTML gerado ANTES do slide.
 - Fontes por slide: evidence HTML + narrative.md. aside.notes deprecated.
 - Hooks em `hooks/` + `.claude/hooks/` (bash scripts, config em `.claude/settings.local.json`)
-- Lint enforced: `guard-lint-before-build.sh` BLOQUEIA builds se lint-slides.js falhar.
+- Lint enforced: `.claude/hooks/guard-lint-before-build.sh` BLOQUEIA builds se lint-slides.js falhar.
 - Rules pesadas (`mcp_safety`, `notion-cross-validation`) com `paths:` frontmatter — so carregam em sessoes relevantes
 - **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server. Matar por PID especifico.
 

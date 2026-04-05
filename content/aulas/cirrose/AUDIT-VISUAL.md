@@ -74,7 +74,7 @@ Output: `qa-screenshots/{id}/gate2-report.md`.
 ### Gate 4 — Editorial (Gemini, $0.03-0.08)
 
 Raw HTML + Raw CSS + Raw JS + PNGs S0/S2 + video .webm → Gemini avalia hierarquia, flow, legibilidade, daltonismo, densidade. Gemini so sugere — Opus executa fix.
-Prompt: `docs/prompts/gemini-gate4-editorial.md`. Spec completa: `WT-OPERATING.md` §4 QA.3.
+Prompt: `docs/prompts/gemini-gate4-editorial.md`. Spec completa: `@repo/.claude/rules/qa-pipeline.md`.
 
 ---
 

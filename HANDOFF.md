@@ -1,20 +1,19 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 68 | 2026-04-04
+> Sessao 69 | 2026-04-04
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde (53 testes). 9 rules (5 path-scoped).
-GEMINI.md v3.6: 3 gates integridade + criatividade livre.
-P1 audit 8/8 fixes aplicados. Benchmark CLI vs API concluido (API default).
-Codex R2A+R2B completos, triagem parcial. Memory: 13 files, next review S71.
+Monorepo funcional. CI verde (53 testes). Lint clean. Build OK.
+Codex triagem S68 COMPLETA — 2 fixes aplicados, 4 descartados, 1 ja resolvido.
+Complexidade reduzida: NOTES.md (2x) + WT-OPERATING.md removidos.
+Conteudo unico migrado para qa-pipeline.md §5-7. 10+ refs limpas.
 
-## P0 — CODEX TRIAGEM (herdado)
+## P0 — LINT
 
-1. Abrir `.claude/tmp/S68-CODEX-TRIAGEM.md` — checklist completa
-2. Fixes pendentes: session-hygiene template, mcp_safety redundancia, CLAUDE.md paths
-3. Verificar existencia: coauthorship_reference.md, chatgpt_audit_prompt.md, mcp_safety_reference.md
-4. Decisoes: ENFORCEMENT duplicado, "HEX e verdade", slide-rules precedence
+1. lint-slides.js: NOTES check (L68) trata notes ausente como ERROR — contradiz slide-rules.md que diz optional
+2. Considerar downgrade para WARNING ou remover
+3. Version string inconsistente: header "v5" vs console "v6"
 
 ## P1 — AULAS (herdado)
 
@@ -24,10 +23,9 @@ Codex R2A+R2B completos, triagem parcial. Memory: 13 files, next review S71.
 
 ## DECISOES ATIVAS
 
-- Living HTML per slide = source of truth. Evidence-first workflow.
+- Living HTML per slide = source of truth. Evidence-first workflow. CSS inline (self-contained).
 - Gemini CLI = pesquisas pontuais ($0). API key = scripts (content-research, gemini-qa3).
-- GEMINI.md v3.6: gates para integridade + liberdade para raciocinio criativo.
-- Memory governance: cap 20 files, review S71.
+- Memory governance: cap 20 files (13 atual), next review S71.
 
 ## CUIDADOS
 

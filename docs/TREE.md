@@ -93,7 +93,6 @@ content/aulas/
 │   ├── docs/            # biblia-narrativa, blueprint, lessons, prompts/ (15 QA)
 │   ├── ERROR-LOG.md     # 67 erros → rules (feedback loop)
 │   ├── AUDIT-VISUAL.md  # Scorecard 14 dimensoes por slide
-│   ├── WT-OPERATING.md  # State machine QA (6 substages)
 │   ├── HANDOFF-CIRROSE.md  # Tracking especifico da aula
 │   └── CHANGELOG-CIRROSE.md
 ├── metanalise/          # 18 slides, QA em progresso (3 DONE, 14 LINT-PASS)

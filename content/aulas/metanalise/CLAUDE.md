@@ -51,7 +51,7 @@ GSAP plugins: SplitText + Flip + ScrambleTextPlugin.
 ### Opus (multimodal) — QA visual primario
 Agente analisa screenshots diretamente (multimodal).
 Screenshots: CLI (`qa-batch-screenshot.mjs`), NUNCA MCP Playwright manual.
-Prompt: baseado em scorecard 14-dim (ver NOTES.md)
+Prompt: baseado em scorecard 14-dim (ver qa-pipeline.md §7)
 Threshold: score < 7 → checkpoint Lucas antes de continuar
 
 ### Gemini CLI — QA automatizado
@@ -86,7 +86,7 @@ Detalhes QA por slide: `HANDOFF.md`.
 
 ## Status
 
-Tracking: `HANDOFF.md` (project-level) | `NOTES.md` §Fila QA (slide-level).
+Tracking: `HANDOFF.md` (project-level).
 18/18 slides. Âncora: Valgimigli 2025 Lancet (PMID 40902613). HEX navy: #162032.
 
 ## Display de apresentação

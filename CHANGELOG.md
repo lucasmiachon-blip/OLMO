@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 69 — 2026-04-04 (Codex triagem final + complexidade reduzida)
+
+### Codex Triagem (completa)
+- session-hygiene.md: template HANDOFF atualizado (max ~50, priority bands)
+- CLAUDE.md: path guard-lint qualificado para `.claude/hooks/`
+- 4 items descartados com justificativa (mcp_safety, ENFORCEMENT, HEX, precedencia)
+- 3 arquivos verificados existentes (coauthorship_reference, chatgpt_audit, mcp_safety_reference)
+
+### Reducao de Complexidade
+- NOTES.md removido (cirrose + metanalise) — living HTML e source of truth
+- WT-OPERATING.md removido (cirrose) — 70% duplicado, 30% migrado
+- Conteudo unico migrado para qa-pipeline.md: §5 checklists, §6 propagacao, §7 scorecard 14-dim
+- 10+ referencias atualizadas (HANDOFF, CLAUDE.md, AUDIT-VISUAL, ERROR-LOG, decision-protocol, TREE)
+
+### Pipeline
+- Lint clean, build OK (526ms), 53 testes passed
+
 ## Sessao 68 — 2026-04-04 (P0 Benchmark + P1 Audit Fixes + GEMINI.md v3.6)
 
 ### P0 — Benchmark CLI vs API

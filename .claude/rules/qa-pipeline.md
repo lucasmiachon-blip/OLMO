@@ -42,3 +42,76 @@ Prompt QA DEVE incluir critérios explícitos de avaliação de cor semântica:
 - **Exemplos de penalização:** Stagger uniforme = mecânico → max 7. CountUp sem pausa dramática → max 6.
 - **Critérios profissionais** (motion): 12 princípios Disney (anticipation, follow-through, secondary action, staging focal).
 - Inventário de timestamps prova que o modelo VIU, não que AVALIOU qualidade.
+
+## 5. Checklists de Transição (por estado)
+
+> Migrado de WT-OPERATING.md §3 (S69).
+
+### BACKLOG → DRAFT
+- [ ] Arquivo HTML criado em `slides/NN-slug.html`
+- [ ] `<section id="s-{act}-{slug}">` com ID correto
+- [ ] `<div class="slide-inner">` wrapper
+- [ ] `<h2>` com asserção (mesmo que provisória)
+- [ ] Entrada em `_manifest.js` na posição correta
+
+### DRAFT → CONTENT
+- [ ] h2 = asserção clínica verificável (não rótulo genérico)
+- [ ] Zero `<ul>`/`<ol>` no corpo do slide
+- [ ] Todos dados numéricos verificados (PMID ou [TBD])
+- [ ] Corpo do slide <= 30 palavras
+
+### CONTENT → SYNCED (9 superfícies)
+- [ ] `_manifest.js` headline = `<h2>` do HTML
+- [ ] `_manifest.js` clickReveals = número real de `[data-reveal]`
+- [ ] `_manifest.js` customAnim = null ou ID correto
+- [ ] `slide-registry.js` tem wiring se customAnim != null
+- [ ] `{aula}.css` tem seletores `#slide-id` se necessário
+- [ ] `narrative.md` tem linha para este slide
+- [ ] `evidence-db.md` tem referências se slide tem dados
+- [ ] HANDOFF registra estado SYNCED
+
+### SYNCED → LINT-PASS
+- [ ] `npm run build` PASS
+- [ ] `npm run lint:slides` PASS
+
+### QA → DONE
+- [ ] Todos sub-stages QA PASS (ou max iterações + ressalva)
+- [ ] HANDOFF.md estado = DONE
+- [ ] CHANGELOG.md entry
+- [ ] Commit: `fix({aula}): s-{id} QA pass — {resumo}`
+
+## 6. Tabela de Propagação
+
+> Migrado de WT-OPERATING.md §7 (S69).
+
+| Mudei... | Atualizar também... |
+|----------|---------------------|
+| h2 no HTML | `_manifest.js` headline, `narrative.md` |
+| `<section id>` | TODAS 9 superfícies (§5 CONTENT→SYNCED) |
+| CSS do slide | Verificar se afeta score QA |
+| Dados numéricos | `evidence-db.md`, notes `[DATA]` tag, evidence HTML |
+| Posição no deck | `_manifest.js` ordem, `narrative.md` |
+| Click-reveals | `_manifest.js` clickReveals, `slide-registry.js` |
+| customAnim | `_manifest.js` customAnim, `slide-registry.js` |
+| Qualquer coisa | HANDOFF.md estado do slide |
+
+## 7. Scorecard 14-dim — Template
+
+> Migrado de metanalise/NOTES.md (S69).
+
+| Dim | Score | Nota |
+|-----|-------|------|
+| H (hierarquia) | ?/10 | |
+| T (tipografia) | ?/10 | |
+| E (layout fill) | ?/10 | |
+| C (cor/contraste) | ?/10 | |
+| V (visuais) | ?/10 | |
+| K (consistência) | ?/10 | |
+| S (sofisticação) | ?/10 | |
+| M (comunicação) | ?/10 | |
+| I (interações) | ?/10 | |
+| D (dados) | ?/10 | |
+| A (acessibilidade) | ?/10 | |
+| L (carga cognitiva) | ?/10 | |
+| P (andragogia) | ?/10 | |
+| N (arco narrativo) | ?/10 | |

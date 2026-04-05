@@ -7,9 +7,9 @@ description: CHANGELOG e HANDOFF obrigatorios ao final de toda sessao
 > CHANGELOG e HANDOFF sao obrigatorios ao final de toda sessao com mudancas.
 > Ambos devem ser enxutos — sem verbosidade, sem redundancia.
 
-## HANDOFF.md (max ~30 linhas)
+## HANDOFF.md (max ~50 linhas)
 
-So pendencias. Estrutura: ESTADO ATUAL → PROXIMO → PENDENTE → CONFLITOS.
+So pendencias. Estrutura: ESTADO ATUAL → P0/P1 (priority bands) → DECISOES ATIVAS → CUIDADOS → PENDENTE → CONFLITOS.
 - Sem historico — so futuro
 - Items completados → remover (ja estao no CHANGELOG)
 - Cada item = 1 linha, acao concreta

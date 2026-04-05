@@ -82,7 +82,7 @@ Severidades: CRITICAL (bloqueia projeção), HIGH (prejudica leitura), MEDIUM (e
 
 ### ERRO-053 · CRITICAL · processo (QA pipeline)
 **Pipeline QA inteiro ignorado — 8 memórias de feedback violadas em 1 sessão**
-**Root cause:** Ao receber pedido "rode ciclo QA nos 3 slides", interpretei como "executar script Gemini 3x" em vez de seguir o pipeline de 6 gates documentado em WT-OPERATING.md §4.
+**Root cause:** Ao receber pedido "rode ciclo QA nos 3 slides", interpretei como "executar script Gemini 3x" em vez de seguir o pipeline de 6 gates documentado em qa-pipeline.md.
 **Regra:** "Rodar QA" = apresentar plano dos gates ANTES de executar. NUNCA atalhar pipeline. NUNCA batch Gemini.
 **Status:** ✅ Fechado (processo).
 

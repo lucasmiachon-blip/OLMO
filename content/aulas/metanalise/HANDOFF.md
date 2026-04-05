@@ -11,7 +11,7 @@
 - **Slides:** 18/18 no deck. Lint PASS. Orphans: 0.
 - **Âncora:** Valgimigli 2025 Lancet (PMID 40902613) — IPD-MA, 7 RCTs, 28.982 pts
 - **GSAP plugins:** SplitText + Flip + ScrambleTextPlugin
-- **Dark-bg:** 6 slides (ver NOTES.md §dark-bg reference map)
+- **Dark-bg:** 6 slides (s-checkpoint-1/2, s-forest-plot, s-heterogeneity, s-ancora, s-absoluto)
 - **HEX navy:** #162032
 
 ## Estado dos Slides
@@ -101,4 +101,4 @@ PubMed (verificar PMIDs) · Scite (citation tallies) · Perplexity (estado da ar
 ---
 
 > Histórico completo: `HANDOFF-ARCHIVE.md`
-> QA pipeline detalhado: `WT-OPERATING.md` (referência)
+> QA pipeline detalhado: `.claude/rules/qa-pipeline.md`

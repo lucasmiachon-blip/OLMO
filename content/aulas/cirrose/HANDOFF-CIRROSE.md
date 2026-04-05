@@ -24,7 +24,7 @@
 
 ## Slides
 
-> Estados: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE (definicao: WT-OPERATING.md §2)
+> Estados: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE (definicao: qa-pipeline.md §5)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
@@ -191,7 +191,7 @@ Todas 9 superficies sincronizadas: CASE.md, narrative.md, evidence-db.md, 07-cp1
 | Arco narrativo | `references/narrative.md` (#3) |
 | Ordem dos slides | `slides/_manifest.js` (#4) |
 | Regras operacionais | `@repo/CLAUDE.md` |
-| QA pipeline | `WT-OPERATING.md` |
+| QA pipeline | `@repo/.claude/rules/qa-pipeline.md` |
 | Scorecards | `AUDIT-VISUAL.md` (archive: `AUDIT-VISUAL-ARCHIVE.md`) |
 | Design tokens | `cirrose.css` (secao `:root`) |
 | Erros e prevencao | `ERROR-LOG.md` + `@repo/.claude/rules/slide-rules.md` §8 |

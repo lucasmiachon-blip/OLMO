@@ -40,14 +40,14 @@
 | Estado | Significado | Ação do agente |
 |--------|-------------|----------------|
 | AGREE | Prosseguir como proposto | Implementar e registrar em CHANGELOG |
-| DISAGREE | Não fazer | Registrar razão em NOTES.md, não implementar |
+| DISAGREE | Não fazer | Registrar razão em CHANGELOG, não implementar |
 | RISK | Preocupação específica | Agente mitiga o risco e re-propõe |
 | BETTER OPTION | Lucas propõe alternativa | Agente implementa a alternativa |
 
 ## Registro
 
 Decisões aprovadas vão para CHANGELOG.md com prefixo `[DR-NNN]`.
-Decisões rejeitadas ficam em NOTES.md como lição aprendida.
+Decisões rejeitadas ficam em CHANGELOG como lição aprendida.
 
 ## Escopo
 

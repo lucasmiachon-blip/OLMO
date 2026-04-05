@@ -112,15 +112,15 @@
 
 ---
 
-## CHECKLIST PROXIMA SESSAO
+## CHECKLIST — TRIAGEM S69
 
-- [ ] session-hygiene.md: atualizar template HANDOFF (max 50, priority bands)
-- [ ] mcp_safety.md: consolidar ANTI-PERDA, referenciar notion-cross-validation
-- [ ] CLAUDE.md: qualificar path guard-lint-before-build.sh
-- [ ] Verificar existencia: docs/coauthorship_reference.md, templates/chatgpt_audit_prompt.md, docs/mcp_safety_reference.md
-- [ ] Avaliar: "HEX e verdade" em design-reference.md
-- [ ] Decisao: ENFORCEMENT duplicado (manter/cortar)
-- [ ] Slide-rules vs design-reference: adicionar nota de precedencia?
+- [x] session-hygiene.md: atualizar template HANDOFF (max 50, priority bands) — **FIXED S69**
+- [x] CLAUDE.md: qualificar path guard-lint-before-build.sh — **FIXED S69**
+- [x] Verificar existencia: docs/coauthorship_reference.md, templates/chatgpt_audit_prompt.md, docs/mcp_safety_reference.md — **TODOS EXISTEM**
+- [~] mcp_safety.md: consolidar ANTI-PERDA — **DESCARTADO** (defense in depth, nao e redundancia)
+- [~] Decisao: ENFORCEMENT duplicado — **MANTER** (anti-compaction intencional)
+- [~] Avaliar: "HEX e verdade" — **MANTER** (regra QA correta, Codex nao entendeu dominio)
+- [~] Slide-rules vs design-reference precedencia — **DESCARTADO** (conflito ja corrigido S68)
 
 ---
 
