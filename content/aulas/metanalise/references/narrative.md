@@ -58,7 +58,7 @@ Residentes de clínica médica (básico-intermediário).
 
 **Tensão narrativa:** "eu achava que sabia ler uma MA, mas talvez não saiba tanto"
 
-**Slides:** 00-title, 00b-objetivos, 01-hook, 02-contrato
+**Slides:** 00-title, 00b-objetivos, 01-hook
 
 ### Interação 1 — Checkpoint de engajamento (entre Fase 1 e Fase 2)
 
@@ -96,7 +96,7 @@ MA de 5 RCTs, 33.040 pacientes. Controle glicêmico intensivo reduz infarto em 1
 
 **Tensão narrativa:** cada conceito revela uma camada de complexidade que o residente não via
 
-**Slides:** 04 a 11 (8 slides metodológicos)
+**Slides:** 02-contrato, 04 a 11 (9 slides metodológicos)
 
 ### Interação 2 — Checkpoint de consolidação (entre Fase 2 e Fase 3)
 
