@@ -74,7 +74,7 @@ const MUST_FIX_THRESHOLD = 7;        // dim < 7 = MUST fix
 const NOTA_MIN = 0;
 const NOTA_MAX = 10;
 const DIM_COMPLETENESS_MIN = 0.8;    // alert if < 80% of expected dimensions parsed
-const EXPECTED_DIM_COUNT = 16;       // 5 visual + 5 uxcode + 6 motion
+const EXPECTED_DIM_COUNT = 15;       // 5 visual + 5 uxcode + 5 motion (artefatos is integrity gate, not dim)
 
 /** Clamp nota to [0, 10]. Returns null if not a valid number. */
 function validateNota(val) {
@@ -387,7 +387,17 @@ const SCHEMAS_GATE4 = {
     type: "OBJECT",
     properties: {
       timing: DIM_PROP, easing: DIM_PROP, narrativa_motion: DIM_PROP,
-      crossfade: DIM_PROP, proposito: DIM_PROP, artefatos: DIM_PROP,
+      crossfade: DIM_PROP, proposito: DIM_PROP,
+      // artefatos separated: binary integrity gate, not aesthetic dimension
+      artefatos: {
+        type: "OBJECT",
+        properties: {
+          detected: { type: "BOOLEAN" },
+          severity: { type: "STRING" },  // "none" | "minor" | "major"
+          anomalies: { type: "ARRAY", items: { type: "STRING" } },
+        },
+        required: ["detected", "severity"],
+      },
       media_motion: { type: "NUMBER" },
       inventory: { type: "ARRAY", items: { type: "STRING" } },
       animation_value: { type: "STRING" },
@@ -1111,7 +1121,7 @@ async function runEditorial(slideId, round, qaDir) {
   // Call B — UX+code dimensions
   collectDim(callB_result, ['gestalt', 'carga_cognitiva', 'information_design', 'css_cascade', 'failsafes']);
   // Call C — motion dimensions
-  collectDim(callC_result, ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito', 'artefatos']);
+  collectDim(callC_result, ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito']);
 
   // Completeness check
   const completeness = parsedCount / EXPECTED_DIM_COUNT;
@@ -1125,7 +1135,7 @@ async function runEditorial(slideId, round, qaDir) {
   for (const [callResult, dims] of [
     [callA_result, ['distribuicao', 'proporcao', 'cor', 'tipografia', 'composicao']],
     [callB_result, ['gestalt', 'carga_cognitiva', 'information_design', 'css_cascade', 'failsafes']],
-    [callC_result, ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito', 'artefatos']],
+    [callC_result, ['timing', 'easing', 'narrativa_motion', 'crossfade', 'proposito']],
   ]) {
     for (const dim of dims) {
       const d = callResult?.[dim];
@@ -1141,6 +1151,20 @@ async function runEditorial(slideId, round, qaDir) {
     }
   }
 
+  // Artefatos: integrity gate (binary), NOT part of averaged dims
+  const artefatos = callC_result?.artefatos || {};
+  const artefatosBlocking = artefatos.detected === true && artefatos.severity === 'major';
+  if (artefatos.detected) {
+    const sev = artefatos.severity || 'unknown';
+    const anomalies = artefatos.anomalies || [];
+    const icon = sev === 'major' ? '❌' : '⚠️';
+    console.log(`  ${icon} Motion artefatos: ${sev} (${anomalies.length} anomalies)`);
+    for (const a of anomalies.slice(0, 3)) console.log(`    — ${a}`);
+    if (artefatosBlocking) {
+      console.error('  BLOCKING: major artefatos detected — fix before accepting motion score');
+    }
+  }
+
   const dimValues = Object.values(allDims);
   const overallAvg = dimValues.length > 0 ? dimValues.reduce((a, v) => a + v, 0) / dimValues.length : 0;
   const visualAvg = validateNota(safeNum(callA_result, 'media_visual')) ?? 0;
@@ -1152,6 +1176,7 @@ async function runEditorial(slideId, round, qaDir) {
   const proposals = [
     ...(callB_result.proposals || []).map(p => `[${p.severity}] ${p.titulo}`),
     ...mustFixes.map(([k, v]) => `[MUST] ${k}: ${v}/10`),
+    ...(artefatosBlocking ? ['[MUST] artefatos: major visual defects detected'] : []),
   ];
 
   // Build consolidated scorecard
@@ -1165,6 +1190,12 @@ async function runEditorial(slideId, round, qaDir) {
     should_count: (callB_result.proposals || []).filter(p => p.severity === 'SHOULD').length,
     could_count: (callB_result.proposals || []).filter(p => p.severity === 'COULD').length,
     dead_css: callB_result.dead_css || [],
+    motion_integrity: {
+      artefatos_detected: artefatos.detected ?? false,
+      severity: artefatos.severity || 'none',
+      blocking: artefatosBlocking,
+      anomalies: artefatos.anomalies || [],
+    },
     animation_value: callC_result.animation_value || 'unknown',
     animation_inventory: callC_result.inventory || [],
     validation: {
