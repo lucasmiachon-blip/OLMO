@@ -158,7 +158,35 @@ function runPreflight(slideId, qaDir) {
     issues.push({ level: 'ERROR', tag: 'LINT', msg: `lint-slides.js failed: ${errorLines.join('; ') || 'see output'}` });
   }
 
-  // 2. Screenshots exist
+  // 2. Browser report (qa-engineer agent output) — if exists, enforce blocking checks
+  const browserReportPath = join(qaDir, 'qa-browser-report.json');
+  if (existsSync(browserReportPath)) {
+    try {
+      const report = JSON.parse(readFileSync(browserReportPath, 'utf-8'));
+      const checks = report.checks || {};
+      const blocking = Object.entries(checks)
+        .filter(([, v]) => v.pass === false)
+        .map(([k]) => k);
+      // Identify which are blocking vs warning per threshold table
+      const blockingChecks = ['lint', 'build', 'console', 'contrast', 'overflow', 'manifest_sync', 'screenshots', 'interactions'];
+      const hardFails = blocking.filter(k => blockingChecks.includes(k));
+      const softFails = blocking.filter(k => !blockingChecks.includes(k));
+
+      if (hardFails.length > 0) {
+        issues.push({ level: 'ERROR', tag: 'BROWSER_QA', msg: `qa-browser-report.json has ${hardFails.length} blocking failure(s): ${hardFails.join(', ')}` });
+      }
+      if (softFails.length > 0) {
+        issues.push({ level: 'WARN', tag: 'BROWSER_QA', msg: `qa-browser-report.json has ${softFails.length} warning(s): ${softFails.join(', ')}` });
+      }
+      if (blocking.length === 0) {
+        console.log('  [BROWSER_QA]  PASS (all checks clean)');
+      }
+    } catch (e) {
+      issues.push({ level: 'WARN', tag: 'BROWSER_QA', msg: `Could not parse qa-browser-report.json: ${e.message}` });
+    }
+  }
+
+  // 3. Screenshots exist
   const s0 = findStatePng(qaDir, 'S0');
   const s2 = findStatePng(qaDir, 'S2');
   if (!s0 && !s2) {

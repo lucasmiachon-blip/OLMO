@@ -1,6 +1,16 @@
 # CHANGELOG
 
-## Sessao 71 — 2026-04-05 (QUERY + BUILD S-PICO)
+## Sessao 71 — 2026-04-05 (QUERY + BUILD S-PICO + QA PROFESSIONALIZATION)
+
+### QA pipeline (gemini-qa3.mjs)
+- Gate -1 preflight: lint, screenshots, freshness, h2, word count, font-size ($0, bloqueia API)
+- Validation layer: nota range [0,10] server-side + completeness check + semantic consistency
+- Video: removido de Call A (static PNGs only), proof-of-viewing validation Call C
+- artefatos separado da media motion → integrity gate (blocking, nao estetico)
+- Schema min/max, media-first ordering (Google rec), thinkingConfig HIGH Gemini 3.x
+- Temperatura editorial: manter 1.0 (testado, baixar torna critica generica)
+- qa-engineer.md: referencia stale AUDIT-VISUAL.md removida
+- Codex adversarial: 2 agents, ~15% FP (melhor que CSS ~30%). 5 easy wins implementados.
 
 ### Script: content-research.mjs + NLM integration
 - `--nlm` flag: 3 queries progressivas ao NotebookLM (fundacao, convergencia, deep content)

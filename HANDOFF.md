@@ -5,7 +5,7 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (18 slides metanalise).
-content-research.mjs com NLM integration testado e funcional.
+gemini-qa3.mjs profissionalizado: Gate -1 (preflight $0) → Gate 0 (Flash) → Gate 4 (Pro 3-call).
 
 ## P0 — s-pico REDESIGN (em andamento)
 
@@ -20,11 +20,21 @@ Convergencia nos 4 tipos de indirectness (GRADE 8, Guyatt 2011 PMID 21802903):
 - [ ] Propagacao: `_manifest.js` headline sync
 - [ ] Lint + build + verify
 
-## P1 — DOCS (Codex audit S70 — RESOLVIDO)
+## P1 — QA PIPELINE (profissionalizacao em andamento)
 
-Audit completo triado e fixado S71. Restam apenas:
-- [ ] gemini-qa3.mjs: grade aula crash (missing docs/prompts/, slide-registry.js) — baixa prioridade, grade ILEGIVEL
-- [ ] Obsidian CLI: backlog (plano arquivado em docs/.archive/)
+### Feito S71
+- Gate -1 preflight: lint, screenshots, freshness, h2, word count, font-size
+- Validation layer: nota range, completeness, semantic consistency
+- Video: removido de Call A (static only), proof-of-viewing no Call C
+- artefatos: separado da media motion → integrity gate (15 dims + blocking)
+- Schema min/max, media-first ordering, thinkingConfig HIGH (Gemini 3.x)
+- Temperatura: manter 1.0 (editorial). Testado, baixar torna critica generica.
+
+### Proximo passo
+- [ ] Prompts QA → shared/aula-agnostico (hoje duplicados cirrose + metanalise)
+- [ ] Structured frame_inventory (substituir string array por {ts, state, delta})
+- [ ] Evidence-bearing schema (bbox/state/timestamp) — 3 prompts rewrite
+- [ ] qa-engineer.md: rubrica 14-dim desalinhada do script 15+1. Sync ou deprecar?
 
 ## P2 — AULAS (metanalise)
 
@@ -36,21 +46,12 @@ Audit completo triado e fixado S71. Restam apenas:
 | QA pending | 1 | s-checkpoint-1 |
 | Title/hook/contrato | 3 | production-ready (sem living HTML) |
 
-- 16 slides sem living HTML. Deadline 2026-04-15 (~10 dias)
-
-## STACK GEMINI
-
-| Componente | Status S71 |
-|------------|-----------|
-| `content-research.mjs` (API + NLM) | ✅ testado S71 ($0.041 + 139.6s NLM) |
-| `gemini-qa3.mjs` (API key) | ✅ funcional |
-| Gemini CLI (OAuth) | ✅ disponivel (deep-search pontual) |
-| NLM CLI | ✅ auth OK S71, notebook Metanalise 30 fontes |
+- 16 slides sem living HTML. Deadline 2026-04-15 (~9 dias)
 
 ## DECISOES ATIVAS
 
 - Living HTML per slide = source of truth. Evidence-first workflow.
-- Gemini: API key via scripts. MCP descartado S71.
+- Gemini: API key via scripts. MCP descartado S71. Temp 1.0 para editorial.
 - NLM: `--nlm` flag no content-research.mjs. 3 queries progressivas.
 - Memory governance: cap 20 files (14 atual), next review S72.
 
@@ -62,11 +63,11 @@ Audit completo triado e fixado S71. Restam apenas:
 
 ## PENDENTE (herdado)
 
+- [ ] gemini-qa3.mjs: grade aula crash (missing docs/prompts/) — baixa prioridade
 - [ ] Obsidian CLI (backlog, plano em docs/.archive/)
 - [ ] Google Drive MCP: OAuth credentials
 - [ ] Presenter.js rewrite (HTML separado, timer fix)
 - [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
-- [ ] ARCHITECTURE.md: pode precisar sync adicional (MCP details, workflow engine)
 
 ## CONFLITOS
 
