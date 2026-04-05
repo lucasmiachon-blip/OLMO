@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 77 | proximo
+> Sessao 77b | proximo
 
 ## ESTADO ATUAL
 

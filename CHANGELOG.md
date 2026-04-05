@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 77b — 2026-04-05 (s-objetivos fixes + cross-ref sync)
+
+### Fixes
+- Acentos PT-BR corrigidos em 00b-objetivos.html (7 palavras)
+- CSS: obj-detail 17→18px (min projeção), obj-num opacity 0.35→0.5
+- lint-narrative-sync: hookIdx > 1 → > 2 (s-objetivos entre title e hook)
+
+### Cross-refs
+- metanalise/HANDOFF.md: 18→19 slides, s-objetivos na tabela F1, counts atualizados
+- blueprint.md: Slide 00b adicionado entre title e hook
+- narrative.md: 00b-objetivos na lista F1
+
+### Infra
+- Memoria consolidada: feedback_qa_cross_ref.md → feedback_qa_use_cli_not_mcp.md
+- project_metanalise.md: hub routing (build, QA, research, lint, evidence)
+
 ## Sessao 76 — 2026-04-05 (QA + SLIDES — s-objetivos content rewrite)
 
 ### QA — s-objetivos
