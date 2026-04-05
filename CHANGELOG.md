@@ -1,5 +1,53 @@
 # CHANGELOG
 
+## Sessao 71 — 2026-04-05 (QUERY + BUILD S-PICO)
+
+### Decisoes
+- h2 s-pico decidido: "PICO mismatch e indirectness no GRADE — motivo formal para rebaixar certeza"
+- Boxes: ponte PICO→GRADE (cada letra → tipo de indirectness). Conteudo exato pendente
+- Gemini MCP descartado. Usar API key via scripts existentes (content-research.mjs, gemini-qa3.mjs)
+
+### Triangulacao (5 pernas)
+- Consensus MCP: Core GRADE 5, GRADE 8, Concept 4 confirmados
+- SCite MCP: Core GRADE 5 metadata + secoes do paper mapeadas (pop/int/comp/out)
+- PubMed MCP: session terminated (3a vez consecutiva)
+- Gemini API (content-research.mjs): $0.049, 4 tipos indirectness + exemplos, broad vs focused PICO
+- NLM (notebook Metanalise, 30 fontes): 4 tipos com exemplos dos livros, target vs study PICO
+- PMID falso flaggado: Gemini retornou 37263516 para Goldkuhle → correto e 37146659 (VERIFIED)
+
+### Memoria
+- feedback_gemini_cli_vs_mcp.md: distincao API vs CLI documentada
+
+## Sessao 70 — 2026-04-05 (Criacao Slide — lint fix + research + Codex audit)
+
+### Lint
+- lint-slides.js: NOTES check removido inteiramente (aside.notes opcional, notes vao no living HTML)
+- lint-slides.js: version string unificada v5→v6 (header + console)
+- Lint clean, build OK (18 slides), dev server verificado (port 4102, morto por PID)
+
+### Research (s-pico)
+- /research skill: SPIDER PMID corrigido (22925661 era paper neurociencia → 22829486 correto)
+- PICOT PMID (17040536) verificado correto. 0 CANDIDATE refs restantes
+- Consensus MCP (19 papers): Core GRADE 1+5 (Guyatt 2025), estimands framework (Remiro-Azocar 2025)
+- SCite MCP (10 results): full-text excerpts Core GRADE, PICO formulation
+- PubMed MCP: falhou 2x (session terminated). NLM: auth expirada + cp1252 bug
+
+### Slide s-pico — redesign iniciado (nao concluido)
+- h2 "E de volta a PICO" identificado como rotulo generico → 3 opcoes de assercao propostas
+- Boxes P-I-C-O com definicoes → redundante, 3 direcoes de conteudo novo propostas
+- Lucas decidira h2 + direcao na proxima sessao
+
+### Codex Adversarial Audit
+- 3 batches (root+docs, rules+agents, aulas): `docs/CODEX-AUDIT-S70.md`
+- Batch 1 (root+docs): 3 HIGH, 31 MEDIUM, 5 LOW — repo rename stale, paths quebrados
+- Batch 2 (rules+agents): 3 HIGH, 8 MEDIUM, 1 LOW — references/ paths, permissoes MCP
+- Batch 3 (aulas): despachado mas nao retornou findings concretos
+- Total: 6 HIGH, 39 MEDIUM, 6 LOW
+
+### Config
+- Gemini MCP reativado em servers.json (status: removed→connected, precisa restart)
+- Memory: feedback_notes_in_living_html.md adicionado (14 files, cap 20)
+
 ## Sessao 69 — 2026-04-04 (Codex triagem final + complexidade reduzida)
 
 ### Codex Triagem (completa)
