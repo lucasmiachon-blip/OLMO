@@ -1,7 +1,7 @@
 # SYNC-NOTION-REPO — Protocolo de Sincronizacao
 
 > Quais DBs Notion se conectam a quais arquivos do repo, quem e source of truth, e como sincronizar.
-> Referenciado por: `content/aulas/cirrose/references/narrative.md`, `evidence-db.md`
+> Referenciado por: `content/aulas/cirrose/references/narrative.md`, `content/aulas/cirrose/references/evidence-db.md`
 
 ---
 
@@ -9,12 +9,12 @@
 
 | Dado | Source of Truth | Espelho |
 |------|----------------|---------|
-| Dados do paciente (labs, MELD, checkpoints) | `cirrose/references/CASE.md` | Notion (read-only copy) |
-| Arco narrativo (atos, pacing, Chekhov's guns) | `cirrose/references/narrative.md` | Notion "Biblia Narrativa" |
-| Dados clinicos com PMID | `cirrose/references/evidence-db.md` | Notion References DB |
-| Lista de trials / PDF status | Notion References DB | `cirrose/references/must-read-trials.md` |
-| Slide HTML/CSS/JS | Repo (`cirrose/slides/`) | — |
-| Coautoria e disclosure | `cirrose/references/coautoria.md` | — |
+| Dados do paciente (labs, MELD, checkpoints) | `content/aulas/cirrose/references/CASE.md` | Notion (read-only copy) |
+| Arco narrativo (atos, pacing, Chekhov's guns) | `content/aulas/cirrose/references/narrative.md` | Notion "Biblia Narrativa" |
+| Dados clinicos com PMID | `content/aulas/cirrose/references/evidence-db.md` | Notion References DB |
+| Lista de trials / PDF status | Notion References DB | `content/aulas/cirrose/references/must-read-trials.md` |
+| Slide HTML/CSS/JS | Repo (`content/aulas/cirrose/slides/`) | — |
+| Coautoria e disclosure | `content/aulas/cirrose/references/coautoria.md` | — |
 
 **Regra:** quando repo e Notion divergem, **repo prevalece** para dados clinicos e narrativa.
 Notion prevalece apenas para **status de PDF** (coluna `Verified` na References DB).
