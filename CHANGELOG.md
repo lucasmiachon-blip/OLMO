@@ -9,8 +9,10 @@
 - artefatos separado da media motion → integrity gate (blocking, nao estetico)
 - Schema min/max, media-first ordering (Google rec), thinkingConfig HIGH Gemini 3.x
 - Temperatura editorial: manter 1.0 (testado, baixar torna critica generica)
-- qa-engineer.md: referencia stale AUDIT-VISUAL.md removida
-- Codex adversarial: 2 agents, ~15% FP (melhor que CSS ~30%). 5 easy wins implementados.
+- qa-engineer.md: reescrito como measurement agent — 35 checks objetivos em 7 categorias (estrutural, acessibilidade, conteudo, tipografia, cor, design, visual). Schema JSON, thresholds, auto-fix, enforcement via qa-browser-report.json
+- qa-pipeline.md: reduzido de 111→75 linhas, removida duplicacao com script
+- Gate -1: le qa-browser-report.json se existir (autoridade), senao roda checks locais fallback
+- Codex adversarial: 2 agents, ~15% FP. 5 easy wins + artefatos separation implementados.
 
 ### Script: content-research.mjs + NLM integration
 - `--nlm` flag: 3 queries progressivas ao NotebookLM (fundacao, convergencia, deep content)

@@ -5,7 +5,7 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (18 slides metanalise).
-gemini-qa3.mjs profissionalizado: Gate -1 (preflight $0) → Gate 0 (Flash) → Gate 4 (Pro 3-call).
+QA pipeline profissionalizado: qa-engineer (35 checks objetivos, $0) → gemini-qa3.mjs Gate -1/0/4.
 
 ## P0 — s-pico REDESIGN (em andamento)
 
@@ -23,18 +23,15 @@ Convergencia nos 4 tipos de indirectness (GRADE 8, Guyatt 2011 PMID 21802903):
 ## P1 — QA PIPELINE (profissionalizacao em andamento)
 
 ### Feito S71
-- Gate -1 preflight: lint, screenshots, freshness, h2, word count, font-size
-- Validation layer: nota range, completeness, semantic consistency
-- Video: removido de Call A (static only), proof-of-viewing no Call C
-- artefatos: separado da media motion → integrity gate (15 dims + blocking)
-- Schema min/max, media-first ordering, thinkingConfig HIGH (Gemini 3.x)
-- Temperatura: manter 1.0 (editorial). Testado, baixar torna critica generica.
+- qa-engineer: reescrito — 35 checks objetivos em 7 categorias (DOM, acessibilidade, conteudo, tipografia, cor, design, visual). Schema JSON, thresholds, auto-fix, enforcement. Zero subjetividade.
+- gemini-qa3.mjs: Gate -1 preflight ($0), validation layer, video attention, artefatos integrity gate, media-first, thinkingConfig, semantic consistency
+- qa-pipeline.md: reduzido, sem duplicacao do script
+- Redundancia eliminada: qa-engineer nao compete com Gemini, alimenta ele
 
 ### Proximo passo
 - [ ] Prompts QA → shared/aula-agnostico (hoje duplicados cirrose + metanalise)
 - [ ] Structured frame_inventory (substituir string array por {ts, state, delta})
 - [ ] Evidence-bearing schema (bbox/state/timestamp) — 3 prompts rewrite
-- [ ] qa-engineer.md: rubrica 14-dim desalinhada do script 15+1. Sync ou deprecar?
 
 ## P2 — AULAS (metanalise)
 

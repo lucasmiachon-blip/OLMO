@@ -138,13 +138,50 @@ if (hasFlag('full')) {
 }
 
 // --- Gate -1: Pre-flight local checks ($0, no API) ---
-// Catches measurable issues before spending on Gemini. Principle: "deixe a atencao
-// do gemini somente nas coisas importantes nao gaste com coisas que conseguimos
-// arrumar sem ele."
+// If qa-browser-report.json exists (from qa-engineer agent), Gate -1 reads it and
+// enforces blocking checks — skipping redundant local checks already in the report.
+// If no report exists, Gate -1 runs lightweight fallback checks (lint, screenshots, etc).
 
 function runPreflight(slideId, qaDir) {
   console.log(`\n=== GATE -1 — Pre-flight Local Checks — ${slideId} ===\n`);
   const issues = [];   // { level: 'ERROR'|'WARN', tag, msg }
+
+  // 0. Browser report (qa-engineer) — if exists, use it as authority and skip redundant checks
+  const browserReportPath = join(qaDir, 'qa-browser-report.json');
+  if (existsSync(browserReportPath)) {
+    try {
+      const report = JSON.parse(readFileSync(browserReportPath, 'utf-8'));
+      const checks = report.checks || {};
+      const blockingChecks = ['lint', 'build', 'console', 'contrast', 'overflow',
+        'manifest_sync', 'screenshots', 'interactions', 'visual_overlap',
+        'visual_clipping', 'visual_readability', 'visual_invisible'];
+      const hardFails = [];
+      const softFails = [];
+      for (const [k, v] of Object.entries(checks)) {
+        if (v.pass === false) {
+          (blockingChecks.includes(k) ? hardFails : softFails).push(k);
+        }
+      }
+      const passed = Object.values(checks).filter(v => v.pass === true).length;
+      const total = Object.keys(checks).length;
+      console.log(`  [BROWSER_QA]  Report found: ${passed}/${total} passed`);
+
+      if (hardFails.length > 0) {
+        issues.push({ level: 'ERROR', tag: 'BROWSER_QA', msg: `${hardFails.length} blocking: ${hardFails.join(', ')}` });
+      }
+      if (softFails.length > 0) {
+        issues.push({ level: 'WARN', tag: 'BROWSER_QA', msg: `${softFails.length} warnings: ${softFails.join(', ')}` });
+      }
+
+      // Report covers lint, screenshots, word_count, font_size — skip local fallbacks
+      console.log('  Skipping redundant local checks (covered by browser report)\n');
+      return reportIssues(issues);
+    } catch (e) {
+      console.warn(`  Could not parse browser report: ${e.message}. Falling back to local checks.\n`);
+    }
+  }
+
+  // --- Fallback: local checks when no browser report exists ---
 
   // 1. Lint check — shell out to lint-slides.js (scoped to this aula)
   try {
@@ -158,35 +195,7 @@ function runPreflight(slideId, qaDir) {
     issues.push({ level: 'ERROR', tag: 'LINT', msg: `lint-slides.js failed: ${errorLines.join('; ') || 'see output'}` });
   }
 
-  // 2. Browser report (qa-engineer agent output) — if exists, enforce blocking checks
-  const browserReportPath = join(qaDir, 'qa-browser-report.json');
-  if (existsSync(browserReportPath)) {
-    try {
-      const report = JSON.parse(readFileSync(browserReportPath, 'utf-8'));
-      const checks = report.checks || {};
-      const blocking = Object.entries(checks)
-        .filter(([, v]) => v.pass === false)
-        .map(([k]) => k);
-      // Identify which are blocking vs warning per threshold table
-      const blockingChecks = ['lint', 'build', 'console', 'contrast', 'overflow', 'manifest_sync', 'screenshots', 'interactions'];
-      const hardFails = blocking.filter(k => blockingChecks.includes(k));
-      const softFails = blocking.filter(k => !blockingChecks.includes(k));
-
-      if (hardFails.length > 0) {
-        issues.push({ level: 'ERROR', tag: 'BROWSER_QA', msg: `qa-browser-report.json has ${hardFails.length} blocking failure(s): ${hardFails.join(', ')}` });
-      }
-      if (softFails.length > 0) {
-        issues.push({ level: 'WARN', tag: 'BROWSER_QA', msg: `qa-browser-report.json has ${softFails.length} warning(s): ${softFails.join(', ')}` });
-      }
-      if (blocking.length === 0) {
-        console.log('  [BROWSER_QA]  PASS (all checks clean)');
-      }
-    } catch (e) {
-      issues.push({ level: 'WARN', tag: 'BROWSER_QA', msg: `Could not parse qa-browser-report.json: ${e.message}` });
-    }
-  }
-
-  // 3. Screenshots exist
+  // 2. Screenshots exist
   const s0 = findStatePng(qaDir, 'S0');
   const s2 = findStatePng(qaDir, 'S2');
   if (!s0 && !s2) {
@@ -266,27 +275,26 @@ function runPreflight(slideId, qaDir) {
     }
   } catch {}
 
-  // Report
+  return reportIssues(issues);
+}
+
+function reportIssues(issues) {
   const errors = issues.filter(i => i.level === 'ERROR');
   const warns = issues.filter(i => i.level === 'WARN');
-  console.log('');
   if (errors.length === 0 && warns.length === 0) {
     console.log('  ✅ Pre-flight PASS — all local checks clean\n');
     return { pass: true, issues };
   }
-
   for (const i of issues) {
     const icon = i.level === 'ERROR' ? '❌' : '⚠️';
     console.log(`  ${icon} [${i.tag}] ${i.msg}`);
   }
   console.log('');
-
   if (errors.length > 0) {
     console.error(`  ❌ Pre-flight BLOCKED — ${errors.length} error(s). Fix before running Gemini.`);
     console.error(`  Tip: Errors are measurable issues. No need to spend API budget on these.\n`);
     return { pass: false, issues };
   }
-
   console.warn(`  ⚠️  Pre-flight PASS with ${warns.length} warning(s) — Gemini will proceed\n`);
   return { pass: true, issues };
 }
