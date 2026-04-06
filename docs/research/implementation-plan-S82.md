@@ -115,25 +115,54 @@ Context overflow (50% das sessoes)
 
 ---
 
+## O que fizemos (S84) ✅
+
+### Tier 0 + Tier 1 — Agent hardening
+
+| # | Item | Commit | Impacto |
+|---|------|--------|---------|
+| 0 | OTel env vars documentados em .env.example | `8ed6905` | Pronto para ativar quando Langfuse estiver up |
+| 1A | Model routing: evidence-researcher→sonnet | `8ed6905` | ~60% economia em sessoes de pesquisa |
+| 1A | Model routing: reference-checker→haiku | `8ed6905` | ~85% economia |
+| 1A | Model routing: notion-ops→haiku | `8ed6905` | ~60% economia |
+| 1B | PreCompact hook migration | `8ed6905` | Timing garantido antes da compaction |
+| 1C | memory:project em qa-engineer | `8ed6905` | Antifragile L7 — aprende entre sessoes |
+| 1C | memory:project em reference-checker | `8ed6905` | Antifragile L7 — citation patterns |
+| 1D | context:fork em skills pesadas | verificado existia | Antifragile L4 ja ativo |
+
+## O que fizemos (S85) ✅
+
+### Tier 2 — Automation & Loops
+
+| # | Item | Commit | Impacto |
+|---|------|--------|---------|
+| 8partial | lint-on-edit PostToolUse hook | `5e3058a` | L5 self-healing: lint automatico em edicoes de slide |
+| 9 | cost-circuit-breaker PostToolUse hook | `5e3058a` | L3 circuit breaker: avisa 100 calls, bloqueia 400 |
+| 11 | quality-gate JS/CSS lint scripts | `5e3058a` | Agente descongelado, cobre todos os lints da aula |
+| 12 | /insights output JSON estruturado | `5e3058a` | L7: proposals/kbps/pending-fixes gerados automaticamente |
+
 ## O que falta implementar (ordenado por valor antifragile)
 
-### Tier 0 — Observability (sem medir, nao melhora)
+### Tier 0 — Observability (OTel + Langfuse backend)
 
-#### OTel nativo do Claude Code (5 min)
-Claude Code emite telemetria OpenTelemetry nativamente. Env vars:
+**Docker Desktop instalado (S85).** Proximo: subir Langfuse via Docker Compose.
 
+Env vars ja documentadas em `.env.example`:
 ```bash
-export CLAUDE_CODE_ENABLE_TELEMETRY=1
-export OTEL_METRICS_EXPORTER=otlp
-export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
-export OTEL_METRIC_EXPORT_INTERVAL=10000
+CLAUDE_CODE_ENABLE_TELEMETRY=1
+OTEL_METRICS_EXPORTER=otlp
+OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+OTEL_METRIC_EXPORT_INTERVAL=10000
 ```
 
-Backend: **Langfuse** (19k+ stars, MIT, $0 self-host, cloud free 50k events/mes).
-Sem isso nao medimos tokens, custo, erros por sessao. Layer 0.
+Backend: **Langfuse** (19k+ stars, MIT, $0 self-host).
+Comando para subir (apos instalar Docker):
+```bash
+git clone https://github.com/langfuse/langfuse && cd langfuse && docker compose up -d
+```
 
-### Tier 1 — Agent hardening (pesquisa best practices, gaps criticos)
+### Tier 2 restante
 
 Fonte: `docs/research/claude-code-best-practices-2026.md` §9.3
 
@@ -166,25 +195,29 @@ Skills como /research, /medical-researcher, /deep-search inundam o contexto prin
 `context: fork` no frontmatter roda em subagent isolado — resultado volta como resumo.
 Antifragile: protege o contexto = L4 graceful degradation.
 
-### Tier 2 — Automation & Loops (media complexidade)
+### Tier 2 restante
 
-#### 8. Local OTel collector + Grafana
-Dashboard para trends de custo, error rates, cache efficiency.
-Referencia: `claude-code-otel` (MIT, Docker Compose).
+#### 8. Local OTel collector + Langfuse ✅ PARCIAL (S84-S85)
+- Env vars documentadas. Docker instalado (S85). Falta: `docker compose up` Langfuse.
+- Referencia: `claude-code-otel` (MIT, Docker Compose).
 
-#### 9. Circuit breaker hook de custo
-PostToolUse hook verifica custo acumulado. Previne cenario ZenML ($47k).
+#### 9. Circuit breaker de custo ✅ IMPLEMENTADO (S85)
+- `.claude/hooks/cost-circuit-breaker.sh` — proxy via call count (haiku: ~100 calls/sessao ok).
+- TODO: upgrade para custo USD real via OTel quando Langfuse estiver ativo.
 
 #### 10. NeoSigma-style failure registry estruturado
 JSON tracking com constrained optimization: so aceitar mudancas que nao regridem.
+Dependencia: `/insights` JSON output (feito em S85). Proximo passo natural.
 
-#### 11. PostToolUse feedback loop: lint-on-edit
-Rodar `lint-slides.js` automaticamente apos Write|Edit em slide HTML.
-Erros injetados como additionalContext → agente auto-corrige.
-Antifragile: erro detectado imediatamente = L5 self-healing.
+#### 11. PostToolUse lint-on-edit ✅ IMPLEMENTADO (S85)
+- `.claude/hooks/lint-on-edit.sh` — detecta slides/*.html, roda lint-slides.js, injeta erros.
 
-#### 12. /insights output estruturado
-JSON em vez de prose. Rastrear propostas aceitas/rejeitadas. Alimenta failure registry.
+#### 12. /insights output estruturado ✅ IMPLEMENTADO (S85)
+- Template JSON em SKILL.md: proposals[], kbps_to_add[], pending_fixes_to_add[], metrics{}.
+
+#### 2C. Model fallback chain (Opus → Sonnet → Haiku)
+Antifragile L2. Agentes tem model routing mas sem fallback automatico se modelo falha.
+Config + PostToolUse hook para detectar erros de modelo e fazer downgrade.
 
 ### Tier 3 — Strategic (avaliar quando Tier 1-2 estabilizar)
 
@@ -215,28 +248,29 @@ Fonte: `docs/research/memory-best-practices-2026.md` §4.
 
 ## Metricas de Sucesso
 
-Medir nas proximas 5 sessoes (S84-S88):
+Medir nas proximas 5 sessoes (S85-S90):
 
-| KPI | Baseline (S75-S81) | S83 estado | Meta S88 |
-|-----|-------------------|-----------|----------|
-| Cross-ref failures por sessao | ~1.5 | 0 (pre-commit bloqueia) | 0 |
-| Correcoes de scope creep por sessao | 3.0 | TBD (known-bad + momentum brake) | < 1.0 |
-| Criterios QA inventados | 0.45/sessao | 0 (criteria-source rule) | 0 |
-| Context overflow com thread perdida | 55% sessoes | TBD (self-healing loop novo) | < 20% |
-| Issues carregados entre sessoes | 0% (sem mecanismo) | 100% (pending-fixes) | 100% |
-| Custo por sessao (USD) | desconhecido | desconhecido | baseline com OTel |
+| KPI | Baseline (S75-S81) | S83 estado | S85 estado | Meta S90 |
+|-----|-------------------|-----------|------------|----------|
+| Cross-ref failures por sessao | ~1.5 | 0 (pre-commit bloqueia) | 0 | 0 |
+| Correcoes de scope creep por sessao | 3.0 | TBD | TBD | < 1.0 |
+| Criterios QA inventados | 0.45/sessao | 0 (criteria-source rule) | 0 | 0 |
+| Context overflow com thread perdida | 55% sessoes | TBD | TBD | < 20% |
+| Issues carregados entre sessoes | 0% | 100% (pending-fixes) | 100% | 100% |
+| Custo por sessao (USD) | desconhecido | desconhecido | desconhecido | baseline com OTel |
+| Lint errors detectados automaticamente | 0% | 0% | 100% (lint-on-edit) | 100% |
 
-## Camadas Antifragile (Taleb) — Estado Atual
+## Camadas Antifragile (Taleb) — Estado Atual (S85)
 
-| Camada | Descricao | S82 | S83 | Proximo |
-|--------|-----------|-----|-----|---------|
-| L1 Retry + backoff | Retry transiente | PARCIAL | PARCIAL | — |
-| L2 Model fallback | Primary → secondary | ZERO | ZERO | Agent model routing (Tier 1A) |
-| L3 Circuit breaker | Fast-fail | PARCIAL (maxTurns) | PARCIAL | Cost circuit breaker (Tier 2) |
-| L4 Graceful degradation | Cache/simpler | ZERO | PARCIAL (context: fork planned) | Skills fork (Tier 1D) |
-| L5 Self-healing loop | Detect → recover | ZERO | **IMPLEMENTADO** | PostToolUse lint-on-edit (Tier 2) |
-| L6 Chaos engineering | Falhas deliberadas | ZERO | ZERO | Backlog longo |
-| L7 Continuous learning | Falha → melhoria | ZERO | **PARCIAL** (known-bad + pending-fixes) | Agent memory: project (Tier 1C) |
+| Camada | Descricao | S82 | S83 | S84 | S85 |
+|--------|-----------|-----|-----|-----|-----|
+| L1 Retry + backoff | Retry transiente | PARCIAL | PARCIAL | PARCIAL | PARCIAL |
+| L2 Model fallback | Primary → secondary | ZERO | ZERO | ZERO | ZERO (Tier 2C) |
+| L3 Circuit breaker | Fast-fail | PARCIAL | PARCIAL | PARCIAL | **MELHORADO** (cost-cb) |
+| L4 Graceful degradation | context:fork | ZERO | PARCIAL | **IMPLEMENTADO** | IMPLEMENTADO |
+| L5 Self-healing | Detect → recover | ZERO | IMPLEMENTADO | IMPLEMENTADO | **MELHORADO** (lint-on-edit) |
+| L6 Chaos engineering | Falhas deliberadas | ZERO | ZERO | ZERO | ZERO |
+| L7 Continuous learning | Falha → melhoria | ZERO | PARCIAL | **MELHORADO** (memory) | **MELHORADO** (insights JSON) |
 
 ## Architecture Vision
 

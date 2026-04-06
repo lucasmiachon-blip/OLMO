@@ -106,6 +106,21 @@ https://docs.crewai.com/en/guides/agents/crafting-effective-agents
  └─────────────────────────────────────────────────────┘
 
  ┌─────────────────────────────────────────────────────┐
+ │  HOOKS (18 total, S84-S85)                           │
+ │  PreCompact: pre-compact-checkpoint (S84)            │
+ │  Stop: crossref-check │ detect-issues │ hygiene      │
+ │        notify                                        │
+ │  SessionStart: session-start │ session-compact       │
+ │  PreToolUse: guard-read-secrets │ guard-pause        │
+ │              guard-generated │ guard-product-files   │
+ │              guard-secrets │ guard-bash-write        │
+ │              guard-lint-before-build │ allow-plan-exit│
+ │  PostToolUse: build-monitor │ lint-on-edit (S85)     │
+ │               cost-circuit-breaker (S85)             │
+ │  pre-commit: crossref-precommit │ guard-secrets-pc   │
+ └─────────────────────────────────────────────────────┘
+
+ ┌─────────────────────────────────────────────────────┐
  │  BROWSER AGENTS (fontes pagas)                       │
  │  Cowork → UpToDate │ DynaMed │ BMJ Best Practice    │
  │  ChatGPT Agent → backup browser                     │
@@ -167,18 +182,38 @@ https://code.claude.com/docs/en/best-practices
 
 ```
 OLMO/
-├── CLAUDE.md              # Root: enxuto
+├── CLAUDE.md              # Root: enxuto (85 linhas)
 ├── .claude/
-│   ├── rules/ (9)         # anti-drift, coauthorship, design-reference,
-│   │                      # mcp_safety, notion-cross-validation, process-hygiene,
+│   ├── rules/ (10)        # anti-drift, coauthorship, design-reference,
+│   │                      # known-bad-patterns (+S83), mcp_safety,
+│   │                      # notion-cross-validation, process-hygiene,
 │   │                      # qa-pipeline, session-hygiene, slide-rules
 │   ├── skills/ (20)       # Sob demanda (progressive disclosure, SKILL.md)
-│   └── agents/ (8)        # researcher, qa-engineer, evidence-researcher, etc.
+│   │                      # research/medical-researcher/deep-search: context:fork
+│   ├── agents/ (8)        # researcher(haiku), qa-engineer(sonnet)+memory,
+│   │                      # evidence-researcher(sonnet)+memory,
+│   │                      # reference-checker(haiku)+memory,
+│   │                      # mbe-evaluator(sonnet), repo-janitor(haiku),
+│   │                      # quality-gate(haiku), notion-ops(haiku)
+│   └── hooks/ (11)        # guards + lint-on-edit + cost-circuit-breaker (+S85)
+├── hooks/ (7)             # session-start, stop-*, pre-compact-checkpoint
 ├── config/
 │   ├── ecosystem.yaml     # Agentes + model routing + skills
 │   └── mcp/servers.json   # 15 MCPs (12 connected, 3 planned)
 └── content/aulas/         # Subsistema Node.js (deck.js + GSAP)
 ```
+
+### Antifragile Layers (Taleb, S85)
+
+| Camada | Descricao | Estado |
+|--------|-----------|--------|
+| L1 Retry + backoff | Retry transiente (429/5xx) | PARCIAL — scripts tem retry |
+| L2 Model fallback | Primary → secondary → tertiary | ZERO — planejado Tier 2C |
+| L3 Circuit breaker | Fast-fail | MELHORADO — cost-circuit-breaker (S85) |
+| L4 Graceful degradation | context:fork nas skills pesadas | IMPLEMENTADO (S84) |
+| L5 Self-healing | detect → recover | MELHORADO — lint-on-edit (S85) |
+| L6 Chaos engineering | Falhas deliberadas | ZERO — backlog longo |
+| L7 Continuous learning | Falha → melhoria persistida | MELHORADO — agent memory + insights JSON (S84-S85) |
 
 ## Aulas — Arquitetura HTML/JS
 

@@ -1,5 +1,81 @@
 # CHANGELOG
 
+## Sessao 85 — 2026-04-06 (INFRA — Tier 2 antifragile: lint-on-edit, circuit breaker, quality-gate, insights JSON)
+
+### Antifragile L5 — lint-on-edit (PostToolUse)
+- `.claude/hooks/lint-on-edit.sh`: novo PostToolUse(Write|Edit) hook
+  - Detecta automaticamente edicoes em `content/aulas/*/slides/*.html`
+  - Extrai nome da aula do path, roda `node lint-slides.js {aula}`
+  - Silencioso em sucesso; injeta erros no contexto do agente como additionalContext (auto-correcao)
+  - Exit 0 sempre (PostToolUse nao pode reverter, mas o agente recebe o feedback)
+- settings.local.json: wiring `PostToolUse(Write|Edit)` → lint-on-edit.sh (timeout 15s)
+
+### Antifragile L3 — circuit breaker de custo (PostToolUse)
+- `.claude/hooks/cost-circuit-breaker.sh`: novo PostToolUse(.*) hook
+  - Rastreia tool calls por hora em `/tmp/cc-calls-{YYYYMMDD_HH}.txt`
+  - Aviso progressivo a cada 10 calls apos 100 (default `CC_COST_WARN_CALLS`)
+  - Injeta instrucao STOP apos 400 calls (default `CC_COST_BLOCK_CALLS`)
+  - Thresholds ajustaveis via env vars; documentado upgrade para custo USD real via OTel
+- settings.local.json: wiring `PostToolUse(.*)` → cost-circuit-breaker.sh (timeout 3s)
+
+### quality-gate descongelado
+- `.claude/agents/quality-gate.md`: adicionados 4 novos items ao checklist
+  - Item 4: `lint-slides.js {aula}` — erros bloqueantes de HTML/estrutura
+  - Item 5: `lint-case-sync.js {aula}` — sincronizacao de casos clinicos
+  - Item 6: `lint-narrative-sync.js {aula}` — sincronizacao narrativa
+  - Item 7: `validate-css.sh` — validacao CSS
+  - Agente nao esta mais FROZEN; detecta aula ativa via git branch
+- HANDOFF.md: status atualizado "OK (JS/CSS lint adicionado S85)"
+- BACKLOG.md: item quality-gate marcado como [x]
+
+### Antifragile L7 — /insights output estruturado
+- `.claude/skills/insights/SKILL.md`: adicionado bloco "Structured JSON Output (obrigatorio)"
+  - Template JSON com: `proposals[]`, `kbps_to_add[]`, `pending_fixes_to_add[]`, `metrics{}`
+  - Alimenta `known-bad-patterns.md` e `pending-fixes.md` com aprovacao do Lucas
+  - Metrica de evolucao: `patterns_resolved_since_last` vs `patterns_new`
+
+### Infra
+- Hooks: 16 → 18 (+lint-on-edit, +cost-circuit-breaker)
+- Docker Desktop instalado via winget (v4.67.0) — habilita OTel + Langfuse (Tier 2A)
+
+### Commits
+- `5e3058a` — S85: Tier 2 antifragile - lint-on-edit, cost circuit breaker, quality-gate JS/CSS, insights JSON output
+
+---
+
+## Sessao 84 — 2026-04-06 (INFRA — Tier 0 + Tier 1 antifragile: OTel docs, model routing, PreCompact, agent memory)
+
+### Tier 0 — Observabilidade documentada
+- `.env.example`: adicionadas 5 vars OTel comentadas (CLAUDE_CODE_ENABLE_TELEMETRY, OTEL_METRICS_EXPORTER, OTEL_EXPORTER_OTLP_PROTOCOL, OTEL_EXPORTER_OTLP_ENDPOINT, OTEL_METRIC_EXPORT_INTERVAL)
+- Backend recomendado: Langfuse (MIT, $0, cloud free 50k eventos/mes)
+- Ativas quando Docker + Langfuse estiverem configurados
+
+### Tier 1A — Model routing (3 agentes)
+- `.claude/agents/evidence-researcher.md`: `model: inherit` → `model: sonnet` (~60% economia)
+- `.claude/agents/reference-checker.md`: `model: sonnet` → `model: haiku` (~85% economia)
+- `.claude/agents/notion-ops.md`: `model: sonnet` → `model: haiku` (~60% economia)
+- Todos os 8 agentes tem agora model explícito (nenhum herda Opus por acidente)
+
+### Tier 1B — PreCompact hook migration
+- `settings.local.json`: `pre-compact-checkpoint.sh` movido do evento `Stop` para `PreCompact`
+- Timing agora garantido: salva estado ANTES da compaction, nao depois
+- Hooks: 15 → 16 (+PreCompact event)
+
+### Tier 1C — Agent memory: project
+- `.claude/agents/qa-engineer.md`: adicionado `memory: project` (aprende issues recorrentes de QA)
+- `.claude/agents/reference-checker.md`: adicionado `memory: project` (acumula citation patterns)
+- `evidence-researcher` ja tinha `memory: project` (verificado, sem alteracao)
+- Antifragile L7: agentes que aprendem entre sessoes
+
+### Tier 1D — context: fork (verificado, ja existia)
+- Skills `/research`, `/medical-researcher`, `/deep-search` ja tinham `context: fork` no frontmatter
+- Verificado e documentado; sem alteracao necessaria
+
+### Commits
+- `8ed6905` — S84: agent hardening Tier 0 + Tier 1 completos
+
+---
+
 ## Sessao 83 — 2026-04-06 (INFRA — enforcement, Via Negativa, self-healing, values)
 
 ### Enforcement (Tier 1)
