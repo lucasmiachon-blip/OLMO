@@ -21,28 +21,20 @@ S82 INFRA: 10 items resolvidos (3 P0 SEC, 3 P1 BUG, 1 DOC, 2 RED, 1 maxTurns).
 | **quality-gate** | Pre-commit lint/type/test | **P1 FROZEN: falta JS/CSS scripts** |
 | **researcher** | Exploracao codebase read-only | OK |
 | **repo-janitor** | Orfaos, links quebrados, limpeza | OK (model: haiku, maxTurns: 12) |
-| **notion-ops** | Notion DB read/write | OK (verificar mcp tools) |
+| **notion-ops** | Notion DB read/write | OK (mcpServers: claude_ai_Notion) |
 
 ## P1 — FROZEN
 
 - quality-gate: hardening + JS/CSS lint scripts
-- notion-ops: verificar se mcpServers basta
 
 ## P2 — BACKLOG
 
-- BLOAT-1: AGENTS.md heuristics section → linkar memory (parcial — ref fixada S82)
-- SEC-004: MCP servers unpinned (MODERATE)
-- SEC-005: CHATGPT_MCP_URL sem validacao (MODERATE)
+- SEC-004: MCP servers unpinned — pinnar versoes em servers.json (MODERATE)
+- SEC-005: CHATGPT_MCP_URL sem validacao — server is `planned`, non-issue ate connect (LOW)
 
-## /insights S82 — Propostas pendentes (5)
+## /insights S82 — Propostas APLICADAS
 
-1. QA criteria invention → add criteria-source mandate to qa-pipeline.md
-2. Scope creep → add momentum brake to anti-drift.md
-3. Batch QA violation → add single-slide guard to qa-engineer.md
-4. Context overflow → add checkpoint rule to session-hygiene.md
-5. Agent-script redundancy → add script primacy rule to anti-drift.md
-
-Report: `.claude/skills/insights/references/latest-report.md`
+Todas 6 propostas aplicadas em `9f159b3`. Report: `.claude/skills/insights/references/latest-report.md`
 
 ## Pesquisas em andamento (S82)
 
