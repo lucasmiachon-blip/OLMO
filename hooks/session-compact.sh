@@ -6,15 +6,18 @@
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
-cat <<'RULES'
+ESSENTIALS="$PROJECT_ROOT/.claude/context-essentials.md"
+if [ -f "$ESSENTIALS" ]; then
+  cat "$ESSENTIALS"
+else
+  # Fallback hardcoded caso arquivo nao exista
+  cat <<'RULES'
 === REGRAS CRITICAS (pos-compaction) ===
-
 1. NAO avance sem autorizacao do Lucas. Proponha, espere OK, execute.
-2. Use scripts existentes (qa-batch-screenshot.mjs, npm run build:{aula}). NAO reinvente.
-3. Build ANTES de QA: npm run build:{aula} → qa-batch-screenshot.mjs.
-4. QA visual = EU (Opus, multimodal). NAO delegar ao Gemini.
-5. Plan mode quando pedido. NAO pule direto para execucao.
+2. Use scripts existentes. NAO reinvente.
+3. Build ANTES de QA. QA visual = Opus, NAO Gemini.
 RULES
+fi
 
 echo ""
 echo "=== HANDOFF.md ==="
