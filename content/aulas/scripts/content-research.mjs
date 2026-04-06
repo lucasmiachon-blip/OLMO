@@ -787,10 +787,10 @@ async function callGemini(systemPrompt, userPrompt) {
 
   console.log(`\n2. Sending to Gemini (${MODEL})...`);
   const startTime = Date.now();
-  const url = `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
+  const url = `${BASE}/v1beta/models/${MODEL}:generateContent`;
   const makeOpts = () => ({
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': API_KEY },
     body: JSON.stringify(payload),
   });
 
@@ -917,7 +917,7 @@ Classifique cada fonte: [BOOK] Autor, Edicao, Cap, p.XX | [META/SR] ou [RCT] com
 }
 
 async function callNLM(notebookId, queries) {
-  const { execSync } = await import('node:child_process');
+  const { execFileSync } = await import('node:child_process');
   const results = [];
   let conversationId = null;
 
@@ -929,15 +929,14 @@ async function callNLM(notebookId, queries) {
     const shortQuery = query.length > 80 ? query.slice(0, 77) + '...' : query;
     console.log(`  NLM Q${i + 1}/${queries.length}: ${shortQuery}`);
 
-    // Build command — use conversation-id for follow-up queries
-    const escaped = query.replace(/"/g, '\\"');
-    let cmd = `nlm notebook query ${notebookId} "${escaped}" --json`;
+    // Build args array — execFileSync bypasses shell, no injection risk
+    const args = ['notebook', 'query', notebookId, query, '--json'];
     if (conversationId) {
-      cmd += ` --conversation-id ${conversationId}`;
+      args.push('--conversation-id', conversationId);
     }
 
     try {
-      const output = execSync(cmd, {
+      const output = execFileSync('nlm', args, {
         encoding: 'utf-8',
         env: { ...process.env, PYTHONIOENCODING: 'utf-8' },
         timeout: 60_000,

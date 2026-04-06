@@ -13,7 +13,7 @@
  *
  * Exit codes: 0 = all gates pass, 1 = any gate fail
  */
-import { execSync } from 'node:child_process';
+import { execSync, execFileSync } from 'node:child_process';
 import { readFileSync, statSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,11 +22,18 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const root = join(__dirname, '..');
 const args = process.argv.slice(2);
 const strict = args.includes('--strict');
+const VALID_AULAS = ['cirrose', 'grade', 'metanalise'];
 
 // Detect aula: explicit arg > branch name > error
 function detectAula() {
   const explicit = args.find(a => a !== '--strict');
-  if (explicit) return explicit;
+  if (explicit) {
+    if (!VALID_AULAS.includes(explicit)) {
+      console.error(`ERROR: Invalid aula "${explicit}". Must be one of: ${VALID_AULAS.join(', ')}`);
+      process.exit(1);
+    }
+    return explicit;
+  }
 
   try {
     const branch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: root, encoding: 'utf-8' }).trim();
@@ -64,21 +71,21 @@ const hasBuildScript = !!pkgJson.scripts?.[`build:${aula}`];
 
 const commands = [
   ...(hasBuildScript
-    ? [{ name: 'build', cmd: `npm run build:${aula}` }]
-    : [{ name: 'build', cmd: null, skip: `No build:${aula} script — skipped` }]),
-  { name: 'lint:slides', cmd: 'npm run lint:slides' },
-  { name: 'lint:case-sync', cmd: `node scripts/lint-case-sync.js ${aula}` },
-  { name: 'lint:narrative-sync', cmd: `node scripts/lint-narrative-sync.js ${aula}` },
+    ? [{ name: 'build', bin: 'npm', args: ['run', `build:${aula}`] }]
+    : [{ name: 'build', bin: null, args: null, skip: `No build:${aula} script — skipped` }]),
+  { name: 'lint:slides', bin: 'npm', args: ['run', 'lint:slides'] },
+  { name: 'lint:case-sync', bin: 'node', args: ['scripts/lint-case-sync.js', aula] },
+  { name: 'lint:narrative-sync', bin: 'node', args: ['scripts/lint-narrative-sync.js', aula] },
 ];
 
-for (const { name, cmd, skip } of commands) {
+for (const { name, bin, args: cmdArgs, skip } of commands) {
   if (skip) {
     console.log(`  SKIP  ${name}`);
     console.log(`        ${skip}`);
     continue;
   }
   try {
-    execSync(cmd, { cwd: root, stdio: 'pipe', encoding: 'utf-8' });
+    execFileSync(bin, cmdArgs, { cwd: root, stdio: 'pipe', encoding: 'utf-8' });
     console.log(`  PASS  ${name}`);
   } catch (e) {
     const firstLine = (e.stderr || e.stdout || '').trim().split('\n')[0];

@@ -739,10 +739,10 @@ async function runGate0(slideId, qaDir) {
   console.log(`\n1. Sending to Gemini (${MODEL})...`);
 
   const res = await fetchWithRetry(
-    `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`,
+    `${BASE}/v1beta/models/${MODEL}:generateContent`,
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': API_KEY },
       body: JSON.stringify(payload),
     }
   );
@@ -857,7 +857,7 @@ async function uploadFile(filePath, mimeType, displayName) {
   const data = readFileSync(filePath);
   const size = data.length;
 
-  const startRes = await fetchWithRetry(`${BASE}/upload/v1beta/files?key=${API_KEY}`, {
+  const startRes = await fetchWithRetry(`${BASE}/upload/v1beta/files`, {
     method: 'POST',
     headers: {
       'X-Goog-Upload-Protocol': 'resumable',
@@ -865,6 +865,7 @@ async function uploadFile(filePath, mimeType, displayName) {
       'X-Goog-Upload-Header-Content-Length': String(size),
       'X-Goog-Upload-Header-Content-Type': mimeType,
       'Content-Type': 'application/json',
+      'x-goog-api-key': API_KEY,
     },
     body: JSON.stringify({ file: { displayName } }),
   });
@@ -898,7 +899,7 @@ async function waitForProcessing(fileName) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 60_000);
     try {
-      const res = await fetch(`${BASE}/v1beta/${fileName}?key=${API_KEY}`, { signal: controller.signal });
+      const res = await fetch(`${BASE}/v1beta/${fileName}`, { headers: { 'x-goog-api-key': API_KEY }, signal: controller.signal });
       const file = await res.json();
       state = file.state;
     } catch (err) {
@@ -1069,8 +1070,8 @@ async function runEditorial(slideId, round, qaDir) {
     { video: true, s0: true, s2: true, ref: false }, 8192);
 
   // Step 3: Fire 3 calls in parallel
-  const apiUrl = `${BASE}/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
-  const headers = { 'Content-Type': 'application/json' };
+  const apiUrl = `${BASE}/v1beta/models/${MODEL}:generateContent`;
+  const headers = { 'Content-Type': 'application/json', 'x-goog-api-key': API_KEY };
   const callLabels = ['A-visual', 'B-uxcode', 'C-motion'];
   console.log(`\n3. Sending 3 calls in parallel (${MODEL})...`);
 
@@ -1317,7 +1318,7 @@ ${JSON.stringify(callC_result, null, 2)}
   console.log('\n7. Cleaning up uploads...');
   for (const f of [video, s0, s2, refPng].filter(Boolean)) {
     try {
-      await fetch(`${BASE}/v1beta/${f.name}?key=${API_KEY}`, { method: 'DELETE' });
+      await fetch(`${BASE}/v1beta/${f.name}`, { method: 'DELETE', headers: { 'x-goog-api-key': API_KEY } });
     } catch (_) {}
   }
   console.log('  Done.');

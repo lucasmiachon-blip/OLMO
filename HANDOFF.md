@@ -24,9 +24,9 @@ Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
 
 ## P0 — SECURITY (audit S81)
 
-- [ ] SEC-003: Gemini API key no URL query string (5 chamadas em 2 scripts)
-- [ ] SEC-002: NLM shell injection execSync (content-research.mjs:933)
-- [ ] SEC-NEW: done-gate.js aula arg sem allowlist
+- [x] SEC-003: Gemini API key moved to x-goog-api-key header (S82)
+- [x] SEC-002: NLM execSync → execFileSync array form (S82)
+- [x] SEC-NEW: done-gate.js allowlist + execFileSync (S82)
 
 ## P1 — BUGS (audit S81)
 
@@ -79,10 +79,10 @@ Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
 
 ## SECURITY (S72 + S81)
 
-### P0 (audit S81)
-- [ ] SEC-002: NLM shell injection → execFileSync
-- [ ] SEC-003: Gemini API key no URL → header (5 chamadas)
-- [ ] SEC-NEW: done-gate.js aula sem allowlist
+### P0 (audit S81) — RESOLVED S82
+- [x] SEC-002: NLM shell injection → execFileSync
+- [x] SEC-003: Gemini API key no URL → header (6 instâncias)
+- [x] SEC-NEW: done-gate.js allowlist + execFileSync
 
 ### Pendentes (MODERATE, herdado)
 - [ ] SEC-004: MCP servers unpinned
