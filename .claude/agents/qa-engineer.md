@@ -40,7 +40,7 @@ Lint + build + screenshots + DOM/multimodal checks. Custo $0.
 4. Playwright DOM batch: medir checks por categoria (tabela abaixo)
 5. Multimodal: ler PNGs S0+S2 para visual checks
 6. Auto-fix deterministic → rebuild → re-medir (max 3x)
-7. Escrever `qa-browser-report.json` → reportar → FIM
+7. Escrever `metrics.json` → reportar → FIM
 
 **DOM checks por categoria:**
 
@@ -78,7 +78,7 @@ Reportar resultado → FIM.
 
 ---
 
-## Output: `qa-screenshots/{slideId}/qa-browser-report.json`
+## Output: `qa-screenshots/{slideId}/metrics.json`
 
 ```json
 {

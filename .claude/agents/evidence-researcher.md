@@ -123,7 +123,7 @@ Score medio: 1-3 SUPERFICIAL, 3.1-5 ADEQUATE WITH GAPS, 5.1-8 DEEP, 8.1-10 EXEMP
 
 ### Fase 5 — Report e PARAR
 
-Output em `content/aulas/{aula}/evidence/research-{slideId}.md`:
+Output em `content/aulas/{aula}/qa-screenshots/{slideId}/content-research.md`:
 
 ```
 ## Deep Research Report: [Slide/Topic]
@@ -136,7 +136,7 @@ MCPs used: [list]
 ### Trials [N]
 ### Meta-Analyses [N]
 ### Verification Flags
-### evidence-db Block (ready to copy)
+### Living HTML Reference (ready to copy)
 ```
 
 **Apos escrever o report: PARAR.** Reportar ao orchestrador: "Pesquisa de {slideId} concluida. {N} fontes verificadas, {N} CANDIDATE. Aguardando instrucao."
@@ -153,7 +153,7 @@ Triangular internamente entre suas 3 fontes de pesquisa:
 
 Apos pesquisar, o orchestrador valida seus achados com:
 - **mbe-evaluator** — avalia qualidade da evidencia (GRADE, CEBM, CONSORT/STROBE/PRISMA)
-- **reference-checker** — verifica PMIDs, cross-ref entre slide e evidence-db
+- **reference-checker** — verifica PMIDs, cross-ref entre slide e living HTML evidence
 
 ## Perplexity Discovery
 
@@ -219,7 +219,7 @@ Voce e expert em medicina baseada em evidencias e andragogia. Ao pesquisar:
 ## Stop Gate
 
 Ao terminar:
-1. Escrever report em `evidence/research-{slideId}.md`
+1. Escrever report em `qa-screenshots/{slideId}/content-research.md`
 2. Reportar: "Pesquisa de {slideId} concluida. Aguardando instrucao."
 3. **PARAR.** Nao pesquisar outro slide. Nao sugerir proximo passo. Nao gerar evidence HTML.
 

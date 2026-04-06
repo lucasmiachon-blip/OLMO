@@ -1,6 +1,6 @@
 ---
 name: reference-checker
-description: "Reference consistency checker — one leg of the /research pipeline. Cross-refs evidence-db.md, slide HTML, and Notion. Verifies PMIDs, detects mismatches, stale data, missing refs. Report-only, never modifies."
+description: "Reference consistency checker — one leg of the /research pipeline. Cross-refs living HTML evidence, slide HTML, and Notion. Verifies PMIDs, detects mismatches, stale data, missing refs. Report-only, never modifies."
 tools:
   - Read
   - Grep
@@ -35,14 +35,14 @@ You receive: slide-id + aula path (e.g., `content/aulas/metanalise/`).
 
 Find and read:
 1. Slide HTML: `content/aulas/{aula}/slides/{slide-id}.html` (or grep for the id)
-2. Evidence-db: `content/aulas/{aula}/references/evidence-db.md`
+2. Living HTML evidence: `content/aulas/{aula}/evidence/s-{slide-id}.html`
 3. Other slides citing same PMIDs: `grep -rn "PMID" content/aulas/{aula}/`
 
 ## Checks
 
-### 1. Evidence-db vs Slide HTML
+### 1. Living HTML Evidence vs Slide HTML
 For each data point in the slide:
-- PMID/DOI matches evidence-db entry?
+- PMID/DOI matches living HTML evidence entry?
 - Effect sizes match (HR, RR, NNT values)?
 - Population matches?
 - Timeframe matches?
@@ -80,7 +80,7 @@ Report:
 3. Summary: X mismatches, Y stale, Z unverified
 4. Verdict: ALL-CONSISTENT or ISSUES-FOUND
 
-If evidence-db doesn't exist: report "NO EVIDENCE-DB — cannot cross-reference."
+If living HTML evidence doesn't exist: report "NO EVIDENCE HTML — cannot cross-reference."
 
 ## Rules
 

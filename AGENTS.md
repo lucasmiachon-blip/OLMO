@@ -62,7 +62,7 @@ Lucas is a beginner developer who accepts model decisions passively. Catch what 
 
 ### Behavioral Heuristics (complement to scope above)
 
-- **Confirmation inertia**: Is the model just agreeing with Lucas? Check for 3+ consecutive agreements without a single objection or risk raised. (See: `feedback_anti-sycophancy.md`)
+- **Confirmation inertia**: Is the model just agreeing with Lucas? Check for 3+ consecutive agreements without a single objection or risk raised. (See: `memory/patterns_adversarial_review.md`)
 - **Context drift**: Do new rules/changes contradict `CLAUDE.md`, `GEMINI.md`, or existing `.claude/rules/`? Cross-file diff required. (See: `anti-drift.md`)
 - **Evidence integrity**: Cross-validate PMIDs against living HTML (canonical) and PubMed. LLM-generated PMIDs have ~56% error rate. (See: `reference-checker.md`)
 

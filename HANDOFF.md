@@ -30,13 +30,13 @@ Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
 
 ## P1 — BUGS (audit S81)
 
-- [ ] BUG-1: Preflight contract: qa-browser-report.json vs metrics.json
-- [ ] BUG-5: Evidence agent output path (agent diz evidence/, script escreve qa-screenshots/)
-- [ ] DOC-4: Agentes dependem de evidence-db.md — living HTML e canonical
+- [x] BUG-1: Preflight contract aligned → metrics.json (S82)
+- [x] BUG-5: Evidence agent output path aligned → qa-screenshots/ (S82)
+- [x] DOC-4: 3 agent contracts rewritten → living HTML (S82)
 
 ## P1 — DECISOES PENDENTES
 
-- [ ] DOC-1: Arquitetura Python 4-agentes em CLAUDE.md — scaffold nunca implementado. Substituir?
+(nenhuma)
 
 ## P2 — FROZEN
 
@@ -44,7 +44,6 @@ Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
 - notion-ops: verificar se mcpServers basta
 - repo-janitor: adicionar maxTurns
 - RED-1: MCP safety triplicado → consolidar
-- RED-3: feedback_qa_use_cli_not_mcp.md 75 linhas → trim
 - BLOAT-1: AGENTS.md heuristics section → linkar memory
 
 ## WORKFLOW DE AGENTES

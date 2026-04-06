@@ -21,8 +21,8 @@ You are one leg of a 5-leg research pipeline. Evaluate existing slide content ag
 
 ## Input
 
-You receive: slide HTML path + evidence-db path + aula context.
-Read the slide. Read the evidence-db. Evaluate what EXISTS, not what should be there.
+You receive: slide HTML path + evidence HTML path (`evidence/s-{id}.html`) + aula context.
+Read the slide. Read the evidence HTML. Evaluate what EXISTS, not what should be there.
 
 ## 1. Depth Rubric (8 dimensions, 1-10)
 

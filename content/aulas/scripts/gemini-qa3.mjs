@@ -145,7 +145,7 @@ function runPreflight(slideId, qaDir) {
   const issues = [];   // { level: 'ERROR'|'WARN', tag, msg }
 
   // 0. Browser report (qa-engineer) — if exists, use it as authority and skip redundant checks
-  const browserReportPath = join(qaDir, 'qa-browser-report.json');
+  const browserReportPath = join(qaDir, 'metrics.json');
   if (existsSync(browserReportPath)) {
     try {
       const report = JSON.parse(readFileSync(browserReportPath, 'utf-8'));

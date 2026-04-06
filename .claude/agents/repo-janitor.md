@@ -7,6 +7,7 @@ tools:
   - Glob
   - Grep
 model: haiku
+maxTurns: 12
 ---
 
 # Repo Janitor (Claude Code Subagent)
