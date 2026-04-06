@@ -113,6 +113,9 @@ content/aulas/*/qa-rounds/
 # Aulas: generated index.html (built from _manifest.js + template)
 content/aulas/*/index.html
 
+# Exception: hook utilities (overrides generic lib/ ignore from Python packaging)
+!.claude/hooks/lib/
+
 # Docker volumes
 langfuse_postgres/
 

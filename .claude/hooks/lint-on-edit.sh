@@ -4,6 +4,7 @@
 # como additionalContext para o agente auto-corrigir (Antifragile L5).
 #
 # Silencioso em sucesso. Injeta erros no stdout em falha.
+# L1 retry (S89): 1 retry with jitter on transient node failures.
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
@@ -36,9 +37,17 @@ if [ ! -f "$LINT_SCRIPT" ]; then
     exit 0
 fi
 
-# Roda lint
-LINT_OUTPUT=$(node "$LINT_SCRIPT" "$AULA" 2>&1)
-LINT_EXIT=$?
+# Roda lint (with retry for transient node failures — L1 S89)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+if [ -f "$SCRIPT_DIR/lib/retry-utils.sh" ]; then
+    source "$SCRIPT_DIR/lib/retry-utils.sh"
+    retry_with_jitter "node \"$LINT_SCRIPT\" \"$AULA\"" 2 1
+    LINT_OUTPUT="$RETRY_OUTPUT"
+    LINT_EXIT=$?
+else
+    LINT_OUTPUT=$(node "$LINT_SCRIPT" "$AULA" 2>&1)
+    LINT_EXIT=$?
+fi
 
 # Sucesso: silencio total
 if [ "$LINT_EXIT" = "0" ]; then

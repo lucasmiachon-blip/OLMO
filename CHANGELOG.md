@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## Sessao 89 — 2026-04-06 (OTel validated, memory governance, antifragile L1+L2)
+
+### OTel Validation
+- Stack end-to-end confirmado: 7/7 containers healthy, env vars loaded, Langfuse 200 OK
+
+### Memory Governance Review (S89)
+- 17 files auditados, 0 merges (reconsiderado — conteudo distinto)
+- TTL staggered: 2@2026-06-15, 4@2026-07-01, 2@2026-07-15 (evita bottleneck)
+- Cross-refs adicionados: patterns_antifragile ↔ project_self_improvement
+- Next review: S92
+
+### Antifragile L1 — Retry with Jitter (DONE)
+- NEW: `.claude/hooks/lib/retry-utils.sh` — exp backoff + jitter utility
+- EDIT: `lint-on-edit.sh` — 2 attempts with jitter
+- EDIT: `guard-lint-before-build.sh` — 3 attempts with jitter per lint script
+- EDIT: `build-monitor.sh` — 2 attempts with jitter on node JSON parse
+- EDIT: `export-pdf.js` waitForServer() — exp backoff 1.5x + jitter (was fixed 300ms)
+- `.gitignore`: exception for `.claude/hooks/lib/` (overrides generic `lib/` ignore)
+
+### Antifragile L2 — Model Fallback State Tracking (MELHORADO)
+- REWRITE: `model-fallback-advisory.sh` — added failure log + circuit breaker
+- State tracking: `/tmp/cc-model-failures.log` (auto-pruned 1h)
+- Circuit breaker: 2 failures in 5min → model marked "degraded" → strong advisory
+- Fallback chain context-aware: suggests next model in Opus→Sonnet→Haiku chain
+
+### Docs
+- `implementation-plan-S82.md`: L1 PARCIAL→DONE, L2 PARCIAL→MELHORADO
+
+---
+
 ## Sessao 88 — 2026-04-06 (OTel activation — Langfuse V3 stack live)
 
 ### Langfuse V2 → V3 Upgrade + Activation

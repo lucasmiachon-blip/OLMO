@@ -40,8 +40,8 @@ Context overflow (50% das sessoes)
 
 | Camada | Descricao | Nosso estado |
 |--------|-----------|-------------|
-| L1 Retry + backoff | Retry transiente (429/5xx) | **PARCIAL** — scripts tem retry, sem jitter |
-| L2 Model fallback | Primary → secondary → tertiary | **ZERO** — so Opus, sem fallback chain |
+| L1 Retry + backoff | Retry transiente (429/5xx) | **DONE** — retry-utils.sh + jitter em hooks + export-pdf (S89) |
+| L2 Model fallback | Primary → secondary → tertiary | **MELHORADO** — state tracking + circuit breaker per model (S89) |
 | L3 Circuit breaker | Fast-fail quando endpoint morre | **PARCIAL** — maxTurns nos agentes |
 | L4 Graceful degradation | Cache/simpler response | **ZERO** |
 | L5 Self-healing loop | Validate → classify → recover → learn | **ZERO** — /insights e manual |
@@ -276,8 +276,8 @@ Medir nas proximas 5 sessoes (S85-S90):
 
 | Camada | Descricao | S82 | S83 | S84 | S85 | S86 |
 |--------|-----------|-----|-----|-----|-----|-----|
-| L1 Retry + backoff | Retry transiente | PARCIAL | PARCIAL | PARCIAL | PARCIAL | PARCIAL |
-| L2 Model fallback | Primary → secondary | ZERO | ZERO | ZERO | ZERO | **PARCIAL** (advisory hook) |
+| L1 Retry + backoff | Retry transiente | PARCIAL | PARCIAL | PARCIAL | PARCIAL | **DONE** (S89) |
+| L2 Model fallback | Primary → secondary | ZERO | ZERO | ZERO | ZERO | **MELHORADO** (state+CB S89) |
 | L3 Circuit breaker | Fast-fail | PARCIAL | PARCIAL | PARCIAL | **MELHORADO** | MELHORADO |
 | L4 Graceful degradation | context:fork | ZERO | PARCIAL | **IMPLEMENTADO** | IMPLEMENTADO | IMPLEMENTADO |
 | L5 Self-healing | Detect → recover | ZERO | IMPLEMENTADO | IMPLEMENTADO | **MELHORADO** | MELHORADO |

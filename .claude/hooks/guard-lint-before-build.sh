@@ -7,6 +7,10 @@
 
 set -u
 
+# L1 retry (S89): retry with jitter on transient node failures
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+[ -f "$SCRIPT_DIR/lib/retry-utils.sh" ] && source "$SCRIPT_DIR/lib/retry-utils.sh"
+
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Extract command — node parser (not sed, avoids JSON truncation — Codex S60 O7/A4)
@@ -55,8 +59,15 @@ for SCRIPT in "${LINT_SCRIPTS[@]}"; do
     continue
   fi
 
-  LINT_OUTPUT=$(cd "$AULAS_DIR" && node "scripts/$SCRIPT" "$AULA" 2>&1)
-  if [ $? -ne 0 ]; then
+  if type retry_with_jitter &>/dev/null; then
+    (cd "$AULAS_DIR" && retry_with_jitter "node \"scripts/$SCRIPT\" \"$AULA\"" 3 1)
+    LINT_OUTPUT="$RETRY_OUTPUT"
+    LINT_RC=$?
+  else
+    LINT_OUTPUT=$(cd "$AULAS_DIR" && node "scripts/$SCRIPT" "$AULA" 2>&1)
+    LINT_RC=$?
+  fi
+  if [ $LINT_RC -ne 0 ]; then
     LINT_FAILED=1
     SHORT_OUTPUT=$(echo "$LINT_OUTPUT" | head -5 | cut -c1-200)
     LINT_ERRORS="${LINT_ERRORS}\n--- ${SCRIPT} ---\n${SHORT_OUTPUT}"

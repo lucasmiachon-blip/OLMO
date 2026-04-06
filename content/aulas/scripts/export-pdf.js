@@ -37,6 +37,7 @@ if (!existsSync(DIST)) {
 function waitForServer(port, timeout = 15000) {
   return new Promise((ok, fail) => {
     const start = Date.now();
+    let attempt = 0;
     const check = () => {
       const req = http.get(`http://localhost:${port}`, (res) => {
         res.resume();
@@ -44,7 +45,14 @@ function waitForServer(port, timeout = 15000) {
       });
       req.on('error', () => {
         if (Date.now() - start > timeout) fail(new Error(`Server timeout ${timeout}ms`));
-        else setTimeout(check, 300);
+        else {
+          // Exponential backoff with jitter (L1 antifragile S89)
+          // Base 300ms, grows with attempt, capped at 3000ms
+          const base = Math.min(300 * Math.pow(1.5, attempt), 3000);
+          const jitter = base * (0.5 + Math.random() * 0.5);
+          attempt++;
+          setTimeout(check, jitter);
+        }
       });
       req.end();
     };

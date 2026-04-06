@@ -5,8 +5,13 @@
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Single node call extracts all fields (1 spawn)
-PARSED=$(node -e "
+# L1 retry (S89): retry with jitter on transient node failures
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+[ -f "$SCRIPT_DIR/lib/retry-utils.sh" ] && source "$SCRIPT_DIR/lib/retry-utils.sh"
+
+# Single node call extracts all fields (1 spawn, with L1 retry S89)
+_parse_input() {
+    node -e "
 const d=JSON.parse(process.argv[1] || '{}');
 const ti=d.tool_input||{};
 const tr=d.tool_response||{};
@@ -14,7 +19,15 @@ console.log(ti.command||'');
 console.log(tr.exit_code===undefined?'0':String(tr.exit_code));
 console.log(d.cwd||'.');
 console.log((tr.stderr||'').substring(0,200));
-" "$INPUT" 2>/dev/null) || exit 0
+" "$INPUT" 2>/dev/null
+}
+
+if type retry_with_jitter &>/dev/null; then
+    retry_with_jitter "_parse_input" 2 1
+    PARSED="$RETRY_OUTPUT"
+else
+    PARSED=$(_parse_input) || exit 0
+fi
 
 CMD=$(echo "$PARSED" | sed -n '1p')
 EXIT_CODE=$(echo "$PARSED" | sed -n '2p')
