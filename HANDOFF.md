@@ -1,13 +1,33 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 83 | 2026-04-05
-> Cross-ref: `BACKLOG.md` | `content/aulas/metanalise/HANDOFF.md`
+> Sessao 83 | 2026-04-06
+> Cross-ref: `BACKLOG.md` | `docs/research/implementation-plan-S82.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides metanalise).
-**Agentes: 8** (todos OK). MCPs: 12 connected + 3 planned = 15 total.
-S82 INFRA: 13 items resolvidos, 6 /insights rules aplicadas, 3 BUGs herdados fixados.
+**Agentes: 8** (todos OK). **Hooks: 13** (4 novos S82). MCPs: 12 connected + 3 planned.
+S82 INFRA: 5 quick wins implementados, 3 pesquisas completas, plano de implementacao compilado.
+
+## PROXIMOS PASSOS (do implementation plan)
+
+| # | Item | Impacto | Tempo |
+|---|------|---------|-------|
+| 5 | ifttt-lint (cross-ref deterministico) | MUITO ALTO | 1-2h |
+| 6 | Known-bad-patterns registry | ALTO | 20 min |
+| 7 | Self-healing loop skeleton | ALTO | 30 min |
+| 0 | OTel env vars (observability) | FUNDAMENTAL | 5 min |
+| 16 | content/aulas/CLAUDE.md compartilhado | MEDIO | 10 min |
+
+Plano completo: `docs/research/implementation-plan-S82.md`
+
+## PESQUISAS COMPLETAS (S82)
+
+| Pesquisa | Arquivo | Linhas |
+|----------|---------|--------|
+| Anti-drift tools | `docs/research/anti-drift-tools-2026.md` | 449 |
+| Self-improvement tools | `docs/research/agent-self-improvement-2026.md` | 811 |
+| CLAUDE.md best practices | `docs/research/claude-md-best-practices-2026.md` | 414 |
 
 ## AGENTES
 
@@ -22,21 +42,23 @@ S82 INFRA: 13 items resolvidos, 6 /insights rules aplicadas, 3 BUGs herdados fix
 | repo-janitor | OK |
 | notion-ops | OK |
 
-## PESQUISAS PENDENTES (S82)
+## HOOKS (13 total, 4 novos S82)
 
-- Agent self-improvement tools → `docs/research/agent-self-improvement-2026.md`
-- Anti-drift/cross-ref tools → `docs/research/anti-drift-tools-2026.md`
-- MD compilado com plano de implementacao → a criar quando pesquisas retornarem
-
-## WORKFLOW DE AGENTES
-
-**Max 2 agentes simultaneos. Lucas dita slide/tema.**
-
-| Papel | Script | Regra |
-|-------|--------|-------|
-| Research | evidence-researcher (MCPs + Perplexity + Gemini) | 1 slide, Lucas escolhe |
-| QA | qa-engineer (Preflight → Inspect → Editorial) | 1 slide 1 gate, Lucas escolhe |
-| Build | npm run build:metanalise | Apos edits |
+| Hook | Evento | Funcao |
+|------|--------|--------|
+| pre-compact-checkpoint | Stop | Grava git status + arquivos recentes **NOVO** |
+| stop-crossref-check | Stop | Warning se slide mudou sem manifest **NOVO** |
+| stop-hygiene | Stop | Verifica session hygiene |
+| stop-notify | Stop | Notificacao visual |
+| session-start | SessionStart | Inicializacao |
+| session-compact | SessionStart(compact) | Reinjecta essentials + HANDOFF + checkpoint **ATUALIZADO** |
+| guard-read-secrets | PreToolUse(Read) | Bloqueia leitura de secrets |
+| guard-pause | PreToolUse(Write/Edit) | Pausa antes de escrever |
+| guard-generated | PreToolUse(Write/Edit) | Protege arquivos gerados |
+| guard-product-files | PreToolUse(Write/Edit) | Protege arquivos de produto |
+| guard-secrets | PreToolUse(Bash) | Bloqueia secrets em bash |
+| guard-bash-write | PreToolUse(Bash) | Protege escrita via bash |
+| guard-lint-before-build | PreToolUse(Bash) | Lint antes de build |
 
 ## DECISOES ATIVAS
 
@@ -45,8 +67,10 @@ S82 INFRA: 13 items resolvidos, 6 /insights rules aplicadas, 3 BUGs herdados fix
 - deck.js le DOM, nao manifest em runtime. index.html gerado pelo build.
 - Agentes: max 2, Lucas dita, scripts existentes, 1 slide por vez.
 - **1 gate = 1 invocacao** (hard stop via maxTurns).
-- Memory governance: cap 20 files (14 atual).
+- Memory governance: cap 20 files (16 atual).
 - Backlog persistente em `BACKLOG.md` (separado do HANDOFF).
+- **plansDirectory: `.claude/plans`** — planos sobrevivem sessoes.
+- **context-essentials.md** — regras reinjectadas pos-compaction.
 
 ## CUIDADOS
 
@@ -61,4 +85,4 @@ S82 INFRA: 13 items resolvidos, 6 /insights rules aplicadas, 3 BUGs herdados fix
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-05
+Coautoria: Lucas + Opus 4.6 | 2026-04-06

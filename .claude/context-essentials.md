@@ -22,3 +22,6 @@
 - Living HTML per slide = source of truth. evidence-db.md deprecated.
 - index.html e gerado — rodar build-html.ps1 apos editar _manifest.js.
 - NUNCA `taskkill //IM node.exe` — matar por PID especifico.
+- plansDirectory: `.claude/plans` — planos sobrevivem sessoes.
+- Batches pequenos + ensinamento + commit granular. Lucas quer aprender.
+- Roadmap proximo: `docs/research/implementation-plan-S82.md`

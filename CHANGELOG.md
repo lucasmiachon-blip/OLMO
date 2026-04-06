@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Sessao 82 — 2026-04-05 (INFRA — audit cleanup, security fixes, insights)
+## Sessao 82 — 2026-04-05/06 (INFRA — audit cleanup, security, anti-drift, anti-fragile)
 
 ### Quick Wins (Fase 1)
 - repo-janitor: add maxTurns: 12 (unico agente sem limite)
@@ -21,9 +21,38 @@
 ### Redundancy (Fase 4)
 - RED-1: mcp_safety.md consolidated — batch/reorganize delegates to notion-cross-validation.md
 
+### Inherited Bug Fixes
+- BUG-3: export-pdf.js DeckTape adapter reveal → generic (deck.js, not Reveal.js)
+- BUG-4: qa-video.js marked @deprecated (references non-existent gemini.mjs)
+- BUG-6: grade/docs/prompts/ created (5 prompt files copied from metanalise)
+
+### /insights Proposals Applied (6 rules)
+- Criteria-source mandate (qa-pipeline.md)
+- Momentum brake (anti-drift.md)
+- Script primacy (anti-drift.md)
+- Single-slide guard (qa-engineer.md)
+- Proactive checkpoints (session-hygiene.md)
+- P0 security gate (session-hygiene.md)
+
+### Anti-Drift Quick Wins Implementados (5 items)
+- plansDirectory config (.claude/plans — planos sobrevivem sessoes)
+- context-essentials.md (regras reinjectadas pos-compaction)
+- Propagation Map no CLAUDE.md (cross-ref "se mudou X, atualize Y")
+- pre-compact-checkpoint.sh (Stop hook grava git status + arquivos recentes)
+- stop-crossref-check.sh (Stop hook warning se slide mudou sem manifest)
+
+### Pesquisas Completas (3 reports)
+- anti-drift-tools-2026.md (449 linhas, 30+ fontes, ifttt-lint, hooks, propagation maps)
+- agent-self-improvement-2026.md (811 linhas, 60+ fontes, 23 ferramentas, OTel, Langfuse, NeoSigma)
+- claude-md-best-practices-2026.md (414 linhas, OLMO scorecard acima da media)
+- implementation-plan-S82.md compilado (diagnostico + roadmap Dia 0-2 + Tier 1-3)
+
 ### Meta
-- /insights retrospective: 5 recurring patterns identified (scope creep 24x, context overflow 11x, criteria invention 9x, agent-script redundancy 10x, batch QA violation 7x)
-- 2 research agents launched: agent self-improvement tools + anti-drift/cross-ref tools
+- /insights retrospective: 5 recurring patterns (scope creep 24x, context overflow 11x, criteria 9x, script redundancy 10x, batch QA 7x)
+- BACKLOG.md criado (separado do HANDOFF — persistente entre sessoes)
+- Memory: 14 → 16 files (patterns_antifragile, feedback_teach_best_usage)
+- Hooks: 9 → 13 (pre-compact-checkpoint, stop-crossref-check, session-compact atualizado)
+- 18 commits total nesta sessao
 
 ## Sessao 81 — 2026-04-05 (CONFRONTACAO — adversarial audit, doc sweep)
 
