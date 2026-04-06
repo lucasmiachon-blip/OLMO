@@ -22,6 +22,7 @@ paths:
   - Inspect/Editorial: `gemini-qa3.mjs` gate prompts
   - NUNCA inventar criterios do treinamento. Check nao esta no script = nao existe.
 - Estados de slide: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
+  - Source of truth: `content/aulas/metanalise/_manifest.js` (campo `qa` por slide).
 
 ## 2. Cor Semantica no QA (E067)
 

@@ -103,13 +103,38 @@
       "new_kbps_added": 0,
       "proposals_accepted": 0,
       "proposals_rejected": 0
+    },
+    {
+      "id": "S91",
+      "date": "2026-04-06",
+      "note": "/insights run S91. Analyzed 13 sessions (S86-S90 period). Zero errors, zero corrections. Sessions dominated by planning/infra — QA/slide sessions not yet tested post-enforcement.",
+      "metrics": {
+        "sessions_in_sample": 13,
+        "user_corrections_total": 0,
+        "user_corrections_per_session": 0,
+        "kbp_violations": {
+          "KBP-01_scope_creep": 0,
+          "KBP-02_context_overflow": 0,
+          "KBP-03_agent_script_redundancy": 0,
+          "KBP-04_wrong_criteria": 0,
+          "KBP-05_batch_violation": 0
+        },
+        "kbp_total": 0,
+        "kbp_per_session": 0,
+        "tool_errors": 0,
+        "retries": 0
+      },
+      "insights_run": true,
+      "new_kbps_added": 0,
+      "proposals_accepted": 2,
+      "proposals_rejected": 0
     }
   ],
   "trend": {
-    "corrections_per_session_5avg": 0.5,
-    "kbp_violations_per_session_5avg": 0.76,
+    "corrections_per_session_5avg": 0.4,
+    "kbp_violations_per_session_5avg": 0.61,
     "direction": "improving",
     "last_updated": "2026-04-06",
-    "note": "5-session avg includes S82-baseline (2.0 corr/sess) + S83-S85 (0 each). Baseline heavily weighted by historical aggregate."
+    "note": "5-session avg: S82-baseline (2.0/3.05) + S83-S85 (0 each) + S91 (0). Both avgs decreased (0.5->0.4, 0.76->0.61). Caveat: S86-S90 were planning/infra sessions, not QA/slide."
   }
 }

@@ -17,8 +17,9 @@ memory: project
 ## ENFORCEMENT (ler antes de agir)
 
 1. **UM slide, UM gate por invocacao.** Lucas especifica ambos. NUNCA escolher. NUNCA avancar.
-2. **Scripts existentes.** NUNCA criar scripts. Usar os de `content/aulas/scripts/`.
-3. **Ao terminar: reportar e PARAR.** Proximo gate = nova invocacao, decisao do Lucas.
+2. **Hard guard (KBP-05):** Se detectar um segundo slide ID na tarefa, PARAR imediatamente e reportar violacao.
+3. **Scripts existentes.** NUNCA criar scripts. Usar os de `content/aulas/scripts/`.
+4. **Ao terminar: reportar e PARAR.** Proximo gate = nova invocacao, decisao do Lucas.
 
 ## Pipeline (regras completas: `.claude/rules/qa-pipeline.md`)
 

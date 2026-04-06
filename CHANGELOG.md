@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 91 — 2026-04-06 (NeoSigma /insights — Phase 5 validated)
+
+### /insights Run (13 sessions analyzed, S86-S90 period)
+- SCAN: 0 user corrections, 0 real errors, 0 KBP violations
+- AUDIT: 9/10 rules FOLLOWED, 2 UNTESTED (no QA/slide sessions in period)
+- Phase 5 constrained optimization: trend improving (corrections 0.5→0.4, kbp 0.76→0.61)
+- Failure registry updated: 5 entries, JSON validated
+
+### Proposals Applied (2 of 5)
+- P002: `qa-pipeline.md` — state enum source of truth reference (`_manifest.js`)
+- P003: `qa-engineer.md` — KBP-05 hard guard (stop on second slide ID)
+
+### Report
+- `latest-report.md` updated, `previous-report.md` archived (S82 report)
+
+---
+
 ## Sessao 90 — 2026-04-06 (INFRA — cleanup research MDs + evidence-db redistribution)
 
 ### Cleanup: Research MDs (~3.500 linhas removidas)
