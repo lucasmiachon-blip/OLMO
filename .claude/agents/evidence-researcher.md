@@ -39,7 +39,7 @@ mcpServers:
       type: stdio
       command: uvx
       args: ["--from", "biomcp-python", "biomcp", "run"]
-model: inherit
+model: sonnet
 memory: project
 ---
 

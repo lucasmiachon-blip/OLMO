@@ -1,23 +1,22 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 84 | 2026-04-07
+> Sessao 84 | 2026-04-06
 > Cross-ref: `BACKLOG.md` | `docs/research/implementation-plan-S82.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean. Build OK (18 slides metanalise).
-**Agentes: 8** (3 sem model routing — ver Tier 1A). **Hooks: 15** (2 novos S83). **Rules: 10** (+known-bad-patterns). MCPs: 12 connected.
-S83: 3 features implementadas (cross-ref pre-commit, known-bad-patterns, self-healing loop) + 2 pesquisas + cleanup + values.
+**Agentes: 8** (model routing OK — S84). **Hooks: 16** (PreCompact adicionado S84). **Rules: 10**. MCPs: 12 connected.
+S84: Tier 0 + Tier 1 completos (OTel docs, model routing, PreCompact hook, agent memory, context fork ja existia).
 
-## PROXIMOS PASSOS (Tier 1 do implementation plan)
+## PROXIMOS PASSOS (Tier 2 do implementation plan)
 
-| # | Item | Impacto | Tempo |
-|---|------|---------|-------|
-| 1A | Agent model routing (3 agentes) | ECONOMIA tokens | 15 min |
-| 1B | PreCompact hook migration | CORRECAO timing | 5 min |
-| 1C | Agent memory: project (qa-eng, ref-checker) | ANTIFRAGILE L7 | 10 min |
-| 1D | context: fork em skills pesadas | CONTEXT PROTECTION | 10 min |
-| 0 | OTel env vars (observability) | FUNDAMENTAL | 5 min |
+| # | Item | Impacto | Complexidade |
+|---|------|---------|--------------|
+| 2A | OTel collector local + Langfuse self-host | OBSERVABILITY real | Docker Compose |
+| 2B | Circuit breaker hook de custo | ANTIFRAGILE L3 | PostToolUse hook |
+| 2C | Model fallback chain (Opus → Sonnet → Haiku) | ANTIFRAGILE L2 | config + hook |
+| 2D | quality-gate: criar JS/CSS lint scripts | Descongelar agente | 30-60 min |
 
 Plano completo: `docs/research/implementation-plan-S82.md`
 
@@ -33,24 +32,24 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 
 ## AGENTES
 
-| Agente | Model | maxTurns | Status |
-|--------|-------|----------|--------|
-| evidence-researcher | herda (→sonnet) | — (→add) | **NEEDS model routing** |
-| qa-engineer | sonnet | 12 | OK |
-| mbe-evaluator | sonnet | 15 | OK (FROZEN ate aula completa) |
-| reference-checker | herda (→haiku) | — (→add) | **NEEDS model routing** |
-| quality-gate | haiku | 10 | FROZEN: falta JS/CSS lint scripts |
-| researcher | haiku | 15 | OK |
-| repo-janitor | haiku | 12 | OK |
-| notion-ops | sonnet (→haiku) | 10 | **NEEDS model routing** |
+| Agente | Model | maxTurns | Memory | Status |
+|--------|-------|----------|--------|--------|
+| evidence-researcher | sonnet ✓ | — | project ✓ | OK |
+| qa-engineer | sonnet ✓ | 12 | project ✓ NEW | OK |
+| mbe-evaluator | sonnet ✓ | 15 | — | OK (FROZEN ate aula completa) |
+| reference-checker | haiku ✓ NEW | 15 | project ✓ NEW | OK |
+| quality-gate | haiku ✓ | 10 | — | FROZEN: falta JS/CSS lint scripts |
+| researcher | haiku ✓ | 15 | — | OK |
+| repo-janitor | haiku ✓ | 12 | — | OK |
+| notion-ops | haiku ✓ NEW | 10 | — | OK |
 
-## HOOKS (15 total)
+## HOOKS (16 total)
 
 | Hook | Evento | Funcao |
 |------|--------|--------|
-| pre-compact-checkpoint | Stop (→mover p/ PreCompact) | Grava estado antes de compaction |
+| **pre-compact-checkpoint** | **PreCompact ✓ NEW** | **Grava estado antes de compaction (timing correto)** |
 | stop-crossref-check | Stop | Warning se cross-ref quebrado |
-| **stop-detect-issues** | **Stop** | **Persiste issues em pending-fixes.md** NEW |
+| stop-detect-issues | Stop | Persiste issues em pending-fixes.md |
 | stop-hygiene | Stop | Verifica session hygiene |
 | stop-notify | Stop | Notificacao visual |
 | session-start | SessionStart | Inicializacao + surfacea pending-fixes |
@@ -62,7 +61,8 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 | guard-secrets | PreToolUse(Bash) | Bloqueia secrets em bash |
 | guard-bash-write | PreToolUse(Bash) | Protege escrita via bash |
 | guard-lint-before-build | PreToolUse(Bash) | Lint antes de build |
-| **crossref-precommit** | **pre-commit (git)** | **BLOQUEIA commit se cross-ref quebrado** NEW |
+| crossref-precommit | pre-commit (git) | BLOQUEIA commit se cross-ref quebrado |
+| build-monitor | PostToolUse(Bash) | Monitora output de build |
 
 ## DECISOES ATIVAS
 
@@ -73,7 +73,7 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 - **Self-healing loop:** stop-detect → pending-fixes → session-start surfacea.
 - **Known-bad-patterns (Via Negativa):** 5 KBPs, alimentado por /insights.
 - Agentes: max 2, Lucas dita, scripts existentes, 1 slide por vez.
-- Memory governance: cap 20 files (17 atual). Next review: S84.
+- Memory governance: cap 20 files (17 atual). Next review: S85.
 
 ## CUIDADOS
 
@@ -87,4 +87,4 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-06
+Coautoria: Lucas + claude-4.6-sonnet-medium-thinking (Cursor) | 2026-04-06

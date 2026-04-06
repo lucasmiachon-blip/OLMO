@@ -27,10 +27,10 @@
 - [ ] SEC-005: CHATGPT_MCP_URL validacao (server `planned`, non-issue ate connect)
 
 ### Agent Hardening (da pesquisa best practices S83)
-- [ ] Agent model routing: evidence-researcher→sonnet, reference-checker→haiku, notion-ops→haiku
-- [ ] PreCompact hook migration (pre-compact-checkpoint.sh de Stop → PreCompact)
-- [ ] Agent memory: project para qa-engineer e reference-checker
-- [ ] context: fork em skills pesadas (/research, /medical-researcher, /deep-search)
+- [x] Agent model routing: evidence-researcher→sonnet, reference-checker→haiku, notion-ops→haiku (S84)
+- [x] PreCompact hook migration (pre-compact-checkpoint.sh de Stop → PreCompact) (S84)
+- [x] Agent memory: project para qa-engineer e reference-checker (S84)
+- [x] context: fork em skills pesadas (/research, /medical-researcher, /deep-search) (ja existia)
 
 ## Research Outputs (S82-S83, acionaveis incorporados ao implementation-plan)
 

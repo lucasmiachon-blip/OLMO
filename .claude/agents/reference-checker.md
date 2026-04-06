@@ -14,8 +14,9 @@ mcpServers:
     args: ["-y", "@cyanheads/pubmed-mcp-server"]
     env:
       NCBI_API_KEY: "${NCBI_API_KEY}"
-model: sonnet
+model: haiku
 maxTurns: 15
+memory: project
 ---
 
 # Reference Checker — Consistency Audit

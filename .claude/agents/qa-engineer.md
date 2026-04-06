@@ -9,6 +9,7 @@ tools:
   - mcp:playwright
 model: sonnet
 maxTurns: 12
+memory: project
 ---
 
 # QA Engineer — Single Slide, Single Gate

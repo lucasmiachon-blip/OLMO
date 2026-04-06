@@ -1,7 +1,7 @@
 ---
 name: notion-ops
 description: Operacoes no Notion (read, write, organize). Usar para qualquer interacao com Notion DB que precise do protocolo MCP safety.
-model: sonnet
+model: haiku
 tools: Read, Grep, Glob
 mcpServers:
   - claude_ai_Notion
