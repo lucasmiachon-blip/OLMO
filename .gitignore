@@ -93,6 +93,7 @@ htmlcov/
 .claude/.last-checkpoint
 .claude/skills/*-workspace/
 .claude/skills/.archive/
+.claude/pending-fixes*.md
 .archive/
 
 # Obsidian

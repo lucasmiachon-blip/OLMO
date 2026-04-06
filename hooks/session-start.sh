@@ -27,4 +27,16 @@ EOF
 
 cat "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null || echo "(HANDOFF.md nao encontrado)"
 
+# Surface pending fixes from previous session (self-healing loop)
+PENDING="$PROJECT_ROOT/.claude/pending-fixes.md"
+if [ -f "$PENDING" ] && [ -s "$PENDING" ]; then
+  echo ""
+  echo "=== PENDING FIXES (from previous session) ==="
+  cat "$PENDING"
+  echo ""
+  echo "→ Address these before starting new work. Clear with: rm .claude/pending-fixes.md"
+  # Archive — don't delete (audit trail). Silently fail if rename fails.
+  mv "$PENDING" "$PROJECT_ROOT/.claude/pending-fixes-$(date +%Y%m%d-%H%M).md" 2>/dev/null || true
+fi
+
 exit 0

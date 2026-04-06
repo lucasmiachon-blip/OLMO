@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Claude Code hook: Stop
+# Detects cross-ref and hygiene issues, persists to pending-fixes.md
+# for the next session to surface. Closes the self-healing loop.
+# Evento: Stop | Timeout: 5s | Exit: sempre 0
+
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PENDING="$PROJECT_ROOT/.claude/pending-fixes.md"
+
+# Get all modified files (staged + unstaged) relative to HEAD
+CHANGED=$(git -C "$PROJECT_ROOT" diff --name-only HEAD 2>/dev/null || true)
+STAGED=$(git -C "$PROJECT_ROOT" diff --cached --name-only 2>/dev/null || true)
+ALL_CHANGED=$(printf "%s\n%s" "$CHANGED" "$STAGED" | sort -u | grep -v '^$')
+
+# No changes? Exit silently.
+[ -z "$ALL_CHANGED" ] && exit 0
+
+ISSUES=""
+NOW=$(date '+%Y-%m-%d %H:%M')
+
+# Check 1: slide HTML modified without _manifest.js
+SLIDE_CHANGED=$(echo "$ALL_CHANGED" | grep -E 'content/aulas/.+/slides/.+\.html' || true)
+if [ -n "$SLIDE_CHANGED" ]; then
+  MANIFEST_CHANGED=$(echo "$ALL_CHANGED" | grep '_manifest.js' || true)
+  if [ -z "$MANIFEST_CHANGED" ]; then
+    ISSUES="${ISSUES}- Slide HTML modified but _manifest.js NOT updated:\n"
+    ISSUES="${ISSUES}$(echo "$SLIDE_CHANGED" | head -3 | sed 's/^/    /')\n"
+  fi
+fi
+
+# Check 2: evidence HTML modified without slide HTML
+EVIDENCE_CHANGED=$(echo "$ALL_CHANGED" | grep -E 'content/aulas/.+/evidence/.+\.html' || true)
+if [ -n "$EVIDENCE_CHANGED" ]; then
+  if [ -z "$SLIDE_CHANGED" ]; then
+    ISSUES="${ISSUES}- Evidence HTML modified but no slide HTML updated:\n"
+    ISSUES="${ISSUES}$(echo "$EVIDENCE_CHANGED" | head -3 | sed 's/^/    /')\n"
+  fi
+fi
+
+# Check 3: _manifest.js modified without index.html rebuilt
+MANIFEST_CHANGED=$(echo "$ALL_CHANGED" | grep '_manifest.js' || true)
+if [ -n "$MANIFEST_CHANGED" ]; then
+  INDEX_CHANGED=$(echo "$ALL_CHANGED" | grep 'index.html' || true)
+  if [ -z "$INDEX_CHANGED" ]; then
+    ISSUES="${ISSUES}- _manifest.js modified but index.html NOT rebuilt\n"
+  fi
+fi
+
+# Check 4: HANDOFF/CHANGELOG not updated when work was done
+H_MOD=$(echo "$ALL_CHANGED" | grep 'HANDOFF.md' || true)
+C_MOD=$(echo "$ALL_CHANGED" | grep 'CHANGELOG.md' || true)
+if [ -z "$H_MOD" ] || [ -z "$C_MOD" ]; then
+  HYGIENE=""
+  [ -z "$H_MOD" ] && HYGIENE="${HYGIENE}- HANDOFF.md NOT updated\n"
+  [ -z "$C_MOD" ] && HYGIENE="${HYGIENE}- CHANGELOG.md NOT updated\n"
+  ISSUES="${ISSUES}${HYGIENE}"
+fi
+
+# If issues found, append to pending-fixes.md
+if [ -n "$ISSUES" ]; then
+  # Create header if file doesn't exist
+  if [ ! -f "$PENDING" ]; then
+    echo "# Pending Fixes (auto-generated, cleared after surfacing)" > "$PENDING"
+    echo "" >> "$PENDING"
+  fi
+  echo "" >> "$PENDING"
+  echo "## $NOW — Issues detected at session end" >> "$PENDING"
+  echo -e "$ISSUES" >> "$PENDING"
+fi
+
+exit 0
