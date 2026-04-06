@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 87 — 2026-04-06 (INFRA2 — OTel+Langfuse, SEC-004 version pinning, memory stale update)
+
+### OTel + Langfuse Self-Host (Tier 0 Observability)
+- `docker-compose.yml`: 3 services — PostgreSQL 16, OTel Collector, Langfuse
+- `config/otel/otel-collector-config.yaml`: OTLP gRPC :4317 → batch → Langfuse HTTP
+- Claude Code → OTLP → Collector → Langfuse UI (:3100)
+- `.gitignore`: added langfuse_postgres volume
+
+### SEC-004: MCP Version Pinning (P0 Security)
+- `notebooklm-mcp@latest` → `@1.2.1` (pinned)
+- `zotero-mcp` → `==0.1.6` (pinned)
+- `perplexity` → `status: removed` (migrated to API)
+- Added `_comment_version_policy` with quarterly review (next: S95)
+
+### Memory Stale Update
+- `project_self_improvement.md`: L1-L7 actual state, KBPs active, OTel done, self-healing loop
+- `project_tooling_pipeline.md`: 19 hooks, 11 MCPs, 20+ skills, quality-gate unfrozen, Gemini CLI
+- `MEMORY.md`: updated index descriptions
+
+---
+
 ## Sessao 86 — 2026-04-06 (INFRA — L7 continuous learning: memory TTL, failure registry, model fallback)
 
 ### Antifragile L7 — Memory TTL Backfill
