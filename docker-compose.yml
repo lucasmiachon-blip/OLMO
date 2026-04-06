@@ -1,66 +1,166 @@
-# OLMO Observability Stack
-# OTel Collector + Langfuse + PostgreSQL
+# OLMO Observability Stack — Langfuse V3
+# OTel Collector + Langfuse (web + worker) + PostgreSQL + ClickHouse + Redis + MinIO
 #
 # Usage:
 #   docker compose up -d          # start all services
 #   docker compose logs -f        # follow logs
-#   docker compose down           # stop (data persists in volume)
-#   docker compose down -v        # stop + delete data
+#   docker compose down           # stop (data persists in volumes)
+#   docker compose down -v        # stop + delete all data
 #
 # After first start:
 #   1. Open http://localhost:3100 (Langfuse UI)
 #   2. Create account + project
 #   3. Get API keys → set LANGFUSE_PUBLIC_KEY + LANGFUSE_SECRET_KEY in .env
-#   4. docker compose restart otel-collector
+#   4. Generate auth header: echo -n "pk:sk" | base64
+#   5. Set LANGFUSE_AUTH_HEADER in .env
+#   6. docker compose restart otel-collector
 #
 # Claude Code telemetry:
-#   Copy .env.example → .env, uncomment OTel vars, restart Claude Code
+#   Uncomment OTel vars in .env, restart Claude Code
 
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: langfuse
       POSTGRES_PASSWORD: ${LANGFUSE_DB_PASSWORD:-langfuse_local}
       POSTGRES_DB: langfuse
+      TZ: UTC
+      PGTZ: UTC
     volumes:
       - langfuse_postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U langfuse"]
-      interval: 10s
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "127.0.0.1:5433:5432"
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24
+    restart: unless-stopped
+    user: "101:101"
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-clickhouse_local}
+    volumes:
+      - langfuse_clickhouse_data:/var/lib/clickhouse
+      - langfuse_clickhouse_logs:/var/log/clickhouse-server
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8123/ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 1s
+    ports:
+      - "127.0.0.1:8123:8123"
+      - "127.0.0.1:9000:9000"
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: >
+      --requirepass ${REDIS_PASSWORD:-redis_local}
+      --maxmemory-policy noeviction
+    volumes:
+      - langfuse_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 10s
+      retries: 10
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  minio:
+    image: cgr.dev/chainguard/minio
+    restart: unless-stopped
+    entrypoint: sh
+    command: -c 'mkdir -p /data/langfuse && minio server --address ":9000" --console-address ":9001" /data'
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD:-minio_local_secret}
+    volumes:
+      - langfuse_minio:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 3s
       timeout: 5s
       retries: 5
+      start_period: 1s
     ports:
-      - "5433:5432"  # 5433 to avoid conflict with local postgres
+      - "127.0.0.1:9090:9000"
+      - "127.0.0.1:9091:9001"
 
-  langfuse:
-    image: langfuse/langfuse:latest
+  langfuse-worker:
+    image: langfuse/langfuse-worker:3
     restart: unless-stopped
-    depends_on:
+    depends_on: &langfuse-depends
       postgres:
         condition: service_healthy
-    environment:
+      clickhouse:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment: &langfuse-env
       DATABASE_URL: postgresql://langfuse:${LANGFUSE_DB_PASSWORD:-langfuse_local}@postgres:5432/langfuse
-      NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:-change-me-in-production}
+      CLICKHOUSE_URL: http://clickhouse:8123
+      CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-clickhouse_local}
+      CLICKHOUSE_CLUSTER_ENABLED: "false"
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      REDIS_AUTH: ${REDIS_PASSWORD:-redis_local}
       NEXTAUTH_URL: http://localhost:3100
-      SALT: ${LANGFUSE_SALT:-change-me-in-production}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-8ecf72334f2853c2d2c19d701153af64a98d32556c7c78fd4af1412775c422d3}
+      SALT: ${LANGFUSE_SALT:-olmo-langfuse-salt-2026}
       TELEMETRY_ENABLED: "true"
       LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: "true"
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: auto
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: minio
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_PASSWORD:-minio_local_secret}
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_EVENT_UPLOAD_PREFIX: "events/"
+      LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse
+      LANGFUSE_S3_MEDIA_UPLOAD_REGION: auto
+      LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: minio
+      LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_PASSWORD:-minio_local_secret}
+      LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT: http://localhost:9090
+      LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_MEDIA_UPLOAD_PREFIX: "media/"
+    ports:
+      - "127.0.0.1:3030:3030"
+
+  langfuse-web:
+    image: langfuse/langfuse:3
+    restart: unless-stopped
+    depends_on: *langfuse-depends
+    environment:
+      <<: *langfuse-env
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-fPEPf9Hvs0GDHCKEdDjo3fZK+0eF2E2U3rFPjscWK8g=}
+      HOSTNAME: "0.0.0.0"
     ports:
       - "3100:3000"
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/public/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/api/public/health"]
       interval: 15s
       timeout: 10s
       retries: 5
-      start_period: 30s
+      start_period: 60s
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib:latest
     restart: unless-stopped
     depends_on:
-      langfuse:
+      langfuse-web:
         condition: service_healthy
     command: ["--config=/etc/otelcol/config.yaml"]
     volumes:
@@ -68,8 +168,12 @@ services:
     environment:
       LANGFUSE_AUTH_HEADER: ${LANGFUSE_AUTH_HEADER:-cGstbGZfZHVtbXk6c2stbGZfZHVtbXk=}
     ports:
-      - "4317:4317"   # OTLP gRPC (Claude Code sends here)
-      - "4318:4318"   # OTLP HTTP
+      - "4317:4317"
+      - "4318:4318"
 
 volumes:
   langfuse_postgres:
+  langfuse_clickhouse_data:
+  langfuse_clickhouse_logs:
+  langfuse_redis:
+  langfuse_minio:

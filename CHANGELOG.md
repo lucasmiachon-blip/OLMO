@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## Sessao 88 — 2026-04-06 (OTel activation — Langfuse V3 stack live)
+
+### Langfuse V2 → V3 Upgrade + Activation
+- `docker-compose.yml`: 3 services → 7 (+ ClickHouse 24, Redis 7, MinIO, langfuse-worker)
+- Langfuse image: `langfuse/langfuse:latest` (V2) → `langfuse/langfuse:3` (V3.163.0)
+- Postgres: 16-alpine → 17-alpine
+- Split: `langfuse` → `langfuse-web` + `langfuse-worker` (async processing)
+- All infra ports bound to `127.0.0.1` (localhost only)
+
+### Bug Fixes (3 issues found and resolved)
+- OTel endpoint: `langfuse:3100` → `langfuse-web:3000` (Docker internal port, not host mapping)
+- Healthcheck IPv6: `localhost` → `127.0.0.1` + `HOSTNAME: "0.0.0.0"` (Next.js container binding)
+- Postgres volume: cleared stale PG16 data incompatible with PG17
+
+### Environment Configuration
+- `.env` created with Langfuse API keys + OTel endpoint (gitignored)
+- Windows env vars: `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_AUTH_HEADER`, `OTEL_EXPORTER_OTLP_ENDPOINT`
+- Langfuse project "OLMO" created, API keys generated
+
+### Pending
+- Restart Claude Code to activate OTel telemetry (env var loaded at process start)
+
+---
+
 ## Sessao 87 — 2026-04-06 (INFRA2 — OTel+Langfuse, SEC-004 version pinning, memory stale update)
 
 ### OTel + Langfuse Self-Host (Tier 0 Observability)
