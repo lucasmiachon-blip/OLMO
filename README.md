@@ -33,5 +33,5 @@ make test-cov    # pytest + coverage
 ## Stack
 
 - Python 3.11+, uv, ruff, mypy, pytest
-- 13 MCP servers (Notion, PubMed, Gmail, Gemini, Perplexity...)
+- 12 MCP servers (Notion, PubMed, Gmail, Perplexity, Canva...)
 - Claude Code (Opus 4.6 orchestrator + Sonnet/Haiku subagents)

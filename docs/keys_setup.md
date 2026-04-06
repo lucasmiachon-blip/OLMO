@@ -1,6 +1,6 @@
 # Configuracao de API Keys
 
-> Referencia: `config/mcp/servers.json` (16 MCPs: 12 connected, 3 planned, 1 removed)
+> Referencia: `config/mcp/servers.json` (15 MCPs: 12 connected, 3 planned)
 
 ## MCPs Nativos claude.ai ($0 via Max — OAuth, sem API key)
 

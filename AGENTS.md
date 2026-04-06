@@ -64,7 +64,7 @@ Lucas is a beginner developer who accepts model decisions passively. Catch what 
 
 - **Confirmation inertia**: Is the model just agreeing with Lucas? Check for 3+ consecutive agreements without a single objection or risk raised. (See: `feedback_anti-sycophancy.md`)
 - **Context drift**: Do new rules/changes contradict `CLAUDE.md`, `GEMINI.md`, or existing `.claude/rules/`? Cross-file diff required. (See: `anti-drift.md`)
-- **Evidence integrity**: Cross-validate PMIDs against `evidence-db.md` and PubMed. LLM-generated PMIDs have ~56% error rate. (See: `reference-checker.md`)
+- **Evidence integrity**: Cross-validate PMIDs against living HTML (canonical) and PubMed. LLM-generated PMIDs have ~56% error rate. (See: `reference-checker.md`)
 
 ### Validated Workflow (S50-S51)
 
@@ -93,7 +93,7 @@ P0 = security/data integrity. P1 = correctness. P2 = quality.
 - Tier 1 only: guidelines, meta-analyses, RCTs, systematic reviews
 - Always PMID/DOI. Mark `[CANDIDATE]` if 2025/2026 source
 - NNT with 95% CI, follow-up time, significance
-- Full protocol in `GEMINI.md` (v3.2)
+- Full protocol in `GEMINI.md` (v3.6)
 
 ## Boundaries
 

@@ -1,12 +1,30 @@
 # CHANGELOG
 
-## Sessao 81 — 2026-04-05 (CONFRONTACAO — janitor audit, repo-janitor fix)
+## Sessao 81 — 2026-04-05 (CONFRONTACAO — adversarial audit, doc sweep)
 
 ### Janitor
 - Fix: repo-janitor `model: fast` → `model: haiku` (valor invalido causava crash)
-- Cleanup: 10 notion dump MDs em scripts/output/ (untracked)
-- Cleanup: dirs vazios data/ e .claude/worktrees (untracked)
-- Auditoria completa: docs clean, scripts referenciados, sem orphans tracked
+- Cleanup: 10 notion dump MDs em scripts/output/ + dirs vazios data/, .claude/worktrees (untracked)
+
+### Adversarial Audit (4 auditorias: 2 Explore Opus + 2 Codex GPT-5.4)
+- Relatorio completo: `.archive/ADVERSARIAL-AUDIT-S81.md`
+- 21 achados categorizados: 3 SEC, 6 BUG, 8 DOC, 3 RED, 3 DEAD
+- 1 rejeitado (anti-drift overlap = intencional)
+
+### Doc Fixes (Batch 1 — alta confianca)
+- `project_tooling_pipeline.md`: agent count "11→7" → "11→8"
+- `AGENTS.md:96`: GEMINI.md version ref "v3.2" → "v3.6"
+- `AGENTS.md:67`: evidence-db.md → living HTML (canonical)
+- `ARCHITECTURE.md:223`: OBSIDIAN_CLI_PLAN.md link → .archive/ path
+- `.env.example`: GOOGLE_AI_KEY → GEMINI_API_KEY
+- MCP count sweep (6 files): Gemini removido, 16→15 total, 13→12 connected
+- PENDENCIAS.md: Gemini MCP marcado como descartado S71
+
+### Pendente (Batch 2-4 no audit report)
+- SEC-002/003/NEW: security fixes em scripts (verificar codigo)
+- BUG-1: preflight contract (qa-browser-report.json vs metrics.json)
+- DOC-1: arquitetura Python em CLAUDE.md (decisao Lucas)
+- DOC-4 parcial: agentes dependentes de evidence-db (requer rewrite)
 
 ## Sessao 80 — 2026-04-05 (AGENTES — audit 2, rename, qa-engineer rewrite)
 

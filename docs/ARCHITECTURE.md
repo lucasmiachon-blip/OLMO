@@ -176,7 +176,7 @@ OLMO/
 │   └── agents/ (8)        # researcher, qa-engineer, evidence-researcher, etc.
 ├── config/
 │   ├── ecosystem.yaml     # Agentes + model routing + skills
-│   └── mcp/servers.json   # 16 MCPs (12 connected, 3 planned, 1 removed)
+│   └── mcp/servers.json   # 15 MCPs (12 connected, 3 planned)
 └── content/aulas/         # Subsistema Node.js (deck.js + GSAP)
 ```
 
@@ -220,7 +220,7 @@ content/aulas/
 
 - `docs/WORKFLOW_MBE.md` — Workflow principal: topico → Notion + Obsidian
 - `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` — Detalhes tecnicos (PubMed tier1, Consensus, Scite)
-- `docs/OBSIDIAN_CLI_PLAN.md` — Integracao Obsidian CLI
+- `docs/.archive/OBSIDIAN_CLI_PLAN.md` — Integracao Obsidian CLI (archived)
 - `content/aulas/STRATEGY.md` — Roadmap tecnico de aulas (CSS @layer, D3, Lottie, PPTX)
 - `docs/coauthorship_reference.md` — Referencia completa coautoria AI
 - `docs/mcp_safety_reference.md` — Referencia completa seguranca MCP

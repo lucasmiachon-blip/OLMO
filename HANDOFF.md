@@ -1,37 +1,51 @@
 # HANDOFF - Proxima Sessao
 
 > Sessao 82 | 2026-04-05
-> Cross-ref: `content/aulas/metanalise/HANDOFF.md` (estado dos slides, ordem do deck, pipeline QA por slide)
+> Cross-ref: `content/aulas/metanalise/HANDOFF.md` | `.archive/ADVERSARIAL-AUDIT-S81.md` (checklist completo)
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides metanalise).
-**Agentes: 8** (era 11). Consolidacao S79: 3 eliminados, 3 melhorados. Audit S80: rename + qa-engineer rewrite.
+**Agentes: 8.** MCPs: 12 connected + 3 planned = 15 total.
+Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
 
-## AGENTES (pos-S80)
+## AGENTES (pos-S81)
 
 | Agente | Papel | Status |
 |--------|-------|--------|
-| **evidence-researcher** | Pesquisa: MCPs + Perplexity + Gemini. Triangulacao interna. | HARDENED (renamed S80) |
-| **qa-engineer** | Pipeline Preflight/Inspect/Editorial, 1 slide 1 gate | REWRITTEN S80 |
-| **mbe-evaluator** | Avalia qualidade evidencia (8 dim). FROZEN ate aula completa. | HARDENED |
-| **reference-checker** | Cross-ref PMIDs slides/evidence-db | FIX S79 (mcp:pubmed) |
+| **evidence-researcher** | Pesquisa: MCPs + Perplexity + Gemini. Triangulacao interna. | Output path stale (BUG-5) |
+| **qa-engineer** | Pipeline Preflight/Inspect/Editorial, 1 slide 1 gate | Preflight contract gap (BUG-1) |
+| **mbe-evaluator** | Avalia qualidade evidencia (8 dim). FROZEN ate aula completa. | Depende de evidence-db (DOC-4) |
+| **reference-checker** | Cross-ref PMIDs slides/living HTML | Depende de evidence-db (DOC-4, requer rewrite) |
 | **quality-gate** | Pre-commit lint/type/test | **P1 FROZEN: falta JS/CSS scripts** |
 | **researcher** | Exploracao codebase read-only | OK |
-| **repo-janitor** | Orfaos, links quebrados, limpeza | FIX S81 (model: fast→haiku). Falta maxTurns |
-| **notion-ops** | Notion DB read/write | OK (verificar se mcp tools funcionam) |
+| **repo-janitor** | Orfaos, links quebrados, limpeza | FIX S81 (model: haiku). Falta maxTurns |
+| **notion-ops** | Notion DB read/write | OK (verificar mcp tools) |
 
-## P0 — TESTAR AGENTES
+## P0 — SECURITY (audit S81)
 
-- Testar qa-engineer reescrito (1 slide, 1 gate Preflight)
-- Testar evidence-researcher renomeado (1 slide, pesquisa simples)
+- [ ] SEC-003: Gemini API key no URL query string (5 chamadas em 2 scripts)
+- [ ] SEC-002: NLM shell injection execSync (content-research.mjs:933)
+- [ ] SEC-NEW: done-gate.js aula arg sem allowlist
 
-## P1 — FROZEN
+## P1 — BUGS (audit S81)
+
+- [ ] BUG-1: Preflight contract: qa-browser-report.json vs metrics.json
+- [ ] BUG-5: Evidence agent output path (agent diz evidence/, script escreve qa-screenshots/)
+- [ ] DOC-4: Agentes dependem de evidence-db.md — living HTML e canonical
+
+## P1 — DECISOES PENDENTES
+
+- [ ] DOC-1: Arquitetura Python 4-agentes em CLAUDE.md — scaffold nunca implementado. Substituir?
+
+## P2 — FROZEN
 
 - quality-gate: hardening + JS/CSS lint scripts
-- notion-ops: verificar se mcpServers basta ou precisa mcp:notion-* tools explicitos
+- notion-ops: verificar se mcpServers basta
 - repo-janitor: adicionar maxTurns
-- qa-pipeline.md: gate names atualizados, mas scripts (gemini-qa3.mjs) ainda usam Gate 0/Gate 4 nos comments internos
+- RED-1: MCP safety triplicado → consolidar
+- RED-3: feedback_qa_use_cli_not_mcp.md 75 linhas → trim
+- BLOAT-1: AGENTS.md heuristics section → linkar memory
 
 ## WORKFLOW DE AGENTES
 
@@ -45,13 +59,15 @@ Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides m
 
 ## DECISOES ATIVAS
 
-- Living HTML per slide = source of truth. Evidence-first workflow.
+- **Living HTML per slide = source of truth.** Evidence-first. evidence-db.md deprecated.
+- **Gemini: so API/CLI, NAO MCP** (descartado S71).
 - deck.js le DOM, nao manifest em runtime. index.html gerado pelo build.
 - Agentes: max 2, Lucas dita, scripts existentes, 1 slide por vez.
-- mbe-evaluator: frozen ate aula completa.
-- Memory governance: cap 20 files (14 atual), next review S81.
-- **1 gate = 1 invocacao** (hard stop via maxTurns, nao instrucao soft).
-- **Gate names descritivos** (Preflight/Inspect/Editorial), nao numeros.
+- **1 gate = 1 invocacao** (hard stop via maxTurns).
+- **Gate names descritivos** (Preflight/Inspect/Editorial).
+- Memory governance: cap 20 files (14 atual), review done S81.
+- Codex CLI: `codex exec --sandbox read-only -o file "prompt"`.
+- Reflexao estendida obrigatoria antes de decisoes/audits.
 
 ## CUIDADOS
 
@@ -60,18 +76,24 @@ Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides m
 - **Editar slide = AMBOS arquivos** — slides/{file}.html + index.html.
 - **CSS per-slide: `section#s-{id}`** — specificity 0,1,1,1.
 - PMIDs de LLM: ~56% erro. SEMPRE verificar.
+- CLI tools: `--help` ANTES do primeiro uso na sessao.
 
-## SECURITY (S72)
+## SECURITY (S72 + S81)
 
-### Pendentes (MODERATE)
-- [ ] SEC-002: NLM shell injection
-- [ ] SEC-003: Gemini API key no URL → header
+### P0 (audit S81)
+- [ ] SEC-002: NLM shell injection → execFileSync
+- [ ] SEC-003: Gemini API key no URL → header (5 chamadas)
+- [ ] SEC-NEW: done-gate.js aula sem allowlist
+
+### Pendentes (MODERATE, herdado)
 - [ ] SEC-004: MCP servers unpinned
 - [ ] SEC-005: CHATGPT_MCP_URL sem validacao
 
 ## PENDENTE (herdado)
 
-- [ ] gemini-qa3.mjs: grade aula crash (missing docs/prompts/)
+- [ ] BUG-3: export-pdf.js DeckTape reveal adapter (lectures sao deck.js)
+- [ ] BUG-4: qa-video.js .webm→.mp4 sem transcoding + ref script morto
+- [ ] BUG-6: gemini-qa3.mjs grade aula crash (missing docs/prompts/)
 - [ ] Obsidian CLI (backlog)
 - [ ] Google Drive MCP: OAuth credentials
 - [ ] Presenter.js rewrite
@@ -82,4 +104,4 @@ Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides m
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-05
+Coautoria: Lucas + Opus 4.6 + GPT-5.4 (Codex) | 2026-04-05

@@ -1,24 +1,24 @@
 # PENDENCIAS — Setup & Infraestrutura
 
-> Checklist de instalacao e configuracao. Atualizado: 31 de Marco de 2026.
+> Checklist de instalacao e configuracao. Atualizado: 5 de Abril de 2026.
 > Backlog de projeto → ver HANDOFF.md.
 
-## MCPs (16 configurados)
+## MCPs (15 configurados)
 
-### Conectados (13)
+### Conectados (12)
 - [x] **Notion** — OAuth, connected
 - [x] **PubMed** — claude.ai nativo, connected
 - [x] **SCite** — assinatura ativa, connected
 - [x] **Consensus** — assinatura ativa, connected
 - [x] **Scholar Gateway** — connected
 - [x] **Perplexity** — API key configurada, connected
-- [x] **Gemini** — npx @rlabs-inc/gemini-mcp, connected
 - [x] **NotebookLM** — npx notebooklm-mcp@latest, connected
 - [x] **Zotero** — uvx zotero-mcp, local mode (Zotero app precisa estar aberto)
 - [x] **Excalidraw** — connected
 - [x] **Gmail** — claude.ai nativo, connected (sessao 15)
 - [x] **Google Calendar** — claude.ai nativo, connected (sessao 15)
 - [x] **Canva** — connected (sessao 15)
+- ~~**Gemini**~~ — descartado S71. Usar API/CLI, nao MCP.
 
 ### Planejados (3)
 - [ ] **Google Drive** — `@piotr-agier/google-drive-mcp` (requer Google Cloud Console OAuth)

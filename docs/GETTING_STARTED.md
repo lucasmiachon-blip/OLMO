@@ -116,7 +116,7 @@ OLMO/
 ├── hooks/                    # notify.sh, stop-hygiene.sh
 ├── config/
 │   ├── ecosystem.yaml        # Agentes + model routing + skills
-│   ├── mcp/servers.json      # 16 MCPs (13 connected, 3 planned)
+│   ├── mcp/servers.json      # 15 MCPs (12 connected, 3 planned)
 │   └── rate_limits.yaml      # Budget $100/mes
 └── docs/                     # Documentacao tecnica
 ```

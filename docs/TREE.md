@@ -68,7 +68,7 @@ config/
 ├── workflows.yaml       # Pipelines de execucao
 ├── loader.py            # Parser YAML/JSON
 └── mcp/
-    └── servers.json     # 16 MCP servers (13 connected, 3 planned)
+    └── servers.json     # 15 MCP servers (12 connected, 3 planned)
 ```
 
 ## content/aulas/ — Slide decks (Node.js, deck.js)
