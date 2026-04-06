@@ -15,7 +15,8 @@ paths:
 
 - "Rodar QA" = apresentar plano dos gates ANTES de executar. NUNCA atalhar pipeline (E053).
 - NUNCA batch QA — 1 slide por ciclo completo (vale para Opus visual e Gemini script).
-- Gates sequenciais: -1 (preflight $0) → 0 (Flash inspect) → [checkpoint Lucas] → 4 (Pro editorial 3 calls).
+- Gates sequenciais: Preflight ($0) → [Lucas OK] → Inspect (Gemini Flash) → [Lucas OK] → Editorial (Gemini Pro, 3 calls).
+- 1 gate = 1 invocacao do qa-engineer. maxTurns garante hard stop.
 - Estados de slide: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
 
 ## 2. Cor Semantica no QA (E067)

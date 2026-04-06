@@ -35,3 +35,12 @@ Apos eliminar, criar ou renomear agentes, verificar mecanicamente:
 1. `ls .claude/agents/*.md | wc -l` == contagem declarada no HANDOFF
 2. Cada arquivo: `filename` (sem .md) == `name:` no frontmatter
 3. Tabela HANDOFF lista exatamente os arquivos existentes — sem extras, sem faltantes
+
+## Hardening de agentes (checklist S80)
+
+Ao criar ou reescrever agente:
+1. **maxTurns**: obrigatorio. Estimar turns reais (scripts + DOM + report) + margem 20%
+2. **tools**: verificar que cada tool existe no SDK (ex: `StrReplace` nao existe, usar `Edit`)
+3. **1 tarefa = 1 invocacao**: se o agente precisa parar no meio, dividir em invocacoes separadas
+4. **Referenciar scripts, nao duplicar**: listar comando, nao reimplementar logica
+5. **Gate names descritivos**: Preflight/Inspect/Editorial, nao numeros arbitrarios (-1/0/4)

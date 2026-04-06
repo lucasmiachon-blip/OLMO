@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## Sessao 80 — 2026-04-05 (AGENTES — audit 2, rename, qa-engineer rewrite)
+
+### Doc fixes
+- HANDOFF: contagem 7→8 agentes, 4→3 eliminados
+- CHANGELOG S79: "eliminados (4)" → (3)
+- TREE, GETTING_STARTED, ARCHITECTURE: agent count 10→8
+
+### Rename medical-researcher → evidence-researcher
+- Arquivo, agent-memory dir, 5 docs atualizados (15 files)
+- Filename agora == frontmatter `name:` (sistema usa filename para routing)
+
+### qa-engineer rewrite (186→80 linhas)
+- Fix: StrReplace → Edit (tool inexistente)
+- Add: maxTurns: 12 (era unbounded — rodava indefinidamente)
+- Rename gates: -1/0/4 → Preflight/Inspect/Editorial
+- Arquitetura: 1 gate = 1 invocacao (hard stop via maxTurns)
+- Removida redundancia: tabelas de 35 checks → categorias, execution sequence → referencia a scripts
+
+### Rules
+- session-hygiene.md: checklist pos-consolidacao + hardening de agentes
+- qa-pipeline.md: gate names atualizados (Preflight/Inspect/Editorial)
+
 ## Sessao 79 — 2026-04-05 (AGENTES — consolidacao e hardening)
 
 ### Agentes eliminados (3)

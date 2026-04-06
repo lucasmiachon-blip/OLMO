@@ -1,37 +1,37 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 80 | 2026-04-05
+> Sessao 81 | 2026-04-05
 > Cross-ref: `content/aulas/metanalise/HANDOFF.md` (estado dos slides, ordem do deck, pipeline QA por slide)
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides metanalise).
-**Agentes: 8** (era 11). Consolidacao S79: 3 eliminados, 3 melhorados.
+**Agentes: 8** (era 11). Consolidacao S79: 3 eliminados, 3 melhorados. Audit S80: rename + qa-engineer rewrite.
 
-## AGENTES (pos-S79)
+## AGENTES (pos-S80)
 
 | Agente | Papel | Status |
 |--------|-------|--------|
-| **evidence-researcher** | Pesquisa: MCPs + Perplexity + Gemini. Triangulacao interna. MBE/andragogia. | HARDENED |
-| **qa-engineer** | 35 checks, 1 slide, scripts existentes | HARDENED |
+| **evidence-researcher** | Pesquisa: MCPs + Perplexity + Gemini. Triangulacao interna. | HARDENED (renamed S80) |
+| **qa-engineer** | Pipeline Preflight/Inspect/Editorial, 1 slide 1 gate | REWRITTEN S80 |
 | **mbe-evaluator** | Avalia qualidade evidencia (8 dim). FROZEN ate aula completa. | HARDENED |
 | **reference-checker** | Cross-ref PMIDs slides/evidence-db | FIX S79 (mcp:pubmed) |
-| **quality-gate** | Pre-commit lint/type/test | **PENDENTE: hardening + scripts JS/CSS** |
+| **quality-gate** | Pre-commit lint/type/test | **P1 FROZEN: falta JS/CSS scripts** |
 | **researcher** | Exploracao codebase read-only | OK |
-| **repo-janitor** | Orfaos, links quebrados, limpeza | OK |
-| **notion-ops** | Notion DB read/write | OK |
+| **repo-janitor** | Orfaos, links quebrados, limpeza | OK (falta maxTurns) |
+| **notion-ops** | Notion DB read/write | OK (verificar se mcp tools funcionam) |
 
-## P0 — PENDENTE PROXIMA SESSAO
+## P0 — TESTAR AGENTES
 
-### quality-gate (Fix 6/7 da S79)
-- Adicionar ENFORCEMENT duplo
-- Reescrever checklist: manter ruff/pytest + adicionar lint-slides.js, lint-narrative-sync.js, lint-gsap-css-race.mjs, validate-css.sh, done-gate.js
-- Rodar de `content/aulas/`
+- Testar qa-engineer reescrito (1 slide, 1 gate Preflight)
+- Testar evidence-researcher renomeado (1 slide, pesquisa simples)
 
-### QA slide-a-slide (Lucas decide qual)
-- s-objetivos: Gate 0/4 pendentes
-- s-checkpoint-1: fixes pendentes (axis 10→14px, trial names 16→18px, tabular-nums)
-- Fila: 13 slides LINT-PASS
+## P1 — FROZEN
+
+- quality-gate: hardening + JS/CSS lint scripts
+- notion-ops: verificar se mcpServers basta ou precisa mcp:notion-* tools explicitos
+- repo-janitor: adicionar maxTurns
+- qa-pipeline.md: gate names atualizados, mas scripts (gemini-qa3.mjs) ainda usam Gate 0/Gate 4 nos comments internos
 
 ## WORKFLOW DE AGENTES
 
@@ -40,7 +40,7 @@ Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides m
 | Papel | Script | Regra |
 |-------|--------|-------|
 | Research | evidence-researcher (MCPs + Perplexity + Gemini) | 1 slide, Lucas escolhe |
-| QA | qa-batch-screenshot.mjs + qa-engineer + gemini-qa3.mjs | 1 slide, Lucas escolhe |
+| QA | qa-engineer (Preflight → Inspect → Editorial) | 1 slide 1 gate, Lucas escolhe |
 | Build | npm run build:metanalise | Apos edits |
 
 ## DECISOES ATIVAS
@@ -50,6 +50,8 @@ Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides m
 - Agentes: max 2, Lucas dita, scripts existentes, 1 slide por vez.
 - mbe-evaluator: frozen ate aula completa.
 - Memory governance: cap 20 files (14 atual), next review S81.
+- **1 gate = 1 invocacao** (hard stop via maxTurns, nao instrucao soft).
+- **Gate names descritivos** (Preflight/Inspect/Editorial), nao numeros.
 
 ## CUIDADOS
 
