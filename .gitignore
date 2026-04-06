@@ -113,6 +113,9 @@ content/aulas/*/qa-rounds/
 # Aulas: generated index.html (built from _manifest.js + template)
 content/aulas/*/index.html
 
+# Docker volumes
+langfuse_postgres/
+
 # Playwright
 .playwright-mcp/
 test-results/

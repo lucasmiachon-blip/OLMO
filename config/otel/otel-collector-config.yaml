@@ -1,0 +1,50 @@
+# OpenTelemetry Collector Configuration
+# Receives OTLP from Claude Code, forwards to Langfuse
+#
+# Claude Code exports: metrics (cost, tokens), traces, logs
+# Collector: gRPC :4317 → batch → Langfuse HTTP API
+#
+# Setup:
+#   1. docker compose up -d
+#   2. Create project in Langfuse UI (http://localhost:3100)
+#   3. Get API keys (public + secret)
+#   4. Set LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY in .env
+#   5. docker compose restart otel-collector
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 5s
+    send_batch_size: 256
+
+exporters:
+  otlphttp/langfuse:
+    endpoint: http://langfuse:3100/api/public/otel
+    headers:
+      Authorization: "Basic ${LANGFUSE_AUTH_HEADER}"
+    compression: gzip
+
+  debug:
+    verbosity: basic
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/langfuse, debug]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/langfuse, debug]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/langfuse, debug]

@@ -1,0 +1,75 @@
+# OLMO Observability Stack
+# OTel Collector + Langfuse + PostgreSQL
+#
+# Usage:
+#   docker compose up -d          # start all services
+#   docker compose logs -f        # follow logs
+#   docker compose down           # stop (data persists in volume)
+#   docker compose down -v        # stop + delete data
+#
+# After first start:
+#   1. Open http://localhost:3100 (Langfuse UI)
+#   2. Create account + project
+#   3. Get API keys → set LANGFUSE_PUBLIC_KEY + LANGFUSE_SECRET_KEY in .env
+#   4. docker compose restart otel-collector
+#
+# Claude Code telemetry:
+#   Copy .env.example → .env, uncomment OTel vars, restart Claude Code
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: ${LANGFUSE_DB_PASSWORD:-langfuse_local}
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5433:5432"  # 5433 to avoid conflict with local postgres
+
+  langfuse:
+    image: langfuse/langfuse:latest
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://langfuse:${LANGFUSE_DB_PASSWORD:-langfuse_local}@postgres:5432/langfuse
+      NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:-change-me-in-production}
+      NEXTAUTH_URL: http://localhost:3100
+      SALT: ${LANGFUSE_SALT:-change-me-in-production}
+      TELEMETRY_ENABLED: "true"
+      LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: "true"
+    ports:
+      - "3100:3000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/public/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    restart: unless-stopped
+    depends_on:
+      langfuse:
+        condition: service_healthy
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./config/otel/otel-collector-config.yaml:/etc/otelcol/config.yaml:ro
+    environment:
+      LANGFUSE_AUTH_HEADER: ${LANGFUSE_AUTH_HEADER:-cGstbGZfZHVtbXk6c2stbGZfZHVtbXk=}
+    ports:
+      - "4317:4317"   # OTLP gRPC (Claude Code sends here)
+      - "4318:4318"   # OTLP HTTP
+
+volumes:
+  langfuse_postgres:
