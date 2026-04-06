@@ -2,7 +2,7 @@
 
 ## Sessao 79 — 2026-04-05 (AGENTES — consolidacao e hardening)
 
-### Agentes eliminados (4)
+### Agentes eliminados (3)
 - mcp-query-runner: nao-funcional (tools so Read, nao acessava SCite/Consensus)
 - opus-researcher: redundante (5 MCPs identicos ao evidence-researcher), conteudo mergeado
 - perplexity-auditor: absorvido pelo evidence-researcher (Perplexity via Bash + triangulacao interna)

@@ -28,3 +28,10 @@ Historico do que foi feito. Append nova sessao no topo (mais recente primeiro).
 - **CHANGELOG**: toda sessao com commit
 - **Ambos**: quando usuario pedir commit/wrap-up
 - **Sem commit mas com state change** (ex: decisao, pesquisa): atualizar HANDOFF, CHANGELOG opcional
+
+## Pos-consolidacao de agentes
+
+Apos eliminar, criar ou renomear agentes, verificar mecanicamente:
+1. `ls .claude/agents/*.md | wc -l` == contagem declarada no HANDOFF
+2. Cada arquivo: `filename` (sem .md) == `name:` no frontmatter
+3. Tabela HANDOFF lista exatamente os arquivos existentes — sem extras, sem faltantes

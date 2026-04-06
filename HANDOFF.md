@@ -6,7 +6,7 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides metanalise).
-**Agentes: 7** (era 11). Consolidacao S79: 4 eliminados, 3 melhorados.
+**Agentes: 8** (era 11). Consolidacao S79: 3 eliminados, 3 melhorados.
 
 ## AGENTES (pos-S79)
 
