@@ -1,6 +1,6 @@
 # Plano de Implementacao — Self-Improvement & Anti-Drift
 
-> S82 INFRA | 2026-04-06 | Compilado de: /insights report + pesquisa anti-drift + pesquisa anti-fragile
+> S82 INFRA | 2026-04-06 | Compilado de: /insights report + 3 pesquisas (anti-drift, anti-fragile, self-improvement)
 > Objetivo: resolver retrabalho, cross-ref failures, drift, perda de direcao, ausencia de loops
 
 ---
@@ -35,9 +35,7 @@ Context overflow (50% das sessoes)
 2. **Nenhum mecanismo deterministico** de cross-ref — tudo e advisory (modelo pode ignorar)
 3. **Agente otimiza para helpfulness** — "melhorar" codigo vizinho parece util mas e drift
 
-### Analise anti-fragilidade (pesquisa independente, 7 camadas Taleb)
-
-Nosso sistema mapeado nas 7 camadas anti-fragile:
+### Analise anti-fragilidade (7 camadas Taleb)
 
 | Camada | Descricao | Nosso estado |
 |--------|-----------|-------------|
@@ -49,23 +47,23 @@ Nosso sistema mapeado nas 7 camadas anti-fragile:
 | L6 Chaos engineering | Injecao deliberada de falhas | **ZERO** |
 | L7 Continuous learning | Falha → dado que melhora futuro | **ZERO** — sem loop persistente |
 
-**Conclusao:** Estamos entre L1-L3 (resiliencia parcial). Layers 5-7 (anti-fragilidade real) nao existem.
+**Conclusao:** L1-L3 (resiliencia parcial). L5-L7 (anti-fragilidade) zero.
 
 ### Gaps criticos
 
 | Gap | Impacto | Solucao proposta | Custo |
 |-----|---------|-----------------|-------|
 | Zero observability | Nao sabemos tokens/custo/erros por sessao | OTel nativo (3 env vars) | $0 |
-| Sem cross-ref deterministico | Edita slide, esquece manifest → QA falha | ifttt-lint | $0 |
+| Sem cross-ref deterministico | Edita slide, esquece manifest → QA falha | ifttt-lint + stop hook | $0 |
 | Sem self-healing loop | Falha → conserto manual proximo sessao | Validate→classify→recover | $0 |
 | Memory sem temporal invalidation | Fact stale vive para sempre | TTL/timestamps em memory | $0 |
-| Contract mismatch silencioso | Doc diz X, codigo faz Y (75% APIs driftam) | Doc follows code + CI check | $0 |
+| Contract mismatch silencioso | Doc diz X, codigo faz Y | Doc follows code + CI check | $0 |
 
 ---
 
-## O que ja fizemos (S82)
+## O que ja fizemos (S82) ✅
 
-### Rules aplicadas (6 propostas /insights) ✅
+### Rules aplicadas (6 propostas /insights)
 
 | Proposta | Alvo | Commit |
 |----------|------|--------|
@@ -76,84 +74,46 @@ Nosso sistema mapeado nas 7 camadas anti-fragile:
 | Proactive checkpoints | session-hygiene.md | `9f159b3` |
 | P0 security gate | session-hygiene.md | `9f159b3` |
 
-Impacto esperado: reduzir ~60% dos problemas comportamentais (rules agora cobrem os 5 padroes).
-Limitacao: rules sao advisory — modelo pode ignorar pos-compaction.
+### Quick wins implementados (Dia 0-1)
+
+| # | Item | Commit | Impacto |
+|---|------|--------|---------|
+| 0 | plansDirectory config | config local (nao versionado) | Planos sobrevivem sessoes |
+| 1 | Context-Essentials | `484012f` | Regras sobrevivem compaction |
+| 2 | Propagation Map no CLAUDE.md | `2dcdae3` | Cross-ref visivel toda sessao |
+| 3 | PreCompact checkpoint hook | `13699c7` | Estado salvo antes de compaction |
+| 4 | Stop hook cross-ref check | `a4f4603` | Warning deterministico se esquecer propagacao |
 
 ---
 
 ## O que falta implementar (ordenado por impacto)
 
-### Dia 0 — Observability (2 min, pre-requisito)
+### Dia 0 — Observability (pre-requisito)
 
-#### 0. OTel nativo do Claude Code (2 min) — IMPACTO FUNDAMENTAL
-Claude Code ja emite telemetria OpenTelemetry. 3 env vars ativam tudo:
-metricas (tokens, custo USD, tool calls), eventos (prompts, erros), traces (beta).
+#### OTel nativo do Claude Code (5 min)
+Claude Code emite telemetria OpenTelemetry nativamente. Env vars:
 
 ```bash
 # Adicionar ao ~/.bashrc ou perfil PowerShell
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=otlp
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318  # Langfuse ou collector local
+export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+export OTEL_METRIC_EXPORT_INTERVAL=10000
+# Opt-in para conteudo de prompts (desligado por padrao):
+# export OTEL_LOG_USER_PROMPTS=1
 ```
 
-Backend recomendado: **Langfuse** (21.9k stars, MIT, adquirido pelo ClickHouse jan/2026).
-Self-host ou cloud free tier. Decorator `@observe()` para scripts Python.
+Metricas emitidas: `claude_code.cost.usage` (USD), tokens por tipo (input/output/cache), session ID, model, lines changed.
+
+Backend: **Langfuse** (19k+ stars, MIT, self-host $0, cloud free 50k events/mes).
+Alternativa: **Arize Phoenix** (8.6k stars, ELv2, `pip install arize-phoenix`).
 
 Sem isso nao medimos nada. Sem medir, nao melhoramos. Layer 0.
 
-### Dia 1 — Quick Wins (< 1 hora total)
+### Dia 2 — Enforcement
 
-#### 1. Context-Essentials (10 min) — IMPACTO ALTO
-Arquivo cirurgico `.claude/context-essentials.md` com 20-30 linhas criticas.
-Reinjectado via `session-compact.sh`. Resolve: amnesia pos-compaction.
-
-```
-Criar: .claude/context-essentials.md
-Editar: hooks/session-compact.sh (cat context-essentials.md)
-```
-
-#### 2. Propagation Map no CLAUDE.md (10 min) — IMPACTO ALTO
-Tabela "se mudou X, deve mudar Y" no CLAUDE.md. Zero custo, melhora imediata.
-
-```markdown
-## Propagation Map (OBRIGATORIO)
-| Se mudar...              | Deve atualizar...                      |
-|--------------------------|----------------------------------------|
-| slides/{id}.html         | _manifest.js + index.html (run build)  |
-| evidence/{id}.html       | slide correspondente (citation block)  |
-| _manifest.js             | index.html (run build-html.ps1)        |
-| .claude/agents/*.md      | HANDOFF.md tabela de agentes           |
-| ecosystem.yaml           | docs/ARCHITECTURE.md                   |
-```
-
-#### 3. plansDirectory config (2 min) — IMPACTO MEDIO
-Planos sobrevivem sessoes via git.
-
-```json
-// settings.local.json
-{ "plansDirectory": ".claude/plans" }
-```
-
-#### 4. PreCompact checkpoint hook (20 min) — IMPACTO ALTO
-Hook que grava estado antes de compaction: git status, arquivos modificados, tarefa corrente.
-
-```
-Criar: hooks/pre-compact-checkpoint.sh
-Configurar: settings.local.json PreCompact hook
-Criar: hooks/post-compact-recovery.sh (cat checkpoint + essentials)
-```
-
-#### 5. Stop hook cross-ref check (15 min) — IMPACTO MEDIO-ALTO
-Haiku verifica cross-refs no fim de cada turn (~$0.001/call).
-
-```json
-// settings.local.json Stop hook tipo prompt
-"Check git diff. If slide HTML modified, verify _manifest.js + evidence also updated."
-```
-
-### Dia 2 — Enforcement (1-2 horas)
-
-#### 6. ifttt-lint (1-2h) — IMPACTO MUITO ALTO
+#### 5. ifttt-lint (1-2h) — IMPACTO MUITO ALTO
 Unica solucao **deterministico** — bloqueia commit se cross-ref nao foi feito.
 Directives em comentarios: `LINT.IfChange` / `LINT.ThenChange`.
 
@@ -163,50 +123,98 @@ Adicionar: directives nos slides HTML, _manifest.js, evidence HTML
 Configurar: .pre-commit-config.yaml
 ```
 
-Suporta 40+ linguagens (HTML, JS, YAML, Python).
-
-#### 7. Known-Bad Patterns registry (20 min) — IMPACTO ALTO
-Via Negativa (Taleb): em vez de adicionar guardrails, manter registro do que falha.
-`/insights` ja identifica padroes; falta persistencia estruturada entre sessoes.
+#### 6. Known-Bad Patterns registry (20 min) — IMPACTO ALTO
+Via Negativa (Taleb): registro persistente do que falha.
+Inspirado em NeoSigma (39% melhoria sem model upgrade) + sec-context (475 stars, 25+ anti-patterns).
 
 ```
-Criar: .claude/known-bad-patterns.md
-Formato por entrada:
+Criar: .claude/rules/known-bad-patterns.md
+/insights alimenta automaticamente. Formato:
   ## [PATTERN-ID] Titulo
-  - **Quando:** contexto em que ocorre
-  - **Sintoma:** como se manifesta
-  - **Causa:** root cause
-  - **Fix:** o que previne
-  - **Sessoes:** S75, S78 (evidencia)
+  - Quando | Sintoma | Causa | Fix | Sessoes
 ```
 
-/insights alimenta automaticamente. Agente consulta antes de agir em areas de risco.
-Inspirado em NeoSigma: 39% melhoria sem upgrade de modelo, so com failure registry.
-
-#### 8. Self-healing loop skeleton (30 min) — IMPACTO ALTO
-Hook Stop que classifica falhas da sessao e propoe fixes para rules/hooks.
-Nao aplica automaticamente — gera `pending-fixes.md` para Lucas revisar.
-
-```
-Editar: hooks/stop-hygiene.sh
-  → Ao final: grep erros/correcoes da sessao
-  → Classificar: RULE_VIOLATION | RULE_GAP | HOOK_GAP | PATTERN_REPEAT
-  → Se encontrar: append a .claude/pending-fixes.md
-Proximo sessao: surfacear pending-fixes no start hook
-```
-
+#### 7. Self-healing loop skeleton (30 min) — IMPACTO ALTO
 Fecha o loop: falha → classificacao → proposta → revisao → fix → menos falha.
 
-### Semana seguinte (se necessario)
+```
+hooks/stop-hygiene.sh → grep erros/correcoes → classificar → append .claude/pending-fixes.md
+hooks/session-start.sh → surfacear pending-fixes se existir
+```
 
-#### 7. Agent Stop hook com tools (2-3h)
-Substituir prompt hook por agent hook que pode ler arquivos e verificar consistencia real.
+Mapeamento ao H-LLM framework (NeurIPS 2024):
+Monitor = OTel | Diagnose = /insights | Adapt = rule/skill edits | Test = pytest
 
-#### 8. State machine com session.md (1h)
-Estado persistente atualizado pelo agente a cada acao.
+### Semana seguinte — Tier 2 (baixo custo, media complexidade)
 
-#### 9. claude-mem MCP (2-3h)
-Avaliar SO SE rework persistir apos items 1-6.
+#### 8. Local OTel collector + Grafana
+Dashboard para trends de custo, error rates, cache efficiency.
+Referencia: `claude-code-otel` (MIT, Docker Compose).
+
+#### 9. Circuit breaker hook de custo
+PostToolUse hook verifica custo acumulado, mata sessao no threshold.
+Previne cenario ZenML ($47k em 4 semanas por loop infinito entre agentes).
+
+```
+hooks/cost-circuit-breaker.sh → le metricas OTel → compara com threshold → BLOCK se exceder
+```
+
+#### 10. NeoSigma-style failure registry estruturado
+JSON tracking: failure_mode, count, resolution_rate, last_seen.
+/insights gera, proximo sessao consome. Constrained optimization: so aceitar mudancas que nao regridem.
+
+#### 11. /insights output estruturado
+JSON em vez de prose. Rastrear quais propostas foram aceitas/rejeitadas. Alimenta failure registry.
+
+### Mes seguinte — Tier 3 (avaliacao estrategica)
+
+#### 12. Graphiti temporal knowledge graph
+Substituir MEMORY.md flat por facts temporais. Requer Neo4j.
+Bi-temporal model: facts recebem validity end date, nao sao deletados.
+Piloto com subset de memory files.
+
+#### 13. Claude-Mem integration
+Captura real-time de sessao vs batch /dream. MCP server + hooks.
+AGPL-3.0 — avaliar implicacoes de licenca. 4.1k stars.
+
+#### 14. Aider-style auto-fix on lint failure
+guard-lint bloqueia mas nao corrige. Estender: on failure, Haiku fix + re-lint.
+
+#### 15. LangGraph-style checkpointing
+SQLite checkpointer em hooks. Crash recovery para agent runs longos.
+Padrao: state salvo apos cada tool call, resume do ultimo checkpoint.
+
+### CLAUDE.md otimizacao (pesquisa best practices)
+
+OLMO esta acima da media: root 91 linhas (budget: 200), 6/9 rules path-scoped, enforcement anchors.
+Melhorias incrementais identificadas:
+
+#### 16. content/aulas/CLAUDE.md compartilhado (10 min)
+Thin file com regras comuns a todas as aulas (build, shared/ design system, naming).
+Carrega automaticamente ao trabalhar em qualquer aula. Reduz dependencia das 6 rules path-scoped.
+
+#### 17. Mover Propagation Map para rule path-scoped (5 min)
+Propagation Map (linhas 68-80 do CLAUDE.md) e especifico de aulas.
+Mover para `content/aulas/CLAUDE.md` ou rule path-scoped. Salva ~15 linhas do CLAUDE.md global.
+Trade-off: ja esta no qa-pipeline.md tambem (duplicacao). Decisao: Lucas.
+
+#### 18. /context periodico
+Rodar `/context` no inicio de sessao para medir consumo real de tokens.
+Dados empiricos > estimativas. Sem custo.
+
+### Nao recomendado agora (rastreado para referencia)
+
+| Tool | Por que nao agora |
+|------|-------------------|
+| Mem0 | Sem modelo temporal; /dream ja faz consolidacao de memoria |
+| xMemory | Research-only; inspiracao de design, nao tooling de producao |
+| ChaosEater | Overkill para escala atual; revisitar quando agentes > 20 |
+| Letta | Plataforma completa; OLMO se beneficia mais de tools pontuais |
+| Schemathesis/Dredd/oasdiff/PactFlow | Agentes nao se comunicam via HTTP APIs ainda |
+| OpenHands/SWE-agent | Referencia arquitetural; OLMO usa Claude Code nativo |
+| Superpowers | OLMO ja tem patterns equivalentes; estudar TDD enforcement seletivamente |
+| NeMo Guardrails | Overkill — dialogue flow control |
+| Guardrails AI | Hooks nativos bastam |
 
 ---
 
@@ -221,43 +229,59 @@ Medir nas proximas 5 sessoes (S83-S87):
 | Criterios QA inventados | 0.45/sessao | 0 |
 | Context overflow com thread perdida | 55% sessoes | < 20% |
 | Retrabalho (acao refeita) | ~0.5/sessao | < 0.1 |
+| Custo por sessao (USD) | desconhecido | baseline com OTel |
 
 ---
 
-## Ferramentas Descobertas (referencia)
+## Architecture Vision
 
-### Implementar / Avaliar
+```
+Atual (S82):
+  Claude Code → flat CLAUDE.md + MEMORY.md → manual /insights
+  13 hooks (guards, hygiene, crossref, checkpoint) → session-compact reinjecta
 
-| Ferramenta | O que faz | Stars | Custo | Decisao |
-|------------|-----------|-------|-------|---------|
-| **OTel nativo** | Telemetria Claude Code (tokens, custo, erros) | N/A | $0 | IMPLEMENTAR (Dia 0, 2 min) |
-| **Langfuse** | Observability backend (traces, metrics, cost) | 21.9k | $0 (self-host/free) | IMPLEMENTAR (backend OTel) |
-| **ifttt-lint** | Cross-ref deterministico via pre-commit | ~200 | $0 | IMPLEMENTAR (Dia 2) |
-| **plansDirectory** | Planos versionados via git | N/A | $0 | IMPLEMENTAR (2 min) |
-| **claude-mem** | Auto-capture + reinject de memoria | 35.9k | $0 | AVALIAR (se rework persistir) |
-| **claude-code-context-handoff** | Auto-handoff pre/pos compaction | — | $0 | AVALIAR (pode substituir hooks) |
+Curto prazo (S85-S90):
+  Claude Code → OTel → Langfuse/Grafana → automated /insights
+  ifttt-lint → pre-commit → cross-ref enforcement
+  Hooks chain: checkpoint → compact → essentials + HANDOFF + checkpoint
+  Failure registry → constrained optimization loop
 
-### Avaliar se gaps persistirem
+Longo prazo (S120+):
+  Claude Code → Graphiti temporal graph → bi-temporal memory
+  NeoSigma-style autonomous improvement (failure → cluster → fix → verify)
+  Circuit breakers + cascading model degradation
+  Full validate → classify → recover → learn loop
+```
 
-| Ferramenta | O que faz | Stars | Custo | Decisao |
-|------------|-----------|-------|-------|---------|
-| **Mem0** | Memory universal (vector+graph+KV) | 51.4k | Free tier | AVALIAR (temporal invalidation) |
-| **Graphiti/Zep** | Knowledge graph temporal (bi-temporal model) | 24.4k | $0 | AVALIAR (stale fact prevention) |
-| **Letta** (ex-MemGPT) | Tiered memory, agent self-edit | 20.9k | Self-host $0 | BACKLOG |
-| **Arize Phoenix** | OTel-native tracing (alternativa Langfuse) | 8.5k | $0 | ALTERNATIVA |
-| **ChaosEater** | Chaos engineering automatizado para LLM | — | $0.20-0.80/cycle | BACKLOG (Layer 6) |
+---
 
-### Referencia (contexto, nao implementar)
+## Ferramentas — Tabela Completa
 
-| Ferramenta | O que faz | Relevancia |
-|------------|-----------|-----------|
-| **Superpowers** (Jesse Vincent) | Skills library TDD/debug/collab | 42k stars, marketplace oficial |
-| **OpenHands** (ex-OpenDevin) | AI coding agent (CMU) | 70.4k stars, referencia arquitetural |
-| **Aider** | Git-first AI coding | 39k stars, cada edit = commit |
-| **NeoSigma** | Self-improvement loop autonomo | 39% melhoria sem model upgrade |
-| post_compact_reminder | Reinjecta lembrete pos-compaction | JA IMPLEMENTADO (session-compact.sh) |
-| NeMo Guardrails | Dialogue flow control | DESCARTADO (overkill) |
-| Guardrails AI | LLM output validation | DESCARTADO (hooks nativos bastam) |
+| Ferramenta | Stars | Licenca | Custo | Categoria | Decisao |
+|------------|-------|---------|-------|-----------|---------|
+| OTel nativo | N/A | N/A | $0 | Observability | IMPLEMENTAR |
+| Langfuse | 19k+ | MIT | $0 self-host | Observability | IMPLEMENTAR |
+| Arize Phoenix | 8.6k | ELv2 | $0 self-host | Observability | ALTERNATIVA |
+| claude-code-otel | ~200 | MIT | $0 | Observability | REFERENCIA |
+| ifttt-lint | ~100 | MIT | $0 | Cross-ref | IMPLEMENTAR |
+| sec-context | 475 | CC-BY-4.0 | $0 | Anti-patterns | INSPIRACAO |
+| Graphiti/Zep | 24.4k | Apache 2.0 | $0 | Memory | AVALIAR (Tier 3) |
+| Claude-Mem | 4.1k | AGPL-3.0 | $0 | Memory | AVALIAR (Tier 3) |
+| Mem0 | 48k | Apache 2.0 | $0-$249/m | Memory | NAO AGORA |
+| Letta/MemGPT | 21.6k | MIT | $0 | Memory | NAO AGORA |
+| xMemory | Research | Research | N/A | Memory | INSPIRACAO |
+| NeoSigma | N/A | Proprietary | TBD | Self-healing | INSPIRACAO |
+| ChaosEater | Research | Research | $0.20-0.80 | Self-healing | BACKLOG |
+| Superpowers | 107k | TBD | $0 | Claude Code | ESTUDAR |
+| anthropics/skills | Official | Apache 2.0 | $0 | Claude Code | REFERENCIA |
+| OpenHands | 65-70k | MIT | $0 | Agent framework | REFERENCIA |
+| Aider | 39k | Apache 2.0 | $0 | Agent framework | REFERENCIA |
+| SWE-agent | 19k | MIT | $0 | Agent framework | REFERENCIA |
+| LangGraph | 28k | MIT | $0 | Agent framework | REFERENCIA |
+| Schemathesis | 2.5k | MIT | $0 | Contract testing | BACKLOG |
+| Dredd | 4.2k | MIT | $0 | Contract testing | BACKLOG |
+| oasdiff | 1.5k | Apache 2.0 | $0 | Contract testing | BACKLOG |
+| PactFlow Drift | 12k | MIT/commercial | $0-paid | Contract testing | BACKLOG |
 
 ---
 
@@ -266,7 +290,8 @@ Medir nas proximas 5 sessoes (S83-S87):
 - `/insights` report: `.claude/skills/insights/references/latest-report.md`
 - Pesquisa anti-drift: `docs/research/anti-drift-tools-2026.md` (449 linhas, 30+ fontes)
 - Pesquisa anti-fragile: input direto do Lucas (7 camadas Taleb, observability, memory, contracts)
-- Pesquisa self-improvement: `docs/research/agent-self-improvement-2026.md` (aguardando)
+- Pesquisa self-improvement: `docs/research/agent-self-improvement-2026.md` (811 linhas, 60+ fontes)
+- Pesquisa CLAUDE.md best practices: `docs/research/claude-md-best-practices-2026.md` (414 linhas)
 
 ---
 Coautoria: Lucas + Opus 4.6 | 2026-04-06
