@@ -6,7 +6,7 @@
 ## ENFORCEMENT (aulas)
 
 1. **Build ANTES de QA.** `npm run build:{aula}` → depois QA. Sempre.
-2. **QA visual = Opus (multimodal).** NUNCA delegar ao Gemini para visual.
+2. **QA dual-model:** Opus (multimodal, avaliacao de alto nivel) + Gemini (`gemini-qa3.mjs`, gates Inspect/Editorial automatizados). Ambos coexistem.
 3. **1 slide, 1 gate, 1 invocacao.** Batch = violacao. Segundo slide = parar.
 4. **Living HTML per slide = source of truth.** evidence-db.md deprecated.
 5. **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server. Matar por PID especifico.

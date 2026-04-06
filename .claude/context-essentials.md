@@ -8,7 +8,7 @@
 1. NAO avance sem autorizacao do Lucas. Proponha, espere OK, execute.
 2. Use scripts existentes (qa-batch-screenshot.mjs, npm run build:{aula}). NAO reinvente.
 3. Build ANTES de QA: npm run build:{aula} → qa-batch-screenshot.mjs.
-4. QA visual = EU (Opus, multimodal). NAO delegar ao Gemini.
+4. QA dual-model: Opus (multimodal, alto nivel) + Gemini (gemini-qa3.mjs, gates automatizados). Ambos coexistem.
 5. Plan mode quando pedido. NAO pule direto para execucao.
 
 ## SCOPE DISCIPLINE (24 eventos de scope creep)
