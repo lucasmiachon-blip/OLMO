@@ -1,7 +1,7 @@
-# Auditoria de Agentes e Scripts — S78
+# Auditoria de Agentes e Scripts — S79
 
-> Data: 2026-04-05 | Sessao: BUILD_SLIDES
-> Fonte: Explore agent audit + Codex adversarial + erros observados S78
+> Data: 2026-04-05 | Sessao: AGENTES
+> Fonte: S78 audit + S79 consolidacao (eliminacao redundancias, hardening, fix tools)
 
 ---
 
@@ -40,27 +40,25 @@
 | `install-fonts.js` | Download WOFF2 fonts | manual (setup) |
 | `install-hooks.sh` | Install git hooks | manual (setup) |
 
-## Agentes ativos (11 → analise)
+## Agentes ativos (9)
 
 ### Core QA Pipeline (2)
 | Agente | Funcao | Status |
 |--------|--------|--------|
-| **qa-engineer** | 35 checks, 1 slide, scripts existentes | MELHORADO S78 |
-| **quality-gate** | Pre-commit lint/type/test | OK |
+| **qa-engineer** | 35 checks, 1 slide, scripts existentes | HARDENED S78 |
+| **quality-gate** | Pre-commit lint/type/test | PENDENTE hardening S79 |
 
-### Core Research Pipeline — 6 pernas (5)
+### Core Research Pipeline — 5 pernas (3 agentes)
 | Agente | Funcao | Status |
 |--------|--------|--------|
-| **evidence-researcher** (ex medical-researcher) | Multi-MCP, 1 slide, Lucas decide | MELHORADO S78 |
-| **opus-researcher** | Pesquisa independente multi-MCP | OK |
-| **mbe-evaluator** | Avalia qualidade de evidencia (8 dim) | OK |
-| **reference-checker** | Cross-ref PMIDs slides/evidence-db | OK |
-| **mcp-query-runner** | Executa queries SCite/Consensus | CANDIDATO A CONSOLIDAR |
+| **evidence-researcher** (medical-researcher) | Multi-MCP + triangulacao 5 pernas + MBE/andragogia, 1 slide | CONSOLIDADO S79 (absorveu opus-researcher) |
+| **mbe-evaluator** | Avalia qualidade de evidencia (8 dim) | PENDENTE hardening S79 |
+| **reference-checker** | Cross-ref PMIDs slides/evidence-db | FIX S79: mcp:pubmed adicionado nos tools |
 
 ### Discovery (1)
 | Agente | Funcao | Status |
 |--------|--------|--------|
-| **perplexity-auditor** | Perplexity Sonar deep-research | OK |
+| **perplexity-auditor** | Perplexity Sonar deep-research | PENDENTE hardening S79 |
 
 ### Utility (3)
 | Agente | Funcao | Status |
@@ -69,21 +67,22 @@
 | **repo-janitor** | Orfaos, links quebrados, limpeza | OK |
 | **notion-ops** | Notion DB read/write | OK |
 
-## Redundancias identificadas
+## Mudancas S79
 
-| Par | Sobreposicao | Acao |
-|-----|-------------|------|
-| opus-researcher + evidence-researcher | Ambos multi-MCP, mesmas tools | Escopar: evidence-researcher = 1 slide (Lucas pede), opus-researcher = perna independente do /research |
-| mcp-query-runner | Escopo muito estreito (so executa queries) | Candidato a merge no orchestrador futuro |
-| quality-gate + qa-engineer | quality-gate faz lint/build, qa-engineer tambem | Aceitar: quality-gate = pre-commit, qa-engineer = QA visual. Escopos diferentes |
+| Acao | Agente | Motivo |
+|------|--------|--------|
+| ELIMINADO | mcp-query-runner | Nao-funcional (tools so Read, nao acessava MCPs). SCite/Consensus via claude.ai nativos. |
+| ELIMINADO | opus-researcher | Redundante com evidence-researcher (5 MCPs identicos). Conteudo unico mergeado. |
+| CONSOLIDADO | evidence-researcher | Absorveu: triangulacao pipeline, expertise MBE+andragogia, divergencias, SCite critique. |
+| FIX | reference-checker | Adicionado mcp:pubmed nos tools (antes nao verificava PMIDs via MCP). |
 
-## Proposta para proxima sessao
+## Pendente S79
 
-### 1. Agente adversarial (Codex bridge)
-Agente que formata prompts adversariais e envia ao Codex CLI, recebe output e apresenta ao Lucas com reflexao critica.
-
-### 2. Orchestrador de casa
-Agente que para, audita estado (git status, agentes rodando, scripts orfaos, HANDOFF desatualizado) e organiza antes de continuar.
+| Agente | Pendencia |
+|--------|-----------|
+| quality-gate | Hardening S78 + reescrever com scripts JS/CSS |
+| mbe-evaluator | Hardening S78 (ENFORCEMENT + stop gate) |
+| perplexity-auditor | Hardening S78 (ENFORCEMENT + stop gate) |
 
 ---
 Coautoria: Lucas + Opus 4.6 | 2026-04-05

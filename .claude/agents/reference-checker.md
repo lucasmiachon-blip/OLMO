@@ -6,6 +6,7 @@ tools:
   - Grep
   - Glob
   - WebSearch
+  - mcp:pubmed
 mcpServers:
   pubmed:
     type: stdio
