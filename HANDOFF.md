@@ -79,9 +79,9 @@ Todas 6 propostas aplicadas em `9f159b3`. Report: `.claude/skills/insights/refer
 
 ## PENDENTE (herdado)
 
-- [ ] BUG-3: export-pdf.js DeckTape reveal adapter (lectures sao deck.js)
-- [ ] BUG-4: qa-video.js .webm→.mp4 sem transcoding + ref script morto
-- [ ] BUG-6: gemini-qa3.mjs grade aula crash (missing docs/prompts/)
+- [x] BUG-3: export-pdf.js DeckTape reveal → generic (S82)
+- [x] BUG-4: qa-video.js marked @deprecated — use qa-batch-screenshot.mjs (S82)
+- [x] BUG-6: grade docs/prompts/ created + guard in gemini-qa3.mjs (S82)
 - [ ] Obsidian CLI (backlog)
 - [ ] Google Drive MCP: OAuth credentials
 - [ ] Presenter.js rewrite
