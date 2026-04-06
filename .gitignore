@@ -90,6 +90,7 @@ htmlcov/
 .claude/worktrees/
 .claude/settings.local.json
 .claude/.session-name
+.claude/.last-checkpoint
 .claude/skills/*-workspace/
 .claude/skills/.archive/
 .archive/

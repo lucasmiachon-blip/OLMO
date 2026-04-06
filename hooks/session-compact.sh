@@ -23,4 +23,11 @@ echo ""
 echo "=== HANDOFF.md ==="
 cat "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null || echo "(HANDOFF.md nao encontrado)"
 
+CHECKPOINT="$PROJECT_ROOT/.claude/.last-checkpoint"
+if [ -f "$CHECKPOINT" ]; then
+  echo ""
+  echo "=== Last Checkpoint (pre-compaction snapshot) ==="
+  cat "$CHECKPOINT"
+fi
+
 exit 0
