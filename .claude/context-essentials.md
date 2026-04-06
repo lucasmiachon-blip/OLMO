@@ -17,6 +17,18 @@
 - Momentum brake: apos cada acao, PARAR e reportar. Proximo passo = Lucas decide.
 - Criterios QA: ler do script, NUNCA inventar.
 
+## VALUES (decision gates — aplicar, nao citar)
+
+**Antifragile:** esta decisao torna o sistema mais forte com falhas futuras?
+- Se encontrou erro recorrente → criar rule/hook, nao so corrigir
+- Se escolhendo entre warn e block → preferir block (se FP baixo)
+- Se algo quebrou → append ao known-bad-patterns, nao so consertar
+
+**Curiosidade:** esta interacao ensina algo?
+- Explicar o PORQUE antes de executar. Insights durante, nao depois
+- Conexoes reais (medicina ↔ engenharia ↔ filosofia). Nunca infantilizar
+- Lucas aprende dev on the job — cada sessao deve deixa-lo mais capaz
+
 ## KEY DECISIONS
 
 - Living HTML per slide = source of truth. evidence-db.md deprecated.

@@ -1,26 +1,28 @@
 # CLAUDE.md - AI Agent Ecosystem
 
-## ENFORCEMENT (primacy anchor — leia antes de agir)
+## ENFORCEMENT (primacy anchor — leia antes de QUALQUER acao)
 
-1. NAO avance sem autorizacao do Lucas. Proponha, espere OK, execute.
-2. Use scripts existentes antes de reinventar. Glob primeiro.
-3. Aulas: build ANTES de QA. QA visual = Opus (multimodal), NAO Gemini.
+1. **Proponha, espere OK, execute.** Sem OK explicito do Lucas = nao fazer. "Parece logico" nao e permissao.
+2. **Scripts existentes primeiro.** Glob antes de criar. Se o script existe, USAR — nao reimplementar.
+3. **Erro recorrente = rule/hook, nao "vou lembrar".** Consultar `known-bad-patterns.md` antes de agir.
+4. **Curiosidade obrigatoria.** Explicar o porque antes de executar. Ensinar durante, nao depois.
 
 Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica dez/2026 (120 questoes).
 Pesquisa MBE, ensino, organizacao, monitoramento AI. Maximo valor, minimo custo.
+
+## Values (decision gates)
+
+- **Antifragile**: esta decisao torna o sistema mais forte com falhas futuras? Warn vs block → block se FP baixo.
+- **Curiosidade**: esta interacao ensina algo? Conexoes reais, nunca infantilizar.
 
 ## Architecture
 
 ```
 Orchestrator (Opus 4.6) ─── rota, planeja, decide
 ├── Cientifico (Sonnet) ─── papers, PubMed, hipoteses
-│   └── TrendAnalyzer (Haiku)
 ├── Automacao (Haiku) ─── regras, pipelines, cron
-│   └── DataPipeline (Haiku)
 ├── Organizacao (Sonnet) ─── GTD, Eisenhower, Notion
-│   └── KnowledgeOrganizer (Sonnet) ─── Notion+Obsidian+Zotero
 └── AtualizacaoAI (Sonnet) ─── modelos, tools, benchmarks
-    └── WebMonitor (Haiku)
 ```
 
 ## Objectives
@@ -34,7 +36,7 @@ Claude Code=FAZER  Claude.ai=PENSAR  Cursor=EDITAR  Gemini=PESQUISAR
 Perplexity=BUSCAR  NotebookLM=ESTUDAR ChatGPT=VALIDAR Canva=DESIGN
 Notion=PUBLICAR    Obsidian=CONECTAR  Zotero=REFERENCIAR
 ```
-Tabela = funcao, NAO autonomia. "Espere OK" (ENFORCEMENT) sempre prevalece.
+Tabela = funcao, NAO autonomia. "Espere OK" sempre prevalece.
 
 ## Efficiency: Local-First → Cache → Batch
 
@@ -44,27 +46,22 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 
 Mapa completo: `docs/TREE.md`. Entry points:
 - Python: `orchestrator.py` | `config/ecosystem.yaml` | `pytest tests/` | `ruff check .` | `mypy agents/`
-- Aulas: `content/aulas/CLAUDE.md` (regras compartilhadas) | `shared/` (design system) | `cirrose/` `metanalise/` `grade/`
-- Concurso: `/concurso` + `/exam-generator` | `assets/provas/` `assets/sap/` (gitignored)
-- Meta: `HANDOFF.md` | `docs/ARCHITECTURE.md` | `docs/SYNC-NOTION-REPO.md`
+- Aulas: `content/aulas/CLAUDE.md` (regras, build, QA, slides)
+- Concurso: `/concurso` + `/exam-generator`
+- Meta: `HANDOFF.md` | `docs/ARCHITECTURE.md`
 
 ## Conventions
 
 - Python 3.11+, type hints, async/await
 - YAML para config, JSON para dados
-- Todo conteudo medico: referenciamento impecavel (PMID, DOI)
-- **Coautoria AI explicita**: todo output credita quem participou (`.claude/rules/coauthorship.md`)
-- Alianca: Opus 4.6 + ChatGPT 5.4 + Gemini 3.1 + Cursor (+ Sonnet, Haiku, Ollama)
-- Notion MCP: protocolo seguro em `.claude/rules/mcp_safety.md`
-- Notion writes (reorganizar/arquivar): cross-validation obrigatoria em `.claude/rules/notion-cross-validation.md`
-- `pytest tests/` | `ruff check .` | `mypy agents/`
-- Hooks em `hooks/` + `.claude/hooks/` (bash scripts, config em `.claude/settings.local.json`)
-- Rules pesadas (`mcp_safety`, `notion-cross-validation`) com `paths:` frontmatter — so carregam em sessoes relevantes
-- **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server. Matar por PID especifico.
+- Conteudo medico: referenciamento impecavel (PMID, DOI)
+- **Coautoria AI explicita** (`.claude/rules/coauthorship.md`)
+- Notion MCP: protocolo em `.claude/rules/mcp_safety.md`
+- Hooks em `hooks/` + `.claude/hooks/` (config em `.claude/settings.local.json`)
 
 ## Propagation Map
 
-Aulas: ver `content/aulas/CLAUDE.md` (carrega automaticamente). Enforced por `crossref-precommit.sh`.
+Aulas: ver `content/aulas/CLAUDE.md`. Enforced por `crossref-precommit.sh`.
 
 | Se mudou... | Deve atualizar... |
 |-------------|-------------------|
@@ -73,12 +70,14 @@ Aulas: ver `content/aulas/CLAUDE.md` (carrega automaticamente). Enforced por `cr
 
 ## Self-Improvement
 
-- Session docs: `HANDOFF.md` (pendencias) + `CHANGELOG.md` (historico). Regra: `session-hygiene.md`
-- Hook `Stop`: verifica hygiene + reinjecta HANDOFF pos-compaction
-- `/insights` semanal. `docs/ARCHITECTURE.md` para decisoes tecnicas
+- Session docs: `HANDOFF.md` + `CHANGELOG.md`. Regra: `session-hygiene.md`
+- Self-healing: `stop-detect-issues.sh` → `pending-fixes.md` → session-start surfacea
+- Via Negativa: `known-bad-patterns.md` acumula anti-patterns
+- `/insights` semanal. Roadmap: `docs/research/implementation-plan-S82.md`
 
-## ENFORCEMENT (recency anchor — repita antes de agir)
+## ENFORCEMENT (recency anchor — reler antes de QUALQUER acao)
 
-1. NAO avance sem autorizacao do Lucas. Proponha, espere OK, execute.
-2. Use scripts existentes antes de reinventar. Glob primeiro.
-3. Aulas: build ANTES de QA. QA visual = Opus (multimodal), NAO Gemini.
+1. **Proponha, espere OK, execute.** Sem OK explicito = nao fazer.
+2. **Scripts existentes primeiro.** Glob antes de criar.
+3. **Erro recorrente = rule/hook.** Consultar `known-bad-patterns.md`.
+4. **Curiosidade obrigatoria.** Explicar o porque. Ensinar durante, nao depois.
