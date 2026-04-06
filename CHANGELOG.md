@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## Sessao 82 — 2026-04-05 (INFRA — audit cleanup, security fixes, insights)
+
+### Quick Wins (Fase 1)
+- repo-janitor: add maxTurns: 12 (unico agente sem limite)
+- HANDOFF: remove DOC-1 (Python 4-agent arch IS implemented, not scaffold)
+- HANDOFF: remove RED-3 (feedback_qa_use_cli_not_mcp.md already consolidated)
+- AGENTS.md: fix broken ref feedback_anti-sycophancy.md → memory/patterns_adversarial_review.md
+
+### P1 Bug Fixes (Fase 2)
+- BUG-1: Preflight contract aligned to metrics.json (qa-engineer.md + gemini-qa3.mjs)
+- BUG-5: Evidence agent output path aligned to qa-screenshots/ (evidence-researcher.md)
+- DOC-4: 3 agent contracts rewritten from evidence-db.md → living HTML (reference-checker, evidence-researcher, mbe-evaluator)
+
+### P0 Security Fixes (Fase 3)
+- SEC-003: Gemini API key moved from URL query string to x-goog-api-key header (6 instances, 2 scripts)
+- SEC-002: NLM execSync → execFileSync array form (content-research.mjs)
+- SEC-NEW: done-gate.js aula allowlist + execFileSync for all interpolated commands
+
+### Redundancy (Fase 4)
+- RED-1: mcp_safety.md consolidated — batch/reorganize delegates to notion-cross-validation.md
+
+### Meta
+- /insights retrospective: 5 recurring patterns identified (scope creep 24x, context overflow 11x, criteria invention 9x, agent-script redundancy 10x, batch QA violation 7x)
+- 2 research agents launched: agent self-improvement tools + anti-drift/cross-ref tools
+
 ## Sessao 81 — 2026-04-05 (CONFRONTACAO — adversarial audit, doc sweep)
 
 ### Janitor

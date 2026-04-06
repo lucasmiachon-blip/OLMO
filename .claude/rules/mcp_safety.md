@@ -24,6 +24,7 @@ paths:
 ### Fase 3: VERIFICACAO
 - Apos cada write: re-ler a pagina pra confirmar resultado
 - Se resultado != esperado: PARAR + alertar humano
+- Para batch/reorganize/archive: seguir workflow completo em `notion-cross-validation.md`
 
 ## OPERACOES PROIBIDAS
 
@@ -35,8 +36,7 @@ paths:
 
 - NUNCA deletar: apenas ARQUIVAR (trash = reversivel 30 dias)
 - Antes de WRITE: dedup titulo/PMID
-- Batch > 5 items = confirmacao humana OBRIGATORIA
-- Operacao destrutiva = confirmacao humana OBRIGATORIA
+- Batch > 5 items ou operacao destrutiva: ver `notion-cross-validation.md`
 
 ## MODELO HARSH (na duvida, nao age)
 

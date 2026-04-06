@@ -1,50 +1,53 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 82 | 2026-04-05
-> Cross-ref: `content/aulas/metanalise/HANDOFF.md` | `.archive/ADVERSARIAL-AUDIT-S81.md` (checklist completo)
+> Sessao 83 | 2026-04-05
+> Cross-ref: `content/aulas/metanalise/HANDOFF.md` | `.archive/ADVERSARIAL-AUDIT-S81.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides metanalise).
 **Agentes: 8.** MCPs: 12 connected + 3 planned = 15 total.
-Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
+Adversarial audit S81: 21 achados, **20 fixados**, 1 pendente (BLOAT-1).
+S82 INFRA: 10 items resolvidos (3 P0 SEC, 3 P1 BUG, 1 DOC, 2 RED, 1 maxTurns).
 
-## AGENTES (pos-S81)
+## AGENTES (pos-S82)
 
 | Agente | Papel | Status |
 |--------|-------|--------|
-| **evidence-researcher** | Pesquisa: MCPs + Perplexity + Gemini. Triangulacao interna. | Output path stale (BUG-5) |
-| **qa-engineer** | Pipeline Preflight/Inspect/Editorial, 1 slide 1 gate | Preflight contract gap (BUG-1) |
-| **mbe-evaluator** | Avalia qualidade evidencia (8 dim). FROZEN ate aula completa. | Depende de evidence-db (DOC-4) |
-| **reference-checker** | Cross-ref PMIDs slides/living HTML | Depende de evidence-db (DOC-4, requer rewrite) |
+| **evidence-researcher** | Pesquisa: MCPs + Perplexity + Gemini. Triangulacao interna. | OK (output path fixed S82) |
+| **qa-engineer** | Pipeline Preflight/Inspect/Editorial, 1 slide 1 gate | OK (contract fixed S82) |
+| **mbe-evaluator** | Avalia qualidade evidencia (8 dim). FROZEN ate aula completa. | OK (contract → living HTML S82) |
+| **reference-checker** | Cross-ref PMIDs slides/living HTML | OK (contract → living HTML S82) |
 | **quality-gate** | Pre-commit lint/type/test | **P1 FROZEN: falta JS/CSS scripts** |
 | **researcher** | Exploracao codebase read-only | OK |
-| **repo-janitor** | Orfaos, links quebrados, limpeza | FIX S81 (model: haiku). Falta maxTurns |
+| **repo-janitor** | Orfaos, links quebrados, limpeza | OK (model: haiku, maxTurns: 12) |
 | **notion-ops** | Notion DB read/write | OK (verificar mcp tools) |
 
-## P0 — SECURITY (audit S81)
-
-- [x] SEC-003: Gemini API key moved to x-goog-api-key header (S82)
-- [x] SEC-002: NLM execSync → execFileSync array form (S82)
-- [x] SEC-NEW: done-gate.js allowlist + execFileSync (S82)
-
-## P1 — BUGS (audit S81)
-
-- [x] BUG-1: Preflight contract aligned → metrics.json (S82)
-- [x] BUG-5: Evidence agent output path aligned → qa-screenshots/ (S82)
-- [x] DOC-4: 3 agent contracts rewritten → living HTML (S82)
-
-## P1 — DECISOES PENDENTES
-
-(nenhuma)
-
-## P2 — FROZEN
+## P1 — FROZEN
 
 - quality-gate: hardening + JS/CSS lint scripts
 - notion-ops: verificar se mcpServers basta
-- repo-janitor: adicionar maxTurns
-- RED-1: MCP safety triplicado → consolidar
-- BLOAT-1: AGENTS.md heuristics section → linkar memory
+
+## P2 — BACKLOG
+
+- BLOAT-1: AGENTS.md heuristics section → linkar memory (parcial — ref fixada S82)
+- SEC-004: MCP servers unpinned (MODERATE)
+- SEC-005: CHATGPT_MCP_URL sem validacao (MODERATE)
+
+## /insights S82 — Propostas pendentes (5)
+
+1. QA criteria invention → add criteria-source mandate to qa-pipeline.md
+2. Scope creep → add momentum brake to anti-drift.md
+3. Batch QA violation → add single-slide guard to qa-engineer.md
+4. Context overflow → add checkpoint rule to session-hygiene.md
+5. Agent-script redundancy → add script primacy rule to anti-drift.md
+
+Report: `.claude/skills/insights/references/latest-report.md`
+
+## Pesquisas em andamento (S82)
+
+- Agent self-improvement tools → `docs/research/agent-self-improvement-2026.md`
+- Anti-drift/cross-ref tools → `docs/research/anti-drift-tools-2026.md`
 
 ## WORKFLOW DE AGENTES
 
@@ -66,7 +69,6 @@ Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
 - **Gate names descritivos** (Preflight/Inspect/Editorial).
 - Memory governance: cap 20 files (14 atual), review done S81.
 - Codex CLI: `codex exec --sandbox read-only -o file "prompt"`.
-- Reflexao estendida obrigatoria antes de decisoes/audits.
 
 ## CUIDADOS
 
@@ -77,12 +79,7 @@ Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
 - PMIDs de LLM: ~56% erro. SEMPRE verificar.
 - CLI tools: `--help` ANTES do primeiro uso na sessao.
 
-## SECURITY (S72 + S81)
-
-### P0 (audit S81) — RESOLVED S82
-- [x] SEC-002: NLM shell injection → execFileSync
-- [x] SEC-003: Gemini API key no URL → header (6 instâncias)
-- [x] SEC-NEW: done-gate.js allowlist + execFileSync
+## SECURITY
 
 ### Pendentes (MODERATE, herdado)
 - [ ] SEC-004: MCP servers unpinned
@@ -103,4 +100,4 @@ Adversarial audit S81: 21 achados, 10 fixados, 11 pendentes.
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 + GPT-5.4 (Codex) | 2026-04-05
+Coautoria: Lucas + Opus 4.6 | 2026-04-05
