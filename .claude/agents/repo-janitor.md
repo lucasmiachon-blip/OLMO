@@ -6,7 +6,7 @@ tools:
   - Bash
   - Glob
   - Grep
-model: fast
+model: haiku
 ---
 
 # Repo Janitor (Claude Code Subagent)

@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 81 | 2026-04-05
+> Sessao 82 | 2026-04-05
 > Cross-ref: `content/aulas/metanalise/HANDOFF.md` (estado dos slides, ordem do deck, pipeline QA por slide)
 
 ## ESTADO ATUAL
@@ -18,7 +18,7 @@ Monorepo funcional. CI verde (53 testes). Lint clean (v6). Build OK (19 slides m
 | **reference-checker** | Cross-ref PMIDs slides/evidence-db | FIX S79 (mcp:pubmed) |
 | **quality-gate** | Pre-commit lint/type/test | **P1 FROZEN: falta JS/CSS scripts** |
 | **researcher** | Exploracao codebase read-only | OK |
-| **repo-janitor** | Orfaos, links quebrados, limpeza | OK (falta maxTurns) |
+| **repo-janitor** | Orfaos, links quebrados, limpeza | FIX S81 (model: fast→haiku). Falta maxTurns |
 | **notion-ops** | Notion DB read/write | OK (verificar se mcp tools funcionam) |
 
 ## P0 — TESTAR AGENTES

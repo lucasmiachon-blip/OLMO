@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Sessao 81 — 2026-04-05 (CONFRONTACAO — janitor audit, repo-janitor fix)
+
+### Janitor
+- Fix: repo-janitor `model: fast` → `model: haiku` (valor invalido causava crash)
+- Cleanup: 10 notion dump MDs em scripts/output/ (untracked)
+- Cleanup: dirs vazios data/ e .claude/worktrees (untracked)
+- Auditoria completa: docs clean, scripts referenciados, sem orphans tracked
+
 ## Sessao 80 — 2026-04-05 (AGENTES — audit 2, rename, qa-engineer rewrite)
 
 ### Doc fixes
