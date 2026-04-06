@@ -197,6 +197,56 @@ date +%s > ~/.claude/projects/C--Dev-Projetos-OLMO/memory/.last-insights
 
 If a previous report exists, move it to `references/previous-report.md` before overwriting.
 
+#### Structured JSON Output (obrigatorio ao final de cada /insights)
+
+Apos escrever o report em prosa, gerar e imprimir o bloco JSON abaixo. Ele alimenta automaticamente `known-bad-patterns.md` e `pending-fixes.md` quando Lucas aprovar.
+
+```json
+{
+  "insights_run": "<YYYY-MM-DD>",
+  "sessions_analyzed": 0,
+  "proposals": [
+    {
+      "id": "P001",
+      "category": "RULE_VIOLATION|RULE_GAP|RULE_STALE|SKILL_GAP|SKILL_UNDERTRIGGER|HOOK_GAP|PATTERN_REPEAT",
+      "title": "<titulo curto>",
+      "target_file": "<caminho relativo do arquivo a modificar>",
+      "priority": "high|medium|low",
+      "frequency": 0,
+      "draft": "<texto exato a adicionar/modificar, pronto para copy-paste>"
+    }
+  ],
+  "kbps_to_add": [
+    {
+      "pattern": "<anti-pattern identificado>",
+      "trigger": "<quando ocorre>",
+      "fix": "<como evitar>"
+    }
+  ],
+  "pending_fixes_to_add": [
+    {
+      "item": "<descricao da tarefa>",
+      "priority": "P0|P1|P2",
+      "target": "<arquivo ou sistema>"
+    }
+  ],
+  "metrics": {
+    "rule_violations": 0,
+    "user_corrections": 0,
+    "retries": 0,
+    "patterns_resolved_since_last": 0,
+    "patterns_new": 0
+  }
+}
+```
+
+**Regras do JSON:**
+- `proposals[].draft` deve ser texto pronto para copiar — sem placeholders
+- `kbps_to_add` alimenta diretamente `known-bad-patterns.md` (Lucas revisa antes de aplicar)
+- `pending_fixes_to_add` alimenta `pending-fixes.md` (session-start vai surfacea-los)
+- Se nada a adicionar em algum campo: array vazio `[]`
+- NUNCA aplicar automaticamente — sempre aguardar aprovacao do Lucas
+
 ---
 
 ## Workflows

@@ -1,22 +1,22 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 84 | 2026-04-06
+> Sessao 85 | 2026-04-06
 > Cross-ref: `BACKLOG.md` | `docs/research/implementation-plan-S82.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean. Build OK (18 slides metanalise).
-**Agentes: 8** (model routing OK — S84). **Hooks: 16** (PreCompact adicionado S84). **Rules: 10**. MCPs: 12 connected.
-S84: Tier 0 + Tier 1 completos (OTel docs, model routing, PreCompact hook, agent memory, context fork ja existia).
+**Agentes: 8** (todos com model routing). **Hooks: 18** (+lint-on-edit, +cost-circuit-breaker S85). **Rules: 10**. MCPs: 12 connected.
+S85: Tier 2 concluido — lint-on-edit (L5), circuit breaker (L3), quality-gate descongelado, /insights JSON.
 
-## PROXIMOS PASSOS (Tier 2 do implementation plan)
+## PROXIMOS PASSOS (Tier 2 restante + Tier 3)
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 2A | OTel collector local + Langfuse self-host | OBSERVABILITY real | Docker Compose |
-| 2B | Circuit breaker hook de custo | ANTIFRAGILE L3 | PostToolUse hook |
+| 2A | OTel + Langfuse self-host | OBSERVABILITY real | Docker Desktop (instalar primeiro) |
 | 2C | Model fallback chain (Opus → Sonnet → Haiku) | ANTIFRAGILE L2 | config + hook |
-| 2D | quality-gate: criar JS/CSS lint scripts | Descongelar agente | 30-60 min |
+| 3A | NeoSigma failure registry JSON | Constrained optimization | depende /insights JSON (feito) |
+| 3B | Memory temporal invalidation (TTL) | Fatos nao ficam stale | memory files frontmatter |
 
 Plano completo: `docs/research/implementation-plan-S82.md`
 
@@ -38,7 +38,7 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 | qa-engineer | sonnet ✓ | 12 | project ✓ NEW | OK |
 | mbe-evaluator | sonnet ✓ | 15 | — | OK (FROZEN ate aula completa) |
 | reference-checker | haiku ✓ NEW | 15 | project ✓ NEW | OK |
-| quality-gate | haiku ✓ | 10 | — | FROZEN: falta JS/CSS lint scripts |
+| quality-gate | haiku ✓ | 10 | — | OK (JS/CSS lint adicionado S85) |
 | researcher | haiku ✓ | 15 | — | OK |
 | repo-janitor | haiku ✓ | 12 | — | OK |
 | notion-ops | haiku ✓ NEW | 10 | — | OK |
@@ -87,4 +87,4 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + claude-4.6-sonnet-medium-thinking (Cursor) | 2026-04-06
+Coautoria: Lucas + claude-4.6-sonnet-medium-thinking (Cursor) | S84-S85 2026-04-06

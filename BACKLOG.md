@@ -9,7 +9,7 @@
 - [ ] SEC-004: Pinnar versoes MCP servers em config/mcp/servers.json (npx sem versao = supply chain risk)
 
 ### Agent Hardening
-- [ ] quality-gate: criar JS/CSS lint scripts (unico agente FROZEN)
+- [x] quality-gate: JS/CSS lint scripts adicionados, agente descongelado (S85)
 
 ### Dead Code Cleanup
 - [x] qa-video.js: removido S83 (`d7bb0cc`)
