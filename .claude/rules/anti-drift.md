@@ -26,6 +26,13 @@ Lucas is a beginner developer learning on the job. He tends to accept model deci
 
 **When violated**: stop, identify the extra work, and ask Lucas before reverting — automatic revert can destroy work in progress.
 
+## Momentum brake
+
+After completing any discrete action (edit, build, commit, QA check):
+STOP and report the result. Do NOT chain to the next logical step.
+The next step requires Lucas's explicit instruction — not implicit permission.
+Exception: within an approved multi-step plan where all steps were listed upfront.
+
 ## Verification (before responding)
 
 Gate function — all 5 steps, in order, no skipping:
@@ -50,6 +57,13 @@ Additional rules:
 - Prefer the cheapest model that solves the task (Ollama → Haiku → Sonnet → Opus).
 - Batch related API calls. Avoid redundant searches.
 - Skip optional tool calls when the answer is already known.
+
+## Script Primacy
+
+Scripts in `content/aulas/scripts/` are the canonical implementation.
+Agent definitions (`.claude/agents/*.md`) MUST reference scripts, not reimplement their logic.
+When agent behavior diverges from script behavior: the script is correct.
+NEVER create new scripts without Lucas's explicit request.
 
 ## Code quality
 

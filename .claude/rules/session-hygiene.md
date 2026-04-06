@@ -36,6 +36,23 @@ Apos eliminar, criar ou renomear agentes, verificar mecanicamente:
 2. Cada arquivo: `filename` (sem .md) == `name:` no frontmatter
 3. Tabela HANDOFF lista exatamente os arquivos existentes — sem extras, sem faltantes
 
+## Proactive Checkpoints
+
+Apos completar 2 tarefas complexas de subagent na sessao:
+1. Commitar trabalho pendente
+2. Atualizar HANDOFF.md com estado atual
+3. Sugerir /clear ao usuario se task esta mudando
+
+Quando continuation summary aparecer apos compaction:
+1. Imediatamente re-ler HANDOFF.md (summary e lossy)
+2. NAO confiar em memoria do contexto pre-compaction
+
+## P0 Security Gate
+
+No inicio da sessao, se HANDOFF.md lista items P0 SECURITY:
+1. Surfacea-los para Lucas imediatamente
+2. NAO iniciar feature work ate Lucas explicitamente deferir
+
 ## Hardening de agentes (checklist S80)
 
 Ao criar ou reescrever agente:

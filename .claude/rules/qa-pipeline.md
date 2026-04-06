@@ -17,6 +17,10 @@ paths:
 - NUNCA batch QA — 1 slide por ciclo completo (vale para Opus visual e Gemini script).
 - Gates sequenciais: Preflight ($0) → [Lucas OK] → Inspect (Gemini Flash) → [Lucas OK] → Editorial (Gemini Pro, 3 calls).
 - 1 gate = 1 invocacao do qa-engineer. maxTurns garante hard stop.
+- Criteria source: SEMPRE ler os checks do script ANTES de avaliar.
+  - Preflight: `lint-slides.js` checks + `qa-batch-screenshot.mjs` metrics
+  - Inspect/Editorial: `gemini-qa3.mjs` gate prompts
+  - NUNCA inventar criterios do treinamento. Check nao esta no script = nao existe.
 - Estados de slide: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
 
 ## 2. Cor Semantica no QA (E067)

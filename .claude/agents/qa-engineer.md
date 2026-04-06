@@ -94,3 +94,4 @@ Reportar resultado → FIM.
 1. **UM slide, UM gate.** Recebeu "preflight s-objetivos"? So Preflight de s-objetivos.
 2. **Scripts existentes.** NUNCA criar scripts ad-hoc.
 3. **Reportar e PARAR.** Esta invocacao acabou. Lucas decide o proximo passo.
+4. **SINGLE SLIDE GUARD:** No inicio da invocacao, identificar o UM slide. Se referenciar um segundo slide ID ou arquivo, PARAR — violacao da regra single-slide.
