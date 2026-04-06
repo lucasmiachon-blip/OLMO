@@ -141,6 +141,18 @@ Context overflow (50% das sessoes)
 | 11 | quality-gate JS/CSS lint scripts | `5e3058a` | Agente descongelado, cobre todos os lints da aula |
 | 12 | /insights output JSON estruturado | `5e3058a` | L7: proposals/kbps/pending-fixes gerados automaticamente |
 
+## O que fizemos (S86) ✅
+
+### L7 + L2 — Memory TTL, Failure Registry, Fallback Advisory
+
+| # | Item | Commit | Impacto |
+|---|------|--------|---------|
+| 16 | Memory TTL backfill (17 files) | S86 | L7: memorias com review_by, last_challenged, confidence |
+| 16b | /dream Phase 4 TTL check | S86 | L7: /dream flaggeia memorias expiradas |
+| 10 | NeoSigma failure registry JSON | S86 | L7: constrained optimization sobre dados de falha |
+| 10b | /insights Phase 5 (registry append) | S86 | L7: /insights auto-atualiza registry + trend check |
+| 2C | Model fallback advisory hook | S86 | L2: detecta overloaded/429/unavailable, sugere downgrade |
+
 ## O que falta implementar (ordenado por valor antifragile)
 
 ### Tier 0 — Observability (OTel + Langfuse backend)
@@ -260,17 +272,17 @@ Medir nas proximas 5 sessoes (S85-S90):
 | Custo por sessao (USD) | desconhecido | desconhecido | desconhecido | baseline com OTel |
 | Lint errors detectados automaticamente | 0% | 0% | 100% (lint-on-edit) | 100% |
 
-## Camadas Antifragile (Taleb) — Estado Atual (S85)
+## Camadas Antifragile (Taleb) — Estado Atual (S86)
 
-| Camada | Descricao | S82 | S83 | S84 | S85 |
-|--------|-----------|-----|-----|-----|-----|
-| L1 Retry + backoff | Retry transiente | PARCIAL | PARCIAL | PARCIAL | PARCIAL |
-| L2 Model fallback | Primary → secondary | ZERO | ZERO | ZERO | ZERO (Tier 2C) |
-| L3 Circuit breaker | Fast-fail | PARCIAL | PARCIAL | PARCIAL | **MELHORADO** (cost-cb) |
-| L4 Graceful degradation | context:fork | ZERO | PARCIAL | **IMPLEMENTADO** | IMPLEMENTADO |
-| L5 Self-healing | Detect → recover | ZERO | IMPLEMENTADO | IMPLEMENTADO | **MELHORADO** (lint-on-edit) |
-| L6 Chaos engineering | Falhas deliberadas | ZERO | ZERO | ZERO | ZERO |
-| L7 Continuous learning | Falha → melhoria | ZERO | PARCIAL | **MELHORADO** (memory) | **MELHORADO** (insights JSON) |
+| Camada | Descricao | S82 | S83 | S84 | S85 | S86 |
+|--------|-----------|-----|-----|-----|-----|-----|
+| L1 Retry + backoff | Retry transiente | PARCIAL | PARCIAL | PARCIAL | PARCIAL | PARCIAL |
+| L2 Model fallback | Primary → secondary | ZERO | ZERO | ZERO | ZERO | **PARCIAL** (advisory hook) |
+| L3 Circuit breaker | Fast-fail | PARCIAL | PARCIAL | PARCIAL | **MELHORADO** | MELHORADO |
+| L4 Graceful degradation | context:fork | ZERO | PARCIAL | **IMPLEMENTADO** | IMPLEMENTADO | IMPLEMENTADO |
+| L5 Self-healing | Detect → recover | ZERO | IMPLEMENTADO | IMPLEMENTADO | **MELHORADO** | MELHORADO |
+| L6 Chaos engineering | Falhas deliberadas | ZERO | ZERO | ZERO | ZERO | ZERO |
+| L7 Continuous learning | Falha → melhoria | ZERO | PARCIAL | **MELHORADO** | MELHORADO | **SIGNIFICATIVO** (TTL + registry) |
 
 ## Architecture Vision
 

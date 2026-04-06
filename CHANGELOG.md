@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## Sessao 86 — 2026-04-06 (INFRA — L7 continuous learning: memory TTL, failure registry, model fallback)
+
+### Antifragile L7 — Memory TTL Backfill
+- 17 memory files: added `review_by`, `last_challenged`, `confidence` frontmatter fields
+- Classification: 6 permanent, 5 review Q3 2026, 4 review Q2 2026, 2 near-term (medium confidence)
+- MEMORY.md: updated governance (review cadence S89, TTL fields documented)
+- `/dream` SKILL.md Phase 4: added TTL check — flags expired review_by, suggests confidence downgrade
+
+### Antifragile L7 — NeoSigma Failure Registry
+- `.claude/insights/failure-registry.json`: schema v1 with constrained optimization
+- Seeded with 4 sessions (S82-baseline + S83-S85) from /insights S82 report data
+- Trend: corrections_5avg 0.5, kbp_violations_5avg 0.76, direction "improving"
+- `/insights` SKILL.md Phase 5: append to registry + recompute trend + regression check
+
+### Antifragile L2 — Model Fallback Advisory Hook
+- `.claude/hooks/model-fallback-advisory.sh`: PostToolUse(Agent|Bash) hook
+- Detects: overloaded (529), rate_limit (429), model_not_available, context_length_exceeded
+- Advisory: suggests Opus→Sonnet→Haiku downgrade (no auto-switch)
+- settings.local.json: wired as PostToolUse(Agent|Bash) with 3s timeout
+
+### Infra
+- Hooks: 18 → 19 (+model-fallback-advisory)
+- Taleb layers: L2 ZERO→PARCIAL, L7 MELHORADO→SIGNIFICATIVO
+
+---
+
 ## Sessao 85 — 2026-04-06 (INFRA — Tier 2 antifragile: lint-on-edit, circuit breaker, quality-gate, insights JSON)
 
 ### Antifragile L5 — lint-on-edit (PostToolUse)

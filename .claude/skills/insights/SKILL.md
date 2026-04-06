@@ -247,6 +247,45 @@ Apos escrever o report em prosa, gerar e imprimir o bloco JSON abaixo. Ele alime
 - Se nada a adicionar em algum campo: array vazio `[]`
 - NUNCA aplicar automaticamente — sempre aguardar aprovacao do Lucas
 
+#### Phase 5: Failure Registry Update (obrigatorio apos cada /insights)
+
+Apos gerar o JSON output, atualizar o failure registry em `.claude/insights/failure-registry.json`:
+
+1. **Append session entry** — add a new object to `sessions[]` with the current session metrics from the JSON output above:
+   ```json
+   {
+     "id": "S{N}",
+     "date": "YYYY-MM-DD",
+     "metrics": {
+       "sessions_in_sample": <from insights_run>,
+       "user_corrections_total": <from metrics.user_corrections>,
+       "user_corrections_per_session": <calculated>,
+       "kbp_violations": { "KBP-01_scope_creep": N, ... },
+       "kbp_total": <sum>,
+       "kbp_per_session": <calculated>,
+       "tool_errors": 0,
+       "retries": <from metrics.retries>
+     },
+     "insights_run": true,
+     "new_kbps_added": <count of kbps_to_add>,
+     "proposals_accepted": 0,
+     "proposals_rejected": 0
+   }
+   ```
+   Note: `proposals_accepted/rejected` start at 0. Lucas updates after reviewing.
+
+2. **Recompute trend** — calculate 5-session rolling averages:
+   - `corrections_per_session_5avg` = avg of last 5 `user_corrections_per_session`
+   - `kbp_violations_per_session_5avg` = avg of last 5 `kbp_per_session`
+   - `direction` = "improving" if both avgs decreased, "regressing" if either increased, "stable" otherwise
+
+3. **Constrained optimization check** — compare new trend against previous trend:
+   - If EITHER rolling average **increased**: print `WARNING: Regression detected. corrections_5avg: {old} -> {new}, kbp_5avg: {old} -> {new}. Review proposals carefully — the system may be degrading.`
+   - If both **decreased or stable**: print `OK: Trend improving or stable.`
+   - This check applies to the PROPOSALS in the current run. If proposals are applied and the NEXT run shows regression, that is a signal to revert.
+
+4. **Write the updated registry** — use Edit tool to update the JSON file. Validate with `node -e` before saving.
+
 ---
 
 ## Workflows

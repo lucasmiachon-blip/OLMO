@@ -1,22 +1,23 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 85 | 2026-04-06
+> Sessao 86 | 2026-04-06
 > Cross-ref: `BACKLOG.md` | `docs/research/implementation-plan-S82.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean. Build OK (18 slides metanalise).
-**Agentes: 8** (todos com model routing). **Hooks: 18** (+lint-on-edit, +cost-circuit-breaker S85). **Rules: 10**. MCPs: 12 connected.
-S85: Tier 2 concluido — lint-on-edit (L5), circuit breaker (L3), quality-gate descongelado, /insights JSON.
+**Agentes: 8** (todos com model routing). **Hooks: 19** (+model-fallback-advisory S86). **Rules: 10**. MCPs: 12 connected.
+S86: Memory TTL backfill (17 files), NeoSigma failure registry, model fallback advisory hook.
 
-## PROXIMOS PASSOS (Tier 2 restante + Tier 3)
+## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 2A | OTel + Langfuse self-host | OBSERVABILITY real | Docker Desktop (instalar primeiro) |
-| 2C | Model fallback chain (Opus → Sonnet → Haiku) | ANTIFRAGILE L2 | config + hook |
-| 3A | NeoSigma failure registry JSON | Constrained optimization | depende /insights JSON (feito) |
-| 3B | Memory temporal invalidation (TTL) | Fatos nao ficam stale | memory files frontmatter |
+| 2A | OTel + Langfuse self-host | OBSERVABILITY real | Docker Compose (sessao dedicada) |
+| 3A+ | NeoSigma constrained optimization — test cycle | Validar registry funciona com /insights | Rodar /insights e verificar Phase 5 |
+| 3B+ | Memory stale update (project_self_improvement, project_tooling_pipeline) | Dados atualizados | Editar conteudo dos 2 files medium-confidence |
+| L1 | Retry com jitter em scripts | Resiliencia transiente | Auditar scripts com retry |
+| L6 | Chaos engineering deliberado | Testar robustez | Design-only primeiro |
 
 Plano completo: `docs/research/implementation-plan-S82.md`
 
@@ -34,20 +35,20 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 
 | Agente | Model | maxTurns | Memory | Status |
 |--------|-------|----------|--------|--------|
-| evidence-researcher | sonnet ✓ | — | project ✓ | OK |
-| qa-engineer | sonnet ✓ | 12 | project ✓ NEW | OK |
-| mbe-evaluator | sonnet ✓ | 15 | — | OK (FROZEN ate aula completa) |
-| reference-checker | haiku ✓ NEW | 15 | project ✓ NEW | OK |
-| quality-gate | haiku ✓ | 10 | — | OK (JS/CSS lint adicionado S85) |
-| researcher | haiku ✓ | 15 | — | OK |
-| repo-janitor | haiku ✓ | 12 | — | OK |
-| notion-ops | haiku ✓ NEW | 10 | — | OK |
+| evidence-researcher | sonnet | — | project | OK |
+| qa-engineer | sonnet | 12 | project | OK |
+| mbe-evaluator | sonnet | 15 | — | OK (FROZEN ate aula completa) |
+| reference-checker | haiku | 15 | project | OK |
+| quality-gate | haiku | 10 | — | OK |
+| researcher | haiku | 15 | — | OK |
+| repo-janitor | haiku | 12 | — | OK |
+| notion-ops | haiku | 10 | — | OK |
 
-## HOOKS (16 total)
+## HOOKS (19 total)
 
 | Hook | Evento | Funcao |
 |------|--------|--------|
-| **pre-compact-checkpoint** | **PreCompact ✓ NEW** | **Grava estado antes de compaction (timing correto)** |
+| pre-compact-checkpoint | PreCompact | Grava estado antes de compaction |
 | stop-crossref-check | Stop | Warning se cross-ref quebrado |
 | stop-detect-issues | Stop | Persiste issues em pending-fixes.md |
 | stop-hygiene | Stop | Verifica session hygiene |
@@ -63,6 +64,9 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 | guard-lint-before-build | PreToolUse(Bash) | Lint antes de build |
 | crossref-precommit | pre-commit (git) | BLOQUEIA commit se cross-ref quebrado |
 | build-monitor | PostToolUse(Bash) | Monitora output de build |
+| lint-on-edit | PostToolUse(Write/Edit) | Lint automatico em slides |
+| cost-circuit-breaker | PostToolUse(.*) | Avisa 100 calls, bloqueia 400 |
+| **model-fallback-advisory** | **PostToolUse(Agent/Bash) NEW** | **Detecta erros de modelo, sugere downgrade** |
 
 ## DECISOES ATIVAS
 
@@ -72,8 +76,10 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 - **Cross-ref: dual gate** — stop hook (advisory) + pre-commit (blocking).
 - **Self-healing loop:** stop-detect → pending-fixes → session-start surfacea.
 - **Known-bad-patterns (Via Negativa):** 5 KBPs, alimentado por /insights.
+- **Failure registry:** `.claude/insights/failure-registry.json` — constrained optimization.
+- **Memory TTL:** review_by + last_challenged + confidence em todos 17 files. /dream checa.
 - Agentes: max 2, Lucas dita, scripts existentes, 1 slide por vez.
-- Memory governance: cap 20 files (17 atual). Next review: S85.
+- Memory governance: cap 20 files (17 atual). Next review: S89.
 
 ## CUIDADOS
 
@@ -87,4 +93,4 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + claude-4.6-sonnet-medium-thinking (Cursor) | S84-S85 2026-04-06
+Coautoria: Lucas + Opus 4.6 | S86 2026-04-06
