@@ -27,6 +27,9 @@
 - docs/research/memory-best-practices-2026.md (736 linhas) — OLMO 7.4/10
 - docs/research/claude-code-best-practices-2026.md (1076 linhas) — 19 recomendacoes, 17 gaps
 
+### Bug Fix
+- QA visual conflict: "NUNCA Gemini" era regra stale — Gemini coexiste com Opus no pipeline QA
+
 ### Implementation Plan Update
 - Marcados items 5-7, 16-17 como DONE
 - Adicionados Tier 1A-D da pesquisa best practices (agent routing, PreCompact, memory, context:fork)
