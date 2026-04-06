@@ -104,7 +104,7 @@ content/aulas/
 │   ├── scripts/
 │   └── qa-screenshots/
 ├── scripts/             # Linters compartilhados (lint-slides, done-gate, QA, validate-css)
-│   └── qa/              # qa-video.js
+│   └── qa/              # qa-batch-screenshot.mjs
 ├── STRATEGY.md          # Roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
 └── README.md            # Overview com status por aula
 ```
