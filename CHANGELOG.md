@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## Sessao 79 — 2026-04-05 (AGENTES — consolidacao e hardening)
+
+### Agentes eliminados (4)
+- mcp-query-runner: nao-funcional (tools so Read, nao acessava SCite/Consensus)
+- opus-researcher: redundante (5 MCPs identicos ao evidence-researcher), conteudo mergeado
+- perplexity-auditor: absorvido pelo evidence-researcher (Perplexity via Bash + triangulacao interna)
+
+### Agentes melhorados (3)
+- evidence-researcher: consolidou opus-researcher + perplexity-auditor. Triangulacao interna (MCPs + Perplexity + Gemini). Expertise MBE + andragogia + divergencias.
+- reference-checker: fix mcp:pubmed nos tools (antes nao verificava PMIDs via MCP)
+- mbe-evaluator: ENFORCEMENT duplo + stop gate (padrao S78)
+
+### Docs
+- AGENT-AUDIT renomeado S78→S79, inventario atualizado (11→7 agentes)
+
 ## Sessao 77b — 2026-04-05 (s-objetivos fixes + cross-ref sync)
 
 ### Fixes
