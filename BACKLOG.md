@@ -12,7 +12,7 @@
 - [ ] quality-gate: criar JS/CSS lint scripts (unico agente FROZEN)
 
 ### Dead Code Cleanup
-- [ ] qa-video.js: remover (deprecated S82, pipeline real: qa-batch-screenshot.mjs)
+- [x] qa-video.js: removido S83 (`d7bb0cc`)
 - [ ] evidence-db.md (cirrose): migrar para living HTML ou remover
 
 ## Semana 2+ (backlog longo)
@@ -26,11 +26,20 @@
 ### Low Priority
 - [ ] SEC-005: CHATGPT_MCP_URL validacao (server `planned`, non-issue ate connect)
 
-## Research Outputs (S82, aguardando)
+### Agent Hardening (da pesquisa best practices S83)
+- [ ] Agent model routing: evidence-researcher→sonnet, reference-checker→haiku, notion-ops→haiku
+- [ ] PreCompact hook migration (pre-compact-checkpoint.sh de Stop → PreCompact)
+- [ ] Agent memory: project para qa-engineer e reference-checker
+- [ ] context: fork em skills pesadas (/research, /medical-researcher, /deep-search)
 
-Quando pesquisas retornarem, avaliar e mover items acionaveis para Semana 1:
-- Agent self-improvement tools → `docs/research/agent-self-improvement-2026.md`
-- Anti-drift/cross-ref tools → `docs/research/anti-drift-tools-2026.md`
+## Research Outputs (S82-S83, acionaveis incorporados ao implementation-plan)
+
+5 pesquisas completas. Items acionaveis movidos para `docs/research/implementation-plan-S82.md` Tier 1.
+- `docs/research/anti-drift-tools-2026.md` (449 linhas)
+- `docs/research/agent-self-improvement-2026.md` (811 linhas)
+- `docs/research/claude-md-best-practices-2026.md` (414 linhas)
+- `docs/research/memory-best-practices-2026.md` (736 linhas)
+- `docs/research/claude-code-best-practices-2026.md` (1076 linhas)
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-05
+Coautoria: Lucas + Opus 4.6 | 2026-04-06

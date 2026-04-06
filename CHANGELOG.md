@@ -1,5 +1,38 @@
 # CHANGELOG
 
+## Sessao 83 — 2026-04-06 (INFRA — enforcement, Via Negativa, self-healing, values)
+
+### Enforcement (Tier 1)
+- crossref-precommit.sh: BLOQUEIA commit se slide HTML staged sem _manifest.js (ou evidence sem slide)
+- known-bad-patterns.md: 5 anti-patterns (Via Negativa) como rule always-on (KBP-01 a KBP-05)
+- CLAUDE.md enforcement: 3→5 regras, mais concretas, com consequencias explicitas
+
+### Self-Healing Loop
+- stop-detect-issues.sh: novo Stop hook persiste issues em .claude/pending-fixes.md
+- session-start.sh: surfacea pending-fixes na proxima sessao + arquiva
+- .gitignore: exclui pending-fixes*.md (transiente)
+- settings.local.json: wiring do novo hook (15 hooks total)
+
+### CLAUDE.md & Structure
+- content/aulas/CLAUDE.md: regras compartilhadas para todas as aulas (74 linhas)
+- CLAUDE.md root: slim 92→90 linhas, propagation map movido para aulas/CLAUDE.md
+- Values como decision gates: antifragile + curiosidade em CLAUDE.md + context-essentials
+- context-essentials.md: adicionada secao VALUES com perguntas operacionais
+
+### Cleanup
+- qa-video.js: removido (deprecated S82, pipeline real: qa-batch-screenshot.mjs)
+- TREE.md: referencia atualizada qa-video → qa-batch-screenshot
+
+### Pesquisas (2 novas, background agents)
+- docs/research/memory-best-practices-2026.md (736 linhas) — OLMO 7.4/10
+- docs/research/claude-code-best-practices-2026.md (1076 linhas) — 19 recomendacoes, 17 gaps
+
+### Implementation Plan Update
+- Marcados items 5-7, 16-17 como DONE
+- Adicionados Tier 1A-D da pesquisa best practices (agent routing, PreCompact, memory, context:fork)
+- Tabela de camadas antifragile atualizada (L5 e L7 parciais)
+- Architecture vision atualizada com estado S83
+
 ## Sessao 82 — 2026-04-05/06 (INFRA — audit cleanup, security, anti-drift, anti-fragile)
 
 ### Quick Wins (Fase 1)
