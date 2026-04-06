@@ -44,7 +44,7 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 
 Mapa completo: `docs/TREE.md`. Entry points:
 - Python: `orchestrator.py` | `config/ecosystem.yaml` | `pytest tests/` | `ruff check .` | `mypy agents/`
-- Aulas: `cd content/aulas && npm run dev` | `shared/` (design system) | `cirrose/` `metanalise/` `grade/`
+- Aulas: `content/aulas/CLAUDE.md` (regras compartilhadas) | `shared/` (design system) | `cirrose/` `metanalise/` `grade/`
 - Concurso: `/concurso` + `/exam-generator` | `assets/provas/` `assets/sap/` (gitignored)
 - Meta: `HANDOFF.md` | `docs/ARCHITECTURE.md` | `docs/SYNC-NOTION-REPO.md`
 
@@ -58,25 +58,18 @@ Mapa completo: `docs/TREE.md`. Entry points:
 - Notion MCP: protocolo seguro em `.claude/rules/mcp_safety.md`
 - Notion writes (reorganizar/arquivar): cross-validation obrigatoria em `.claude/rules/notion-cross-validation.md`
 - `pytest tests/` | `ruff check .` | `mypy agents/`
-- **Living HTML per slide** = source of truth. Evidence-first workflow: HTML gerado ANTES do slide.
-- Fontes por slide: evidence HTML + narrative.md. aside.notes deprecated.
 - Hooks em `hooks/` + `.claude/hooks/` (bash scripts, config em `.claude/settings.local.json`)
-- Lint enforced: `.claude/hooks/guard-lint-before-build.sh` BLOQUEIA builds se lint-slides.js falhar.
 - Rules pesadas (`mcp_safety`, `notion-cross-validation`) com `paths:` frontmatter — so carregam em sessoes relevantes
 - **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server. Matar por PID especifico.
 
-## Propagation Map (OBRIGATORIO — se mudou X, atualize Y)
+## Propagation Map
+
+Aulas: ver `content/aulas/CLAUDE.md` (carrega automaticamente). Enforced por `crossref-precommit.sh`.
 
 | Se mudou... | Deve atualizar... |
 |-------------|-------------------|
-| `slides/{file}.html` | `_manifest.js` + `index.html` (run build) |
-| `evidence/s-{id}.html` | slide correspondente (citation block) |
-| `_manifest.js` | `index.html` (run `build-html.ps1`) |
 | `.claude/agents/*.md` | HANDOFF.md tabela de agentes |
 | `config/ecosystem.yaml` | `docs/ARCHITECTURE.md` |
-| `h2` no slide HTML | `_manifest.js` headline + `narrative.md` |
-| dados numericos | evidence HTML + speaker notes `[DATA]` tag |
-| click-reveals | `_manifest.js` clickReveals + `slide-registry.js` |
 
 ## Self-Improvement
 
