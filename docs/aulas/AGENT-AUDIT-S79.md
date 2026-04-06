@@ -40,7 +40,7 @@
 | `install-fonts.js` | Download WOFF2 fonts | manual (setup) |
 | `install-hooks.sh` | Install git hooks | manual (setup) |
 
-## Agentes ativos (9)
+## Agentes ativos (7)
 
 ### Core QA Pipeline (2)
 | Agente | Funcao | Status |
@@ -48,19 +48,14 @@
 | **qa-engineer** | 35 checks, 1 slide, scripts existentes | HARDENED S78 |
 | **quality-gate** | Pre-commit lint/type/test | PENDENTE hardening S79 |
 
-### Core Research Pipeline — 5 pernas (3 agentes)
+### Core Research Pipeline (3 agentes)
 | Agente | Funcao | Status |
 |--------|--------|--------|
-| **evidence-researcher** (medical-researcher) | Multi-MCP + triangulacao 5 pernas + MBE/andragogia, 1 slide | CONSOLIDADO S79 (absorveu opus-researcher) |
-| **mbe-evaluator** | Avalia qualidade de evidencia (8 dim) | PENDENTE hardening S79 |
+| **evidence-researcher** (medical-researcher) | Triangulacao interna (MCPs + Perplexity + Gemini) + MBE/andragogia, 1 slide | CONSOLIDADO S79 (absorveu opus-researcher + perplexity-auditor) |
+| **mbe-evaluator** | Avalia qualidade de evidencia (8 dim) | HARDENED S79 |
 | **reference-checker** | Cross-ref PMIDs slides/evidence-db | FIX S79: mcp:pubmed adicionado nos tools |
 
-### Discovery (1)
-| Agente | Funcao | Status |
-|--------|--------|--------|
-| **perplexity-auditor** | Perplexity Sonar deep-research | PENDENTE hardening S79 |
-
-### Utility (3)
+### Utility (3 — sem mudanca, exceto 1 eliminado)
 | Agente | Funcao | Status |
 |--------|--------|--------|
 | **researcher** | Exploracao codebase read-only | OK |
@@ -72,17 +67,17 @@
 | Acao | Agente | Motivo |
 |------|--------|--------|
 | ELIMINADO | mcp-query-runner | Nao-funcional (tools so Read, nao acessava MCPs). SCite/Consensus via claude.ai nativos. |
-| ELIMINADO | opus-researcher | Redundante com evidence-researcher (5 MCPs identicos). Conteudo unico mergeado. |
-| CONSOLIDADO | evidence-researcher | Absorveu: triangulacao pipeline, expertise MBE+andragogia, divergencias, SCite critique. |
-| FIX | reference-checker | Adicionado mcp:pubmed nos tools (antes nao verificava PMIDs via MCP). |
+| ELIMINADO | opus-researcher | Redundante (5 MCPs identicos). Conteudo mergeado no evidence-researcher. |
+| ELIMINADO | perplexity-auditor | Absorvido pelo evidence-researcher (Perplexity via Bash + triangulacao interna). |
+| CONSOLIDADO | evidence-researcher | Absorveu: opus-researcher + perplexity-auditor. Triangulacao interna (MCPs + Perplexity + Gemini). MBE/andragogia. |
+| FIX | reference-checker | Adicionado mcp:pubmed nos tools. |
+| HARDENED | mbe-evaluator | ENFORCEMENT duplo + stop gate. |
 
 ## Pendente S79
 
 | Agente | Pendencia |
 |--------|-----------|
-| quality-gate | Hardening S78 + reescrever com scripts JS/CSS |
-| mbe-evaluator | Hardening S78 (ENFORCEMENT + stop gate) |
-| perplexity-auditor | Hardening S78 (ENFORCEMENT + stop gate) |
+| quality-gate | Hardening + reescrever com scripts JS/CSS |
 
 ---
 Coautoria: Lucas + Opus 4.6 | 2026-04-05
