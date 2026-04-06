@@ -173,7 +173,7 @@ OLMO/
 │   │                      # mcp_safety, notion-cross-validation, process-hygiene,
 │   │                      # qa-pipeline, session-hygiene, slide-rules
 │   ├── skills/ (20)       # Sob demanda (progressive disclosure, SKILL.md)
-│   └── agents/ (10)       # researcher, qa-engineer, medical-researcher, etc.
+│   └── agents/ (8)        # researcher, qa-engineer, evidence-researcher, etc.
 ├── config/
 │   ├── ecosystem.yaml     # Agentes + model routing + skills
 │   └── mcp/servers.json   # 16 MCPs (12 connected, 3 planned, 1 removed)

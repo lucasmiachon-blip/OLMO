@@ -112,7 +112,7 @@ OLMO/
 ├── .claude/
 │   ├── skills/ (20)          # Sob demanda (progressive disclosure)
 │   ├── rules/ (9)            # Sempre carregadas (path-scoped)
-│   └── agents/ (10)          # researcher, qa-engineer, medical-researcher, etc.
+│   └── agents/ (8)           # researcher, qa-engineer, evidence-researcher, etc.
 ├── hooks/                    # notify.sh, stop-hygiene.sh
 ├── config/
 │   ├── ecosystem.yaml        # Agentes + model routing + skills

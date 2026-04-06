@@ -174,12 +174,12 @@ docs/
 
 ```
 .claude/
-├── agents/              # 10 agentes especializados
+├── agents/              # 8 agentes especializados
 │   ├── notion-ops.md, quality-gate.md, researcher.md               # gerais
-│   ├── medical-researcher.md, qa-engineer.md, repo-janitor.md      # aulas
-│   └── mbe-evaluator.md, mcp-query-runner.md, opus-researcher.md, reference-checker.md  # /research pipeline
+│   ├── evidence-researcher.md, qa-engineer.md, repo-janitor.md     # aulas
+│   └── mbe-evaluator.md, reference-checker.md                      # /research pipeline
 ├── agent-memory/        # Memorias persistentes de agentes
-│   └── medical-researcher/  # 7 memories hepatologia (elastografia, MELD, etc.)
+│   └── evidence-researcher/  # 7 memories hepatologia (elastografia, MELD, etc.)
 ├── commands/            # 3 custom commands (audit-docs, evidence, new-slide)
 ├── hooks/               # 9 hooks bash (guard-generated, guard-secrets, guard-lint, etc.)
 ├── rules/               # 9 regras comportamentais

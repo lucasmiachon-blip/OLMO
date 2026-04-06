@@ -395,7 +395,7 @@ Locais (linhas 4-7) requerem `npm run mcp:{profile}`. Reportar perfil ativo no c
 
 ## Evolucao futura
 
-Este skill pode evoluir para um custom agent (`.claude/agents/medical-researcher.md`) com:
+Este skill pode evoluir para um custom agent (`.claude/agents/evidence-researcher.md`) com:
 - `mcpServers` scoped (pubmed, crossref, scholar, scite)
 - `memory: project` (aprendizado persistente sobre fontes e padroes)
 - `hooks` de validacao pre-tool (bloquear PMIDs nao verificados)

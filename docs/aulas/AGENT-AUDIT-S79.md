@@ -40,7 +40,7 @@
 | `install-fonts.js` | Download WOFF2 fonts | manual (setup) |
 | `install-hooks.sh` | Install git hooks | manual (setup) |
 
-## Agentes ativos (7)
+## Agentes ativos (8)
 
 ### Core QA Pipeline (2)
 | Agente | Funcao | Status |
@@ -51,7 +51,7 @@
 ### Core Research Pipeline (3 agentes)
 | Agente | Funcao | Status |
 |--------|--------|--------|
-| **evidence-researcher** (medical-researcher) | Triangulacao interna (MCPs + Perplexity + Gemini) + MBE/andragogia, 1 slide | CONSOLIDADO S79 (absorveu opus-researcher + perplexity-auditor) |
+| **evidence-researcher** | Triangulacao interna (MCPs + Perplexity + Gemini) + MBE/andragogia, 1 slide | CONSOLIDADO S79 (absorveu opus-researcher + perplexity-auditor) |
 | **mbe-evaluator** | Avalia qualidade de evidencia (8 dim) | HARDENED S79 |
 | **reference-checker** | Cross-ref PMIDs slides/evidence-db | FIX S79: mcp:pubmed adicionado nos tools |
 
