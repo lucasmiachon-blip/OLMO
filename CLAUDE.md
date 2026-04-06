@@ -65,6 +65,19 @@ Mapa completo: `docs/TREE.md`. Entry points:
 - Rules pesadas (`mcp_safety`, `notion-cross-validation`) com `paths:` frontmatter — so carregam em sessoes relevantes
 - **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server. Matar por PID especifico.
 
+## Propagation Map (OBRIGATORIO — se mudou X, atualize Y)
+
+| Se mudou... | Deve atualizar... |
+|-------------|-------------------|
+| `slides/{file}.html` | `_manifest.js` + `index.html` (run build) |
+| `evidence/s-{id}.html` | slide correspondente (citation block) |
+| `_manifest.js` | `index.html` (run `build-html.ps1`) |
+| `.claude/agents/*.md` | HANDOFF.md tabela de agentes |
+| `config/ecosystem.yaml` | `docs/ARCHITECTURE.md` |
+| `h2` no slide HTML | `_manifest.js` headline + `narrative.md` |
+| dados numericos | evidence HTML + speaker notes `[DATA]` tag |
+| click-reveals | `_manifest.js` clickReveals + `slide-registry.js` |
+
 ## Self-Improvement
 
 - Session docs: `HANDOFF.md` (pendencias) + `CHANGELOG.md` (historico). Regra: `session-hygiene.md`
