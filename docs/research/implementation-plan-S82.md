@@ -1,7 +1,7 @@
 # Plano de Implementacao — Self-Improvement & Anti-Drift
 
-> S82 INFRA | 2026-04-05 | Compilado de: /insights report + pesquisa anti-drift
-> Objetivo: resolver retrabalho, cross-ref failures, drift, perda de direcao
+> S82 INFRA | 2026-04-06 | Compilado de: /insights report + pesquisa anti-drift + pesquisa anti-fragile
+> Objetivo: resolver retrabalho, cross-ref failures, drift, perda de direcao, ausencia de loops
 
 ---
 
@@ -35,6 +35,32 @@ Context overflow (50% das sessoes)
 2. **Nenhum mecanismo deterministico** de cross-ref — tudo e advisory (modelo pode ignorar)
 3. **Agente otimiza para helpfulness** — "melhorar" codigo vizinho parece util mas e drift
 
+### Analise anti-fragilidade (pesquisa independente, 7 camadas Taleb)
+
+Nosso sistema mapeado nas 7 camadas anti-fragile:
+
+| Camada | Descricao | Nosso estado |
+|--------|-----------|-------------|
+| L1 Retry + backoff | Retry transiente (429/5xx) | **PARCIAL** — scripts tem retry, sem jitter |
+| L2 Model fallback | Primary → secondary → tertiary | **ZERO** — so Opus, sem fallback chain |
+| L3 Circuit breaker | Fast-fail quando endpoint morre | **PARCIAL** — maxTurns nos agentes |
+| L4 Graceful degradation | Cache/simpler response | **ZERO** |
+| L5 Self-healing loop | Validate → classify → recover → learn | **ZERO** — /insights e manual |
+| L6 Chaos engineering | Injecao deliberada de falhas | **ZERO** |
+| L7 Continuous learning | Falha → dado que melhora futuro | **ZERO** — sem loop persistente |
+
+**Conclusao:** Estamos entre L1-L3 (resiliencia parcial). Layers 5-7 (anti-fragilidade real) nao existem.
+
+### Gaps criticos
+
+| Gap | Impacto | Solucao proposta | Custo |
+|-----|---------|-----------------|-------|
+| Zero observability | Nao sabemos tokens/custo/erros por sessao | OTel nativo (3 env vars) | $0 |
+| Sem cross-ref deterministico | Edita slide, esquece manifest → QA falha | ifttt-lint | $0 |
+| Sem self-healing loop | Falha → conserto manual proximo sessao | Validate→classify→recover | $0 |
+| Memory sem temporal invalidation | Fact stale vive para sempre | TTL/timestamps em memory | $0 |
+| Contract mismatch silencioso | Doc diz X, codigo faz Y (75% APIs driftam) | Doc follows code + CI check | $0 |
+
 ---
 
 ## O que ja fizemos (S82)
@@ -56,6 +82,24 @@ Limitacao: rules sao advisory — modelo pode ignorar pos-compaction.
 ---
 
 ## O que falta implementar (ordenado por impacto)
+
+### Dia 0 — Observability (2 min, pre-requisito)
+
+#### 0. OTel nativo do Claude Code (2 min) — IMPACTO FUNDAMENTAL
+Claude Code ja emite telemetria OpenTelemetry. 3 env vars ativam tudo:
+metricas (tokens, custo USD, tool calls), eventos (prompts, erros), traces (beta).
+
+```bash
+# Adicionar ao ~/.bashrc ou perfil PowerShell
+export CLAUDE_CODE_ENABLE_TELEMETRY=1
+export OTEL_METRICS_EXPORTER=otlp
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318  # Langfuse ou collector local
+```
+
+Backend recomendado: **Langfuse** (21.9k stars, MIT, adquirido pelo ClickHouse jan/2026).
+Self-host ou cloud free tier. Decorator `@observe()` para scripts Python.
+
+Sem isso nao medimos nada. Sem medir, nao melhoramos. Layer 0.
 
 ### Dia 1 — Quick Wins (< 1 hora total)
 
@@ -121,6 +165,38 @@ Configurar: .pre-commit-config.yaml
 
 Suporta 40+ linguagens (HTML, JS, YAML, Python).
 
+#### 7. Known-Bad Patterns registry (20 min) — IMPACTO ALTO
+Via Negativa (Taleb): em vez de adicionar guardrails, manter registro do que falha.
+`/insights` ja identifica padroes; falta persistencia estruturada entre sessoes.
+
+```
+Criar: .claude/known-bad-patterns.md
+Formato por entrada:
+  ## [PATTERN-ID] Titulo
+  - **Quando:** contexto em que ocorre
+  - **Sintoma:** como se manifesta
+  - **Causa:** root cause
+  - **Fix:** o que previne
+  - **Sessoes:** S75, S78 (evidencia)
+```
+
+/insights alimenta automaticamente. Agente consulta antes de agir em areas de risco.
+Inspirado em NeoSigma: 39% melhoria sem upgrade de modelo, so com failure registry.
+
+#### 8. Self-healing loop skeleton (30 min) — IMPACTO ALTO
+Hook Stop que classifica falhas da sessao e propoe fixes para rules/hooks.
+Nao aplica automaticamente — gera `pending-fixes.md` para Lucas revisar.
+
+```
+Editar: hooks/stop-hygiene.sh
+  → Ao final: grep erros/correcoes da sessao
+  → Classificar: RULE_VIOLATION | RULE_GAP | HOOK_GAP | PATTERN_REPEAT
+  → Se encontrar: append a .claude/pending-fixes.md
+Proximo sessao: surfacear pending-fixes no start hook
+```
+
+Fecha o loop: falha → classificacao → proposta → revisao → fix → menos falha.
+
 ### Semana seguinte (se necessario)
 
 #### 7. Agent Stop hook com tools (2-3h)
@@ -150,17 +226,38 @@ Medir nas proximas 5 sessoes (S83-S87):
 
 ## Ferramentas Descobertas (referencia)
 
-| Ferramenta | O que faz | Custo | Decisao |
-|------------|-----------|-------|---------|
-| **ifttt-lint** | Cross-ref deterministico via pre-commit | $0 | IMPLEMENTAR (Dia 2) |
-| **claude-mem** | Auto-capture + reinject de memoria (21.5k stars) | $0 | AVALIAR (se rework persistir) |
-| **claude-code-context-handoff** | Auto-handoff pre/pos compaction | $0 | AVALIAR (pode substituir hooks manuais) |
-| **post_compact_reminder** | Reinjecta lembrete pos-compaction | $0 | JA IMPLEMENTADO (session-compact.sh) |
-| **plansDirectory** | Planos versionados | $0 | IMPLEMENTAR (2 min) |
-| **Mem0 MCP** | Memory-as-a-service | Free tier | BACKLOG |
-| **Letta** (ex-MemGPT) | Tiered memory OS-inspired | Self-hosted $0 | BACKLOG |
-| NeMo Guardrails | Dialogue flow control | $0 | DESCARTADO (overkill) |
-| Guardrails AI | LLM output validation | $0 | DESCARTADO (hooks nativos bastam) |
+### Implementar / Avaliar
+
+| Ferramenta | O que faz | Stars | Custo | Decisao |
+|------------|-----------|-------|-------|---------|
+| **OTel nativo** | Telemetria Claude Code (tokens, custo, erros) | N/A | $0 | IMPLEMENTAR (Dia 0, 2 min) |
+| **Langfuse** | Observability backend (traces, metrics, cost) | 21.9k | $0 (self-host/free) | IMPLEMENTAR (backend OTel) |
+| **ifttt-lint** | Cross-ref deterministico via pre-commit | ~200 | $0 | IMPLEMENTAR (Dia 2) |
+| **plansDirectory** | Planos versionados via git | N/A | $0 | IMPLEMENTAR (2 min) |
+| **claude-mem** | Auto-capture + reinject de memoria | 35.9k | $0 | AVALIAR (se rework persistir) |
+| **claude-code-context-handoff** | Auto-handoff pre/pos compaction | — | $0 | AVALIAR (pode substituir hooks) |
+
+### Avaliar se gaps persistirem
+
+| Ferramenta | O que faz | Stars | Custo | Decisao |
+|------------|-----------|-------|-------|---------|
+| **Mem0** | Memory universal (vector+graph+KV) | 51.4k | Free tier | AVALIAR (temporal invalidation) |
+| **Graphiti/Zep** | Knowledge graph temporal (bi-temporal model) | 24.4k | $0 | AVALIAR (stale fact prevention) |
+| **Letta** (ex-MemGPT) | Tiered memory, agent self-edit | 20.9k | Self-host $0 | BACKLOG |
+| **Arize Phoenix** | OTel-native tracing (alternativa Langfuse) | 8.5k | $0 | ALTERNATIVA |
+| **ChaosEater** | Chaos engineering automatizado para LLM | — | $0.20-0.80/cycle | BACKLOG (Layer 6) |
+
+### Referencia (contexto, nao implementar)
+
+| Ferramenta | O que faz | Relevancia |
+|------------|-----------|-----------|
+| **Superpowers** (Jesse Vincent) | Skills library TDD/debug/collab | 42k stars, marketplace oficial |
+| **OpenHands** (ex-OpenDevin) | AI coding agent (CMU) | 70.4k stars, referencia arquitetural |
+| **Aider** | Git-first AI coding | 39k stars, cada edit = commit |
+| **NeoSigma** | Self-improvement loop autonomo | 39% melhoria sem model upgrade |
+| post_compact_reminder | Reinjecta lembrete pos-compaction | JA IMPLEMENTADO (session-compact.sh) |
+| NeMo Guardrails | Dialogue flow control | DESCARTADO (overkill) |
+| Guardrails AI | LLM output validation | DESCARTADO (hooks nativos bastam) |
 
 ---
 
@@ -168,6 +265,7 @@ Medir nas proximas 5 sessoes (S83-S87):
 
 - `/insights` report: `.claude/skills/insights/references/latest-report.md`
 - Pesquisa anti-drift: `docs/research/anti-drift-tools-2026.md` (449 linhas, 30+ fontes)
+- Pesquisa anti-fragile: input direto do Lucas (7 camadas Taleb, observability, memory, contracts)
 - Pesquisa self-improvement: `docs/research/agent-self-improvement-2026.md` (aguardando)
 
 ---
