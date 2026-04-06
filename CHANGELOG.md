@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 90 — 2026-04-06 (INFRA — cleanup research MDs + evidence-db redistribution)
+
+### Cleanup: Research MDs (~3.500 linhas removidas)
+- DEL: `docs/research/anti-drift-tools-2026.md` — consumido (anti-drift rules, hooks)
+- DEL: `docs/research/agent-self-improvement-2026.md` — consumido (OTel, memory, self-healing)
+- DEL: `docs/research/claude-md-best-practices-2026.md` — consumido (CLAUDE.md cascade)
+- DEL: `docs/research/memory-best-practices-2026.md` — consumido (memory governance, TTL)
+- DEL: `docs/research/claude-code-best-practices-2026.md` — consumido (agents, skills, hooks)
+- KEEP: `docs/research/implementation-plan-S82.md` — plano ativo
+
+### Redistribuicao: evidence-db.md → living HTML
+- DEL: `metanalise/references/evidence-db.md` (387 linhas, v5.7)
+- NEW: `metanalise/evidence/s-hook.html` — volume, qualidade, competencia (5 dados EM USO + apoio)
+- NEW: `metanalise/evidence/s-checkpoint-1.html` — Ray 2009 + ACCORD + follow-ups + paradoxo A1C
+- NEW: `metanalise/evidence/s-ancora.html` — Valgimigli 2025 + 7 RCTs + CYP2C19
+- EDIT: 5 arquivos — referencias atualizadas de evidence-db.md para living HTML
+
+---
+
 ## Sessao 89 — 2026-04-06 (OTel validated, memory governance, antifragile L1+L2)
 
 ### OTel Validation

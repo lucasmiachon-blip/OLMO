@@ -1,7 +1,7 @@
 # Briefing de Pesquisa — ACCORD e Valgimigli
 
 > Documento de referência para vocabulário e repertório do professor.
-> Parágrafos narrativos — não é evidência primária (ver evidence-db.md).
+> Paragrafos narrativos — nao e evidencia primaria (ver evidence/s-checkpoint-1.html e evidence/s-ancora.html).
 > Gerado: 2026-03-21 via Scite, Perplexity e Consensus MCPs.
 > Notebooks NotebookLM sugeridos no final.
 

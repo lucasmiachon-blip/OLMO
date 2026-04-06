@@ -61,13 +61,13 @@ Coautoria: Lucas + Opus 4.6
 
 - **VERIFIED**: PubMed web confirmed (author + title + journal match). Equivalent to WEB-VERIFIED per protocol (PubMed MCP unavailable).
 - **CANDIDATE**: Not yet verified — LLM-generated PMID, awaiting verification.
-- **IN-EVIDENCE-DB**: Already in `references/evidence-db.md` with checkmark.
+- **IN-EVIDENCE-DB**: Already in living HTML (`evidence/s-{id}.html`).
 
 ---
 
 ### s-hook — Why meta-analysis matters
 
-Already extensively covered in evidence-db.md (§Hook). Key sources:
+Already extensively covered in evidence/s-hook.html. Key sources:
 
 | # | Citation | PMID | Status | Key finding |
 |---|----------|------|--------|-------------|
@@ -97,7 +97,7 @@ Already extensively covered in evidence-db.md (§Hook). Key sources:
 
 ### s-checkpoint-1 — ACCORD trap
 
-Already extensively covered in evidence-db.md (§Checkpoint 1). Key sources:
+Already extensively covered in evidence/s-checkpoint-1.html. Key sources:
 
 | # | Citation | PMID | Status | Key finding |
 |---|----------|------|--------|-------------|

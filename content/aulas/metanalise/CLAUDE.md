@@ -29,7 +29,7 @@ Parent: `content/aulas/` (ver CLAUDE.md raiz do monorepo).
 ## Hierarquia de referência
 
 ```
-narrative.md → evidence-db.md → blueprint.md → slides/
+narrative.md → evidence/*.html (living HTML) → blueprint.md → slides/
 reading-list.md (paralelo, informa pre-reading)
 archetypes.md (6 layout patterns)
 ```

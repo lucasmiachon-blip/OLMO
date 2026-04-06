@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 89 | 2026-04-06
+> Sessao 90 | 2026-04-06
 > Cross-ref: `BACKLOG.md` | `docs/research/implementation-plan-S82.md`
 
 ## ESTADO ATUAL
@@ -9,6 +9,7 @@ Monorepo funcional. CI verde (53 testes). Lint clean. Build OK (18 slides metana
 **Agentes: 8** (todos com model routing). **Hooks: 19**. **Rules: 10**. MCPs: 11 connected.
 **OTel + Langfuse V3: VALIDADO.** 7 containers healthy, env vars loaded, Langfuse 200 OK em :3100.
 **Antifragile: L1 DONE, L2 MELHORADO, L3 DONE, L5 DONE, L7 DONE.** L4 implementado, L6 zero.
+**Cleanup S90:** 5 research MDs deletados (~3.500 linhas), evidence-db.md redistribuido para 3 living HTML.
 
 ## PROXIMOS PASSOS
 
@@ -36,7 +37,7 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 ## DECISOES ATIVAS
 
 - **Values: Antifragile + Curiosidade** — decision gates, nao decoracao.
-- **Living HTML per slide = source of truth.** evidence-db.md deprecated.
+- **Living HTML per slide = source of truth.** evidence-db.md deletado S90, dados em living HTML.
 - **CLAUDE.md cascata:** root (85 linhas) → content/aulas/ → metanalise/.
 - **Cross-ref: dual gate** — stop hook (advisory) + pre-commit (blocking).
 - **Self-healing loop:** stop-detect → pending-fixes → session-start surfacea.

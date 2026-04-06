@@ -103,7 +103,7 @@ QA 1 slide por vez. Pipeline por slide:
 
 | Fonte | Conteudo |
 |-------|----------|
-| `references/evidence-db.md` | Canonica. Todos dados clinicos verificados, PMIDs |
+| `evidence/s-{id}.html` | Living HTML per slide. Dados clinicos verificados, PMIDs |
 | `references/narrative.md` | Arco narrativo, beats de tensao |
 | `references/blueprint.md` | Mapa slide-a-slide com evidencias |
 | `references/research-accord-valgimigli.md` | Briefing ACCORD + Valgimigli |
