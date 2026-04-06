@@ -1,7 +1,8 @@
 {
   "mcpServers": {
 
-    "_comment_connected": "=== CONECTADOS (verificado 2026-03-29) ===",
+    "_comment_connected": "=== CONECTADOS (verificado 2026-04-06) ===",
+    "_comment_version_policy": "SEC-004: npm/uvx packages pinned to specific versions. HTTP endpoints are externally hosted. Review pinned versions quarterly (next: S95, Jul 2026).",
 
     "notion": {
       "type": "http",
@@ -79,7 +80,9 @@
     "perplexity": {
       "command": "npx",
       "args": ["-y", "@perplexity-ai/mcp-server"],
-      "status": "connected",
+      "status": "removed",
+      "removed_date": "2026-04-06",
+      "migration_note": "Migrado para Perplexity API direta. MCP server descontinuado.",
       "description": "Perplexity: busca web com citacoes, deep research, raciocinio com fontes.",
       "priority": "critical",
       "cost": "$0 (via PERPLEXITY_API_KEY)",
@@ -104,7 +107,7 @@
 
     "notebooklm": {
       "command": "npx",
-      "args": ["-y", "notebooklm-mcp@latest"],
+      "args": ["-y", "notebooklm-mcp@1.2.1"],
       "status": "connected",
       "description": "NotebookLM: query notebooks, library management, research grounded em docs. Community (PleasePrompto).",
       "priority": "high",
@@ -114,7 +117,7 @@
 
     "zotero": {
       "command": "uvx",
-      "args": ["zotero-mcp"],
+      "args": ["zotero-mcp==0.1.6"],
       "status": "connected",
       "description": "Zotero local: busca, metadata e fulltext da biblioteca. Referencias para papers e MBE.",
       "priority": "high",

@@ -6,7 +6,7 @@
 ## Semana 1 (07-11 Abr)
 
 ### Security
-- [ ] SEC-004: Pinnar versoes MCP servers em config/mcp/servers.json (npx sem versao = supply chain risk)
+- [x] SEC-004: Pinnar versoes MCP servers em config/mcp/servers.json (S87 — notebooklm@1.2.1, zotero==0.1.6, perplexity→removed)
 
 ### Agent Hardening
 - [x] quality-gate: JS/CSS lint scripts adicionados, agente descongelado (S85)
