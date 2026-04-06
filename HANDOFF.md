@@ -1,6 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 77b | proximo
+> Sessao 78 | BUILD_SLIDES | 2026-04-05
+> Cross-ref: `content/aulas/metanalise/HANDOFF.md` (estado dos slides, ordem do deck, pipeline QA por slide)
 
 ## ESTADO ATUAL
 
@@ -9,95 +10,100 @@ QA pipeline: qa-engineer (35 checks) → gemini-qa3.mjs Gate -1/0/4.
 Research pipeline: 6 pernas (Perplexity auditor S72). content-research.mjs aula-aware (fix S74).
 Security: guard-secrets fail-closed, pre-commit hook, 4 EASY fixes aplicados.
 
-## P0 — SLIDE s-objetivos (QA EM ANDAMENTO)
+## MUDANCAS S78
 
-### Estado atual
-- 6 objetivos, grid 3×2. Reescrito Lucas (S76) + expandido S77
-- h2: "Objetivos educacionais" alinhado flex-start
-- Source-tag: Higgins 2024 (Cochrane Handbook) · Shea 2017 (AMSTAR-2) · Murad 2014
-- Acentos corrigidos (S77). CSS: obj-detail 18px, obj-num opacity 0.5
-- Gate -1 PASS. C1 word count = excecao esperada para slide de objetivos
-- lint-narrative-sync fix: s-hook posicao 2 aceita (hookIdx > 2)
-- customAnim: null (stagger nao wired)
+- s-contrato movido de F1 → F2 (antes de s-pico). Build+Lint PASS.
+- s-objetivos QA: 35 checks PASS (2 WARN nao-blocker: vertical_rhythm, proximity_ratio)
+- Codex adversarial review dos objetivos recebido (2 arquivos .claude/)
+- Research gaps report gerado (evidence/research-gaps-report.md) — 3 correcoes PMID
 
-### Proximo passo
-- [ ] Gate 0 (gemini-qa3.mjs --inspect)
-- [ ] Gate 4 (gemini-qa3.mjs --editorial, 3 calls)
-- [ ] Verificar PMIDs CANDIDATE via PubMed MCP (evidence HTML)
-- [ ] Animacoes stagger (wiring slide-registry.js) — apos QA visual
-- [ ] narrative.md: 6 objetivos nao mapeiam 1:1 com slide (Lucas decidir)
+## P0 — QA SLIDE-A-SLIDE (1 por vez, Lucas decide qual)
+
+### s-objetivos
+- 35 checks: 33 PASS, 2 WARN. Screenshot OK.
+- Pendente: Gate 0 (gemini-qa3.mjs --inspect) + Gate 4 (--editorial)
+- customAnim: null (stagger pendente apos QA)
+
+### s-checkpoint-1
+- Screenshots coletados (S0+S2, metrics.json)
+- 35 checks: NAO concluido (agente parado)
+- Fixes identificados: axis labels 10px→14px, trial names 16px→18px, tabular-nums
+
+### Fila (14 slides LINT-PASS)
+Lucas decide proximo slide. NUNCA avancar sem permissao.
+
+## WORKFLOW DE AGENTES (S78 — regra nova)
+
+**Max 2 agentes simultaneos (excepcionalmente 3). Lucas dita slide/tema.**
+
+| Papel | Script | Regra |
+|-------|--------|-------|
+| QA | qa-batch-screenshot.mjs + qa-engineer + gemini-qa3.mjs | 1 slide, Lucas escolhe |
+| Research | content-research.mjs | 1 tema, Lucas escolhe |
+| Build | npm run build:metanalise | Apos edits |
+
+- NUNCA batch QA. NUNCA avancar sem permissao.
+- NUNCA criar scripts proprios. Usar os existentes.
+- Sem worktrees, sem branches. Tudo no main.
 
 ## P0 — PROXIMOS SLIDES (14 sem living HTML)
 
 ### Workflow por slide
-1. Evidence HTML (research pipeline 6 pernas) → living HTML
+1. Evidence HTML (research pipeline) → living HTML
 2. Lucas decide h2 + layout
 3. Build slide (HTML + CSS + anim)
-4. Propagar _manifest.js + index.html + lint + build
+4. Propagar _manifest.js + lint + build
 5. QA (screenshots + Opus visual + Gemini gates)
 
-### Pendente apos s-objetivos
-- [ ] Slide novo: por que meta-analise (motivacao/relevancia) — previsto S74, nao iniciado
-- 14 slides sem living HTML. Deadline 2026-04-15
-
-## P1 — QA PIPELINE
-
-- [ ] Prompts QA → shared/aula-agnostico (hoje duplicados cirrose + metanalise)
-- [ ] Structured frame_inventory (substituir string array por {ts, state, delta})
-- [ ] Evidence-bearing schema (bbox/state/timestamp) — 3 prompts rewrite
-
-## P2 — AULAS (metanalise)
-
-| Estado | Count | Slides |
-|--------|-------|--------|
-| DONE | 3 | s-title, s-hook, s-contrato |
-| QA em andamento | 1 | s-objetivos |
-| LINT-PASS | 14 | s-pico + todos F2 + I2 + F3 |
-| QA pending | 1 | s-checkpoint-1 |
+### Ordem atual do deck
+```
+F1: s-title → s-objetivos → s-hook
+I1: s-checkpoint-1
+F2: s-rs-vs-ma → s-contrato → s-pico → s-abstract → s-forest-plot → s-benefit-harm → s-grade → s-heterogeneity → s-fixed-random
+I2: s-checkpoint-2
+F3: s-ancora → s-aplicacao → s-aplicabilidade → s-absoluto → s-takehome
+```
 
 ## DECISOES ATIVAS
 
 - Living HTML per slide = source of truth. Evidence-first workflow.
-- deck.js le DOM, nao manifest em runtime. Slides novos precisam injecao no index.html.
-- Source-tag: formato Autor Ano. Recurso entre parenteses se relevante. Lucas avisa excecoes.
+- deck.js le DOM, nao manifest em runtime. index.html gerado pelo build.
+- Source-tag: formato Autor Ano. Recurso entre parenteses se relevante.
 - Gemini: API key via scripts. MCP descartado S71. Temp 1.0 para editorial.
-- content-research.mjs: aula-aware via AULA_PROFILES (fix S74). Sem contaminacao.
-- Perplexity: Sonar deep-research como Perna 6. ~$0.80-1.00/call. Prompts ABERTOS.
-- NLM: `--nlm` flag no content-research.mjs. 3 queries progressivas. Auth expira ~20min.
-- Memory governance: cap 20 files (14 atual), next review S78.
-- Agentes de pesquisa: perguntas ABERTAS, nao pre-mastigar respostas (feedback S74).
+- content-research.mjs: aula-aware via AULA_PROFILES (fix S74).
+- Memory governance: cap 20 files (14 atual), next review S79.
+- Agentes: max 2, Lucas dita, scripts existentes, 1 slide por vez (S78).
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
-- **index.html e gerado** — slide novo precisa injecao manual (ou rodar build-html.ps1).
-- **Editar slide = AMBOS arquivos** — slides/{file}.html + index.html (rule em slide-rules.md §2).
-- **CSS per-slide: `section#s-{id}`** — nao `#s-{id}` (specificity 0,1,1,1 para empatar com base).
-- NLM CLI no Windows: sempre `PYTHONIOENCODING=utf-8`. Auth expira ~20min.
+- **index.html e gerado** — rodar build-html.ps1 apos editar _manifest.js.
+- **Editar slide = AMBOS arquivos** — slides/{file}.html + index.html.
+- **CSS per-slide: `section#s-{id}`** — specificity 0,1,1,1.
 - PubMed MCP: dropa sessao frequentemente.
-- Perplexity PMIDs: ~25% erro. SEMPRE verificar via PubMed MCP antes de usar.
-- Gemini API PMIDs: verificacao obrigatoria. PMID 29713210 hallucinated (S74).
+- PMIDs de LLM: ~56% erro. SEMPRE verificar.
 
 ## SECURITY (S72)
 
 ### Pendentes (MODERATE)
-- [ ] SEC-002: NLM shell injection (execSync com slide content interpolado)
-- [ ] SEC-003: Gemini API key no URL → mover para header x-goog-api-key
-- [ ] SEC-004: MCP servers unpinned (npx -y sem versao)
-- [ ] SEC-005: CHATGPT_MCP_URL sem validacao de hostname
+- [ ] SEC-002: NLM shell injection
+- [ ] SEC-003: Gemini API key no URL → header
+- [ ] SEC-004: MCP servers unpinned
+- [ ] SEC-005: CHATGPT_MCP_URL sem validacao
 
-## P3 — SELF-IMPROVEMENT
+## P1 — NOVOS AGENTES (proposta S78, proxima sessao)
 
-- [ ] Buscar/criar skill de self-healing
-- [ ] Quality gates progressivos
+- [ ] **codex-adversarial**: formata prompts adversariais → envia ao Codex CLI → recebe output → apresenta com reflexao critica. Segundo par de olhos automatizado.
+- [ ] **session-orchestrator**: para, audita estado (git status, agentes rodando, HANDOFF, scripts orfaos), organiza antes de continuar. Garante higiene.
+- [ ] Consolidar mcp-query-runner no orchestrador de pesquisa
 
 ## PENDENTE (herdado)
 
-- [ ] gemini-qa3.mjs: grade aula crash (missing docs/prompts/) — baixa prioridade
-- [ ] Obsidian CLI (backlog, plano em docs/.archive/)
+- [ ] gemini-qa3.mjs: grade aula crash (missing docs/prompts/)
+- [ ] Obsidian CLI (backlog)
 - [ ] Google Drive MCP: OAuth credentials
-- [ ] Presenter.js rewrite (HTML separado, timer fix)
-- [ ] Anki MCP setup (AnkiConnect add-on 2055492159)
+- [ ] Presenter.js rewrite
+- [ ] Anki MCP setup
 
 ## CONFLITOS
 
