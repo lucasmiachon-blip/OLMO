@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 /**
+ * @deprecated Use qa-batch-screenshot.mjs --video instead.
+ * This script records .mp4 but references scripts/gemini.mjs which no longer exists.
+ * The active video pipeline uses .webm via qa-batch-screenshot.mjs.
+ *
  * QA Video — Grava .mp4 de cada slide com animações reais
  *
  * Playwright recordVideo captura o browser real:

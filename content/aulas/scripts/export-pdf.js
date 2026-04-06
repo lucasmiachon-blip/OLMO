@@ -76,7 +76,7 @@ async function run() {
         const out = resolve(EXPORTS, `${lecture}-${suffix}.pdf`);
         console.log(`\n📄 ${lecture} ${suffix}...`);
         try {
-          execFileSync(decktapeBin, ['reveal', '--size', size, url, out], {
+          execFileSync(decktapeBin, ['generic', '--size', size, url, out], {
             stdio: 'inherit',
           });
           console.log(`  ✓ ${out}`);

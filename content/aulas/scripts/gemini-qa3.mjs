@@ -348,6 +348,10 @@ async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 }
 // --- Gate 0 constants ---
 // Prompts live in {aula}/docs/prompts/ (per-aula, domain-adapted)
 const PROMPTS_DIR = join(AULA_DIR, 'docs', 'prompts');
+if (!existsSync(PROMPTS_DIR)) {
+  console.error(`ERROR: Prompts directory not found: ${PROMPTS_DIR}\nCopy from another aula: cp -r content/aulas/metanalise/docs/prompts/ ${PROMPTS_DIR}`);
+  process.exit(1);
+}
 const GATE0_PROMPT_PATH = join(PROMPTS_DIR, 'gemini-gate0-inspector.md');
 const CALL_A_PROMPT_PATH = join(PROMPTS_DIR, 'gate4-call-a-visual.md');
 const CALL_B_PROMPT_PATH = join(PROMPTS_DIR, 'gate4-call-b-uxcode.md');
