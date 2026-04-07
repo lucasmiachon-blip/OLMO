@@ -20,7 +20,7 @@ STEP 1  npm run build:{aula}
    ↓
 STEP 2  node scripts/qa-capture.mjs --aula {aula} --slide {id}
    ↓
-STEP 3  Ler criterios: design-reference.md §1-§2, slide-rules.md, archetypes.md
+STEP 3  Ler criterios: design-reference.md §1-§2, slide-rules.md
    ↓
 STEP 4  Ler screenshot + codigo do slide
    ↓
@@ -41,6 +41,7 @@ STEP 11 Salvar sugestoes em qa-screenshots/{id}/editorial-suggestions.md
 
 Criterios Preflight: `.claude/agents/qa-engineer.md` §Preflight (tabela 4 dims + fontes).
 Prompts Gemini: `gemini-qa3.mjs` (unico script QA). Check nao listado = nao existe.
+Layout e composicao: livre por slide. Sem archetypes como criterio — criacao tem mais arte.
 Estados de slide: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
 
 ## 2. Cor Semantica no QA (E067)

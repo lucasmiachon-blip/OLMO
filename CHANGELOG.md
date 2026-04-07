@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 103 — 2026-04-07 (SLIDES_QA)
+
+### QA: s-objetivos
+- Preflight v2: 2 PASS, 2 FAIL (hierarquia plana, aspecto apostila)
+- CSS: números 36px sem opacity, accent card 25% mix, border-left 70%, gap aberto, detail 18px/0.7
+- Grid: `auto-flow: column` — leitura L→R (1-3 esquerda, 4-6 direita), punchline bottom-right
+- Click-reveal: 3 grupos (1-3 conceitos, 4-5 metodologia, 6 punchline) via slide-registry.js
+- Manifest: clickReveals 0→3
+
+### Infra
+- Archetypes removidos do QA pipeline — composição visual livre, criação tem mais arte
+- Arquivo `archetypes.md` movido para `_archived/` (referência histórica)
+- Refs removidas: qa-pipeline.md, qa-engineer.md, CLAUDE.md (aulas + metanalise)
+
 ## Sessao 102 — 2026-04-07 (ULTIMA_INFRA — Batch Closure)
 
 ### Fixes

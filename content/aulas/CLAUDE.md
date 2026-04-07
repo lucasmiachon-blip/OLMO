@@ -53,7 +53,7 @@ Cada aula segue a mesma estrutura:
   slide-registry.js      ← animacoes custom por slide
   {aula}.css             ← CSS scopado (section#s-{id})
   evidence/              ← HTML de evidencia por slide
-  references/            ← narrative.md, archetypes.md
+  references/            ← narrative.md
   scripts/build-html.ps1 ← gera index.html
   CLAUDE.md              ← regras especificas (opcional)
   CHANGELOG.md           ← historico da aula

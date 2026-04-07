@@ -1,27 +1,29 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 102 | 2026-04-07
-> Cross-ref: `.claude/plans/resilient-purring-puffin.md`
+> Sessao 103 | 2026-04-07
+> Cross-ref: `.claude/plans/piped-strolling-giraffe.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 **Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. MCPs: 11.
 **INFRA COMPLETA.** Batches 6+7 CLOSED. Momentum brake, cost brake, self-healing loop, APL — tudo funcional.
-**Antifragile: L1-L5 DONE, L6 BASIC (4 vetores, syntax-verified), L7 DONE.**
-**Momentum-brake:** Arm .*, enforce exempt Read/Grep/Glob/Bash/ToolSearch + meta tools.
-**Cost brake:** session-scope (S102). Warn@100, arm@400.
+**Momentum-brake:** INVESTIGAR — hook enforce nao promptou Edit sem aprovacao (Lucas reportou).
 **Memory: 20/20 (AT CAP).**
+**s-objetivos:** Preflight PASS, CSS+grid+click-reveal implementados. Aguardando Editorial (gate 4).
+**Archetypes removidos do QA** — composicao visual livre.
 
 ## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | Editorial Pro s-objetivos COM video | QA slide pendente desde S98 | Facil |
-| 2 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
-| 3 | Chaos production test (B7-09) | Validar L2/L3/L6 chain com CHAOS_MODE=1 | Facil |
-| 4 | ~~Docker stack test~~ | ~~Validar Redis auth, OTel pin~~ | FROZEN |
-| 5 | ~~notion-ops write tools + gates~~ | ~~Agent hardening~~ | FROZEN |
+| 1 | Editorial gate 4 s-objetivos | QA slide — rodar gemini-qa3 editorial | Em andamento |
+| 2 | Investigar momentum-brake enforce | Hook nao disparou para Edit (S103) | Facil |
+| 3 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA | Normal |
+| 4 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
+| 5 | Chaos production test (B7-09) | Validar L2/L3/L6 chain com CHAOS_MODE=1 | Facil |
+| 6 | ~~Docker stack test~~ | ~~Validar Redis auth, OTel pin~~ | FROZEN |
+| 7 | ~~notion-ops write tools + gates~~ | ~~Agent hardening~~ | FROZEN |
 
 ## AGENTES
 
@@ -38,8 +40,8 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 
 ## DECISOES ATIVAS
 
-- **QA pipeline S97:** Path linear 11 steps. Preflight 4 dims + loop Lucas antes de Gemini.
-- **Momentum-brake S102:** 3 hooks (arm/enforce/clear). Arm `.*`. Enforce exempt: Read/Grep/Glob/Bash/ToolSearch/Ask/Plan. Write/Edit NAO isentos (double-ask, B5-05).
+- **QA pipeline S103:** Path linear 11 steps. Preflight 4 dims + loop Lucas antes de Gemini. Archetypes removidos dos criterios.
+- **Momentum-brake S102:** 3 hooks (arm/enforce/clear). Arm `.*`. Enforce exempt: Read/Grep/Glob/Bash/ToolSearch/Ask/Plan. Write/Edit NAO isentos (double-ask, B5-05). **BUG S103:** enforce nao promptou — investigar.
 - **Cost brake S102:** Session-scope (session-start gera ID). Warn@100, arm@400, enforce via momentum.
 - **APL reformado S100:** SessionStart mostra QA coverage + deadline. Guard-qa-coverage.sh gate /new-slide quando <50%.
 - **Values: Antifragile + Curiosidade** — decision gates.

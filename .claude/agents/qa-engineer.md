@@ -47,7 +47,6 @@ Gate $0 antes do Gemini. Duas fases: checks automaticos + QA visual do orchestra
 **PRE-GATE — ler criterios ANTES de avaliar (KBP-04). Fontes:**
 - Cor e tipografia: `.claude/rules/design-reference.md` §1-§2
 - Estrutura e CSS: `.claude/rules/slide-rules.md`
-- Archetype do slide: `{aula}/references/archetypes.md`
 
 **Dims (avaliar todas, com evidencia do screenshot/codigo):**
 
@@ -56,7 +55,7 @@ Gate $0 antes do Gemini. Duas fases: checks automaticos + QA visual do orchestra
 | Cor | Tokens sem literais fora :root. Semantica clinica correta. Contraste adequado para projecao | design-reference.md §1 |
 | Tipografia | Font >= 18px corpo. Sem vw/vh. Peso visual legivel a 6m. Tabular-nums em dados | design-reference.md §2 |
 | Hierarquia de atencao | h2 presente (exceto title/hook/recap). Punchline > suporte. Fluxo visual conduz o olhar | slide-rules.md §1, §1b |
-| Design | Layout coerente com archetype. Espacamento, proporcao, uso do viewport 1280x720 | archetypes.md, slide-rules.md §1b |
+| Design | Composicao visual livre. Espacamento, proporcao, uso do viewport 1280x720 | slide-rules.md §1b |
 
 **Formato de output:** tabela `| Dim | PASS/FAIL | Evidencia |`. Report → STOP.
 

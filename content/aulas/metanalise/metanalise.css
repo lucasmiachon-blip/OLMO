@@ -728,47 +728,50 @@ aside.notes { display: none; }
 
 /* --- Objetivos: 3×2 grid (6 items) --- */
 section#s-objetivos .slide-inner {
-  justify-content: flex-start;
+  justify-content: center;
 }
 section#s-objetivos .objetivos-wrapper {
   width: 100%;
-  max-width: 1000px;
-  margin: var(--space-md) auto 0;
-  flex: 1;
+  max-width: 1060px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
 }
 section#s-objetivos .objetivos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg) var(--space-xl);
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  gap: var(--space-xl) var(--space-2xl);
   width: 100%;
 }
+section#s-objetivos .obj-item--accent {
+  background: color-mix(in oklch, var(--ui-accent) 25%, transparent);
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid var(--ui-accent);
+}
 section#s-objetivos .obj-item--accent .obj-body {
-  border-left-color: var(--ui-accent);
-  background: color-mix(in oklch, var(--ui-accent) 8%, transparent);
-  margin: -8px;
-  padding: 8px 8px 8px 16px;
-  border-radius: 6px;
+  border-left: none;
+  padding-left: 0;
 }
 section#s-objetivos .obj-item {
   display: grid;
-  grid-template-columns: 44px 1fr;
+  grid-template-columns: 48px 1fr;
   gap: 16px;
   align-items: baseline;
 }
 section#s-objetivos .obj-num {
   font-family: var(--font-mono);
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 700;
   color: var(--ui-accent);
-  opacity: 0.85;
   line-height: 1;
   text-align: right;
   padding-top: 2px;
 }
 section#s-objetivos .obj-body {
-  border-left: 3px solid color-mix(in oklch, var(--ui-accent) 50%, var(--bg-surface));
+  border-left: 3px solid color-mix(in oklch, var(--ui-accent) 70%, var(--bg-surface));
   padding-left: 16px;
 }
 #deck section#s-objetivos .obj-skill {
@@ -781,19 +784,25 @@ section#s-objetivos .obj-body {
 }
 #deck section#s-objetivos .obj-detail {
   font-family: var(--font-body);
-  font-size: 20px;
+  font-size: 18px;
   color: var(--text-secondary);
-  margin-top: 2px;
+  margin-top: 4px;
   line-height: 1.35;
+  opacity: 0.7;
   max-width: none;
 }
-/* Stagger reveal: children hidden, deck.js staggers them in */
-section#s-objetivos [data-animate="stagger"] > .obj-item {
+/* Click-reveal: items hidden until revealed by deck.js */
+section#s-objetivos .obj-item[data-reveal] {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(16px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
-.no-js section#s-objetivos [data-animate="stagger"] > .obj-item,
-[data-qa] section#s-objetivos [data-animate="stagger"] > .obj-item {
+section#s-objetivos .obj-item[data-reveal].revealed {
+  opacity: 1;
+  transform: none;
+}
+.no-js section#s-objetivos .obj-item[data-reveal],
+[data-qa] section#s-objetivos .obj-item[data-reveal] {
   opacity: 1 !important;
   transform: none !important;
 }
@@ -802,6 +811,7 @@ section#s-objetivos [data-animate="stagger"] > .obj-item {
   width: 100%;
   text-align: center;
   margin-top: auto;
+  padding-top: var(--space-md);
 }
 
 /* --- Checkpoint: initial hidden state (controlled by state machine) --- */

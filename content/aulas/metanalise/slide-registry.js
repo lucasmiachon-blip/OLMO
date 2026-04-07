@@ -260,4 +260,38 @@ export const slideRegistry = {
     slide.__hookRetreat = retreat;
     slide.__hookCurrentBeat = () => state;
   },
+
+  's-objetivos': (slide, gsap) => {
+    // Click-reveal: 3 groups (1-3 conceitos, 4-5 metodologia, 6 punchline)
+    const groups = [1, 2, 3];
+    let revealed = 0;
+
+    // Initial state: all reveal items hidden (CSS handles opacity:0 + translateY)
+    const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
+
+    const advance = () => {
+      if (revealed >= groups.length) return false;
+      revealed++;
+      const items = getGroup(revealed);
+      gsap.fromTo(items,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, ease: 'power2.out' }
+      );
+      items.forEach(el => el.classList.add('revealed'));
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      const items = getGroup(revealed);
+      gsap.to(items, { opacity: 0, y: 16, duration: 0.3, ease: 'power2.in' });
+      items.forEach(el => el.classList.remove('revealed'));
+      revealed--;
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
 };

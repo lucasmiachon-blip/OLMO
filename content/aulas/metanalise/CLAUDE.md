@@ -31,7 +31,7 @@ Parent: `content/aulas/` (ver CLAUDE.md raiz do monorepo).
 ```
 narrative.md → evidence/*.html (living HTML) → blueprint.md → slides/
 reading-list.md (paralelo, informa pre-reading)
-archetypes.md (6 layout patterns)
+_archived/archetypes.md (referencia historica, nao criterio QA)
 ```
 
 ## Arquivos de trabalho
