@@ -91,7 +91,7 @@ Se o resultado visual (PNG) mostra problema de LAYOUT (elementos acumulados num 
   "media_uxcode": N,
   "dead_css": ["seletor1", "seletor2"],
   "specificity_conflicts": ["descricao1"],
-  "proposals": [
+  "proposals": [ max 5, ordenadas por impacto (MUST primeiro, depois SHOULD, depois COULD)
     { "severity": "MUST|SHOULD|COULD", "titulo": "max 15 palavras, acao concreta (ex: 'Corrigir margem accent card')", "fix": "snippet de codigo COMPLETO E CONCISO — max 20 linhas", "arquivo": "slide.html|metanalise.css|slide-registry.js", "tipo": "html|css|js" }
   ]
 }

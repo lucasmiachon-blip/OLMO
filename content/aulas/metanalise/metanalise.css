@@ -732,7 +732,7 @@ section#s-objetivos .slide-inner {
 }
 section#s-objetivos .objetivos-wrapper {
   width: 100%;
-  max-width: 1060px;
+  max-width: 1120px;
   margin: auto auto;
   display: flex;
   align-items: center;
@@ -747,7 +747,7 @@ section#s-objetivos .objetivos-grid {
 section#s-objetivos .obj-item--accent {
   background: color-mix(in oklch, var(--ui-accent) 25%, transparent);
   padding: 12px var(--space-sm);
-  margin: -12px calc(-1 * var(--space-sm)) -12px -20px;
+  margin: -12px calc(var(--space-sm) * -1);
   border-radius: 8px;
   border-left: 4px solid var(--ui-accent);
 }
@@ -801,7 +801,8 @@ section#s-objetivos .obj-item[data-reveal].revealed {
   transform: none;
 }
 .no-js section#s-objetivos .obj-item[data-reveal],
-[data-qa] section#s-objetivos .obj-item[data-reveal] {
+[data-qa] section#s-objetivos .obj-item[data-reveal],
+.print-pdf section#s-objetivos .obj-item[data-reveal] {
   opacity: 1 !important;
   transform: none !important;
 }

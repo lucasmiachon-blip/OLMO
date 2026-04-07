@@ -409,6 +409,7 @@ const SCHEMAS_GATE4 = {
             severity: { type: "STRING" }, titulo: { type: "STRING" },
             fix: { type: "STRING" }, arquivo: { type: "STRING" }, tipo: { type: "STRING" },
           },
+          required: ["severity", "titulo", "fix", "arquivo", "tipo"],
         },
       },
     },
@@ -969,7 +970,7 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
   if (SCHEMAS_GATE4[callType]) config.responseSchema = SCHEMAS_GATE4[callType];
   // Gemini 3.x: enable thinking for deeper editorial analysis
   if (MODEL.includes('3.1') || MODEL.includes('3-')) {
-    config.thinkingConfig = { thinkingLevel: 'HIGH' };
+    config.thinkingConfig = { thinkingBudget: 4096 };
   }
 
   return { contents: [{ parts }], generationConfig: config };
@@ -1055,7 +1056,7 @@ async function runEditorial(slideId, round, qaDir) {
     slideId, meta, mediaUris, null, null, null, null, null, null,
     { video: false, s0: true, s2: true, ref: true }, 8192);
 
-  // Call B — UI/UX + Code: PNGs + raw code, NO video (needs more tokens: 5 dims + proposals)
+  // Call B — UI/UX + Code: PNGs + raw code, NO video (5 dims + max 5 proposals; needs 16k for thinking headroom)
   const payloadB = buildSplitCallPayload('uxcode', CALL_B_PROMPT_PATH,
     slideId, meta, mediaUris, rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest,
     { video: false, s0: true, s2: true, ref: true }, 16384);
@@ -1071,13 +1072,19 @@ async function runEditorial(slideId, round, qaDir) {
   const callLabels = ['A-visual', 'B-uxcode', 'C-motion'];
   console.log(`\n3. Sending 3 calls in parallel (${MODEL})...`);
 
-  const [resA, resB, resC] = await Promise.all([
-    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadA) }),
-    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadB) }),
-    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadC) }),
+  const settled = await Promise.allSettled([
+    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadA) })
+      .then(r => r.json()),
+    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadB) })
+      .then(r => r.json()),
+    fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payloadC) })
+      .then(r => r.json()),
   ]);
-
-  const results = await Promise.all([resA.json(), resB.json(), resC.json()]);
+  const results = settled.map((s, i) => {
+    if (s.status === 'fulfilled') return s.value;
+    console.error(`  ✗ Call ${callLabels[i]} network/fetch FAILED: ${s.reason?.message}`);
+    return { _failed: true, _reason: s.reason?.message };
+  });
 
   // Step 4: Parse responses and calculate costs
   let totalTokensIn = 0, totalTokensOut = 0, totalCost = 0;
@@ -1087,6 +1094,14 @@ async function runEditorial(slideId, round, qaDir) {
   for (let i = 0; i < 3; i++) {
     const result = results[i];
     const label = callLabels[i];
+
+    // P2: handle network-level failures from allSettled
+    if (result._failed) {
+      parsedCalls.push({ label, parsed: null, tokIn: 0, tokOut: 0, cost: 0, status: 'missing', finishReason: 'NETWORK_FAIL' });
+      console.log(`  ${label}: FAILED (${result._reason}) [missing]`);
+      continue;
+    }
+
     const usage = result.usageMetadata || {};
     const tokIn = usage.promptTokenCount || 0;
     const tokOut = usage.candidatesTokenCount || 0;
@@ -1110,8 +1125,10 @@ async function runEditorial(slideId, round, qaDir) {
       writeFileSync(join(qaDir, `gate4-${label}-r${round}-raw.txt`), rawText);
     }
 
-    parsedCalls.push({ label, parsed, tokIn, tokOut, cost });
-    console.log(`  ${label}: ${tokIn} in / ${tokOut} out | ~$${cost.toFixed(3)} | ${finishReason}`);
+    const status = parsed === null ? 'parse_failed'
+      : finishReason !== 'STOP' ? 'truncated' : 'ok';
+    parsedCalls.push({ label, parsed, tokIn, tokOut, cost, status, finishReason });
+    console.log(`  ${label}: ${tokIn} in / ${tokOut} out | ~$${cost.toFixed(3)} | ${finishReason} [${status}]`);
   }
 
   console.log(`  TOTAL: ${totalTokensIn} in / ${totalTokensOut} out | ~$${totalCost.toFixed(3)}`);
@@ -1209,9 +1226,9 @@ async function runEditorial(slideId, round, qaDir) {
 
   const dimValues = Object.values(allDims);
   const overallAvg = dimValues.length > 0 ? dimValues.reduce((a, v) => a + v, 0) / dimValues.length : 0;
-  const visualAvg = validateNota(safeNum(callA_result, 'media_visual')) ?? 0;
-  const uxcodeAvg = validateNota(safeNum(callB_result, 'media_uxcode')) ?? 0;
-  const motionAvg = validateNota(safeNum(callC_result, 'media_motion')) ?? 0;
+  const visualAvg = validateNota(safeNum(callA_result, 'media_visual'));   // null if unavailable
+  const uxcodeAvg = validateNota(safeNum(callB_result, 'media_uxcode'));   // null if unavailable
+  const motionAvg = validateNota(safeNum(callC_result, 'media_motion'));   // null if unavailable
 
   // Count MUSTs (any dim below threshold)
   const mustFixes = Object.entries(allDims).filter(([, v]) => v < MUST_FIX_THRESHOLD);
@@ -1259,7 +1276,8 @@ async function runEditorial(slideId, round, qaDir) {
   writeFileSync(scorecardPath, JSON.stringify(scorecard, null, 2));
   console.log(`  Scorecard -> ${scorecardPath}`);
   console.log(`  Dims: ${Object.entries(allDims).map(([k, v]) => `${k}=${v}`).join(', ')}`);
-  console.log(`  Visual: ${visualAvg}/10 | UX+Code: ${uxcodeAvg}/10 | Motion: ${motionAvg}/10`);
+  const fmtScore = v => v !== null ? `${v}/10` : 'N/A';
+  console.log(`  Visual: ${fmtScore(visualAvg)} | UX+Code: ${fmtScore(uxcodeAvg)} | Motion: ${fmtScore(motionAvg)}`);
   console.log(`  Overall: ${overallAvg.toFixed(1)}/10 | MUST: ${scorecard.must_count} | SHOULD: ${scorecard.should_count} | COULD: ${scorecard.could_count}`);
 
   // Save detailed report (3 sections)
@@ -1269,11 +1287,11 @@ async function runEditorial(slideId, round, qaDir) {
 
 Model: ${MODEL} | Temp: ${temp} | Date: ${new Date().toISOString().slice(0, 10)}
 Total: ${totalTokensIn} in / ${totalTokensOut} out | Cost: ~$${totalCost.toFixed(3)}
-Visual: ${visualAvg}/10 | UX+Code: ${uxcodeAvg}/10 | Motion: ${motionAvg}/10 | **Overall: ${overallAvg.toFixed(1)}/10**
+Visual: ${fmtScore(visualAvg)} | UX+Code: ${fmtScore(uxcodeAvg)} | Motion: ${fmtScore(motionAvg)} | **Overall: ${overallAvg.toFixed(1)}/10**
 
 ---
 
-## Call A — Visual Design (${parsedCalls[0].tokIn}/${parsedCalls[0].tokOut} tokens, ~$${parsedCalls[0].cost.toFixed(3)})
+## Call A — Visual Design (${parsedCalls[0].tokIn}/${parsedCalls[0].tokOut} tokens, ~$${parsedCalls[0].cost.toFixed(3)}) [${parsedCalls[0].status}]
 
 \`\`\`json
 ${JSON.stringify(callA_result, null, 2)}
@@ -1281,7 +1299,7 @@ ${JSON.stringify(callA_result, null, 2)}
 
 ---
 
-## Call B — UI/UX + Code (${parsedCalls[1].tokIn}/${parsedCalls[1].tokOut} tokens, ~$${parsedCalls[1].cost.toFixed(3)})
+## Call B — UI/UX + Code (${parsedCalls[1].tokIn}/${parsedCalls[1].tokOut} tokens, ~$${parsedCalls[1].cost.toFixed(3)}) [${parsedCalls[1].status}]
 
 \`\`\`json
 ${JSON.stringify(callB_result, null, 2)}
@@ -1289,7 +1307,7 @@ ${JSON.stringify(callB_result, null, 2)}
 
 ---
 
-## Call C — Motion Design (${parsedCalls[2].tokIn}/${parsedCalls[2].tokOut} tokens, ~$${parsedCalls[2].cost.toFixed(3)})
+## Call C — Motion Design (${parsedCalls[2].tokIn}/${parsedCalls[2].tokOut} tokens, ~$${parsedCalls[2].cost.toFixed(3)}) [${parsedCalls[2].status}]
 
 \`\`\`json
 ${JSON.stringify(callC_result, null, 2)}
@@ -1313,7 +1331,7 @@ ${JSON.stringify(callC_result, null, 2)}
 
   // Auto-append round summary
   console.log('\n6. Appending round summary...');
-  const score = `${overallAvg.toFixed(1)}/10 (V:${visualAvg} U:${uxcodeAvg} M:${motionAvg})`;
+  const score = `${overallAvg.toFixed(1)}/10 (V:${visualAvg ?? 'N/A'} U:${uxcodeAvg ?? 'N/A'} M:${motionAvg ?? 'N/A'})`;
   const proposalSummary = proposals.length > 0 ? proposals : ['(no proposals)'];
   appendRoundSummary(slideId, round, score, proposalSummary);
 

@@ -91,7 +91,7 @@ Se o resultado visual (PNG) mostra problema de LAYOUT (elementos acumulados num 
   "media_uxcode": N,
   "dead_css": ["seletor1", "seletor2"],
   "specificity_conflicts": ["descricao1"],
-  "proposals": [
+  "proposals": [ max 5, ordenadas por impacto (MUST primeiro, depois SHOULD, depois COULD)
     { "severity": "MUST|SHOULD|COULD", "titulo": "...", "fix": "snippet de codigo", "arquivo": "slide.html|cirrose.css|slide-registry.js", "tipo": "html|css|js" }
   ]
 }
