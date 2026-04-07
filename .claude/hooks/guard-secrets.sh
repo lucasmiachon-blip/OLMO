@@ -10,10 +10,10 @@ set -euo pipefail
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Só roda em comandos git commit/add
-CMD=$(node -e "
-const d=JSON.parse(process.argv[1] || '{}');
+CMD=$(echo "$INPUT" | node -e "
+const d=JSON.parse(require('fs').readFileSync(0,'utf8') || '{}');
 console.log((d.tool_input||{}).command||'');
-" "$INPUT" 2>/dev/null)
+" 2>/dev/null)
 
 if ! echo "$CMD" | grep -qE 'git\s+(commit|add)'; then
   exit 0

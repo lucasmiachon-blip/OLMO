@@ -4,6 +4,9 @@
 # for the next session to surface. Closes the self-healing loop.
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
+# Drain stdin (hook protocol — prevent parent process stall)
+cat >/dev/null 2>&1
+
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PENDING="$PROJECT_ROOT/.claude/pending-fixes.md"
 

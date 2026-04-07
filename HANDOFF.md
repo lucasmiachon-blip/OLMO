@@ -1,28 +1,30 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 100 | 2026-04-07
-> Cross-ref: `.claude/plans/s99-pendentes.md`
+> Sessao 101 | 2026-04-07
+> Cross-ref: `.claude/plans/generic-sauteeing-sunbeam.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 **Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. MCPs: 11.
 **OTel + Langfuse V3: TRACES FUNCIONANDO.** Docker stack hardened (untested).
-**Antifragile: L1-L5 DONE, L6 BASIC (4 vetores), L7 DONE.**
+**Antifragile: L1-L5 DONE, L6 BASIC (4 vetores, syntax-verified), L7 DONE.**
 **APL: REFORMADO S100.** QA coverage + deadline no SessionStart. Cost brake estrutural. QA gate /new-slide.
-**Momentum-brake: COMPLETO.** B5-02/04/05 fixados. Arm .*, enforce sem Write/Edit exempt.
-**Memory: 19/20** (dream S100: merged staged_blob→defensive).
+**Momentum-brake: COMPLETO.** Arm .*, enforce sem Write/Edit exempt. Stdin protocol compliant.
+**Batch 6+7 P1s: RESOLVIDOS S101.** B7-01 = false positive (enforce chain OK). B7-09 = syntax-only.
+**Memory: 19/20.**
 
 ## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | Triage batch 6 findings (9 P1) | 8 scripts sem stdin, guard-secrets argv | Normal |
-| 2 | Triage batch 7 findings (3 P1) | Cost breaker DONE, chaos untested, KBP-02/04 gaps | Normal |
+| 1 | Batch 6 P2 fixes (5 items) | set -euo, hardcoded paths, README docs | Facil |
+| 2 | Batch 7 P2 fixes (7 items) | KBP-02/04 hooks, cost session-scope, GNU compat | Normal |
 | 3 | Editorial Pro s-objetivos COM video | QA slide pendente desde S98 | Facil |
-| 4 | Docker stack test | Validar Redis auth, OTel pin | Facil |
+| 4 | ~~Docker stack test~~ | ~~Validar Redis auth, OTel pin~~ | FROZEN |
 | 5 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
-| 6 | notion-ops write tools + gates | Agent hardening | Facil |
+| 6 | ~~notion-ops write tools + gates~~ | ~~Agent hardening~~ | FROZEN |
+| 7 | Chaos production test (B7-09) | Validar L2/L3/L6 chain com CHAOS_MODE=1 | Normal |
 
 ## AGENTES
 

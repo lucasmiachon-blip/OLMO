@@ -5,6 +5,9 @@
 #   2. Imprime HANDOFF.md no stdout para context recovery pos-compaction
 # Evento: Stop | Timeout: 5s
 
+# Drain stdin (hook protocol — prevent parent process stall)
+cat >/dev/null 2>&1
+
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 HANDOFF="$PROJECT_ROOT/HANDOFF.md"
 CHANGELOG="$PROJECT_ROOT/CHANGELOG.md"

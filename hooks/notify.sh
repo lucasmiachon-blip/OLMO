@@ -3,6 +3,9 @@
 # Toast notification no Windows 11 quando Claude precisa de input.
 # Evento: Notification | Timeout: 10s | Exit: sempre 0 (nunca bloqueia)
 
+# Drain stdin (hook protocol — prevent parent process stall)
+cat >/dev/null 2>&1
+
 powershell.exe -NoProfile -Command "
   Add-Type -AssemblyName System.Windows.Forms
   \$n = New-Object System.Windows.Forms.NotifyIcon

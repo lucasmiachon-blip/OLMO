@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 101 — 2026-04-07 (INFRA — Batch 6+7 P1 Fixes)
+
+### Batch 6 P1 Fixes (stdin + argv)
+- FIX B6-07/08/09/10/11/12/13/14: stdin drain (`cat >/dev/null`) em 8 scripts que nao consumiam stdin
+- FIX B6-02: guard-secrets.sh refatorado de `process.argv[1]` para `readFileSync(0,'utf8')` (stdin)
+
+### Batch 7 P1 Fixes (guard + cost)
+- FIX B7-08: guard-product-files.sh regex expandido de `[^/]+\.sh$` para `.*\.sh$` (cobre subdiretorios)
+- DOC B7-01: cost-circuit-breaker enforcement chain documentada (era false positive — arm→enforce ja funcionava)
+- VERIFY B7-09: chaos scripts syntax-checked (produção teste deferred)
+
 ## Sessao 100 — 2026-04-07 (INFRA — Momentum-Brake Fixes + APL Reform + Audits)
 
 ### Momentum-Brake Fixes (B5-02/04/05 FECHADOS)

@@ -5,6 +5,9 @@
 #   - Whether defense hooks activated
 #   - Any gaps (injections without defense response)
 
+# Drain stdin (hook protocol — prevent parent process stall)
+cat >/dev/null 2>&1
+
 # Gate: skip if chaos was never enabled this session
 CHAOS_LOG="/tmp/cc-chaos-log.jsonl"
 [ ! -f "$CHAOS_LOG" ] && exit 0

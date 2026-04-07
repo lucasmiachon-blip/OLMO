@@ -41,8 +41,8 @@ fi
 INFRA_BLOCK_PATTERNS=(
   '(^|/)\.claude/settings\.local\.json$'
   '(^|/)\.claude/settings\.json$'
-  '(^|/)\.claude/hooks/[^/]+\.sh$'
-  '(^|/)hooks/[^/]+\.sh$'
+  '(^|/)\.claude/hooks/.*\.sh$'
+  '(^|/)hooks/.*\.sh$'
 )
 
 for pattern in "${INFRA_BLOCK_PATTERNS[@]}"; do

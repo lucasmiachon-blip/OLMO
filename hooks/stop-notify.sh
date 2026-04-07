@@ -3,6 +3,9 @@
 # Beep + toast quando Claude termina de responder.
 # Evento: Stop | Timeout: 10s | Exit: sempre 0 (nunca bloqueia)
 
+# Drain stdin (hook protocol — prevent parent process stall)
+cat >/dev/null 2>&1
+
 powershell.exe -NoProfile -Command "
   # [console]::Beep(1200, 150)
   Add-Type -AssemblyName System.Windows.Forms

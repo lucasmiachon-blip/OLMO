@@ -4,6 +4,9 @@
 # Deterministic, $0 cost. Prints warnings the model will see.
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
+# Drain stdin (hook protocol — prevent parent process stall)
+cat >/dev/null 2>&1
+
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 # Get all modified files (staged + unstaged) relative to HEAD

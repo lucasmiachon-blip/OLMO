@@ -10,6 +10,9 @@
 #   CC_COST_WARN_CALLS  (default: 100) — aviso no contexto do agente
 #   CC_COST_BLOCK_CALLS (default: 400) — injeta instrucao STOP
 
+# Drain stdin (hook protocol — prevent parent process stall)
+cat >/dev/null 2>&1
+
 WARN_THRESHOLD="${CC_COST_WARN_CALLS:-100}"
 BLOCK_THRESHOLD="${CC_COST_BLOCK_CALLS:-400}"
 
@@ -28,8 +31,9 @@ if [ "$COUNT" -lt "$WARN_THRESHOLD" ]; then
     exit 0
 fi
 
-# BLOCK: arm cost brake at threshold and every 100 calls after
-# The actual gate is in momentum-brake-enforce.sh (PreToolUse → permissionDecision: "ask")
+# BLOCK: arm cost brake at threshold and every 100 calls after.
+# Enforcement chain: this arms → momentum-brake-enforce.sh (PreToolUse) blocks next tool
+# via permissionDecision: "ask". Clear on UserPromptSubmit resets both brakes.
 if [ "$COUNT" -ge "$BLOCK_THRESHOLD" ]; then
     REMAINDER_BLOCK=$(( (COUNT - BLOCK_THRESHOLD) % 100 ))
     if [ "$REMAINDER_BLOCK" -eq 0 ]; then
