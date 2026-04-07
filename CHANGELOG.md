@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## Sessao 96 — 2026-04-07 (Codex Adversarial Fixes — Security + Enforcement Hardening)
+
+### P0 Security (commit 55ad189)
+- FIX: docker-compose — 7 secrets hardcoded → fail-fast `${:?}`, values moved to .env
+- FIX: docker-compose — Langfuse :3100 + OTel :4317/:4318 bound to 127.0.0.1 (was 0.0.0.0)
+- FIX: otel-collector-config — debug exporter removed from traces/metrics pipelines
+- FIX: otel-collector-config — Langfuse added to logs pipeline (was debug-only)
+- FIX: insights/SKILL.md — .last-insights moved out of memory/ directory
+- FIX: daily-briefing/SKILL.md — deadline cache title truncation + LGPD privacy gate
+
+### P1 Enforcement (commits 55ad189 + 38bbf91)
+- FIX: evidence-researcher.md — add maxTurns: 20 (was unbounded)
+- FIX: reference-checker.md — remove Notion from contract (no Notion tools)
+- FIX: CLAUDE.md — pending-fixes.md canonical path (.claude/ prefix)
+- FIX: daily-briefing/SKILL.md — declare Google Calendar MCP dependency
+- ADD: .env.example — Docker stack required vars section
+- FIX: docker-compose — OTel collector pinned to 0.149.0 (was :latest)
+- DELETE: cirrose/references/evidence-db.md (deprecated S90, living HTML is source of truth)
+- FIX: hooks/README.md — correct counts (27 files, 25 registrations, 2 pre-commit)
+- FIX: known-bad-patterns.md KBP-05 — "guard" → "convention" (no hook, agent self-enforces)
+- FIX: failure-registry.json — remove incorrect session range from baseline note
+- FIX: docker-compose — Redis healthcheck with auth (REDIS_PASSWORD env + CMD-SHELL)
+
+### Findings Skipped (com justificativa)
+- #16 MCP pins: npx -y always fetches latest, pins ineffective without @version in args
+- #22 MinIO endpoint: split endpoints intentional (server=minio:9000, browser=localhost:9090)
+- #5 notion-ops gates: pendente decisao Lucas (read-only vs write-capable)
+
+### Verification
+- Item 1 (qa-capture.mjs): confirmed Playwright library (not MCP) — no action needed
+- 16 of 23 Codex findings resolved. Batches 1+4 still need re-run
+
+---
+
 ## Sessao 95 — 2026-04-07 (QA Pipeline Simplification + Codex Adversarial Review)
 
 ### QA Pipeline Simplification
