@@ -14,6 +14,10 @@ import http from 'node:http';
 
 const lectures = ['grade', 'cirrose', 'metanalise'];
 const target = process.argv[2];
+if (target && !lectures.includes(target)) {
+  console.error(`❌ Unknown lecture: ${target}. Valid: ${lectures.join(', ')}`);
+  process.exit(1);
+}
 const toExport = target ? [target] : lectures;
 
 const PORT = 4173;

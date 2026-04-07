@@ -24,6 +24,7 @@ get_calls() {
     [ -f "$f" ] || continue
     local n
     n=$(cat "$f" 2>/dev/null || echo 0)
+    [[ $n =~ ^[0-9]+$ ]] || n=0
     total=$((total + n))
   done
   echo "$total"

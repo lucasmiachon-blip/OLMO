@@ -20,6 +20,7 @@ fi
 DURATION="(?)"
 if [ -f "$APL_DIR/session-ts.txt" ]; then
   START_TS=$(cat "$APL_DIR/session-ts.txt" 2>/dev/null || echo 0)
+  [[ $START_TS =~ ^[0-9]+$ ]] || START_TS=0
   NOW_TS=$(date +%s)
   ELAPSED_MIN=$(( (NOW_TS - START_TS) / 60 ))
   HOURS=$((ELAPSED_MIN / 60))
@@ -35,6 +36,7 @@ fi
 COMMITS=0
 if [ -f "$APL_DIR/session-ts.txt" ]; then
   START_TS=$(cat "$APL_DIR/session-ts.txt" 2>/dev/null || echo 0)
+  [[ $START_TS =~ ^[0-9]+$ ]] || START_TS=0
   COMMITS=$(git -C "$PROJECT_ROOT" log --oneline --since="@$START_TS" 2>/dev/null | wc -l | tr -d ' ')
 fi
 
@@ -44,6 +46,7 @@ TODAY=$(date +%Y%m%d)
 for f in /tmp/cc-calls-${TODAY}_*.txt; do
   [ -f "$f" ] || continue
   n=$(cat "$f" 2>/dev/null || echo 0)
+  [[ $n =~ ^[0-9]+$ ]] || n=0
   CALLS=$((CALLS + n))
 done
 
@@ -61,8 +64,8 @@ HYGIENE="OK"
 UNCOMMITTED=$(git -C "$PROJECT_ROOT" diff --name-only 2>/dev/null)
 STAGED=$(git -C "$PROJECT_ROOT" diff --cached --name-only 2>/dev/null)
 if [ -n "$UNCOMMITTED" ] || [ -n "$STAGED" ]; then
-  HANDOFF_TOUCHED=$(echo "$UNCOMMITTED$STAGED" | grep -c 'HANDOFF.md' || true)
-  CHANGELOG_TOUCHED=$(echo "$UNCOMMITTED$STAGED" | grep -c 'CHANGELOG.md' || true)
+  HANDOFF_TOUCHED=$(printf '%s\n%s\n' "$UNCOMMITTED" "$STAGED" | grep -c 'HANDOFF.md' || true)
+  CHANGELOG_TOUCHED=$(printf '%s\n%s\n' "$UNCOMMITTED" "$STAGED" | grep -c 'CHANGELOG.md' || true)
   if [ "$HANDOFF_TOUCHED" -eq 0 ] || [ "$CHANGELOG_TOUCHED" -eq 0 ]; then
     HYGIENE="PENDENTE"
   fi

@@ -108,6 +108,10 @@ function getArg(name, fallback) {
 }
 
 const SLIDE_ID = getArg('slide', 's-a1-01');
+if (!/^s-[a-z0-9-]+$/.test(SLIDE_ID)) {
+  console.error(`❌ Invalid slide ID: ${SLIDE_ID} (must match /^s-[a-z0-9-]+$/)`);
+  process.exit(1);
+}
 const ROUND = parseInt(getArg('round', '11'), 10);
 const QA_DIR = join(AULA_DIR, 'qa-screenshots', SLIDE_ID);
 const CUSTOM_OUTPUT = getArg('output', null);
@@ -438,7 +442,8 @@ const SCHEMAS_GATE4 = {
 function findSlideFile(slideId) {
   const manifestPath = join(AULA_DIR, 'slides', '_manifest.js');
   const manifest = readFileSync(manifestPath, 'utf8');
-  const regex = new RegExp(`id:\\s*['"]${slideId}['"][^}]*file:\\s*['"]([^'"]+)['"]`);
+  const escaped = slideId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`id:\\s*['"]${escaped}['"][^}]*file:\\s*['"]([^'"]+)['"]`);
   const match = manifest.match(regex);
   if (match) return join(AULA_DIR, 'slides', match[1]);
   // Fallback: scan slides dir
@@ -1096,12 +1101,12 @@ async function runEditorial(slideId, round, qaDir) {
       console.warn(`  WARN: Call ${label} finishReason=${finishReason} (expected STOP)`);
     }
 
-    let parsed = {};
+    let parsed = null;
     try {
       parsed = JSON.parse(rawText);
       if (Array.isArray(parsed)) parsed = parsed[0];
     } catch (e) {
-      console.warn(`  WARN: Call ${label} JSON parse failed: ${e.message}`);
+      console.error(`  ✗ Call ${label} JSON parse FAILED: ${e.message}`);
       writeFileSync(join(qaDir, `gate4-${label}-r${round}-raw.txt`), rawText);
     }
 
@@ -1110,6 +1115,12 @@ async function runEditorial(slideId, round, qaDir) {
   }
 
   console.log(`  TOTAL: ${totalTokensIn} in / ${totalTokensOut} out | ~$${totalCost.toFixed(3)}`);
+
+  // Fail if any call produced no parsed output (throw so finally cleanup runs)
+  const failedCalls = parsedCalls.filter(c => c.parsed === null);
+  if (failedCalls.length > 0) {
+    throw new Error(`${failedCalls.length} call(s) failed JSON parse: ${failedCalls.map(c => c.label).join(', ')}. Raw output saved.`);
+  }
 
   // Step 4b: Validate Call C video proof-of-viewing
   const callC_parsed = parsedCalls[2]?.parsed || {};

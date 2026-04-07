@@ -33,11 +33,13 @@ CALLS_FILE="/tmp/cc-calls-${SESSION_ID}.txt"
 L2_FAILURES=0
 if [ -f "$FAILURE_LOG" ]; then
     L2_FAILURES=$(trim "$(wc -l < "$FAILURE_LOG" 2>/dev/null || echo 0)")
+    [[ $L2_FAILURES =~ ^[0-9]+$ ]] || L2_FAILURES=0
 fi
 
 L3_COUNT=0
 if [ -f "$CALLS_FILE" ]; then
     L3_COUNT=$(trim "$(cat "$CALLS_FILE" 2>/dev/null || echo 0)")
+    [[ $L3_COUNT =~ ^[0-9]+$ ]] || L3_COUNT=0
 fi
 
 # Report

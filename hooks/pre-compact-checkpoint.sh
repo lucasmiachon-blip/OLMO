@@ -14,8 +14,8 @@ CHECKPOINT="$PROJECT_ROOT/.claude/.last-checkpoint"
   git -C "$PROJECT_ROOT" status --short 2>/dev/null | head -20
   echo ""
   echo "## Recently Modified (last 10 min)"
-  find "$PROJECT_ROOT" -maxdepth 4 -name "*.html" -o -name "*.js" -o -name "*.md" -o -name "*.css" 2>/dev/null \
-    | xargs stat --format='%Y %n' 2>/dev/null \
+  find "$PROJECT_ROOT" -maxdepth 4 \( -name "*.html" -o -name "*.js" -o -name "*.md" -o -name "*.css" \) -print0 2>/dev/null \
+    | xargs -0 stat --format='%Y %n' 2>/dev/null \
     | awk -v cutoff="$(date -d '10 minutes ago' +%s 2>/dev/null || echo 0)" '$1 > cutoff {print $2}' \
     | head -10
   echo ""

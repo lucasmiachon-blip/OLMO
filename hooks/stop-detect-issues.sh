@@ -47,13 +47,21 @@ if [ -n "$MANIFEST_CHANGED" ]; then
 fi
 
 # Check 4: HANDOFF/CHANGELOG not updated when work was done
-H_MOD=$(echo "$ALL_CHANGED" | grep 'HANDOFF.md' || true)
-C_MOD=$(echo "$ALL_CHANGED" | grep 'CHANGELOG.md' || true)
-if [ -z "$H_MOD" ] || [ -z "$C_MOD" ]; then
-  HYGIENE=""
-  [ -z "$H_MOD" ] && HYGIENE="${HYGIENE}- HANDOFF.md NOT updated\n"
-  [ -z "$C_MOD" ] && HYGIENE="${HYGIENE}- CHANGELOG.md NOT updated\n"
-  ISSUES="${ISSUES}${HYGIENE}"
+# Filter out noise: plans, temp files, untracked-only paths
+MEANINGFUL=$(echo "$ALL_CHANGED" | grep -vE '^\.(claude/plans/|claude/apl/)' | grep -v '^arvore\.txt$' || true)
+if [ -n "$MEANINGFUL" ]; then
+  # Check current diff AND last 3 commits for HANDOFF/CHANGELOG updates
+  H_MOD=$(echo "$ALL_CHANGED" | grep 'HANDOFF.md' || true)
+  C_MOD=$(echo "$ALL_CHANGED" | grep 'CHANGELOG.md' || true)
+  H_RECENT=$(git -C "$PROJECT_ROOT" log --oneline -3 --diff-filter=M -- HANDOFF.md 2>/dev/null | head -1)
+  C_RECENT=$(git -C "$PROJECT_ROOT" log --oneline -3 --diff-filter=M -- CHANGELOG.md 2>/dev/null | head -1)
+  # Only flag if NEITHER in current diff NOR in recent commits
+  if { [ -z "$H_MOD" ] && [ -z "$H_RECENT" ]; } || { [ -z "$C_MOD" ] && [ -z "$C_RECENT" ]; }; then
+    HYGIENE=""
+    [ -z "$H_MOD" ] && [ -z "$H_RECENT" ] && HYGIENE="${HYGIENE}- HANDOFF.md NOT updated\n"
+    [ -z "$C_MOD" ] && [ -z "$C_RECENT" ] && HYGIENE="${HYGIENE}- CHANGELOG.md NOT updated\n"
+    ISSUES="${ISSUES}${HYGIENE}"
+  fi
 fi
 
 # If issues found, append to pending-fixes.md

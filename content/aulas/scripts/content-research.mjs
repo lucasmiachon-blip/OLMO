@@ -140,7 +140,8 @@ if (!PROMPT_ONLY && !CLI_MODE) {
 function findSlideFile(slideId) {
   const manifestPath = join(AULA_DIR, 'slides', '_manifest.js');
   const manifest = readFileSync(manifestPath, 'utf8');
-  const regex = new RegExp(`id:\\s*['"]${slideId}['"][^}]*file:\\s*['"]([^'"]+)['"]`);
+  const escaped = slideId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`id:\\s*['"]${escaped}['"][^}]*file:\\s*['"]([^'"]+)['"]`);
   const match = manifest.match(regex);
   if (match) return join(AULA_DIR, 'slides', match[1]);
   // Fallback: scan slides dir
@@ -919,6 +920,7 @@ Classifique cada fonte: [BOOK] Autor, Edicao, Cap, p.XX | [META/SR] ou [RCT] com
 async function callNLM(notebookId, queries) {
   const { execFileSync } = await import('node:child_process');
   const results = [];
+  const errors = [];
   let conversationId = null;
 
   console.log(`\n3. Querying NotebookLM (${queries.length} progressive queries)...`);
@@ -970,14 +972,17 @@ async function callNLM(notebookId, queries) {
       } else {
         console.error(`    ✗ NLM error: ${msg.slice(0, 200)}`);
       }
-      results.push({ query, answer: `(error: ${msg.slice(0, 100)})`, sourcesUsed: [], citations: {}, references: [] });
+      errors.push({ query, error: msg.slice(0, 200) });
     }
   }
 
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-  console.log(`  NLM total: ${results.length} queries | ${elapsed}s`);
+  console.log(`  NLM total: ${results.length} queries, ${errors.length} errors | ${elapsed}s`);
+  if (errors.length > 0) {
+    console.warn(`  ⚠ NLM errors: ${errors.map(e => e.query.slice(0, 40)).join('; ')}`);
+  }
 
-  return { results, elapsed, conversationId };
+  return { results, errors, elapsed, conversationId };
 }
 
 function formatNLMMarkdown(nlmData) {
