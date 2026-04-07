@@ -12,7 +12,7 @@
 export const slides = [
   // ── Fase 1: Criar importância ──
   { id: 's-title',        file: '00-title.html',        phase: 'F1', archetype: 'title',      headline: 'Meta-análise — Leitura crítica para decisão clínica',                                                                timing: null, clickReveals: 0, customAnim: 's-title',        narrativeRole: null,         tensionLevel: 0, narrativeCritical: false },
-  { id: 's-objetivos',   file: '00b-objetivos.html',   phase: 'F1', archetype: 'grid',       headline: 'Objetivos educacionais',                                                                                              timing: 30,   clickReveals: 3, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 0, narrativeCritical: false },
+  { id: 's-objetivos',   file: '00b-objetivos.html',   phase: 'F1', archetype: 'grid',       headline: 'Objetivos educacionais',                                                                                              timing: 30,   clickReveals: 3, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 0, narrativeCritical: false }, // R11 editorial
   { id: 's-hook',         file: '01-hook.html',         phase: 'F1', archetype: 'cards',       headline: 'Por que isso importa',                                    timing: 60,   clickReveals: 0, customAnim: 's-hook',             narrativeRole: 'hook',       tensionLevel: 2, narrativeCritical: true,  evidence: 's-hook.html' },
 
   // ── Interação 1: Checkpoint de engajamento ──
