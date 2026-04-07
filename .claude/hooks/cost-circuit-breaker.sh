@@ -16,6 +16,7 @@ BLOCK_THRESHOLD="${CC_COST_BLOCK_CALLS:-400}"
 # ID de sessao: data + hora (reseta a cada hora = novo budget)
 SESSION_ID=$(date '+%Y%m%d_%H')
 COUNTER_FILE="/tmp/cc-calls-${SESSION_ID}.txt"
+COST_BRAKE_DIR="/tmp/olmo-cost-brake"
 
 # Incrementa contador
 COUNT=$(cat "$COUNTER_FILE" 2>/dev/null || echo 0)
@@ -27,20 +28,22 @@ if [ "$COUNT" -lt "$WARN_THRESHOLD" ]; then
     exit 0
 fi
 
-# BLOCK: injeta instrucao de parada no contexto do agente
+# BLOCK: arm cost brake at threshold and every 100 calls after
+# The actual gate is in momentum-brake-enforce.sh (PreToolUse → permissionDecision: "ask")
 if [ "$COUNT" -ge "$BLOCK_THRESHOLD" ]; then
-    printf '\n[CIRCUIT BREAKER] %d tool calls nesta sessao (limite: %d).\n' "$COUNT" "$BLOCK_THRESHOLD"
-    printf 'PARE. Custo estimado: alto. Verifique o que esta sendo feito.\n'
-    printf 'Para aumentar o limite: export CC_COST_BLOCK_CALLS=%d\n' "$((BLOCK_THRESHOLD + 100))"
-    printf 'Para ver custo real: instalar OTel (vars em .env.example)\n\n'
+    REMAINDER_BLOCK=$(( (COUNT - BLOCK_THRESHOLD) % 100 ))
+    if [ "$REMAINDER_BLOCK" -eq 0 ]; then
+        mkdir -p "$COST_BRAKE_DIR"
+        echo "$COUNT" > "$COST_BRAKE_DIR/armed"
+        printf '\n[cost-brake] %d tool calls — brake armado. Proxima acao pedira permissao.\n' "$COUNT"
+    fi
     exit 0
 fi
 
-# WARN: aviso progressivo a cada 10 calls apos o threshold
-REMAINDER=$(( (COUNT - WARN_THRESHOLD) % 10 ))
+# WARN: aviso a cada 50 calls apos warn threshold (menos spam que cada 10)
+REMAINDER=$(( (COUNT - WARN_THRESHOLD) % 50 ))
 if [ "$REMAINDER" = "0" ]; then
-    printf '\n[cost-circuit-breaker] %d tool calls nesta sessao (aviso: %d, limite: %d). Considere encerrar logo.\n\n' \
-        "$COUNT" "$WARN_THRESHOLD" "$BLOCK_THRESHOLD"
+    printf '\n[cost-circuit-breaker] %d tool calls (limite: %d).\n' "$COUNT" "$BLOCK_THRESHOLD"
 fi
 
 exit 0

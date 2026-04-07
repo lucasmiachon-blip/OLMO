@@ -30,8 +30,21 @@ get_calls() {
   echo "$total"
 }
 
-# --- Slot 0: Session focus + duration ---
+# --- Slot 0: QA coverage + deadline (most actionable) ---
 if [ "$SLOT" -eq 0 ]; then
+  QA_LINE=""
+  [ -f "$APL_DIR/qa-coverage.txt" ] && QA_LINE="QA: $(cat "$APL_DIR/qa-coverage.txt") editorial"
+  NEXT_LINE=""
+  [ -f "$APL_DIR/qa-next.txt" ] && NEXT_LINE="Proximo: $(cat "$APL_DIR/qa-next.txt")"
+  DEADLINE_LINE=""
+  [ -f "$APL_DIR/deadline-days.txt" ] && DEADLINE_LINE="R3: $(cat "$APL_DIR/deadline-days.txt")d"
+  [ -n "$QA_LINE" ] || exit 0
+  echo "[APL] ${QA_LINE} | ${NEXT_LINE} | ${DEADLINE_LINE}"
+  exit 0
+fi
+
+# --- Slot 1: Session focus + duration ---
+if [ "$SLOT" -eq 1 ]; then
   SESSION_NAME=""
   if [ -f "$PROJECT_ROOT/.claude/.session-name" ]; then
     SESSION_NAME=$(cat "$PROJECT_ROOT/.claude/.session-name" 2>/dev/null)
@@ -51,8 +64,8 @@ if [ "$SLOT" -eq 0 ]; then
   exit 0
 fi
 
-# --- Slot 1: Last commit age + tool calls ---
-if [ "$SLOT" -eq 1 ]; then
+# --- Slot 2: Commit age ---
+if [ "$SLOT" -eq 2 ]; then
   LAST_COMMIT_TS=$(git -C "$PROJECT_ROOT" log -1 --format=%ct 2>/dev/null)
   [ -z "$LAST_COMMIT_TS" ] && exit 0
   NOW_TS=$(date +%s)
@@ -62,21 +75,12 @@ if [ "$SLOT" -eq 1 ]; then
   exit 0
 fi
 
-# --- Slot 2: Nearest deadline ---
-if [ "$SLOT" -eq 2 ]; then
-  DEADLINES="$APL_DIR/deadlines.txt"
-  [ -f "$DEADLINES" ] && [ -s "$DEADLINES" ] || exit 0
-  FIRST=$(head -1 "$DEADLINES")
-  echo "[APL] Deadline: $FIRST"
-  exit 0
-fi
-
-# --- Slot 3: BACKLOG top priority ---
+# --- Slot 3: Deadline countdown ---
 if [ "$SLOT" -eq 3 ]; then
-  BACKLOG_CACHE="$APL_DIR/backlog-top.txt"
-  [ -f "$BACKLOG_CACHE" ] && [ -s "$BACKLOG_CACHE" ] || exit 0
-  FIRST=$(head -1 "$BACKLOG_CACHE")
-  echo "[APL] BACKLOG #1: $FIRST"
+  [ -f "$APL_DIR/deadline-days.txt" ] || exit 0
+  DAYS=$(cat "$APL_DIR/deadline-days.txt" 2>/dev/null)
+  [ -n "$DAYS" ] || exit 0
+  echo "[APL] R3 Clinica Medica: ${DAYS} dias"
   exit 0
 fi
 

@@ -1,10 +1,10 @@
 # Hooks — Reference
 
-> 28 Claude Code hook registrations across 2 directories (30 script files; 2 are pre-commit hooks, not Claude hooks).
+> 29 Claude Code hook registrations across 2 directories (31 script files; 2 are pre-commit hooks, not Claude hooks).
 > Valid events: SessionStart, PreCompact, PreToolUse, PostToolUse, UserPromptSubmit, Notification, Stop.
 > PostToolUseFailure does NOT exist — using it breaks JSON parsing and silently disables subsequent hooks.
 
-## `.claude/hooks/` — Tool Guards + Antifragile (13 registered + 2 pre-commit)
+## `.claude/hooks/` — Tool Guards + Antifragile (14 registered + 2 pre-commit)
 
 ### PreToolUse (Read)
 
@@ -57,19 +57,25 @@
 
 | Script | Behavior | What it does |
 |--------|----------|--------------|
-| `cost-circuit-breaker.sh` | **WARN/BLOCK** | L3 cost: tracks tool calls/hr. Warn@100, block@400 |
+| `cost-circuit-breaker.sh` | **WARN/ARM** | L3 cost: tracks tool calls/hr. Warn@100, arms cost brake@400 (structural gate via enforce) |
 
-### PostToolUse (Write|Edit|Bash|Agent) — Momentum Brake
-
-| Script | Behavior | What it does |
-|--------|----------|--------------|
-| `momentum-brake-arm.sh` | **ARM** | Creates lock after discrete action. Part of anti-KBP-01 structural gate |
-
-### PreToolUse (.*) — Momentum Brake
+### PostToolUse (.*) — Momentum Brake
 
 | Script | Behavior | What it does |
 |--------|----------|--------------|
-| `momentum-brake-enforce.sh` | **ASK** | If lock armed + tool not exempt: forces permissionDecision:ask. Exempt: Read/Grep/Glob/Write/Edit/AskUserQuestion/EnterPlanMode/ExitPlanMode |
+| `momentum-brake-arm.sh` | **ARM** | Creates lock after ANY tool use. Part of anti-KBP-01 structural gate |
+
+### PreToolUse (Skill) — QA Coverage Gate
+
+| Script | Behavior | What it guards |
+|--------|----------|----------------|
+| `guard-qa-coverage.sh` | **ASK** | Gates /new-slide and /slide-authoring when QA editorial coverage <50% |
+
+### PreToolUse (.*) — Momentum Brake + Cost Brake
+
+| Script | Behavior | What it does |
+|--------|----------|--------------|
+| `momentum-brake-enforce.sh` | **ASK** | If momentum or cost brake armed + tool not exempt: forces permissionDecision:ask. Exempt: Read/Grep/Glob/AskUserQuestion/EnterPlanMode/ExitPlanMode |
 
 ## `hooks/` — Session Lifecycle + APL (12 scripts)
 
@@ -77,13 +83,13 @@
 
 | Script | Matcher | What it does |
 |--------|---------|--------------|
-| `momentum-brake-clear.sh` | (unconditional) | Clears momentum-brake lock when user sends message |
+| `momentum-brake-clear.sh` | (unconditional) | Clears momentum-brake + cost-brake locks when user sends message |
 
 ### UserPromptSubmit — Ambient Productivity Layer
 
 | Script | Matcher | What it does |
 |--------|---------|--------------|
-| `ambient-pulse.sh` | (unconditional) | APL: 1-line rotating nudge per prompt (focus/commit/deadline/backlog/cost). 5 slots, 12min rotation |
+| `ambient-pulse.sh` | (unconditional) | APL: 1-line rotating nudge per prompt (QA+deadline/focus/commit/deadline/cost). 5 slots, 12min rotation |
 
 ### SessionStart
 
@@ -91,7 +97,7 @@
 |--------|---------|--------------|
 | `session-start.sh` | (unconditional) | Injects project name, date, session number, full HANDOFF.md |
 | `session-compact.sh` | `compact` | Re-injects 5 critical rules + HANDOFF after context compaction |
-| `apl-cache-refresh.sh` | (unconditional) | APL: initializes session timer + caches BACKLOG top 3 items |
+| `apl-cache-refresh.sh` | (unconditional) | APL: initializes session timer + caches BACKLOG, QA coverage, deadline countdown |
 
 ### Notification
 

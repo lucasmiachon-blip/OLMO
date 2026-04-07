@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## Sessao 100 — 2026-04-07 (INFRA — Momentum-Brake Fixes + APL Reform + Audits)
+
+### Momentum-Brake Fixes (B5-02/04/05 FECHADOS)
+- FIX B5-02: `set -euo pipefail` em arm.sh (error handling)
+- FIX B5-04: arm matcher `Write|Edit|Bash|Agent` → `.*` (cobre MCP tools, antifragil)
+- FIX B5-05: Write/Edit removidos das isencoes do enforce (double-ask aceito, defense-in-depth)
+- FIX B6-19: comment header do enforce.sh atualizado pos-B5-05
+
+### APL Reform (GTD adaptado S94 → reformado S100)
+- REFACTOR: cost-circuit-breaker agora estrutural — arma `/tmp/olmo-cost-brake/armed` em 400 calls, enforce pede `permissionDecision: "ask"`
+- REFACTOR: apl-cache-refresh agora computa QA coverage + deadline countdown no SessionStart
+- REFACTOR: ambient-pulse slots reestruturados — slot 0 = QA+deadline (mais util), slots 2-3 reformados
+- ADD: `guard-qa-coverage.sh` — PreToolUse(Skill) gate para /new-slide quando QA <50%
+- ADD: `.claude/apl/deadlines.txt` com concurso R3 (2026-12-01)
+- MOD: momentum-brake-clear.sh limpa ambos locks (momentum + cost)
+
+### Adversarial Batches (3 agentes, todos general-purpose, todos com output persistido)
+- RUN: Batch 6 — hooks ecosystem cross-reference. 26 findings (0 P0, 9 P1, 17 P2)
+- RUN: Batch 7 — antifragile health audit. 10 findings (0 P0, 3 P1, 7 P2)
+- RUN: /insights S92-S99. KBP/sessao: 1.0 (vs 3.05 baseline). KBP-02/03/05 zero recorrencias.
+
+### KBPs
+- ADD: KBP-06 — Agent Delegation Without Verification (pre-launch checklist)
+- MOD: KBP-01 — ref momentum-brake structural enforcement + variant autonomous fallback
+
+### Dream Consolidation
+- MERGE: `patterns_staged_blob.md` → `patterns_defensive.md` (20→19 files)
+- MOD: `project_tooling_pipeline.md` — hook counts atualizados (28→29 reg, 30→31 scripts)
+- MOD: MEMORY.md — index atualizado, Quick Reference corrigido (19 files, next review S103)
+
+### Docs
+- MOD: `.claude/hooks/README.md` — 28→29 registrations, 30→31 scripts, all S100 changes reflected
+
+---
+
 ## Sessao 99 — 2026-04-07 (Momentum-Brake Hooks + QA Capture Video)
 
 ### Momentum-Brake (anti KBP-01)

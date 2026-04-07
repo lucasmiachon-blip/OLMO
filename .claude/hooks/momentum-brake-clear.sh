@@ -6,4 +6,5 @@
 cat >/dev/null 2>&1 || true  # consume stdin (hook protocol)
 
 rm -f /tmp/olmo-momentum-brake/armed
+rm -f /tmp/olmo-cost-brake/armed
 exit 0

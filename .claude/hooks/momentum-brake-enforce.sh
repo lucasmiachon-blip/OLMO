@@ -5,19 +5,33 @@
 #
 # Exempt tools (no ask needed):
 #   Read, Grep, Glob        — pure observation, not actions
-#   Write, Edit              — already guarded by guard-pause.sh (avoid double-ask)
 #   AskUserQuestion          — stopping to ask IS the desired behavior
-#   EnterPlanMode            — meta tool, not an action
+#   EnterPlanMode/ExitPlanMode — meta tools, not actions
 #
-# Everything else (Bash, Agent, MCP tools, etc.) requires approval when armed.
+# Non-exempt (require approval when armed):
+#   Write, Edit, Bash, Agent, MCP tools, etc.
+#   Write/Edit get double-ask with guard-pause.sh — accepted (defense-in-depth, B5-05 S100).
 # Exit 0 with JSON = ask. Exit 0 without JSON = allow.
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 LOCK_FILE="/tmp/olmo-momentum-brake/armed"
+COST_LOCK="/tmp/olmo-cost-brake/armed"
 
-# No lock = brake not armed = allow immediately
-[ ! -f "$LOCK_FILE" ] && exit 0
+# Check both brakes: momentum (consecutive action) and cost (call budget)
+ARMED=""
+REASON=""
+if [ -f "$LOCK_FILE" ]; then
+  ARMED="momentum"
+  REASON="[momentum-brake] Acao consecutiva — aprovar para continuar"
+elif [ -f "$COST_LOCK" ]; then
+  COST_COUNT=$(cat "$COST_LOCK" 2>/dev/null || echo "?")
+  ARMED="cost"
+  REASON="[cost-brake] $COST_COUNT tool calls — aprovar para continuar"
+fi
+
+# No brake armed = allow immediately
+[ -z "$ARMED" ] && exit 0
 
 # Parse tool name from hook input
 TOOL_NAME=$(echo "$INPUT" | node -e "
@@ -29,11 +43,11 @@ TOOL_NAME=$(echo "$INPUT" | node -e "
 
 # Exempt tools: allow without asking
 case "$TOOL_NAME" in
-  Read|Grep|Glob|Write|Edit|AskUserQuestion|EnterPlanMode|ExitPlanMode)
+  Read|Grep|Glob|AskUserQuestion|EnterPlanMode|ExitPlanMode)
     exit 0
     ;;
 esac
 
 # All other tools while brake is armed: require user approval
-printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"[momentum-brake] Acao consecutiva — aprovar para continuar"}}\n'
+printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"%s"}}\n' "$REASON"
 exit 0

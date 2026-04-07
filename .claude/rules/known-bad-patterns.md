@@ -8,15 +8,15 @@ globs: "**/*"
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
 > Source: /insights S82 report (58 sessions, 20 analyzed in depth)
 > Governance: /insights appends new patterns. NEVER remove — only mark RESOLVED with date.
-> IDs are stable and sequential. Next available: KBP-06.
+> IDs are stable and sequential. Next available: KBP-07.
 
 ## [KBP-01] Scope Creep — Acting Without Permission
 
 - **When**: After completing a task, agent chains to the "next logical step" without asking
 - **Symptom**: Lucas says "calma", "pare", "espere", "primeiro X depois eu falo proximo passo"
 - **Cause**: Helpfulness bias — model optimizes for appearing productive over following protocol
-- **Fix**: Momentum brake (anti-drift.md). After EVERY discrete action: STOP, report result, wait for explicit instruction. Exception: approved multi-step plan with all steps listed upfront
-- **Incidence**: 24 events / 8 sessions (most frequent pattern)
+- **Fix**: Momentum brake (anti-drift.md). After EVERY discrete action: STOP, report result, wait for explicit instruction. Exception: approved multi-step plan with all steps listed upfront. **Structural enforcement S99:** 3 hooks (arm/enforce/clear) use `permissionDecision: "ask"` — harness-enforced, model cannot bypass. Variant: autonomous fallback (switching model/approach without asking, S97-S98).
+- **Incidence**: 24 events / 8 sessions + 4 recurrences S97-S98 (pre-hooks)
 - **Sessions**: 8cc72d17, 3a47931d, 1cfc1f1c, 20706c01, multiple others
 
 ## [KBP-02] Context Overflow Leading to Thread Loss
@@ -54,3 +54,12 @@ globs: "**/*"
 - **Fix**: Single-slide convention (qa-engineer.md + qa-pipeline.md). At invocation start, identify the ONE slide. Agent self-enforces: if referencing a second slide ID or file, STOP and report. 1 gate = 1 invocation = 1 slide. Enforcement: agent prompt + maxTurns=12 backstop (no hook)
 - **Incidence**: 7 events / 3 sessions
 - **Sessions**: 8cc72d17
+
+## [KBP-06] Agent Delegation Without Verification
+
+- **When**: Orchestrator launches subagent without verifying agent type, expected output format, or whether the agent can actually do the task
+- **Symptom**: Agent returns empty output, "submitted to external tool", or findings not persisted. Lucas says "verificar antes de lancar", "agente errado"
+- **Cause**: Fire-and-forget pattern — model assumes any agent can handle any task. Codex:rescue delegates to Codex CLI (external), general-purpose runs in-process (correct for review)
+- **Fix**: Pre-launch checklist: (1) verify agent type matches task, (2) confirm output is capturable (file write instruction in prompt), (3) get Lucas's approval before launching. Memory: `feedback_agent_delegation.md`
+- **Incidence**: 3 events / 1 session
+- **Sessions**: S99 (2026-04-07)

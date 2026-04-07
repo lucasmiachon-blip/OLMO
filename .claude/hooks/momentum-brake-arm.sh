@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # momentum-brake-arm.sh — PostToolUse: arm brake after any discrete action
 # After Write|Edit|Bash|Agent, creates lock so enforce hook gates next action.
 # Part of the structural momentum-brake system (anti KBP-01).
