@@ -1,6 +1,6 @@
 # Hooks — Reference
 
-> 25 Claude Code hook registrations across 2 directories (27 script files; 2 are pre-commit hooks, not Claude hooks).
+> 28 Claude Code hook registrations across 2 directories (30 script files; 2 are pre-commit hooks, not Claude hooks).
 > Valid events: SessionStart, PreCompact, PreToolUse, PostToolUse, UserPromptSubmit, Notification, Stop.
 > PostToolUseFailure does NOT exist — using it breaks JSON parsing and silently disables subsequent hooks.
 
@@ -59,7 +59,25 @@
 |--------|----------|--------------|
 | `cost-circuit-breaker.sh` | **WARN/BLOCK** | L3 cost: tracks tool calls/hr. Warn@100, block@400 |
 
+### PostToolUse (Write|Edit|Bash|Agent) — Momentum Brake
+
+| Script | Behavior | What it does |
+|--------|----------|--------------|
+| `momentum-brake-arm.sh` | **ARM** | Creates lock after discrete action. Part of anti-KBP-01 structural gate |
+
+### PreToolUse (.*) — Momentum Brake
+
+| Script | Behavior | What it does |
+|--------|----------|--------------|
+| `momentum-brake-enforce.sh` | **ASK** | If lock armed + tool not exempt: forces permissionDecision:ask. Exempt: Read/Grep/Glob/Write/Edit/AskUserQuestion/EnterPlanMode/ExitPlanMode |
+
 ## `hooks/` — Session Lifecycle + APL (12 scripts)
+
+### UserPromptSubmit — Momentum Brake
+
+| Script | Matcher | What it does |
+|--------|---------|--------------|
+| `momentum-brake-clear.sh` | (unconditional) | Clears momentum-brake lock when user sends message |
 
 ### UserPromptSubmit — Ambient Productivity Layer
 

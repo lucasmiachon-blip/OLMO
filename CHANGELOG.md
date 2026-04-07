@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## Sessao 99 — 2026-04-07 (Momentum-Brake Hooks + QA Capture Video)
+
+### Momentum-Brake (anti KBP-01)
+- ADD: 3 hook scripts — arm (PostToolUse), enforce (PreToolUse), clear (UserPromptSubmit)
+- ADD: 3 registrations em settings.local.json (28 total)
+- TESTED: ciclo arm→enforce→clear manual pass
+- PENDING: 3 fixes do Batch 5 adversarial (B5-02/04/05)
+- Plano detalhado: `.claude/plans/s99-pendentes.md`
+
+### QA s-objetivos
+- RUN: qa-capture.mjs COM --video flag (video + screenshot S0)
+- RESULT: all checks PASS, fillRatio 0.82, video pronto para editorial
+- PENDING: editorial Pro gate (gemini-qa3.mjs --editorial)
+
+### Housekeeping
+- DELETE: pending-fixes-20260407-1523.md (15 false positives stale)
+- ADD: feedback_agent_delegation.md (memory 20/20 — cap atingido)
+
+### Falha sistematica (aprendizado)
+- 3 batches adversariais falharam: codex:codex-rescue delega ao Codex CLI, nao faz review
+- Root cause: agente errado para a tarefa + lancamento sem verificacao
+- Fix: memory feedback + regra "verificar tipo/output/aprovacao ANTES de lancar"
+
+---
+
 ## Sessao 98 — 2026-04-07 (s-objetivos Fixes + Codex Adversarial B1+B4)
 
 ### Slide s-objetivos (commit e17ab36)

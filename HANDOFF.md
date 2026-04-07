@@ -1,28 +1,30 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 98 | 2026-04-07
-> Cross-ref: `.claude/plans/atomic-humming-mitten.md`
+> Sessao 99 | 2026-04-07
+> Cross-ref: `.claude/plans/s99-pendentes.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
-**Agentes: 8** (todos com maxTurns). **Hooks: 25 registrations** (27 scripts; 2 pre-commit). **Rules: 10**. MCPs: 11.
-**OTel + Langfuse V3: TRACES FUNCIONANDO.** Docker stack hardened (untested S98 — Pro timeout).
+**Agentes: 8** (todos com maxTurns). **Hooks: 28 registrations** (30 scripts; 2 pre-commit). **Rules: 10**. MCPs: 11.
+**OTel + Langfuse V3: TRACES FUNCIONANDO.** Docker stack hardened (untested).
 **Antifragile: L1-L5 DONE, L6 BASIC (4 vetores), L7 DONE.**
 **APL: LIVE.** 3 hooks.
-**s-objetivos:** Fixes aplicados (CSS+HTML+stagger). Inspect PASS. Editorial Flash 3.0/10 (parcial — Call B RECITATION, motion=0 sem video). Editorial Pro pendente (timeout).
-**Codex adversarial:** Batches 1-4 completos. 11 findings fixados + verificados. 1 P2 skipped.
+**Momentum-brake: IMPLEMENTADO, 3 fixes pendentes** (B5-02/04/05).
+**s-objetivos:** Capture COM video done. Editorial Pro pendente.
+**Memory: 20/20 (cap atingido).**
 
 ## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | Editorial Pro s-objetivos COM VIDEO (--video flag, motion=0 sem ele) | QA slide | Facil |
-| 2 | Aplicar momentum-brake hooks (3 scripts: arm/enforce/clear via permissionDecision:ask) | Anti KBP-01 | Normal |
-| 3 | /insights (last run S91 — 7 sessoes atras) | Self-improvement | Normal |
-| 4 | Memory governance review (18/20 files) | Housekeeping | Facil |
-| 5 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
-| 6 | Testar Docker stack apos hardening | Validar Redis auth, OTel pin | Facil |
+| 1 | Fixes momentum-brake (B5-02/04/05) | Fechar bypass vectors | Facil |
+| 2 | Editorial Pro s-objetivos COM video | QA slide | Facil |
+| 3 | Batches adversariais redo (general-purpose, nao codex:rescue) | Auditoria hooks+antifragile | Normal |
+| 4 | /insights (last run S91 — 8 sessoes atras) | Self-improvement | Normal |
+| 5 | Memory governance (/dream — cap 20/20 atingido) | Housekeeping | Facil |
+| 6 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
+| 7 | Docker stack test | Validar Redis auth, OTel pin | Facil |
 
 ## AGENTES
 
@@ -39,33 +41,34 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 
 ## DECISOES ATIVAS
 
-- **QA pipeline S97:** Path linear 11 steps. Regra 30 palavras removida. Preflight 4 dims + loop Lucas antes de Gemini.
+- **QA pipeline S97:** Path linear 11 steps. Preflight 4 dims + loop Lucas antes de Gemini.
+- **Momentum-brake S99:** 3 hooks (arm/enforce/clear). Enforce exempta Read/Grep/Glob/Write/Edit/AskUserQuestion. 3 fixes pendentes.
 - **Values: Antifragile + Curiosidade** — decision gates.
 - **APL:** 3 hooks passivos. Cache em `.claude/apl/`.
 - **Living HTML per slide = source of truth.**
 - **CLAUDE.md cascata:** root → content/aulas/ → metanalise/.
 - **Cross-ref: dual gate** — stop hook (advisory) + pre-commit (blocking).
 - **Self-healing loop:** stop-detect → `.claude/pending-fixes.md` → session-start surfacea.
-- **Known-bad-patterns:** 5 KBPs. KBP-01 = scope creep (REINCIDENCIA S98 — precisa enforcement mais forte).
-- **Codex findings:** All batches 1-4 done. #16 MCP pins, #22 MinIO skipped. #5 notion-ops pendente.
-- Memory governance: cap 20 files (18 atual). Next review: S98+.
-- **/insights cadence:** last run S91. Next: S98+.
+- **Known-bad-patterns:** 5 KBPs. KBP-01 = scope creep (momentum-brake implementado S99).
+- **Agent delegation:** verificar tipo + output + aprovacao ANTES de lancar (feedback S99).
+- Memory governance: cap 20 files (20 atual). Precisa /dream audit antes de criar file 21.
+- **/insights cadence:** last run S91. Next: S100.
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
-- **index.html e gerado** — rodar build apos editar _manifest.js. index.html esta no .gitignore.
+- **index.html e gerado** — rodar build apos editar _manifest.js.
 - **CSS per-slide: `section#s-{id}`** — specificity 0,1,1,1.
 - PMIDs de LLM: ~56% erro. SEMPRE verificar.
-- **Docker stack:** Secrets em `.env`. Ports em 127.0.0.1. OTel pinado 0.149.0. NAO TESTADO S98.
+- **Docker stack:** Secrets em `.env`. Ports em 127.0.0.1. OTel pinado 0.149.0. NAO TESTADO.
 - **QA visual:** Seguir path linear. NUNCA fabricar criterios (KBP-04).
 - **npm scripts:** Rodar de `content/aulas/`, NAO da raiz do monorepo.
-- **KBP-01 reincidencia:** Agente trocou modelo Gemini sem permissao. Codex propoe momentum-brake: 3 hooks (PostToolUse arm, PreToolUse enforce com permissionDecision:ask, UserPromptSubmit clear). Gate estrutural — agente nao consegue bypassar. Proposta completa: `.claude/plans/s98-codex-momentum-brake.md`.
-- **QA editorial s-objetivos:** Flash rodou SEM video (faltou `--video` no qa-capture). Motion=0 invalido. Pro deu timeout 3x. Retry necessario COM video para score valido.
+- **Agent delegation:** NUNCA fire-and-forget. Verificar tipo do agente, output capturavel, aprovacao do Lucas (S99).
+- **Memory cap 20/20:** Rodar /dream audit antes de criar file 21.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S98 2026-04-07
+Coautoria: Lucas + Opus 4.6 | S99 2026-04-07
