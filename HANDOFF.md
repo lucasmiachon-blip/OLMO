@@ -11,15 +11,17 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 **Antifragile: L1-L5 DONE, L6 BASIC (4 vetores, syntax-verified), L7 DONE.**
 **APL: REFORMADO S100.** QA coverage + deadline no SessionStart. Cost brake estrutural. QA gate /new-slide.
 **Momentum-brake: COMPLETO.** Arm .*, enforce sem Write/Edit exempt. Stdin protocol compliant.
-**Batch 6+7 P1s: RESOLVIDOS S101.** B7-01 = false positive (enforce chain OK). B7-09 = syntax-only.
+**Batch 6: 20/26 resolvidos S101.** Restam 6 (3 intentional, 2 timeout tuning, 1 OK).
+**Batch 7: 2/10 resolvidos S101.** B7-01=FP, B7-08=fixed. Restam 8 P2 (maioria precisa design).
+**Todos hooks stdin-compliant.** Todos argv→stdin refatorados. Paths portaveis. README correto.
 **Memory: 19/20.**
 
 ## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | Batch 6 P2 fixes (5 items) | set -euo, hardcoded paths, README docs | Facil |
-| 2 | Batch 7 P2 fixes (7 items) | KBP-02/04 hooks, cost session-scope, GNU compat | Normal |
+| 1 | Batch 7 P2 fixes (8 items) | KBP-02/04 hooks estruturais, cost session-scope, GNU compat | Normal |
+| 2 | Batch 6 residual (timeout tuning B6-22/23) | Monitorar se 15s timeout causa problemas | Facil |
 | 3 | Editorial Pro s-objetivos COM video | QA slide pendente desde S98 | Facil |
 | 4 | ~~Docker stack test~~ | ~~Validar Redis auth, OTel pin~~ | FROZEN |
 | 5 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
@@ -71,4 +73,4 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S100 2026-04-07
+Coautoria: Lucas + Opus 4.6 | S101 2026-04-07
