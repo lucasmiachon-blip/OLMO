@@ -78,6 +78,7 @@ Ha dead CSS (seletores que nao matcham nenhum elemento no HTML)? Conflitos de sp
 Se o resultado visual (PNG) mostra problema de LAYOUT (elementos acumulados num canto, whitespace morto, desbalanco visual):
 - O fix DEVE propor mudanca de ESTRUTURA HTML (grid, flex-direction, wrappers), NAO apenas CSS properties (gap, margin, padding)
 - Ajustar gap/margin/padding no MESMO container NUNCA resolve distribuicao — so desloca elementos dentro do mesmo layout quebrado
+- Classe modificadora (--accent, --highlight) desalinhada? Compare box model (border+padding+margin) com a classe base. Fix = igualar estrutura, nao ajustar margem
 - No campo "tipo" do proposal, use "html" quando o fix muda a arvore DOM, "css" para propriedades, "js" para handlers
 
 ### OUTPUT
