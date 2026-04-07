@@ -24,7 +24,7 @@
 
 | Script | Behavior | What it guards |
 |--------|----------|----------------|
-| `guard-secrets.sh` | **WARN** | `git commit/add` with staged files containing API keys, tokens, PATs |
+| `guard-secrets.sh` | **BLOCK** | `git commit/add` with staged files containing API keys, tokens, PATs |
 | `guard-bash-write.sh` | **ASK** | Shell write patterns (>, >>, sed -i, tee, writeFile, curl -o, cp/mv) |
 | `guard-lint-before-build.sh` | **BLOCK** | Build commands without passing 3 linters first (timeout: 15s) |
 
@@ -32,7 +32,7 @@
 
 | Script | Behavior | What it guards |
 |--------|----------|----------------|
-| `allow-plan-exit.sh` | **ALLOW** | Permits ExitPlanMode tool use |
+| `allow-plan-exit.sh` | **ASK** | Prompts user to approve plan before exiting plan mode |
 
 ### PostToolUse (Bash)
 

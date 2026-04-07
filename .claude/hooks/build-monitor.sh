@@ -11,15 +11,15 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Single node call extracts all fields (1 spawn, with L1 retry S89)
 _parse_input() {
-    node -e "
-const d=JSON.parse(process.argv[1] || '{}');
+    echo "$INPUT" | node -e "
+const d=JSON.parse(require('fs').readFileSync(0,'utf8') || '{}');
 const ti=d.tool_input||{};
 const tr=d.tool_response||{};
 console.log(ti.command||'');
 console.log(tr.exit_code===undefined?'0':String(tr.exit_code));
 console.log(d.cwd||'.');
 console.log((tr.stderr||'').substring(0,200));
-" "$INPUT" 2>/dev/null
+" 2>/dev/null
 }
 
 if type retry_with_jitter &>/dev/null; then

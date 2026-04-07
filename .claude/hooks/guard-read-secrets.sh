@@ -7,9 +7,9 @@ set -u
 
 INPUT=$(cat 2>/dev/null || true)
 
-# Fail-closed: if no input, block
+# Fail-open: no input means no file path to check — allow
 if [ -z "$INPUT" ]; then
-  exit 0  # No input on Read = probably not a file read
+  exit 0
 fi
 
 # Parse file_path with node — robust JSON (Codex S60 A4)

@@ -7,7 +7,7 @@
 # Consume stdin (hook protocol)
 cat > /dev/null 2>&1
 
-PROJECT_ROOT="/c/Dev/Projetos/OLMO"
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 APL_DIR="$PROJECT_ROOT/.claude/apl"
 
 # --- Slot rotation: deterministic, changes every 12 minutes ---

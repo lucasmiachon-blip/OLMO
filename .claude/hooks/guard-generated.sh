@@ -4,6 +4,8 @@
 # Direct edits are overwritten on next build = lost work.
 # Exit 2 = BLOCK (not just warn).
 
+set -u
+
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Parse file_path with fail-closed (Codex S60 O1/A4)

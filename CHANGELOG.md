@@ -11,6 +11,14 @@
 - DOC B7-01: cost-circuit-breaker enforcement chain documentada (era false positive — arm→enforce ja funcionava)
 - VERIFY B7-09: chaos scripts syntax-checked (produção teste deferred)
 
+### Batch 6 P2 Fixes (consistency + docs)
+- FIX B6-03/04/05: argv→stdin em build-monitor, model-fallback-advisory, lint-on-edit
+- FIX B6-25/26: hardcoded paths → `$(dirname "$0")/..` em stop-scorecard, ambient-pulse
+- FIX B6-01: `set -u` em guard-generated.sh
+- FIX B6-06: guard-read-secrets comment corrigido (fail-closed → fail-open)
+- FIX B6-16/17: README labels corrigidos (guard-secrets WARN→BLOCK, allow-plan-exit ALLOW→ASK)
+- FIX B6-21: allow-plan-exit.sh stdin drain adicionado
+
 ## Sessao 100 — 2026-04-07 (INFRA — Momentum-Brake Fixes + APL Reform + Audits)
 
 ### Momentum-Brake Fixes (B5-02/04/05 FECHADOS)
