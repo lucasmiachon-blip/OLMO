@@ -247,13 +247,6 @@ function runChecks(metrics, slide, slideConsoleErrors) {
   const m = metrics?.computed || {};
   const els = metrics?.elements || {};
 
-  // C1: Body word count > 30 (Hard Constraint #10)
-  if (m.bodyWordCount != null && m.bodyWordCount > 30) {
-    checks.push({ id: 'C1', rule: 'bodyWordCount<=30', status: 'FAIL', value: m.bodyWordCount, msg: `Body has ${m.bodyWordCount} words (max 30)` });
-  } else if (m.bodyWordCount != null) {
-    checks.push({ id: 'C1', rule: 'bodyWordCount<=30', status: 'PASS', value: m.bodyWordCount });
-  }
-
   // C2: Fill ratio thresholds (skip exempt archetypes)
   if (m.fillRatio != null && !EXEMPT_ARCHETYPES.has(slide.archetype)) {
     if (m.fillRatio > 0.95) {

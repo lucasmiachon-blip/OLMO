@@ -11,18 +11,37 @@ paths:
 > Fonte: Cirrose E053, E067, E068, E069
 > Implementacao tecnica (gates, dims, validation): `content/aulas/scripts/gemini-qa3.mjs`
 
-## 1. Execucao
+## 1. Path de execucao (linear, sem bifurcacao)
 
-- "Rodar QA" = apresentar plano dos gates ANTES de executar. NUNCA atalhar pipeline (E053).
-- NUNCA batch QA — 1 slide por ciclo completo (vale para Opus visual e Gemini script).
-- Gates sequenciais: Preflight ($0) → [Lucas OK] → Inspect (Gemini Flash) → [Lucas OK] → Editorial (Gemini Pro, 3 calls).
-- 1 gate = 1 invocacao do qa-engineer. maxTurns garante hard stop.
-- Criteria source: SEMPRE ler os checks do script ANTES de avaliar.
-  - Preflight: dims objetivas (cor, tipografia, hierarquia) — PASS/FAIL, sem subjetividade
-  - Inspect/Editorial: `gemini-qa3.mjs` gate prompts (unico script QA do projeto)
-  - NUNCA inventar criterios do treinamento. Check nao esta no script = nao existe.
-- Estados de slide: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
-  - Source of truth: `content/aulas/metanalise/_manifest.js` (campo `qa` por slide).
+NUNCA batch QA — 1 slide por ciclo. NUNCA atalhar pipeline (E053).
+
+```
+STEP 1  npm run build:{aula}
+   ↓
+STEP 2  node scripts/qa-capture.mjs --aula {aula} --slide {id}
+   ↓
+STEP 3  Ler criterios: design-reference.md §1-§2, slide-rules.md, archetypes.md
+   ↓
+STEP 4  Ler screenshot + codigo do slide
+   ↓
+STEP 5  Avaliar 4 dims (Cor, Tipografia, Hierarquia, Design) → tabela PASS/FAIL → STOP
+   ↓
+STEP 6  Lucas entra no loop: revisar → pedir mudancas → avaliar de novo
+   ↓
+STEP 7  Lucas diz "prossiga"
+   ↓
+STEP 8  node scripts/gemini-qa3.mjs --aula {aula} --slide {id} --inspect → report → STOP
+   ↓
+STEP 9  Lucas OK
+   ↓
+STEP 10 node scripts/gemini-qa3.mjs --aula {aula} --slide {id} --editorial → report → STOP
+   ↓
+STEP 11 Salvar sugestoes em qa-screenshots/{id}/editorial-suggestions.md
+```
+
+Criterios Preflight: `.claude/agents/qa-engineer.md` §Preflight (tabela 4 dims + fontes).
+Prompts Gemini: `gemini-qa3.mjs` (unico script QA). Check nao listado = nao existe.
+Estados de slide: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
 
 ## 2. Cor Semantica no QA (E067)
 
@@ -52,7 +71,6 @@ Prompt QA DEVE incluir criterios explicitos:
 - [ ] h2 = assercao clinica verificavel (nao rotulo generico)
 - [ ] Zero `<ul>`/`<ol>` no corpo do slide
 - [ ] Todos dados numericos verificados (PMID ou [TBD])
-- [ ] Corpo do slide <= 30 palavras
 
 ### CONTENT → SYNCED (9 superficies)
 - [ ] `_manifest.js` headline = `<h2>` do HTML

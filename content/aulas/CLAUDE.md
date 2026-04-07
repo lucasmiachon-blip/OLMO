@@ -62,7 +62,7 @@ Cada aula segue a mesma estrutura:
 ## Regras Universais
 
 1. **Assertion-evidence:** h2 = assercao clinica, NUNCA rotulo generico
-2. **Corpo do slide:** <= 30 palavras. Sem `<ul>`/`<ol>`
+2. Sem `<ul>`/`<ol>` no corpo do slide
 3. **CSS per-slide:** `section#s-{id}` no `{aula}.css` (specificity 0,1,1,1)
 4. **Animacoes:** via `data-animate` declarativo, NUNCA gsap inline
 5. **Dados numericos:** fonte Tier 1 obrigatoria. Sem fonte → `[TBD]`

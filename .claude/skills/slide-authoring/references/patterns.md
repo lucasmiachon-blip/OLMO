@@ -26,7 +26,7 @@ Base template for creating a new slide from scratch:
 </section>
 ```
 
-Rules: `<h2>` = complete claim, zero `<ul>/<ol>`, body <= 30 words, PMID required, OKLCH tokens only, `data-animate` only.
+Rules: `<h2>` = complete claim, zero `<ul>/<ol>`, PMID required, OKLCH tokens only, `data-animate` only.
 
 ## 1. Assertion + Data Cards
 

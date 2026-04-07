@@ -87,7 +87,6 @@ function validateNota(val) {
 }
 
 // --- Pre-flight thresholds (Gate -1: local checks, $0) ---
-const PREFLIGHT_WORD_LIMIT = 30;         // slide body word cap (excl notes, source-tag)
 const PREFLIGHT_FONT_MIN = 18;           // px — minimum projected font-size
 const PREFLIGHT_SCREENSHOT_MAX_AGE_H = 24; // hours — screenshots older than this trigger warning
 
@@ -237,19 +236,7 @@ function runPreflight(slideId, qaDir) {
       console.log(`  [H2]          "${h2Text.slice(0, 60)}${h2Text.length > 60 ? '…' : ''}"`);
     }
 
-    // 5. Word count (body text, excluding h2, notes, source-tag, HTML tags)
-    const bodyTextOnly = bodyHtml
-      .replace(/<h2[^>]*>[\s\S]*?<\/h2>/gi, '')  // exclude h2 (not counted)
-      .replace(/<[^>]*>/g, ' ')                    // strip tags
-      .replace(/&[a-z]+;/gi, ' ')                 // strip entities
-      .replace(/\s+/g, ' ').trim();
-    const words = bodyTextOnly.split(/\s+/).filter(w => w.length > 0);
-    if (words.length > PREFLIGHT_WORD_LIMIT) {
-      issues.push({ level: 'WARN', tag: 'WORDS', msg: `Body has ${words.length} words (limit ${PREFLIGHT_WORD_LIMIT}). Consider cutting.` });
-    }
-    console.log(`  [WORDS]       ${words.length}/${PREFLIGHT_WORD_LIMIT}`);
-
-    // 6. No ul/ol in projected body (lint also checks this, but verify post-lint)
+    // 5. No ul/ol in projected body (lint also checks this, but verify post-lint)
     const projectedBody = bodyHtml.replace(/<section[^>]*class="[^"]*appendix[^"]*"[\s\S]*?<\/section>/gi, '');
     if (/<(ul|ol)[\s>]/i.test(projectedBody)) {
       issues.push({ level: 'ERROR', tag: 'LIST', msg: '<ul>/<ol> in projected slide body' });

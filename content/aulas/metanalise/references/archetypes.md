@@ -330,7 +330,6 @@ s-aplicacao uses the **benefit-harm** archetype (`.compare-layout` with 2 column
 | `h2` = clinical assertion (never generic label) | All except checkpoints (which use `.checkpoint-question`) |
 | `<aside class="notes">` required with timing blocks | All |
 | `data-animate` for declarative, slide-registry.js for state machines | All |
-| Max body <= 30 words | All |
 | `.source-tag` at bottom | All |
 | `.slide-navy` on `.slide-inner` when dark bg | checkpoint, forest-plot, s-ancora, s-absoluto |
 | State machine interface: `__hookAdvance`, `__hookRetreat`, `__hookCurrentBeat` | s-hook, s-checkpoint-1, s-checkpoint-2 |

@@ -34,19 +34,37 @@ Dev server: cirrose:4100, grade:4101, metanalise:4102.
 
 ### Gate: Preflight
 
-Gate $0 antes do Gemini. Dims objetivas — tudo PASS/FAIL, sem subjetividade.
+Gate $0 antes do Gemini. Duas fases: checks automaticos + QA visual do orchestrador.
+
+**Fase A — Checks automaticos:**
 
 1. `npm run build:{aula}` (hook lint-before-build garante lint)
-2. Ler slide HTML + CSS + screenshot S0 (S2 se click-reveals)
-3. Avaliar dims objetivas:
+2. `node scripts/qa-capture.mjs --aula {aula} --slide {slideId}` (screenshot + checks)
+3. Reportar resultado dos checks automaticos.
 
-| Dim | Criterio (PASS/FAIL) |
-|-----|---------------------|
-| Cor | Tokens var() sem literais fora :root. Semantica clinica correta (--danger=intervir, --warning=investigar, --safe=manter). Nenhum uso decorativo de cor clinica |
-| Tipografia | Font >= 18px em corpo. Sem vw/vh em font-size. Tabular-nums em dados numericos |
-| Hierarquia | h2 presente (exceto title/hook/recap). Peso visual: h2 > corpo > source-tag. Punchline tem tratamento visual superior |
+**Fase B — QA visual (orchestrador le screenshot + codigo):**
 
-4. Reportar PASS/FAIL por dim → FIM
+**PRE-GATE — ler criterios ANTES de avaliar (KBP-04). Fontes:**
+- Cor e tipografia: `.claude/rules/design-reference.md` §1-§2
+- Estrutura e CSS: `.claude/rules/slide-rules.md`
+- Archetype do slide: `{aula}/references/archetypes.md`
+
+**Dims (avaliar todas, com evidencia do screenshot/codigo):**
+
+| Dim | Criterio | Fonte |
+|-----|----------|-------|
+| Cor | Tokens sem literais fora :root. Semantica clinica correta. Contraste adequado para projecao | design-reference.md §1 |
+| Tipografia | Font >= 18px corpo. Sem vw/vh. Peso visual legivel a 6m. Tabular-nums em dados | design-reference.md §2 |
+| Hierarquia de atencao | h2 presente (exceto title/hook/recap). Punchline > suporte. Fluxo visual conduz o olhar | slide-rules.md §1, §1b |
+| Design | Layout coerente com archetype. Espacamento, proporcao, uso do viewport 1280x720 | archetypes.md, slide-rules.md §1b |
+
+**Formato de output:** tabela `| Dim | PASS/FAIL | Evidencia |`. Report → STOP.
+
+**POS-CHECK:**
+- [ ] Report contem EXATAMENTE 4 dims. Mais = inventei. Menos = pulei.
+- [ ] Cada julgamento cita evidencia do screenshot ou codigo, nao opiniao generica.
+
+**LOOP:** Lucas entra no loop → iteramos mudancas → Lucas diz "prossiga" → ai sim Gemini.
 
 Qualquer FAIL = slide nao esta pronto para Gemini.
 
