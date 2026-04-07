@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## Sessao 98 — 2026-04-07 (s-objetivos Fixes + Codex Adversarial B1+B4)
+
+### Slide s-objetivos (commit e17ab36)
+- FIX: CSS — wrapper 1000px, obj-num opacity 0.5→0.85, border 20%→50%, gap space-lg
+- FIX: CSS — item-6 accent background (8% color-mix) + border-radius para punchline
+- FIX: CSS — source-tag max-width:none full-width centrado
+- FIX: HTML — wrapper div + data-animate="stagger" + failsafe .no-js
+- MOD: _manifest.js archetype cards→grid
+- QA: Preflight PASS (3 dims), Inspect PASS (Gemini Flash), Editorial Flash 3.0/10 (parcial)
+
+### Codex Adversarial Batches 1+4 (commit e17ab36)
+- FIX P0: gemini-qa3.mjs — slideId regex validation (path traversal)
+- FIX P0: export-pdf.js — lecture allowlist validation (path traversal)
+- FIX P1: gemini-qa3.mjs — slideId RegExp escape + JSON parse fail-fast (throw, not exit)
+- FIX P1: content-research.mjs — slideId RegExp escape + NLM errors separated from results
+- FIX P1: ambient-pulse.sh, stop-scorecard.sh, stop-chaos-report.sh — numeric validation guards
+- FIX P1: pre-compact-checkpoint.sh — NUL-safe find/xargs (-print0/-0)
+- FIX P1: stop-scorecard.sh — path concat separator (printf)
+- SKIP P2: content-research.mjs temp file predictability (low risk, local-only)
+- VERIFIED: Codex re-review 11/11 fixes correct, 1 new bug caught and fixed
+
+### Hooks
+- FIX: stop-detect-issues.sh — filter .claude/plans/ from "meaningful" changes, check last 3 commits for recent HANDOFF/CHANGELOG updates (eliminates false positives)
+- DELETE: .claude/pending-fixes-20260407-1428.md (13 stale entries)
+
+### KBP-01 Reincidencia
+- Agente trocou modelo Gemini Pro→Flash sem permissao do Lucas
+- Codex anti-drift mechanism solicitado (resultado pendente)
+
+---
+
 ## Sessao 97 — 2026-04-07 (QA Pipeline Hardening + 30-Word Rule Removal)
 
 ### QA Pipeline (commit 8536ae3)
