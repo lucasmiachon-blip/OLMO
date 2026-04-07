@@ -73,3 +73,53 @@ Escopo sugerido:
 ### E. Falha sistematica identificada S99
 
 **Agent delegation sem verificacao**: lancei 3 agentes que falharam antes de diagnosticar root cause (agente errado para a tarefa). Memory salva em `feedback_agent_delegation.md`. Regra: verificar tipo + output + aprovacao ANTES de lancar.
+
+### F. Payloads que falharam (preservados para retry correto)
+
+**Tentativa 1 — Batch 5 (codex:codex-rescue):** retornou findings no task summary apos 4min, mas output file vazio.
+**Tentativa 2 — Batch 6 (codex:codex-rescue):** retornou em 33s com "submitted to Codex", zero work.
+**Tentativa 3 — Batch 6 redo (researcher):** 43 tool uses, output file vazio (findings nao persistidos).
+
+#### Payload Batch 5 (momentum-brake adversarial)
+```
+Tipo usado: codex:codex-rescue (ERRADO — delega ao Codex CLI)
+Tipo correto: general-purpose
+
+Prompt resumido:
+- Review 3 scripts (.claude/hooks/momentum-brake-*.sh) + settings.local.json
+- 10 dimensoes: input validation, race conditions, bypass vectors, error handling,
+  path safety, interaction com hooks existentes, performance, completeness,
+  lock file security, registration correctness
+- Output: ID B5-NN, severity P0/P1/P2, file+line, description, fix
+```
+
+#### Payload Batch 6 (hooks ecosystem + antifragile health)
+```
+Tipo usado: codex:codex-rescue (ERRADO), depois researcher (output nao persistido)
+Tipo correto: general-purpose COM instrucao de escrever em arquivo
+
+Prompt resumido:
+Part A — Hooks cross-reference:
+- Ler settings.local.json, listar ALL registrations
+- Listar .sh em .claude/hooks/ e hooks/
+- Cross-ref: scripts nao registrados? Registrations apontando para scripts missing?
+- Verificar README.md counts
+- Checar stdin consumption em cada script
+
+Part B — Antifragile KBP audit:
+- Para cada KBP (1-5): verificar se o fix declarado esta implementado
+- Checar self-healing loop (stop-detect → pending-fixes → session-start)
+- Checar OTel config, cost-circuit-breaker thresholds
+
+Part C — Gaps:
+- Hooks mortos/unused, protection gaps, layers declaradas mas nao funcionais
+
+Output: ID B6-NN, category HOOKS|ANTIFRAGILE|GAP, severity, description+evidence, fix
+CRITICO: escrever findings em .claude/plans/batch-6-findings.md (faltou essa instrucao)
+```
+
+#### Licoes para S100
+1. Usar `general-purpose` (nao codex:codex-rescue) para adversarial review
+2. Incluir no prompt: "escreva todos os findings em [arquivo.md]"
+3. Confirmar com Lucas o agente + escopo ANTES de lancar
+4. Testar 1 batch, verificar output, depois lancar os demais
