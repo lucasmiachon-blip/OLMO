@@ -51,6 +51,6 @@ globs: "**/*"
 - **When**: Agent receives instruction to QA a slide and processes multiple slides in the same invocation
 - **Symptom**: Lucas says "esta rodando tudo errado eh um slide por vez", "trave sempre para fazer um slide por vez"
 - **Cause**: maxTurns budget allows processing multiple slides. Agent optimizes for throughput over protocol
-- **Fix**: Single-slide guard (qa-engineer.md + qa-pipeline.md). At invocation start, identify the ONE slide. If referencing a second slide's ID or file: STOP — violation detected. 1 gate = 1 invocation = 1 slide
+- **Fix**: Single-slide convention (qa-engineer.md + qa-pipeline.md). At invocation start, identify the ONE slide. Agent self-enforces: if referencing a second slide ID or file, STOP and report. 1 gate = 1 invocation = 1 slide. Enforcement: agent prompt + maxTurns=12 backstop (no hook)
 - **Incidence**: 7 events / 3 sessions
 - **Sessions**: 8cc72d17

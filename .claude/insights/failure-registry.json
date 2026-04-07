@@ -7,7 +7,7 @@
     {
       "id": "S82-baseline",
       "date": "2026-04-06",
-      "note": "Aggregated from /insights S82 report (20 sessions S75-S81 analyzed in depth)",
+      "note": "Aggregated from /insights S82 report (20 sessions analyzed in depth)",
       "metrics": {
         "sessions_in_sample": 20,
         "user_corrections_total": 40,

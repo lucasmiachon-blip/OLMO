@@ -1,10 +1,10 @@
 # Hooks — Reference
 
-> 25 hooks across 2 directories. All receive JSON via stdin, output via exit code.
+> 25 Claude Code hook registrations across 2 directories (27 script files; 2 are pre-commit hooks, not Claude hooks).
 > Valid events: SessionStart, PreCompact, PreToolUse, PostToolUse, UserPromptSubmit, Notification, Stop.
 > PostToolUseFailure does NOT exist — using it breaks JSON parsing and silently disables subsequent hooks.
 
-## `.claude/hooks/` — Tool Guards + Antifragile (11 scripts)
+## `.claude/hooks/` — Tool Guards + Antifragile (13 registered + 2 pre-commit)
 
 ### PreToolUse (Read)
 
@@ -59,7 +59,7 @@
 |--------|----------|--------------|
 | `cost-circuit-breaker.sh` | **WARN/BLOCK** | L3 cost: tracks tool calls/hr. Warn@100, block@400 |
 
-## `hooks/` — Session Lifecycle + APL (10 scripts)
+## `hooks/` — Session Lifecycle + APL (12 scripts)
 
 ### UserPromptSubmit — Ambient Productivity Layer
 
