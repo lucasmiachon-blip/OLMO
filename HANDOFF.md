@@ -22,10 +22,10 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | Revisar edit prompt gate4-call-b-uxcode.md | Lucas decidir se aprova conteudo ou reverte | Facil |
-| 2 | Fix accent card gestalt (margem negativa) | Gemini R13 apontou desalinhamento eixo | Normal |
-| 3 | Re-run editorial s-objetivos R13 | Apos fix prompt + accent | Normal |
-| 4 | Verificar resultado Codex adversarial | 3 propostas para repetition loop, partial report, anti-workaround | Facil |
+| 1 | Implementar Codex P1+P2 em gemini-qa3.mjs | allSettled, maxTokens 8192, limit 5 proposals, schema required, null medias | Normal |
+| 2 | Revisar edit prompt gate4-call-b-uxcode.md | Lucas decidir se aprova conteudo ou reverte | Facil |
+| 3 | Fix accent card gestalt (margem negativa) | Gemini R13 apontou desalinhamento eixo | Normal |
+| 4 | Re-run editorial s-objetivos R13 | Apos fixes P1+P2+accent — validar novo formato | Normal |
 | 5 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA | Normal |
 | 6 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
 | 7 | Chaos production test (B7-09) | Validar L2/L3/L6 chain com CHAOS_MODE=1 | Facil |
