@@ -10,16 +10,17 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 **INFRA COMPLETA.** Batches 6+7 CLOSED. Momentum brake, cost brake, self-healing loop, APL — tudo funcional.
 **Momentum-brake:** INVESTIGAR — hook enforce nao promptou Edit sem aprovacao (Lucas reportou).
 **Memory: 20/20 (AT CAP).**
-**s-objetivos:** Preflight PASS, CSS+grid+click-reveal implementados. Aguardando Editorial (gate 4).
+**s-objetivos:** Editorial R12 done (6.3/10). Visual 5, UX 6.5, Motion 8. 9 MUST dims. Fixes pendentes.
 **Archetypes removidos do QA** — composicao visual livre.
 
 ## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | Editorial gate 4 s-objetivos | QA slide — rodar gemini-qa3 editorial | Em andamento |
-| 2 | Investigar momentum-brake enforce | Hook nao disparou para Edit (S103) | Facil |
-| 3 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA | Normal |
+| 1 | Implementar MUST fixes s-objetivos | 7 fixes do editorial R12 (6.3/10) — Lucas decide quais | Normal |
+| 2 | Re-run editorial s-objetivos R13 | Apos fixes, re-avaliar | Facil |
+| 3 | Investigar momentum-brake enforce | Hook nao disparou para Edit (S103) | Facil |
+| 4 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA | Normal |
 | 4 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
 | 5 | Chaos production test (B7-09) | Validar L2/L3/L6 chain com CHAOS_MODE=1 | Facil |
 | 6 | ~~Docker stack test~~ | ~~Validar Redis auth, OTel pin~~ | FROZEN |

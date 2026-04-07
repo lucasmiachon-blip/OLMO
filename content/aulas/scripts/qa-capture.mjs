@@ -79,7 +79,7 @@ const ACT_FILTER = getArg('act', 'ALL').toUpperCase();
 const PORT = getArg('port', String(PORT_MAP[aula] || 4100));
 const SINGLE_SLIDE = getArg('slide', null);
 const SCALE = parseInt(getArg('scale', '2'));
-const RECORD_VIDEO = args.includes('--video');
+const RECORD_VIDEO_FLAG = args.includes('--video');
 
 // Timestamp for screenshot naming: {slide-id}_{YYYY-MM-DD}_{HHmm}_{state}.png
 const NOW = new Date();
@@ -405,9 +405,10 @@ async function main() {
       console.log(`  All checks PASS`);
     }
 
-    // Record video (--video flag, fresh context per slide)
+    // Record video: auto when slide has motion (clickReveals/customAnim), or --video flag
+    const needsVideo = RECORD_VIDEO_FLAG || slide.clickReveals > 0 || slide.customAnim != null;
     let hasVideo = false;
-    if (RECORD_VIDEO) {
+    if (needsVideo) {
       console.log(`  Recording video...`);
       let videoCtx;
       try {
