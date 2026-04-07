@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 106 — 2026-04-07 (s-importancia)
+
+### Research Pipeline Consolidation
+- /research SKILL.md v2.0: 6 pernas independentes (Gemini, evidence-researcher MCPs, MBE, ref-checker, Perplexity Sonar, NLM)
+- Perplexity separado do evidence-researcher como perna independente para triangulacao
+- NLM adicionado como perna 6 (3-4 queries progressivas por notebook)
+- New-slide mode no /research: `--after` para cross-ref em slides que nao existem
+- content-research.mjs ARQUIVADO em scripts/_archived/ (substituido por /research skill)
+- evidence-researcher: foco MCPs, removido Perplexity/Depth Assessment/refs ao .mjs
+- Cross-refs atualizados: aulas/CLAUDE.md, README.md, keys_setup.md, gemini-qa3.mjs
+
+### content-research.mjs — melhorias pre-archive
+- New-slide mode: extractSlideContext() graceful quando slide nao existe
+- `--after` flag para posicionar no manifest (adjacent slides cross-ref)
+- h2 fallback para manifest headline quando HTML nao tem `<h2>` (checkpoints)
+- Q4 discovery query NLM para slides novos
+
+### Pesquisa s-importancia (parcial)
+- evidence-researcher: 8 PMIDs verified (Lau 1992, Yusuf 1985, ATC 2002, ATT 2009, ISIS-2, Egger 1997, Clarke 2014, Cumpston 2019)
+- Gemini 3.1 Pro: status NUANCAVEL — GIGO caveat (Murad 2014), Magnesio/ISIS-4 (Egger 1995)
+- NLM: 3 queries falharam (queries longas). Retentar S107
+- Perplexity: nao executado. Executar S107
+
 ## Sessao 105 — 2026-04-07 (SLIDE2)
 
 ### Script: gemini-qa3.mjs — Codex P1+P2
