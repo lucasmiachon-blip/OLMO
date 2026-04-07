@@ -54,6 +54,7 @@ const REASON = getArg('reason', null);
 const PROMPT_ONLY = hasFlag('prompt-only');
 const CLI_MODE = hasFlag('cli');
 const FIELDS_RAW = getArg('fields', null);
+const AFTER_SLIDE = getArg('after', null); // For new slides: position after this slide ID
 
 // J4: --help
 if (hasFlag('help') || hasFlag('h')) {
@@ -64,9 +65,10 @@ Options:
   --slide <id>       Slide ID (required)
   --reason <text>    Manual weakness reason
   --fields <path|">  Research fields file or inline (;; separator)
+  --after <slide-id> Position context for NEW slides (adjacent cross-ref)
   --prompt-only      Print prompts without API call
   --cli              Use Gemini CLI (OAuth, $0) instead of API key
-  --nlm              Also query NotebookLM (3 progressive queries, additive)
+  --nlm              Also query NotebookLM (3-4 progressive queries, additive)
 
 Env: GEMINI_API_KEY (required unless --prompt-only or --cli)
 NLM: requires prior auth (PYTHONIOENCODING=utf-8 nlm login)`);
@@ -232,7 +234,9 @@ function getAdjacentClaims(meta) {
     const filePath = join(AULA_DIR, 'slides', slide.file);
     if (!existsSync(filePath)) return slide.headline || '(unknown)';
     const html = readFileSync(filePath, 'utf8');
-    return extractH2(html);
+    const h2 = extractH2(html);
+    // Fallback to manifest headline when HTML has no <h2> (e.g., checkpoints)
+    return h2 === '(no h2 found)' ? (slide.headline || h2) : h2;
   };
   return {
     prevClaim: readH2(meta.prev),
@@ -299,10 +303,89 @@ function extractPatientAnchor() {
 
 function extractSlideContext(slideId) {
   const filePath = findSlideFile(slideId);
-  if (!filePath || !existsSync(filePath)) {
-    throw new Error(`Slide file not found for ${slideId}`);
+  const isNewSlide = !filePath || !existsSync(filePath);
+
+  if (isNewSlide) {
+    // --- NEW SLIDE MODE: build synthetic context from --fields, --after, narrative ---
+    console.log(`  [new-slide] ${slideId} not found — building synthetic context`);
+
+    // Topic from --fields (first field) or --reason or slideId
+    const topic = FIELDS_RAW
+      ? FIELDS_RAW.split(';;')[0].trim()
+      : REASON || slideId.replace(/^s-/, '').replace(/-/g, ' ');
+
+    // Cross-ref via --after: find position in manifest relative to anchor slide
+    let meta = { position: '?/??', slides: [], idx: -1, slide: null, prev: null, next: null };
+    let prevClaim = '(none)';
+    let nextClaim = '(none)';
+
+    if (AFTER_SLIDE) {
+      const anchorMeta = getSlideMetadata(AFTER_SLIDE);
+      if (anchorMeta.idx >= 0) {
+        // Position: new slide sits right after anchor
+        const insertIdx = anchorMeta.idx + 1;
+        meta = {
+          position: `${insertIdx + 1}/${anchorMeta.slides.length + 1}`,
+          slides: anchorMeta.slides,
+          idx: insertIdx,
+          slide: { id: slideId, narrativeRole: 'setup', tensionLevel: 2 },
+          prev: anchorMeta.slide,
+          next: insertIdx < anchorMeta.slides.length ? anchorMeta.slides[insertIdx] : null,
+        };
+        const claims = getAdjacentClaims({
+          prev: anchorMeta.slide,
+          next: meta.next,
+        });
+        prevClaim = claims.prevClaim;
+        nextClaim = claims.nextClaim;
+        console.log(`  [new-slide] Positioned after ${AFTER_SLIDE} (${meta.position})`);
+        console.log(`  [new-slide] prev: "${prevClaim.slice(0, 60)}..."`);
+        console.log(`  [new-slide] next: "${nextClaim.slice(0, 60)}..."`);
+      } else {
+        console.warn(`  [new-slide] --after ${AFTER_SLIDE} not found in manifest — no cross-ref`);
+      }
+    }
+
+    // Narrative: search by topic keywords, not by slideId
+    let narrativeBlock = extractNarrativeBlock(slideId);
+    if (narrativeBlock.includes('not found')) {
+      // Fallback: search narrative.md for topic-related content
+      const narrativePath = join(AULA_DIR, 'references', 'narrative.md');
+      if (existsSync(narrativePath)) {
+        const text = readFileSync(narrativePath, 'utf8');
+        const topicWords = topic.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+        const lines = text.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          const lower = lines[i].toLowerCase();
+          if (topicWords.some(w => lower.includes(w))) {
+            const start = Math.max(0, i - 2);
+            const end = Math.min(lines.length, i + 5);
+            narrativeBlock = lines.slice(start, end).join('\n');
+            console.log(`  [new-slide] Narrative match at line ${i + 1} (keyword)`);
+            break;
+          }
+        }
+      }
+    }
+
+    return {
+      slideId,
+      filePath: null,
+      h2: topic,
+      bodyText: FIELDS_RAW ? FIELDS_RAW.split(';;').map(f => f.trim()).join('. ') : '',
+      notes: REASON || '(new slide — no notes yet)',
+      sourceTag: '',
+      existingPMIDs: [],
+      meta,
+      prevClaim,
+      nextClaim,
+      evidenceBlock: '(new slide — no evidence yet)',
+      narrativeBlock,
+      isNewSlide: true,
+    };
   }
 
+  // --- EXISTING SLIDE: original path ---
   const html = readFileSync(filePath, 'utf8');
   const h2 = extractH2(html);
   const bodyText = extractBodyText(html);
@@ -328,6 +411,7 @@ function extractSlideContext(slideId) {
     nextClaim,
     evidenceBlock,
     narrativeBlock,
+    isNewSlide: false,
   };
 }
 
@@ -915,6 +999,26 @@ Leia os capitulos e artigos mais relevantes e traga:
 
 Classifique cada fonte: [BOOK] Autor, Edicao, Cap, p.XX | [META/SR] ou [RCT] com PMID quando disponivel | [GUIDELINE] sociedade + ano. Priorize o que um residente precisa para leitura critica.`,
   ];
+
+  // Q4: Discovery — only for new slides (richer context for slide creation)
+  if (ctx.isNewSlide) {
+    const fieldsDetail = ctx.bodyText || topic;
+    queries.push(
+      `${preamble} Estou CRIANDO um slide novo sobre: "${topic}". Campos de pesquisa: ${fieldsDetail}.
+O slide anterior diz "${prevClaim}" e o proximo diz "${nextClaim}".
+
+Preciso de conteudo ESPECIFICO para um slide de apresentacao (nao um artigo):
+1. **Dados-hero**: 1-2 numeros de impacto que justifiquem o tema (com fonte, PMID se possivel)
+2. **Exemplos classicos**: casos historicos onde este conceito mudou a pratica clinica
+3. **Conexao narrativa**: como este conteudo conecta o slide anterior ("${prevClaim.slice(0, 50)}") ao proximo ("${nextClaim.slice(0, 50)}")
+4. **Armadilhas**: o que residentes costumam entender ERRADO sobre este tema
+5. **Uma frase-ancora**: uma frase curta e memoravel que resuma o conceito central
+
+Formato: dados concretos com autor+ano+pagina. Nada generico.`
+    );
+  }
+
+  return queries;
 }
 
 async function callNLM(notebookId, queries) {
@@ -1062,10 +1166,10 @@ ${groundingSources}
   }
 
   return `# Content Research — ${ctx.slideId}
-Date: ${date} | Weakness: ${weakness.category} (${weakness.severity}/3)
+Date: ${date} | Weakness: ${weakness.category} (${weakness.severity}/3)${ctx.isNewSlide ? ' | **NEW SLIDE**' : ''}
 
 ## Slide Context
-- **h2:** ${ctx.h2}
+- **h2:** ${ctx.h2}${ctx.isNewSlide ? ' *(synthetic — from --fields/--reason)*' : ''}
 - **Act:** ${slide?.act || 'N/A'} | Position: ${ctx.meta.position} | Tension: ${slide?.tensionLevel ?? '?'}/5
 - **Narrative role:** ${slide?.narrativeRole || 'none'}
 - **Existing PMIDs:** ${ctx.existingPMIDs.length > 0 ? ctx.existingPMIDs.join(', ') : 'NONE'}

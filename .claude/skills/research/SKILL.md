@@ -1,12 +1,12 @@
 ---
 name: research
 description: |
-  Pipeline de pesquisa medica multi-perna com sintese cruzada. 6 buscas independentes em paralelo (Gemini deep-search, MBE evaluator, reference checker, MCP query runner, Opus researcher, Perplexity auditor) + orquestrador que compara, cruza e sintetiza em living HTML per slide. Use sempre que o usuario pedir "pesquisa profunda", "research completa", "buscar evidencia", "deep research", "avaliar profundidade do slide", "pesquisar a fundo", "quality assessment", "verificar dados do slide", "preciso de evidencia para", "rodar SCite/Consensus", "checar referencias". Proativamente usar quando slides precisam de evidencia ou qualidade de dados clinicos e questionada.
-version: 1.0.0
+  Pipeline de pesquisa medica multi-perna com sintese cruzada. 6 pernas independentes em paralelo (Gemini deep-search, evidence-researcher MCPs, MBE evaluator, reference checker, Perplexity Sonar, NotebookLM) + orquestrador que compara, cruza e sintetiza em living HTML per slide. Use sempre que o usuario pedir "pesquisa profunda", "research completa", "buscar evidencia", "deep research", "avaliar profundidade do slide", "pesquisar a fundo", "quality assessment", "verificar dados do slide", "preciso de evidencia para", "rodar SCite/Consensus", "checar referencias". Proativamente usar quando slides precisam de evidencia ou qualidade de dados clinicos e questionada.
+version: 2.0.0
 context: fork
 agent: general-purpose
-allowed-tools: Read, Grep, Glob, Agent, WebSearch, WebFetch, Write
-argument-hint: "[topic OR slide-id] [--queries 'SCite: X, Consensus: Y']"
+allowed-tools: Read, Grep, Glob, Agent, WebSearch, WebFetch, Write, Bash
+argument-hint: "[topic OR slide-id] [--queries 'SCite: X, Consensus: Y'] [--after slide-id]"
 ---
 
 # Research — Pipeline Multi-Perna
@@ -18,9 +18,15 @@ Pesquisa para: `$ARGUMENTS`
 ## Step 1 — Parse
 
 1. **PMID/DOI isolado** (ex: `30910320`, `10.1016/...`): fast path — verificar via PubMed MCP, retornar citacao formatada. Pular pipeline.
-2. **Slide-id** (ex: `s-rs-vs-ma`): ler slide HTML + evidence-db + CLAUDE.md da aula. Pipeline completo.
-3. **Topic livre** (ex: `terlipressin HRS-AKI`): pipeline sem Pernas 2-3 (precisam de conteudo existente).
-4. Extrair `--queries` se presente (queries literais para Perna 4).
+2. **Slide-id existente** (ex: `s-rs-vs-ma`): ler slide HTML + evidence HTML + CLAUDE.md da aula. Pipeline completo.
+3. **Slide-id novo** (ex: `s-importancia --after s-hook`): slide nao existe ainda. Construir contexto sintetico:
+   - Topic: do argumento ou `--queries`
+   - Posicao: do `--after` (ler manifest, encontrar adjacent slides para cross-ref)
+   - Prev/Next claims: extrair h2 dos slides adjacentes (fallback para headline do manifest)
+   - Narrative: buscar narrative.md por keywords do topic
+   - Evidence: vazia (slide novo)
+4. **Topic livre** (ex: `terlipressin HRS-AKI`): pipeline sem Pernas 3-4 (precisam de conteudo existente).
+5. Extrair `--queries` se presente (queries literais para MCPs).
 
 ## Step 2 — Dispatch (paralelo)
 
@@ -29,15 +35,53 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 | # | Agent | Modelo | Quando | Input |
 |---|-------|--------|--------|-------|
 | 1 | Ler `.claude/skills/deep-search/SKILL.md` e seguir | Gemini 3.1 | Sempre | topic |
-| 2 | `mbe-evaluator` (subagent_type) | Sonnet | Slide existe | slide HTML + evidence-db |
-| 3 | `reference-checker` (subagent_type) | Sonnet | Slide existe | slide-id + aula path |
-| 4 | `mcp-query-runner` (subagent_type) | Haiku | --queries presente | queries literais |
-| 5 | `opus-researcher` (subagent_type) | Opus | Sempre | topic |
-| 6 | `perplexity-auditor` (subagent_type) | Haiku | Sempre | topic + slide context |
+| 2 | `evidence-researcher` (subagent_type) | Sonnet | Sempre | topic + slide context + queries MCP |
+| 3 | `mbe-evaluator` (subagent_type) | Sonnet | Slide existe | slide HTML + evidence HTML |
+| 4 | `reference-checker` (subagent_type) | Haiku | Slide existe | slide-id + aula path |
+| 5 | Perplexity Sonar (orchestrador via Bash) | — | Sempre | topic (prompt aberto) |
+| 6 | NLM queries (orchestrador via Bash) | — | Notebook mapeado | topic + adjacent context |
 
-Minimo: Pernas 1+5+6. Maximo: todas 6.
+Minimo: Pernas 1+2+5. Maximo: todas 6.
 
-**Perna 6 — Perplexity:** Discovery de frameworks e conceitos via web search grounded. Prompt ABERTO (nunca fechado). Todas as citacoes = [CANDIDATE] ate Perna 3 (reference-checker) verificar. Custo: ~$0.80-1.00/call.
+**Perna 2 — Evidence Researcher:** MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite, BioMCP). Verificacao de PMIDs via PubMed MCP. Foco: dados estruturados, trials, guidelines.
+
+**Perna 5 — Perplexity Sonar:** Pesquisa de fontes Tier 1 de 2020 ate data atual via web search grounded. Perna INDEPENDENTE (fonte diferente das MCPs). Modelo: `sonar-deep-research`. Prompt ABERTO — nunca fechado. Todas citacoes = [CANDIDATE] ate Perna 4 verificar. Max 1 call (~$0.80).
+
+Execucao (orchestrador via Bash):
+```bash
+node -e "
+const res = await fetch('https://api.perplexity.ai/chat/completions', {
+  method: 'POST',
+  headers: { 'Authorization': 'Bearer ' + process.env.PERPLEXITY_API_KEY, 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    model: 'sonar-deep-research',
+    messages: [
+      { role: 'system', content: 'Only cite Tier 1 sources (BMJ, Lancet, NEJM, JAMA, Cochrane, GRADE). Every claim needs PMID or DOI.' },
+      { role: 'user', content: '<OPEN_PROMPT>' }
+    ],
+    temperature: 0.8, max_tokens: 4000, return_citations: true, search_context_size: 'high'
+  })
+});
+console.log(JSON.stringify(await res.json(), null, 2));
+"
+```
+Regras: prompts ABERTOS ("What has changed in...", "What would surprise a medical educator about..."). NUNCA fechados.
+
+**Perna 6 — NotebookLM:** 3-4 queries progressivas ao notebook da aula via `nlm notebook query`. Q1 Foundation, Q2 Convergence, Q3 Deep content, Q4 Discovery (slides novos).
+
+NLM Notebook IDs:
+```
+metanalise: a274cffb-8f41-4015-8b9b-abf81c6b260a
+cirrose:    2660b1fe-3e01-4e5e-91ef-be060f2e1733
+mbe:        635af766-82ee-454e-b550-f0c4c8120bbd
+```
+
+NLM query execution (orchestrador):
+```bash
+nlm notebook query <notebook-id> "<query>" --json
+nlm notebook query <notebook-id> "<query>" --json --conversation-id <cid>  # follow-up
+```
+Auth: `nlm login` (sessao ~20min). Se expirar: `PYTHONIOENCODING=utf-8 nlm login`.
 
 ## Step 3 — Sintese (apos retorno)
 

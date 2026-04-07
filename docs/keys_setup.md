@@ -13,7 +13,7 @@ Autenticacao via OAuth no browser, sem variaveis de ambiente.
 ```bash
 export GEMINI_API_KEY="AIza..."
 ```
-- **Uso**: Scripts `content-research.mjs`, `gemini-qa3.mjs` (API key, nao MCP)
+- **Uso**: Script `gemini-qa3.mjs` (API key, nao MCP). `content-research.mjs` removido S106 — substituido por `/research` skill.
 - **Onde obter**: https://aistudio.google.com/
 - **Nota**: Gemini MCP descartado S71 (nunca conectou). Usar API via scripts.
 

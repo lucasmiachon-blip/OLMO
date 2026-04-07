@@ -37,7 +37,7 @@
 | `lint-narrative-sync.js` | Verifica sincronia narrativa |
 | `qa-capture.mjs` | Captura screenshots + video (utilitario, nao QA) |
 | `gemini-qa3.mjs` | QA unico script — Preflight + Inspect + Editorial |
-| `content-research.mjs` | Pesquisa de conteudo |
+| ~~`content-research.mjs`~~ | ~~Pesquisa de conteudo~~ — **REMOVIDO S106.** Substituido por `/research` skill (6 pernas) |
 | `done-gate.js` | Verifica estado DONE |
 | `export-pdf.js` | Exporta PDF |
 

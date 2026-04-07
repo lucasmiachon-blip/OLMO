@@ -99,7 +99,7 @@ const PRICING = {
 };
 function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
 
-// --- CLI args --- // TODO(backlog): J1 — extract getArg/hasFlag to shared lib/cli.mjs (DRY with content-research.mjs)
+// --- CLI args ---
 const args = process.argv.slice(2);
 function getArg(name, fallback) {
   const idx = args.indexOf(`--${name}`);
@@ -617,7 +617,7 @@ function extractNotes(html) {
 }
 
 // --- Slide metadata from manifest (absorbed from gemini.mjs) ---
-// TODO(backlog): G7 — extract to shared lib/manifest-parser.mjs (DRY with content-research.mjs)
+// TODO(backlog): G7 — extract to shared lib/manifest-parser.mjs
 function getSlideMetadata(slideId) {
   const manifestPath = join(AULA_DIR, 'slides', '_manifest.js');
   const text = readFileSync(manifestPath, 'utf8');

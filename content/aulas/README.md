@@ -73,7 +73,7 @@ STRATEGY.md              # Roadmap tecnico + pesquisa de ferramentas
 | Script | Comando npm | Proposito |
 |--------|-------------|-----------|
 | `build-html.ps1` | `npm run build:cirrose` | Template → HTML (PowerShell) |
-| `content-research.mjs` | `npm run research:cirrose` | Pesquisa via Gemini API |
+| ~~`content-research.mjs`~~ | — | **REMOVIDO S106.** Substituido por `/research` skill |
 | `capture-s-*.mjs` | *(direto)* | Screenshot de slide especifico |
 
 ### Grade-especificos (`grade/scripts/`)
