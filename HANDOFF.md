@@ -71,6 +71,16 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 - **Agent delegation:** NUNCA fire-and-forget. Verificar tipo do agente, output capturavel, aprovacao do Lucas.
 - **Anti-workaround (KBP-07):** Quando algo falha: diagnosticar causa raiz, reportar, listar opcoes, PARAR. NUNCA contornar.
 
+## CODEX ADVERSARIAL (S104) — propostas pendentes
+
+> Detalhes completos: `docs/codex-adversarial-s104.md`
+
+**Gemini loop (P1):** Reduzir Call B maxOutputTokens 16384→4096-8192. Limitar proposals a 5 max. Endurecer schema com `required`. Truncar roundCtx. Tratar `finishReason !== 'STOP'` como falha.
+
+**Partial report (P2):** Trocar `Promise.all` por `Promise.allSettled` (L1074). Usar `null` em vez de `0` para medias indisponiveis (L1212-1214). Diferenciar estados: missing/parse_failed/truncated/ok. Salvar report mesmo em erro de rede.
+
+**Failure latch (P3):** PostToolUse detecta erro → arma `/tmp/olmo-failure-gate/armed`. PreToolUse bloqueia Write/Edit/Bash/Agent enquanto armado. Limpa em UserPromptSubmit. Mesmo padrao momentum brake mas acionado por erros, nao por acao.
+
 ## CONFLITOS
 
 (nenhum ativo)
