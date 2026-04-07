@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 92 — 2026-04-06 (Langfuse traces validated — OTel pipeline fix)
+
+### OTel Pipeline Fix
+- FIX: API keys desatualizadas no `.env` (projeto Langfuse recriado, keys antigas invalidadas)
+- FIX: Windows env vars sobrescreviam `.env` — docker-compose `environment: ${VAR}` → `env_file: .env`
+- ADD: Header `x-langfuse-ingestion-version: "4"` no OTel collector config (Langfuse V3 requirement)
+- FIX: Logs pipeline removido do exporter Langfuse (endpoint `/otel/v1/logs` nao existe em V3 = 404)
+- RESULT: Traces visíveis no Langfuse UI :3100. Pipeline end-to-end validado visualmente.
+
+### Pendente
+- ClickHouse `events_core` table faltando — dashboard Fast Preview com erro (scores/models/costs). Traces OK.
+- L6 chaos design doc — movido para S93
+- Memory governance review — movido para S93
+
+---
+
 ## Sessao 91 — 2026-04-06 (NeoSigma /insights — Phase 5 validated)
 
 ### /insights Run (13 sessions analyzed, S86-S90 period)

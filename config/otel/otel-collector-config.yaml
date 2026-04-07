@@ -29,6 +29,7 @@ exporters:
     endpoint: http://langfuse-web:3000/api/public/otel
     headers:
       Authorization: "Basic ${LANGFUSE_AUTH_HEADER}"
+      x-langfuse-ingestion-version: "4"
     compression: gzip
 
   debug:
@@ -47,4 +48,4 @@ service:
     logs:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlphttp/langfuse, debug]
+      exporters: [debug]

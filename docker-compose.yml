@@ -165,8 +165,8 @@ services:
     command: ["--config=/etc/otelcol/config.yaml"]
     volumes:
       - ./config/otel/otel-collector-config.yaml:/etc/otelcol/config.yaml:ro
-    environment:
-      LANGFUSE_AUTH_HEADER: ${LANGFUSE_AUTH_HEADER:-cGstbGZfZHVtbXk6c2stbGZfZHVtbXk=}
+    env_file:
+      - .env
     ports:
       - "4317:4317"
       - "4318:4318"
