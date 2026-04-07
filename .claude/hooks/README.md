@@ -1,10 +1,10 @@
 # Hooks — Reference
 
-> 13 hooks across 2 directories. All receive JSON via stdin, output via exit code.
-> Valid events: SessionStart, PreToolUse, PostToolUse, Notification, Stop.
+> 22 hooks across 2 directories. All receive JSON via stdin, output via exit code.
+> Valid events: SessionStart, PreCompact, PreToolUse, PostToolUse, Notification, Stop.
 > PostToolUseFailure does NOT exist — using it breaks JSON parsing and silently disables subsequent hooks.
 
-## `.claude/hooks/` — Tool Guards (8 scripts)
+## `.claude/hooks/` — Tool Guards + Antifragile (11 scripts)
 
 ### PreToolUse (Read)
 
@@ -28,13 +28,38 @@
 | `guard-bash-write.sh` | **ASK** | Shell write patterns (>, >>, sed -i, tee, writeFile, curl -o, cp/mv) |
 | `guard-lint-before-build.sh` | **BLOCK** | Build commands without passing 3 linters first (timeout: 15s) |
 
+### PreToolUse (ExitPlanMode)
+
+| Script | Behavior | What it guards |
+|--------|----------|----------------|
+| `allow-plan-exit.sh` | **ALLOW** | Permits ExitPlanMode tool use |
+
 ### PostToolUse (Bash)
 
 | Script | Behavior | What it does |
 |--------|----------|--------------|
 | `build-monitor.sh` | **LOG** | Logs build failures to NOTES.md. Silent on success |
 
-## `hooks/` — Session Lifecycle (5 scripts)
+### PostToolUse (Write|Edit)
+
+| Script | Behavior | What it does |
+|--------|----------|--------------|
+| `lint-on-edit.sh` | **WARN** | Auto-lint slides on edit. L5 self-healing (timeout: 15s) |
+
+### PostToolUse (Agent|Bash) — Antifragile
+
+| Script | Behavior | What it does |
+|--------|----------|--------------|
+| `chaos-inject-post.sh` | **INJECT** | L6 chaos: injects fake failures into /tmp state files. Opt-in via `CHAOS_MODE=1` |
+| `model-fallback-advisory.sh` | **WARN** | L2 fallback: detects model errors, suggests downgrade. Circuit breaker (2 fails/5min) |
+
+### PostToolUse (.*)
+
+| Script | Behavior | What it does |
+|--------|----------|--------------|
+| `cost-circuit-breaker.sh` | **WARN/BLOCK** | L3 cost: tracks tool calls/hr. Warn@100, block@400 |
+
+## `hooks/` — Session Lifecycle (7 scripts)
 
 ### SessionStart
 
@@ -49,10 +74,19 @@
 |--------|---------|--------------|
 | `notify.sh` | (unconditional) | Windows 11 toast "Aguardando input" (visual only, no beep) |
 
+### PreCompact
+
+| Script | Matcher | What it does |
+|--------|---------|--------------|
+| `pre-compact-checkpoint.sh` | (unconditional) | Saves critical context before compaction |
+
 ### Stop
 
 | Script | Matcher | What it does |
 |--------|---------|--------------|
+| `stop-crossref-check.sh` | (unconditional) | Checks cross-references between slides and evidence |
+| `stop-detect-issues.sh` | (unconditional) | L5 self-healing: detects desync, writes pending-fixes |
+| `stop-chaos-report.sh` | (unconditional) | L6 chaos: reports injections vs defense activations (only if CHAOS_MODE was active) |
 | `stop-hygiene.sh` | (unconditional) | Warns if HANDOFF/CHANGELOG not updated with uncommitted changes |
 | `stop-notify.sh` | (unconditional) | Windows 11 toast "Pronto" |
 
@@ -77,3 +111,10 @@ Scripts use `node -e` for JSON parsing (single spawn, cross-platform).
 ## Configuration
 
 All hooks wired in `.claude/settings.local.json` under the `"hooks"` key. The `hooks/` directory is NOT git hooks — it contains Claude Code lifecycle scripts.
+
+## Libraries (`.claude/hooks/lib/`)
+
+| Script | Used by | Purpose |
+|--------|---------|---------|
+| `retry-utils.sh` | lint-on-edit, guard-lint, build-monitor, export-pdf.js | L1: exponential backoff + jitter |
+| `chaos-inject.sh` | chaos-inject-post.sh | L6: chaos injection vectors + probability roll |

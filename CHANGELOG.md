@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 93 — 2026-04-06 (Governance + Chaos Design — L6 antifragile implemented)
+
+### Memory Governance Review
+- REFRESH: `project_tooling_pipeline.md` — hook count 19→20 (allow-plan-exit.sh missing)
+- REFRESH: `patterns_antifragile.md` — L1-L7 status updated from S82 snapshot to S93 current
+- REFRESH: `project_self_improvement.md` — header S87→S93, L6 status updated
+- UPDATE: MEMORY.md index — S93 state
+
+### L6 Chaos Engineering (Antifragile)
+- ADD: `docs/research/chaos-engineering-L6.md` — design doc (philosophy, matrix, activation, observation)
+- ADD: `.claude/hooks/lib/chaos-inject.sh` — injection library (4 vectors, probability roll, JSONL logging)
+- ADD: `.claude/hooks/chaos-inject-post.sh` — PostToolUse hook (Agent|Bash), injects into /tmp state files
+- ADD: `hooks/stop-chaos-report.sh` — Stop hook, reports injections vs defense activations + gap analysis
+- MOD: `.claude/settings.local.json` — registered 2 new hooks (chaos PostToolUse + Stop report)
+- MOD: `.claude/hooks/README.md` — updated from 13 to 22 hooks, added libraries section
+- DESIGN: Zero changes to existing L1-L3 hooks. Chaos writes to same /tmp files defenses already read.
+- TESTED: `CHAOS_MODE=1 CHAOS_PROBABILITY=100` — all 4 vectors fire, stop report generates cleanly. Default off = zero output.
+
+---
+
 ## Sessao 92 — 2026-04-06 (Langfuse traces validated — OTel pipeline fix)
 
 ### OTel Pipeline Fix

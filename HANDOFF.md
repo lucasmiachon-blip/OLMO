@@ -1,24 +1,24 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 92 | 2026-04-06
+> Sessao 93 | 2026-04-06
 > Cross-ref: `BACKLOG.md` | `docs/research/implementation-plan-S82.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean. Build OK (18 slides metanalise).
-**Agentes: 8** (todos com model routing). **Hooks: 19**. **Rules: 10**. MCPs: 11 connected.
+**Agentes: 8** (todos com model routing). **Hooks: 22** (20 CC + 2 chaos). **Rules: 10**. MCPs: 11 connected.
 **OTel + Langfuse V3: TRACES FUNCIONANDO.** 7 containers healthy, pipeline validado visualmente em :3100.
-**Antifragile: L1 DONE, L2 MELHORADO, L3 DONE, L5 DONE, L7 DONE.** L4 implementado, L6 zero.
+**Antifragile: L1 DONE, L2 MELHORADO, L3 DONE, L4 DONE, L5 DONE, L6 BASIC (4 vetores), L7 DONE.**
 **/insights S91:** Phase 5 NeoSigma validado. Trend improving (corr 0.4, kbp 0.61). 2 proposals applied.
 
 ## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | L6 chaos engineering — design doc | Testar robustez | Design-only primeiro |
-| 2 | Memory governance review (S92 scheduled) | Validar TTL, merge candidates | Normal |
-| 3 | QA ou slide session — testar enforcement pos-S82 | Validar KBP guards em contexto real | Normal |
-| 4 | ClickHouse `events_core` migration — dashboard scores/models | Langfuse Fast Preview | Baixa prioridade |
+| 1 | QA ou slide session — testar enforcement pos-S82 | Validar KBP guards em contexto real | Normal |
+| 2 | L6 Phase B — vetores 5-6 (slide desync, stale memory) | Completar cobertura chaos | Normal |
+| 3 | ClickHouse `events_core` migration — dashboard scores/models | Langfuse Fast Preview | Baixa prioridade |
+| 4 | L6 chaos gameday — session com CHAOS_MODE=1 ativo | Validar defesas em producao | Normal |
 
 Plano completo: `docs/research/implementation-plan-S82.md`
 
@@ -44,13 +44,14 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 - **Self-healing loop:** stop-detect → pending-fixes → session-start surfacea.
 - **Known-bad-patterns (Via Negativa):** 5 KBPs, alimentado por /insights.
 - **Failure registry:** `.claude/insights/failure-registry.json` — 5 entries, trend improving.
-- **Memory TTL:** review_by + last_challenged + confidence em 17 files. Staggered S89.
+- **Memory TTL:** review_by + last_challenged + confidence em 18 files. Staggered S89. Governance review S93: 3 files refreshed, no merges.
 - **OTel + Langfuse V3:** Traces validados visualmente S92. Pipeline: CC→gRPC:4317→OTel Collector→Langfuse.
 - **L1 retry-utils.sh:** exp backoff + jitter em 3 hooks + export-pdf.js.
 - **L2 model-fallback:** state tracking + circuit breaker (2 falhas/5min = degraded).
+- **L6 chaos engineering:** BASIC — chaos-inject lib + PostToolUse + Stop report. 4 vetores (429, timeout, model_unavail, rapid_calls). Opt-in `CHAOS_MODE=1`. Design doc: `docs/research/chaos-engineering-L6.md`.
 - **MCP pinning:** SEC-004 done. Review quarterly S95.
 - Agentes: max 2, Lucas dita, scripts existentes, 1 slide por vez.
-- Memory governance: cap 20 files (17 atual). Next review: S95.
+- Memory governance: cap 20 files (18 atual). Next review: S95.
 - **/insights cadence:** last run S91. Next: S94 ou on-demand.
 
 ## CUIDADOS
@@ -71,4 +72,4 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S92 2026-04-06
+Coautoria: Lucas + Opus 4.6 | S93 2026-04-06
