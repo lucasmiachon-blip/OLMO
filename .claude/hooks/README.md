@@ -26,7 +26,7 @@
 |--------|----------|----------------|
 | `guard-secrets.sh` | **BLOCK** | `git commit/add` with staged files containing API keys, tokens, PATs |
 | `guard-bash-write.sh` | **ASK** | Shell write patterns (>, >>, sed -i, tee, writeFile, curl -o, cp/mv) |
-| `guard-lint-before-build.sh` | **BLOCK** | Build commands without passing 3 linters first (timeout: 15s) |
+| `guard-lint-before-build.sh` | **BLOCK** | Build commands without passing 3 linters first (timeout: 30s) |
 
 ### PreToolUse (ExitPlanMode)
 
@@ -57,7 +57,7 @@
 
 | Script | Behavior | What it does |
 |--------|----------|--------------|
-| `cost-circuit-breaker.sh` | **WARN/ARM** | L3 cost: tracks tool calls/hr. Warn@100, arms cost brake@400 (structural gate via enforce) |
+| `cost-circuit-breaker.sh` | **WARN/ARM** | L3 cost: tracks tool calls/session. Warn@100, arms cost brake@400 (structural gate via enforce) |
 
 ### PostToolUse (.*) — Momentum Brake
 
@@ -75,7 +75,7 @@
 
 | Script | Behavior | What it does |
 |--------|----------|--------------|
-| `momentum-brake-enforce.sh` | **ASK** | If momentum or cost brake armed + tool not exempt: forces permissionDecision:ask. Exempt: Read/Grep/Glob/AskUserQuestion/EnterPlanMode/ExitPlanMode |
+| `momentum-brake-enforce.sh` | **ASK** | If momentum or cost brake armed + tool not exempt: forces permissionDecision:ask. Exempt: Read/Grep/Glob/Bash/ToolSearch/AskUserQuestion/EnterPlanMode/ExitPlanMode |
 
 ## `hooks/` — Session Lifecycle + APL (12 scripts)
 

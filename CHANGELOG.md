@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 102 — 2026-04-07 (ULTIMA_INFRA — Batch Closure)
+
+### Fixes
+- FIX B7-06: cost-circuit-breaker agora session-scope (session-start gera ID, hook le)
+- FIX B7-10: pre-compact-checkpoint.sh portavel (GNU `stat --format` + `date -d` → POSIX `find -mmin`)
+- FIX B6-22: guard-lint-before-build timeout 15s→30s em settings.local.json
+- FIX: momentum-brake-enforce.sh exempta Bash+ToolSearch (guard-bash-write.sh como safety net)
+
+### Closures
+- CLOSED Batch 6: 26/26 (20 fixed S101, 4 intentional/OK, 2 timeout tuning)
+- CLOSED Batch 7: 10/10 (B7-01=FP, B7-08=fixed S101, B7-06/10=fixed S102, 5 accepted P2, B7-09=chaos deferred)
+- ACCEPTED B7-02/03 (KBP-02/04 prompt-only — 0 recurrences since S97)
+- ACCEPTED B7-04/05/07 (low risk, adequate heuristics)
+
+### Docs
+- README.md hooks: timeout, session-scope, exempt list atualizados
+- Batch 6/7 findings: closure annotations
+- Memory: feedback_tool_permissions.md (Write excepcional, Bash exempt)
+
 ## Sessao 101 — 2026-04-07 (INFRA — Batch 6+7 P1 Fixes)
 
 ### Batch 6 P1 Fixes (stdin + argv)

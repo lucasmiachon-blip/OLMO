@@ -16,8 +16,8 @@ cat >/dev/null 2>&1
 WARN_THRESHOLD="${CC_COST_WARN_CALLS:-100}"
 BLOCK_THRESHOLD="${CC_COST_BLOCK_CALLS:-400}"
 
-# ID de sessao: data + hora (reseta a cada hora = novo budget)
-SESSION_ID=$(date '+%Y%m%d_%H')
+# ID de sessao: session-scoped (gerado por session-start.sh). Fallback: timestamp unico.
+SESSION_ID=$(cat /tmp/cc-session-id.txt 2>/dev/null || date '+%Y%m%d_%H%M%S')
 COUNTER_FILE="/tmp/cc-calls-${SESSION_ID}.txt"
 COST_BRAKE_DIR="/tmp/olmo-cost-brake"
 

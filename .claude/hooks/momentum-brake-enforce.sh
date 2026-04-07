@@ -5,11 +5,13 @@
 #
 # Exempt tools (no ask needed):
 #   Read, Grep, Glob        — pure observation, not actions
+#   Bash                     — guarded by guard-bash-write.sh + guard-secrets.sh (S102)
+#   ToolSearch               — meta tool, no side effects
 #   AskUserQuestion          — stopping to ask IS the desired behavior
 #   EnterPlanMode/ExitPlanMode — meta tools, not actions
 #
 # Non-exempt (require approval when armed):
-#   Write, Edit, Bash, Agent, MCP tools, etc.
+#   Write, Edit, Agent, MCP tools, etc.
 #   Write/Edit get double-ask with guard-pause.sh — accepted (defense-in-depth, B5-05 S100).
 # Exit 0 with JSON = ask. Exit 0 without JSON = allow.
 
@@ -43,7 +45,7 @@ TOOL_NAME=$(echo "$INPUT" | node -e "
 
 # Exempt tools: allow without asking
 case "$TOOL_NAME" in
-  Read|Grep|Glob|AskUserQuestion|EnterPlanMode|ExitPlanMode)
+  Read|Grep|Glob|Bash|ToolSearch|AskUserQuestion|EnterPlanMode|ExitPlanMode)
     exit 0
     ;;
 esac

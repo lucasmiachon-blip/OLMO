@@ -1,5 +1,6 @@
 # Batch 6 Findings — Hooks Ecosystem Cross-Reference
 > Date: 2026-04-07 | Auditor: general-purpose agent (Opus 4.6)
+> **CLOSED S102** (2026-04-07): 20 fixed S101, 6 closed (4 intentional/OK, 2 timeout tuning)
 
 ## Summary
 - Total script files: 30 (18 in `.claude/hooks/`, 12 in `hooks/`)
