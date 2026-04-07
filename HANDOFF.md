@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 104 | 2026-04-07
-> Cross-ref: `.claude/plans/typed-wibbling-liskov.md`
+> Sessao 105 | 2026-04-07
+> Cross-ref: `.claude/plans/jazzy-spinning-quokka.md`
 
 ## ESTADO ATUAL
 
@@ -10,27 +10,21 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 **INFRA COMPLETA.** Batches 6+7 CLOSED.
 **Memory: 20/20 (AT CAP).**
 
-**s-objetivos:** 7 MUST fixes CSS aplicados (R12 editorial). Z-flow, opacity fix, border 4px, detail 20px, flex-start, tokens migrados. Margem negativa accent card PRECISA REVISAO (Gemini R13 apontou gestalt=4 — desalinha eixo vertical). Preflight 4/4 PASS. Editorial R13 parcial (A+C OK, B loop degenerativo Gemini — MAX_TOKENS). Re-run necessario apos fix do prompt.
+**gemini-qa3.mjs:** P1+P2 implementados. allSettled, schema required, status tracking, null medias, thinkingBudget 4096. Call B mantido 16384 (thinking consome budget). Prompts: max 5 proposals (3 aulas). Concisao aprovada.
 
-**gemini-qa3.mjs:** 2 fixes — timeout 120→300s, report parcial (throw→warn). Prompt B com constraint concisao (edit feito SEM aprovacao — conteudo pendente revisao Lucas).
-
-**KBP-07 (novo):** Anti-workaround gate. Hook guard-product-files.sh agora protege scripts canonicos + prompts (ask). Rule + gate em anti-drift.md.
-
-**Codex adversarial:** Lancado S104, resultado pendente (pode ter completado apos sessao).
+**s-objetivos R11:** 7.1/10 overall (15/15 dims). Gestalt=5 (accent card margem simetrica aplicada — Gemini ainda aponta desalinhamento). css_cascade=5 deferido (#deck necessario). 4 fixes aplicados (margem, strong, print-pdf, max-width).
 
 ## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | Implementar Codex P1+P2 em gemini-qa3.mjs | allSettled, maxTokens 8192, limit 5 proposals, schema required, null medias | Normal |
-| 2 | Revisar edit prompt gate4-call-b-uxcode.md | Lucas decidir se aprova conteudo ou reverte | Facil |
-| 3 | Fix accent card gestalt (margem negativa) | Gemini R13 apontou desalinhamento eixo | Normal |
-| 4 | Re-run editorial s-objetivos R13 | Apos fixes P1+P2+accent — validar novo formato | Normal |
-| 5 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA | Normal |
-| 6 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
-| 7 | Chaos production test (B7-09) | Validar L2/L3/L6 chain com CHAOS_MODE=1 | Facil |
-| 8 | ~~Docker stack test~~ | ~~Validar Redis auth, OTel pin~~ | FROZEN |
-| 9 | ~~notion-ops write tools + gates~~ | ~~Agent hardening~~ | FROZEN |
+| 1 | Investigar gestalt accent card (R11 ainda 5/10) | Margem simetrica nao resolveu — capturar screenshot e avaliar | Normal |
+| 2 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA (1/19 editorial) | Normal |
+| 3 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
+| 4 | Chaos production test (B7-09) | Validar L2/L3/L6 chain com CHAOS_MODE=1 | Facil |
+| 5 | Failure latch P3 (3 hooks) | PostToolUse/PreToolUse/UserPromptSubmit | Normal |
+| 6 | ~~Docker stack test~~ | ~~Validar Redis auth, OTel pin~~ | FROZEN |
+| 7 | ~~notion-ops write tools + gates~~ | ~~Agent hardening~~ | FROZEN |
 
 ## AGENTES
 
@@ -47,13 +41,13 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 
 ## DECISOES ATIVAS
 
-- **QA pipeline S103:** Path linear 11 steps. Preflight 4 dims + loop Lucas antes de Gemini. Archetypes removidos dos criterios.
-- **s-objetivos accent card:** Margem negativa (fix #5 R12) piorou gestalt segundo Gemini R13. Opcoes: (a) reverter margem, devolver border-left para .obj-body interno com padding simetrico, (b) outro approach. Lucas decide.
-- **Prompt B concisao:** Edit pendente aprovacao. Adiciona max 15 palavras titulo, max 20 linhas fix, max 2 frases problema.
-- **KBP-07:** Anti-workaround gate. Hook ask para scripts + prompts. Se ask nao segurar, migrar para block.
-- **Momentum-brake S102:** 3 hooks (arm/enforce/clear). **BUG S103:** enforce nao promptou — ainda nao investigado.
+- **QA pipeline S103:** Path linear 11 steps. Preflight 4 dims + loop Lucas antes de Gemini.
+- **s-objetivos accent card:** Margem simetrica aplicada (R11), gestalt ainda 5/10. Proximo: capturar screenshot, avaliar visualmente, decidir se precisa reestruturar HTML.
+- **css_cascade #deck:** Deferido — specificity necessaria para vencer base.css `max-width: 56ch`. Nao e "toxica", e intencional.
+- **KBP-07:** Anti-workaround gate. Hook ask para scripts + prompts.
+- **Momentum-brake S102:** 3 hooks (arm/enforce/clear). BUG S103: enforce nao promptou — nao investigado.
 - **Cost brake S102:** Session-scope. Warn@100, arm@400.
-- **gemini-qa3.mjs S104:** timeout 300s, partial report (warn instead of throw).
+- **thinkingBudget vs thinkingLevel:** Mutuamente exclusivos no Gemini 3.1. thinkingBudget=4096 aplicado mas efetividade incerta (317 tok output em run anterior). Call B mantido 16384.
 - **Values: Antifragile + Curiosidade** — decision gates.
 - **Living HTML per slide = source of truth.**
 - Memory governance: cap 20 files (20 atual — AT CAP). Next review: S105.
@@ -69,21 +63,11 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 - **QA visual:** Seguir path linear. NUNCA fabricar criterios (KBP-04).
 - **npm scripts:** Rodar de `content/aulas/`, NAO da raiz do monorepo.
 - **Agent delegation:** NUNCA fire-and-forget. Verificar tipo do agente, output capturavel, aprovacao do Lucas.
-- **Anti-workaround (KBP-07):** Quando algo falha: diagnosticar causa raiz, reportar, listar opcoes, PARAR. NUNCA contornar.
-
-## CODEX ADVERSARIAL (S104) — propostas pendentes
-
-> Detalhes completos: `docs/codex-adversarial-s104.md`
-
-**Gemini loop (P1):** Reduzir Call B maxOutputTokens 16384→4096-8192. Limitar proposals a 5 max. Endurecer schema com `required`. Truncar roundCtx. Tratar `finishReason !== 'STOP'` como falha.
-
-**Partial report (P2):** Trocar `Promise.all` por `Promise.allSettled` (L1074). Usar `null` em vez de `0` para medias indisponiveis (L1212-1214). Diferenciar estados: missing/parse_failed/truncated/ok. Salvar report mesmo em erro de rede.
-
-**Failure latch (P3):** PostToolUse detecta erro → arma `/tmp/olmo-failure-gate/armed`. PreToolUse bloqueia Write/Edit/Bash/Agent enquanto armado. Limpa em UserPromptSubmit. Mesmo padrao momentum brake mas acionado por erros, nao por acao.
+- **Anti-workaround (KBP-07):** Quando algo falha: diagnosticar causa raiz, reportar, listar opcoes, PARAR.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S104 2026-04-07
+Coautoria: Lucas + Opus 4.6 | S105 2026-04-07

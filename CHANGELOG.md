@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## Sessao 105 — 2026-04-07 (SLIDE2)
+
+### Script: gemini-qa3.mjs — Codex P1+P2
+- Promise.all → Promise.allSettled (partial report: calls bem-sucedidas nao se perdem)
+- Schema `required` nos items de proposals (forca completude)
+- Call status tracking: ok/truncated/parse_failed/missing no report
+- null em vez de 0 para medias indisponiveis (N/A no report)
+- thinkingBudget: 4096 (cap Gemini 3.1 thinking tokens)
+- maxOutputTokens Call B mantido 16384 (thinking consome budget compartilhado)
+
+### Prompts: gate4-call-b-uxcode.md (3 aulas)
+- Max 5 proposals ordenadas por impacto (MUST primeiro)
+- Prompt B concisao aprovada por Lucas (mantida da S104)
+
+### CSS: s-objetivos — editorial R11 fixes
+- Accent card: margem negativa simetrica `-12px calc(var(--space-sm) * -1)` (gestalt fix)
+- Removido `<strong>` item 6 (double-coding — background ja destaca)
+- Failsafe: `.print-pdf` adicionado ao reset de opacity
+- Grid max-width 1060→1120px (distribuicao — menos espaco morto)
+
+### Editorial R11: 3 calls completas
+- Overall 7.1/10 (Visual 6.6, UX+Code 6.6, Motion 8.2)
+- 5 MUST: distribuicao=6, composicao=6, gestalt=5, css_cascade=5, failsafes=6
+- css_cascade deferido (specificity #deck necessaria para vencer base.css)
+
 ## Sessao 104 — 2026-04-07 (SLIDES)
 
 ### CSS: s-objetivos — 7 MUST fixes (editorial R12)
