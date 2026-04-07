@@ -11,6 +11,11 @@
 - [ ] Presenter.js rewrite (nao funciona com deck.js)
 - [ ] Anki MCP setup (spaced repetition para concurso)
 
+### Integracoes (15+ dias)
+- [ ] Cowork — fontes pagas (UpToDate, DynaMed, BMJ Best Practice)
+- [ ] Pipeline email → Notion → Obsidian (integrar fluxos existentes)
+- [ ] Obsidian vault sync com Notion DBs
+
 ### Low Priority
 - [ ] SEC-005: CHATGPT_MCP_URL validacao (server `planned`, non-issue ate connect)
 
