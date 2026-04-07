@@ -8,7 +8,6 @@
 - Python 3.11+
 - Node.js 20+ (para MCPs via npx e aulas)
 - Claude Code CLI instalado
-- Claude Desktop (para Cowork)
 
 ## Instalacao
 
@@ -32,12 +31,12 @@ cp .env.example .env
 
 ## MCPs Configurados (ver `config/mcp/servers.json`)
 
-**Conectados (12)** — maioria via claude.ai (OAuth, $0):
+**Conectados (11)** — maioria via claude.ai (OAuth, $0):
 - **Medicos**: PubMed, SCite, Consensus, Scholar Gateway
 - **Produtividade**: Notion, Gmail, Google Calendar, Canva, Excalidraw
-- **AI/Pesquisa**: Perplexity, NotebookLM, Zotero
+- **Pesquisa**: NotebookLM, Zotero
 
-**Planejados (3)**: Anki, Google Drive, ChatGPT
+Perplexity: API direta (nao MCP). Gemini: CLI OAuth + API key (scripts).
 
 ```bash
 # Notion MCP (publicacao de conteudo)
@@ -74,13 +73,6 @@ claude "analise este paper com GRADE e publique no Notion: [PMID]"
 claude "gere o digest medico semanal e publique no Notion"
 ```
 
-## Uso com Cowork (Fontes Pagas)
-
-1. Abrir Claude Desktop → Cowork
-2. Criar Skill "Extrair UpToDate" com instrucoes
-3. Disparar com 1 clique
-4. Claude Code processa com skill MBE
-
 ## Estrutura do Projeto
 
 ```
@@ -111,23 +103,25 @@ OLMO/
 ├── assets/                   # Concurso R3 (provas + SAPs, gitignored)
 ├── .claude/
 │   ├── skills/ (20)          # Sob demanda (progressive disclosure)
-│   ├── rules/ (9)            # Sempre carregadas (path-scoped)
-│   └── agents/ (8)           # researcher, qa-engineer, evidence-researcher, etc.
-├── hooks/                    # notify.sh, stop-hygiene.sh
+│   ├── rules/ (10)           # Sempre carregadas (path-scoped)
+│   ├── agents/ (8)           # researcher, qa-engineer, evidence-researcher, etc.
+│   └── hooks/ (11)           # Guards + antifragile hooks
+├── hooks/ (11)               # Session lifecycle + stop hooks + chaos report
 ├── config/
 │   ├── ecosystem.yaml        # Agentes + model routing + skills
-│   ├── mcp/servers.json      # 15 MCPs (12 connected, 3 planned)
-│   └── rate_limits.yaml      # Budget $100/mes
+│   ├── mcp/servers.json      # MCP server configs
+│   └── rate_limits.yaml      # Budget
 └── docs/                     # Documentacao tecnica
 ```
 
 ## Ordem de Setup Recomendada
 
-Ver `PENDENCIAS.md` para checklist completo. Resumo:
-
 1. API keys no `.env` (ver `docs/keys_setup.md`)
 2. MCPs nativos claude.ai: ja conectados via OAuth (PubMed, Notion, Gmail, etc.)
-3. MCPs locais: Gemini (`GOOGLE_AI_KEY`), Perplexity (`PERPLEXITY_API_KEY`), Zotero
-4. Aulas: `cd content/aulas && npm install && npm run dev`
-5. Python: `make check` (lint + mypy + pytest)
-6. Configurar Cowork para fontes pagas
+3. MCPs locais: Perplexity (`PERPLEXITY_API_KEY`), Zotero, NotebookLM
+4. Gemini: CLI OAuth (`gemini auth login`) + API key for scripts (`GEMINI_API_KEY`)
+5. Aulas: `cd content/aulas && npm install && npm run dev`
+6. Python: `make check` (lint + mypy + pytest)
+7. Docker: `docker compose up -d` (OTel + Langfuse observability)
+
+Full architecture: `docs/ARCHITECTURE.md`

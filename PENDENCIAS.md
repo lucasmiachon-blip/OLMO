@@ -3,15 +3,15 @@
 > Checklist de instalacao e configuracao. Atualizado: 5 de Abril de 2026.
 > Backlog de projeto → ver HANDOFF.md.
 
-## MCPs (15 configurados)
+## MCPs (11 conectados)
 
-### Conectados (12)
+### Conectados (11)
 - [x] **Notion** — OAuth, connected
 - [x] **PubMed** — claude.ai nativo, connected
 - [x] **SCite** — assinatura ativa, connected
 - [x] **Consensus** — assinatura ativa, connected
 - [x] **Scholar Gateway** — connected
-- [x] **Perplexity** — API key configurada, connected
+- ~~**Perplexity**~~ — migrado para API direta S87 (nao MCP)
 - [x] **NotebookLM** — npx notebooklm-mcp@latest, connected
 - [x] **Zotero** — uvx zotero-mcp, local mode (Zotero app precisa estar aberto)
 - [x] **Excalidraw** — connected
@@ -20,9 +20,8 @@
 - [x] **Canva** — connected (sessao 15)
 - ~~**Gemini**~~ — descartado S71. Usar API/CLI, nao MCP.
 
-### Planejados (3)
+### Planejados
 - [ ] **Google Drive** — `@piotr-agier/google-drive-mcp` (requer Google Cloud Console OAuth)
-- [ ] **ChatGPT 5.4 MCP** — cross-validator para Notion writes
 - [ ] **Anki MCP** — `@ankimcp/anki-mcp-server` (requer Anki Desktop + AnkiConnect)
 
 ## FERRAMENTAS JA TEM

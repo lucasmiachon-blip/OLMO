@@ -3,19 +3,7 @@
 > Items para resolver na proxima semana ou adiante. Nao urgente.
 > Cross-ref: `HANDOFF.md` (sessao imediata) | `CHANGELOG.md` (historico)
 
-## Semana 1 (07-11 Abr)
-
-### Security
-- [x] SEC-004: Pinnar versoes MCP servers em config/mcp/servers.json (S87 — notebooklm@1.2.1, zotero==0.1.6, perplexity→removed)
-
-### Agent Hardening
-- [x] quality-gate: JS/CSS lint scripts adicionados, agente descongelado (S85)
-
-### Dead Code Cleanup
-- [x] qa-video.js: removido S83 (`d7bb0cc`)
-- [ ] evidence-db.md (cirrose): migrar para living HTML ou remover
-
-## Semana 2+ (backlog longo)
+## Backlog Ativo
 
 ### Tooling
 - [ ] Obsidian CLI integration
@@ -32,14 +20,9 @@
 - [x] Agent memory: project para qa-engineer e reference-checker (S84)
 - [x] context: fork em skills pesadas (/research, /medical-researcher, /deep-search) (ja existia)
 
-## Research Outputs (S82-S83, acionaveis incorporados ao implementation-plan)
+## Research Outputs (S82-S83)
 
-5 pesquisas completas. Items acionaveis movidos para `docs/research/implementation-plan-S82.md` Tier 1.
-- `docs/research/anti-drift-tools-2026.md` (449 linhas)
-- `docs/research/agent-self-improvement-2026.md` (811 linhas)
-- `docs/research/claude-md-best-practices-2026.md` (414 linhas)
-- `docs/research/memory-best-practices-2026.md` (736 linhas)
-- `docs/research/claude-code-best-practices-2026.md` (1076 linhas)
+5 pesquisas consumidas e deletadas S90. Items acionaveis em `docs/research/implementation-plan-S82.md`.
 
 ---
 Coautoria: Lucas + Opus 4.6 | 2026-04-06

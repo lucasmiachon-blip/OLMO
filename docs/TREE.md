@@ -1,23 +1,24 @@
 # TREE.md — Mapa do Projeto
 
-> Atualizado: Sessao 35 | 2026-04-01
+> Atualizado: Sessao 93 | 2026-04-06
 
 ## Raiz (operacional)
 
 ```
-CLAUDE.md            # Contexto AI agents (Claude Code le na abertura)
+CLAUDE.md            # Contexto AI agents (Claude Code le na abertura, ~85 linhas)
 README.md            # Quick start
-CHANGELOG.md         # Historico sessao-a-sessao
-HANDOFF.md           # Continuidade entre sessoes (max ~30 linhas)
-PENDENCIAS.md        # Checklist setup + backlog
-CHANGELOG.md         # Historico sessoes recentes (arquivo: docs/CHANGELOG-archive.md)
+CHANGELOG.md         # Historico sessao-a-sessao (append-only)
+HANDOFF.md           # Continuidade entre sessoes (max ~50 linhas, future-only)
+BACKLOG.md           # Items para proxima semana+
+PENDENCIAS.md        # Checklist setup + infra pendente
 orchestrator.py      # Entry point principal
 __main__.py          # Package entry
 pyproject.toml       # Config Python (uv, ruff, mypy, pytest)
+docker-compose.yml   # OTel Collector + Langfuse V3 + Postgres + ClickHouse + Redis + MinIO
 Makefile             # Targets: check, lint, format, test, run
 uv.lock              # Lock file Python
 .pre-commit-config.yaml
-.env.example         # Template de credenciais
+.env.example         # Template de credenciais (.env e fonte de verdade, nunca committar)
 ```
 
 ## agents/ — Framework de agentes AI
@@ -64,11 +65,12 @@ subagents/
 ```
 config/
 ├── ecosystem.yaml       # Definicoes de agentes + model routing
-├── rate_limits.yaml     # Budget ($100/mes max)
+├── rate_limits.yaml     # Budget
 ├── workflows.yaml       # Pipelines de execucao
 ├── loader.py            # Parser YAML/JSON
+├── otel/                # OTel collector config (gRPC:4317 → Langfuse HTTP)
 └── mcp/
-    └── servers.json     # 15 MCP servers (12 connected, 3 planned)
+    └── servers.json     # MCP server configs (pinned versions, SEC-004)
 ```
 
 ## content/aulas/ — Slide decks (Node.js, deck.js)
@@ -95,7 +97,7 @@ content/aulas/
 │   ├── AUDIT-VISUAL.md  # Scorecard 14 dimensoes por slide
 │   ├── HANDOFF-CIRROSE.md  # Tracking especifico da aula
 │   └── CHANGELOG-CIRROSE.md
-├── metanalise/          # 18 slides, QA em progresso (3 DONE, 14 LINT-PASS)
+├── metanalise/          # 19 slides, QA em progresso
 │   ├── slides/          # HTMLs individuais
 │   ├── references/      # 6 docs (archetypes, blueprint, evidence-db, narrative...)
 │   └── scripts/         # Build
@@ -154,7 +156,7 @@ tests/
 
 ```
 docs/
-├── ARCHITECTURE.md                # Decisoes tecnicas (orchestration, skills, model routing)
+├── ARCHITECTURE.md                # Mermaid DAGs, antifragile stack, daily/weekly workflow
 ├── TREE.md                        # Este arquivo
 ├── SYNC-NOTION-REPO.md            # Protocolo sync Notion↔Repo
 ├── WORKFLOW_MBE.md                # Workflow MBE completo
@@ -163,6 +165,10 @@ docs/
 ├── keys_setup.md                  # Setup de API keys
 ├── coauthorship_reference.md      # Tabela membros alianca AI
 ├── mcp_safety_reference.md        # Referencia completa MCP safety
+├── CHANGELOG-archive.md           # Historico antigo de sessoes
+├── research/                      # Planos e design docs
+│   ├── implementation-plan-S82.md # Master roadmap
+│   └── chaos-engineering-L6.md    # L6 design doc (S93)
 └── aulas/                         # Docs universais para todas as aulas
     ├── design-principles.md       # 27 principios (Cowan, Gestalt, Duarte, Tufte)
     ├── css-error-codes.md         # 52 E-codes CSS
@@ -174,30 +180,44 @@ docs/
 
 ```
 .claude/
-├── agents/              # 8 agentes especializados
-│   ├── notion-ops.md, quality-gate.md, researcher.md               # gerais
-│   ├── evidence-researcher.md, qa-engineer.md, repo-janitor.md     # aulas
-│   └── mbe-evaluator.md, reference-checker.md                      # /research pipeline
+├── agents/ (8)          # Agentes especializados (sonnet/haiku com model routing)
+│   ├── evidence-researcher.md, qa-engineer.md, mbe-evaluator.md    # pesquisa + QA
+│   ├── reference-checker.md, quality-gate.md, repo-janitor.md      # validacao
+│   └── researcher.md, notion-ops.md                                 # utilidades
 ├── agent-memory/        # Memorias persistentes de agentes
-│   └── evidence-researcher/  # 7 memories hepatologia (elastografia, MELD, etc.)
-├── commands/            # 3 custom commands (audit-docs, evidence, new-slide)
-├── hooks/               # 9 hooks bash (guard-generated, guard-secrets, guard-lint, etc.)
-├── rules/               # 9 regras comportamentais
-│   ├── anti-drift.md, coauthorship.md, process-hygiene.md, qa-pipeline.md
-│   ├── mcp_safety.md, notion-cross-validation.md (path-scoped)
-│   ├── session-hygiene.md, slide-rules.md, design-reference.md (path-scoped)
-│   └── design-reference.md  # Cores semanticas, tipografia, dados medicos Tier-1
-└── skills/              # 20 slash commands instrucao-based
+│   └── evidence-researcher/  # memories hepatologia
+├── commands/ (3)        # Custom commands (audit-docs, evidence, new-slide)
+├── hooks/ (11)          # Guards + antifragile hooks
+│   └── lib/             # Libraries: retry-utils.sh (L1), chaos-inject.sh (L6)
+├── rules/ (10)          # Regras comportamentais (path-scoped)
+│   ├── anti-drift.md, coauthorship.md, known-bad-patterns.md
+│   ├── session-hygiene.md, qa-pipeline.md, process-hygiene.md
+│   ├── mcp_safety.md, notion-cross-validation.md
+│   └── slide-rules.md, design-reference.md
+├── skills/ (20+)        # Slash commands instrucao-based (progressive disclosure)
+├── insights/            # failure-registry.json, reports (NeoSigma)
+├── plans/               # Session plans
+└── settings.local.json  # Hook registration + env vars + permissions
+```
+
+## hooks/ — Session Lifecycle (11 scripts)
+
+```
+hooks/
+├── session-start.sh       # SessionStart: inject HANDOFF + rules
+├── session-compact.sh     # SessionStart (compact): re-inject after compaction
+├── pre-compact-checkpoint.sh  # PreCompact: save context before compaction
+├── notify.sh              # Notification: toast "Aguardando input"
+├── stop-crossref-check.sh # Stop: cross-ref slides ↔ evidence
+├── stop-detect-issues.sh  # Stop (L5): detect desync, write pending-fixes
+├── stop-chaos-report.sh   # Stop (L6): chaos injection report
+├── stop-hygiene.sh        # Stop: check HANDOFF/CHANGELOG updated
+└── stop-notify.sh         # Stop: toast "Pronto"
 ```
 
 ## Outros
 
 ```
-hooks/
-├── notify.sh            # Toast notification Windows 11 (evento Notification)
-├── stop-hygiene.sh      # Verifica HANDOFF+CHANGELOG (evento Stop)
-└── stop-notify.sh       # Beep + toast "Pronto" (evento Stop)
-
 templates/
 ├── chatgpt_audit_prompt.md  # Prompt cross-validation ChatGPT
 └── prompts.yaml             # Templates de prompts

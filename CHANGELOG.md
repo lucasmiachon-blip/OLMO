@@ -8,6 +8,15 @@
 - REFRESH: `project_self_improvement.md` — header S87→S93, L6 status updated
 - UPDATE: MEMORY.md index — S93 state
 
+### Documentation Refresh (7 files)
+- UPDATE: `README.md` — 11 MCPs, 22 hooks, antifragile stack, Langfuse reference
+- UPDATE: `docs/TREE.md` — S35→S93, hooks/ section (11 scripts), .claude/ restructured, docs/research/ added
+- UPDATE: `docs/GETTING_STARTED.md` — remove Cowork, fix MCP count (12→11), add Docker setup step
+- UPDATE: `docs/SYNC-NOTION-REPO.md` — evidence-db.md→living HTML refs (evidence-db deleted S90)
+- UPDATE: `docs/keys_setup.md` — remove stale "15 MCPs" count
+- UPDATE: `PENDENCIAS.md` — MCP count 15→11, Perplexity→API direta, ChatGPT MCP removed
+- UPDATE: `BACKLOG.md` — remove completed Semana 1, update research outputs (docs deleted S90)
+
 ### L6 Chaos Engineering (Antifragile)
 - ADD: `docs/research/chaos-engineering-L6.md` — design doc (philosophy, matrix, activation, observation)
 - ADD: `.claude/hooks/lib/chaos-inject.sh` — injection library (4 vectors, probability roll, JSONL logging)
