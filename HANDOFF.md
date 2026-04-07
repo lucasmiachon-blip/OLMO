@@ -12,13 +12,13 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 
 **gemini-qa3.mjs:** P1+P2 implementados. allSettled, schema required, status tracking, null medias, thinkingBudget 4096. Call B mantido 16384 (thinking consome budget). Prompts: max 5 proposals (3 aulas). Concisao aprovada.
 
-**s-objetivos R11:** 7.1/10 overall (15/15 dims). Gestalt=5 (accent card margem simetrica aplicada — Gemini ainda aponta desalinhamento). css_cascade=5 deferido (#deck necessario). 4 fixes aplicados (margem, strong, print-pdf, max-width).
+**s-objetivos R11:** 7.1/10 overall (15/15 dims). Gestalt fix: border-left movido para .obj-body (mesmo box model items 1-5), accent border 100% ui-accent. css_cascade=5 deferido (#deck necessario). 5 fixes aplicados (border-left, margem, strong, print-pdf, max-width).
 
 ## PROXIMOS PASSOS
 
 | # | Item | Impacto | Complexidade |
 |---|------|---------|--------------|
-| 1 | Investigar gestalt accent card (R11 ainda 5/10) | Margem simetrica nao resolveu — capturar screenshot e avaliar | Normal |
+| 1 | Re-run editorial s-objetivos R12 | Validar gestalt fix (border-left on obj-body) + accent 100% | Normal |
 | 2 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA (1/19 editorial) | Normal |
 | 3 | Slide novo metanalise (tema TBD) | Conteudo | Normal |
 | 4 | Chaos production test (B7-09) | Validar L2/L3/L6 chain com CHAOS_MODE=1 | Facil |
@@ -42,7 +42,7 @@ Monorepo funcional. CI verde (53 testes). Build OK (19 slides metanalise).
 ## DECISOES ATIVAS
 
 - **QA pipeline S103:** Path linear 11 steps. Preflight 4 dims + loop Lucas antes de Gemini.
-- **s-objetivos accent card:** Margem simetrica aplicada (R11), gestalt ainda 5/10. Proximo: capturar screenshot, avaliar visualmente, decidir se precisa reestruturar HTML.
+- **s-objetivos accent card:** Gestalt fix aplicado (border-left em obj-body, accent 100%). Aguarda re-run editorial R12 para validar.
 - **css_cascade #deck:** Deferido — specificity necessaria para vencer base.css `max-width: 56ch`. Nao e "toxica", e intencional.
 - **KBP-07:** Anti-workaround gate. Hook ask para scripts + prompts.
 - **Momentum-brake S102:** 3 hooks (arm/enforce/clear). BUG S103: enforce nao promptou — nao investigado.

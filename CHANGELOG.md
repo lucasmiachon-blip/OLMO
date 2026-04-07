@@ -15,7 +15,8 @@
 - Prompt B concisao aprovada por Lucas (mantida da S104)
 
 ### CSS: s-objetivos — editorial R11 fixes
-- Accent card: margem negativa simetrica `-12px calc(var(--space-sm) * -1)` (gestalt fix)
+- Accent card: margem negativa simetrica + border-left movido para .obj-body (mesmo box model items 1-5)
+- Accent border: var(--ui-accent) puro (100%) em vez de 70% mix — destaque visual
 - Removido `<strong>` item 6 (double-coding — background ja destaca)
 - Failsafe: `.print-pdf` adicionado ao reset de opacity
 - Grid max-width 1060→1120px (distribuicao — menos espaco morto)
