@@ -34,7 +34,7 @@ F3: s-ancora -> s-aplicacao -> s-aplicabilidade -> s-absoluto -> s-takehome
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 1 | s-title | DONE | Choreography + masking. Gemini beauty 9, legibility 10. |
-| 2 | s-objetivos | QA | 35 checks: 33 PASS, 2 WARN. Gate 0/4 pendentes. customAnim: null. |
+| 2 | s-objetivos | QA | Preflight pendente (novo pipeline S95). Gate 0/4 pendentes. customAnim: null. |
 | 3 | s-hook | DONE | Asymmetric grid, countUp GSAP. 14-dim avg 9.36. |
 
 ### I1 — Checkpoint (1 slide)
@@ -76,16 +76,16 @@ F3: s-ancora -> s-aplicacao -> s-aplicabilidade -> s-absoluto -> s-takehome
 ### Resumo
 
 - **DONE (4):** s-title, s-hook, s-contrato, (s-objetivos quase)
-- **QA (2):** s-objetivos (35 checks done, gates pendentes), s-checkpoint-1 (fixes pendentes)
+- **QA (2):** s-objetivos (Preflight pendente, gates pendentes), s-checkpoint-1 (fixes pendentes)
 - **LINT-PASS (13):** restantes
 
 ## Proximo (Lucas decide)
 
 QA 1 slide por vez. Pipeline por slide:
-1. `node scripts/qa-batch-screenshot.mjs --aula metanalise --slide {id}`
-2. qa-engineer (35 checks) -> qa-browser-report.json
+1. Preflight (dims objetivas: cor, tipografia, hierarquia) — $0
+2. [Lucas OK]
 3. `node scripts/gemini-qa3.mjs --aula metanalise --slide {id} --inspect` (Gate 0)
-4. [checkpoint Lucas]
+4. [Lucas OK]
 5. `node scripts/gemini-qa3.mjs --aula metanalise --slide {id} --editorial` (Gate 4)
 
 ## Pendencias conhecidas

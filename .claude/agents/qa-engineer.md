@@ -34,31 +34,21 @@ Dev server: cirrose:4100, grade:4101, metanalise:4102.
 
 ### Gate: Preflight
 
-Lint + build + screenshots + DOM/multimodal checks. Custo $0.
+Gate $0 antes do Gemini. Dims objetivas — tudo PASS/FAIL, sem subjetividade.
 
-1. `node scripts/lint-slides.js {aula}`
-2. `npm run build:{aula}`
-3. `node scripts/qa-batch-screenshot.mjs --aula {aula} --slide {slideId}`
-4. Playwright DOM batch: medir checks por categoria (tabela abaixo)
-5. Multimodal: ler PNGs S0+S2 para visual checks
-6. Auto-fix deterministic → rebuild → re-medir (max 3x)
-7. Escrever `metrics.json` → reportar → FIM
+1. `npm run build:{aula}` (hook lint-before-build garante lint)
+2. Ler slide HTML + CSS + screenshot S0 (S2 se click-reveals)
+3. Avaliar dims objetivas:
 
-**DOM checks por categoria:**
+| Dim | Criterio (PASS/FAIL) |
+|-----|---------------------|
+| Cor | Tokens var() sem literais fora :root. Semantica clinica correta (--danger=intervir, --warning=investigar, --safe=manter). Nenhum uso decorativo de cor clinica |
+| Tipografia | Font >= 18px em corpo. Sem vw/vh em font-size. Tabular-nums em dados numericos |
+| Hierarquia | h2 presente (exceto title/hook/recap). Peso visual: h2 > corpo > source-tag. Punchline tem tratamento visual superior |
 
-| Categoria | O que mede |
-|-----------|-----------|
-| Structural | console errors, overflow, manifest_sync, interactions, inline proibido |
-| Accessibility | axe-core contrast, h2 ratio >= 7:1, font >= 18px, DeltaL neighbors |
-| Content | word count (<= 30), fill ratio (0.65-0.90) |
-| Typography | hierarchy, line-height, fonts, weights, line-length, rhythm, tabular-nums |
-| Color | palette size, semantic hue, token compliance, accent usage |
-| Design | hero dominance, proximity, alignment, breathing room, border ink |
+4. Reportar PASS/FAIL por dim → FIM
 
-**Visual checks (multimodal):** overlap, clipping, readability, invisible elements, S0→S2 delta.
-
-**Blocking:** console, overflow, manifest_sync, interactions, contrast, hero_contrast, visual_*.
-**Auto-fixable:** manifest_sync, font_size_min, line_height, line_length, tabular_nums, token_compliance, breathing_room, border_ink, inline_styles.
+Qualquer FAIL = slide nao esta pronto para Gemini.
 
 ---
 

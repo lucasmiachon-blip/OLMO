@@ -46,18 +46,13 @@ metanalise.css
 Build: `npm run build:metanalise` (na raiz `content/aulas/`).
 GSAP plugins: SplitText + Flip + ScrambleTextPlugin.
 
-## Auditoria Visual
+## QA
 
-### Opus (multimodal) — QA visual primario
-Agente analisa screenshots diretamente (multimodal).
-Screenshots: CLI (`qa-batch-screenshot.mjs`), NUNCA MCP Playwright manual.
-Prompt: baseado em scorecard 14-dim (ver qa-pipeline.md §7)
-Threshold: score < 7 → checkpoint Lucas antes de continuar
-
-### Gemini CLI — QA automatizado
-Script: `scripts/gemini-qa3.mjs` (Gate 0 `--inspect` + Gate 4 `--editorial`)
-Modelo: `gemini-3.1-pro-preview`
+Script unico: `scripts/gemini-qa3.mjs` (Preflight + Inspect + Editorial).
 1 slide por ciclo QA completo. NUNCA batch.
+
+Gates: Preflight (dims objetivas $0) → [Lucas OK] → Inspect (Gemini Flash) → [Lucas OK] → Editorial (Gemini Pro).
+Threshold: score < 7 → checkpoint Lucas antes de continuar.
 
 ## Hard constraints
 
@@ -80,7 +75,7 @@ Gates:
 - **Gate 1 (CONTENT→SYNCED):** h2 é asserção + notes com timing/fontes
 - **Gate 2 (SYNCED→LINT-PASS):** `npm run lint:slides` PASS
 - **Gate 3 (LINT-PASS→QA):** Build PASS + sem orphans
-- **Gate 4 (QA→DONE):** Scorecard 14-dim (Opus visual) + `gemini-qa3.mjs --editorial` + Lucas approved
+- **Gate 4 (QA→DONE):** `gemini-qa3.mjs` (Preflight + Inspect + Editorial) + Lucas approved
 
 Detalhes QA por slide: `HANDOFF.md`.
 

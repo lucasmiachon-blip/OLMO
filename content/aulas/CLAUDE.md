@@ -6,7 +6,7 @@
 ## ENFORCEMENT (aulas)
 
 1. **Build ANTES de QA.** `npm run build:{aula}` → depois QA. Sempre.
-2. **QA dual-model:** Opus (multimodal, avaliacao de alto nivel) + Gemini (`gemini-qa3.mjs`, gates Inspect/Editorial automatizados). Ambos coexistem.
+2. **QA via `gemini-qa3.mjs`** (unico script QA). Gates: Preflight (dims objetivas $0) → Inspect (Gemini Flash) → Editorial (Gemini Pro).
 3. **1 slide, 1 gate, 1 invocacao.** Batch = violacao. Segundo slide = parar.
 4. **Living HTML per slide = source of truth.** evidence-db.md deprecated.
 5. **NUNCA `taskkill //IM node.exe`** — Lucas roda dev server. Matar por PID especifico.
@@ -35,8 +35,8 @@
 | `lint-slides.js` | Lint HTML/CSS (errors bloqueiam build) |
 | `lint-case-sync.js` | Verifica sincronia case panels |
 | `lint-narrative-sync.js` | Verifica sincronia narrativa |
-| `qa-batch-screenshot.mjs` | Screenshots para QA visual |
-| `gemini-qa3.mjs` | QA automatizado (Gemini API) |
+| `qa-capture.mjs` | Captura screenshots + video (utilitario, nao QA) |
+| `gemini-qa3.mjs` | QA unico script — Preflight + Inspect + Editorial |
 | `content-research.mjs` | Pesquisa de conteudo |
 | `done-gate.js` | Verifica estado DONE |
 | `export-pdf.js` | Exporta PDF |

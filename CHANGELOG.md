@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## Sessao 95 — 2026-04-07 (QA Pipeline Simplification + Codex Adversarial Review)
+
+### QA Pipeline Simplification
+- REFACTOR: `qa-engineer.md` — Preflight simplificado: 3 dims objetivas (cor, tipografia, hierarquia) PASS/FAIL. Removida tabela 30+ dims embarcada
+- RENAME: `qa-batch-screenshot.mjs` → `qa-capture.mjs` (utilitario de captura, nao QA)
+- DELETE: `grade/scripts/qa-batch-screenshot.mjs` (copia duplicada)
+- DELETE: `cirrose/AUDIT-VISUAL.md` + `AUDIT-VISUAL-ARCHIVE.md` (rubrica 14-dim obsoleta)
+- DELETE: `cirrose/docs/prompts/gate2-opus-visual.md` (prompt Opus QA antigo)
+- DELETE: `cirrose/docs/prompts/gemini-gate4-editorial.md` (prompt editorial antigo)
+- MOD: `qa-pipeline.md` — criteria source → dims objetivas + gemini-qa3.mjs unico. Removido evidence-db.md
+- MOD: `context-essentials.md` — QA → gemini-qa3.mjs unico
+- MOD: `content/aulas/CLAUDE.md` — QA dual-model → script unico. qa-capture.mjs = utilitario
+- MOD: `content/aulas/metanalise/CLAUDE.md` — QA section simplificada, Gate 4 atualizado
+- MOD: `content/aulas/metanalise/HANDOFF.md` — pipeline atualizado (Preflight → Inspect → Editorial)
+- MOD: `content/aulas/README.md` — rebuild ref + scripts por aula limpos
+- MOD: `package.json` — npm scripts → qa-capture.mjs
+- MOD: `gemini-qa3.mjs` — refs internas → qa-capture.mjs
+
+### Codex Adversarial Review (Batches 2+3)
+- REVIEW: Batch 2 (agents+rules): 1 P0, 9 P1, 1 P2
+- REVIEW: Batch 3 (config+infra): 4 P0, 8 P1
+- Batches 1+4 falharam — re-rodar S96
+- ADD: `.claude/plans/s95-codex-adversarial-findings.md` — 23 findings consolidados
+
+### Housekeeping
+- MOD: `HANDOFF.md` — S94→S95, QA pipeline novo, findings referenciados
+- CLEAN: -2093 linhas removidas (scripts duplicados, prompts obsoletos, audits antigos)
+
+---
+
 ## Sessao 94 — 2026-04-06 (APL — Ambient Productivity Layer)
 
 ### APL Implementation (3 new hooks, 22→25 total)

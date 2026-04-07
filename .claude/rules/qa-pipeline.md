@@ -18,8 +18,8 @@ paths:
 - Gates sequenciais: Preflight ($0) → [Lucas OK] → Inspect (Gemini Flash) → [Lucas OK] → Editorial (Gemini Pro, 3 calls).
 - 1 gate = 1 invocacao do qa-engineer. maxTurns garante hard stop.
 - Criteria source: SEMPRE ler os checks do script ANTES de avaliar.
-  - Preflight: `lint-slides.js` checks + `qa-batch-screenshot.mjs` metrics
-  - Inspect/Editorial: `gemini-qa3.mjs` gate prompts
+  - Preflight: dims objetivas (cor, tipografia, hierarquia) — PASS/FAIL, sem subjetividade
+  - Inspect/Editorial: `gemini-qa3.mjs` gate prompts (unico script QA do projeto)
   - NUNCA inventar criterios do treinamento. Check nao esta no script = nao existe.
 - Estados de slide: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
   - Source of truth: `content/aulas/metanalise/_manifest.js` (campo `qa` por slide).
@@ -61,7 +61,7 @@ Prompt QA DEVE incluir criterios explicitos:
 - [ ] `slide-registry.js` tem wiring se customAnim != null
 - [ ] `{aula}.css` tem seletores `#slide-id` se necessario
 - [ ] `references/narrative.md` tem linha para este slide
-- [ ] Evidence HTML (`evidence/s-{id}.html`) ou `references/evidence-db.md` tem referencias
+- [ ] Evidence HTML (`evidence/s-{id}.html`) tem referencias
 - [ ] HANDOFF registra estado SYNCED
 
 ### SYNCED → LINT-PASS
@@ -80,7 +80,7 @@ Prompt QA DEVE incluir criterios explicitos:
 | h2 no HTML | `_manifest.js` headline, `references/narrative.md` |
 | `<section id>` | TODAS 9 superficies (§4 CONTENT→SYNCED) |
 | CSS do slide | Verificar se afeta score QA |
-| Dados numericos | evidence HTML, `references/evidence-db.md`, notes `[DATA]` tag |
+| Dados numericos | evidence HTML, notes `[DATA]` tag |
 | Posicao no deck | `_manifest.js` ordem, `references/narrative.md` |
 | Click-reveals | `_manifest.js` clickReveals, `slide-registry.js` |
 | customAnim | `_manifest.js` customAnim, `slide-registry.js` |

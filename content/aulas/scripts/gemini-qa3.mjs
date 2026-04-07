@@ -197,7 +197,7 @@ function runPreflight(slideId, qaDir) {
   const s0 = findStatePng(qaDir, 'S0');
   const s2 = findStatePng(qaDir, 'S2');
   if (!s0 && !s2) {
-    issues.push({ level: 'ERROR', tag: 'SCREENSHOT', msg: `No PNGs found in ${qaDir}. Run qa-batch-screenshot.mjs first.` });
+    issues.push({ level: 'ERROR', tag: 'SCREENSHOT', msg: `No PNGs found in ${qaDir}. Run qa-capture.mjs first.` });
   } else {
     if (!s0) issues.push({ level: 'WARN', tag: 'SCREENSHOT', msg: 'S0 PNG missing — only S2 available' });
     if (!s2) issues.push({ level: 'WARN', tag: 'SCREENSHOT', msg: 'S2 PNG missing — only S0 available' });
@@ -718,7 +718,7 @@ function buildGate0Payload(slideId, qaDir) {
   }
 
   if (statesReceived.length === 0) {
-    throw new Error(`No PNGs found in ${qaDir}. Run qa-batch-screenshot.mjs first.`);
+    throw new Error(`No PNGs found in ${qaDir}. Run qa-capture.mjs first.`);
   }
 
   return {

@@ -6,9 +6,9 @@
 ## ENFORCEMENT (5 regras mais violadas — /insights S82, 58 sessoes)
 
 1. NAO avance sem autorizacao do Lucas. Proponha, espere OK, execute.
-2. Use scripts existentes (qa-batch-screenshot.mjs, npm run build:{aula}). NAO reinvente.
-3. Build ANTES de QA: npm run build:{aula} → qa-batch-screenshot.mjs.
-4. QA dual-model: Opus (multimodal, alto nivel) + Gemini (gemini-qa3.mjs, gates automatizados). Ambos coexistem.
+2. Use scripts existentes (gemini-qa3.mjs, npm run build:{aula}). NAO reinvente.
+3. Build ANTES de QA: npm run build:{aula} → gemini-qa3.mjs (unico script QA).
+4. QA: Preflight (dims objetivas $0) → Inspect (Gemini Flash) → Editorial (Gemini Pro). Tudo via gemini-qa3.mjs.
 5. Plan mode quando pedido. NAO pule direto para execucao.
 
 ## SCOPE DISCIPLINE (24 eventos de scope creep)

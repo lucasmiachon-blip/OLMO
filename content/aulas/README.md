@@ -73,9 +73,7 @@ STRATEGY.md              # Roadmap tecnico + pesquisa de ferramentas
 | Script | Comando npm | Proposito |
 |--------|-------------|-----------|
 | `build-html.ps1` | `npm run build:cirrose` | Template → HTML (PowerShell) |
-| `qa-batch-screenshot.mjs` | `npm run qa:screenshots:cirrose` | Playwright batch screenshots + metricas |
 | `content-research.mjs` | `npm run research:cirrose` | Pesquisa via Gemini API |
-| `gemini-qa3.mjs` | *(direto)* | QA visual via Gemini |
 | `capture-s-*.mjs` | *(direto)* | Screenshot de slide especifico |
 
 ### Grade-especificos (`grade/scripts/`)
@@ -83,7 +81,6 @@ STRATEGY.md              # Roadmap tecnico + pesquisa de ferramentas
 | Script | Comando npm | Proposito |
 |--------|-------------|-----------|
 | `build-html.ps1` | `npm run build:grade` | Template → HTML (PowerShell) |
-| `qa-batch-screenshot.mjs` | `npm run qa:screenshots:grade` | Playwright batch screenshots + metricas |
 
 ## Reference Docs (cirrose)
 
@@ -149,7 +146,7 @@ Ver `STRATEGY.md` para roadmap completo.
 
 ### Rebuild antes de QA
 
-SEMPRE `npm run build:{aula}` ANTES de `qa-batch-screenshot.mjs`. O Vite serve `index.html` (build output), nao os slides individuais. Se o build nao rodou apos a ultima edicao, QA mostra conteudo stale. Checar tambem que `_manifest.js` headlines estejam sync com `slides/*.html` h2.
+SEMPRE `npm run build:{aula}` ANTES de QA. O Vite serve `index.html` (build output), nao os slides individuais. Se o build nao rodou apos a ultima edicao, QA mostra conteudo stale. Script QA unico: `gemini-qa3.mjs` (Preflight + Inspect + Editorial).
 
 ### Screenshots QA
 
