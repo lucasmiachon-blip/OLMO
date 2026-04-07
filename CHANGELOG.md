@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## Sessao 97 — 2026-04-07 (QA Pipeline Hardening + 30-Word Rule Removal)
+
+### QA Pipeline (commit 8536ae3)
+- REMOVE: regra 30 palavras (8 pontos em 7 arquivos: qa-capture.mjs, gemini-qa3.mjs, 3 CLAUDE.md, archetypes.md, content-research.mjs, patterns.md)
+- REWRITE: `qa-pipeline.md` §1 — path linear 11 steps, sem bifurcacao
+- REWRITE: `qa-engineer.md` Preflight — 2 fases (checks automaticos + visual), 4 dims (Cor, Tipografia, Hierarquia, Design) com fontes cross-ref, pre-gate prova de leitura, pos-check contagem de dims
+- ADD: loop Lucas explicito (steps 6-7) antes de Gemini gates
+- ADD: editorial-suggestions.md output ao final do path (step 11)
+
+### QA Smoke Test (s-objetivos)
+- Preflight: PASS (apos remocao regra 30 palavras)
+- Inspect (Gemini Flash): PASS — 5/5 checks (CLIPPING, OVERFLOW, OVERLAP, READABILITY, SPACING)
+- Editorial (Gemini Pro): 2.8/10 (Visual 4.2, UX+Code 4.2, Motion 0). Sugestoes salvas em `editorial-suggestions.md`
+- Fixes pendentes: CSS visual + HTML wrapper + stagger motion
+
+### Feedback incorporado
+- QA visual entra no Preflight, nao apos Gemini (correcao workflow S97)
+- NUNCA fabricar criterios (KBP-04 reforco). Dims vem dos docs, nao do treinamento
+- Path linear = sem margem para desvio. Report estruturado + STOP
+
+---
+
 ## Sessao 96 — 2026-04-07 (Codex Adversarial Fixes — Security + Enforcement Hardening)
 
 ### P0 Security (commit 55ad189)
