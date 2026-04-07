@@ -86,6 +86,10 @@ htmlcov/
 # UV
 .uv/
 
+# APL cache (ambient productivity layer)
+.claude/apl/*
+!.claude/apl/.gitkeep
+
 # Claude Code
 .claude/worktrees/
 .claude/settings.local.json

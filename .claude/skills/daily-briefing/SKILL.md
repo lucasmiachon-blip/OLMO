@@ -98,6 +98,18 @@ Formato: `[Fonte] — [Titulo descritivo em PT]`
 | Promocional, automatico | Baixa |
 | Com deadline < 7 dias | +1 nivel |
 
+### 6. APL CACHE — Deadline cache for ambient hooks
+After processing, write upcoming deadlines to `.claude/apl/deadlines.txt`:
+- Source: emails with Deadline property (< 7 days) + Google Calendar next 7 days
+- Format per line: `"Title" | Xd Xh` (time remaining)
+- Max 3 lines, sorted by urgency (soonest first)
+- If no deadlines found, leave file empty (do not delete)
+- Example:
+  ```
+  "Aula Cirrose" | 2d 5h
+  "Revisao paper" | 5d 12h
+  ```
+
 ## Protecoes
 - Seguir protocolo mcp_safety.md para todos os writes
 - Nunca marcar email como lido/arquivado sem aprovacao

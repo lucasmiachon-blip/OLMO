@@ -1,14 +1,15 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 93 | 2026-04-06
+> Sessao 94 | 2026-04-06
 > Cross-ref: `BACKLOG.md` | `docs/research/implementation-plan-S82.md`
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde (53 testes). Lint clean. Build OK (18 slides metanalise).
-**Agentes: 8** (todos com model routing). **Hooks: 22** (20 CC + 2 chaos). **Rules: 10**. MCPs: 11 connected.
+**Agentes: 8** (todos com model routing). **Hooks: 25** (22 CC + 1 PreCompact + 1 pre-commit + 1 APL UserPromptSubmit). **Rules: 10**. MCPs: 11 connected.
 **OTel + Langfuse V3: TRACES FUNCIONANDO.** 7 containers healthy, pipeline validado visualmente em :3100.
-**Antifragile: L1 DONE, L2 MELHORADO, L3 DONE, L4 DONE, L5 DONE, L6 BASIC (4 vetores), L7 DONE.**
+**Antifragile: L1-L5 DONE, L6 BASIC (4 vetores), L7 DONE.**
+**APL (Ambient Productivity Layer): LIVE.** 3 hooks — pulse per prompt, cache at start, scorecard at stop.
 **/insights S91:** Phase 5 NeoSigma validado. Trend improving (corr 0.4, kbp 0.61). 2 proposals applied.
 
 ## PROXIMOS PASSOS
@@ -17,7 +18,7 @@ Monorepo funcional. CI verde (53 testes). Lint clean. Build OK (18 slides metana
 |---|------|---------|--------------|
 | 1 | QA ou slide session — testar enforcement pos-S82 | Validar KBP guards em contexto real | Normal |
 | 2 | L6 Phase B — vetores 5-6 (slide desync, stale memory) | Completar cobertura chaos | Normal |
-| 3 | ClickHouse `events_core` migration — dashboard scores/models | Langfuse Fast Preview | Baixa prioridade |
+| 3 | Rodar `/daily-briefing` — valida step 6 (APL deadline cache) | Conectar MCPs ao APL | Facil |
 | 4 | L6 chaos gameday — session com CHAOS_MODE=1 ativo | Validar defesas em producao | Normal |
 
 Plano completo: `docs/research/implementation-plan-S82.md`
@@ -38,6 +39,7 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 ## DECISOES ATIVAS
 
 - **Values: Antifragile + Curiosidade** — decision gates, nao decoracao.
+- **APL (Ambient Productivity Layer):** 3 hooks passivos (UserPromptSubmit pulse, SessionStart cache, Stop scorecard). Cache em `.claude/apl/`. Deadlines via `/daily-briefing` bridge (step 6). GSD avaliado e rejeitado (overhead 4:1, conflita com "espere OK").
 - **Living HTML per slide = source of truth.** evidence-db.md deletado S90, dados em living HTML.
 - **CLAUDE.md cascata:** root (85 linhas) → content/aulas/ → metanalise/.
 - **Cross-ref: dual gate** — stop hook (advisory) + pre-commit (blocking).
@@ -72,4 +74,4 @@ Plano completo: `docs/research/implementation-plan-S82.md`
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S93 2026-04-06
+Coautoria: Lucas + Opus 4.6 | S94 2026-04-06

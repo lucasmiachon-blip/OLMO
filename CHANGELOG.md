@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 94 — 2026-04-06 (APL — Ambient Productivity Layer)
+
+### APL Implementation (3 new hooks, 22→25 total)
+- ADD: `hooks/ambient-pulse.sh` — UserPromptSubmit hook, 1-line rotating nudge per prompt (5 slots, 12min rotation: focus/commit/deadline/backlog/cost)
+- ADD: `hooks/apl-cache-refresh.sh` — SessionStart hook, initializes session timer + caches BACKLOG top 3
+- ADD: `hooks/stop-scorecard.sh` — Stop hook, 2-line session summary (focus, duration, commits, cost, hygiene)
+- ADD: `.claude/apl/` directory + `.gitkeep` — APL filesystem cache (gitignored)
+- MOD: `.claude/settings.local.json` — registered 3 new hooks (UserPromptSubmit new event, SessionStart append, Stop insert)
+- MOD: `.gitignore` — added `.claude/apl/*` exclusion with `.gitkeep` exception
+- MOD: `.claude/skills/daily-briefing/SKILL.md` — added step 6 (APL deadline cache bridge: MCP→filesystem)
+- MOD: `.claude/hooks/README.md` — updated 22→25 hooks, added UserPromptSubmit section
+
+### GSD Evaluation
+- RESEARCH: Evaluated GSD ecosystem (48k+ stars, 7 variants). Decision: do NOT incorporate as package (overhead 4:1, conflita com "espere OK"). Adopted 3 concepts as native hooks instead.
+
+### Documentation
+- MOD: `docs/ARCHITECTURE.md` — S93→S94, Hook Pipeline Mermaid (added UserPromptSubmit + APL), Session Cycle DAG, project structure (apl/ dir, hooks count 11→14)
+- MOD: `HANDOFF.md` — S93→S94, hooks 22→25, APL decision documented
+
+---
+
 ## Sessao 93 — 2026-04-06 (Governance + Chaos Design — L6 antifragile implemented)
 
 ### Memory Governance Review

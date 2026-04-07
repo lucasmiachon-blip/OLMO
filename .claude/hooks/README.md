@@ -1,7 +1,7 @@
 # Hooks — Reference
 
-> 22 hooks across 2 directories. All receive JSON via stdin, output via exit code.
-> Valid events: SessionStart, PreCompact, PreToolUse, PostToolUse, Notification, Stop.
+> 25 hooks across 2 directories. All receive JSON via stdin, output via exit code.
+> Valid events: SessionStart, PreCompact, PreToolUse, PostToolUse, UserPromptSubmit, Notification, Stop.
 > PostToolUseFailure does NOT exist — using it breaks JSON parsing and silently disables subsequent hooks.
 
 ## `.claude/hooks/` — Tool Guards + Antifragile (11 scripts)
@@ -59,7 +59,13 @@
 |--------|----------|--------------|
 | `cost-circuit-breaker.sh` | **WARN/BLOCK** | L3 cost: tracks tool calls/hr. Warn@100, block@400 |
 
-## `hooks/` — Session Lifecycle (7 scripts)
+## `hooks/` — Session Lifecycle + APL (10 scripts)
+
+### UserPromptSubmit — Ambient Productivity Layer
+
+| Script | Matcher | What it does |
+|--------|---------|--------------|
+| `ambient-pulse.sh` | (unconditional) | APL: 1-line rotating nudge per prompt (focus/commit/deadline/backlog/cost). 5 slots, 12min rotation |
 
 ### SessionStart
 
@@ -67,6 +73,7 @@
 |--------|---------|--------------|
 | `session-start.sh` | (unconditional) | Injects project name, date, session number, full HANDOFF.md |
 | `session-compact.sh` | `compact` | Re-injects 5 critical rules + HANDOFF after context compaction |
+| `apl-cache-refresh.sh` | (unconditional) | APL: initializes session timer + caches BACKLOG top 3 items |
 
 ### Notification
 
@@ -88,6 +95,7 @@
 | `stop-detect-issues.sh` | (unconditional) | L5 self-healing: detects desync, writes pending-fixes |
 | `stop-chaos-report.sh` | (unconditional) | L6 chaos: reports injections vs defense activations (only if CHAOS_MODE was active) |
 | `stop-hygiene.sh` | (unconditional) | Warns if HANDOFF/CHANGELOG not updated with uncommitted changes |
+| `stop-scorecard.sh` | (unconditional) | APL: 2-line session summary (focus, duration, commits, cost, hygiene) |
 | `stop-notify.sh` | (unconditional) | Windows 11 toast "Pronto" |
 
 ## Exit Codes

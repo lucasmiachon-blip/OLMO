@@ -1,7 +1,7 @@
 # Arquitetura do Ecossistema OLMO
 
 > AI agent ecosystem for medical education, research, and exam prep.
-> Estado: S93 | 2026-04-06
+> Estado: S94 | 2026-04-06
 
 ## Orchestrator DAG
 
@@ -50,13 +50,15 @@ graph TD
 
 ```mermaid
 graph LR
-    SS[SessionStart] --> PT[PreToolUse] --> TU[Tool Use] --> PO[PostToolUse] --> S[Stop]
+    UPS[UserPromptSubmit] --> SS[SessionStart] --> PT[PreToolUse] --> TU[Tool Use] --> PO[PostToolUse] --> S[Stop]
 
-    SS --- ss1[session-start.sh<br>session-compact.sh]
+    UPS --- ups1[ambient-pulse.sh<br>APL: 5-slot rotation]
+    SS --- ss1[session-start.sh<br>session-compact.sh<br>apl-cache-refresh.sh]
     PT --- pt1[8 guards:<br>secrets · pause · generated<br>product-files · plan-exit<br>bash-secrets · bash-write · lint-before-build]
     PO --- po1[chaos-inject L6<br>model-fallback L2<br>build-monitor<br>lint-on-edit L5<br>cost-breaker L3]
-    S --- s1[crossref-check<br>detect-issues L5<br>chaos-report L6<br>hygiene · notify]
+    S --- s1[crossref-check<br>detect-issues L5<br>chaos-report L6<br>hygiene · scorecard<br>notify]
 
+    style UPS fill:#e67e22,color:#fff
     style SS fill:#4a9eff,color:#fff
     style PT fill:#ff6b6b,color:#fff
     style TU fill:#ffd93d,color:#000
@@ -64,7 +66,8 @@ graph LR
     style S fill:#9b59b6,color:#fff
 ```
 
-**22 hooks total** (20 Claude Code + 1 PreCompact + 1 git pre-commit).
+**25 hooks total** (23 Claude Code + 1 PreCompact + 1 git pre-commit).
+APL (Ambient Productivity Layer): 3 hooks — pulse per prompt, cache at start, scorecard at stop.
 Config: `.claude/settings.local.json`. Reference: `.claude/hooks/README.md`.
 
 ## Antifragile Stack (Taleb L1-L7)
@@ -153,13 +156,15 @@ trivial → Ollama ($0)  │  simple → Haiku  │  medium → Sonnet  │  com
 
 ```mermaid
 graph TD
-    START[Session Start] -->|hooks inject| CTX[HANDOFF + pending-fixes<br>+ CLAUDE.md cascade]
+    START[Session Start] -->|hooks inject| CTX[HANDOFF + pending-fixes<br>+ APL cache refresh]
     CTX --> FOCUS[Define focus<br>.session-name]
     FOCUS --> WORK[Execute tasks<br>propose → OK → execute]
-    WORK --> CHECK[Verify<br>lint · test · build]
+    WORK -->|APL pulse per prompt| CHECK[Verify<br>lint · test · build]
     CHECK --> WRAP[Wrap-up<br>HANDOFF + CHANGELOG]
     WRAP --> COMMIT[Commit + push]
-    COMMIT --> STOP[Stop hooks<br>crossref · hygiene · notify]
+    COMMIT --> STOP[Stop hooks<br>crossref · hygiene<br>scorecard · notify]
+
+    style WORK fill:#e67e22,color:#fff
 ```
 
 ### Daily
@@ -201,9 +206,10 @@ OLMO/
 │   ├── agents/ (8)          # Subagent definitions with model routing
 │   ├── hooks/ (11)          # Guards + antifragile hooks
 │   │   └── lib/             # retry-utils.sh, chaos-inject.sh
+│   ├── apl/                 # Ambient Productivity Layer cache (gitignored)
 │   ├── insights/            # failure-registry.json, reports
 │   └── plans/               # Session plans
-├── hooks/ (11)              # Lifecycle: session-start, stop-*, pre-compact, chaos-report
+├── hooks/ (12)              # Lifecycle + APL: session-start, stop-*, ambient-pulse, apl-cache
 ├── config/
 │   ├── ecosystem.yaml       # Agent routing + skills
 │   └── mcp/servers.json     # MCP server configs (pinned versions)
@@ -236,4 +242,4 @@ OLMO/
 
 ---
 
-Coautoria: Lucas + Opus 4.6 | S93
+Coautoria: Lucas + Opus 4.6 | S94
