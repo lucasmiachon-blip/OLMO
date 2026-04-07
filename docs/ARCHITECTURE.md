@@ -1,261 +1,239 @@
-# Arquitetura do Ecossistema de Agentes AI
+# Arquitetura do Ecossistema OLMO
 
-> Baseado em: Anthropic Agent SDK, LangGraph, CrewAI, Karpathy, Willison
-> Ref: https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk
-> Ref: https://blog.langchain.com/choosing-the-right-multi-agent-architecture/
-> Ref: https://docs.crewai.com/en/guides/agents/crafting-effective-agents
+> AI agent ecosystem for medical education, research, and exam prep.
+> Estado: S93 | 2026-04-06
 
-## Padroes de Orquestracao
+## Orchestrator DAG
 
-### Padrao Usado: Orchestrator-Workers (Anthropic)
+```mermaid
+graph TD
+    U[Lucas] -->|request| O[Orchestrator<br>Opus 4.6]
 
-> **Status: scaffold (~30%).** Config/safety/routing implementados.
-> Agents sao stubs — a orquestracao real acontece via Claude Code CLI.
+    O -->|complex research| SCI[Cientifico<br>Sonnet]
+    O -->|pipelines, rules| AUT[Automacao<br>Haiku]
+    O -->|GTD, projects| ORG[Organizacao<br>Sonnet]
+    O -->|models, tools| UPD[Atualizacao AI<br>Sonnet]
 
-```
-Orchestrator (Opus 4.6)
-├── route_task() → classifica e despacha
-├── run_workflow() → executa pipelines multi-step
-└── delegate() → subagent com contexto isolado
-    ├── Cientifico (Sonnet) → pesquisa, MBE
-    ├── Automacao (Haiku) → pipelines, regras
-    ├── Organizacao (Sonnet) → GTD, projetos
-    └── AtualizacaoAI (Sonnet) → monitoring
-```
+    SCI -->|papers| MCP_MED[PubMed · SCite · Consensus<br>Scholar GW · Zotero]
+    SCI -->|grounding| GEM[Gemini CLI]
+    SCI -->|deep search| PERP[Perplexity API]
+    AUT -->|publish| MCP_PROD[Notion · Gmail · Calendar]
+    ORG -->|publish| MCP_PROD
+    UPD -->|monitor| WEB[WebSearch · WebFetch]
 
-Cada subagente tem **contexto isolado** e retorna apenas o resultado
-relevante ao orchestrator. Isso previne poluicao de contexto.
+    MCP_MED -->|evidence| LH[Living HTML<br>per slide]
+    MCP_PROD -->|pages| NOT[Notion DBs]
 
-Ref: Anthropic - "Composable Patterns" (prompt chaining, routing,
-parallelization, orchestrator-workers, evaluator-optimizer)
-https://www.anthropic.com/engineering/advanced-tool-use
-
-### Alternativas Consideradas
-
-| Padrao | Quando Usar | Ref |
-|--------|------------|-----|
-| **Subagents** | Paralelizacao + isolamento (USADO) | Anthropic |
-| **Skills** | Agente unico + prompts dinamicos | LangGraph |
-| **Handoffs** | Agente ativo muda dinamicamente | LangGraph |
-| **Router** | Roteamento deterministico por input | LangGraph |
-| **TeammateTool** | Lead + teammates com task list | Anthropic Opus 4.6 |
-
-Ref: LangGraph Multi-Agent Architecture Guide
-https://blog.langchain.com/choosing-the-right-multi-agent-architecture/
-
-### Regra CrewAI: 3-4 Agents por Team
-Nosso ecossistema tem **4 agentes** (cientifico, automacao, organizacao,
-ai_update) + 4 subagentes. Alinhado com best practice CrewAI.
-
-Ref: CrewAI Crafting Effective Agents
-https://docs.crewai.com/en/guides/agents/crafting-effective-agents
-
-## Diagrama Completo
-
-```
-                    ┌─────────────────────┐
-                    │    ORCHESTRATOR      │
-                    │    (Opus 4.6)        │
-                    │  route / workflow    │
-                    └──────────┬──────────┘
-                               │
-          ┌────────────────────┼────────────────────┐
-          │                    │                    │
- ┌────────┴────────┐  ┌───────┴───────┐  ┌────────┴────────┐
- │   CIENTIFICO    │  │  AUTOMACAO    │  │  ORGANIZACAO    │
- │   (Sonnet)      │  │  (Haiku)      │  │  (Sonnet)       │
- │                 │  │               │  │                 │
- │ MBE, GRADE      │  │ Pipelines     │  │ GTD, Eisenhower │
- │ PubMed, arXiv   │  │ Regras, Cron  │  │ Projetos        │
- │ CASP, CONSORT   │  │ MCPs          │  │ Reviews         │
- └────────┬────────┘  └───────┬───────┘  └────────┬────────┘
-          │                    │                    │
-          │           ┌───────┴───────┐            │
-          │           │ ATUALIZACAO   │            │
-          │           │ AI (Sonnet)   │            │
-          │           │ Modelos,Tools │            │
-          │           │ News,Bench    │            │
-          │           └───────┬───────┘            │
-          │                    │                    │
- ┌────────┴────┐  ┌───────┴──────┐  ┌──────┴──────────┐
- │TrendAnalyzer│  │ WebMonitor   │  │KnowledgeOrganizer│
- │  (Haiku)    │  │  (Haiku)     │  │   (Sonnet)       │
- └─────────────┘  └──────────────┘  │Notion+Obsidian   │
-                                     │+Zotero           │
-          ┌──────────┐               └─────────────────┘
-          │DataPipeline│
-          │  (Haiku)   │
-          └────────────┘
-
- ┌─────────────────────────────────────────────────────┐
- │  EFFICIENCY LAYER                                    │
- │  SmartScheduler │ BudgetTracker │ Cache │ Batch     │
- │                                                      │
- │  Model Routing:                                      │
- │  trivial→Ollama($0) │ simple→Haiku │ medium→Sonnet  │
- │  complex→Opus │ browser→Cowork/ChatGPT              │
- └─────────────────────────────────────────────────────┘
-
- ┌─────────────────────────────────────────────────────┐
- │  MCP SERVERS (12 connected, 3 planned, 1 removed)    │
- │  Medical: PubMed │ SCite │ Consensus │ Scholar GW   │
- │  Research: Perplexity │ NotebookLM │ Zotero         │
- │  Prod: Notion │ Gmail │ Google Calendar │ Canva     │
- │  Visual: Excalidraw                                  │
- │  Planned: Google Drive │ ChatGPT MCP │ Anki MCP     │
- └─────────────────────────────────────────────────────┘
-
- ┌─────────────────────────────────────────────────────┐
- │  HOOKS (18 total, S84-S85)                           │
- │  PreCompact: pre-compact-checkpoint (S84)            │
- │  Stop: crossref-check │ detect-issues │ hygiene      │
- │        notify                                        │
- │  SessionStart: session-start │ session-compact       │
- │  PreToolUse: guard-read-secrets │ guard-pause        │
- │              guard-generated │ guard-product-files   │
- │              guard-secrets │ guard-bash-write        │
- │              guard-lint-before-build │ allow-plan-exit│
- │  PostToolUse: build-monitor │ lint-on-edit (S85)     │
- │               cost-circuit-breaker (S85)             │
- │  pre-commit: crossref-precommit │ guard-secrets-pc   │
- └─────────────────────────────────────────────────────┘
-
- ┌─────────────────────────────────────────────────────┐
- │  BROWSER AGENTS (fontes pagas)                       │
- │  Cowork → UpToDate │ DynaMed │ BMJ Best Practice    │
- │  ChatGPT Agent → backup browser                     │
- └─────────────────────────────────────────────────────┘
+    style O fill:#f5a623,color:#000
+    style SCI fill:#7b68ee,color:#fff
+    style AUT fill:#20b2aa,color:#fff
+    style ORG fill:#7b68ee,color:#fff
+    style UPD fill:#7b68ee,color:#fff
 ```
 
-## Skills - Progressive Disclosure
+**Regra**: Lucas decide, agente executa. Sem OK explicito = nao fazer.
 
-Seguindo best practice Anthropic: skills carregadas **sob demanda**,
-nao sempre-on. Metadata (~100 tokens) no startup, SKILL.md completo
-apenas quando ativado.
+## Agents (8)
 
-Ref: Anthropic Skill Authoring Best Practices
-https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
+| Agent | Model | maxTurns | Memory | Role |
+|-------|-------|----------|--------|------|
+| evidence-researcher | Sonnet | — | project | Multi-MCP research, living HTML |
+| qa-engineer | Sonnet | 12 | project | 1 slide, 1 gate, 1 invocation |
+| mbe-evaluator | Sonnet | 15 | — | GRADE/CONSORT/STROBE (FROZEN) |
+| reference-checker | Haiku | 15 | project | PMID cross-ref, stale data |
+| quality-gate | Haiku | 10 | — | Lint, type-check, tests |
+| researcher | Haiku | 15 | — | Codebase exploration |
+| repo-janitor | Haiku | 12 | — | Orphan files, dead links |
+| notion-ops | Haiku | 10 | — | Notion CRUD with MCP safety |
 
-20 skills em `.claude/skills/` — todas com SKILL.md (formato oficial). Lista derivavel via `ls .claude/skills/`.
+## Hook Pipeline
 
-### Graus de Liberdade (Anthropic Pattern)
-- **Alta liberdade**: pesquisa aberta, brainstorm (cientifico)
-- **Media liberdade**: analise MBE com checklists (mbe-evidence)
-- **Baixa liberdade**: publicacao Notion com template exato (notion-publisher)
+```mermaid
+graph LR
+    SS[SessionStart] --> PT[PreToolUse] --> TU[Tool Use] --> PO[PostToolUse] --> S[Stop]
 
-## Workflow Engine
+    SS --- ss1[session-start.sh<br>session-compact.sh]
+    PT --- pt1[8 guards:<br>secrets · pause · generated<br>product-files · plan-exit<br>bash-secrets · bash-write · lint-before-build]
+    PO --- po1[chaos-inject L6<br>model-fallback L2<br>build-monitor<br>lint-on-edit L5<br>cost-breaker L3]
+    S --- s1[crossref-check<br>detect-issues L5<br>chaos-report L6<br>hygiene · notify]
 
-Workflows definidos em YAML, executados pelo orchestrator:
-
-```python
-# Padrao: Prompt Chaining (Anthropic)
-# Output de um step → input do proximo
-steps = [
-    {"type": "local", "action": "parse_input"},       # $0
-    {"type": "mcp", "server": "pubmed-mcp"},           # $0
-    {"type": "api_call", "model": "opus-4.6"},          # $0.05-0.10
-    {"type": "mcp", "server": "notion"},               # $0
-]
+    style SS fill:#4a9eff,color:#fff
+    style PT fill:#ff6b6b,color:#fff
+    style TU fill:#ffd93d,color:#000
+    style PO fill:#6bcb77,color:#fff
+    style S fill:#9b59b6,color:#fff
 ```
 
-Ref: Anthropic Advanced Tool Use - Prompt Chaining
-https://www.anthropic.com/engineering/advanced-tool-use
+**22 hooks total** (20 Claude Code + 1 PreCompact + 1 git pre-commit).
+Config: `.claude/settings.local.json`. Reference: `.claude/hooks/README.md`.
 
-## Efficiency Layer
+## Antifragile Stack (Taleb L1-L7)
 
-3 camadas para minimizar custo (Willison pattern):
+```mermaid
+graph BT
+    L1[L1 Retry + Jitter<br>retry-utils.sh] --> L2[L2 Model Fallback<br>Opus → Sonnet → Haiku<br>circuit breaker 2 fails/5min]
+    L2 --> L3[L3 Cost Circuit Breaker<br>warn@100 block@400 calls/hr]
+    L3 --> L4[L4 Graceful Degradation<br>context:fork in heavy skills]
+    L4 --> L5[L5 Self-Healing Loop<br>lint-on-edit → stop-detect<br>→ pending-fixes → session-start]
+    L5 --> L6[L6 Chaos Engineering<br>4 vectors, opt-in CHAOS_MODE=1<br>injects into L2/L3 state files]
+    L6 --> L7[L7 Continuous Learning<br>failure-registry NeoSigma<br>memory TTL · /dream · /insights]
 
-1. **Local-First** → regex, parsing, file ops ($0)
-2. **Cache** → TTL por tipo: news 6h, papers 48h, models 1 semana
-3. **Batching** → combina queries relacionadas (80% economia)
-
-Ref: Simon Willison - custo rastreado por projeto
-https://simonwillison.net/tags/costs/
-
-## Per-Project CLAUDE.md
-
-Seguindo Anthropic best practice: CLAUDE.md root <60 linhas,
-contexto especifico em subdiretorios.
-
-Ref: Anthropic CLAUDE.md Best Practices
-https://code.claude.com/docs/en/best-practices
-
-```
-OLMO/
-├── CLAUDE.md              # Root: enxuto (85 linhas)
-├── .claude/
-│   ├── rules/ (10)        # anti-drift, coauthorship, design-reference,
-│   │                      # known-bad-patterns (+S83), mcp_safety,
-│   │                      # notion-cross-validation, process-hygiene,
-│   │                      # qa-pipeline, session-hygiene, slide-rules
-│   ├── skills/ (20)       # Sob demanda (progressive disclosure, SKILL.md)
-│   │                      # research/medical-researcher/deep-search: context:fork
-│   ├── agents/ (8)        # researcher(haiku), qa-engineer(sonnet)+memory,
-│   │                      # evidence-researcher(sonnet)+memory,
-│   │                      # reference-checker(haiku)+memory,
-│   │                      # mbe-evaluator(sonnet), repo-janitor(haiku),
-│   │                      # quality-gate(haiku), notion-ops(haiku)
-│   └── hooks/ (11)        # guards + lint-on-edit + cost-circuit-breaker (+S85)
-├── hooks/ (7)             # session-start, stop-*, pre-compact-checkpoint
-├── config/
-│   ├── ecosystem.yaml     # Agentes + model routing + skills
-│   └── mcp/servers.json   # 15 MCPs (12 connected, 3 planned)
-└── content/aulas/         # Subsistema Node.js (deck.js + GSAP)
+    style L1 fill:#2ecc71,color:#fff
+    style L2 fill:#2ecc71,color:#fff
+    style L3 fill:#2ecc71,color:#fff
+    style L4 fill:#2ecc71,color:#fff
+    style L5 fill:#2ecc71,color:#fff
+    style L6 fill:#f39c12,color:#fff
+    style L7 fill:#2ecc71,color:#fff
 ```
 
-### Antifragile Layers (Taleb, S85)
+| Layer | Status S93 | Key files |
+|-------|-----------|-----------|
+| L1 | DONE | `.claude/hooks/lib/retry-utils.sh` |
+| L2 | DONE | `.claude/hooks/model-fallback-advisory.sh` |
+| L3 | DONE | `.claude/hooks/cost-circuit-breaker.sh` |
+| L4 | DONE | `context:fork` in skills |
+| L5 | DONE | `lint-on-edit.sh`, `stop-detect-issues.sh` |
+| L6 | BASIC | `chaos-inject.sh`, `chaos-inject-post.sh`, `stop-chaos-report.sh` |
+| L7 | DONE | `failure-registry.json`, memory TTL, `/dream`, `/insights` |
 
-| Camada | Descricao | Estado |
-|--------|-----------|--------|
-| L1 Retry + backoff | Retry transiente (429/5xx) | PARCIAL — scripts tem retry |
-| L2 Model fallback | Primary → secondary → tertiary | ZERO — planejado Tier 2C |
-| L3 Circuit breaker | Fast-fail | MELHORADO — cost-circuit-breaker (S85) |
-| L4 Graceful degradation | context:fork nas skills pesadas | IMPLEMENTADO (S84) |
-| L5 Self-healing | detect → recover | MELHORADO — lint-on-edit (S85) |
-| L6 Chaos engineering | Falhas deliberadas | ZERO — backlog longo |
-| L7 Continuous learning | Falha → melhoria persistida | MELHORADO — agent memory + insights JSON (S84-S85) |
+Design doc: `docs/research/chaos-engineering-L6.md`
 
-## Aulas — Arquitetura HTML/JS
+## Content Pipeline (Aulas)
 
-Decisao sessao 23-24: HTML/JS + deck.js (nao Reveal.js, nao PPTX).
+```mermaid
+graph LR
+    R[Research] -->|evidence| LH[Living HTML<br>per slide]
+    LH --> S[Slides<br>slides/*.html]
+    S --> M[_manifest.js]
+    M -->|build-html.ps1| I[index.html]
+    I -->|lint-slides.js| QA[QA Pipeline]
+    QA -->|gemini-qa3.mjs| G[3 Gates:<br>Preflight · Inspect · Editorial]
+    G -->|export-pdf.js| PDF[PDF Export]
+
+    style R fill:#9b59b6,color:#fff
+    style QA fill:#e74c3c,color:#fff
+```
 
 ```
 content/aulas/
-├── shared/                # Design system compartilhado (promovido sessao 24)
-│   ├── css/base.css       # OKLCH design tokens, tipografia, layout
-│   ├── js/deck.js         # Navegacao vanilla (170 linhas, scale 1280×720)
-│   ├── js/engine.js       # GSAP dispatcher declarativo (data-animate)
-│   ├── js/click-reveal.js # Progressive reveal (data-reveal)
-│   └── assets/fonts/      # DM Sans, Instrument Serif, JetBrains Mono (woff2)
-├── cirrose/               # 11 slides ativos + 35 archived
-├── grade/                 # 58 slides, migrada Reveal→deck.js, precisa redesign
-├── scripts/               # Linters compartilhados (lint-slides, done-gate)
-├── STRATEGY.md            # Roadmap tecnico (CSS @layer, D3, Lottie, PPTX)
-├── package.json           # Scripts: dev, build, lint, QA
-└── vite.config.js         # Multi-page auto-discovery
+├── shared/              # Design system (OKLCH, deck.js, GSAP engine)
+├── metanalise/          # 19 slides — active development
+├── cirrose/             # 11 slides
+├── grade/               # 58 slides — needs redesign
+├── scripts/             # Linters: lint-slides.js, gemini-qa3.mjs, export-pdf.js
+├── CLAUDE.md            # Aula-specific rules (cascades from root)
+└── package.json         # dev, build, lint, QA scripts
 ```
 
-**Padroes:**
-- Assertion-evidence: `<h2>` = claim clinico, visual = evidencia. Sem bullet lists.
-- Animacao declarativa: `data-animate="countUp|stagger|drawPath|fadeUp|highlight"`
-- Build: PowerShell `build-html.ps1` concatena `slides/*.html` via `_manifest.js`
-- QA: Playwright screenshots + metricas (C1 word count, C8 font-size ≥18px)
-- Rules: `.claude/rules/slide-rules.md` (path-scoped a `content/aulas/**`)
+**Patterns:** assertion-evidence (`<h2>` = claim, visual = evidence), declarative animation (`data-animate`), OKLCH design tokens, 1280x720 viewport.
 
-## Principios Arquiteturais
+## MCP Connections (11)
 
-1. **Reversibilidade** - Toda acao de agente deve ser reversivel (Anthropic)
-2. **Human-in-the-loop** - Humano decide, agente executa (Karpathy)
-3. **Sessoes curtas** - Objetivos claros, sem loops de retry (Willison)
-4. **Modelo certo** - Menor modelo que resolve a tarefa (efficiency)
-5. **Referenciamento** - PMID, DOI obrigatorios em conteudo medico
-6. **Determinismo** - Backbone deterministico + inteligencia seletiva (CrewAI)
+| Category | MCPs | Used by |
+|----------|------|---------|
+| Medical | PubMed, SCite, Consensus, Scholar Gateway | evidence-researcher, /research |
+| Study | NotebookLM, Zotero | /nlm-skill, reference management |
+| Productivity | Notion, Gmail, Google Calendar | notion-ops, /daily-briefing |
+| Visual | Excalidraw, Canva | diagrams, design |
 
-## Documentos Relacionados
+Gemini: CLI OAuth ($0) + API key (scripts). Perplexity: API direta (not MCP).
 
-- `docs/WORKFLOW_MBE.md` — Workflow principal: topico → Notion + Obsidian
-- `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` — Detalhes tecnicos (PubMed tier1, Consensus, Scite)
-- `docs/.archive/OBSIDIAN_CLI_PLAN.md` — Integracao Obsidian CLI (archived)
-- `content/aulas/STRATEGY.md` — Roadmap tecnico de aulas (CSS @layer, D3, Lottie, PPTX)
-- `docs/coauthorship_reference.md` — Referencia completa coautoria AI
-- `docs/mcp_safety_reference.md` — Referencia completa seguranca MCP
+## Model Routing
+
+```
+trivial → Ollama ($0)  │  simple → Haiku  │  medium → Sonnet  │  complex → Opus
+```
+
+**Cost**: $0 tier — Claude Code Max + Gemini CLI OAuth + Codex ChatGPT. API keys only for QA scripts.
+
+## Daily/Weekly Workflow
+
+### Session Cycle (each session)
+
+```mermaid
+graph TD
+    START[Session Start] -->|hooks inject| CTX[HANDOFF + pending-fixes<br>+ CLAUDE.md cascade]
+    CTX --> FOCUS[Define focus<br>.session-name]
+    FOCUS --> WORK[Execute tasks<br>propose → OK → execute]
+    WORK --> CHECK[Verify<br>lint · test · build]
+    CHECK --> WRAP[Wrap-up<br>HANDOFF + CHANGELOG]
+    WRAP --> COMMIT[Commit + push]
+    COMMIT --> STOP[Stop hooks<br>crossref · hygiene · notify]
+```
+
+### Daily
+
+1. **Start session** — hooks surface HANDOFF + pending-fixes automatically
+2. **Pick focus** — from HANDOFF proximos passos (P0 first, then P1)
+3. **Work** — propose/OK/execute cycle. Max 2 subagents. Commit early.
+4. **Wrap** — update HANDOFF (future-only) + CHANGELOG (append-only)
+5. **Email** — `/daily-briefing` for Gmail triage + Notion digest (optional)
+
+### Weekly
+
+1. **Monday** — review BACKLOG.md, pick week's priorities
+2. **Mid-week** — `/insights` if 3+ sessions since last run (cadence: every 3-4 sessions)
+3. **Friday** — `/dream` memory consolidation (auto-triggered every 24h via hook)
+4. **Every 3 sessions** — memory governance: check merge candidates, TTL dates
+
+### Cadences
+
+| What | Frequency | Next |
+|------|-----------|------|
+| `/insights` | Every 3-4 sessions | S94 |
+| Memory governance | Every 3 sessions | S95 |
+| MCP pinning review | Quarterly | S95 |
+| `/dream` consolidation | Auto 24h | Hook-driven |
+
+## Project Structure
+
+```
+OLMO/
+├── CLAUDE.md                # Root instructions (85 lines)
+├── HANDOFF.md               # Session state (future-only, ~50 lines)
+├── CHANGELOG.md             # Session history (append-only)
+├── BACKLOG.md               # Prioritized work items
+├── .claude/
+│   ├── settings.local.json  # Hook registration + env vars
+│   ├── rules/ (10)          # Anti-drift, KBPs, QA pipeline, session hygiene
+│   ├── skills/ (20)         # Progressive disclosure (loaded on demand)
+│   ├── agents/ (8)          # Subagent definitions with model routing
+│   ├── hooks/ (11)          # Guards + antifragile hooks
+│   │   └── lib/             # retry-utils.sh, chaos-inject.sh
+│   ├── insights/            # failure-registry.json, reports
+│   └── plans/               # Session plans
+├── hooks/ (11)              # Lifecycle: session-start, stop-*, pre-compact, chaos-report
+├── config/
+│   ├── ecosystem.yaml       # Agent routing + skills
+│   └── mcp/servers.json     # MCP server configs (pinned versions)
+├── content/aulas/           # Node.js subsystem (deck.js + GSAP + Vite)
+├── tests/ (53)              # pytest suite
+├── docs/                    # Architecture, workflows, research
+│   └── research/            # Implementation plans, chaos design doc
+└── docker-compose.yml       # OTel Collector + Langfuse + Postgres + ClickHouse
+```
+
+## Architectural Principles
+
+1. **Human-in-the-loop** — Lucas decides, agent executes (Karpathy)
+2. **Antifragile** — system gets stronger from failures, not just resilient (Taleb)
+3. **Via Negativa** — remove what fails > add guardrails. KBPs > more rules
+4. **Reversibility** — every agent action must be reversible (Anthropic)
+5. **Modelo certo** — smallest model that solves the task (efficiency)
+6. **Referenciamento** — PMID, DOI mandatory for medical content
+7. **Curiosidade** — explain why, not just what. Teach during, not after
+
+## Related Documents
+
+- `docs/research/implementation-plan-S82.md` — Master roadmap (antifragile, self-improvement)
+- `docs/research/chaos-engineering-L6.md` — L6 design doc
+- `docs/WORKFLOW_MBE.md` — MBE research workflow
+- `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` — Research pipeline details
+- `content/aulas/STRATEGY.md` — Slide tech roadmap (CSS @layer, D3, Lottie)
+- `docs/coauthorship_reference.md` — AI coauthorship policy
+- `docs/mcp_safety_reference.md` — MCP security protocol
+
+---
+
+Coautoria: Lucas + Opus 4.6 | S93
