@@ -726,14 +726,14 @@ aside.notes { display: none; }
   #s-contrato .contrato-skill { opacity: 1; transform: none; }
 }
 
-/* --- Objetivos: 3×2 grid (6 items) --- */
+/* --- Objetivos: 3×2 grid, Z-flow (6 items) --- */
 section#s-objetivos .slide-inner {
-  justify-content: center;
+  justify-content: flex-start;
 }
 section#s-objetivos .objetivos-wrapper {
   width: 100%;
   max-width: 1060px;
-  margin: 0 auto;
+  margin: auto auto;
   display: flex;
   align-items: center;
 }
@@ -741,13 +741,13 @@ section#s-objetivos .objetivos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(3, auto);
-  grid-auto-flow: column;
   gap: var(--space-xl) var(--space-2xl);
   width: 100%;
 }
 section#s-objetivos .obj-item--accent {
   background: color-mix(in oklch, var(--ui-accent) 25%, transparent);
-  padding: 12px 16px;
+  padding: 12px var(--space-sm);
+  margin: -12px calc(-1 * var(--space-sm)) -12px -20px;
   border-radius: 8px;
   border-left: 4px solid var(--ui-accent);
 }
@@ -758,7 +758,7 @@ section#s-objetivos .obj-item--accent .obj-body {
 section#s-objetivos .obj-item {
   display: grid;
   grid-template-columns: 48px 1fr;
-  gap: 16px;
+  gap: var(--space-sm);
   align-items: baseline;
 }
 section#s-objetivos .obj-num {
@@ -771,8 +771,8 @@ section#s-objetivos .obj-num {
   padding-top: 2px;
 }
 section#s-objetivos .obj-body {
-  border-left: 3px solid color-mix(in oklch, var(--ui-accent) 70%, var(--bg-surface));
-  padding-left: 16px;
+  border-left: 4px solid color-mix(in oklch, var(--ui-accent) 70%, var(--bg-surface));
+  padding-left: var(--space-sm);
 }
 #deck section#s-objetivos .obj-skill {
   font-family: var(--font-body);
@@ -784,11 +784,10 @@ section#s-objetivos .obj-body {
 }
 #deck section#s-objetivos .obj-detail {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 20px;
   color: var(--text-secondary);
   margin-top: 4px;
   line-height: 1.35;
-  opacity: 0.7;
   max-width: none;
 }
 /* Click-reveal: items hidden until revealed by deck.js */

@@ -61,6 +61,8 @@ PRODUCT_PATTERNS=(
   '(^|/)content/aulas/[^/]+/slide-registry\.js$'
   '(^|/)content/aulas/[^/]+/index\.html$'
   '(^|/)content/aulas/[^/]+/slides/_manifest\.js$'
+  '(^|/)content/aulas/scripts/.*\.(mjs|js)$'
+  '(^|/)content/aulas/[^/]+/docs/prompts/.*\.md$'
 )
 
 for pattern in "${PRODUCT_PATTERNS[@]}"; do

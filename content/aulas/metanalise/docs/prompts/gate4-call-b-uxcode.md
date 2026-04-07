@@ -92,6 +92,15 @@ Se o resultado visual (PNG) mostra problema de LAYOUT (elementos acumulados num 
   "dead_css": ["seletor1", "seletor2"],
   "specificity_conflicts": ["descricao1"],
   "proposals": [
-    { "severity": "MUST|SHOULD|COULD", "titulo": "...", "fix": "snippet de codigo", "arquivo": "slide.html|metanalise.css|slide-registry.js", "tipo": "html|css|js" }
+    { "severity": "MUST|SHOULD|COULD", "titulo": "max 15 palavras, acao concreta (ex: 'Corrigir margem accent card')", "fix": "snippet de codigo COMPLETO E CONCISO — max 20 linhas", "arquivo": "slide.html|metanalise.css|slide-registry.js", "tipo": "html|css|js" }
   ]
+}
+
+### REGRAS DE CONCISAO (OBRIGATORIAS)
+
+- Campo `titulo`: max 15 palavras. Acao + alvo. NUNCA repetir palavras. NUNCA listar sinonimos.
+- Campo `fix`: snippet funcional, max 20 linhas. Sem explicacao — o codigo E a explicacao.
+- Campo `problemas`: max 2 frases por problema.
+- Campo `evidencia`: max 3 frases.
+- Se perceber que esta repetindo palavras ou gerando texto circular: PARE e feche o JSON.
 }

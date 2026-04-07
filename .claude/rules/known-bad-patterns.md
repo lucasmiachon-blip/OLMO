@@ -63,3 +63,12 @@ globs: "**/*"
 - **Fix**: Pre-launch checklist: (1) verify agent type matches task, (2) confirm output is capturable (file write instruction in prompt), (3) get Lucas's approval before launching. Memory: `feedback_agent_delegation.md`
 - **Incidence**: 3 events / 1 session
 - **Sessions**: S99 (2026-04-07)
+
+## [KBP-07] Workaround Without Diagnosis
+
+- **When**: Something fails (API timeout, build error, script failure) and agent invents a creative alternative instead of diagnosing the root cause and asking
+- **Symptom**: Lucas says "nao invente", "nao mexe sem autorizacao", "procure uma trava para workaround". Agent proposes skipping features, creating simplified versions, or editing scripts without approval
+- **Cause**: Aversion to reporting failure — model prefers appearing productive to admitting something broke. Disguises workaround as pragmatism ("vou tentar sem video", "vou aumentar o timeout")
+- **Fix**: Failure gate (anti-drift.md §Failure Response). When something fails: (1) read full error, (2) diagnose root cause (NOT first hypothesis), (3) report what/why/root cause, (4) list options including "do nothing", (5) STOP. PROIBIDO: propor alternativa que contorne o problema sem resolver a causa. PROIBIDO: editar scripts canônicos sem aprovação explícita.
+- **Incidence**: 3 events / 1 session (S104: skip video suggestion, prompt edit without approval, misdiagnosis timeout vs MAX_TOKENS)
+- **Sessions**: S104 (2026-04-07)

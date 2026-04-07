@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 104 — 2026-04-07 (SLIDES)
+
+### CSS: s-objetivos — 7 MUST fixes (editorial R12)
+- Z-flow: removido `grid-auto-flow: column` — leitura agora L→R por linha (1,2 / 3,4 / 5,6)
+- Removido `opacity: 0.7` de obj-detail (double-dimming → hierarquia so via cor)
+- Border-left 3px → 4px (visibilidade projecao 6m)
+- Font-size detail 18px → 20px (legibilidade 6m)
+- justify-content: center → flex-start + margin auto wrapper (prevencao clipping)
+- Margem negativa accent card (gestalt issue reportado por Gemini R13 — revisar)
+- Migrado px hardcoded → var(--space-sm) em gap/padding
+
+### Infra: KBP-07 + anti-workaround gate
+- KBP-07 em known-bad-patterns.md: "Workaround Without Diagnosis"
+- Gate em anti-drift.md: checklist 5 passos para failure response
+- guard-product-files.sh: scripts canonicos (*.mjs, *.js) + prompts (*.md) protegidos (ask)
+
+### Script: gemini-qa3.mjs
+- Timeout fetch 120s → 300s
+- Report parcial: quando 1 de 3 calls falha, continua com dados parciais (throw → warn + {})
+
+### Prompt: gate4-call-b-uxcode.md
+- Constraint concisao adicionado (titulo max 15 palavras, fix max 20 linhas) — PENDENTE aprovacao Lucas
+
 ## Sessao 103 — 2026-04-07 (SLIDES_QA)
 
 ### QA: s-objetivos

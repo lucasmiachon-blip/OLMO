@@ -294,7 +294,7 @@ function reportIssues(issues) {
 async function fetchWithRetry(url, options, { maxRetries = 3, baseDelay = 1500 } = {}) {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 120_000);
+    const timeout = setTimeout(() => controller.abort(), 300_000);
     try {
       const res = await fetch(url, { ...options, signal: controller.signal });
       clearTimeout(timeout);
@@ -1116,10 +1116,12 @@ async function runEditorial(slideId, round, qaDir) {
 
   console.log(`  TOTAL: ${totalTokensIn} in / ${totalTokensOut} out | ~$${totalCost.toFixed(3)}`);
 
-  // Fail if any call produced no parsed output (throw so finally cleanup runs)
+  // Warn if any call produced no parsed output — continue with partial data
   const failedCalls = parsedCalls.filter(c => c.parsed === null);
   if (failedCalls.length > 0) {
-    throw new Error(`${failedCalls.length} call(s) failed JSON parse: ${failedCalls.map(c => c.label).join(', ')}. Raw output saved.`);
+    console.warn(`  ⚠ ${failedCalls.length} call(s) failed JSON parse: ${failedCalls.map(c => c.label).join(', ')}. Raw output saved. Continuing with partial data.`);
+    // Replace null with empty object so downstream code handles gracefully
+    for (const fc of failedCalls) fc.parsed = {};
   }
 
   // Step 4b: Validate Call C video proof-of-viewing

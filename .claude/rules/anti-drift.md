@@ -26,6 +26,25 @@ Lucas is a beginner developer learning on the job. He tends to accept model deci
 
 **When violated**: stop, identify the extra work, and ask Lucas before reverting — automatic revert can destroy work in progress.
 
+## Failure response (KBP-07 — anti-workaround gate)
+
+When something fails (API error, timeout, build failure, script crash):
+
+Gate function — all 5 steps, in order, no skipping:
+1. Read the COMPLETE error message (not just the first line)
+2. Diagnose the ROOT CAUSE (not the first hypothesis — verify before claiming)
+3. Report to Lucas: what failed, why, root cause with evidence
+4. List options (including "retry as-is", "fix root cause", "defer", "do nothing")
+5. STOP and wait for Lucas to choose
+
+PROIBIDO:
+- Propor alternativa que contorne o problema sem resolver a causa
+- Editar scripts canônicos (content/aulas/scripts/) sem aprovação explícita
+- "Vou tentar X" — sempre "opções: A, B, C. Qual preferes?"
+- Assumir que a primeira hipótese é correta (ex: "timeout" quando era MAX_TOKENS)
+
+**When violated**: flag the workaround explicitly, revert if possible, ask Lucas.
+
 ## Momentum brake
 
 After completing any discrete action (edit, build, commit, QA check):
