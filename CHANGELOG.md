@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## Sessao 107 — 2026-04-07 (s-importancia construcao)
+
+### s-checkpoint-1 arquivado
+- Comentado no _manifest.js (HTML preservado). Build: 18 slides.
+
+### build-html.ps1 — fix regex comment-aware (3 aulas)
+- Regex `file:\s*'...'` pegava linhas JS comentadas com `//` — slides arquivados eram incluidos no build
+- Fix: pre-filtra linhas `//` antes do regex + aceita single e double quotes
+- Aplicado: metanalise, grade, cirrose. Validado com build (18, 58, 11 slides).
+
+### Pesquisa s-importancia — completa (5 pernas)
+- Gemini v2 (deep-search nao-deterministico): 15 CANDIDATE PMIDs, contraponto (MA vs RCT failures)
+- Perplexity: Kastrati & Ioannidis 2024 (MA vs mega-trial concordancia ROR 1,00)
+- NLM verificacao: 9/15 VERIFIED, 6/15 WRONG (PMIDs corrigidos). Taxa erro Gemini: 40%
+- PMIDs corrigidos: ISIS-4→7661937, BART→18480196, PRISM→28320242, CARET→8602180, Nissen→17517853, Bjelakovic→17327526
+
+### Living HTML s-importancia
+- evidence/s-importancia.html criado (22 VERIFIED + 2 CANDIDATE)
+- Sintese cruzada de 5 pernas: vantagens (V1-V5) + contraponto (6 casos) + GIGO caveat
+- Tabela cruzamento fontes documentada
+
+### Config
+- WebFetch(*) e WebSearch(*) auto-allow em settings.local.json
+
 ## Sessao 106 — 2026-04-07 (s-importancia)
 
 ### Research Pipeline Consolidation

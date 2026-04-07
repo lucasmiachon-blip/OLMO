@@ -13,7 +13,10 @@ if (-not (Test-Path $manifestPath)) {
 }
 
 $manifestContent = Get-Content $manifestPath -Raw -Encoding UTF8
-$files = [regex]::Matches($manifestContent, "file:\s*'([^']+)'") | ForEach-Object { $_.Groups[1].Value }
+# Filter out JS comment lines before extracting file paths (prevents archived entries from being included)
+$activeLines = $manifestContent -split "`n" | Where-Object { $_ -notmatch "^\s*//" }
+$activeContent = $activeLines -join "`n"
+$files = [regex]::Matches($activeContent, 'file:\s*[''"]([^''"]+)[''"]') | ForEach-Object { $_.Groups[1].Value }
 
 if ($files.Count -eq 0) {
   Write-Error "No slide files found in manifest"
