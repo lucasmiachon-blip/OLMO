@@ -18,10 +18,11 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | Criar slide HTML s-importancia | Posicao apos s-hook (F1). h2 = Lucas decide. Living HTML pronto em evidence/. | Normal |
-| 2 | Re-run editorial s-objetivos R12 | Validar gestalt fix (border-left on obj-body) + accent 100% | Normal |
-| 3 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA (1/19 editorial) | Normal |
-| 4 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
+| 1 | Revisar living HTML s-importancia | Faltam secoes: revisao narrativa, glossario, outros padroes dos living HTMLs existentes. Nao commitado. | Normal |
+| 2 | Criar slide HTML s-importancia | Posicao apos s-hook (F1). h2 = Lucas decide. Depende de living HTML revisado. | Normal |
+| 3 | Re-run editorial s-objetivos R12 | Validar gestalt fix (border-left on obj-body) + accent 100% | Normal |
+| 4 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA (1/19 editorial) | Normal |
+| 5 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
 
 ## AGENTES
 
