@@ -51,7 +51,7 @@ SCAN → AUDIT → DIAGNOSE → PRESCRIBE
 find ~/.claude/projects/C--Dev-Projetos-OLMO/ -name "*.jsonl" -mtime -7 2>/dev/null | sort -r
 ```
 
-If a `.last-insights` timestamp exists in the memory directory, only scan sessions newer than that timestamp.
+If a `.last-insights` timestamp exists (see Phase 4 save step), only scan sessions newer than that timestamp.
 
 #### Step 2: Targeted grep for error signals
 
@@ -192,7 +192,7 @@ If a previous `/insights` report exists (check `references/previous-report.md`):
 Write the full report to `.claude/skills/insights/references/latest-report.md` and update the timestamp:
 
 ```bash
-date +%s > ~/.claude/projects/C--Dev-Projetos-OLMO/memory/.last-insights
+date +%s > ~/.claude/projects/C--Dev-Projetos-OLMO/.last-insights
 ```
 
 If a previous report exists, move it to `references/previous-report.md` before overwriting.

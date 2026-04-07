@@ -71,7 +71,7 @@ Aulas: ver `content/aulas/CLAUDE.md`. Enforced por `crossref-precommit.sh`.
 ## Self-Improvement
 
 - Session docs: `HANDOFF.md` + `CHANGELOG.md`. Regra: `session-hygiene.md`
-- Self-healing: `stop-detect-issues.sh` → `pending-fixes.md` → session-start surfacea
+- Self-healing: `stop-detect-issues.sh` → `.claude/pending-fixes.md` → session-start surfacea
 - Via Negativa: `known-bad-patterns.md` acumula anti-patterns
 - `/insights` semanal. Roadmap: `docs/research/implementation-plan-S82.md`
 

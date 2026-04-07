@@ -40,12 +40,12 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlphttp/langfuse, debug]
+      exporters: [otlphttp/langfuse]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlphttp/langfuse, debug]
+      exporters: [otlphttp/langfuse]
     logs:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [otlphttp/langfuse, debug]

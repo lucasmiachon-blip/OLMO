@@ -1,6 +1,6 @@
 ---
 name: reference-checker
-description: "Reference consistency checker — one leg of the /research pipeline. Cross-refs living HTML evidence, slide HTML, and Notion. Verifies PMIDs, detects mismatches, stale data, missing refs. Report-only, never modifies."
+description: "Reference consistency checker — one leg of the /research pipeline. Cross-refs living HTML evidence and slide HTML. Verifies PMIDs, detects mismatches, stale data, missing refs. Report-only, never modifies."
 tools:
   - Read
   - Grep
@@ -88,4 +88,4 @@ If living HTML evidence doesn't exist: report "NO EVIDENCE HTML — cannot cross
 - REPORT only — never edit files
 - Every PMID gets verified — no exceptions
 - Include file:line for every issue (so the orchestrator can locate)
-- If you can't access Notion, note it and continue with local files only
+- Scope: local files (slide HTML + evidence HTML) + PubMed MCP. No Notion access.

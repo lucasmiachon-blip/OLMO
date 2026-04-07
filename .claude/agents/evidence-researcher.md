@@ -40,6 +40,7 @@ mcpServers:
       command: uvx
       args: ["--from", "biomcp-python", "biomcp", "run"]
 model: sonnet
+maxTurns: 20
 memory: project
 ---
 

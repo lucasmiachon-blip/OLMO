@@ -16,6 +16,7 @@ Notion Emails Digest DB, e geracao de briefing consolidado.
 ## MCPs Necessarios
 - **Gmail** (claude_ai_Gmail) — leitura de emails
 - **Notion** (claude_ai_Notion) — Emails Digest DB
+- **Google Calendar** (claude_ai_Google_Calendar) — deadlines + events (step 6 APL cache)
 
 ## Contas de Email
 - `${EMAIL_INSTITUTIONAL}` — institucional HC-FMUSP (prioridade)
@@ -101,13 +102,14 @@ Formato: `[Fonte] — [Titulo descritivo em PT]`
 ### 6. APL CACHE — Deadline cache for ambient hooks
 After processing, write upcoming deadlines to `.claude/apl/deadlines.txt`:
 - Source: emails with Deadline property (< 7 days) + Google Calendar next 7 days
-- Format per line: `"Title" | Xd Xh` (time remaining)
+- Format per line: `"Label" | Xd Xh` (time remaining)
+- **Privacy:** Truncate titles to 12 chars max + "...". Never persist patient names, IDs, or LGPD-sensitive data. If title contains patient data, use generic label (e.g., "Consulta...")
 - Max 3 lines, sorted by urgency (soonest first)
 - If no deadlines found, leave file empty (do not delete)
 - Example:
   ```
-  "Aula Cirrose" | 2d 5h
-  "Revisao paper" | 5d 12h
+  "Aula Cirrose..." | 2d 5h
+  "Revisao pape..." | 5d 12h
   ```
 
 ## Protecoes
