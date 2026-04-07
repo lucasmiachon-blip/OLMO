@@ -1,33 +1,17 @@
-# BACKLOG — Proxima Semana+
+# BACKLOG
 
-> Items para resolver na proxima semana ou adiante. Nao urgente.
 > Cross-ref: `HANDOFF.md` (sessao imediata) | `CHANGELOG.md` (historico)
 
-## Backlog Ativo
+## Tooling
 
-### Tooling
-- [ ] Obsidian CLI integration
-- [ ] Google Drive MCP (OAuth credentials)
-- [ ] Presenter.js rewrite (nao funciona com deck.js)
-- [ ] Anki MCP setup (spaced repetition para concurso)
+- [ ] Google Drive MCP — OAuth credentials. Muito conteudo no Drive, acesso via agente.
+- [ ] Anki MCP — spaced repetition para concurso R3 dez/2026
 
-### Integracoes (15+ dias)
+## Integracoes (15+ dias)
+
 - [ ] Cowork — fontes pagas (UpToDate, DynaMed, BMJ Best Practice)
 - [ ] Pipeline email → Notion → Obsidian (integrar fluxos existentes)
-- [ ] Obsidian vault sync com Notion DBs
-
-### Low Priority
-- [ ] SEC-005: CHATGPT_MCP_URL validacao (server `planned`, non-issue ate connect)
-
-### Agent Hardening (da pesquisa best practices S83)
-- [x] Agent model routing: evidence-researcher→sonnet, reference-checker→haiku, notion-ops→haiku (S84)
-- [x] PreCompact hook migration (pre-compact-checkpoint.sh de Stop → PreCompact) (S84)
-- [x] Agent memory: project para qa-engineer e reference-checker (S84)
-- [x] context: fork em skills pesadas (/research, /medical-researcher, /deep-search) (ja existia)
-
-## Research Outputs (S82-S83)
-
-5 pesquisas consumidas e deletadas S90. Items acionaveis em `docs/research/implementation-plan-S82.md`.
+- [ ] Obsidian CLI + vault sync com Notion DBs
 
 ---
-Coautoria: Lucas + Opus 4.6 | 2026-04-06
+Coautoria: Lucas + Opus 4.6 | S93 2026-04-06
