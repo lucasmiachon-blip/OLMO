@@ -125,6 +125,22 @@ nlm notebook query hepato "Quais as indicacoes de TIPS na ascite refrataria?"
 | `/exam-generator` | Alternative to NLM quiz — anti-cue protocol + NBME calibration. Use both, compare |
 | Zotero | Export library items as URLs → `nlm source add --url` for NLM ingestion |
 | `/evidence` | After `/evidence` finds PMIDs, batch-add to NLM: `nlm source add <nb> --url "https://pubmed.ncbi.nlm.nih.gov/{PMID}/"` |
+| `/knowledge-ingest` | Transforms any source → Obsidian note + NLM commands. The primary `raw → NLM` pipeline entry point |
+| `/dream` | NLM study insights feed back into wiki via Dream consolidation (`NLM → wiki` path) |
+| Obsidian | Wiki pages with [[wikilinks]] render in Obsidian graph view (`wiki → obsidian` path) |
+
+### Knowledge Pipeline DAG (S113)
+
+```
+cowork harvest ──→ NLM study ──→ wiki pages ──→ Obsidian graph
+raw sources ────────────────────→ wiki pages ──→ Obsidian graph
+```
+
+**Cowork → NLM path**: After a cowork evidence harvest session:
+1. Collect PMIDs from `cowork-evidence-harvest-S*.md`
+2. Batch-add to NLM notebook: `nlm source add <nb> --url "https://pubmed.ncbi.nlm.nih.gov/{PMID}/" --wait`
+3. Generate deep dive: `nlm audio create <nb> --format deep_dive --confirm`
+4. Study insights from NLM → Dream consolidates into wiki topic files
 
 ---
 

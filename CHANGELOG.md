@@ -1,5 +1,42 @@
 # CHANGELOG
 
+## Sessao 113 — 2026-04-08 (Wiki-query + PMIDs + Diag S109 + Sentinel + Pipeline DAG)
+
+### Skills
+- **wiki-query** skill criado (`~/.claude/skills/wiki-query/SKILL.md`) — index-first retrieval, SCHEMA.md Op 2 DONE
+- **knowledge-ingest** skill apareceu (Dream auto-creation)
+- **nlm-skill** atualizado: ecosystem integration table + cowork→NLM path + DAG docs
+
+### Evidence
+- 2 PMIDs WEB-VERIFIED: Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654)
+- s-importancia.html: 22 VERIFIED + 2 WEB-VERIFIED = 24/24 total, zero CANDIDATE
+- cowork-evidence-harvest-S112.md commitado
+
+### Agents
+- **sentinel** agent criado (Sonnet, maxTurns 15, read-only + Codex adversarial)
+- Agentes: 8 → 9
+
+### Hooks (proativos — novos)
+- `nudge-commit.sh` — UserPromptSubmit: alerta apos 35min sem commit
+- `nudge-checkpoint.sh` — PostToolUse(Agent): alerta apos 3+ subagents
+- `coupling-proactive.sh` — PostToolUse(Edit): alerta coupling slide/evidence
+- Hook registrations: 29 → 33. Scripts: 31 → 34.
+
+### S109 Diagnostic (resolvido)
+- Hooks produtividade: FUNCIONAM (naming misleading, nao falha)
+- Antifragile L6: DORMANT by design (CHAOS_MODE=0)
+- Reprodutibilidade: documentacao adequada, sem replay formal
+- crossref-precommit: bug confirmado (evidence-first blocked). Fix pendente (Opcao B recomendada)
+
+### Architecture
+- SCHEMA.md: 3-layer → 4-layer (+ L1.5 NLM Study + L3 Obsidian Visualization)
+- Knowledge pipeline DAG: cowork→NLM→wiki + raw→wiki + wiki→obsidian
+- Dream S113: 0 gaps, 21 updated, 1 fix (duplicate See also)
+
+### Meta
+- Adversarial frame estabelecido: agente DEVE questionar, nao aceitar passivamente
+- Self-critique: 6 tracks breadth>depth. Proxima sessao deve TESTAR, nao DEFINIR.
+
 ## Sessao 112 — 2026-04-08 (Wiki Audit + Obsidian Vault)
 
 ### Wiki-lint — primeiro run

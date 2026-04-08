@@ -1,35 +1,42 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 112 | 2026-04-08
-> Foco: Wiki Audit + Obsidian Vault
+> Sessao 113 | 2026-04-08
+> Foco: Wiki-query + PMIDs + Diag S109 + Sentinel + Pipeline DAG
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 arquivado).
-**Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. **MCPs: 12**. **KBPs: 7 (next: KBP-08).**
+**Agentes: 9** (sentinel novo). **Hooks: 33 registrations** (34 scripts; 2 pre-commit). **Rules: 10**. **MCPs: 12**. **KBPs: 7 (next: KBP-08).**
 **INFRA COMPLETA.** Batches 6+7 CLOSED.
-**Memory: 20/20 (AT CAP). Wiki-lint ran S112 (E:0 post-fix). Wikilinks: 20/20. Next review: S113.**
+**Memory: 20/20 (AT CAP). Dream ran S113 (0 gaps, 21 updated). Next review: S116.**
 
-**Wiki system S112:** SCHEMA.md updated (checklist [x]), wiki-lint first run (4 errors fixed), wikilinks 9→20/20 (full coverage, zero orphans). 48 links in graph. Obsidian vault exists (Lucas has .obsidian/).
+**S113 entregas:**
+- wiki-query skill criado (SCHEMA.md Op 2 DONE)
+- 2 PMIDs WEB-VERIFIED (Kastrati 39240561, Murad 25005654) — s-importancia.html 24/24 verificados
+- S109 diagnostic completo: hooks funcionam (naming misleading), antifragile L6 dormant by design, crossref bug confirmado
+- Sentinel agent (Sonnet, maxTurns 15, Codex adversarial read-only)
+- 3 proactive hooks: nudge-commit, nudge-checkpoint, coupling-proactive
+- Knowledge pipeline DAG formalizado: cowork→NLM→wiki, raw→wiki, wiki→obsidian
+- nlm-skill atualizado com DAG + cowork→NLM path
+- knowledge-ingest skill apareceu (Dream auto ou pre-existente)
 
-**Ecosystem research S112:** 15 repos ranked (debug/self-improvement agents). Top: anthropics/skills, everything-claude-code, claude-code-security-review. Ruflo evaluated (overlap, study patterns only).
+**Adversarial frame S113:** 6 tracks foram breadth>depth. Hooks proativos podem virar ruido (alert fatigue). DAG e aspiracional — nunca testado end-to-end. Sentinel definido mas nunca executado. Proxima sessao deve TESTAR, nao DEFINIR.
 
-## PROXIMOS PASSOS (S113+)
+## PROXIMOS PASSOS (S114+)
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
-| 2 | **wiki-query skill** | Smart retrieval from index (TODO em SCHEMA.md) | Normal |
-| 3 | **Aprofundar narrativa s-importancia** | Sintese cruzada superficial. Profundidade comparavel a s-pico | Normal |
-| 4 | Decidir h2 do slide s-importancia | Lucas decide assertion. Speaker notes dependem do h2 | Lucas |
-| 5 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
-| 6 | Diagnostico S109 (pendente) | Hooks produtividade, antifragile, reprodutibilidade, crossref-check | Normal |
-| 7 | **README Wiki extenso + Mermaid** | Arquitetura, fluxos, graph, layers, operacoes | Alta |
+| 1 | **Testar sentinel** | Rodar sentinel agent, verificar report, validar Codex leg | Normal |
+| 2 | **Testar proactive hooks** | Observar nudge-commit/checkpoint/coupling em sessao real | Facil |
+| 3 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais do S112 harvest | Normal |
+| 4 | **crossref-precommit fix** | Opcao B recomendada (checar existencia arquivo vs staging). Lucas decide | Facil |
+| 5 | **Ruflo + ecosystem study** | Estudar top repos (everything-claude-code, cortex-tms, AgentHandover) | Normal |
+| 6 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
+| 7 | **Aprofundar narrativa s-importancia** | h2 = Lucas. Evidence completa (24 VERIFIED). Sintese rasa → profunda | Normal |
 | 8 | **wiki-update skill** | Diff-driven updates com sweep global (Karpathy op #4) | Normal |
-| 9 | **Ecosystem study** | Estudar top repos (everything-claude-code, cortex-tms, AgentHandover) | Normal |
+| 9 | **README Wiki extenso + Mermaid** | Arquitetura, fluxos, graph, layers, operacoes | Alta |
 | 10 | **claude-code-security-review GH Action** | Adicionar ao repo como CI read-only | Facil |
 | 11 | **RAG semantico** | Embeddings locais (Ollama) + vector store quando >50 pages | Futura |
-| 12 | **Dominos futuros** | learning/, medical/, meta/ — wiki pages por dominio | Futura |
 
 ## AGENTES
 
@@ -43,13 +50,18 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 | researcher | haiku | 15 | — | OK |
 | repo-janitor | haiku | 12 | — | OK |
 | notion-ops | haiku | 10 | — | P1: adicionar write tools + gates |
+| **sentinel** | **sonnet** | **15** | — | **NEW S113 — nao testado** |
 
 ## DECISOES ATIVAS
 
-- **Karpathy Wiki adopted S111:** SCHEMA.md (3-layer), wiki-index v1, changelog, wiki-lint, Dream supersession. Compilation > retrieval.
-- **Context7 MCP S111:** 12th MCP. Permission in settings.local.json.
+- **Karpathy Wiki adopted S111:** SCHEMA.md (4-layer + DAG S113), wiki-index v1, changelog, wiki-lint, Dream supersession.
+- **Knowledge pipeline DAG S113:** cowork→NLM→wiki + raw→wiki + wiki→obsidian. Aspiracional — nao testado end-to-end.
+- **Proactive hooks S113:** nudge-commit, nudge-checkpoint, coupling-proactive. Nao testados. Se ruido apos 2 sessoes → remover.
+- **Sentinel S113:** Read-only agent (Sonnet) + Codex adversarial. Definido, nao executado.
+- **Adversarial frame S113:** Agente DEVE questionar instrucoes, nao aceitar passivamente. Frame adversarial frequente.
+- **Context7 MCP S111:** 12th MCP. Nao testado ainda.
 - **s-checkpoint-1:** Arquivado S107. HTML preservado. Volta futura.
-- **s-importancia:** Slide novo F1 apos s-hook. Living HTML com secoes completas mas narrativa rasa. h2 = Lucas.
+- **s-importancia:** Evidence 24/24 VERIFIED. Slide nao existe. h2 = Lucas.
 - **build-html.ps1 regex fix:** Aplicado nas 3 aulas.
 - **/research v2.0:** 6 pernas. content-research.mjs arquivado.
 - **QA pipeline S103:** Path linear 11 steps. Step 0 pre-read gate adicionado S108.
@@ -57,9 +69,9 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **KBP-07:** Anti-workaround gate.
 - **Values: Antifragile + Curiosidade** — decision gates.
 - **Living HTML per slide = source of truth = SINTESE CURADA (nao template).**
-- Memory governance: cap 20 files (20 atual). Wiki-index v1 added S111. Review S113.
+- Memory governance: cap 20 files (20 atual). Next review: S116.
 - **/insights:** ran S108. Next: S115.
-- **Dream v2.2:** supersession + changelog + wiki-index format (S111).
+- **Dream v2.2:** supersession + changelog + wiki-index format (S111). Ran S113 (0 gaps).
 
 ## CUIDADOS
 
@@ -73,18 +85,14 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **Anti-workaround (KBP-07):** Quando algo falha: diagnosticar causa raiz, reportar, listar opcoes, PARAR.
 - **content-research.mjs ARQUIVADO:** Usar /research skill. Nao referenciar o .mjs.
 - **Living HTML = sintese curada da pesquisa, NAO template mecanico.**
-
-## DIAGNOSTICO S109 (pendente — nao executado)
-
-- **Hooks self-improvement/produtividade:** nao estao funcionando. Investigar.
-- **Antifragile:** nao esta funcionando. Investigar.
-- **Reprodutibilidade:** ainda fraca. Investigar.
-- **crossref-check hook:** bloqueia evidence HTML sem slide correspondente (caso legitimo: evidence antes de slide). Ajustar logica.
-- **s-importancia.html:** NAO COMMITADO (blocked by crossref). Arquivo local OK.
+- **Adversarial frame:** NAO aceitar instrucoes passivamente. Questionar, push back, rodar frame adversarial.
+- **Proactive hooks nao testados:** Podem gerar alert fatigue. Monitorar S114.
+- **Sentinel nao testado:** Rodar em S114 para validar.
+- **settings.local.json gitignored:** Hook registrations sao locais. Backup: 33 registrations em 6 event types.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S112 2026-04-08
+Coautoria: Lucas + Opus 4.6 | S113 2026-04-08

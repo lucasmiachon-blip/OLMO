@@ -29,13 +29,14 @@ if [ -n "$SLIDE_STAGED" ]; then
   done <<< "$AULAS_WITH_SLIDES"
 fi
 
-# --- Check 2 (BLOCK): evidence HTML staged without corresponding slide HTML ---
+# --- Check 2 (WARN): evidence HTML staged without corresponding slide HTML ---
+# Changed from BLOCK to WARN in S113: evidence-first is a legitimate workflow.
 EVIDENCE_STAGED=$(echo "$STAGED" | grep -E 'content/aulas/.+/evidence/.+\.html' || true)
 if [ -n "$EVIDENCE_STAGED" ]; then
   if [ -z "$SLIDE_STAGED" ]; then
-    ERRORS="${ERRORS}\nBLOCKED: Evidence HTML staged but no slide HTML staged:"
-    ERRORS="${ERRORS}\n$(echo "$EVIDENCE_STAGED" | sed 's/^/  /')"
-    ERRORS="${ERRORS}\n  → Update citation block in corresponding slide and stage it."
+    WARNINGS="${WARNINGS}\nWARNING: Evidence HTML staged but no slide HTML staged:"
+    WARNINGS="${WARNINGS}\n$(echo "$EVIDENCE_STAGED" | sed 's/^/  /')"
+    WARNINGS="${WARNINGS}\n  → Consider updating citation block in corresponding slide."
   fi
 fi
 
