@@ -68,6 +68,15 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **content-research.mjs ARQUIVADO:** Usar /research skill. Nao referenciar o .mjs.
 - **Living HTML = sintese curada da pesquisa, NAO template mecanico.** Cada secao deve refletir achados reais.
 
+## DIAGNOSTICO S109 (Lucas pediu)
+
+- **Hooks self-improvement/produtividade:** nao estao funcionando. Investigar.
+- **Antifragile:** nao esta funcionando. Investigar.
+- **Reprodutibilidade:** ainda fraca. Investigar.
+- **crossref-check hook:** bloqueia evidence HTML sem slide correspondente (caso legitimo: evidence antes de slide). Ajustar logica.
+- **s-importancia.html:** NAO COMMITADO (blocked by crossref). Arquivo local OK.
+- **Metodo:** diagnostico proprio + adversarial Codex em batches.
+
 ## CONFLITOS
 
 (nenhum ativo)
