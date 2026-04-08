@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 110 — 2026-04-08 (Memory + Skills Audit)
+
+### Dream SKILL.md v2.1 (7 alignment fixes)
+- `type:` → `lifecycle:` (namespace collision com memory category)
+- Session path, user msg type, topic naming, index format, archive dir, file cap
+
+### Memory review (20/20)
+- `lifecycle:` field added to all 20 files (11 evergreen, 9 seasonal)
+- 0 merges, 0 archives. Dry-run validated. MEMORY.md → S110. Next review: S113
+
+### Skills audit
+- Context7: third-party MCP, free 1k/mo. Deferred — install quando dev intensificar
+- Karpathy Wiki: compile-once architecture superior ao load-all. Avaliar adocao parcial S111+
+
 ## Sessao 109 — 2026-04-08 (Dream v2 + Skills Audit)
 
 ### Dream skill v2 (~/.claude/skills/dream/)
