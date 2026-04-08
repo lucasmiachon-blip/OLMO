@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 108 | 2026-04-07
-> Foco: living HTML + insights
+> Sessao 109 | 2026-04-08
+> Foco: Dream v2 + Skills Audit
 
 ## ESTADO ATUAL
 
@@ -10,23 +10,22 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 **INFRA COMPLETA.** Batches 6+7 CLOSED.
 **Memory: 20/20 (AT CAP).**
 
-**/research skill v2.0:** 6 pernas independentes. content-research.mjs ARQUIVADO.
+**Dream skill v2:** 5 melhorias aplicadas (evergreen types, audit trail, repetition detector, confidence-weighted merge, TTL auto-downgrade). Commitado em `~/.claude/skills/dream/`.
 
-**s-importancia:** Living HTML com TODAS secoes (speaker-notes, pedagogia, retorica, numeros, sugestoes, rubric, glossario). **Narrativa superficial — aprofundar S109.** h2 = Lucas decide. 2 CANDIDATE PMIDs pendentes.
+**Skills audit S109:** Pesquisa completa de skills externas. Plano em `.claude/plans/fizzy-snuggling-feather.md`. Candidatas priorizadas: Context7, Karpathy Wiki, Superpowers (parcial), Agent Teams nativo.
 
-**/insights S108:** Rodou. Trend IMPROVING (correcoes 0.27, KBP 0.18). 3 proposals aplicadas.
-
-## PROXIMOS PASSOS (S109)
+## PROXIMOS PASSOS (S110+)
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **Aprofundar narrativa s-importancia** | Sintese cruzada superficial. Rodar novos queries (trials mais recentes). Profundidade comparavel a s-pico. | Normal |
-| 2 | Decidir h2 do slide s-importancia | Lucas decide assertion. Speaker notes dependem do h2. | Lucas |
-| 3 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
-| 4 | Criar slide HTML s-importancia | Posicao apos s-hook (F1). Depende de living HTML revisado + h2. | Normal |
-| 5 | Re-run editorial s-objetivos R12 | Validar gestalt fix (border-left on obj-body) + accent 100% | Normal |
-| 6 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA (1/19 editorial) | Normal |
-| 7 | Memory review | Cap 20/20. Due desde S105. Revisar merge candidates. | Facil |
+| 1 | **Avaliar Context7** | Docs de libs em tempo real. Instalar como MCP ou skill. Free tier 1k req/mes | Normal |
+| 2 | **Avaliar Karpathy Wiki** | Knowledge base persistente. Complementa ou substitui memory? | Normal |
+| 3 | **Testar /dream dry-run** | Validar as 5 melhorias v2 com dados reais | Facil |
+| 4 | **Aprofundar narrativa s-importancia** | Sintese cruzada superficial. Profundidade comparavel a s-pico | Normal |
+| 5 | Decidir h2 do slide s-importancia | Lucas decide assertion. Speaker notes dependem do h2 | Lucas |
+| 6 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
+| 7 | Memory review | Cap 20/20. Due desde S105. Dream v2 pode ajudar com auto-downgrade | Facil |
+| 8 | Diagnostico S109 (pendente) | Hooks produtividade, antifragile, reprodutibilidade, crossref-check | Normal |
 
 ## AGENTES
 
@@ -52,8 +51,9 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **KBP-07:** Anti-workaround gate.
 - **Values: Antifragile + Curiosidade** — decision gates.
 - **Living HTML per slide = source of truth = SINTESE CURADA (nao template).**
-- Memory governance: cap 20 files (20 atual — AT CAP). Review due S109.
+- Memory governance: cap 20 files (20 atual — AT CAP). Review due S110.
 - **/insights:** ran S108. Next: S115.
+- **Dream v2:** 5 melhorias. Testar dry-run S110. Nao pushado upstream (fork local).
 
 ## CUIDADOS
 
@@ -68,7 +68,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **content-research.mjs ARQUIVADO:** Usar /research skill. Nao referenciar o .mjs.
 - **Living HTML = sintese curada da pesquisa, NAO template mecanico.** Cada secao deve refletir achados reais.
 
-## DIAGNOSTICO S109 (Lucas pediu)
+## DIAGNOSTICO S109 (pendente — nao executado)
 
 - **Hooks self-improvement/produtividade:** nao estao funcionando. Investigar.
 - **Antifragile:** nao esta funcionando. Investigar.
@@ -76,10 +76,18 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **crossref-check hook:** bloqueia evidence HTML sem slide correspondente (caso legitimo: evidence antes de slide). Ajustar logica.
 - **s-importancia.html:** NAO COMMITADO (blocked by crossref). Arquivo local OK.
 - **Metodo:** diagnostico proprio + adversarial Codex em batches.
+- **Status:** Sessao S109 usada para skills audit + dream v2. Diagnostico deferido para S110.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
+## SKILLS AUDIT (referencia para S110+)
+
+Plano completo: `.claude/plans/fizzy-snuggling-feather.md`
+Repos confirmados: obra/superpowers, upstash/context7, Shmayro/singularity-claude, nextlevelbuilder/ui-ux-pro-max-skill, hesreallyhim/awesome-claude-code, rohitg00/awesome-claude-code-toolkit, piercelamb/deep-plan, affaan-m/everything-claude-code, AgriciDaniel/skill-forge
+Prioridade: Context7 > Karpathy Wiki > Agent Teams nativo > Superpowers (parcial)
+NAO instalar: everything-claude-code (bloat), singularity-claude (conflita com governance)
+
 ---
-Coautoria: Lucas + Opus 4.6 | S108 2026-04-07
+Coautoria: Lucas + Opus 4.6 | S109 2026-04-08

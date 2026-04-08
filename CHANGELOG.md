@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 109 — 2026-04-08 (Dream v2 + Skills Audit)
+
+### Dream skill v2 (~/.claude/skills/dream/)
+- Step 1: `type: evergreen|seasonal|temporary` classification — protege entries permanentes de staleness heuristics
+- Step 2: Audit trail com session ID + `origin: explicit|inferred` — rastreabilidade de cada fato
+- Step 3: Repetition detector — fatos repetidos 3+ sessoes flaggados como memory gap
+- Step 4: Confidence-weighted merge T1-T4 — inferencia nunca sobrescreve statement explicito
+- Step 5: TTL auto-downgrade ladder (high→medium→low→archive, evergreen protegido)
+
+### Skills audit
+- Pesquisa completa: 40+ skills/plugins avaliados, 11 repos verificados
+- Plano salvo: `.claude/plans/fizzy-snuggling-feather.md`
+- Gaps identificados: Context7, Karpathy Wiki, Agent Teams, Superpowers (parcial)
+- Nao recomendado: everything-claude-code (bloat), singularity-claude (governance conflict)
+
+### Session
+- HANDOFF atualizado para S110+ com proximos passos (diagnostico deferido)
+
 ## Sessao 108 — 2026-04-07 (living HTML + insights)
 
 ### s-importancia living HTML
