@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 112 — 2026-04-08 (Wiki Audit + Obsidian Vault)
+
+### Wiki-lint — primeiro run
+- Baseline: E:4 W:14 I:3
+- Contradicoes numericas corrigidas: KBPs 5→7, hooks 28→29/30→31, feedback count 8→10
+- SCHEMA.md checklist atualizado (wikilinks + tags marked [x])
+
+### Wikilinks full coverage
+- 9/20 → **20/20** topic files com `[[wikilinks]]` (zero orphans)
+- 48 total links no grafo (era 24)
+
+### Ecosystem research (read-only)
+- 15 repos rankeados (debug agents, self-improvement, harness patterns)
+- Top: anthropics/skills (113k), everything-claude-code (147k), claude-code-security-review (4.2k)
+- Ruflo avaliado: overlap com OLMO, patterns uteis mas nao wholesale adoption
+
 ## Sessao 111 — 2026-04-08 (Wiki + Context7)
 
 ### Karpathy Wiki patterns — primeira implementacao

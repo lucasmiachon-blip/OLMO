@@ -1,33 +1,33 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 111 | 2026-04-08
-> Foco: Wiki + Context7
+> Sessao 112 | 2026-04-08
+> Foco: Wiki Audit + Obsidian Vault
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 arquivado).
-**Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. **MCPs: 12** (Context7 added S111). **KBPs: 7 (next: KBP-08).**
+**Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. **MCPs: 12**. **KBPs: 7 (next: KBP-08).**
 **INFRA COMPLETA.** Batches 6+7 CLOSED.
-**Memory: 20/20 (AT CAP). Wiki-index v1 + tags + wikilinks added S111. Next review: S113.**
+**Memory: 20/20 (AT CAP). Wiki-lint ran S112 (E:0 post-fix). Wikilinks: 20/20. Next review: S113.**
 
-**Wiki system S111:** SCHEMA.md (3-layer Karpathy architecture), wiki-index v1 (semantic "Load when" triggers), changelog.md (audit trail), wiki-lint skill (health check), Dream v2.2 (supersession + changelog). All 20 files: tags + 11 with [[wikilinks]]. Obsidian-ready.
+**Wiki system S112:** SCHEMA.md updated (checklist [x]), wiki-lint first run (4 errors fixed), wikilinks 9→20/20 (full coverage, zero orphans). 48 links in graph. Obsidian vault exists (Lucas has .obsidian/).
 
-**Context7 MCP:** Installed, configured, permission added. Real-time lib docs (1000+ libs, free 1k/mo).
+**Ecosystem research S112:** 15 repos ranked (debug/self-improvement agents). Top: anthropics/skills, everything-claude-code, claude-code-security-review. Ruflo evaluated (overlap, study patterns only).
 
-## PROXIMOS PASSOS (S112+)
+## PROXIMOS PASSOS (S113+)
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **Rodar wiki-lint pela primeira vez** | Testar o skill, corrigir findings | Facil |
-| 2 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
-| 3 | **wiki-query skill** | Smart retrieval from index (TODO em SCHEMA.md) | Normal |
-| 4 | **Obsidian vault setup** | .obsidian/ config, sync memory/ como vault | Normal |
-| 5 | **Aprofundar narrativa s-importancia** | Sintese cruzada superficial. Profundidade comparavel a s-pico | Normal |
-| 6 | Decidir h2 do slide s-importancia | Lucas decide assertion. Speaker notes dependem do h2 | Lucas |
-| 7 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
-| 8 | Diagnostico S109 (pendente) | Hooks produtividade, antifragile, reprodutibilidade, crossref-check | Normal |
-| 9 | **README Wiki extenso + Mermaid** | Apos instalacao completa: arquitetura, fluxos, graph, layers, operacoes | Alta |
-| 10 | **wiki-update skill** | Diff-driven updates com sweep global (Karpathy op #4) | Normal |
+| 1 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
+| 2 | **wiki-query skill** | Smart retrieval from index (TODO em SCHEMA.md) | Normal |
+| 3 | **Aprofundar narrativa s-importancia** | Sintese cruzada superficial. Profundidade comparavel a s-pico | Normal |
+| 4 | Decidir h2 do slide s-importancia | Lucas decide assertion. Speaker notes dependem do h2 | Lucas |
+| 5 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
+| 6 | Diagnostico S109 (pendente) | Hooks produtividade, antifragile, reprodutibilidade, crossref-check | Normal |
+| 7 | **README Wiki extenso + Mermaid** | Arquitetura, fluxos, graph, layers, operacoes | Alta |
+| 8 | **wiki-update skill** | Diff-driven updates com sweep global (Karpathy op #4) | Normal |
+| 9 | **Ecosystem study** | Estudar top repos (everything-claude-code, cortex-tms, AgentHandover) | Normal |
+| 10 | **claude-code-security-review GH Action** | Adicionar ao repo como CI read-only | Facil |
 | 11 | **RAG semantico** | Embeddings locais (Ollama) + vector store quando >50 pages | Futura |
 | 12 | **Dominos futuros** | learning/, medical/, meta/ — wiki pages por dominio | Futura |
 
@@ -87,4 +87,4 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S111 2026-04-08
+Coautoria: Lucas + Opus 4.6 | S112 2026-04-08
