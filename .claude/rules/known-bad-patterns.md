@@ -8,7 +8,7 @@ globs: "**/*"
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
 > Source: /insights S82 report (58 sessions, 20 analyzed in depth)
 > Governance: /insights appends new patterns. NEVER remove — only mark RESOLVED with date.
-> IDs are stable and sequential. Next available: KBP-07.
+> IDs are stable and sequential. Next available: KBP-08.
 
 ## [KBP-01] Scope Creep — Acting Without Permission
 
@@ -16,8 +16,9 @@ globs: "**/*"
 - **Symptom**: Lucas says "calma", "pare", "espere", "primeiro X depois eu falo proximo passo"
 - **Cause**: Helpfulness bias — model optimizes for appearing productive over following protocol
 - **Fix**: Momentum brake (anti-drift.md). After EVERY discrete action: STOP, report result, wait for explicit instruction. Exception: approved multi-step plan with all steps listed upfront. **Structural enforcement S99:** 3 hooks (arm/enforce/clear) use `permissionDecision: "ask"` — harness-enforced, model cannot bypass. Variant: autonomous fallback (switching model/approach without asking, S97-S98).
-- **Incidence**: 24 events / 8 sessions + 4 recurrences S97-S98 (pre-hooks)
+- **Incidence**: 24 events / 8 sessions + 4 recurrences S97-S98 (pre-hooks) + 5 recurrences S100-S104 (pre-hook-fix)
 - **Sessions**: 8cc72d17, 3a47931d, 1cfc1f1c, 20706c01, multiple others
+- **Post-S102 status:** 3 hook bugs fixed (B5-02/04/05). S105-S107: 0 recurrences. Hooks structurally enforce ask-before-act. Monitor S109+.
 
 ## [KBP-02] Context Overflow Leading to Thread Loss
 

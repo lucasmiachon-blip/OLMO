@@ -1,28 +1,32 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 107 | 2026-04-07
-> Foco: s-importancia construcao
+> Sessao 108 | 2026-04-07
+> Foco: living HTML + insights
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 arquivado).
-**Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. MCPs: 11. **KBPs: 7.**
+**Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. MCPs: 11. **KBPs: 7 (next: KBP-08).**
 **INFRA COMPLETA.** Batches 6+7 CLOSED.
 **Memory: 20/20 (AT CAP).**
 
 **/research skill v2.0:** 6 pernas independentes. content-research.mjs ARQUIVADO.
 
-**s-importancia:** Pesquisa COMPLETA (5 pernas cruzadas). Living HTML pronto (22 VERIFIED + 2 CANDIDATE). Falta: criar slide HTML (h2 = Lucas decide).
+**s-importancia:** Living HTML com TODAS secoes (speaker-notes, pedagogia, retorica, numeros, sugestoes, rubric, glossario). **Narrativa superficial — aprofundar S109.** h2 = Lucas decide. 2 CANDIDATE PMIDs pendentes.
 
-## PROXIMOS PASSOS (S108)
+**/insights S108:** Rodou. Trend IMPROVING (correcoes 0.27, KBP 0.18). 3 proposals aplicadas.
+
+## PROXIMOS PASSOS (S109)
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | Revisar living HTML s-importancia | Faltam secoes: revisao narrativa, glossario, outros padroes dos living HTMLs existentes. Nao commitado. | Normal |
-| 2 | Criar slide HTML s-importancia | Posicao apos s-hook (F1). h2 = Lucas decide. Depende de living HTML revisado. | Normal |
-| 3 | Re-run editorial s-objetivos R12 | Validar gestalt fix (border-left on obj-body) + accent 100% | Normal |
-| 4 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA (1/19 editorial) | Normal |
-| 5 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
+| 1 | **Aprofundar narrativa s-importancia** | Sintese cruzada superficial. Rodar novos queries (trials mais recentes). Profundidade comparavel a s-pico. | Normal |
+| 2 | Decidir h2 do slide s-importancia | Lucas decide assertion. Speaker notes dependem do h2. | Lucas |
+| 3 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
+| 4 | Criar slide HTML s-importancia | Posicao apos s-hook (F1). Depende de living HTML revisado + h2. | Normal |
+| 5 | Re-run editorial s-objetivos R12 | Validar gestalt fix (border-left on obj-body) + accent 100% | Normal |
+| 6 | QA proximo slide (s-absoluto ou outro) | Continuar pipeline QA (1/19 editorial) | Normal |
+| 7 | Memory review | Cap 20/20. Due desde S105. Revisar merge candidates. | Facil |
 
 ## AGENTES
 
@@ -39,17 +43,17 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 
 ## DECISOES ATIVAS
 
-- **s-checkpoint-1:** Arquivado S107 (comentado no manifest). HTML preservado. Volta futura.
-- **s-importancia:** Slide novo F1 apos s-hook. Pesquisa completa. Living HTML pronto. h2 = Lucas.
-- **build-html.ps1 regex fix:** Aplicado nas 3 aulas. Ignora linhas `//` comentadas. Aceita single+double quotes.
+- **s-checkpoint-1:** Arquivado S107. HTML preservado. Volta futura.
+- **s-importancia:** Slide novo F1 apos s-hook. Living HTML com secoes completas mas narrativa rasa. h2 = Lucas.
+- **build-html.ps1 regex fix:** Aplicado nas 3 aulas.
 - **/research v2.0:** 6 pernas. content-research.mjs arquivado.
-- **QA pipeline S103:** Path linear 11 steps.
+- **QA pipeline S103:** Path linear 11 steps. **Step 0 pre-read gate adicionado S108.**
 - **css_cascade #deck:** Deferido.
 - **KBP-07:** Anti-workaround gate.
 - **Values: Antifragile + Curiosidade** — decision gates.
-- **Living HTML per slide = source of truth.**
-- Memory governance: cap 20 files (20 atual — AT CAP). Next review: S108.
-- **/insights:** ran S100. Next: S108.
+- **Living HTML per slide = source of truth = SINTESE CURADA (nao template).**
+- Memory governance: cap 20 files (20 atual — AT CAP). Review due S109.
+- **/insights:** ran S108. Next: S115.
 
 ## CUIDADOS
 
@@ -62,20 +66,11 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **Agent delegation:** NUNCA fire-and-forget. Verificar tipo do agente, output capturavel, aprovacao do Lucas.
 - **Anti-workaround (KBP-07):** Quando algo falha: diagnosticar causa raiz, reportar, listar opcoes, PARAR.
 - **content-research.mjs ARQUIVADO:** Usar /research skill. Nao referenciar o .mjs.
-
-## DADOS COLETADOS s-importancia
-
-Fontes completas (5 pernas):
-- `evidence/s-importancia.html` — Living HTML (22 VERIFIED + 2 CANDIDATE). SOURCE OF TRUTH.
-- `evidence/s-importancia-research.md` — evidence-researcher S106 (8 PMIDs verified)
-- `qa-screenshots/s-importancia/content-research.md` — Gemini v1 (NUANCAVEL)
-- `qa-screenshots/s-importancia/deep-search-v2.md` — Gemini v2 (contraponto, 15 PMIDs → 6 corrigidos)
-- `qa-screenshots/s-importancia/perplexity-leg.md` — Perplexity (Kastrati & Ioannidis 2024)
-- `qa-screenshots/s-importancia/nlm-verification.md` — NLM (9 VERIFIED + 6 correcoes)
+- **Living HTML = sintese curada da pesquisa, NAO template mecanico.** Cada secao deve refletir achados reais.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S107 2026-04-07
+Coautoria: Lucas + Opus 4.6 | S108 2026-04-07

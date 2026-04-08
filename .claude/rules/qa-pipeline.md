@@ -11,6 +11,16 @@ paths:
 > Fonte: Cirrose E053, E067, E068, E069
 > Implementacao tecnica (gates, dims, validation): `content/aulas/scripts/gemini-qa3.mjs`
 
+## 0. Pre-Read Gate (OBRIGATORIO antes de qualquer avaliacao)
+
+ANTES de avaliar qualquer slide, o agente DEVE:
+1. Ler qa-pipeline.md Steps 3-5 (este arquivo)
+2. Ler design-reference.md secoes 1-2 (cor semantica, tipografia)
+3. Ler slide-rules.md secao 2 (checklist pre-edicao)
+Se o agente nao leu estes 3 arquivos na sessao atual, PARAR e ler antes de avaliar.
+
+> Fonte: /insights S108 P001. KBP-04 recorreu em S103 por skip desta leitura.
+
 ## 1. Path de execucao (linear, sem bifurcacao)
 
 NUNCA batch QA — 1 slide por ciclo. NUNCA atalhar pipeline (E053).

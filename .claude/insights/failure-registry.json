@@ -128,13 +128,40 @@
       "new_kbps_added": 0,
       "proposals_accepted": 2,
       "proposals_rejected": 0
+    },
+    {
+      "id": "S108",
+      "date": "2026-04-07",
+      "note": "/insights run S108. Analyzed 9 sessions (S100-S107). First stress test with real QA/slide/research workloads post-enforcement. KBP-01 recurred 5x (S100-S104, all pre-hook-fix). KBP-04 variant 2x (S103). KBP-06 1x (S100). KBP-07 created S104. S105-S107: zero violations. 2 resolved: F003 (guard-product-files), F004 (research v2.0).",
+      "metrics": {
+        "sessions_in_sample": 9,
+        "user_corrections_total": 12,
+        "user_corrections_per_session": 1.33,
+        "kbp_violations": {
+          "KBP-01_scope_creep": 5,
+          "KBP-02_context_overflow": 0,
+          "KBP-03_agent_script_redundancy": 0,
+          "KBP-04_wrong_criteria": 2,
+          "KBP-05_batch_violation": 0,
+          "KBP-06_delegation_failure": 1,
+          "KBP-07_workaround_without_diagnosis": 0
+        },
+        "kbp_total": 8,
+        "kbp_per_session": 0.89,
+        "tool_errors": 0,
+        "retries": 0
+      },
+      "insights_run": true,
+      "new_kbps_added": 0,
+      "proposals_accepted": 0,
+      "proposals_rejected": 0
     }
   ],
   "trend": {
-    "corrections_per_session_5avg": 0.4,
-    "kbp_violations_per_session_5avg": 0.61,
+    "corrections_per_session_5avg": 0.27,
+    "kbp_violations_per_session_5avg": 0.18,
     "direction": "improving",
-    "last_updated": "2026-04-06",
-    "note": "5-session avg: S82-baseline (2.0/3.05) + S83-S85 (0 each) + S91 (0). Both avgs decreased (0.5->0.4, 0.76->0.61). Caveat: S86-S90 were planning/infra sessions, not QA/slide."
+    "last_updated": "2026-04-07",
+    "note": "5-session avg: S83 (0) + S84 (0) + S85 (0) + S91 (0) + S108 (1.33/0.89). S82-baseline rolled out of window. Both avgs decreased (0.40->0.27, 0.61->0.18). First real QA/slide stress test: corrections resurfaced but concentrated S100-S104 (pre-hook-fix). S105-S107: zero KBP-01."
   }
 }

@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 108 — 2026-04-07 (living HTML + insights)
+
+### s-importancia living HTML
+- 7 secoes novas: speaker-notes, pedagogia, retorica, numeros-chave, sugestoes, depth rubric D1-D8, glossario
+- 3 CSS classes: .speaker-notes, .suggestion-do, .suggestion-dont
+- Header/footer atualizados para S108
+- Narrativa reconhecida como superficial — aprofundar S109
+
+### /insights S108
+- Retrospectiva S100-S107 (9 sessoes, primeiro stress test real pos-enforcement)
+- Trend IMPROVING: correcoes 5-avg 0.40→0.27, KBP 5-avg 0.61→0.18
+- KBP-01: 0 recorrencias S105+ (hooks funcionando)
+- 3 proposals aplicadas: P001 pre-read gate qa-pipeline, P002 KBP-01 status, P003 FP filter insights
+
+### Infra
+- known-bad-patterns.md: KBP-01 status pos-fix, next KBP-08
+- qa-pipeline.md: Step 0 pre-read gate obrigatorio
+- insights SKILL.md: filtro falso-positivo skill invocations
+- failure-registry.json: S108 entry + trend recomputed
+- Memory: project_living_html.md atualizado (living HTML = sintese curada, nao template)
+
 ## Sessao 107 — 2026-04-07 (s-importancia construcao)
 
 ### s-checkpoint-1 arquivado

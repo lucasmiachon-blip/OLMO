@@ -77,6 +77,8 @@ grep -l "retry\|trying again\|let me try\|alternative approach\|workaround\|tent
 grep -l "anti-drift\|fabricat\|should have\|deveria\|forgot\|esquec" <files>
 ```
 
+**Known false positives:** Skill invocations (via Skill tool) inject the SKILL.md content as user messages. Grep hits on these are noise — filter out messages starting with "Base directory for this skill:" or containing SKILL.md header patterns (e.g., "# SkillName —").
+
 #### Step 3: Extract context around matches
 
 For each match, read only the surrounding 5-10 lines. Parse the JSONL line as JSON to get the message content. Focus on `"type":"user"` and `"type":"assistant"` messages.
