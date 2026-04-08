@@ -1,29 +1,35 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 110 | 2026-04-08
-> Foco: Memory + Skills Audit
+> Sessao 111 | 2026-04-08
+> Foco: Wiki + Context7
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 arquivado).
-**Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. MCPs: 11. **KBPs: 7 (next: KBP-08).**
+**Agentes: 8** (todos com maxTurns). **Hooks: 29 registrations** (31 scripts; 2 pre-commit). **Rules: 10**. **MCPs: 12** (Context7 added S111). **KBPs: 7 (next: KBP-08).**
 **INFRA COMPLETA.** Batches 6+7 CLOSED.
-**Memory: 20/20 (AT CAP). Lifecycle field added S110 (11 evergreen, 9 seasonal). Next review: S113.**
+**Memory: 20/20 (AT CAP). Wiki-index v1 + tags + wikilinks added S111. Next review: S113.**
 
-**Dream SKILL.md v2.1:** 7 fixes de alinhamento aplicados (lifecycle rename, session path, user type, topic naming, index format, archive dir, file cap). Testado dry-run S110.
+**Wiki system S111:** SCHEMA.md (3-layer Karpathy architecture), wiki-index v1 (semantic "Load when" triggers), changelog.md (audit trail), wiki-lint skill (health check), Dream v2.2 (supersession + changelog). All 20 files: tags + 11 with [[wikilinks]]. Obsidian-ready.
 
-**Skills audit S110:** Context7 deferred. **Karpathy Wiki: NAO SKIP — pesquisa aprofundada revelou arquitetura superior (compile-once, query-smart vs nosso load-all). Avaliar adocao parcial.**
+**Context7 MCP:** Installed, configured, permission added. Real-time lib docs (1000+ libs, free 1k/mo).
 
-## PROXIMOS PASSOS (S111+)
+## PROXIMOS PASSOS (S112+)
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **Implementar padroes Wiki no OLMO** | Index-first retrieval, compilation pipeline, backlinks, supersession. Refs: kfchou/wiki-skills, gist karpathy/442a6bf5 | Alta |
-| 2 | **Avaliar Context7 MCP** | Docs de libs em tempo real. Free 1k req/mes. Deferred S110 | Normal |
-| 3 | **Aprofundar narrativa s-importancia** | Sintese cruzada superficial. Profundidade comparavel a s-pico | Normal |
-| 4 | Decidir h2 do slide s-importancia | Lucas decide assertion. Speaker notes dependem do h2 | Lucas |
-| 5 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
-| 6 | Diagnostico S109 (pendente) | Hooks produtividade, antifragile, reprodutibilidade, crossref-check | Normal |
+| 1 | **Rodar wiki-lint pela primeira vez** | Testar o skill, corrigir findings | Facil |
+| 2 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
+| 3 | **wiki-query skill** | Smart retrieval from index (TODO em SCHEMA.md) | Normal |
+| 4 | **Obsidian vault setup** | .obsidian/ config, sync memory/ como vault | Normal |
+| 5 | **Aprofundar narrativa s-importancia** | Sintese cruzada superficial. Profundidade comparavel a s-pico | Normal |
+| 6 | Decidir h2 do slide s-importancia | Lucas decide assertion. Speaker notes dependem do h2 | Lucas |
+| 7 | Verificar 2 PMIDs CANDIDATE | Kastrati & Ioannidis 2024 (39240561), Murad 2014 (25005654) | Facil |
+| 8 | Diagnostico S109 (pendente) | Hooks produtividade, antifragile, reprodutibilidade, crossref-check | Normal |
+| 9 | **README Wiki extenso + Mermaid** | Apos instalacao completa: arquitetura, fluxos, graph, layers, operacoes | Alta |
+| 10 | **wiki-update skill** | Diff-driven updates com sweep global (Karpathy op #4) | Normal |
+| 11 | **RAG semantico** | Embeddings locais (Ollama) + vector store quando >50 pages | Futura |
+| 12 | **Dominos futuros** | learning/, medical/, meta/ — wiki pages por dominio | Futura |
 
 ## AGENTES
 
@@ -40,6 +46,8 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 
 ## DECISOES ATIVAS
 
+- **Karpathy Wiki adopted S111:** SCHEMA.md (3-layer), wiki-index v1, changelog, wiki-lint, Dream supersession. Compilation > retrieval.
+- **Context7 MCP S111:** 12th MCP. Permission in settings.local.json.
 - **s-checkpoint-1:** Arquivado S107. HTML preservado. Volta futura.
 - **s-importancia:** Slide novo F1 apos s-hook. Living HTML com secoes completas mas narrativa rasa. h2 = Lucas.
 - **build-html.ps1 regex fix:** Aplicado nas 3 aulas.
@@ -49,28 +57,9 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **KBP-07:** Anti-workaround gate.
 - **Values: Antifragile + Curiosidade** — decision gates.
 - **Living HTML per slide = source of truth = SINTESE CURADA (nao template).**
-- Memory governance: cap 20 files (20 atual). Lifecycle field adicionado S110. Review S113.
+- Memory governance: cap 20 files (20 atual). Wiki-index v1 added S111. Review S113.
 - **/insights:** ran S108. Next: S115.
-- **Dream v2.1:** 7 fixes de alinhamento (S110). Dry-run validado.
-- **Karpathy Wiki:** Pesquisa aprofundada S110. Arquitetura compile-once > load-all. Avaliar adocao parcial S111+.
-
-## KARPATHY WIKI — ACHADOS S110 (referencia para S111+)
-
-Fonte: gist karpathy/442a6bf5. Implementacoes: kfchou/wiki-skills, ussumant/llm-wiki-compiler, lucasastorian/llmwiki.
-
-**Padroes a avaliar para adocao:**
-1. **Index-first retrieval** — sumario → carrega so relevantes (vs load-all)
-2. **Compilation pipeline** — processa fonte 1x, ripple update em N paginas
-3. **Backlinks automaticos** — relacoes tipadas (caused, contradicts, supports)
-4. **Supersession** — mark claims obsoletos explicitamente (vs append-only)
-5. **Coverage scoring** — quantas fontes suportam cada claim
-6. **Audit trail** — log.md append-only com historico de operacoes
-7. **4-tier consolidation** — working → episodic → semantic → procedural
-
-**Nossas fraquezas que Wiki resolve:**
-- Load-all (20 files → context) nao escala
-- Dream faz 1 pass (nao compilation)
-- Sem contradicao detection, sem backlinks, sem coverage
+- **Dream v2.2:** supersession + changelog + wiki-index format (S111).
 
 ## CUIDADOS
 
@@ -98,4 +87,4 @@ Fonte: gist karpathy/442a6bf5. Implementacoes: kfchou/wiki-skills, ussumant/llm-
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S110 2026-04-08
+Coautoria: Lucas + Opus 4.6 | S111 2026-04-08

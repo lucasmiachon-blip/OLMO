@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 111 — 2026-04-08 (Wiki + Context7)
+
+### Karpathy Wiki patterns — primeira implementacao
+- **SCHEMA.md** criado: 3-layer architecture (raw/wiki/schema), 5 operations, Obsidian integration path
+- **MEMORY.md wiki-index v1:** semantic categories, "Load when" triggers para index-first retrieval
+- **changelog.md** criado: audit trail append-only (Wiki pattern #6)
+- **Dream v2.2:** Rule 0 supersession + changelog append + wiki-index format
+- **Tags:** `tags:` field adicionado a todos os 20 memory files (Obsidian-compatible)
+- **Wikilinks:** `[[wikilinks]]` adicionados a 11 files com cross-references (graph view ready)
+- **wiki-lint skill** criado: read-only health check (contradictions, orphans, broken links, stale claims)
+
+### Context7 MCP
+- Instalado e configurado (permission + .claude.json fix)
+- MCP count: 11 → 12
+- `project_tooling_pipeline.md` atualizado (description drift corrigido)
+
+### Pesquisa
+- Karpathy gist (442a6bf5), kfchou/wiki-skills, lucasastorian/llmwiki analisados
+- Filosofia core: "compilation > retrieval" — wiki acumula, RAG redescobre
+
 ## Sessao 110 — 2026-04-08 (Memory + Skills Audit)
 
 ### Dream SKILL.md v2.1 (7 alignment fixes)
