@@ -48,18 +48,25 @@ echo "GEMINI: $(echo $GEMINI_API_KEY | head -c4)... | PERPLEXITY: $(echo $PERPLE
 - Continuar com pernas restantes (minimo: Perna 2 evidence-researcher).
 - Se AMBAS keys ausentes: avisar usuario que pesquisa tera cobertura reduzida (so MCPs academicos).
 
+### Worker Mode Override
+
+Se `.claude/.worker-mode` existe (verificar via `test -f .claude/.worker-mode`):
+- **Subagents (Pernas 2/3/4):** adicionar ao prompt de dispatch: "Escreva output em `.claude/workers/{task}/perna{N}-{nome}.md`"
+- **Orquestrador (Pernas 1/5/6):** output vai para console — sem conflito com hook
+- **Motivo:** hook `guard-worker-write.sh` bloqueia Write/Edit fora de `.claude/workers/` em worker mode. Sem override, subagents que escrevem em `qa-screenshots/` terao output silenciosamente bloqueado.
+
 ## Step 2 — Dispatch (paralelo)
 
 Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 
-| # | Agent | Modelo | Quando | Input |
-|---|-------|--------|--------|-------|
-| 1 | Gemini API Deep Think (GEMINI_API_KEY, NAO CLI) — prompt aberto | gemini-3.1-pro-preview | Sempre | topic |
-| 2 | `evidence-researcher` (subagent_type) | Sonnet | Sempre | topic + slide context + queries MCP |
-| 3 | `mbe-evaluator` (subagent_type) | Sonnet | Slide existe | slide HTML + evidence HTML |
-| 4 | `reference-checker` (subagent_type) | Haiku | Slide existe | slide-id + aula path |
-| 5 | Perplexity Sonar (orchestrador via Bash) | — | Sempre | topic (prompt aberto) |
-| 6 | NLM queries (orchestrador via Bash, **OAuth PRIMEIRO: `nlm login`**) | — | Notebook mapeado | topic + adjacent context |
+| # | Ferramenta/Executor | Modelo | Quando | Input | Output |
+|---|---------------------|--------|--------|-------|--------|
+| 1 | Gemini API — Bash `node -e` (**Orquestrador**) | gemini-3.1-pro-preview | Sempre | topic | inline (console) |
+| 2 | `evidence-researcher` (**Subagent**) | Sonnet | Sempre | topic + slide context + queries MCP | retorno ao orquestrador |
+| 3 | `mbe-evaluator` (**Subagent**) | Sonnet | Slide existe | slide HTML + evidence HTML | retorno ao orquestrador |
+| 4 | `reference-checker` (**Subagent**) | Haiku | Slide existe | slide-id + aula path | retorno ao orquestrador |
+| 5 | Perplexity API — Bash `node -e` (**Orquestrador**) | sonar-deep-research | Sempre | topic (prompt aberto) | inline (console) |
+| 6 | NLM CLI `nlm notebook query` (**Orquestrador**, OAuth) | — | Notebook mapeado | topic + adjacent context | inline (console) |
 
 Minimo: Pernas 1+2+5. Maximo: todas 6.
 
@@ -77,7 +84,7 @@ const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models
     generationConfig: {
       temperature: 1,
       maxOutputTokens: 8192,
-      thinkingConfig: { thinkingBudget: 'HIGH' }
+      thinkingConfig: { thinkingBudget: 24576 }
     }
   })
 });
@@ -103,7 +110,7 @@ const res = await fetch('https://api.perplexity.ai/chat/completions', {
       { role: 'system', content: 'Only cite Tier 1 sources (BMJ, Lancet, NEJM, JAMA, Cochrane, GRADE). Every claim needs PMID or DOI.' },
       { role: 'user', content: '<OPEN_PROMPT>' }
     ],
-    temperature: 0.8, max_tokens: 4000, return_citations: true, search_context_size: 'high'
+    temperature: 0.8, max_tokens: 8000, return_citations: true, search_context_size: 'high'
   })
 });
 console.log(JSON.stringify(await res.json(), null, 2));
@@ -128,6 +135,19 @@ nlm notebook query <notebook-id> "<query>" --json
 nlm notebook query <notebook-id> "<query>" --json --conversation-id <cid>  # follow-up
 ```
 Auth: `nlm login` (sessao ~20min). Se expirar: `PYTHONIOENCODING=utf-8 nlm login`.
+
+## Step 2.5 — Validacao Pos-Retorno
+
+Para CADA perna retornada, antes de prosseguir para Step 3:
+
+1. **Output existe?** Perna retornou texto/dados? Se vazio → diagnosticar (timeout? hook block? maxTurns esgotados?)
+2. **Dados estruturados?** Output contem claims verificaveis, PMIDs, numeros? Se so texto generico sem fontes → flag
+3. **Coverage?** Output cobriu o escopo pedido? Se parcial (ex: 3/5 eixos) → flag com o que falta
+
+**Gates:**
+- Perna falhou → reportar ao usuario com diagnostico. NAO prosseguir para sintese com dados incompletos sem aprovacao.
+- >= 2 pernas falharam → STOP e reportar. Cobertura insuficiente para sintese confiavel.
+- Perna parcial → apresentar o que tem + o que falta. Lucas decide se relanca ou aceita.
 
 ## Step 3 — Sintese (apos retorno)
 

@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-09.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-10.
 
 ## KBP-01 Scope Creep
 Trigger: chains to next step without asking. Lucas: "calma/pare/espere". Cause: helpfulness bias. **→ anti-drift.md §Momentum brake**
@@ -31,3 +31,6 @@ Trigger: failure → agent invents alternative instead of diagnosing. Lucas: "na
 
 ## KBP-08 API/MCP Substitution
 Trigger: /research substitui WebSearch por API/MCP especifica. Output parece OK mas fontes genericas. Lucas: "fez ou nao fez o gemini e perplexity?". Cause: missing API keys don't error. Fix: (1) WebSearch removido de evidence-researcher S126. (2) Pre-flight API key validation. (3) Perna falhou = reportar e pular, NUNCA substituir.
+
+## KBP-09 API Key Tool via MCP — Wrong Execution Path
+Trigger: /research Perna 1 (Gemini) ou 5 (Perplexity) lancada via MCP/subagent em vez de Bash/API key. Agente reporta "sem MCP direto" como limitacao. Lucas: "eh para ser via api key". Cause: agente generaliza "pesquisa = MCP" e ignora scripts Bash no SKILL.md. Complementa KBP-08 (substitution vs wrong path). Fix: (1) Tabela Step 2 com coluna "Ferramenta/Executor" (S129). (2) Pre-flight API key check (Step 1.5). (3) Pernas 1/5/6 = orquestrador via Bash, NUNCA subagent. **→ SKILL.md Step 2 tabela**
