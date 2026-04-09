@@ -22,15 +22,13 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | 3 | **brainstorming skill** | Design iterativo pre-acao, Socratic dialogue, hard gate anti-codigo (Superpowers) | Normal |
 | 4 | **success pattern capture hook** | Hook post-commit → success-log.jsonl. Feeds /insights + /dream (Ruflo) | Normal |
 | 5 | **hook auto-calibration counters** | Contadores disparos/aceites/ignores por hook proativo → /insights (Ruflo) | Normal |
-| 6 | **conflict resolution em /research** | Regras cross-synthesis: evidencia > recencia > consistencia (Ruflo) | Facil |
-| 7 | **anti-sycophancy protocol em /review** | READ→VERIFY→EVALUATE→RESPOND (Superpowers) | Facil |
-| 8 | **Auditar 12 MCPs para tool poisoning** | Zero-width chars, unicode, base64 em tool descriptions. P1 SECURITY | Normal |
-| 9 | **medicina-clinica stubs** | 4 concepts stub/low aguardam Cowork harvest | Facil |
-| 10 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
-| 11 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
-| 12 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
+| 6 | **Auditar 12 MCPs para tool poisoning** | Zero-width chars, unicode, base64 em tool descriptions. P1 SECURITY | Normal |
+| 7 | **medicina-clinica stubs** | 4 concepts stub/low aguardam Cowork harvest | Facil |
+| 8 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
+| 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
+| 10 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
 
-Sequencia sugerida: #3+#6+#7 (independentes, 1 sessao) → #4+#5 (infra learning, 1 sessao).
+Sequencia sugerida: #3 (brainstorming, standalone) → #4+#5 (infra learning, 1 sessao).
 
 ## DECISOES ATIVAS
 

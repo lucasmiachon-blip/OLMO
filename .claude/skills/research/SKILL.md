@@ -127,8 +127,26 @@ Nao listar, nao tabular. Escrever como um colega explicaria tomando cafe.
 
 1. **Tabela comparativa** — perna x top 5 achados (ler `references/methodology.md` para GRADE). Incluir "implicacao" por linha — o que esse achado significa pro slide.
 2. **Convergencias** — interpretar, nao contar. "3/3 pernas = ALTA" nao basta. Dizer O QUE converge e POR QUE o professor pode confiar.
-3. **Divergencias** — ambas posicoes + qual e mais defensavel e por que.
+3. **Divergencias** — ambas posicoes + qual e mais defensavel e por que. Resolver via §3c.
 4. **Numeros-chave** — tabela com HR/RR/NNT + CI + PMID, pronta para copiar para slide ou speaker notes.
+
+### 3c. Resolucao de Conflitos (cross-synthesis)
+
+Quando pernas divergem, resolver pela hierarquia abaixo (primeira regra que desempata vence):
+
+| Prioridade | Criterio | Exemplo |
+|-----------|----------|---------|
+| 1 | **Nivel de evidencia (MBE)** | Meta-analise > RCT > coorte > expert opinion |
+| 2 | **Verificacao PMID** | Dado com PMID verificado > dado com PMID candidato > dado sem fonte |
+| 3 | **Recencia** | Guideline 2024 > guideline 2018 (se mesmo nivel) |
+| 4 | **Consistencia interna** | Perna que concorda consigo mesma > perna com contradicoes internas |
+| 5 | **Numero de pernas concordantes** | 4/6 concordam > 2/6 (ultimo recurso, nao substitui hierarquia) |
+
+**Regras:**
+- NUNCA resolver por "maioria simples" sem verificar nivel de evidencia primeiro
+- Divergencia irresolvivel (mesmo nivel, mesma recencia) → flag para Lucas com ambas posicoes
+- Perna Gemini/Perplexity (web search) sempre abaixo de pernas MCP (dados estruturados) quando nivel de evidencia e igual
+- Registrar a regra usada na sintese: "Resolvido por criterio X: [explicacao]"
 
 ## Step 4 — Output
 

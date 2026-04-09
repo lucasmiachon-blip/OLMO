@@ -6,14 +6,18 @@
 - post-compact-reread.sh: NEW hook (PostCompact event). Re-read HANDOFF+CLAUDE.md apos compaction mid-session. Fix estrutural KBP-02
 - settings.local.json: PostCompact event registered (35 registrations, 37 scripts, 9 events)
 
+### Skills
+- /research SKILL.md: added §3c Resolucao de Conflitos — hierarquia MBE (evidencia > PMID verificado > recencia > consistencia > maioria)
+- /review SKILL.md: added Receiving Feedback protocol (READ→VERIFY→EVALUATE→RESPOND), frases proibidas, YAGNI check, push-back criteria
+
 ### Security
 - Claude Code v2.1.97 verified safe (CVE 50-subcommand bypass patched v2.1.90)
 - MCP tool poisoning risk flagged P1 no HANDOFF (12 MCPs nunca auditados)
 
 ### Workers Consumed
-- superpower-research/output.md: 14 Superpowers skills comparadas. Absorver: brainstorming, anti-sycophancy protocol, escalation point
-- roo-research/output.md: Ruflo adversarial, 7 melhorias. Absorver: success capture, hook calibration, conflict resolution
-- roo-research/synthesis.md: 5 INCORPORAR items adicionados ao HANDOFF (#3-#7)
+- superpower-research/output.md: 14 Superpowers skills comparadas. Absorvido: brainstorming (HANDOFF), anti-sycophancy (DONE /review), escalation point (ref)
+- roo-research/output.md: Ruflo adversarial, 7 melhorias. Absorvido: success capture (HANDOFF), hook calibration (HANDOFF), conflict resolution (DONE /research)
+- roo-research/synthesis.md: 5 INCORPORAR items — 2 done (conflict, anti-sycophancy), 3 no HANDOFF (brainstorming, success, calibration)
 - wiki-adversarial/: sweep (30+ repos), stale audit, F6F7 audit — tudo integrado em S121-S122
 - Backlog registrado: embedding retrieval, verification skill, model-task tracking, enriched HANDOFF
 
@@ -22,7 +26,7 @@
 - Protocolo multi-window.md restaurado (workers consumidos e apagados)
 
 ### Meta
-- HANDOFF atualizado S122: 12 proximos passos, MCP poisoning CUIDADO, sequencia sugerida
+- HANDOFF atualizado S122: 10 proximos passos, MCP poisoning CUIDADO, context monitor deferred
 
 ## Sessao 121 — 2026-04-09 (Agent Hardening)
 
