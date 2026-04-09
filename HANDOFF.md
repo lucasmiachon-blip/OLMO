@@ -6,7 +6,7 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
-**Agentes: 10.** **Hooks: 37 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
+**Agentes: 10.** **Hooks: 39 registrations (2 novos S130).** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
 **Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
 ## P0 — Evidence HTML: refactor para coerencia
@@ -62,6 +62,8 @@ h2 = Lucas decide. Evidence pronto (pos-refactor). Falta: `slides/02-importancia
 - Anti-substituicao (KBP-08): perna falhou = reportar e pular.
 - Anti-routing (KBP-09): Gemini/Perplexity = Bash/API, NUNCA MCP.
 - **Anti-destructive (KBP-10):** NUNCA rm/delete sem aprovacao explicita. Hook hard-blocks rm em .claude/workers/. S130.
+- **MCP gate (S130):** Hook `guard-mcp-queries.sh` force "ask" antes de qualquer MCP call.
+- **Research gate (S130):** Hook `guard-research-queries.sh` force "ask" antes de /research. Queries co-designed com Lucas ANTES de lancar pernas.
 - **Referential integrity:** ao deletar arquivo, remover TODAS as referencias.
 - **MCP freeze ate 2026-04-14:** Gmail, Calendar, Excalidraw, Canva, Context7, Notion.
 - **MCP freeze permanente S128:** Scholar Gateway, Zotero, Playwright MCP.

@@ -2,10 +2,13 @@
 
 ## Sessao 130 — 2026-04-09 (CONSOLIDATION + SAFETY)
 
-### Safety — KBP-10 (destructive commands)
+### Safety — 3 novos hooks (KBP-10 + gates)
 - guard-bash-write.sh: Pattern 17a hard-blocks rm em .claude/workers/ (exit 2)
+- guard-mcp-queries.sh: PreToolUse(mcp__*) force "ask" antes de qualquer MCP call
+- guard-research-queries.sh: PreToolUse(Skill) force "ask" antes de /research e /evidence
 - known-bad-patterns.md: KBP-10 documented
 - session-hygiene.md: §Artifact cleanup — workers NUNCA deletados sem aprovacao
+- settings.local.json: 2 novos hook registrations (37→39)
 
 ### Evidence s-importancia — 5 decisoes consolidadas
 - GRADE formal: tabela 5-dominios V1-V5 (V3/V4 ALTA, V1/V2/V5 MODERADA)
