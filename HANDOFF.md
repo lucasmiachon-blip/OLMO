@@ -14,7 +14,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | # | Item | Onde | Status |
 |---|------|------|--------|
 | 1 | **Consolidar pernas pesquisa** | Workers abaixo | Dados prontos, falta sintese |
-| 2 | **Verificar 3 PMIDs CANDIDATE** | Gemini: 18083463, 20212854, 18069721 | PubMed MCP expirou S129 |
+| 2 | **Corrigir PMID em perna1-gemini.md** | 20212854 WRONG (optica!) → **20139215** (Riley BMJ 2010). Outros 2 VERIFIED: 18083463, 18069721 | Verificado S129 via PubMed MCP |
 | 3 | **Perna 2 (evidence-researcher)** | Relancar com worker mode override (fix S129) | NAO lancada |
 | 4 | **Perna 6 (NLM)** | Requer `! nlm login` do Lucas | NAO lancada |
 | 5 | **5 decisoes Lucas** | V5 framework, TSA depth, GRADE formal, NNT ATC2002, Borenstein ed. | Apos consolidacao |
