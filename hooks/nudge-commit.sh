@@ -21,7 +21,7 @@ ELAPSED=$(( (NOW_TS - LAST_COMMIT_TS) / 60 ))
 
 # Check if there are actual changes worth committing
 CHANGED_COUNT=$(git -C "$PROJECT_ROOT" status --short 2>/dev/null | grep -cv '^\?\?' || true)
-UNTRACKED=$(git -C "$PROJECT_ROOT" status --short 2>/dev/null | grep -c '^\?\?' || true)
+UNTRACKED=$(git -C "$PROJECT_ROOT" status --short 2>/dev/null | grep -c '^??' || true)
 TOTAL=$(( CHANGED_COUNT + UNTRACKED ))
 
 [ "$TOTAL" -eq 0 ] && exit 0

@@ -62,8 +62,9 @@ globs: "**/*"
 - **Symptom**: Agent returns empty output, "submitted to external tool", or findings not persisted. Lucas says "verificar antes de lancar", "agente errado"
 - **Cause**: Fire-and-forget pattern — model assumes any agent can handle any task. Codex:rescue delegates to Codex CLI (external), general-purpose runs in-process (correct for review)
 - **Fix**: Pre-launch checklist: (1) verify agent type matches task, (2) confirm output is capturable (file write instruction in prompt), (3) get Lucas's approval before launching. Memory: `feedback_agent_delegation.md`
-- **Incidence**: 3 events / 1 session
-- **Sessions**: S99 (2026-04-07)
+- **Incidence**: 3 events / 1 session + 1 recurrence S114 (codex:rescue fire-and-forget during adversarial audit)
+- **Sessions**: S99 (2026-04-07), S114 (2026-04-08)
+- **Post-S114 status:** Root cause confirmed: `codex:rescue` delegates to external Codex CLI which returns without waiting for output. Fix: (1) sentinel no longer delegates to Codex internally — Codex adversarial is a separate perna launched by orchestrator; (2) for internal review tasks, use `general-purpose` agent type (runs in-process) or sentinel (Sonnet read-only), NOT `codex:rescue`. Also: subagent outputs must be VERIFIED by orchestrator before acting on them (explorer hallucinated a bug in S114).
 
 ## [KBP-07] Workaround Without Diagnosis
 

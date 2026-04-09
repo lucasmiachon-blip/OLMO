@@ -98,6 +98,8 @@ htmlcov/
 .claude/skills/*-workspace/
 .claude/skills/.archive/
 .claude/pending-fixes*.md
+.claude/workers/
+.claude/.worker-mode
 .archive/
 
 # Obsidian
