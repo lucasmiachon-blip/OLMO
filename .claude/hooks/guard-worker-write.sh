@@ -18,8 +18,27 @@ FULL_PATH=$(echo "$INPUT" | node -e "
   } catch(e) { console.log(''); }
 " 2>/dev/null)
 
-# Allow writes to .claude/workers/
+# Allow writes to .claude/workers/ — but validate timestamp in .md H1 (Write only)
 if echo "$FULL_PATH" | grep -q '\.claude/workers/'; then
+  BLOCK=$(echo "$INPUT" | node -e "
+    try {
+      const d = JSON.parse(require('fs').readFileSync(0, 'utf8'));
+      if (d.tool_name !== 'Write') process.exit(0);
+      const fp = (d.tool_input || {}).file_path || '';
+      if (!fp.endsWith('.md')) process.exit(0);
+      const content = (d.tool_input || {}).content || '';
+      const firstLine = content.split('\n')[0];
+      if (!/^#.+\u2014 \d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(firstLine)) {
+        console.log('missing');
+      }
+    } catch (e) {}
+  " 2>/dev/null)
+
+  if [ "$BLOCK" = "missing" ]; then
+    echo '{"decision":"block","reason":"[WORKER] MD missing timestamp in H1. Required: # Title \u2014 YYYY-MM-DD HH:MM (multi-window.md convention)"}'
+    exit 0
+  fi
+
   exit 0
 fi
 
