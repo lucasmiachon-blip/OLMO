@@ -1,12 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 127 | 2026-04-09
-> Foco: Context Optimization
+> Sessao 128 | 2026-04-09
+> Foco: PRUNING
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
-**Agentes: 10.** **Hooks: 37 registrations (37 scripts; 0 pre-commit).** **Rules: 10**. **MCPs: 6 ativos + 6 frozen**. **KBPs: 8.**
+**Agentes: 10.** **Hooks: 37 registrations (37 scripts; 0 pre-commit).** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 8.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
 **Skills: 20 (16 disable-model-invocation, 4 auto-trigger).** **Memory: 20/20. Next review: S127. Next /insights: S127.**
@@ -26,22 +26,18 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | 8 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
 | 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
 
-## MCP PRUNING (continuar S128)
+## MCP PRUNING (S128 — concluido)
 
-**Audit S127 — resultados:**
-- PubMed: CLEAN (atribuição legítima)
-- SCite: CLEAN (pricing display — comercial mas funcional)
-- Playwright MCP: CLEAN mas **possivelmente redundante** com scripts canônicos
-- Scholar Gateway: N/A (não conectado, needs auth)
-- Consensus: **FLAG** — server instructions forçam texto promocional verbatim ("you MUST include the sign-up message word-for-word")
-
-**Decisões pendentes Lucas:**
-1. **Consensus:** freeze (SCite+PubMed cobrem), manter, ou criar regra anti-marketing?
-2. **Playwright MCP:** qa-engineer usa `mcp:playwright`, mas scripts canônicos (`qa-capture.mjs`, `gemini-qa3.mjs`) usam Playwright via Node. Redundância KBP-03? Freeze MCP e forçar caminho via scripts?
-3. **Scholar Gateway:** nunca autenticado — freeze ou autenticar?
-4. **Perplexity/NotebookLM/Zotero:** no allow list mas não aparecem nos deferred tools. Limpar do allow?
-
-**Após decisões:** atualizar deny list em `settings.local.json` + remover allow entries correspondentes.
+**S128 execucao:**
+- Scholar Gateway: FROZEN (nunca autenticado)
+- Zotero: FROZEN (em maturacao)
+- Playwright MCP: FROZEN (KBP-03, scripts canonicos cobrem). Fallback se CLI quebrar.
+- Consensus: MANTER (em uso). FLAG marketing pendente.
+- Allow entries orfas limpas: Perplexity, NotebookLM, Zotero, Scholar Gateway, 6x Playwright (-10 entries)
+- qa-engineer: mcp:playwright removido das tools, nota fallback adicionada
+- evidence-researcher: fallback atualizado (Scholar Gateway frozen)
+- nlm-skill: CLI-only (MCP removido)
+- Deny list: 6 → 9. Allow list: -10 entries.
 
 ## DECISOES ATIVAS
 
@@ -59,8 +55,9 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 - Anti-workaround (KBP-07): diagnosticar → reportar → listar opcoes → STOP.
 - Anti-substituicao (KBP-08): perna falhou = reportar e pular. WebSearch removido de evidence-researcher S126.
 - **Referential integrity:** ao deletar arquivo, remover TODAS as referencias (pre-commit, settings, agent tools). Incidente S126.
-- **MCP freeze ate 2026-04-14:** Gmail, Calendar, Excalidraw, Canva, Context7, Notion. Deny list em settings.local.json.
-- **Consensus FLAG:** marketing injection via server instructions. Decisao pendente.
+- **MCP freeze ate 2026-04-14:** Gmail, Calendar, Excalidraw, Canva, Context7, Notion.
+- **MCP freeze permanente S128:** Scholar Gateway, Zotero, Playwright MCP.
+- **Consensus FLAG:** marketing injection via server instructions. Decisao pendente (manter por ora).
 
 ## CONFLITOS
 

@@ -1,7 +1,7 @@
 ---
 name: nlm-skill
 disable-model-invocation: true
-description: "NotebookLM CLI & MCP guide for medical education."
+description: "NotebookLM CLI guide for medical education. OAuth required."
 version: "1.0.0"
 ---
 
@@ -9,9 +9,8 @@ version: "1.0.0"
 
 ## Tool Selection
 
-- **MCP tools available** (`mcp__notebooklm__*`): use them directly. Refer to tool docstrings for parameters.
-- **CLI only**: use `nlm` commands via Bash.
-- **Both available**: prefer MCP (no shell overhead). CLI for features MCP lacks (aliases, download, pipelines).
+- **CLI only**: use `nlm` commands via Bash. MCP frozen S128 — CLI e o unico caminho.
+- OAuth obrigatorio: `! nlm login` antes de qualquer comando.
 
 ## Critical Rules
 
@@ -147,26 +146,26 @@ raw sources ────────────────────→ wiki
 
 ## Command Quick Reference
 
-| Action | CLI | MCP Tool |
-|--------|-----|----------|
-| Authenticate | `nlm login` | `refresh_auth` |
-| List notebooks | `nlm notebook list` | `notebook_list` |
-| Create notebook | `nlm notebook create "Title"` | `notebook_create` |
-| Add URL source | `nlm source add <nb> --url "URL" --wait` | `source_add(source_type="url")` |
-| Add text source | `nlm source add <nb> --text "..." --title "T"` | `source_add(source_type="text")` |
-| Add local file | `nlm source add <nb> --file path.pdf --wait` | `source_add(source_type="file")` |
-| List sources | `nlm source list <nb>` | (use CLI) |
-| One-shot Q&A | `nlm notebook query <nb> "question"` | `notebook_query` |
-| Research (deep) | `nlm research start "q" --notebook-id <nb> --mode deep` | `research_start(mode="deep")` |
-| Research status | `nlm research status <nb> --max-wait 300` | `research_status` |
-| Import sources | `nlm research import <nb> <task-id>` | `research_import` |
-| Generate content | `nlm <type> create <nb> --confirm` | `studio_create(artifact_type="...")` |
-| Check artifacts | `nlm studio status <nb>` | `studio_status` |
-| Download | `nlm download <type> <nb> --output file` | `download_artifact` |
-| Set alias | `nlm alias set <name> <uuid>` | (CLI only) |
-| Batch operations | `nlm batch <action> --tags "..." --confirm` | `batch(action="...")` |
-| Cross-query | `nlm cross query "Q" --tags "..."` | `cross_notebook_query` |
-| Tag notebooks | `nlm tag add <nb> --tags "t1,t2"` | `tag(action="add")` |
+| Action | CLI |
+|--------|-----|
+| Authenticate | `nlm login` |
+| List notebooks | `nlm notebook list` |
+| Create notebook | `nlm notebook create "Title"` |
+| Add URL source | `nlm source add <nb> --url "URL" --wait` |
+| Add text source | `nlm source add <nb> --text "..." --title "T"` |
+| Add local file | `nlm source add <nb> --file path.pdf --wait` |
+| List sources | `nlm source list <nb>` |
+| One-shot Q&A | `nlm notebook query <nb> "question"` |
+| Research (deep) | `nlm research start "q" --notebook-id <nb> --mode deep` |
+| Research status | `nlm research status <nb> --max-wait 300` |
+| Import sources | `nlm research import <nb> <task-id>` |
+| Generate content | `nlm <type> create <nb> --confirm` |
+| Check artifacts | `nlm studio status <nb>` |
+| Download | `nlm download <type> <nb> --output file` |
+| Set alias | `nlm alias set <name> <uuid>` |
+| Batch operations | `nlm batch <action> --tags "..." --confirm` |
+| Cross-query | `nlm cross query "Q" --tags "..."` |
+| Tag notebooks | `nlm tag add <nb> --tags "t1,t2"` |
 
 ---
 

@@ -6,7 +6,6 @@ tools:
   - Write
   - Edit
   - Bash
-  - mcp:playwright
 model: sonnet
 maxTurns: 12
 memory: project
@@ -105,3 +104,4 @@ Reportar resultado → FIM.
 2. **Scripts existentes.** NUNCA criar scripts ad-hoc.
 3. **Reportar e PARAR.** Esta invocacao acabou. Lucas decide o proximo passo.
 4. **SINGLE SLIDE GUARD:** No inicio da invocacao, identificar o UM slide. Se referenciar um segundo slide ID ou arquivo, PARAR — violacao da regra single-slide.
+5. **Playwright:** via scripts canonicos (qa-capture.mjs, gemini-qa3.mjs), NUNCA via MCP. MCP frozen S128 — descongelar so se scripts falharem.

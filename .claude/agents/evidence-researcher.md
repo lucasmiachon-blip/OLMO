@@ -66,7 +66,7 @@ color: red
 | **scite** | Analise de citacoes (supporting vs contradicting) |
 | **biomcp** | Clinical trials + farmacovigilancia |
 
-Fallback: claude.ai native MCPs (PubMed, Consensus, Scholar Gateway).
+Fallback: claude.ai PubMed MCP (native). Scholar Gateway frozen S128. Consensus = marketing FLAG, usar com cautela.
 MCP down → reportar ao orchestrador e pular perna (KBP-08). NUNCA substituir por busca generica.
 
 ## Protocolo de Pesquisa
