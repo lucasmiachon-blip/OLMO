@@ -9,20 +9,30 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 **Agentes: 10.** **Hooks: 39 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
 **Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
-## P0 — s-importancia.html: DONE (refactor) + pendencias
+## P0 — s-importancia.html: DONE (refactor) + 3 pendencias
 
-Refatorado S131: CSS benchmark, 8 secoes, V1-V5 core-step, 26 PMIDs preservados.
-**Pendente:** expandir deep-dive (TSA, GIGO, pub bias) — conceitos complexos precisam mais didatica.
+Refatorado S131: CSS benchmark, 8 secoes, V1-V5 core-step, 26 refs.
+**Pendente proxima sessao:**
+1. **Remover PMIDs inline** — tirar todos os PMIDs restantes do corpo do HTML (core-path, glossario, deep-dive). Refs = Autor+Titulo+Journal+Ano. PMIDs so no pipeline de validacao.
+2. **Expandir deep-dive** — TSA, GIGO, pub bias precisam explicacao didatica para Lucas (conceitos complexos curtos demais)
+3. **Triplo check key-takeaways e core readings** — afirmacoes em verde (key-takeaway) e artigos core devem ser re-verificados
 
 ## P0 — Pre-reading HTML: gerar
 
-7 artigos core aprovados:
-- Forest plot: #1 Dettori 2021, #2 Andrade 2020
-- RoB: #5 Sterne 2019, #6 Phillips 2021
-- Pub bias: #9 Page 2021, #10 Afonso 2024, #11 Sterne 2011
+7 artigos core aprovados (verificados S130):
+
+| # | Tema | Autores | Titulo | Journal | Ano |
+|---|------|---------|--------|---------|-----|
+| 1 | Forest Plot | Dettori JR et al. | Seeing the Forest by Looking at the Trees | Global Spine J | 2021 |
+| 2 | Forest Plot | Andrade C | Understanding Basics of MA and How to Read a Forest Plot | J Clin Psychiatry | 2020 |
+| 3 | Risk of Bias | Phillips MR et al. | Risk of bias: why measure it, and how? | Eye | 2021 |
+| 4 | Risk of Bias | Sterne JAC et al. | RoB 2: revised tool for assessing RoB in RCTs | BMJ | 2019 |
+| 5 | Pub Bias | Page MJ et al. | Publication bias and reporting biases in MA | Res Synth Methods | 2021 |
+| 6 | Pub Bias | Afonso J et al. | Perils of Misinterpreting Publication Bias | Sports Med | 2024 |
+| 7 | Pub Bias | Sterne JAC et al. | Recommendations on funnel plot asymmetry tests | BMJ | 2011 |
 
 **Template:** `pre-reading-heterogeneidade.html`. Output: `evidence/pre-reading-forest-plot-vies.html`
-Workers deletados (dados ja no HANDOFF). Artigos verificados.
+**Regra refs:** Autor+Titulo+Journal+Ano. Sem PMID/DOI no HTML final.
 
 ## P1 — Slide s-importancia
 
