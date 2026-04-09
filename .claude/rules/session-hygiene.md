@@ -59,4 +59,5 @@ Ao criar/reescrever agente: (1) maxTurns obrigatorio (+20% margem), (2) verifica
 
 ## Artifact cleanup
 
-Before wrap-up: limpar `.claude/*.md` orfaos, `.claude/workers/` consumidos, temp files. Excecao: arquivos que Lucas pediu para manter.
+Before wrap-up: limpar `.claude/*.md` orfaos, temp files. Excecao: arquivos que Lucas pediu para manter.
+**`.claude/workers/`: NUNCA deletar sem aprovacao explicita do Lucas — mesmo consumidos (KBP-10).** Hook hard-blocks rm. Listar workers para cleanup, Lucas decide.

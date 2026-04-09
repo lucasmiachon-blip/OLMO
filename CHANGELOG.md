@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 130 — 2026-04-09 (CONSOLIDATION + SAFETY)
+
+### Safety — KBP-10 (destructive commands)
+- guard-bash-write.sh: Pattern 17a hard-blocks rm em .claude/workers/ (exit 2)
+- known-bad-patterns.md: KBP-10 documented
+- session-hygiene.md: §Artifact cleanup — workers NUNCA deletados sem aprovacao
+
+### Evidence s-importancia — 5 decisoes consolidadas
+- GRADE formal: tabela 5-dominios V1-V5 (V3/V4 ALTA, V1/V2/V5 MODERADA)
+- TSA: Wetterslev 2008 (PMID 18083463) em collapsible details
+- NNT 28 (ATC 2002): adicionado a speaker notes + tabela numeros-chave
+- Riley 2010 (PMID 20139215): IPD-MA ref em glossario
+- Borenstein: 2009 1ed → 2021 2ed (ISBN 978-1-119-55835-4)
+- PMIDs orfaos verificados: 20139215 e 18083463 integrados, 18069721 skip
+- Total refs: 22 VERIFIED + 4 WEB-VERIFIED = 26
+
+### Pre-reading research
+- Selecao 7 core aprovada (Forest: Dettori+Andrade, RoB: Sterne+Phillips, PubBias: Page+Afonso+Sterne)
+- HTML pendente geracao
+
 ## Sessao 129 — 2026-04-09 (PIPELINE-FIX + RESEARCH)
 
 ### Pipeline /research — 5 fixes sistemicos

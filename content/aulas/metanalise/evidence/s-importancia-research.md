@@ -48,7 +48,7 @@ IC 95% se estreita com aumento de N. Uma MA de 10 trials de 500 pts = N efetivo 
 - **Lição:** A MA não mudou a estimativa pontual — estreitou o IC, aumentando a certeza sem requerer novos dados.
 
 ### Referência metodológica (textbook)
-- **Borenstein M, Hedges LV, Higgins JPT, Rothstein HR.** *Introduction to Meta-Analysis.* Wiley, 2009. ISBN: 978-0-470-05724-7.
+- **Borenstein M, Hedges LV, Higgins JPT, Rothstein HR.** *Introduction to Meta-Analysis.* Wiley, 2021 (2nd ed.). ISBN: 978-1-119-55835-4.
   - Capítulo 1 quantifica formalmente: IC da MA ∝ 1/√N_total. Sem PMID (livro). WEB-VERIFIED via editora Wiley.
 - **Cochrane Handbook v6.5 (2024):** "estimation is usually improved when it is based on more information... meta-analysis may have more power to detect real differences than single studies, yielding more precise estimates." (Chapter 10). Disponível em: training.cochrane.org/handbook/current/chapter-10. Sem PMID individual (handbook online). WEB-VERIFIED.
 
@@ -134,8 +134,8 @@ Pooling de populações diversas (diferentes idades, etnias, comorbidades, centr
 - **Sem PMID** (handbook online, atualizado continuamente). WEB-VERIFIED.
 - Paper editorial de apresentação: Cumpston M et al. Updated guidance for trusted systematic reviews. *Cochrane Database Syst Rev.* 2019. PMID: 31643080. **VERIFIED** (PubMed MCP: Cumpston M, Li T, Page MJ et al., Cochrane Database Syst Rev, 2019-10-03)
 
-### Borenstein 2009 (textbook)
-- Borenstein M, Hedges LV, Higgins JPT, Rothstein HR. *Introduction to Meta-Analysis.* Wiley; 2009. ISBN: 978-0-470-05724-7. **Sem PMID.** WEB-VERIFIED (Wiley).
+### Borenstein 2021 (textbook)
+- Borenstein M, Hedges LV, Higgins JPT, Rothstein HR. *Introduction to Meta-Analysis.* Wiley; 2021 (2nd ed.). ISBN: 978-1-119-55835-4. **Sem PMID.** WEB-VERIFIED (Wiley).
 
 ---
 
@@ -152,7 +152,7 @@ Pooling de populações diversas (diferentes idades, etnias, comorbidades, centr
 | 25068257 | Clarke 2014 | PLoS One | VERIFIED | Sistematização de 1.500+ MAs cumulativas (desperdício de pesquisa) |
 | 31643080 | Cumpston 2019 | Cochrane DB Syst Rev | VERIFIED | Editorial Cochrane Handbook v6 |
 
-**Sem PMID (livros/handbooks):** Glass 1976 (DOI: 10.3102/0013189X005010003), Borenstein 2009 (ISBN 978-0-470-05724-7), Cochrane Handbook v6.5 (training.cochrane.org).
+**Sem PMID (livros/handbooks):** Glass 1976 (DOI: 10.3102/0013189X005010003), Borenstein 2021 (ISBN 978-1-119-55835-4), Cochrane Handbook v6.5 (training.cochrane.org).
 
 **CANDIDATE (não verificados):** nenhum — todos os PMIDs foram verificados ou fontes sem PMID foram identificadas como livros/handbooks.
 

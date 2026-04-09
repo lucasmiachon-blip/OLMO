@@ -132,7 +132,14 @@ if echo "$CMD" | grep -qE '\bgit\s+(apply|am)\b'; then
 fi
 
 # Pattern 17: rm/rmdir — file/directory deletion
+# 17a: HARD BLOCK rm on .claude/workers/ (irreplaceable research data)
+# Whitelist: .worker-mode flag, .dream-pending flag
 if echo "$CMD" | grep -qE '\b(rm|rmdir)\b'; then
+  if echo "$CMD" | grep -qE '\.claude/workers/' && ! echo "$CMD" | grep -qE '\.(worker-mode|dream-pending)'; then
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"[SECURITY] rm em .claude/workers/ BLOQUEADO. Workers contem pesquisa irreversivel. Peca aprovacao explicita ao Lucas."}}\n'
+    exit 2
+  fi
+  # 17b: All other rm/rmdir — ask confirmation
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"rm/rmdir detectado — confirme se intencional"}}\n'
   exit 0
 fi

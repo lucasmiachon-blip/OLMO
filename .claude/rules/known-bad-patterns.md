@@ -34,3 +34,6 @@ Trigger: /research substitui WebSearch por API/MCP especifica. Output parece OK 
 
 ## KBP-09 API Key Tool via MCP — Wrong Execution Path
 Trigger: /research Perna 1 (Gemini) ou 5 (Perplexity) lancada via MCP/subagent em vez de Bash/API key. Agente reporta "sem MCP direto" como limitacao. Lucas: "eh para ser via api key". Cause: agente generaliza "pesquisa = MCP" e ignora scripts Bash no SKILL.md. Complementa KBP-08 (substitution vs wrong path). Fix: (1) Tabela Step 2 com coluna "Ferramenta/Executor" (S129). (2) Pre-flight API key check (Step 1.5). (3) Pernas 1/5/6 = orquestrador via Bash, NUNCA subagent. **→ SKILL.md Step 2 tabela**
+
+## KBP-10 Destructive Commands Without Approval
+Trigger: agente executa `rm`/`rmdir`/delete em dados do projeto sem aprovacao explicita do Lucas. Lucas: "nao pode dar comando destrutivo sem ask". Cause: (1) regra "artifact cleanup consumidos" interpretada permissivamente, (2) Pattern 17 usava "ask" que podia ser auto-aprovado, (3) `.claude/workers/` gitignored = sem rede de seguranca. Fix S130: (1) guard-bash-write.sh Pattern 17a hard-blocks rm em `.claude/workers/`. (2) Regra geral: NENHUM comando destrutivo sem aprovacao explicita — nem orquestrador, nem worker. **→ guard-bash-write.sh Pattern 17a/17b**
