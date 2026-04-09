@@ -19,9 +19,15 @@
 ### Skills
 - /research Perna 1: Gemini model fixed gemini-3.1-pro → gemini-3.1-pro-preview (API-validated)
 
+### Cleanup
+- DELETED: /deep-search skill (FROZEN S114, absorbed into /research Perna 1). Snapshot in .archive/
+- DELETED: /medical-researcher skill (orphan, triggers duplicated by /research). Snapshot in .archive/
+- DELETED: /audit-docs command (1-line alias for /docs-audit, confusing)
+
 ### Decisions
 - insights P001+P003 applied, P002 deferred (dream staleness — complex for 1 incident), P004/P005 skipped (redundant)
 - Pre-reading: gaps kept as Deep Dive accordion (not in core path). Lucas decides articles to send.
+- Skill consolidation: 3 research skills → 1 (/research). /docs-audit kept as sole audit skill.
 
 ## Sessao 115 — 2026-04-08 (INFRA: P0 triage + ecosystem study + MANDATORY TRIGGERS)
 
