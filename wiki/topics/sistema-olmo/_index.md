@@ -30,19 +30,17 @@
 
 | Concept | Descricao | Fontes principais |
 |---------|-----------|-------------------|
-| [[agent]] | 9 subagentes, model routing, contratos | agents/*.md, ARCHITECTURE.md |
+| [[agent]] | 10 subagentes, model routing, contratos | agents/*.md, ARCHITECTURE.md |
 | [[mcp]] | 12 MCPs, safety protocol, auth | ARCHITECTURE.md, mcp_safety_reference.md |
 | [[hook]] | 34 registrations, guards, antifragile | hooks/*.sh, ARCHITECTURE.md |
 | [[skill]] | 25+ skills, triggers, progressive disclosure | skills/*.md, ecosystem.yaml |
 | [[memory]] | Memory wiki, 20-file cap, /dream, dual wiki | SCHEMA.md, MEMORY.md |
 | [[rule]] | 11 rules, 7 KBPs, enforcement piramide | rules/*.md, known-bad-patterns.md |
 
-## Topics (wiki/topics/) — Pendente
+## Topics (wiki/topics/)
 
-Fase 6: compilar temas transversais.
-
-| Topic planejado | Fontes |
-|-----------------|--------|
-| orquestracao.md | multi-window.md, anti-drift.md, known-bad-patterns.md |
-| safety.md | patterns_defensive.md, guard-*.sh, chaos-engineering-L6.md |
-| pipeline-dag.md | SCHEMA.md DAG, PIPELINE_MBE.md, /research, knowledge-ingest |
+| Topic | Status | Fontes |
+|-------|--------|--------|
+| [[orquestracao]] | DONE (S117) | multi-window.md, anti-drift.md, known-bad-patterns.md, ARCHITECTURE.md |
+| [[safety]] | DONE (S121) | memory/patterns_defensive.md, guard-*.sh, mcp_safety.md, known-bad-patterns.md, anti-drift.md, chaos-engineering-L6.md |
+| [[pipeline-dag]] | DONE (S121) | PIPELINE_MBE_NOTION_OBSIDIAN.md, WORKFLOW_MBE.md, ARCHITECTURE.md, qa-pipeline.md, research/SKILL.md |

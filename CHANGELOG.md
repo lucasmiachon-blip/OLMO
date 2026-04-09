@@ -14,6 +14,12 @@
 - researcher.md: expanded 20→40 lines (3-phase workflow, STOP gate, enforcement x2)
 - quality-gate.md: severity tiers (CRITICAL/HIGH/MEDIUM/LOW) + verdict (APPROVE/WARNING/BLOCK)
 
+### Wiki F6+F7
+- safety.md: NEW topic (guards, fail-closed, MCP protocol, KBP gates, verification, chaos engineering)
+- pipeline-dag.md: NEW topic (6-leg research, MBE workflow, content pipeline, QA gates, agent routing)
+- sistema-olmo/_index.md: fix "Pendente" header, fix fontes fantasma, add topic status table, agent count 9→10
+- wiki/_index.md: add topics stats row, update last updated to S121
+
 ## Sessao 120 — 2026-04-09 (HTML Evidence + Slide)
 
 ### Evidence HTML
