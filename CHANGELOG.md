@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 118 — 2026-04-09 (Governance + Adversarial)
+
+### Memory Governance (review due S118)
+- feedback_qa_use_cli_not_mcp.md: 88→28 lines (6 abstract principles). Pipeline details migrated to project_metanalise
+- feedback_no_fallback + feedback_agent_delegation: gate relationship footnotes added (prevent erroneous future merge)
+- MEMORY.md: reindexed S113→S118, descriptions updated, next review S121
+- Dream S118: 0 new entries, 0 archives, 0 downgrades, 1 merge. All 20 files last_challenged→2026-04-09
+
+### Adversarial Hardening
+- C-01 (CRITICAL): guard-worker-write.sh VERIFIED — 3/3 test cases pass (block repo, allow workers+ts, block workers-ts)
+- E3/H-01: session-start.sh ordering VERIFIED — session ID format correct (118_20260409_002943)
+- H-03: stop-should-dream.sh created + registered as Stop hook #7. Dream auto-trigger chain complete (24h cycle)
+
+### Cleanup
+- HANDOFF.md: trimmed 62→44 lines (removed completed S117 items)
+- arvore.txt: removed (temp tree output)
+
 ## Sessao 117 — 2026-04-09 (WIKI: consolidation + adversarial fixes)
 
 ### Adversarial Audit (38 findings, 7-leg parallel)
