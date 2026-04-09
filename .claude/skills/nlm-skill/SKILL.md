@@ -14,7 +14,7 @@ version: "1.0.0"
 
 ## Critical Rules
 
-1. **Authenticate first**: `nlm login` (session ~20min). Re-run on auth errors.
+1. **OAuth PRIMEIRO — ANTES de qualquer comando NLM**: Pedir ao usuario `! nlm login` (sessao ~20min). Se expirar: `! nlm login` novamente. NUNCA tentar queries sem auth — falha silenciosa. Em Windows: `PYTHONIOENCODING=utf-8 nlm login` se encoding falhar.
 2. **`--confirm` required**: every generation and delete command needs `--confirm` or `-y`.
 3. **NEVER `nlm chat start`**: it opens an interactive REPL. Use `nlm notebook query` for one-shot Q&A.
 4. **ASK user before delete**: deletions are irreversible. Show what will be deleted.

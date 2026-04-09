@@ -1,15 +1,19 @@
 ---
 name: deep-search
 description: |
-  Pesquisa profunda via Gemini CLI (OAuth Ultra, $0) com Google Search grounding em tempo real. Busca fontes Tier 1 (guidelines, meta-analises, RCTs landmark), dados concretos com numeros, divergencias e convergencias entre sociedades medicas. Use para "deep search", "pesquisa gemini", "buscar tier 1", "gemini profundo", "pesquisa profunda", "divergencia guidelines", "fontes fortes", "gemini search", "preciso de dados concretos sobre". Complementa /research (Claude MCPs) — ideal para cross-validation dual-model. Tambem funciona standalone quando o objetivo e descoberta ampla com grounding web.
-version: 3.0.0
+  FROZEN S114 — Gemini CLI nao sera usado (quota 429, auth instavel). Use Gemini API (GEMINI_API_KEY) via /research Perna 1 ou chamada direta. Esta skill permanece como referencia de prompt design mas NAO deve ser invocada. Pesquisa profunda agora e via /research (6 pernas) ou Gemini API direta.
+version: 3.0.0-FROZEN
 context: fork
 agent: general-purpose
 allowed-tools: Read, Grep, Glob, Bash
 argument-hint: "[topico clinico OU slide-id OU ideia/h2] [--followup pergunta]"
 ---
 
-# Deep Search — Gemini CLI (v3.0)
+# Deep Search — FROZEN (v3.0)
+
+> **FROZEN S114:** Gemini CLI nao sera usado. Para pesquisa Gemini, usar API diretamente:
+> `GEMINI_API_KEY` via `generativelanguage.googleapis.com`. Ver /research Perna 1.
+> Este arquivo permanece como referencia de prompt design.
 
 Pesquisa para: `$ARGUMENTS`
 

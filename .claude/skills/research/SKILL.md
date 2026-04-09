@@ -1,7 +1,7 @@
 ---
 name: research
 description: |
-  Pipeline de pesquisa medica multi-perna com sintese cruzada. 6 pernas independentes em paralelo (Gemini deep-search, evidence-researcher MCPs, MBE evaluator, reference checker, Perplexity Sonar, NotebookLM) + orquestrador que compara, cruza e sintetiza em living HTML per slide. Use sempre que o usuario pedir "pesquisa profunda", "research completa", "buscar evidencia", "deep research", "avaliar profundidade do slide", "pesquisar a fundo", "quality assessment", "verificar dados do slide", "preciso de evidencia para", "rodar SCite/Consensus", "checar referencias". Proativamente usar quando slides precisam de evidencia ou qualidade de dados clinicos e questionada.
+  Pipeline de pesquisa medica multi-perna com sintese cruzada. 6 pernas independentes em paralelo (Gemini API, evidence-researcher MCPs, MBE evaluator, reference checker, Perplexity Sonar, NotebookLM) + orquestrador que compara, cruza e sintetiza em living HTML per slide. Use sempre que o usuario pedir "pesquisa profunda", "research completa", "buscar evidencia", "deep research", "avaliar profundidade do slide", "pesquisar a fundo", "quality assessment", "verificar dados do slide", "preciso de evidencia para", "rodar SCite/Consensus", "checar referencias". Proativamente usar quando slides precisam de evidencia ou qualidade de dados clinicos e questionada.
 version: 2.0.0
 context: fork
 agent: general-purpose
@@ -34,14 +34,31 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 
 | # | Agent | Modelo | Quando | Input |
 |---|-------|--------|--------|-------|
-| 1 | Ler `.claude/skills/deep-search/SKILL.md` e seguir | Gemini 3.1 | Sempre | topic |
+| 1 | Gemini API Deep Think (GEMINI_API_KEY, NAO CLI) — prompt aberto | gemini-3.1-pro | Sempre | topic |
 | 2 | `evidence-researcher` (subagent_type) | Sonnet | Sempre | topic + slide context + queries MCP |
 | 3 | `mbe-evaluator` (subagent_type) | Sonnet | Slide existe | slide HTML + evidence HTML |
 | 4 | `reference-checker` (subagent_type) | Haiku | Slide existe | slide-id + aula path |
 | 5 | Perplexity Sonar (orchestrador via Bash) | — | Sempre | topic (prompt aberto) |
-| 6 | NLM queries (orchestrador via Bash) | — | Notebook mapeado | topic + adjacent context |
+| 6 | NLM queries (orchestrador via Bash, **OAuth PRIMEIRO: `nlm login`**) | — | Notebook mapeado | topic + adjacent context |
 
 Minimo: Pernas 1+2+5. Maximo: todas 6.
+
+**Perna 1 — Gemini API (Deep Think):** Pesquisa ampla com Google Search grounding. Modelo: `gemini-3.1-pro` (melhor disponivel, deep thinking). Usar GEMINI_API_KEY (NAO CLI, NAO MCP — CLI frozen S114). Prompt ABERTO. Todos PMIDs = [CANDIDATE].
+
+Execucao (orchestrador via Bash):
+```bash
+node -e "
+const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro:generateContent?key=' + process.env.GEMINI_API_KEY, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    contents: [{ parts: [{ text: '<OPEN_PROMPT>' }] }],
+    tools: [{ google_search: {} }]
+  })
+});
+console.log(JSON.stringify(await res.json(), null, 2));
+"
+```
 
 **Perna 2 — Evidence Researcher:** MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite, BioMCP). Verificacao de PMIDs via PubMed MCP. Foco: dados estruturados, trials, guidelines.
 
@@ -68,6 +85,8 @@ console.log(JSON.stringify(await res.json(), null, 2));
 Regras: prompts ABERTOS ("What has changed in...", "What would surprise a medical educator about..."). NUNCA fechados.
 
 **Perna 6 — NotebookLM:** 3-4 queries progressivas ao notebook da aula via `nlm notebook query`. Q1 Foundation, Q2 Convergence, Q3 Deep content, Q4 Discovery (slides novos).
+
+> **IMPORTANTE:** NLM requer OAuth interativo. ANTES de usar Perna 6, pedir ao usuario: `! nlm login`. Sessao dura ~20min. Se expirar mid-research: pedir re-auth. NAO tentar queries sem auth — falha silenciosa.
 
 NLM Notebook IDs:
 ```
