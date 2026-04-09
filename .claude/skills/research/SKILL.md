@@ -53,11 +53,18 @@ const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     contents: [{ parts: [{ text: '<OPEN_PROMPT>' }] }],
-    tools: [{ google_search: {} }]
+    tools: [{ google_search: {} }],
+    generationConfig: {
+      temperature: 1,
+      maxOutputTokens: 8192,
+      thinkingConfig: { thinkingBudget: 'HIGH' }
+    }
   })
 });
-console.log(JSON.stringify(await res.json(), null, 2));
-"
+const data = await res.json();
+const parts = data.candidates?.[0]?.content?.parts || [];
+parts.forEach(p => p.text && console.log(p.text));
+" 2>&1
 ```
 
 **Perna 2 — Evidence Researcher:** MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite, BioMCP). Verificacao de PMIDs via PubMed MCP. Foco: dados estruturados, trials, guidelines.

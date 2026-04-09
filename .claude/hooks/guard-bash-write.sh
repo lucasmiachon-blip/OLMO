@@ -95,5 +95,53 @@ if echo "$CMD" | grep -qE '(fs\.promises\.writeFile|fs\.appendFile|fs\.createWri
   exit 0
 fi
 
+# Pattern 12: touch — file creation
+if echo "$CMD" | grep -qE '\btouch\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"touch detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 13: mkdir — directory creation
+if echo "$CMD" | grep -qE '\bmkdir\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"mkdir detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 14: ln — symlink/hardlink creation
+if echo "$CMD" | grep -qE '\bln\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"ln detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 15: tar/unzip/gunzip — archive extraction (creates files)
+if echo "$CMD" | grep -qE '\b(tar\b.*-[a-zA-Z]*x|unzip|gunzip|7z\s+x)\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"Archive extraction detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 16: git apply/am — patch application
+if echo "$CMD" | grep -qE '\bgit\s+(apply|am)\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"git apply/am detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 17: rm/rmdir — file/directory deletion
+if echo "$CMD" | grep -qE '\b(rm|rmdir)\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"rm/rmdir detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 18: chmod/chown — permission changes
+if echo "$CMD" | grep -qE '\b(chmod|chown)\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"chmod/chown detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 19: truncate — file truncation
+if echo "$CMD" | grep -qE '\btruncate\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"truncate detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
 # No write pattern — allow silently
 exit 0
