@@ -1,12 +1,11 @@
 ---
 title: Cirrose
-type: note
-tags:
-  - cirrose
-  - ascite
-  - hepatologia
-  - gastro
+description: Visao geral cirrose hepatica — definicao, etiologias, complicacoes, epidemiologia
+domain: medicina-clinica
+confidence: medium
+tags: [cirrose, ascite, hepatologia, gastro]
 created: 2026-03-17
+migrated_from: resources/cirrose.md
 references:
   - StatPearls Ascites NCBI
   - AASLD/EASL diretriz ascite

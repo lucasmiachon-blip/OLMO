@@ -1,14 +1,12 @@
 ---
-title: restricao sodica ascite
-type: note
-tags:
-  - ascite
-  - cirrose
-  - hepatologia
+title: Restricao sodica na ascite
+description: Restricao de sodio no manejo de ascite cirrotica — evidencia, limites, pratica
+domain: medicina-clinica
+confidence: stub
+tags: [ascite, cirrose, hepatologia, sodio]
 created: 2026-03-17
-updated: 2026-03-17
-last_review: 2026-03-17
-references:
+migrated_from: resources/restricao-sodica-ascite.md
+references: []
 ---
 
 # restricao sodica ascite

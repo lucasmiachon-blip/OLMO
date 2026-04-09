@@ -1,15 +1,12 @@
 ---
-title: Albumina hemorragia digestiva alta
-type: note
-tags:
-  - albumina
-  - hda
-  - gastro
-  - hepatologia
+title: Albumina na hemorragia digestiva alta
+description: Uso de albumina em HDA — indicacoes, evidencia, doses
+domain: medicina-clinica
+confidence: stub
+tags: [albumina, hda, gastro, hepatologia]
 created: 2026-03-17
-updated: 2026-03-17
-last_review: 2026-03-17
-references:
+migrated_from: resources/albumina-hemorragia-digestiva-alta.md
+references: []
 ---
 
 # Albumina hemorragia digestiva alta

@@ -1,14 +1,14 @@
 ---
 title: Ascite
-type: note
-tags:
-  - ascite
+description: Acumulo patologico de liquido peritoneal — diagnostico diferencial, GASA, algoritmo
+domain: medicina-clinica
+confidence: low
+tags: [ascite, cirrose, hepatologia]
 created: 2026-03-17
-updated: 2026-03-17
+migrated_from: resources/ascite.md
 references:
-  - Differential diagnosis of ascites: etiologies, ascitic fluid analysis, diagnostic algorithm. (pubmed)
-  - Differential diagnosis of ascites: etiologies, ascitic fluid analysis, diagnostic algorithm. (pubmed)
-  - [Ascite]. (pubmed)
+  - "Du L et al. Differential diagnosis of ascites. PMID:38112289"
+  - "Pariente A. Ascite. PMID:30801166"
 ---
 
 # Ascite

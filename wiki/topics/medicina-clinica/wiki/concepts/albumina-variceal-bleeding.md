@@ -1,15 +1,12 @@
 ---
-title: Albumina variceal bleeding
-type: note
-tags:
-  - albumina
-  - hda
-  - gastro
-  - varizes
+title: Albumina no sangramento varicoso
+description: Albumina em sangramento por varizes esofagicas — evidencia, protocolos
+domain: medicina-clinica
+confidence: stub
+tags: [albumina, hda, gastro, varizes, hepatologia]
 created: 2026-03-17
-updated: 2026-03-17
-last_review: 2026-03-17
-references:
+migrated_from: resources/albumina-variceal-bleeding.md
+references: []
 ---
 
 # Albumina variceal bleeding
