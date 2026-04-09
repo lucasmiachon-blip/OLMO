@@ -21,10 +21,27 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Para slide | Normal |
 | 3 | **Context diet P1 restante** | model-fallback-advisory compression + .claudeignore | Facil |
 | 5 | **Integrar worker pre-reading-research** | 13 artigos candidatos, selecao final Lucas, criar HTML | Normal |
-| 6 | **Consensus: decisao marketing injection** | Server instructions forcam texto promocional. Freeze, manter, ou regra? | Lucas decide |
+| 6 | **MCP pruning round 2** | Ver detalhes em §MCP PRUNING abaixo | Normal |
 | 7 | **medicina-clinica stubs** | 4 concepts stub/low aguardam Cowork harvest | Facil |
 | 8 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
 | 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
+
+## MCP PRUNING (continuar S128)
+
+**Audit S127 — resultados:**
+- PubMed: CLEAN (atribuição legítima)
+- SCite: CLEAN (pricing display — comercial mas funcional)
+- Playwright MCP: CLEAN mas **possivelmente redundante** com scripts canônicos
+- Scholar Gateway: N/A (não conectado, needs auth)
+- Consensus: **FLAG** — server instructions forçam texto promocional verbatim ("you MUST include the sign-up message word-for-word")
+
+**Decisões pendentes Lucas:**
+1. **Consensus:** freeze (SCite+PubMed cobrem), manter, ou criar regra anti-marketing?
+2. **Playwright MCP:** qa-engineer usa `mcp:playwright`, mas scripts canônicos (`qa-capture.mjs`, `gemini-qa3.mjs`) usam Playwright via Node. Redundância KBP-03? Freeze MCP e forçar caminho via scripts?
+3. **Scholar Gateway:** nunca autenticado — freeze ou autenticar?
+4. **Perplexity/NotebookLM/Zotero:** no allow list mas não aparecem nos deferred tools. Limpar do allow?
+
+**Após decisões:** atualizar deny list em `settings.local.json` + remover allow entries correspondentes.
 
 ## DECISOES ATIVAS
 
