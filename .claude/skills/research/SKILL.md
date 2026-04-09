@@ -107,7 +107,7 @@ const res = await fetch('https://api.perplexity.ai/chat/completions', {
   body: JSON.stringify({
     model: 'sonar-deep-research',
     messages: [
-      { role: 'system', content: 'Only cite Tier 1 sources (BMJ, Lancet, NEJM, JAMA, Cochrane, GRADE). Every claim needs PMID or DOI.' },
+      { role: 'system', content: 'Structured output. For each finding: 1 paragraph (3-5 sentences) with the claim, key data, and clinical implication. Every claim needs PMID or DOI inline. Use markdown tables for comparisons. No multi-page prose — density over length. Only Tier 1 sources (BMJ, Lancet, NEJM, JAMA, Cochrane, GRADE).' },
       { role: 'user', content: '<OPEN_PROMPT>' }
     ],
     temperature: 0.8, max_tokens: 8000, return_citations: true, search_context_size: 'high'
