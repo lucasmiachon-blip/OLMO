@@ -52,7 +52,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 
 - **Multi-window S114:** 1 orquestrador edita+commita, workers read-only em .claude/workers/. Hook guard-worker-write.sh (TESTADO). Worker MDs: titulo com data+hora (S116).
 - **Adversarial orchestration S114:** 3 pernas paralelas (sentinel + 2 general-purpose), NUNCA codex:rescue para review.
-- **Gemini S114:** CLI FROZEN. API via GEMINI_API_KEY, modelo gemini-3.1-pro-preview. /deep-search skill frozen.
+- **Gemini S114:** CLI FROZEN. API via GEMINI_API_KEY, modelo gemini-3.1-pro-preview. /deep-search DELETED S116 (absorbed into /research Perna 1).
 - **NLM S114:** OAuth interativo SEMPRE primeiro (`! nlm login`). Sessao ~20min.
 - **Karpathy Wiki adopted S111:** SCHEMA.md (4-layer + DAG S113), wiki-index v1, changelog, wiki-lint, Dream supersession.
 - **Knowledge pipeline DAG S113:** cowork→NLM→wiki + raw→wiki + wiki→obsidian. Aspiracional — nao testado.

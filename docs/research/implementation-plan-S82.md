@@ -203,7 +203,7 @@ Candidatos: qa-engineer (aprende issues recorrentes), reference-checker (lembra 
 Antifragile: agente que aprende = L7 continuous learning.
 
 #### D. context: fork em skills pesadas (10 min) — CONTEXT PROTECTION
-Skills como /research, /medical-researcher, /deep-search inundam o contexto principal.
+Skills como /research inundam o contexto principal (/medical-researcher e /deep-search foram absorvidos S116).
 `context: fork` no frontmatter roda em subagent isolado — resultado volta como resumo.
 Antifragile: protege o contexto = L4 graceful degradation.
 

@@ -130,7 +130,7 @@ Este agente foca em MCPs academicos. As outras fontes sao pernas independentes n
 |-------|-------------|----------------|
 | **MCPs academicos** | **Este agente** | Papers, guidelines, trials, citation analysis |
 | **Perplexity discovery** | Orchestrador (Perna 5) | Frameworks recentes, paradigm shifts, fontes Tier 1 2020+ |
-| **Gemini grounding** | Orchestrador (Perna 1, deep-search) | Google Search grounded, dados contextuais |
+| **Gemini grounding** | Orchestrador (Perna 1, Gemini API) | Google Search grounded, dados contextuais |
 | **NotebookLM** | Orchestrador (Perna 6) | Livros-texto, capitulos, citacoes diretas |
 
 Apos pesquisar, o orchestrador valida seus achados com:
