@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 120 — 2026-04-09 (HTML Evidence + Slide)
+
+### Evidence HTML
+- pre-reading-heterogeneidade.html: full rewrite as resident-facing guide (accented PT-BR, I² formula+thresholds, clinical examples, human tone, author disclaimer)
+- pre-reading-heterogeneidade.html: removed internal infrastructure (pipeline, verification table, NLM, Gemini scores, badges)
+- pre-reading-heterogeneidade.html: 16/16 PMIDs triple-verified via PubMed MCP
+- s-importancia.html: cleaned internal sections (depth rubric, cross-ref, suggestions, pipeline metadata)
+
+### Documentation
+- HANDOFF.md: updated to S120, pre-reading marked DONE
+
 ## Sessao 119 — 2026-04-09 (Narrativas Evidence + Pre-Reading)
 
 ### Evidence HTML

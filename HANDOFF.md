@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 119 | 2026-04-09
-> Foco: Narrativas Evidence + Pre-Reading
+> Sessao 120 | 2026-04-09
+> Foco: HTML Evidence + Slide
 
 ## ESTADO ATUAL
 
@@ -10,14 +10,14 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F5 done, F6 partial (orquestracao.md done, safety + pipeline-dag pendentes).
 **Memory: 20/20. Dream ran S118. Next review: S121. Next /insights: S120.**
-**Evidence narratives:** s-importancia (V1-V5 done), pre-reading-heterogeneidade (core+deep done).
+**Evidence:** s-importancia (evidence limpo, slide pendente h2), pre-reading-heterogeneidade (DONE — resident-ready).
 
 ## PROXIMOS PASSOS
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **s-importancia: criar slide HTML** | h2 = Lucas. Evidence + narrativa prontos. Falta criar slides/*.html + manifest entry | Normal |
-| 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Verificar titulos+refs via evidence-researcher. Para slide. | Normal |
+| 1 | **s-importancia: criar slide HTML** | h2 = Lucas decide. Evidence limpo. Falta criar slides/02-importancia.html + manifest + CSS | Normal |
+| 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Para slide. | Normal |
 | 3 | **Wiki F6: safety.md + pipeline-dag.md** | 2 topics restantes. Fontes coletadas | Facil |
 | 4 | **Wiki F7: indices finais** | Remover "Pendente" stale de _index.md | Facil |
 | 5 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
