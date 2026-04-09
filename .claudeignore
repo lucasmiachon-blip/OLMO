@@ -1,0 +1,17 @@
+# Context diet: exclude from Claude Code indexing/search
+# Files still readable via direct Read if needed
+
+# Plans — historical, 60+ files
+.claude/plans/
+
+# Lock files — generated, 4k+ lines
+content/aulas/package-lock.json
+
+# Sentinel reports — transient
+.claude/sentinel-report.md
+
+# Daily digests — historical
+daily-digest/
+
+# Wiki raw topics (wiki-query skill handles via index-first)
+wiki/topics/

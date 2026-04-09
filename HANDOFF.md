@@ -6,38 +6,24 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
-**Agentes: 10.** **Hooks: 37 registrations (37 scripts; 0 pre-commit).** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 8.**
-**Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
-**Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
-**Skills: 20 (16 disable-model-invocation, 4 auto-trigger).** **Memory: 20/20. Next review: S127. Next /insights: S127.**
-**Evidence:** s-importancia (evidence limpo, slide pendente h2), pre-reading-heterogeneidade (DONE).
-**Context Optimization S127:** always-loaded 433→336 linhas (-22%). KBPs→pointers. process-hygiene.md deletado.
+**Agentes: 10.** **Hooks: 37 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 8.**
+**Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
 ## PROXIMOS PASSOS
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **s-importancia: criar slide HTML** | h2 = Lucas decide. Evidence limpo. Falta criar slides/02-importancia.html + manifest + CSS | Normal |
-| 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Para slide | Normal |
-| 3 | **Context diet P1 restante** | model-fallback-advisory compression + .claudeignore | Facil |
-| 5 | **Integrar worker pre-reading-research** | 13 artigos candidatos, selecao final Lucas, criar HTML | Normal |
-| 6 | **MCP pruning round 2** | Ver detalhes em §MCP PRUNING abaixo | Normal |
-| 7 | **medicina-clinica stubs** | 4 concepts stub/low aguardam Cowork harvest | Facil |
-| 8 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
-| 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
+| 1 | **Integrar worker pre-reading-research** | `.claude/workers/pre-reading-research/output_2026-04-09T1730.md`: 13 artigos VERIFIED (3 temas: forest plot, RoB, pub bias). Worker sugeriu 7 core. **Lucas precisa selecionar artigos.** Apos selecao: criar `evidence/pre-reading-forest-plot-vies.html` seguindo modelo `pre-reading-heterogeneidade.html`. Worker reportou problemas em MDs — verificar DONE.md. Intermediarios para apagar listados no DONE.md. | Normal |
+| 2 | **Worker s-importancia outputs** | `.claude/workers/s-importancia-upgrade/`: 5 MDs (output, KBP-09, problema-pernas, aprimoramento-pipeline, prioridades) + audit report em `s-importancia-audit/`. Ler, decidir o que integrar, descartar resto. | Normal |
+| 3 | **s-importancia: criar slide HTML** | h2 = Lucas decide. Evidence limpo em `metanalise/evidence/s-importancia.html`. Falta: `slides/02-importancia.html` + entrada em `_manifest.js` + CSS em `metanalise.css` | Normal |
+| 4 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica (ex: corticoides prematuros, H. pylori). Para slide s-importancia | Normal |
+| 5 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
 
-## MCP PRUNING (S128 — concluido)
-
-**S128 execucao:**
-- Scholar Gateway: FROZEN (nunca autenticado)
-- Zotero: FROZEN (em maturacao)
-- Playwright MCP: FROZEN (KBP-03, scripts canonicos cobrem). Fallback se CLI quebrar.
-- Consensus: MANTER (em uso). FLAG marketing pendente.
-- Allow entries orfas limpas: Perplexity, NotebookLM, Zotero, Scholar Gateway, 6x Playwright (-10 entries)
-- qa-engineer: mcp:playwright removido das tools, nota fallback adicionada
-- evidence-researcher: fallback atualizado (Scholar Gateway frozen)
-- nlm-skill: CLI-only (MCP removido)
-- Deny list: 6 → 9. Allow list: -10 entries.
+### Pos-deadline (Notion, Wiki, DAG)
+| # | Item | Detalhe |
+|---|------|---------|
+| 6 | **Pipeline DAG end-to-end** | cowork→NLM→wiki com dados reais. NLM via CLI OAuth. |
+| 7 | **medicina-clinica stubs** | 4 concepts stub/low aguardam Cowork harvest |
 
 ## DECISOES ATIVAS
 
@@ -53,15 +39,15 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`, NAO da raiz.
 - Anti-workaround (KBP-07): diagnosticar → reportar → listar opcoes → STOP.
-- Anti-substituicao (KBP-08): perna falhou = reportar e pular. WebSearch removido de evidence-researcher S126.
-- **Referential integrity:** ao deletar arquivo, remover TODAS as referencias (pre-commit, settings, agent tools). Incidente S126.
+- Anti-substituicao (KBP-08): perna falhou = reportar e pular.
+- **Referential integrity:** ao deletar arquivo, remover TODAS as referencias.
 - **MCP freeze ate 2026-04-14:** Gmail, Calendar, Excalidraw, Canva, Context7, Notion.
 - **MCP freeze permanente S128:** Scholar Gateway, Zotero, Playwright MCP.
-- **Consensus FLAG:** marketing injection via server instructions. Decisao pendente (manter por ora).
+- **Consensus FLAG:** marketing injection. Manter por ora.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S127 2026-04-09
+Coautoria: Lucas + Opus 4.6 | S128 2026-04-09

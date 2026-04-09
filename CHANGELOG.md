@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 128 — 2026-04-09 (PRUNING)
+
+### MCP Pruning Round 2
+- Frozen: Scholar Gateway, Zotero, Playwright MCP. Deny list: 6→9
+- Allow entries orfas limpas: Perplexity, NotebookLM, Zotero, Scholar Gateway, 6x Playwright (-10)
+- qa-engineer.md: mcp:playwright removido, nota fallback adicionada
+- evidence-researcher.md: fallback atualizado (Scholar Gateway frozen)
+- nlm-skill/SKILL.md: CLI-only, coluna MCP removida da tabela
+- MCPs: 6→3 ativos (PubMed, SCite, Consensus) + 9 frozen
+
+### Context Diet
+- .claudeignore criado: plans/, package-lock.json, sentinel-report, daily-digest/, wiki/topics/
+
+### Stats
+- Allow list: -10 entries. Deny list: +3 entries. Net context reduction.
+
 ## Sessao 127 — 2026-04-09 (Context Optimization)
 
 ### Rules Consolidation
