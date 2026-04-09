@@ -1,12 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 120 | 2026-04-09
-> Foco: HTML Evidence + Slide
+> Sessao 121 | 2026-04-09
+> Foco: Agent Hardening
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
-**Agentes: 9.** **Hooks: 35 registrations** (36 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7.**
+**Agentes: 10.** **Hooks: 34 registrations** (36 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F5 done, F6 partial (orquestracao.md done, safety + pipeline-dag pendentes).
 **Memory: 20/20. Dream ran S118. Next review: S121. Next /insights: S120.**
@@ -18,8 +18,8 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 |---|------|---------|--------------|
 | 1 | **s-importancia: criar slide HTML** | h2 = Lucas decide. Evidence limpo. Falta criar slides/02-importancia.html + manifest + CSS | Normal |
 | 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Para slide. | Normal |
-| 3 | **Wiki F6: safety.md + pipeline-dag.md** | 2 topics restantes. Fontes coletadas | Facil |
-| 4 | **Wiki F7: indices finais** | Remover "Pendente" stale de _index.md | Facil |
+| 3 | **Wiki F6: safety.md + pipeline-dag.md** | 2 topics restantes. Fontes verificadas pelo worker | Normal |
+| 4 | **Wiki F7: indices finais** | Fix header "Pendente", fontes fantasma, stats topics | Facil |
 | 5 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
 | 6 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
 | 7 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
@@ -44,4 +44,4 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S119 2026-04-09
+Coautoria: Lucas + Opus 4.6 | S121 2026-04-09

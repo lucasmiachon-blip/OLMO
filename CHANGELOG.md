@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 121 — 2026-04-09 (Agent Hardening)
+
+### Guard Fix
+- guard-worker-write.sh: fix Windows path resolution (/c/ → C:/) — Edit validation was silently bypassed
+- guard-worker-write.sh: add timestamp accuracy validation (range check + 5min freshness window)
+- guard-worker-write.sh: add "invalid" and "stale" block messages with case statement
+
+### Agents
+- All 10 agents: add color field (visual distinction in UI)
+- sentinel: add memory:project (findings persist between sessions)
+- systematic-debugger.md: NEW agent (read-only 4-phase diagnosis, 3-fails-STOP, KBP-07 integrated)
+- researcher.md: expanded 20→40 lines (3-phase workflow, STOP gate, enforcement x2)
+- quality-gate.md: severity tiers (CRITICAL/HIGH/MEDIUM/LOW) + verdict (APPROVE/WARNING/BLOCK)
+
 ## Sessao 120 — 2026-04-09 (HTML Evidence + Slide)
 
 ### Evidence HTML
