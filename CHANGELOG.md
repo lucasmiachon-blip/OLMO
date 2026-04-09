@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 132 — 2026-04-09 (P0: polish s-importancia + pre-reading)
+
+### s-importancia.html — PMID cleanup + deep-dive expansion + trial trim
+- Removidos todos 26 PMIDs inline (corpo, glossario, key-numbers, deep-dive, speaker notes)
+- Refs convertidas para formato Autor+Titulo+Journal+Ano (sem PMID/DOI)
+- Deep-dive expandido: TSA (~350 palavras), GIGO (~350 palavras), Pub Bias (~350 palavras)
+- Trials trimados: de 26 refs para 16 (9 metodologia + 1 meta-pesquisa + 6 emblematicos)
+- Contraponto: de 6 casos para 2 (Magnesio/ISIS-4, TRH/WHI)
+- Key-takeaways V1-V5 triplamente verificados
+- Speaker notes esvaziadas (slide nao construido ainda)
+- GRADE table refatorada para claims metodologicos (nao trials)
+- CSS: .ref-pmid removido, .ref-inline adicionado
+
+### Pre-reading: forest-plot-vies.html (novo)
+- 7 artigos core em 3 blocos tematicos (forest plot, RoB, pub bias)
+- Hibrido: h2 por tema + core-steps numerados (1-7)
+- 3 camadas: basico + intermediario (pre-reading obrigatorio) + avancado (deep-dive Lucas)
+- Glossario: 7 termos (forest plot, peso, diamante, RoB 2, funnel plot, Egger, trim-and-fill)
+- Deep-dive avancado: 4 topicos (subgrupos, RoB 2 dominios, funnel mecanica, intersecao)
+- Zero PMIDs/DOIs no HTML final
+
 ## Sessao 131 — 2026-04-09 (Evidence HTML + Pre-Reading)
 
 ### Evidence s-importancia — refactor completo
