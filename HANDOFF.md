@@ -6,12 +6,12 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
-**Agentes: 10.** **Hooks: 37 registrations** (39 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 8.**
+**Agentes: 10.** **Hooks: 37 registrations (37 scripts; 0 pre-commit).** **Rules: 11**. **MCPs: 12**. **KBPs: 8.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
 **Skills: 20 (16 disable-model-invocation, 4 auto-trigger).** **Memory: 20/20. Next review: S127. Next /insights: S127.**
 **Evidence:** s-importancia (evidence limpo, slide pendente h2), pre-reading-heterogeneidade (DONE).
-**Context Diet S126:** recency anchor, 2 orphan hooks, WebSearch evidence-researcher, KBP trim, 4 skill desc trim. ~5k tokens/sessao economizados.
+**Context Diet S126:** ~5k tokens/sessao economizados. Workers: context-diet consumido, pre-reading-research pendente.
 
 ## PROXIMOS PASSOS
 
@@ -19,16 +19,14 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 |---|------|---------|--------------|
 | 1 | **s-importancia: criar slide HTML** | h2 = Lucas decide. Evidence limpo. Falta criar slides/02-importancia.html + manifest + CSS | Normal |
 | 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Para slide | Normal |
-| 3 | ~~brainstorming skill~~ | DONE S123. `.claude/skills/brainstorming/SKILL.md` | — |
-| 4 | ~~success pattern capture hook~~ | DONE S123. `hooks/success-capture.sh` → `.claude/success-log.jsonl` | — |
-| 5 | ~~hook auto-calibration counters~~ | DONE S123. `hooks/hook-calibration.sh` + breadcrumbs em 4 hooks proativos | — |
+| 3 | **Context diet P1 restante** | model-fallback-advisory compression + .claudeignore | Facil |
+| 4 | **Context diet P2 (Lucas decide)** | Coauthorship inline, design-reference PMID merge, continuous-learning triggers | Lucas decide |
+| 5 | **Integrar worker pre-reading-research** | 13 artigos candidatos, selecao final Lucas, criar HTML | Normal |
 | 6 | **Auditar 12 MCPs para tool poisoning** | Zero-width chars, unicode, base64 em tool descriptions. P1 SECURITY | Normal |
 | 7 | **medicina-clinica stubs** | 4 concepts stub/low aguardam Cowork harvest | Facil |
 | 8 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
 | 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
-| 10 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
-
-Sequencia sugerida: #1+#2 (s-importancia) → #6 (MCP audit). Apos slide, rodar /insights para stress-test 4 rules (P003 monitoring).
+| 10 | **Limpar worker context-diet** | Consumido — pode deletar .claude/workers/context-diet/ | Trivial |
 
 ## DECISOES ATIVAS
 
@@ -44,12 +42,13 @@ Sequencia sugerida: #1+#2 (s-importancia) → #6 (MCP audit). Apos slide, rodar 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`, NAO da raiz.
 - Anti-workaround (KBP-07): diagnosticar → reportar → listar opcoes → STOP.
-- Anti-substituicao (KBP-08): perna falhou = reportar e pular, NUNCA substituir por WebSearch.
-- **MCP tool poisoning:** 12 MCPs (PubMed, Consensus, SCite, etc.) NUNCA auditados para instrucoes ocultas (zero-width chars, unicode, base64). Risco real em MCPs de terceiros. Claude Code v2.1.97 (safe — CVE 50-subcommand patched v2.1.90).
+- Anti-substituicao (KBP-08): perna falhou = reportar e pular. WebSearch removido de evidence-researcher S126.
+- **Referential integrity:** ao deletar arquivo, remover TODAS as referencias (pre-commit, settings, agent tools). Incidente S126.
+- **MCP tool poisoning:** 12 MCPs NUNCA auditados para instrucoes ocultas. P1 SECURITY.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S125 2026-04-09
+Coautoria: Lucas + Opus 4.6 | S126 2026-04-09
