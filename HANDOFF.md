@@ -32,10 +32,10 @@ Benchmark: `content/aulas/metanalise/evidence/pre-reading-heterogeneidade.html`
 
 h2 = Lucas decide. Evidence pronto (pos-refactor). Falta: `slides/02-importancia.html` + `_manifest.js` + CSS.
 
-## P2 — Pernas pendentes
+## P2 — Pernas pendentes (lancar)
 
-- Perna 2 (evidence-researcher): NAO lancada. Evidence em 7.9/10. Valor marginal.
-- Perna 6 (NLM): Requer `! nlm login`. NAO lancada.
+- **Perna 2 (evidence-researcher):** NAO lancada. Falta: Scite citation analysis, CrossRef DOI, Semantic Scholar metrics, BioMCP cross-ref. Lancar com escopo s-importancia.
+- **Perna 6 (NLM):** Requer `! nlm login`. Lancar apos OAuth. Query notebook metanalise (a274cffb).
 
 ## P3 — Outros
 
