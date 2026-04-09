@@ -77,6 +77,13 @@ Additional rules:
 - Batch related API calls. Avoid redundant searches.
 - Skip optional tool calls when the answer is already known.
 
+## Hook safety
+
+When creating or modifying hooks in settings.json:
+1. Verify the hook has an exit condition (can be disabled/overridden)
+2. Verify the hook does not block: ExitPlanMode, Edit on settings.json, Bash for config repair
+3. Test the hook in a non-critical context before deploying to all events
+
 ## Script Primacy
 
 Scripts in `content/aulas/scripts/` are the canonical implementation.

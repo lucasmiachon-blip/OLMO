@@ -33,10 +33,20 @@
 - Gitignored (output temporario)
 - Orquestrador consome e apaga apos integrar
 
+## Convencao de nomeacao
+
+Todo MD criado por worker DEVE incluir **data e hora** no titulo (linha `#`):
+
+- **output.md:** `# {Titulo descritivo} — {YYYY-MM-DD HH:MM}`
+- **DONE.md:** `# Worker Signal: {task-name} — {YYYY-MM-DD HH:MM}`
+
+Formato: ISO-like, timezone local (Brasilia). Hora em 24h.
+Motivo: orquestrador identifica staleness sem ler alem da primeira linha.
+
 ## Template DONE.md
 
 ```markdown
-# Worker Signal: {task-name}
+# Worker Signal: {task-name} — {YYYY-MM-DD HH:MM}
 Status: COMPLETE | PARTIAL | FAILED
 Timestamp: {ISO datetime}
 Session: S{N}

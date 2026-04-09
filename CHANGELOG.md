@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 116 — 2026-04-08 (INFRA: insights integration + worker conventions + Gemini model fix)
+
+### Rules
+- multi-window.md: worker MD timestamp-in-title convention (YYYY-MM-DD HH:MM no titulo)
+- anti-drift.md: P001 Hook safety gate (exit condition, no self-blocking, test first)
+- session-hygiene.md: P003 Artifact cleanup convention (before wrap-up)
+
+### Insights
+- /insights S116 integrated: ZERO KBP violations (S109-S115), 8 config corrections, pattern shift behavioral→operational
+- failure-registry.json: S116 entry appended, trend recomputed (stable, corrections_5avg 0.27→0.494 window artifact, kbp_5avg 0.18→0.178)
+- insights/latest-report.md created, .last-insights timestamp set
+
+### Research
+- pre-reading-heterogeneidade.html: Maitra 2025 (PMID 40046706) added — FE vs RE, 4 pages, Indian J Anaesth, OA
+- 17/17 PMIDs now VERIFIED (was 16)
+
+### Skills
+- /research Perna 1: Gemini model fixed gemini-3.1-pro → gemini-3.1-pro-preview (API-validated)
+
+### Decisions
+- insights P001+P003 applied, P002 deferred (dream staleness — complex for 1 incident), P004/P005 skipped (redundant)
+- Pre-reading: gaps kept as Deep Dive accordion (not in core path). Lucas decides articles to send.
+
 ## Sessao 115 — 2026-04-08 (INFRA: P0 triage + ecosystem study + MANDATORY TRIGGERS)
 
 ### Security (P0 triage)

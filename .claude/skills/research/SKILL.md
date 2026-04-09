@@ -34,7 +34,7 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 
 | # | Agent | Modelo | Quando | Input |
 |---|-------|--------|--------|-------|
-| 1 | Gemini API Deep Think (GEMINI_API_KEY, NAO CLI) — prompt aberto | gemini-3.1-pro | Sempre | topic |
+| 1 | Gemini API Deep Think (GEMINI_API_KEY, NAO CLI) — prompt aberto | gemini-3.1-pro-preview | Sempre | topic |
 | 2 | `evidence-researcher` (subagent_type) | Sonnet | Sempre | topic + slide context + queries MCP |
 | 3 | `mbe-evaluator` (subagent_type) | Sonnet | Slide existe | slide HTML + evidence HTML |
 | 4 | `reference-checker` (subagent_type) | Haiku | Slide existe | slide-id + aula path |
@@ -43,12 +43,12 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 
 Minimo: Pernas 1+2+5. Maximo: todas 6.
 
-**Perna 1 — Gemini API (Deep Think):** Pesquisa ampla com Google Search grounding. Modelo: `gemini-3.1-pro` (melhor disponivel, deep thinking). Usar GEMINI_API_KEY (NAO CLI, NAO MCP — CLI frozen S114). Prompt ABERTO. Todos PMIDs = [CANDIDATE].
+**Perna 1 — Gemini API (Deep Think):** Pesquisa ampla com Google Search grounding. Modelo: `gemini-3.1-pro-preview` (melhor disponivel, deep thinking). Usar GEMINI_API_KEY (NAO CLI, NAO MCP — CLI frozen S114). Prompt ABERTO. Todos PMIDs = [CANDIDATE].
 
 Execucao (orchestrador via Bash):
 ```bash
 node -e "
-const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro:generateContent?key=' + process.env.GEMINI_API_KEY, {
+const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:generateContent?key=' + process.env.GEMINI_API_KEY, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({

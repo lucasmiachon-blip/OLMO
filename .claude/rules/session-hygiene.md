@@ -61,3 +61,12 @@ Ao criar ou reescrever agente:
 3. **1 tarefa = 1 invocacao**: se o agente precisa parar no meio, dividir em invocacoes separadas
 4. **Referenciar scripts, nao duplicar**: listar comando, nao reimplementar logica
 5. **Gate names descritivos**: Preflight/Inspect/Editorial, nao numeros arbitrarios (-1/0/4)
+
+## Artifact cleanup (before wrap-up)
+
+Check for and offer to remove:
+- `.claude/*.md` files not in agents/, rules/, skills/, workers/, plans/ directories
+- Orphan `.claude/workers/` directories with DONE.md signals already consumed
+- Temp files created during tool execution (codex reports, adversarial audits)
+
+Exception: files explicitly requested by Lucas to persist.
