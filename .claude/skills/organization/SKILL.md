@@ -1,11 +1,7 @@
 ---
 name: organization
 description: >
-  GTD, Eisenhower matrix, Deep Work, and session memory management (HANDOFF
-  + CHANGELOG). Use this skill for daily/weekly planning, task prioritization,
-  weekly reviews, context management between sessions, productivity systems,
-  or any organizational request. Trigger for 'planejar', 'organizar', 'weekly
-  review', 'priorizar', 'o que fazer', or questions about task management.
+  GTD, Eisenhower matrix, Deep Work, and session memory management (HANDOFF + CHANGELOG). Use for daily/weekly planning, task prioritization, weekly reviews, context management between sessions, productivity systems, or organizational requests. MANDATORY TRIGGERS: planejar, organizar, weekly review, priorizar, o que fazer, task management, HANDOFF, CHANGELOG, wrap-up, session hygiene, GTD, Eisenhower, Deep Work, planejamento
 ---
 
 # Skill: Organization (GTD + Eisenhower + Memory)

@@ -2,7 +2,7 @@
 name: slide-authoring
 version: 2.0.0
 context: fork
-description: "Create and edit medical education slides using the OLMO deck.js design system (OKLCH tokens, GSAP declarative animations, 1280x720 viewport). Use this skill whenever the user wants to create a new slide ('criar slide', 'novo slide', 'new slide', 'adicionar slide sobre [topic]'), add content to a lecture, redesign an existing slide, work on cirrose/metanalise/grade/osteoporose presentations, or mentions slide layout, typography, animation, or clinical assertions — even if they don't say 'slide' explicitly."
+description: "Create and edit medical education slides using the OLMO deck.js design system (OKLCH tokens, GSAP declarative animations, 1280x720 viewport). Use for creating, editing, redesigning slides, adding content to lectures, or working on cirrose/metanalise/grade/osteoporose presentations. MANDATORY TRIGGERS: criar slide, novo slide, new slide, adicionar slide, redesign slide, slide layout, tipografia, animacao, GSAP, deck.js, assertion-evidence, aula, apresentacao, slide sobre"
 argument-hint: "[lecture] [assertion]"
 allowed-tools: Read, Write, Bash(npm run lint:slides)
 ---

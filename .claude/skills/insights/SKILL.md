@@ -1,15 +1,7 @@
 ---
 name: insights
 description: >
-  Agent self-improvement through retrospective session analysis. Audits error
-  patterns, rule/skill compliance, and proposes systemic fixes to rules, skills,
-  hooks, and memory. Like an M&M conference for the AI agent. Use this skill
-  whenever the user says 'insights', 'self-improve', 'auditoria de sessoes',
-  'o que melhorar', 'error patterns', 'quais erros se repetem', 'agent
-  performance', or wants to analyze how the agent has been performing. Also
-  trigger when the user mentions improving rules, skills, or hooks based on
-  past sessions. Proactively suggest running /insights weekly or after major
-  milestones.
+  Agent self-improvement through retrospective session analysis. Audits error patterns, rule/skill compliance, and proposes systemic fixes to rules, skills, hooks, and memory. Like an M&M conference for the AI agent. Proactively suggest running weekly or after major milestones. MANDATORY TRIGGERS: insights, self-improve, auditoria de sessoes, o que melhorar, error patterns, quais erros se repetem, agent performance, melhorar regras, melhorar skills, melhorar hooks, retrospectiva, M&M conference
 ---
 
 # Insights — Agent Self-Improvement

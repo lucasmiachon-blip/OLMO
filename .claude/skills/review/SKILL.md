@@ -1,11 +1,7 @@
 ---
 name: review
 description: >
-  Multi-agent code review with OWASP LLM Top 10 2025, quality checks, and
-  ecosystem conformance. Use this skill for PR reviews, security audits, code
-  quality checks, or before any merge/deploy. Trigger for 'revisar codigo',
-  'code review', 'review PR', 'auditoria', 'checar seguranca', or whenever
-  significant code changes need validation before merging.
+  Multi-agent code review with OWASP LLM Top 10 2025, quality checks, and ecosystem conformance. Use for PR reviews, security audits, code quality checks, or before merge/deploy. MANDATORY TRIGGERS: revisar codigo, code review, review PR, auditoria, checar seguranca, security audit, OWASP, quality check, pre-merge, validar mudancas, review changes
 ---
 
 # Skill: Code Review

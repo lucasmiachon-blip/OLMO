@@ -1,7 +1,7 @@
 ---
 name: research
 description: |
-  Pipeline de pesquisa medica multi-perna com sintese cruzada. 6 pernas independentes em paralelo (Gemini API, evidence-researcher MCPs, MBE evaluator, reference checker, Perplexity Sonar, NotebookLM) + orquestrador que compara, cruza e sintetiza em living HTML per slide. Use sempre que o usuario pedir "pesquisa profunda", "research completa", "buscar evidencia", "deep research", "avaliar profundidade do slide", "pesquisar a fundo", "quality assessment", "verificar dados do slide", "preciso de evidencia para", "rodar SCite/Consensus", "checar referencias". Proativamente usar quando slides precisam de evidencia ou qualidade de dados clinicos e questionada.
+  Pipeline de pesquisa medica multi-perna com sintese cruzada. 6 pernas independentes em paralelo (Gemini API, evidence-researcher MCPs, MBE evaluator, reference checker, Perplexity Sonar, NotebookLM) + orquestrador que compara, cruza e sintetiza em living HTML per slide. Proativamente usar quando slides precisam de evidencia ou qualidade de dados clinicos e questionada. MANDATORY TRIGGERS: pesquisa profunda, research completa, buscar evidencia, deep research, avaliar profundidade, pesquisar a fundo, quality assessment, verificar dados, preciso de evidencia, rodar SCite, rodar Consensus, checar referencias, PMID, DOI, PubMed, evidence
 version: 2.0.0
 context: fork
 agent: general-purpose
