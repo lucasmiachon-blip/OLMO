@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 131 — 2026-04-09 (Evidence HTML + Pre-Reading)
+
+### Evidence s-importancia — refactor completo
+- CSS alinhado com benchmark (pre-reading-heterogeneidade.html)
+- 8 secoes: header, concepts, narrative, core-path, key-numbers, glossary, deep-dive, refs
+- V1-V5 como core-step grid (1 paragrafo + key-takeaway cada)
+- Foco em metodologia, trials como ilustracoes pontuais (S119 compliance)
+- 26 PMIDs preservados, key-takeaways verificadas contra fontes primarias
+- V2 key-takeaway: "certeza clinica" → "confianca robusta na estimativa"
+
+### Hook Pattern 17a
+- guard-bash-write.sh: block→ask para rm em .claude/workers/ (Lucas pediu)
+
+### Docs
+- HANDOFF.md: P3 novo (refatorar 6 evidence HTMLs restantes)
+- Decisao ativa: evidence benchmark = pre-reading-heterogeneidade para TODOS
+
+### Workers
+- 3 pastas removidas (aprovacao Lucas): pre-reading-research, ecossistema-perplexity-gemini, s-importancia-audit
+
 ## Sessao 130 — 2026-04-09 (CONSOLIDATION + SAFETY)
 
 ### Safety — 3 novos hooks (KBP-10 + gates)
