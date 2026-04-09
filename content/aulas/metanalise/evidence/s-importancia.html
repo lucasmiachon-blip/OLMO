@@ -4,280 +4,306 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evidence: s-importancia</title>
-  <style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:800px;margin:2rem auto;padding:0 1rem;color:#1a1a2e;line-height:1.6;text-align:justify}.v{display:inline-block;font-size:.65rem;font-weight:700;color:#fff;background:#2563eb;border-radius:3px;padding:0 .3rem;margin:0 .1rem;vertical-align:middle;letter-spacing:.02em}.c{display:inline-block;font-size:.65rem;font-weight:700;color:#fff;background:#d97706;border-radius:3px;padding:0 .3rem;margin:0 .1rem;vertical-align:middle;letter-spacing:.02em}h1{font-size:1.4rem;border-bottom:2px solid #2d6a4f;padding-bottom:.5rem}h2{font-size:1.1rem;color:#2d6a4f;margin-top:1.5rem}h3{font-size:.95rem;color:#1a1a2e;margin-top:1rem}.meta{font-size:.85rem;color:#555}table{border-collapse:collapse;width:100%;margin:.5rem 0;font-size:.9rem}th,td{border:1px solid #ccc;padding:.4rem .6rem;text-align:left}th{background:#f0f4f0}details{margin:1rem 0}summary{cursor:pointer;font-weight:600;color:#2d6a4f}footer{margin-top:2rem;padding-top:.5rem;border-top:1px solid #ccc;font-size:.8rem;color:#777}.ref-list{padding-left:1.5rem}.ref-list li{margin:.5rem 0;font-size:.88rem;line-height:1.5;border-left:3px solid #2d6a4f;padding-left:.5rem;margin-left:-.5rem}.ref-pmid{color:#2563eb;text-decoration:none;font-size:.82rem}.ref-pmid:hover{text-decoration:underline}.caveat{background:#fff3cd;border-left:4px solid #d97706;padding:.5rem .8rem;margin:.5rem 0;font-size:.88rem}.concordance{background:#d1fae5;border-left:4px solid #059669;padding:.5rem .8rem;margin:.5rem 0;font-size:.88rem}.speaker-notes{background:#fffbea;border-left:4px solid #d4a017;padding:.8rem 1rem;margin:.5rem 0;white-space:pre-line;border-radius:.5rem}.suggestion-do{color:#2d6a4f}.suggestion-dont{color:#8b0000}</style>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+    th { background: #f0f4f0; }
+    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
+    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .core-step { display: grid; grid-template-columns: 2.5rem 1fr; gap: .5rem; align-items: start; margin: .8rem 0; padding: .6rem; background: #fafafa; border-radius: 6px; }
+    .core-num { background: #2d6a4f; color: #fff; width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; }
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .gap-card { border-left: 3px solid #d97706; padding-left: .8rem; margin: .8rem 0; }
+    .formula { background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; padding: .8rem 1.2rem; margin: .8rem 0; font-family: 'Cambria Math', 'Times New Roman', serif; font-size: .95rem; text-align: center; }
+    .thresholds { margin: .5rem 0; }
+    .thresholds td:first-child { font-weight: 600; text-align: center; }
+    .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
+    .objectives li { margin: .3rem 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Vantagens metodologicas da meta-analise</h1>
-    <p class="meta">Slide: s-importancia | Fase: F1 (apos s-hook) | Timing: 60s</p>
-  </header>
 
-  <section id="sintese">
-    <h2>Sintese Cruzada</h2>
-    <p>Cinco vantagens metodologicas sustentam o papel da MA: poder estatistico, precisao, resolucao de controversias, deteccao de efeitos pequenos e generalizacao. Todas corroboradas por fontes Tier 1 (Cochrane Handbook, Borenstein 2021). O caso estreptocinase (Lau 1992) e a ancora pedagogica: evidencia suficiente existia desde 1973, mas trials continuaram por 20 anos sem sintese cumulativa.</p>
-    <div class="caveat"><strong>NUANCAVEL:</strong> Precisao ≠ acuracia. MA de estudos enviesados produz estimativa "precisamente errada" (GIGO). Caso Magnesio/ISIS-4 demonstra: MA de 7 estudos pequenos (OR 0,45) refutada por mega-trial (n=58.050, OR 1,06). Reservar caveats para slides de limitacoes (F2/F3), nao para F1.</div>
-    <div class="concordance"><strong>BALANCO (Perplexity):</strong> Kastrati &amp; Ioannidis 2024 — 82 mega-trials vs 58 MAs: concordancia geral ROR 1,00 (IC 0,97-1,04). Apenas 2 discordancias em desfecho primario. Falhas sao reais mas sao minoria com causa identificavel (small study effects).</div>
-  </section>
+<header>
+  <h1>Vantagens Metodologicas da Meta-analise</h1>
+  <p class="meta">Slide: s-importancia | Fase: F1 (apos s-hook) | Timing: 60s</p>
 
-  <section id="speaker-notes">
-    <h2>Speaker Notes</h2>
-    <div class="speaker-notes">[0:00-0:15] Transicao de s-hook. 'Vimos uma crise de qualidade. Retracoes, fabricacao, p-hacking. Mas quando BEM feitas, meta-analises tem vantagens metodologicas unicas.'
-PAUSA 2s.
-'Cinco vantagens. Cada uma resolve um problema que nenhum trial isolado consegue.'
+  <div class="objectives">
+    <strong>O que este evidence cobre:</strong>
+    <ol>
+      <li>Por que a MA oferece vantagens metodologicas que nenhum trial isolado consegue</li>
+      <li>Cinco mecanismos estatisticos: poder, precisao, resolucao, deteccao, generalizacao</li>
+      <li>A distincao entre precisao e acuracia — e por que MA nao corrige vies</li>
+      <li>Dados verificados (Tier 1) para cada vantagem, com PMIDs</li>
+    </ol>
+  </div>
+</header>
 
-[0:15-0:30] V1 — Poder Estatistico.
-'Um trial isolado pode ser negativo simplesmente porque nao tinha pacientes suficientes. A meta-analise resolve isso.'
-'Beta-blockers pos-IAM: cerca de 65 trials individuais negativos. A MA reuniu todos e mostrou reducao de 25% na mortalidade.' (Yusuf 1985, PMID 2858114) <span class="v">VERIFIED</span>
-'Antiagregantes: 287 estudos, 135 mil pacientes. 36 vidas salvas por 1.000 tratados em 2 anos.' (ATC 2002, PMID 11786451) <span class="v">VERIFIED</span>
+<!-- ===== CONCEITOS-CHAVE ===== -->
+<section id="concepts">
+  <h2>Conceitos-chave</h2>
 
-[0:30-0:40] V2 — Precisao (ICs mais estreitos).
-'A MA estreita o intervalo de confianca sem mudar a estimativa pontual.'
-'Estreptocinase: em 1973, OR 0,74 com intervalo 0,59 a 0,92. Em 1988, mesmo OR, intervalo muito mais estreito.' (Lau 1992, PMID 1614465) <span class="v">VERIFIED</span>
-PAUSA 2s.
-'A evidencia estava la desde 1973. Por 20 anos, continuamos randomizando pacientes para placebo. Porque ninguem fez a sintese.'
+  <p><strong>Poder estatistico:</strong> A probabilidade de detectar um efeito real (1 - beta). Cresce com o tamanho amostral. A MA aumenta poder via pooling — reune amostras de multiplos trials num denominador unico, atingindo N que nenhum estudo individual consegue.</p>
 
-[0:40-0:50] V3 — Resolucao de Controversias.
-'Quando trials discordam, a MA pode resolver.'
-'Estreptocinase: evidencia completa em 1973 com 8 trials. 25 trials adicionais desnecessarios — cerca de 34.500 pacientes randomizados para placebo depois que a resposta ja existia.' (Lau 1992, PMID 1614465) <span class="v">VERIFIED</span>
-'Padrao sistemico: mais de 1.500 MAs cumulativas mostram evidencia estabilizada antes do ultimo trial.' (Clarke 2014, PMID 25068257) <span class="v">VERIFIED</span>
+  <p><strong>Precisao:</strong> Largura do intervalo de confianca. Depende de N total:</p>
+  <div class="formula">
+    IC da MA &prop; 1 / &radic;N<sub>total</sub><br>
+    <span style="font-size:.82rem;color:#555">Cada trial adicionado ao pool reduz a incerteza, mesmo quando a estimativa pontual ja esta estabelecida (Borenstein 2021, Cap. 1).</span>
+  </div>
 
-[0:50-0:55] V4 — Deteccao de Efeitos Pequenos.
-'Aspirina em prevencao primaria: efeito so detectavel com IPD-MA de 95 mil pacientes. RR 0,88, IC 0,82 a 0,94. ARR 0,07% por ano.' (ATT 2009, PMID 19482214) <span class="v">VERIFIED</span>
-'Um efeito real, clinicamente importante, invisivel em qualquer trial isolado.'
+  <div class="caveat"><strong>Precisao ≠ acuracia.</strong> Precisao depende de N (tamanho amostral). Acuracia depende de ausencia de vies sistematico. MA de estudos enviesados produz estimativa "precisamente errada" — IC estreito ao redor do valor errado (GIGO). Reservar caveats para F2/F3.</div>
 
-[0:55-1:00] V5 — Generalizacao.
-'Um trial eh de um centro, um pais. A MA reune estudos de multiplos paises e cenarios.' (ATC 2002, PMID 11786451) <span class="v">VERIFIED</span>
-'Permite analise de subgrupos: sexo, idade, comorbidades — impossivel no trial isolado.'
-
-→ avancar para proximo slide
-
-[DATA] Ancora pedagogica: Lau 1992, estreptocinase MA cumulativa. PMID 1614465 <span class="v">VERIFIED</span>
-[DATA] Poder: Yusuf 1985, ~65 trials beta-blockers. PMID 2858114 <span class="v">VERIFIED</span>
-[DATA] Poder: ATC 2002, 287 estudos, 135.000 pts, ARR 36/1000 2a. PMID 11786451 <span class="v">VERIFIED</span>
-[DATA] Precisao: Lau 1992, IC progressivamente estreito 1973-1988. PMID 1614465 <span class="v">VERIFIED</span>
-[DATA] Resolucao: Clarke 2014, >1500 MAs cumulativas. PMID 25068257 <span class="v">VERIFIED</span>
-[DATA] Confirmatorio: ISIS-2 1988, n=17.187, OR reduction 25%. PMID 2899772 <span class="v">VERIFIED</span>
-[DATA] Efeitos pequenos: ATT 2009, IPD n=95.000, RR 0,88. PMID 19482214 <span class="v">VERIFIED</span>
-[DATA] Generalizacao: ATC 2002 + ATT 2009, subgrupos sexo/idade. <span class="v">VERIFIED</span>
-[DATA] NNT antiagregante pos-IAM: 28 (1000/36) em 2 anos. ATC 2002 PMID 11786451 <span class="v">VERIFIED</span> — usar em notes para contextualizar magnitude, nao no slide.
-[DATA] TSA: Wetterslev 2008 PMID 18083463 <span class="v">WEB-VERIFIED</span> — formaliza quando evidencia cumulativa e suficiente. Mencao breve se surgir pergunta.</div>
-  </section>
-
-  <section id="pedagogia">
-    <h2>Posicionamento Pedagogico</h2>
-    <p>TENSAO ANTERIOR: O s-hook revelou a crise de qualidade em RS/MA — retracoes (Bolland 2021, 370 RS retratadas), fabricacao de dados, p-hacking. O residente saiu com ceticismo calibrado: 'posso confiar nessas revisoes?' Confusao produtiva, nao paralisante. RESOLUCAO: s-importancia responde 'sim, porque quando feitas corretamente, MAs tem vantagens metodologicas que nenhum trial isolado oferece'. Transicao de ceticismo para apreciacao — nao fé cega, mas reconhecimento de que o metodo tem poder real quando aplicado com rigor. O caso estreptocinase (Lau 1992) ancora ambos: e etico (pacientes randomizados para placebo desnecessariamente) e metodologico (MA cumulativa mostrou evidencia antes de ISIS-2). O SLIDE MOSTRA: 5 vantagens com dados quantitativos verificados. Cada uma e uma razao concreta para confiar na MA bem feita. O SLIDE NAO MOSTRA: (1) Limitacoes da MA (GIGO, publication bias, small study effects) — reservadas para F2/F3, onde caveats tem contexto para serem compreendidos sem destruir o momentum de F1. (2) Artigo especifico — F1 usa dados genericos de Tier 1. A ancora Valgimigli so entra na F3. (3) GRADE — vem no slide 08. Aqui e sobre vantagens do metodo, nao sobre gradacao da evidencia. (4) Como PRODUZIR uma MA — a aula e sobre LEITURA CRITICA, nao producao.</p>
-  </section>
-
-  <section id="retorica">
-    <h2>Analise Retorica</h2>
-    <p>ASSERTION-EVIDENCE: h2 = Lucas decide. A assertion deve ser sobre o que a MA PODE que trials isolados NAO podem — nao rotulo generico ('O que e meta-analise') nem lista ('5 vantagens de...'). Modelo forte: claim + consequencia ('A meta-analise detecta o que trials isolados perdem — efeitos reais que salvam vidas'). CARGA COGNITIVA: 5 itens (vantagens) esta no limite de Miller (7±2). Cada vantagem precisa de ancora quantitativa para memorabilidade — numero concreto > conceito abstrato. FIO NARRATIVO: Estreptocinase (Lau 1992) aparece em V2 (precisao: IC estreitou) e V3 (etica: 34.500 pacientes randomizados apos evidencia). Isso cria coerencia — o residente ve o mesmo caso sob dois angulos. DISPOSITIVOS SUGERIDOS: (1) Stagger animation — revela uma vantagem por vez, permite processamento sequencial; (2) Dado quantitativo por card (OR, n, ARR) — ancora concreta; (3) Source-tags Tier 1 em cada card (Lancet, NEJM, BMJ, Cochrane); (4) Destaque visual na V3 (etica: caso mais impactante emocionalmente — 20 anos de pacientes em placebo desnecessario). DISPOSITIVO AUSENTE: Punchline unica. As 5 vantagens sao paralelas — nenhuma e 'a' conclusao. Considerar: V3 (etica) como culminancia, ou V2 (estreptocinase) como caso ancora com destaque.</p>
-  </section>
-
-  <section id="vantagens">
-    <h2>Dados Candidatos para o Slide</h2>
-    <p class="meta">h2 = Lucas decide. Dados abaixo sao os melhores candidatos por vantagem.</p>
-
-    <h3>V1 — Poder Estatistico</h3>
-    <p>A maioria dos ensaios clinicos randomizados e desenhada para detectar diferencas grandes entre tratamentos. Quando o efeito real e moderado — uma reducao de 20-25% em mortalidade, por exemplo — um trial individual com centenas ou mesmo poucos milhares de pacientes simplesmente nao tem poder estatistico para declara-lo significativo. O resultado e um achado "negativo" que nao significa ausencia de efeito, mas insuficiencia de amostra. O beta-bloqueador pos-infarto e o caso paradigmatico: ao longo de duas decadas, cerca de 65 trials individuais testaram a hipotese, e a maioria terminou com p nao-significativo. A conclusao aparente era de que beta-bloqueadores nao funcionavam — ou, na melhor hipotese, de que a evidencia era inconclusiva.</p>
-    <p>Em 1985, Yusuf e colaboradores fizeram o que nenhum trial isolado conseguia: reuniram os dados de todos os 65 ensaios numa unica analise (PMID 2858114). O efeito pooled revelou reducao de mortalidade de aproximadamente 25%, estatisticamente significativa. O que mudou nao foi o efeito — ele estava presente desde os primeiros trials — mas sim o poder para detecta-lo. A meta-analise transformou dezenas de resultados inconclusivos em evidencia robusta que mudou a pratica clinica e estabeleceu beta-bloqueadores como padrao pos-IAM.</p>
-    <p>O caso da Antithrombotic Trialists' Collaboration (ATC 2002, PMID 11786451) amplia o argumento: 287 estudos e 135.000 pacientes permitiram detectar uma reducao de 25% em eventos vasculares serios, com reducao absoluta de 36 eventos por 1.000 pacientes tratados em 2 anos. Mais importante: o pooling permitiu analises de subgrupos (angina estavel, doenca arterial periferica, fibrilacao atrial) com poder individual — algo que nenhum trial conseguiria sozinho. O residente deve sair deste ponto entendendo: um trial negativo nao e necessariamente um trial verdadeiro-negativo. A MA e o instrumento que distingue um do outro.</p>
-    <table>
-      <tr><th>Dado</th><th>Valor</th><th>Fonte</th><th>PMID</th><th>Status</th></tr>
-      <tr><td>Beta-blockers pos-IAM: trials individuais negativos → MA positiva</td><td><strong>~65 trials, reducao mortalidade ~25%</strong></td><td>Yusuf S et al. Prog Cardiovasc Dis 1985;27(5):335-71</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2858114" target="_blank">2858114</a></td><td><span class="v">VERIFIED</span></td></tr>
-      <tr><td>Antiagregantes: 287 estudos, subgrupos com p significativo so pelo pooling</td><td><strong>135.000 pts, -25% eventos vasculares, ARR 36/1.000 em 2a</strong></td><td>Antithrombotic Trialists' Collaboration. BMJ 2002;324:71-86</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">11786451</a></td><td><span class="v">VERIFIED</span></td></tr>
-    </table>
-
-    <h3>V2 — Precisao Aumentada (ICs mais estreitos)</h3>
-    <p>Precisao estatistica — a largura do intervalo de confianca — depende fundamentalmente do tamanho amostral. A relacao e formal: o IC da meta-analise e proporcional a 1 dividido pela raiz quadrada do N total (Borenstein 2021, Cap. 1). Isso significa que cada trial adicionado ao pool reduz a incerteza, mesmo quando o efeito pontual ja esta estabelecido. A distincao e sutil mas crucial para o clinico: a estimativa nao muda, mas a confianca nela aumenta. O diamante do forest plot fica mais estreito — e decisoes clinicas dependem tanto do centro quanto da largura desse diamante.</p>
-    <p>O caso da estreptocinase no infarto agudo do miocardio (Lau 1992, PMID 1614465) e a demonstracao canonica. Em 1973, com apenas 8 trials e 2.432 pacientes, a MA cumulativa ja mostrava OR 0,74 (IC 95%: 0,59-0,92) — significativo, porem com intervalo amplo. A evidencia ERA suficiente para concluir eficacia, mas o IC largo deixava margem para duvida sobre a magnitude real. Ao longo dos 15 anos seguintes, 25 novos trials foram conduzidos (incluindo GISSI com 11.712 pacientes e ISIS-2 com 17.187). O que aconteceu com a estimativa pontual? Praticamente nada — o OR permaneceu proximo de 0,74. Mas o IC estreitou dramaticamente, transformando uma evidencia "provavelmente positiva" numa certeza clinica inabalavel.</p>
-    <p>A licao pedagogica e dupla. Primeiro: a MA nao "descobre" efeitos novos quando estreita ICs — ela aumenta a confianca em efeitos que ja estavam la. Segundo, e mais perturbador: os 25 trials adicionais, que envolveram dezenas de milhares de pacientes randomizados para placebo, nao acrescentaram informacao nova sobre a direcao do efeito. Nas palavras de Lau et al., eles "had little or no effect on the odds ratio establishing efficacy, but simply narrowed the 95 percent confidence interval." Se uma MA cumulativa tivesse sido feita e atualizada, esses trials teriam sido considerados desnecessarios — e os pacientes randomizados para placebo teriam sido poupados de receber um tratamento inerte num contexto de IAM agudo.</p>
-    <table>
-      <tr><th>Dado</th><th>Valor</th><th>Fonte</th><th>PMID</th><th>Status</th></tr>
-      <tr><td>Estreptocinase: MA cumulativa estreitou IC sem mudar estimativa pontual</td><td><strong>1973: OR 0,74 (0,59-0,92) | 1988: OR similar, IC muito mais estreito</strong></td><td>Lau J et al. N Engl J Med 1992;327(4):248-54</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">1614465</a></td><td><span class="v">VERIFIED</span></td></tr>
-    </table>
-
-    <h3>V3 — Resolucao de Controversias</h3>
-    <p>A medicina produz resultados discordantes com frequencia. Um trial europeu mostra beneficio, um americano mostra resultado neutro, um asiatico sugere tendencia contraria. Diante dessa cacofonia, o clinico nao tem como saber se a discordancia reflete heterogeneidade real (populacoes diferentes respondem diferentemente) ou simplesmente ruido estatistico (todos os efeitos sao iguais, mas amostras pequenas flutuam). A meta-analise resolve esse impasse quantificando a variabilidade entre estudos e separando sinal de ruido. Quando a discordancia era aparente — produto de acaso — o pooling dissolve a controversia. Quando era real, ferramentas como analise de subgrupos e meta-regressao localizam as fontes.</p>
-    <p>O caso estreptocinase (Lau 1992, PMID 1614465) e a narrativa mais poderosa da epidemiologia clinica sobre esse tema. Entre 1959 e 1988, 33 trials testaram trombolise no IAM agudo. Individualmente, alguns eram positivos, outros neutros, e a comunidade nao tinha consenso. Se alguem tivesse conduzido uma MA cumulativa — adicionando cada novo trial ao pool conforme era publicado — teria visto que em 1973, com apenas 8 trials (n=2.432), o OR ja era 0,74 com IC excluindo o nulo. A "controversia" nao existia: era artefato de amostragem. Os 25 trials subsequentes nao mudaram a resposta; apenas confirmaram o que ja estava la. A implicacao etica e devastadora: cerca de 34.542 pacientes foram randomizados para placebo DEPOIS que a evidencia de eficacia estava estabelecida. Clarke et al. (2014, PMID 25068257) sistematizaram esse achado: em mais de 1.500 MAs cumulativas publicadas entre 1992 e 2012, o padrao se repete — a evidencia se estabiliza muito antes do ultimo trial ser conduzido.</p>
-    <p>O contraponto confirma a regra: ISIS-2 (1988, PMID 2899772), o mega-trial com 17.187 pacientes, "confirmou" com p&lt;0,00001 que estreptocinase reduzia mortalidade em 25%. Mas a MA de Lau ja sabia disso 15 anos antes. ISIS-2 nao descobriu nada novo — acrescentou confianca a uma resposta pre-existente. Para o residente, a mensagem e clara: grande trial e MA nao sao competidores. Sao complementares. E quando discordam (o que e raro — Kastrati e Ioannidis 2024 mostraram ROR 1,00 com IC 0,97-1,04 em 82 comparacoes), a causa geralmente e identificavel: viés de estudos pequenos, publication bias, ou heterogeneidade clinica genuina. A MA nao e infalivel, mas e o melhor instrumento que temos para resolver controversias baseadas em evidencia fragmentada.</p>
-    <table>
-      <tr><th>Dado</th><th>Valor</th><th>Fonte</th><th>PMID</th><th>Status</th></tr>
-      <tr><td>Estreptocinase: evidencia completa em 1973 (8 trials), 25 trials adicionais desnecessarios</td><td><strong>~34.542 pts randomizados para placebo apos evidencia estabelecida</strong></td><td>Lau J et al. NEJM 1992</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">1614465</a></td><td><span class="v">VERIFIED</span></td></tr>
-      <tr><td>ISIS-2 "confirmou" o que a MA ja sabia: estreptocinase -25% mortalidade</td><td><strong>n=17.187, OR reduction 25% (2p&lt;0,00001)</strong></td><td>ISIS-2 Collaborative Group. Lancet 1988;2:349-60</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2899772" target="_blank">2899772</a></td><td><span class="v">VERIFIED</span></td></tr>
-      <tr><td>Padrao sistematico: >1.500 MAs cumulativas mostram evidencia estabilizada antes do ultimo trial</td><td><strong>50 reports, 1992-2012</strong></td><td>Clarke M et al. PLoS One 2014;9(7):e102670</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25068257" target="_blank">25068257</a></td><td><span class="v">VERIFIED</span></td></tr>
-    </table>
-
-    <h3>V4 — Deteccao de Efeitos Pequenos</h3>
-    <p>A medicina contemporanea opera cada vez mais na faixa de efeitos pequenos. As intervencoes com reducoes relativas de 30-50% ja foram descobertas; o que resta sao efeitos de 5-15%, que exigem amostras na casa das dezenas de milhares para atingir poder estatistico adequado. Um RR de 0,88, por exemplo, requer N superior a 50.000 para ser detectado com poder de 80% a alfa 0,05 — nenhum trial individual viavel consegue esse numero. A meta-analise e, por design, o unico metodo que pode acumular N suficiente sem exigir que um unico grupo de pesquisa recrute uma populacao inteira. Esse argumento nao e teorico: e a razao pela qual politicas de saude publica (como aspirina em prevencao primaria) so puderam ser definidas apos MAs com dados de participantes individuais.</p>
-    <p>O mecanismo estatistico e direto: o erro padrao da estimativa pooled diminui com a raiz quadrada do N total. Quando o efeito verdadeiro e pequeno, a distancia entre ele e o nulo e estreita, e so um erro padrao muito pequeno consegue declara-la significativa. Cada trial adicionado ao pool contribui com precisao incremental. No caso da aspirina em prevencao primaria, a IPD-MA do ATT Collaboration (2009, PMID 19482214) reuniu 6 trials com 95.000 individuos e 660.000 pessoa-anos de seguimento para detectar RR 0,88 (IC 0,82-0,94, p=0,0001) — uma reducao absoluta de apenas 0,07% por ano. Nenhum dos 6 trials isolados tinha poder para detectar esse efeito; a MA tornou visivel o que era estatisticamente invisivel.</p>
-    <p>A implicacao metodologica e que a ausencia de evidencia em trials individuais nao e evidencia de ausencia — especialmente para efeitos modestos. A MA funciona como um telescopio estatistico: nao inventa sinais, mas amplifica resolucao para detectar sinais que estao abaixo do limiar de deteccao de instrumentos menores. O residente precisa internalizar essa logica porque vai encontra-la recorrentemente na leitura critica: "o trial foi negativo" nao encerra a discussao se o trial era underpowered. A pergunta seguinte e: "existe uma MA que tenha poolado N suficiente?"</p>
-    <table>
-      <tr><th>Dado</th><th>Valor</th><th>Fonte</th><th>PMID</th><th>Status</th></tr>
-      <tr><td>Aspirina prevencao primaria: efeito so detectavel com IPD-MA de 95.000 pts</td><td><strong>RR 0,88 (0,82-0,94), ARR 0,07%/ano</strong></td><td>ATT Collaboration. Lancet 2009;373:1849-60</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">19482214</a></td><td><span class="v">VERIFIED</span></td></tr>
-    </table>
-
-    <h3>V5 — Generalizacao / Validade Externa</h3>
-    <p>Um trial isolado reflete as condicoes do seu protocolo: um centro, um pais, uma faixa etaria, criterios de elegibilidade especificos. A validade externa — a capacidade de extrapolar resultados para pacientes diferentes dos estudados — e intrinsecamente limitada. A meta-analise amplia essa base ao reunir estudos conduzidos em contextos distintos. Quando o efeito se mantem consistente entre populacoes heterogeneas, a confianca na generalizacao aumenta. Quando varia, a heterogeneidade entre estudos aponta exatamente onde e por que os resultados diferem — informacao que nenhum trial isolado fornece.</p>
-    <p>A IPD-MA e o formato mais potente para generalizacao: com dados individuais, e possivel testar interacoes pre-especificadas (sexo, idade, comorbidades) com poder adequado. A ATC 2002 (PMID 11786451), por exemplo, confirmou que o beneficio antiagregante era consistente em subgrupos que nenhum trial isolado conseguiria analisar separadamente. A ATT 2009 (PMID 19482214) fez o mesmo para interacao sexo-tratamento. Esses resultados nao dependem de post-hoc fishing — sao analises pre-especificadas viabilizadas pelo N poolado.</p>
-    <p>Para o residente, a implicacao pratica e direta: ao ler um trial com resultado positivo, a pergunta "funciona no MEU paciente?" so pode ser respondida com confianca quando existe uma MA que incluiu populacoes similares — ou, melhor ainda, uma IPD-MA que testou a interacao relevante. A MA nao apenas agrega evidencia; ela mapeia os limites da sua aplicabilidade.</p>
-    <table>
-      <tr><th>Dado</th><th>Valor</th><th>Fonte</th><th>PMID</th><th>Status</th></tr>
-      <tr><td>287 estudos em multiplos paises/cenarios. Subgrupos analisados separadamente.</td><td><strong>Resultado consistente across subgrupos</strong></td><td>ATC 2002 (mesmo acima)</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">11786451</a></td><td><span class="v">VERIFIED</span></td></tr>
-      <tr><td>IPD permite analise de interacao sexo/idade × tratamento</td><td><strong>Proporcao similar homens/mulheres</strong></td><td>ATT 2009 (mesmo acima)</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">19482214</a></td><td><span class="v">VERIFIED</span></td></tr>
-    </table>
-  </section>
-
-<section id="numeros">
-  <h2>Numeros-Chave</h2>
-  <table>
-    <tr><th>Metrica</th><th>Valor</th><th>IC 95%</th><th>Tempo</th><th>Populacao</th><th>Fonte</th><th>Risco Basal</th></tr>
-    <tr><td>Reducao mortalidade beta-blockers pos-IAM (MA cumulativa)</td><td>~25%</td><td></td><td></td><td>~65 trials, pos-IAM</td><td>Yusuf 1985. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2858114" target="_blank">2858114</a> <span class="v">VERIFIED</span></td><td></td></tr>
-    <tr><td>Reducao eventos vasculares antiagregantes (pooled)</td><td>-25%</td><td></td><td>2 anos</td><td>287 estudos, 135.000 pts</td><td>ATC 2002. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">11786451</a> <span class="v">VERIFIED</span></td><td>ARR 36/1.000</td></tr>
-    <tr><td>Estreptocinase OR mortalidade (1973, 8 trials)</td><td>OR 0,74</td><td>0,59-0,92</td><td></td><td>IAM agudo</td><td>Lau 1992. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">1614465</a> <span class="v">VERIFIED</span></td><td></td></tr>
-    <tr><td>Pacientes randomizados para placebo apos evidencia estabelecida</td><td>~34.542</td><td></td><td>1973-1988</td><td>25 trials adicionais desnecessarios</td><td>Lau 1992. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">1614465</a> <span class="v">VERIFIED</span></td><td></td></tr>
-    <tr><td>Aspirina prevencao primaria (IPD-MA)</td><td>RR 0,88</td><td>0,82-0,94</td><td>por ano</td><td>95.000 pts, 6 trials</td><td>ATT 2009. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">19482214</a> <span class="v">VERIFIED</span></td><td>ARR 0,07%/ano</td></tr>
-    <tr><td>MAs cumulativas com evidencia estabilizada pre-ultimo trial</td><td>>1.500</td><td></td><td>1992-2012</td><td>50 reports analisados</td><td>Clarke 2014. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25068257" target="_blank">25068257</a> <span class="v">VERIFIED</span></td><td></td></tr>
-    <tr><td>Concordancia MA vs mega-trial (ROR)</td><td>1,00</td><td>0,97-1,04</td><td></td><td>82 mega-trials vs 58 MAs</td><td>Kastrati &amp; Ioannidis 2024. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39240561" target="_blank">39240561</a> <span class="v">WEB-VERIFIED</span></td><td></td></tr>
-    <tr><td><strong>NNT antiagregante pos-IAM (derivado)</strong></td><td><strong>NNT 28</strong></td><td></td><td>2 anos</td><td>Pos-IAM (prevenção secundária)</td><td>ATC 2002. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">11786451</a> <span class="v">VERIFIED</span></td><td>ARR 36/1.000 → NNT=1000/36≈28</td></tr>
+  <p>As cinco vantagens metodologicas mapeiam mecanismos estatisticos distintos:</p>
+  <table class="thresholds">
+    <tr><th>Vantagem</th><th>Mecanismo</th><th>O que resolve</th></tr>
+    <tr><td>V1</td><td>Pooling aumenta N &rarr; poder</td><td>Trials "negativos" por falta de amostra</td></tr>
+    <tr><td>V2</td><td>N maior &rarr; IC mais estreito</td><td>Incerteza sobre magnitude do efeito</td></tr>
+    <tr><td>V3</td><td>Sintese separa sinal de ruido</td><td>Discordancia aparente entre trials</td></tr>
+    <tr><td>V4</td><td>N &gt;50.000 viavel via pooling</td><td>Efeitos abaixo do limiar de deteccao individual</td></tr>
+    <tr><td>V5</td><td>Multiplos contextos no mesmo pool</td><td>Validade externa limitada de trial unico</td></tr>
   </table>
 </section>
 
+<!-- ===== POR QUE IMPORTA ===== -->
+<section id="narrative">
+  <h2>Por que este tema importa</h2>
+  <p>O s-hook revelou a crise de qualidade — retracoes, fabricacao, p-hacking. O residente saiu com ceticismo calibrado: "posso confiar nessas revisoes?" Este slide responde: sim, porque quando feitas corretamente, MAs tem vantagens metodologicas que nenhum trial isolado oferece. A transicao e de ceticismo para apreciacao — nao fe cega, mas reconhecimento de que o metodo tem poder real quando aplicado com rigor.</p>
+  <p>Cinco vantagens, cada uma resolvendo um problema estatistico especifico. Todas corroboradas por fontes Tier 1 (Cochrane Handbook, Borenstein 2021). A concordancia MA vs mega-trial e alta: ROR 1,00 (IC 0,97-1,04) em 82 comparacoes (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39240561" target="_blank">PMID 39240561</a>). Falhas existem mas sao minoria com causa identificavel.</p>
+</section>
 
+<!-- ===== TRILHA: 5 VANTAGENS ===== -->
+<section id="core-path">
+  <h2>Cinco Vantagens Metodologicas</h2>
+  <p class="meta">Cada vantagem e um mecanismo estatistico, nao um exemplo de trial. Dados de trials ilustram — nao definem — a vantagem.</p>
 
-  <details>
-    <summary>Contraponto: quando a MA falhou (material para F2/F3, NAO para F1)</summary>
-    <p class="meta">Casos verificados via NLM (S107). Usar em slides de limitacoes, nao no hook de importancia.</p>
-    <table>
-      <tr><th>Caso</th><th>MA (erro)</th><th>RCT (verdade)</th><th>Por que errou?</th><th>PMIDs</th></tr>
-      <tr><td><strong>Magnesio IAM</strong></td><td>Teo 1991: OR 0,45 (7 estudos, n=1.301)</td><td>ISIS-4: OR 1,06 (n=58.050)</td><td>Small study effects + implausibilidade biologica</td><td>MA: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1838289" target="_blank">1838289</a> <span class="v">VERIFIED</span> | RCT: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/7661937" target="_blank">7661937</a> <span class="v">VERIFIED</span></td></tr>
-      <tr><td><strong>Albumina UTI</strong></td><td>Cochrane 1998: RR 1,68</td><td>SAFE 2004: RR 0,99 (n=6.997)</td><td>n pequeno, heterogeneidade clinica</td><td>MA: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9677209" target="_blank">9677209</a> <span class="v">VERIFIED</span> | RCT: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/15163774" target="_blank">15163774</a> <span class="v">VERIFIED</span></td></tr>
-      <tr><td><strong>TRH cardioprotetor</strong></td><td>NHS 1991: RR 0,56 (coorte, n=48.470)</td><td>WHI 2002: HR 1,29 (n=16.608)</td><td>Healthy User Bias (observacional, nao MA)</td><td>Obs: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1870648" target="_blank">1870648</a> <span class="v">VERIFIED</span> | RCT: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/12117397" target="_blank">12117397</a> <span class="v">VERIFIED</span></td></tr>
-      <tr><td><strong>Aprotinina</strong></td><td>Cochrane 2007: RR 0,90</td><td>BART 2008: RR 1,53</td><td>Sem poder para eventos raros</td><td>RCT: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18480196" target="_blank">18480196</a> <span class="v">VERIFIED</span></td></tr>
-      <tr><td><strong>EGDT sepse</strong></td><td>Rivers 2001: -16% mortalidade</td><td>PRISM 2017: OR 1,05 (neutro, n=3.723)</td><td>Evolucao do cuidado usual</td><td>Trial: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11794169" target="_blank">11794169</a> <span class="v">VERIFIED</span> | MA: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28320242" target="_blank">28320242</a> <span class="v">VERIFIED</span></td></tr>
-      <tr><td><strong>Beta-caroteno</strong></td><td>Observacionais: protecao</td><td>ATBC: +18% cancer | CARET: +28% cancer</td><td>Confounding em estudos observacionais</td><td>ATBC: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/8127329" target="_blank">8127329</a> <span class="v">VERIFIED</span> | CARET: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/8602180" target="_blank">8602180</a> <span class="v">VERIFIED</span></td></tr>
-    </table>
-    <div class="concordance"><strong>Perspectiva:</strong> Kastrati &amp; Ioannidis 2024 (82 mega-trials): discordancia MA vs mega-trial e rara (2/82). Small study effects explicam a maioria dos casos. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39240561" target="_blank">39240561</a> <span class="v">WEB-VERIFIED</span></div>
-  </details>
+  <div class="core-step">
+    <div class="core-num">1</div>
+    <div>
+      <strong>Poder Estatistico</strong>
+      <div class="key-takeaway">A MA transforma dezenas de resultados inconclusivos em evidencia robusta ao reunir N que nenhum trial individual alcanca.</div>
+      <p>Um trial pode ser "negativo" simplesmente por falta de amostra. O pooling resolve isso: reune pacientes de multiplos estudos num denominador unico, atingindo poder para detectar efeitos reais. Um trial negativo nao e necessariamente verdadeiro-negativo — a pergunta seguinte e: existe uma MA com N suficiente?</p>
+      <p class="meta">Dados: ~65 trials beta-blockers pos-IAM negativos isolados &rarr; MA positiva, reducao mortalidade ~25% (Yusuf 1985, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2858114" target="_blank">PMID 2858114</a>). ATC 2002: 287 estudos, 135.000 pts, -25% eventos vasculares, ARR 36/1.000 em 2a (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">PMID 11786451</a>).</p>
+    </div>
+  </div>
 
-  <details>
-    <summary>GIGO e precisao vs acuracia (caveat para notes)</summary>
-    <div class="caveat"><strong>Garbage In, Garbage Out:</strong> MA de estudos enviesados = estimativa precisamente errada. IC estreito ≠ resultado correto. Precisao (1/SE²) depende de n. Acuracia depende de ausencia de vies sistematico.</div>
-    <table>
-      <tr><th>Dado</th><th>Valor</th><th>Fonte</th><th>PMID</th><th>Status</th></tr>
-      <tr><td>Formulacao canonica GIGO para MA</td><td>"pooling de estudos ruins gera resposta precisamente errada"</td><td>Murad MH et al. JAMA 2014 (Users' Guides)</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25005654" target="_blank">25005654</a></td><td><span class="v">WEB-VERIFIED</span></td></tr>
-      <tr><td>Antioxidantes: MA observacionais sugeriam protecao, RCTs refutaram</td><td>68 RCTs, n=232.606: vitaminas aumentam mortalidade</td><td>Bjelakovic G et al. JAMA 2007;297:842-57</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17327526" target="_blank">17327526</a> </td><td><span class="v">VERIFIED</span></td></tr>
-      <tr><td>Rosiglitazona: paradoxo de Simpson no pooling</td><td>42 trials, OR IAM 1,43 (1,03-1,98)</td><td>Nissen SE, Wolski K. NEJM 2007</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17517853" target="_blank">17517853</a></td><td><span class="v">VERIFIED</span></td></tr>
-    </table>
-  </details>
+  <div class="core-step">
+    <div class="core-num">2</div>
+    <div>
+      <strong>Precisao Aumentada (ICs mais estreitos)</strong>
+      <div class="key-takeaway">A MA estreita o IC sem mudar a estimativa pontual — transforma "provavelmente positivo" em certeza clinica.</div>
+      <p>Cada trial adicionado ao pool reduz a incerteza (IC &prop; 1/&radic;N). A MA nao "descobre" efeitos novos ao estreitar ICs — ela aumenta a confianca em efeitos que ja estavam la. O diamante do forest plot fica mais estreito, e decisoes clinicas dependem tanto do centro quanto da largura desse diamante.</p>
+      <p class="meta">Dados: Estreptocinase 1973 (8 trials): OR 0,74 (IC 0,59-0,92). 1988 (33 trials): mesmo OR, IC dramaticamente mais estreito. 25 trials adicionais nao mudaram a direcao — so confirmaram (Lau 1992, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">PMID 1614465</a>).</p>
+    </div>
+  </div>
 
-  <details>
-    <summary>Vies de publicacao e small study effects (metodologico)</summary>
-    <table>
-      <tr><th>Dado</th><th>Valor</th><th>Fonte</th><th>PMID</th><th>Status</th></tr>
-      <tr><td>Teste de Egger: assimetria funnel plot</td><td>38% MAs de journals, 13% Cochrane (1996)</td><td>Egger M et al. BMJ 1997;315:629-34</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9310563" target="_blank">9310563</a></td><td><span class="v">VERIFIED</span></td></tr>
-      <tr><td>Guia pratico: nao usar teste assimetria se &lt;10 estudos</td><td>Recomendacao formal</td><td>Sterne JA et al. BMJ 2011;343:d4002</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21784880" target="_blank">21784880</a></td><td><span class="v">VERIFIED</span></td></tr>
-    </table>
-  </details>
+  <div class="core-step">
+    <div class="core-num">3</div>
+    <div>
+      <strong>Resolucao de Controversias</strong>
+      <div class="key-takeaway">A MA quantifica variabilidade entre estudos e separa sinal de ruido — dissolve controversias aparentes.</div>
+      <p>Quando trials discordam, o clinico nao sabe se a discordancia reflete heterogeneidade real ou ruido estatistico. A MA resolve esse impasse: se a discordancia era aparente (acaso), o pooling a dissolve. Se era real, analise de subgrupos e meta-regressao localizam as fontes. Padrao sistematico: >1.500 MAs cumulativas mostram evidencia estabilizada antes do ultimo trial (Clarke 2014, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25068257" target="_blank">PMID 25068257</a>).</p>
+      <p class="meta">Dados: ~34.542 pacientes randomizados para placebo APOS evidencia estabelecida no caso estreptocinase (Lau 1992, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">PMID 1614465</a>). ISIS-2 (n=17.187) "confirmou" o que a MA ja sabia 15 anos antes (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2899772" target="_blank">PMID 2899772</a>).</p>
+    </div>
+  </div>
 
-  <details>
-    <summary>Trial Sequential Analysis — quando a evidencia acumulada e suficiente (TSA)</summary>
-    <p>TSA formaliza estatisticamente o que Lau 1992 demonstrou narrativamente: existe um ponto alem do qual novos trials nao alteram a conclusao da MA cumulativa. O metodo aplica limites de monitoramento (analogos aos de interim analysis em RCTs) ao grafico cumulativo da MA, definindo fronteiras de futilidade e de beneficio. Quando a curva cumulativa cruza o limite, a evidencia e "firme" — trials adicionais sao redundantes.</p>
-    <table>
-      <tr><th>Dado</th><th>Valor</th><th>Fonte</th><th>PMID</th><th>Status</th></tr>
-      <tr><td>TSA: limites de monitoramento para MA cumulativa</td><td><strong>Fronteiras de futilidade e beneficio para decidir quando parar</strong></td><td>Wetterslev J et al. J Clin Epidemiol 2008;61:64-75</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18083463" target="_blank">18083463</a></td><td><span class="v">WEB-VERIFIED</span></td></tr>
-    </table>
-    <p class="meta"><strong>Uso pedagogico:</strong> Mencionar brevemente em speaker notes como extensao formal de V2/V3. Nao incluir no slide F1 (conceito intermediario-avancado). Software livre: TSA Viewer (Copenhagen Trial Unit).</p>
-  </details>
+  <div class="core-step">
+    <div class="core-num">4</div>
+    <div>
+      <strong>Deteccao de Efeitos Pequenos</strong>
+      <div class="key-takeaway">A MA funciona como telescopio estatistico — detecta sinais abaixo do limiar de qualquer trial individual.</div>
+      <p>Efeitos de 5-15% (RR ~0,88) exigem N &gt;50.000 para poder de 80%. Nenhum trial individual viavel atinge isso. A MA acumula N suficiente sem exigir que um unico grupo recrute uma populacao inteira. Ausencia de evidencia em trials individuais nao e evidencia de ausencia — especialmente para efeitos modestos.</p>
+      <p class="meta">Dados: Aspirina prevencao primaria — IPD-MA de 95.000 pts, RR 0,88 (IC 0,82-0,94), ARR 0,07%/ano. Nenhum dos 6 trials isolados detectou o efeito (ATT 2009, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">PMID 19482214</a>).</p>
+    </div>
+  </div>
 
-  <details>
-    <summary>Referencias metodologicas canonicas (textbooks/handbooks)</summary>
-    <table>
-      <tr><th>Fonte</th><th>Uso</th><th>ID</th><th>Status</th></tr>
-      <tr><td>Glass GV. Primary, Secondary, and Meta-Analysis of Research. Educ Researcher 1976;5(10):3-8</td><td>Cunhou o termo "meta-analysis" (1976)</td><td>DOI: 10.3102/0013189X005010003</td><td>WEB-VERIFIED (JSTOR/SAGE)</td></tr>
-      <tr><td>Borenstein M et al. Introduction to Meta-Analysis. 2nd ed. Wiley, 2021</td><td>IC da MA ∝ 1/√N_total (Cap. 1)</td><td>ISBN: 978-1-119-55835-4</td><td>WEB-VERIFIED (Wiley)</td></tr>
-      <tr><td>Cochrane Handbook v6.5 (Higgins et al. 2024)</td><td>Referencia normativa</td><td>training.cochrane.org/handbook</td><td>WEB-VERIFIED</td></tr>
-      <tr><td>Cumpston M et al. Updated guidance for trusted SR. Cochrane DB Syst Rev 2019</td><td>Editorial Cochrane Handbook v6</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31643080" target="_blank">31643080</a></td><td><span class="v">VERIFIED</span></td></tr>
-    </table>
-  </details>
+  <div class="core-step">
+    <div class="core-num">5</div>
+    <div>
+      <strong>Generalizacao / Validade Externa</strong>
+      <div class="key-takeaway">A MA amplia a base de evidencia ao reunir contextos distintos — quando o efeito se mantem, a confianca na generalizacao aumenta.</div>
+      <p>Um trial reflete um centro, um pais, uma faixa etaria. A MA reune estudos de multiplos contextos. Quando o efeito e consistente entre populacoes heterogeneas, a generalizacao e robusta. Quando varia, a heterogeneidade aponta onde e por que — informacao que trial isolado nao fornece. IPD-MA permite testar interacoes (sexo, idade, comorbidades) com poder adequado.</p>
+      <p class="meta">Dados: ATC 2002 — efeito consistente across subgrupos (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">PMID 11786451</a>). ATT 2009 — interacao sexo-tratamento com IPD (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">PMID 19482214</a>).</p>
+    </div>
+  </div>
+</section>
 
-<details>
-  <summary>Referencia Rapida — Se Perguntarem</summary>
+<!-- ===== NUMEROS-CHAVE ===== -->
+<section id="key-numbers">
+  <h2>Numeros-Chave</h2>
   <table>
-    <tr><th>Termo</th><th>Definicao</th><th>Nota</th></tr>
-    <tr><td><strong>Meta-analise cumulativa</strong></td><td>MA atualizada a cada novo trial publicado. Mostra quando a evidencia se estabiliza e novos trials deixam de alterar a estimativa pooled.</td><td>Lau J et al. N Engl J Med 1992. PMID 1614465 <span class="v">VERIFIED</span>. Metodo fundacional.</td></tr>
-    <tr><td><strong>Poder estatistico</strong></td><td>Probabilidade de detectar um efeito real (1 - beta). Cresce com n. MA aumenta poder via pooling de amostras.</td><td>Conceito central de V1. Yusuf 1985 (65 trials negativos isolados, MA positiva).</td></tr>
-    <tr><td><strong>Precisao vs Acuracia</strong></td><td>Precisao = largura do IC (depende de n). Acuracia = proximidade do valor verdadeiro (depende de ausencia de vies). MA aumenta precisao, mas NAO corrige vies (GIGO).</td><td>Distincao critica. Slide F1 foca precisao; GIGO reservado para F2/F3.</td></tr>
-    <tr><td><strong>ARR (Absolute Risk Reduction)</strong></td><td>Diferenca absoluta entre taxas de evento no grupo tratamento vs controle. Permite calcular NNT = 1/ARR.</td><td>ATC 2002: ARR 36/1.000 em 2 anos. Mais intuitivo que OR ou RR para decisao clinica.</td></tr>
-    <tr><td><strong>NNT (Number Needed to Treat)</strong></td><td>Quantos pacientes tratar para prevenir 1 evento. Formato: NNT [valor] (IC) em [tempo] | [populacao].</td><td>Nao usado diretamente neste slide, mas e a consequencia logica do ARR apresentado.</td></tr>
-    <tr><td><strong>Small study effects</strong></td><td>Tendencia de estudos pequenos mostrarem efeitos maiores que estudos grandes. Mecanismos: publication bias, heterogeneidade clinica, chance.</td><td>Causa principal de MA que falham (Magnesio/ISIS-4: OR 0,45 em 7 estudos pequenos vs OR 1,06 em mega-trial). Reservado para F2/F3.</td></tr>
-    <tr><td><strong>IPD-MA (Individual Patient Data)</strong></td><td>MA com dados individuais de cada paciente (nao apenas dados agregados). Permite analise de subgrupos, interacao e ajuste por confounders.</td><td>ATT 2009: 95.000 pts com IPD. Padrao ouro da MA. Ancora Valgimigli (F3) tambem e IPD-MA. Referencia metodologica: Riley RD et al. BMJ 2010;340:c221. PMID <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/20139215" target="_blank">20139215</a> <span class="v">WEB-VERIFIED</span></td></tr>
-    <tr><td><strong>TSA (Trial Sequential Analysis)</strong></td><td>Metodo que aplica limites de monitoramento (interim analysis) a MA cumulativa. Define fronteiras de futilidade e beneficio — quando a curva cruza o limite, evidencia e "firme".</td><td>Wetterslev J et al. J Clin Epidemiol 2008;61:64-75. PMID <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18083463" target="_blank">18083463</a> <span class="v">WEB-VERIFIED</span>. Formaliza o argumento de Lau 1992. Software: TSA Viewer (Copenhagen Trial Unit).</td></tr>
-    <tr><td><strong>Publication bias</strong></td><td>Publicacao seletiva de resultados positivos/significativos. Funnel plot assimetrico sugere bias. Teste de Egger (so se >=10 estudos).</td><td>Egger 1997 (PMID 9310563) + Sterne 2011 (PMID 21784880). Material para F2/F3, nao F1.</td></tr>
-    <tr><td><strong>GIGO (Garbage In, Garbage Out)</strong></td><td>MA de estudos enviesados = estimativa precisamente errada. Pooling nao corrige vies — amplifica com IC estreito.</td><td>Magnesio/ISIS-4 e o caso classico. Murad 2014 (PMID 25005654 <span class="v">WEB-VERIFIED</span>) formula o conceito para MA.</td></tr>
+    <tr><th>Metrica</th><th>Valor</th><th>IC 95%</th><th>Fonte</th></tr>
+    <tr><td>Reducao mortalidade beta-blockers pos-IAM (pooled)</td><td>~25%</td><td></td><td>Yusuf 1985 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2858114" target="_blank">PMID 2858114</a></td></tr>
+    <tr><td>Reducao eventos vasculares antiagregantes</td><td>-25%, ARR 36/1.000 em 2a</td><td></td><td>ATC 2002 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">PMID 11786451</a></td></tr>
+    <tr><td>Estreptocinase OR mortalidade (1973, 8 trials)</td><td>OR 0,74</td><td>0,59-0,92</td><td>Lau 1992 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">PMID 1614465</a></td></tr>
+    <tr><td>Pacientes randomizados apos evidencia estabelecida</td><td>~34.542</td><td></td><td>Lau 1992 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">PMID 1614465</a></td></tr>
+    <tr><td>Aspirina prevencao primaria (IPD-MA)</td><td>RR 0,88</td><td>0,82-0,94</td><td>ATT 2009 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">PMID 19482214</a></td></tr>
+    <tr><td>MAs cumulativas com evidencia pre-ultimo trial</td><td>&gt;1.500</td><td></td><td>Clarke 2014 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25068257" target="_blank">PMID 25068257</a></td></tr>
+    <tr><td>Concordancia MA vs mega-trial (ROR)</td><td>1,00</td><td>0,97-1,04</td><td>Kastrati 2024 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39240561" target="_blank">PMID 39240561</a></td></tr>
+    <tr><td>NNT antiagregante pos-IAM (derivado)</td><td>NNT 28</td><td></td><td>ATC 2002 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">PMID 11786451</a></td></tr>
   </table>
-</details>
+</section>
+
+<!-- ===== GLOSSARIO ===== -->
+<section id="glossary">
+  <h2>Glossario Rapido</h2>
+  <table>
+    <tr><th>Termo</th><th>O que significa</th><th>Na pratica</th></tr>
+    <tr><td class="glossary-term">MA cumulativa</td><td>MA atualizada a cada novo trial. Mostra quando a evidencia se estabiliza.</td><td>Lau 1992 demonstrou: evidencia de estreptocinase estavel desde 1973. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">PMID 1614465</a></td></tr>
+    <tr><td class="glossary-term">Poder estatistico</td><td>Probabilidade de detectar efeito real (1 - beta). Cresce com N.</td><td>MA resolve via pooling: ~65 trials negativos &rarr; MA positiva (Yusuf 1985).</td></tr>
+    <tr><td class="glossary-term">Precisao vs Acuracia</td><td>Precisao = largura IC (depende de N). Acuracia = proximidade do verdadeiro (depende de ausencia de vies).</td><td>MA aumenta precisao, NAO corrige vies. GIGO: IC estreito ao redor do errado.</td></tr>
+    <tr><td class="glossary-term">ARR</td><td>Diferenca absoluta entre taxas de evento (tratamento vs controle).</td><td>ATC 2002: ARR 36/1.000 em 2a. Permite NNT = 1/ARR.</td></tr>
+    <tr><td class="glossary-term">NNT</td><td>Quantos tratar para prevenir 1 evento. NNT [valor] (IC) em [tempo].</td><td>Antiagregante pos-IAM: NNT 28 em 2 anos (derivado de ATC 2002).</td></tr>
+    <tr><td class="glossary-term">Small study effects</td><td>Estudos pequenos tendem a mostrar efeitos maiores. Mecanismos: pub bias, heterogeneidade, acaso.</td><td>Causa principal de MA que falham (Magnesio/ISIS-4). Material F2/F3.</td></tr>
+    <tr><td class="glossary-term">IPD-MA</td><td>MA com dados individuais de cada paciente. Permite subgrupos, interacao, ajuste.</td><td>ATT 2009: 95.000 pts com IPD. Padrao ouro. Riley 2010 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/20139215" target="_blank">PMID 20139215</a></td></tr>
+    <tr><td class="glossary-term">TSA</td><td>Limites de monitoramento para MA cumulativa. Define quando evidencia e "firme".</td><td>Wetterslev 2008 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18083463" target="_blank">PMID 18083463</a>. Formaliza Lau 1992.</td></tr>
+    <tr><td class="glossary-term">Publication bias</td><td>Publicacao seletiva de resultados positivos. Funnel plot assimetrico sugere bias.</td><td>Teste de Egger so com &ge;10 estudos. Sterne 2011 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21784880" target="_blank">PMID 21784880</a></td></tr>
+    <tr><td class="glossary-term">GIGO</td><td>MA de estudos enviesados = estimativa precisamente errada. Pooling nao corrige vies.</td><td>Magnesio/ISIS-4: OR 0,45 (7 pequenos) vs OR 1,06 (mega-trial). Murad 2014 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25005654" target="_blank">PMID 25005654</a></td></tr>
+  </table>
+</section>
+
+<!-- ===== DEEP DIVE ===== -->
+<section id="deep-dive">
+  <h2>Para quem quiser ir alem</h2>
+
+  <details>
+    <summary>Speaker Notes (timestamps)</summary>
+    <div class="gap-card">
+      <p><strong>[0:00-0:15]</strong> Transicao de s-hook. "Vimos uma crise de qualidade. Retracoes, fabricacao, p-hacking. Mas quando BEM feitas, meta-analises tem vantagens metodologicas unicas." PAUSA 2s. "Cinco vantagens. Cada uma resolve um problema que nenhum trial isolado consegue."</p>
+      <p><strong>[0:15-0:30]</strong> V1 — Poder. "Um trial isolado pode ser negativo simplesmente porque nao tinha pacientes suficientes. A meta-analise resolve isso." Beta-blockers: ~65 trials negativos, MA positiva (Yusuf 1985, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2858114" target="_blank">PMID 2858114</a>). ATC 2002: 287 estudos, 36 vidas/1.000 em 2a (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">PMID 11786451</a>).</p>
+      <p><strong>[0:30-0:40]</strong> V2 — Precisao. "A MA estreita o IC sem mudar a estimativa pontual." Estreptocinase: 1973 OR 0,74 (0,59-0,92) &rarr; 1988 mesmo OR, IC muito mais estreito. "A evidencia estava la desde 1973. Por 20 anos, randomizamos pacientes para placebo. Porque ninguem fez a sintese." (Lau 1992, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">PMID 1614465</a>). PAUSA 2s.</p>
+      <p><strong>[0:40-0:50]</strong> V3 — Resolucao. "Quando trials discordam, a MA pode resolver." Lau 1992: evidencia completa em 1973 com 8 trials. ~34.500 randomizados para placebo desnecessariamente. Clarke 2014: >1.500 MAs cumulativas confirmam padrao (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25068257" target="_blank">PMID 25068257</a>).</p>
+      <p><strong>[0:50-0:55]</strong> V4 — Efeitos pequenos. Aspirina prev primaria: RR 0,88 (0,82-0,94), ARR 0,07%/ano, 95.000 pts. "Efeito real, invisivel em qualquer trial isolado." (ATT 2009, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">PMID 19482214</a>).</p>
+      <p><strong>[0:55-1:00]</strong> V5 — Generalizacao. ATC 2002: multiplos paises/cenarios, subgrupos com poder (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">PMID 11786451</a>).</p>
+      <p class="meta">[DATA] Ancora: Lau 1992 PMID 1614465 | [DATA] Poder: Yusuf 1985 PMID 2858114 | [DATA] Poder: ATC 2002 PMID 11786451 | [DATA] Precisao: Lau 1992 IC 1973-1988 | [DATA] Resolucao: Clarke 2014 PMID 25068257 | [DATA] Confirmatorio: ISIS-2 1988 PMID 2899772 | [DATA] Efeitos pequenos: ATT 2009 PMID 19482214 | [DATA] NNT antiagregante: 28 (ATC 2002) | [DATA] TSA: Wetterslev 2008 PMID 18083463</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Contraponto: quando a MA falhou (material F2/F3)</summary>
+    <div class="gap-card">
+      <p class="meta">Casos verificados. Usar em slides de limitacoes, NAO no hook de importancia.</p>
+      <table>
+        <tr><th>Caso</th><th>MA (erro)</th><th>RCT (verdade)</th><th>Por que errou?</th><th>PMIDs</th></tr>
+        <tr><td>Magnesio IAM</td><td>Teo 1991: OR 0,45 (7 estudos, n=1.301)</td><td>ISIS-4: OR 1,06 (n=58.050)</td><td>Small study effects</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1838289" target="_blank">1838289</a> | <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/7661937" target="_blank">7661937</a></td></tr>
+        <tr><td>Albumina UTI</td><td>Cochrane 1998: RR 1,68</td><td>SAFE 2004: RR 0,99 (n=6.997)</td><td>n pequeno, heterogeneidade</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9677209" target="_blank">9677209</a> | <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/15163774" target="_blank">15163774</a></td></tr>
+        <tr><td>TRH cardioprotetor</td><td>NHS 1991: RR 0,56</td><td>WHI 2002: HR 1,29</td><td>Healthy User Bias (obs)</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1870648" target="_blank">1870648</a> | <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/12117397" target="_blank">12117397</a></td></tr>
+        <tr><td>Aprotinina</td><td>Cochrane 2007: RR 0,90</td><td>BART 2008: RR 1,53</td><td>Sem poder para eventos raros</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18480196" target="_blank">18480196</a></td></tr>
+        <tr><td>EGDT sepse</td><td>Rivers 2001: -16%</td><td>PRISM 2017: OR 1,05 (n=3.723)</td><td>Cuidado usual evoluiu</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11794169" target="_blank">11794169</a> | <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28320242" target="_blank">28320242</a></td></tr>
+        <tr><td>Beta-caroteno</td><td>Observacionais: protecao</td><td>ATBC: +18% | CARET: +28%</td><td>Confounding observacional</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/8127329" target="_blank">8127329</a> | <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/8602180" target="_blank">8602180</a></td></tr>
+      </table>
+      <p class="meta">Perspectiva: Kastrati &amp; Ioannidis 2024 — discordancia MA vs mega-trial e rara (2/82). <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39240561" target="_blank">PMID 39240561</a></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>GIGO e precisao vs acuracia</summary>
+    <div class="gap-card">
+      <p>MA de estudos enviesados = estimativa precisamente errada. IC estreito ≠ resultado correto. Formulacao canonica: Murad 2014 (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25005654" target="_blank">PMID 25005654</a>). Antioxidantes: 68 RCTs, n=232.606 — vitaminas aumentam mortalidade (Bjelakovic 2007, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17327526" target="_blank">PMID 17327526</a>). Rosiglitazona: 42 trials, OR IAM 1,43 (Nissen 2007, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17517853" target="_blank">PMID 17517853</a>).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Vies de publicacao e small study effects</summary>
+    <div class="gap-card">
+      <p>Teste de Egger: 38% MAs de journals, 13% Cochrane (1996). Nao usar teste assimetria se &lt;10 estudos (Sterne 2011, <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21784880" target="_blank">PMID 21784880</a>). Egger 1997 (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9310563" target="_blank">PMID 9310563</a>).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Trial Sequential Analysis (TSA)</summary>
+    <div class="gap-card">
+      <p>TSA aplica limites de monitoramento a MA cumulativa, definindo fronteiras de futilidade e beneficio. Quando a curva cruza o limite, evidencia e "firme" — trials adicionais sao redundantes. Formaliza o que Lau 1992 demonstrou narrativamente. Wetterslev 2008 (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18083463" target="_blank">PMID 18083463</a>). Software: TSA Viewer (Copenhagen Trial Unit).</p>
+    </div>
+  </details>
 
   <details>
     <summary>GRADE Assessment — Claims V1-V5</summary>
-    <p class="meta">GRADE aplicado aos claims metodologicos do slide. Nota: V1-V5 sao argumentos sobre vantagens do metodo MA, nao claims de eficacia clinica. GRADE se aplica primariamente a claims clinicos (F3/Valgimigli), mas aqui avalia a certeza dos exemplos usados.</p>
-    <table>
-      <tr><th>Claim</th><th>Risk of Bias</th><th>Inconsistency</th><th>Indirectness</th><th>Imprecision</th><th>Pub Bias</th><th>Certeza</th></tr>
-      <tr><td>V1: Beta-blockers pos-IAM ~25% reducao mortalidade (Yusuf 1985)</td><td>Serio (trials 1960-80, metodologia variavel)</td><td>Nao serio (consistente across trials)</td><td>Nao serio (pop direta: pos-IAM)</td><td>Nao serio (n grande, IC razoavel)</td><td>Nao avaliavel (pre-registro)</td><td><strong>MODERADA</strong> ⊕⊕⊕◯</td></tr>
-      <tr><td>V2: Estreptocinase OR 0,74 estavel 1973-1988 (Lau 1992)</td><td>Serio (idem V1)</td><td>Nao serio (OR estavel)</td><td>Nao serio (pop direta: IAM agudo)</td><td>Nao serio (n&gt;37.000)</td><td>Possivel (pre-registro)</td><td><strong>MODERADA</strong> ⊕⊕⊕◯</td></tr>
-      <tr><td>V3: ~34.500 pts randomizados apos evidencia estabelecida (Lau 1992 + Clarke 2014)</td><td>Nao serio (descritivo/quantitativo)</td><td>Nao serio (Clarke confirma padrao)</td><td>Nao serio</td><td>Nao serio</td><td>N/A</td><td><strong>ALTA</strong> ⊕⊕⊕⊕</td></tr>
-      <tr><td>V4: Aspirina prev primaria RR 0,88 (ATT 2009)</td><td>Nao serio (IPD-MA de RCTs)</td><td>Nao serio</td><td>Nao serio</td><td>Nao serio (n=95.000)</td><td>Nao serio (IPD)</td><td><strong>ALTA</strong> ⊕⊕⊕⊕</td></tr>
-      <tr><td>V5: Efeito consistente across subgrupos (ATC 2002)</td><td>Serio (estudos heterogeneos)</td><td>Nao serio (consistencia e o ponto)</td><td>Nao serio</td><td>Nao serio</td><td>Possivel</td><td><strong>MODERADA</strong> ⊕⊕⊕◯</td></tr>
-    </table>
-    <p class="meta"><strong>Interpretacao:</strong> V3 e V4 tem certeza ALTA — claims robustos. V1, V2 e V5 sao MODERADA — rebaixamento por risk of bias dos trials originais (decadas 1960-80) e ausencia de pre-registro. Para F1 (engajamento), MODERADA e suficiente — os exemplos sao pedagogicos, nao prescritivoss.</p>
+    <div class="gap-card">
+      <p class="meta">GRADE aplicado aos claims metodologicos do slide. V1-V5 sao argumentos sobre o metodo MA, nao claims de eficacia clinica.</p>
+      <table>
+        <tr><th>Claim</th><th>RoB</th><th>Inconsistency</th><th>Indirectness</th><th>Imprecision</th><th>Certeza</th></tr>
+        <tr><td>V1: Beta-blockers ~25% (Yusuf 1985)</td><td>Serio</td><td>Nao serio</td><td>Nao serio</td><td>Nao serio</td><td><strong>MODERADA</strong> &#8853;&#8853;&#8853;&#9675;</td></tr>
+        <tr><td>V2: Estreptocinase OR 0,74 (Lau 1992)</td><td>Serio</td><td>Nao serio</td><td>Nao serio</td><td>Nao serio</td><td><strong>MODERADA</strong> &#8853;&#8853;&#8853;&#9675;</td></tr>
+        <tr><td>V3: ~34.500 pts randomizados pos-evidencia</td><td>Nao serio</td><td>Nao serio</td><td>Nao serio</td><td>Nao serio</td><td><strong>ALTA</strong> &#8853;&#8853;&#8853;&#8853;</td></tr>
+        <tr><td>V4: Aspirina RR 0,88 (ATT 2009)</td><td>Nao serio</td><td>Nao serio</td><td>Nao serio</td><td>Nao serio</td><td><strong>ALTA</strong> &#8853;&#8853;&#8853;&#8853;</td></tr>
+        <tr><td>V5: Efeito consistente subgrupos (ATC 2002)</td><td>Serio</td><td>Nao serio</td><td>Nao serio</td><td>Nao serio</td><td><strong>MODERADA</strong> &#8853;&#8853;&#8853;&#9675;</td></tr>
+      </table>
+    </div>
   </details>
 
-  <section id="notas-professor">
-    <h2>Notas para o Professor</h2>
-    <ul>
-      <li><strong>Ancora narrativa:</strong> Lau 1992 (estreptocinase). "Em 1973 a evidencia estava la. Por 20 anos mais, ensaiamos pacientes para placebo. Por que? Porque ninguem fez a sintese." Gera discussao sobre etica + importancia de SR como pre-requisito.</li>
-      <li><strong>Beta-blockers (Yusuf 1985):</strong> Alternativa intuitiva. 65 trials "negativos" + MA = "positiva". Pergunta: "Se voce tivesse visto o trial do seu hospital (negativo), teria prescrito?"</li>
-      <li><strong>ATC 2002 como magnitude:</strong> 287 estudos, 135.000 pts. A MA leu por voce — 36 vidas salvas por 1.000 tratados em 2 anos.</li>
-      <li><strong>Egger 1997 para F2/F3:</strong> Nao usar em F1 (mata momentum). Reservar para limitacoes.</li>
-      <li><strong>NHS vs WHI:</strong> Nao e MA vs RCT — e observacional vs RCT. Usar para ilustrar Healthy User Bias, nao falha de MA.</li>
-      <li><strong>Magnesio/ISIS-4:</strong> Melhor caso de falha de MA. Small study effects + efeito biologicamente implausivel (55%). Usar em F2/F3.</li>
-      <li><strong>Kastrati &amp; Ioannidis 2024:</strong> Concordancia MA vs mega-trial e alta (ROR 1,00). Balanca a narrativa: falhas existem mas sao minoria. PMID WEB-VERIFIED S113.</li>
-    </ul>
-  </section>
+  <details>
+    <summary>Notas para o Professor</summary>
+    <div class="gap-card">
+      <p><strong>Ancora narrativa:</strong> Lau 1992. "Em 1973 a evidencia estava la. Por 20 anos, ensaiamos pacientes para placebo. Por que? Porque ninguem fez a sintese."</p>
+      <p><strong>Beta-blockers:</strong> Alternativa intuitiva. 65 trials negativos &rarr; MA positiva. "Se voce tivesse visto o trial do seu hospital (negativo), teria prescrito?"</p>
+      <p><strong>Egger 1997:</strong> Nao usar em F1 (mata momentum). Reservar para F2/F3.</p>
+      <p><strong>NHS vs WHI:</strong> Observacional vs RCT, NAO MA vs RCT. Ilustra Healthy User Bias.</p>
+      <p><strong>Magnesio/ISIS-4:</strong> Melhor caso de falha de MA. Small study effects. Material F2/F3.</p>
+      <p><strong>Kastrati 2024:</strong> Concordancia alta (ROR 1,00). Balanca narrativa: falhas sao minoria.</p>
+    </div>
+  </details>
 
+  <details>
+    <summary>Referencias metodologicas canonicas</summary>
+    <div class="gap-card">
+      <table>
+        <tr><th>Fonte</th><th>Uso</th><th>ID</th></tr>
+        <tr><td>Glass GV. Primary, Secondary, and Meta-Analysis. Educ Researcher 1976;5(10):3-8</td><td>Cunhou "meta-analysis" (1976)</td><td>DOI: 10.3102/0013189X005010003</td></tr>
+        <tr><td>Borenstein M et al. Introduction to Meta-Analysis. 2nd ed. Wiley, 2021</td><td>IC &prop; 1/&radic;N (Cap. 1)</td><td>ISBN: 978-1-119-55835-4</td></tr>
+        <tr><td>Cochrane Handbook v6.5 (Higgins et al. 2024)</td><td>Referencia normativa</td><td>training.cochrane.org/handbook</td></tr>
+        <tr><td>Cumpston M et al. Updated guidance for trusted SR. Cochrane DB Syst Rev 2019</td><td>Editorial Handbook v6</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31643080" target="_blank">PMID 31643080</a></td></tr>
+      </table>
+    </div>
+  </details>
+</section>
 
-  <section id="referencias">
-    <h2>Referencias (PMIDs Verificados)</h2>
-    <ol class="ref-list">
-      <li>Lau J, Antman EM et al. (1992). Cumulative meta-analysis of therapeutic trials for MI. <em>N Engl J Med</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">1614465</a> <span class="v">VERIFIED</span></li>
-      <li>Yusuf S et al. (1985). Beta blockade during and after MI: overview. <em>Prog Cardiovasc Dis</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2858114" target="_blank">2858114</a> <span class="v">VERIFIED</span></li>
-      <li>Antithrombotic Trialists' Collaboration (2002). Antiplatelet therapy meta-analysis. <em>BMJ</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">11786451</a> <span class="v">VERIFIED</span></li>
-      <li>ATT Collaboration (2009). Aspirin in primary and secondary prevention. <em>Lancet</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">19482214</a> <span class="v">VERIFIED</span></li>
-      <li>ISIS-2 Collaborative Group (1988). Streptokinase + aspirin in suspected AMI. <em>Lancet</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2899772" target="_blank">2899772</a> <span class="v">VERIFIED</span></li>
-      <li>ISIS-4 Collaborative Group (1995). Captopril, nitrate, magnesium in 58,050 AMI. <em>Lancet</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/7661937" target="_blank">7661937</a> <span class="v">VERIFIED</span></li>
-      <li>Teo KK et al. (1991). IV magnesium in suspected AMI: overview. <em>BMJ</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1838289" target="_blank">1838289</a> <span class="v">VERIFIED</span></li>
-      <li>Egger M et al. (1997). Bias in meta-analysis: graphical test. <em>BMJ</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9310563" target="_blank">9310563</a> <span class="v">VERIFIED</span></li>
-      <li>Sterne JA et al. (2011). Funnel plot asymmetry recommendations. <em>BMJ</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21784880" target="_blank">21784880</a> <span class="v">VERIFIED</span></li>
-      <li>Clarke M et al. (2014). Cumulative meta-analyses and knowledge. <em>PLoS One</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25068257" target="_blank">25068257</a> <span class="v">VERIFIED</span></li>
-      <li>Cumpston M et al. (2019). Updated guidance for trusted SR. <em>Cochrane DB Syst Rev</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31643080" target="_blank">31643080</a> <span class="v">VERIFIED</span></li>
-      <li>Wetterslev J et al. (2008). Trial sequential analysis in cumulative MA. <em>J Clin Epidemiol</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18083463" target="_blank">18083463</a> <span class="v">WEB-VERIFIED</span></li>
-      <li>Riley RD et al. (2010). IPD meta-analysis: rationale, conduct, reporting. <em>BMJ</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/20139215" target="_blank">20139215</a> <span class="v">WEB-VERIFIED</span></li>
-      <li>Cochrane 1998 — Albumin in critically ill. <em>BMJ</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9677209" target="_blank">9677209</a> <span class="v">VERIFIED</span></li>
-      <li>Finfer S et al. (2004). SAFE Study — albumin vs saline. <em>NEJM</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/15163774" target="_blank">15163774</a> <span class="v">VERIFIED</span></li>
-      <li>Stampfer MJ et al. (1991). NHS — estrogen and CV. <em>NEJM</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1870648" target="_blank">1870648</a> <span class="v">VERIFIED</span></li>
-      <li>Rossouw JE et al. (2002). WHI — estrogen+progestin risks. <em>JAMA</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/12117397" target="_blank">12117397</a> <span class="v">VERIFIED</span></li>
-      <li>Fergusson DA et al. (2008). BART — aprotinin. <em>NEJM</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18480196" target="_blank">18480196</a> <span class="v">VERIFIED</span></li>
-      <li>Rivers E et al. (2001). EGDT in severe sepsis. <em>NEJM</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11794169" target="_blank">11794169</a> <span class="v">VERIFIED</span></li>
-      <li>PRISM Investigators (2017). EGDT IPD-MA. <em>NEJM</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28320242" target="_blank">28320242</a> <span class="v">VERIFIED</span></li>
-      <li>ATBC Study Group (1994). Beta-carotene and lung cancer. <em>NEJM</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/8127329" target="_blank">8127329</a> <span class="v">VERIFIED</span></li>
-      <li>Omenn GS et al. (1996). CARET — beta-carotene + vitamin A. <em>NEJM</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/8602180" target="_blank">8602180</a> <span class="v">VERIFIED</span></li>
-      <li>Bjelakovic G et al. (2007). Antioxidant supplements mortality. <em>JAMA</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17327526" target="_blank">17327526</a> <span class="v">VERIFIED</span></li>
-      <li>Nissen SE, Wolski K (2007). Rosiglitazone and MI risk. <em>NEJM</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17517853" target="_blank">17517853</a> <span class="v">VERIFIED</span></li>
-    </ol>
-    <p class="meta"><strong>Anteriormente CANDIDATE, agora WEB-VERIFIED (S113):</strong> Kastrati &amp; Ioannidis 2024 (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39240561" target="_blank">39240561</a>), Murad 2014 (<a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25005654" target="_blank">25005654</a>)</p>
-  </section>
+<!-- ===== REFERENCIAS ===== -->
+<details>
+  <summary><strong>Referencias completas (26 PMIDs verificados)</strong></summary>
+  <table>
+    <tr><th>#</th><th>Referencia</th><th>PMID</th></tr>
+    <tr><td>1</td><td>Lau J et al. (1992). Cumulative MA of therapeutic trials for MI. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank">1614465</a></td></tr>
+    <tr><td>2</td><td>Yusuf S et al. (1985). Beta blockade during and after MI. <em>Prog Cardiovasc Dis</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2858114" target="_blank">2858114</a></td></tr>
+    <tr><td>3</td><td>Antithrombotic Trialists' Collaboration (2002). Antiplatelet therapy MA. <em>BMJ</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11786451" target="_blank">11786451</a></td></tr>
+    <tr><td>4</td><td>ATT Collaboration (2009). Aspirin in primary/secondary prevention. <em>Lancet</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19482214" target="_blank">19482214</a></td></tr>
+    <tr><td>5</td><td>ISIS-2 Collaborative Group (1988). Streptokinase + aspirin in AMI. <em>Lancet</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2899772" target="_blank">2899772</a></td></tr>
+    <tr><td>6</td><td>ISIS-4 Collaborative Group (1995). Captopril, nitrate, magnesium in AMI. <em>Lancet</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/7661937" target="_blank">7661937</a></td></tr>
+    <tr><td>7</td><td>Teo KK et al. (1991). IV magnesium in suspected AMI. <em>BMJ</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1838289" target="_blank">1838289</a></td></tr>
+    <tr><td>8</td><td>Egger M et al. (1997). Bias in meta-analysis: graphical test. <em>BMJ</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9310563" target="_blank">9310563</a></td></tr>
+    <tr><td>9</td><td>Sterne JA et al. (2011). Funnel plot asymmetry recommendations. <em>BMJ</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21784880" target="_blank">21784880</a></td></tr>
+    <tr><td>10</td><td>Clarke M et al. (2014). Cumulative MA and knowledge. <em>PLoS One</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25068257" target="_blank">25068257</a></td></tr>
+    <tr><td>11</td><td>Cumpston M et al. (2019). Updated guidance for trusted SR. <em>Cochrane DB Syst Rev</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31643080" target="_blank">31643080</a></td></tr>
+    <tr><td>12</td><td>Wetterslev J et al. (2008). TSA in cumulative MA. <em>J Clin Epidemiol</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18083463" target="_blank">18083463</a></td></tr>
+    <tr><td>13</td><td>Riley RD et al. (2010). IPD meta-analysis: rationale. <em>BMJ</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/20139215" target="_blank">20139215</a></td></tr>
+    <tr><td>14</td><td>Cochrane (1998). Albumin in critically ill. <em>BMJ</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9677209" target="_blank">9677209</a></td></tr>
+    <tr><td>15</td><td>Finfer S et al. (2004). SAFE Study — albumin vs saline. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/15163774" target="_blank">15163774</a></td></tr>
+    <tr><td>16</td><td>Stampfer MJ et al. (1991). NHS — estrogen and CV. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1870648" target="_blank">1870648</a></td></tr>
+    <tr><td>17</td><td>Rossouw JE et al. (2002). WHI — estrogen+progestin risks. <em>JAMA</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/12117397" target="_blank">12117397</a></td></tr>
+    <tr><td>18</td><td>Fergusson DA et al. (2008). BART — aprotinin. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18480196" target="_blank">18480196</a></td></tr>
+    <tr><td>19</td><td>Rivers E et al. (2001). EGDT in severe sepsis. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11794169" target="_blank">11794169</a></td></tr>
+    <tr><td>20</td><td>PRISM Investigators (2017). EGDT IPD-MA. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28320242" target="_blank">28320242</a></td></tr>
+    <tr><td>21</td><td>ATBC Study Group (1994). Beta-carotene and lung cancer. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/8127329" target="_blank">8127329</a></td></tr>
+    <tr><td>22</td><td>Omenn GS et al. (1996). CARET — beta-carotene + vitamin A. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/8602180" target="_blank">8602180</a></td></tr>
+    <tr><td>23</td><td>Bjelakovic G et al. (2007). Antioxidant supplements mortality. <em>JAMA</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17327526" target="_blank">17327526</a></td></tr>
+    <tr><td>24</td><td>Nissen SE, Wolski K (2007). Rosiglitazone and MI risk. <em>NEJM</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17517853" target="_blank">17517853</a></td></tr>
+    <tr><td>25</td><td>Kastrati A, Ioannidis JPA (2024). MA vs mega-trial concordance. <em>JAMA</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39240561" target="_blank">39240561</a></td></tr>
+    <tr><td>26</td><td>Murad MH et al. (2014). Users' Guides — How to read SR/MA. <em>JAMA</em></td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/25005654" target="_blank">25005654</a></td></tr>
+  </table>
+</details>
 
-  <footer>
-    Coautoria: Lucas + Claude (Opus 4.6) | 22 VERIFIED + 4 WEB-VERIFIED = 26 referencias | S130 GRADE+TSA+NNT+Riley
-  </footer>
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
+  <p>24 VERIFIED + 2 WEB-VERIFIED = 26 referencias | S131 refactor (benchmark: pre-reading-heterogeneidade.html)</p>
+  <p>Referencias verificadas via PubMed (abril 2026). Em caso de duvida, consulte o artigo original.</p>
+</footer>
+
 </body>
 </html>
