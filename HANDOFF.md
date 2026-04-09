@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 118 | 2026-04-09
-> Foco: Governance + Adversarial
+> Sessao 119 | 2026-04-09
+> Foco: Narrativas Evidence + Pre-Reading
 
 ## ESTADO ATUAL
 
@@ -9,18 +9,20 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 **Agentes: 9.** **Hooks: 35 registrations** (36 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F5 done, F6 partial (orquestracao.md done, safety + pipeline-dag pendentes).
-**Memory: 20/20. Dream ran S118. Next review: S121. Next /insights: S119.**
+**Memory: 20/20. Dream ran S118. Next review: S121. Next /insights: S120.**
+**Evidence narratives:** s-importancia (V1-V5 done), pre-reading-heterogeneidade (core+deep done).
 
 ## PROXIMOS PASSOS
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **Wiki F6: safety.md + pipeline-dag.md** | 2 topics restantes. Fontes coletadas | Facil |
-| 2 | **Wiki F7: indices finais** | Remover "Pendente" stale de _index.md | Facil |
-| 3 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
-| 4 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
-| 5 | **Aprofundar s-importancia** | h2 = Lucas. Evidence 24/24 VERIFIED. Pre-reading pronto | Normal |
-| 6 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
+| 1 | **s-importancia: criar slide HTML** | h2 = Lucas. Evidence + narrativa prontos. Falta criar slides/*.html + manifest entry | Normal |
+| 2 | **Integrar research diversidade** | Evidence-researcher rodou S119. Novos exemplos nao-cardio para V1/V2/V4/V5 | Facil |
+| 3 | **Wiki F6: safety.md + pipeline-dag.md** | 2 topics restantes. Fontes coletadas | Facil |
+| 4 | **Wiki F7: indices finais** | Remover "Pendente" stale de _index.md | Facil |
+| 5 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
+| 6 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
+| 7 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
 
 ## DECISOES ATIVAS
 
@@ -29,6 +31,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 - **Wiki S111:** SCHEMA.md, wiki-index v1, wiki-lint, Dream auto-trigger (Stop hook).
 - **Living HTML = source of truth = SINTESE CURADA.**
 - **Memory cap 20. Dream auto-trigger via stop-should-dream.sh (24h cycle).**
+- **Estilo narrativo S119:** foco em metodologia, exemplos pontuais, prosa sobre conceito nao estudo.
 
 ## CUIDADOS
 
@@ -41,4 +44,4 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S118 2026-04-09
+Coautoria: Lucas + Opus 4.6 | S119 2026-04-09

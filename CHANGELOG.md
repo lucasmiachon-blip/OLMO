@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 119 — 2026-04-09 (Narrativas Evidence + Pre-Reading)
+
+### Evidence HTML
+- s-importancia.html: added narrative reviews (~3 paragraphs) to all 5 vantagens (V1-V5)
+- pre-reading-heterogeneidade.html: added 3-paragraph introductory narrative review
+- pre-reading-heterogeneidade.html: added methodological narratives to 5 core path articles
+- pre-reading-heterogeneidade.html: added narratives to 4 deep dive topics (GRADE, sensitivity, outliers, pub bias)
+
+### Memory
+- project_living_html.md: added "Estilo narrativo" calibration (S119 feedback — methodology focus, brief examples)
+
+### Research
+- evidence-researcher launched for diversity gaps (V1/V2/V4/V5 non-cardio examples) — pending integration
+
 ## Sessao 118 — 2026-04-09 (Governance + Adversarial)
 
 ### Memory Governance (review due S118)

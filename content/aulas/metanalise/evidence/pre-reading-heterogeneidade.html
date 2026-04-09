@@ -16,6 +16,14 @@
   <p class="meta">Objetivos: (1) Entender FE vs RE, (2) Interpretar I2 corretamente, (3) Usar prediction intervals, (4) Avaliar heterogeneidade criticamente</p>
 </header>
 
+<!-- ===== NARRATIVE REVIEW ===== -->
+<section id="narrative">
+  <h2>Revisao Narrativa: Heterogeneidade como Conceito Central</h2>
+  <p>Heterogeneidade em meta-analise e a variabilidade nos resultados entre os estudos incluidos que excede o esperado pelo acaso. E, simultaneamente, o conceito mais importante e mais mal compreendido da metodologia de MA. Importante porque determina qual modelo estatistico usar (fixed-effect vs random-effects), como interpretar a estimativa sumaria, e se essa estimativa e generalizavel. Mal compreendido porque a metrica mais usada para quantifica-la — o I² — e sistematicamente mal interpretada: I² alto nao significa que o efeito varia muito entre estudos, e I² baixo nao significa que os estudos concordam.</p>
+  <p>A confusao tem consequencias praticas. Revisores rebaixam certeza GRADE por "alta heterogeneidade" baseando-se em I² &gt; 75%, sem examinar se a variacao e clinicamente relevante ou estatisticamente trivial. Clinicos descartam MAs inteiras porque o I² "era muito alto", ignorando que o prediction interval — a metrica que realmente informa se o efeito e consistente o suficiente para guiar decisao — sequer foi reportado. Apenas 2% das MAs de prevalencia (Migliavaca 2022) e 1,7% das MAs de sports medicine (Borg 2024) reportam prediction intervals. O clinico esta tomando decisao com informacao incompleta, e frequentemente sem saber disso.</p>
+  <p>Esta trilha de leitura foi desenhada como progressao conceitual em 5 etapas: primeiro o vocabulario basico (FE vs RE), depois a correcao do misconception central (I² nao mede variacao de efeito), entao o fluxo completo de manejo (detectar, investigar, modelar, reportar), seguido do instrumento que deveria substituir I² na pratica clinica (prediction interval), e finalmente um tutorial integrador que consolida tudo. Os artigos foram selecionados por acessibilidade (escritos para clinicos, nao estatisticos), currency (2020-2025), e cobertura complementar.</p>
+</section>
+
 <!-- ===== CORE PATH ===== -->
 <section id="core-path">
   <h2>Trilha Core (5 artigos)</h2>
@@ -27,6 +35,7 @@
       <strong>Dettori JR, Norvell DC, Chapman JR.</strong> Fixed-Effect vs Random-Effects Models for Meta-Analysis: 3 Points to Consider. <em>Global Spine J.</em> 2022;12(7):1624-1626.<br>
       <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35723546" target="_blank">PMID 35723546</a> | <a class="ref-pmid" href="https://doi.org/10.1177/21925682221110527" target="_blank">DOI</a> | OA | <span class="v">VERIFIED</span> | 425 citacoes
       <div class="key-takeaway"><strong>Por que ler:</strong> 3 paginas, 3 pontos. Diferencia FE vs RE para quem nunca viu. Comecar aqui.</div>
+      <p>A escolha entre fixed-effect e random-effects e a primeira decisao metodologica que o leitor de MA encontra, e dela dependem a interpretacao da estimativa sumaria e dos intervalos de confianca. Fixed-effect assume que todos os estudos estimam o mesmo efeito verdadeiro — as diferencas observadas sao apenas acaso amostral. Random-effects assume que cada estudo estima um efeito ligeiramente diferente, e a MA estima a media dessa distribuicao. A consequencia pratica e direta: sob random-effects, estudos menores ganham mais peso (porque a variancia entre-estudos "nivela" as contribuicoes), e o IC e mais largo — refletindo incerteza adicional sobre a distribuicao dos efeitos. Dettori et al. condensam essa distincao em 3 pontos operacionais, sem formulas, acessiveis para quem nunca viu notacao estatistica. E o ponto de entrada obrigatorio porque todo o restante da trilha pressupoe essa distincao.</p>
     </div>
   </div>
 
@@ -36,6 +45,7 @@
       <strong>Borenstein M.</strong> In a meta-analysis, the I-squared statistic does not tell us how much the effect size varies. <em>J Clin Epidemiol.</em> 2022;152:281-284.<br>
       <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36223816" target="_blank">PMID 36223816</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2022.10.003" target="_blank">DOI</a> | <span class="v">VERIFIED</span> | 94 citacoes
       <div class="key-takeaway"><strong>Insight central:</strong> I2 NAO mede o quanto o efeito varia entre estudos. Misconception mais comum em meta-analise.</div>
+      <p>Este e o artigo que corrige a misconception mais disseminada na interpretacao de MAs. I² e definido como a proporcao da variabilidade total que e devida a heterogeneidade real (nao ao acaso) — mas isso NAO equivale a dizer quanto o efeito varia entre estudos. I² pode ser 95% quando todos os efeitos sao praticamente identicos (basta que os estudos sejam grandes, reduzindo a variancia intra-estudo ate que qualquer diferenca minuscula entre eles domine a proporcao). E pode ser 0% quando efeitos variam bastante (basta que os estudos sejam pequenos, com variancia intra-estudo tao grande que engole a entre-estudo). Borenstein demonstra isso com exemplos numericos em 4 paginas. Sem entender essa distincao, o residente vai interpretar errado TODA MA que encontrar na pratica — razao pela qual este artigo vem antes de qualquer discussao sobre limiares de I² ou o que fazer quando I² e "alto".</p>
     </div>
   </div>
 
@@ -45,6 +55,7 @@
       <strong>Cordero CP, Dans AL.</strong> Key concepts in clinical epidemiology: detecting and dealing with heterogeneity in meta-analyses. <em>J Clin Epidemiol.</em> 2021;130:149-151.<br>
       <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33483004" target="_blank">PMID 33483004</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2020.09.045" target="_blank">DOI</a> | <span class="v">VERIFIED</span> | 45 citacoes
       <div class="key-takeaway"><strong>Fluxo completo:</strong> Detectar (forest plot + I2/Q) &rarr; investigar (subgrupos, meta-regressao) &rarr; modelar (FE vs RE) &rarr; reportar (PI).</div>
+      <p>Depois de saber o que I² nao diz (Borenstein, passo 2), o residente precisa de um fluxo operacional: o que fazer quando encontra heterogeneidade? Cordero e Dans oferecem exatamente isso numa pagina da serie "Key Concepts in Clinical Epidemiology" do JCE. O fluxo tem 4 etapas: (1) detectar via inspecao visual do forest plot mais testes formais (Q de Cochran e I²), (2) investigar as fontes via analise de subgrupos pre-especificados e meta-regressao — ou, no padrao ouro, dados individuais de pacientes (IPD), (3) modelar a decisao entre fixed-effect e random-effects com base no que a investigacao revelou, e (4) reportar usando prediction intervals, nao apenas I². Este artigo funciona como mapa: os artigos anteriores ensinaram vocabulario e corrigiram misconceptions; este mostra como as pecas se encaixam num workflow de leitura critica.</p>
     </div>
   </div>
 
@@ -54,6 +65,7 @@
       <strong>Borenstein M.</strong> How to understand and report heterogeneity in a meta-analysis: The difference between I-squared and prediction intervals. <em>Integr Med Res.</em> 2023;12(4):101014.<br>
       <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38938910" target="_blank">PMID 38938910</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.imr.2023.101014" target="_blank">DOI</a> | OA | <span class="v">VERIFIED</span> | 87 citacoes
       <div class="key-takeaway"><strong>A virada:</strong> PI mostra o range real dos efeitos futuros. "Tratamento trivial em 10%, grande em 50%, muito grande em 40%" &mdash; isso e o que clinicos PENSAM que I2 fornece, mas nao fornece.</div>
+      <p>Se I² nao diz quanto o efeito varia (passo 2), o que diz? Borenstein apresenta a resposta: o prediction interval (PI). Enquanto o intervalo de confianca da MA estima a media dos efeitos com incerteza, o PI estima o range dentro do qual o efeito verdadeiro de um estudo FUTURO provavelmente cairia. A diferenca e operacionalmente decisiva. Um IC de 0,60-0,80 com PI de 0,30-1,10 significa: "a media dos efeitos e robustamente positiva, mas se alguem repetir o estudo em outro contexto, pode encontrar desde beneficio grande ate dano." E exatamente essa informacao que o clinico precisa para decidir se aplica o resultado ao seu paciente — e e exatamente a informacao que I² nao fornece e que menos de 2% das MAs reportam. Este artigo e a virada conceitual da trilha: o residente deixa de depender de I² como metrica unica e passa a exigir PI em toda MA que ler.</p>
     </div>
   </div>
 
@@ -63,6 +75,7 @@
       <strong>Choi GJ, Kang H.</strong> Heterogeneity in meta-analyses: an unavoidable challenge worth exploring. <em>Korean J Anesthesiol.</em> 2025;78(4):301-314.<br>
       <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39956636" target="_blank">PMID 39956636</a> | <a class="ref-pmid" href="https://doi.org/10.4097/kja.25001" target="_blank">DOI</a> | OA | <span class="v">VERIFIED</span> | 12 citacoes
       <div class="key-takeaway"><strong>Consolidacao:</strong> Tutorial mais recente (2025) e abrangente. Cobre TODOS os topicos: Q, I2, tau2, PI, FE, RE, subgrupos, meta-regressao. 14 paginas bem estruturadas. Ideal como referencia unica.</div>
+      <p>Choi e Kang cumprem a funcao de consolidacao: reune em 14 paginas tudo o que os 4 artigos anteriores cobriram separadamente. O valor esta na integracao — o leitor ve como Q (teste de homogeneidade), I² (proporcao), tau² (variancia absoluta) e PI (predicao futura) se relacionam num framework unico, e como as decisoes de modelagem (FE vs RE) e investigacao (subgrupos, meta-regressao) decorrem logicamente dessa avaliacao. Publicado em 2025, e o tutorial mais atualizado disponivel e inclui recomendacoes pos-Borenstein sobre quando e como reportar cada metrica. Funciona como referencia unica para consulta rapida apos a leitura dos 4 artigos conceituais, e como ponto de entrada alternativo para quem prefere um texto integrador a uma sequencia fragmentada.</p>
     </div>
   </div>
 </section>
@@ -124,7 +137,7 @@
   <details>
     <summary>A) GRADE e Inconsistencia</summary>
     <div class="gap-card">
-      <p>Como heterogeneidade estatistica afeta a certeza da evidencia e a forca da recomendacao no GRADE. O dominio "inconsistency" e um dos 5 para rebaixar certeza.</p>
+      <p>Heterogeneidade nao e apenas uma questao estatistica — e um dos 5 dominios GRADE para rebaixar certeza da evidencia. O dominio "inconsistency" penaliza quando os resultados dos estudos divergem sem explicacao clinica ou metodologica. Na pratica, o avaliador GRADE examina: os point estimates apontam na mesma direcao? Os ICs se sobrepoem? O I² e alto sem explicacao? Ha subgrupos credíveis que expliquem a variacao? A atualizacao de 2023 (Guyatt, GRADE guidance 36) introduziu uma inovacao importante: usar prediction intervals em vez de I² como criterio primario para avaliar inconsistency e imprecision simultaneamente. Murad et al. (2024) quantificaram o impacto: em 27% dos casos, o PI-based approach resulta em ratings de certeza MAIS CONSERVADORES do que a abordagem convencional por I². Para o residente, a implicacao e que saber interpretar heterogeneidade nao e opcional — e pre-requisito para avaliar certeza GRADE corretamente.</p>
       <p><strong>Guyatt GH et al.</strong> GRADE guidelines 7: Rating the quality of evidence &mdash; inconsistency. <em>J Clin Epidemiol.</em> 2011;64(12):1294-302.<br>
       <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21803546" target="_blank">PMID 21803546</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2011.03.017" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
       Classico GRADE. Criterios: point estimates, overlap de ICs, I2, subgroup credibility.</p>
@@ -140,7 +153,7 @@
   <details>
     <summary>B) Sensitivity Analysis / Leave-one-out</summary>
     <div class="gap-card">
-      <p>Analise de robustez: um estudo influente muda a conclusao? Leave-one-out exclui 1 estudo por vez e recalcula.</p>
+      <p>A analise de sensibilidade e a ferramenta que responde: "a conclusao e robusta ou depende de um unico estudo?" O metodo leave-one-out remove sistematicamente cada estudo do pool e recalcula a estimativa e o I². Se a exclusao de um estudo muda a direcao ou significancia do resultado, esse estudo e "influente" e merece escrutinio adicional (risco de vies, outlier clinico, falha metodologica). Patsopoulos et al. (2008) demonstraram empiricamente que, em 90% das MAs com I² &gt; 50%, excluir apenas 1-2 estudos e suficiente para reduzir I² abaixo de 50%. Isso significa que I² alto frequentemente nao reflete heterogeneidade difusa, mas a influencia desproporcional de poucos estudos — informacao critica para decidir se os resultados sao confiaveis.</p>
       <p><strong>Patsopoulos NA, Evangelou E, Ioannidis JPA.</strong> Sensitivity of between-study heterogeneity in meta-analysis: proposed metrics and empirical evaluation. <em>Int J Epidemiol.</em> 2008;37(5):1148-57.<br>
       <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18424475" target="_blank">PMID 18424475</a> | <a class="ref-pmid" href="https://doi.org/10.1093/ije/dyn065" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
       Algoritmos sequencial e combinatorial. Em 90% das MAs com I2 &gt; 50%, excluir 1-2 estudos reduz I2 &lt; 50%.</p>
@@ -150,7 +163,7 @@
   <details>
     <summary>C) Outlier Detection (Galbraith/GOSH)</summary>
     <div class="gap-card">
-      <p>Metodos graficos alem do forest plot para identificar outliers e clusters de estudos causando heterogeneidade.</p>
+      <p>O forest plot mostra heterogeneidade, mas nao a localiza com precisao. Metodos graficos complementares como o Baujat plot (eixos: contribuicao para heterogeneidade vs influencia no resultado pooled), o Galbraith plot (desvio padronizado de cada estudo em relacao a regressao pooled) e o GOSH plot (resultados de todas as combinacoes possiveis de subconjuntos de estudos) permitem identificar quais estudos especificos sao responsaveis pela heterogeneidade e se existem clusters — grupos de estudos que se comportam de forma distinta. Essa distincao importa: heterogeneidade causada por 1 outlier sugere analise de sensibilidade e exclusao; heterogeneidade por clusters sugere subgrupos com moderadores identificaveis.</p>
       <p><strong>Harrer M et al.</strong> <em>Doing Meta-Analysis with R: A Hands-On Guide.</em> 2021. Chapter 7: "Detecting Outliers &amp; Influential Cases."<br>
       Livro OA online. Tutorial pratico com Baujat plots, GOSH plots, leave-one-out em R. Funciona como standalone.</p>
     </div>
@@ -159,7 +172,7 @@
   <details>
     <summary>E) Publication Bias x Heterogeneidade</summary>
     <div class="gap-card">
-      <p>Funnel plot assimetrico pode ser heterogeneidade, nao bias. Confounding entre os dois e comum e sub-reconhecido.</p>
+      <p>Funnel plot assimetrico e frequentemente interpretado como evidencia de publication bias, mas esse sinal e ambiguo: small study effects (estudos pequenos mostrando efeitos maiores que estudos grandes) podem refletir tanto publicacao seletiva quanto heterogeneidade clinica genuina (estudos menores usam populacoes ou intervencoes diferentes). Augusteijn et al. (2019) demonstraram que publication bias pode tanto inflar quanto deflacionar as estimativas de heterogeneidade, e que o Q-test e I² tornam-se INVALIDOS na presenca de publication bias — um achado com implicacoes praticas profundas, dado que ambas as condicoes coexistem frequentemente. Para o leitor critico, a mensagem e: nunca interpretar funnel plot assimetrico como "prova" de bias sem considerar heterogeneidade como explicacao alternativa, e nunca confiar em I² como metrica de heterogeneidade sem avaliar se publication bias pode estar distorcendo a estimativa.</p>
       <p><strong>Augusteijn HEM, van Aert RCM, van Assen MALM.</strong> The effect of publication bias on the Q test and assessment of heterogeneity. <em>Psychol Methods.</em> 2019;24(1):116-134.<br>
       <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/30489099" target="_blank">PMID 30489099</a> | <a class="ref-pmid" href="https://doi.org/10.1037/met0000197" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
       Publication bias pode tanto diminuir quanto aumentar heterogeneidade. Q-test e I2 sao INVALIDOS quando publication bias existe. Introduz Q-sense (web app).</p>
