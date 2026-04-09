@@ -34,6 +34,8 @@ if echo "$FILE_REL" | grep -qE 'content/aulas/.+/slides/[^_].+\.html'; then
     EV_MOD=$(node -e "try{console.log(Math.floor(require('fs').statSync(process.argv[1]).mtimeMs/1000))}catch(e){console.log(0)}" "$EVIDENCE" 2>/dev/null || echo 0)
     DIFF=$(( (SLIDE_MOD - EV_MOD) / 86400 ))
     if [ "$DIFF" -gt 7 ]; then
+      # Breadcrumb for hook-calibration.sh
+      date '+%s' > "/tmp/olmo-hook-fired-coupling-proactive"
       echo "[COUPLING] Slide editado mas evidence/${SLIDE_ID}.html tem ${DIFF}d sem update. Verificar sincronia."
     fi
   fi
@@ -48,6 +50,8 @@ if echo "$FILE_REL" | grep -qE 'content/aulas/.+/evidence/s-.+\.html'; then
   SLIDE_EXISTS=$(find "$PROJECT_ROOT/content/aulas/$AULA/slides/" -name "*-${SLUG}.html" 2>/dev/null | head -1)
 
   if [ -z "$SLIDE_EXISTS" ]; then
+    # Breadcrumb for hook-calibration.sh
+    date '+%s' > "/tmp/olmo-hook-fired-coupling-proactive"
     echo "[COUPLING] Evidence ${EV_NAME}.html editada mas slide correspondente nao existe ainda. Workflow evidence-first OK — slide pendente."
   fi
 fi

@@ -35,6 +35,9 @@ if [ -f "$COOLDOWN_FILE" ]; then
 fi
 echo "$NOW_TS" > "$COOLDOWN_FILE"
 
+# Breadcrumb for hook-calibration.sh
+date '+%s' > "/tmp/olmo-hook-fired-nudge-commit"
+
 echo "[NUDGE] ${ELAPSED}min sem commit. ${CHANGED_COUNT} modified + ${UNTRACKED} untracked. Considere commitar trabalho parcial."
 
 exit 0

@@ -3,10 +3,23 @@
 ## Sessao 123 — 2026-04-09 (Brainstorming Skill)
 
 ### Skills
-- brainstorming/SKILL.md: NEW skill (166 lines). Socratic pre-action dialogue, 4 phases (SEED→DIVERGE→CONVERGE→EXIT), 5 domains (Teaching/Dev/Research/Concurso/General), hard gate anti-code, Scope Card with NOT field (proactive KBP-01 prevention)
+- brainstorming/SKILL.md: NEW skill (166 lines). Socratic pre-action dialogue, 4 phases (SEED→DIVERGE→CONVERGE→EXIT), 5 domains, hard gate anti-code, Scope Card with NOT field (proactive KBP-01 prevention)
+- insights/SKILL.md: added Step 1b — reads success-log.jsonl + hook-stats.jsonl as positive signal source
+
+### Hooks
+- success-capture.sh: NEW hook (PostToolUse/Bash). Logs clean commits to `.claude/success-log.jsonl` (timestamp, session, hash, files, message)
+- hook-calibration.sh: NEW hook (PostToolUse/Bash). Reads breadcrumbs from /tmp/olmo-hook-fired-*, logs to `.claude/hook-stats.jsonl`, cleans up
+- nudge-commit.sh: added breadcrumb for hook-calibration
+- nudge-checkpoint.sh: added breadcrumb for hook-calibration
+- coupling-proactive.sh: added breadcrumb for hook-calibration (both cases)
+- model-fallback-advisory.sh: added breadcrumb for hook-calibration
+- settings.local.json: 2 new PostToolUse/Bash registrations (37 registrations, 39 scripts)
+
+### Config
+- .gitignore: added .claude/success-log.jsonl and .claude/hook-stats.jsonl
 
 ### Meta
-- HANDOFF atualizado S123: brainstorming DONE, sequencia ajustada
+- HANDOFF atualizado S123: #3/#4/#5 DONE, hooks 35→37, sequencia ajustada
 
 ## Sessao 122 — 2026-04-09 (Worker Integration + Hooks + Security)
 

@@ -27,6 +27,9 @@ LAST_NUDGE=$(cat "$NUDGED_FILE" 2>/dev/null || echo 0)
 [ "$LAST_NUDGE" -eq "$COUNT" ] && exit 0
 echo "$COUNT" > "$NUDGED_FILE"
 
+# Breadcrumb for hook-calibration.sh
+date '+%s' > "/tmp/olmo-hook-fired-nudge-checkpoint"
+
 echo "[NUDGE] ${COUNT} subagents nesta sessao. Considere: commit + update HANDOFF + /clear se task esta mudando."
 
 exit 0

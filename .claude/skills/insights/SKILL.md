@@ -45,6 +45,19 @@ find ~/.claude/projects/C--Dev-Projetos-OLMO/ -name "*.jsonl" -mtime -7 2>/dev/n
 
 If a `.last-insights` timestamp exists (see Phase 4 save step), only scan sessions newer than that timestamp.
 
+#### Step 1b: Read success and calibration logs
+
+If these files exist, read them as additional signal:
+
+```bash
+cat .claude/success-log.jsonl 2>/dev/null   # clean commits (timestamp, session, hash, files, message)
+cat .claude/hook-stats.jsonl 2>/dev/null     # proactive hook firings (timestamp, hook, session)
+```
+
+**Success log:** patterns in clean commits — which sessions flow well? Which file types commit cleanly? Use to recommend "preserve this workflow" instead of only "add more guards".
+
+**Hook stats:** which proactive hooks fire often? If a hook fires frequently but the user never acts on it, recommend increasing its threshold or disabling it. Calibration data.
+
 #### Step 2: Targeted grep for error signals
 
 Scan JSONL files for these categories. Use grep, not full reads.

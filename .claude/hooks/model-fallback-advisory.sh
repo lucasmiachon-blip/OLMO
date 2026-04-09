@@ -106,6 +106,9 @@ record_failure "$MODEL" "$ERROR_TYPE"
 RECENT_FAILURES=$(count_recent_failures "$MODEL")
 FALLBACK=$(next_model "$MODEL")
 
+# Breadcrumb for hook-calibration.sh
+date '+%s' > "/tmp/olmo-hook-fired-model-fallback"
+
 if [ "$RECENT_FAILURES" -ge "$FAILURE_THRESHOLD" ]; then
     # Circuit breaker OPEN — strong advisory
     printf '\n[model-fallback] DEGRADADO: %s falhou %sx em %ss.\n' "$MODEL" "$RECENT_FAILURES" "$WINDOW_SECONDS"

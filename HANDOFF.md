@@ -6,7 +6,7 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
-**Agentes: 10.** **Hooks: 35 registrations** (37 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7.**
+**Agentes: 10.** **Hooks: 37 registrations** (39 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
 **Skills: 20.** **Memory: 20/20. Dream ran S118. Next review: S124. Next /insights: S123.**
@@ -20,15 +20,15 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | 1 | **s-importancia: criar slide HTML** | h2 = Lucas decide. Evidence limpo. Falta criar slides/02-importancia.html + manifest + CSS | Normal |
 | 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Para slide | Normal |
 | 3 | ~~brainstorming skill~~ | DONE S123. `.claude/skills/brainstorming/SKILL.md` | — |
-| 4 | **success pattern capture hook** | Hook post-commit → success-log.jsonl. Feeds /insights + /dream (Ruflo) | Normal |
-| 5 | **hook auto-calibration counters** | Contadores disparos/aceites/ignores por hook proativo → /insights (Ruflo) | Normal |
+| 4 | ~~success pattern capture hook~~ | DONE S123. `hooks/success-capture.sh` → `.claude/success-log.jsonl` | — |
+| 5 | ~~hook auto-calibration counters~~ | DONE S123. `hooks/hook-calibration.sh` + breadcrumbs em 4 hooks proativos | — |
 | 6 | **Auditar 12 MCPs para tool poisoning** | Zero-width chars, unicode, base64 em tool descriptions. P1 SECURITY | Normal |
 | 7 | **medicina-clinica stubs** | 4 concepts stub/low aguardam Cowork harvest | Facil |
 | 8 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
 | 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
 | 10 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
 
-Sequencia sugerida: #4+#5 (infra learning, 1 sessao) → #1+#2 (s-importancia).
+Sequencia sugerida: #1+#2 (s-importancia) → #6 (MCP audit).
 
 ## DECISOES ATIVAS
 

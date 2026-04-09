@@ -91,6 +91,8 @@ htmlcov/
 !.claude/apl/.gitkeep
 
 # Claude Code
+.claude/success-log.jsonl
+.claude/hook-stats.jsonl
 .claude/worktrees/
 .claude/settings.local.json
 .claude/.session-name
