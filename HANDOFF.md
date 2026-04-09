@@ -1,42 +1,36 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 114 | 2026-04-08
-> Foco: Adversarial audit + pre-reading heterogeneidade + multi-window
+> Sessao 115 | 2026-04-08
+> Foco: INFRA — P0 triage + ecosystem study + MANDATORY TRIGGERS
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 arquivado).
-**Agentes: 9** (sentinel fixado). **Hooks: 34 registrations** (35 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7 (next: KBP-08).**
-**INFRA COMPLETA.** Batches 6+7 CLOSED.
+**Agentes: 9.** **Hooks: 34 registrations** (35 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7 (next: KBP-08).**
+**INFRA COMPLETA.** P0 adversarial TRIAGED.
 **Memory: 20/20 (AT CAP). Dream ran S113 (0 gaps). Next review: S116.**
 
-**S114 entregas (5 batches):**
-- Sentinel testado (falhou 4x), diagnosticado, fixado: Agent tool removido, text-return canonical, maxTurns 25
-- Adversarial audit 3-leg: sentinel-report (14 findings), adversarial-audit (3 passes), codex-report (9 findings)
-- KBP-06 3a recorrencia documentada + fix estrutural (Codex = perna separada, NUNCA delegada)
-- Multi-window system: regra + pasta .claude/workers/ + hook guard-worker-write (testado — bloqueou edit real)
-- Worker UX: basta dizer "worker mode" na outra janela — auto-cria flag + restringe
-- Pre-reading heterogeneidade: 10 artigos VERIFIED + 4 candidatos WEB-VERIFIED
-- Best practices cowork/skills pesquisa
-- Gemini CLI FROZEN. /research Perna 1 = Gemini API `gemini-3.1-pro` deep think (GEMINI_API_KEY)
-- NLM OAuth prominente em /research Perna 6 + nlm-skill regra #1
-- /deep-search skill FROZEN (referencia de prompt design apenas)
+**S115 entregas:**
+- P0-1 Bash wildcard: guard-bash-write.sh denylist 11→19 patterns (touch, mkdir, ln, tar, git apply/am, rm, chmod, truncate)
+- P0-2 MCP wildcards: Notion/Gmail/Calendar wildcards → 18 read-only entries (write ops = ask)
+- /research Perna 1: generationConfig (temperature 1, maxOutputTokens 8192, thinkingBudget HIGH) + text extraction
+- MANDATORY TRIGGERS: top 5 skills (research, slide-authoring, organization, review, insights)
+- Ecosystem study: gap analysis OLMO vs ecosystem (resources/ecosystem-study-S115.md)
+- Worktree isolation evaluated, DEFERRED (worker-mode sufficient)
 
-**Adversarial frame S114:** Sentinel falhou 4x (structural: sem Write tool + Agent tool contradiz spec). Codex fire-and-forget 3a vez. Explorer hallucinou bug inexistente. Subagent outputs DEVEM ser verificados. Gemini CLI frozen (429 quota). Deep-search skill frozen.
-
-## PROXIMOS PASSOS (S115+)
+## PROXIMOS PASSOS (S116+)
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **Triar adversarial findings** | 2 P0 (Bash wildcard, MCP wildcards) — Lucas decide | Facil |
-| 2 | **Testar proactive hooks** | Observar nudge-commit/checkpoint/coupling em sessao real | Facil |
-| 3 | **crossref-precommit fix** | Opcao B recomendada. Lucas decide | Facil |
-| 4 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
+| 1 | **Testar proactive hooks** | Observar nudge-checkpoint/coupling em sessao real (nudge-commit OK) | Facil |
+| 2 | **crossref-precommit fix** | Opcao B recomendada. Lucas decide | Facil |
+| 3 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
+| 4 | **Skill eval prompts** | Test matrix para top 5 skills (trigger + anti-trigger) | Facil |
 | 5 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
-| 6 | **Adversarial recipe em /review** | Integrar 3-leg parallel no skill existente | Normal |
+| 6 | **Adversarial recipe em /review** | Integrar 3-leg parallel no skill existente + ToB patterns | Normal |
 | 7 | **Aprofundar s-importancia** | h2 = Lucas. Evidence 24/24 VERIFIED. Pre-reading pronto | Normal |
-| 8 | **Ruflo + ecosystem study** | best-practices doc criado, estudar repos top | Normal |
-| 9 | **wiki-update skill** | Diff-driven updates com sweep global (Karpathy op #4) | Normal |
+| 8 | **wiki-update skill** | Diff-driven updates com sweep global (Karpathy op #4) | Normal |
+| 9 | **Progressive disclosure** | Audit SKILL.md >300 lines, create resources/ dirs | Normal |
 | 10 | **README Wiki + Mermaid** | Arquitetura, fluxos, graph | Alta |
 | 11 | **RAG semantico** | Embeddings locais (Ollama) + vector store quando >50 pages | Futura |
 
@@ -72,7 +66,10 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **Values: Antifragile + Curiosidade** — decision gates.
 - **Living HTML per slide = source of truth = SINTESE CURADA (nao template).**
 - Memory governance: cap 20 files (20 atual). Next review: S116.
-- **/insights:** ran S108. Next: S115.
+- **Worktree isolation S115:** Evaluated, DEFERRED. Worker-mode (flag+hook) is simpler, safer, sufficient for read-only workers.
+- **MANDATORY TRIGGERS S115:** Adopted as standard. Top 5 skills done. Extend to remaining skills incrementally.
+- **P0 triage S115:** Bash guard 19 patterns (denylist). MCP read-only (Notion/Gmail/Calendar). Both RESOLVED.
+- **/insights:** ran S108. Next: S116.
 - **Dream v2.2:** Ran S113 (0 gaps).
 
 ## CUIDADOS
@@ -95,4 +92,4 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S114 2026-04-08
+Coautoria: Lucas + Opus 4.6 | S115 2026-04-08

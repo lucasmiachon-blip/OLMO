@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 115 — 2026-04-08 (INFRA: P0 triage + ecosystem study + MANDATORY TRIGGERS)
+
+### Security (P0 triage)
+- guard-bash-write.sh: denylist expanded 11→19 patterns (+touch, mkdir, ln, tar, git apply/am, rm, chmod, truncate)
+- settings.local.json: MCP wildcards (Notion/Gmail/Calendar) → 18 read-only entries (write ops = ask)
+
+### Skills
+- /research Perna 1: generationConfig added (temperature 1, maxOutputTokens 8192, thinkingBudget HIGH) + text extraction
+- MANDATORY TRIGGERS added to top 5 skills: research (16), slide-authoring (14), organization (14), review (11), insights (13)
+
+### Research
+- resources/ecosystem-study-S115.md: gap analysis OLMO vs Claude Code ecosystem
+- Worktree isolation evaluated and deferred — current worker-mode is simpler and safer
+
+### Decisions
+- Worktree isolation: DEFERRED (worker-mode sufficient)
+- MANDATORY TRIGGERS: adopted as standard for all skill descriptions
+
 ## Sessao 114 — 2026-04-08 (Adversarial audit + pre-reading + multi-window)
 
 ### Agents
