@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## Sessao 114 — 2026-04-08 (Adversarial audit + pre-reading + multi-window)
+
+### Agents
+- sentinel.md: maxTurns 15→25, Phase 2 Codex removida, Agent tool removido (AF-03 fix)
+- Sentinel testado (falhou 4x), diagnosticado, fixado — text-return canonical
+
+### Rules
+- known-bad-patterns.md: KBP-06 S114 recurrence (3a vez) + fix estrutural
+- multi-window.md: NEW — orquestrador + workers coordination
+
+### Evidence
+- pre-reading.md: 10 artigos heterogeneidade VERIFIED + 4 candidatos WEB-VERIFIED
+- Mapa de cobertura + trilha de leitura sugerida
+
+### Hooks
+- nudge-commit.sh: regex cosmetic fix
+- guard-worker-write.sh: NEW — bloqueia Write/Edit fora de .claude/workers/ em worker mode
+
+### Infrastructure
+- .claude/workers/ criado + gitignored
+- Adversarial orchestration: 3 pernas paralelas sem Codex delegation
+- OLMO_COWORK path referenciado em multi-window rule
+
+### Reports (locais, nao commitados)
+- sentinel-report.md: 14 findings (3 HIGH, 9 MED, 2 LOW)
+- adversarial-audit-s114.md: 3 passes + 3 FP corrections
+- codex-adversarial-report.md: 9 findings (2 P0, 4 P1)
+
+### Research
+- best-practices-cowork-skills-2026-04-08.md
+
 ## Sessao 113 — 2026-04-08 (Wiki-query + PMIDs + Diag S109 + Sentinel + Pipeline DAG)
 
 ### Skills

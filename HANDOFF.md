@@ -1,41 +1,39 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 113 | 2026-04-08
-> Foco: Wiki-query + PMIDs + Diag S109 + Sentinel + Pipeline DAG
+> Sessao 114 | 2026-04-08
+> Foco: Adversarial audit + pre-reading heterogeneidade + multi-window
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 arquivado).
-**Agentes: 9** (sentinel novo). **Hooks: 33 registrations** (34 scripts; 2 pre-commit). **Rules: 10**. **MCPs: 12**. **KBPs: 7 (next: KBP-08).**
+**Agentes: 9** (sentinel fixado). **Hooks: 34 registrations** (35 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7 (next: KBP-08).**
 **INFRA COMPLETA.** Batches 6+7 CLOSED.
-**Memory: 20/20 (AT CAP). Dream ran S113 (0 gaps, 21 updated). Next review: S116.**
+**Memory: 20/20 (AT CAP). Dream ran S113 (0 gaps). Next review: S116.**
 
-**S113 entregas:**
-- wiki-query skill criado (SCHEMA.md Op 2 DONE)
-- 2 PMIDs WEB-VERIFIED (Kastrati 39240561, Murad 25005654) — s-importancia.html 24/24 verificados
-- S109 diagnostic completo: hooks funcionam (naming misleading), antifragile L6 dormant by design, crossref bug confirmado
-- Sentinel agent (Sonnet, maxTurns 15, Codex adversarial read-only)
-- 3 proactive hooks: nudge-commit, nudge-checkpoint, coupling-proactive
-- Knowledge pipeline DAG formalizado: cowork→NLM→wiki, raw→wiki, wiki→obsidian
-- nlm-skill atualizado com DAG + cowork→NLM path
-- knowledge-ingest skill apareceu (Dream auto ou pre-existente)
+**S114 entregas:**
+- Sentinel testado (falhou 4x), diagnosticado, fixado: Agent tool removido, text-return canonical, maxTurns 25
+- Adversarial audit 3-leg: sentinel-report (14 findings), adversarial-audit (3 passes), codex-report (9 findings)
+- KBP-06 3a recorrencia documentada + fix estrutural (Codex = perna separada, NUNCA delegada)
+- Multi-window system: regra + pasta .claude/workers/ + hook guard-worker-write
+- Pre-reading heterogeneidade: 10 artigos VERIFIED + 4 candidatos WEB-VERIFIED
+- Best practices cowork/skills pesquisa
 
-**Adversarial frame S113:** 6 tracks foram breadth>depth. Hooks proativos podem virar ruido (alert fatigue). DAG e aspiracional — nunca testado end-to-end. Sentinel definido mas nunca executado. Proxima sessao deve TESTAR, nao DEFINIR.
+**Adversarial frame S114:** Sentinel falhou 4x (structural: sem Write tool + Agent tool contradiz spec). Codex fire-and-forget 3a vez. Explorer hallucinou bug inexistente. Subagent outputs DEVEM ser verificados.
 
-## PROXIMOS PASSOS (S114+)
+## PROXIMOS PASSOS (S115+)
 
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
-| 1 | **Testar sentinel** | Rodar sentinel agent, verificar report, validar Codex leg | Normal |
+| 1 | **Triar adversarial findings** | 2 P0 (Bash wildcard, MCP wildcards) — Lucas decide | Facil |
 | 2 | **Testar proactive hooks** | Observar nudge-commit/checkpoint/coupling em sessao real | Facil |
-| 3 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais do S112 harvest | Normal |
-| 4 | **crossref-precommit fix** | Opcao B recomendada (checar existencia arquivo vs staging). Lucas decide | Facil |
-| 5 | **Ruflo + ecosystem study** | Estudar top repos (everything-claude-code, cortex-tms, AgentHandover) | Normal |
-| 6 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
-| 7 | **Aprofundar narrativa s-importancia** | h2 = Lucas. Evidence completa (24 VERIFIED). Sintese rasa → profunda | Normal |
-| 8 | **wiki-update skill** | Diff-driven updates com sweep global (Karpathy op #4) | Normal |
-| 9 | **README Wiki extenso + Mermaid** | Arquitetura, fluxos, graph, layers, operacoes | Alta |
-| 10 | **claude-code-security-review GH Action** | Adicionar ao repo como CI read-only | Facil |
+| 3 | **crossref-precommit fix** | Opcao B recomendada. Lucas decide | Facil |
+| 4 | **Testar Context7** | resolve-library-id + query-docs (GSAP, deck.js) | Facil |
+| 5 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
+| 6 | **Adversarial recipe em /review** | Integrar 3-leg parallel no skill existente | Normal |
+| 7 | **Aprofundar s-importancia** | h2 = Lucas. Evidence 24/24 VERIFIED. Pre-reading pronto | Normal |
+| 8 | **Ruflo + ecosystem study** | best-practices doc criado, estudar repos top | Normal |
+| 9 | **wiki-update skill** | Diff-driven updates com sweep global (Karpathy op #4) | Normal |
+| 10 | **README Wiki + Mermaid** | Arquitetura, fluxos, graph | Alta |
 | 11 | **RAG semantico** | Embeddings locais (Ollama) + vector store quando >50 pages | Futura |
 
 ## AGENTES
@@ -50,49 +48,45 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 | researcher | haiku | 15 | — | OK |
 | repo-janitor | haiku | 12 | — | OK |
 | notion-ops | haiku | 10 | — | P1: adicionar write tools + gates |
-| **sentinel** | **sonnet** | **15** | — | **NEW S113 — nao testado** |
+| sentinel | sonnet | 25 | — | FIXED S114 (Agent removido, text-return) |
 
 ## DECISOES ATIVAS
 
+- **Multi-window S114:** 1 orquestrador edita+commita, workers read-only em .claude/workers/. Hook guard-worker-write.sh. OLMO_COWORK em C:\Dev\Projetos\OLMO_COWORK.
+- **Adversarial orchestration S114:** 3 pernas paralelas (sentinel + 2 general-purpose), NUNCA codex:rescue para review. Codex = manual por Lucas se quiser.
 - **Karpathy Wiki adopted S111:** SCHEMA.md (4-layer + DAG S113), wiki-index v1, changelog, wiki-lint, Dream supersession.
-- **Knowledge pipeline DAG S113:** cowork→NLM→wiki + raw→wiki + wiki→obsidian. Aspiracional — nao testado end-to-end.
-- **Proactive hooks S113:** nudge-commit, nudge-checkpoint, coupling-proactive. Nao testados. Se ruido apos 2 sessoes → remover.
-- **Sentinel S113:** Read-only agent (Sonnet) + Codex adversarial. Definido, nao executado.
-- **Adversarial frame S113:** Agente DEVE questionar instrucoes, nao aceitar passivamente. Frame adversarial frequente.
+- **Knowledge pipeline DAG S113:** cowork→NLM→wiki + raw→wiki + wiki→obsidian. Aspiracional — nao testado.
+- **Proactive hooks S113:** nudge-commit, nudge-checkpoint, coupling-proactive. Parcialmente testados S114 (nudge-commit funcional).
 - **Context7 MCP S111:** 12th MCP. Nao testado ainda.
 - **s-checkpoint-1:** Arquivado S107. HTML preservado. Volta futura.
-- **s-importancia:** Evidence 24/24 VERIFIED. Slide nao existe. h2 = Lucas.
-- **build-html.ps1 regex fix:** Aplicado nas 3 aulas.
+- **s-importancia:** Evidence 24/24 VERIFIED. Slide nao existe. h2 = Lucas. Pre-reading pronto.
 - **/research v2.0:** 6 pernas. content-research.mjs arquivado.
 - **QA pipeline S103:** Path linear 11 steps. Step 0 pre-read gate adicionado S108.
-- **css_cascade #deck:** Deferido.
 - **KBP-07:** Anti-workaround gate.
 - **Values: Antifragile + Curiosidade** — decision gates.
 - **Living HTML per slide = source of truth = SINTESE CURADA (nao template).**
 - Memory governance: cap 20 files (20 atual). Next review: S116.
 - **/insights:** ran S108. Next: S115.
-- **Dream v2.2:** supersession + changelog + wiki-index format (S111). Ran S113 (0 gaps).
+- **Dream v2.2:** Ran S113 (0 gaps).
 
 ## CUIDADOS
 
 - **NUNCA `taskkill //IM node.exe`** — matar por PID especifico.
 - **index.html e gerado** — rodar build apos editar _manifest.js.
 - **CSS per-slide: `section#s-{id}`** — specificity 0,1,1,1.
-- PMIDs de LLM: ~56% erro. SEMPRE verificar. (S107: 40% erro Gemini, 6/15 corrigidos NLM.)
+- PMIDs de LLM: ~56% erro. SEMPRE verificar.
 - **Scripts canonicos + prompts:** protegidos por guard-product-files.sh (ask). NUNCA editar sem aprovacao.
 - **npm scripts:** Rodar de `content/aulas/`, NAO da raiz do monorepo.
-- **Agent delegation:** NUNCA fire-and-forget. Verificar tipo do agente, output capturavel, aprovacao do Lucas.
+- **Agent delegation:** NUNCA fire-and-forget. Verificar tipo, output capturavel, aprovacao do Lucas. Subagent outputs VERIFICADOS (explorer hallucinou S114).
 - **Anti-workaround (KBP-07):** Quando algo falha: diagnosticar causa raiz, reportar, listar opcoes, PARAR.
-- **content-research.mjs ARQUIVADO:** Usar /research skill. Nao referenciar o .mjs.
 - **Living HTML = sintese curada da pesquisa, NAO template mecanico.**
-- **Adversarial frame:** NAO aceitar instrucoes passivamente. Questionar, push back, rodar frame adversarial.
-- **Proactive hooks nao testados:** Podem gerar alert fatigue. Monitorar S114.
-- **Sentinel nao testado:** Rodar em S114 para validar.
-- **settings.local.json gitignored:** Hook registrations sao locais. Backup: 33 registrations em 6 event types.
+- **Adversarial frame:** NAO aceitar instrucoes passivamente. Questionar, push back.
+- **Multi-window:** orquestrador unico edita. Workers read-only + .claude/workers/. Hook: guard-worker-write.sh.
+- **settings.local.json gitignored:** Hook registrations sao locais. Backup: 34 registrations em 6 event types.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S113 2026-04-08
+Coautoria: Lucas + Opus 4.6 | S114 2026-04-08
