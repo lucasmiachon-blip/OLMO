@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitura Preparatória: Forest Plot, Risco de Viés e Viés de Publicação</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    h3 { font-size: 1.05rem; color: #2d6a4f; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+    th { background: #f0f4f0; }
+    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
+    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .core-step { display: grid; grid-template-columns: 2.5rem 1fr; gap: .5rem; align-items: start; margin: .8rem 0; padding: .6rem; background: #fafafa; border-radius: 6px; }
+    .core-num { background: #2d6a4f; color: #fff; width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; }
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .gap-card { border-left: 3px solid #d97706; padding-left: .8rem; margin: .8rem 0; }
+    .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
+    .objectives li { margin: .3rem 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Leitura Preparatória: Forest Plot, Risco de Viés e Viés de Publicação</h1>
+  <p class="meta">Tempo estimado: 60–90 min (7 artigos) | Aprofundamento avançado: +30 min (tópicos opcionais)</p>
+
+  <div class="objectives">
+    <strong>Ao final desta leitura, você vai conseguir:</strong>
+    <ol>
+      <li>Ler e interpretar um forest plot — identificar estimativa pontual, IC, peso dos estudos e diamante sumário</li>
+      <li>Entender por que a avaliação de risco de viés é obrigatória antes de confiar nos resultados de uma MA</li>
+      <li>Reconhecer os sinais de viés de publicação e saber quando testes estatísticos são (e não são) confiáveis para detectá-lo</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ===== CONCEITOS-CHAVE ===== -->
+<section id="concepts">
+  <h2>Conceitos-chave antes de começar</h2>
+
+  <p>Estes três temas formam uma sequência lógica: o <strong>forest plot</strong> é a ferramenta visual que resume os resultados de uma MA. Mas o que você vê no forest plot só é confiável se os estudos incluídos tiverem qualidade metodológica adequada — isso é o <strong>risco de viés</strong>. E mesmo que os estudos incluídos sejam bons, a MA pode estar distorcida se estudos negativos não foram publicados — isso é o <strong>viés de publicação</strong>.</p>
+
+  <p><strong>Forest plot:</strong> Gráfico que mostra os resultados individuais de cada estudo e o resultado combinado da MA. Cada estudo é representado por um quadrado (cujo tamanho indica o peso no pooling) e uma linha horizontal (o IC 95%). O diamante na base representa a estimativa combinada — seu centro é a estimativa pontual e sua largura é o IC. A linha vertical de "nulo" (RR = 1 ou diferença = 0) é a referência: se o IC de um estudo cruza essa linha, o resultado não é estatisticamente significativo.</p>
+
+  <p><strong>Risco de viés (Risk of Bias):</strong> Avaliação sistemática da qualidade metodológica de cada estudo incluído na MA. Vieses podem distorcer os resultados em qualquer direção. A ferramenta padrão para RCTs é o RoB 2 (Sterne 2019), que avalia 5 domínios: randomização, desvios da intervenção, dados faltantes, mensuração do desfecho e seleção de resultados reportados. Se a maioria dos estudos numa MA tem alto risco de viés, o resultado combinado herda esse problema — é o mecanismo do GIGO.</p>
+
+  <p><strong>Viés de publicação:</strong> Tendência sistemática de publicar estudos com resultados positivos (significativos) e arquivar os negativos. Isso distorce a base de evidência disponível para a MA: o pool de estudos que você vê no forest plot não é representativo de todos os estudos que existem. A consequência é uma superestimativa do efeito real.</p>
+
+  <div class="caveat"><strong>Conexão entre os três:</strong> O forest plot mostra o que está visível. O risco de viés avalia se o que está visível é confiável. O viés de publicação questiona se o que está visível é completo. Confiar no resultado de uma MA sem verificar os três é como diagnosticar olhando só o exame laboratorial sem anamnese e sem exame físico.</div>
+</section>
+
+<!-- ===== POR QUE IMPORTA ===== -->
+<section id="narrative">
+  <h2>Por que estes temas importam</h2>
+  <p>Quando um residente lê uma MA, geralmente vai direto ao diamante do forest plot: "o tratamento funciona ou não?" Mas o diamante é só o fim do processo. Para confiar nele, você precisa responder três perguntas: (1) entendo o que cada elemento do forest plot me diz? (2) os estudos que alimentam essa MA são metodologicamente sólidos? (3) a MA está vendo todos os estudos relevantes, ou os negativos ficaram na gaveta?</p>
+  <p>Estes 7 artigos, organizados em 3 blocos temáticos, constroem essa capacidade de leitura crítica. Não é sobre aprender fórmulas — é sobre desenvolver o olhar que distingue uma MA robusta de uma que parece robusta.</p>
+</section>
+
+<!-- ===== TRILHA DE LEITURA ===== -->
+<section id="core-path">
+
+  <!-- BLOCO 1: FOREST PLOT -->
+  <h2>Bloco 1 — Forest Plot</h2>
+  <p class="meta">A ferramenta visual central da MA. Ler um forest plot com fluência é pré-requisito para tudo que vem depois.</p>
+
+  <div class="core-step">
+    <div class="core-num">1</div>
+    <div>
+      <strong>Dettori JR, Norvell DC, Chapman JR.</strong> Seeing the Forest by Looking at the Trees: How to Interpret a Meta-Analysis Forest Plot. <em>Global Spine J.</em> 2021.
+      <div class="key-takeaway"><strong>O que você vai aprender:</strong> Anatomia completa do forest plot — quadrados, linhas, diamante, linha de nulo. Em linguagem visual e direta.</div>
+      <p>Este artigo funciona como um tutorial visual. Cada componente do forest plot é explicado com exemplos: o que o tamanho do quadrado significa (peso do estudo no pool), por que a linha horizontal pode ser larga ou estreita (precisão do estudo), como interpretar o diamante (estimativa combinada e seu IC), e quando o resultado cruza a linha de nulo. Comece por aqui — é a base visual para todos os artigos seguintes.</p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">2</div>
+    <div>
+      <strong>Andrade C.</strong> Understanding the Basics of Meta-Analysis and How to Read a Forest Plot. <em>J Clin Psychiatry.</em> 2020.
+      <div class="key-takeaway"><strong>O que você vai aprender:</strong> Como os números por trás do forest plot são calculados — peso, pooling, modelo fixed vs random — sem exigir conhecimento estatístico prévio.</div>
+      <p>Andrade complementa Dettori ao explicar a mecânica por trás do visual. Você entende por que estudos maiores têm quadrados maiores (peso proporcional à precisão), como o modelo estatístico (fixed-effect vs random-effects) influencia a forma do diamante, e por que dois forest plots da mesma evidência podem parecer diferentes dependendo do modelo escolhido. Depois de ler este artigo, você consegue "ler" um forest plot como lê um ECG — cada elemento comunica algo específico.</p>
+    </div>
+  </div>
+
+  <!-- BLOCO 2: RISCO DE VIÉS -->
+  <h2>Bloco 2 — Risco de Viés</h2>
+  <p class="meta">O forest plot mostra resultados, mas não diz se os estudos são confiáveis. Estes artigos ensinam a avaliar isso.</p>
+
+  <div class="core-step">
+    <div class="core-num">3</div>
+    <div>
+      <strong>Phillips MR, Wykoff CC, Thabane L, Bhandari M, Chaudhary V.</strong> Risk of bias: why measure it, and how? <em>Eye.</em> 2021.
+      <div class="key-takeaway"><strong>O que você vai aprender:</strong> Por que avaliar risco de viés é obrigatório em qualquer MA — e como isso muda a interpretação dos resultados.</div>
+      <p>Phillips responde a pergunta mais básica: por que se preocupar com risco de viés se os resultados parecem consistentes? Porque consistência entre estudos enviesados na mesma direção não é evidência de qualidade — é GIGO. O artigo explica os tipos de viés mais comuns (seleção, performance, detecção, atrito, reporte), como cada um distorce resultados, e por que o GRADE rebaixa a certeza quando a maioria dos estudos incluídos tem alto risco de viés. Leitura essencial antes de entender a ferramenta RoB 2.</p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">4</div>
+    <div>
+      <strong>Sterne JAC, Savović J, Page MJ, Elbers RG, Blencowe NS, Boutron I, et al.</strong> RoB 2: a revised tool for assessing risk of bias in randomised trials. <em>BMJ.</em> 2019.
+      <div class="key-takeaway"><strong>O que você vai aprender:</strong> A ferramenta padrão para avaliar RoB em RCTs — 5 domínios, signaling questions e o algoritmo de julgamento.</div>
+      <p>O RoB 2 é a ferramenta que a Cochrane adota como padrão. Avalia 5 domínios: (1) processo de randomização, (2) desvios da intervenção planejada, (3) dados faltantes do desfecho, (4) mensuração do desfecho, e (5) seleção dos resultados reportados. Para cada domínio, signaling questions guiam o julgamento (baixo risco / alguma preocupação / alto risco). O artigo original é denso, mas a Tabela 1 e o fluxograma são o que você mais vai usar na prática. Não precisa memorizar tudo — entenda a lógica dos 5 domínios e saiba onde encontrar o fluxograma quando precisar.</p>
+    </div>
+  </div>
+
+  <!-- BLOCO 3: VIÉS DE PUBLICAÇÃO -->
+  <h2>Bloco 3 — Viés de Publicação</h2>
+  <p class="meta">Mesmo com estudos de boa qualidade, a MA pode estar distorcida se estudos negativos ficaram na gaveta.</p>
+
+  <div class="core-step">
+    <div class="core-num">5</div>
+    <div>
+      <strong>Page MJ, Sterne JAC, Higgins JPT, Egger M.</strong> Investigation and dealing with publication bias and other reporting biases in meta-analyses of health research. <em>Res Synth Methods.</em> 2021.
+      <div class="key-takeaway"><strong>O que você vai aprender:</strong> O framework completo: o que é viés de publicação, como detectá-lo (funnel plot, testes estatísticos) e como lidar com ele (sensitivity analyses, selection models).</div>
+      <p>Page e colegas oferecem o panorama mais completo e atualizado sobre viés de publicação. O artigo diferencia viés de publicação (estudo inteiro não publicado) de viés de reporte (estudo publicado mas resultados selecionados). Explica o funnel plot, os testes estatísticos para assimetria (Egger, Begg), e os métodos de ajuste (trim-and-fill, selection models). Mais importante: discute as limitações de cada ferramenta — nenhuma delas prova que viés de publicação existe, apenas sugere. Comece o bloco 3 por aqui.</p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">6</div>
+    <div>
+      <strong>Afonso J, Ramirez-Campillo R, Clemente FM, Büttner FC, Andrade R.</strong> The Perils of Misinterpreting and Misusing "Publication Bias" Tests in Meta-Analyses. <em>Sports Med.</em> 2024.
+      <div class="key-takeaway"><strong>O que você vai aprender:</strong> Os erros mais comuns na interpretação de testes de viés de publicação — e por que esses erros levam a conclusões erradas sobre a evidência.</div>
+      <p>Este artigo é um alerta prático. Muitos autores (e revisores) interpretam um teste de Egger não significativo como "não há viés de publicação" — mas o teste tem baixo poder com poucos estudos. Outros assumem que assimetria no funnel plot = viés de publicação, quando pode ser heterogeneidade genuína. Afonso e colegas catalogam esses erros com exemplos reais da literatura esportiva (mas aplicáveis a qualquer área). Depois de ler este artigo, você vai reconhecer quando uma MA está fazendo claims sobre viés de publicação que não são suportados pela metodologia que usou.</p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">7</div>
+    <div>
+      <strong>Sterne JAC, Sutton AJ, Ioannidis JPA, Terrin N, Jones DR, Lau J, et al.</strong> Recommendations for examining and interpreting funnel plot asymmetry in meta-analyses of randomised controlled trials. <em>BMJ.</em> 2011.
+      <div class="key-takeaway"><strong>Regra de ouro:</strong> Não usar testes de assimetria do funnel plot se a MA tem menos de 10 estudos. Com menos de 10, o poder é insuficiente e o resultado é enganoso.</div>
+      <p>Sterne e colegas (incluindo Ioannidis e Lau) estabelecem as recomendações que a Cochrane adota: (1) funnel plots e testes de assimetria só devem ser usados quando a MA tem pelo menos 10 estudos, (2) a escolha do teste depende do tipo de desfecho (Egger para razões de risco, Harbord para OR), (3) assimetria deve ser interpretada à luz de possíveis explicações alternativas (heterogeneidade, diferença de qualidade entre estudos grandes e pequenos). Este artigo é referência obrigatória — se você vai criticar uma MA por viés de publicação, precisa citar estas recomendações.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== GLOSSÁRIO ===== -->
+<section id="glossary">
+  <h2>Glossário Rápido</h2>
+  <p>Para consultar durante a leitura dos artigos.</p>
+  <table>
+    <tr><th>Termo</th><th>O que significa</th><th>Na prática</th></tr>
+    <tr><td class="glossary-term">Forest plot</td><td>Gráfico que resume os resultados de cada estudo e o pooled. Quadrado = estudo (tamanho = peso). Diamante = resultado combinado.</td><td>A primeira coisa que você olha numa MA. Ler fluentemente é pré-requisito.</td></tr>
+    <tr><td class="glossary-term">Peso (weight)</td><td>Quanto cada estudo contribui para o resultado combinado. Depende de N e variância.</td><td>Estudos maiores e mais precisos têm quadrados maiores no forest plot. Em random-effects, estudos pequenos ganham relativamente mais peso.</td></tr>
+    <tr><td class="glossary-term">Diamante</td><td>Forma que representa o resultado combinado da MA. Centro = estimativa pontual. Largura = IC 95%.</td><td>Diamante estreito = estimativa precisa. Se o diamante cruza a linha de nulo, o resultado combinado não é significativo.</td></tr>
+    <tr><td class="glossary-term">RoB 2</td><td>Revised risk-of-bias tool (Sterne 2019). Avalia 5 domínios de qualidade em RCTs.</td><td>Ferramenta Cochrane padrão. Resultado: baixo risco / alguma preocupação / alto risco por domínio e overall.</td></tr>
+    <tr><td class="glossary-term">Funnel plot</td><td>Gráfico de dispersão: eixo X = efeito, eixo Y = precisão. Sem viés, forma um funil simétrico.</td><td>Assimetria sugere (mas não prova) viés de publicação ou heterogeneidade.</td></tr>
+    <tr><td class="glossary-term">Teste de Egger</td><td>Teste estatístico para assimetria do funnel plot. Regressão do efeito padronizado contra precisão.</td><td>Confiável só com ≥10 estudos. Resultado negativo com poucos estudos NÃO exclui viés.</td></tr>
+    <tr><td class="glossary-term">Trim-and-fill</td><td>Método que estima estudos "faltantes" no funnel plot e recalcula a estimativa ajustada.</td><td>Limitação: assume que a assimetria é só viés de publicação. Na prática, pode ser heterogeneidade.</td></tr>
+  </table>
+</section>
+
+<!-- ===== APROFUNDAMENTO AVANÇADO ===== -->
+<section id="deep-dive">
+  <h2>Aprofundamento avançado</h2>
+  <p class="meta">Tópicos que vão além do básico-intermediário dos 7 artigos. Leitura para entender a mecânica por trás das ferramentas.</p>
+
+  <details>
+    <summary>A) Forest plot: subgrupos e análise leave-one-out</summary>
+    <div class="gap-card">
+      <p>O forest plot padrão mostra todos os estudos num pool único. Mas quando há heterogeneidade, <strong>análise de subgrupos</strong> divide o forest plot por categorias pré-definidas (ex: dose alta vs baixa, adultos vs idosos). Se o efeito é consistente entre subgrupos, a heterogeneidade provavelmente é ruído. Se difere sistematicamente, você encontrou um modificador de efeito.</p>
+      <p><strong>Leave-one-out:</strong> Remove cada estudo do pool e recalcula. Se excluir um estudo muda a direção ou significância do resultado, esse estudo merece escrutínio especial. Em 90% das MAs com I² > 50%, excluir 1-2 estudos é suficiente para reduzir I² abaixo de 50% — ou seja, I² alto frequentemente reflete poucos outliers, não variação difusa (Patsopoulos 2008).</p>
+      <p><strong>Cuidado:</strong> Análise de subgrupos post-hoc (não planejada a priori) tem alto risco de achado espúrio. Número de subgrupos × multiplicidade de comparações → inflação do erro tipo I. Credibilidade depende de: pré-especificação, direção consistente com biologia, interação estatisticamente significativa (não apenas significância dentro do subgrupo).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>B) RoB 2 em detalhe: os 5 domínios</summary>
+    <div class="gap-card">
+      <p>Cada domínio avalia uma fonte específica de viés, com signaling questions que guiam o julgamento:</p>
+      <table>
+        <tr><th>Domínio</th><th>O que avalia</th><th>Exemplo de alto risco</th></tr>
+        <tr><td>1. Randomização</td><td>Geração da sequência e ocultação da alocação</td><td>Envelopes opacos mas não selados (facilmente violáveis)</td></tr>
+        <tr><td>2. Desvios da intervenção</td><td>Cegamento e aderência ao protocolo</td><td>Open-label com desfecho subjetivo (ex: qualidade de vida)</td></tr>
+        <tr><td>3. Dados faltantes</td><td>Perda de follow-up e dados incompletos</td><td>>20% de perda diferencial entre braços</td></tr>
+        <tr><td>4. Mensuração do desfecho</td><td>Cegamento do assessor e método de mensuração</td><td>Desfecho avaliado por médico que sabe a alocação</td></tr>
+        <tr><td>5. Seleção de resultados</td><td>Reporte seletivo de desfechos ou análises</td><td>Protocolo registra desfecho A como primário, artigo reporta desfecho B</td></tr>
+      </table>
+      <p>O julgamento overall segue a regra do "pior domínio": se qualquer domínio é alto risco, o overall é alto risco. Isso reflete que um único viés pode comprometer todo o resultado do estudo. Na prática, os domínios mais frequentemente classificados como alto risco são o 2 (desvios, por falta de cegamento) e o 5 (seleção, por discrepância entre protocolo e publicação).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>C) Funnel plot: mecânica estatística e alternativas</summary>
+    <div class="gap-card">
+      <p><strong>Mecânica do Egger:</strong> O teste de Egger faz uma regressão linear onde o eixo Y é o efeito padronizado (efeito / SE) e o eixo X é a precisão (1/SE). Se o intercepto é significativamente diferente de zero, há assimetria. Problema: com poucos estudos, a regressão tem poucos pontos e o poder é mínimo. A regra de ≥10 estudos (Sterne 2011) é conservadora — mesmo com 10, o poder é modesto.</p>
+      <p><strong>Contour-enhanced funnel plot:</strong> Variação que adiciona faixas de significância estatística (p < 0.01, p < 0.05, p < 0.10) ao funnel plot. Se os estudos "faltantes" estão na região de não-significância, viés de publicação é mais provável. Se estão numa região de significância, a assimetria provavelmente tem outra causa (heterogeneidade, small study effects).</p>
+      <p><strong>Selection models:</strong> Alternativa ao trim-and-fill. Em vez de "inventar" estudos faltantes, modela a probabilidade de publicação como função do p-valor. Mais robusto teoricamente, mas requer pressupostos sobre a forma da seleção. Cochrane Handbook v6.5 recomenda como complemento, não substituto, do funnel plot.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>D) A interseção: como viés de publicação invalida métricas de heterogeneidade</summary>
+    <div class="gap-card">
+      <p>Quando viés de publicação está presente, as métricas de heterogeneidade (I², Q, tau²) ficam todas distorcidas. A razão é simples: se estudos com resultados divergentes (especialmente negativos) não estão no pool, a variação observada é artificialmente menor. O I² subestima a heterogeneidade real, e o Q pode não ser significativo mesmo quando deveria ser.</p>
+      <p>Na prática, isso cria um paradoxo: a MA parece homogênea (I² baixo) e com efeito claro (diamante não cruza o nulo), mas ambos os sinais são artefatos da mesma causa — estudos faltantes. A recomendação é: sempre avaliar viés de publicação ANTES de interpretar heterogeneidade. Se há evidência de viés, as métricas de heterogeneidade são menos confiáveis.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===== REFERÊNCIAS ===== -->
+<details>
+  <summary><strong>Referências (7 artigos core)</strong></summary>
+  <table>
+    <tr><th>Referência</th><th>Tema</th><th>Ano</th></tr>
+    <tr><td>Dettori JR, Norvell DC, Chapman JR. Seeing the Forest by Looking at the Trees. <em>Global Spine J.</em></td><td>Forest Plot</td><td>2021</td></tr>
+    <tr><td>Andrade C. Understanding Basics of MA and How to Read a Forest Plot. <em>J Clin Psychiatry.</em></td><td>Forest Plot</td><td>2020</td></tr>
+    <tr><td>Phillips MR, Wykoff CC, Thabane L, Bhandari M, Chaudhary V. Risk of bias: why measure it, and how? <em>Eye.</em></td><td>Risk of Bias</td><td>2021</td></tr>
+    <tr><td>Sterne JAC, Savović J, Page MJ, et al. RoB 2: revised tool for assessing risk of bias in randomised trials. <em>BMJ.</em></td><td>Risk of Bias</td><td>2019</td></tr>
+    <tr><td>Page MJ, Sterne JAC, Higgins JPT, Egger M. Investigation and dealing with publication bias. <em>Res Synth Methods.</em></td><td>Pub Bias</td><td>2021</td></tr>
+    <tr><td>Afonso J, Ramirez-Campillo R, et al. Perils of Misinterpreting Publication Bias Tests. <em>Sports Med.</em></td><td>Pub Bias</td><td>2024</td></tr>
+    <tr><td>Sterne JAC, Sutton AJ, Ioannidis JPA, et al. Recommendations on funnel plot asymmetry tests. <em>BMJ.</em></td><td>Pub Bias</td><td>2011</td></tr>
+  </table>
+</details>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistência de Claude (Opus 4.6, Anthropic).</p>
+  <p>O conteúdo deste guia é de responsabilidade exclusiva do autor. Eventuais erros são meus — não do modelo.</p>
+  <p>Referências verificadas via PubMed (abril 2026). Em caso de dúvida, consulte o artigo original.</p>
+</footer>
+
+</body>
+</html>
