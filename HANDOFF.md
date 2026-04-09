@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 122 | 2026-04-09
-> Foco: Worker Integration + Hooks + Security
+> Sessao 123 | 2026-04-09
+> Foco: Brainstorming Skill
 
 ## ESTADO ATUAL
 
@@ -9,7 +9,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 **Agentes: 10.** **Hooks: 35 registrations** (37 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
-**Memory: 20/20. Dream ran S118. Next review: S124. Next /insights: S123.**
+**Skills: 20.** **Memory: 20/20. Dream ran S118. Next review: S124. Next /insights: S123.**
 **Evidence:** s-importancia (evidence limpo, slide pendente h2), pre-reading-heterogeneidade (DONE).
 **Workers S117-S119:** synthesis consumido. 5 itens incorporados abaixo. Stale workers apagados.
 
@@ -19,7 +19,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 |---|------|---------|--------------|
 | 1 | **s-importancia: criar slide HTML** | h2 = Lucas decide. Evidence limpo. Falta criar slides/02-importancia.html + manifest + CSS | Normal |
 | 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Para slide | Normal |
-| 3 | **brainstorming skill** | Design iterativo pre-acao, Socratic dialogue, hard gate anti-codigo (Superpowers) | Normal |
+| 3 | ~~brainstorming skill~~ | DONE S123. `.claude/skills/brainstorming/SKILL.md` | — |
 | 4 | **success pattern capture hook** | Hook post-commit → success-log.jsonl. Feeds /insights + /dream (Ruflo) | Normal |
 | 5 | **hook auto-calibration counters** | Contadores disparos/aceites/ignores por hook proativo → /insights (Ruflo) | Normal |
 | 6 | **Auditar 12 MCPs para tool poisoning** | Zero-width chars, unicode, base64 em tool descriptions. P1 SECURITY | Normal |
@@ -28,7 +28,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
 | 10 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
 
-Sequencia sugerida: #3 (brainstorming, standalone) → #4+#5 (infra learning, 1 sessao).
+Sequencia sugerida: #4+#5 (infra learning, 1 sessao) → #1+#2 (s-importancia).
 
 ## DECISOES ATIVAS
 
@@ -51,4 +51,4 @@ Sequencia sugerida: #3 (brainstorming, standalone) → #4+#5 (infra learning, 1 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S122 2026-04-09
+Coautoria: Lucas + Opus 4.6 | S123 2026-04-09

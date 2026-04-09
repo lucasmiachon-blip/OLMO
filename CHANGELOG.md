@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Sessao 123 — 2026-04-09 (Brainstorming Skill)
+
+### Skills
+- brainstorming/SKILL.md: NEW skill (166 lines). Socratic pre-action dialogue, 4 phases (SEED→DIVERGE→CONVERGE→EXIT), 5 domains (Teaching/Dev/Research/Concurso/General), hard gate anti-code, Scope Card with NOT field (proactive KBP-01 prevention)
+
+### Meta
+- HANDOFF atualizado S123: brainstorming DONE, sequencia ajustada
+
 ## Sessao 122 — 2026-04-09 (Worker Integration + Hooks + Security)
 
 ### Hooks
