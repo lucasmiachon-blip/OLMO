@@ -17,7 +17,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | # | Item | Detalhe | Complexidade |
 |---|------|---------|--------------|
 | 1 | **s-importancia: criar slide HTML** | h2 = Lucas. Evidence + narrativa prontos. Falta criar slides/*.html + manifest entry | Normal |
-| 2 | **Integrar research diversidade** | Evidence-researcher rodou S119. Novos exemplos nao-cardio para V1/V2/V4/V5 | Facil |
+| 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Verificar titulos+refs via evidence-researcher. Para slide. | Normal |
 | 3 | **Wiki F6: safety.md + pipeline-dag.md** | 2 topics restantes. Fontes coletadas | Facil |
 | 4 | **Wiki F7: indices finais** | Remover "Pendente" stale de _index.md | Facil |
 | 5 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
