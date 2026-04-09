@@ -28,6 +28,12 @@
 - adversarial-audit-s114.md: 3 passes + 3 FP corrections
 - codex-adversarial-report.md: 9 findings (2 P0, 4 P1)
 
+### Skills
+- /deep-search: FROZEN (Gemini CLI nao sera usado)
+- /research Perna 1: Gemini API gemini-3.1-pro deep think (GEMINI_API_KEY, NAO CLI)
+- /research Perna 6: NLM OAuth prominente (ANTES de qualquer query)
+- /nlm-skill: regra #1 OAuth reforcada
+
 ### Research
 - best-practices-cowork-skills-2026-04-08.md
 

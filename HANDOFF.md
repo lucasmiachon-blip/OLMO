@@ -10,15 +10,19 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 **INFRA COMPLETA.** Batches 6+7 CLOSED.
 **Memory: 20/20 (AT CAP). Dream ran S113 (0 gaps). Next review: S116.**
 
-**S114 entregas:**
+**S114 entregas (5 batches):**
 - Sentinel testado (falhou 4x), diagnosticado, fixado: Agent tool removido, text-return canonical, maxTurns 25
 - Adversarial audit 3-leg: sentinel-report (14 findings), adversarial-audit (3 passes), codex-report (9 findings)
 - KBP-06 3a recorrencia documentada + fix estrutural (Codex = perna separada, NUNCA delegada)
-- Multi-window system: regra + pasta .claude/workers/ + hook guard-worker-write
+- Multi-window system: regra + pasta .claude/workers/ + hook guard-worker-write (testado — bloqueou edit real)
+- Worker UX: basta dizer "worker mode" na outra janela — auto-cria flag + restringe
 - Pre-reading heterogeneidade: 10 artigos VERIFIED + 4 candidatos WEB-VERIFIED
 - Best practices cowork/skills pesquisa
+- Gemini CLI FROZEN. /research Perna 1 = Gemini API `gemini-3.1-pro` deep think (GEMINI_API_KEY)
+- NLM OAuth prominente em /research Perna 6 + nlm-skill regra #1
+- /deep-search skill FROZEN (referencia de prompt design apenas)
 
-**Adversarial frame S114:** Sentinel falhou 4x (structural: sem Write tool + Agent tool contradiz spec). Codex fire-and-forget 3a vez. Explorer hallucinou bug inexistente. Subagent outputs DEVEM ser verificados.
+**Adversarial frame S114:** Sentinel falhou 4x (structural: sem Write tool + Agent tool contradiz spec). Codex fire-and-forget 3a vez. Explorer hallucinou bug inexistente. Subagent outputs DEVEM ser verificados. Gemini CLI frozen (429 quota). Deep-search skill frozen.
 
 ## PROXIMOS PASSOS (S115+)
 
@@ -52,8 +56,10 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 
 ## DECISOES ATIVAS
 
-- **Multi-window S114:** 1 orquestrador edita+commita, workers read-only em .claude/workers/. Hook guard-worker-write.sh. OLMO_COWORK em C:\Dev\Projetos\OLMO_COWORK.
+- **Multi-window S114:** 1 orquestrador edita+commita, workers read-only em .claude/workers/. Hook guard-worker-write.sh (TESTADO — bloqueou edit real). Ativar worker: dizer "worker mode". OLMO_COWORK em C:\Dev\Projetos\OLMO_COWORK.
 - **Adversarial orchestration S114:** 3 pernas paralelas (sentinel + 2 general-purpose), NUNCA codex:rescue para review. Codex = manual por Lucas se quiser.
+- **Gemini S114:** CLI FROZEN. API via GEMINI_API_KEY, modelo gemini-3.1-pro (deep think). /deep-search skill frozen (referencia apenas).
+- **NLM S114:** OAuth interativo SEMPRE primeiro (`! nlm login`). Sessao ~20min. Falha silenciosa sem auth.
 - **Karpathy Wiki adopted S111:** SCHEMA.md (4-layer + DAG S113), wiki-index v1, changelog, wiki-lint, Dream supersession.
 - **Knowledge pipeline DAG S113:** cowork→NLM→wiki + raw→wiki + wiki→obsidian. Aspiracional — nao testado.
 - **Proactive hooks S113:** nudge-commit, nudge-checkpoint, coupling-proactive. Parcialmente testados S114 (nudge-commit funcional).
