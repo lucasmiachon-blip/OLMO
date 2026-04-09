@@ -40,7 +40,7 @@ mcpServers:
       command: uvx
       args: ["--from", "biomcp-python", "biomcp", "run"]
 model: sonnet
-maxTurns: 20
+maxTurns: 35
 memory: project
 color: red
 ---
@@ -53,6 +53,7 @@ color: red
 2. **1 slide ou 1 tema por execucao.** NUNCA expandir escopo ("ja que estou aqui, pesquiso tambem s-heterogeneity"). NUNCA.
 3. **Ao terminar: reportar resultado e PARAR.** Nao sugerir proximo slide. Nao iniciar pesquisa adicional.
 4. **Foco: MCPs academicos.** Perplexity e perna independente no /research skill — NAO executar aqui.
+5. **NUNCA lancar isolado para pesquisa de conteudo.** Este agente e uma PERNA do /research skill. Para pesquisa completa, usar `/research` que orquestra as 6 pernas. Excecao: verificacao isolada de PMID (fast path) ou cross-ref pontual.
 
 ## MCP Toolkit
 
@@ -68,6 +69,17 @@ color: red
 
 Fallback: claude.ai native MCPs (PubMed, Consensus, Scholar Gateway).
 MCP down → WebSearch em pubmed.ncbi.nlm.nih.gov. Marcar como WEB-VERIFIED.
+
+## WebSearch — Uso Restrito
+
+WebSearch so e permitido para:
+1. Verificar PMID em pubmed.ncbi.nlm.nih.gov quando PubMed MCP esta indisponivel
+2. Buscar guidelines em sites oficiais (EASL, AASLD, BAVENO, AGA, ACG) quando MCPs nao retornam
+
+PROIBIDO (KBP-08):
+- Usar WebSearch como substituto de MCPs academicos para descoberta de papers
+- Usar WebSearch para pesquisa geral no lugar de PubMed/CrossRef/Scite
+- Qualquer busca que nao seja verificacao pontual em site especifico
 
 ## Protocolo de Pesquisa
 

@@ -1,12 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 124 | 2026-04-09
-> Foco: Insights + Dream
+> Sessao 125 | 2026-04-09
+> Foco: Anti-Substitution Enforcement
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
-**Agentes: 10.** **Hooks: 37 registrations** (39 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7.**
+**Agentes: 10.** **Hooks: 37 registrations** (39 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 8.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
 **Skills: 20.** **Memory: 20/20. Dream+Insights ran S124. Next review: S127. Next /insights: S127.**
@@ -44,6 +44,7 @@ Sequencia sugerida: #1+#2 (s-importancia) → #6 (MCP audit). Apos slide, rodar 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`, NAO da raiz.
 - Anti-workaround (KBP-07): diagnosticar → reportar → listar opcoes → STOP.
+- Anti-substituicao (KBP-08): perna falhou = reportar e pular, NUNCA substituir por WebSearch.
 - **MCP tool poisoning:** 12 MCPs (PubMed, Consensus, SCite, etc.) NUNCA auditados para instrucoes ocultas (zero-width chars, unicode, base64). Risco real em MCPs de terceiros. Claude Code v2.1.97 (safe — CVE 50-subcommand patched v2.1.90).
 
 ## CONFLITOS
@@ -51,4 +52,4 @@ Sequencia sugerida: #1+#2 (s-importancia) → #6 (MCP audit). Apos slide, rodar 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S123 2026-04-09
+Coautoria: Lucas + Opus 4.6 | S125 2026-04-09

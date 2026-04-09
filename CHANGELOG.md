@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 125 — 2026-04-09 (Anti-Substitution Enforcement)
+
+### Research Pipeline
+- SKILL.md: removed WebSearch/WebFetch from allowed-tools (structural defense)
+- SKILL.md: added Step 1.5 Pre-Flight (API key validation before dispatch)
+- SKILL.md: added enforcement anchors (primacy + recency) prohibiting leg substitution (ref KBP-08)
+- evidence-researcher.md: added "WebSearch — Uso Restrito" section (scoped to PubMed web fallback only)
+
+### Rules
+- known-bad-patterns.md: KBP-08 (API/MCP Substitution — WebSearch as Fake Leg). Next: KBP-09
+
+### Meta
+- HANDOFF atualizado S125: KBPs 7→8, anti-substituicao cuidado
+
 ## Sessao 124 — 2026-04-09 (Insights + Dream)
 
 ### Insights

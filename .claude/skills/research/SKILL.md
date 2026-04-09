@@ -5,11 +5,17 @@ description: |
 version: 2.0.0
 context: fork
 agent: general-purpose
-allowed-tools: Read, Grep, Glob, Agent, WebSearch, WebFetch, Write, Bash
+allowed-tools: Read, Grep, Glob, Agent, Write, Bash
 argument-hint: "[topic OR slide-id] [--queries 'SCite: X, Consensus: Y'] [--after slide-id]"
 ---
 
 # Research — Pipeline Multi-Perna
+
+## ENFORCEMENT (primacy anchor)
+
+1. **Cada perna usa SUA ferramenta.** Gemini = Bash/Node.js HTTP com GEMINI_API_KEY. Perplexity = Bash/Node.js HTTP com PERPLEXITY_API_KEY. Evidence-researcher = subagent com MCPs academicos. NLM = CLI `nlm notebook query`.
+2. **NUNCA substituir uma perna por outra.** Se uma perna falha (API key ausente, timeout, erro): reportar ao usuario e pular. NAO improvisar com WebSearch, NAO lancar agente general-purpose como substituto. KBP-08.
+3. **Pre-flight obrigatorio.** Validar API keys ANTES de dispatch (Step 1.5). Key ausente = perna indisponivel, nao perna substituida.
 
 Pesquisa para: `$ARGUMENTS`
 
@@ -27,6 +33,20 @@ Pesquisa para: `$ARGUMENTS`
    - Evidence: vazia (slide novo)
 4. **Topic livre** (ex: `terlipressin HRS-AKI`): pipeline sem Pernas 3-4 (precisam de conteudo existente).
 5. Extrair `--queries` se presente (queries literais para MCPs).
+
+## Step 1.5 — Pre-Flight
+
+Antes de dispatch, validar via Bash:
+
+```bash
+echo "GEMINI: $(echo $GEMINI_API_KEY | head -c4)... | PERPLEXITY: $(echo $PERPLEXITY_API_KEY | head -c4)..."
+```
+
+- Prefixo visivel = key configurada → perna disponivel
+- Vazio = key ausente → reportar: "Perna X indisponivel: API key nao configurada"
+- **NAO substituir por WebSearch.** NAO lancar agente general-purpose como substituto. Pular a perna.
+- Continuar com pernas restantes (minimo: Perna 2 evidence-researcher).
+- Se AMBAS keys ausentes: avisar usuario que pesquisa tera cobertura reduzida (so MCPs academicos).
 
 ## Step 2 — Dispatch (paralelo)
 
@@ -191,3 +211,9 @@ HTML puro, CSS inline minimo, charset UTF-8, sem framework. Versionado no git �
 - Fast path (PMID isolado): nao lancar pipeline, verificar e retornar direto
 - NNT e a metrica de decisao (hero do slide). Calcular sempre que ARR disponivel. HR e academico — menor destaque.
 - Risco basal: incluir na tabela de numeros-chave quando disponivel (ex: "mortalidade 1 ano cirrose descompensada: ~20%")
+
+## ENFORCEMENT (recency anchor)
+
+1. **Cada perna usa SUA ferramenta.** Gemini = Bash/API. Perplexity = Bash/API. Evidence-researcher = MCPs. NLM = CLI.
+2. **NUNCA substituir perna por WebSearch ou general-purpose.** Falhou = reportar e pular. KBP-08.
+3. **Pre-flight obrigatorio.** Step 1.5 antes de dispatch.

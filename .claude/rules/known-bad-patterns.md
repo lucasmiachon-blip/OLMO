@@ -8,7 +8,7 @@ globs: "**/*"
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
 > Source: /insights S82 report (58 sessions, 20 analyzed in depth)
 > Governance: /insights appends new patterns. NEVER remove — only mark RESOLVED with date.
-> IDs are stable and sequential. Next available: KBP-08.
+> IDs are stable and sequential. Next available: KBP-09.
 
 ## [KBP-01] Scope Creep — Acting Without Permission
 
@@ -74,3 +74,12 @@ globs: "**/*"
 - **Fix**: Failure gate (anti-drift.md §Failure Response). When something fails: (1) read full error, (2) diagnose root cause (NOT first hypothesis), (3) report what/why/root cause, (4) list options including "do nothing", (5) STOP. PROIBIDO: propor alternativa que contorne o problema sem resolver a causa. PROIBIDO: editar scripts canônicos sem aprovação explícita.
 - **Incidence**: 3 events / 1 session (S104: skip video suggestion, prompt edit without approval, misdiagnosis timeout vs MAX_TOKENS)
 - **Sessions**: S104 (2026-04-07)
+
+## [KBP-08] API/MCP Substitution — WebSearch as Fake Leg
+
+- **When**: Pipeline /research precisa executar perna com API especifica (Gemini, Perplexity) ou MCPs academicos, e agente substitui por WebSearch ou agente general-purpose
+- **Symptom**: Output aparenta funcional mas fontes sao genericas, sem grounding API, sem Tier 1 filtering. Tabela perna-vs-realidade mostra divergencia. Lucas: "fez ou nao fez o gemini e perplexity?"
+- **Cause**: WebSearch nos allowed-tools do skill permite improviso. Sem pre-flight validation, API keys faltantes nao geram erro. Otimizacao para throughput sobre protocolo.
+- **Fix**: (1) Remover WebSearch dos allowed-tools do skill orquestrador. (2) Pre-flight validation de API keys antes de dispatch. (3) Enforcement textual: perna falhou = reportar e pular, NUNCA substituir. (4) WebSearch em evidence-researcher escopado a verificacao pontual.
+- **Incidence**: 1 evento / S124 (Gemini + Perplexity substituidos por general-purpose + WebSearch)
+- **Sessions**: S124 (2026-04-09)
