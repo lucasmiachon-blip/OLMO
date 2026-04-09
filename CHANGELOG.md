@@ -14,9 +14,15 @@
 - resources/ecosystem-study-S115.md: gap analysis OLMO vs Claude Code ecosystem
 - Worktree isolation evaluated and deferred — current worker-mode is simpler and safer
 
+### Evidence
+- pre-reading-heterogeneidade.html: living HTML (core path 5 artigos, coverage map 10×8, deep-dive 4 gaps, glossario, NLM section)
+- PMID verification: 9 Gemini CANDIDATEs → 3 confirmed, 4 hallucinated, 2 no-PMID (~44% error rate)
+- 16 PMIDs total VERIFIED via PubMed MCP cross-ref (author+title+journal)
+
 ### Decisions
 - Worktree isolation: DEFERRED (worker-mode sufficient)
 - MANDATORY TRIGGERS: adopted as standard for all skill descriptions
+- Pre-reading: Lucas escolhe 1-2 artigos para residentes (FE/RE/PI foco)
 
 ## Sessao 114 — 2026-04-08 (Adversarial audit + pre-reading + multi-window)
 

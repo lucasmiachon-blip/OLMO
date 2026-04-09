@@ -17,6 +17,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - MANDATORY TRIGGERS: top 5 skills (research, slide-authoring, organization, review, insights)
 - Ecosystem study: gap analysis OLMO vs ecosystem (resources/ecosystem-study-S115.md)
 - Worktree isolation evaluated, DEFERRED (worker-mode sufficient)
+- Pre-reading heterogeneidade: living HTML criado (16 PMIDs VERIFIED, 5 core path, 4 deep-dive gaps, glossario, NLM section)
 
 ## PROXIMOS PASSOS (S116+)
 
@@ -60,6 +61,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise — s-checkpoint-1 
 - **Context7 MCP S111:** 12th MCP. Nao testado ainda.
 - **s-checkpoint-1:** Arquivado S107. HTML preservado. Volta futura.
 - **s-importancia:** Evidence 24/24 VERIFIED. Slide nao existe. h2 = Lucas. Pre-reading pronto.
+- **Pre-reading heterogeneidade S115:** Living HTML pronto. Lucas escolhe 1-2 artigos para enviar aos residentes.
 - **/research v2.0:** 6 pernas. content-research.mjs arquivado.
 - **QA pipeline S103:** Path linear 11 steps. Step 0 pre-read gate adicionado S108.
 - **KBP-07:** Anti-workaround gate.

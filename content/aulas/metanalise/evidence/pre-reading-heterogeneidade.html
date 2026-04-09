@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-Reading: Heterogeneidade em Meta-Analise</title>
+  <style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:860px;margin:2rem auto;padding:0 1rem;color:#1a1a2e;line-height:1.7;text-align:justify}.v{display:inline-block;font-size:.65rem;font-weight:700;color:#fff;background:#2563eb;border-radius:3px;padding:0 .3rem;margin:0 .1rem;vertical-align:middle;letter-spacing:.02em}.c{display:inline-block;font-size:.65rem;font-weight:700;color:#fff;background:#d97706;border-radius:3px;padding:0 .3rem;margin:0 .1rem;vertical-align:middle}h1{font-size:1.5rem;border-bottom:2px solid #2d6a4f;padding-bottom:.5rem}h2{font-size:1.15rem;color:#2d6a4f;margin-top:2rem}h3{font-size:1rem;color:#444;margin-top:1.2rem}.meta{font-size:.85rem;color:#555}table{border-collapse:collapse;width:100%;margin:.5rem 0;font-size:.88rem}th,td{border:1px solid #ccc;padding:.4rem .6rem;text-align:left}th{background:#f0f4f0}details{margin:1rem 0;border-left:3px solid #2d6a4f;padding-left:.8rem}summary{cursor:pointer;font-weight:600;color:#2d6a4f;padding:.3rem 0}.ref-pmid{color:#2563eb;text-decoration:none;font-size:.82rem}.ref-pmid:hover{text-decoration:underline}.key-takeaway{background:#e8f5e9;border-left:4px solid #2d6a4f;padding:.6rem 1rem;margin:.5rem 0;font-size:.9rem;border-radius:0 4px 4px 0}.core-step{display:grid;grid-template-columns:2.5rem 1fr;gap:.5rem;align-items:start;margin:.8rem 0;padding:.6rem;background:#fafafa;border-radius:6px}.core-num{background:#2d6a4f;color:#fff;width:2rem;height:2rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem}.glossary-term{font-weight:600;color:#2d6a4f}.gap-card{border-left:3px solid #d97706;padding-left:.8rem;margin:.8rem 0}footer{margin-top:2rem;padding-top:.5rem;border-top:1px solid #ccc;font-size:.8rem;color:#777}</style>
+</head>
+<body>
+
+<header>
+  <h1>Pre-Reading: Heterogeneidade em Meta-Analise</h1>
+  <p class="meta">Aula: metanalise | Tipo: leitura preparatoria para residentes</p>
+  <p class="meta">Pipeline: Bracos 2+5 (MCPs) + 1 (Gemini API) + 6 (NLM) | S114-S115</p>
+  <p class="meta">Escopo: 2020-2025 | Tier 1 | Primers com pouca estatistica</p>
+  <p class="meta">Objetivos: (1) Entender FE vs RE, (2) Interpretar I2 corretamente, (3) Usar prediction intervals, (4) Avaliar heterogeneidade criticamente</p>
+</header>
+
+<!-- ===== CORE PATH ===== -->
+<section id="core-path">
+  <h2>Trilha Core (5 artigos)</h2>
+  <p>Sequencia progressiva: vocabulario &rarr; estatistica &rarr; correcao de misconception &rarr; predicao clinica &rarr; appraisal completo.</p>
+
+  <div class="core-step">
+    <div class="core-num">1</div>
+    <div>
+      <strong>Dettori JR, Norvell DC, Chapman JR.</strong> Fixed-Effect vs Random-Effects Models for Meta-Analysis: 3 Points to Consider. <em>Global Spine J.</em> 2022;12(7):1624-1626.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35723546" target="_blank">PMID 35723546</a> | <a class="ref-pmid" href="https://doi.org/10.1177/21925682221110527" target="_blank">DOI</a> | OA | <span class="v">VERIFIED</span> | 425 citacoes
+      <div class="key-takeaway"><strong>Por que ler:</strong> 3 paginas, 3 pontos. Diferencia FE vs RE para quem nunca viu. Comecar aqui.</div>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">2</div>
+    <div>
+      <strong>Borenstein M.</strong> In a meta-analysis, the I-squared statistic does not tell us how much the effect size varies. <em>J Clin Epidemiol.</em> 2022;152:281-284.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36223816" target="_blank">PMID 36223816</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2022.10.003" target="_blank">DOI</a> | <span class="v">VERIFIED</span> | 94 citacoes
+      <div class="key-takeaway"><strong>Insight central:</strong> I2 NAO mede o quanto o efeito varia entre estudos. Misconception mais comum em meta-analise.</div>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">3</div>
+    <div>
+      <strong>Cordero CP, Dans AL.</strong> Key concepts in clinical epidemiology: detecting and dealing with heterogeneity in meta-analyses. <em>J Clin Epidemiol.</em> 2021;130:149-151.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33483004" target="_blank">PMID 33483004</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2020.09.045" target="_blank">DOI</a> | <span class="v">VERIFIED</span> | 45 citacoes
+      <div class="key-takeaway"><strong>Fluxo completo:</strong> Detectar (forest plot + I2/Q) &rarr; investigar (subgrupos, meta-regressao) &rarr; modelar (FE vs RE) &rarr; reportar (PI).</div>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">4</div>
+    <div>
+      <strong>Borenstein M.</strong> How to understand and report heterogeneity in a meta-analysis: The difference between I-squared and prediction intervals. <em>Integr Med Res.</em> 2023;12(4):101014.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38938910" target="_blank">PMID 38938910</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.imr.2023.101014" target="_blank">DOI</a> | OA | <span class="v">VERIFIED</span> | 87 citacoes
+      <div class="key-takeaway"><strong>A virada:</strong> PI mostra o range real dos efeitos futuros. "Tratamento trivial em 10%, grande em 50%, muito grande em 40%" &mdash; isso e o que clinicos PENSAM que I2 fornece, mas nao fornece.</div>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">5</div>
+    <div>
+      <strong>Choi GJ, Kang H.</strong> Heterogeneity in meta-analyses: an unavoidable challenge worth exploring. <em>Korean J Anesthesiol.</em> 2025;78(4):301-314.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39956636" target="_blank">PMID 39956636</a> | <a class="ref-pmid" href="https://doi.org/10.4097/kja.25001" target="_blank">DOI</a> | OA | <span class="v">VERIFIED</span> | 12 citacoes
+      <div class="key-takeaway"><strong>Consolidacao:</strong> Tutorial mais recente (2025) e abrangente. Cobre TODOS os topicos: Q, I2, tau2, PI, FE, RE, subgrupos, meta-regressao. 14 paginas bem estruturadas. Ideal como referencia unica.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COVERAGE MAP ===== -->
+<section id="coverage-map">
+  <h2>Mapa de Cobertura</h2>
+  <table>
+    <tr><th>#</th><th>Artigo</th><th>FE</th><th>RE</th><th>I2</th><th>tau2</th><th>PI</th><th>Q</th><th>Subg</th><th>MetaReg</th></tr>
+    <tr><td>1</td><td>Dettori 2022</td><td>x</td><td>x</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td>Migliavaca 2022</td><td></td><td></td><td>x</td><td></td><td>x</td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td>Ruppar 2020</td><td>x</td><td>x</td><td>x</td><td></td><td></td><td></td><td>x</td><td></td></tr>
+    <tr><td>4</td><td>Borenstein 2022</td><td></td><td></td><td>x</td><td></td><td>x</td><td></td><td></td><td></td></tr>
+    <tr><td>5</td><td>Borenstein 2023a</td><td></td><td></td><td>x</td><td></td><td>x</td><td></td><td></td><td></td></tr>
+    <tr><td>6</td><td>Borenstein 2023b</td><td></td><td></td><td>x</td><td>x</td><td>x</td><td>x</td><td></td><td></td></tr>
+    <tr><td>7</td><td>Cordero 2021</td><td>x</td><td>x</td><td>x</td><td></td><td>x</td><td>x</td><td>x</td><td>x</td></tr>
+    <tr><td>8</td><td>Zhai &amp; Guyatt 2023</td><td>x</td><td>x</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>9</td><td>Borg 2024</td><td></td><td></td><td></td><td></td><td>x</td><td></td><td></td><td></td></tr>
+    <tr><td>10</td><td>Choi 2025</td><td>x</td><td>x</td><td>x</td><td>x</td><td>x</td><td>x</td><td>x</td><td>x</td></tr>
+  </table>
+  <p><strong>Legenda:</strong> FE=fixed effect, RE=random effects, I2=I-squared, tau2=tau-squared, PI=prediction interval, Q=Cochran's Q, Subg=subgroup analysis, MetaReg=meta-regression</p>
+</section>
+
+<!-- ===== COMPLETE READING LIST ===== -->
+<section id="full-list">
+  <h2>Lista Completa (10 artigos VERIFIED)</h2>
+
+  <details>
+    <summary>Artigos 2-10 (alem dos 5 do core path)</summary>
+    <table>
+      <tr><th>#</th><th>Artigo</th><th>PMID</th><th>Cobre</th><th>Nivel</th></tr>
+      <tr><td>2</td><td>Migliavaca CB et al. Meta-analysis of prevalence: I2 and how to deal with heterogeneity. <em>Res Synth Methods.</em> 2022;13(3):363-367.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35088937" target="_blank">35088937</a></td><td>I2, PI</td><td>Intermediate</td></tr>
+      <tr><td>3</td><td>Ruppar T. How to quantify and explain heterogeneity? <em>Eur J Cardiovasc Nurs.</em> 2020;19(7):646-652.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32757621" target="_blank">32757621</a></td><td>FE, RE, I2, Subg</td><td>Introductory</td></tr>
+      <tr><td>6</td><td>Borenstein M. Avoiding common mistakes: Q, I2, tau2, PI. <em>Res Synth Methods.</em> 2023;15(2):354-368.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37940120" target="_blank">37940120</a></td><td>Q, I2, tau2, PI</td><td>Intermediate</td></tr>
+      <tr><td>8</td><td>Zhai C, Guyatt G. Fixed-effect and random-effects models. <em>Chinese Med J.</em> 2023;137(1):1-4.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37612263" target="_blank">37612263</a></td><td>FE, RE</td><td>Introductory</td></tr>
+      <tr><td>9</td><td>Borg DN et al. Prediction intervals are under reported in sport medicine. <em>Scand J Med Sci Sports.</em> 2024.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38501202" target="_blank">38501202</a></td><td>PI</td><td>Intermediate</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary>Candidatos adicionais (WEB-VERIFIED)</summary>
+    <table>
+      <tr><th>ID</th><th>Artigo</th><th>PMID</th><th>Nota</th></tr>
+      <tr><td>A1</td><td>Andrade C. Understanding the Basics of Meta-Analysis and How to Read a Forest Plot. <em>J Clin Psychiatry.</em> 2020;81(5):20f13698.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33027562" target="_blank">33027562</a></td><td>Entry-point mais basico que Dettori. NAO cobre PI.</td></tr>
+      <tr><td>A2</td><td>Veroniki AA, McKenzie JE. A brief note on the common (fixed)-effect model. <em>J Clin Epidemiol.</em> 2024;169:111281.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38364875" target="_blank">38364875</a></td><td>Par FE+RE com A3. JCE 2024.</td></tr>
+      <tr><td>A3</td><td>McKenzie JE, Veroniki AA. A brief note on the random-effects model. <em>J Clin Epidemiol.</em> 2024;174:111492.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39098563" target="_blank">39098563</a></td><td>Segundo do par. Exemplo numerico FE vs RE.</td></tr>
+      <tr><td>A4</td><td>Carlson RB et al. Ten simple rules for interpreting a meta-analysis. <em>PLOS Comput Biol.</em> 2023;19(9):e1011461.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37768880" target="_blank">37768880</a></td><td>Formato checklist. Ideal para journal club.</td></tr>
+    </table>
+  </details>
+</section>
+
+<!-- ===== DEEP DIVE: GAPS ===== -->
+<section id="gaps">
+  <h2>Deep Dive &mdash; Topicos Avancados</h2>
+  <p>Topicos nao cobertos pelos 10 artigos core. Artigos verificados via PubMed MCP (S115).</p>
+
+  <details>
+    <summary>A) GRADE e Inconsistencia</summary>
+    <div class="gap-card">
+      <p>Como heterogeneidade estatistica afeta a certeza da evidencia e a forca da recomendacao no GRADE. O dominio "inconsistency" e um dos 5 para rebaixar certeza.</p>
+      <p><strong>Guyatt GH et al.</strong> GRADE guidelines 7: Rating the quality of evidence &mdash; inconsistency. <em>J Clin Epidemiol.</em> 2011;64(12):1294-302.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21803546" target="_blank">PMID 21803546</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2011.03.017" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
+      Classico GRADE. Criterios: point estimates, overlap de ICs, I2, subgroup credibility.</p>
+      <p><strong>Guyatt G et al.</strong> GRADE guidance 36: updates to addressing inconsistency. <em>J Clin Epidemiol.</em> 2023;158:70-83.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36898507" target="_blank">PMID 36898507</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2023.03.003" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
+      Atualizacao 2023: PI para avaliar imprecisao+inconsistencia simultaneamente, credibilidade de effect modification.</p>
+      <p><strong>Murad MH et al.</strong> Simultaneous evaluation of imprecision and inconsistency using prediction intervals. <em>J Clin Epidemiol.</em> 2024;175:111543.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39322122" target="_blank">PMID 39322122</a> | <a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2024.111543" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
+      Ponte entre PI (Borenstein) e GRADE (Guyatt). PI-based approach leva a ratings mais conservadores em 27% dos casos.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>B) Sensitivity Analysis / Leave-one-out</summary>
+    <div class="gap-card">
+      <p>Analise de robustez: um estudo influente muda a conclusao? Leave-one-out exclui 1 estudo por vez e recalcula.</p>
+      <p><strong>Patsopoulos NA, Evangelou E, Ioannidis JPA.</strong> Sensitivity of between-study heterogeneity in meta-analysis: proposed metrics and empirical evaluation. <em>Int J Epidemiol.</em> 2008;37(5):1148-57.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18424475" target="_blank">PMID 18424475</a> | <a class="ref-pmid" href="https://doi.org/10.1093/ije/dyn065" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
+      Algoritmos sequencial e combinatorial. Em 90% das MAs com I2 &gt; 50%, excluir 1-2 estudos reduz I2 &lt; 50%.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>C) Outlier Detection (Galbraith/GOSH)</summary>
+    <div class="gap-card">
+      <p>Metodos graficos alem do forest plot para identificar outliers e clusters de estudos causando heterogeneidade.</p>
+      <p><strong>Harrer M et al.</strong> <em>Doing Meta-Analysis with R: A Hands-On Guide.</em> 2021. Chapter 7: "Detecting Outliers &amp; Influential Cases."<br>
+      Livro OA online. Tutorial pratico com Baujat plots, GOSH plots, leave-one-out em R. Funciona como standalone.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>E) Publication Bias x Heterogeneidade</summary>
+    <div class="gap-card">
+      <p>Funnel plot assimetrico pode ser heterogeneidade, nao bias. Confounding entre os dois e comum e sub-reconhecido.</p>
+      <p><strong>Augusteijn HEM, van Aert RCM, van Assen MALM.</strong> The effect of publication bias on the Q test and assessment of heterogeneity. <em>Psychol Methods.</em> 2019;24(1):116-134.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/30489099" target="_blank">PMID 30489099</a> | <a class="ref-pmid" href="https://doi.org/10.1037/met0000197" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
+      Publication bias pode tanto diminuir quanto aumentar heterogeneidade. Q-test e I2 sao INVALIDOS quando publication bias existe. Introduz Q-sense (web app).</p>
+      <p><strong>Coburn KM, Vevea JL.</strong> Publication bias as a function of study characteristics. <em>Psychol Methods.</em> 2015;20(3):310-30.<br>
+      <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/26348731" target="_blank">PMID 26348731</a> | <a class="ref-pmid" href="https://doi.org/10.1037/met0000046" target="_blank">DOI</a> | <span class="v">VERIFIED</span><br>
+      Publication bias varia por caracteristicas do estudo (funding, design). Peso diferencial por subgrupo.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===== GLOSSARY ===== -->
+<section id="glossary">
+  <h2>Glossario Rapido</h2>
+  <table>
+    <tr><th>Termo</th><th>Definicao (1 frase)</th><th>Referencia</th></tr>
+    <tr><td class="glossary-term">I2 (I-squared)</td><td>Proporcao da variabilidade total devida a heterogeneidade real (nao acaso) &mdash; mas NAO mede magnitude da variacao.</td><td>Borenstein 2022</td></tr>
+    <tr><td class="glossary-term">tau2 (tau-squared)</td><td>Variancia absoluta entre os efeitos verdadeiros dos estudos, na escala original da metrica.</td><td>Borenstein 2023b</td></tr>
+    <tr><td class="glossary-term">Prediction Interval (PI)</td><td>Range esperado do efeito verdadeiro em um estudo FUTURO &mdash; incorpora incerteza + heterogeneidade.</td><td>Borenstein 2023a</td></tr>
+    <tr><td class="glossary-term">Cochran's Q</td><td>Teste estatistico de homogeneidade: rejeita H0 se os efeitos sao mais diferentes do que o acaso explicaria.</td><td>Cordero 2021</td></tr>
+    <tr><td class="glossary-term">Fixed Effect (FE)</td><td>Modelo que assume UM efeito verdadeiro comum a todos os estudos. Peso proporcional ao tamanho amostral.</td><td>Dettori 2022</td></tr>
+    <tr><td class="glossary-term">Random Effects (RE)</td><td>Modelo que assume distribuicao de efeitos verdadeiros. Incorpora variancia entre-estudos (tau2). Estudos menores ganham mais peso.</td><td>Dettori 2022</td></tr>
+    <tr><td class="glossary-term">GRADE Inconsistency</td><td>Dominio GRADE para rebaixar certeza quando resultados dos estudos divergem sem explicacao.</td><td>Guyatt 2011/2023</td></tr>
+  </table>
+</section>
+
+<!-- ===== NLM ===== -->
+<section id="nlm-study">
+  <h2>Material de Estudo (NotebookLM)</h2>
+  <p><strong>Notebook:</strong> Pre-Reading Heterogeneidade MA<br>
+  <strong>ID:</strong> b1829bef-f780-4346-9daa-87e1a88dc71c | <strong>Alias:</strong> prereading</p>
+  <table>
+    <tr><th>Source</th><th>PMID</th><th>Status</th></tr>
+    <tr><td>Andrade 2020</td><td>33027562</td><td>reCAPTCHA*</td></tr>
+    <tr><td>Ruppar 2020</td><td>32757621</td><td>OK</td></tr>
+    <tr><td>Borenstein 2022</td><td>36223816</td><td>reCAPTCHA*</td></tr>
+    <tr><td>Borenstein 2023a</td><td>38938910</td><td>reCAPTCHA*</td></tr>
+    <tr><td>Carlson 2023</td><td>37768880</td><td>reCAPTCHA*</td></tr>
+  </table>
+  <p><em>*reCAPTCHA: PubMed bloqueou scraping. Re-adicionar via DOI se necessario.</em></p>
+  <p>Pendente: Study Guide (artifact 0b2cb010) | Audio Deep Dive (artifact 57b46e4a)</p>
+</section>
+
+<!-- ===== VERIFICATION ===== -->
+<section id="verification">
+  <h2>Verificacao de PMIDs</h2>
+  <table>
+    <tr><th>#</th><th>PMID</th><th>Status</th><th>Metodo</th></tr>
+    <tr><td>1</td><td>35723546</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP: autor+titulo+journal</td></tr>
+    <tr><td>2</td><td>35088937</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>3</td><td>32757621</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>4</td><td>36223816</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>5</td><td>38938910</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>6</td><td>37940120</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>7</td><td>33483004</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>8</td><td>37612263</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>9</td><td>38501202</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>10</td><td>39956636</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP</td></tr>
+    <tr><td>Deep</td><td>21803546</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP S115</td></tr>
+    <tr><td>Deep</td><td>36898507</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP S115</td></tr>
+    <tr><td>Deep</td><td>39322122</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP S115</td></tr>
+    <tr><td>Deep</td><td>18424475</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP S115</td></tr>
+    <tr><td>Deep</td><td>30489099</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP S115</td></tr>
+    <tr><td>Deep</td><td>26348731</td><td><span class="v">VERIFIED</span></td><td>PubMed MCP S115</td></tr>
+  </table>
+  <p><strong>16/16 VERIFIED</strong> (10 core S114 + 6 deep dive S115). 4 candidatos WEB-VERIFIED (A1-A4).</p>
+  <p><strong>Gemini CANDIDATE score:</strong> 3 verificados com correcoes (Augusteijn, Coburn, Patsopoulos), 4 hallucinated (Zhang, Siemieniuk, Tipton, Orsini guide), 2 sem PMID (book, video). Taxa erro: ~44%.</p>
+</section>
+
+<footer>
+  <p>Coautoria: Lucas + Opus 4.6 (orquestrador) + Gemini 2.5 Pro (pesquisa gap analysis) | S114-S115 2026-04-08</p>
+  <p>Pipeline: Bracos 2+5 (MCPs academicos) + Braco 1 (Gemini API) + Braco 6 (NLM). Verificacao: PubMed MCP 3-field cross-ref.</p>
+</footer>
+
+</body>
+</html>
