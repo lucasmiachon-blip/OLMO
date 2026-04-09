@@ -9,7 +9,7 @@ Hepatologia, albumina, ascite, cirrose. 5 concepts compilados, 4 raw sources EN.
 → [_index.md](topics/medicina-clinica/_index.md)
 
 ### [[sistema-olmo|Sistema OLMO]]
-AI, orquestracao, harness, memory, rules. 3 raw sources, concepts pendentes.
+AI, orquestracao, harness, memory, rules. 6 concepts compilados, 3 raw sources.
 → [_index.md](topics/sistema-olmo/_index.md)
 
 ## Stats
@@ -17,6 +17,6 @@ AI, orquestracao, harness, memory, rules. 3 raw sources, concepts pendentes.
 | Metrica | Valor |
 |---------|-------|
 | Topics | 2 |
-| Concepts (compilados) | 5 |
+| Concepts (compilados) | 11 (5 medicina + 6 sistema) |
 | Raw sources | 7 |
-| Last updated | S117 2026-04-08 |
+| Last updated | S117 2026-04-09 |
