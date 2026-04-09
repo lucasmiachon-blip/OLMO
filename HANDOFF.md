@@ -6,7 +6,7 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
-**Agentes: 10.** **Hooks: 37 registrations (37 scripts; 0 pre-commit).** **Rules: 10**. **MCPs: 12**. **KBPs: 8.**
+**Agentes: 10.** **Hooks: 37 registrations (37 scripts; 0 pre-commit).** **Rules: 10**. **MCPs: 6 ativos + 6 frozen**. **KBPs: 8.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
 **Skills: 20 (16 disable-model-invocation, 4 auto-trigger).** **Memory: 20/20. Next review: S127. Next /insights: S127.**
@@ -21,7 +21,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | 2 | **Research s-importancia (REDO)** | 1-2 historias onde MA mudou pratica clinica. Para slide | Normal |
 | 3 | **Context diet P1 restante** | model-fallback-advisory compression + .claudeignore | Facil |
 | 5 | **Integrar worker pre-reading-research** | 13 artigos candidatos, selecao final Lucas, criar HTML | Normal |
-| 6 | **Auditar 12 MCPs para tool poisoning** | Zero-width chars, unicode, base64 em tool descriptions. P1 SECURITY | Normal |
+| 6 | **Consensus: decisao marketing injection** | Server instructions forcam texto promocional. Freeze, manter, ou regra? | Lucas decide |
 | 7 | **medicina-clinica stubs** | 4 concepts stub/low aguardam Cowork harvest | Facil |
 | 8 | **Adversarial deferred: M-01, M-10** | Policy decisions (Bash granularity, Canva MCP wildcard) | Lucas decide |
 | 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
@@ -42,7 +42,8 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 - Anti-workaround (KBP-07): diagnosticar → reportar → listar opcoes → STOP.
 - Anti-substituicao (KBP-08): perna falhou = reportar e pular. WebSearch removido de evidence-researcher S126.
 - **Referential integrity:** ao deletar arquivo, remover TODAS as referencias (pre-commit, settings, agent tools). Incidente S126.
-- **MCP tool poisoning:** 12 MCPs NUNCA auditados para instrucoes ocultas. P1 SECURITY.
+- **MCP freeze ate 2026-04-14:** Gmail, Calendar, Excalidraw, Canva, Context7, Notion. Deny list em settings.local.json.
+- **Consensus FLAG:** marketing injection via server instructions. Decisao pendente.
 
 ## CONFLITOS
 

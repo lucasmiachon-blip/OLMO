@@ -13,8 +13,15 @@
 - wiki/concepts/rule.md: idem
 - content/aulas/CLAUDE.md: portas inline + regra headless (+2 linhas)
 
+### MCP Surface Reduction
+- 6 MCPs frozen até 2026-04-14: Gmail, Calendar, Excalidraw, Canva, Context7, Notion
+- Deny list adicionada em settings.local.json, allow entries removidas
+- Audit 5 MCPs ativos: PubMed CLEAN, SCite CLEAN, Playwright CLEAN, Scholar Gateway N/A (no auth)
+- Consensus FLAG: marketing injection via server instructions (decisão pendente Lucas)
+
 ### Stats
 - Always-loaded: 433→336 linhas (-22%). 7 arquivos tocados, 1 deletado
+- MCPs: 12→6 ativos (6 frozen). Deny list: 6 entries
 - Zero perda de informação: KBPs apontam para canônicos (anti-drift, session-hygiene, qa-pipeline)
 
 ## Sessao 126 — 2026-04-09 (Context Diet)
