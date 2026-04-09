@@ -54,11 +54,21 @@ Session: S{N}
 - {o que falta e por que}
 ```
 
+## Ativacao
+
+Quando o usuario disser **"worker mode"**, **"voce e um worker"**, ou **"modo worker"**:
+1. Criar flag: rodar `echo "worker" > .claude/.worker-mode` via Bash
+2. Criar pasta da tarefa: `mkdir -p .claude/workers/{task-name}/`
+3. Confirmar: "Worker mode ativo. Escrevendo em .claude/workers/{task-name}/. Write/Edit bloqueado fora desta pasta."
+4. Perguntar a tarefa se o usuario nao especificou
+
+Quando o usuario disser **"orquestrador"** ou nao disser nada: modo padrao (sem .worker-mode).
+
 ## Enforcement
 
-- v1: convencao + regra (este arquivo)
-- Hook guard: NAO implementado. Adicionar se violacoes recorrerem (KBP pattern)
-- Worker identifica-se com: `echo "worker" > .claude/.worker-mode` (opcional)
+- Regra (este arquivo) — auto-loaded em todas as sessoes do repo
+- Hook: `guard-worker-write.sh` — bloqueia Write/Edit fora de `.claude/workers/` quando `.worker-mode` existe
+- Ao encerrar worker: remover flag com `rm .claude/.worker-mode`
 
 ## Cross-repo
 
