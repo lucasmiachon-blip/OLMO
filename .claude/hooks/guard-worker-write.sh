@@ -15,7 +15,7 @@ PARSED=$(echo "$INPUT" | node -e "
   try {
     const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
     const p=(d.tool_input||{}).file_path||(d.tool_input||{}).command||'';
-    console.log(JSON.stringify({path:p.replace(/\\\\\\\\/g,'/'),tool:d.tool_name||''}));
+    console.log(JSON.stringify({path:p.split('\\\\').join('/'),tool:d.tool_name||''}));
   } catch(e) { console.log('{}'); }
 " 2>/dev/null)
 
