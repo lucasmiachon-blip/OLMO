@@ -15,7 +15,7 @@ else
 === REGRAS CRITICAS (pos-compaction) ===
 1. NAO avance sem autorizacao do Lucas. Proponha, espere OK, execute.
 2. Use scripts existentes. NAO reinvente.
-3. Build ANTES de QA. QA visual = Opus, NAO Gemini.
+3. Build ANTES de QA. QA via gemini-qa3.mjs (Gemini Flash/Pro). Opus orquestra, NAO avalia visual.
 RULES
 fi
 

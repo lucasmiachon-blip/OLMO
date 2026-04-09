@@ -25,12 +25,18 @@ if echo "$CMD" | grep -q '\.session-name'; then
   exit 0
 fi
 
+# Block Bash writes to .claude/workers/ — force Write tool (timestamp enforcement via guard-worker-write)
+if echo "$CMD" | grep -qE '\.claude/workers/.*\.(md|txt)'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"[SECURITY] Bash writes to .claude/workers/ blocked — use Write tool (timestamp enforcement)"}}\n'
+  exit 2
+fi
+
 # Remove safe redirect patterns before checking for file writes
 # Safe: 2>&1, >/dev/null, 2>/dev/null, &>/dev/null
 CLEANED=$(echo "$CMD" | sed -E 's/2>&1//g; s/[12&]?>[[:space:]]*\/dev\/null//g')
 
 # Pattern 1: redirect to file (> or >> followed by path-like target)
-if echo "$CLEANED" | grep -qE '>>?[[:space:]]+[A-Za-z0-9./~$"'\''_-]'; then
+if echo "$CLEANED" | grep -qE '>>?[[:space:]]*[A-Za-z0-9./~$"'\''_-]'; then
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"Shell redirect detectado — confirme se intencional"}}\n'
   exit 0
 fi

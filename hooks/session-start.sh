@@ -11,12 +11,12 @@ SESSION_FILE="$PROJECT_ROOT/.claude/.session-name"
 # Limpar nome da sessao anterior
 rm -f "$SESSION_FILE"
 
-# Generate session-scoped ID for cost brake (B7-06 S102)
-echo "${NEXT_SESSION}_$(date +%Y%m%d_%H%M%S)" > /tmp/cc-session-id.txt
-
 # Proximo numero de sessao — take max (not first match) to avoid regression (Codex S60 O10)
 LAST_SESSION=$(grep -o 'Sessao [0-9]*' "$PROJECT_ROOT/CHANGELOG.md" 2>/dev/null | grep -o '[0-9]*' | sort -n | tail -1)
 NEXT_SESSION=$((LAST_SESSION + 1))
+
+# Generate session-scoped ID for cost brake (B7-06 S102) — AFTER computing NEXT_SESSION
+echo "${NEXT_SESSION}_$(date +%Y%m%d_%H%M%S)" > /tmp/cc-session-id.txt
 
 cat <<EOF
 Projeto: $PROJECT_NAME | Data: $TODAY | Sessao provavel: $NEXT_SESSION

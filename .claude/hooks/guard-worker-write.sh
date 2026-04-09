@@ -6,7 +6,9 @@
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Only active if worker-mode flag exists
-WORKER_FLAG="$(git rev-parse --show-toplevel 2>/dev/null)/.claude/.worker-mode"
+REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+[ -z "$REPO_ROOT" ] && exit 0  # Not in git repo — hook not applicable
+WORKER_FLAG="$REPO_ROOT/.claude/.worker-mode"
 [ ! -f "$WORKER_FLAG" ] && exit 0
 
 # Parse file path
@@ -35,13 +37,13 @@ if echo "$FULL_PATH" | grep -q '\.claude/workers/'; then
   " 2>/dev/null)
 
   if [ "$BLOCK" = "missing" ]; then
-    echo '{"decision":"block","reason":"[WORKER] MD missing timestamp in H1. Required: # Title \u2014 YYYY-MM-DD HH:MM (multi-window.md convention)"}'
-    exit 0
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"[WORKER] MD missing timestamp in H1. Required: # Title \u2014 YYYY-MM-DD HH:MM (multi-window.md convention)"}}\n'
+    exit 2
   fi
 
   exit 0
 fi
 
 # Block everything else in worker mode
-echo '{"decision":"block","reason":"[WORKER MODE] Write/Edit blocked outside .claude/workers/. Use orchestrator window for repo edits."}'
-exit 0
+printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"[WORKER MODE] Write/Edit blocked outside .claude/workers/. Use orchestrator window for repo edits."}}\n'
+exit 2

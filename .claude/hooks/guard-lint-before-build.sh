@@ -75,7 +75,9 @@ for SCRIPT in "${LINT_SCRIPTS[@]}"; do
 done
 
 if [ $LINT_FAILED -ne 0 ]; then
-  printf '{"error": "BLOQUEADO: lint falhou para %s. Corrija antes de buildar.%s"}\n' "$AULA" "$LINT_ERRORS"
+  # Sanitize lint errors: escape quotes and newlines to prevent JSON injection (M-11)
+  SAFE_ERRORS=$(echo -e "$LINT_ERRORS" | tr '"' "'" | tr '\n' ' ' | cut -c1-500)
+  printf '{"error": "BLOQUEADO: lint falhou para %s. Corrija antes de buildar. %s"}\n' "$AULA" "$SAFE_ERRORS"
   exit 2
 fi
 

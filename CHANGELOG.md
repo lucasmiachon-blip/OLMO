@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## Sessao 117 — 2026-04-09 (WIKI: consolidation + adversarial fixes)
+
+### Adversarial Audit (38 findings, 7-leg parallel)
+- adversarial-audit-s117.md: 1 CRITICAL, 8 HIGH, 14 MEDIUM, 15 LOW/INFO
+- Red-team triage: 13 fixed, 5 by-design, 5 deferred
+
+### Hooks Fixed (P0+P1+P2 = 13 fixes)
+- guard-worker-write.sh: canonical `permissionDecision` + `exit 2` (C-01), git-repo fallback (M-14)
+- session-start.sh: NEXT_SESSION ordering bug (H-01)
+- lint-on-edit.sh: `file_path` field name (H-02, was dead code for Edit)
+- guard-bash-write.sh: no-space redirect bypass (H-07), block Bash→workers/ (security hardening)
+- coupling-proactive.sh: node JSON + fs.statSync cross-platform (H-08, was dead on MSYS2)
+- guard-read-secrets.sh: fail-closed on empty stdin (M-09)
+- guard-lint-before-build.sh: JSON injection sanitization (M-11)
+- session-compact.sh: correct QA model reference (M-06)
+- context-essentials.md: correct build command path (M-07)
+
+### Insights Consolidation (H-04)
+- latest-report.md: consolidated to canonical path (skills/insights/references/)
+- failure-registry.json: moved to canonical path
+- Deleted non-canonical .claude/insights/ directory
+
+### Wiki Phase 6 (partial)
+- orquestracao.md: compiled topic (multi-window, model routing, momentum brake, anti-drift, L1-L7)
+- wiki/topics/sistema-olmo/wiki/topics/ directory created
+
+### Cleanup
+- Removed stale .claude/.worker-mode flag (was blocking orchestrator edits)
+- Removed consumed .claude/workers/wiki-setup-eval/ output (S116)
+
 ## Sessao 116 — 2026-04-08 (INFRA: insights integration + worker conventions + Gemini model fix)
 
 ### Rules

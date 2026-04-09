@@ -12,7 +12,7 @@ INPUT=$(cat 2>/dev/null || echo '{}')
 FILE_PATH=$(echo "$INPUT" | node -e "
 const d=JSON.parse(require('fs').readFileSync(0,'utf8')||'{}');
 const ti=d.tool_input||{};
-console.log(ti.path||'');
+console.log(ti.file_path||ti.path||'');
 " 2>/dev/null) || exit 0
 
 # Filtro: so arquivos slides/*.html

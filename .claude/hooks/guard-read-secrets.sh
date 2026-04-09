@@ -7,8 +7,9 @@ set -u
 
 INPUT=$(cat 2>/dev/null || true)
 
-# Fail-open: no input means no file path to check — allow
+# Fail-closed: no input = can't verify safety — ask user (not silent allow)
 if [ -z "$INPUT" ]; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"guard-read-secrets: empty stdin — confirme leitura"}}\n'
   exit 0
 fi
 
