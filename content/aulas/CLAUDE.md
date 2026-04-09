@@ -14,7 +14,8 @@
 ## Build & Dev
 
 - Package root: `content/aulas/package.json`
-- Dev server: `npm run dev:{aula}` (portas em process-hygiene.md)
+- Dev server: `npm run dev:{aula}` — portas: cirrose=4100, grade=4101, metanalise=4102
+- Headless (Playwright/QA): rodar com timeout, matar ao terminar. NUNCA background sem PID
 - Build: `npm run build:{aula}` — gera `{aula}/index.html` a partir de `_manifest.js`
 - Build script: `{aula}/scripts/build-html.ps1` (PowerShell)
 - **Lint ANTES de build** — guard-lint-before-build.sh bloqueia se lint falhar

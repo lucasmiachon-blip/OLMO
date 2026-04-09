@@ -191,7 +191,7 @@ docs/
 │   └── lib/             # Libraries: retry-utils.sh (L1), chaos-inject.sh (L6)
 ├── rules/ (10)          # Regras comportamentais (path-scoped)
 │   ├── anti-drift.md, coauthorship.md, known-bad-patterns.md
-│   ├── session-hygiene.md, qa-pipeline.md, process-hygiene.md
+│   ├── session-hygiene.md, qa-pipeline.md, multi-window.md
 │   ├── mcp_safety.md, notion-cross-validation.md
 │   └── slide-rules.md, design-reference.md
 ├── skills/ (20+)        # Slash commands instrucao-based (progressive disclosure)

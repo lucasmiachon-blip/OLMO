@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 127 — 2026-04-09 (Context Optimization)
+
+### Rules Consolidation
+- known-bad-patterns.md: KBPs comprimidos para formato pointer (66→33 linhas, -50%)
+- multi-window.md: template DONE.md + seções comprimidas, frontmatter adicionado (87→33 linhas, -62%)
+- session-hygiene.md: hardening + cleanup comprimidos com pointers (72→62 linhas)
+- process-hygiene.md: DELETADO — portas absorvidas por content/aulas/CLAUDE.md
+
+### Referential Integrity
+- docs/TREE.md: process-hygiene→multi-window na listagem de rules
+- wiki/concepts/rule.md: idem
+- content/aulas/CLAUDE.md: portas inline + regra headless (+2 linhas)
+
+### Stats
+- Always-loaded: 433→336 linhas (-22%). 7 arquivos tocados, 1 deletado
+- Zero perda de informação: KBPs apontam para canônicos (anti-drift, session-hygiene, qa-pipeline)
+
 ## Sessao 126 — 2026-04-09 (Context Diet)
 
 ### Context Optimization (P0)

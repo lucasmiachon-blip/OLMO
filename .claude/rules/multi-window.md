@@ -1,87 +1,33 @@
+---
+description: Coordenacao multi-janela — orquestrador edita, workers read-only
+---
+
 # Multi-Window Coordination
 
-> Lucas trabalha em 2-3 janelas Claude Code simultaneamente.
-> Esta regra define o contrato de coordenacao.
+> Orquestrador (1 janela) edita repo + commits. Workers (1-2 janelas) read-only + MCPs.
 
 ## Roles
 
-### Orquestrador (1 janela unica)
-- Edita arquivos do repo (Edit/Write)
-- Faz commits
-- Integra resultados dos workers
-- Lanca subagents
-- Decide o que entra no repo
+### Orquestrador (1 janela)
+Edit/Write, commits, integra workers, lanca subagents, decide o que entra no repo.
 
-### Worker (1-2 janelas adicionais)
-- **Read-only** no repo (Read, Glob, Grep, Bash read-only)
-- Pode usar MCPs (PubMed, Consensus, Scite, NLM, Gemini API)
-- Pode usar WebSearch/WebFetch
-- Escreve APENAS em `.claude/workers/{task-name}/`
-- **NUNCA** faz commit
-- **NUNCA** edita slides, evidence, scripts, config, agents, rules, hooks
-- Ao terminar: cria `.claude/workers/{task-name}/DONE.md`
+### Worker (1-2 janelas)
+**Read-only** no repo. Pode MCPs + WebSearch/WebFetch. Escreve APENAS em `.claude/workers/{task-name}/`. **NUNCA** commit, **NUNCA** edita slides/evidence/scripts/config/agents/rules/hooks. Ao terminar: cria `DONE.md`.
 
-## Pasta de workers
+## Workers
 
-```
-.claude/workers/
-  {task-name}/
-    output.md      ← resultados do worker
-    DONE.md        ← sinal de conclusao (template abaixo)
-```
+Pasta: `.claude/workers/{task-name}/` (gitignored). Orquestrador consome e apaga apos integrar.
 
-- Gitignored (output temporario)
-- Orquestrador consome e apaga apos integrar
+**Nomeacao:** todo MD inclui data/hora no titulo: `# {Titulo} — {YYYY-MM-DD HH:MM}` (Brasilia, 24h).
 
-## Convencao de nomeacao
-
-Todo MD criado por worker DEVE incluir **data e hora** no titulo (linha `#`):
-
-- **output.md:** `# {Titulo descritivo} — {YYYY-MM-DD HH:MM}`
-- **DONE.md:** `# Worker Signal: {task-name} — {YYYY-MM-DD HH:MM}`
-
-Formato: ISO-like, timezone local (Brasilia). Hora em 24h.
-Motivo: orquestrador identifica staleness sem ler alem da primeira linha.
-
-## Template DONE.md
-
-```markdown
-# Worker Signal: {task-name} — {YYYY-MM-DD HH:MM}
-Status: COMPLETE | PARTIAL | FAILED
-Timestamp: {ISO datetime}
-Session: S{N}
-
-## Resumo
-{2-3 linhas do que foi feito}
-
-## Arquivos criados
-- .claude/workers/{task}/output.md — {descricao}
-
-## Sugestoes para orquestrador
-- {acao sugerida}
-
-## Pendencias (se PARTIAL/FAILED)
-- {o que falta e por que}
-```
+**DONE.md:** campos obrigatorios: Status (COMPLETE|PARTIAL|FAILED), Session, Resumo (2-3 linhas), Arquivos criados, Sugestoes, Pendencias (se PARTIAL/FAILED).
 
 ## Ativacao
 
-Quando o usuario disser **"worker mode"**, **"voce e um worker"**, ou **"modo worker"**:
-1. Criar flag: rodar `echo "worker" > .claude/.worker-mode` via Bash
-2. Criar pasta da tarefa: `mkdir -p .claude/workers/{task-name}/`
-3. Confirmar: "Worker mode ativo. Escrevendo em .claude/workers/{task-name}/. Write/Edit bloqueado fora desta pasta."
-4. Perguntar a tarefa se o usuario nao especificou
-
-Quando o usuario disser **"orquestrador"** ou nao disser nada: modo padrao (sem .worker-mode).
+Trigger: "worker mode" / "voce e um worker" / "modo worker" → `echo "worker" > .claude/.worker-mode` + `mkdir -p .claude/workers/{task-name}/`. Sem trigger = orquestrador (padrao).
 
 ## Enforcement
 
-- Regra (este arquivo) — auto-loaded em todas as sessoes do repo
-- Hook: `guard-worker-write.sh` — bloqueia Write/Edit fora de `.claude/workers/` quando `.worker-mode` existe
-- Ao encerrar worker: remover flag com `rm .claude/.worker-mode`
+Hook `guard-worker-write.sh` bloqueia Write/Edit fora de `.claude/workers/` quando `.worker-mode` existe. Ao encerrar: `rm .claude/.worker-mode`.
 
-## Cross-repo
-
-- OLMO (`C:\Dev\Projetos\OLMO`) — repo principal
-- OLMO_COWORK (`C:\Dev\Projetos\OLMO_COWORK`) — repo cowork
-- Cada repo tem seu proprio orquestrador. NAO editar repo alheio.
+Cross-repo: OLMO = principal, OLMO_COWORK = cowork. NAO editar repo alheio.

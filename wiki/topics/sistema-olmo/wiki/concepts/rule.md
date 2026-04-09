@@ -26,7 +26,7 @@ Rules sao contratos comportamentais em markdown, auto-loaded em toda sessao do r
 | qa-pipeline.md | 11 steps lineares, 1 slide/vez, scripts canonicos |
 | slide-rules.md | Edicao, CSS, motion, GSAP, deck.js |
 | design-reference.md | Semantica de cor, tipografia, dados medicos |
-| process-hygiene.md | Portas, processos, PID management |
+| multi-window.md | Coordenacao orquestrador/worker multi-janela |
 | mcp_safety.md | Protocolo Notion MCP, read-only default |
 
 ## Known-Bad Patterns (Via Negativa)

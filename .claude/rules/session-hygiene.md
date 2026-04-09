@@ -53,20 +53,10 @@ No inicio da sessao, se HANDOFF.md lista items P0 SECURITY:
 1. Surfacea-los para Lucas imediatamente
 2. NAO iniciar feature work ate Lucas explicitamente deferir
 
-## Hardening de agentes (checklist S80)
+## Hardening de agentes
 
-Ao criar ou reescrever agente:
-1. **maxTurns**: obrigatorio. Estimar turns reais (scripts + DOM + report) + margem 20%
-2. **tools**: verificar que cada tool existe no SDK (ex: `StrReplace` nao existe, usar `Edit`)
-3. **1 tarefa = 1 invocacao**: se o agente precisa parar no meio, dividir em invocacoes separadas
-4. **Referenciar scripts, nao duplicar**: listar comando, nao reimplementar logica
-5. **Gate names descritivos**: Preflight/Inspect/Editorial, nao numeros arbitrarios (-1/0/4)
+Ao criar/reescrever agente: (1) maxTurns obrigatorio (+20% margem), (2) verificar tools existem no SDK, (3) 1 tarefa = 1 invocacao. Script primacy e gate names → anti-drift.md §Script Primacy.
 
-## Artifact cleanup (before wrap-up)
+## Artifact cleanup
 
-Check for and offer to remove:
-- `.claude/*.md` files not in agents/, rules/, skills/, workers/, plans/ directories
-- Orphan `.claude/workers/` directories with DONE.md signals already consumed
-- Temp files created during tool execution (codex reports, adversarial audits)
-
-Exception: files explicitly requested by Lucas to persist.
+Before wrap-up: limpar `.claude/*.md` orfaos, `.claude/workers/` consumidos, temp files. Excecao: arquivos que Lucas pediu para manter.
