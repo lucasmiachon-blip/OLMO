@@ -1,5 +1,6 @@
 ---
 name: continuous-learning
+disable-model-invocation: true
 description: >
   Progressive learning for dev, ML, AI, systems engineering, management,
   and orchestration — plus AI fluency for teaching students. Use this skill

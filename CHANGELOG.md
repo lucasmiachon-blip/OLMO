@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 126 — 2026-04-09 (Context Diet)
+
+### Context Optimization (P0)
+- Deletado recency anchor do CLAUDE.md (redundante com primacy anchor + hooks)
+- Deletados 2 orphan hooks (crossref-precommit.sh, guard-secrets-precommit.sh)
+- WebSearch removido de evidence-researcher (affordance bias → KBP-08)
+- 16/20 skills com `disable-model-invocation: true` (4 mantidas: brainstorming, concurso, slide-authoring, systematic-debugging)
+
+### Context Optimization (P1)
+- 4 skill descriptions trimadas (insights, research, knowledge-ingest, nlm-skill)
+- KBP trimado: historico (Incidence/Sessions/Post-S*) removido, padroes intactos
+- KBP-08 Fix atualizado para refletir remocao do WebSearch
+
+### Stats
+- 21 arquivos tocados, -191 linhas, +28 linhas (~163 linhas liquidas removidas)
+
 ## Sessao 125 — 2026-04-09 (Anti-Substitution Enforcement)
 
 ### Research Pipeline

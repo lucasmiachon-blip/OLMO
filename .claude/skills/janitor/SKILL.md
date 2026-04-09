@@ -1,5 +1,6 @@
 ---
 name: janitor
+disable-model-invocation: true
 description: >
   Repository cleanup and maintenance — dead code removal, doc consolidation,
   structure audit, orphan detection. Use this skill when the repo needs

@@ -1,5 +1,6 @@
 ---
 name: daily-briefing
+disable-model-invocation: true
 description: >
   Daily email processing: Gmail MCP reading, classification, and Notion Emails
   Digest DB registration with expanded concept analysis. Use this skill at the

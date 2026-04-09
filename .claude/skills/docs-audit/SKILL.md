@@ -1,5 +1,6 @@
 ---
 name: docs-audit
+disable-model-invocation: true
 description: Audits docs/*.md and rules/skills for links, redundancy, verbosity, and token economy. Use when user says "audite os docs", "verifique os MDs", "audit markdown", or before long sessions to reduce context. Executes via subagent generalPurpose or qa-engineer.
 version: 0.3.0
 context: fork

@@ -1,7 +1,7 @@
 ---
 name: insights
-description: >
-  Agent self-improvement through retrospective session analysis. Audits error patterns, rule/skill compliance, and proposes systemic fixes to rules, skills, hooks, and memory. Like an M&M conference for the AI agent. Proactively suggest running weekly or after major milestones. MANDATORY TRIGGERS: insights, self-improve, auditoria de sessoes, o que melhorar, error patterns, quais erros se repetem, agent performance, melhorar regras, melhorar skills, melhorar hooks, retrospectiva, M&M conference
+disable-model-invocation: true
+description: "Retrospective session analysis — audits error patterns, rule/skill compliance, proposes systemic fixes."
 ---
 
 # Insights — Agent Self-Improvement

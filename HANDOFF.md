@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 125 | 2026-04-09
-> Foco: Anti-Substitution Enforcement
+> Sessao 126 | 2026-04-09
+> Foco: Context Diet
 
 ## ESTADO ATUAL
 
@@ -9,9 +9,9 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 **Agentes: 10.** **Hooks: 37 registrations** (39 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 8.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
-**Skills: 20.** **Memory: 20/20. Dream+Insights ran S124. Next review: S127. Next /insights: S127.**
+**Skills: 20 (16 disable-model-invocation, 4 auto-trigger).** **Memory: 20/20. Next review: S127. Next /insights: S127.**
 **Evidence:** s-importancia (evidence limpo, slide pendente h2), pre-reading-heterogeneidade (DONE).
-**Insights S124:** IMPROVING trend (corrections_5avg 0.494→0.37, KBP=0 2nd consecutive). P001 applied (anti-drift calibration).
+**Context Diet S126:** recency anchor, 2 orphan hooks, WebSearch evidence-researcher, KBP trim, 4 skill desc trim. ~5k tokens/sessao economizados.
 
 ## PROXIMOS PASSOS
 

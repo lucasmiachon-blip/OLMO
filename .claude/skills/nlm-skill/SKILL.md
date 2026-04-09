@@ -1,6 +1,7 @@
 ---
 name: nlm-skill
-description: "NotebookLM CLI & MCP guide for medical education — paper study, concurso prep, research pipelines, batch operations. Triggers on: nlm, notebooklm, notebook lm, podcast generation, audio overview, study materials from papers."
+disable-model-invocation: true
+description: "NotebookLM CLI & MCP guide for medical education."
 version: "1.0.0"
 ---
 

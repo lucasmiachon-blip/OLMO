@@ -5,7 +5,6 @@ tools:
   - Read
   - Grep
   - Glob
-  - WebSearch
   - WebFetch
   - Bash
   - mcp:pubmed
@@ -68,18 +67,7 @@ color: red
 | **biomcp** | Clinical trials + farmacovigilancia |
 
 Fallback: claude.ai native MCPs (PubMed, Consensus, Scholar Gateway).
-MCP down → WebSearch em pubmed.ncbi.nlm.nih.gov. Marcar como WEB-VERIFIED.
-
-## WebSearch — Uso Restrito
-
-WebSearch so e permitido para:
-1. Verificar PMID em pubmed.ncbi.nlm.nih.gov quando PubMed MCP esta indisponivel
-2. Buscar guidelines em sites oficiais (EASL, AASLD, BAVENO, AGA, ACG) quando MCPs nao retornam
-
-PROIBIDO (KBP-08):
-- Usar WebSearch como substituto de MCPs academicos para descoberta de papers
-- Usar WebSearch para pesquisa geral no lugar de PubMed/CrossRef/Scite
-- Qualquer busca que nao seja verificacao pontual em site especifico
+MCP down → reportar ao orchestrador e pular perna (KBP-08). NUNCA substituir por busca generica.
 
 ## Protocolo de Pesquisa
 
@@ -95,7 +83,7 @@ PROIBIDO (KBP-08):
 
 Para o slide/tema especificado, buscar em TODAS as MCPs disponiveis:
 
-**Guidelines:** PubMed `practice guideline[pt]` + WebSearch (EASL, AASLD, BAVENO, SBC, ESC, AGA, ACG)
+**Guidelines:** PubMed `practice guideline[pt]` + WebFetch em fontes Tier 1 oficiais
 **RCTs:** PubMed `randomized controlled trial[pt]` + Consensus + BioMCP (ClinicalTrials.gov)
 **Meta-analises:** PubMed `meta-analysis[pt]` + Scholar Gateway + Consensus
 **Autoridades:** Semantic Scholar (top authors) + WebSearch (textbooks, UpToDate)

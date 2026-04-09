@@ -1,5 +1,6 @@
 ---
 name: organization
+disable-model-invocation: true
 description: >
   GTD, Eisenhower matrix, Deep Work, and session memory management (HANDOFF + CHANGELOG). Use for daily/weekly planning, task prioritization, weekly reviews, context management between sessions, productivity systems, or organizational requests. MANDATORY TRIGGERS: planejar, organizar, weekly review, priorizar, o que fazer, task management, HANDOFF, CHANGELOG, wrap-up, session hygiene, GTD, Eisenhower, Deep Work, planejamento
 ---

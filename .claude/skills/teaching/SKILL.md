@@ -1,5 +1,6 @@
 ---
 name: teaching
+disable-model-invocation: true
 description: >
   Teaching methodology, andragogy, slideology, cognitive psychology, rhetoric,
   and reflective practice for medical education. Use this skill when preparing

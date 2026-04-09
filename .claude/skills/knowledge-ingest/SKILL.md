@@ -1,7 +1,7 @@
 ---
 name: knowledge-ingest
-description: |
-  Pipeline que transforma qualquer fonte de conhecimento (PDF, YouTube, URL, PMID, TXT, livro) em nota Obsidian estruturada + comandos NotebookLM para estudo profundo. Use sempre que o usuário quiser: "criar nota sobre", "estudar este paper", "transformar em nota", "alimentar NotebookLM", "ingerir este material", "processar este PDF", "quero estudar", "adicionar ao vault", "fazer flashcards de", "gerar podcast de", "resumir este paper", "criar material de estudo", ou quando receber um link de YouTube, PDF, PMID, DOI, ou URL de artigo. Também use quando o usuário mencionar Obsidian, vault, nota médica, NotebookLM, NLM, estudo, concurso. Use proativamente quando fontes forem compartilhadas sem instrução explícita.
+disable-model-invocation: true
+description: "Transforma fontes (PDF, YouTube, URL, PMID) em nota Obsidian + comandos NotebookLM."
 version: 1.0.0
 ---
 

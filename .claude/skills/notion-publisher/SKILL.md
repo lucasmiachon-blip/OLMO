@@ -1,5 +1,6 @@
 ---
 name: notion-publisher
+disable-model-invocation: true
 description: >
   Create professional Notion pages with templates for medical evidence, digests,
   quick references, and knowledge capture into Masterpiece DB. Use this skill

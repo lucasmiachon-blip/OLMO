@@ -1,5 +1,6 @@
 ---
 name: exam-generator
+disable-model-invocation: true
 description: >
   Generate calibrated practice exams with anti-cue protocol (NBME-aligned),
   Anki cards, and study materials for Brazilian medical boards. Use this skill

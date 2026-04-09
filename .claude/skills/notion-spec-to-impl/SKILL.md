@@ -1,5 +1,6 @@
 ---
 name: notion-spec-to-impl
+disable-model-invocation: true
 description: >
   Convert specs and plans into trackable Notion Tasks DB entries decomposed
   into atomic tasks (max 2h each) with dependencies and time estimates. Use

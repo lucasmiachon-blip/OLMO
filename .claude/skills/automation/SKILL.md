@@ -1,5 +1,6 @@
 ---
 name: automation
+disable-model-invocation: true
 description: >
   Workflow automation: cron jobs, Claude Code hooks, data pipelines, scheduled
   agents, webhooks, event-driven triggers. Use this skill when creating
