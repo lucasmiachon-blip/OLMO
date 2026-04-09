@@ -10,6 +10,7 @@ tools:
 model: sonnet
 maxTurns: 12
 memory: project
+color: blue
 ---
 
 # QA Engineer — Single Slide, Single Gate

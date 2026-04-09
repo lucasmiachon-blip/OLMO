@@ -8,6 +8,7 @@ tools:
   - Grep
 model: haiku
 maxTurns: 12
+color: orange
 ---
 
 # Repo Janitor (Claude Code Subagent)

@@ -8,6 +8,8 @@ tools:
   - Grep
 model: sonnet
 maxTurns: 25
+color: yellow
+memory: project
 ---
 
 # Sentinel — Read-Only Self-Improvement Agent

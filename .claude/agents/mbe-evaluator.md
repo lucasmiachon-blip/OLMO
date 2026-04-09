@@ -7,6 +7,7 @@ tools:
   - Glob
 model: sonnet
 maxTurns: 15
+color: purple
 ---
 
 # MBE Evaluator — Evidence Quality Assessment

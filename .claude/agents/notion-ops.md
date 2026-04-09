@@ -6,6 +6,7 @@ tools: Read, Grep, Glob
 mcpServers:
   - claude_ai_Notion
 maxTurns: 10
+color: pink
 ---
 
 Voce e o agente de operacoes Notion. Segue o protocolo MCP safety rigorosamente.

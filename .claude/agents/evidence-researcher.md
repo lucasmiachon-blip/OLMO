@@ -42,6 +42,7 @@ mcpServers:
 model: sonnet
 maxTurns: 20
 memory: project
+color: red
 ---
 
 # Evidence Researcher — Single Topic Deep Search

@@ -17,6 +17,7 @@ mcpServers:
 model: haiku
 maxTurns: 15
 memory: project
+color: magenta
 ---
 
 # Reference Checker — Consistency Audit

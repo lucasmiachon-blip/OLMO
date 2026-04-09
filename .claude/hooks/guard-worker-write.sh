@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # guard-worker-write.sh -- PreToolUse: two independent guards
-# 1. Timestamp enforcement: .claude/workers/**/*.md ALWAYS requires timestamp in H1 (regardless of worker mode)
+# 1. Timestamp enforcement: .claude/workers/**/*.md ALWAYS requires ACCURATE timestamp in H1
 # 2. Worker-mode guard: when .worker-mode flag exists, block Write/Edit outside .claude/workers/
 # Exit 0 without JSON = allow. Exit 2 = block.
 
@@ -29,30 +29,47 @@ if echo "$FULL_PATH" | grep -q '\.claude/workers/'; then
       try {
         const d = JSON.parse(require('fs').readFileSync(0, 'utf8'));
         const tn = d.tool_name || '';
+        let firstLine = '';
+
         if (tn === 'Write') {
-          const content = (d.tool_input || {}).content || '';
-          const firstLine = content.split('\n')[0];
-          if (!/^#.+\u2014 \d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(firstLine)) {
-            console.log('missing');
-          }
+          firstLine = ((d.tool_input || {}).content || '').split('\n')[0];
         } else if (tn === 'Edit') {
           const fp = (d.tool_input || {}).file_path || '';
           const fs = require('fs');
-          const fpath = fp.replace(/\//g, require('path').sep);
+          const fpath = fp.replace(/^\/([a-zA-Z])\//, (_, drive) => drive.toUpperCase() + ':/');
           if (fs.existsSync(fpath)) {
-            const firstLine = fs.readFileSync(fpath, 'utf8').split('\n')[0];
-            if (!/^#.+\u2014 \d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(firstLine)) {
-              console.log('missing');
-            }
+            firstLine = fs.readFileSync(fpath, 'utf8').split('\n')[0];
           }
+        }
+
+        if (!firstLine) { process.exit(0); }
+
+        const fmtMatch = firstLine.match(/^#.+\u2014 (\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/);
+        if (!fmtMatch) { console.log('missing'); process.exit(0); }
+
+        const [, y, mo, da, h, mi] = fmtMatch.map(Number);
+        if (mo < 1 || mo > 12 || da < 1 || da > 31 || h > 23 || mi > 59) {
+          console.log('invalid'); process.exit(0);
+        }
+        const tsDate = new Date(y, mo - 1, da, h, mi);
+        const diffMin = Math.abs(Date.now() - tsDate.getTime()) / 60000;
+        if (diffMin > 5) {
+          console.log('stale'); process.exit(0);
         }
       } catch (e) {}
     " 2>/dev/null)
 
-    if [ "$BLOCK" = "missing" ]; then
-      printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"[WORKER] MD missing timestamp in H1. Required: # Title \u2014 YYYY-MM-DD HH:MM (multi-window.md convention)"}}\n'
-      exit 2
-    fi
+    case "$BLOCK" in
+      missing)
+        printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"[WORKER] MD missing timestamp in H1. Required: # Title \u2014 YYYY-MM-DD HH:MM. Get time: date +%%Y-%%m-%%d\\ %%H:%%M"}}\n'
+        exit 2 ;;
+      invalid)
+        printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"[WORKER] Timestamp has impossible values. Check month/day/hour ranges."}}\n'
+        exit 2 ;;
+      stale)
+        printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"[WORKER] Timestamp >5min from system clock. Get real time: date +%%Y-%%m-%%d\\ %%H:%%M"}}\n'
+        exit 2 ;;
+    esac
   fi
   # Path is in workers/ and passed timestamp check (or not .md) -- allow
   exit 0
