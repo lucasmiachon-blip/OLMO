@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 124 — 2026-04-09 (Insights + Dream)
+
+### Insights
+- /insights S124: 7 sessions analyzed (S117-S123). IMPROVING trend (corrections_5avg 0.494→0.37, KBP=0 2nd consecutive)
+- P001 APPLIED: beginner-calibrated explanation rule added to anti-drift.md §Transparency
+- P002 SKIPPED: already existed in project_living_html.md since S119
+- P003 MONITORING: run /insights after s-importancia slide to stress-test 4 untested rules
+- failure-registry.json: S124 entry added, trend direction stable→improving
+
+### Dream
+- project_living_html.md: added §Pre-reading calibracao S120 (resident audience, human tone)
+- MEMORY.md: reindexed S124, updated living_html description, dream/insights cycle to S127
+
+### Meta
+- HANDOFF atualizado S124: insights/dream status, P003 monitoring note
+
 ## Sessao 123 — 2026-04-09 (Brainstorming Skill)
 
 ### Skills

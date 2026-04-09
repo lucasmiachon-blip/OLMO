@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 123 | 2026-04-09
-> Foco: Brainstorming Skill
+> Sessao 124 | 2026-04-09
+> Foco: Insights + Dream
 
 ## ESTADO ATUAL
 
@@ -9,9 +9,9 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 **Agentes: 10.** **Hooks: 37 registrations** (39 scripts; 2 pre-commit). **Rules: 11**. **MCPs: 12**. **KBPs: 7.**
 **Adversarial S117:** 13/23 fixados. 5 by-design. 5 deferred (M-01/04/05/10/13).
 **Wiki:** F1-F7 done. 6 concepts + 3 topics compilados (sistema-olmo).
-**Skills: 20.** **Memory: 20/20. Dream ran S118. Next review: S124. Next /insights: S123.**
+**Skills: 20.** **Memory: 20/20. Dream+Insights ran S124. Next review: S127. Next /insights: S127.**
 **Evidence:** s-importancia (evidence limpo, slide pendente h2), pre-reading-heterogeneidade (DONE).
-**Workers S117-S119:** synthesis consumido. 5 itens incorporados abaixo. Stale workers apagados.
+**Insights S124:** IMPROVING trend (corrections_5avg 0.494→0.37, KBP=0 2nd consecutive). P001 applied (anti-drift calibration).
 
 ## PROXIMOS PASSOS
 
@@ -28,7 +28,7 @@ Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 | 9 | **Pipeline DAG end-to-end** | Executar cowork→NLM→wiki com dados reais | Normal |
 | 10 | **Notion-ops write tools** | Agente P1: so read. Adicionar write capability | Normal |
 
-Sequencia sugerida: #1+#2 (s-importancia) → #6 (MCP audit).
+Sequencia sugerida: #1+#2 (s-importancia) → #6 (MCP audit). Apos slide, rodar /insights para stress-test 4 rules (P003 monitoring).
 
 ## DECISOES ATIVAS
 

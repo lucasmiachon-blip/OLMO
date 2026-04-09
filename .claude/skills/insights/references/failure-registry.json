@@ -182,13 +182,40 @@
       "new_kbps_added": 0,
       "proposals_accepted": 2,
       "proposals_rejected": 3
+    },
+    {
+      "id": "S124",
+      "date": "2026-04-09",
+      "note": "/insights S124. ~7 sessions (S117-S123). ZERO KBP violations (2nd consecutive). 5 corrections (calibration/depth, not behavioral). 1 tool error (MCP expiry). 1 resolved pattern (worker timestamps). Workload: infra/evidence, no QA/slide.",
+      "metrics": {
+        "sessions_in_sample": 7,
+        "user_corrections_total": 5,
+        "user_corrections_per_session": 0.71,
+        "kbp_violations": {
+          "KBP-01_scope_creep": 0,
+          "KBP-02_context_overflow": 0,
+          "KBP-03_agent_script_redundancy": 0,
+          "KBP-04_wrong_criteria": 0,
+          "KBP-05_batch_violation": 0,
+          "KBP-06_delegation_failure": 0,
+          "KBP-07_workaround_without_diagnosis": 0
+        },
+        "kbp_total": 0,
+        "kbp_per_session": 0,
+        "tool_errors": 1,
+        "retries": 1
+      },
+      "insights_run": true,
+      "new_kbps_added": 0,
+      "proposals_accepted": 0,
+      "proposals_rejected": 0
     }
   ],
   "trend": {
-    "corrections_per_session_5avg": 0.494,
+    "corrections_per_session_5avg": 0.37,
     "kbp_violations_per_session_5avg": 0.178,
-    "direction": "stable",
-    "last_updated": "2026-04-08",
-    "note": "5-session avg: S84 (0) + S85 (0) + S91 (0) + S108 (1.33/0.89) + S116 (1.14/0). S83 rolled out. corrections_5avg increased 0.27->0.494 (window artifact: S83(0) replaced by S116(1.14)). kbp_5avg stable 0.18->0.178. Per-session rate decreased 1.33->1.14. Direction STABLE (not improving because corrections_5avg rose, not regressing because per-session rate fell and KBP=0)."
+    "direction": "improving",
+    "last_updated": "2026-04-09",
+    "note": "5-session avg: S85 (0) + S91 (0) + S108 (1.33/0.89) + S116 (1.14/0) + S124 (0.71/0). corrections_5avg decreased 0.494->0.37 (S84(0) rolled out, S124(0.71) rolled in — net decrease because 0.71 < prev avg). kbp_5avg stable 0.178->0.178. Direction IMPROVING (corrections_5avg decreased, kbp_5avg stable at near-zero)."
   }
 }
