@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 129 — 2026-04-09 (PIPELINE-FIX + RESEARCH)
+
+### Pipeline /research — 5 fixes sistemicos
+- SKILL.md: `thinkingBudget: 'HIGH'` → `24576` (Gemini API int32)
+- SKILL.md: `max_tokens: 4000` → `8000` (Perplexity truncation)
+- SKILL.md: tabela Step 2 — "Agent" → "Ferramenta/Executor" + col Output
+- SKILL.md: Step 1.5 Worker Mode Override (output path para subagents)
+- SKILL.md: Step 2.5 Validacao Pos-Retorno (novo gate)
+- known-bad-patterns.md: KBP-09 (API key tool via MCP wrong path)
+
+### Research s-importancia (parcial)
+- Perplexity eixos 4-5 (IPD-MA + Transportability) relancada com fix — DONE (6691 tokens, $1.02)
+- Output salvo em `workers/s-importancia-audit/perna5-perplexity-axes4-5.md`
+- PubMed MCP expirou — 3 PMIDs CANDIDATE nao verificados
+
+### Stats
+- KBPs: 8→9. SKILL.md: +24 linhas (2 secoes novas + tabela expandida).
+
 ## Sessao 128 — 2026-04-09 (PRUNING)
 
 ### MCP Pruning Round 2
