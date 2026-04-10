@@ -2,213 +2,345 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Candidatos Forest Plot — Slides de Ensino</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence: Candidatos Forest Plot</title>
   <style>
-    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 920px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.6; }
-    h1 { font-size: 1.4rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
     h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
-    h3 { font-size: 1rem; margin-top: 1.5rem; }
-    .meta { font-size: .82rem; color: #666; }
-    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .85rem; }
-    th, td { border: 1px solid #ccc; padding: .35rem .5rem; text-align: left; vertical-align: top; }
-    th { background: #f0f4f0; font-weight: 600; }
-    .verified { color: #2d6a4f; font-weight: 600; }
-    .candidate { color: #d97706; font-weight: 600; }
-    .tag { display: inline-block; font-size: .75rem; padding: .1rem .4rem; border-radius: 3px; font-weight: 600; }
+    h3 { font-size: 1.05rem; color: #2d6a4f; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; vertical-align: top; }
+    th { background: #f0f4f0; }
+    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
+    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
+    .objectives li { margin: .3rem 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .decision { background: #fce4ec; border-left: 4px solid #c62828; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .v { display: inline-block; font-size: .65rem; font-weight: 700; color: #fff; background: #2563eb; border-radius: 3px; padding: 0 .3rem; margin: 0 .1rem; vertical-align: middle; }
+    .c { display: inline-block; font-size: .65rem; font-weight: 700; color: #fff; background: #dc2626; border-radius: 3px; padding: 0 .3rem; margin: 0 .1rem; vertical-align: middle; }
+    .tag { display: inline-block; font-size: .72rem; padding: .1rem .4rem; border-radius: 3px; font-weight: 600; }
     .tag-t1 { background: #e8f5e9; color: #2d6a4f; }
     .tag-near { background: #fff3cd; color: #856404; }
     .tag-cochrane { background: #e3f2fd; color: #1565c0; }
     .highlight { background: #fffde7; }
-    .key { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; }
-    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; }
-    .decision { background: #fce4ec; border-left: 4px solid #c62828; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; }
-    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .78rem; color: #888; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
   </style>
 </head>
 <body>
 
-<h1>Candidatos Forest Plot — Slides de Ensino de Meta-analise</h1>
-<p class="meta">Consolidado S146 (2026-04-10) | Fontes: worker forest-plot-hunting (Opus + Gemini + Perplexity) + worker colchicine-dac</p>
-<p class="meta">Objetivo: Lucas escolhe 2 MAs para criar slides com forest plot real (crop + zoom + animacao)</p>
+<header>
+  <h1>Candidatos Forest Plot &mdash; MAs para Slides de Ensino</h1>
+  <p class="meta">Slide: forest-plot (2 slides futuros) | Fase: F2 (Metodologia)</p>
+  <p class="meta">Gerado: 2026-04-10 | Fontes: worker forest-plot-hunting (Opus + Gemini 3.1 Pro + Perplexity Sonar) + worker colchicine-dac</p>
 
-<div class="decision"><strong>Decisao pendente:</strong> Lucas precisa ler os trials e escolher 2. Um sera sobre colchicina (Ebrahimi 2025 Cochrane). O outro: SGLT2i, corticoide em PAC, GLP-1, ou PA intensiva.</div>
+  <div class="objectives">
+    <strong>Objetivo desta pagina:</strong>
+    <ol>
+      <li>Reunir TODAS as meta-analises candidatas para crop de forest plot real</li>
+      <li>Fornecer PICO, resultados, e valor pedagogico completos para Lucas decidir</li>
+      <li>Sugerir combinacoes de 2 slides com progressao didatica</li>
+    </ol>
+  </div>
+
+  <div class="decision"><strong>Decisao pendente:</strong> Lucas le os trials e escolhe 2. Um sera colchicina (Ebrahimi 2025). O segundo: a confirmar.</div>
+</header>
+
+<!-- ===== CONVERGENCIAS ===== -->
+<section id="convergence">
+  <h2>Convergencia entre Motores</h2>
+  <p>3 motores independentes (Opus/MCPs, Gemini API, Perplexity Sonar) com prompts nao-deterministicos:</p>
+  <table>
+    <tr><th>Tema</th><th>Motores que convergiram</th><th>Nota</th></tr>
+    <tr><td>SGLT2i em IC</td><td>Opus + Perplexity</td><td>Mesmo tema, papers diferentes</td></tr>
+    <tr><td>Corticoides em PAC</td><td>Opus + Gemini</td><td>Mesmo tema, papers diferentes (AnnIntMed vs ICM)</td></tr>
+    <tr><td>GLP-1 obesidade</td><td>Perplexity (unico)</td><td>Pick unico</td></tr>
+    <tr><td>PA intensiva + HO</td><td>Gemini (unico)</td><td>Pick unico</td></tr>
+    <tr><td>Colchicina CV</td><td>Busca dedicada (Gemini + Perplexity)</td><td>Cochrane review emergiu como referencia central</td></tr>
+  </table>
+</section>
 
 <!-- ===== RANKING ===== -->
 <section id="ranking">
-  <h2>Ranking para Ensino (worker S145)</h2>
+  <h2>Ranking para Ensino</h2>
   <table>
-    <tr>
-      <th>#</th><th>MA</th><th>Tema</th><th>Journal</th><th>PMID</th><th>I²</th><th>N</th><th>Por que ensinar</th>
+    <tr><th>#</th><th>MA</th><th>Tema</th><th>Journal</th><th>PMID</th><th>I&sup2;</th><th>N estudos/pts</th><th>Por que ensinar</th></tr>
+    <tr class="highlight">
+      <td>1</td><td><strong>Vaduganathan 2022</strong></td><td>SGLT2i em IC</td>
+      <td><span class="tag tag-t1">Lancet</span></td><td><span class="v">V</span> 36041474</td>
+      <td>Baixo</td><td>5 / 21,947</td><td>Forest limpo, todos a esquerda. Anatomia basica.</td>
     </tr>
     <tr class="highlight">
-      <td>1</td>
-      <td><strong>Vaduganathan 2022</strong></td>
-      <td>SGLT2i em IC (todo FE)</td>
-      <td><span class="tag tag-t1">Lancet</span></td>
-      <td><span class="verified">36041474 VERIFIED</span></td>
-      <td>Baixo</td>
-      <td>5 RCTs, 21,947 pts</td>
-      <td>5 estudos nomeados, todos a esquerda, CIs estreitos. Primeiro farmaco FEr-a-FEp. Guias 2023.</td>
-    </tr>
-    <tr class="highlight">
-      <td>2</td>
-      <td><strong>Ebrahimi 2025</strong></td>
-      <td>Colchicina prevencao 2a CV</td>
-      <td><span class="tag tag-cochrane">Cochrane</span></td>
-      <td><span class="candidate">CANDIDATE (DOI ok)</span></td>
-      <td>51% (IAM), 40% (AVC)</td>
-      <td>12 RCTs, 22,983 pts</td>
-      <td>I² moderado = ensina heterogeneidade real. CLEAR SYNERGY neutro vs COLCOT/LoDoCo2 positivos = tensao no forest.</td>
+      <td>2</td><td><strong>Ebrahimi 2025</strong></td><td>Colchicina CV</td>
+      <td><span class="tag tag-cochrane">Cochrane</span></td><td><span class="c">C</span> DOI ok</td>
+      <td>51%/40%</td><td>12 / 22,983</td><td>I&sup2; moderado + tensao CLEAR SYNERGY. Leitura critica.</td>
     </tr>
     <tr>
-      <td>3</td>
-      <td><strong>Soumare 2026</strong></td>
-      <td>Corticoide em PAC grave</td>
-      <td><span class="tag tag-t1">Ann Intern Med</span></td>
-      <td><span class="candidate">41325621 CANDIDATE</span></td>
-      <td>14%</td>
-      <td>15 RCTs</td>
-      <td>I² 14% = consistencia exemplar. Resolve debate classico. Trials borderline → MA robusta.</td>
+      <td>3</td><td><strong>Soumare 2026</strong></td><td>Corticoide PAC grave</td>
+      <td><span class="tag tag-t1">Ann Intern Med</span></td><td><span class="c">C</span> 41325621</td>
+      <td>14%</td><td>15 / N/R</td><td>I&sup2; 14% = consistencia exemplar. Resolve debate.</td>
     </tr>
     <tr>
-      <td>4</td>
-      <td><strong>GLP-1 RAs obesidade</strong></td>
-      <td>GLP-1 para perda de peso</td>
-      <td><span class="tag tag-near">TBD</span></td>
-      <td><span class="candidate">CANDIDATE (PMC12991648)</span></td>
-      <td>82%</td>
-      <td>21 RCTs, 7,024 pts</td>
-      <td>I² 82% = heterogeneidade alta explicavel (agentes diferentes). Subgrupos reduzem I². OR 11.37.</td>
+      <td>4</td><td><strong>GLP-1 RAs</strong></td><td>GLP-1 obesidade</td>
+      <td><span class="tag tag-near">TBD</span></td><td><span class="c">C</span> PMC12991648</td>
+      <td>82%</td><td>21 / 7,024</td><td>I&sup2; alta explicavel. OR 11.37. Subgrupos.</td>
     </tr>
     <tr>
-      <td>5</td>
-      <td><strong>Juraschek 2023</strong></td>
-      <td>PA intensiva + hipotensao ortostatica</td>
-      <td><span class="tag tag-t1">JAMA</span></td>
-      <td><span class="candidate">37847274 CANDIDATE</span></td>
-      <td>Baixo (IPD)</td>
-      <td>9 RCTs (IPD), 29,235 pts</td>
-      <td>IPD meta-analysis. Ensina subgrupo + p-interacao. Derruba dogma. IC borderline (toca 1.00).</td>
+      <td>5</td><td><strong>Juraschek 2023</strong></td><td>PA + HO</td>
+      <td><span class="tag tag-t1">JAMA</span></td><td><span class="c">C</span> 37847274</td>
+      <td>Baixo (IPD)</td><td>9 / 29,235</td><td>IPD-MA. Subgrupo + p-interacao. IC borderline.</td>
     </tr>
     <tr>
-      <td>6</td>
-      <td><strong>Pitre 2025</strong></td>
-      <td>Corticoide em PAC (abrangente)</td>
-      <td><span class="tag tag-near">Intensive Care Med</span></td>
-      <td><span class="verified">40323455 VERIFIED</span></td>
-      <td>N/R</td>
-      <td>30 RCTs, 7,519 pts</td>
-      <td>30 estudos = forest plot denso. Inclui beneficio E dano (hiperglicemia). Estudos cruzando nulo.</td>
+      <td>6</td><td><strong>Pitre 2025</strong></td><td>Corticoide PAC</td>
+      <td><span class="tag tag-near">ICM</span></td><td><span class="v">V</span> 40323455</td>
+      <td>N/R</td><td>30 / 7,519</td><td>Forest denso. Beneficio + dano. 30 estudos.</td>
+    </tr>
+    <tr>
+      <td>7</td><td><strong>SGLT2i (Perplexity)</strong></td><td>SGLT2i em IC+DM2</td>
+      <td><span class="tag tag-near">TBD</span></td><td><span class="c">C</span> PMC12843294</td>
+      <td>Baixo</td><td>N/R</td><td>Provavelmente redundante com MA-1. Citacao incompleta.</td>
     </tr>
   </table>
+  <p class="meta"><span class="v">V</span> = VERIFIED (PubMed MCP ou Crossref). <span class="c">C</span> = CANDIDATE (nao verificado).</p>
 </section>
 
-<!-- ===== DETALHES POR CANDIDATO ===== -->
+<!-- ===== DETALHES COMPLETOS ===== -->
 <section id="details">
-  <h2>Detalhes dos Candidatos</h2>
+  <h2>Detalhes Completos por Candidato</h2>
 
-  <!-- MA-1 -->
-  <h3>MA-1: SGLT2i em IC — Vaduganathan et al., Lancet 2022</h3>
+  <!-- ==================== MA-1 ==================== -->
+  <h3>MA-1: SGLT2i em IC &mdash; Vaduganathan et al., Lancet 2022</h3>
   <table>
-    <tr><td width="25%"><strong>Citacao</strong></td><td>Vaduganathan M et al. SGLT-2 inhibitors in patients with heart failure: a comprehensive meta-analysis of five RCTs. <em>Lancet.</em> 2022;400(10354):757-767.</td></tr>
-    <tr><td><strong>PMID</strong></td><td><span class="verified">36041474 — VERIFIED (PubMed MCP + Crossref)</span></td></tr>
-    <tr><td><strong>DOI</strong></td><td>10.1016/S0140-6736(22)01429-5</td></tr>
-    <tr><td><strong>PICO</strong></td><td><strong>P:</strong> Adultos com IC, todo espectro FE (FEr, FEi, FEp), com/sem DM<br><strong>I:</strong> iSGLT2 (dapagliflozin ou empagliflozin)<br><strong>C:</strong> Placebo + tratamento padrao<br><strong>O:</strong> Morte CV ou hospitalizacao por IC</td></tr>
-    <tr><td><strong>Resultado</strong></td><td>HR 0.77 (IC 95%: 0.72-0.82). I² baixo. Fixed-effects.</td></tr>
-    <tr><td><strong>Estudos</strong></td><td>5 RCTs: DAPA-HF, EMPEROR-Reduced, EMPEROR-Preserved, DELIVER, SOLOIST-WHF. N=21,947.</td></tr>
-    <tr><td><strong>Impacto</strong></td><td>Primeiro farmaco com beneficio consistente de FEr a FEp. Guias ACC/AHA 2023 e ESC: Classe I.</td></tr>
-    <tr><td><strong>Valor pedagogico</strong></td><td>5 estudos nomeados, todos a esquerda da linha de nulo, CIs estreitos. Subgrupo por FE com CIs sobrepostos. Forest plot limpo e didatico.</td></tr>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>Vaduganathan M et al. SGLT-2 inhibitors in patients with heart failure: a comprehensive meta-analysis of five RCTs. <em>Lancet.</em> 2022;400(10354):757-767.</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="v">V</span> 36041474 | 10.1016/S0140-6736(22)01429-5</td></tr>
+    <tr><td><strong>Motor</strong></td><td>Opus/MCPs</td></tr>
   </table>
-  <div class="key">Ponto forte: forest plot simples (5 estudos), todos na mesma direcao, CIs estreitos. Ideal para PRIMEIRO forest plot — ensinar anatomia basica.</div>
-
-  <!-- MA-7 COLCHICINA -->
-  <h3>MA-7: Colchicina prevencao 2a CV — Ebrahimi et al., Cochrane 2025</h3>
   <table>
-    <tr><td width="25%"><strong>Citacao</strong></td><td>Ebrahimi et al. Colchicine for the secondary prevention of cardiovascular events. <em>Cochrane Database Syst Rev.</em> 2025.</td></tr>
-    <tr><td><strong>PMID</strong></td><td><span class="candidate">CANDIDATE — DOI: 10.1002/14651858.CD014808.pub2</span></td></tr>
-    <tr><td><strong>PICO</strong></td><td><strong>P:</strong> Adultos com DCV estavel, IAM previo ou AVC<br><strong>I:</strong> Colchicina baixa dose (0.5 mg 1-2x/dia) >=6 meses<br><strong>C:</strong> Placebo ou cuidado padrao<br><strong>O:</strong> IAM e AVC</td></tr>
-    <tr><td><strong>Resultado</strong></td><td>IAM: RR 0.74 (IC 95%: 0.57-0.96), I² 51%<br>AVC: RR 0.67 (IC 95%: 0.47-0.95), I² 40%</td></tr>
-    <tr><td><strong>Estudos</strong></td><td>12 RCTs, 22,983 pacientes. Inclui COLCOT, LoDoCo2, CLEAR SYNERGY.</td></tr>
-    <tr><td><strong>Impacto</strong></td><td>Evidencia alta: colchicina reduz IAM e AVC sem aumento de eventos adversos graves. GI leve aumenta.</td></tr>
-    <tr><td><strong>Valor pedagogico</strong></td><td>I² moderado (51%) = heterogeneidade REAL e interpretavel. CLEAR SYNERGY (neutro, 2024) vs COLCOT/LoDoCo2 (positivos) = tensao visivel no forest plot. Ensina: "trial neutro NAO refuta — olhe o pool".</td></tr>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos com IC, todo espectro FE (FEr &le;40%, FEi 41-49%, FEp &ge;50%), com ou sem DM</td></tr>
+    <tr><td><strong>I</strong></td><td>iSGLT2: dapagliflozin 10mg ou empagliflozin 10mg</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo + tratamento padrao otimizado</td></tr>
+    <tr><td><strong>O</strong></td><td>Composto: morte CV ou hospitalizacao por IC</td></tr>
   </table>
-  <div class="key">Ponto forte: heterogeneidade moderada + tensao entre trials. Ideal para SEGUNDO forest plot — apos anatomia basica, ensinar leitura critica (por que o diamante diz sim quando um trial diz nao?).</div>
-  <div class="caveat">PMID precisa verificacao via PubMed. DOI formato Cochrane valido. Trials individuais conhecidos (COLCOT PMID 31733140, LoDoCo2 PMID 32865375).</div>
-
-  <!-- MA-2 -->
-  <h3>MA-2: Corticoide em PAC grave — Soumare et al., Ann Intern Med 2026</h3>
   <table>
-    <tr><td width="25%"><strong>Citacao</strong></td><td>Soumare et al. Systemic Corticosteroids, Mortality, and Infections in Pneumonia and ARDS. <em>Ann Intern Med.</em> 2026.</td></tr>
-    <tr><td><strong>PMID</strong></td><td><span class="candidate">41325621 — CANDIDATE (Gemini)</span></td></tr>
-    <tr><td><strong>DOI</strong></td><td>10.7326/ANNALS-25-03055</td></tr>
-    <tr><td><strong>Resultado</strong></td><td>RR 0.73 (IC 95%: 0.57-0.93). I² 14%.</td></tr>
-    <tr><td><strong>Estudos</strong></td><td>15 RCTs (PAC grave); 20 total com ARDS.</td></tr>
-    <tr><td><strong>Valor pedagogico</strong></td><td>I² 14% = consistencia exemplar. Trials borderline isolados (REMAP-CAP NS, CAPE COD +) → MA revela beneficio robusto.</td></tr>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th><th>Modelo</th></tr>
+    <tr><td>Morte CV ou hosp IC</td><td>HR 0.77</td><td>0.72&ndash;0.82</td><td>Baixo</td><td>Fixed-effects</td></tr>
   </table>
-
-  <!-- MA-3 -->
-  <h3>MA-3: Corticoide em PAC — Pitre et al., ICM 2025</h3>
   <table>
-    <tr><td width="25%"><strong>Citacao</strong></td><td>Pitre et al. Corticosteroids for adult patients hospitalised with non-viral CAP. <em>Intensive Care Med.</em> 2025.</td></tr>
-    <tr><td><strong>PMID</strong></td><td><span class="verified">40323455 — VERIFIED (PubMed MCP + Crossref)</span></td></tr>
-    <tr><td><strong>DOI</strong></td><td>10.1007/s00134-025-07912-2</td></tr>
-    <tr><td><strong>Resultado</strong></td><td>RR 0.82 (IC 95%: 0.74-0.91). 30 RCTs, 7,519 pts.</td></tr>
-    <tr><td><strong>Valor pedagogico</strong></td><td>Forest plot denso (30 estudos). Inclui outcomes de beneficio E dano (hiperglicemia a direita). Estudos cruzando nulo ensina pooling.</td></tr>
+    <tr><th>Trial</th><th>Ano</th><th>FE</th><th>N</th><th>Farmaco</th><th>Resultado</th></tr>
+    <tr><td>DAPA-HF</td><td>2019</td><td>&le;40%</td><td>4,744</td><td>Dapagliflozin</td><td>Positivo</td></tr>
+    <tr><td>EMPEROR-Reduced</td><td>2020</td><td>&le;40%</td><td>3,730</td><td>Empagliflozin</td><td>Positivo</td></tr>
+    <tr><td>SOLOIST-WHF</td><td>2021</td><td>Qualquer (DM2)</td><td>1,222</td><td>Sotagliflozin</td><td>Positivo</td></tr>
+    <tr><td>EMPEROR-Preserved</td><td>2021</td><td>&gt;40%</td><td>5,988</td><td>Empagliflozin</td><td>Positivo</td></tr>
+    <tr><td>DELIVER</td><td>2022</td><td>&gt;40%</td><td>6,263</td><td>Dapagliflozin</td><td>Positivo</td></tr>
   </table>
+  <p><strong>Impacto clinico:</strong> Primeiro farmaco com beneficio consistente de FEr a FEp. Guias ACC/AHA 2023 e ESC: Classe I para todos os espectros de FE.</p>
+  <div class="key-takeaway"><strong>Valor pedagogico:</strong> 5 estudos nomeados, TODOS a esquerda da linha de nulo, CIs estreitos. Subgrupo por FE mostra CIs sobrepostos. Forest plot limpo e didatico. Ideal para PRIMEIRO forest plot &mdash; ensinar anatomia basica (quadrado, barra, diamante, peso).</div>
+  <div class="caveat">Publicado set/2022 (3 meses antes do filtro 2023). Paper consolidador dos trials 2019-2022.</div>
 
-  <!-- MA-4 -->
+  <!-- ==================== MA-7 ==================== -->
+  <h3>MA-7: Colchicina prevencao 2a CV &mdash; Ebrahimi et al., Cochrane 2025</h3>
+  <table>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>Ebrahimi et al. Colchicine for the secondary prevention of cardiovascular events. <em>Cochrane Database Syst Rev.</em> 2025.</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> CANDIDATE | 10.1002/14651858.CD014808.pub2</td></tr>
+    <tr><td><strong>Motor</strong></td><td>Gemini (busca dedicada colchicina)</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos com DCV estavel, IAM previo ou AVC</td></tr>
+    <tr><td><strong>I</strong></td><td>Colchicina baixa dose (0.5 mg 1-2x/dia) por &ge;6 meses</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo ou cuidado padrao</td></tr>
+    <tr><td><strong>O</strong></td><td>IAM e AVC (avaliados separadamente)</td></tr>
+  </table>
+  <table>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th><th>GRADE</th></tr>
+    <tr><td>IAM</td><td>RR 0.74</td><td>0.57&ndash;0.96</td><td>51%</td><td>Alta</td></tr>
+    <tr><td>AVC</td><td>RR 0.67</td><td>0.47&ndash;0.95</td><td>40%</td><td>Alta</td></tr>
+    <tr><td>Eventos GI</td><td>Aumentados</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+  </table>
+  <table>
+    <tr><th>Trial</th><th>Ano</th><th>N</th><th>Populacao</th><th>Resultado</th><th>PMID</th></tr>
+    <tr><td>LoDoCo (piloto)</td><td>2013</td><td>532</td><td>DAC estavel</td><td>Positivo</td><td>24226256</td></tr>
+    <tr><td>COLCOT</td><td>2019</td><td>4,745</td><td>Post-IAM</td><td>Positivo</td><td>31733140</td></tr>
+    <tr><td>LoDoCo2</td><td>2020</td><td>5,522</td><td>DAC estavel</td><td>Positivo</td><td>32865375</td></tr>
+    <tr><td>CLEAR SYNERGY</td><td>2024</td><td>~7,000</td><td>Post-PCI</td><td><strong>Neutro</strong></td><td>[TBD]</td></tr>
+  </table>
+  <p><strong>Impacto clinico:</strong> Evidencia alta (GRADE): colchicina reduz IAM (26%) e AVC (33%) sem aumento de eventos adversos graves. Apenas eventos GI leves aumentam. ESC 2024 passou a recomendar.</p>
+  <div class="key-takeaway"><strong>Valor pedagogico:</strong> I&sup2; moderado (51%) = heterogeneidade REAL e interpretavel. CLEAR SYNERGY (maior trial, neutro) vs COLCOT/LoDoCo2 (positivos) = tensao visivel no forest plot. Ensina: &ldquo;trial neutro NAO refuta &mdash; olhe o pool&rdquo;. Ideal para SEGUNDO forest plot &mdash; leitura critica.</div>
+  <div class="caveat">PMID Cochrane precisa verificacao. DOI formato valido. Perplexity confirmou que o tema tem MAs mas nao em NEJM/Lancet/JAMA/BMJ/AnnIntMed &mdash; a Cochrane e a referencia central. Perplexity retornou 27 citations near-Tier 1 (Eur Heart J IF~39, JAHA IF~6, Scand Cardiovasc J).</div>
+  <div class="caveat"><strong>Contexto narrativo:</strong> CLEAR SYNERGY (2024) e o trial mais recente e maior, e foi neutro. Isto cria a tensao perfeita para ensino: &ldquo;se eu so tivesse lido este trial, descartaria colchicina. Mas o diamante da MA integra 12 trials e diz: funciona.&rdquo;</div>
+
+  <!-- ==================== MA-2 ==================== -->
+  <h3>MA-2: Corticoide em PAC grave &mdash; Soumare et al., Ann Intern Med 2026</h3>
+  <table>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>Soumare et al. Systemic Corticosteroids, Mortality, and Infections in Pneumonia and ARDS: A Systematic Review and Meta-analysis. <em>Ann Intern Med.</em> 2026.</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> 41325621 | 10.7326/ANNALS-25-03055</td></tr>
+    <tr><td><strong>Motor</strong></td><td>Gemini</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos com PAC grave nao-COVID ou ARDS</td></tr>
+    <tr><td><strong>I</strong></td><td>Corticoide sistemico baixa dose, curso curto (pred-equivalente variavel)</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo ou cuidado padrao</td></tr>
+    <tr><td><strong>O</strong></td><td>Mortalidade curto prazo (28-30 dias)</td></tr>
+  </table>
+  <table>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th></tr>
+    <tr><td>Mortalidade curto prazo</td><td>RR 0.73</td><td>0.57&ndash;0.93</td><td>14%</td></tr>
+    <tr><td>Infeccao secundaria</td><td>Sem aumento</td><td>&mdash;</td><td>&mdash;</td></tr>
+  </table>
+  <p><strong>Estudos:</strong> 15 RCTs (PAC grave); 20 total com ARDS. N pacientes nao reportado no output do worker.</p>
+  <p><strong>Impacto clinico:</strong> Resolveu debate de decadas. REMAP-CAP (nao-significativo) + CAPE COD (positivo) &rarr; MA mostrou 27% RRR mortalidade sem aumento de infeccao secundaria.</p>
+  <div class="key-takeaway"><strong>Valor pedagogico:</strong> I&sup2; 14% = consistencia exemplar. Mostra por que a MA existe: trials borderline isolados revelam beneficio robusto quando combinados. Bom para ensinar &ldquo;a MA responde o que o trial individual nao consegue&rdquo;.</div>
+  <div class="caveat">PMID precisa verificacao (Gemini, nao confirmado via MCP).</div>
+
+  <!-- ==================== MA-3 ==================== -->
+  <h3>MA-3: Corticoide em PAC &mdash; Pitre et al., ICM 2025</h3>
+  <table>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>Pitre T et al. Corticosteroids for adult patients hospitalised with non-viral CAP: systematic review and meta-analysis. <em>Intensive Care Med.</em> 2025.</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="v">V</span> 40323455 | 10.1007/s00134-025-07912-2</td></tr>
+    <tr><td><strong>Motor</strong></td><td>Opus/MCPs</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos hospitalizados com PAC nao-viral</td></tr>
+    <tr><td><strong>I</strong></td><td>Corticoide sistemico (pred-equivalente 29-100 mg/d)</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo ou cuidado padrao</td></tr>
+    <tr><td><strong>O</strong></td><td>Mortalidade 28-30 dias, ventilacao mecanica, hiperglicemia</td></tr>
+  </table>
+  <table>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th></tr>
+    <tr><td>Mortalidade 28-30d</td><td>RR 0.82</td><td>0.74&ndash;0.91</td><td>N/R (GRADE moderada)</td></tr>
+    <tr><td>Ventilacao mecanica</td><td>37% RRR</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td>Hiperglicemia</td><td>Aumentada</td><td>&mdash;</td><td>&mdash;</td></tr>
+  </table>
+  <p><strong>Estudos:</strong> 30 RCTs, 7,519 pacientes.</p>
+  <p><strong>Impacto clinico:</strong> MA mais abrangente de corticoides em PAC. 18% RRR mortalidade + 37% RRR ventilacao mecanica. Sem aumento de infeccao secundaria. Hiperglicemia como dano mensuravel.</p>
+  <div class="key-takeaway"><strong>Valor pedagogico:</strong> Forest plot DENSO (30 estudos). Inclui outcomes de beneficio (mortalidade) E dano (hiperglicemia a direita). Estudos individuais cruzando a linha de nulo ensina o conceito de pooling &mdash; o estudo isolado nao e significativo, mas contribui para o pool.</div>
+  <div class="caveat">ICM nao e Tier 1 strict (NEJM/Lancet/JAMA/BMJ/AnnIntMed/Cochrane), mas e o top journal de critical care (IF alto).</div>
+
+  <!-- ==================== MA-4 ==================== -->
   <h3>MA-4: GLP-1 RAs para Obesidade</h3>
   <table>
-    <tr><td width="25%"><strong>Citacao</strong></td><td>NMA de GLP-1 RAs para perda de peso. Journal e autor TBD.</td></tr>
-    <tr><td><strong>PMID</strong></td><td><span class="candidate">CANDIDATE (PMC ref: PMC12991648)</span></td></tr>
-    <tr><td><strong>Resultado</strong></td><td>OR 11.37 (IC 95%: 8.10-15.98). I² 82%. 21 RCTs, 7,024 pts.</td></tr>
-    <tr><td><strong>Valor pedagogico</strong></td><td>I² 82% = heterogeneidade alta mas EXPLICAVEL (agentes diferentes, dose, duracao). Subgrupos reduzem I². Todos a esquerda.</td></tr>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>Network meta-analysis de GLP-1 receptor agonists para perda de peso. <strong>Autor e journal TBD.</strong></td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> CANDIDATE (PMC ref: PMC12991648)</td></tr>
+    <tr><td><strong>Motor</strong></td><td>Perplexity</td></tr>
   </table>
-  <div class="caveat">Citacao incompleta. Precisa recuperar PMID e primeiro autor.</div>
-
-  <!-- MA-6 -->
-  <h3>MA-6: PA Intensiva + Hipotensao Ortostatica — Juraschek et al., JAMA 2023</h3>
   <table>
-    <tr><td width="25%"><strong>Citacao</strong></td><td>Juraschek et al. Orthostatic Hypotension, Hypertension Treatment, and Cardiovascular Disease: IPD-MA. <em>JAMA.</em> 2023.</td></tr>
-    <tr><td><strong>PMID</strong></td><td><span class="candidate">37847274 — CANDIDATE (Gemini)</span></td></tr>
-    <tr><td><strong>DOI</strong></td><td>10.1001/jama.2023.18497</td></tr>
-    <tr><td><strong>Resultado</strong></td><td>HR 0.83 (IC 95%: 0.70-1.00). I² baixo. 9 RCTs (IPD), 29,235 pts.</td></tr>
-    <tr><td><strong>Valor pedagogico</strong></td><td>IPD meta-analysis. Ensina subgrupo por trait clinico + p-interacao (0.68). Derruba dogma. IC borderline (toca 1.00).</td></tr>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos com obesidade (IMC &ge;30 ou &ge;27 com comorbidade)</td></tr>
+    <tr><td><strong>I</strong></td><td>GLP-1 RAs: semaglutida, tirzepatida, liraglutida (doses variadas)</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo</td></tr>
+    <tr><td><strong>O</strong></td><td>Perda de peso (&ge;5% e &ge;10% do peso corporal)</td></tr>
   </table>
-  <div class="caveat">IC toca 1.00 — pode confundir alunos se nao contextualizado. PMID precisa verificacao.</div>
+  <table>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th></tr>
+    <tr><td>Perda &ge;5%</td><td>OR 11.37</td><td>8.10&ndash;15.98</td><td>82%</td></tr>
+  </table>
+  <p><strong>Estudos:</strong> 21 RCTs (16 placebo-controlled), 7,024 pacientes.</p>
+  <p><strong>Impacto clinico:</strong> Mudanca de paradigma: GLP-1 RA de droga para DM para tratamento mainstream de obesidade. Magnitude de efeito impressionante (OR &gt;11).</p>
+  <div class="key-takeaway"><strong>Valor pedagogico:</strong> I&sup2; 82% = heterogeneidade alta mas EXPLICAVEL (agentes diferentes, duracao, dose). Subgrupos por agente reduzem I&sup2;. Todos os estudos a esquerda (mesmo direcao). Ensina: &ldquo;I&sup2; alto nao invalida &mdash; importa se e explicavel&rdquo; (link direto com s-heterogeneity).</div>
+  <div class="caveat">Citacao INCOMPLETA &mdash; Perplexity nao especificou primeiro autor nem journal. Precisa recuperar PMID via PubMed.</div>
+
+  <!-- ==================== MA-5 ==================== -->
+  <h3>MA-5: SGLT2i em IC + DM2 (versao Perplexity)</h3>
+  <table>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>SGLT2 inhibitors and heart failure outcomes in T2DM. <strong>Autor e journal TBD.</strong></td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> CANDIDATE (PMC ref: PMC12843294)</td></tr>
+    <tr><td><strong>Motor</strong></td><td>Perplexity</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos com IC e DM2 (subpopulacao mais restrita que MA-1)</td></tr>
+    <tr><td><strong>I</strong></td><td>iSGLT2 (empagliflozin, dapagliflozin)</td></tr>
+    <tr><td><strong>C</strong></td><td>Controle (placebo ou cuidado padrao)</td></tr>
+    <tr><td><strong>O</strong></td><td>IC aguda ou morte CV</td></tr>
+  </table>
+  <table>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th></tr>
+    <tr><td>IC aguda ou morte CV</td><td>HR 0.79</td><td>0.69&ndash;0.89</td><td>Baixo</td></tr>
+  </table>
+  <p><strong>Estudos:</strong> N RCTs e N pacientes nao reportados pelo Perplexity.</p>
+  <p><strong>Impacto clinico:</strong> iSGLT2 como terapia fundamental em IC com/sem DM.</p>
+  <div class="caveat"><strong>Provavelmente redundante com MA-1</strong> (Vaduganathan 2022 que inclui todo espectro FE, com e sem DM). Citacao incompleta. Baixa prioridade como candidato independente.</div>
+
+  <!-- ==================== MA-6 ==================== -->
+  <h3>MA-6: PA Intensiva em Pacientes com HO &mdash; Juraschek et al., JAMA 2023</h3>
+  <table>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>Juraschek SP et al. Orthostatic Hypotension, Hypertension Treatment, and Cardiovascular Disease: An Individual Participant Meta-Analysis. <em>JAMA.</em> 2023.</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> 37847274 | 10.1001/jama.2023.18497</td></tr>
+    <tr><td><strong>Motor</strong></td><td>Gemini</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos com HAS e hipotensao ortostatica basal</td></tr>
+    <tr><td><strong>I</strong></td><td>Meta intensiva de PA ou tratamento ativo anti-hipertensivo</td></tr>
+    <tr><td><strong>C</strong></td><td>Meta padrao de PA ou placebo</td></tr>
+    <tr><td><strong>O</strong></td><td>Doenca CV composta ou mortalidade total</td></tr>
+  </table>
+  <table>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th><th>p interacao</th></tr>
+    <tr><td>DCV ou mortalidade</td><td>HR 0.83</td><td>0.70&ndash;1.00</td><td>Baixo</td><td>0.68</td></tr>
+  </table>
+  <p><strong>Estudos:</strong> 9 RCTs com dados individuais (IPD): SPRINT, ACCORD, ALLHAT, entre outros. N = 29,235 pacientes.</p>
+  <p><strong>Impacto clinico:</strong> Derrubou dogma: &ldquo;relaxar PA em idoso com HO&rdquo;. Tratamento intensivo igualmente eficaz e seguro com/sem HO. p-interacao 0.68 = sem modificacao de efeito.</p>
+  <div class="key-takeaway"><strong>Valor pedagogico:</strong> IPD meta-analysis (tipo diferente de MA standard). Ensina subgrupo por trait clinico + p-interacao. Conceito: &ldquo;a presenca de HO NAO muda a indicacao de tratar&rdquo;. Impossivel demonstrar com aggregate data &mdash; requer dados individuais.</div>
+  <div class="caveat">IC 95% toca 1.00 (borderline) &mdash; pode confundir alunos se nao contextualizado (&ldquo;mas o IC cruza!&rdquo;). PMID precisa verificacao.</div>
 </section>
 
-<!-- ===== COMBINACOES SUGERIDAS ===== -->
+<!-- ===== COMBINACOES ===== -->
 <section id="combos">
   <h2>Combinacoes Sugeridas (2 slides)</h2>
-
   <table>
-    <tr><th>Combo</th><th>Slide 1 (anatomia)</th><th>Slide 2 (leitura critica)</th><th>O que ensina</th></tr>
+    <tr><th>Combo</th><th>Slide 1</th><th>Slide 2</th><th>Progressao</th></tr>
     <tr class="highlight">
       <td><strong>A</strong></td>
       <td>MA-1 SGLT2i (5 estudos, limpo)</td>
-      <td>MA-7 Colchicina (12 estudos, I² 51%)</td>
-      <td>Anatomia basica → heterogeneidade + tensao trial neutro vs pool positivo</td>
+      <td>MA-7 Colchicina (12 estudos, I&sup2; 51%)</td>
+      <td>Anatomia &rarr; heterogeneidade + tensao trial neutro</td>
     </tr>
     <tr>
       <td><strong>B</strong></td>
-      <td>MA-1 SGLT2i (5 estudos, limpo)</td>
-      <td>MA-2 Corticoide PAC (15 estudos, I² 14%)</td>
-      <td>Anatomia basica → consistencia exemplar + MA resolve debate</td>
+      <td>MA-1 SGLT2i (5 estudos)</td>
+      <td>MA-2 Corticoide PAC (15 estudos, I&sup2; 14%)</td>
+      <td>Anatomia &rarr; consistencia + MA resolve debate</td>
     </tr>
     <tr>
       <td><strong>C</strong></td>
       <td>MA-7 Colchicina (12 estudos)</td>
-      <td>MA-4 GLP-1 (21 estudos, I² 82%)</td>
-      <td>Heterogeneidade moderada → heterogeneidade alta explicavel</td>
+      <td>MA-4 GLP-1 (21 estudos, I&sup2; 82%)</td>
+      <td>Heterogeneidade moderada &rarr; alta explicavel</td>
+    </tr>
+    <tr>
+      <td><strong>D</strong></td>
+      <td>MA-1 SGLT2i (5 estudos)</td>
+      <td>MA-6 PA/HO IPD (9 estudos)</td>
+      <td>Aggregate MA &rarr; IPD-MA (tipos diferentes)</td>
     </tr>
   </table>
+  <div class="key-takeaway"><strong>Recomendacao:</strong> Combo A. SGLT2i ensina a LER (anatomia, 5 estudos limpos). Colchicina ensina a PENSAR (heterogeneidade, trial neutro no pool). Progressao pedagogica natural.</div>
+</section>
 
-  <div class="key"><strong>Recomendacao:</strong> Combo A. SGLT2i ensina a ler, colchicina ensina a pensar. Progressao pedagogica natural.</div>
+<!-- ===== PENDENCIAS ===== -->
+<section id="pending">
+  <h2>Pendencias</h2>
+  <table>
+    <tr><th>#</th><th>Acao</th><th>Status</th></tr>
+    <tr><td>1</td><td>Lucas le os trials e confirma combo final</td><td>Pendente</td></tr>
+    <tr><td>2</td><td>Verificar PMID Ebrahimi 2025 (Cochrane) via PubMed</td><td>Pendente (MCP freeze ate 14/04)</td></tr>
+    <tr><td>3</td><td>Verificar PMID CLEAR SYNERGY 2024</td><td>Pendente</td></tr>
+    <tr><td>4</td><td>Verificar PMID Soumare 2026 (41325621)</td><td>Pendente</td></tr>
+    <tr><td>5</td><td>Verificar PMID Juraschek 2023 (37847274)</td><td>Pendente</td></tr>
+    <tr><td>6</td><td>Recuperar citacao completa MA-4 GLP-1 (autor, journal, PMID)</td><td>Pendente</td></tr>
+    <tr><td>7</td><td>Acessar PDFs e crop forest plots reais</td><td>Pos-decisao Lucas</td></tr>
+  </table>
 </section>
 
 <footer>
-  Coautoria: Lucas + Opus 4.6 + Gemini 3.1 Pro + Perplexity Sonar Deep Research | Consolidado S146<br>
+  Coautoria: Lucas + Opus 4.6 + Gemini 3.1 Pro + Perplexity Sonar Deep Research | S146 2026-04-10<br>
   Fonte: .claude/workers/forest-plot-hunting/ (results.md + colchicine-dac.md)
 </footer>
 
