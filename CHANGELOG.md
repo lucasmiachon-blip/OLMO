@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 133 — 2026-04-09 (insights + cleanup + docs)
+
+### Insights S132 — 5 propostas aplicadas
+- P001: selective deletion protocol → anti-drift.md (extends KBP-10)
+- P002: research scope pinning → anti-drift.md §Scope discipline
+- P003: research output grounding → anti-drift.md §Verification
+- P004: worker file-creation prohibition → multi-window.md §Roles
+- P005: nudge-checkpoint monitoring (no change, watch only)
+
+### Cleanup
+- 65 plan files + 5 stray clipboard files + sentinel report deletados
+
+### Docs
+- HANDOFF enxugado: pernas pendentes → backlog, decisoes/cuidados trimados
+- Backlog item #4: hook/config system review (YAGNI audit, brainstorming)
+
 ## Sessao 132 — 2026-04-09 (P0: polish s-importancia + pre-reading)
 
 ### s-importancia.html — PMID cleanup + deep-dive expansion + trial trim

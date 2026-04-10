@@ -24,6 +24,7 @@ Lucas is a beginner developer learning on the job. He tends to accept model deci
 - Follow the approved plan. If no plan exists, propose one before starting multi-step work.
 - One concern per commit. Bundling unrelated changes hides drift.
 - When reading a file to make a change, change only what was asked. Resist the urge to "improve" nearby code.
+- Research tasks: pin scope to SPECIFIC deliverable(s) named in the request. If user says "pesquisa para pre-reading de forest plot", research ONLY forest plot pre-reading content. Do not generalize to adjacent slides or topics. Scope expansion requires explicit user request.
 
 **When violated**: stop, identify the extra work, and ask Lucas before reverting — automatic revert can destroy work in progress.
 
@@ -45,6 +46,14 @@ PROIBIDO:
 - Assumir que a primeira hipótese é correta (ex: "timeout" quando era MAX_TOKENS)
 
 **When violated**: flag the workaround explicitly, revert if possible, ask Lucas.
+
+## Selective deletion protocol (extends KBP-10)
+
+When user asks to remove "some" files from a set:
+1. List ALL files in the target directory
+2. Ask user to confirm WHICH specific files to remove (by number or name)
+3. Execute removal ONE directory/file at a time, confirming each
+4. NEVER batch-delete when the request says "some" or "os inuteis" — ambiguity = ask
 
 ## Momentum brake
 
@@ -68,6 +77,7 @@ Additional rules:
 - File not found: use Glob to locate it. Fabricating file contents is a critical failure.
 - Error encountered: read the actual error message. Fabricating explanations compounds the problem.
 - Claim about code: verify by reading the file. Memory and assumptions decay.
+- Research output grounding: When producing content for evidence/pre-reading, every claim must trace to a retrieved source (PubMed, SCite, Perplexity, NLM). Training-data synthesis ("examples") is NOT acceptable as primary content. If no source found, state the gap explicitly rather than generating plausible content.
 
 **When violated**: flag the fabrication explicitly to the user.
 

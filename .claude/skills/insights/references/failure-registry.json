@@ -209,13 +209,44 @@
       "new_kbps_added": 0,
       "proposals_accepted": 0,
       "proposals_rejected": 0
+    },
+    {
+      "id": "S132",
+      "date": "2026-04-09",
+      "note": "/insights S132. ~8 sessions (S125-S132). First content-production stress test post-enforcement. 3 KBP violations (KBP-10 x1 selective deletion, KBP-01 x1 research scope drift, multi-window x1 worker role). 9 corrections. 3 new KBPs added (08/09/10) during period. Workload: evidence HTML, research pipeline, context optimization, multi-window.",
+      "metrics": {
+        "sessions_in_sample": 8,
+        "user_corrections_total": 9,
+        "user_corrections_per_session": 1.13,
+        "kbp_violations": {
+          "KBP-01_scope_creep": 1,
+          "KBP-02_context_overflow": 0,
+          "KBP-03_agent_script_redundancy": 0,
+          "KBP-04_wrong_criteria": 0,
+          "KBP-05_batch_violation": 0,
+          "KBP-06_delegation_failure": 0,
+          "KBP-07_workaround_without_diagnosis": 0,
+          "KBP-08_api_mcp_substitution": 0,
+          "KBP-09_api_key_wrong_path": 0,
+          "KBP-10_destructive_without_approval": 1,
+          "multi_window_role_violation": 1
+        },
+        "kbp_total": 3,
+        "kbp_per_session": 0.38,
+        "tool_errors": 3,
+        "retries": 2
+      },
+      "insights_run": true,
+      "new_kbps_added": 0,
+      "proposals_accepted": 0,
+      "proposals_rejected": 0
     }
   ],
   "trend": {
-    "corrections_per_session_5avg": 0.37,
-    "kbp_violations_per_session_5avg": 0.178,
-    "direction": "improving",
+    "corrections_per_session_5avg": 0.862,
+    "kbp_violations_per_session_5avg": 0.254,
+    "direction": "regressing",
     "last_updated": "2026-04-09",
-    "note": "5-session avg: S85 (0) + S91 (0) + S108 (1.33/0.89) + S116 (1.14/0) + S124 (0.71/0). corrections_5avg decreased 0.494->0.37 (S84(0) rolled out, S124(0.71) rolled in — net decrease because 0.71 < prev avg). kbp_5avg stable 0.178->0.178. Direction IMPROVING (corrections_5avg decreased, kbp_5avg stable at near-zero)."
+    "note": "5-session avg: S91 (0/0) + S108 (1.33/0.89) + S116 (1.14/0) + S124 (0.71/0) + S132 (1.13/0.38). corrections_5avg increased 0.37->0.862 (S85(0) rolled out, S132(1.13) rolled in). kbp_5avg increased 0.178->0.254 (S85(0) rolled out, S132(0.38) rolled in). Direction REGRESSING — both averages increased. Expected: first content-production stress test after 14-session zero-KBP infra period. New failure modes (research scope, selective deletion, worker boundaries) surfaced under real workloads."
   }
 }

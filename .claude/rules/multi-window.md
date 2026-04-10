@@ -14,6 +14,8 @@ Edit/Write, commits, integra workers, lanca subagents, decide o que entra no rep
 ### Worker (1-2 janelas)
 **Read-only** no repo. Pode MCPs + WebSearch/WebFetch. Escreve APENAS em `.claude/workers/{task-name}/`. **NUNCA** commit, **NUNCA** edita slides/evidence/scripts/config/agents/rules/hooks. Ao terminar: cria `DONE.md`.
 
+**Workers NEVER:** create HTML/CSS/JS files, edit _manifest.js, modify slides/, create templates, or perform any action that changes the build output. Workers CREATE only: .md files inside `.claude/workers/{task-name}/`.
+
 ## Workers
 
 Pasta: `.claude/workers/{task-name}/` (gitignored). Orquestrador consome e apaga apos integrar.
