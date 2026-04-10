@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## Sessao 139 — 2026-04-10 (melhorar s-importancia — click-reveal + QA adversarial)
+
+### s-importancia redesign
+- Auto-stagger removido, SplitText removido — click-reveal (5 beats) implementado
+- Professor controla ritmo: cada click = beat pedagogico
+- Font .imp-detail 16→18px (minimo para 10m projecao)
+- Dead CSS limpo (.imp-mech-label, .imp-mech-desc, .imp-mech-arrow)
+- align-items: start + margin-top 4px nos numeros (gestalt fix)
+- tabular-nums nos numeros, #deck prefix redundante removido
+- Numeros-chave em `<strong>` no detail text (payload pedagogico destacado)
+- _manifest.js: clickReveals 0→5
+
+### QA adversarial
+- Gemini Gate 0 (inspect): PASS com warning READABILITY
+- Gemini Gate 4 R11: 5.2/10 (motion "prejudicial")
+- Gemini Gate 4 R12 (pos-click-reveal): 6.5/10 (motion 7.4, "didatica")
+- FPs identificados: css_cascade e failsafes ([data-qa] confundido com bug)
+
+### qa-capture.mjs
+- Video agora captura transicao cross-slide (navega do slide anterior via ArrowRight)
+
+### Memorias
+- feedback_motion_design.md criado (20/20)
+- feedback_anti-sycophancy.md: Regra 6 (QA reports: WHAT/WHY/PROPOSAL/GUARANTEE)
+
 ## Sessao 138 — 2026-04-10 (QA s-importancia — h2 + visual hierarchy)
 
 ### H2 restaurado

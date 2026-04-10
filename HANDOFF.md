@@ -1,24 +1,25 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 138 | 2026-04-10
-> Foco: QA s-importancia — h2 + visual hierarchy
+> Sessao 139 | 2026-04-10
+> Foco: melhorar s-importancia — click-reveal + QA adversarial
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (16 slides metanalise).
 **Agentes: 10.** **Hooks: 39 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
-**Skills: 18.** **Memory: 19/20.** **.claudeignore: criado S128.**
+**Skills: 18.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
 ## P0 — QA s-importancia (continuar)
 
-h2 restaurado. Contraste navy corrigido. Visual hierarchy melhorada. SplitText motion implementado.
+Click-reveal implementado (5 beats). SplitText removido. Font 18px. Dead CSS limpo.
+Gemini R12: overall 6.5 (motion 7.4, "didatica"). FPs em css_cascade e failsafes ([data-qa] design).
 Pendencias:
-1. Testar animacao no browser (SplitText word reveal + 3 tempos)
-2. Avaliar se motion e realmente invisivel/subsidiario a 10m
-3. Refletir: repertorio alem de GSAP (CSS animations, SVG, scroll-driven?)
-4. Preflight formal apos motion finalizado
-5. Gate 0: `gemini-qa3.mjs --aula metanalise --slide s-importancia --inspect`
-6. Gate 4: `gemini-qa3.mjs --aula metanalise --slide s-importancia --editorial`
+1. Verificar no browser ao vivo (click-reveals + transicao cross-slide)
+2. Re-capturar video com transicao (qa-capture.mjs atualizado S139)
+3. Gemini R13 adversarial com payload adaptado (WHAT/WHY/PROPOSAL/GUARANTEE)
+4. Ajustar gemini-qa3.mjs para output estruturado seguir memorias (call adicional se preciso)
+5. Avaliar proporcao navy card (300px) — Gemini flagou, Lucas quer manter ΣN como hero
+6. Considerar direcao motion: items originando do card (sugestao Gemini narrativa_motion)
 
 ## P1 — QA restantes (12 slides LINT-PASS)
 
@@ -46,8 +47,10 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 - **Speaker notes S135:** vao para evidence HTML, NAO aside no slide.
 - **Archetype removal S136:** campo archetype removido do manifest. Liberdade artistica.
 - **Projecao S138:** 2 cenarios (sala 6m TV + auditorio 10m projetor). Design target: 10m.
-- **Motion S138:** animacoes subsidiarias ao conteudo, NUNCA protagonistas. Com proposito pedagogico.
+- **Motion S139:** animacoes com PROPOSITO pedagogico (retencao, carga cognitiva, varredura). Sem proposito = nao animar.
 - **QA visual S138:** analise multimodal obrigatoria (screenshot como imagem), nao apenas codigo.
+- **QA output S139:** Gemini deve reportar WHAT/WHY/PROPOSAL/GUARANTEE. Sem notas subjetivas.
+- **Navy card ΣN = hero S139:** Lucas: "a melhor parte eh o box com o sigma e o N". Tudo deriva dele.
 
 ## CUIDADOS
 
@@ -57,10 +60,11 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 - MCP gate + Research gate: hooks force "ask" antes de MCP/research calls.
 - MCP freeze ate 2026-04-14. PubMed session expirou S129.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
+- Gemini FPs conhecidos: css_cascade e failsafes flagam `[data-qa]` como bug (e design).
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S138 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S139 2026-04-10

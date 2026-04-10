@@ -3,7 +3,7 @@
  * State machines for interactive slides (hook, checkpoints).
  * Pattern: cirrose slide-registry.js
  */
-import { SplitText } from 'gsap/SplitText';
+// SplitText import removed S139 — click-reveal replaces auto-stagger
 
 export const slideRegistry = {
   's-title': (slide, gsap) => {
@@ -90,61 +90,44 @@ export const slideRegistry = {
 
   's-importancia': (slide, gsap) => {
     const mechanism = slide.querySelector('.imp-mechanism');
-    const rows = slide.querySelectorAll('.imp-row');
-    const names = slide.querySelectorAll('.imp-name');
-    const details = slide.querySelectorAll('.imp-detail');
-    const nums = slide.querySelectorAll('.imp-num');
 
-    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
-
-    // Tempo 1: ΣN hero — scale from 0.92 (growth = combining samples)
-    // Subsidiary: gentle, no bounce. Professor contextualises.
-    tl.fromTo(mechanism,
+    // ΣN hero — scale from 0.92 (growth = combining samples)
+    // Auto-plays on slide enter. Professor contextualises the symbol.
+    gsap.fromTo(mechanism,
       { opacity: 0, scale: 0.92 },
-      { opacity: 1, scale: 1, duration: 0.7 }
+      { opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out' }
     );
 
-    // Tempo 2: delay — professor completes thought before advantages
-    // "Meta-análise combina amostras de múltiplos estudos..."
+    // Click-reveal: 5 advantages, one per click
+    // Professor controls pacing — each click = pedagogical beat
+    const groups = [1, 2, 3, 4, 5];
+    let revealed = 0;
+    const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
 
-    // Tempo 3: rows reveal sequentially — each name gets reading time
-    // SplitText words: forces left-to-right reading, invisible to viewer
-    const splitInstances = [];
-    rows.forEach((row, i) => {
-      const name = names[i];
-      const detail = details[i];
-      const num = nums[i];
-      const rowDelay = 1.5 + (i * 0.4); // 1.5s after navy, 0.4s between rows
-
-      // Row container visible
-      tl.set(row, { opacity: 1, x: 0 }, rowDelay);
-
-      // Number fades in (index, not hero — subtle)
-      tl.fromTo(num,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.3 },
-        rowDelay
+    const advance = () => {
+      if (revealed >= groups.length) return false;
+      revealed++;
+      const items = getGroup(revealed);
+      gsap.fromTo(items,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
       );
+      items.forEach(el => el.classList.add('revealed'));
+      return true;
+    };
 
-      // Name: SplitText word reveal — guides reading without drawing attention
-      if (name) {
-        const split = new SplitText(name, { type: 'words' });
-        splitInstances.push(split);
-        gsap.set(split.words, { opacity: 0, y: 3 });
-        tl.to(split.words, {
-          opacity: 1, y: 0, duration: 0.3, stagger: 0.06
-        }, rowDelay + 0.1);
-      }
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      const items = getGroup(revealed);
+      gsap.to(items, { opacity: 0, y: 16, duration: 0.3, ease: 'power2.in' });
+      items.forEach(el => el.classList.remove('revealed'));
+      revealed--;
+      return true;
+    };
 
-      // Detail: subordinate fade — appears after name is readable
-      if (detail) {
-        tl.fromTo(detail,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.4 },
-          rowDelay + 0.4
-        );
-      }
-    });
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
   },
 
   's-contrato': (slide, gsap) => {

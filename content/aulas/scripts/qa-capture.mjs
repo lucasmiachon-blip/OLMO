@@ -4,6 +4,7 @@
  *
  * Captures screenshots + bounding box metrics for all slides in an act.
  * Uses __deckGoTo() navigation (deck.js). S0 + S2 only, no intermediaries.
+ * Video: starts from previous slide to capture cross-slide transition (S139).
  *
  * Usage:
  *   node scripts/qa-batch-screenshot.mjs --aula cirrose --act A1
@@ -420,8 +421,24 @@ async function main() {
         const videoPage = await videoCtx.newPage();
         await videoPage.goto(PAGE_URL, { waitUntil: 'networkidle' });
         await videoPage.waitForTimeout(1000);
-        // Navigate and play through
-        await videoPage.evaluate(idx => window.__deckGoTo(idx), targetIndex);
+
+        // Capture cross-slide transition: start from previous slide
+        if (targetIndex > 0) {
+          const prevSlide = slides[targetIndex - 1];
+          await videoPage.evaluate(idx => window.__deckGoTo(idx), targetIndex - 1);
+          await videoPage.waitForTimeout(1500);
+          // Fast-forward previous slide's click-reveals to final state
+          const prevReveals = prevSlide.clickReveals || 0;
+          for (let beat = 0; beat < prevReveals; beat++) {
+            await videoPage.keyboard.press('ArrowRight');
+            await videoPage.waitForTimeout(300);
+          }
+          await videoPage.waitForTimeout(500);
+          // ArrowRight triggers real cross-slide transition
+          await videoPage.keyboard.press('ArrowRight');
+        } else {
+          await videoPage.evaluate(idx => window.__deckGoTo(idx), targetIndex);
+        }
         await videoPage.waitForTimeout(slide.customAnim ? 4500 : 1500);
         if (slide.clickReveals > 0) {
           for (let beat = 1; beat <= slide.clickReveals; beat++) {
