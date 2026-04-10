@@ -86,6 +86,26 @@ export const slideRegistry = {
     });
   },
 
+  's-importancia': (slide, gsap) => {
+    const mechanism = slide.querySelector('.imp-mechanism');
+    const rows = slide.querySelectorAll('.imp-row');
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    // 1. Mechanism panel fades in
+    tl.fromTo(mechanism,
+      { opacity: 0, x: -20 },
+      { opacity: 1, x: 0, duration: 0.8 }
+    );
+
+    // 2. Advantage rows stagger in from right
+    tl.fromTo(rows,
+      { opacity: 0, x: 16 },
+      { opacity: 1, x: 0, duration: 0.5, stagger: 0.12 },
+      '-=0.3'
+    );
+  },
+
   's-contrato': (slide, gsap) => {
     const cards = slide.querySelectorAll('.contrato-card');
     const questions = slide.querySelectorAll('.contrato-question');

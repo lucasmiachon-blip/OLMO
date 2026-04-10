@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mockup A — s-importancia (Grid 2-2-1)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; background: #1a1a2e;
+    }
+    .slide {
+      width: 1280px; height: 720px;
+      background: #fafaf8; color: #1a1a2e;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      display: flex; flex-direction: column;
+      padding: 48px 64px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Section tag */
+    .section-tag {
+      font-family: 'Consolas', 'SF Mono', monospace;
+      font-size: 14px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #6b7280; margin-bottom: 8px;
+    }
+
+    /* H2 */
+    h2 {
+      font-family: 'Georgia', 'Cambria', serif;
+      font-size: 36px; font-weight: 700;
+      color: #1a1a2e; line-height: 1.2;
+      margin-bottom: 36px;
+    }
+
+    /* Grid 2-2-1 */
+    .vantagens-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 24px 40px;
+      flex: 1;
+      align-content: center;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .v-item {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .v-num {
+      font-family: 'Consolas', 'SF Mono', monospace;
+      font-size: 32px; font-weight: 700;
+      color: #2563eb; line-height: 1;
+      text-align: right;
+    }
+
+    .v-body {
+      border-left: 3px solid #bfdbfe;
+      padding-left: 14px;
+    }
+
+    .v-name {
+      font-size: 24px; font-weight: 700;
+      color: #1a1a2e; line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .v-mechanism {
+      font-size: 19px; font-weight: 400;
+      color: #4b5563; line-height: 1.35;
+    }
+
+    /* Accent item (V5) — full width, centered */
+    .v-item--accent {
+      grid-column: 1 / -1;
+      justify-self: center;
+      max-width: 520px;
+      background: rgba(37, 99, 235, 0.08);
+      padding: 14px 20px;
+      margin: -14px -20px;
+      border-radius: 8px;
+    }
+    .v-item--accent .v-body {
+      border-left-color: #2563eb;
+    }
+
+    /* Source tag */
+    .source-tag {
+      font-size: 15px; color: #9ca3af;
+      text-align: center;
+      margin-top: auto;
+      padding-top: 16px;
+    }
+
+    /* Label */
+    .mockup-label {
+      position: absolute; top: 8px; right: 16px;
+      font-size: 11px; color: #ef4444; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="slide">
+  <span class="mockup-label">Mockup A</span>
+  <p class="section-tag">Conceitos Fundamentais</p>
+  <h2>Porque isso importa &mdash; Metodologia</h2>
+
+  <div class="vantagens-grid">
+
+    <div class="v-item">
+      <span class="v-num">1</span>
+      <div class="v-body">
+        <p class="v-name">Poder estatistico</p>
+        <p class="v-mechanism">Pooling reune amostras de multiplos trials &mdash; atinge N que nenhum estudo isolado alcanca</p>
+      </div>
+    </div>
+
+    <div class="v-item">
+      <span class="v-num">2</span>
+      <div class="v-body">
+        <p class="v-name">Precisao</p>
+        <p class="v-mechanism">Cada estudo adicionado estreita o intervalo de confianca &mdash; IC &prop; 1/&radic;N</p>
+      </div>
+    </div>
+
+    <div class="v-item">
+      <span class="v-num">3</span>
+      <div class="v-body">
+        <p class="v-name">Resolucao de controversias</p>
+        <p class="v-mechanism">Quantifica variabilidade entre estudos e separa sinal de ruido</p>
+      </div>
+    </div>
+
+    <div class="v-item">
+      <span class="v-num">4</span>
+      <div class="v-body">
+        <p class="v-name">Deteccao de efeitos pequenos</p>
+        <p class="v-mechanism">Efeitos de 5-15% exigem N &gt;50.000 &mdash; viavel apenas via pooling</p>
+      </div>
+    </div>
+
+    <div class="v-item v-item--accent">
+      <span class="v-num">5</span>
+      <div class="v-body">
+        <p class="v-name">Generalizacao</p>
+        <p class="v-mechanism">Multiplos contextos no mesmo pool &mdash; quando o efeito se mantem, a confianca na validade externa aumenta</p>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="source-tag">Borenstein 2021 &middot; Cochrane Handbook 2024</p>
+</div>
+
+</body>
+</html>

@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Sessao 135 — 2026-04-09 (build s-importancia)
+
+### s-importancia — slide criado
+- Layout: mechanism split (painel escuro ΣN) + 5 vantagens metodologicas (rows com border-left colorido)
+- CSS: ~80 linhas scoped `section#s-importancia` + failsafes (no-js, stage-bad, data-qa, print)
+- Animacao: mechanism fadeIn + rows stagger (slide-registry.js)
+- Manifest: entry adicionada apos s-hook (phase F1, timing 60s)
+- Conteudo conceitual, sem formulas, sem trials-hero
+- Dual creation: Gemini 3.1 Pro + Claude geraram propostas independentes, Lucas escolheu B
+
+### Memoria
+- Feedback dual creation + pedagogia adultos merged em feedback_teach_best_usage.md
+
 ## Sessao 134 — 2026-04-09 (audit skills + refactor s-objetivos)
 
 ### Skills cleanup
