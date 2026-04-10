@@ -774,7 +774,7 @@ section#s-importancia .imp-mech-label {
 }
 section#s-importancia .imp-mech-icon {
   font-family: var(--font-mono);
-  font-size: 56px;
+  font-size: 72px;
   font-weight: 700;
   color: var(--ui-accent-on-dark);
   line-height: 1;
@@ -811,9 +811,6 @@ section#s-importancia .imp-row {
   gap: 10px;
   align-items: center;
   padding: 10px 16px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  /* border-left removida S138: decoracao repetitiva sem funcao hierarquica */
   opacity: 0;
   transform: translateX(16px);
 }

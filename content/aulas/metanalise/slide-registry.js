@@ -3,6 +3,8 @@
  * State machines for interactive slides (hook, checkpoints).
  * Pattern: cirrose slide-registry.js
  */
+import { SplitText } from 'gsap/SplitText';
+
 export const slideRegistry = {
   's-title': (slide, gsap) => {
     // Full choreography: h1 → subtitle → pillars (masking) → dots → identity
@@ -89,21 +91,60 @@ export const slideRegistry = {
   's-importancia': (slide, gsap) => {
     const mechanism = slide.querySelector('.imp-mechanism');
     const rows = slide.querySelectorAll('.imp-row');
+    const names = slide.querySelectorAll('.imp-name');
+    const details = slide.querySelectorAll('.imp-detail');
+    const nums = slide.querySelectorAll('.imp-num');
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
-    // 1. Mechanism panel fades in
+    // Tempo 1: ΣN hero — scale from 0.92 (growth = combining samples)
+    // Subsidiary: gentle, no bounce. Professor contextualises.
     tl.fromTo(mechanism,
-      { opacity: 0, x: -20 },
-      { opacity: 1, x: 0, duration: 0.8 }
+      { opacity: 0, scale: 0.92 },
+      { opacity: 1, scale: 1, duration: 0.7 }
     );
 
-    // 2. Advantage rows stagger in from right
-    tl.fromTo(rows,
-      { opacity: 0, x: 16 },
-      { opacity: 1, x: 0, duration: 0.5, stagger: 0.12 },
-      '-=0.3'
-    );
+    // Tempo 2: delay — professor completes thought before advantages
+    // "Meta-análise combina amostras de múltiplos estudos..."
+
+    // Tempo 3: rows reveal sequentially — each name gets reading time
+    // SplitText words: forces left-to-right reading, invisible to viewer
+    const splitInstances = [];
+    rows.forEach((row, i) => {
+      const name = names[i];
+      const detail = details[i];
+      const num = nums[i];
+      const rowDelay = 1.5 + (i * 0.4); // 1.5s after navy, 0.4s between rows
+
+      // Row container visible
+      tl.set(row, { opacity: 1, x: 0 }, rowDelay);
+
+      // Number fades in (index, not hero — subtle)
+      tl.fromTo(num,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3 },
+        rowDelay
+      );
+
+      // Name: SplitText word reveal — guides reading without drawing attention
+      if (name) {
+        const split = new SplitText(name, { type: 'words' });
+        splitInstances.push(split);
+        gsap.set(split.words, { opacity: 0, y: 3 });
+        tl.to(split.words, {
+          opacity: 1, y: 0, duration: 0.3, stagger: 0.06
+        }, rowDelay + 0.1);
+      }
+
+      // Detail: subordinate fade — appears after name is readable
+      if (detail) {
+        tl.fromTo(detail,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4 },
+          rowDelay + 0.4
+        );
+      }
+    });
   },
 
   's-contrato': (slide, gsap) => {
