@@ -1,21 +1,22 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 144 | 2026-04-10
-> Foco: s-pico — atualizar evidence HTML (benchmark), adicionar RS ao titulo, QA
+> Sessao 145 | 2026-04-10
+> Foco: s-pico QA pipeline
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (16 slides metanalise).
 **Agentes: 10.** **Hooks: 38 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
-**Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
+**Skills: 20.** **Memory: 19/20 (1 slot livre).** **.claudeignore: criado S128.**
 
 ## P0 — QA slides (11 LINT-PASS restantes)
 
 **s-importancia: DONE (R14, adjusted 7.0/10).** Primeiro slide QA completo com Call D.
 **s-contrato: DONE (R11, adjusted 5.9/10 — 6 FPs, real ~7.0/10).** Evidence HTML criado. Click-reveal 2 cards. Skill font 18→20px.
+**s-pico: evidence refatorado (benchmark), h2 com RS.** QA pipeline pendente (Step 3 do plano).
 
-**Proximo: s-pico.** Tarefas: (1) atualizar evidence/s-pico.html para benchmark, (2) adicionar RS ao titulo/h2, (3) QA pipeline.
-Pipeline: 1 slide/vez, 4 calls (A+B+C+D). Design target = **auditorio 10m projetor**.
+**Proximo: s-pico QA.** Pipeline: Preflight → Inspect → Editorial (4 calls A+B+C+D).
+Design target = **auditorio 10m projetor**.
 
 ## P1 — /insights trend watch
 
@@ -30,7 +31,7 @@ R14 confirmou css_cascade como FP persistente (2/10 — failsafe rules corretame
 
 | # | Item | Detalhe |
 |---|------|---------|
-| 1 | Refatorar 6 evidence HTMLs | s-hook, s-pico, s-rs-vs-ma, s-objetivos, s-checkpoint-1, s-ancora |
+| 1 | Refatorar 5 evidence HTMLs | s-hook, s-rs-vs-ma, s-objetivos, s-checkpoint-1, s-ancora (s-pico DONE S144) |
 | 2 | Pernas pendentes (research) | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
 | 3 | Adversarial deferred: M-01, M-10 | Policy decisions (Bash granularity, Canva MCP wildcard) |
 | 4 | Hook/config system review | JSON adequado? YAGNI audit |
@@ -73,4 +74,4 @@ R14 confirmou css_cascade como FP persistente (2/10 — failsafe rules corretame
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S142 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S144 2026-04-10

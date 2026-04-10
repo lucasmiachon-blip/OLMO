@@ -50,7 +50,7 @@ fi
 
 # Run all lint scripts for the aula (O6 fix: was only lint-slides.js)
 AULAS_DIR="/c/Dev/Projetos/OLMO/content/aulas"
-LINT_SCRIPTS=("lint-slides.js" "lint-case-sync.js" "lint-narrative-sync.js")
+LINT_SCRIPTS=("lint-slides.js" "lint-case-sync.js")
 LINT_FAILED=0
 LINT_ERRORS=""
 

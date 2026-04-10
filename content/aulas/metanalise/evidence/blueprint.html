@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blueprint: Meta-analise</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 960px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .82rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; vertical-align: top; }
+    th { background: #f0f4f0; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .removed { color: #999; text-decoration: line-through; }
+    .done { color: #2d6a4f; font-weight: 600; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Blueprint &mdash; Meta-analise (espinha de slides)</h1>
+  <p class="meta">Cada entrada = 1 slide-nucleo | Assertion-evidence: h2 = afirmacao verificavel</p>
+  <p class="meta">Derivado de: blueprint.md v2.0 | Convertido: 2026-04-10 | 16 slides ativos (3 removidos S136)</p>
+</header>
+
+<!-- ===== CONVENCOES ===== -->
+<section id="convencoes">
+  <h2>Convencoes</h2>
+  <table>
+    <tr><th>Campo</th><th>Descricao</th></tr>
+    <tr><td><strong>Fase</strong></td><td>Em qual das 3 fases da narrativa o slide vive</td></tr>
+    <tr><td><strong>Funcao</strong></td><td>Papel didatico do slide no arco</td></tr>
+    <tr><td><strong>Assertion</strong></td><td>A frase que vai no h2</td></tr>
+    <tr><td><strong>Risco cognitivo</strong></td><td>Qual erro de interpretacao esse slide previne</td></tr>
+    <tr><td><strong>Evidencia</strong></td><td>De onde vem o dado central</td></tr>
+  </table>
+</section>
+
+<!-- ===== FASE 1 ===== -->
+<section id="f1">
+  <h2>Fase 1 &mdash; Criar importancia</h2>
+  <table>
+    <tr><th>Slide</th><th>Assertion (h2)</th><th>Funcao</th><th>Risco cognitivo</th><th>Evidencia</th><th>Status</th></tr>
+    <tr>
+      <td><strong>00-title</strong></td>
+      <td>Meta-analise &mdash; Leitura critica para decisao clinica</td>
+      <td>Enquadramento + expectativa</td>
+      <td>&mdash;</td>
+      <td>&mdash;</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>00b-objetivos</strong></td>
+      <td>Objetivos educacionais (rotulo, excecao aceita)</td>
+      <td>Advance organizer</td>
+      <td>Atencao dispersa sem mapa</td>
+      <td>Higgins 2024, Shea 2017, Murad 2014</td>
+      <td class="done">QA</td>
+    </tr>
+    <tr>
+      <td><strong>01-hook</strong></td>
+      <td>Por que isso importa</td>
+      <td>Hook &mdash; criar importancia</td>
+      <td>Aula parecer estatistica pura</td>
+      <td>Hoffmann 2021, Bojcic 2024, Siedler 2025</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>02-importancia</strong></td>
+      <td>Porque e importante: metodologia</td>
+      <td>Setup</td>
+      <td>&mdash;</td>
+      <td>s-importancia.html</td>
+      <td class="done">DONE</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ===== INTERACAO 1 ===== -->
+<section id="i1">
+  <h2>Interacao 1 &mdash; Checkpoint de engajamento</h2>
+  <table>
+    <tr><th>Slide</th><th>Assertion (h2)</th><th>Funcao</th><th>Risco cognitivo</th><th>Evidencia</th><th>Status</th></tr>
+    <tr>
+      <td><strong>03-checkpoint-1</strong></td>
+      <td>Controle glicemico intensivo reduziu infarto &mdash; mas o maior trial da MA aumentou mortalidade</td>
+      <td>Provocar &mdash; expor vies de confianca no diamante</td>
+      <td>Aceitar resultado da MA sem olhar estudos individuais</td>
+      <td>Ray 2009 Lancet, ACCORD 2008 NEJM</td>
+      <td class="meta">ARCHIVED S107</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ===== FASE 2 ===== -->
+<section id="f2">
+  <h2>Fase 2 &mdash; Metodologia</h2>
+  <table>
+    <tr><th>Slide</th><th>Assertion (h2)</th><th>Funcao</th><th>Risco cognitivo</th><th>Evidencia</th><th>Status</th></tr>
+    <tr>
+      <td><strong>04-rs-vs-ma</strong></td>
+      <td>Nem toda revisao e sistematica &mdash; e RS &ne; MA</td>
+      <td>Desfazer confusao mais comum</td>
+      <td>Tratar RS e MA como sinonimos</td>
+      <td>Cochrane v6.5, cap. 1</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>02-contrato</strong></td>
+      <td>3 perguntas que voce faz a toda meta-analise</td>
+      <td>Contrato com a audiencia</td>
+      <td>Nao saber o que esperar</td>
+      <td>s-contrato.html</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>04-pico</strong></td>
+      <td>O valor da RS e da MA depende em grande parte da concordancia entre o study PICO e o seu target PICO</td>
+      <td>PICO como porta de entrada</td>
+      <td>Pular para resultados sem entender elegibilidade</td>
+      <td>Cochrane v6.5, cap. 3 &middot; s-pico.html</td>
+      <td class="done">QA</td>
+    </tr>
+    <tr>
+      <td><strong>06-forest-plot</strong></td>
+      <td>Forest plot codifica efeito, precisao e peso de cada estudo em 5 elementos</td>
+      <td>Alfabetizacao no forest plot</td>
+      <td>Confundir significancia com importancia clinica</td>
+      <td>Dettori 2021, Baruah 2025, Cochrane v6.5</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>07-benefit-harm</strong></td>
+      <td>Beneficio e dano podem ter certeza GRADE diferente na mesma MA</td>
+      <td>Dano, nao so beneficio</td>
+      <td>Ignorar dano porque beneficio e significativo</td>
+      <td>Cochrane v6.5, cap. 15</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>09-heterogeneity</strong></td>
+      <td>I&sup2; alto nao invalida a MA &mdash; importa se a heterogeneidade e explicavel</td>
+      <td>Desfazer mito I&sup2; alto = invalida</td>
+      <td>Descartar MA automaticamente por I&sup2; alto</td>
+      <td>Higgins 2003, Borenstein 2017, Cochrane v6.5</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>10-fixed-random</strong></td>
+      <td>Random-effects alarga o IC quando ha heterogeneidade</td>
+      <td>Minimo para leitura madura</td>
+      <td>Ignorar que o modelo afeta interpretacao</td>
+      <td>Cochrane v6.5, cap. 10</td>
+      <td class="done">DONE</td>
+    </tr>
+  </table>
+  <p class="meta"><span class="removed">Slides removidos S136: s-abstract (PRISMA e para producao), s-grade (permeia outros slides)</span></p>
+</section>
+
+<!-- ===== INTERACAO 2 ===== -->
+<section id="i2">
+  <h2>Interacao 2 &mdash; Checkpoint de consolidacao</h2>
+  <table>
+    <tr><th>Slide</th><th>Assertion (h2)</th><th>Funcao</th><th>Risco cognitivo</th><th>Evidencia</th><th>Status</th></tr>
+    <tr>
+      <td><strong>12-checkpoint-2</strong></td>
+      <td>RR 0,75 (IC 0,60&ndash;0,93), I&sup2;=72%, GRADE baixa &mdash; o diamante favorece. Voce muda?</td>
+      <td>Consolidar + expor vies</td>
+      <td>Confiar no diamante sem avaliar certeza e efeito absoluto</td>
+      <td>Dados ilustrativos/didaticos</td>
+      <td class="done">DONE</td>
+    </tr>
+  </table>
+  <div class="caveat"><strong>Arco com CP1:</strong> No checkpoint-1 a maioria disse &ldquo;sim&rdquo;. Aqui, mesmo com RR mais impressionante (0,75), a resposta correta e &ldquo;nao&rdquo; &mdash; crescimento do residente.</div>
+</section>
+
+<!-- ===== FASE 3 ===== -->
+<section id="f3">
+  <h2>Fase 3 &mdash; Aplicacao (Valgimigli 2025)</h2>
+  <p class="meta">Artigo ancora: Valgimigli M, et al. Clopidogrel vs aspirin. <em>Lancet</em> 2025. IPD-MA, 7 RCTs, 28.982 pts.</p>
+  <table>
+    <tr><th>Slide</th><th>Assertion (h2)</th><th>Funcao</th><th>Risco cognitivo</th><th>Evidencia</th><th>Status</th></tr>
+    <tr>
+      <td><strong>13-ancora</strong></td>
+      <td>Clopidogrel reduziu eventos CV vs aspirina &mdash; 7 RCTs e 28.982 pacientes com dados individuais</td>
+      <td>Ancorar aplicacao em artigo real</td>
+      <td>Discutir MA no vacuo</td>
+      <td>Valgimigli 2025, Lancet</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>15-aplicabilidade</strong></td>
+      <td>Prevencao secundaria de DAC, seguimento 2,3a &mdash; antes de adotar, verifique se seu paciente se encaixa</td>
+      <td>Callback ao PICO</td>
+      <td>Aplicar resultado sem questionar validade externa</td>
+      <td>Valgimigli 2025, Lancet</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>16-absoluto</strong></td>
+      <td>Mesmo RR pode significar NNT 25 ou NNT 250 &mdash; sem risco basal, efeito relativo nao informa decisao</td>
+      <td>Converter RR em NNT</td>
+      <td>Decidir com efeito relativo sem baseline risk</td>
+      <td>Cochrane v6.5, cap. 15</td>
+      <td class="done">DONE</td>
+    </tr>
+    <tr>
+      <td><strong>17-takehome</strong></td>
+      <td>Tres perguntas que voce faz a toda MA antes de mudar sua conduta</td>
+      <td>Fechamento &mdash; framework reutilizavel</td>
+      <td>Sair sem framework operacional</td>
+      <td>Sintese: Cochrane, PRISMA, GRADE</td>
+      <td class="done">DONE</td>
+    </tr>
+  </table>
+  <p class="meta"><span class="removed">Slide removido S136: s-aplicacao (GRADE avaliado em apendice, claim incorreta)</span></p>
+</section>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
+  <p>Documento on-demand &mdash; nao participa de sincronizacao automatica.</p>
+  <p>Blueprint v2.0 &mdash; 16 slides ativos. Curado: abril 2026.</p>
+</footer>
+
+</body>
+</html>

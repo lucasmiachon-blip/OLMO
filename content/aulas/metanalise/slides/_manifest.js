@@ -2,7 +2,7 @@
  * _manifest.js — Meta-análise
  * Source of truth para ordem dos slides, fases narrativas e interações.
  *
- * DERIVADO DE: references/blueprint.md + references/narrative.md
+ * DERIVADO DE: evidence/blueprint.html + evidence/meta-narrativa.html
  * Validação: npm run lint:narrative-sync metanalise
  *
  * Coautoria: Lucas (decisão clínica) · Opus 4.6 (código + governance)
@@ -22,7 +22,7 @@ export const slides = [
   // ── Fase 2: Metodologia ──
   { id: 's-rs-vs-ma',     file: '04-rs-vs-ma.html',     phase: 'F2', headline: 'Nem toda revisão é sistemática — e RS ≠ MA',                                                                          timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 1, narrativeCritical: false },
   { id: 's-contrato',     file: '02-contrato.html',     phase: 'F2', headline: '3 perguntas que você faz a toda meta-análise',                                            timing: 45,   clickReveals: 2, customAnim: 's-contrato',             narrativeRole: 'setup',      tensionLevel: 1, narrativeCritical: false, evidence: 's-contrato.html' },
-  { id: 's-pico',         file: '04-pico.html',         phase: 'F2', headline: 'O valor da MA depende em grande parte da concordância entre o study PICO e o seu target PICO', timing: 60, clickReveals: 1, customAnim: 's-pico', narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
+  { id: 's-pico',         file: '04-pico.html',         phase: 'F2', headline: 'O valor da RS e da MA depende em grande parte da concordância entre o study PICO e o seu target PICO', timing: 60, clickReveals: 1, customAnim: 's-pico', narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
 
   { id: 's-forest-plot',  file: '06-forest-plot.html',  phase: 'F2', headline: 'Forest plot codifica efeito, precisão e peso de cada estudo em 5 elementos',                                         timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false },
   { id: 's-benefit-harm', file: '07-benefit-harm.html', phase: 'F2', headline: 'Benefício e dano podem ter certeza GRADE diferente na mesma MA — avaliar ambos separadamente',                        timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false },

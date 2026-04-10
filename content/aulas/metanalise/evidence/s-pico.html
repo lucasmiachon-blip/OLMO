@@ -4,135 +4,266 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evidence: s-pico</title>
-  <style>body{font-family:'Segoe UI',system-ui,sans-serif;max-width:800px;margin:2rem auto;padding:0 1rem;color:#1a1a2e;line-height:1.6;text-align:justify}.v{display:inline-block;font-size:.65rem;font-weight:700;color:#fff;background:#2563eb;border-radius:3px;padding:0 .3rem;margin:0 .1rem;vertical-align:middle;letter-spacing:.02em}.c{display:inline-block;font-size:.65rem;font-weight:700;color:#fff;background:#dc2626;border-radius:3px;padding:0 .3rem;margin:0 .1rem;vertical-align:middle;letter-spacing:.02em}h1{font-size:1.4rem;border-bottom:2px solid #2d6a4f;padding-bottom:.5rem}h2{font-size:1.1rem;color:#2d6a4f;margin-top:1.5rem}.meta{font-size:.85rem;color:#555}.meta .stale{color:#d00;font-weight:bold}table{border-collapse:collapse;width:100%;margin:.5rem 0;font-size:.9rem}th,td{border:1px solid #ccc;padding:.4rem .6rem;text-align:left}th{background:#f0f4f0}details{margin:1rem 0}summary{cursor:pointer;font-weight:600;color:#2d6a4f}footer{margin-top:2rem;padding-top:.5rem;border-top:1px solid #ccc;font-size:.8rem;color:#777}.speaker-notes{background:#fffbea;border-left:4px solid #d4a017;padding:.8rem 1rem;margin:.5rem 0;white-space:pre-line;border-radius:.5rem}.suggestion-do{color:#2d6a4f}.suggestion-dont{color:#8b0000}.ref-list{padding-left:1.5rem}.ref-list li{margin:.5rem 0;font-size:.88rem;line-height:1.5}.ref-list li{border-left:3px solid #2d6a4f;padding-left:.5rem;margin-left:-.5rem}.ref-pmid{color:#2563eb;text-decoration:none;font-size:.82rem}.ref-pmid:hover{text-decoration:underline}</style>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+    th { background: #f0f4f0; }
+    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
+    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
+    .objectives li { margin: .3rem 0; }
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .gap-card { border-left: 3px solid #d97706; padding-left: .8rem; margin: .8rem 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .82rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+    .v { display: inline-block; font-size: .65rem; font-weight: 700; color: #fff; background: #2563eb; border-radius: 3px; padding: 0 .3rem; margin: 0 .1rem; vertical-align: middle; letter-spacing: .02em; }
+    .c { display: inline-block; font-size: .65rem; font-weight: 700; color: #fff; background: #dc2626; border-radius: 3px; padding: 0 .3rem; margin: 0 .1rem; vertical-align: middle; letter-spacing: .02em; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>E de volta a PICO</h1>
-    <p class="meta">Aula: metanalise | Slide 4 de 18
-    | Fase: F2</p>
-    <p class="meta">Gerado: 2026-04-03 18:13 | Validade sugerida: 2026-09-30</p>
-  </header>
 
-  <section id="sintese">
-    <h2>Sintese Narrativa</h2>
-    <p>A evidencia sobre o papel do PICO em revisoes sistematicas e unanime e convergente entre todas as autoridades: o Cochrane Handbook v6.5 (cap. 3), o GRADE Working Group e o PRISMA 2020 concordam que o PICO estruturado e o ponto de partida de toda revisao sistematica e determina diretamente a aplicabilidade dos resultados. A conexao entre PICO e validade externa se materializa no dominio &#x27;indirectness&#x27; do GRADE: quando a populacao, intervencao, comparador ou desfecho do estudo diferem do PICO-alvo do clinico, a certeza da evidencia deve ser rebaixada — e a magnitude do efeito pode nao se transferir. Guyatt et al. (2011) catalogaram 4 tipos de indirectness, todos enraizados em divergencia PICO. A atualizacao mais recente — Core GRADE 5 (Guyatt et al., 2025) no BMJ — formaliza o conceito de &#x27;target PICO vs study PICO&#x27; e orienta que, para cada diferenca substancial, o avaliador deve julgar a probabilidade de que a magnitude do efeito difira significativamente. O Cochrane Handbook v6.5 agora estratifica o PICO em 3 camadas: Review PICO (elegibilidade ampla), PICO for each synthesis (pergunta especifica de cada meta-analise) e PICO of included studies (o que os pesquisadores de fato investigaram). Nuance importante: o GRADE adverte contra uma visao binaria (&#x27;aplica vs nao aplica&#x27;). Aplicabilidade e um espectro de incerteza — discrepancia nao-seria nao justifica downgrade. Empiricamente, indirectness contribuiu para downgrade em apenas 12% dos desfechos em revisoes Cochrane cirurgicas (imprecisao e risco de vies penalizam muito mais frequentemente). A assertion do slide e pedagogicamente correta como heuristica para residentes, mas o professor deve saber que a realidade e mais nuancada. O comparador merece destaque especial: Goldkuhle et al. (2023) mostram que treatment switching no braco comparador constitui indirectness — um ponto sutil que residentes geralmente ignoram. Por fim, Borenstein (2021) alerta para a tautologia da generalizacao: quando autores afirmam que os resultados se aplicam a &#x27;populacoes comparaveis&#x27; sem definir quais sao, a definicao e &#x27;precisa mas inutil&#x27; — a aplicabilidade pratica fica sujeita ao julgamento subjetivo do leitor. Essa tautologia e exatamente o que o PICO estruturado tenta resolver: ao explicitar populacao, intervencao, comparador e desfecho, o clinico tem criterios objetivos para julgar se a evidencia se transfere.</p>
-  </section>
+<header>
+  <h1>O valor da RS e da MA depende em grande parte da concordancia entre o study PICO e o seu target PICO</h1>
+  <p class="meta">Slide: s-pico | Fase: F2 (Metodologia) | Timing: 60s</p>
+  <p class="meta">Gerado: 2026-04-03 | Atualizado: 2026-04-10 | Validade sugerida: 2026-09-30</p>
 
-  <section id="speaker-notes">
-    <h2>Speaker Notes</h2>
-    <div class="speaker-notes">[0:00-0:20] &#x27;Antes de olhar o diamante, a primeira pergunta: qual foi a PERGUNTA?&#x27;
-&#x27;Toda RS comeca com um PICO estruturado — e voces precisam checa-lo.&#x27;
-PAUSA 2s.
-&#x27;P-I-C-O. Quatro letras que definem se o resultado se aplica ao seu paciente ou nao.&#x27;
+  <div class="objectives">
+    <strong>O que este evidence cobre:</strong>
+    <ol>
+      <li>O papel do PICO como porta de entrada para julgar aplicabilidade de uma RS/MA</li>
+      <li>A conexao PICO &rarr; indirectness (GRADE) e suas implicacoes clinicas</li>
+      <li>Numeros-chave verificados sobre PICO na pratica real</li>
+    </ol>
+  </div>
+</header>
 
-[0:20-0:40] &#x27;P: Quem foi incluido? Idade, comorbidades, gravidade? E quem ficou de fora?&#x27;
-&#x27;I: Qual intervencao exata? Uma droga especifica, uma classe inteira, qualquer dose?&#x27;
-&#x27;C: Comparou com placebo? Com tratamento padrao? Com outra droga? Faz diferenca.&#x27;
-PAUSA 1s.
-&#x27;Um detalhe que passa despercebido: no braco comparador, quantos pacientes acabaram recebendo a intervencao? Treatment switching muda tudo.&#x27; (Goldkuhle et al. 2023, PMID 37146659) <span class="v">VERIFIED</span>
+<!-- ===== CONCEITOS-CHAVE ===== -->
+<section id="concepts">
+  <h2>Conceitos-chave</h2>
 
-[0:40-0:60] &#x27;O: Que desfechos mediram? Mortalidade, hospitalizacao, qualidade de vida?&#x27;
-&#x27;E tao importante: que desfechos NAO mediram?&#x27;
-&#x27;Se o PICO da revisao nao bate com o seu paciente, o resultado pode nao se aplicar.&#x27;
-&#x27;Essa divergencia tem nome no GRADE: chama-se indirectness. E e motivo formal para rebaixar a certeza da evidencia.&#x27; (Guyatt et al. 2011, PMID 21802903) <span class="v">VERIFIED</span>
-&#x27;Essa e a base da primeira pergunta: posso confiar na sintese? Comeca pelo PICO.&#x27;
+  <p>A evidencia sobre o papel do PICO em revisoes sistematicas e unanime e convergente entre todas as autoridades: o Cochrane Handbook v6.5 (cap. 3), o GRADE Working Group e o PRISMA 2020 concordam que o PICO estruturado e o ponto de partida de toda revisao sistematica e determina diretamente a aplicabilidade dos resultados.</p>
 
-→ avancar para slide 05 (abstract)
+  <div class="key-takeaway">Quando a populacao, intervencao, comparador ou desfecho do estudo diferem do PICO-alvo do clinico, a certeza da evidencia deve ser rebaixada &mdash; e a magnitude do efeito pode nao se transferir. No GRADE, isso se chama <strong>indirectness</strong>.</div>
 
-[DATA] Fonte principal: Cochrane Handbook v6.5, cap. 3 — Defining the review question | Verificado: 2026-04-03
-[DATA] GRADE indirectness: Guyatt et al. J Clin Epidemiol 2011;64(12):1303-10. PMID 21802903 <span class="v">VERIFIED</span>
-[DATA] GRADE indirectness update: Guyatt et al. BMJ 2025;389:e083865. PMID 40393729 <span class="v">VERIFIED</span>
-[DATA] PICO comparator switching: Goldkuhle et al. J Clin Epidemiol 2023;159:40-48. PMID 37146659 <span class="v">VERIFIED</span>
-[DATA] Core GRADE Unpacked (summary series 1-7): Colunga-Lozano et al. J Clin Epidemiol 2025;189:112047. PMID 41207400 <span class="v">VERIFIED</span> [Perna 6 — Perplexity discovery]
-[DATA] PICO completo em perguntas reais: apenas 2/59 (3.4%). Huang et al. AMIA 2006. PMID 17238363 <span class="v">VERIFIED</span> [Perna 6]
-[DATA] Desfechos patient-important: 60% em 350 RCTs cirurgicos (29% surrogate, 10% lab). Adie et al. Can J Surg 2017. PMID 28234219 <span class="v">VERIFIED</span> [Perna 6]</div>
-  </section>
+  <p>Guyatt et al. (2011) catalogaram 4 tipos de indirectness, todos enraizados em divergencia PICO. A atualizacao mais recente &mdash; Core GRADE 5 (Guyatt et al., 2025) no BMJ &mdash; formaliza o conceito de &lsquo;target PICO vs study PICO&rsquo; e orienta que, para cada diferenca substancial, o avaliador deve julgar a probabilidade de que a magnitude do efeito difira significativamente.</p>
 
-  <section id="pedagogia">
-    <h2>Posicionamento Pedagogico</h2>
-    <p>TENSAO ANTERIOR: O slide 03 (checkpoint-1, ACCORD trap) revelou que o diamante pode mentir — o maior trial apontava para dano enquanto o pooled effect dizia beneficio. O residente ficou em &#x27;confusao calibrada&#x27;. O slide 04-rs-vs-ma separou RS e MA. Agora, o slide PICO faz a transicao: &#x27;antes de julgar O QUE a evidencia diz, voce precisa perguntar PARA QUEM ela diz.&#x27; RESOLUCAO: PICO nao e taxonomia — e uma ferramenta de julgamento clinico. Cada letra e uma porta de entrada para avaliar se a evidencia se transfere. O conceito ancora em algo que o residente ja faz inconscientemente (comparar o paciente com o estudo) e da nome formal ao processo. O QUE O SLIDE NAO MOSTRA: (1) O dominio &#x27;indirectness&#x27; do GRADE — mencionado apenas nas speaker notes para nao sobrecarregar. O GRADE so aparece no slide 08. (2) Frameworks alternativos (PICOS, PICOT, SPIDER) — irrelevantes para leitura critica de residentes. (3) Como cada letra se conecta com as secoes do abstract/PRISMA — isso vem no slide 05. O PICO aqui e generico e conceitual, preparando para a aplicacao no artigo ancora (F3, slide 13-15).</p>
-  </section>
-
-  <section id="retorica">
-    <h2>Analise Retorica</h2>
-    <p>ASSERTION-EVIDENCE: A h2 &#x27;PICO define a validade externa: se a populacao ou o comparador nao batem, o resultado nao se aplica&#x27; e uma assercao forte, com claim + consequencia. Nao e rotulo (&#x27;o que e PICO&#x27;), e um argumento (&#x27;PICO define X, e se Y entao Z&#x27;). CARGA COGNITIVA: 4 itens (P-I-C-O) em grid — carga gerenciavel para 60s. Cada item tem: letra + label + pergunta provocativa. A pergunta (&#x27;Quem ficou de fora?&#x27;, &#x27;O que nao mediram?&#x27;) e mais importante que a definicao — o residente ja sabe o acronimo, nao sabe O QUE PERGUNTAR. DISPOSITIVOS PRESENTES: (1) Grid com stagger animation — revela um elemento por vez, seguindo a sequencia logica P→I→C→O. (2) Perguntas provocativas em cada item — nao definicoes passivas, mas ferramentas de interrogacao ativa. (3) Source-tag Cochrane — autoridade institucional. DISPOSITIVO AUSENTE (sugestao): (1) Ancora quantitativa — seria util um dado sobre impacto real de PICO mismatch (ex: % de guidelines que rebaixam por indirectness), mas nao encontramos numero especifico. Manter sem dado inventado. (2) Conexao explicita com indirectness nas notes (feita) — ancora o PICO no framework GRADE que vem depois.</p>
-  </section>
-
-
-<section id="numeros">
-  <h2>Numeros-Chave</h2>
   <table>
-    <tr><th>Metrica</th><th>Valor</th><th>IC 95%</th><th>Tempo</th>
-    <th>Populacao</th><th>Fonte</th><th>Risco Basal</th></tr>
-    <tr><td>Downgrade por indirectness (Cochrane cirurgicas)</td><td>~12%</td><td>26/212 desfechos</td><td></td><td>Revisoes Cochrane de intervencoes cirurgicas para fraturas</td><td>Gemini deep-search <span class="c">CANDIDATE</span> — PMID nao localizado, dado nao verificavel</td><td></td></tr>
-    <tr><td>Perguntas clinicas com PICO completo</td><td>2/59 (3.4%)</td><td></td><td></td><td>59 perguntas reais de medicos em atencion primaria</td><td>Huang et al. AMIA 2006. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17238363" target="_blank">17238363</a> <span class="v">VERIFIED</span> [Perna 6 — Perplexity discovery]</td><td></td></tr>
-    <tr><td>Desfechos patient-important em RCTs cirurgicos</td><td>60%</td><td></td><td>2008-2009</td><td>350 RCTs, 8258 desfechos</td><td>Adie et al. Can J Surg 2017;60(2):86-93. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28234219" target="_blank">28234219</a> <span class="v">VERIFIED</span> [Perna 6 — Perplexity discovery]</td><td></td></tr>
+    <tr><th>Camada PICO</th><th>Definicao</th><th>Fonte</th></tr>
+    <tr><td>Review PICO</td><td>Elegibilidade ampla da revisao sistematica</td><td>Cochrane v6.5, cap. 3</td></tr>
+    <tr><td>Synthesis PICO</td><td>Pergunta especifica de cada meta-analise dentro da RS</td><td>Cochrane v6.5, cap. 3</td></tr>
+    <tr><td>Study PICO</td><td>O que os pesquisadores de fato investigaram</td><td>Cochrane v6.5, cap. 3</td></tr>
+  </table>
+
+  <div class="caveat"><strong>Nuance GRADE:</strong> O GRADE adverte contra uma visao binaria (&lsquo;aplica vs nao aplica&rsquo;). Aplicabilidade e um espectro de incerteza &mdash; discrepancia nao-seria nao justifica downgrade. Empiricamente, indirectness contribuiu para downgrade em apenas ~12% dos desfechos em revisoes Cochrane cirurgicas (imprecisao e risco de vies penalizam muito mais frequentemente).</div>
+
+  <p>O comparador merece destaque especial: Goldkuhle et al. (2023) mostram que treatment switching no braco comparador constitui indirectness &mdash; um ponto sutil que residentes geralmente ignoram. Borenstein (2021) alerta para a tautologia da generalizacao: quando autores afirmam que os resultados se aplicam a &lsquo;populacoes comparaveis&rsquo; sem definir quais sao, a definicao e &lsquo;precisa mas inutil&rsquo;. O PICO estruturado tenta resolver exatamente isso.</p>
+</section>
+
+<!-- ===== POR QUE IMPORTA ===== -->
+<section id="narrative">
+  <h2>Por que este slide importa</h2>
+
+  <p>O slide 03 (checkpoint-1, ACCORD trap) revelou que o diamante pode mentir &mdash; o maior trial apontava para dano enquanto o pooled effect dizia beneficio. O slide 04-rs-vs-ma separou RS e MA. Agora, o slide PICO faz a transicao: &lsquo;antes de julgar O QUE a evidencia diz, voce precisa perguntar PARA QUEM ela diz.&rsquo;</p>
+
+  <p>PICO nao e taxonomia &mdash; e uma ferramenta de julgamento clinico. Cada letra e uma porta de entrada para avaliar se a evidencia se transfere. O conceito ancora em algo que o residente ja faz inconscientemente (comparar o paciente com o estudo) e da nome formal ao processo.</p>
+
+  <div class="key-takeaway">A assertion do slide e pedagogicamente correta como heuristica para residentes, mas o professor deve saber que a realidade e mais nuancada &mdash; o GRADE trata aplicabilidade como espectro, nao como booleano.</div>
+</section>
+
+<!-- ===== NUMEROS-CHAVE ===== -->
+<section id="key-numbers">
+  <h2>Numeros-chave</h2>
+  <table>
+    <tr><th>Metrica</th><th>Valor</th><th>Populacao</th><th>Fonte</th></tr>
+    <tr>
+      <td>Downgrade por indirectness (Cochrane cirurgicas)</td>
+      <td>~12% (26/212 desfechos)</td>
+      <td>Revisoes Cochrane de intervencoes cirurgicas para fraturas</td>
+      <td>Gemini deep-search <span class="c">CANDIDATE</span> &mdash; PMID nao localizado</td>
+    </tr>
+    <tr>
+      <td>Perguntas clinicas com PICO completo</td>
+      <td>2/59 (3.4%)</td>
+      <td>59 perguntas reais de medicos em atencao primaria</td>
+      <td>Huang et al., 2006</td>
+    </tr>
+    <tr>
+      <td>Desfechos patient-important em RCTs cirurgicos</td>
+      <td>60% (29% surrogate, 10% lab)</td>
+      <td>350 RCTs, 8258 desfechos (2008-2009)</td>
+      <td>Adie et al., 2017</td>
+    </tr>
   </table>
 </section>
 
-<section id="sugestoes">
-  <h2>O Que Mudar / O Que Manter</h2>
-  <ul><li class="suggestion-do"><strong>Considerar:</strong> Adicionar nas speaker notes a conexao PICO→indirectness (GRADE) como ponte para slide 08. Ja feito nesta versao.</li>
-<li class="suggestion-do"><strong>Considerar:</strong> Mencionar treatment switching (Goldkuhle 2023) como exemplo concreto de &#x27;C nao bateu&#x27; — ponto sutil e de alto impacto pedagogico.</li>
-<li class="suggestion-do"><strong>Considerar:</strong> Na F3 (slide 13-15), usar o PICO do Valgimigli 2025 como exemplo concreto de aplicacao — remeter a este slide.</li>
-<li class="suggestion-do"><strong>Considerar:</strong> Considerar adicionar Core GRADE 5 (Guyatt 2025) como referencia secundaria no source-tag — e o artigo mais recente e autoritativo sobre target PICO vs study PICO.</li>
-<li class="suggestion-dont"><strong>Nao fazer:</strong> NAO adicionar PICOS/PICOT/SPIDER ao slide — frameworks alternativos sao irrelevantes para residentes leitores</li>
-<li class="suggestion-dont"><strong>Nao fazer:</strong> NAO inserir tabela GRADE neste slide — o GRADE vem no slide 08. Aqui e conceitual.</li>
-<li class="suggestion-dont"><strong>Nao fazer:</strong> NAO inventar dado sobre % de indirectness em guidelines — sem fonte Tier 1 encontrada</li>
-<li class="suggestion-dont"><strong>Nao fazer:</strong> NAO mudar a h2 — a assertion atual e forte e bem construida</li>
-</ul>
-</section>
-
-<details>
-  <summary>Depth Rubric (D1-D8)</summary>
-  <table>
-    <tr><th>Dim</th><th>Score</th><th>Achado</th><th>Implicacao</th></tr>
-    <tr><td>D1 - Fonte</td><td>9</td><td>Cochrane Handbook v6.5 <span class="v">WEB-VERIFIED</span> + GRADE Working Group (Guyatt 2011, 2025) <span class="v">VERIFIED</span> + PRISMA 2020 <span class="v">WEB-VERIFIED</span></td><td>Tier 1 exclusivo. Trifecta Cochrane/GRADE/PRISMA.</td></tr><tr><td>D2 - Effect Size</td><td>0</td><td>N/A — slide conceitual/metodologico</td><td>Ausencia correta. Nao ha efeito para quantificar.</td></tr><tr><td>D3 - Populacao</td><td>5</td><td>Residentes basico-intermediario. Nao ha populacao clinica no slide.</td><td>PICO e sobre o framework, nao sobre uma populacao especifica.</td></tr><tr><td>D4 - Timeframe</td><td>5</td><td>Cochrane v6.5 (2024). GRADE 8 (2011). Core GRADE 5 (2025). PRISMA (2020).</td><td>Fontes atuais. Sem risco de obsolescencia — conceitos fundacionais.</td></tr><tr><td>D5 - Comparador</td><td>0</td><td>N/A</td><td>Ausencia correta.</td></tr><tr><td>D6 - Grading</td><td>6</td><td>GRADE indirectness domain explicado nas notes. Nao aplicavel como GRADE de evidencia clinica.</td><td>Conexao PICO→GRADE documentada para ponte pedagogica.</td></tr><tr><td>D7 - Impacto Clinico</td><td>7</td><td>Cada letra do PICO traduzida em pergunta clinica ativa. Treatment switching como exemplo concreto. Indirectness nomeada.</td><td>Residente sai com ferramenta pratica, nao so acronimo.</td></tr><tr><td>D8 - Currency</td><td>9</td><td>Core GRADE 5 (Guyatt 2025, BMJ) — publicado ha menos de 1 ano. Cochrane v6.5 vigente.</td><td>Sem expiracao previsivel para conceitos fundacionais.</td></tr>
-  </table>
-</details>
-
-<details>
-  <summary>Convergencia Entre Fontes</summary>
-  <p>6/6 pernas convergiram (Perna 6 adicionada S72). Perna 1 (Gemini deep-search) trouxe a nuance mais importante: a assertion do slide e uma &#x27;simplificacao didatica util&#x27; mas o GRADE adverte contra visao binaria — aplicabilidade e espectro, nao booleano. Empiricamente, indirectness causa downgrade em apenas ~12% dos desfechos; imprecisao e bias dominam. Gemini tambem trouxe Jia et al. 2026 (Annals, ratio 1.47) mas verificacao S56 mostrou DOI invalido e paper nao encontrado no PubMed/Annals — marcado INVALID e removido. Perna 5 (PubMed/Consensus/SCite) confirmou a cadeia GRADE completa: GRADE 8 (Guyatt 2011, PMID 21802903) <span class="v">VERIFIED</span> → Core GRADE 5 (Guyatt 2025, PMID 40393729) <span class="v">VERIFIED</span> → GRADE Concept 4 (Goldkuhle 2023, PMID 37146659) <span class="v">VERIFIED</span>. Cochrane Handbook v6.5 agora estratifica PICO em 3 camadas (Review PICO, Synthesis PICO, Study PICO). Perna 2 (MBE-evaluator) confirmou assertion forte (claim+consequencia, nao rotulo). Nenhuma divergencia entre autoridades sobre o papel fundacional. Divergencia unica: extensoes (PICOS, PICOT, SPIDER, PCC) — complementares, nunca substitutivas. CONVERGENCIA ALTA: todas as pernas concordam que (1) PICO e fundacional, (2) mismatch = indirectness no GRADE, (3) a assertion e pedagogicamente correta como heuristica. NUANCE: o professor deve saber que discrepancia leve nao justifica rejeitar evidencia. Perna 6 (Perplexity deep-research, S72) trouxe 3 achados verificados: (1) Core GRADE Unpacked (Colunga-Lozano et al. 2025, PMID 41207400) <span class="v">VERIFIED</span> — summary da serie Core GRADE 1-7, confirma dominios como continua e flowcharts para aplicacao; (2) apenas 2/59 perguntas clinicas reais contém todos 4 elementos PICO (Huang et al. 2006, PMID 17238363) <span class="v">VERIFIED</span> — dado empirico sobre gap entre PICO teorico e pratica real; (3) 60% dos desfechos em 350 RCTs cirurgicos sao patient-important, 29% surrogate (Adie et al. 2017, PMID 28234219) <span class="v">VERIFIED</span> — ancora quantitativa para o O do PICO. Perna 6 tambem trouxe F7 (VTS med ed, PMID 37575761) mas verificacao mostrou paper ERRADO (case report AMACR, nao VTS) — marcado INVALID. Taxa de erro Perplexity PMIDs: 1/4 (25%) nesta rodada.</p>
-</details>
-
-<details>
-  <summary>Referencia Rapida — Se Perguntarem</summary>
+<!-- ===== GLOSSARIO ===== -->
+<section id="glossary">
+  <h2>Referencia rapida</h2>
+  <p class="meta">Termos citados no slide. Detalhes nos evidence dos slides dedicados.</p>
   <table>
     <tr><th>Termo</th><th>Definicao</th><th>Nota</th></tr>
-    <tr><td><strong>Indirectness (GRADE)</strong></td><td>Diferenca entre o PICO-alvo (do clinico ou guideline) e o PICO dos estudos incluidos na RS. 4 tipos: populacao, intervencao, comparador, desfecho.</td><td>Guyatt et al. J Clin Epidemiol 2011;64(12):1303-10. PMID 21802903 <span class="v">VERIFIED</span>. Dominio 4 do GRADE.</td></tr>
-<tr><td><strong>Target PICO vs Study PICO</strong></td><td>Conceito central do Core GRADE 5: o avaliador especifica SEU PICO-alvo e compara com o PICO de cada estudo. Discrepancia = indirectness.</td><td>Guyatt et al. BMJ 2025;389:e083865. PMID 40393729 <span class="v">VERIFIED</span>.</td></tr>
-<tr><td><strong>Treatment switching</strong></td><td>Pacientes do braco comparador recebem a intervencao durante o trial. Constitui indirectness de comparador.</td><td>Goldkuhle et al. J Clin Epidemiol 2023;159:40-48. PMID 37146659 <span class="v">VERIFIED</span>.</td></tr>
-<tr><td><strong>Tautologia da generalizacao</strong></td><td>Afirmar que resultados se aplicam a &#x27;populacoes comparaveis&#x27; sem definir quais sao. Definicao precisa mas inutil — a aplicabilidade real fica sujeita ao julgamento subjetivo do leitor.</td><td>Borenstein M. Introduction to Meta-Analysis, 2nd ed. Wiley, 2021, Cap. 25. Fonte: NotebookLM (Metanalise).</td></tr>
-<tr><td><strong>PICOS</strong></td><td>Extensao do PICO que adiciona Study design (S). Orienta a escolha do tipo de estudo (RCT, coorte, caso-controle) adequado a pergunta. Util para criterios de elegibilidade em protocolos de RS.</td><td>Amir-Behghadami &amp; Janati. Emerg Med J 2020;37(6):387. PMID 32253195 <span class="v">VERIFIED</span>. 760+ citacoes.</td></tr>
-<tr><td><strong>PICOT</strong></td><td>Extensao do PICO que adiciona Timeframe (T). Explicita o horizonte temporal do desfecho (ex: mortalidade em 30 dias vs 1 ano). Comum em guidelines de formulacao de perguntas clinicas.</td><td>Fineout-Overholt &amp; Johnston. Worldviews Evid Based Nurs 2005;2(3):157-60. PMID 17040536 <span class="v">VERIFIED</span>. Variante mais usada em enfermagem baseada em evidencias.</td></tr>
-<tr><td><strong>SPIDER</strong></td><td>Sample, Phenomenon of Interest, Design, Evaluation, Research type. Alternativa ao PICO para pesquisa qualitativa e metodos mistos, onde &#x27;intervencao&#x27; e &#x27;comparador&#x27; nao se aplicam.</td><td>Cooke A, Smith D, Booth A. Qual Health Res 2012;22(10):1435-43. PMID 22829486 <span class="v">VERIFIED</span>. Melhor especificidade que PICO para estudos qualitativos.</td></tr>
-<tr><td><strong>Validade externa</strong></td><td>Grau em que os resultados de um estudo podem ser generalizados para outras populacoes, cenarios e condicoes.</td><td>Sinonimo parcial: applicability, generalizability, transferability. O GRADE prefere &#x27;indirectness&#x27; ao inves de &#x27;validade externa&#x27;.</td></tr>
-
+    <tr>
+      <td class="glossary-term">Indirectness (GRADE)</td>
+      <td>Diferenca entre o PICO-alvo (do clinico ou guideline) e o PICO dos estudos incluidos na RS. 4 tipos: populacao, intervencao, comparador, desfecho.</td>
+      <td>Guyatt et al., 2011</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Target PICO vs Study PICO</td>
+      <td>Conceito central do Core GRADE 5: o avaliador especifica SEU PICO-alvo e compara com o PICO de cada estudo. Discrepancia = indirectness.</td>
+      <td>Guyatt et al., 2025</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Treatment switching</td>
+      <td>Pacientes do braco comparador recebem a intervencao durante o trial. Constitui indirectness de comparador.</td>
+      <td>Goldkuhle et al., 2023</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Tautologia da generalizacao</td>
+      <td>Afirmar que resultados se aplicam a &lsquo;populacoes comparaveis&rsquo; sem definir quais sao. Definicao precisa mas inutil.</td>
+      <td>Borenstein et al., 2021</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">PICOS</td>
+      <td>Extensao do PICO que adiciona Study design (S). Util para criterios de elegibilidade em protocolos de RS.</td>
+      <td>Amir-Behghadami &amp; Janati, 2020</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">PICOT</td>
+      <td>Extensao do PICO que adiciona Timeframe (T). Explicita o horizonte temporal do desfecho.</td>
+      <td>Fineout-Overholt &amp; Johnston, 2005</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">SPIDER</td>
+      <td>Sample, Phenomenon of Interest, Design, Evaluation, Research type. Alternativa ao PICO para pesquisa qualitativa e metodos mistos.</td>
+      <td>Cooke, Smith &amp; Booth, 2012</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Validade externa</td>
+      <td>Grau em que os resultados de um estudo podem ser generalizados para outras populacoes, cenarios e condicoes.</td>
+      <td>Sinonimo parcial: applicability, generalizability. O GRADE prefere &lsquo;indirectness&rsquo;.</td>
+    </tr>
   </table>
-</details>
-
-<section id="referencias">
-  <h2>Referencias</h2>
-  <ol class="ref-list"><li class="ref-principal">Higgins JPT, Thomas J, Chandler J, et al. (eds) (2024). Cochrane Handbook for Systematic Reviews of Interventions v6.5, Chapter 3: Defining the criteria for including studies and how they will be grouped for the synthesis. <em>Cochrane Training</em>. <span class="v">WEB-VERIFIED</span></li>
-<li class="ref-principal">Guyatt GH, Oxman AD, Kunz R, et al. (2011). GRADE guidelines: 8. Rating the quality of evidence — indirectness. <em>J Clin Epidemiol</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21802903" target="_blank">21802903</a> <span class="v">VERIFIED</span></li>
-<li class="ref-principal">Guyatt G, Iorio A, De Beer H, et al. (2025). Core GRADE 5: rating certainty of evidence — assessing indirectness. <em>BMJ</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40393729" target="_blank">40393729</a> <span class="v">VERIFIED</span></li>
-<li>Goldkuhle M, Guyatt GH, Kreuzberger N, et al. (2023). GRADE concept 4: Rating the certainty of evidence when study interventions or comparators differ from PICO targets. <em>J Clin Epidemiol</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37146659" target="_blank">37146659</a> <span class="v">VERIFIED</span></li>
-<li>Balshem H, Helfand M, Schunemann HJ, et al. (2011). GRADE guidelines: 3. Rating the quality of evidence. <em>J Clin Epidemiol</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21208779" target="_blank">21208779</a> <span class="v">VERIFIED</span></li>
-<li>Page MJ, McKenzie JE, Bossuyt PM, et al. (2021). The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. <em>BMJ</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33782057" target="_blank">33782057</a> <span class="v">WEB-VERIFIED</span></li>
-<li>Amir-Behghadami M, Janati A (2020). Population, Intervention, Comparison, Outcomes and Study (PICOS) design as a framework to formulate eligibility criteria in systematic reviews. <em>Emerg Med J</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32253195" target="_blank">32253195</a> <span class="v">VERIFIED</span></li>
-<li>Borenstein M, Hedges LV, Higgins JPT, Rothstein HR (2021). Introduction to Meta-Analysis, 2nd ed., Chapter 25: Limitations of the Random-Effects Model. <em>Wiley</em>. Fonte: NotebookLM (Metanalise). <span class="v">WEB-VERIFIED</span></li>
-<li>Fineout-Overholt E, Johnston L (2005). Teaching EBP: asking searchable, answerable clinical questions. <em>Worldviews Evid Based Nurs</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17040536" target="_blank">17040536</a> <span class="v">VERIFIED</span></li>
-<li>Cooke A, Smith D, Booth A (2012). Beyond PICO: the SPIDER tool for qualitative evidence synthesis. <em>Qual Health Res</em>. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/22829486" target="_blank">22829486</a> <span class="v">VERIFIED</span></li>
-<li class="ref-principal">Colunga-Lozano LE, Wang Y, Agoritsas T, et al. (2025). Core GRADE unpacked: a summary of recent innovations in complementary GRADE methodology. <em>J Clin Epidemiol</em>. 189:112047. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41207400" target="_blank">41207400</a>. DOI: <a href="https://doi.org/10.1016/j.jclinepi.2025.112047" target="_blank">10.1016/j.jclinepi.2025.112047</a> <span class="v">VERIFIED</span> [Perna 6 — Perplexity discovery]</li>
-<li>Huang X, Lin J, Demner-Fushman D (2006). Evaluation of PICO as a knowledge representation for clinical questions. <em>AMIA Annu Symp Proc</em>. 2006:359-63. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/17238363" target="_blank">17238363</a> <span class="v">VERIFIED</span> [Perna 6]</li>
-<li>Adie S, Harris IA, Naylor JM, Mittal R (2017). Are outcomes reported in surgical randomized trials patient-important? A systematic review and meta-analysis. <em>Can J Surg</em>. 60(2):86-93. PMID: <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28234219" target="_blank">28234219</a>. DOI: <a href="https://doi.org/10.1503/cjs.010616" target="_blank">10.1503/cjs.010616</a> <span class="v">VERIFIED</span> [Perna 6]</li>
-</ol>
 </section>
 
-  <footer>
-    Coautoria: Lucas + Opus 4.6 (orquestrador) + Gemini 3.1 (deep-search) + PubMed MCP + Consensus MCP + SCite MCP + Perplexity Sonar (deep-research) | Pipeline: /research v3 (6 pernas) | Slide: s-pico | Atualizado: 2026-04-05
-  </footer>
+<!-- ===== DEEP DIVE ===== -->
+<section id="deep-dive">
+  <h2>Para quem quiser ir alem</h2>
+
+  <details>
+    <summary>Speaker Notes (timestamps)</summary>
+    <div class="gap-card">
+      <p><strong>[0:00-0:20]</strong> &lsquo;Antes de olhar o diamante, a primeira pergunta: qual foi a PERGUNTA?&rsquo;<br>
+      &lsquo;Toda RS comeca com um PICO estruturado &mdash; e voces precisam checa-lo.&rsquo;<br>
+      PAUSA 2s.<br>
+      &lsquo;P-I-C-O. Quatro letras que definem se o resultado se aplica ao seu paciente ou nao.&rsquo;</p>
+
+      <p><strong>[0:20-0:40]</strong> &lsquo;P: Quem foi incluido? Idade, comorbidades, gravidade? E quem ficou de fora?&rsquo;<br>
+      &lsquo;I: Qual intervencao exata? Uma droga especifica, uma classe inteira, qualquer dose?&rsquo;<br>
+      &lsquo;C: Comparou com placebo? Com tratamento padrao? Com outra droga? Faz diferenca.&rsquo;<br>
+      PAUSA 1s.<br>
+      &lsquo;Um detalhe que passa despercebido: no braco comparador, quantos pacientes acabaram recebendo a intervencao? Treatment switching muda tudo.&rsquo; (Goldkuhle et al. 2023, PMID 37146659)</p>
+
+      <p><strong>[0:40-0:60]</strong> &lsquo;O: Que desfechos mediram? Mortalidade, hospitalizacao, qualidade de vida?&rsquo;<br>
+      &lsquo;E tao importante: que desfechos NAO mediram?&rsquo;<br>
+      &lsquo;Se o PICO da revisao nao bate com o seu paciente, o resultado pode nao se aplicar.&rsquo;<br>
+      &lsquo;Essa divergencia tem nome no GRADE: chama-se indirectness. E e motivo formal para rebaixar a certeza da evidencia.&rsquo; (Guyatt et al. 2011, PMID 21802903)<br>
+      &lsquo;Essa e a base da primeira pergunta: posso confiar na sintese? Comeca pelo PICO.&rsquo;<br>
+      &rarr; avancar para slide 05 (abstract)</p>
+
+      <p class="meta">[DATA] Fonte principal: Cochrane Handbook v6.5, cap. 3 &mdash; Defining the review question | Verificado: 2026-04-03<br>
+      [DATA] GRADE indirectness: Guyatt et al. J Clin Epidemiol 2011;64(12):1303-10. PMID 21802903 <span class="v">VERIFIED</span><br>
+      [DATA] GRADE indirectness update: Guyatt et al. BMJ 2025;389:e083865. PMID 40393729 <span class="v">VERIFIED</span><br>
+      [DATA] PICO comparator switching: Goldkuhle et al. J Clin Epidemiol 2023;159:40-48. PMID 37146659 <span class="v">VERIFIED</span><br>
+      [DATA] Core GRADE Unpacked: Colunga-Lozano et al. J Clin Epidemiol 2025;189:112047. PMID 41207400 <span class="v">VERIFIED</span><br>
+      [DATA] PICO completo em perguntas reais: apenas 2/59 (3.4%). Huang et al. AMIA 2006. PMID 17238363 <span class="v">VERIFIED</span><br>
+      [DATA] Desfechos patient-important: 60% em 350 RCTs cirurgicos. Adie et al. Can J Surg 2017. PMID 28234219 <span class="v">VERIFIED</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Posicionamento Pedagogico</summary>
+    <div class="gap-card">
+      <p><strong>Tensao anterior:</strong> O slide 03 (checkpoint-1, ACCORD trap) revelou que o diamante pode mentir. O residente ficou em &lsquo;confusao calibrada&rsquo;. O slide 04-rs-vs-ma separou RS e MA.</p>
+      <p><strong>Resolucao:</strong> PICO faz a transicao &mdash; &lsquo;antes de julgar O QUE a evidencia diz, voce precisa perguntar PARA QUEM ela diz.&rsquo;</p>
+      <p><strong>O que o slide NAO mostra:</strong></p>
+      <p>(1) O dominio &lsquo;indirectness&rsquo; do GRADE &mdash; mencionado apenas nas speaker notes para nao sobrecarregar. O GRADE so aparece no slide 08.<br>
+      (2) Frameworks alternativos (PICOS, PICOT, SPIDER) &mdash; irrelevantes para leitura critica de residentes.<br>
+      (3) Como cada letra se conecta com as secoes do abstract/PRISMA &mdash; isso vem no slide 05.</p>
+      <p>O PICO aqui e generico e conceitual, preparando para a aplicacao no artigo ancora (F3, slide 13-15).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Analise Retorica</summary>
+    <div class="gap-card">
+      <p><strong>Assertion-evidence:</strong> A h2 &lsquo;O valor da RS e da MA depende em grande parte da concordancia entre o study PICO e o seu target PICO&rsquo; e uma assercao forte, com claim + consequencia. Nao e rotulo (&lsquo;o que e PICO&rsquo;), e um argumento (&lsquo;PICO define X, e se Y entao Z&rsquo;).</p>
+      <p><strong>Carga cognitiva:</strong> 4 itens (P-I-C-O) em grid &mdash; carga gerenciavel para 60s. Cada item tem: letra + label + pergunta provocativa. A pergunta (&lsquo;Quem ficou de fora?&rsquo;, &lsquo;O que nao mediram?&rsquo;) e mais importante que a definicao &mdash; o residente ja sabe o acronimo, nao sabe O QUE PERGUNTAR.</p>
+      <p><strong>Dispositivos presentes:</strong> (1) Grid com stagger animation P&rarr;I&rarr;C&rarr;O. (2) Perguntas provocativas em cada item &mdash; ferramentas de interrogacao ativa, nao definicoes passivas. (3) Source-tag Cochrane &mdash; autoridade institucional.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Depth Rubric (D1-D8)</summary>
+    <table>
+      <tr><th>Dim</th><th>Score</th><th>Achado</th><th>Implicacao</th></tr>
+      <tr><td>D1 - Fonte</td><td>9</td><td>Cochrane Handbook v6.5 <span class="v">WEB-VERIFIED</span> + GRADE Working Group (Guyatt 2011, 2025) <span class="v">VERIFIED</span> + PRISMA 2020 <span class="v">WEB-VERIFIED</span></td><td>Tier 1 exclusivo. Trifecta Cochrane/GRADE/PRISMA.</td></tr>
+      <tr><td>D2 - Effect Size</td><td>0</td><td>N/A &mdash; slide conceitual/metodologico</td><td>Ausencia correta.</td></tr>
+      <tr><td>D3 - Populacao</td><td>5</td><td>Residentes basico-intermediario. Nao ha populacao clinica.</td><td>PICO e sobre o framework, nao uma populacao especifica.</td></tr>
+      <tr><td>D4 - Timeframe</td><td>5</td><td>Cochrane v6.5 (2024). GRADE 8 (2011). Core GRADE 5 (2025). PRISMA (2020).</td><td>Fontes atuais. Sem risco de obsolescencia.</td></tr>
+      <tr><td>D5 - Comparador</td><td>0</td><td>N/A</td><td>Ausencia correta.</td></tr>
+      <tr><td>D6 - Grading</td><td>6</td><td>GRADE indirectness domain explicado nas notes.</td><td>Conexao PICO&rarr;GRADE documentada.</td></tr>
+      <tr><td>D7 - Impacto Clinico</td><td>7</td><td>Cada letra traduzida em pergunta clinica ativa. Treatment switching como exemplo.</td><td>Ferramenta pratica, nao so acronimo.</td></tr>
+      <tr><td>D8 - Currency</td><td>9</td><td>Core GRADE 5 (Guyatt 2025, BMJ) &mdash; publicado ha menos de 1 ano.</td><td>Sem expiracao previsivel.</td></tr>
+    </table>
+  </details>
+
+  <details>
+    <summary>Convergencia Entre Fontes</summary>
+    <div class="gap-card">
+      <p>6/6 pernas convergiram (Perna 6 adicionada S72). Perna 1 (Gemini deep-search) trouxe a nuance mais importante: a assertion do slide e uma &lsquo;simplificacao didatica util&rsquo; mas o GRADE adverte contra visao binaria &mdash; aplicabilidade e espectro, nao booleano. Empiricamente, indirectness causa downgrade em apenas ~12% dos desfechos; imprecisao e bias dominam.</p>
+      <p>Gemini tambem trouxe Jia et al. 2026 (Annals, ratio 1.47) mas verificacao S56 mostrou DOI invalido e paper nao encontrado no PubMed/Annals &mdash; marcado INVALID e removido.</p>
+      <p>Perna 5 (PubMed/Consensus/SCite) confirmou a cadeia GRADE completa: GRADE 8 (Guyatt 2011, PMID 21802903) <span class="v">VERIFIED</span> &rarr; Core GRADE 5 (Guyatt 2025, PMID 40393729) <span class="v">VERIFIED</span> &rarr; GRADE Concept 4 (Goldkuhle 2023, PMID 37146659) <span class="v">VERIFIED</span>.</p>
+      <p>Cochrane Handbook v6.5 agora estratifica PICO em 3 camadas (Review PICO, Synthesis PICO, Study PICO). Nenhuma divergencia entre autoridades sobre o papel fundacional. Divergencia unica: extensoes (PICOS, PICOT, SPIDER, PCC) &mdash; complementares, nunca substitutivas.</p>
+      <p><strong>Convergencia alta:</strong> todas as pernas concordam que (1) PICO e fundacional, (2) mismatch = indirectness no GRADE, (3) a assertion e pedagogicamente correta como heuristica.</p>
+      <p>Perna 6 (Perplexity deep-research, S72) trouxe 3 achados verificados: (1) Core GRADE Unpacked (Colunga-Lozano et al. 2025, PMID 41207400) <span class="v">VERIFIED</span>; (2) apenas 2/59 perguntas clinicas reais contem todos 4 elementos PICO (Huang et al. 2006, PMID 17238363) <span class="v">VERIFIED</span>; (3) 60% dos desfechos em 350 RCTs cirurgicos sao patient-important (Adie et al. 2017, PMID 28234219) <span class="v">VERIFIED</span>.</p>
+      <p class="meta">Perna 6 tambem trouxe F7 (VTS med ed, PMID 37575761) &mdash; verificacao mostrou paper ERRADO (case report AMACR) &mdash; marcado INVALID. Taxa de erro Perplexity PMIDs: 1/4 (25%) nesta rodada.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===== REFERENCIAS ===== -->
+<section id="referencias">
+  <h2>Referencias</h2>
+  <table>
+    <tr><th>Autor(es)</th><th>Titulo</th><th>Fonte</th><th>Ano</th></tr>
+    <tr><td>Higgins JPT, Thomas J, et al.</td><td>Cochrane Handbook for Systematic Reviews of Interventions, v6.5, Cap. 3</td><td><em>Cochrane Training</em></td><td>2024</td></tr>
+    <tr><td>Guyatt GH, Oxman AD, et al.</td><td>GRADE guidelines: 8. Rating the quality of evidence &mdash; indirectness</td><td><em>J Clin Epidemiol</em> 64(12):1303-10</td><td>2011</td></tr>
+    <tr><td>Guyatt G, Iorio A, et al.</td><td>Core GRADE 5: rating certainty of evidence &mdash; assessing indirectness</td><td><em>BMJ</em> 389:e083865</td><td>2025</td></tr>
+    <tr><td>Goldkuhle M, Guyatt GH, et al.</td><td>GRADE concept 4: Rating the certainty &mdash; interventions or comparators differ from PICO targets</td><td><em>J Clin Epidemiol</em> 159:40-48</td><td>2023</td></tr>
+    <tr><td>Balshem H, Helfand M, et al.</td><td>GRADE guidelines: 3. Rating the quality of evidence</td><td><em>J Clin Epidemiol</em> 64(12):1275-83</td><td>2011</td></tr>
+    <tr><td>Page MJ, McKenzie JE, et al.</td><td>The PRISMA 2020 statement</td><td><em>BMJ</em> 372:n71</td><td>2021</td></tr>
+    <tr><td>Colunga-Lozano LE, Wang Y, et al.</td><td>Core GRADE unpacked: a summary of recent innovations</td><td><em>J Clin Epidemiol</em> 189:112047</td><td>2025</td></tr>
+    <tr><td>Huang X, Lin J, Demner-Fushman D</td><td>Evaluation of PICO as a knowledge representation for clinical questions</td><td><em>AMIA Annu Symp Proc</em> 359-63</td><td>2006</td></tr>
+    <tr><td>Adie S, Harris IA, et al.</td><td>Are outcomes reported in surgical randomized trials patient-important?</td><td><em>Can J Surg</em> 60(2):86-93</td><td>2017</td></tr>
+    <tr><td>Amir-Behghadami M, Janati A</td><td>PICOS design as a framework for eligibility criteria in systematic reviews</td><td><em>Emerg Med J</em> 37(6):387</td><td>2020</td></tr>
+    <tr><td>Borenstein M, Hedges LV, et al.</td><td>Introduction to Meta-Analysis, 2nd ed., Cap. 25</td><td><em>Wiley</em></td><td>2021</td></tr>
+    <tr><td>Fineout-Overholt E, Johnston L</td><td>Teaching EBP: asking searchable, answerable clinical questions</td><td><em>Worldviews Evid Based Nurs</em> 2(3):157-60</td><td>2005</td></tr>
+    <tr><td>Cooke A, Smith D, Booth A</td><td>Beyond PICO: the SPIDER tool for qualitative evidence synthesis</td><td><em>Qual Health Res</em> 22(10):1435-43</td><td>2012</td></tr>
+  </table>
+</section>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
+  <p>O conteudo deste guia e de responsabilidade exclusiva do autor. Eventuais erros sao meus &mdash; nao do modelo.</p>
+  <p>Curado: abril 2026.</p>
+</footer>
+
 </body>
 </html>

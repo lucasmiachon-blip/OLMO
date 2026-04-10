@@ -21,15 +21,15 @@ npm run dev:grade    # porta 4101
 ## Estrutura
 
 ```
-cirrose/                 # Producao: 44 slides assertion-evidence
+cirrose/                 # Producao: 44 slides assertion-evidence (ver cirrose/README.md)
   slides/                #   HTMLs individuais + _manifest.js
-  references/            #   CASE, narrative, evidence-db, archetypes, etc.
-  scripts/               #   Build, QA, research (cirrose-especificos)
+  references/            #   6 docs interconectados (CASE, narrative, etc.)
+  scripts/               #   Build, QA (cirrose-especificos)
 grade/                   # Scaffold: 58 slides, precisa redesign
   slides/                #   HTMLs + _manifest.js
   scripts/               #   Build, QA (grade-especificos)
   qa-screenshots/        #   Batch QA com metricas
-metanalise/              # README.md (ponteiro para branch)
+metanalise/              # 16 slides, QA em andamento (ver metanalise/CLAUDE.md)
 osteoporose/             # README.md (ponteiro para repo externo)
 shared/                  # Design system compartilhado
   css/base.css           #   OKLCH tokens, grid, tipografia
@@ -62,7 +62,7 @@ STRATEGY.md              # Roadmap tecnico + pesquisa de ferramentas
 | `done-gate.js` | `npm run done:cirrose` | Definition of Done: 3 gates (build+lint, screenshots, propagation). `--strict` para push. |
 | `lint-slides.js` | `npm run lint:slides` | Lint estrutural em todos os slides (h2, notes, E07, etc.) |
 | `lint-case-sync.js` | `npm run lint:case-sync` | Valida `_manifest.js` panelStates contra `CASE.md` |
-| `lint-narrative-sync.js` | `npm run lint:narrative-sync` | Valida tensionLevel/narrativeRole contra `narrative.md` |
+| ~~`lint-narrative-sync.js`~~ | — | **ARCHIVED S144.** narrative.md → evidence HTML (on-demand). Ver `scripts/_archived/` |
 | `lint-gsap-css-race.mjs` | *(direto)* | Detecta race conditions GSAP vs CSS (ERRO-054) |
 | `export-pdf.js` | *(direto)* | Export PDF via DeckTape. Usa preview na porta 4173. |
 | `qa-accessibility.js` | *(direto)* | Audit WCAG (contraste, alt text, ARIA, font-size) |
@@ -81,39 +81,6 @@ STRATEGY.md              # Roadmap tecnico + pesquisa de ferramentas
 | Script | Comando npm | Proposito |
 |--------|-------------|-----------|
 | `build-html.ps1` | `npm run build:grade` | Template → HTML (PowerShell) |
-
-## Reference Docs (cirrose)
-
-Os 7 documentos em `cirrose/references/` formam um grafo interconectado:
-
-```
-CASE.md ←──────── Source of truth (dados do paciente)
-  ↕                 ↑ valida
-narrative.md ←── Arco narrativo (3 atos, pacing, Chekhov's guns)
-  ↕                 ↑ PMIDs
-evidence-db.md ←─ Dados clinicos com PMID verificado
-  ↕
-must-read-trials.md ← Lista de leitura + status PDF (sync Notion)
-  ↕
-archetypes.md ←── Skeletons HTML para coding agents
-  ↕
-decision-protocol.md ← Protocolo para decisoes nao-triviais
-  ↕
-coautoria.md ←─── Disclosure AI (ICMJE 2024)
-```
-
-Cada arquivo tem secao "See also" linkando para os siblings relevantes.
-
-## Integracao Notion
-
-| DB Notion | Arquivo repo | Direcao | O que sincroniza |
-|-----------|-------------|---------|------------------|
-| References DB (`collection://2b24bb6c...`) | `must-read-trials.md`, `evidence-db.md` | Bidirecional | PMIDs, tier, PDF status |
-| Biblia Narrativa (page) | `narrative.md` | Notion → Repo (draft) | Arco narrativo (repo e canonico) |
-| Teaching Log (planejado) | — | — | Feedback de aulas |
-
-Protocolo completo: `docs/SYNC-NOTION-REPO.md`
-Seguranca Notion: `.claude/rules/mcp_safety.md`
 
 ## Stack
 

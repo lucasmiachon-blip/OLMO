@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## Sessao 144 — 2026-04-10 (s-pico evidence + narrative→HTML migration + cleanup)
+
+### Evidence — s-pico
+- Refatorado evidence/s-pico.html para benchmark (estrutura s-contrato.html)
+- CSS minificado → multi-line legivel. Secoes reorganizadas (concepts, narrative, key-numbers, glossary, deep-dive)
+- Citacoes convertidas para Autor+Ano (sem PMID). Referencias em tabela 4 colunas
+- h2 atualizado: "O valor da RS e da MA depende..." (RS adicionado). Propagado em _manifest.js
+
+### Migracao narrative.md/blueprint.md → HTML
+- Criado evidence/meta-narrativa.html (arco narrativo on-demand, sem sync)
+- Criado evidence/blueprint.html (espinha de slides on-demand, sem sync)
+- Removido references/narrative.md e references/blueprint.md
+- Removidos guards/propagation de narrativa em qa-pipeline.md, CLAUDE.md, metanalise/CLAUDE.md
+- lint-narrative-sync.js arquivado em scripts/_archived/ (validava 2 fontes removidas)
+- package.json: lint:narrative-sync → echo ARCHIVED
+- s-objetivos.html: 4 refs narrative.md → meta-narrativa.html
+
+### Cleanup README/docs
+- Criado cirrose/README.md (conteudo cirrose-especifico movido do README raiz)
+- README raiz: removidas secoes "Reference Docs (cirrose)" e "Integracao Notion"
+- README raiz: descricoes de aulas atualizadas (metanalise ponteiro, cirrose ponteiro)
+
+### Memory/Rules
+- Memory merge: feedback_no_parameter_guessing → feedback_anti-sycophancy (20→19 files, 1 slot livre)
+- Memory: project_metanalise atualizado (routing, narrative.md removido)
+- Rule: qa-pipeline.md §2 trimmed (cor semantica → cross-ref design-reference.md)
+
 ## Sessao 143 — 2026-04-10 (s-contrato: evidence HTML + click-reveal + QA DONE)
 
 ### Evidence — s-contrato

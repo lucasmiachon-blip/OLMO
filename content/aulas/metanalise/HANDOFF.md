@@ -46,7 +46,7 @@ I1 (s-checkpoint-1): ARCHIVED S107.
 |---|-------|--------|-------|
 | 5 | s-rs-vs-ma | LINT-PASS | QA pendente. |
 | 6 | s-contrato | DONE | Evidence HTML S143. Click-reveal 2 cards. QA R11 PASS. |
-| 7 | s-pico | LINT-PASS | QA pendente. |
+| 7 | s-pico | LINT-PASS | Evidence refatorado S144 (benchmark). h2 com RS. QA pendente. |
 | 8 | s-forest-plot | LINT-PASS | QA pendente. Dark-bg. |
 | 9 | s-benefit-harm | LINT-PASS | QA pendente. |
 | 10 | s-heterogeneity | LINT-PASS | QA pendente. Dark-bg. |
@@ -96,8 +96,8 @@ QA 1 slide por vez. Pipeline por slide:
 | Fonte | Conteudo |
 |-------|----------|
 | `evidence/s-{id}.html` | Living HTML per slide. Dados clinicos verificados, PMIDs |
-| `references/narrative.md` | Arco narrativo, beats de tensao |
-| `references/blueprint.md` | Mapa slide-a-slide com evidencias |
+| `evidence/meta-narrativa.html` | Arco narrativo, competencias, 3 perguntas (on-demand) |
+| `evidence/blueprint.html` | Espinha de slides por fase (on-demand) |
 | `references/reading-list.md` | Pre-reading (4 papers) |
 
 ### Externas (MCPs)

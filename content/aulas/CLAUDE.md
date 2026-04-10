@@ -54,7 +54,7 @@ Cada aula segue a mesma estrutura:
   slide-registry.js      ← animacoes custom por slide
   {aula}.css             ← CSS scopado (section#s-{id})
   evidence/              ← HTML de evidencia por slide
-  references/            ← narrative.md
+  references/            ← reading-list.md, coautoria.md
   scripts/build-html.ps1 ← gera index.html
   CLAUDE.md              ← regras especificas (opcional)
   CHANGELOG.md           ← historico da aula
@@ -78,6 +78,6 @@ Cada aula segue a mesma estrutura:
 | `slides/{file}.html` | `_manifest.js` + `index.html` (run build) |
 | `evidence/s-{id}.html` | slide correspondente (citation block) |
 | `_manifest.js` | `index.html` (run build) |
-| `h2` no slide HTML | `_manifest.js` headline + `narrative.md` |
+| `h2` no slide HTML | `_manifest.js` headline |
 | dados numericos | evidence HTML + speaker notes `[DATA]` tag |
 | click-reveals | `_manifest.js` clickReveals + `slide-registry.js` |

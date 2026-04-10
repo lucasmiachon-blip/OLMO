@@ -15,7 +15,7 @@ Parent: `content/aulas/` (ver CLAUDE.md raiz do monorepo).
 
 ## Estrutura narrativa
 
-3 fases + 2 interações (ver `references/narrative.md`):
+3 fases + 2 interações (ver `evidence/meta-narrativa.html`):
 
 1. **F1 — Criar importância** (slides 00-02): engajar antes de ensinar
 2. **I1 — Checkpoint** (slide 03): ACCORD trap (Ray 2009 + ACCORD 2008)
@@ -29,7 +29,9 @@ Parent: `content/aulas/` (ver CLAUDE.md raiz do monorepo).
 ## Hierarquia de referência
 
 ```
-narrative.md → evidence/*.html (living HTML) → blueprint.md → slides/
+evidence/*.html (living HTML) → slides/
+evidence/meta-narrativa.html (arco narrativo, on-demand)
+evidence/blueprint.html (espinha de slides, on-demand)
 reading-list.md (paralelo, informa pre-reading)
 _archived/archetypes.md (referencia historica, nao criterio QA)
 ```

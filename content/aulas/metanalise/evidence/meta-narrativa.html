@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meta-Narrativa: Meta-analise</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    h3 { font-size: 1rem; color: #1a1a2e; margin-top: 1.2rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+    th { background: #f0f4f0; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .phase-box { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
+    .phase-box h3 { margin-top: .3rem; }
+    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
+    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .gap-card { border-left: 3px solid #d97706; padding-left: .8rem; margin: .8rem 0; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Meta-analise &mdash; Arco Narrativo e Estrutura Pedagogica</h1>
+  <p class="meta">Documento meta-narrativo da aula | On-demand (nao sincronizado)</p>
+  <p class="meta">Derivado de: narrative.md v2.5 | Convertido: 2026-04-10</p>
+</header>
+
+<!-- ===== TESE CENTRAL ===== -->
+<section id="tese">
+  <h2>Tese central</h2>
+  <div class="key-takeaway">Uma boa leitura de meta-analise comeca pela pergunta clinica, avalia a credibilidade da sintese, mede o tamanho e a precisao do efeito, e so se completa quando o leitor julga a certeza da evidencia e traduz o efeito relativo em impacto absoluto para seu paciente.</div>
+</section>
+
+<!-- ===== PUBLICO ===== -->
+<section id="publico">
+  <h2>Publico e competencias</h2>
+  <p><strong>Publico:</strong> Residentes de clinica medica (basico-intermediario).<br>
+  <strong>Papel do aluno:</strong> residente-leitor clinico &mdash; nao revisor, nao produtor de RS.</p>
+
+  <p><strong>O que o aluno deve ser capaz de fazer ao final:</strong></p>
+  <table>
+    <tr><th>#</th><th>Competencia</th></tr>
+    <tr><td>1</td><td>Identificar a pergunta PICO de uma revisao sistematica com meta-analise</td></tr>
+    <tr><td>2</td><td>Ler um forest plot sem panico: medida de efeito, direcao, IC95%, peso</td></tr>
+    <tr><td>3</td><td>Distinguir beneficio e dano no mesmo artigo</td></tr>
+    <tr><td>4</td><td>Interpretar niveis de certeza (GRADE) como linguagem clinica, nao burocracia</td></tr>
+    <tr><td>5</td><td>Converter efeito relativo em efeito absoluto para decisao no ambulatorio</td></tr>
+    <tr><td>6</td><td>Reconhecer limites de aplicabilidade (validade externa)</td></tr>
+  </table>
+
+  <div class="caveat"><strong>O que esta aula NAO e:</strong> Nao e curso de estatistica. Nao e tutorial de software (RevMan, R). Nao e como FAZER uma meta-analise. Nao e NMA, IPD, bayesiana, dose-response.</div>
+</section>
+
+<!-- ===== ARCO NARRATIVO ===== -->
+<section id="arco">
+  <h2>Arco narrativo &mdash; 3 fases + 2 interacoes</h2>
+  <p class="meta">Principio: primeiro importancia/curiosidade, depois metodologia, depois artigo. Artigo ancora entra APENAS na Fase 3.</p>
+
+  <div class="phase-box">
+    <h3>Fase 1 &mdash; Criar importancia</h3>
+    <p><strong>Objetivo:</strong> engajar antes de ensinar. O residente precisa QUERER aprender.</p>
+    <p><strong>Tensao:</strong> &ldquo;eu achava que sabia ler uma MA, mas talvez nao saiba tanto&rdquo;</p>
+    <p><strong>Slides:</strong> s-title, s-objetivos, s-hook, s-importancia</p>
+  </div>
+
+  <div class="phase-box">
+    <h3>Interacao 1 &mdash; Checkpoint de engajamento</h3>
+    <p><strong>Momento:</strong> apos criar importancia, antes de entrar em metodologia.</p>
+    <p><strong>Cenario:</strong> ACCORD trap (Ray 2009 Lancet). MA de 5 RCTs, 33.040 pts. Controle glicemico intensivo reduz infarto em 17% (OR 0,83). Twist: ACCORD interrompido por aumento de mortalidade.</p>
+    <p><strong>Funcao:</strong> retrieval practice + criar tensao + ancorar &ldquo;olhar dentro do diamante&rdquo;.</p>
+    <p><strong>Slide:</strong> s-checkpoint-1 (ARCHIVED S107)</p>
+  </div>
+
+  <div class="phase-box">
+    <h3>Fase 2 &mdash; Metodologia</h3>
+    <p><strong>Objetivo:</strong> ensinar os conceitos necessarios &mdash; sem ancorar em artigo especifico.</p>
+    <p><strong>Tensao:</strong> cada conceito revela uma camada de complexidade que o residente nao via.</p>
+    <p><strong>Slides:</strong> s-contrato, s-rs-vs-ma, s-pico, s-forest-plot, s-benefit-harm, s-heterogeneity, s-fixed-random</p>
+  </div>
+
+  <div class="phase-box">
+    <h3>Interacao 2 &mdash; Checkpoint de consolidacao</h3>
+    <p><strong>Momento:</strong> apos ensinar conceitos, antes de aplicar no artigo real.</p>
+    <p><strong>Cenario:</strong> RR 0,75 (IC 0,60&ndash;0,93), I&sup2;=72%, GRADE baixa. &ldquo;Voce muda?&rdquo;</p>
+    <p><strong>Twist:</strong> efeito absoluto pequeno (ARR ~1,25%, NNT ~80). Resposta: provavelmente NAO muda conduta.</p>
+    <p><strong>Slide:</strong> s-checkpoint-2</p>
+  </div>
+
+  <div class="phase-box">
+    <h3>Fase 3 &mdash; Aplicacao (Valgimigli 2025)</h3>
+    <p><strong>Objetivo:</strong> aplicar todos os conceitos em artigo real. Provar que o framework funciona.</p>
+    <p><strong>Artigo ancora:</strong> Valgimigli M, et al. Clopidogrel vs aspirin. <em>Lancet</em> 2025. IPD-MA, 7 RCTs, 28.982 pts.</p>
+    <p><strong>Tensao:</strong> &ldquo;os dados reais sao mais complicados &mdash; e mesmo o Lancet nao responde todas as perguntas&rdquo;</p>
+    <p><strong>Slides:</strong> s-ancora, s-aplicabilidade, s-absoluto, s-takehome</p>
+  </div>
+</section>
+
+<!-- ===== PRINCIPIO PEDAGOGICO ===== -->
+<section id="principio">
+  <h2>Principio pedagogico central</h2>
+  <div class="key-takeaway">Uma meta-analise nao e melhor do que os RCTs que a alimentam. A qualidade da sintese depende da qualidade da producao e da adjudicacao das evidencias individuais incluidas. O diamante do forest plot herda as fragilidades de cada quadrado que o compoe &mdash; e o residente precisa saber disso.</div>
+</section>
+
+<!-- ===== 3 PERGUNTAS ===== -->
+<section id="takehome">
+  <h2>Tres perguntas que o residente leva para casa</h2>
+  <table>
+    <tr><th>#</th><th>Pergunta</th><th>Eixo</th></tr>
+    <tr><td>1</td><td><strong>Qual e a pergunta &mdash; e posso confiar na sintese?</strong></td><td>PICO + credibilidade (PRISMA &ne; qualidade; RoB importa)</td></tr>
+    <tr><td>2</td><td><strong>Qual e o efeito, quao preciso, e qual o dano?</strong></td><td>Forest plot + beneficio-dano separados</td></tr>
+    <tr><td>3</td><td><strong>Quao certa e a evidencia &mdash; e o que isso significa para MEU paciente?</strong></td><td>GRADE por desfecho + efeito absoluto</td></tr>
+  </table>
+</section>
+
+<!-- ===== FORMATO ===== -->
+<section id="formato">
+  <h2>Formato</h2>
+  <p>45&ndash;60 min expositiva/interativa. Pre-reading: 35&ndash;45 min (4 leituras obrigatorias).</p>
+</section>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
+  <p>Documento on-demand &mdash; nao participa de sincronizacao automatica.</p>
+  <p>Curado: abril 2026.</p>
+</footer>
+
+</body>
+</html>

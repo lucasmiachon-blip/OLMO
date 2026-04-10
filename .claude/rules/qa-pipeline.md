@@ -54,12 +54,9 @@ Prompts Gemini: `gemini-qa3.mjs` (unico script QA). Check nao listado = nao exis
 Layout e composicao: livre por slide. Sem archetypes como criterio — criacao tem mais arte.
 Estados de slide: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
 
-## 2. Cor Semantica no QA (E067)
+## 2. Cor Semantica → design-reference.md §1
 
-Prompt QA DEVE incluir criterios explicitos:
-- `--danger` = intervir agora (risco clinico real). NUNCA para limitacao/flaw.
-- `--warning` = investigar. NUNCA para resultado neutro.
-- Progressao safe → warning → danger = gravidade clinica, nao estetica.
+Regras de cor semantica no QA: ver `design-reference.md` §1 (Semantica de Cor). Canonico la, nao aqui.
 
 ## 3. Anti-Sycophancy com Substancia (E069)
 
@@ -89,7 +86,6 @@ Prompt QA DEVE incluir criterios explicitos:
 - [ ] `_manifest.js` customAnim = null ou ID correto
 - [ ] `slide-registry.js` tem wiring se customAnim != null
 - [ ] `{aula}.css` tem seletores `#slide-id` se necessario
-- [ ] `references/narrative.md` tem linha para este slide
 - [ ] Evidence HTML (`evidence/s-{id}.html`) tem referencias
 - [ ] HANDOFF registra estado SYNCED
 
@@ -106,11 +102,11 @@ Prompt QA DEVE incluir criterios explicitos:
 
 | Mudei... | Atualizar tambem... |
 |----------|---------------------|
-| h2 no HTML | `_manifest.js` headline, `references/narrative.md` |
-| `<section id>` | TODAS 9 superficies (§4 CONTENT→SYNCED) |
+| h2 no HTML | `_manifest.js` headline |
+| `<section id>` | TODAS 8 superficies (§4 CONTENT→SYNCED) |
 | CSS do slide | Verificar se afeta score QA |
 | Dados numericos | evidence HTML, notes `[DATA]` tag |
-| Posicao no deck | `_manifest.js` ordem, `references/narrative.md` |
+| Posicao no deck | `_manifest.js` ordem |
 | Click-reveals | `_manifest.js` clickReveals, `slide-registry.js` |
 | customAnim | `_manifest.js` customAnim, `slide-registry.js` |
 | Qualquer coisa | HANDOFF.md estado do slide |
