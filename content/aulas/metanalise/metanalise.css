@@ -728,11 +728,17 @@ section#s-objetivos .obj-item[data-reveal].revealed {
 }
 
 /* --- Importancia: mechanism + advantages split --- */
+section#s-importancia {
+  --_navy-card: #162032; /* lighter than --bg-navy, decisao Lucas S135 */
+}
+section#s-importancia .imp-mechanism p,
+section#s-importancia .imp-text p {
+  margin: 0;
+}
 section#s-importancia .imp-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
-  gap: var(--space-lg);
-  flex: 1;
+  gap: var(--space-md);
   align-items: center;
 }
 
@@ -743,21 +749,21 @@ section#s-importancia .imp-mechanism {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: #162032;
+  background: var(--_navy-card);
   color: var(--text-on-dark);
   border-radius: var(--radius-md);
-  padding: var(--space-md) var(--space-sm);
+  padding: var(--space-sm);
   height: 100%;
-  max-height: 440px;
+  max-height: 340px;
   opacity: 0;
 }
 section#s-importancia .imp-mech-label {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text-on-dark-muted);
+  color: var(--text-on-dark);
   margin-bottom: var(--space-sm);
 }
 section#s-importancia .imp-mech-icon {
@@ -770,7 +776,7 @@ section#s-importancia .imp-mech-icon {
 #deck section#s-importancia .imp-mech-desc {
   font-family: var(--font-body);
   font-size: 18px;
-  color: var(--text-on-dark-muted);
+  color: var(--text-on-dark);
   line-height: 1.4;
   margin-top: var(--space-sm);
   max-width: none;
@@ -791,24 +797,21 @@ section#s-importancia .imp-mech-result {
 section#s-importancia .imp-advantages {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 section#s-importancia .imp-row {
   display: grid;
   grid-template-columns: 36px 1fr;
   gap: 10px;
   align-items: center;
-  padding: 12px 16px;
+  padding: 6px 14px;
   border-radius: var(--radius-sm);
   background: var(--bg-card);
   border-left: 4px solid var(--ui-accent);
   opacity: 0;
   transform: translateX(16px);
 }
-section#s-importancia .imp-row--2 { border-left-color: var(--safe); }
-section#s-importancia .imp-row--3 { border-left-color: var(--warning); }
-section#s-importancia .imp-row--4 { border-left-color: var(--downgrade); }
-section#s-importancia .imp-row--5 { border-left-color: var(--ui-accent); }
+/* Border-left: all rows use --ui-accent (decorative, not clinical) */
 section#s-importancia .imp-num {
   font-family: var(--font-mono);
   font-size: 22px;
@@ -885,7 +888,8 @@ section#s-importancia .imp-num {
    HEX #162032 (lighter than canonical --bg-navy #0d1a2d) — decisao Lucas,
    consistencia cross-aula com cirrose. --- */
 .theme-dark .slide-inner {
-  background-color: #162032;
+  --_navy-dark: #162032; /* lighter than --bg-navy, decisao Lucas S135 */
+  background-color: var(--_navy-dark);
   --text-secondary: oklch(70% 0.01 258);  /* dimmer than base default (80%) */
 }
 
