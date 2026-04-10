@@ -92,14 +92,7 @@
 - **Evidência:** Cochrane Handbook v6.5, cap. 3
 - **Status:** ✅ FEITO (04-pico.html) — generalizado, sem dados Musini
 
-### Slide 06 — O que o abstract já entrega
-
-- **Fase:** 2
-- **Função:** mostrar que o abstract de boa RS é denso e ensinável
-- **Assertion:** "Abstract PRISMA entrega busca, elegibilidade, N de estudos e resultado — triagem em 2 min antes do PDF"
-- **Risco cognitivo:** ler abstract superficialmente → perder metadados estruturais
-- **Evidência:** PRISMA 2020 for Abstracts (Page et al. BMJ 2021;372:n160)
-- **Status:** ✅ FEITO (05-abstract.html) — generalizado, pipeline flow layout
+### ~~Slide 06 — Abstract PRISMA~~ (REMOVIDO S136 — PRISMA é para produção, não appraisal)
 
 ### Slide 07 — Como ler o forest plot
 
@@ -119,14 +112,7 @@
 - **Evidência:** Cochrane Handbook v6.5, cap. 15
 - **Status:** ✅ FEITO (07-benefit-harm.html) — compare layout com ícones ✓/✕
 
-### Slide 09 — Certeza da evidência (GRADE)
-
-- **Fase:** 2
-- **Função:** introduzir GRADE como linguagem clínica
-- **Assertion:** "Certeza GRADE expressa confiança no efeito estimado — avalia por desfecho, não por artigo"
-- **Risco cognitivo:** tratar GRADE como burocracia metodológica → não usar na prática
-- **Evidência:** GRADE Working Group · Cochrane Handbook v6.5, cap. 14
-- **Status:** ✅ FEITO (08-grade.html) — 4 níveis com ícones daltonismo (✓ ○ ⚠ ✕)
+### ~~Slide 09 — GRADE standalone~~ (REMOVIDO S136 — GRADE permeia outros slides, não precisa de slide dedicado)
 
 ### Slide 10 — Heterogeneidade
 
@@ -180,16 +166,7 @@
 - **Nota didática:** IPD ≠ pairwise — explicar em notes que os princípios de leitura são os mesmos
 - **Status:** ✅ FEITO (13-ancora.html) — anchor-card + metric-grid, notes explicam IPD e HR
 
-### Slide 14 — Resultados + framework aplicado
-
-- **Fase:** 3
-- **Função:** aplicar framework (benefício-dano, GRADE) ao artigo real — expor lacuna GRADE
-- **Assertion:** "MACCE caiu 14% com clopidogrel, sem aumento de sangramento — mas certeza GRADE não foi avaliada"
-- **Risco cognitivo:** aceitar resultado sem avaliar certeza; confiar no diamante porque é Lancet
-- **Evidência:** Valgimigli et al. Lancet 2025. PMID 40902613. MACCE HR 0,86 (0,77–0,96). Sangramento HR 0,94 (0,74–1,21) NS
-- **Layout:** compare-layout (benefício ✓ vs dano ○) + compare-footer--gap (GRADE warning)
-- **Nota didática:** "Mesmo o Lancet pode omitir GRADE" — valida pergunta 2 do takehome
-- **Status:** ✅ FEITO (14-aplicacao.html) — compare-layout com dados reais + gap callout
+### ~~Slide 14 — Aplicacao~~ (REMOVIDO S136 — GRADE foi avaliado em apendice, claim incorreta)
 
 ### Slide 15 — Aplicabilidade
 

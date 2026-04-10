@@ -85,18 +85,14 @@ MA de 5 RCTs, 33.040 pacientes. Controle glicêmico intensivo reduz infarto em 1
 **Conteúdo (um conceito por slide):**
 1. RS vs MA — diferença fundamental
 2. PICO como porta de entrada (genérico, sem artigo)
-3. Como ler um abstract de RS (PRISMA, genérico)
-4. Forest plot: medida de efeito, direção, IC95%, peso, diamante
-5. Benefício e dano no mesmo artigo
-6. GRADE como linguagem clínica (alta, moderada, baixa)
-7. Heterogeneidade (I²) — o que realmente importa
-8. Efeito fixo vs aleatório (mínimo necessário para leitura)
-
-**Credibility gap (convergência Gemini):** entre abstract (slide 06) e forest plot (slide 07), o residente pode assumir que PRISMA = qualidade. Não é: PRISMA é transparência de relato, não avaliação de risco de viés (RoB). O conceito de "posso confiar nesta síntese?" deve ser embutido nas speaker notes do abstract e reforçado no GRADE. Não requer slide adicional — é um fio condutor.
+3. Forest plot: medida de efeito, direção, IC95%, peso, diamante
+4. Benefício e dano no mesmo artigo
+5. Heterogeneidade (I²) — o que realmente importa
+6. Efeito fixo vs aleatório (mínimo necessário para leitura)
 
 **Tensão narrativa:** cada conceito revela uma camada de complexidade que o residente não via
 
-**Slides:** 02-contrato, 04 a 11 (9 slides metodológicos)
+**Slides:** 02-contrato, 04-rs-vs-ma, 04-pico, 06-forest-plot, 07-benefit-harm, 09-heterogeneity, 10-fixed-random (7 slides)
 
 ### Interação 2 — Checkpoint de consolidação (entre Fase 2 e Fase 3)
 
@@ -136,14 +132,13 @@ O diamante favorece o tratamento. Você muda sua conduta?"
 
 **Conteúdo:**
 1. Slide 13: O artigo âncora — apresentar PICO, design, números-chave
-2. Slide 14: Aplicar framework — benefício vs dano com dados reais + expor lacuna GRADE
-3. Slide 15: Validade externa / aplicabilidade — PICO do artigo vs seu paciente
-4. Slide 16: Efeito relativo vs absoluto (genérico — já existente)
-5. Slide 17: Take-home — as 3 perguntas que o residente leva (já existente)
+2. Slide 15: Validade externa / aplicabilidade — PICO do artigo vs seu paciente
+3. Slide 16: Efeito relativo vs absoluto (genérico — já existente)
+4. Slide 17: Take-home — as 3 perguntas que o residente leva (já existente)
 
 **Tensão narrativa:** "agora que sei a teoria, os dados reais são mais complicados do que parecem — e mesmo o Lancet não responde todas as perguntas que eu deveria fazer"
 
-**Slides:** 13 a 17 (3 novos + 2 existentes)
+**Slides:** 13-ancora, 15-aplicabilidade, 16-absoluto, 17-takehome (4 slides)
 
 ---
 
