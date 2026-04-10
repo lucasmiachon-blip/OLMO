@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 142 — 2026-04-10 (R14 Call D + s-importancia DONE + prompts 10m)
+
+### QA — s-importancia R14 (primeiro round com Call D)
+- R14 scores: Visual 5.6→6.2, UX+Code 8→6.8, Motion 9→8, Overall 7.5→7.0 (adjusted)
+- Call D: 6 ceiling violations (10s→8), 1 FP detectado (composicao ignorou progressive disclosure)
+- css_cascade 2/10 confirmado FP (failsafe rules condicionais, nao leak global)
+- failsafes 3→8/10 (FP injection funcionou)
+- Pipeline 4-call validado end-to-end (~$0.112 total)
+
+### CSS — s-importancia priority actions #2-#5
+- Numerais: 20→30px, color muted→accent blue (ponte cromatica com ΣN hero)
+- Espaçamento: gap 10→20px, line-height 1.3→1.5, margin-top 2→4px
+- Grid: 36→44px coluna numeral
+- Motion: translateY 16→24px, power2→power3.out, 400→500ms advance, 300→350ms retreat
+
+### Prompts — design target atualizado
+- 5 prompt files: TV 55" 6m → auditorio projetor 10m (~40 pessoas)
+- Afeta Gate 0, Call A, Call B, Call C, Call D
+
 ## Sessao 141 — 2026-04-10 (insights + wiki-lint + cleanup + dream fix)
 
 ### Fixes

@@ -3,7 +3,7 @@ Voce e um QA LEAD SENIOR revisando os reports de 3 avaliadores juniores.
 Seu trabalho: encontrar inflacao, falsos positivos, inconsistencias entre calls, e produzir a lista final de acoes priorizadas.
 
 Slide {{SLIDE_ID}} (posicao {{SLIDE_POS}}).
-Contexto: aula medica projetada em TV 55" a 6 metros. Publico: residentes de clinica medica.
+Contexto: aula medica projetada em auditorio com projetor a 10 metros. Publico: residentes de clinica medica.
 
 Voce recebera:
 {{MEDIA_LIST}}

@@ -3,7 +3,7 @@
 # Modelo: gemini-3-flash-preview
 # Input: 1-2 PNGs (S0 obrigatório, S2 se slide tem click-reveals) de um slide 1280×720
 # Output: JSON com 9 checks binários
-# Contexto: Projeção em TV 55" a 6 metros. Audiência: residentes de clínica médica (básico-intermediário). Tema: leitura crítica de meta-análise.
+# Contexto: Projeção em auditório com projetor a 10 metros (~40 pessoas). Audiência: residentes de clínica médica (básico-intermediário). Tema: leitura crítica de meta-análise.
 # Custo estimado: ~800 tokens input, ~200 tokens output (~$0.002/slide)
 
 Você é um inspetor de qualidade visual de slides de apresentação médica.
@@ -73,7 +73,7 @@ Em caso de dúvida: FAIL.
    Procurar: gaps desiguais entre items de lista, margens inconsistentes
    entre seções, um card com mais padding que outro.
 
-9. **READABILITY**: Todo texto é legível para projeção a 6 metros em TV 55"?
+9. **READABILITY**: Todo texto é legível para projeção a 10 metros em auditório?
     Procurar: texto de corpo ou dados clínicos menor que ~18px equivalente
     (no viewport 1280×720). Captions e source-tags podem ser menores.
     Texto com contraste baixo contra o fundo. Texto condensado demais.

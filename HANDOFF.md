@@ -1,44 +1,29 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 142 | 2026-04-10
-> Foco: Rodar R14 com Call D e verificar pipeline completo
+> Sessao 143 | 2026-04-10
+> Foco: QA proximo slide (Lucas decide qual)
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (16 slides metanalise).
-**Agentes: 10.** **Hooks: 39 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
+**Agentes: 10.** **Hooks: 38 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
 **Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
-## P0 — Rodar R14 com Call D e verificar
+## P0 — QA slides (12 LINT-PASS restantes)
 
-**Pronto para rodar.** Comando:
-```bash
-cd content/aulas
-node scripts/qa-capture.mjs --aula metanalise --slide s-importancia
-node scripts/gemini-qa3.mjs --aula metanalise --slide s-importancia --editorial --round 14
-```
+**s-importancia: DONE (R14, adjusted 7.0/10).** Primeiro slide QA completo com Call D.
 
-O que verificar no output:
-1. **Fresh eyes**: round context mostra "fresh eyes — FPs injected" (nao scores anteriores)
-2. **Call D executa**: "6b. Running Call D — Anti-Sycophancy Validation..."
-3. **Ceiling violations**: motion scores devem ser recalibrados (R13 tinha 5 WARNs: 10s com problemas)
-4. **GUARANTEE fields**: dimensoes devem ter campo guarantee preenchido (especialmente Call C)
-5. **failsafes**: se continuar 3/10, confirma FP persistente (CSS ja esta correto)
-6. **Adjusted overall**: Call D produz score recalibrado vs raw score das 3 calls
+Lucas decide proximo slide. Pipeline: 1 slide/vez, 4 calls (A+B+C+D).
+Prompts atualizados S142: design target = **auditorio 10m projetor** (nao TV 55" 6m).
 
-Pendencias pos-R14:
-- Se overall ajustado >= 7: slide aprovavel (issues restantes sao design decisions)
-- Se failsafes continua FP: adicionar ao prompt de Call B como exclusao explicita
-- Se Call D nao agrega valor: pode ser removida (custo ~$0.02)
-
-## P1 — QA restantes (12 slides LINT-PASS)
-
-Lucas decide qual slide. Pipeline: 1 slide/vez, 4 gates (agora com Call D).
-
-## P2 — /insights trend watch
+## P1 — /insights trend watch
 
 S141 insights: rolling averages subiram (corrections 0.862->1.128, kbp 0.254->0.32).
 Observar S142-S144. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
+
+## P2 — css_cascade FP exclusion
+
+R14 confirmou css_cascade como FP persistente (2/10 — failsafe rules corretamente scoped mas Gemini nao distingue condicional de global). Candidato para exclusao explicita no prompt de Call B.
 
 ## BACKLOG (pos-deadline)
 
@@ -61,13 +46,13 @@ Observar S142-S144. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
 - **Pedagogia adultos S135:** sem formulas em slides (1/√N proibido), numeros concretos SIM.
 - **Speaker notes S135:** vao para evidence HTML, NAO aside no slide.
 - **Archetype removal S136:** campo archetype removido do manifest. Liberdade artistica.
-- **Projecao S138:** 2 cenarios (sala 6m TV + auditorio 10m projetor). Design target: 10m.
+- **Projecao S142:** Design target = auditorio 10m projetor. Prompts atualizados (TV 55" 6m removido).
 - **Motion S139:** animacoes com PROPOSITO pedagogico (retencao, carga cognitiva, varredura). Sem proposito = nao animar.
 - **QA visual S138:** analise multimodal obrigatoria (screenshot como imagem), nao apenas codigo.
 - **QA output S139:** Gemini deve reportar WHAT/WHY/PROPOSAL/GUARANTEE. Sem notas subjetivas.
 - **Navy card SigmaN = hero S139:** Lucas: "a melhor parte eh o box com o sigma e o N". Tudo deriva dele.
 - **Fresh eyes S140:** Gemini NAO recebe scores anteriores. Avaliacao independente. Known FPs injetados separadamente.
-- **Call D S140:** 4th call anti-sycophancy. Audita 3 calls, recalibra scores, produz priority actions.
+- **Call D S140:** 4th call anti-sycophancy. Audita 3 calls, recalibra scores, produz priority actions. Validado S142 (6 ceiling violations, 1 FP detectado, custo $0.026).
 - **Temp editorial 1.0 S141:** Aplica-se a TODAS calls (incluindo Call D). Testado S71.
 
 ## CUIDADOS
@@ -78,8 +63,8 @@ Observar S142-S144. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
 - MCP gate + Research gate: hooks force "ask" antes de MCP/research calls.
 - MCP freeze ate 2026-04-14. PubMed session expirou S129.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
-- Gemini FPs conhecidos: css_cascade e failsafes flagam `[data-qa]` como bug (e design). failsafes 3/10 persistente por 3 rounds — CSS esta correto.
-- Auto-dream: session-start.sh agora surfacea .dream-pending. Contrato CLAUDE.md atualiza .last-dream apos dream. Verificar proxima sessao se loop parou.
+- Gemini FPs conhecidos: css_cascade (2/10 R14) — failsafe rules corretamente scoped mas Gemini confunde condicional com global leak. failsafes corrigido (3→8/10 com FP injection).
+- Auto-dream: loop funcionando (S142 dream ran, no new signal).
 - Secrets audit manual: nenhum secret verificado no git history. trufflehog/gitleaks nao instalados — scan definitivo pendente.
 
 ## CONFLITOS
@@ -87,4 +72,4 @@ Observar S142-S144. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S141 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S142 2026-04-10

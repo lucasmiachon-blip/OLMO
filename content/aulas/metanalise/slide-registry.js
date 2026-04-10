@@ -109,8 +109,8 @@ export const slideRegistry = {
       revealed++;
       const items = getGroup(revealed);
       gsap.fromTo(items,
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
       );
       items.forEach(el => el.classList.add('revealed'));
       return true;
@@ -119,7 +119,7 @@ export const slideRegistry = {
     const retreat = () => {
       if (revealed <= 0) return false;
       const items = getGroup(revealed);
-      gsap.to(items, { opacity: 0, y: 16, duration: 0.3, ease: 'power2.in' });
+      gsap.to(items, { opacity: 0, y: 24, duration: 0.35, ease: 'power3.in' });
       items.forEach(el => el.classList.remove('revealed'));
       revealed--;
       return true;
