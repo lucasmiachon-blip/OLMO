@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 147 | 2026-04-10
+> Sessao 148 | 2026-04-10
 > Foco: TBD
 
 ## ESTADO ATUAL
@@ -13,9 +13,13 @@ Monorepo funcional. CI verde. Build OK (**15 slides** metanalise — s-forest-pl
 
 **s-forest-plot removido S146.** Sera substituido por 2 slides com forest plot REAL (crop + zoom + animacao).
 - **Slide A:** Vaduganathan 2022 (SGLT2i/IC, Lancet, PMID 36041474 VERIFIED). 5 estudos, anatomia basica.
-- **Slide B:** Ebrahimi 2025 (Colchicina, Cochrane, PMID CANDIDATE). 12 estudos, I² 51%, leitura critica.
-- Evidence HTML criado: `evidence/s-forest-plot.html` + `evidence/forest-plot-candidates.html` (6+1 candidatos).
-- **Pendente:** Lucas le os trials e confirma combo. Verificar PMID Ebrahimi + CLEAR SYNERGY. Crop forest plots.
+- **Colchicina (3 MAs candidatas):**
+  - Ebrahimi 2025 (Cochrane, 12 RCTs, 22,983 pts, PMID CANDIDATE)
+  - Samuel 2025 (Eur Heart J, 6 RCTs, 21,800 pts, PMID 40314333 VERIFIED)
+  - Li 2026 (Am J Cardiovasc Drugs, 14 RCTs, 31,397 pts, PMID 40889093 VERIFIED)
+- Evidence HTML: `evidence/s-forest-plot.html` + `evidence/forest-plot-candidates.html` (9 candidatos, 6 combos).
+- **Pendente:** Lucas le as MAs e escolhe combo final. Crop forest plots pos-decisao.
+- **Proximo:** aplicar links clicaveis PMID (padrao benchmark) nos demais evidence HTMLs.
 
 **s-pico: DONE (R12, --term teal token, punchline containment).**
 **s-importancia: DONE.** **s-contrato: DONE.**
@@ -34,7 +38,7 @@ Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Se
 
 | # | Item | Detalhe |
 |---|------|---------|
-| 1 | Refatorar 5 evidence HTMLs | s-hook, s-rs-vs-ma, s-objetivos, s-checkpoint-1, s-ancora (s-pico DONE S144) |
+| 1 | Refatorar 5 evidence HTMLs + clickable PMIDs | s-hook, s-rs-vs-ma, s-objetivos, s-checkpoint-1, s-ancora (s-pico DONE S144). Aplicar padrao ref-pmid/V/C badges. |
 | 2 | Pernas pendentes (research) | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
 | 3 | Adversarial deferred: M-01, M-10 | Policy decisions (Bash granularity, Canva MCP wildcard) |
 | 4 | Hook/config system review | JSON adequado? YAGNI audit |
@@ -78,4 +82,4 @@ Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Se
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S146 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S147 2026-04-10

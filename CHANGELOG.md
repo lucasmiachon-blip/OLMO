@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Sessao 147 — 2026-04-10 (colchicina MAs + clickable PMIDs)
+
+### Evidence
+- 2 novas MAs colchicina adicionadas a forest-plot-candidates.html: Samuel 2025 (EHJ, PMID 40314333) + Li 2026 (AJCD, PMID 40889093)
+- Total: 9 candidatos, 6 combos sugeridas, 3 MAs de colchicina para Lucas decidir
+- PMIDs clicaveis aplicados em forest-plot-candidates.html e s-forest-plot.html (padrao benchmark)
+- Regra: VERIFIED = link PubMed, CANDIDATE = badge sem link, DOI = sempre linkavel
+
+### Infra
+- s-forest-plot.html: +objectives box, +ref-pmid CSS, +V/C badges, DOI links
+- Memory: feedback_clickable_pmids.md (21/20, consolidar proximo /dream)
+
 ## Sessao 146 — 2026-04-10 (s-pico R12 + s-forest-plot redesign)
 
 ### QA — s-pico R12 (visual-only)

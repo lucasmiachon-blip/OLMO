@@ -35,7 +35,7 @@
 <header>
   <h1>Candidatos Forest Plot &mdash; MAs para Slides de Ensino</h1>
   <p class="meta">Slide: forest-plot (2 slides futuros) | Fase: F2 (Metodologia)</p>
-  <p class="meta">Gerado: 2026-04-10 | Fontes: worker forest-plot-hunting (Opus + Gemini 3.1 Pro + Perplexity Sonar) + worker colchicine-dac</p>
+  <p class="meta">Gerado: 2026-04-10 | Fontes: worker forest-plot-hunting (Opus + Gemini 3.1 Pro + Perplexity Sonar) + worker colchicine-dac + WebSearch S147 (PubMed)</p>
 
   <div class="objectives">
     <strong>Objetivo desta pagina:</strong>
@@ -59,7 +59,7 @@
     <tr><td>Corticoides em PAC</td><td>Opus + Gemini</td><td>Mesmo tema, papers diferentes (AnnIntMed vs ICM)</td></tr>
     <tr><td>GLP-1 obesidade</td><td>Perplexity (unico)</td><td>Pick unico</td></tr>
     <tr><td>PA intensiva + HO</td><td>Gemini (unico)</td><td>Pick unico</td></tr>
-    <tr><td>Colchicina CV</td><td>Busca dedicada (Gemini + Perplexity)</td><td>Cochrane review emergiu como referencia central</td></tr>
+    <tr><td>Colchicina CV</td><td>Gemini + Perplexity + WebSearch S147</td><td>3 MAs: Ebrahimi/Cochrane (12 RCTs), Samuel/EHJ (6 RCTs), Li/AJCD (14 RCTs, 31K pts)</td></tr>
   </table>
 </section>
 
@@ -77,6 +77,16 @@
       <td>2</td><td><strong>Ebrahimi 2025</strong></td><td>Colchicina CV</td>
       <td><span class="tag tag-cochrane">Cochrane</span></td><td><span class="c">C</span> DOI ok</td>
       <td>51%/40%</td><td>12 / 22,983</td><td>I&sup2; moderado + tensao CLEAR SYNERGY. Leitura critica.</td>
+    </tr>
+    <tr class="highlight">
+      <td>2b</td><td><strong>Samuel 2025</strong></td><td>Colchicina CV</td>
+      <td><span class="tag tag-t1">Eur Heart J</span></td><td><span class="v">V</span> 40314333</td>
+      <td>N/R</td><td>6 / 21,800</td><td>Tier 1. Long-term. Tardif coautor. HR 0.75. Forest 6 estudos.</td>
+    </tr>
+    <tr>
+      <td>2c</td><td><strong>Li 2026</strong></td><td>Colchicina CV</td>
+      <td><span class="tag tag-near">Am J Cardiovasc Drugs</span></td><td><span class="v">V</span> 40889093</td>
+      <td>N/R</td><td>14 / 31,397</td><td>Maior amostra. Efeito-dose cumulativo. 14 RCTs.</td>
     </tr>
     <tr>
       <td>3</td><td><strong>Soumare 2026</strong></td><td>Corticoide PAC grave</td>
@@ -115,7 +125,7 @@
   <h3>MA-1: SGLT2i em IC &mdash; Vaduganathan et al., Lancet 2022</h3>
   <table>
     <tr><td width="20%"><strong>Citacao</strong></td><td>Vaduganathan M et al. SGLT-2 inhibitors in patients with heart failure: a comprehensive meta-analysis of five RCTs. <em>Lancet.</em> 2022;400(10354):757-767.</td></tr>
-    <tr><td><strong>PMID / DOI</strong></td><td><span class="v">V</span> 36041474 | 10.1016/S0140-6736(22)01429-5</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36041474" target="_blank">36041474</a> | <a class="ref-pmid" href="https://doi.org/10.1016/S0140-6736(22)01429-5" target="_blank">DOI</a></td></tr>
     <tr><td><strong>Motor</strong></td><td>Opus/MCPs</td></tr>
   </table>
   <table>
@@ -145,7 +155,7 @@
   <h3>MA-7: Colchicina prevencao 2a CV &mdash; Ebrahimi et al., Cochrane 2025</h3>
   <table>
     <tr><td width="20%"><strong>Citacao</strong></td><td>Ebrahimi et al. Colchicine for the secondary prevention of cardiovascular events. <em>Cochrane Database Syst Rev.</em> 2025.</td></tr>
-    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> CANDIDATE | 10.1002/14651858.CD014808.pub2</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> CANDIDATE | <a class="ref-pmid" href="https://doi.org/10.1002/14651858.CD014808.pub2" target="_blank">DOI</a></td></tr>
     <tr><td><strong>Motor</strong></td><td>Gemini (busca dedicada colchicina)</td></tr>
   </table>
   <table>
@@ -163,21 +173,74 @@
   </table>
   <table>
     <tr><th>Trial</th><th>Ano</th><th>N</th><th>Populacao</th><th>Resultado</th><th>PMID</th></tr>
-    <tr><td>LoDoCo (piloto)</td><td>2013</td><td>532</td><td>DAC estavel</td><td>Positivo</td><td>24226256</td></tr>
-    <tr><td>COLCOT</td><td>2019</td><td>4,745</td><td>Post-IAM</td><td>Positivo</td><td>31733140</td></tr>
-    <tr><td>LoDoCo2</td><td>2020</td><td>5,522</td><td>DAC estavel</td><td>Positivo</td><td>32865375</td></tr>
-    <tr><td>CLEAR SYNERGY</td><td>2024</td><td>~7,000</td><td>Post-PCI</td><td><strong>Neutro</strong></td><td>[TBD]</td></tr>
+    <tr><td>LoDoCo (piloto)</td><td>2013</td><td>532</td><td>DAC estavel</td><td>Positivo</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/24226256" target="_blank">24226256</a></td></tr>
+    <tr><td>COLCOT</td><td>2019</td><td>4,745</td><td>Post-IAM</td><td>Positivo</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31733140" target="_blank">31733140</a></td></tr>
+    <tr><td>LoDoCo2</td><td>2020</td><td>5,522</td><td>DAC estavel</td><td>Positivo</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32865375" target="_blank">32865375</a></td></tr>
+    <tr><td>CLEAR SYNERGY</td><td>2024</td><td>~7,000</td><td>Post-PCI</td><td><strong>Neutro</strong></td><td><span class="c">C</span> [TBD]</td></tr>
   </table>
   <p><strong>Impacto clinico:</strong> Evidencia alta (GRADE): colchicina reduz IAM (26%) e AVC (33%) sem aumento de eventos adversos graves. Apenas eventos GI leves aumentam. ESC 2024 passou a recomendar.</p>
   <div class="key-takeaway"><strong>Valor pedagogico:</strong> I&sup2; moderado (51%) = heterogeneidade REAL e interpretavel. CLEAR SYNERGY (maior trial, neutro) vs COLCOT/LoDoCo2 (positivos) = tensao visivel no forest plot. Ensina: &ldquo;trial neutro NAO refuta &mdash; olhe o pool&rdquo;. Ideal para SEGUNDO forest plot &mdash; leitura critica.</div>
   <div class="caveat">PMID Cochrane precisa verificacao. DOI formato valido. Perplexity confirmou que o tema tem MAs mas nao em NEJM/Lancet/JAMA/BMJ/AnnIntMed &mdash; a Cochrane e a referencia central. Perplexity retornou 27 citations near-Tier 1 (Eur Heart J IF~39, JAHA IF~6, Scand Cardiovasc J).</div>
   <div class="caveat"><strong>Contexto narrativo:</strong> CLEAR SYNERGY (2024) e o trial mais recente e maior, e foi neutro. Isto cria a tensao perfeita para ensino: &ldquo;se eu so tivesse lido este trial, descartaria colchicina. Mas o diamante da MA integra 12 trials e diz: funciona.&rdquo;</div>
 
+  <!-- ==================== MA-8 ==================== -->
+  <h3>MA-8: Colchicina prevencao 2a CV (long-term) &mdash; Samuel et al., Eur Heart J 2025</h3>
+  <table>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>Samuel M, Berry C, Dub&eacute; MP, Koenig W, L&oacute;pez-Send&oacute;n J, Maggioni AP, Pinto FJ, Roubille F, Tardif JC. Long-term trials of colchicine for secondary prevention of vascular events: a meta-analysis. <em>Eur Heart J.</em> 2025;46(26):2552-2563.</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40314333" target="_blank">40314333</a> | <a class="ref-pmid" href="https://doi.org/10.1093/eurheartj/ehaf174" target="_blank">DOI</a></td></tr>
+    <tr><td><strong>Motor</strong></td><td>WebSearch S147 (PubMed)</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos com DCV estabelecida (prevencao secundaria)</td></tr>
+    <tr><td><strong>I</strong></td><td>Colchicina baixa dose, tratamento long-term (&ge;12 meses)</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo</td></tr>
+    <tr><td><strong>O</strong></td><td>MACE (composto: morte CV, IAM, AVC, revascularizacao)</td></tr>
+  </table>
+  <table>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th></tr>
+    <tr><td>MACE</td><td>HR 0.75</td><td>0.56&ndash;0.93</td><td>N/R</td></tr>
+    <tr><td>IAM</td><td>Reduzido</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td>AVC isquemico</td><td>Reduzido</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td>Revascularizacao</td><td>Reduzido</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td>Seguranca</td><td>Sem diferenca</td><td>&mdash;</td><td>&mdash;</td></tr>
+  </table>
+  <p><strong>Estudos:</strong> 6 RCTs long-term (follow-up 12-34 meses), 21,800 pacientes (10,871 colchicina, 10,929 placebo).</p>
+  <p><strong>Impacto clinico:</strong> Confirmacao Tier 1 do beneficio long-term. Inclui CLEAR SYNERGY. Tardif (PI do COLCOT) e coautor &mdash; consolida a evidencia do grupo que mais publicou sobre colchicina CV.</p>
+  <div class="key-takeaway"><strong>Valor pedagogico:</strong> 6 estudos = forest plot intermediario (nem trivial como 5, nem denso como 12). Eur Heart J = Tier 1 indiscutivel. HR como medida (vs RR na Cochrane). PMID VERIFIED. Alternativa forte a Ebrahimi se preferir forest mais limpo.</div>
+  <div class="caveat">I&sup2; nao reportado no abstract &mdash; precisa acessar full-text. IC do HR (0.56-0.93) e mais largo que Ebrahimi, pode indicar mais variabilidade entre trials.</div>
+
+  <!-- ==================== MA-9 ==================== -->
+  <h3>MA-9: Colchicina prevencao 2a CV (dose-cumulativa) &mdash; Li et al., Am J Cardiovasc Drugs 2026</h3>
+  <table>
+    <tr><td width="20%"><strong>Citacao</strong></td><td>Li HY, Cheriyan J, Chan TK, Yiu KH, Tse HF, Wilkinson IB, Chan YH. Colchicine for the Secondary Prevention of Cardiovascular Diseases: A Cumulative-Dose Meta-analysis of Randomized Controlled Trials including 31,397 Subjects Worldwide. <em>Am J Cardiovasc Drugs.</em> 2026;26:107-120.</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40889093" target="_blank">40889093</a> | <a class="ref-pmid" href="https://doi.org/10.1007/s40256-025-00743-y" target="_blank">DOI</a></td></tr>
+    <tr><td><strong>Motor</strong></td><td>WebSearch S147 (PubMed)</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="2">PICO</th></tr>
+    <tr><td width="20%"><strong>P</strong></td><td>Adultos com DCV aguda ou cronica (multiethnic)</td></tr>
+    <tr><td><strong>I</strong></td><td>Colchicina (dose e duracao variaveis)</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo ou controle</td></tr>
+    <tr><td><strong>O</strong></td><td>MACE + analise dose-cumulativa</td></tr>
+  </table>
+  <table>
+    <tr><th>Outcome</th><th>Efeito</th><th>IC 95%</th><th>I&sup2;</th></tr>
+    <tr><td>MACE (global)</td><td>OR 0.80</td><td>0.68&ndash;0.94</td><td>N/R</td></tr>
+    <tr><td>MACE (&ge;90 mg-days)</td><td>Maior protecao</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td>PCR</td><td>Reduzido</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td>Mortalidade total</td><td>Sem aumento</td><td>&mdash;</td><td>&mdash;</td></tr>
+  </table>
+  <p><strong>Estudos:</strong> 14 RCTs, 31,397 participantes de multiplas etnias.</p>
+  <p><strong>Impacto clinico:</strong> Maior MA de colchicina CV ate a data. Achado unico: efeito-dose cumulativo (&ge;90 mg-days = 0.5mg/dia por &ge;6 meses como threshold). Beneficio consistente across ethnicities.</p>
+  <div class="key-takeaway"><strong>Valor pedagogico:</strong> 14 RCTs = forest plot denso. Achado dose-resposta adiciona camada interpretativa (nao e so "funciona/nao funciona"). Pode ensinar: &ldquo;a MA nao e so sobre DIRECAO, mas sobre DOSE e DURACAO&rdquo;. Multiethnic = generalizabilidade.</div>
+  <div class="caveat">Am J Cardiovasc Drugs nao e Tier 1 (IF ~4). Publicado 2026 (recentissimo). OR como medida (vs HR/RR nos outros). I&sup2; nao reportado no abstract.</div>
+
   <!-- ==================== MA-2 ==================== -->
   <h3>MA-2: Corticoide em PAC grave &mdash; Soumare et al., Ann Intern Med 2026</h3>
   <table>
     <tr><td width="20%"><strong>Citacao</strong></td><td>Soumare et al. Systemic Corticosteroids, Mortality, and Infections in Pneumonia and ARDS: A Systematic Review and Meta-analysis. <em>Ann Intern Med.</em> 2026.</td></tr>
-    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> 41325621 | 10.7326/ANNALS-25-03055</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> 41325621 | <a class="ref-pmid" href="https://doi.org/10.7326/ANNALS-25-03055" target="_blank">DOI</a></td></tr>
     <tr><td><strong>Motor</strong></td><td>Gemini</td></tr>
   </table>
   <table>
@@ -201,7 +264,7 @@
   <h3>MA-3: Corticoide em PAC &mdash; Pitre et al., ICM 2025</h3>
   <table>
     <tr><td width="20%"><strong>Citacao</strong></td><td>Pitre T et al. Corticosteroids for adult patients hospitalised with non-viral CAP: systematic review and meta-analysis. <em>Intensive Care Med.</em> 2025.</td></tr>
-    <tr><td><strong>PMID / DOI</strong></td><td><span class="v">V</span> 40323455 | 10.1007/s00134-025-07912-2</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40323455" target="_blank">40323455</a> | <a class="ref-pmid" href="https://doi.org/10.1007/s00134-025-07912-2" target="_blank">DOI</a></td></tr>
     <tr><td><strong>Motor</strong></td><td>Opus/MCPs</td></tr>
   </table>
   <table>
@@ -271,7 +334,7 @@
   <h3>MA-6: PA Intensiva em Pacientes com HO &mdash; Juraschek et al., JAMA 2023</h3>
   <table>
     <tr><td width="20%"><strong>Citacao</strong></td><td>Juraschek SP et al. Orthostatic Hypotension, Hypertension Treatment, and Cardiovascular Disease: An Individual Participant Meta-Analysis. <em>JAMA.</em> 2023.</td></tr>
-    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> 37847274 | 10.1001/jama.2023.18497</td></tr>
+    <tr><td><strong>PMID / DOI</strong></td><td><span class="c">C</span> 37847274 | <a class="ref-pmid" href="https://doi.org/10.1001/jama.2023.18497" target="_blank">DOI</a></td></tr>
     <tr><td><strong>Motor</strong></td><td>Gemini</td></tr>
   </table>
   <table>
@@ -320,8 +383,20 @@
       <td>MA-6 PA/HO IPD (9 estudos)</td>
       <td>Aggregate MA &rarr; IPD-MA (tipos diferentes)</td>
     </tr>
+    <tr>
+      <td><strong>E</strong></td>
+      <td>MA-1 SGLT2i (5 estudos)</td>
+      <td>MA-8 Samuel/EHJ (6 estudos, HR 0.75)</td>
+      <td>Anatomia &rarr; Tier 1 colchicina (forest mais limpo que Ebrahimi)</td>
+    </tr>
+    <tr>
+      <td><strong>F</strong></td>
+      <td>MA-8 Samuel/EHJ (6 estudos)</td>
+      <td>MA-9 Li/AJCD (14 estudos, dose-resposta)</td>
+      <td>Colchicina limpa &rarr; colchicina densa + dose-cumulativa</td>
+    </tr>
   </table>
-  <div class="key-takeaway"><strong>Recomendacao:</strong> Combo A. SGLT2i ensina a LER (anatomia, 5 estudos limpos). Colchicina ensina a PENSAR (heterogeneidade, trial neutro no pool). Progressao pedagogica natural.</div>
+  <div class="key-takeaway"><strong>Recomendacao:</strong> Combo A continua forte (SGLT2i anatomia + Ebrahimi tensao). Combo E e alternativa se preferir forest colchicina mais limpo (6 vs 12 estudos) com PMID verificado. Lucas decide apos ler os papers.</div>
 </section>
 
 <!-- ===== PENDENCIAS ===== -->
@@ -336,11 +411,13 @@
     <tr><td>5</td><td>Verificar PMID Juraschek 2023 (37847274)</td><td>Pendente</td></tr>
     <tr><td>6</td><td>Recuperar citacao completa MA-4 GLP-1 (autor, journal, PMID)</td><td>Pendente</td></tr>
     <tr><td>7</td><td>Acessar PDFs e crop forest plots reais</td><td>Pos-decisao Lucas</td></tr>
+    <tr><td>8</td><td>Acessar full-text Samuel/EHJ para I&sup2; e forest plot</td><td>Pendente (CAPES/USP)</td></tr>
+    <tr><td>9</td><td>Acessar full-text Li/AJCD para I&sup2; e forest plot</td><td>Pendente</td></tr>
   </table>
 </section>
 
 <footer>
-  Coautoria: Lucas + Opus 4.6 + Gemini 3.1 Pro + Perplexity Sonar Deep Research | S146 2026-04-10<br>
+  Coautoria: Lucas + Opus 4.6 + Gemini 3.1 Pro + Perplexity Sonar Deep Research | S146-S147 2026-04-10<br>
   Fonte: .claude/workers/forest-plot-hunting/ (results.md + colchicine-dac.md)
 </footer>
 

@@ -18,9 +18,13 @@
     .decision { background: #fce4ec; border-left: 4px solid #c62828; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
     details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
     summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
     .glossary-term { font-weight: 600; color: #2d6a4f; }
-    .verified { color: #2d6a4f; font-weight: 600; }
-    .candidate { color: #d97706; font-weight: 600; }
+    .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
+    .objectives li { margin: .3rem 0; }
+    .v { display: inline-block; font-size: .65rem; font-weight: 700; color: #fff; background: #2563eb; border-radius: 3px; padding: 0 .3rem; margin: 0 .1rem; vertical-align: middle; }
+    .c { display: inline-block; font-size: .65rem; font-weight: 700; color: #fff; background: #dc2626; border-radius: 3px; padding: 0 .3rem; margin: 0 .1rem; vertical-align: middle; }
     footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
   </style>
 </head>
@@ -30,6 +34,15 @@
   <h1>Evidence — Forest Plot: Como Ler (2 slides)</h1>
   <p class="meta">Cobre 2 slides: anatomia basica (Slide A) + leitura critica com heterogeneidade (Slide B)</p>
   <p class="meta">Status: DRAFT S146 | Benchmark: pre-reading-heterogeneidade.html</p>
+
+  <div class="objectives">
+    <strong>Ao final destes 2 slides, o aluno vai conseguir:</strong>
+    <ol>
+      <li>Identificar os 5 elementos visuais de um forest plot (quadrado, barra, diamante, linha de nulo, peso)</li>
+      <li>Interpretar por que um trial neutro NAO refuta a hipotese quando o diamante e significativo</li>
+      <li>Reconhecer heterogeneidade moderada (I² ~50%) e avaliar se compromete a conclusao</li>
+    </ol>
+  </div>
 </header>
 
 <!-- ===== CONCEITO ===== -->
@@ -74,8 +87,8 @@
   <h3>Trial: Vaduganathan et al., Lancet 2022</h3>
   <table>
     <tr><td width="22%"><strong>Citacao</strong></td><td>Vaduganathan M et al. SGLT-2 inhibitors in patients with heart failure: a comprehensive meta-analysis of five RCTs. <em>Lancet.</em> 2022;400(10354):757-767.</td></tr>
-    <tr><td><strong>PMID</strong></td><td><span class="verified">36041474 — VERIFIED</span></td></tr>
-    <tr><td><strong>DOI</strong></td><td>10.1016/S0140-6736(22)01429-5</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36041474" target="_blank">36041474</a></td></tr>
+    <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1016/S0140-6736(22)01429-5" target="_blank">10.1016/S0140-6736(22)01429-5</a></td></tr>
     <tr><td><strong>Acesso</strong></td><td>CAPES/USP (Lancet via ScienceDirect)</td></tr>
   </table>
 
@@ -123,7 +136,8 @@
   <h3>Trial: Ebrahimi et al., Cochrane 2025</h3>
   <table>
     <tr><td width="22%"><strong>Citacao</strong></td><td>Ebrahimi et al. Colchicine for the secondary prevention of cardiovascular events. <em>Cochrane Database Syst Rev.</em> 2025.</td></tr>
-    <tr><td><strong>PMID</strong></td><td><span class="candidate">CANDIDATE — DOI: 10.1002/14651858.CD014808.pub2</span></td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="c">C</span> CANDIDATE</td></tr>
+    <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1002/14651858.CD014808.pub2" target="_blank">10.1002/14651858.CD014808.pub2</a></td></tr>
     <tr><td><strong>Acesso</strong></td><td>Open access (Cochrane)</td></tr>
   </table>
 
@@ -146,10 +160,10 @@
   <h3>Trials Individuais Chave</h3>
   <table>
     <tr><th>Trial</th><th>Ano</th><th>N</th><th>Resultado</th><th>PMID</th></tr>
-    <tr><td>LoDoCo</td><td>2013</td><td>532</td><td>Positivo (piloto)</td><td>24226256</td></tr>
-    <tr><td>COLCOT</td><td>2019</td><td>4,745</td><td>Positivo (post-IAM)</td><td>31733140</td></tr>
-    <tr><td>LoDoCo2</td><td>2020</td><td>5,522</td><td>Positivo (DAC estavel)</td><td>32865375</td></tr>
-    <tr><td>CLEAR SYNERGY</td><td>2024</td><td>~7,000</td><td>Neutro (post-PCI)</td><td>[TBD]</td></tr>
+    <tr><td>LoDoCo</td><td>2013</td><td>532</td><td>Positivo (piloto)</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/24226256" target="_blank">24226256</a></td></tr>
+    <tr><td>COLCOT</td><td>2019</td><td>4,745</td><td>Positivo (post-IAM)</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31733140" target="_blank">31733140</a></td></tr>
+    <tr><td>LoDoCo2</td><td>2020</td><td>5,522</td><td>Positivo (DAC estavel)</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32865375" target="_blank">32865375</a></td></tr>
+    <tr><td>CLEAR SYNERGY</td><td>2024</td><td>~7,000</td><td>Neutro (post-PCI)</td><td><span class="c">C</span> [TBD]</td></tr>
   </table>
 
   <div class="caveat"><strong>Tensao pedagogica:</strong> CLEAR SYNERGY (o maior trial) foi NEUTRO. Mas o diamante da MA e significativo. Por que? Porque o peso de 12 trials favoraveis supera 1 neutro. Isto e exatamente o que a MA faz: resolve tensao entre trials discordantes.</div>
@@ -203,16 +217,16 @@
   <h2>Referencias</h2>
   <table>
     <tr><th>Ref</th><th>Citacao</th><th>PMID</th><th>Status</th></tr>
-    <tr><td>1</td><td>Vaduganathan M et al. Lancet 2022;400:757-767</td><td>36041474</td><td class="verified">VERIFIED</td></tr>
-    <tr><td>2</td><td>Ebrahimi et al. Cochrane Database Syst Rev 2025</td><td>—</td><td class="candidate">CANDIDATE (DOI ok)</td></tr>
-    <tr><td>3</td><td>Tardif JC et al. (COLCOT) NEJM 2019;381:2497-2505</td><td>31733140</td><td class="verified">VERIFIED</td></tr>
-    <tr><td>4</td><td>Nidorf SM et al. (LoDoCo2) NEJM 2020;383:1838-1847</td><td>32865375</td><td class="verified">VERIFIED</td></tr>
-    <tr><td>5</td><td>Lewis S, Clarke M. BMJ 2001;322:1479-80</td><td>11408310</td><td class="verified">WEB-VERIFIED</td></tr>
-    <tr><td>6</td><td>Sedgwick P. BMJ 2015;351:h4028</td><td>26208517</td><td class="verified">WEB-VERIFIED</td></tr>
-    <tr><td>7</td><td>Dettori JR et al. Global Spine J 2021;11(7):1137-9</td><td>33939533</td><td class="verified">VERIFIED</td></tr>
-    <tr><td>8</td><td>Cochrane Handbook v6.5, Ch.10</td><td>31643080</td><td class="verified">WEB-VERIFIED</td></tr>
-    <tr><td>9</td><td>Borenstein M. J Clin Epidemiol 2022;152:281-284</td><td>—</td><td class="verified">IN-EVIDENCE</td></tr>
-    <tr><td>10</td><td>Pitre T et al. Intensive Care Med 2025</td><td>40323455</td><td class="verified">VERIFIED</td></tr>
+    <tr><td>1</td><td>Vaduganathan M et al. Lancet 2022;400:757-767</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36041474" target="_blank">36041474</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>2</td><td>Ebrahimi et al. Cochrane Database Syst Rev 2025</td><td>—</td><td><span class="c">C</span> DOI ok</td></tr>
+    <tr><td>3</td><td>Tardif JC et al. (COLCOT) NEJM 2019;381:2497-2505</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31733140" target="_blank">31733140</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>4</td><td>Nidorf SM et al. (LoDoCo2) NEJM 2020;383:1838-1847</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32865375" target="_blank">32865375</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>5</td><td>Lewis S, Clarke M. BMJ 2001;322:1479-80</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11408310" target="_blank">11408310</a></td><td><span class="v">V</span> web</td></tr>
+    <tr><td>6</td><td>Sedgwick P. BMJ 2015;351:h4028</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/26208517" target="_blank">26208517</a></td><td><span class="v">V</span> web</td></tr>
+    <tr><td>7</td><td>Dettori JR et al. Global Spine J 2021;11(7):1137-9</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33939533" target="_blank">33939533</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>8</td><td>Cochrane Handbook v6.5, Ch.10</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31643080" target="_blank">31643080</a></td><td><span class="v">V</span> web</td></tr>
+    <tr><td>9</td><td>Borenstein M. J Clin Epidemiol 2022;152:281-284</td><td>—</td><td>IN-EVIDENCE</td></tr>
+    <tr><td>10</td><td>Pitre T et al. Intensive Care Med 2025</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40323455" target="_blank">40323455</a></td><td><span class="v">V</span></td></tr>
   </table>
 </section>
 
