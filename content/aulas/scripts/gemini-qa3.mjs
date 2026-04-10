@@ -1000,7 +1000,7 @@ async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUr
   parts.push({ text });
 
   const config = {
-    temperature: 0.5,
+    temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0,
     topP: 0.95,
     maxOutputTokens: 8192,
     responseMimeType: 'application/json',
