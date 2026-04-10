@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 137 | 2026-04-10
-> Foco: QA s-importancia
+> Sessao 138 | 2026-04-10
+> Foco: QA s-importancia — h2 + visual hierarchy
 
 ## ESTADO ATUAL
 
@@ -9,21 +9,18 @@ Monorepo funcional. CI verde. Build OK (16 slides metanalise).
 **Agentes: 10.** **Hooks: 39 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
 **Skills: 18.** **Memory: 19/20.** **.claudeignore: criado S128.**
 
-## P0 — RESTAURAR h2 em s-importancia
+## P0 — QA s-importancia (continuar)
 
-h2 foi removido por erro de interpretacao S137. Lucas NAO pediu remocao. Restaurar h2 com classe `slide-headline` (padrao dos demais slides). Texto do h2: Lucas decide.
-
-## P1 — QA s-importancia (continuar)
-
-Preflight parcial S137. CSS e conteudo corrigidos. Pendencias esteticas:
-1. Row 3 quebra em 2 linhas (texto longo — encurtar)
-2. Alinhamento geral (h2 restaurado muda layout)
-3. Verificar contraste navy no projetor (6m)
-4. Refazer Preflight completo apos h2 restaurado
+h2 restaurado. Contraste navy corrigido. Visual hierarchy melhorada. SplitText motion implementado.
+Pendencias:
+1. Testar animacao no browser (SplitText word reveal + 3 tempos)
+2. Avaliar se motion e realmente invisivel/subsidiario a 10m
+3. Refletir: repertorio alem de GSAP (CSS animations, SVG, scroll-driven?)
+4. Preflight formal apos motion finalizado
 5. Gate 0: `gemini-qa3.mjs --aula metanalise --slide s-importancia --inspect`
 6. Gate 4: `gemini-qa3.mjs --aula metanalise --slide s-importancia --editorial`
 
-## P2 — QA restantes (12 slides LINT-PASS)
+## P1 — QA restantes (12 slides LINT-PASS)
 
 Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 
@@ -48,6 +45,9 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 - **Pedagogia adultos S135:** sem formulas em slides (1/√N proibido), numeros concretos SIM.
 - **Speaker notes S135:** vao para evidence HTML, NAO aside no slide.
 - **Archetype removal S136:** campo archetype removido do manifest. Liberdade artistica.
+- **Projecao S138:** 2 cenarios (sala 6m TV + auditorio 10m projetor). Design target: 10m.
+- **Motion S138:** animacoes subsidiarias ao conteudo, NUNCA protagonistas. Com proposito pedagogico.
+- **QA visual S138:** analise multimodal obrigatoria (screenshot como imagem), nao apenas codigo.
 
 ## CUIDADOS
 
@@ -56,7 +56,6 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 - KBP-07 anti-workaround, KBP-08 anti-substituicao, KBP-09 anti-routing, KBP-10 anti-destructive.
 - MCP gate + Research gate: hooks force "ask" antes de MCP/research calls.
 - MCP freeze ate 2026-04-14. PubMed session expirou S129.
-- Projetor metanalise: ~10m distancia. Legibilidade = constraint #1.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
 
 ## CONFLITOS
@@ -64,4 +63,4 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S137 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S138 2026-04-10

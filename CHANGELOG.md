@@ -1,5 +1,38 @@
 # CHANGELOG
 
+## Sessao 138 — 2026-04-10 (QA s-importancia — h2 + visual hierarchy)
+
+### H2 restaurado
+- h2 "Porque é importante: metodologia" com classe `slide-headline`
+- Manifest headline sincronizado
+
+### Contraste navy
+- Root cause: stage-c inverte `--text-on-dark` para escuro (oklch 12%)
+- Fix: override tokens on-dark dentro de `.imp-mechanism` no aula CSS
+
+### Visual hierarchy
+- Nome 21→24px bold, detalhe 18→16px secondary (ratio 1.5×)
+- Numeros 22→20px muted (indice discreto)
+- Border-left removida (ruido repetitivo)
+- Card bg-card removido (tipografia pura)
+- Seta ↓→→ (guia olho navy→vantagens)
+- Caixa navy simplificada: so ΣN 72px + "5 vantagens" (3 elementos removidos)
+
+### Motion (SplitText)
+- Import SplitText no slide-registry
+- 3 tempos: ΣN scale (0.7s) → delay 1.5s → rows stagger 0.4s
+- SplitText word-by-word nos nomes (guia leitura sem chamar atencao)
+- Detalhes fade subordinado aos nomes
+
+### Specs atualizados
+- Projecao: 2 cenarios (sala 6m + auditorio 10m). Design target: 10m, 40 pessoas
+- QA: analise visual multimodal obrigatoria (nao apenas codigo)
+- Feedback salvo: motion subsidiario, visual analysis, base vs aula CSS
+
+### Cleanup
+- 14 pending-fixes removidos (manifest sync resolvido)
+- Screenshots antigos removidos
+
 ## Sessao 137 — 2026-04-10 (QA s-importancia)
 
 ### QA Preflight — s-importancia
