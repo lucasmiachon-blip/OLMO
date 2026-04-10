@@ -67,7 +67,7 @@ Prompt QA DEVE incluir criterios explicitos:
 - **Penalizacao concreta:** Stagger uniforme = max 7. CountUp sem pausa = max 6.
 - **Motion:** 12 principios Disney (anticipation, follow-through, secondary action, staging focal).
 - Inventario de timestamps prova que modelo VIU, nao que AVALIOU qualidade.
-- Temperatura editorial: 1.0 (testado S71 — baixar torna critica generica).
+- Temperatura editorial: 1.0 (testado S71 — baixar torna critica generica). Aplica-se a TODAS as calls editoriais incluindo Call D e futuras.
 
 ## 4. Checklists de Transicao
 

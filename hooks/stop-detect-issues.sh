@@ -67,16 +67,29 @@ if [ -n "$MEANINGFUL" ]; then
   fi
 fi
 
-# If issues found, append to pending-fixes.md
+# If issues found, append to pending-fixes.md (with dedup)
 if [ -n "$ISSUES" ]; then
   # Create header if file doesn't exist
   if [ ! -f "$PENDING" ]; then
     echo "# Pending Fixes (auto-generated, cleared after surfacing)" > "$PENDING"
     echo "" >> "$PENDING"
   fi
-  echo "" >> "$PENDING"
-  echo "## $NOW — Issues detected at session end" >> "$PENDING"
-  echo -e "$ISSUES" >> "$PENDING"
+  # Dedup: only append if this exact issue block is not already present
+  ISSUES_FLAT=$(echo -e "$ISSUES" | tr '\n' '|')
+  EXISTING_FLAT=$(cat "$PENDING" 2>/dev/null | tr '\n' '|')
+  DOMINATED=true
+  while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    if ! echo "$EXISTING_FLAT" | grep -qF "$line"; then
+      DOMINATED=false
+      break
+    fi
+  done <<< "$(echo -e "$ISSUES")"
+  if [ "$DOMINATED" = false ]; then
+    echo "" >> "$PENDING"
+    echo "## $NOW — Issues detected at session end" >> "$PENDING"
+    echo -e "$ISSUES" >> "$PENDING"
+  fi
 fi
 
 exit 0

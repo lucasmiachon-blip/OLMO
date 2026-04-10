@@ -1,12 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 140 | 2026-04-10
-> Foco: QA Gemini R13 s-importancia — WHAT/WHY/PROPOSAL/GUARANTEE + Call D
+> Sessao 142 | 2026-04-10
+> Foco: Rodar R14 com Call D e verificar pipeline completo
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (16 slides metanalise).
-**Agentes: 10.** **Hooks: 39 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
+**Agentes: 10.** **Hooks: 39 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
 **Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
 ## P0 — Rodar R14 com Call D e verificar
@@ -35,11 +35,16 @@ Pendencias pos-R14:
 
 Lucas decide qual slide. Pipeline: 1 slide/vez, 4 gates (agora com Call D).
 
+## P2 — /insights trend watch
+
+S141 insights: rolling averages subiram (corrections 0.862->1.128, kbp 0.254->0.32).
+Observar S142-S144. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
+
 ## BACKLOG (pos-deadline)
 
 | # | Item | Detalhe |
 |---|------|---------|
-| 1 | Refatorar 6 evidence HTMLs | s-hook, s-pico, s-rs-vs-ma, s-objetivos, s-checkpoint-1, s-ancora → benchmark |
+| 1 | Refatorar 6 evidence HTMLs | s-hook, s-pico, s-rs-vs-ma, s-objetivos, s-checkpoint-1, s-ancora |
 | 2 | Pernas pendentes (research) | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
 | 3 | Adversarial deferred: M-01, M-10 | Policy decisions (Bash granularity, Canva MCP wildcard) |
 | 4 | Hook/config system review | JSON adequado? YAGNI audit |
@@ -60,9 +65,10 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 4 gates (agora com Call D).
 - **Motion S139:** animacoes com PROPOSITO pedagogico (retencao, carga cognitiva, varredura). Sem proposito = nao animar.
 - **QA visual S138:** analise multimodal obrigatoria (screenshot como imagem), nao apenas codigo.
 - **QA output S139:** Gemini deve reportar WHAT/WHY/PROPOSAL/GUARANTEE. Sem notas subjetivas.
-- **Navy card ΣN = hero S139:** Lucas: "a melhor parte eh o box com o sigma e o N". Tudo deriva dele.
+- **Navy card SigmaN = hero S139:** Lucas: "a melhor parte eh o box com o sigma e o N". Tudo deriva dele.
 - **Fresh eyes S140:** Gemini NAO recebe scores anteriores. Avaliacao independente. Known FPs injetados separadamente.
 - **Call D S140:** 4th call anti-sycophancy. Audita 3 calls, recalibra scores, produz priority actions.
+- **Temp editorial 1.0 S141:** Aplica-se a TODAS calls (incluindo Call D). Testado S71.
 
 ## CUIDADOS
 
@@ -79,4 +85,4 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 4 gates (agora com Call D).
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S140 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S141 2026-04-10

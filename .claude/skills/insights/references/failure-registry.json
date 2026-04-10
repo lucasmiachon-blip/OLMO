@@ -240,13 +240,43 @@
       "new_kbps_added": 0,
       "proposals_accepted": 0,
       "proposals_rejected": 0
+    },
+    {
+      "id": "S141",
+      "date": "2026-04-10",
+      "note": "/insights S141. 3 sessions (S138-S140). First intensive QA+slide-design sessions. 1 KBP violation (KBP-04 variant — visual-first QA, rule created during session). 4 strict corrections. 6 creative directions. 4/4 S132 proposals applied, zero recurrence. Call D anti-sycophancy + fresh eyes + WHAT/WHY/PROPOSAL/GUARANTEE emerged.",
+      "metrics": {
+        "sessions_in_sample": 3,
+        "user_corrections_total": 4,
+        "user_corrections_per_session": 1.33,
+        "kbp_violations": {
+          "KBP-01_scope_creep": 0,
+          "KBP-02_context_overflow": 0,
+          "KBP-03_agent_script_redundancy": 0,
+          "KBP-04_wrong_criteria": 1,
+          "KBP-05_batch_violation": 0,
+          "KBP-06_delegation_failure": 0,
+          "KBP-07_workaround_without_diagnosis": 0,
+          "KBP-08_api_mcp_substitution": 0,
+          "KBP-09_api_key_wrong_path": 0,
+          "KBP-10_destructive_without_approval": 0
+        },
+        "kbp_total": 1,
+        "kbp_per_session": 0.33,
+        "tool_errors": 3,
+        "retries": 0
+      },
+      "insights_run": true,
+      "new_kbps_added": 0,
+      "proposals_accepted": 0,
+      "proposals_rejected": 0
     }
   ],
   "trend": {
-    "corrections_per_session_5avg": 0.862,
-    "kbp_violations_per_session_5avg": 0.254,
+    "corrections_per_session_5avg": 1.128,
+    "kbp_violations_per_session_5avg": 0.32,
     "direction": "regressing",
-    "last_updated": "2026-04-09",
-    "note": "5-session avg: S91 (0/0) + S108 (1.33/0.89) + S116 (1.14/0) + S124 (0.71/0) + S132 (1.13/0.38). corrections_5avg increased 0.37->0.862 (S85(0) rolled out, S132(1.13) rolled in). kbp_5avg increased 0.178->0.254 (S85(0) rolled out, S132(0.38) rolled in). Direction REGRESSING — both averages increased. Expected: first content-production stress test after 14-session zero-KBP infra period. New failure modes (research scope, selective deletion, worker boundaries) surfaced under real workloads."
+    "last_updated": "2026-04-10",
+    "note": "5-session avg: S108 (1.33/0.89) + S116 (1.14/0) + S124 (0.71/0) + S132 (1.13/0.38) + S141 (1.33/0.33). corrections_5avg increased 0.862->1.128 (S91(0) rolled out, S141(1.33) rolled in). kbp_5avg increased 0.254->0.32 (S91(0) rolled out, S141(0.33) rolled in). Direction technically REGRESSING — both averages increased. However, S91 was a zero-everything infra period rolling out of the window. The underlying trend (S116->S124->S132->S141) shows kbp stabilizing at 0.33-0.38 and corrections at 1.1-1.3 during content-production workloads. The zero-infra sessions inflated earlier averages artificially."
   }
 }

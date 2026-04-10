@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 141 — 2026-04-10 (insights + wiki-lint + cleanup)
+
+### Fixes
+- Call D temperature: 0.5 → 1.0 (alinhado com editorial, testado S71)
+- qa-pipeline.md: temp 1.0 explicitamente aplica-se a TODAS calls (P001 insights)
+- stop-detect-issues.sh: dedup antes de append ao pending-fixes (P002 insights)
+
+### Wiki-lint (E1 W3 I3)
+- 3 patterns_*.md: `type: feedback/project` → `type: patterns` (SCHEMA alignment)
+- feedback_no_fallback description atualizada (inclui S137 destructive interpretation)
+- 2 orphan pages linkadas: feedback_motion_design, feedback_tool_permissions
+- MEMORY.md index atualizado
+
+### /insights S141
+- 3 sessoes analisadas (S138-S140): 4 correcoes, 1 KBP (visual-first QA bootstrap)
+- 4/4 propostas S132 aplicadas, zero recorrencia
+- Failure registry atualizado (10 entries, trend nota de base-rate shift)
+- Pending-fixes stale limpos (67 duplicatas + 2 FPs)
+
 ## Sessao 140 — 2026-04-10 (QA Gemini R13 s-importancia)
 
 ### QA Pipeline — WHAT/WHY/PROPOSAL/GUARANTEE
@@ -13,7 +32,7 @@
 - Detecta ceiling violations (10 com problemas = rebaixar), FPs, inconsistencias
 - Produz priority_actions com WHAT/WHY/PROPOSAL/GUARANTEE
 - Schema + prompt + funcao runValidation em gemini-qa3.mjs
-- Temp 0.5 (mais consistente que editorial temp 1.0)
+- Temp 1.0 (corrigido S141 — temp editorial aplica-se a todas calls)
 
 ### Fresh Eyes
 - readRoundContext() reescrito: strip previous round scores, inject apenas Known FPs
