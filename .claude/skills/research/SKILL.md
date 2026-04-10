@@ -70,7 +70,45 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 
 Minimo: Pernas 1+2+5. Maximo: todas 6.
 
-**Perna 1 — Gemini API (Deep Think):** Pesquisa ampla com Google Search grounding. Modelo: `gemini-3.1-pro-preview` (melhor disponivel, deep thinking). Usar GEMINI_API_KEY (NAO CLI, NAO MCP — CLI frozen S114). Prompt ABERTO. Todos PMIDs = [CANDIDATE].
+**Principio I/O (S145):** OPEN topic + CLOSED format. Nunca ambos abertos.
+- OPEN: "What are the most practice-changing..." (topico livre, nao-deterministico)
+- CLOSED: "Return ONLY a markdown table..." (formato fixo, parseavel)
+- NEVER: both open (gera ensaio 31KB) or both closed (mata criatividade)
+
+### Output Schema Suffix (obrigatorio em toda perna)
+
+Toda perna DEVE ter este sufixo (ou adaptacao) no final do prompt:
+
+```
+=== OUTPUT FORMAT (MANDATORY) ===
+Return ONLY a markdown table with these columns. NO prose before or after.
+
+| Field | Item 1 | Item 2 |
+|-------|--------|--------|
+| First author, year | | |
+| Title | | |
+| Journal | | |
+| PMID | | |
+| DOI | | |
+| Population | | |
+| Intervention | | |
+| Comparator | | |
+| Primary outcome | | |
+| Effect size (specify OR/RR/HR) | | |
+| 95% CI | | |
+| I² (%) | | |
+| N studies | | |
+| N patients | | |
+| Clinical significance (1-2 sentences max) | | |
+| PMID status | CANDIDATE | CANDIDATE |
+
+RULES: No introductions. No conclusions. No methodology discussion.
+Only the table. If <2 items found, fill what you have.
+```
+
+Adaptar colunas ao tipo de pesquisa (ex: remover PICO se busca de guideline).
+
+**Perna 1 — Gemini API (Deep Think):** Pesquisa ampla com Google Search grounding. Modelo: `gemini-3.1-pro-preview` (melhor disponivel, deep thinking). Usar GEMINI_API_KEY (NAO CLI, NAO MCP — CLI frozen S114). Topico ABERTO, formato FECHADO (schema suffix obrigatorio). Todos PMIDs = [CANDIDATE].
 
 Execucao (orchestrador via Bash):
 ```bash
@@ -81,22 +119,28 @@ const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models
   body: JSON.stringify({
     contents: [{ parts: [{ text: '<OPEN_PROMPT>' }] }],
     tools: [{ google_search: {} }],
+    // NOTA: Gemini conta thinking tokens DENTRO de maxOutputTokens.
+    // Com thinkingBudget: 16384, sobram ~16384 para texto.
+    // Bug S145: 8192 total − thinking = 0 texto output.
     generationConfig: {
       temperature: 1,
-      maxOutputTokens: 8192,
-      thinkingConfig: { thinkingBudget: 24576 }
+      maxOutputTokens: 32768,
+      thinkingConfig: { thinkingBudget: 16384 }
     }
   })
 });
 const data = await res.json();
+const finish = data.candidates?.[0]?.finishReason;
+if (finish === 'MAX_TOKENS') console.error('WARNING: Truncated (MAX_TOKENS).');
 const parts = data.candidates?.[0]?.content?.parts || [];
+if (!parts.some(p => p.text)) console.error('ERROR: 0 text — thinking consumed all tokens.');
 parts.forEach(p => p.text && console.log(p.text));
 " 2>&1
 ```
 
 **Perna 2 — Evidence Researcher:** MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite, BioMCP). Verificacao de PMIDs via PubMed MCP. Foco: dados estruturados, trials, guidelines.
 
-**Perna 5 — Perplexity Sonar:** Pesquisa de fontes Tier 1 de 2020 ate data atual via web search grounded. Perna INDEPENDENTE (fonte diferente das MCPs). Modelo: `sonar-deep-research`. Prompt ABERTO — nunca fechado. Todas citacoes = [CANDIDATE] ate Perna 4 verificar. Max 1 call (~$0.80).
+**Perna 5 — Perplexity Sonar:** Pesquisa de fontes Tier 1 de 2020 ate data atual via web search grounded. Perna INDEPENDENTE (fonte diferente das MCPs). Modelo: `sonar-deep-research`. Topico ABERTO, formato FECHADO (schema suffix obrigatorio). Todas citacoes = [CANDIDATE] ate Perna 4 verificar. Max 1 call (~$0.80).
 
 Execucao (orchestrador via Bash):
 ```bash
@@ -107,16 +151,23 @@ const res = await fetch('https://api.perplexity.ai/chat/completions', {
   body: JSON.stringify({
     model: 'sonar-deep-research',
     messages: [
-      { role: 'system', content: 'Structured output. For each finding: 1 paragraph (3-5 sentences) with the claim, key data, and clinical implication. Every claim needs PMID or DOI inline. Use markdown tables for comparisons. No multi-page prose — density over length. Only Tier 1 sources (BMJ, Lancet, NEJM, JAMA, Cochrane, GRADE).' },
+      { role: 'system', content: 'Return findings as markdown tables ONLY. No prose paragraphs. Every finding = 1 column in a table with rows: Author+Year, Title, Journal, PMID, DOI, Population, Intervention, Comparator, Outcome, Effect size, CI 95%, I², N studies, N patients, Clinical significance (1-2 sentences). Mark all PMIDs as CANDIDATE. Only Tier 1 sources (NEJM, Lancet, JAMA, BMJ, Ann Intern Med, Cochrane). NO introductions, NO conclusions — ONLY the table.' },
       { role: 'user', content: '<OPEN_PROMPT>' }
     ],
     temperature: 0.8, max_tokens: 8000, return_citations: true, search_context_size: 'high'
   })
 });
-console.log(JSON.stringify(await res.json(), null, 2));
+const data = await res.json();
+const content = data.choices?.[0]?.message?.content || 'NO CONTENT';
+const citations = data.citations || [];
+console.log(content);
+if (citations.length) {
+  console.log('\\n=== CITATIONS ===');
+  citations.forEach((c, i) => console.log((i+1) + '. ' + c));
+}
 "
 ```
-Regras: prompts ABERTOS ("What has changed in...", "What would surprise a medical educator about..."). NUNCA fechados.
+Regras: topico ABERTO ("What has changed in...", "What would surprise..."). Formato FECHADO (schema suffix no final do user prompt). Output parseavel.
 
 **Perna 6 — NotebookLM:** 3-4 queries progressivas ao notebook da aula via `nlm notebook query`. Q1 Foundation, Q2 Convergence, Q3 Deep content, Q4 Discovery (slides novos).
 
@@ -140,8 +191,13 @@ Auth: `nlm login` (sessao ~20min). Se expirar: `PYTHONIOENCODING=utf-8 nlm login
 
 Para CADA perna retornada, antes de prosseguir para Step 3:
 
-1. **Output existe?** Perna retornou texto/dados? Se vazio → diagnosticar (timeout? hook block? maxTurns esgotados?)
-2. **Dados estruturados?** Output contem claims verificaveis, PMIDs, numeros? Se so texto generico sem fontes → flag
+1. **Output existe?** Perna retornou texto/dados? Se vazio → diagnosticar (timeout? hook block? maxTurns esgotados? thinking consumed tokens?)
+2. **Schema check (mecanico):**
+   - Output contem `|` (pipe) em >=3 linhas? (indica tabela markdown)
+   - Output contem PMID ou DOI? (indica dados rastreaveis)
+   - Output < 5000 chars? (indica concisao — se > 5000, provavelmente prosa)
+   - finishReason != MAX_TOKENS? (indica completude)
+   - Score: 4/4 = prosseguir | 2-3/4 = flag + prosseguir | 0-1/4 = re-prompt ou skip
 3. **Coverage?** Output cobriu o escopo pedido? Se parcial (ex: 3/5 eixos) → flag com o que falta
 
 **Gates:**

@@ -6,8 +6,8 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (16 slides metanalise).
-**Agentes: 10.** **Hooks: 38 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
-**Skills: 20.** **Memory: 19/20 (1 slot livre).** **.claudeignore: criado S128.**
+**Agentes: 10.** **Hooks: 38 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 12.**
+**Skills: 20.** **Memory: 20/20 (0 slots livre).** **.claudeignore: criado S128.**
 
 ## P0 — QA slides (10 LINT-PASS restantes)
 
@@ -61,7 +61,7 @@ R14 confirmou css_cascade como FP persistente (s-importancia 2/10, s-contrato 2/
 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`, NAO da raiz.
-- KBP-07 anti-workaround, KBP-08 anti-substituicao, KBP-09 anti-routing, KBP-10 anti-destructive.
+- KBP-07 anti-workaround, KBP-08 anti-substituicao, KBP-09 anti-routing, KBP-10 anti-destructive, KBP-11 Gemini thinking pool, KBP-12 structured output.
 - MCP gate + Research gate: hooks force "ask" antes de MCP/research calls.
 - MCP freeze ate 2026-04-14. PubMed session expirou S129.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
@@ -75,4 +75,4 @@ R14 confirmou css_cascade como FP persistente (s-importancia 2/10, s-contrato 2/
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S144 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S145b 2026-04-10

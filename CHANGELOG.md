@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 145b — 2026-04-10 (forest-plot-hunting + research pipeline hardening)
+
+### Research
+- 3 motores paralelos (Opus/MCPs, Gemini API, Perplexity API) para meta-analises com forest plots
+- 6 candidatas encontradas: SGLT2i/IC (Lancet), Corticoides/PAC (AnnIntMed+ICM), GLP-1/obesidade, PA/HO (JAMA)
+- Busca dirigida: colchicina em DAC (Cochrane Ebrahimi 2025, 12 RCTs, 22983 pts)
+
+### Pipeline Hardening (SKILL.md)
+- M1: Gemini maxOutputTokens 8192→32768, thinkingBudget 24576→16384 (fix: thinking consumia pool)
+- M2: Output Schema Suffix obrigatorio — principio "OPEN topic + CLOSED format"
+- M3: Perplexity system prompt tabular + response parsing (content + citations separados)
+- M4: finishReason check no Gemini (detecta truncamento e 0-text)
+- M5: Principio "Prompt ABERTO" → "Topico ABERTO, formato FECHADO"
+- M6: Schema Validation Gate mecanico no Step 2.5 (4 checks, score 0-4)
+
+### Self-Improvement
+- KBP-11: Gemini thinking token pool shared with output
+- KBP-12: Research prompts without output schema generate verbose essays
+
+### Memory
+- feedback_structured_output.md (file 20/20 — cap atingido)
+- Dream S145: consolidado (cirrose migration, index recount)
+
 ## Sessao 145 — 2026-04-10 (s-pico QA pipeline complete)
 
 ### QA — s-pico R11
