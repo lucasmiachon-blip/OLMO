@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 146 — 2026-04-10 (s-pico R12 + s-forest-plot redesign)
+
+### QA — s-pico R12 (visual-only)
+- Token `--term` criado: oklch(35% 0.12 190) — teal para vocabulario GRADE
+- "(indirectness)": downgrade italic → term bold 700 (semantica correta + contraste 10m)
+- Punchline: border-top 50% opacity via color-mix() + max-width 80% + margin-inline auto
+- Prompt Call B: secao "FALSOS POSITIVOS CONFIRMADOS" (css_cascade + failsafes exclusion)
+- Analise adversarial 2 fases (codigo + visual separados)
+
+### Slides
+- s-forest-plot REMOVIDO (16→15 slides). Sera substituido por 2 slides com forest plot real
+- Dead CSS removido: .anatomy-grid/item/symbol/desc/name/what
+- Cross-refs atualizados: _manifest.js, blueprint, meta-narrativa, s-contrato, s-objetivos, research-gaps
+- Research refs preservados para pre-reading
+
+### Evidence
+- `evidence/forest-plot-candidates.html` — 7 MAs candidatas (ranking + detalhes completos)
+- `evidence/s-forest-plot.html` — evidence para 2 slides (Combo A: SGLT2i anatomia + Colchicina leitura critica)
+- Worker output consolidado de .claude/workers/forest-plot-hunting/
+
 ## Sessao 145b — 2026-04-10 (forest-plot-hunting + research pipeline hardening)
 
 ### Research

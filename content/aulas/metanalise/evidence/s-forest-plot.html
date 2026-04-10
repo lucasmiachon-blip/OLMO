@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence — Forest Plot (2 slides)</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    h3 { font-size: 1.05rem; color: #2d6a4f; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; vertical-align: top; }
+    th { background: #f0f4f0; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .decision { background: #fce4ec; border-left: 4px solid #c62828; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
+    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .verified { color: #2d6a4f; font-weight: 600; }
+    .candidate { color: #d97706; font-weight: 600; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Evidence — Forest Plot: Como Ler (2 slides)</h1>
+  <p class="meta">Cobre 2 slides: anatomia basica (Slide A) + leitura critica com heterogeneidade (Slide B)</p>
+  <p class="meta">Status: DRAFT S146 | Benchmark: pre-reading-heterogeneidade.html</p>
+</header>
+
+<!-- ===== CONCEITO ===== -->
+<section id="concept">
+  <h2>Conceito Central</h2>
+
+  <p>O forest plot e a ferramenta visual que resume uma meta-analise. Cada estudo aparece como uma linha: um <strong>quadrado</strong> (estimativa pontual, tamanho = peso), uma <strong>barra horizontal</strong> (IC 95%), e na base um <strong>diamante</strong> (estimativa combinada, largura = IC). A <strong>linha de nulo</strong> (RR=1 ou diferenca=0) e a referencia: se o IC cruza, o resultado nao e significativo.</p>
+
+  <p>A aula usa 2 slides progressivos:</p>
+
+  <table>
+    <tr><th></th><th>Slide A — Anatomia</th><th>Slide B — Leitura Critica</th></tr>
+    <tr>
+      <td><strong>Trial</strong></td>
+      <td>Vaduganathan 2022 (SGLT2i em IC)</td>
+      <td>Ebrahimi 2025 (Colchicina prevencao 2a)</td>
+    </tr>
+    <tr>
+      <td><strong>Forest plot</strong></td>
+      <td>5 estudos, limpo, todos a esquerda</td>
+      <td>12 estudos, I² 51%, tensao CLEAR SYNERGY</td>
+    </tr>
+    <tr>
+      <td><strong>Ensina</strong></td>
+      <td>Quadrado, barra, diamante, linha de nulo, peso</td>
+      <td>Heterogeneidade, trial neutro no pool, por que diamante diz sim</td>
+    </tr>
+    <tr>
+      <td><strong>Animacao</strong></td>
+      <td>Zoom sequencial nos 5 elementos</td>
+      <td>Highlight do CLEAR SYNERGY + zoom no diamante</td>
+    </tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Arco pedagogico:</strong> Slide A ensina a LER o forest plot (alfabetizacao visual). Slide B ensina a PENSAR sobre o forest plot (por que o diamante pode dizer sim quando um trial grande diz nao). Progressao: ler → interpretar.</div>
+</section>
+
+<!-- ===== SLIDE A: SGLT2i ===== -->
+<section id="slide-a">
+  <h2>Slide A — SGLT2i em IC (Anatomia do Forest Plot)</h2>
+
+  <h3>Trial: Vaduganathan et al., Lancet 2022</h3>
+  <table>
+    <tr><td width="22%"><strong>Citacao</strong></td><td>Vaduganathan M et al. SGLT-2 inhibitors in patients with heart failure: a comprehensive meta-analysis of five RCTs. <em>Lancet.</em> 2022;400(10354):757-767.</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="verified">36041474 — VERIFIED</span></td></tr>
+    <tr><td><strong>DOI</strong></td><td>10.1016/S0140-6736(22)01429-5</td></tr>
+    <tr><td><strong>Acesso</strong></td><td>CAPES/USP (Lancet via ScienceDirect)</td></tr>
+  </table>
+
+  <h3>PICO</h3>
+  <table>
+    <tr><td width="22%"><strong>P</strong></td><td>Adultos com IC, todo espectro FE (FEr ≤40%, FEi 41-49%, FEp ≥50%), com ou sem DM</td></tr>
+    <tr><td><strong>I</strong></td><td>iSGLT2: dapagliflozin 10mg ou empagliflozin 10mg</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo + tratamento padrao otimizado</td></tr>
+    <tr><td><strong>O</strong></td><td>Composto: morte CV ou hospitalizacao por IC</td></tr>
+  </table>
+
+  <h3>Resultado Principal</h3>
+  <table>
+    <tr><th>Outcome</th><th>HR</th><th>IC 95%</th><th>I²</th><th>p</th></tr>
+    <tr><td>Morte CV ou hosp IC</td><td><strong>0.77</strong></td><td>0.72-0.82</td><td>Baixo</td><td>&lt;0.0001</td></tr>
+  </table>
+
+  <h3>Os 5 Estudos</h3>
+  <table>
+    <tr><th>Trial</th><th>Ano</th><th>FE</th><th>N</th><th>Farmaco</th></tr>
+    <tr><td>DAPA-HF</td><td>2019</td><td>≤40%</td><td>4,744</td><td>Dapagliflozin</td></tr>
+    <tr><td>EMPEROR-Reduced</td><td>2020</td><td>≤40%</td><td>3,730</td><td>Empagliflozin</td></tr>
+    <tr><td>SOLOIST-WHF</td><td>2021</td><td>Qualquer (DM2)</td><td>1,222</td><td>Sotagliflozin</td></tr>
+    <tr><td>EMPEROR-Preserved</td><td>2021</td><td>>40%</td><td>5,988</td><td>Empagliflozin</td></tr>
+    <tr><td>DELIVER</td><td>2022</td><td>>40%</td><td>6,263</td><td>Dapagliflozin</td></tr>
+  </table>
+
+  <h3>Elementos do Forest Plot para Zoom</h3>
+  <table>
+    <tr><th>Elemento</th><th>O que e</th><th>O que ensinar</th></tr>
+    <tr><td>Quadrado</td><td>Estimativa pontual do estudo</td><td>Centro = HR. Tamanho = peso no pooling (proporcional a 1/variancia)</td></tr>
+    <tr><td>Barra horizontal</td><td>IC 95% do estudo</td><td>Largura = precisao. Barra curta = estudo grande/preciso</td></tr>
+    <tr><td>Linha de nulo</td><td>HR = 1.0 (sem efeito)</td><td>Se a barra cruza: resultado nao significativo isoladamente</td></tr>
+    <tr><td>Diamante</td><td>Estimativa combinada</td><td>Centro = HR pooled. Largura = IC do pool. Se nao cruza nulo: significativo</td></tr>
+    <tr><td>Peso (%)</td><td>Contribuicao do estudo</td><td>Peso nao e so N — e N × precisao do outcome. DELIVER pesa mais que SOLOIST</td></tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Teaching point:</strong> Neste forest plot todos os 5 estudos estao a esquerda (favorecem iSGLT2). O diamante nao cruza 1.0. Isto e um resultado "limpo" — a mensagem e clara. Nem todo forest plot sera assim.</div>
+</section>
+
+<!-- ===== SLIDE B: COLCHICINA ===== -->
+<section id="slide-b">
+  <h2>Slide B — Colchicina Prevencao 2a CV (Leitura Critica)</h2>
+
+  <h3>Trial: Ebrahimi et al., Cochrane 2025</h3>
+  <table>
+    <tr><td width="22%"><strong>Citacao</strong></td><td>Ebrahimi et al. Colchicine for the secondary prevention of cardiovascular events. <em>Cochrane Database Syst Rev.</em> 2025.</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="candidate">CANDIDATE — DOI: 10.1002/14651858.CD014808.pub2</span></td></tr>
+    <tr><td><strong>Acesso</strong></td><td>Open access (Cochrane)</td></tr>
+  </table>
+
+  <h3>PICO</h3>
+  <table>
+    <tr><td width="22%"><strong>P</strong></td><td>Adultos com DCV estavel, IAM previo ou AVC</td></tr>
+    <tr><td><strong>I</strong></td><td>Colchicina baixa dose (0.5 mg 1-2x/dia) por ≥6 meses</td></tr>
+    <tr><td><strong>C</strong></td><td>Placebo ou cuidado padrao</td></tr>
+    <tr><td><strong>O</strong></td><td>IAM e AVC (separados)</td></tr>
+  </table>
+
+  <h3>Resultados</h3>
+  <table>
+    <tr><th>Outcome</th><th>RR</th><th>IC 95%</th><th>I²</th><th>GRADE</th></tr>
+    <tr><td>IAM</td><td><strong>0.74</strong></td><td>0.57-0.96</td><td>51%</td><td>Alta</td></tr>
+    <tr><td>AVC</td><td><strong>0.67</strong></td><td>0.47-0.95</td><td>40%</td><td>Alta</td></tr>
+    <tr><td>Eventos GI</td><td>Aumentados</td><td>—</td><td>—</td><td>—</td></tr>
+  </table>
+
+  <h3>Trials Individuais Chave</h3>
+  <table>
+    <tr><th>Trial</th><th>Ano</th><th>N</th><th>Resultado</th><th>PMID</th></tr>
+    <tr><td>LoDoCo</td><td>2013</td><td>532</td><td>Positivo (piloto)</td><td>24226256</td></tr>
+    <tr><td>COLCOT</td><td>2019</td><td>4,745</td><td>Positivo (post-IAM)</td><td>31733140</td></tr>
+    <tr><td>LoDoCo2</td><td>2020</td><td>5,522</td><td>Positivo (DAC estavel)</td><td>32865375</td></tr>
+    <tr><td>CLEAR SYNERGY</td><td>2024</td><td>~7,000</td><td>Neutro (post-PCI)</td><td>[TBD]</td></tr>
+  </table>
+
+  <div class="caveat"><strong>Tensao pedagogica:</strong> CLEAR SYNERGY (o maior trial) foi NEUTRO. Mas o diamante da MA e significativo. Por que? Porque o peso de 12 trials favoraveis supera 1 neutro. Isto e exatamente o que a MA faz: resolve tensao entre trials discordantes.</div>
+
+  <h3>Elementos para Zoom/Highlight</h3>
+  <table>
+    <tr><th>Acao visual</th><th>O que ensinar</th></tr>
+    <tr><td>Highlight CLEAR SYNERGY (quadrado cruzando nulo)</td><td>"Este trial nao mostrou beneficio. Mas olhe o pool."</td></tr>
+    <tr><td>Highlight COLCOT + LoDoCo2 (quadrados a esquerda)</td><td>"Estes dois mostraram. O diamante integra tudo."</td></tr>
+    <tr><td>Zoom no diamante</td><td>"O IC do pool nao cruza 1.0. A MA resolveu a incerteza."</td></tr>
+    <tr><td>Mostrar I² = 51%</td><td>"Heterogeneidade moderada. Os estudos nao concordam 100%. Mas a direcao e consistente."</td></tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Teaching point:</strong> Um trial neutro NAO refuta a hipotese. A MA pondera cada estudo por precisao. O diamante integra a evidencia total — e ESSA e a mensagem que o clinico leva.</div>
+</section>
+
+<!-- ===== SPEAKER NOTES ===== -->
+<section id="notes">
+  <h2>Speaker Notes (rascunho)</h2>
+
+  <h3>Slide A (~90s)</h3>
+  <p>[0:00-0:20] "Vamos aprender a ler o grafico mais importante da meta-analise." (mostrar forest plot inteiro)<br>
+  [0:20-0:40] Zoom sequencial: quadrado → barra → linha de nulo → diamante → coluna de peso.<br>
+  [0:40-0:60] "Note: todos os 5 estudos estao do mesmo lado. O diamante nao cruza. Resultado limpo."<br>
+  [0:60-0:90] "iSGLT2 reduziu morte CV ou hospitalizacao por IC em 23%. Primeiro farmaco que funciona de FEr a FEp."</p>
+
+  <h3>Slide B (~90s)</h3>
+  <p>[0:00-0:20] "Agora um forest plot mais complexo. Colchicina para prevencao cardiovascular." (mostrar inteiro)<br>
+  [0:20-0:40] Highlight CLEAR SYNERGY: "O maior trial foi neutro. Se voce so lesse esse, descartaria colchicina."<br>
+  [0:40-0:60] Highlight COLCOT + LoDoCo2 + diamante: "Mas a MA pondera todos. O diamante diz: 26% menos IAM."<br>
+  [0:60-0:90] "I² = 51%. Heterogeneidade moderada. Os estudos nao concordam 100%. Mas a direcao e consistente. Isto e o poder da MA: resolver incerteza que um trial isolado nao resolve."</p>
+</section>
+
+<!-- ===== GLOSSARIO ===== -->
+<section id="glossary">
+  <h2>Glossario</h2>
+  <table>
+    <tr><th>Termo</th><th>Definicao</th></tr>
+    <tr><td class="glossary-term">Forest plot</td><td>Grafico que resume cada estudo (quadrado + barra) e o resultado combinado (diamante) de uma MA.</td></tr>
+    <tr><td class="glossary-term">Diamante sumario</td><td>Losango na base: centro = estimativa pooled, largura = IC 95%.</td></tr>
+    <tr><td class="glossary-term">Peso</td><td>Contribuicao do estudo ao pool. Proporcional a 1/variancia (N × precisao do outcome).</td></tr>
+    <tr><td class="glossary-term">Linha de nulo</td><td>Referencia de "sem efeito" (HR=1, RR=1, diferenca=0).</td></tr>
+    <tr><td class="glossary-term">I²</td><td>Proporcao da variacao entre estudos que e real (nao acaso). NAO mede quanta variacao existe (Borenstein 2022).</td></tr>
+    <tr><td class="glossary-term">Fixed-effects</td><td>Assume que todos os estudos estimam o MESMO efeito real. Apropriado quando I² baixo.</td></tr>
+    <tr><td class="glossary-term">Random-effects</td><td>Assume que os efeitos VARIAM entre estudos. Alarga o IC quando I² alto.</td></tr>
+  </table>
+</section>
+
+<!-- ===== REFERENCIAS ===== -->
+<section id="references">
+  <h2>Referencias</h2>
+  <table>
+    <tr><th>Ref</th><th>Citacao</th><th>PMID</th><th>Status</th></tr>
+    <tr><td>1</td><td>Vaduganathan M et al. Lancet 2022;400:757-767</td><td>36041474</td><td class="verified">VERIFIED</td></tr>
+    <tr><td>2</td><td>Ebrahimi et al. Cochrane Database Syst Rev 2025</td><td>—</td><td class="candidate">CANDIDATE (DOI ok)</td></tr>
+    <tr><td>3</td><td>Tardif JC et al. (COLCOT) NEJM 2019;381:2497-2505</td><td>31733140</td><td class="verified">VERIFIED</td></tr>
+    <tr><td>4</td><td>Nidorf SM et al. (LoDoCo2) NEJM 2020;383:1838-1847</td><td>32865375</td><td class="verified">VERIFIED</td></tr>
+    <tr><td>5</td><td>Lewis S, Clarke M. BMJ 2001;322:1479-80</td><td>11408310</td><td class="verified">WEB-VERIFIED</td></tr>
+    <tr><td>6</td><td>Sedgwick P. BMJ 2015;351:h4028</td><td>26208517</td><td class="verified">WEB-VERIFIED</td></tr>
+    <tr><td>7</td><td>Dettori JR et al. Global Spine J 2021;11(7):1137-9</td><td>33939533</td><td class="verified">VERIFIED</td></tr>
+    <tr><td>8</td><td>Cochrane Handbook v6.5, Ch.10</td><td>31643080</td><td class="verified">WEB-VERIFIED</td></tr>
+    <tr><td>9</td><td>Borenstein M. J Clin Epidemiol 2022;152:281-284</td><td>—</td><td class="verified">IN-EVIDENCE</td></tr>
+    <tr><td>10</td><td>Pitre T et al. Intensive Care Med 2025</td><td>40323455</td><td class="verified">VERIFIED</td></tr>
+  </table>
+</section>
+
+<!-- ===== DEPTH RUBRIC ===== -->
+<section id="depth">
+  <h2>Depth Rubric (8 dims)</h2>
+  <table>
+    <tr><th>Dim</th><th>Score</th><th>Nota</th></tr>
+    <tr><td>D1 Sources Tier 1</td><td>8/10</td><td>Lancet + Cochrane + NEJM. 1 PMID CANDIDATE (Ebrahimi).</td></tr>
+    <tr><td>D2 Convergence</td><td>7/10</td><td>3 motores concordam nos candidatos. Colchicina emergiu de busca dedicada.</td></tr>
+    <tr><td>D3 Population</td><td>9/10</td><td>PICO completo para ambos trials.</td></tr>
+    <tr><td>D4 Timeframe</td><td>7/10</td><td>Trials 2019-2025. CLEAR SYNERGY 2024 pendente PMID.</td></tr>
+    <tr><td>D5 Key Numbers</td><td>8/10</td><td>HR, RR, IC, I², N completos para os 2 candidatos principais.</td></tr>
+    <tr><td>D6 Nuance</td><td>9/10</td><td>Tensao CLEAR SYNERGY vs pool e o core pedagogico.</td></tr>
+    <tr><td>D7 Clinical Impact</td><td>8/10</td><td>Ambos mudaram guias. iSGLT2 ACC/AHA 2023. Colchicina ESC 2024.</td></tr>
+    <tr><td>D8 Currency</td><td>9/10</td><td>Papers 2022-2025, inclui Cochrane review recente.</td></tr>
+  </table>
+</section>
+
+<footer>
+  Coautoria: Lucas + Opus 4.6 | S146 2026-04-10<br>
+  Status: DRAFT. Pendente: (1) PMID Ebrahimi Cochrane, (2) PMID CLEAR SYNERGY, (3) crop dos forest plots reais, (4) Lucas confirma combo final.
+</footer>
+
+</body>
+</html>

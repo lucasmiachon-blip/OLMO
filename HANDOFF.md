@@ -1,31 +1,34 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 146 | 2026-04-10
+> Sessao 147 | 2026-04-10
 > Foco: TBD
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build OK (16 slides metanalise).
+Monorepo funcional. CI verde. Build OK (**15 slides** metanalise — s-forest-plot removido S146).
 **Agentes: 10.** **Hooks: 38 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 12.**
 **Skills: 20.** **Memory: 20/20 (0 slots livre).** **.claudeignore: criado S128.**
 
-## P0 — QA slides (10 LINT-PASS restantes)
+## P0 — Forest plot slides (2 novos) + QA restantes
 
-**s-importancia: DONE (R14, adjusted 7.0/10).** Primeiro slide QA completo com Call D.
-**s-contrato: DONE (R11, adjusted 5.9/10 — 6 FPs, real ~7.0/10).** Evidence HTML criado. Click-reveal 2 cards.
-**s-pico: DONE (R11, adjusted 7.3/10 — 2 FPs, real ~8.0/10).** 5 CSS fixes aplicados. Remaining: proporcao/gestalt/composicao refinements.
+**s-forest-plot removido S146.** Sera substituido por 2 slides com forest plot REAL (crop + zoom + animacao).
+- **Slide A:** Vaduganathan 2022 (SGLT2i/IC, Lancet, PMID 36041474 VERIFIED). 5 estudos, anatomia basica.
+- **Slide B:** Ebrahimi 2025 (Colchicina, Cochrane, PMID CANDIDATE). 12 estudos, I² 51%, leitura critica.
+- Evidence HTML criado: `evidence/s-forest-plot.html` + `evidence/forest-plot-candidates.html` (6+1 candidatos).
+- **Pendente:** Lucas le os trials e confirma combo. Verificar PMID Ebrahimi + CLEAR SYNERGY. Crop forest plots.
 
-**Proximo: s-absoluto** (ou proximo slide da fila LINT-PASS).
-Design target = **auditorio 10m projetor**.
+**s-pico: DONE (R12, --term teal token, punchline containment).**
+**s-importancia: DONE.** **s-contrato: DONE.**
+**Proximo QA:** s-absoluto (ou proximo LINT-PASS apos forest plot slides criados).
 
 ## P1 — /insights trend watch
 
 S141 insights: rolling averages subiram (corrections 0.862->1.128, kbp 0.254->0.32).
-Observar S142-S144. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
+Observar S142-S146. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
 
-## P2 — css_cascade FP exclusion
+## P2 — css_cascade FP exclusion DONE
 
-R14 confirmou css_cascade como FP persistente (s-importancia 2/10, s-contrato 2/10, s-pico 6/10 — failsafe rules corretamente scoped mas Gemini nao distingue condicional de global). Candidato para exclusao explicita no prompt de Call B.
+Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Secao "FALSOS POSITIVOS CONFIRMADOS".
 
 ## BACKLOG (pos-deadline)
 
@@ -75,4 +78,4 @@ R14 confirmou css_cascade como FP persistente (s-importancia 2/10, s-contrato 2/
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S145b 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S146 2026-04-10
