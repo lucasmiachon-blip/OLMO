@@ -1,29 +1,39 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 139 | 2026-04-10
-> Foco: melhorar s-importancia — click-reveal + QA adversarial
+> Sessao 140 | 2026-04-10
+> Foco: QA Gemini R13 s-importancia — WHAT/WHY/PROPOSAL/GUARANTEE + Call D
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (16 slides metanalise).
 **Agentes: 10.** **Hooks: 39 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
-**Skills: 18.** **Memory: 20/20.** **.claudeignore: criado S128.**
+**Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
-## P0 — QA s-importancia (continuar)
+## P0 — Rodar R14 com Call D e verificar
 
-Click-reveal implementado (5 beats). SplitText removido. Font 18px. Dead CSS limpo.
-Gemini R12: overall 6.5 (motion 7.4, "didatica"). FPs em css_cascade e failsafes ([data-qa] design).
-Pendencias:
-1. Verificar no browser ao vivo (click-reveals + transicao cross-slide)
-2. Re-capturar video com transicao (qa-capture.mjs atualizado S139)
-3. Gemini R13 adversarial com payload adaptado (WHAT/WHY/PROPOSAL/GUARANTEE)
-4. Ajustar gemini-qa3.mjs para output estruturado seguir memorias (call adicional se preciso)
-5. Avaliar proporcao navy card (300px) — Gemini flagou, Lucas quer manter ΣN como hero
-6. Considerar direcao motion: items originando do card (sugestao Gemini narrativa_motion)
+**Pronto para rodar.** Comando:
+```bash
+cd content/aulas
+node scripts/qa-capture.mjs --aula metanalise --slide s-importancia
+node scripts/gemini-qa3.mjs --aula metanalise --slide s-importancia --editorial --round 14
+```
+
+O que verificar no output:
+1. **Fresh eyes**: round context mostra "fresh eyes — FPs injected" (nao scores anteriores)
+2. **Call D executa**: "6b. Running Call D — Anti-Sycophancy Validation..."
+3. **Ceiling violations**: motion scores devem ser recalibrados (R13 tinha 5 WARNs: 10s com problemas)
+4. **GUARANTEE fields**: dimensoes devem ter campo guarantee preenchido (especialmente Call C)
+5. **failsafes**: se continuar 3/10, confirma FP persistente (CSS ja esta correto)
+6. **Adjusted overall**: Call D produz score recalibrado vs raw score das 3 calls
+
+Pendencias pos-R14:
+- Se overall ajustado >= 7: slide aprovavel (issues restantes sao design decisions)
+- Se failsafes continua FP: adicionar ao prompt de Call B como exclusao explicita
+- Se Call D nao agrega valor: pode ser removida (custo ~$0.02)
 
 ## P1 — QA restantes (12 slides LINT-PASS)
 
-Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
+Lucas decide qual slide. Pipeline: 1 slide/vez, 4 gates (agora com Call D).
 
 ## BACKLOG (pos-deadline)
 
@@ -51,6 +61,8 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 - **QA visual S138:** analise multimodal obrigatoria (screenshot como imagem), nao apenas codigo.
 - **QA output S139:** Gemini deve reportar WHAT/WHY/PROPOSAL/GUARANTEE. Sem notas subjetivas.
 - **Navy card ΣN = hero S139:** Lucas: "a melhor parte eh o box com o sigma e o N". Tudo deriva dele.
+- **Fresh eyes S140:** Gemini NAO recebe scores anteriores. Avaliacao independente. Known FPs injetados separadamente.
+- **Call D S140:** 4th call anti-sycophancy. Audita 3 calls, recalibra scores, produz priority actions.
 
 ## CUIDADOS
 
@@ -60,11 +72,11 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 - MCP gate + Research gate: hooks force "ask" antes de MCP/research calls.
 - MCP freeze ate 2026-04-14. PubMed session expirou S129.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
-- Gemini FPs conhecidos: css_cascade e failsafes flagam `[data-qa]` como bug (e design).
+- Gemini FPs conhecidos: css_cascade e failsafes flagam `[data-qa]` como bug (e design). failsafes 3/10 persistente por 3 rounds — CSS esta correto.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S139 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S140 2026-04-10

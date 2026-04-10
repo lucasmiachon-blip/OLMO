@@ -821,7 +821,7 @@ section#s-importancia .imp-detail {
   margin-top: 2px;
   max-width: none;
 }
-#deck section#s-importancia p.source-tag {
+section#s-importancia p.source-tag {
   max-width: none;
   width: 100%;
   text-align: center;

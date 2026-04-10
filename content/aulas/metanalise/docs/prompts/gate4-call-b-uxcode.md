@@ -14,6 +14,19 @@ Prev: {{PREV_SLIDE}} | Next: {{NEXT_SLIDE}}
 ANTI-SINCOFANCIA: Nota 10 = padrao WWDC/Apple. Seja DURO. Foque nos PROBLEMAS.
 Nota >= 7 = aceitavel. Nota < 7 = MUST fix com snippet de codigo corrigido.
 Se nao achou problemas numa dimensao, olhe de novo — todo slide tem melhorias possiveis.
+
+FORMATO OBRIGATORIO (WHAT/WHY/PROPOSAL/GUARANTEE):
+- evidencia (WHAT): cite o codigo especifico (seletor CSS, classe HTML, funcao JS) e o resultado visual correspondente no PNG. Descricao factual, sem adjetivos subjetivos.
+- problemas (WHY): CAUSA RAIZ com evidencia de codigo. "Seletor X tem specificity 0,1,1,1 vs Y com 0,1,2,1 — cascade nao flui" — NAO "conflito de CSS".
+- fixes (PROPOSAL): snippet funcional. Cada fix DEVE terminar com "GUARANTEE: [como verificar que funcionou]".
+- guarantee: para cada dimensao, como verificar que o problema foi resolvido (ex: "apos fix, DevTools Computed mostra opacity:0 antes de GSAP").
+- nota: 1-10
+
+KNOWN DESIGN DECISIONS (NAO sao defeitos — NAO flagear):
+- `[data-qa]` selectors existem INTENCIONALMENTE para QA capture. NAO flagear como dead CSS ou failsafe issue.
+- opacity:1 sob `.no-js`, `.stage-bad`, `[data-qa]`, `@media print` e failsafe INTENCIONAL de design.
+- Navy card 300px e hero INTENCIONAL (Lucas decidiu S139).
+- Se um "problema" ja apareceu em rounds anteriores com status ADDRESSED, NAO repetir.
 </system>
 
 ## MATERIAIS — CODIGO FONTE

@@ -347,6 +347,7 @@ const GATE0_PROMPT_PATH = join(PROMPTS_DIR, 'gemini-gate0-inspector.md');
 const CALL_A_PROMPT_PATH = join(PROMPTS_DIR, 'gate4-call-a-visual.md');
 const CALL_B_PROMPT_PATH = join(PROMPTS_DIR, 'gate4-call-b-uxcode.md');
 const CALL_C_PROMPT_PATH = join(PROMPTS_DIR, 'gate4-call-c-motion.md');
+const CALL_D_PROMPT_PATH = join(PROMPTS_DIR, 'gate4-call-d-validate.md');
 const ERROR_DIGEST_PATH = join(PROMPTS_DIR, 'error-digest.md');
 
 // --- Response schemas (Gemini constrained decoding) ---
@@ -377,6 +378,7 @@ const DIM_PROP = {
     evidencia: { type: "STRING" },
     problemas: { type: "ARRAY", items: { type: "STRING" } },
     fixes: { type: "ARRAY", items: { type: "STRING" } },
+    guarantee: { type: "ARRAY", items: { type: "STRING" } },
     nota: { type: "NUMBER", minimum: 0, maximum: 10 },
   },
   required: ["evidencia", "problemas", "fixes", "nota"],
@@ -407,7 +409,8 @@ const SCHEMAS_GATE4 = {
           type: "OBJECT",
           properties: {
             severity: { type: "STRING" }, titulo: { type: "STRING" },
-            fix: { type: "STRING" }, arquivo: { type: "STRING" }, tipo: { type: "STRING" },
+            fix: { type: "STRING" }, guarantee: { type: "STRING" },
+            arquivo: { type: "STRING" }, tipo: { type: "STRING" },
           },
           required: ["severity", "titulo", "fix", "arquivo", "tipo"],
         },
@@ -435,6 +438,52 @@ const SCHEMAS_GATE4 = {
       animation_value: { type: "STRING" },
     },
     required: ["timing", "easing", "narrativa_motion", "crossfade", "proposito", "artefatos", "media_motion", "inventory"],
+  },
+  validate: {
+    type: "OBJECT",
+    properties: {
+      ceiling_violations: {
+        type: "ARRAY",
+        items: {
+          type: "OBJECT",
+          properties: {
+            call: { type: "STRING" }, dimension: { type: "STRING" },
+            original_score: { type: "NUMBER" }, adjusted_score: { type: "NUMBER" },
+            reason: { type: "STRING" },
+          },
+          required: ["call", "dimension", "original_score", "adjusted_score", "reason"],
+        },
+      },
+      false_positives: {
+        type: "ARRAY",
+        items: {
+          type: "OBJECT",
+          properties: {
+            call: { type: "STRING" }, dimension: { type: "STRING" },
+            finding: { type: "STRING" }, reason_fp: { type: "STRING" },
+          },
+          required: ["call", "dimension", "finding", "reason_fp"],
+        },
+      },
+      priority_actions: {
+        type: "ARRAY",
+        items: {
+          type: "OBJECT",
+          properties: {
+            rank: { type: "NUMBER" }, severity: { type: "STRING" },
+            what: { type: "STRING" }, why: { type: "STRING" },
+            proposal: { type: "STRING" }, guarantee: { type: "STRING" },
+          },
+          required: ["rank", "severity", "what", "why", "proposal", "guarantee"],
+        },
+      },
+      adjusted_visual: { type: "NUMBER" },
+      adjusted_uxcode: { type: "NUMBER" },
+      adjusted_motion: { type: "NUMBER" },
+      adjusted_overall: { type: "NUMBER" },
+    },
+    required: ["ceiling_violations", "false_positives", "priority_actions",
+               "adjusted_visual", "adjusted_uxcode", "adjusted_motion", "adjusted_overall"],
   },
 };
 
@@ -822,10 +871,17 @@ function readRoundContext(slideId) {
   const filePath = join(QA_ROUNDS_DIR, `${slideId}.md`);
   if (existsSync(filePath)) {
     const content = readFileSync(filePath, 'utf8');
-    console.log(`  Round context: ${filePath} (${content.length} chars)`);
-    return content;
+    // Fresh eyes: strip previous round scores to prevent anchoring bias.
+    // Only inject Known FPs / Design Decisions sections.
+    const fpMatch = content.match(/### Known FPs[^\n]*\n([\s\S]*?)(?=\n## |\n---|$)/);
+    const fps = fpMatch ? fpMatch[0].trim() : '';
+    const fresh = fps
+      ? `Round ${ROUND}. Avaliacao com olhos frescos — SEM acesso a notas anteriores.\n\n${fps}`
+      : `Round ${ROUND}. Avaliacao com olhos frescos — SEM acesso a notas anteriores.`;
+    console.log(`  Round context: ${filePath} (fresh eyes — ${fps ? 'FPs injected' : 'no FPs'})`);
+    return fresh;
   }
-  return `Round ${ROUND}. Nenhum contexto anterior documentado. Primeiro review deste slide.`;
+  return `Round ${ROUND}. Primeiro review deste slide.`;
 }
 
 function appendRoundSummary(slideId, round, score, proposals) {
@@ -908,6 +964,82 @@ async function waitForProcessing(fileName) {
   }
   console.log(` ${state}`);
   return state === 'ACTIVE';
+}
+
+// --- Call D: Anti-Sycophancy Validation ---
+async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUris, meta) {
+  if (!existsSync(CALL_D_PROMPT_PATH)) {
+    console.log('  Call D prompt not found — skipping validation');
+    return null;
+  }
+
+  let text = readFileSync(CALL_D_PROMPT_PATH, 'utf8');
+  const systemIdx = text.indexOf('<system>');
+  if (systemIdx > 0) text = text.slice(systemIdx);
+
+  const mediaList = [
+    mediaUris.s0 ? '1. PNG S0 — estado inicial (pre-animacao)' : null,
+    mediaUris.s2 ? '2. PNG S2 — estado final (todos elementos visiveis)' : null,
+  ].filter(Boolean).join('\n') || '(nenhum material visual)';
+
+  const replacements = {
+    '{{SLIDE_ID}}': slideId,
+    '{{SLIDE_POS}}': String(meta.pos),
+    '{{MEDIA_LIST}}': mediaList,
+    '{{CALL_A_OUTPUT}}': JSON.stringify(callA, null, 2),
+    '{{CALL_B_OUTPUT}}': JSON.stringify(callB, null, 2),
+    '{{CALL_C_OUTPUT}}': JSON.stringify(callC, null, 2),
+  };
+  for (const [ph, val] of Object.entries(replacements)) {
+    text = text.replaceAll(ph, val);
+  }
+
+  const parts = [];
+  if (mediaUris.s0) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s0 } });
+  if (mediaUris.s2) parts.push({ fileData: { mimeType: 'image/png', fileUri: mediaUris.s2 } });
+  parts.push({ text });
+
+  const config = {
+    temperature: 0.5,
+    topP: 0.95,
+    maxOutputTokens: 8192,
+    responseMimeType: 'application/json',
+    responseSchema: SCHEMAS_GATE4.validate,
+  };
+  if (MODEL.includes('3.1') || MODEL.includes('3-')) {
+    config.thinkingConfig = { thinkingBudget: 4096 };
+  }
+
+  const payload = { contents: [{ parts }], generationConfig: config };
+  const apiUrl = `${BASE}/v1beta/models/${MODEL}:generateContent`;
+  const headers = { 'Content-Type': 'application/json', 'x-goog-api-key': API_KEY };
+
+  const response = await fetchWithRetry(apiUrl, { method: 'POST', headers, body: JSON.stringify(payload) })
+    .then(r => r.json());
+
+  const usage = response.usageMetadata || {};
+  const tokIn = usage.promptTokenCount || 0;
+  const tokOut = usage.candidatesTokenCount || 0;
+  const pr = modelCost(MODEL);
+  const cost = (tokIn / 1e6 * pr.input) + (tokOut / 1e6 * pr.output);
+  console.log(`  D-validate: ${tokIn} in / ${tokOut} out | ~$${cost.toFixed(3)}`);
+
+  const finishReason = response.candidates?.[0]?.finishReason || 'UNKNOWN';
+  const rawText = response.candidates?.[0]?.content?.parts
+    ?.map(p => p.text).filter(Boolean).join('') || '{}';
+
+  let parsed;
+  try {
+    parsed = JSON.parse(rawText);
+    if (Array.isArray(parsed)) parsed = parsed[0];
+  } catch (e) {
+    console.error(`  ✗ Call D JSON parse FAILED: ${e.message}`);
+    writeFileSync(join(qaDir, `gate4-validate-r${round}-raw.txt`), rawText);
+    return null;
+  }
+
+  writeFileSync(join(qaDir, `gate4-validate-r${round}.json`), JSON.stringify(parsed, null, 2));
+  return { ...parsed, tokIn, tokOut, cost };
 }
 
 // --- Gate 4 split: build payload for one of the 3 focused calls ---
@@ -1334,6 +1466,35 @@ ${JSON.stringify(callC_result, null, 2)}
   const score = `${overallAvg.toFixed(1)}/10 (V:${visualAvg ?? 'N/A'} U:${uxcodeAvg ?? 'N/A'} M:${motionAvg ?? 'N/A'})`;
   const proposalSummary = proposals.length > 0 ? proposals : ['(no proposals)'];
   appendRoundSummary(slideId, round, score, proposalSummary);
+
+  // Step 6b: Call D — Anti-Sycophancy Validation
+  console.log('\n6b. Running Call D — Anti-Sycophancy Validation...');
+  const validation = await runValidation(slideId, round, qaDir,
+    callA_result, callB_result, callC_result, mediaUris, meta);
+  if (validation) {
+    const cv = validation.ceiling_violations || [];
+    const fp = validation.false_positives || [];
+    const pa = validation.priority_actions || [];
+    console.log(`  Ceiling violations: ${cv.length} | False positives: ${fp.length} | Priority actions: ${pa.length}`);
+    if (cv.length > 0) {
+      console.log('  Recalibrated:');
+      for (const v of cv) console.log(`    ${v.call}/${v.dimension}: ${v.original_score} → ${v.adjusted_score} (${v.reason})`);
+    }
+    const adjV = validation.adjusted_visual;
+    const adjU = validation.adjusted_uxcode;
+    const adjM = validation.adjusted_motion;
+    const adjO = validation.adjusted_overall;
+    console.log(`  Adjusted scores: V:${adjV} U:${adjU} M:${adjM} Overall:${adjO}`);
+    if (pa.length > 0) {
+      console.log('  Priority actions:');
+      for (const a of pa) console.log(`    #${a.rank} [${a.severity}] ${a.what}`);
+    }
+
+    // Append validation section to the report
+    const validateSection = `\n---\n\n## Call D — Anti-Sycophancy Validation (${validation.tokIn}/${validation.tokOut} tokens, ~$${validation.cost.toFixed(3)})\n\nAdjusted: V:${adjV} U:${adjU} M:${adjM} | **Overall: ${adjO}/10**\n\n\`\`\`json\n${JSON.stringify(validation, null, 2)}\n\`\`\`\n`;
+    const existingReport = readFileSync(reportPath, 'utf8');
+    writeFileSync(reportPath, existingReport + validateSection);
+  }
 
   } finally {
   // Cleanup uploaded files (runs even if steps above throw)

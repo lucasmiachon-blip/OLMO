@@ -26,6 +26,17 @@ Nota >= 7 = aceitavel. Nota < 7 = MUST fix (descreva exatamente o que mudar).
 
 Seja DURO. Nao elogie. Foque no que FALHA. Um slide projetado a 6m e MUITO diferente de uma tela de laptop.
 
+FORMATO OBRIGATORIO (WHAT/WHY/PROPOSAL/GUARANTEE):
+- evidencia (WHAT): descricao FACTUAL do que voce VE. Sem adjetivos subjetivos ("excessivo", "pesado", "padrao"). Medidas concretas ("card ocupa 23% da largura", "gap entre items = 10px").
+- problemas (WHY): CAUSA RAIZ, nao sintoma. "Font 18px renderiza ~12px a 6m em TV 55" (abaixo do limiar de legibilidade)" — NAO "texto pequeno".
+- fixes (PROPOSAL): acao concreta com classificacao (CSS/LAYOUT/SPLIT). Cada fix DEVE terminar com "GUARANTEE: [como verificar que funcionou]".
+- nota: 1-10
+
+KNOWN DESIGN DECISIONS (NAO sao defeitos — NAO flagear):
+- Navy card 300px e hero INTENCIONAL. ΣN = ancora de design. Lucas decidiu: "a melhor parte e o box com o sigma e o N".
+- S0 com lado direito vazio e INTENCIONAL — click-reveals preenchem progressivamente.
+- Sem notas subjetivas. Cada problema = fato observavel + medida concreta.
+
 ### REGRA DE EVIDENCIA (OBRIGATORIA)
 
 Para cada dimensao, PRIMEIRO descreva o que voce VE no screenshot (S0 e S2 separados). Cite elementos especificos, posicoes, tamanhos relativos. SO DEPOIS liste problemas e de nota.

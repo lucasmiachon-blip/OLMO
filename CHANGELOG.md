@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## Sessao 140 — 2026-04-10 (QA Gemini R13 s-importancia)
+
+### QA Pipeline — WHAT/WHY/PROPOSAL/GUARANTEE
+- 3 prompt files (call-a, call-b, call-c) reescritos: formato obrigatorio WHAT/WHY/PROPOSAL/GUARANTEE
+- Known FPs injetados nos prompts (navy card hero, [data-qa], scale metafora)
+- Schema DIM_PROP: campo `guarantee` adicionado (opcional, backward compatible)
+- Schema proposal: campo `guarantee` adicionado
+
+### Call D — Anti-Sycophancy Validation (nova)
+- 4th call: senior QA lead audita outputs das 3 calls
+- Detecta ceiling violations (10 com problemas = rebaixar), FPs, inconsistencias
+- Produz priority_actions com WHAT/WHY/PROPOSAL/GUARANTEE
+- Schema + prompt + funcao runValidation em gemini-qa3.mjs
+- Temp 0.5 (mais consistente que editorial temp 1.0)
+
+### Fresh Eyes
+- readRoundContext() reescrito: strip previous round scores, inject apenas Known FPs
+- Previne anchoring bias (R11: 5.2 → R12: 6.5 → inflacao progressiva)
+
+### R13 resultados (pre-validation)
+- 7.1/10 (V:5.4 U:7.2 M:8.8)
+- Motion inflado (5 WARNs de ceiling violation: crossfade=10, proposito=10)
+- failsafes 3/10 confirmado como FP (CSS ja tem wrappers corretos)
+
+### CSS fixes
+- #deck prefix removido de source-tag (SHOULD fix R13)
+- Speaker notes escritos no evidence HTML (6 beats timestampados)
+
 ## Sessao 139 — 2026-04-10 (melhorar s-importancia — click-reveal + QA adversarial)
 
 ### s-importancia redesign
