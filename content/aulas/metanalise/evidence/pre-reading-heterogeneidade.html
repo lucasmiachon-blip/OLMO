@@ -5,30 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leitura Preparatória: Heterogeneidade em Meta-Análise</title>
   <style>
-    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
-    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    /* === Base === */
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      max-width: 860px; margin: 2rem auto; padding: 0 1.5rem;
+      color: #1a1a2e; line-height: 1.7; text-align: justify;
+    }
+    h1 {
+      font-size: 1.5rem; border-bottom: 2px solid #2d6a4f;
+      padding-bottom: .5rem; margin-bottom: .25rem;
+    }
     h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
     .meta { font-size: .85rem; color: #555; }
-    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
-    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
-    th { background: #f0f4f0; }
-    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
-    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+
+    /* === Tables === */
+    table {
+      border-collapse: collapse; width: 100%;
+      margin: .5rem 0; font-size: .88rem;
+      border-radius: 8px; overflow: hidden;
+    }
+    th, td { border: 1px solid #d4d4d4; padding: .5rem .7rem; text-align: left; }
+    th { background: #edf2ee; font-weight: 600; }
+
+    /* === Accordions === */
+    details {
+      margin: 1rem 0; padding: .6rem 1rem;
+      background: #eef2f7; border-radius: 10px;
+      border: 1px solid #d0d8e0;
+    }
+    details[open] { background: #e8eef5; }
+    summary {
+      cursor: pointer; font-weight: 600; color: #1e40af;
+      padding: .4rem 0; transition: color .2s;
+    }
+    summary:hover { color: #1e3a8a; }
+
+    /* === Links === */
     .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
     .ref-pmid:hover { text-decoration: underline; }
-    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
-    .core-step { display: grid; grid-template-columns: 2.5rem 1fr; gap: .5rem; align-items: start; margin: .8rem 0; padding: .6rem; background: #fafafa; border-radius: 6px; }
-    .core-num { background: #2d6a4f; color: #fff; width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; }
+
+    /* === Callouts === */
+    .key-takeaway {
+      background: #e8f5e9; border-left: 4px solid #2d6a4f;
+      padding: .7rem 1rem; margin: .8rem 0; font-size: .9rem;
+      border-radius: 8px;
+    }
+    .caveat {
+      background: #fef3e2; border-left: 4px solid #e8850c;
+      padding: .6rem 1rem; margin: .8rem 0; font-size: .88rem;
+      border-radius: 8px;
+    }
+    .gap-card {
+      border-left: 3px solid #e8850c;
+      padding: .5rem .8rem; margin: .8rem 0;
+      background: #fef8f0; border-radius: 8px;
+    }
+    details .gap-card {
+      background: transparent; border-left: none;
+      padding: .2rem 0; margin: .4rem 0;
+    }
+
+    /* === Core steps (trilha) === */
+    .core-step {
+      display: grid; grid-template-columns: 2.5rem 1fr;
+      gap: .6rem; align-items: start;
+      margin: 1rem 0; padding: .8rem;
+      background: #fafafa; border-radius: 10px;
+      border: 1px solid #e8e8e8;
+      transition: box-shadow .2s;
+    }
+    .core-step:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .core-num {
+      background: #2d6a4f; color: #fff;
+      width: 2rem; height: 2rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .9rem;
+    }
+
+    /* === Utilities === */
     .glossary-term { font-weight: 600; color: #2d6a4f; }
-    .gap-card { border-left: 3px solid #d97706; padding-left: .8rem; margin: .8rem 0; }
-    .formula { background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; padding: .8rem 1.2rem; margin: .8rem 0; font-family: 'Cambria Math', 'Times New Roman', serif; font-size: .95rem; text-align: center; }
-    .example { margin-left: 1.5rem; border-left: 2px solid #ccc; padding-left: 1rem; margin-top: .5rem; margin-bottom: .5rem; }
+    .formula {
+      background: #f8f9fa; border: 1px solid #ddd;
+      border-radius: 8px; padding: .8rem 1.2rem; margin: .8rem 0;
+      font-family: 'Cambria Math', 'Times New Roman', serif;
+      font-size: .95rem; text-align: center;
+    }
+    .example {
+      margin-left: 1.5rem; border-left: 2px solid #ccc;
+      padding-left: 1rem; margin-top: .5rem; margin-bottom: .5rem;
+    }
     .thresholds { margin: .5rem 0; }
     .thresholds td:first-child { font-weight: 600; text-align: center; }
-    .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
-    .objectives li { margin: .3rem 0; }
-    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
-    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+    .objectives {
+      background: #edf5ee; border-radius: 10px;
+      padding: 1rem 1.4rem; margin: 1rem 0;
+      border: 1px solid #c8dcc9;
+    }
+    .objectives li { margin: .4rem 0; }
+
+    /* === Footer === */
+    footer {
+      margin-top: 2.5rem; padding-top: .8rem;
+      border-top: 1px solid #ccc;
+      font-size: .8rem; color: #777;
+    }
   </style>
 </head>
 <body>
