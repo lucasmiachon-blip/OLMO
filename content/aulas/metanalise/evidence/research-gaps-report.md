@@ -42,7 +42,7 @@ Coautoria: Lucas + Opus 4.6
 | 2 | **s-contrato** | F1 | HIGH | 3 questions framework for reading MA |
 | 3 | **s-checkpoint-1** | I1 | HIGH | ACCORD trap + Ray 2009 MA |
 | 4 | **s-abstract** | F2 | MEDIUM | PRISMA 2020 abstract screening |
-| 5 | **s-forest-plot** | F2 | HIGH | Forest plot anatomy |
+| ~~5~~ | ~~s-forest-plot~~ | ~~F2~~ | ~~HIGH~~ | Removed S146 — redesign into 2 real forest-plot slides |
 | 6 | **s-benefit-harm** | F2 | MEDIUM | Separate GRADE for benefit/harm |
 | 7 | **s-grade** | F2 | HIGH | GRADE framework |
 | 8 | **s-heterogeneity** | F2 | HIGH | I-squared, tau-squared, Q |
@@ -118,7 +118,7 @@ Already extensively covered in evidence/s-checkpoint-1.html. Key sources:
 
 ---
 
-### s-forest-plot — Forest plot anatomy
+### s-forest-plot — Forest plot anatomy (slide removido S146 — refs mantidos para pre-reading)
 
 | # | Citation | PMID | Status | Key finding |
 |---|----------|------|--------|-------------|
@@ -281,7 +281,7 @@ Already extensively covered in evidence/s-checkpoint-1.html. Key sources:
 |------|-------|-----------|
 | 1 | **s-checkpoint-1** | Data-heavy (ACCORD + Ray 2009), already fully sourced in evidence-db |
 | 2 | **s-grade** | Core concept, multiple verified sources, audience needs GRADE framing |
-| 3 | **s-forest-plot** | Visual anatomy slide, needs precise source attribution |
+| ~~3~~ | ~~s-forest-plot~~ | Removed S146 |
 | 4 | **s-heterogeneity** | Quantitative (I-squared thresholds), Higgins 2003 is canonical |
 | 5 | **s-ancora** | Anchor article — all F3 slides depend on this |
 

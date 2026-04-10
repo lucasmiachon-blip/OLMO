@@ -474,46 +474,6 @@ aside.notes { display: none; }
   opacity: 1;
 }
 
-/* --- Anatomy grid (forest plot components) --- */
-.anatomy-grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  flex: 1;
-  justify-content: center;
-}
-.anatomy-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--bg-navy-mid);
-  border-radius: var(--radius-sm);
-}
-.anatomy-symbol {
-  font-family: var(--font-mono);
-  font-size: var(--text-h2);
-  color: var(--ui-accent-on-dark);
-  min-width: 3ch;
-  text-align: center;
-  line-height: 1;
-}
-.anatomy-desc {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.anatomy-name {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  color: var(--text-primary);
-  font-weight: 500;
-}
-.anatomy-what {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-}
 
 /* --- Concept card (heterogeneity, general concepts) --- */
 .concept-card {
