@@ -1,9 +1,10 @@
 # CHANGELOG
 
-## Sessao 141 — 2026-04-10 (insights + wiki-lint + cleanup)
+## Sessao 141 — 2026-04-10 (insights + wiki-lint + cleanup + dream fix)
 
 ### Fixes
 - Call D temperature: 0.5 → 1.0 (alinhado com editorial, testado S71)
+- Auto-dream loop fix: session-start.sh surfacea .dream-pending + CLAUDE.md contrato agora atualiza .last-dream (missing acknowledgment bug)
 - qa-pipeline.md: temp 1.0 explicitamente aplica-se a TODAS calls (P001 insights)
 - stop-detect-issues.sh: dedup antes de append ao pending-fixes (P002 insights)
 

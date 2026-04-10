@@ -79,6 +79,8 @@ Observar S142-S144. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
 - MCP freeze ate 2026-04-14. PubMed session expirou S129.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
 - Gemini FPs conhecidos: css_cascade e failsafes flagam `[data-qa]` como bug (e design). failsafes 3/10 persistente por 3 rounds — CSS esta correto.
+- Auto-dream: session-start.sh agora surfacea .dream-pending. Contrato CLAUDE.md atualiza .last-dream apos dream. Verificar proxima sessao se loop parou.
+- Secrets audit manual: nenhum secret verificado no git history. trufflehog/gitleaks nao instalados — scan definitivo pendente.
 
 ## CONFLITOS
 

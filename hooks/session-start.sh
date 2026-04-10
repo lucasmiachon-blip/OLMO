@@ -42,4 +42,14 @@ if [ -f "$PENDING" ] && [ -s "$PENDING" ]; then
   mv "$PENDING" "$PROJECT_ROOT/.claude/pending-fixes-$(date +%Y%m%d-%H%M).md" 2>/dev/null || true
 fi
 
+# Surface dream-pending flag for auto-dream contract
+DREAM_PENDING="$HOME/.claude/.dream-pending"
+if [ -f "$DREAM_PENDING" ]; then
+  echo ""
+  echo "=== AUTO-DREAM PENDING ==="
+  echo "Memory consolidation overdue (>24h). Run /dream as background subagent, then:"
+  echo "  rm ~/.claude/.dream-pending"
+  echo "  date -u +%Y-%m-%dT%H:%M:%SZ > ~/.claude/.last-dream"
+fi
+
 exit 0
