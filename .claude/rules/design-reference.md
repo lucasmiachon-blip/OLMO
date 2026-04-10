@@ -112,7 +112,7 @@ Anti-padrão: "Este é um escore que mede a rigidez hepática dividindo..."
 | Token | Constraint | Razão |
 |-------|-----------|-------|
 | `--danger` root | hue ≤ 10°, chroma ≥ 0.20 | hue 25° = terracotta, não vermelho (E073) |
-| Severity bg (cards, zones) | 25-40% color-mix | -light tokens (15%) = invisível em projeção a 6m |
+| Severity bg (cards, zones) | 25-40% color-mix | -light tokens (15%) = invisível em projeção (design target: 10m auditório) |
 | Severity text | `--text-primary` para dados | Sinal vem de ícone+borda+bg, não do texto |
 
 ### Regra Geral

@@ -85,6 +85,7 @@ Tracking: `HANDOFF.md` (project-level).
 
 ## Display de apresentação
 
-Samsung UN55F6400, 55", 1920×1080, ~6m distância.
-Sala pequena, ~15 pessoas, iluminação forte — legibilidade constraint #1.
+Cenário A: Sala pequena — Samsung UN55F6400, 55", 1920×1080, ~6m, ~15 pessoas, iluminação forte.
+Cenário B: Auditório — projetor grande, ~10m, ~40 pessoas.
+Design target: cenário B (pior caso). Legibilidade a 10m = constraint #1.
 scaleDeck() 1.5× em 1080p. Font mínima: ≥18px no canvas 1280.

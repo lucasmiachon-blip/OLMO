@@ -53,7 +53,7 @@ Gate $0 antes do Gemini. Duas fases: checks automaticos + QA visual do orchestra
 | Dim | Criterio | Fonte |
 |-----|----------|-------|
 | Cor | Tokens sem literais fora :root. Semantica clinica correta. Contraste adequado para projecao | design-reference.md §1 |
-| Tipografia | Font >= 18px corpo. Sem vw/vh. Peso visual legivel a 6m. Tabular-nums em dados | design-reference.md §2 |
+| Tipografia | Font >= 18px corpo. Sem vw/vh. Peso visual legivel a 10m (auditorio). Tabular-nums em dados | design-reference.md §2 |
 | Hierarquia de atencao | h2 presente (exceto title/hook/recap). Punchline > suporte. Fluxo visual conduz o olhar | slide-rules.md §1, §1b |
 | Design | Composicao visual livre. Espacamento, proporcao, uso do viewport 1280x720 | slide-rules.md §1b |
 
