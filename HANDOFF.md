@@ -1,18 +1,18 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 133 | 2026-04-09
-> Foco: build slide s-importancia
+> Sessao 134 | 2026-04-09
+> Foco: audit skills + refactor s-objetivos
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build OK (18 slides metanalise).
 **Agentes: 10.** **Hooks: 39 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
-**Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
+**Skills: 18.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
 ## P0 — Build slide s-importancia
 
 Evidence pronto (S131-S132). Falta: `slides/02-importancia.html` + `_manifest.js` + CSS.
-h2 = Lucas decide. Usar /new-slide skill + /slide-authoring.
+h2 = Lucas decide. Rules auto-loaded em content/aulas/**.
 
 ## BACKLOG (pos-deadline)
 
@@ -24,6 +24,7 @@ h2 = Lucas decide. Usar /new-slide skill + /slide-authoring.
 | 4 | Hook/config system review | JSON adequado? YAGNI audit. Esquema de config (ref: WhatsApp JPEG subagents post). Brainstorming + micropassos |
 | 5 | Pipeline DAG end-to-end | cowork→NLM→wiki |
 | 6 | medicina-clinica stubs | 4 concepts stub/low aguardam Cowork harvest |
+| 7 | Skill de slides consolidada | Usar skill-creator para criar skill nova, migrar de rules para skill |
 
 ## DECISOES ATIVAS
 
@@ -45,4 +46,4 @@ h2 = Lucas decide. Usar /new-slide skill + /slide-authoring.
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S133 2026-04-09
+Coautoria: Lucas + Opus 4.6 | S134 2026-04-09

@@ -726,7 +726,7 @@ aside.notes { display: none; }
   #s-contrato .contrato-skill { opacity: 1; transform: none; }
 }
 
-/* --- Objetivos: 3×2 grid, Z-flow (6 items) --- */
+/* --- Objetivos: 2-2-1 grid (5 items) --- */
 section#s-objetivos .slide-inner {
   justify-content: flex-start;
 }
@@ -745,6 +745,9 @@ section#s-objetivos .objetivos-grid {
   width: 100%;
 }
 section#s-objetivos .obj-item--accent {
+  grid-column: 1 / -1;
+  justify-self: center;
+  max-width: 480px;
   background: color-mix(in oklch, var(--ui-accent) 25%, transparent);
   padding: 12px var(--space-sm);
   margin: -12px calc(var(--space-sm) * -1);

@@ -1,3 +1,9 @@
+---
+description: "Layout patterns com HTML concreto para slides deck.js. Consultar ao criar/editar slides."
+paths:
+  - "content/aulas/**"
+---
+
 # Slide Layout Patterns
 
 Concrete HTML examples from the OLMO design system. Each pattern is a starting point — adapt layout freely using CSS Grid/Flex scoped by `#s-{id}`.

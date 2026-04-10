@@ -262,7 +262,7 @@ export const slideRegistry = {
   },
 
   's-objetivos': (slide, gsap) => {
-    // Click-reveal: 3 groups (1-3 conceitos, 4-5 metodologia, 6 punchline)
+    // Click-reveal: 3 groups (1-2 conceitos, 3-4 metodologia, 5 punchline)
     const groups = [1, 2, 3];
     let revealed = 0;
 

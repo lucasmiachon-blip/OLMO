@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## Sessao 134 — 2026-04-09 (audit skills + refactor s-objetivos)
+
+### Skills cleanup
+- Deletado /slide-authoring skill (70% overlap com rules auto-loaded)
+- Deletado /new-slide command (stub circular desde S62)
+- Deletado guard-qa-coverage.sh hook (redundante com guard-product-files.sh)
+- Criado .claude/rules/slide-patterns.md (patterns.md salvo como rule auto-loaded)
+- Limpas refs: HANDOFF, hooks/README, wiki/concepts/skill.md, settings.local.json
+
+### s-objetivos refactor
+- Removido objetivo 5 ("Certeza na evidencia / Pincelada em GRADE")
+- Grid 3x2 → 2-2-1 (2 top, 2 middle, 1 accent centralizado)
+- Click reveals: 3 grupos (1-2 conceitos, 3-4 metodologia, 5 punchline)
+- CSS: accent com grid-column:1/-1, justify-self:center, max-width:480px
+
 ## Sessao 133 — 2026-04-09 (insights + cleanup + docs)
 
 ### Insights S132 — 5 propostas aplicadas

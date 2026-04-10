@@ -20,7 +20,7 @@ Skills sao prompts especializados carregados sob demanda pelo harness. O OLMO te
 | Dominio | Skills | Exemplos |
 |---------|--------|----------|
 | Pesquisa | 2 | /research (6 pernas), /evidence |
-| Ensino | 3 | /slide-authoring, /teaching, /new-slide |
+| Ensino | 1 | /teaching |
 | Concurso | 2 | /concurso, /exam-generator |
 | Organizacao | 3 | /organization, /daily-briefing, /notion-publisher |
 | Infra | 5 | /insights, /review, /janitor, /dream, /wiki-lint |

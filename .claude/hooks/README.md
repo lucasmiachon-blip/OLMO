@@ -65,12 +65,6 @@
 |--------|----------|--------------|
 | `momentum-brake-arm.sh` | **ARM** | Creates lock after ANY tool use. Part of anti-KBP-01 structural gate |
 
-### PreToolUse (Skill) — QA Coverage Gate
-
-| Script | Behavior | What it guards |
-|--------|----------|----------------|
-| `guard-qa-coverage.sh` | **ASK** | Gates /new-slide and /slide-authoring when QA editorial coverage <50% |
-
 ### PreToolUse (.*) — Momentum Brake + Cost Brake
 
 | Script | Behavior | What it does |
