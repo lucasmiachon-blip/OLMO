@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Sessao 148 — 2026-04-10 (evidence CSS benchmark + DOIs clicaveis)
+
+### Evidence
+- CSS benchmark: `pre-reading-heterogeneidade.html` polido (bordas arredondadas, accordions azuis, callouts refinados)
+- CSS benchmark aplicado a 5 evidence HTMLs: s-hook, s-rs-vs-ma, s-objetivos, s-checkpoint-1, s-ancora
+- DOIs clicaveis: s-checkpoint-1 (2), s-ancora (1), s-objetivos (1)
+- Speaker notes: cor alterada de amber para azul (alinhado com accordions)
+- Padrao: CSS expandido, legivel, com comentarios de secao
+
+### Memory
+- `project_living_html.md`: benchmark CSS registrado (pre-reading-heterogeneidade S148)
+
 ## Sessao 147 — 2026-04-10 (colchicina MAs + clickable PMIDs)
 
 ### Evidence

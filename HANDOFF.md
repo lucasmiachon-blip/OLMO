@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
 > Sessao 148 | 2026-04-10
-> Foco: TBD
+> Foco: Refactor Evidence HTMLs + DOI Badges
 
 ## ESTADO ATUAL
 
@@ -19,11 +19,12 @@ Monorepo funcional. CI verde. Build OK (**15 slides** metanalise — s-forest-pl
   - Li 2026 (Am J Cardiovasc Drugs, 14 RCTs, 31,397 pts, PMID 40889093 VERIFIED)
 - Evidence HTML: `evidence/s-forest-plot.html` + `evidence/forest-plot-candidates.html` (9 candidatos, 6 combos).
 - **Pendente:** Lucas le as MAs e escolhe combo final. Crop forest plots pos-decisao.
-- **Proximo:** aplicar links clicaveis PMID (padrao benchmark) nos demais evidence HTMLs.
+- **DONE S148:** DOIs clicaveis + CSS benchmark aplicado nos 5 evidence HTMLs + benchmark polido.
 
 **s-pico: DONE (R12, --term teal token, punchline containment).**
 **s-importancia: DONE.** **s-contrato: DONE.**
 **Proximo QA:** s-absoluto (ou proximo LINT-PASS apos forest plot slides criados).
+**Proximo evidence:** Verificar PMIDs CANDIDATE nos evidence HTMLs e tornar clicaveis pos-verificacao.
 
 ## P1 — /insights trend watch
 
@@ -38,7 +39,7 @@ Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Se
 
 | # | Item | Detalhe |
 |---|------|---------|
-| 1 | Refatorar 5 evidence HTMLs + clickable PMIDs | s-hook, s-rs-vs-ma, s-objetivos, s-checkpoint-1, s-ancora (s-pico DONE S144). Aplicar padrao ref-pmid/V/C badges. |
+| 1 | ~~Refatorar 5 evidence HTMLs~~ DONE S148 | CSS benchmark + DOIs clicaveis aplicados. s-pico separado (CSS proprio S144). |
 | 2 | Pernas pendentes (research) | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
 | 3 | Adversarial deferred: M-01, M-10 | Policy decisions (Bash granularity, Canva MCP wildcard) |
 | 4 | Hook/config system review | JSON adequado? YAGNI audit |
@@ -49,7 +50,7 @@ Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Se
 ## DECISOES ATIVAS
 
 - **Living HTML = source of truth = SINTESE CURADA.**
-- **Evidence benchmark S131:** TODOS evidence HTMLs = estrutura pre-reading-heterogeneidade.
+- **Evidence CSS benchmark S148:** `pre-reading-heterogeneidade.html` = padrao-ouro visual. Aplicado a 5 evidence HTMLs.
 - **Estilo narrativo S119:** foco em metodologia, exemplos pontuais.
 - **Dual creation S135:** Gemini + Claude geram mockups HTML independentes. NUNCA Claude reescreve Gemini.
 - **Pedagogia adultos S135:** sem formulas em slides (1/√N proibido), numeros concretos SIM.
@@ -82,4 +83,4 @@ Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Se
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S147 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S148 2026-04-10
