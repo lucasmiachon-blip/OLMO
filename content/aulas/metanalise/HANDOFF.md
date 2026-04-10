@@ -45,7 +45,7 @@ I1 (s-checkpoint-1): ARCHIVED S107.
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 5 | s-rs-vs-ma | LINT-PASS | QA pendente. |
-| 6 | s-contrato | DONE | Movido de F1->F2 (S78). |
+| 6 | s-contrato | DONE | Evidence HTML S143. Click-reveal 2 cards. QA R11 PASS. |
 | 7 | s-pico | LINT-PASS | QA pendente. |
 | 8 | s-forest-plot | LINT-PASS | QA pendente. Dark-bg. |
 | 9 | s-benefit-harm | LINT-PASS | QA pendente. |

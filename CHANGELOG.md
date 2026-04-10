@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 143 — 2026-04-10 (s-contrato: evidence HTML + click-reveal + QA DONE)
+
+### Evidence — s-contrato
+- Criado evidence/s-contrato.html (benchmark structure: framework rationale, mapeamento perguntas→slides, speaker notes)
+- Adicionado campo evidence na _manifest.js
+
+### QA — s-contrato R11
+- Preflight PASS (4 dims). Inspect PASS (5/5 checks). Editorial 5.9/10 (6 FPs identificados)
+- FPs: css_cascade 2/10 (mesmo FP de s-importancia), failsafes 3/10, watermark "ausente" (existe via ::after)
+- Call D: 1 ceiling violation (UX 10→4), 2 FPs detectados. Score real ~7.0/10
+
+### Melhoria adversarial — click-reveal
+- Convertido auto-play → click-reveal por card (card 1 auto, cards 2-3 click)
+- Alinha visual com voz do apresentador (cada pergunta revelada quando nomeada)
+- Skill font-size 18→20px (legibilidade 10m projetor)
+- clickReveals: 0→2 no manifest
+
 ## Sessao 142 — 2026-04-10 (R14 Call D + s-importancia DONE + prompts 10m)
 
 ### QA — s-importancia R14 (primeiro round com Call D)

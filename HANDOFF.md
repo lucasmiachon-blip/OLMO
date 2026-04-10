@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
 > Sessao 143 | 2026-04-10
-> Foco: QA proximo slide (Lucas decide qual)
+> Foco: QA s-contrato
 
 ## ESTADO ATUAL
 
@@ -9,9 +9,10 @@ Monorepo funcional. CI verde. Build OK (16 slides metanalise).
 **Agentes: 10.** **Hooks: 38 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
 **Skills: 20.** **Memory: 20/20.** **.claudeignore: criado S128.**
 
-## P0 — QA slides (12 LINT-PASS restantes)
+## P0 — QA slides (11 LINT-PASS restantes)
 
 **s-importancia: DONE (R14, adjusted 7.0/10).** Primeiro slide QA completo com Call D.
+**s-contrato: DONE (R11, adjusted 5.9/10 — 6 FPs, real ~7.0/10).** Evidence HTML criado. Click-reveal 2 cards. Skill font 18→20px.
 
 Lucas decide proximo slide. Pipeline: 1 slide/vez, 4 calls (A+B+C+D).
 Prompts atualizados S142: design target = **auditorio 10m projetor** (nao TV 55" 6m).

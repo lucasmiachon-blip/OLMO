@@ -132,28 +132,44 @@ export const slideRegistry = {
 
   's-contrato': (slide, gsap) => {
     const cards = slide.querySelectorAll('.contrato-card');
-    const questions = slide.querySelectorAll('.contrato-question');
-    const skills = slide.querySelectorAll('.contrato-skill');
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    // Reveal a card + its children as a unit
+    const revealCard = (card) => {
+      const q = card.querySelector('.contrato-question');
+      const s = card.querySelector('.contrato-skill');
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.fromTo(card, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6 })
+        .fromTo(q, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.2')
+        .fromTo(s, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35 }, '-=0.1');
+    };
 
-    // 1. Cards rise + fade (architectural entrance — watermark numbers appear with card)
-    tl.fromTo(cards,
-      { opacity: 0, y: 40, scale: 0.98 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.2 }
-    )
-    // 2. Questions fade up
-    .fromTo(questions,
-      { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 0.5, stagger: 0.2, ease: 'power2.out' },
-      '-=0.3'
-    )
-    // 3. Skills fade up (cohesive with card entrance direction)
-    .fromTo(skills,
-      { opacity: 0, y: 10 },
-      { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power2.out' },
-      '-=0.2'
-    );
+    // Card 1: auto-play on slide enter
+    revealCard(cards[0]);
+
+    // Cards 2-3: click-reveal (professor controls pacing per question)
+    let revealed = 0;
+    const clickCards = [cards[1], cards[2]];
+
+    const advance = () => {
+      if (revealed >= clickCards.length) return false;
+      revealCard(clickCards[revealed]);
+      revealed++;
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      revealed--;
+      const card = clickCards[revealed];
+      const q = card.querySelector('.contrato-question');
+      const s = card.querySelector('.contrato-skill');
+      gsap.to([card, q, s], { opacity: 0, y: 20, duration: 0.3, ease: 'power3.in' });
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
   },
 
   's-checkpoint-1': (slide, gsap) => {

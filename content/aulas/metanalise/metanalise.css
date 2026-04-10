@@ -606,7 +606,7 @@ aside.notes { display: none; }
 }
 .contrato-skill {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 20px;
   color: var(--text-secondary);
   align-self: end;
   border-top: 1px solid var(--divider);
