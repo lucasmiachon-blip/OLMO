@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## Sessao 136 — 2026-04-10 (build slides + poda)
+
+### Build
+- s-importancia: index.html rebuilt (16 slides)
+
+### Poda — 3 slides removidos
+- s-grade (08-grade.html): GRADE standalone — permeia outros slides, nao precisa de dedicado
+- s-abstract (05-abstract.html): PRISMA e para producao, nao appraisal
+- s-aplicacao (14-aplicacao.html): claim incorreta — GRADE foi avaliado em apendice
+- CSS orphan cleanup: ~95 linhas (pipeline-flow, grade-stack, compare-footer--gap)
+- QA screenshots: 3 diretorios removidos
+- Mockups consumidos: mockup-importancia-A/B deletados
+
+### Archetype removal
+- Campo `archetype` removido de todas as entradas do manifest (liberdade artistica)
+
+### Documentacao
+- narrative.md: F2 (7 slides) e F3 (4 slides) atualizados
+- blueprint.md: slides 06, 09, 14 marcados como removidos
+- metanalise/HANDOFF.md: reescrito — 16 slides, deck order, tabela renumerada
+
+### Memoria
+- reference_notion_databases.md deletado (Notion froze)
+- project_metanalise.md atualizado (16 slides, research path, archetype note)
+- MEMORY.md: 19/20 files, Notion entry removida
+- Dream rodou S136
+
 ## Sessao 135 — 2026-04-09 (build s-importancia)
 
 ### s-importancia — slide criado
