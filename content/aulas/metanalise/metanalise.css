@@ -411,10 +411,13 @@ aside.notes { display: none; }
   color: var(--ui-accent);
   line-height: 1;
   flex-shrink: 0;
-  min-width: 2ch;
+  width: 1.5em;
+  text-align: center;
 }
 .pico-neq {
-  color: var(--downgrade);
+  color: var(--danger);
+  font-weight: 700;
+  font-size: 1.15em;
 }
 .pico-content {
   display: flex;
@@ -435,15 +438,17 @@ aside.notes { display: none; }
   line-height: 1.3;
 }
 
-/* --- PICO punchline (indirectness reveal) --- */
-.pico-punchline {
+/* --- PICO punchline (indirectness reveal) ---
+   Specificity must beat .stage-c #deck p (0,1,1,1) which sets max-width: 56ch.
+   Using #deck p.pico-punchline (0,1,1,1) — wins by cascade order (loaded after base.css). */
+#deck p.pico-punchline {
   font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: 500;
   color: var(--text-primary);
   text-align: center;
   padding: var(--space-sm) var(--space-md);
-  border-top: 2px solid var(--downgrade);
+  border-top: 1px solid var(--downgrade);
   max-width: none;
   width: 100%;
 }

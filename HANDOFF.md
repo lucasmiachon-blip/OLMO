@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 145 | 2026-04-10
-> Foco: s-pico QA pipeline
+> Sessao 146 | 2026-04-10
+> Foco: TBD
 
 ## ESTADO ATUAL
 
@@ -9,13 +9,13 @@ Monorepo funcional. CI verde. Build OK (16 slides metanalise).
 **Agentes: 10.** **Hooks: 38 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
 **Skills: 20.** **Memory: 19/20 (1 slot livre).** **.claudeignore: criado S128.**
 
-## P0 — QA slides (11 LINT-PASS restantes)
+## P0 — QA slides (10 LINT-PASS restantes)
 
 **s-importancia: DONE (R14, adjusted 7.0/10).** Primeiro slide QA completo com Call D.
-**s-contrato: DONE (R11, adjusted 5.9/10 — 6 FPs, real ~7.0/10).** Evidence HTML criado. Click-reveal 2 cards. Skill font 18→20px.
-**s-pico: evidence refatorado (benchmark), h2 com RS.** QA pipeline pendente (Step 3 do plano).
+**s-contrato: DONE (R11, adjusted 5.9/10 — 6 FPs, real ~7.0/10).** Evidence HTML criado. Click-reveal 2 cards.
+**s-pico: DONE (R11, adjusted 7.3/10 — 2 FPs, real ~8.0/10).** 5 CSS fixes aplicados. Remaining: proporcao/gestalt/composicao refinements.
 
-**Proximo: s-pico QA.** Pipeline: Preflight → Inspect → Editorial (4 calls A+B+C+D).
+**Proximo: s-absoluto** (ou proximo slide da fila LINT-PASS).
 Design target = **auditorio 10m projetor**.
 
 ## P1 — /insights trend watch
@@ -25,7 +25,7 @@ Observar S142-S144. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
 
 ## P2 — css_cascade FP exclusion
 
-R14 confirmou css_cascade como FP persistente (2/10 — failsafe rules corretamente scoped mas Gemini nao distingue condicional de global). Candidato para exclusao explicita no prompt de Call B.
+R14 confirmou css_cascade como FP persistente (s-importancia 2/10, s-contrato 2/10, s-pico 6/10 — failsafe rules corretamente scoped mas Gemini nao distingue condicional de global). Candidato para exclusao explicita no prompt de Call B.
 
 ## BACKLOG (pos-deadline)
 
@@ -65,7 +65,8 @@ R14 confirmou css_cascade como FP persistente (2/10 — failsafe rules corretame
 - MCP gate + Research gate: hooks force "ask" antes de MCP/research calls.
 - MCP freeze ate 2026-04-14. PubMed session expirou S129.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
-- Gemini FPs conhecidos: css_cascade (2/10 R14) — failsafe rules corretamente scoped mas Gemini confunde condicional com global leak. failsafes corrigido (3→8/10 com FP injection).
+- Gemini FPs conhecidos: css_cascade (2-6/10 across slides) e failsafes/@media print — FPs persistentes, Call D confirma.
+- **QA Preflight S145:** analise visual SEPARADA do codigo (2 fases). Notas numericas sao aleatorias — foco em WHAT/WHY/PROPOSAL.
 - Auto-dream: loop funcionando (S142 dream ran, no new signal).
 - Secrets audit manual: nenhum secret verificado no git history. trufflehog/gitleaks nao instalados — scan definitivo pendente.
 

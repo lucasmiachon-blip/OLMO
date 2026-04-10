@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Sessao 145 — 2026-04-10 (s-pico QA pipeline complete)
+
+### QA — s-pico R11
+- Preflight: punchline max-width specificity fix (`#deck p.pico-punchline` beats `.stage-c #deck p`)
+- Inspect: PASS (zero defects, $0.002)
+- Editorial: 7.3/10 adjusted (V:6.8 U:7.6 M:7.6). 2 FPs (css_cascade, failsafes/@media print)
+- Call D: 3 ceiling violations corrected, 2 FPs identified
+- 5 CSS fixes: punchline specificity, letter width (1.5em fixed), border-top 2px→1px, ≠ bold+larger, ≠ color downgrade→danger
+
+### Memory
+- feedback_qa_use_cli_not_mcp: visual e codigo em fases SEPARADAS (S145 lesson: specificity override invisivel no codigo, visivel no screenshot)
+- feedback_qa_use_cli_not_mcp: notas numericas aleatorias — foco WHAT/WHY/PROPOSAL
+
 ## Sessao 144 — 2026-04-10 (s-pico evidence + narrative→HTML migration + cleanup)
 
 ### Evidence — s-pico
