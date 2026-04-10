@@ -22,6 +22,12 @@ aside.notes { display: none; }
   --text-body:    20px;
   --text-small:   20px;
   --text-caption: 18px;
+
+  /* Term — technical vocabulary introduced for the first time.
+     Teal hue (190°) distinct from all semantic tokens: danger(8°), downgrade(55°), safe(140°), accent(258°).
+     Chroma 0.12 = clearly colored at 10m projection. */
+  --term:       oklch(35% 0.12 190);
+  --term-light: color-mix(in oklch, var(--term) 15%, oklch(97% 0.001 258));
 }
 
 /* --- Slide layout --- */
@@ -448,14 +454,14 @@ aside.notes { display: none; }
   color: var(--text-primary);
   text-align: center;
   padding: var(--space-sm) var(--space-md);
-  border-top: 1px solid var(--downgrade);
-  max-width: none;
-  width: 100%;
+  border-top: 1px solid color-mix(in oklch, var(--downgrade) 50%, transparent);
+  max-width: 80%;
+  margin-inline: auto;
 }
 .pico-punchline em {
-  font-style: italic;
-  color: var(--downgrade);
-  font-weight: 600;
+  font-style: normal;
+  color: var(--term);
+  font-weight: 700;
 }
 
 /* GSAP initial state — hidden until custom anim reveals */

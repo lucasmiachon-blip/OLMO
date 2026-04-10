@@ -27,6 +27,10 @@ KNOWN DESIGN DECISIONS (NAO sao defeitos — NAO flagear):
 - opacity:1 sob `.no-js`, `.stage-bad`, `[data-qa]`, `@media print` e failsafe INTENCIONAL de design.
 - Navy card 300px e hero INTENCIONAL (Lucas decidiu S139).
 - Se um "problema" ja apareceu em rounds anteriores com status ADDRESSED, NAO repetir.
+
+FALSOS POSITIVOS CONFIRMADOS (gastar atencao em outros pontos):
+- **css_cascade: seletores de failsafe (.no-js, .stage-bad, @media print) NAO sao conflitos de cascade.** Eles existem como rede de seguranca deliberada. O fato de terem specificity diferente da regra base e INTENCIONAL — eles so atuam quando o contexto muda (JS falha, erro de stage). NAO rebaixar css_cascade por causa deles.
+- **failsafes: ausencia de @media print NAO e defeito.** Estes slides sao EXCLUSIVAMENTE projetados em auditorio. @media print e irrelevante. NAO rebaixar failsafes por falta de print styles.
 </system>
 
 ## MATERIAIS — CODIGO FONTE
