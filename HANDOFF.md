@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 143 | 2026-04-10
-> Foco: QA s-contrato
+> Sessao 144 | 2026-04-10
+> Foco: s-pico — atualizar evidence HTML (benchmark), adicionar RS ao titulo, QA
 
 ## ESTADO ATUAL
 
@@ -14,8 +14,8 @@ Monorepo funcional. CI verde. Build OK (16 slides metanalise).
 **s-importancia: DONE (R14, adjusted 7.0/10).** Primeiro slide QA completo com Call D.
 **s-contrato: DONE (R11, adjusted 5.9/10 — 6 FPs, real ~7.0/10).** Evidence HTML criado. Click-reveal 2 cards. Skill font 18→20px.
 
-Lucas decide proximo slide. Pipeline: 1 slide/vez, 4 calls (A+B+C+D).
-Prompts atualizados S142: design target = **auditorio 10m projetor** (nao TV 55" 6m).
+**Proximo: s-pico.** Tarefas: (1) atualizar evidence/s-pico.html para benchmark, (2) adicionar RS ao titulo/h2, (3) QA pipeline.
+Pipeline: 1 slide/vez, 4 calls (A+B+C+D). Design target = **auditorio 10m projetor**.
 
 ## P1 — /insights trend watch
 
