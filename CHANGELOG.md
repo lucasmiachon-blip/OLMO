@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 149 — 2026-04-10 (CANDIDATE PMID verification Batch A)
+
+### Evidence — PMID Verification
+- 14 PMIDs verificados via PubMed MCP (3-field cross-ref: autor+titulo+journal)
+- 11 VERIFIED direto (3/3 match): Dawes 15634359, Borenstein 38938910, Ilic 24528395, Rees 15189255, ACE Tool 24909434, Elliott 28912002, Whittemore 16268861, Pawson 16053581, Hyman 26287849, Soumare 41325621, Juraschek 37847274
+- 2 PMIDs corrigidos: Aromataris 26657463→26360830, Garritty 34384532→33068715
+- 1 PMID ok mas dados suspect: Nasr 29713212 (titulo/journal corrigidos, dados forest plot 44→76% nao no abstract)
+- Badges C→V atualizados em s-objetivos.html (~11 markers), s-rs-vs-ma.html (~6 markers), forest-plot-candidates.html (~2 markers)
+- Citacoes corrigidas: Nasr (titulo+journal), Borenstein (titulo+vol), Rees (titulo+issue+pages), Aromataris (PMID+journal), Garritty (PMID+journal+citation)
+- Footer s-objetivos atualizado: 12 VERIFIED, 2 CANDIDATE, 2 WEB-VERIFIED
+
+### Erros recorrentes observados
+- Journal name hallucination (3/14): LLM acerta tema, inventa journal
+- PMID de paper vizinho: mesmo journal, paper diferente (Aromataris case)
+- Data fabrication: dados plausivel atribuidos a paper que nao os contem (Nasr forest plot)
+- Erratum trap: PMID aponta para errata em vez de paper original (Garritty case)
+
 ## Sessao 148 — 2026-04-10 (evidence CSS benchmark + DOIs clicaveis)
 
 ### Evidence

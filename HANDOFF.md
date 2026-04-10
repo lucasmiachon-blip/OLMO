@@ -1,7 +1,7 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 148 | 2026-04-10
-> Foco: Refactor Evidence HTMLs + DOI Badges
+> Sessao 149 | 2026-04-10
+> Foco: CANDIDATE PMID verification (Batch A)
 
 ## ESTADO ATUAL
 
@@ -20,11 +20,12 @@ Monorepo funcional. CI verde. Build OK (**15 slides** metanalise — s-forest-pl
 - Evidence HTML: `evidence/s-forest-plot.html` + `evidence/forest-plot-candidates.html` (9 candidatos, 6 combos).
 - **Pendente:** Lucas le as MAs e escolhe combo final. Crop forest plots pos-decisao.
 - **DONE S148:** DOIs clicaveis + CSS benchmark aplicado nos 5 evidence HTMLs + benchmark polido.
+- **DONE S149 (Batch A):** 14 PMIDs verificados via PubMed MCP. 11 VERIFIED direto, 2 PMIDs corrigidos (Aromataris 26360830, Garritty 33068715), 1 PMID ok mas dados forest plot nao confirmados (Nasr 29713212).
 
 **s-pico: DONE (R12, --term teal token, punchline containment).**
 **s-importancia: DONE.** **s-contrato: DONE.**
 **Proximo QA:** s-absoluto (ou proximo LINT-PASS apos forest plot slides criados).
-**Proximo evidence:** Verificar PMIDs CANDIDATE nos evidence HTMLs e tornar clicaveis pos-verificacao.
+**Proximo evidence:** Batch B (PMC→PMID conversions: PMC12991648, PMC12843294, Ebrahimi DOI, CLEAR SYNERGY) + Batch C (Renfro/Sargent, Park/JCO, Berlin Questionnaire, Fresno Test). ~11 CANDIDATEs restam em 5 HTMLs.
 
 ## P1 — /insights trend watch
 
@@ -71,7 +72,7 @@ Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Se
 - npm scripts: rodar de `content/aulas/`, NAO da raiz.
 - KBP-07 anti-workaround, KBP-08 anti-substituicao, KBP-09 anti-routing, KBP-10 anti-destructive, KBP-11 Gemini thinking pool, KBP-12 structured output.
 - MCP gate + Research gate: hooks force "ask" antes de MCP/research calls.
-- MCP freeze ate 2026-04-14. PubMed session expirou S129.
+- MCP freeze ate 2026-04-14 (9 frozen; PubMed/SCite/Consensus ativos). PubMed MCP reconectou S149.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
 - Gemini FPs conhecidos: css_cascade (2-6/10 across slides) e failsafes/@media print — FPs persistentes, Call D confirma.
 - **QA Preflight S145:** analise visual SEPARADA do codigo (2 fases). Notas numericas sao aleatorias — foco em WHAT/WHY/PROPOSAL.
@@ -83,4 +84,4 @@ Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Se
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S148 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S149 2026-04-10
