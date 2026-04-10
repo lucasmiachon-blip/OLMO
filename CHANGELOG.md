@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 137 — 2026-04-10 (QA s-importancia)
+
+### QA Preflight — s-importancia
+- CSS: overflow corrigido (fillRatio 1.25→0.84) — margin reset, flex:1 removido, spacing reduzido
+- CSS: `#162032` literais → tokens `--_navy-card` / `--_navy-dark`
+- CSS: bordas `--safe`/`--warning`/`--downgrade` → `--ui-accent` (decorativo, nao clinico)
+- CSS: `.imp-mech-label` 16→18px (minimo projecao)
+- CSS: contraste navy card `--text-on-dark-muted` → `--text-on-dark`
+- HTML: 5 rows reescritas com numeros verificados (Borenstein 2021, Lau 1992, Kastrati 2024)
+- HTML: acentos PT-BR corrigidos em todo o slide
+- HTML: repeticao "pool" eliminada (1 ocorrencia restante no mechanism desc)
+- HTML: source-tag atualizado com Kastrati 2024
+
+### Erros da sessao
+- h2 removido por erro de interpretacao — Lucas NAO pediu remocao. P0 na proxima sessao.
+- section-tag removido junto — mesmo erro.
+
 ## Sessao 136 — 2026-04-10 (build slides + poda)
 
 ### Build

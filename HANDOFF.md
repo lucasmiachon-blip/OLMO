@@ -1,22 +1,29 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 136 | 2026-04-10
-> Foco: build slides + poda
+> Sessao 137 | 2026-04-10
+> Foco: QA s-importancia
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build OK (16 slides metanalise — 3 removidos, s-importancia adicionado).
+Monorepo funcional. CI verde. Build OK (16 slides metanalise).
 **Agentes: 10.** **Hooks: 39 registrations.** **Rules: 10**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 10.**
 **Skills: 18.** **Memory: 19/20.** **.claudeignore: criado S128.**
 
-## P0 — QA s-importancia
+## P0 — RESTAURAR h2 em s-importancia
 
-Slide criado S135, built S136. Proximo: QA pipeline.
-1. Preflight (dims objetivas: cor, tipografia, hierarquia)
-2. `gemini-qa3.mjs --inspect` (Gate 0)
-3. `gemini-qa3.mjs --editorial` (Gate 4)
+h2 foi removido por erro de interpretacao S137. Lucas NAO pediu remocao. Restaurar h2 com classe `slide-headline` (padrao dos demais slides). Texto do h2: Lucas decide.
 
-## P1 — QA restantes (12 slides LINT-PASS)
+## P1 — QA s-importancia (continuar)
+
+Preflight parcial S137. CSS e conteudo corrigidos. Pendencias esteticas:
+1. Row 3 quebra em 2 linhas (texto longo — encurtar)
+2. Alinhamento geral (h2 restaurado muda layout)
+3. Verificar contraste navy no projetor (6m)
+4. Refazer Preflight completo apos h2 restaurado
+5. Gate 0: `gemini-qa3.mjs --aula metanalise --slide s-importancia --inspect`
+6. Gate 4: `gemini-qa3.mjs --aula metanalise --slide s-importancia --editorial`
+
+## P2 — QA restantes (12 slides LINT-PASS)
 
 Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 
@@ -50,10 +57,11 @@ Lucas decide qual slide. Pipeline: 1 slide/vez, 3 gates.
 - MCP gate + Research gate: hooks force "ask" antes de MCP/research calls.
 - MCP freeze ate 2026-04-14. PubMed session expirou S129.
 - Projetor metanalise: ~10m distancia. Legibilidade = constraint #1.
+- **h2 = trabalho do Lucas.** NUNCA remover/reescrever h2 sem instrucao EXPLICITA e inequivoca.
 
 ## CONFLITOS
 
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S136 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S137 2026-04-10
