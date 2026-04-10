@@ -2,82 +2,76 @@
 
 > Estado operacional dos slides. Atualizar ao final de cada sessao.
 > Cross-ref: root `HANDOFF.md` (workflow de agentes, decisoes globais, security, pendentes herdados)
-> Migrado de wt-metanalise para monorepo em 2026-03-31. Ultima atualizacao: S78.
+> Migrado de wt-metanalise para monorepo em 2026-03-31. Ultima atualizacao: S136.
 
 ---
 
 ## Estado atual
 
 - **Fase:** QA slide-a-slide (1 por vez, Lucas decide qual)
-- **Slides:** 19/19 no deck. Lint PASS. Build PASS. Orphans: 0.
+- **Slides:** 16/16 no deck. Lint PASS. Build PASS. Orphans: 0.
 - **Ancora:** Valgimigli 2025 Lancet (PMID 40902613) — IPD-MA, 7 RCTs, 28.982 pts
 - **GSAP plugins:** SplitText + Flip + ScrambleTextPlugin
-- **Dark-bg:** 6 slides (s-checkpoint-1/2, s-forest-plot, s-heterogeneity, s-ancora, s-absoluto)
+- **Dark-bg:** 5 slides (s-checkpoint-2, s-forest-plot, s-heterogeneity, s-ancora, s-absoluto)
 - **HEX navy:** #162032
 
-## Ordem do deck (atualizada S78)
+## Ordem do deck (atualizada S136)
 
 ```
-F1: s-title -> s-objetivos -> s-hook
-I1: s-checkpoint-1
-F2: s-rs-vs-ma -> s-contrato -> s-pico -> s-abstract -> s-forest-plot -> s-benefit-harm -> s-grade -> s-heterogeneity -> s-fixed-random
+F1: s-title -> s-objetivos -> s-hook -> s-importancia
+F2: s-rs-vs-ma -> s-contrato -> s-pico -> s-forest-plot -> s-benefit-harm -> s-heterogeneity -> s-fixed-random
 I2: s-checkpoint-2
-F3: s-ancora -> s-aplicacao -> s-aplicabilidade -> s-absoluto -> s-takehome
+F3: s-ancora -> s-aplicabilidade -> s-absoluto -> s-takehome
 ```
+
+Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia outros slides), s-aplicacao (claim incorreta).
+I1 (s-checkpoint-1): ARCHIVED S107.
 
 ## Estado dos Slides
 
 > Estados: BACKLOG -> DRAFT -> CONTENT -> SYNCED -> LINT-PASS -> QA -> DONE
 
-### F1 — Criar importancia (3 slides)
+### F1 — Criar importancia (4 slides)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 1 | s-title | DONE | Choreography + masking. Gemini beauty 9, legibility 10. |
-| 2 | s-objetivos | QA | Preflight pendente (novo pipeline S95). Gate 0/4 pendentes. customAnim: null. |
-| 3 | s-hook | DONE | Asymmetric grid, countUp GSAP. 14-dim avg 9.36. |
+| 1 | s-title | DONE | Choreography + masking. |
+| 2 | s-objetivos | QA | Preflight pendente. |
+| 3 | s-hook | DONE | Asymmetric grid, countUp GSAP. |
+| 4 | s-importancia | LINT-PASS | Criado S135. Build S136. |
 
-### I1 — Checkpoint (1 slide)
-
-| # | Slide | Estado | Notas |
-|---|-------|--------|-------|
-| 4 | s-checkpoint-1 | QA | ACCORD trap. Screenshots S0+S2 OK. Fixes pendentes: axis 10px->14px, trial names 16px->18px, tabular-nums. |
-
-### F2 — Metodologia (9 slides)
+### F2 — Metodologia (7 slides)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 5 | s-rs-vs-ma | LINT-PASS | QA pendente. |
-| 6 | s-contrato | DONE | Movido de F1->F2 (S78). Watermark-only 35%. |
+| 6 | s-contrato | DONE | Movido de F1->F2 (S78). |
 | 7 | s-pico | LINT-PASS | QA pendente. |
-| 8 | s-abstract | LINT-PASS | QA pendente. |
-| 9 | s-forest-plot | LINT-PASS | QA pendente. Dark-bg. |
-| 10 | s-benefit-harm | LINT-PASS | QA pendente. |
-| 11 | s-grade | LINT-PASS | QA pendente. |
-| 12 | s-heterogeneity | LINT-PASS | QA pendente. Dark-bg. |
-| 13 | s-fixed-random | LINT-PASS | QA pendente. |
+| 8 | s-forest-plot | LINT-PASS | QA pendente. Dark-bg. |
+| 9 | s-benefit-harm | LINT-PASS | QA pendente. |
+| 10 | s-heterogeneity | LINT-PASS | QA pendente. Dark-bg. |
+| 11 | s-fixed-random | LINT-PASS | QA pendente. |
 
 ### I2 — Checkpoint (1 slide)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 14 | s-checkpoint-2 | LINT-PASS | QA pendente. Dark-bg. |
+| 12 | s-checkpoint-2 | LINT-PASS | QA pendente. Dark-bg. |
 
-### F3 — Aplicacao Valgimigli (5 slides)
+### F3 — Aplicacao Valgimigli (4 slides)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 15 | s-ancora | LINT-PASS | Notes enriquecidas. Dark-bg. |
-| 16 | s-aplicacao | LINT-PASS | Notes enriquecidas. |
-| 17 | s-aplicabilidade | LINT-PASS | Notes enriquecidas. |
-| 18 | s-absoluto | LINT-PASS | Dark-bg. |
-| 19 | s-takehome | LINT-PASS | |
+| 13 | s-ancora | LINT-PASS | Dark-bg. |
+| 14 | s-aplicabilidade | LINT-PASS | |
+| 15 | s-absoluto | LINT-PASS | Dark-bg. |
+| 16 | s-takehome | LINT-PASS | |
 
 ### Resumo
 
-- **DONE (4):** s-title, s-hook, s-contrato, (s-objetivos quase)
-- **QA (2):** s-objetivos (Preflight pendente, gates pendentes), s-checkpoint-1 (fixes pendentes)
-- **LINT-PASS (13):** restantes
+- **DONE (3):** s-title, s-hook, s-contrato
+- **QA (1):** s-objetivos
+- **LINT-PASS (12):** restantes
 
 ## Proximo (Lucas decide)
 
@@ -92,10 +86,8 @@ QA 1 slide por vez. Pipeline por slide:
 
 | Item | Impacto | Acao |
 |------|---------|------|
-| ~40 refs `--on-dark` tokens | Naming misleading, funcional | Cleanup futuro |
 | Cochrane forest plots | Precisam screenshots/crops reais | Acessar via CAPES |
 | s-objetivos customAnim | stagger nao wired | Apos QA visual |
-| Codex adversarial review | 2 arquivos em .claude/ | Lucas decidir sobre conteudo dos objetivos |
 
 ## Fontes
 
@@ -106,17 +98,13 @@ QA 1 slide por vez. Pipeline por slide:
 | `evidence/s-{id}.html` | Living HTML per slide. Dados clinicos verificados, PMIDs |
 | `references/narrative.md` | Arco narrativo, beats de tensao |
 | `references/blueprint.md` | Mapa slide-a-slide com evidencias |
-| `references/research-accord-valgimigli.md` | Briefing ACCORD + Valgimigli |
 | `references/reading-list.md` | Pre-reading (4 papers) |
-| `evidence/research-gaps-report.md` | Gaps de evidence HTML por slide (S78) |
 
 ### Externas (MCPs)
 
-PubMed (verificar PMIDs) . Scite (citation tallies) . Perplexity (estado da arte) . Consensus (consenso quantitativo)
+PubMed (verificar PMIDs) . Scite (citation tallies)
 
 ---
 
 > Workflow de agentes, decisoes globais, security: root `HANDOFF.md`
-> Historico completo: `HANDOFF-ARCHIVE.md`
 > QA pipeline detalhado: `.claude/rules/qa-pipeline.md`
-> Auditoria agents/scripts: `docs/aulas/AGENT-AUDIT-S78.md`
