@@ -108,6 +108,17 @@ Agent definitions (`.claude/agents/*.md`) MUST reference scripts, not reimplemen
 When agent behavior diverges from script behavior: the script is correct.
 NEVER create new scripts without Lucas's explicit request.
 
+## Pointer-only discipline (auto-loaded docs)
+
+Auto-loaded docs (rules/, CLAUDE.md, HANDOFF.md) usam Formato C+:
+`## Item Name` + `→ pointer.md §section`. Prose vive no pointer target.
+
+Underlying LLMOps degradation patterns que empurram docs para prose inline: verbosity bias, context padding, sycophantic elaboration, unbounded generation, prompt dilution, context bloat, auto-regressive drift. Cada /insights adiciona "clareza" sem checar se pointer ja cobria.
+
+Trigger: adicionar KBP/rule com Fix/Evidencia/Trigger inline = violacao. Forense (Lucas quotes, evidence, timeline) vive em `git history` + `CHANGELOG.md` (append-only). `git log -S '<literal>'` resolve forense.
+
+Enforcement: KBP-16 em `known-bad-patterns.md` aponta para esta secao. Ao criar KBP-17+ ou nova rule, Format C+ e mandatorio.
+
 ## Code quality
 
 - Type hints in all functions. Docstrings only on public functions.
