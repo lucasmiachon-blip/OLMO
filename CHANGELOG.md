@@ -1,5 +1,66 @@
 # CHANGELOG
 
+## Sessao 154 — 2026-04-11 (INFRA_LEVE2 — execucao plano S153)
+
+### Escopo
+Execucao do plano `.claude/plans/sunny-plotting-fountain.md` criado em S153. Originalmente A+B+C; um Scope D emergiu durante audit (dead JSON pipeline). Tudo entregue antes do fim da sessao. Lucas: "slides amanha somente" → S155 sera slides puro.
+
+### Commits
+- **`f368fdb`** — Scope C — research SKILL.md Step 2 ganhou coluna `type` (paper|book|guideline|preprint|web) + Fallback ID quando PMID/DOI ausente. Fecha BACKLOG #7 (P005). 1 file, +27/-9.
+- **`e5cf768`** — Scope D (emergente) — kill dead JSON-driven /research pipeline. Removidos: `evidence/s-pico.json`, `evidence/s-rs-vs-ma.json`, `scripts/generate-evidence-html.py`. SKILL.md ainda referenciava o flow JSON→HTML como ativo (doc-rot desde S75); referencias atualizadas. Living HTML como source-of-truth confirmado canonico. 5 files, +12/-189.
+- **`2ac4869`** — Scope A — remocao completa de s-checkpoint-1 do active deck. 14 arquivos, +16/-248. Detalhe abaixo.
+- **(este wrap)** — HANDOFF + CHANGELOG + plan archive.
+
+### Scope A (commit 2ac4869) — s-checkpoint-1 fora do active deck
+Slide ARCHIVED desde S107, mas com ~200 linhas canonicas vivas + 11 cross-refs ativas. Removido em 6 fases:
+
+1. **Mover artefatos para `_archive/`:** `slides/03-checkpoint-1.html`, `evidence/s-checkpoint-1.html`, `references/research-accord-valgimigli.md`.
+2. **Deletes estruturais:**
+   - `metanalise.css` linhas 918-1060 (~142 linhas: `#s-checkpoint-1` + `.ck1-*` exclusivas). Classes `.checkpoint-*` compartilhadas com checkpoint-2 PRESERVADAS.
+   - `slide-registry.js` linhas 175-232 (factory `'s-checkpoint-1'`, 58 linhas).
+   - `slides/_manifest.js` comment header + entry comentada S107 + linha em branco.
+3. **Build verification:** `npm run build:metanalise` PASS = 15 slides.
+4. **Cross-ref rewrites (8 arquivos, 11 edits):**
+   - `evidence/meta-narrativa.html`: header "3 fases + 2 interacoes" → "3 fases + 1 interacao"; phase-box I1 deletado.
+   - `evidence/blueprint.html`: section `#i1` deletada inteira; caveat I2 reescrito sem mention de CP1.
+   - `evidence/s-pico.html`: 2 menções a "slide 03 (checkpoint-1, ACCORD trap)" reescritas como tensoes genericas.
+   - `evidence/s-rs-vs-ma.html`: 2 ediçoes (preservada referencia ao abstract na linha 116; tensao + ancora retrospectiva reescritas sem ACCORD).
+   - `evidence/s-importancia.html`: transicao "→ s-checkpoint-1 (ACCORD trap)" → "→ s-rs-vs-ma (RS ≠ MA)". Slide real apos s-importancia confirmado via `_manifest.js`.
+   - `slides/04-rs-vs-ma.html`: speaker note linha 41 "Âncora ACCORD: diamante = MA, quadrados = RS" → "Analogia: diamante = sumario da MA, quadrados = estudos individuais da RS"; nota conceitual nova ("Uma RS pode conter VARIAS MAs..." — subgrupos, sensibilidade, outcomes diferentes).
+   - `metanalise/HANDOFF.md`: linha "I1 (s-checkpoint-1): ARCHIVED S107" deletada.
+   - `metanalise/CLAUDE.md`: "3 fases + 2 interacoes" → "3 fases + 1 interacao", removida excecao I1 ACCORD, atualizado de "18/18 slides" para "15/15 slides" (doc-rot resolvido).
+5. **Removido `qa-screenshots/s-checkpoint-1/`** (gitignored, 3 files / 156K — Lucas pre-aprovou no plano).
+6. **Verificacao final:** `grep -r checkpoint-1` retornou apenas artefatos historicos legitimos (CHANGELOG, ERROR-LOG, _archive, _archived, S112 harvest, research-gaps-report). Zero referencias em codigo vivo.
+
+### Scope B — 18 orphan plans archived
+Listagem do HANDOFF S152 P0. Lucas autorizou batch ("plans pode arquivar todos") em vez de per-file (override pragmatico KBP-10 para o canal `.claude/plans/`, dado que default = keep ja oferecia rede de seguranca). Movidos para `.claude/plans/archive/SXXX-{slug}.md` onde SXXX = sessao em que foi consumido (inferida do conteudo do plano):
+
+S135-deep-mixing-badger, S136-tingly-crafting-codd, S137-precious-inventing-petal, S138-floating-gathering-starfish, S138-greedy-toasting-quasar, S139-purrfect-spinning-barto, S141-compiled-sleeping-raven, S142-compiled-sleeping-raven-agent, S143-transient-coalescing-balloon, S144-steady-snuggling-hammock, S145-dazzling-skipping-koala, S145-ticklish-booping-lemon, S145-vast-shimmying-toast, S147-cached-snuggling-donut, S148-resilient-napping-willow, S149-idempotent-orbiting-hinton, S150-nested-wibbling-pearl, S151-magical-growing-harbor.
+
+`sunny-plotting-fountain.md` (plano S153) arquivado neste wrap como `S154-sunny-plotting-fountain.md` — consumido em S154.
+
+### Decisoes resolvidas
+- **Living HTML = sintese curada escrita direto.** S154 confirmou via dead pipeline removal (Scope D): nao ha pipeline JSON→HTML automatico, e nao deve haver. Ler papers → escrever HTML diretamente. JSON intermediario foi YAGNI desde S46-S48.
+- **Plans batch archive aceitavel quando default = keep + Lucas autoriza explicitamente.** KBP-10 protege contra delecao silenciosa, nao contra archivamento explicito.
+- **`.checkpoint-*` classes (compartilhadas) preservadas; `.ck1-*` (exclusivas) removidas.** Padrao reusavel para futuros expurgos: identificar shared vs exclusive antes de deletar.
+- **Plano S153 nasceu inflado e foi util.** O esforco de mapear exaustivamente cada resquicio (grep literal + grep classes + grep conceitual + grep PMIDs) eliminou o risco de quebrar build durante execucao. Foi o que permitiu Scope A passar de 248 linhas removidas em 14 arquivos com zero retrabalho.
+
+### Descobertas (BACKLOG #8 NOVO)
+**Postmortem dead JSON+py pipeline (Lucas: "para registrar"):**
+- Origem: S46-S48 (criou s-pico.json + s-rs-vs-ma.json + generate-evidence-html.py com intencao de pipeline JSON→HTML automatico).
+- Abandono: S75 (Lucas decidiu Living HTML como source-of-truth, editado direto). Mas os 3 arquivos ficaram orfaos. SKILL.md continuou referenciando o flow como se fosse ativo (doc-rot).
+- Remocao: S154 (Scope D emergente — descoberto durante audit do Scope A grep de cross-refs).
+- Hipoteses para investigar: (a) YAGNI — abstracao prematura para escala que nunca veio, (b) abstraction mismatch — JSON e bom para dados, mas evidencia clinica e prosa narrativa que JSON empobrece, (c) Lucas iniciante em S46 — copiou padrao de pipelines de dados sem perceber que conteudo curado nao se beneficia. Postmortem registrado para self-improvement; analise plena fica para S156+.
+
+### Protocol
+- 3 commits atomicos (C → D → A) + wrap. Cada commit pre-commit hooks PASS.
+- Fase Scope A seguiu plano linear: phase 1 (move) → 2 (structural delete) → 3 (build verify) → 4 (cross-ref rewrites) → 5 (final grep) → 6 (qa-screenshots cleanup).
+- Anti-drift §Verification gate: post-compaction re-leitura de TODOS os arquivos de evidence antes de editar. Garantiu zero edits as-blind.
+- KBP-13 aplicado: claim sobre "proximo slide apos s-importancia" verificada via `_manifest.js` antes de escrever a transicao (correção: era s-rs-vs-ma, nao s-pico).
+- Doc-rot evidence: CLAUDE.md tinha "18/18 slides" stale (correto = 15). Resolvido este wrap.
+
+---
+
 ## Sessao 153 — 2026-04-11 (INFRA_LEVE — planning only)
 
 ### Escopo
