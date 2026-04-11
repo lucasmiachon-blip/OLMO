@@ -26,6 +26,11 @@
     .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
     .objectives li { margin: .3rem 0; }
     .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+    .v { background: #2563eb; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .c { background: #dc2626; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .book { background: #6b7280; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
     footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
   </style>
 </head>
@@ -321,12 +326,13 @@
 </section>
 
 <!-- ===== REFERENCIAS ===== -->
-<details>
+<section id="referencias">
+<details open>
   <summary><strong>Referencias (16)</strong></summary>
   <table>
     <tr><th>Referencia</th><th>Ano</th><th>Tipo</th></tr>
     <tr><td>Glass GV. Primary, Secondary, and Meta-Analysis. <em>Educ Researcher</em></td><td>1976</td><td>Metodologia</td></tr>
-    <tr><td>Borenstein M et al. Introduction to Meta-Analysis. 2nd ed. Wiley</td><td>2021</td><td>Metodologia</td></tr>
+    <tr><td>Borenstein M et al. Introduction to Meta-Analysis. 2nd ed. Wiley. ISBN 978-1-119-55835-4 <span class="book">BOOK</span></td><td>2021</td><td>Metodologia</td></tr>
     <tr><td>Higgins JPT et al. Cochrane Handbook v6.5</td><td>2024</td><td>Metodologia</td></tr>
     <tr><td>Cumpston M et al. Updated guidance for trusted SR. <em>Cochrane DB Syst Rev</em></td><td>2019</td><td>Metodologia</td></tr>
     <tr><td>Murad MH et al. Users' Guides — How to read SR/MA. <em>JAMA</em></td><td>2014</td><td>Metodologia</td></tr>
@@ -334,15 +340,16 @@
     <tr><td>Sterne JA et al. Recommendations on funnel plot asymmetry tests. <em>BMJ</em></td><td>2011</td><td>Metodologia</td></tr>
     <tr><td>Wetterslev J et al. Trial sequential analysis in systematic reviews. <em>J Clin Epidemiol</em></td><td>2008</td><td>Metodologia</td></tr>
     <tr><td>Riley RD et al. IPD meta-analysis: rationale, conduct, reporting. <em>BMJ</em></td><td>2010</td><td>Metodologia</td></tr>
-    <tr><td>Kastrati A, Ioannidis JPA. MA vs mega-trial concordance. <em>JAMA</em></td><td>2024</td><td>Meta-pesquisa</td></tr>
-    <tr><td>Lau J et al. Cumulative MA of therapeutic trials for MI. <em>NEJM</em></td><td>1992</td><td>Exemplo emblematico</td></tr>
-    <tr><td>Yusuf S et al. Beta blockade during and after MI. <em>Prog Cardiovasc Dis</em></td><td>1985</td><td>Exemplo emblematico</td></tr>
+    <tr><td>Kastrati L, Raeisi-Dehkordi H, Ioannidis JPA et al. Agreement of MA vs single mega-trial. <em>JAMA Netw Open</em> 7(9):e2432296. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39240561" target="_blank" rel="noopener noreferrer">PMID 39240561</a> <span class="v">V</span></td><td>2024</td><td>Meta-pesquisa</td></tr>
+    <tr><td>Lau J, Antman EM, Jimenez-Silva J et al. Cumulative MA of therapeutic trials for MI. <em>N Engl J Med</em> 327(4):248-54. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1614465" target="_blank" rel="noopener noreferrer">PMID 1614465</a> <span class="v">V</span></td><td>1992</td><td>Exemplo emblematico</td></tr>
+    <tr><td>Yusuf S, Peto R, Lewis J, Collins R, Sleight P. Beta blockade during and after MI. <em>Prog Cardiovasc Dis</em> 27(5):335-71. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/2858114" target="_blank" rel="noopener noreferrer">PMID 2858114</a> <span class="v">V</span></td><td>1985</td><td>Exemplo emblematico</td></tr>
     <tr><td>Teo KK et al. IV magnesium in suspected AMI. <em>BMJ</em></td><td>1991</td><td>Exemplo emblematico</td></tr>
     <tr><td>ISIS-4 Collaborative Group. Magnesium in AMI. <em>Lancet</em></td><td>1995</td><td>Exemplo emblematico</td></tr>
     <tr><td>Stampfer MJ et al. Estrogen and CV disease (NHS). <em>NEJM</em></td><td>1991</td><td>Exemplo emblematico</td></tr>
     <tr><td>Rossouw JE et al. Estrogen+progestin risks (WHI). <em>JAMA</em></td><td>2002</td><td>Exemplo emblematico</td></tr>
   </table>
 </details>
+</section>
 
 <footer>
   <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
