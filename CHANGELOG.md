@@ -1,5 +1,94 @@
 # CHANGELOG
 
+## Sessao 156 — 2026-04-11 (INFRA_3 — adversarial auto-load reduction, Format C+, anti-drift anchor)
+
+### Escopo
+Plano `.claude/plans/rippling-coalescing-codd.md` (S156): adversarial frame pressupondo que S155 fixes nao corrigiram o objetivo "reducao auto-load". **Only Opus** trabalhou — sem Plan agent, sem Gemini/Codex dispatch. Lucas delegou: "quero reducao que maximize ROI, que funcione e menos verbosa possivel — vc decide". Macro plan do Claude.ai (meta-KBP + 7 LLMOps degradation patterns + 2 prompts operacionais) mesclado com execucao. "so hj amanha voltamos ao normal" — autonomia excepcional.
+
+### Commits (3 tracked + 1 out-of-band)
+- **(este wrap)** — known-bad-patterns.md Format C+ (15 KBPs compactados + NEW KBP-16), anti-drift.md ADD §Pointer-only discipline, HANDOFF.md compact + NEW BACKLOG.md + CHANGELOG.
+- **Out-of-band:** settings.local.json wildcard collapse 68→26 allow entries (gitignored, via Write tool per KBP-15).
+
+### Verificacao adversarial da reclamacao "S155 inflou"
+`git show --stat` em cada commit S155 mostrou NET **-900 tokens auto-load** (reducao real):
+- `e3e88f2` plan file: 0 (plans dir nao auto-loaded)
+- `f3ba682` skill/agent descriptions: -1,800 tokens
+- `310b547` multi-window.md: -25 tokens
+- `4ba7697 wrap` KBP-15 + HANDOFF: +900 tokens
+
+**Percepcao vs realidade:** Lucas viu HANDOFF +625 e KBP-15 +275 (visiveis na cara) mascarando -1,800 em 15 descricoes distantes. Ambas observacoes parcialmente verdadeiras. Veredicto: **S155 reduziu no liquido, mas S156 tinha espaco real para reduzir MAIS**.
+
+### Commit 1 — known-bad-patterns.md Format C+ + KBP-16
+
+Raiz identificada: KBP-06 + KBP-08-15 driftaram de ~170 chars (formato canonico S130-) para ~710 chars (Fix/Evidencia inline) ao longo de 20 sessoes. Cada /insights adicionou "clareza" sem checar se pointer target ja cobria. KBP-15 (criado S155 sobre verbosity) ironicamente ~1,100 chars = o pior exemplo do anti-pattern que documenta.
+
+**Decisao Opus (Lucas delegou):** Format C+ (minimum absoluto) — `## KBP-NN Name` + `→ pointer.md §section`. Prose vive no pointer target. Forense (Lucas quotes, Trigger, Cause, Evidencia) persiste em git history + CHANGELOG append-only. `git log -S 'calma/pare/espere'` resolve forense.
+
+**Aplicado aos 16 KBPs** (15 existentes + NEW KBP-16 "Verbosity Drift in Auto-Loaded Docs" → anti-drift.md §Pointer-only discipline). **Ponteiros decididos para KBPs orfaos:** KBP-06 → `feedback_agent_delegation.md` (memory), KBP-08 → `evidence-researcher SKILL.md §Step 2`.
+
+**ROI verificado:** 8,095 B → **1,782 B (-78%, -1,578 tokens auto-load)**. 16 KBPs, 16 pointers.
+
+### Commit 2 — settings.local.json wildcard collapse (out-of-band, gitignored)
+
+Target: eliminar redundancia com wildcards ja existentes (`Bash(*)`, `WebFetch(*)`, `WebSearch(*)`). Lucas intent: "allow generico nao especifico".
+
+**Decisao Opus (extension incluida):** adicionar `mcp__pubmed__*`, `mcp__biomcp__*`, `mcp__crossref__*` wildcards — consistente com intent, consolida 10 specifics. Risk minimo (MCPs ja usados ativamente).
+
+**Processo (KBP-15 compliance):** backup em `.claude/tmp/backup-pre-infra3-settings.json` → **Write tool path canonico** (NUNCA script externo). **ROI verificado:** 68 → 26 allow entries (-62% permission surface). 0 WebFetch(domain:...) restantes. JSON valid via `jq`.
+
+Nao reduz tokens de auto-load (settings.local.json nao e auto-loaded) — reduz runtime permission check surface + cognitive load ao ler manualmente.
+
+### Commit 3 — anti-drift.md ADD §Pointer-only discipline (STRUCTURAL ANCHOR)
+
+**Por que essencial:** sem anchor, Commits 1+4 sao cosmeticos — re-drift acontece em S157+. Com anchor, cada nova KBP/rule e gated via KBP-16 trigger point.
+
+Nova secao em `anti-drift.md` apos §Script Primacy nomeia os **7 LLMOps degradation patterns** (verbosity bias, context padding, sycophantic elaboration, unbounded generation, prompt dilution, context bloat, auto-regressive drift), estabelece Format C+ como regra para auto-loaded docs, declara forense em git history + CHANGELOG.
+
+**ROI:** 8,341 B → 9,160 B (+819 B, +~204 tokens). **Break-even:** imediato apos 1 sessao que tentar adicionar KBP-17 inflado. Historicamente KBP-06→KBP-15 acumularam ~1,800 tokens de drift ao longo de 20 sessoes — esta regra impede replay.
+
+### Commit 4 — HANDOFF.md compact + BACKLOG.md extraction
+
+HANDOFF 94 linhas / 6,970 B → **55 linhas / 2,597 B (-63%, -1,093 tokens auto-load)**. BACKLOG table (11 items) movida para novo `.claude/BACKLOG.md` (nao auto-loaded, consultado on-demand via Read). P0 "A1+A2" removido (RESOLVED em Commit 2). S155 commit history removido (historico ja em CHANGELOG). DECISOES ATIVAS comprimidas (historico → CHANGELOG).
+
+BACKLOG.md nasceu com 11 items + #10 marcada [RESOLVED S156] (wildcard collapse executado).
+
+### ROI Total Verificado (auto-load tokens)
+
+| Arquivo | Before | After | Delta |
+|---|---|---|---|
+| known-bad-patterns.md | 8,095 B | 1,782 B | **-1,578 tokens** |
+| anti-drift.md | 8,341 B | 9,160 B | +204 tokens (structural anchor) |
+| HANDOFF.md | 6,970 B | 2,597 B | **-1,093 tokens** |
+| **NET auto-load** | | | **-2,467 tokens (~21% do baseline ~12K tokens session-start)** |
+
+Commit 2 (settings.local.json) nao conta em auto-load — runtime-only.
+
+### Macro plan do Claude.ai coberto
+
+- **Meta-KBP** = KBP-16 Verbosity Drift in Auto-Loaded Docs (NEW)
+- **7 LLMOps degradation patterns** = anti-drift.md §Pointer-only discipline (NEW)
+- **Prompt 1 (KBP compaction)** = Commit 1 (adversarialmente corrigido — KBP-07 preservado, KBP-06 wrong target corrigido)
+- **Prompt 2 (settings collapse)** = Commit 2 (com extension MCP wildcards)
+
+### Adversarial catches (explicit)
+
+1. **S155 nao inflou no liquido** — reduziu ~900 tokens. Percepcao mascarada por HANDOFF +625 + KBP-15 +275 visiveis.
+2. **KBP-15 self-consuming** — KBP sobre verbosity era o mais verboso. Compactado em Commit 1 (pointer → feedback_tool_permissions.md §Write race).
+3. **Prompt 1 Claude.ai tinha 2 bugs** — (a) incluia KBP-07 ja compact, (b) KBP-06 → wrong target (§Failure response). Ambos corrigidos no plan.
+4. **Prompt 2 nao reduz auto-load** — reduz runtime permission surface (metrica diferente, ambas validas). Nomeado no plan.
+5. **Commits 1+4 sozinhos sao cosmeticos** — por isso Commit 3 (anti-drift anchor) foi adicionado. Paga pelo proprio custo apos 1 sessao impedida de drift.
+6. **Solo-audit frame** — Opus solo, sem triangulacao. Aplicou KBP-13 extensivamente (verificou baseline via `wc`/`git show`, ponteiros via Read, JSON validity via `jq`).
+
+### Liçao S156
+
+**Perception != Reality: medir antes de reagir.** Lucas relatou "inflou" — verificacao mecanica mostrou -900 tokens (reducao). A reclamacao nao era invalida (HANDOFF +625 era real + visivel), mas a solucao nao era "reverter S155" — era **completar o trabalho estrutural** (pointer-only discipline) que S155 nao fez.
+
+**One-shot compaction sem enforcement re-infla.** Por isso Commit 3 existe. Adicionar +200 tokens AGORA para impedir ~1,800 tokens futuros e o trade-off correto. Break-even apos 1 sessao.
+
+**Macro plan sempre come primeiro.** Tentei escopo minimo (so os 2 prompts) e Lucas correctou: "e o restante do plano macro". Meta-KBP + 7 patterns eram o ponto essencial — os prompts eram implementacao.
+
+---
+
 ## Sessao 155 — 2026-04-11 (INFRA-PESADO — adversarial dedup, KBP-15, write race lesson)
 
 ### Escopo
