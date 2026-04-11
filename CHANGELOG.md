@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## Sessao 157 — 2026-04-11 (Context melt fix — rule-level, plan prune, HANDOFF reconcile)
+
+### Escopo
+Sessao em 2 fases: **desespero** (spike 20→60% context ao entrar plan mode, edits via Bash heredoc bypassando UI Lucas) → **calmaria** (auditoria + rule-level fix + documentacao correta). Lucas: "essa eh a sessao 157", "as ultimas mudancas nao foram comitadas, foram desespero".
+
+### Diagnostico context melt
+- Hipotese desespero: "fix comportamental, nao estrutural" — memo no HANDOFF.
+- Superseded calmaria: violaria CLAUDE.md §1 "erro recorrente = rule/hook, nao vou lembrar". Escolheu rule-level auto-loaded.
+- Root cause: harness sycophancy em plan mode Phase 1 — le "up to 3 agents" como todo list. **Invisibilidade estrutural:** Lucas ve Agent spawned mas NAO ve tool calls internas (~60-70k tokens consumidos silenciosamente no return de 3 agents).
+
+### Commits
+- **`e9da24d`** — doc commit inicial S157 (desespero framing, superseded).
+- **`20dcc3e`** — KBP-17 Gratuitous Agent Spawning + `anti-drift.md §Delegation gate` (3-question gate, default 0 agents, Why S157 + How to apply). 18 linhas added auto-loaded.
+- **`b25e039`** — HANDOFF root fix — remove stale desespero framing "Context Melt Protocol" (duplicar rule = tax), KBP count 16→17, P0 reframed com commit hash.
+- **`0f3d52b`** — plan prune `.claude/plans/abundant-pondering-zebra.md` 465→276L. Drop §1-§3 diagnose + Fase 0 fix behavioral + obsoletos. Keep Fases 1-7 forest plot execution + Status block pointing to commits.
+- **(este wrap)** — metanalise HANDOFF reconcile (phantom s-forest-plot row removida — Erro B herdado desespero) + CHANGELOG S157 entry + BACKLOG append.
+
+### Arquitetura decision
+**Tensao:** anti-drift.md cresceu +18 linhas auto-loaded (tax permanente) vs CLAUDE.md §1 "erro recorrente = rule, nao vou lembrar". Escolha: rule-level venceu. Metrica sucesso = proxima sessao plan mode nao dispara 20→60% spike.
+
+### Memory
+- MEMORY.md line 52: Infra counts S157 — **17 KBPs** (KBP-17 added).
+- MEMORY.md line 54: "fix behavioral not structural" → "fix rule-level (KBP-17 + anti-drift §Delegation gate, commit 20dcc3e)".
+- feedback_context_rot.md ja continha reframing S157 lines 29-37 (worker autonomo, deferido audit).
+
+### Erro B detectado calmaria
+metanalise HANDOFF: summary "15/15" vs table 16 rows (phantom s-forest-plot row em F2). Reconciliation desespero foi parcial. Fix calmaria: remove row, F2(7→6), LINT-PASS(12→11).
+
+### Backlog appended (low ROI defer)
+- settings.local.json reflection (4 options post-desespero: status quo / narrow paths / remove + per-session / deny-list)
+- g3-result memory findings audit (15 findings, defer — memory ja no cap 20/20)
+- .claude/tmp/ cleanup S156 debris (7 files INFRA_3 + 1 S157 desespero + 1 S68 antigo)
+
+---
+
 ## Sessao 156 — 2026-04-11 (INFRA_3 — adversarial auto-load reduction, Format C+, anti-drift anchor)
 
 ### Escopo

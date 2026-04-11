@@ -41,38 +41,37 @@ Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia 
 | 3 | s-hook | DONE | Asymmetric grid, countUp GSAP. |
 | 4 | s-importancia | LINT-PASS | Criado S135. Build S136. |
 
-### F2 — Metodologia (7 slides)
+### F2 — Metodologia (6 slides)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 5 | s-rs-vs-ma | LINT-PASS | QA pendente. |
 | 6 | s-contrato | DONE | Evidence HTML S143. Click-reveal 2 cards. QA R11 PASS. |
 | 7 | s-pico | LINT-PASS | Evidence refatorado S144 (benchmark). h2 com RS. QA pendente. |
-| 8 | s-forest-plot | LINT-PASS | QA pendente. Dark-bg. |
-| 9 | s-benefit-harm | LINT-PASS | QA pendente. |
-| 10 | s-heterogeneity | LINT-PASS | QA pendente. Dark-bg. |
-| 11 | s-fixed-random | LINT-PASS | QA pendente. |
+| 8 | s-benefit-harm | LINT-PASS | QA pendente. |
+| 9 | s-heterogeneity | LINT-PASS | QA pendente. Dark-bg. |
+| 10 | s-fixed-random | LINT-PASS | QA pendente. |
 
 ### I2 — Checkpoint (1 slide)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 12 | s-checkpoint-2 | LINT-PASS | QA pendente. Dark-bg. |
+| 11 | s-checkpoint-2 | LINT-PASS | QA pendente. Dark-bg. |
 
 ### F3 — Aplicacao Valgimigli (4 slides)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 13 | s-ancora | LINT-PASS | Dark-bg. |
-| 14 | s-aplicabilidade | LINT-PASS | |
-| 15 | s-absoluto | LINT-PASS | Dark-bg. |
-| 16 | s-takehome | LINT-PASS | |
+| 12 | s-ancora | LINT-PASS | Dark-bg. |
+| 13 | s-aplicabilidade | LINT-PASS | |
+| 14 | s-absoluto | LINT-PASS | Dark-bg. |
+| 15 | s-takehome | LINT-PASS | |
 
 ### Resumo
 
 - **DONE (3):** s-title, s-hook, s-contrato
 - **QA (1):** s-objetivos
-- **LINT-PASS (12):** restantes
+- **LINT-PASS (11):** restantes
 
 ## Proximo (Lucas decide)
 
