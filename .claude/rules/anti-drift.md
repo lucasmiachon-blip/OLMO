@@ -65,6 +65,24 @@ STOP and report the result. Do NOT chain to the next logical step.
 The next step requires Lucas's explicit instruction — not implicit permission.
 Exception: within an approved multi-step plan where all steps were listed upfront.
 
+## Delegation gate (KBP-17)
+
+Antes de lancar QUALQUER Agent tool (em qualquer mode), gate de 3 perguntas:
+
+1. Read/Grep/Glob resolve direto? SIM = SKIP agent. Ferramenta dedicada primeiro.
+2. Lucas ja me deu arquivos/PMIDs/paths especificos? SIM = SKIP agent. Ler o que ele citou.
+3. Agent traz ganho concreto (paralelismo real + contexto massivo + tool exclusivo)? Sem razao nomeavel = SKIP.
+
+**Default = 0 agents. Cada spawn precisa justificativa ativa, nao permissao passiva do harness.**
+
+Plan mode Phase 1 agrava (injeta "ate 3 Explore + ate 3 Plan" como permissao opcional) mas nao e a causa. Causa = harness sycophancy: ler "ate 3" como "use 3". Permissao ≠ requisito.
+
+**Invisibilidade estrutural:** Lucas ve Agent spawned mas NAO ve tool calls internas. Agent retorna summary, nao transcript. 3 agents = ~60-70k tokens consumidos silenciosamente no retorno. Sintoma "plano chega com 60% context" vem dai.
+
+**Why (S157):** 12h de trabalho travado por spike 20%→60% ao entrar plan mode. Fix inicial "behavioral, nao estrutural" era anti-pattern CLAUDE.md §1 ("vou lembrar"). Fix real = rule-level auto-loaded.
+
+**How to apply:** Gate aplica a TODOS Agent calls. Plan mode Phase 1: default 0 agents + Read/Grep/Glob inline. Escalar so com (a) Lucas explicit OR (b) exploration genuinamente open-ended que nao bounda com ferramentas diretas.
+
 ## Verification (before responding)
 
 Gate function — all 5 steps, in order, no skipping:

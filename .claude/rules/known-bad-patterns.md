@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-17.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-18.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target. See anti-drift.md §Pointer-only discipline.
 
 ## KBP-01 Scope Creep
@@ -56,3 +56,6 @@ globs: "**/*"
 
 ## KBP-16 Verbosity Drift in Auto-Loaded Docs
 → anti-drift.md §Pointer-only discipline
+
+## KBP-17 Gratuitous Agent Spawning
+→ anti-drift.md §Delegation gate
