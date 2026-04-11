@@ -61,3 +61,4 @@ Ao criar/reescrever agente: (1) maxTurns obrigatorio (+20% margem), (2) verifica
 
 Before wrap-up: limpar `.claude/*.md` orfaos, temp files. Excecao: arquivos que Lucas pediu para manter.
 **`.claude/workers/`: NUNCA deletar sem aprovacao explicita do Lucas — mesmo consumidos (KBP-10).** Hook hard-blocks rm. Listar workers para cleanup, Lucas decide.
+**`.claude/plans/`: plans consumidos (aprovados e executados) devem ser listados ao wrap com origem (sessao) + destino proposto ("archive", "keep", "delete"). Default = manter (KBP-10). Lucas decide individualmente por arquivo, NUNCA batch. Para arquivar: mover para `.claude/plans/archive/` com prefixo `SXXX-` (numero da sessao em que foi consumido). Plans ativos em `.claude/plans/` ficam untracked ate decisao.

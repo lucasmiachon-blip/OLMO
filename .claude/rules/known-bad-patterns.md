@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-12.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-14.
 
 ## KBP-01 Scope Creep
 Trigger: chains to next step without asking. Lucas: "calma/pare/espere". Cause: helpfulness bias. **→ anti-drift.md §Momentum brake**
@@ -43,3 +43,6 @@ Trigger: Gemini API call retorna 0 bytes de texto. `finishReason: MAX_TOKENS` ou
 
 ## KBP-12 Research Prompts Without Output Schema
 Trigger: pesquisa retorna ensaio/prosa em vez de dados estruturados. Lucas: "vc tem que forca-los a dar output estruturado". Cause: prompts diziam "ABERTO" sem distinguir liberdade de TOPICO de liberdade de FORMATO. Perplexity retornou 31KB ensaio, Opus retornou narrativa longa. Fix S145: (1) Principio "OPEN topic + CLOSED format" no SKILL.md. (2) Output Schema Suffix obrigatorio em toda perna. (3) System prompt Perplexity reescrito com formato tabular. (4) Schema Validation Gate mecanico no Step 2.5. **→ SKILL.md §Output Schema Suffix + §Principio I/O**
+
+## KBP-13 Factual Claim Without Verification
+Trigger: agente afirma um fato sobre estado (ex: "MCP X esta frozen"), historia (ex: "padrao introduzido no arquivo Y") ou design intent (ex: "doc Z e sincronizado") e Lucas corrige. Cause: working-memory coherence bias — a primeira resposta plausivel e oferecida sem checar source-of-truth. Diferente de KBP-07 (que dispara em falhas); KBP-13 dispara em claims durante trabalho *rotineiro*. Evidencia S151 (3 eventos em 16 sessoes, todos subtipos desta categoria): (1) lista de MCPs frozen recalled de memoria, (2) `meta-narrativa.html` assumido como synced, (3) atribuicao do padrao `.v/.c` a `s-checkpoint-1.html` quando origem era `forest-plot-candidates.html` S146 ea434e7. Fix S152: antes de qualquer assertion sobre state/history/intent, rodar verificacao mais barata (grep, `git log -S '<literal>'`, ler header do doc) e citar inline. Se custo > ~5s, parar e perguntar. **→ anti-drift.md §Verification gate extended to historical/state claims**

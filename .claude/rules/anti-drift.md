@@ -25,8 +25,9 @@ Lucas is a beginner developer learning on the job. He tends to accept model deci
 - One concern per commit. Bundling unrelated changes hides drift.
 - When reading a file to make a change, change only what was asked. Resist the urge to "improve" nearby code.
 - Research tasks: pin scope to SPECIFIC deliverable(s) named in the request. If user says "pesquisa para pre-reading de forest plot", research ONLY forest plot pre-reading content. Do not generalize to adjacent slides or topics. Scope expansion requires explicit user request.
+- **Scope reductions require explicit report.** If executing a plan and deciding to SKIP part of it (read-only invariant, edge case, ambiguous pattern, insufficient info), stop and either: (a) ask Lucas before skipping, or (b) if already skipped, surface the skip in HANDOFF/CHANGELOG with reason. Silent skips are drift in the opposite direction — the plan is executed at less-than-promised scope without Lucas knowing. Symmetrical with creep: both are undisclosed scope deltas.
 
-**When violated**: stop, identify the extra work, and ask Lucas before reverting — automatic revert can destroy work in progress.
+**When violated**: stop, identify the extra work (or missing work), and ask Lucas before reverting — automatic revert can destroy work in progress.
 
 ## Failure response (KBP-07 — anti-workaround gate)
 
@@ -77,6 +78,9 @@ Additional rules:
 - File not found: use Glob to locate it. Fabricating file contents is a critical failure.
 - Error encountered: read the actual error message. Fabricating explanations compounds the problem.
 - Claim about code: verify by reading the file. Memory and assumptions decay.
+- Claim about state (freeze lists, status, current config, active MCPs): verify by reading the source-of-truth file (HANDOFF, settings.local.json, config). Working memory decays — never recite state from memory when the file exists.
+- Claim about history (who introduced X, which commit, which file/session): verify via `git log -S '<literal>'` or `git blame` before asserting. Working memory is coherence-biased, not verification-biased. **KBP-13.**
+- Claim about intent (sync vs on-demand, required vs optional, artifact vs output): verify by reading the doc's own header or asking Lucas. Never assume synchronization/ownership contracts.
 - Research output grounding: When producing content for evidence/pre-reading, every claim must trace to a retrieved source (PubMed, SCite, Perplexity, NLM). Training-data synthesis ("examples") is NOT acceptable as primary content. If no source found, state the gap explicitly rather than generating plausible content.
 
 **When violated**: flag the fabrication explicitly to the user.
