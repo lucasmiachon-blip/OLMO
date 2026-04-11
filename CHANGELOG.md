@@ -1,5 +1,43 @@
 # CHANGELOG
 
+## Sessao 152 — 2026-04-11 (Infra — /insights S151 queue + hook bug audit)
+
+### Fase A — Diagnose success-capture hook (P002)
+- Debug instrumentation temporaria em `hooks/success-capture.sh` (commit 2f35e7e) + commit trivial para trigger
+- **Root cause:** `console.log(ti.command)` no parser Node preservava `\n` reais do `tool_input.command` (heredoc + `-m` com newlines). `sed -n '2p'` pegava linha 2 DO COMANDO em vez do success flag. EXIT_CODE ficava vazio → gate `[ "$EXIT_CODE" != "0" ] && exit 0` → exit silencioso. Sub-bug: `tool_response.exit_code` nao existe no schema Bash do Claude Code (schema real: `{stdout, stderr, interrupted, isImage, noOutputExpected}`), fallback `'0'` era sempre trust-mode.
+- **Fix (commit 4cbbd49):** strip `[\r\n]+` do command antes de `console.log`, substituir gate `exit_code` por `tr.interrupted===true`. Validado end-to-end: commits 4cbbd49 e e2f1cc2 (ambos com multi-line `-m`) agora registrados em `.claude/success-log.jsonl`.
+- Debug artifacts removidos.
+
+### Fase B — Rule updates (/insights S151 proposals P001/P004) + C1 (P003)
+- **KBP-13 Factual Claim Without Verification** (P001) appended a `.claude/rules/known-bad-patterns.md`. Evidencia S151: 3/3 real corrections eram subtipos (state drift MCP freeze, intent assumption meta-narrativa, historical attribution `.v/.c`). Header contador 12→14.
+- **anti-drift.md §Verification** ganhou 3 bullets novos (P001b): claim-about-state, claim-about-history, claim-about-intent — com tools explicitos (source-of-truth read, `git log -S`, doc header).
+- **anti-drift.md §Scope discipline** ganhou bullet "Scope reductions require explicit report" (P004). Simetriza contra creep: skips silenciosos de plan scope sao drift na direcao oposta.
+- **session-hygiene.md §Artifact cleanup** ganhou protocolo `.claude/plans/` (P003): archive em `.claude/plans/archive/` com prefixo `SXXX-`, default=keep, per-file decision, nunca batch.
+- Commit unico: e2f1cc2 (4 files, 25+/9-).
+
+### Preventive: build-monitor.sh hook bug (Lucas "radar" flag)
+- Lucas surfaced possibility of same bug in outros hooks. Audit: 3 hooks com `exit_code`, 13 hooks com `tool_input`/`tool_response`.
+- **Confirmed same bug in `.claude/hooks/build-monitor.sh`** (lines 18-19 fake `exit_code`, lines 32-35 sed line-indexed parsing). Impact baixo na pratica (so firing em `npm run build:*` single-line commands), mas patch identico.
+- Fix aplicado no mesmo commit e2f1cc2: strip newlines, usar `interrupted + stderr content gate`, remover `%s` de `$EXIT_CODE` do format string.
+- Outros hooks auditados: `guard-lint-before-build.sh` OK (PreToolUse, so grep pattern), `retry-utils.sh` OK (usa `$?` shell).
+
+### Fase C2 — Triage 18 orphan plans
+- Listagem completa em HANDOFF P0 com proposta individual de archive. **NAO executado** — KBP-10 requer aprovacao per-file. Lucas decide por arquivo.
+
+### Protocol
+- 4 commits atomicos: 2f35e7e (heartbeat+debug) → 4cbbd49 (success-capture fix) → e2f1cc2 (rules + build-monitor + KBP-13) → wrap
+- Fase A seguiu KBP-07 rigorosamente: diagnose-first, report-stop, Lucas aprovou fix, entao execute
+- TaskList usada para tracking das 6 fases (A/B1/B2/C1/C2/E) + 2 radar items (#15 hook audit, #16 JSON alternatives)
+- Success-capture validation: ambos commits pos-fix (4cbbd49 com `-m multi-line`, e2f1cc2 idem) foram registrados corretamente em `.claude/success-log.jsonl` com session `S152-infra`
+
+### Metrics post-S152
+- **KBPs:** 12 → 13 (KBP-13 added)
+- **Rules:** 11 (sem mudanca de contagem, 3 rules editadas)
+- **Hooks:** 38 (sem nova contagem, 2 fixed: success-capture + build-monitor)
+- **/insights trend:** IMPROVING (corrections_5avg 1.128→0.912, kbp_5avg 0.32→0.154). Veredicto registrado em `.claude/skills/insights/references/failure-registry.json`.
+
+---
+
 ## Sessao 151 — 2026-04-10 (HTML + REFERENCES)
 
 ### Fase A — PMID verification (15 alvos via NCBI eutils)
