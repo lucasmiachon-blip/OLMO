@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## Sessao 153 — 2026-04-11 (INFRA_LEVE — planning only)
+
+### Escopo
+Sessao planning-only. Contexto ficou cheio durante investigacao — execucao defferida para S154 (le o plano e executa).
+
+### Plan criado
+- `.claude/plans/sunny-plotting-fountain.md` — plano S153 INFRA_LEVE com 3 scopes executaveis + 1 scope de deferral mapeado para BACKLOG:
+  - **Scope A** — remocao completa de s-checkpoint-1 (slide ARCHIVED S107 mas com ~200 linhas canonicas + 11 cross-refs ativas). Mapa exaustivo de resquicios via grep literal + grep de classes CSS (`.ck1-*`) + grep conceitual (ACCORD/Ray 2009/UKPDS/VADT/ADVANCE/Riddle/liquidificador/A1C paradox) + grep de PMIDs.
+  - **Scope B** — triage dos 18 orphan plans (HANDOFF S152 §P0), per-file com aprovacao Lucas, archive em `.claude/plans/archive/` com prefixo SXXX-.
+  - **Scope C** — P005 quick win: research/SKILL.md Step 2 ganha coluna `type` (paper|book|guideline|preprint|web) + fallback ID. Fecha BACKLOG #7.
+  - **Scope D (deferrals)** — hook/config review (BACKLOG #3), re-sweep condicional, P006 re-design (BACKLOG #8). Todos persistidos no BACKLOG canal self-improvement.
+
+### Decisoes resolvidas (registradas no plano)
+- QA screenshots `s-checkpoint-1/` → `rm -r` (gitignored, aprovacao explicita Lucas para hard-block KBP-10)
+- `research-accord-valgimigli.md` → archive inteiro para `references/_archived/` (s-ancora nao referencia)
+- Speaker note `04-rs-vs-ma.html:41` "Âncora ACCORD" → rewrite generico sem ACCORD
+- Scope confirmado = A + B + C; D persiste no BACKLOG
+
+### Descobertas criticas documentadas no plano
+- Classes `.checkpoint-*` (layout/scenario/question/--hidden) sao COMPARTILHADAS com checkpoint-2 → preservar
+- Classes `.ck1-*` sao EXCLUSIVAS de s-checkpoint-1 → remocao limpa (~142 linhas CSS)
+- ACCORD em `forest-plot-candidates.html:351` e contexto Stead 2023 IPD legitimo → NAO TOCAR
+- `slide-registry.js:175-232` = 58 linhas da factory `'s-checkpoint-1'` → deletar
+- `_manifest.js:19-20` ja tinha entry comentada S107 → deletar as 2 linhas
+
+### Protocol
+- Sem commits de codigo. Commit unico = doc + plan.
+- Execucao diferida para S154: ler `.claude/plans/sunny-plotting-fountain.md` e seguir ordem A4 (Scope A steps 1-9) + B1 (per-file triage) + C (edit SKILL.md).
+
+---
+
 ## Sessao 152 — 2026-04-11 (Infra — /insights S151 queue + hook bug audit)
 
 ### Fase A — Diagnose success-capture hook (P002)
