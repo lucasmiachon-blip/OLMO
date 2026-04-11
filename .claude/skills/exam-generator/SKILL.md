@@ -1,13 +1,7 @@
 ---
 name: exam-generator
 disable-model-invocation: true
-description: >
-  Generate calibrated practice exams with anti-cue protocol (NBME-aligned),
-  Anki cards, and study materials for Brazilian medical boards. Use this skill
-  when the user wants to create practice questions, generate simulados, analyze
-  past exams, create flashcards from errors, or calibrate question difficulty
-  by specific boards (ENARE, USP, UNICAMP, SUS-SP, etc). Also trigger for
-  'gerar questoes', 'simulado', 'item-writing', 'anti-cue', or 'flashcards'.
+description: "Generates calibrated practice exams (NBME-aligned), Anki cards, and study materials for Brazilian medical boards."
 ---
 
 # Skill: Gerador de Questoes para Concurso (Exam Generator)

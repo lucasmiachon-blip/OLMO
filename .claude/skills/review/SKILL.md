@@ -1,8 +1,7 @@
 ---
 name: review
 disable-model-invocation: true
-description: >
-  Multi-agent code review with OWASP LLM Top 10 2025, quality checks, and ecosystem conformance. Use for PR reviews, security audits, code quality checks, or before merge/deploy. MANDATORY TRIGGERS: revisar codigo, code review, review PR, auditoria, checar seguranca, security audit, OWASP, quality check, pre-merge, validar mudancas, review changes
+description: "Multi-agent code review with OWASP LLM Top 10 2025, quality checks, and ecosystem conformance."
 ---
 
 # Skill: Code Review

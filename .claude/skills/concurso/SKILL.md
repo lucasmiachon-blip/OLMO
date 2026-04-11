@@ -1,13 +1,6 @@
 ---
 name: concurso
-description: >
-  Prep for R3 Clinica Medica exam (Dec 2026, 120 MCQs) — study planning,
-  Anki cards, spaced repetition, error logs, simulados, performance tracking.
-  Use this skill whenever the user mentions the concurso, study planning,
-  exam prep, 'plano de estudo', Anki, spaced repetition, error log, simulados,
-  'questoes', or any reference to the December 2026 exam. This is the year's
-  top priority — trigger aggressively for anything study-related. For generating
-  actual exam questions, defer to exam-generator skill.
+description: "Prep for R3 Clinica Medica exam (study planning, Anki, error logs, simulados, performance tracking)."
 ---
 
 # Skill: Concurso Dez/2026 — 120 Questoes Multipla Escolha

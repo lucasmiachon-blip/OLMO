@@ -1,14 +1,6 @@
 ---
 name: brainstorming
-description: >
-  Structured pre-action thinking through Socratic dialogue. Forces explicit
-  articulation of WHAT, WHY, WHO, HOW before any implementation begins.
-  Pure design dialogue — produces NO code, NO files, NO actions. Use this
-  skill when starting any non-trivial project, feature, slide, research
-  question, study plan, or teaching prep. Prevents scope creep by making
-  scope explicit before action. MANDATORY TRIGGERS: brainstorming, pensar
-  antes, vamos pensar, quero planejar, antes de comecar, design session,
-  ideation, como abordar, scope this, think through, vamos escopar
+description: "Structured pre-action Socratic dialogue to define WHAT, WHY, WHO, HOW before implementation (produces no code/files)."
 argument-hint: "[topic or goal in any domain]"
 ---
 

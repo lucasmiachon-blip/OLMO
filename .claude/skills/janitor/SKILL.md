@@ -1,12 +1,7 @@
 ---
 name: janitor
 disable-model-invocation: true
-description: >
-  Repository cleanup and maintenance — dead code removal, doc consolidation,
-  structure audit, orphan detection. Use this skill when the repo needs
-  cleaning, before releases, when docs are stale, when files are orphaned,
-  or for general housekeeping. Trigger for 'limpar', 'cleanup', 'organizar
-  arquivos', 'dead code', 'repo maintenance', or 'audit structure'.
+description: "Repository cleanup and maintenance (dead code removal, doc consolidation, structure audit, orphan detection)."
 ---
 
 # Skill: Janitor (Limpeza de Repositorio)

@@ -1,12 +1,7 @@
 ---
 name: daily-briefing
 disable-model-invocation: true
-description: >
-  Daily email processing: Gmail MCP reading, classification, and Notion Emails
-  Digest DB registration with expanded concept analysis. Use this skill at the
-  start of each day, when processing emails, generating daily summaries, or
-  when the user says 'briefing', 'resumo do dia', 'emails do dia', 'o que
-  chegou', or wants to catch up on recent communications.
+description: "Daily email processing (Gmail MCP reading, classification, Notion Emails Digest DB registration)."
 ---
 
 # Skill: Daily Briefing (Email + Notion)

@@ -1,13 +1,6 @@
 ---
 name: systematic-debugging
-description: >
-  Structured 4-phase debugging methodology: root cause investigation, pattern
-  analysis, hypothesis testing, implementation. Use this skill whenever something
-  breaks, an error appears, tests fail, behavior is unexpected, CI goes red, or
-  the user says 'nao funciona', 'bug', 'erro', 'quebrou', 'why is this
-  happening', 'nao entendo esse erro'. Also trigger when debugging takes more
-  than 2 attempts — if you've tried 2 fixes and neither worked, STOP and follow
-  this methodology from Phase 1.
+description: "Structured 4-phase debugging methodology (root cause, pattern analysis, hypothesis, implementation)."
 ---
 
 # Skill: Systematic Debugging

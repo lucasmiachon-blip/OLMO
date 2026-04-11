@@ -1,12 +1,7 @@
 ---
 name: automation
 disable-model-invocation: true
-description: >
-  Workflow automation: cron jobs, Claude Code hooks, data pipelines, scheduled
-  agents, webhooks, event-driven triggers. Use this skill when creating
-  automations, configuring hooks, scheduling tasks, integrating services, or
-  setting up any recurring/event-driven workflow. Trigger for 'cron', 'hook',
-  'pipeline', 'agendar', 'automatizar', 'webhook', or 'scheduled agent'.
+description: "Workflow automation (cron, hooks, pipelines, webhooks, scheduled agents)."
 ---
 
 # Skill: Automation

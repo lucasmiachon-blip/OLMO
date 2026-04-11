@@ -1,15 +1,7 @@
 ---
 name: continuous-learning
 disable-model-invocation: true
-description: >
-  Progressive learning for dev, ML, AI, systems engineering, management,
-  and orchestration — plus AI fluency for teaching students. Use this skill
-  whenever Lucas asks to learn something, wants an explanation of a technical
-  concept, requests a study roadmap, needs AI fluency content for teaching,
-  or asks about AI news/models/benchmarks. Also trigger for 'como funciona',
-  'explica', 'quero aprender', 'o que e [conceito]', or any variation of
-  learning/studying technical topics. Even casual questions like 'por que
-  isso funciona assim?' should trigger this skill.
+description: "Progressive learning and explanations for dev, ML, AI, systems, management, and AI fluency."
 ---
 
 # Skill: Continuous Learning (Aprendizado Continuo + AI Fluency)

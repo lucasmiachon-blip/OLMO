@@ -1,6 +1,6 @@
 ---
 name: evidence-researcher
-description: "Pesquisa de evidencia via MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite, BioMCP). 1 slide/tema por execucao. Verificacao de PMIDs obrigatoria. NUNCA escolhe o que pesquisar — Lucas ou orchestrador especifica. Reporta e espera. Perplexity/Gemini/NLM sao pernas independentes no /research skill."
+description: "Pesquisa de evidencia via MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite, BioMCP) para 1 slide/tema."
 tools:
   - Read
   - Grep

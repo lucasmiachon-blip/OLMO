@@ -1,13 +1,7 @@
 ---
 name: teaching
 disable-model-invocation: true
-description: >
-  Teaching methodology, andragogy, slideology, cognitive psychology, rhetoric,
-  and reflective practice for medical education. Use this skill when preparing
-  lectures, creating educational materials, reflecting on teaching practice,
-  designing curricula, improving pedagogical approach, or managing the teaching
-  error log. Trigger for 'preparar aula', 'material didatico', 'diario docente',
-  'slideologia', 'como ensinar', or any question about pedagogy and presentation.
+description: "Teaching methodology, andragogy, slideology, and reflective practice for medical education."
 ---
 
 # Skill: Metodologia de Ensino (Professor)

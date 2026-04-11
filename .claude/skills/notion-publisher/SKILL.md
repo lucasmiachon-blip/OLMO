@@ -1,14 +1,7 @@
 ---
 name: notion-publisher
 disable-model-invocation: true
-description: >
-  Create professional Notion pages with templates for medical evidence, digests,
-  quick references, and knowledge capture into Masterpiece DB. Use this skill
-  whenever the user wants to publish content to Notion, capture conversation
-  insights, create structured pages, format research outputs, register knowledge,
-  or organize the knowledge base. Trigger for any Notion write operation,
-  'registrar no Notion', 'capturar no Notion', 'publicar', or after rich
-  discussions that deserve documentation in the Masterpiece DB.
+description: "Creates Notion pages with templates for medical evidence, digests, and knowledge capture into Masterpiece DB."
 ---
 
 # Skill: Notion Publisher + Knowledge Capture

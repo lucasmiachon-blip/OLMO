@@ -1,13 +1,7 @@
 ---
 name: notion-spec-to-impl
 disable-model-invocation: true
-description: >
-  Convert specs and plans into trackable Notion Tasks DB entries decomposed
-  into atomic tasks (max 2h each) with dependencies and time estimates. Use
-  this skill when decomposing projects into tasks, creating implementation
-  roadmaps, planning sprints, or converting any specification into actionable
-  task lists. Trigger for 'decompor', 'criar tasks', 'planejar implementacao',
-  'sprint planning', or 'transformar spec em tarefas'.
+description: "Converts specs into trackable Notion Tasks DB entries decomposed into atomic tasks with dependencies."
 ---
 
 # Skill: Notion Spec-to-Implementation
