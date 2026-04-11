@@ -67,7 +67,7 @@
 
   <p>As cinco vantagens metodologicas mapeiam mecanismos estatisticos distintos:</p>
   <table class="thresholds">
-    <tr><th>Vantagem</th><th>Mecanismo</th><th>O que resolve</th></tr>
+    <tr><th scope="col">Vantagem</th><th scope="col">Mecanismo</th><th scope="col">O que resolve</th></tr>
     <tr><td>V1</td><td>Pooling aumenta N &rarr; poder</td><td>Trials "negativos" por falta de amostra</td></tr>
     <tr><td>V2</td><td>N maior &rarr; IC mais estreito</td><td>Incerteza sobre magnitude do efeito</td></tr>
     <tr><td>V3</td><td>Sintese separa sinal de ruido</td><td>Discordancia aparente entre trials</td></tr>
@@ -142,7 +142,7 @@
 <section id="key-numbers">
   <h2>Numeros-Chave</h2>
   <table>
-    <tr><th>Metrica</th><th>Valor</th><th>IC 95%</th><th>Fonte</th></tr>
+    <tr><th scope="col">Metrica</th><th scope="col">Valor</th><th scope="col">IC 95%</th><th scope="col">Fonte</th></tr>
     <tr><td>Beta-blockers pos-IAM: reducao mortalidade (pooled)</td><td>~25%</td><td></td><td>Yusuf 1985</td></tr>
     <tr><td>Estreptocinase: OR mortalidade (1973, 8 trials)</td><td>OR 0,74</td><td>0,59-0,92</td><td>Lau 1992</td></tr>
     <tr><td>Pacientes randomizados apos evidencia estabelecida</td><td>~34.542</td><td></td><td>Lau 1992</td></tr>
@@ -154,7 +154,7 @@
 <section id="glossary">
   <h2>Glossario Rapido</h2>
   <table>
-    <tr><th>Termo</th><th>O que significa</th><th>Na pratica</th></tr>
+    <tr><th scope="col">Termo</th><th scope="col">O que significa</th><th scope="col">Na pratica</th></tr>
     <tr><td class="glossary-term">MA cumulativa</td><td>MA atualizada a cada novo trial. Mostra quando a evidencia se estabiliza.</td><td>Lau 1992 demonstrou: evidencia de estreptocinase estavel desde 1973.</td></tr>
     <tr><td class="glossary-term">Poder estatistico</td><td>Probabilidade de detectar efeito real (1 - beta). Cresce com N.</td><td>MA resolve via pooling: ~65 trials negativos &rarr; MA positiva (Yusuf 1985).</td></tr>
     <tr><td class="glossary-term">Precisao vs Acuracia</td><td>Precisao = largura IC (depende de N). Acuracia = proximidade do verdadeiro (depende de ausencia de vies).</td><td>MA aumenta precisao, NAO corrige vies. GIGO: IC estreito ao redor do errado.</td></tr>
@@ -211,7 +211,7 @@
     <div class="gap-card">
       <p class="meta">Casos verificados. Usar em slides de limitacoes, NAO no hook de importancia.</p>
       <table>
-        <tr><th>Caso</th><th>MA (erro)</th><th>RCT (verdade)</th><th>Por que errou?</th></tr>
+        <tr><th scope="col">Caso</th><th scope="col">MA (erro)</th><th scope="col">RCT (verdade)</th><th scope="col">Por que errou?</th></tr>
         <tr><td>Magnesio IAM</td><td>Teo 1991: OR 0,45 (7 estudos, n=1.301)</td><td>ISIS-4 1995: OR 1,06 (n=58.050)</td><td>Small study effects</td></tr>
         <tr><td>TRH cardioprotetor</td><td>NHS 1991: RR 0,56</td><td>WHI 2002: HR 1,29</td><td>Healthy User Bias (obs)</td></tr>
       </table>
@@ -291,7 +291,7 @@
     <div class="gap-card">
       <p class="meta">GRADE aplicado aos claims metodologicos do slide. V1-V5 sao argumentos sobre o metodo MA, nao claims de eficacia clinica.</p>
       <table>
-        <tr><th>Claim metodologico</th><th>Evidencia de suporte</th><th>Certeza</th></tr>
+        <tr><th scope="col">Claim metodologico</th><th scope="col">Evidencia de suporte</th><th scope="col">Certeza</th></tr>
         <tr><td>V1: MA aumenta poder via pooling</td><td>Demonstrado em multiplas MAs cumulativas (Yusuf 1985, Lau 1992)</td><td><strong>ALTA</strong> &#8853;&#8853;&#8853;&#8853;</td></tr>
         <tr><td>V2: MA estreita IC sem mudar estimativa pontual</td><td>Propriedade matematica (IC &prop; 1/&radic;N). Confirmado empiricamente</td><td><strong>ALTA</strong> &#8853;&#8853;&#8853;&#8853;</td></tr>
         <tr><td>V3: MA resolve controversias aparentes</td><td>>1.500 MAs cumulativas confirmam padrão</td><td><strong>ALTA</strong> &#8853;&#8853;&#8853;&#8853;</td></tr>
@@ -315,7 +315,7 @@
     <summary>Referencias metodologicas canonicas</summary>
     <div class="gap-card">
       <table>
-        <tr><th>Fonte</th><th>Uso</th></tr>
+        <tr><th scope="col">Fonte</th><th scope="col">Uso</th></tr>
         <tr><td>Glass GV. Primary, Secondary, and Meta-Analysis. <em>Educ Researcher.</em> 1976</td><td>Cunhou "meta-analysis" (1976)</td></tr>
         <tr><td>Borenstein M et al. Introduction to Meta-Analysis. 2nd ed. Wiley. 2021</td><td>IC &prop; 1/&radic;N (Cap. 1)</td></tr>
         <tr><td>Higgins JPT et al. Cochrane Handbook v6.5. 2024</td><td>Referencia normativa</td></tr>
@@ -330,7 +330,7 @@
 <details open>
   <summary><strong>Referencias (16)</strong></summary>
   <table>
-    <tr><th>Referencia</th><th>Ano</th><th>Tipo</th></tr>
+    <tr><th scope="col">Referencia</th><th scope="col">Ano</th><th scope="col">Tipo</th></tr>
     <tr><td>Glass GV. Primary, Secondary, and Meta-Analysis. <em>Educ Researcher</em></td><td>1976</td><td>Metodologia</td></tr>
     <tr><td>Borenstein M et al. Introduction to Meta-Analysis. 2nd ed. Wiley. ISBN 978-1-119-55835-4 <span class="book">BOOK</span></td><td>2021</td><td>Metodologia</td></tr>
     <tr><td>Higgins JPT et al. Cochrane Handbook v6.5</td><td>2024</td><td>Metodologia</td></tr>
