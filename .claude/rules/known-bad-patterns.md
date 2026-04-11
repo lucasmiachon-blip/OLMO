@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-15.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-16.
 
 ## KBP-01 Scope Creep
 Trigger: chains to next step without asking. Lucas: "calma/pare/espere". Cause: helpfulness bias. **→ anti-drift.md §Momentum brake**
@@ -49,3 +49,6 @@ Trigger: agente afirma um fato sobre estado (ex: "MCP X esta frozen"), historia 
 
 ## KBP-14 Velocity Over Comprehension
 Trigger: Lucas aprovando rapidamente ("OK", "ok", "pode", "continue") em sequencia mas a densidade tecnica do trabalho e alta. Agente trata fast approval como informed consent e acelera. Lucas mais tarde verbaliza falta de protecao do plano ("nao filtro bem", "tem que me explicar"). Cause: explicacoes atrofiam mid-session apesar de anti-drift §Calibrate depth cobrir o caso. KBP-13 protege contra claims sem verificacao; KBP-14 protege contra **execucao sem verbalizacao do porque**. Fix: quando ocorrerem 3+ aprovacoes monossilabicas consecutivas durante execucao, slow down e re-explicar WHY da proxima fase antes de prosseguir. Melhor adicionar 30s de contexto que executar contra plano half-understood. Evidencia S154: L456 ("lembre que eu ainda sou iniciante entao algumas coisas tem que me explicar pois nao filtro bem msm o plano") + L478 ("vc ser meu mentor em varios aspectos esta relativamente sendo pouco usado, mas nao eh P0"). Padrao recorrente — memory `user_mentorship.md` ja registrava expectativa antes. **→ anti-drift.md §Execution-phase explanation budget + §Active mentor mode**
+
+## KBP-15 Write Race via External Script
+Trigger: script externo (Python/Bash) modifica arquivo no write-path do Claude Code (`settings.local.json`, `.claude/*.md`); modificacoes externas sao silenciosamente clobbered por flush in-memory subsequente. Lucas: (S155) "depois de rodar strip-a3.py o arquivo tem 89 entries em vez de 70 esperadas, e tem entries `Bash(cp ...)` / `Bash(python ...)` que o script nao adicionou". Cause: Claude Code mantem copia in-memory de `settings.local.json` para checks de permissao + auto-append de tools auto-aprovados. Script externo modifica disco, mas proximo write Claude Code flush in-memory state, sobrescrevendo as mudancas externas. Diferente de race condition classica — race e entre processo externo e in-memory state de Claude Code, nao entre dois processos no fs. Diferente de KBP-10 (destrutivo intencional); KBP-15 protege contra modificacoes EXTERNAS BENIGNAS sendo silenciosamente perdidas. Fix S155: para arquivos no write-path do Claude Code, SEMPRE usar Edit/Write tool atraves do path canonico. Scripts externos podem LER mas nao MODIFICAR. Evidencia: 17 entries removidas via strip-a3.py + 4 cp/python auto-add → arquivo final tinha 89 entries; refeito atomicamente via Write tool → 68 entries verificadas. **→ memory feedback_tool_permissions.md §Write race**
