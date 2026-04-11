@@ -1,17 +1,21 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 157 | 2026-04-11 | Fase calmaria (pos-rule-level fix)
-> Foco: forest plot s-forest1 + s-forest2 pendentes
+> Sessao 158 | Proxima (ultima infra) | Adversarial review do worker reducao-context
+> Foco: avaliar `synthesis-2026-04-11-1631.md` em frame adversarial (Lucas dara comando)
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, 2 novos em execucao S157).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.**
 
-## P0 — S157 em execucao
+## P0 — S158 (proxima, ultima infra)
 
-- **Context melt fix:** RESOLVED commit 20dcc3e (KBP-17 + `anti-drift.md §Delegation gate`). Rule auto-loaded. Monitorar spikes futuros.
-- **Forest plot slides:** s-forest1 (Li 2026 AJCD, PMID 40889093 VERIFIED) + s-forest2 (Ebrahimi 2025 Cochrane, PMID 41224205 VERIFIED). Evidence unico denso: `s-forest-plot.html` (a criar). Plano: `.claude/plans/abundant-pondering-zebra.md`
+- **Adversarial review worker reducao-context:** Lucas dara comando. Avaliar `.claude/workers/reducao-context/synthesis-2026-04-11-1631.md` (32KB, criado S157 16:44 durante desespero). Frame adversarial: o que se presta, o que nao. NAO ler ate comando explicito.
+- **Ultima sessao de infra planejada** — depois volta ao normal (slides, research, ensino).
+
+## P0 — Pendente S157 (slides)
+
+- **Forest plot slides:** s-forest1 (Li 2026 AJCD, PMID 40889093 VERIFIED) + s-forest2 (Ebrahimi 2025 Cochrane, PMID 41224205 VERIFIED). Evidence unico denso: `s-forest-plot.html` (a criar). Plano: `.claude/plans/abundant-pondering-zebra.md`. **Defer ate pos-infra S158.**
 
 ## P0 — Pendente S156
 
