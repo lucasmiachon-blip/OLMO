@@ -1,6 +1,6 @@
 ---
 name: quality-gate
-description: Verificacao de qualidade pre-commit. Usar para lint, type-check, testes e review rapido antes de commitar. Cobre Python (ruff/mypy) e JS/CSS (lint-slides, lint-case-sync, lint-narrative-sync, validate-css).
+description: Verificacao de qualidade pre-commit. Usar para lint, type-check, testes e review rapido antes de commitar. Cobre Python (ruff/mypy) e JS/CSS (lint-slides, lint-case-sync, validate-css).
 model: haiku
 tools: Read, Grep, Glob, Bash
 maxTurns: 10
@@ -19,8 +19,7 @@ Voce e um gate de qualidade. Roda verificacoes e reporta problemas.
 ### JS/CSS (rodar de `content/aulas/` com aula como argumento)
 4. **Slides lint**: `node scripts/lint-slides.js {aula}` — erros bloqueantes de HTML/estrutura
 5. **Case sync**: `node scripts/lint-case-sync.js {aula}` — sincronizacao de casos clinicos
-6. **Narrative sync**: `node scripts/lint-narrative-sync.js {aula}` — sincronizacao narrativa
-7. **CSS**: `bash scripts/validate-css.sh` — validacao de imports e especificidade CSS
+6. **CSS**: `bash scripts/validate-css.sh` — validacao de imports e especificidade CSS
 
 ### Geral
 8. **Arquivos fantasma**: buscar arquivos referenciados em CLAUDE.md/imports que nao existem
@@ -37,7 +36,6 @@ Python types:     PASS/FAIL (N missing)
 Python tests:     PASS/FAIL (N/M passed)
 Slides lint:      PASS/FAIL (N issues) [aula=X]
 Case sync:        PASS/FAIL (N issues) [aula=X]
-Narrative sync:   PASS/FAIL (N issues) [aula=X]
 CSS validate:     PASS/FAIL (N issues)
 Phantoms:         PASS/FAIL (N orphans)
 Secrets:          PASS/FAIL (N exposed)
@@ -67,4 +65,4 @@ VERDICT: APPROVE | WARNING | BLOCK
 - Verdict BLOCK se qualquer CRITICAL issue existir
 - Verdict WARNING se qualquer HIGH issue existir (sem CRITICAL)
 - Verdict APPROVE se apenas MEDIUM/LOW ou sem issues
-- Se aula nao identificada: pular items 4-7 e avisar no report
+- Se aula nao identificada: pular items 4-6 e avisar no report

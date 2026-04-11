@@ -14,10 +14,10 @@ Both are READ-ONLY. Report findings. Do NOT implement fixes or edit files.
 # Audit config consistency
 ruff check . && mypy agents/ && pytest tests/
 
-# Lint slides (3 gates — enforced by guard-lint-before-build.sh)
+# Lint slides (2 gates — enforced by guard-lint-before-build.sh)
 node content/aulas/scripts/lint-slides.js cirrose
 node content/aulas/scripts/lint-case-sync.js cirrose
-node content/aulas/scripts/lint-narrative-sync.js cirrose
+# lint-narrative-sync ARCHIVED S144 — narrative.md deprecated in favor of evidence HTML
 
 # Find stale references
 grep -rn "CANDIDATE" content/aulas/

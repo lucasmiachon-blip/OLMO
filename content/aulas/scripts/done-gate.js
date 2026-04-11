@@ -75,7 +75,7 @@ const commands = [
     : [{ name: 'build', bin: null, args: null, skip: `No build:${aula} script — skipped` }]),
   { name: 'lint:slides', bin: 'npm', args: ['run', 'lint:slides'] },
   { name: 'lint:case-sync', bin: 'node', args: ['scripts/lint-case-sync.js', aula] },
-  { name: 'lint:narrative-sync', bin: 'node', args: ['scripts/lint-narrative-sync.js', aula] },
+  // lint:narrative-sync ARCHIVED S144 (narrative.md → evidence HTML). Removed from done-gate S157.
 ];
 
 for (const { name, bin, args: cmdArgs, skip } of commands) {

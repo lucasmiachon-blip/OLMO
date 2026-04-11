@@ -35,7 +35,7 @@
 |--------|--------|
 | `lint-slides.js` | Lint HTML/CSS (errors bloqueiam build) |
 | `lint-case-sync.js` | Verifica sincronia case panels |
-| `lint-narrative-sync.js` | Verifica sincronia narrativa |
+| ~~`lint-narrative-sync.js`~~ | ~~Verifica sincronia narrativa~~ — **ARCHIVED S144.** narrative.md → evidence HTML. Ver `scripts/_archived/` |
 | `qa-capture.mjs` | Captura screenshots + video (utilitario, nao QA) |
 | `gemini-qa3.mjs` | QA unico script — Preflight + Inspect + Editorial |
 | ~~`content-research.mjs`~~ | ~~Pesquisa de conteudo~~ — **REMOVIDO S106.** Substituido por `/research` skill (6 pernas) |

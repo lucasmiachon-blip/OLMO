@@ -19,3 +19,5 @@
 | 12 | settings.local.json reflection S157 | Post-desespero review — 4 options: status quo / narrow paths / remove Edit+Write + per-session / deny-list. Gitignored = invisivel a git diff |
 | 13 | g3-result memory findings audit | 15 findings Gemini sobre memory duplication/drift (S156 INFRA_3 `.claude/tmp/g3-result.md` foi capturado). Memory ja no cap 20/20 — audit antes de next /dream |
 | 14 | content/aulas metanalise: s-objetivos customAnim | stagger nao wired — apos QA visual |
+| 15 | Hooks reduction audit | 38 hooks sem reducao em S156 (so permissions 68→26). Smells: 3 wildcard `.*` PreToolUse + 6 Bash hooks + momentum-brake trio + hook-calibration/success-capture em PreToolUse (deveriam ser Post). Stop hygiene 7 hooks ~OK. Next /insights target. |
+| 16 | Zombie refs audit post-archival | S154 arquivou `lint-narrative-sync.js` + `s-checkpoint-1` mas deixou dangling refs. S157 fixou 4 active (done-gate, AGENTS.md, content/aulas/CLAUDE.md, quality-gate). Ainda: docs/aulas/AGENT-AUDIT-S79.md + research-gaps-report.md + cowork-evidence-harvest-S112.md (historicos, baixo risco). |
