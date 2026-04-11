@@ -6,6 +6,12 @@
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
+# === TEMP DEBUG S152 (remove after root cause found) ===
+DEBUG_DIR="/c/Dev/Projetos/OLMO/.claude"
+echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] invoked" >> "$DEBUG_DIR/success-capture.debug.log"
+echo "$INPUT" > "$DEBUG_DIR/success-capture.debug.last-input"
+# === END TEMP DEBUG ===
+
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 LOG_FILE="$PROJECT_ROOT/.claude/success-log.jsonl"
 
