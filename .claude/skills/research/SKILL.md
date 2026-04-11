@@ -255,7 +255,7 @@ Quando pernas divergem, resolver pela hierarquia abaixo (primeira regra que dese
 
 **Living HTML (se slide-id):** gerar/atualizar `content/aulas/{aula}/evidence/{slide-id}.html` — documento UNICO de preparacao do professor. Substitui evidence-db.md + aside.notes + blueprint.md para esse slide.
 
-Secoes do HTML (usar `generate-evidence-html.py` em `.claude/skills/research/scripts/`):
+Secoes do HTML (escrever direto no arquivo, seguindo a estrutura abaixo):
 
 1. **Header** — assertion (h2 do slide), posicao (slide N de total, fase F1/F2/F3), timestamp, validade sugerida (+6 meses)
 2. **Sintese Narrativa** — prosa do Step 3a (60s de leitura)
@@ -269,16 +269,7 @@ Secoes do HTML (usar `generate-evidence-html.py` em `.claude/skills/research/scr
 10. **Convergencia** — colapsavel `<details>` (SE multi-perna)
 11. **Footer** — coautoria + pipeline version
 
-**Como gerar:** Montar um JSON com os campos acima (ver schema em `scripts/generate-evidence-html.py`) e chamar:
-```bash
-python .claude/skills/research/scripts/generate-evidence-html.py \
-  --slide-id {id} --aula {aula} --assertion "{h2}" \
-  --slide-number {N} --total-slides {total} --phase {fase} \
-  --data {path-to-json}
-```
-O script e o template canonico — NAO gerar HTML inline manualmente. Uma fonte de verdade.
-
-HTML puro, CSS inline minimo, charset UTF-8, sem framework. Versionado no git — `git diff` mostra o que mudou. NAO gerar HTML vazio para slides sem dados (cobertura incremental OK).
+**Como escrever:** HTML escrito diretamente em `content/aulas/{aula}/evidence/{slide-id}.html`, seguindo as 11 secoes acima como template mental. **Benchmark visual canonico:** `content/aulas/metanalise/evidence/pre-reading-heterogeneidade.html` (S148). HTML puro, CSS inline minimo, charset UTF-8, sem framework. Versionado no git — `git diff` mostra o que mudou. NAO gerar HTML vazio para slides sem dados (cobertura incremental OK).
 
 ## Regras
 
