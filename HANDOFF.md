@@ -7,20 +7,9 @@
 Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 20 items.**
 
-## P0 — Infra fixes pendentes (Lucas manual — guard-product-files.sh A6 bloqueia agent)
-
-Diffs completos em CHANGELOG S158 §Fix 1 e §Fix 2. Apenas Lucas aplica via editor.
-
-- **`.claude/settings.local.json` linhas 43-44**: remover `"Edit"` e `"Write"` do allow. Volta ao default=ask. Resolve BACKLOG #12.
-- **`hooks/stop-should-dream.sh` linhas 18-20**: adicionar Python fallback ISO 8601 parse. Bug: dream dispara a cada Stop em Windows MSYS (`date -d` falha silenciosa em sufixo `Z`). Evidencia: S158 disparou ~4h46min apos S157, nao 24h.
-
 ## P0 — Slides (desbloqueado, fim da infra)
 
 - **Forest plot slides:** s-forest1 (Li 2026 AJCD, PMID 40889093 VERIFIED) + s-forest2 (Ebrahimi 2025 Cochrane, PMID 41224205 VERIFIED). Evidence unico denso `s-forest-plot.html` a criar. Plano: `.claude/plans/abundant-pondering-zebra.md`.
-
-## P0 — tmp cleanup S156
-
-- `.claude/tmp/` arquivos dispatch S155 + `backup-pre-infra3-settings.json`. KBP-10 hard: Lucas decide individual, nunca batch.
 
 ## P1 — A11y gaps residuais
 
@@ -49,7 +38,7 @@ Diffs completos em CHANGELOG S158 §Fix 1 e §Fix 2. Apenas Lucas aplica via edi
 
 ## BACKLOG
 
-→ `.claude/BACKLOG.md` (20 items; #10 RESOLVED S156, #12 pending-fix S158, #17-20 novos)
+→ `.claude/BACKLOG.md` (20 items; #10 RESOLVED S156, #12 RESOLVED S158, #17-20 novos)
 
 ## CONFLITOS
 

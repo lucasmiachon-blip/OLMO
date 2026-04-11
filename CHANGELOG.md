@@ -96,6 +96,26 @@ Dream subagent reportou:
 - Dream S158 21:01 tocou: MEMORY.md reindex, feedback_agent_delegation, feedback_teach_best_usage, user_mentorship (last_challenged refresh). MEMORY.md 55 linhas, 20/20 cap.
 - **Warning:** dream tocou memoria com bug ativo (pre-fix). Proximo /dream deve ser inspecionado para verificar estado saudavel.
 
+### Closing S158 — pendencias resolvidas
+
+**Fix 1 aplicado:** Lucas manual via editor — `.claude/settings.local.json` linhas 42-44 (Edit+Write removidos, trailing comma corrigida). BACKLOG #12 marcado RESOLVED.
+
+**`.claude/workers/reducao-context/` removido:** Lucas via `!rm -rf` shell prefix. Synthesis consumido, gitignored.
+
+**`.claude/tmp/` ja vazio:** cleanup foi executado em S157 (commit `bda0df8`). HANDOFF listava incorretamente como pendente — removido.
+
+**Fix 2 aplicado — reescrita bash-pura (descarta fix original):** 3 tentativas do fix original falharam por CLI paste bug — editor/clipboard quebrava a linha longa `python -c "..."` (~280 chars) em multiple linhas com `\n` real. Tentativa 4 usou abordagem diferente: **eliminar Python completamente**, usar bash parameter expansion (`${TS:0:4}`, `${TS:5:2}`, etc) para extrair campos ISO 8601 por posicao e reconstruir como `"YYYY-MM-DD HH:MM:SS UTC"` — formato que `date -d` aceita em qualquer GNU date cross-platform (Linux/macOS/Windows MSYS). Todas as linhas < 80 chars. Validacao end-to-end: input `2026-04-11T15:30:00Z` → reconstructed `2026-04-11 15:30:00 UTC` → epoch `1775921400` → back `2026-04-11T15:30:00Z` round-trip perfect.
+
+**Lesao — paste-resilience doctrine:** quando texto tem que sobreviver ao caminho `editor → clipboard → terminal`, reduzir complexidade de linha > procurar ferramenta perfeita. Cada ferramenta no caminho tem liberdade de mangear o texto; codigo curto elimina superficie de ataque. Generalizavel: "dependency on invariants you don't control" = fragility. Bash parameter expansion venceu Python `datetime.fromisoformat` porque e built-in + linhas curtas.
+
+**Bonus do fix bash-pure:** elimina dependencia em Python + KBP-20 (`python script.py` hook bypass gap) deixa de ser relevante para este hook especificamente. Gap ainda valido para outros hooks como defense-in-depth, mantido em BACKLOG.
+
+**Guard A6 nao desabilitado:** Lucas autorizou `mv guard-product-files.sh → .disabled` mas o proprio popup de confirmacao no CLI foi clicked deny duas vezes (popup generico "File copy/move detectado — confirme se intencional" sem contexto de origem). Opus respeitou deny, parou, propos alternativa que nao requer desabilitar guard (editor externo + conteudo bash-pure). Guard A6 permanece ativo toda a sessao. Win-win: safety preservada + fix aplicado.
+
+### Pending S159
+- **Forest plot slides** (s-forest1, s-forest2) — desbloqueado, plano em `.claude/plans/abundant-pondering-zebra.md`
+- **A11y gaps P1** — pre-reading-heterogeneidade.html (read-only) + forest-plot-candidates.html
+
 ---
 
 ## Sessao 157 — 2026-04-11 (Context melt fix — rule-level, plan prune, HANDOFF reconcile)

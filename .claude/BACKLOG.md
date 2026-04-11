@@ -16,7 +16,7 @@
 | 9 | S155 Group E slide-patterns vs slide-rules drift | 5 findings em `.claude/tmp/c1-result.md` (C1 #6-#10). Defer slide-focused session (touches CSS/runtime + Lucas working area) |
 | 10 | [RESOLVED S156] settings.local.json wildcard collapse | Executado S156 Commit 2. 68→26 entries. MCP wildcards incluidos (pubmed/biomcp/crossref) |
 | 11 | S155 Group G hooks lazy load | Complexity-as-ceremony per backlog gate |
-| 12 | settings.local.json reflection S157 | Post-desespero review — 4 options: status quo / narrow paths / remove Edit+Write + per-session / deny-list. Gitignored = invisivel a git diff |
+| 12 | [RESOLVED S158] settings.local.json reflection S157 | Fix aplicado: removeu `"Edit"` e `"Write"` do allow. Volta ao default=ask. Manual via editor pelo Lucas (guard A6 bloqueou agent). |
 | 13 | g3-result memory findings audit | 15 findings Gemini sobre memory duplication/drift (S156 INFRA_3 `.claude/tmp/g3-result.md` foi capturado). Memory ja no cap 20/20 — audit antes de next /dream |
 | 14 | content/aulas metanalise: s-objetivos customAnim | stagger nao wired — apos QA visual |
 | 15 | Hooks reduction audit | 38 hooks sem reducao em S156 (so permissions 68→26). Smells: 3 wildcard `.*` PreToolUse + 6 Bash hooks + momentum-brake trio + hook-calibration/success-capture em PreToolUse (deveriam ser Post). Stop hygiene 7 hooks ~OK. Next /insights target. |
