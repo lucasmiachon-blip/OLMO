@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 150 — 2026-04-10 (HTML improvements + PMID clickable)
+
+### Evidence — Audit read-only
+- `docs/evidence-html-audit-S150.md` criado: matrix dos 14 evidence HTMLs (11 dimensoes cada)
+- Findings: drift concentrado em 1 arquivo (s-objetivos 13 URLs), 1 P0 bug (s-checkpoint-1:183), 4 DOI label drifts, 3 violacoes estruturais P1 (s-pico prosa, s-importancia zero refs, pre-reading-forest-plot-vies zero refs)
+- A11y baseline: ~86 `<th scope>` missing, ~104 `rel="noopener"` missing (transversal)
+
+### Evidence — Mechanical fixes (7 edits, 0 risco semantico)
+- `s-checkpoint-1.html:183` — removido `</td>` orfao dentro de `<ol><li>` (bug HTML estrutural)
+- `s-checkpoint-1.html:93,115` — DOI labels normalizados: texto completo → `DOI` (Ray 2009 + ACCORD)
+- `s-objetivos.html` — 13 URLs PubMed normalizadas: trailing slash removido + `target="_blank"` adicionado (replace_all)
+- `s-ancora.html:88` — DOI label normalizado → `DOI` (Valgimigli 2025)
+- `s-forest-plot.html:91,140` — DOI labels normalizados → `DOI` (Vaduganathan 2022 + Ebrahimi Cochrane)
+- Zero PMIDs/DOIs numericos alterados — so formato de display e atributos HTML
+
+### Protocol
+- Fase 1 plan `nested-wibbling-pearl.md` executada read-only; Fases 2-5 deferidas por context pressure + editorial decisions
+- KBP-08 respeitado: PMIDs suspeitos (s-pico prosa, Nasr data, s-checkpoint-1 missing badges) NAO auto-corrigidos — requerem PubMed MCP verification por Lucas
+
 ## Sessao 149 — 2026-04-10 (CANDIDATE PMID verification Batch A)
 
 ### Evidence — PMID Verification

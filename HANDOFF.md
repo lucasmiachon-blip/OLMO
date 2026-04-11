@@ -1,40 +1,56 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 149 | 2026-04-10
-> Foco: CANDIDATE PMID verification (Batch A)
+> Sessao 150 | 2026-04-10
+> Foco: HTML improvements + PMID clickable (mechanical fixes)
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build OK (**15 slides** metanalise — s-forest-plot removido S146).
-**Agentes: 10.** **Hooks: 38 registrations.** **Rules: 11**. **MCPs: 3 ativos (PubMed, SCite, Consensus) + 9 frozen**. **KBPs: 12.**
-**Skills: 20.** **Memory: 20/20 (0 slots livre).** **.claudeignore: criado S128.**
+Monorepo funcional. CI verde. Build OK (**15 slides** metanalise).
+**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 12.** **Skills: 20.** **Memory: 20/20.**
 
-## P0 — Forest plot slides (2 novos) + QA restantes
+## S150 DONE
 
-**s-forest-plot removido S146.** Sera substituido por 2 slides com forest plot REAL (crop + zoom + animacao).
-- **Slide A:** Vaduganathan 2022 (SGLT2i/IC, Lancet, PMID 36041474 VERIFIED). 5 estudos, anatomia basica.
-- **Colchicina (3 MAs candidatas):**
-  - Ebrahimi 2025 (Cochrane, 12 RCTs, 22,983 pts, PMID CANDIDATE)
-  - Samuel 2025 (Eur Heart J, 6 RCTs, 21,800 pts, PMID 40314333 VERIFIED)
-  - Li 2026 (Am J Cardiovasc Drugs, 14 RCTs, 31,397 pts, PMID 40889093 VERIFIED)
-- Evidence HTML: `evidence/s-forest-plot.html` + `evidence/forest-plot-candidates.html` (9 candidatos, 6 combos).
-- **Pendente:** Lucas le as MAs e escolhe combo final. Crop forest plots pos-decisao.
-- **DONE S148:** DOIs clicaveis + CSS benchmark aplicado nos 5 evidence HTMLs + benchmark polido.
-- **DONE S149 (Batch A):** 14 PMIDs verificados via PubMed MCP. 11 VERIFIED direto, 2 PMIDs corrigidos (Aromataris 26360830, Garritty 33068715), 1 PMID ok mas dados forest plot nao confirmados (Nasr 29713212).
+- Audit read-only completo dos 14 evidence HTMLs → `docs/evidence-html-audit-S150.md` (matrix, prioridades, suspicious PMIDs)
+- **Mechanical fixes (7 edits, 0 risco semantico):**
+  - `s-checkpoint-1.html:183` — bug HTML `</td></li>` orfao em `<ol><li>` removido
+  - `s-checkpoint-1.html:93,115` — DOI labels (texto visivel) → `DOI` (Ray 2009 + ACCORD)
+  - `s-objetivos.html` — 13 URLs PubMed: trailing slash removido + `target="_blank"` adicionado (replace_all)
+  - `s-ancora.html:88` — DOI label → `DOI` (Valgimigli)
+  - `s-forest-plot.html:91,140` — DOI labels → `DOI` (Vaduganathan + Ebrahimi)
+- Forest plot slides (2 novos) pendentes de Lucas — Ebrahimi/Samuel/Li + Vaduganathan (inalterado)
 
-**s-pico: DONE (R12, --term teal token, punchline containment).**
-**s-importancia: DONE.** **s-contrato: DONE.**
-**Proximo QA:** s-absoluto (ou proximo LINT-PASS apos forest plot slides criados).
-**Proximo evidence:** Batch B (PMC→PMID conversions: PMC12991648, PMC12843294, Ebrahimi DOI, CLEAR SYNERGY) + Batch C (Renfro/Sargent, Park/JCO, Berlin Questionnaire, Fresno Test). ~11 CANDIDATEs restam em 5 HTMLs.
+## P0 — Pendencias com coordenadas exatas (proximo agent executa direto)
 
-## P1 — /insights trend watch
+### Editorial decisions (Lucas tem que decidir primeiro)
+- **`s-pico.html`**: 6 PMIDs em prosa narrativa (linhas 171, 176, 181-186, 232-236) — violacao regra "PMID apenas em `#referencias`". Decisao: mover para `#referencias`, remover, ou manter como excecao? CSS `.ref-pmid font-size: .82rem` vs benchmark `.85rem`.
+- **`s-importancia.html`**: Zero PMIDs no arquivo. Cita Borenstein 2021, Kastrati & Ioannidis 2024, Yusuf 1985, Lau 1992 so por nome. Adicionar PMIDs? (proibido sem PubMed MCP)
+- **`pre-reading-forest-plot-vies.html`**: Zero PMIDs (pre-reading pedagogico). Ok manter sem refs?
 
-S141 insights: rolling averages subiram (corrections 0.862->1.128, kbp 0.254->0.32).
-Observar S142-S146. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
+### Fase 3 — PubMed MCP verification (PMIDs suspeitos do audit)
+- **s-checkpoint-1.html:183-185** — 3 PMIDs sem badge VERIFIED (21366473, 26822326, 31167051). PubMed MCP check antes de adicionar `<span class="v">VERIFIED</span>`.
+- **Nasr 29713212** (s-objetivos:285) — PMID ok mas dados forest plot 44%→76% nao no abstract (flag S149). Decisao: remover citacao, manter flag, ou deep-read full paper?
+- **s-pico.html** 6 PMIDs prosa: Goldkuhle 37146659, Guyatt 21802903, Guyatt 40393729, Colunga-Lozano 41207400, Huang 17238363, Adie 28234219 — nenhum verificado PubMed MCP.
 
-## P2 — css_cascade FP exclusion DONE
+## P1 — CSS benchmark adoption (13 arquivos)
 
-Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Secao "FALSOS POSITIVOS CONFIRMADOS".
+Meta: adicionar classes do benchmark (`pre-reading-heterogeneidade.html` linhas 10-80) onde faltam.
+- Arquivos sem `.ref-pmid`/`.v`/`.c` completos: `blueprint.html`, `meta-narrativa.html`, `pre-reading-forest-plot-vies.html` (checar com audit)
+- `s-pico.html` tem CSS proprio S144 (.ref-pmid .82rem) — reconciliar com benchmark .85rem ou manter diferenca intencional
+- **NAO tocar** `pre-reading-heterogeneidade.html` (benchmark read-only)
+
+## P2 — A11y baseline (transversal)
+
+Do audit: ~86 `<th>` sem `scope="col"`, ~104 links `target="_blank"` sem `rel="noopener noreferrer"`. Low risk, high volume — batch add em 1 commit por arquivo.
+
+## P3 — Forest plot slides (2 novos)
+
+- Slide A: Vaduganathan 2022 (SGLT2i/IC, PMID 36041474 VERIFIED) — anatomia basica
+- Slide B: Colchicina — 3 MAs candidatas (Ebrahimi 2025 Cochrane CANDIDATE + Samuel 2025 EHJ 40314333 VERIFIED + Li 2026 AJCD 40889093 VERIFIED)
+- Pendente: Lucas escolhe combo. Evidence: `forest-plot-candidates.html` (9 candidatos, 6 combos).
+
+## P4 — /insights trend watch
+
+S141: rolling averages corrections 0.862→1.128, kbp 0.254→0.32. Se KBP/session > 0.5 por 3 sessoes: investigar regressao.
 
 ## BACKLOG (pos-deadline)
 
@@ -84,4 +100,4 @@ Exclusao explicita adicionada ao prompt Call B (gate4-call-b-uxcode.md) S146. Se
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S149 2026-04-10
+Coautoria: Lucas + Opus 4.6 | S150 2026-04-10
