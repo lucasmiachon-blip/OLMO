@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## Sessao 151 — 2026-04-10 (HTML + REFERENCES)
+
+### Fase A — PMID verification (15 alvos via NCBI eutils)
+- `docs/pmid-verification-S151.md` criado: tabela 15 linhas (VERIFIED/BOOK/INVALID)
+- 13 VERIFIED: 21366473 ACCORD 2011, 26822326 ACCORD 2016, 31167051 Reaven VADT, 37146659 Goldkuhle, 21802903 Guyatt GRADE, 40393729 Guyatt, 41207400 Colunga-Lozano, 17238363 Huang, 28234219 Adie, 29713212 Nasr, 39240561 Kastrati L (Bern), 1614465 Lau 1992, 2858114 Yusuf 1985
+- 1 BOOK: Borenstein 2021 (Introduction to Meta-Analysis 2nd ed, ISBN 978-1-119-55835-4) — tagged `<span class="book">BOOK</span>`
+- 1 INVALID: 37575761 (AMACR case report, nao VTS med ed) — removido de s-pico.html
+- PubMed MCP schemas nao indexados no tool pool — fallback WebFetch em eutils (esummary.fcgi) funcionou sem custo
+- Correcao de atribuicao: Kastrati L (Bern, primeira autora de PMID 39240561 JAMA Netw Open) ≠ Adnan Kastrati (Munich cardiology) — HANDOFF ambiguo, citacao agora spell-out dos 3 autores + Ioannidis
+
+### Fase B — Edits editoriais P0
+- **B1 s-pico.html:** 6 PMIDs movidos de prosa (linhas 171,176,181-186,232-236) para `#referencias` (linhas 247-254, table rows clicaveis). CSS `.ref-pmid` .82rem→.85rem (reconcile com benchmark S148). PMID 37575761 INVALID removido. Self-check: `grep 'PMID \d{7,8}'` retorna so dentro de `#referencias`.
+- **B2 s-importancia.html:** criada `<section id="referencias">` com 4 entradas (Borenstein 2021 BOOK, Kastrati 2024 PMID 39240561, Lau 1992 PMID 1614465, Yusuf 1985 PMID 2858114). CSS classes `.ref-pmid/.v/.c/.book` adicionadas. Prosa inalterada.
+- **B3 s-checkpoint-1.html:** DEFERIDO — slide frozen (Lucas: nao entra na apresentacao provavelmente)
+- **B4 s-objetivos.html:** Nasr 29713212 identity-verified via Fase A (author+title+journal+ano+vol+pages+DOI match). Comment inline `[dados forest plot nao no abstract]` removido. Badge V→VERIFIED normalizado.
+
+### Fase C — CSS benchmark adoption (3 files)
+- `blueprint.html`, `meta-narrativa.html`, `pre-reading-forest-plot-vies.html` recebem 5 linhas CSS (`.ref-pmid`, `.ref-pmid:hover`, `.v`, `.c`). Pattern copiado de `forest-plot-candidates.html` (origem: S146 commit ea434e7, NAO do benchmark `pre-reading-heterogeneidade.html` que so tem `.ref-pmid`).
+- Benchmark `pre-reading-heterogeneidade.html` preservado read-only.
+
+### Fase D — A11y baseline batch (transversal)
+- **D.1 (commit 008fd73):** `rel="noopener noreferrer"` adicionado a 124 links `target="_blank"` externos em 7 arquivos (s-hook 33, s-rs-vs-ma 12, s-forest-plot 14, s-checkpoint-1 15, s-ancora 7, s-objetivos 15, forest-plot-candidates 12) + 9 ja feitos em B1/B2. Tabnabbing protection.
+- **D.2 (commit 5984337):** `<th>` → `<th scope="col">` via replace_all em 13 arquivos (75 scoped / 87 total). Gap 12 = 3 benchmark (skipped) + 9 `<th colspan="2">` em forest-plot-candidates.html (label rows, nao column headers — nao matcheiam padrao simples).
+
+### Protocol
+- Plan `magical-growing-harbor.md` executado em 4 fases com momentum brake entre cada
+- Atomic commits: 1 (Fase A) + 3 (B1/B2/B4) + 1 (C) + 2 (D.1/D.2) = 7 commits S151
+- KBP-07 violado uma vez mid-sessao: atribui `.v/.c` pattern a `s-checkpoint-1.html` sem verificar git history — Lucas corrigiu, git log -S confirmou origem em `forest-plot-candidates.html` (S146 ea434e7). Fix: verificar via `git log -S '<literal>'` antes de atribuir.
+
 ## Sessao 150 — 2026-04-10 (HTML improvements + PMID clickable)
 
 ### Evidence — Audit read-only
