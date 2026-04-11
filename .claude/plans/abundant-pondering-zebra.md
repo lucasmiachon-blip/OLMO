@@ -1,102 +1,25 @@
-# S157 — Context melt fix + forest plot slides
+# S157 — Forest plot slides (s-forest1 + s-forest2)
 
 > **Sessao:** 157 | **Data:** 2026-04-11
-> **Estado:** plan mode, post-compaction
-> **Prioridade:** fix context melt PRIMEIRO (documentar + prevenir recorrencia), slides depois
+> **Estado:** Fase calmaria, pos rule-level fix
+> **Prioridade:** 2 slides + 1 evidence HTML unico denso
 
 ---
 
-## 1. Contexto — por que nao estamos conseguindo conversar
+## STATUS
 
-Lucas observou spike de contexto **20% → ~60% ao entrar plan mode**. Isso corrompe a capacidade de dialogar: cada iteracao consome budget desproporcional e o agente perde clareza sobre o que Lucas pediu. Sem fix, repete em S158+.
+**Context melt fix — RESOLVED S157 (calmaria phase):**
+- Commit `20dcc3e` — `anti-drift.md §Delegation gate` + KBP-17 (rule auto-loaded)
+- Commit `b25e039` — HANDOFF root cleanup (sem duplicacao de prose)
+- Commit `e9da24d` — doc commit inicial S157
+- Supersede hipotese inicial "fix comportamental, nao estrutural" → rule-level venceu (CLAUDE.md §1).
+- Detalhes forense: `git log -S 'Delegation gate'` + `CHANGELOG.md` S157.
 
-Hipotese inicial do Lucas: KBP acumulado ou rules inflados em auto-load. **Diagnostico (read-only, ja executado nesta sessao) descarta essa hipotese.**
-
----
-
-## 2. Root cause — diagnose
-
-### 2.1 Baseline auto-load medido
-
-**Sempre ativo:**
-
-| Arquivo | Linhas |
-|---------|--------|
-| `~/.claude/CLAUDE.md` (global) | 49 |
-| `CLAUDE.md` (projeto) | 76 |
-| `.claude/rules/anti-drift.md` | 128 |
-| `.claude/rules/coauthorship.md` | 31 |
-| `.claude/rules/known-bad-patterns.md` | **58** (Format C+ slim) |
-| `.claude/rules/multi-window.md` | 35 |
-| `.claude/rules/session-hygiene.md` | 64 |
-| `memory/MEMORY.md` | 56 |
-| **Subtotal baseline** | **497** |
-
-**Path-triggered (CWD em `content/aulas/**`):**
-
-| Arquivo | Linhas |
-|---------|--------|
-| `content/aulas/CLAUDE.md` | 83 |
-| `content/aulas/metanalise/CLAUDE.md` | 91 |
-| `.claude/rules/qa-pipeline.md` | 112 |
-| `.claude/rules/design-reference.md` | 119 |
-| `.claude/rules/slide-rules.md` | 173 |
-| `.claude/rules/slide-patterns.md` | 186 |
-| **Subtotal path** | **764** |
-
-**Total estatico: ~1260 linhas ≈ 19k tokens ≈ 10% do context 200k.**
-
-Hooks SessionStart injetam ~140 linhas adicionais (session-start.sh + session-compact.sh + apl-cache-refresh.sh + HANDOFF cat). **Overhead total estatico ≈ 15% worst case.**
-
-### 2.2 Conclusoes primarias
-
-- **KBPs NAO sao o problema** — 58 linhas Format C+ slim. Pointer-only discipline funcionando.
-- **anti-drift NAO e o principal vilao** — 128 linhas moderadas.
-- **Memory 22 topic files ja sao on-demand** — so o index 56L e eagerly loaded.
-- **Baseline max e ~15% do context.** O spike 20→60% nao pode vir de auto-load estatico.
-
-### 2.3 Causa raiz identificada
-
-**Plan mode Phase 1 + Phase 2 multiplicam contexto via agent spawning.**
-
-A instrucao de plan mode (injetada pelo harness toda vez que Lucas entra plan mode) explicitamente encoraja:
-
-- **Phase 1:** "Launch up to 3 Explore agents IN PARALLEL" com comprehensive output
-- **Phase 2:** "Launch up to 3 Plan agents" com "comprehensive background context from Phase 1"
-
-Cada Explore agent retorna ~5-15k tokens. Cada Plan agent retorna ~3-8k tokens. Maximo teorico:
-
-- 3 Explore agents: ~45k tokens
-- 3 Plan agents: ~24k tokens
-- **Total: ~70k tokens ≈ 35% do context 200k**
-
-**20% baseline + 35% (agents) + ~5% (misc reads) ≈ 60%.** Bate exatamente com o que Lucas observou.
+**Pendente nesta sessao:** Fases 1-7 (slides execution).
 
 ---
 
-## 3. Fix — behavioral, nao estrutural
-
-Plan mode JA permite skip. Cita textualmente (na propria instrucao injetada):
-
-- "Use 1 agent when the task is isolated to known files, the user provided specific file paths, or you're making a small targeted change"
-- "try to use the minimum number of agents necessary (usually just 1)"
-- "Skip agents: Only for truly trivial tasks"
-
-**Regra operacional (S157 e futuras):**
-
-Quando Lucas ja declarou o objetivo e as ancoras sao conhecidas (papers + PMIDs + ficheiros exatos), **pular Phase 1 Explore e Phase 2 Plan agents completamente**. Usar Read/Grep/Glob diretos para verificar ancoras especificas e escrever o plano inline. AskUserQuestion so para decisoes reais (IDs, theme, placement), nunca para exploracao.
-
-**Este fix e comportamental — nao adiciona rule nova.** Adicionar KBP-17 sobre "plan mode agent discipline" seria ironico: a solucao nao e mais regras, e obedecer as regras que plan mode ja declara.
-
-**Metrica de sucesso:** executar Fase 0 deste plano SEM lancar Explore/Plan agents. Contexto deve ficar proximo de 20-30%, nao 60%.
-
-### 3.1 Por que documentar no HANDOFF (nao so no plano)
-
-Sem documentar em lugar durable, repete na proxima sessao. O HANDOFF root e lido em toda SessionStart. **Add secao "Context Melt Protocol" apontando para este plano.**
-
----
-
-## 4. Slides forest plot — contexto (objetivo secundario, executar DEPOIS do fix)
+## 1. Slides forest plot — contexto
 
 Lucas quer 2 slides na aula de metanalise ensinando anatomia de forest plot, com **UMA evidence HTML densa** contendo as 2 MAs:
 
@@ -109,67 +32,14 @@ Lucas quer 2 slides na aula de metanalise ensinando anatomia de forest plot, com
 - `.claude/workers/colchicine-macce-2025-2026/40-census-final.md` (15 MAs triangulated)
 - `.claude/workers/s-forest-planning/2026-04-11-0001_scope-and-reflection.md` (436 L pedagogia)
 
-**Mudancas vs plan S152:**
+**Decisoes estruturais:**
 1. **UMA** evidence HTML (`s-forest-plot.html`), nao duas.
 2. `forest-plot-candidates.html` pode ser arquivado/deletado.
 3. Living HTML FIRST (ler PDFs, escrever evidence), DEPOIS slides.
 
 ---
 
-## 5. Execution
-
-### Fase 0 — Fix context melt (PRIMEIRO, antes dos slides)
-
-**Por que primeiro:** se o fix nao for registrado, repete em S158+ e continuamos sem conversa fluida.
-
-**0.1** Session name:
-```bash
-echo -n "htmls-forest-plot" > .claude/.session-name
-```
-
-**0.2** Plano ja salvo em `.claude/plans/abundant-pondering-zebra.md` (este arquivo).
-
-**0.3** Atualizar `HANDOFF.md` root adicionando secao:
-
-```markdown
-## CONTEXT MELT PROTOCOL (S157 lesson)
-
-Observado S157: spike de contexto 20% → 60% ao entrar plan mode.
-Causa raiz: Plan mode Phase 1/2 encoraja lancar ate 3 Explore + 3 Plan agents
-(~70k tokens combinados de retorno).
-
-Fix behavioral: quando escopo conhecido (Lucas ja declarou objetivo + ancoras
-claras: papers, PMIDs, ficheiros), pular Phase 1/2 agents completamente.
-Escrever plano inline usando Read/Grep/Glob para ancoras especificas.
-
-Detalhes completos: `.claude/plans/abundant-pondering-zebra.md` §1-§3
-
-**Check antes de lancar Agent em plan mode:**
-"Lucas ja me deu arquivos/PMIDs/papers exatos? Se sim → zero agents."
-```
-
-**0.4** Commit isolado:
-```
-S157: context melt fix — document plan mode agent discipline
-```
-
-**0.5** Reconciliar `content/aulas/metanalise/HANDOFF.md`:
-- Remover linha fantasma `| 8 | s-forest-plot | LINT-PASS | ...` (nunca criado S146)
-- Corrigir `16/16 slides` → `15/15`
-- Corrigir ordem narrativa F2 (remover `-> s-forest-plot`)
-- Remover `s-forest-plot` da lista dark-bg (5→4)
-
-**Commit:** `S157: reconcile HANDOFF aula — remove s-forest-plot phantom`
-
-**0.6** Reconciliar `HANDOFF.md` root:
-- Remover P0 "Slide A: Vaduganathan 2022" (superseded por S152)
-- Substituir por "S157: context melt fix + 2 slides forest plot em execucao"
-
-**Commit:** `S157: HANDOFF root — supersede Vaduganathan carry-over`
-
-**STOP** — Lucas confirma que contexto nao explodiu nesta sessao (metrica subjetiva do fix).
-
----
+## 2. Execution
 
 ### Fase 1 — Preservation + pre-flight visual
 
@@ -330,13 +200,13 @@ Estrutura identica Fase 5, adaptacoes:
 
 ### Fase 7 — Wrap
 
-**7.1** `content/aulas/metanalise/HANDOFF.md`: 15/15 → 17/17 slides, add entries s-forest1/s-forest2, update F2.
+**7.1** `content/aulas/metanalise/HANDOFF.md`: 15/15 → 17/17 slides, add entries s-forest1/s-forest2, update F2. **Tambem:** remover linha fantasma `s-forest-plot` da tabela (Erro B herdado do desespero — count table=16 vs summary=15).
 
 **7.2** `content/aulas/metanalise/CHANGELOG.md`:
 ```markdown
-## S157 — 2026-04-11 — htmls-forest-plot
+## S157 — 2026-04-11 — calmaria
 
-- Context melt fix: document plan mode agent discipline (HANDOFF root + plano arquivado)
+- Context melt fix: KBP-17 + anti-drift §Delegation gate (commit 20dcc3e)
 - Add s-forest1 (Li 2026 AJCD, PMID 40889093) — anatomia 5 elementos
 - Add s-forest2 (Ebrahimi 2025 Cochrane, PMID 41224205) — RoB meta-elemento + demo live + fala 10s
 - Add s-forest-plot.html evidence unico (Li + Ebrahimi + 15 MAs census destilado)
@@ -345,7 +215,7 @@ Estrutura identica Fase 5, adaptacoes:
 - Reconcile HANDOFF aula: remove s-forest-plot phantom (15→17)
 ```
 
-**7.3** `HANDOFF.md` root: session S157 → S158. Manter Context Melt Protocol (lesson durable).
+**7.3** `HANDOFF.md` root: session S157 → S158. KBP-17 permanece auto-loaded (durable).
 
 **7.4** Workers preservados (KBP-10 + trail epistemologico):
 - `.claude/workers/colchicine-macce-2025-2026/` intacto (40-census ja movido)
@@ -353,26 +223,24 @@ Estrutura identica Fase 5, adaptacoes:
 - Listar em BACKLOG S162+ review (minimo 5 sessoes)
 - **NAO deletar** sem Lucas OK.
 
-**Commit final:** `S157: wrap — 2 forest slides DONE + context melt documented`
+**Commit final:** `S157: wrap — 2 forest slides DONE`
 
 ---
 
-## 6. Out of scope (explicit NOT)
+## 3. Out of scope (explicit NOT)
 
 - Pre-readings legacy (`pre-reading-forest-plot-vies.html`, `pre-reading-heterogeneidade.html`) — Lucas explicit: read-only
 - 9 `<th colspan="2">` a11y gap em `forest-plot-candidates.html` — HANDOFF root P1 defer
 - 14 links `rel="noopener"` + 3 `<th scope="col">` em `pre-reading-heterogeneidade.html` — benchmark read-only
 - Worker cleanup (KBP-10 + anti-fragilidade — preservar trail)
 - Vaduganathan slide A — superseded por S152
-- Narrow rule paths ou slim memory — diagnosticado como NAO sendo causa do spike
-- Adicionar KBP-17 sobre plan mode agents — fix e comportamental, nao mais regra
 - Construir forest plot SVG from scratch (hard constraint metanalise CLAUDE.md #5)
 - Comparacao estatistica entre Li e Ebrahimi (nao e o ponto pedagogico)
 - Slide RoB standalone (RoB integrada no crop Ebrahimi)
 
 ---
 
-## 7. Critical files
+## 4. Critical files
 
 ### Criados
 - `content/aulas/metanalise/slides/08a-forest1.html`
@@ -385,13 +253,11 @@ Estrutura identica Fase 5, adaptacoes:
 - `content/aulas/metanalise/assets/_source-pdfs/` *(gitignored)*
 
 ### Editados
-- `HANDOFF.md` root — add Context Melt Protocol + supersede Vaduganathan
-- `content/aulas/metanalise/HANDOFF.md` — reconcile phantom, 15/15→17/17
+- `content/aulas/metanalise/HANDOFF.md` — reconcile phantom + 15/15→17/17
 - `content/aulas/metanalise/CHANGELOG.md` — S157 entry
 - `content/aulas/metanalise/slides/_manifest.js` — +2 entries
 - `content/aulas/metanalise/metanalise.css` — +selectors scopados
 - `content/aulas/metanalise/slide-registry.js` — condicional D3
-- `.claude/.session-name`
 - `.gitignore` — add `_source-pdfs/`
 
 ### Arquivados
@@ -412,16 +278,7 @@ Estrutura identica Fase 5, adaptacoes:
 
 ---
 
-## 8. Verification (end-to-end)
-
-### Context melt fix (Fase 0)
-
-1. Executar Fase 0 sem lancar Explore/Plan agents → contexto fica proximo de 20-30%, nao 60%
-2. `HANDOFF.md` root tem secao "CONTEXT MELT PROTOCOL" visivel em proxima session start
-3. `.claude/plans/abundant-pondering-zebra.md` preservado (plan mode artifact)
-4. Lucas reporta subjetivamente que conversa voltou a fluir
-
-### Slides (Fases 1-7)
+## 5. Verification (end-to-end slides)
 
 1. **Build PASS:** `cd content/aulas && npm run build:metanalise` zero warnings
 2. **Lint PASS:** `cd content/aulas && npm run lint:slides metanalise` zero errors
@@ -437,29 +294,31 @@ Estrutura identica Fase 5, adaptacoes:
 6. **PMIDs clicaveis:** 40889093 + 41224205 em `#referencias` abrem PubMed
 7. **Census preservado:** `references/colchicine-macce-census-S148.md` existe
 8. **Workers intactos:** `.claude/workers/colchicine-macce-2025-2026/` + `s-forest-planning/`
-9. **HANDOFFs coerentes:** root com Context Melt Protocol, aula 17/17, sem fantasma, sem Vaduganathan
+9. **HANDOFFs coerentes:** root com KBP-17, aula 17/17 sem fantasma, sem Vaduganathan
 
 ---
 
-## 9. Commits (~12)
+## 6. Commits pendentes (~9)
 
-1. `S157: context melt fix — document plan mode agent discipline`
-2. `S157: reconcile HANDOFF aula — remove s-forest-plot phantom`
-3. `S157: HANDOFF root — supersede Vaduganathan carry-over`
-4. `S157: preserve colchicine census (15 MAs S148)`
-5. `S157: archive legacy forest-plot files`
-6. `S157: add s-forest-plot.html — dense evidence (Li + Ebrahimi + 15 MAs)`
-7. `S157: add forest plot crops + Cochrane backup`
-8. `S157: add s-forest1 — DRAFT (h2 placeholder)`
-9. `S157: s-forest1 DONE — Li 2026 anatomy (QA approved)`
-10. `S157: add s-forest2 — DRAFT`
-11. `S157: s-forest2 DONE — Ebrahimi RoB meta-element (QA approved)`
-12. `S157: wrap — HANDOFF + CHANGELOG + workers preserved`
+1. `S157: preserve colchicine census (15 MAs S148)`
+2. `S157: archive legacy forest-plot files`
+3. `S157: add s-forest-plot.html — dense evidence (Li + Ebrahimi + 15 MAs)`
+4. `S157: add forest plot crops + Cochrane backup`
+5. `S157: add s-forest1 — DRAFT (h2 placeholder)`
+6. `S157: s-forest1 DONE — Li 2026 anatomy (QA approved)`
+7. `S157: add s-forest2 — DRAFT`
+8. `S157: s-forest2 DONE — Ebrahimi RoB meta-element (QA approved)`
+9. `S157: wrap — HANDOFF + CHANGELOG + workers preserved`
+
+**Ja commitados nesta sessao (desespero → calmaria):**
+- `e9da24d` — doc commit inicial
+- `20dcc3e` — KBP-17 + anti-drift §Delegation gate (rule-level fix)
+- `b25e039` — HANDOFF root cleanup
 
 ---
 
-## 10. Coautoria
+## 7. Coautoria
 
-**Lucas** (medicina + pedagogia + decisao + verificacao empirica PDFs + h2 writing) + **Opus 4.6** (orquestrador: diagnose context melt + reconciliacao + evidence HTML destilado + wiring + QA Preflight) + **Gemini Flash/Pro** (QA inspect + editorial). Census S148: Lucas + Opus + gemini-3.1-pro-preview + sonar-deep-research + SCite MCP.
+**Lucas** (medicina + pedagogia + decisao + verificacao empirica PDFs + h2 writing) + **Opus 4.6** (orquestrador: rule-level fix KBP-17 + evidence HTML destilado + wiring + QA Preflight) + **Gemini Flash/Pro** (QA inspect + editorial). Census S148: Lucas + Opus + gemini-3.1-pro-preview + sonar-deep-research + SCite MCP.
 
 Sessao 157 | 2026-04-11 | OLMO
