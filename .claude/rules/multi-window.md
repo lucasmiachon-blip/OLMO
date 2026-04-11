@@ -18,7 +18,7 @@ Edit/Write, commits, integra workers, lanca subagents, decide o que entra no rep
 
 ## Workers
 
-Pasta: `.claude/workers/{task-name}/` (gitignored). Orquestrador consome e apaga apos integrar.
+Pasta: `.claude/workers/{task-name}/` (gitignored). Orquestrador consome workers; **cleanup gated em `session-hygiene.md` (KBP-10 — nunca deletar sem aprovacao explicita do Lucas, mesmo consumidos).**
 
 **Nomeacao:** todo MD inclui data/hora no titulo: `# {Titulo} — {YYYY-MM-DD HH:MM}` (Brasilia, 24h).
 
