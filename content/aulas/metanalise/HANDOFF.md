@@ -25,7 +25,6 @@ F3: s-ancora -> s-aplicabilidade -> s-absoluto -> s-takehome
 ```
 
 Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia outros slides), s-aplicacao (claim incorreta).
-I1 (s-checkpoint-1): ARCHIVED S107.
 
 ## Estado dos Slides
 

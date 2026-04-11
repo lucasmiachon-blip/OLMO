@@ -15,15 +15,13 @@ Parent: `content/aulas/` (ver CLAUDE.md raiz do monorepo).
 
 ## Estrutura narrativa
 
-3 fases + 2 interações (ver `evidence/meta-narrativa.html`):
+3 fases + 1 interação (ver `evidence/meta-narrativa.html`):
 
 1. **F1 — Criar importância** (slides 00-02): engajar antes de ensinar
-2. **I1 — Checkpoint** (slide 03): ACCORD trap (Ray 2009 + ACCORD 2008)
-3. **F2 — Metodologia** (slides 04-11): conceitos genéricos, sem artigo
-4. **I2 — Checkpoint** (slide 12): consolidação
-5. **F3 — Aplicação** (slides 13-17): Valgimigli 2025
+2. **F2 — Metodologia** (slides 04-11): conceitos genéricos, sem artigo
+3. **I2 — Checkpoint** (slide 12): consolidação
+4. **F3 — Aplicação** (slides 13-17): Valgimigli 2025
 
-**Exceção I1:** s-checkpoint-1 usa dados reais como armadilha pedagógica.
 **Regra geral:** slides antes da F3 não referenciam artigo específico.
 
 ## Hierarquia de referência
@@ -39,7 +37,7 @@ _archived/archetypes.md (referencia historica, nao criterio QA)
 ## Arquivos de trabalho
 
 ```
-slides/*.html (18 arquivos)
+slides/*.html (15 arquivos)
 slides/_manifest.js
 slide-registry.js
 metanalise.css
@@ -59,7 +57,7 @@ Threshold: score < 7 → checkpoint Lucas antes de continuar.
 ## Hard constraints
 
 1. Assertion-evidence em todos os slides
-2. F1-F2: dados genéricos ou Cochrane. Artigo específico só na F3 (exceção: I1 ACCORD)
+2. F1-F2: dados genéricos ou Cochrane. Artigo específico só na F3
 3. Sem dados inventados. Sem fonte Tier 1 → `[TBD]`
 4. GRADE como linguagem clínica, não burocracia
 5. Forest plot: cropado de artigo real quando disponível
@@ -83,7 +81,7 @@ Detalhes QA por slide: `HANDOFF.md`.
 ## Status
 
 Tracking: `HANDOFF.md` (project-level).
-18/18 slides. Âncora: Valgimigli 2025 Lancet (PMID 40902613). HEX navy: #162032.
+15/15 slides. Âncora: Valgimigli 2025 Lancet (PMID 40902613). HEX navy: #162032.
 
 ## Display de apresentação
 

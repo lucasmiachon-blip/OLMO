@@ -16,9 +16,6 @@ export const slides = [
   { id: 's-hook',         file: '01-hook.html',         phase: 'F1', headline: 'Por que isso importa',                                    timing: 60,   clickReveals: 0, customAnim: 's-hook',             narrativeRole: 'hook',       tensionLevel: 2, narrativeCritical: true,  evidence: 's-hook.html' },
   { id: 's-importancia',  file: '02-importancia.html',  phase: 'F1', headline: 'Porque é importante: metodologia',                                                                                    timing: 60,   clickReveals: 5, customAnim: 's-importancia',      narrativeRole: 'setup',      tensionLevel: 1, narrativeCritical: false, evidence: 's-importancia.html' },
 
-  // ── Interação 1: Checkpoint de engajamento (ARCHIVED S107 — Lucas decidiu S106, volta futura) ──
-  // { id: 's-checkpoint-1', file: '03-checkpoint-1.html', phase: 'I1', headline: 'Controle glicemico intensivo reduziu infarto — mas o maior trial da MA aumentou mortalidade',                       timing: 90,   clickReveals: 2, customAnim: 's-checkpoint-1', narrativeRole: 'checkpoint', tensionLevel: 3, narrativeCritical: true,  evidence: 's-checkpoint-1.html' },
-
   // ── Fase 2: Metodologia ──
   { id: 's-rs-vs-ma',     file: '04-rs-vs-ma.html',     phase: 'F2', headline: 'Nem toda revisão é sistemática — e RS ≠ MA',                                                                          timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 1, narrativeCritical: false },
   { id: 's-contrato',     file: '02-contrato.html',     phase: 'F2', headline: '3 perguntas que você faz a toda meta-análise',                                            timing: 45,   clickReveals: 2, customAnim: 's-contrato',             narrativeRole: 'setup',      tensionLevel: 1, narrativeCritical: false, evidence: 's-contrato.html' },
