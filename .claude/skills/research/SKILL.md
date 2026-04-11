@@ -86,10 +86,12 @@ Return ONLY a markdown table with these columns. NO prose before or after.
 | Field | Item 1 | Item 2 |
 |-------|--------|--------|
 | First author, year | | |
+| Type (paper\|book\|guideline\|preprint\|web) | | |
 | Title | | |
-| Journal | | |
-| PMID | | |
-| DOI | | |
+| Journal / Publisher / Organization | | |
+| PMID (if paper or preprint) | | |
+| DOI (if available) | | |
+| Fallback ID (ISBN for book, URL for web/guideline w/o DOI) | | |
 | Population | | |
 | Intervention | | |
 | Comparator | | |
@@ -106,7 +108,7 @@ RULES: No introductions. No conclusions. No methodology discussion.
 Only the table. If <2 items found, fill what you have.
 ```
 
-Adaptar colunas ao tipo de pesquisa (ex: remover PICO se busca de guideline).
+Adaptar colunas ao tipo de pesquisa: declarar `Type` primeiro, depois preencher PMID/DOI/Fallback ID conforme regra em §Regras (P005). Ex: busca de guideline → remover PICO, preencher Fallback ID com URL da org se DOI ausente.
 
 **Perna 1 — Gemini API (Deep Think):** Pesquisa ampla com Google Search grounding. Modelo: `gemini-3.1-pro-preview` (melhor disponivel, deep thinking). Usar GEMINI_API_KEY (NAO CLI, NAO MCP — CLI frozen S114). Topico ABERTO, formato FECHADO (schema suffix obrigatorio). Todos PMIDs = [CANDIDATE].
 
@@ -282,6 +284,13 @@ HTML puro, CSS inline minimo, charset UTF-8, sem framework. Versionado no git �
 
 - NUNCA inventar dados — sem fonte → `[TBD]`
 - PMIDs de LLM = `[CANDIDATE]` ate verificacao via PubMed MCP
+- **Reference type discipline (P005):** toda referencia DEVE declarar `Type` ANTES de tentar lookup. Mapeamento ID:
+  - `paper` → PMID (primary) + DOI (optional)
+  - `preprint` → DOI (primary, e.g., bioRxiv/medRxiv) — sem PMID
+  - `guideline` → DOI ou Fallback ID (org + year + URL). NAO tentar PMID
+  - `book` → Fallback ID = ISBN. NAO tentar PMID
+  - `web` → Fallback ID = URL. NAO tentar PMID
+  - Tentar PMID em book/guideline/web = fabricacao (KBP-13). Stop e declare type primeiro.
 - HR != RR != OR — especificar sempre
 - Pais-alvo: Brasil. NNT requer IC 95% + timeframe
 - Fast path (PMID isolado): nao lancar pipeline, verificar e retornar direto
