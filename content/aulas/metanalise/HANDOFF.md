@@ -2,24 +2,26 @@
 
 > Estado operacional dos slides. Atualizar ao final de cada sessao.
 > Cross-ref: root `HANDOFF.md` (workflow de agentes, decisoes globais, security, pendentes herdados)
-> Migrado de wt-metanalise para monorepo em 2026-03-31. Ultima atualizacao: S136.
+> Migrado de wt-metanalise para monorepo em 2026-03-31. Ultima atualizacao: S157 (reconcile phantom + Context Melt fix).
 
 ---
 
 ## Estado atual
 
-- **Fase:** QA slide-a-slide (1 por vez, Lucas decide qual)
-- **Slides:** 16/16 no deck. Lint PASS. Build PASS. Orphans: 0.
+- **Fase:** QA slide-a-slide (1 por vez, Lucas decide qual). S157: +2 slides forest plot em execucao.
+- **Slides:** 15/15 no deck. Lint PASS. Build PASS. Orphans: 0.
 - **Ancora:** Valgimigli 2025 Lancet (PMID 40902613) — IPD-MA, 7 RCTs, 28.982 pts
 - **GSAP plugins:** SplitText + Flip + ScrambleTextPlugin
-- **Dark-bg:** 5 slides (s-checkpoint-2, s-forest-plot, s-heterogeneity, s-ancora, s-absoluto)
+- **Dark-bg:** 4 slides (s-checkpoint-2, s-heterogeneity, s-ancora, s-absoluto)
 - **HEX navy:** #162032
 
-## Ordem do deck (atualizada S136)
+> **S157 reconciliation:** linha `s-forest-plot` era fantasma (registrada S146 mas nunca criada). Removida. Contagem corrigida 16→15. Em execucao S157: 2 slides novos (s-forest1 Li + s-forest2 Ebrahimi) com evidence unico `s-forest-plot.html`.
+
+## Ordem do deck (atualizada S157)
 
 ```
 F1: s-title -> s-objetivos -> s-hook -> s-importancia
-F2: s-rs-vs-ma -> s-contrato -> s-pico -> s-forest-plot -> s-benefit-harm -> s-heterogeneity -> s-fixed-random
+F2: s-rs-vs-ma -> s-contrato -> s-pico -> s-benefit-harm -> s-heterogeneity -> s-fixed-random
 I2: s-checkpoint-2
 F3: s-ancora -> s-aplicabilidade -> s-absoluto -> s-takehome
 ```
