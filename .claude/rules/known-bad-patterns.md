@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-14.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-15.
 
 ## KBP-01 Scope Creep
 Trigger: chains to next step without asking. Lucas: "calma/pare/espere". Cause: helpfulness bias. **→ anti-drift.md §Momentum brake**
@@ -46,3 +46,6 @@ Trigger: pesquisa retorna ensaio/prosa em vez de dados estruturados. Lucas: "vc 
 
 ## KBP-13 Factual Claim Without Verification
 Trigger: agente afirma um fato sobre estado (ex: "MCP X esta frozen"), historia (ex: "padrao introduzido no arquivo Y") ou design intent (ex: "doc Z e sincronizado") e Lucas corrige. Cause: working-memory coherence bias — a primeira resposta plausivel e oferecida sem checar source-of-truth. Diferente de KBP-07 (que dispara em falhas); KBP-13 dispara em claims durante trabalho *rotineiro*. Evidencia S151 (3 eventos em 16 sessoes, todos subtipos desta categoria): (1) lista de MCPs frozen recalled de memoria, (2) `meta-narrativa.html` assumido como synced, (3) atribuicao do padrao `.v/.c` a `s-checkpoint-1.html` quando origem era `forest-plot-candidates.html` S146 ea434e7. Fix S152: antes de qualquer assertion sobre state/history/intent, rodar verificacao mais barata (grep, `git log -S '<literal>'`, ler header do doc) e citar inline. Se custo > ~5s, parar e perguntar. **→ anti-drift.md §Verification gate extended to historical/state claims**
+
+## KBP-14 Velocity Over Comprehension
+Trigger: Lucas aprovando rapidamente ("OK", "ok", "pode", "continue") em sequencia mas a densidade tecnica do trabalho e alta. Agente trata fast approval como informed consent e acelera. Lucas mais tarde verbaliza falta de protecao do plano ("nao filtro bem", "tem que me explicar"). Cause: explicacoes atrofiam mid-session apesar de anti-drift §Calibrate depth cobrir o caso. KBP-13 protege contra claims sem verificacao; KBP-14 protege contra **execucao sem verbalizacao do porque**. Fix: quando ocorrerem 3+ aprovacoes monossilabicas consecutivas durante execucao, slow down e re-explicar WHY da proxima fase antes de prosseguir. Melhor adicionar 30s de contexto que executar contra plano half-understood. Evidencia S154: L456 ("lembre que eu ainda sou iniciante entao algumas coisas tem que me explicar pois nao filtro bem msm o plano") + L478 ("vc ser meu mentor em varios aspectos esta relativamente sendo pouco usado, mas nao eh P0"). Padrao recorrente — memory `user_mentorship.md` ja registrava expectativa antes. **→ anti-drift.md §Execution-phase explanation budget + §Active mentor mode**

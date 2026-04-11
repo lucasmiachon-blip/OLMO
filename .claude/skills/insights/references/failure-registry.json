@@ -302,13 +302,47 @@
       "proposals_accepted": 0,
       "proposals_rejected": 0,
       "note": "KBP-07 event = attribution-without-verification (new subtype). 1 tool_error = success-capture hook silently broken since 2026-04-09 (calibration bug, not a runtime fault). All 3 real corrections share root cause: claim-without-verification → KBP-13 proposed."
+    },
+    {
+      "id": "S154",
+      "date": "2026-04-11",
+      "metrics": {
+        "sessions_in_sample": 3,
+        "user_corrections_total": 0,
+        "user_corrections_per_session": 0,
+        "kbp_violations": {
+          "KBP-01_scope_creep": 0,
+          "KBP-02_context_overflow": 0,
+          "KBP-03_agent_script_redundancy": 0,
+          "KBP-04_wrong_criteria": 0,
+          "KBP-05_batch_violation": 0,
+          "KBP-06_delegation_failure": 0,
+          "KBP-07_workaround_without_diagnosis": 0,
+          "KBP-08_api_mcp_substitution": 0,
+          "KBP-09_api_key_wrong_path": 0,
+          "KBP-10_destructive_without_approval": 0,
+          "KBP-11_gemini_thinking_pool": 0,
+          "KBP-12_no_output_schema": 0,
+          "KBP-13_claim_without_verification": 0
+        },
+        "kbp_total": 0,
+        "kbp_per_session": 0,
+        "tool_errors": 0,
+        "retries": 0,
+        "calibration_feedback": 3
+      },
+      "insights_run": true,
+      "new_kbps_added": 1,
+      "proposals_accepted": 4,
+      "proposals_rejected": 0,
+      "note": "S152(infra)+S153(forest-plot-planning worker parallel)+S154(INFRA_LEVE2). Zero hard corrections, zero KBP violations, 3 consecutive clean sessions. NEW signal class 'calibration_feedback' = 3 events all in S154 Scope A execution phase: L434 destructive cmd preventive reminder, L456 calibrate-depth-violation, L478 mentor-mode-underdelivered. KBP-14 added preemptively (Velocity Over Comprehension). P001+P002+P003+P004 all applied in this session. Success-capture hook fix from S152 validated dogfooded across all 4 S154 commits."
     }
   ],
   "trend": {
-    "corrections_per_session_5avg": 0.912,
+    "corrections_per_session_5avg": 0.684,
     "kbp_violations_per_session_5avg": 0.154,
     "direction": "improving",
     "last_updated": "2026-04-11",
-    "note": "5-session avg: S116(1.14/0)+S124(0.71/0)+S132(1.13/0.38)+S141(1.33/0.33)+S151(0.25/0.06). corrections_5avg 1.128→0.912 (-19%), kbp_5avg 0.32→0.154 (-52%). Both decreased. Direction IMPROVING. Caveat: S151 was mechanical-batch-heavy (Fase A PMID verification + Fase D a11y batch), low semantic risk. Will need 2-3 content-production sessions to confirm stable trend. 1 new KBP candidate: KBP-13 claim-without-verification — all 3 corrections clustered into this single category."
+    "note": "5-session avg (rolling): S124(0.71/0)+S132(1.13/0.38)+S141(1.33/0.33)+S151(0.25/0.06)+S154(0/0). corrections_5avg 0.912→0.684 (-25%), kbp_5avg 0.154→0.154 (stable at floor). Direction IMPROVING (net). 3 consecutive sessions with zero hard corrections — first time in registry history. NEW metric calibration_feedback = 3 (all S154). KBP-14 (Velocity Over Comprehension) added preemptively to catch the calibration drift before it becomes hard correction. Watch S155+ for: (a) mentor mode adoption, (b) calibration_feedback decreasing, (c) confirmation that hard correction streak holds."
   }
 }
