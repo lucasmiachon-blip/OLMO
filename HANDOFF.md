@@ -2,6 +2,7 @@
 
 > Sessao 152 | 2026-04-11
 > Foco: Infra — /insights S151 queue (P001/P002/P003/P004) + hook bug audit
+> **Proxima sessao = INFRA continuada (hooks + outros itens infra). Slides DEPOIS.**
 
 ## ESTADO ATUAL
 
@@ -67,10 +68,19 @@ Comando ref (Lucas executa com aprovacao): `mkdir -p .claude/plans/archive && mv
 
 **Verdict:** IMPROVING — corrections_5avg 1.128→0.912 (↓19%), kbp_5avg 0.32→0.154 (↓52%). Report completo: `.claude/skills/insights/references/latest-report.md`.
 
-## P3 — Radar infra (backlog)
+## P3 — Proxima sessao infra (continuacao)
 
-1. **Audit outros hooks para bugs similares:** search terminou em build-monitor.sh (fixed S152). Outros hooks `.claude/hooks/` nao usam `exit_code` ou line-indexed sed, mas re-audit recomendado se adicionarmos novos hooks.
-2. **JSON → formato menos verboso + safer (Lucas S152):** explorar alternativas para configs (`settings.local.json`) e logs (`.jsonl`). Candidatos: TOML (configs), text append (logs), YAML. Research, NAO execute. Requer design session.
+Lucas decidiu S152: **proxima sessao e mais infra (hooks + outros)**, depois volta para slides (forest plot Vaduganathan + colchicine).
+
+Escopo infra proximo:
+1. **Hook/config system review** (flagged no BACKLOG #3 + Lucas "JSON → formato menos verboso + safer" S152): YAGNI audit + explorar alternativas para configs (`settings.local.json`, `failure-registry.json`) e logs (`.jsonl`). Candidatos: TOML (configs), text append (logs), YAML. Design + prototipo. Pode gerar migrations.
+2. **Hook audit re-sweep:** search S152 validou success-capture + build-monitor; outros 13 hooks auditados clean. Re-sweep se adicionarmos novos hooks ou se o review acima mudar o schema esperado.
+3. **P005 + P006 (do /insights S151 backlog — ambos exigem design):**
+   - P005 add coluna `type` em research/SKILL.md Step 2 (paper|book|guideline|preprint|web + fallback ID). Rapido (2 min) mas espera sessao infra.
+   - P006 pre-flight tool availability — **proposta original (hook parseia plan + ToolSearch) e invalida**: hooks nao podem chamar ToolSearch (rodam fora do contexto do agente). Re-escopar como Step 1.5 em research/SKILL.md (agente checa tools antes de cada Perna), OU static allowlist mantida manualmente, OU SessionStart context injection. Requer design session.
+4. **Triage 18 orphan plans** (listados em P0 acima). Archive per-file apos decisao Lucas.
+
+**Quando infra estiver fechado → voltar para slides** (forest plot Vaduganathan + colchicine combo, ver P0 abaixo).
 
 ## BACKLOG (pos-deadline)
 
@@ -82,8 +92,8 @@ Comando ref (Lucas executa com aprovacao): `mkdir -p .claude/plans/archive && mv
 | 4 | Pipeline DAG end-to-end | cowork→NLM→wiki |
 | 5 | medicina-clinica stubs | 4 concepts stub/low aguardam Cowork harvest |
 | 6 | Skill de slides consolidada | Usar skill-creator para criar skill nova |
-| 7 | P005: plan template reference-type | Add coluna `type` em research/SKILL.md |
-| 8 | P006: plan pre-flight tool availability | Hook novo conceitual |
+| 7 | P005: plan template reference-type | Add coluna `type` em research/SKILL.md (paper/book/guideline/preprint/web + ISBN/DOI/PMID/URL). Quick (2 min) na proxima sessao infra. |
+| 8 | P006: plan pre-flight tool availability | **Proposta original invalida** (hooks nao chamam ToolSearch). Re-design: Step 1.5 em research/SKILL.md ou static allowlist. Requer design session. |
 
 ## DECISOES ATIVAS
 
