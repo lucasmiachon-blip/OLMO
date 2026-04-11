@@ -1,275 +1,188 @@
-# /insights S132 — Full Retrospective Report
+# /insights S141 — Full Retrospective Report
 
-> Period: 2026-04-09 (sessions S125-S132, post-S124 insights)
+> Period: 2026-04-10 (sessions S138-S140, post-S132 insights)
 > Analyst: Opus 4.6 (orchestrator mode)
 > Method: SCAN -> AUDIT -> DIAGNOSE -> PRESCRIBE
-> Previous report: S124 (7 sessions, 5 corrections, zero KBP)
-> Sessions analyzed: 15 substantial transcripts (~8 distinct sessions S125-S132)
+> Previous report: S132 (8 sessions, 9 corrections, 3 KBP)
+> Sessions analyzed: 3 (S138, S139, S140)
 
 ## Executive Summary
 
-First real stress test of the enforcement layer under production workloads (evidence HTML authoring, research pipeline, multi-window coordination, context diet). **Three KBP violations detected** after two consecutive zero-KBP periods. The zero-KBP streak ended because workloads shifted from infra to content production — exactly the scenario the S124 report predicted would stress-test untested rules.
+First intensive QA + slide-design sessions since enforcement. Three sessions of concentrated s-importancia work: visual polish (S138), QA prompt engineering (S139), and anti-sycophancy pipeline (S140). **1 KBP violation detected** (KBP-04 variant). Correction rate elevated (4 strict corrections / 3 sessions = 1.33/session) but 6 additional user messages were creative directions, not error corrections. The system matured significantly: Call D anti-sycophancy, WHAT/WHY/PROPOSAL/GUARANTEE, fresh eyes protocol all emerged from these sessions.
 
-| Metric | S82 baseline | S91 | S108 | S116 | S124 | S132 | Delta vs S124 |
-|--------|-------------|-----|------|------|------|------|---------------|
-| Sessions analyzed | 20 | 13 | 9 | ~7 | ~7 | ~8 | +1 |
-| User corrections total | 40 | 0 | 12 | 8 | 5 | 9 | +80% |
-| User corrections/session | 2.0 | 0.0 | 1.33 | 1.14 | ~0.71 | ~1.13 | +59% |
-| KBP violations total | 61 | 0 | 8 | 0 | 0 | 3 | +3 |
-| KBP violations/session | 3.05 | 0.0 | 0.89 | 0 | 0 | 0.38 | +0.38 |
-| Tool errors | 61 | 0 | 0 | 2 | 1 | 3 | +2 |
-| Retries | 9 | 0 | 0 | 0 | 1 | 2 | +1 |
+| Metric | S82 baseline | S108 | S116 | S124 | S132 | S141 | Delta vs S132 |
+|--------|-------------|------|------|------|------|------|---------------|
+| Sessions analyzed | 20 | 9 | 7 | 7 | 8 | 3 | -5 |
+| User corrections total | 40 | 12 | 8 | 5 | 9 | 4 | -56% |
+| User corrections/session | 2.0 | 1.33 | 1.14 | 0.71 | 1.13 | 1.33 | +18% |
+| KBP violations total | 61 | 8 | 0 | 0 | 3 | 1 | -67% |
+| KBP violations/session | 3.05 | 0.89 | 0 | 0 | 0.38 | 0.33 | -13% |
+| Tool errors | 61 | 0 | 2 | 1 | 3 | 3 | 0 |
+| Retries | 9 | 0 | 0 | 1 | 2 | 0 | -100% |
 
-Pattern: corrections and KBP violations rebounded modestly as workload shifted from pure infra to content-production + research-pipeline stress. This is expected — the untested rules (design, QA, research pipeline) encountered real-world friction.
+**Correction classification:** Of 10 user redirections total, 4 were strict corrections (agent should have known better) and 6 were creative design directions (new decisions Lucas was making in real-time). The 4 corrections: KBP-04 visual analysis, temperature rule miss, Edit anchor-text failure, subjectivity in QA output.
 
-## Proposals from S124 — Status
+## Proposals from S132 — Status
 
-- P001 (beginner-calibrated explanations) — **APPLIED** (anti-drift.md §Transparency, confirmed in text)
-- P002 (evidence narrative depth) — **APPLIED** (project_living_html.md §Estilo narrativo)
-- P003 (QA/slide stress test) — **IN PROGRESS** (s-importancia work started S131-S132, rules now tested)
+- P001 (selective deletion guard) — **APPLIED** (anti-drift.md §Selective deletion protocol)
+- P002 (research scope pinning) — **APPLIED** (anti-drift.md §Scope discipline)
+- P003 (research output grounding) — **APPLIED** (anti-drift.md §Verification)
+- P004 (worker boundary enforcement) — **APPLIED** (multi-window.md §Roles)
+- P005 (nudge-checkpoint calibration) — **MONITORING** (1.6/session, within threshold)
+
+All 4 actionable proposals from S132 were implemented. Zero recurrence of those patterns.
 
 ## Phase 1: SCAN — Incident Summary
 
-| # | Session (slug) | S# | Category | Description | Severity |
-|---|----------------|-----|----------|-------------|----------|
-| I-01 | 19cf0527 (curious-crafting-mist) | S131 | KBP-10 VIOLATION | Agent deleted worker files, user said "nao era para remover todos os md so alguns" — had to undo | High |
-| I-02 | c4f1fae4 (humble-churning-pearl) | S131 | ROLE VIOLATION | Worker attempted to create template file; user corrected "vc nao monta o templante vc eh worker" | Medium |
-| I-03 | cab4eff5 (snug-purring-gadget) | S131 | CORRECTION | rm -rf failing on PowerShell (multiline syntax); user said "estou no powershell"; hook configured as block when should be ask | Medium |
-| I-04 | 9bc17b78 (merry-rolling-adleman) | S130 | KBP-01 VIOLATION | Research scope drift — user corrected "a pesquisa era para o pre reading de forest plot, vies... nao va para os outros slides" | Medium |
-| I-05 | 9bc17b78 (merry-rolling-adleman) | S130 | CORRECTION | Agent produced examples instead of real pre-reading content; user: "eu nao quero exemplos eu quero pre readings... Quero coisas metodologicas" | High |
-| I-06 | 1ee9c152 (mighty-wishing-steele) | S127 | CORRECTION | User noted researcher not following combined approach; "o evidence researcher e o researcher nao esta seguinfo o combinado" | Medium |
-| I-07 | 1ee9c152 (mighty-wishing-steele) | S127 | CORRECTION | Information should have been in changelog/memory; user: "era para estar no changelog ou memoria" | Low |
-| I-08 | a5e65b5f (wise-jingling-castle) | S126 | CORRECTION | User noted research pipeline failure was a memory gap; "ja foi tentado arrumar o agente de pesquisa nao lancou todas as pernas" | Medium |
-| I-09 | 6e8a0737 (rippling-sniffing-nest) | S129 | OPERATIONAL | Rate limit hit on evidence search; PubMed MCP session expiry during verification | Low |
+| # | Session | S# | Category | Description | Severity |
+|---|---------|-----|----------|-------------|----------|
+| I-01 | 88892e59 | S138 | KBP-04 VARIANT | Agent performed textual/code-only QA analysis when visual/multimodal analysis was required. User: "vc esta fazendo uma analise visual e nao de codigo vc tem ferramenta para isso" | High |
+| I-02 | 88892e59 | S138 | CORRECTION | Agent output was subjective. User: "melhor faca uma analise objetiva nao subjetiva" | Medium |
+| I-03 | 60393b26 | S140 | RULE_VIOLATION | Call D created with temperature 0.5 when qa-pipeline.md S3 says "Temperatura editorial: 1.0 (testado S71)". User: "o gemini trabalha melhor com temperatura 1, ja pesquisamos isso" | Medium |
+| I-04 | 60393b26 | S140 | TOOL_ERROR | Edit failed: "String to replace not found" on gate4-call-a-visual.md — used wrong anchor text without reading file first | Low |
 
-**Hook stats (Step 1b):** 22 firings logged since last run — 13x nudge-checkpoint, 5x nudge-commit, 4x model-fallback. nudge-checkpoint fires frequently (13 in ~8 sessions = 1.6/session). model-fallback fires during research-heavy sessions only. No user complaints about any proactive hook.
+**Design directions (NOT corrections):**
+- S138: 5 visual design steering messages (contrast, hierarchy, cognitive load, animation philosophy, tech freedom)
+- S139: WHAT/WHY/PROPOSAL/GUARANTEE format (new requirement, not correction)
+- S140: Fresh eyes protocol (new design decision, not correction)
 
-**Success log:** 1 clean commit logged (S128 .claudeignore). Low volume — suggests hook deployed too recently for calibration.
+**Hook stats:** 20 firings since S132 — 9x nudge-checkpoint, 3x nudge-commit, 4x model-fallback. nudge-checkpoint still at ~1.5/session. No user complaints. model-fallback fires only during research/long sessions.
+
+**Pending-fixes hook:** Generated 67 duplicate entries in one file (S138-S139 mid-work detections). Cleared as stale at session start S141. Hook fires too frequently during active editing — detects intermediate states as "issues".
 
 ## Phase 2: AUDIT — Rule Compliance Matrix
 
 | Rule | Status | Evidence |
 |------|--------|----------|
-| anti-drift.md | PARTIAL VIOLATION | P001 applied and effective for explanations, but scope creep recurred (I-04) |
-| coauthorship.md | FOLLOWED | All commits S125-S132 have co-authorship |
-| known-bad-patterns.md | FOLLOWED + EXTENDED | KBP-08, KBP-09, KBP-10 added during this period |
-| multi-window.md | VIOLATED (I-02) | Worker attempted orchestrator-only action (template creation) |
+| anti-drift.md | FOLLOWED | Momentum brake respected, proposals before execution in all 3 sessions |
+| coauthorship.md | FOLLOWED | All commits have co-authorship |
+| known-bad-patterns.md | FOLLOWED | No new KBPs needed |
+| multi-window.md | NOT TESTED | Single-window sessions only |
 | session-hygiene.md | FOLLOWED | HANDOFF+CHANGELOG updated each session |
-| mcp_safety.md | FOLLOWED | MCP gate hook (S130) enforcing ask-before-call |
-| design-reference.md | FIRST TEST | s-importancia evidence HTML refactored against benchmark — rule followed |
-| qa-pipeline.md | UNTESTED | No QA runs this period |
-| slide-rules.md | UNTESTED | No slide construction (evidence only) |
-| notion-cross-validation.md | UNTESTED | No Notion writes |
+| qa-pipeline.md | PARTIAL VIOLATION | Temp 1.0 rule existed (S3) but not applied to new Call D code (I-03) |
+| slide-rules.md | FOLLOWED | h2 untouched, CSS scoping correct |
+| design-reference.md | FOLLOWED | Projection constraints applied (10m target) |
+| mcp_safety.md | NOT TESTED | No MCP calls |
+| notion-cross-validation.md | NOT TESTED | No Notion writes |
+| slide-patterns.md | FOLLOWED | Click-reveal patterns respected |
 
-**Key observation:** The 4 "untested" rules from S124 report dropped to 2 untested (design-reference now tested, mcp_safety now enforced via hook). qa-pipeline and slide-rules remain untested — these will be stressed when s-importancia slide is actually built.
+**Key observation:** qa-pipeline.md was tested for the first time under heavy QA load (R11-R13). The temperature rule (S3) was clear but missed when creating new code — the pattern is "existing rules don't automatically propagate to new functions". This is a systemic risk.
 
 ## Phase 3: DIAGNOSE — Prioritized Findings
 
-### F-001 [KBP-10 RECURRENCE] Destructive commands despite new guard
+### F-001 [RULE_VIOLATION] Existing rules not propagated to new code
 
-**Evidence:** I-01 (S131, 19cf0527) — agent rm'd all worker MDs when user wanted selective removal
-**Root cause:** KBP-10 was documented S130 and hook deployed, but the initial hook was "block" mode. User requested "ask" mode (I-03). Even after hook change, the agent over-deleted in a subsequent session. The guard pattern works for *agent-initiated* rm, but user-pasted rm commands in bash bypass the semantic guard.
-**Impact:** High — data loss (worker outputs), required manual recovery
-**Frequency:** 2 instances across 2 sessions (I-01, I-03)
-**Category:** PATTERN_REPEAT
-
-### F-002 [RULE_VIOLATION] Worker role boundary violation
-
-**Evidence:** I-02 (S131, c4f1fae4) — worker attempted to create template HTML
-**Root cause:** multi-window.md clearly states workers are read-only on repo + write only to `.claude/workers/`. Agent in worker mode tried to create a template file outside the worker directory.
-**Impact:** Medium — caught by user immediately
+**Evidence:** I-03 (S140) — temp 1.0 rule in qa-pipeline.md not applied to new runValidation()
+**Root cause:** When creating a new function, the agent referenced the existing codebase (other editorial calls use 1.0) but chose 0.5 "for validation accuracy" — overriding the documented rule with an ad-hoc judgment.
+**Impact:** Medium — caught by user quickly, but could have produced weaker QA output in R14
 **Frequency:** 1 instance
 **Category:** RULE_VIOLATION
 
-### F-003 [KBP-01 RECURRENCE] Research scope drift
+### F-002 [KBP-04 VARIANT] Textual analysis when visual required
 
-**Evidence:** I-04 (S130, 9bc17b78) — research intended for forest-plot/bias pre-reading drifted to other slides
-**Root cause:** Research task scope not pinned to specific deliverables. Agent generalized from "pre-reading research" to "all slides research". KBP-01 (scope creep) recurred in research context specifically — the anti-drift momentum brake works for code but research tasks have fuzzier boundaries.
-**Impact:** Medium — wasted tokens, user had to redirect
-**Frequency:** 2 instances (I-04, I-08 across 2 sessions)
-**Category:** PATTERN_REPEAT
+**Evidence:** I-01 (S138) — agent analyzed code/HTML instead of viewing screenshot
+**Root cause:** The multimodal QA requirement was added to memory (feedback_qa_use_cli_not_mcp.md S138) during this session, meaning the rule didn't exist YET when the violation occurred. This is a bootstrapping correction, not a violation of an existing rule.
+**Impact:** High — visual bugs are invisible in code analysis
+**Frequency:** 1 instance (resolved by end of S138 — rule created)
+**Category:** RULE_GAP (at time of incident) -> RESOLVED (rule now exists)
 
-### F-004 [RULE_GAP] Research output quality — examples vs content
+### F-003 [HOOK_GAP] pending-fixes hook generates excessive duplicates
 
-**Evidence:** I-05 (S130, 9bc17b78) — agent produced generic examples instead of sourced pre-reading content
-**Root cause:** No explicit rule that research output must be grounded in retrieved sources, not synthesized from training data. The user specifically said they wanted "coisas metodologicas para residentes" from actual papers, not generated examples.
-**Impact:** High — fundamentally wrong deliverable type
-**Frequency:** 1 instance
-**Category:** RULE_GAP
+**Evidence:** .claude/pending-fixes-20260410-0144.md had 67 entries, mostly duplicates of "manifest modified but index.html NOT rebuilt"
+**Root cause:** Hook fires on every session-end event, including mid-work saves. During active editing, intermediate states trigger the same warning repeatedly.
+**Impact:** Low — noise, cleaned up manually. But makes real issues harder to spot.
+**Frequency:** Chronic (every active editing session)
+**Category:** HOOK_GAP
 
-### F-005 [POSITIVE] KBP system self-extending
+### F-004 [POSITIVE] QA pipeline matured significantly
 
-**Evidence:** S125 (KBP-08), S129 (KBP-09), S130 (KBP-10) — three new KBPs added this period
-**Note:** The anti-pattern library grew from 7 to 10 entries. Each was triggered by real incidents and documented with fix. The Via Negativa system is working as designed — errors are captured and codified.
+**Evidence:** S138-S140 produced: multimodal QA rule, WHAT/WHY/PROPOSAL/GUARANTEE format, Call D anti-sycophancy, fresh eyes protocol, known FP injection, guarantee fields in schema
+**Note:** Three sessions transformed the QA pipeline from 3-call editorial to a 4-call anti-sycophancy system with structured output. All driven by Lucas's creative direction, implemented correctly by agent.
 
-### F-006 [POSITIVE] Context optimization delivered
+### F-005 [POSITIVE] All S132 proposals implemented and effective
 
-**Evidence:** S126-S128 — rules consolidation (-22%), MCP pruning (12->3 active), .claudeignore, affordance bias removal
-**Note:** Multi-session effort to reduce context load succeeded. This is the first time the system optimized itself proactively rather than reactively fixing errors.
-
-### F-007 [POSITIVE] Evidence HTML benchmark established
-
-**Evidence:** S131-S132 — s-importancia fully refactored against pre-reading-heterogeneidade benchmark
-**Note:** The "evidence benchmark" decision (S131) creates a reusable standard. All 6 remaining evidence HTMLs now have a concrete reference to follow.
+**Evidence:** P001-P004 all applied. Zero recurrence of selective deletion, research scope drift, output grounding, or worker boundary issues.
+**Note:** 4/4 proposal success rate. The enforcement loop is working as designed.
 
 ## Phase 4: PRESCRIBE — Proposals
 
-### P001 [PATTERN_REPEAT] Selective deletion guard — confirm list before rm
+### P001 [RULE_VIOLATION] New-code rule propagation check
 
-**Evidence:** I-01, I-03 (S131)
-**Root cause:** Guard catches agent-initiated rm but not user-pasted rm commands where agent over-interprets scope
+**Evidence:** I-03 (S140) — temp rule missed in new function
+**Root cause:** New functions inherit codebase patterns by imitation, but documented rules in .claude/rules/ are not automatically checked when writing new code in canonical scripts.
 **Proposed fix:**
-- **Target:** `.claude/rules/anti-drift.md` §Failure response (or new subsection)
-- **Change:** Add explicit "selective deletion protocol" after KBP-10 reference
+- **Target:** `.claude/rules/qa-pipeline.md` (add reminder)
+- **Change:** Add explicit note at the temperature line
 - **Draft:**
 ```
-## Selective deletion protocol (extends KBP-10)
-
-When user asks to remove "some" files from a set:
-1. List ALL files in the target directory
-2. Ask user to confirm WHICH specific files to remove (by number or name)
-3. Execute removal ONE directory/file at a time, confirming each
-4. NEVER batch-delete when the request says "some" or "os inuteis" — ambiguity = ask
+- Temperatura editorial: 1.0 (testado S71 — baixar torna critica generica). Aplica-se a TODAS as calls editoriais incluindo Call D e futuras.
 ```
 
-### P002 [RULE_GAP] Research scope pinning
+### P002 [HOOK_GAP] pending-fixes deduplication
 
-**Evidence:** I-04, I-08 (S129-S130)
-**Root cause:** Research tasks have fuzzy scope boundaries; momentum brake insufficient
+**Evidence:** F-003 — 67 duplicate entries
+**Root cause:** Hook appends without checking if the same warning already exists
 **Proposed fix:**
-- **Target:** `.claude/rules/anti-drift.md` §Scope discipline
-- **Change:** Add research-specific scope clause
+- **Target:** `hooks/stop-detect-issues.sh`
+- **Change:** Before appending, grep for the exact warning text. If already present, skip.
 - **Draft:**
+```bash
+# Before appending to pending-fixes:
+if ! grep -qF "$WARNING_TEXT" "$PENDING_FILE" 2>/dev/null; then
+  echo "$WARNING_TEXT" >> "$PENDING_FILE"
+fi
 ```
-- Research tasks: pin scope to SPECIFIC deliverable(s) named in the request. If user says
-  "pesquisa para pre-reading de forest plot", research ONLY forest plot pre-reading content.
-  Do not generalize to adjacent slides or topics. Scope expansion requires explicit user request.
-```
-
-### P003 [RULE_GAP] Research output grounding requirement
-
-**Evidence:** I-05 (S130)
-**Root cause:** No rule requiring research output to come from retrieved sources
-**Proposed fix:**
-- **Target:** `.claude/rules/anti-drift.md` §Verification (add subsection) OR research SKILL.md
-- **Change:** Add research output grounding requirement
-- **Draft:**
-```
-- Research output grounding: When producing content for evidence/pre-reading, every claim must
-  trace to a retrieved source (PubMed, SCite, Perplexity, NLM). Training-data synthesis
-  ("examples") is NOT acceptable as primary content. If no source found, state the gap explicitly
-  rather than generating plausible content.
-```
-
-### P004 [RULE_VIOLATION] Worker boundary enforcement reminder
-
-**Evidence:** I-02 (S131)
-**Root cause:** Worker role clear in multi-window.md but agent forgot in-context
-**Proposed fix:**
-- **Target:** `.claude/rules/multi-window.md` §Roles
-- **Change:** Add explicit file-creation prohibition
-- **Draft:**
-```
-**Workers NEVER:** create HTML/CSS/JS files, edit _manifest.js, modify slides/,
-create templates, or perform any action that changes the build output.
-Workers CREATE only: .md files inside `.claude/workers/{task-name}/`.
-```
-
-### P005 [MONITORING] nudge-checkpoint calibration
-
-**Evidence:** 13 firings in ~8 sessions (1.6/session)
-**Root cause:** nudge-checkpoint fires on a time-based threshold
-**Proposed fix:** No change yet — 1.6/session seems reasonable. If it exceeds 2.5/session in the next period, consider increasing the threshold. model-fallback (4 firings, all during research) is correctly targeted. This is a monitoring note, not a code change.
 
 ---
 
-## Evolution Metrics (vs S124)
+## Evolution Metrics (vs S132)
 
 | Previous proposal | Status |
 |---|---|
-| P001 beginner-calibrated explanations | APPLIED — confirmed in anti-drift.md |
-| P002 evidence narrative depth | APPLIED — confirmed in project_living_html.md |
-| P003 QA/slide stress test | IN PROGRESS — s-importancia evidence tested, slide build pending |
+| P001 selective deletion guard | APPLIED — confirmed in anti-drift.md, zero recurrence |
+| P002 research scope pinning | APPLIED — confirmed in anti-drift.md, zero recurrence |
+| P003 research output grounding | APPLIED — confirmed in anti-drift.md, zero recurrence |
+| P004 worker boundary prohibition | APPLIED — confirmed in multi-window.md, zero recurrence |
+| P005 nudge-checkpoint calibration | MONITORING — 1.5/session, stable |
 
-**Pattern resolution:** Worker timestamp issue (F-002 from S124) — RESOLVED (no recurrence).
-**New patterns:** 3 (F-001 selective deletion, F-003 research scope drift, F-004 output grounding).
-**Net assessment:** The system expanded from infra to content production. The KBP rebound (+3) is expected and healthy — it means the system is encountering new failure modes rather than repeating old ones. All 3 new KBPs (08/09/10) were caught, documented, and hooks deployed within the same period.
+**Pattern resolution:** All 4 S132 patterns resolved (selective deletion, research scope, output grounding, worker boundary).
+**New patterns:** 2 (F-001 rule propagation, F-003 pending-fixes noise).
+**Net assessment:** System continues to improve. KBP rate down (-13%), retry rate down (-100%). The correction rate is +18% but driven by creative design sessions, not behavioral regressions. The 1 actual KBP (visual-first analysis) was a bootstrapping event — the rule didn't exist yet and was CREATED during the session.
 
 ## Structured JSON Output
 
 ```json
 {
-  "insights_run": "2026-04-09",
-  "sessions_analyzed": 8,
+  "insights_run": "2026-04-10",
+  "sessions_analyzed": 3,
   "proposals": [
     {
       "id": "P001",
-      "category": "PATTERN_REPEAT",
-      "title": "Selective deletion guard — confirm list before rm",
-      "target_file": ".claude/rules/anti-drift.md",
-      "priority": "high",
-      "frequency": 2,
-      "draft": "## Selective deletion protocol (extends KBP-10)\n\nWhen user asks to remove \"some\" files from a set:\n1. List ALL files in the target directory\n2. Ask user to confirm WHICH specific files to remove (by number or name)\n3. Execute removal ONE directory/file at a time, confirming each\n4. NEVER batch-delete when the request says \"some\" or \"os inuteis\" — ambiguity = ask"
+      "category": "RULE_VIOLATION",
+      "title": "Temperature rule — explicit propagation to all editorial calls",
+      "target_file": ".claude/rules/qa-pipeline.md",
+      "priority": "low",
+      "frequency": 1,
+      "draft": "- Temperatura editorial: 1.0 (testado S71 — baixar torna critica generica). Aplica-se a TODAS as calls editoriais incluindo Call D e futuras."
     },
     {
       "id": "P002",
-      "category": "RULE_GAP",
-      "title": "Research scope pinning",
-      "target_file": ".claude/rules/anti-drift.md",
-      "priority": "medium",
-      "frequency": 2,
-      "draft": "- Research tasks: pin scope to SPECIFIC deliverable(s) named in the request. If user says \"pesquisa para pre-reading de forest plot\", research ONLY forest plot pre-reading content. Do not generalize to adjacent slides or topics. Scope expansion requires explicit user request."
-    },
-    {
-      "id": "P003",
-      "category": "RULE_GAP",
-      "title": "Research output grounding requirement",
-      "target_file": ".claude/rules/anti-drift.md",
-      "priority": "high",
-      "frequency": 1,
-      "draft": "- Research output grounding: When producing content for evidence/pre-reading, every claim must trace to a retrieved source (PubMed, SCite, Perplexity, NLM). Training-data synthesis (\"examples\") is NOT acceptable as primary content. If no source found, state the gap explicitly rather than generating plausible content."
-    },
-    {
-      "id": "P004",
-      "category": "RULE_VIOLATION",
-      "title": "Worker boundary — explicit file-creation prohibition",
-      "target_file": ".claude/rules/multi-window.md",
+      "category": "HOOK_GAP",
+      "title": "pending-fixes deduplication",
+      "target_file": "hooks/stop-detect-issues.sh",
       "priority": "medium",
       "frequency": 1,
-      "draft": "**Workers NEVER:** create HTML/CSS/JS files, edit _manifest.js, modify slides/, create templates, or perform any action that changes the build output. Workers CREATE only: .md files inside `.claude/workers/{task-name}/`."
-    },
-    {
-      "id": "P005",
-      "category": "MONITORING",
-      "title": "nudge-checkpoint calibration watch",
-      "target_file": "N/A",
-      "priority": "low",
-      "frequency": 0,
-      "draft": "Monitor: if nudge-checkpoint exceeds 2.5 firings/session in next period, increase threshold."
+      "draft": "Before appending to pending-fixes, check: if ! grep -qF \"$WARNING_TEXT\" \"$PENDING_FILE\" 2>/dev/null; then echo \"$WARNING_TEXT\" >> \"$PENDING_FILE\"; fi"
     }
   ],
   "kbps_to_add": [],
-  "pending_fixes_to_add": [
-    {
-      "item": "Apply selective deletion protocol to anti-drift.md (P001)",
-      "priority": "P1",
-      "target": ".claude/rules/anti-drift.md"
-    },
-    {
-      "item": "Add research output grounding rule (P003)",
-      "priority": "P1",
-      "target": ".claude/rules/anti-drift.md"
-    }
-  ],
+  "pending_fixes_to_add": [],
   "metrics": {
-    "rule_violations": 3,
-    "user_corrections": 9,
-    "retries": 2,
-    "patterns_resolved_since_last": 1,
-    "patterns_new": 3
+    "rule_violations": 1,
+    "user_corrections": 4,
+    "retries": 0,
+    "patterns_resolved_since_last": 4,
+    "patterns_new": 2
   }
 }
 ```
-
----
-Coautoria: Lucas + Opus 4.6 | S132 2026-04-09

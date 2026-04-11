@@ -35,9 +35,20 @@ Monorepo funcional. CI verde. Build OK (**15 slides** metanalise).
 
 - Promover `.v` e `.c` classes ao benchmark `pre-reading-heterogeneidade.html`. Atualmente o benchmark so tem `.ref-pmid`; o pattern completo (`.v/.c/.book`) originou em `forest-plot-candidates.html` S146 (commit ea434e7). Tornar o benchmark um superset real exigiria adicionar essas 3 classes — decisao do Lucas: "pode ser adicionado ao benchmark posteriormente".
 
-## P3 — /insights trend watch
+## P3 — /insights S151 queue (proxima sessao = INFRA)
 
-S141: rolling averages corrections 0.862→1.128, kbp 0.254→0.32. Se KBP/session > 0.5 por 3 sessoes: investigar regressao. S151 teve 1 KBP-07 event (attribution-without-verification) — Lucas corrigiu.
+**Verdict:** IMPROVING — corrections_5avg 1.128→0.912 (↓19%), kbp_5avg 0.32→0.154 (↓52%). Report: `.claude/skills/insights/references/latest-report.md`. 6 proposals + 1 KBP awaiting aprovacao Lucas.
+
+**Queue para sessao de infra (ordem por dependencia):**
+
+- **P002 [HIGH] success-capture hook silently broken** — 1 write em 48h apesar de ~15 commits. Diagnose-first (KBP-07): adicionar debug log + stdin dump, commit trivial, inspecionar schema real vs parseado. NAO blind-fix. Schema observado: `{stdout, stderr, interrupted, isImage, noOutputExpected}` (sem `exit_code`). Target: `hooks/success-capture.sh`.
+- **P001 [HIGH] KBP-13 Factual Claim Without Verification** — 3/3 corrections em S151-window sao subtipos desta categoria (state drift, intent assumption, historical attribution). Draft pronto em latest-report.md §P001/P001b. Targets: `.claude/rules/known-bad-patterns.md` + `.claude/rules/anti-drift.md §Verification`.
+- **P004 [MED] Scope-shrink symmetry** — S151 Fase D skipped silenciosamente 14 links + 9 colspan. Anti-drift guarda contra creep mas nao contra shrink. 1 bullet novo em `.claude/rules/anti-drift.md §Scope discipline`.
+- **P003 [MED] Plans lifecycle** — 16 orphan plans em `.claude/plans/` (KBP-10 blocks delete). Adicionar protocolo archive→`.claude/plans/archive/` com prefixo SXXX em `session-hygiene.md §Artifact cleanup`. Triage individual, default=keep.
+- **P005 [LOW] Plan template reference-type** — Borenstein BOOK descoberto mid-execution S151. Add coluna `type` na tabela de refs em `research/SKILL.md`. DEFER se escopo infra ficar grande.
+- **P006 [LOW] Plan pre-flight tool availability** — Conceptual, requer hook novo. DEFER para backlog.
+
+**Plano rascunhado (A→B→C→E, defere D):** ver ultima resposta do orquestrador em session 9325f9f5 (pre-clear). Fase A = diagnose P002, Fase B = P001+P004, Fase C = P003, Fase E = wrap.
 
 ## BACKLOG (pos-deadline)
 
