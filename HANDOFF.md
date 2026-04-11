@@ -1,30 +1,16 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 157 | 2026-04-11
-> Foco: Context melt fix + 2 slides forest plot (s-forest1 + s-forest2)
-> **Proxima sessao (S158)** — ver Context Melt Protocol abaixo
+> Sessao 157 | 2026-04-11 | Fase calmaria (pos-rule-level fix)
+> Foco: forest plot s-forest1 + s-forest2 pendentes
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, 2 novos em execucao S157).
-**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 16.** **Skills: 20.** **Memory: 20/20.**
-
-## CONTEXT MELT PROTOCOL (S157 lesson — durable)
-
-Observado S157: spike de contexto 20% → 60% ao entrar plan mode.
-
-**Causa raiz:** Plan mode Phase 1/2 encoraja lancar ate 3 Explore + 3 Plan agents (~70k tokens combinados de retorno). Baseline auto-load e so ~15% — o spike vem dos agents.
-
-**Fix behavioral (nao adiciona rule nova):** quando escopo conhecido (Lucas ja declarou objetivo + ancoras claras: papers, PMIDs, ficheiros), pular Phase 1/2 agents completamente. Escrever plano inline usando Read/Grep/Glob para ancoras especificas.
-
-**Check antes de lancar Agent em plan mode:**
-> "Lucas ja me deu arquivos/PMIDs/papers exatos? Se sim → zero agents."
-
-Detalhes completos: `.claude/plans/abundant-pondering-zebra.md` §1-§3
+**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.**
 
 ## P0 — S157 em execucao
 
-- **Context melt fix:** documentado acima (este HANDOFF). Monitorar se S158+ continua sem spike — metrica subjetiva do Lucas.
+- **Context melt fix:** RESOLVED commit 20dcc3e (KBP-17 + `anti-drift.md §Delegation gate`). Rule auto-loaded. Monitorar spikes futuros.
 - **Forest plot slides:** s-forest1 (Li 2026 AJCD, PMID 40889093 VERIFIED) + s-forest2 (Ebrahimi 2025 Cochrane, PMID 41224205 VERIFIED). Evidence unico denso: `s-forest-plot.html` (a criar). Plano: `.claude/plans/abundant-pondering-zebra.md`
 
 ## P0 — Pendente S156
