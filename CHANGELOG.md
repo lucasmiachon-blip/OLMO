@@ -80,9 +80,12 @@ D2-D5 = trabalho ja feito em sessoes anteriores. C1 produziu falsos positivos po
 - Sintomatico: triangulacao Gemini+Codex (onde ambos flagaram mesmo item) teve 0% FP, vs solo Gemini ~47% FP.
 
 ### BACKLOG (S155 additions)
-- **#9 NEW Group E (slide patterns drift):** slide-patterns.md vs slide-rules.md drift detectado por G3 mas defer para sessao slide-focused (touches CSS/runtime + Lucas working). 5 findings em pasta `.claude/tmp/g3-result.md` apos linha 60.
-- **#10 NEW Group F (Skills folder dedup):** skill-creator + skills/research/SKILL.md tem alguma duplicacao com agent definitions. 1 finding, low priority.
+- **#9 NEW Group E (slide patterns drift):** slide-patterns.md vs slide-rules.md drift detectado por **C1** (Codex), 5 findings em `.claude/tmp/c1-result.md` items #6-#10 (data-background-color attribute dead, inline styles violando NUNCA CSS inline, slide-navy legacy, slide-figure layout class genérica, PMID:pending vs CANDIDATE rule). Defer para sessao slide-focused (touches CSS/runtime + Lucas working).
+- **#10 NEW S155 A1+A2 (settings wildcard):** Lucas delegou decisao apos friction warning. Verdict: DEFERRED. Razao: removendo `Bash(*)` reverte fix S102 (`feedback_tool_permissions.md` — deny recorrente em comandos safe). Sem trigger real (comando perigoso slip through), e cosmetico que cria friction recorrente. Re-examinar quando houver trigger.
 - **#11 NEW Group G (Hooks lazy load):** lazy-loading hooks por escopo (proposto C2) — `>1 commit, complexity-as-ceremony` per backlog gate. Defer.
+
+### KBP-13 self-catch (meta-licao)
+Durante o cleanup tmp, descobri que afirmei "Group E findings em g3-result.md apos linha 60" no wrap inicial. Verificacao subsequente: g3-result.md so tem 17 linhas + os findings sao todos memory dedup, NAO slide patterns. Os 5 slide patterns findings sao do **c1-result.md items #6-#10**. Self-correction commit fix: this entry. **Lesson:** mesmo durante wrap (zona de fadiga apos 4 commits), KBP-13 verificar source files antes de afirmar source attribution. Aplicado mecanicamente: confirmou meu instinto de que cleanup ANTES de verificar = perda forensic + claim incorreto vivendo no CHANGELOG indefinidamente. **Catch ratio:** 1 KBP-13 catch a mais este wrap = 8 total (5 G3 hallucinations + 2 G3 inversoes + 1 self-catch).
 
 ### Pendentes (P0 surface required)
 - **A1+A2** (Group A): permissions garbage findings (Bash(*) wildcard removal, MCP wildcard collapse) NAO executados — friction warning per KBP-14: removendo Bash(*) significa que toda shell command nova precisa ack ate allowlist rebuild. Requer Lucas ack explicito antes.

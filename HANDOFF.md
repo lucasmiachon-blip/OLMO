@@ -52,8 +52,8 @@ Out-of-band: settings.local.json 503→481 LOC (gitignored). Memory dedup 10 edi
 | 6 | Skill de slides consolidada | Usar skill-creator para criar skill nova |
 | 7 | P006: plan pre-flight tool availability | Re-design: Step 1.5 em research/SKILL.md ou static allowlist |
 | 8 | Postmortem dead JSON+py pipeline | Lucas pediu "para registrar". S156+ |
-| 9 | **NEW S155 Group E** | slide-patterns.md vs slide-rules.md drift — defer para sessao slide-focused (touches CSS/runtime) |
-| 10 | **NEW S155 Group F** | skill-creator vs research/SKILL.md dedup — low priority |
+| 9 | **NEW S155 Group E** | slide-patterns.md vs slide-rules.md drift — 5 findings em `.claude/tmp/c1-result.md` (C1 #6-#10): data-background-color, inline style, slide-navy, slide-figure layout class, PMID:pending. Defer para sessao slide-focused (touches CSS/runtime + Lucas working) |
+| 10 | **NEW S155 A1+A2** | settings.local.json wildcard collapse — DEFERRED S155 apos analise. Friction warning: removendo `Bash(*)` reverte fix S102 (deny recorrente em comandos safe). Trade-off real: -22 LOC vs friction 2-3 semanas. Re-examinar se houver trigger real (comando perigoso slip through) |
 | 11 | **NEW S155 Group G** | Hooks lazy load por escopo — complexity-as-ceremony per backlog gate |
 
 ## DECISOES ATIVAS
