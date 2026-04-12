@@ -202,14 +202,11 @@ export function createAnimationDispatcher(gsap) {
     // Clean stale revealed state before re-init (prevents flash on re-visit)
     slide.querySelectorAll('.revealed').forEach(el => el.classList.remove('revealed'));
     const ctx = gsap.context(() => {
-      if (direction < 0) {
-        // Backward entry: skip auto animations, show final state
-        forceAnimFinalState(slide);
-      } else {
-        animateSlide(gsap, slide);
-      }
+      // Always start from beat 0 regardless of direction.
+      // Direction infra kept in deck.js for future use.
+      animateSlide(gsap, slide);
       const customFn = customAnimations.get(slide.id);
-      if (customFn) customFn(slide, gsap, direction);
+      if (customFn) customFn(slide, gsap);
     }, slide);
     contexts.set(slide, ctx);
   }
