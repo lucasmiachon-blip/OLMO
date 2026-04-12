@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 163 — 2026-04-12 (HTML+SFOREST — overlap research + evidence enrichment)
+
+- Expand `s-forest-plot-final.html`: add overlap matrix section (15 MAs x 16 RCTs)
+  - 4 MAs confirmed via PubMed full-text (Li, Ebrahimi, Samuel, Xie)
+  - Universe of 16 RCTs catalogued with population/follow-up
+  - 11 MAs pending (closed-access): DOIs included for manual lookup
+  - Core 6 RCTs universal (LoDoCo, COLCOT, COPS, LoDoCo2, CONVINCE, CLEAR = 21.800 pts)
+- Add 8 new PMID-verified references (#9-16) to evidence reference table
+- Plan: slide HTML enrichment (labels, click-reveal, Cochrane button) deferred to next session
+
 ## Sessao 162 — 2026-04-12 (QA-Forest — benefit-harm removal + evidence enrichment + meta-research critique)
 
 - Remove `s-benefit-harm` slide + all references (17→16 slides, 12 files, -96 lines)

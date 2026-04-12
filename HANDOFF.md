@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 163 | Evidence enriched, slide content next
+> Sessao 164 | Overlap partial done, slide HTML next
 
 ## ESTADO ATUAL
 
@@ -9,12 +9,11 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## P0 — Forest plot slides: evidence → slide content
 
-- **s-benefit-harm removido S162.** 16 slides no deck.
-- **Evidence DONE:** `s-forest-plot-final.html` expandido S162 — sintese critica (full-text PMC), redundancia meta-research (Ioannidis 2016, Chapelle 2021, Kwok 2025, Ou 2025), matriz sobreposicao trials (Li vs Ebrahimi: 10/14 compartilhados, top 5 = 78-88% peso).
-- **Pendente S163:**
-  - **Pesquisar sobreposicao detalhada:** mapear quantas das 15 MAs compartilham os mesmos RCTs. Objetivo: tabela completa de overlap (15 MAs × 14 RCTs). Vai informar conteudo do slide 2.
-  - **Icone clicavel no slide 2 (s-forest2):** adicionar link/icone que abre a pagina Cochrane da MA (URL: `https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD014808.pub2/full`). Lucas decidira posicao/design.
-  - **Resultados para slides:** pesquisar mais sobre resultados dos trials para informar conteudo visual dos slides (efeitos, animacoes planejadas).
+- **Overlap matrix S163 (parcial):** 4 MAs confirmadas full-text (Li, Ebrahimi, Samuel, Xie). 11 pendentes (closed-access, DOIs no evidence HTML para lookup manual CAPES/USP). Core 6 RCTs universal.
+- **Pendente S164:**
+  - **HTML slide 1 (s-forest1, Li 2026):** Adicionar labels (diamante, pesos, autores, coluna eventos) + click-reveal (5 labels, 1 por click). Destacar estudo com ~1 evento (heterogeneidade). Imagem fadeUp.
+  - **HTML slide 2 (s-forest2, Ebrahimi Cochrane):** Botao Cochrane visivel + labels. Dados: RR 0.74 IAM, RR 0.67 AVC, GRADE alta. Stagger nos labels, drawPath no icone Cochrane, highlight no RoB (Von Restorff). Beat final: "15 MAs em 14 meses."
+  - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES → mapear trials incluidos.
 - **QA pendente:** pipeline Preflight → Inspect → Editorial, 1 slide por ciclo.
 - **h2 provisorios:** Lucas pode reescrever h2 dos forest plots a qualquer momento.
 - **CSS pendente:** Lucas indicou que CSS tera mais mudancas — nao unificar/otimizar ainda.
@@ -40,6 +39,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Plans lifecycle (S152):** `archive/SXXX-name.md`, per-file decision, default=keep.
 - **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes. Speaker notes vivem no evidence HTML.
 - **Docling = caminho canonico para PDFs (S162).** PDFs em `content/aulas/dist/assets/`. Repo: `C:\Dev\Projetos\docling-tools`.
+- **Animacoes forest slides (S163):** click-reveal para anatomia (slide 1), drawPath+highlight para RoB (slide 2). Proposito pedagogico obrigatorio.
 
 ## CUIDADOS
 
@@ -60,4 +60,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S162 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S163 2026-04-12
