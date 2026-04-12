@@ -34,11 +34,12 @@ function goTo(next) {
     activeTransitionEnd = null;
   }
 
-  dispatch('slide:changed', { currentSlide, previousSlide, indexh: next });
-
+  // Update state BEFORE dispatching — listeners must see consistent world
   previousSlide.classList.remove('slide-active');
   currentIndex = next;
   currentSlide.classList.add('slide-active');
+
+  dispatch('slide:changed', { currentSlide, previousSlide, indexh: next });
 
   // Update slide ID label
   const label = document.getElementById('slide-id-label');
@@ -130,13 +131,13 @@ export function initDeck(viewportSelector = '#slide-viewport') {
     return;
   }
 
-  initialized = true;
-
   sections = Array.from(viewport.querySelectorAll(':scope > section'));
   if (!sections.length) {
     console.error('[deck] no sections found inside', viewportSelector);
     return;
   }
+
+  initialized = true;
 
   // Activate first slide
   sections[0].classList.add('slide-active');

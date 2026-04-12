@@ -1,22 +1,19 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 166 | QA-FOREST
+> Sessao 167 | JS reversao
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
-**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 20 items.**
+**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 21 items.**
 
 ## P0 — Forest plot slides
 
 - **s-forest1 (Li 2026) — FUNCIONAL:** 5 click-reveals. Fine-tune pendente.
 - **s-forest2 (Ebrahimi Cochrane) — FUNCIONAL:** 4 auto-zones + Cochrane logo + RoB zoom (2 click-reveals).
-- **PENDENTE (advance/retreat bug):**
-  - Root cause: engine.js re-executa factory ao re-visitar slide → counter `revealed` reseta mas classes `.revealed` no DOM persistem → flash/desync
-  - Tentativa S166: (a) cleanup `.revealed` antes de re-init, (b) propagar direction deck.js→engine.js→factories. Resultado: backward-entry mostra estado final mas bloqueia re-advance. Revertido.
-  - **Fix correto requer:** sessao interativa com dev server + browser. Provavelmente: cleanup `.revealed` + NÃO mudar direction (sempre beat 0) + testar cenarios forward-backward em tempo real
-- **Redesign forest2 pendente:** mockup em `workers/forest2-mockup/mockup.html`. Spec: cada faixa = 1 beat click (4 zonas + info box + Cochrane logo + RoB zoom = 7 clicks). Implementar APOS fix do advance/retreat.
-- **Gemini Gate 4:** apos fix + redesign
+- **advance/retreat FIXED (S167):** re-entry guard em engine.js (cleanup + clearProps + remove .revealed). State-dispatch order corrigido em deck.js. Verificado via Playwright.
+- **Redesign forest2 pendente:** mockup em `workers/forest2-mockup/mockup.html`. Spec: cada faixa = 1 beat click (4 zonas + info box + Cochrane logo + RoB zoom = 7 clicks).
+- **Gemini Gate 4:** apos redesign
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.

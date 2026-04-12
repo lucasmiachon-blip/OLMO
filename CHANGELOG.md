@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 167 — 2026-04-12 (JS reversao)
+
+- **FIX: advance/retreat desync** — root cause: GSAP context scoping. `advance()`/`retreat()` closures executam fora do `gsap.context()` callback → inline styles (opacity, transform) nao rastreados por `ctx.revert()`. Persistiam apos sair do slide, causando desync DOM vs state machine
+  - Fix A (engine.js): re-entry guard — `cleanup()` + `killTweensOf` + `clearProps:'all'` em `[style]` + remove `.revealed`
+  - Fix B (deck.js): state update (currentIndex, .slide-active) ANTES de dispatch `slide:changed` — listeners veem mundo consistente
+  - Fix C (deck.js): `initialized = true` movido para apos validacao de sections — permite retry se init prematuro
+- Verificado via Playwright (test-nav-debug.mjs): forward → backward → re-advance, DOM state correto em todos os passos
+- Codex adversarial review identificou Fix B e C (confianca 0.98 e 0.76)
+- PENDENTE (backlog): retorno ao slide volta ao beat 0 (nao ao estado anterior). Requer persistencia de beat state
+
 ## Sessao 166 — 2026-04-12 (QA-FOREST)
 
 - REVERTED: advance/retreat fix + forest2 redesign — ambas tentativas causaram regressoes

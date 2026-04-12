@@ -199,6 +199,16 @@ export function createAnimationDispatcher(gsap) {
       return;
     }
     if (!slide) return;
+    // Re-entry guard: revert stale GSAP context + sync DOM with fresh factory state.
+    // ctx.revert() only undoes animations created inside gsap.context() callback.
+    // advance/retreat closures run later — their GSAP calls are untracked, leaving
+    // orphaned inline styles. Kill those tweens + clear all inline styles explicitly.
+    cleanup(slide);
+    slide.querySelectorAll('[style]').forEach(el => {
+      gsap.killTweensOf(el);
+      gsap.set(el, { clearProps: 'all' });
+    });
+    slide.querySelectorAll('.revealed').forEach(el => el.classList.remove('revealed'));
     const ctx = gsap.context(() => {
       animateSlide(gsap, slide);
       const customFn = customAnimations.get(slide.id);
