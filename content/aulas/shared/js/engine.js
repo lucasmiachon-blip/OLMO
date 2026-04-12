@@ -183,7 +183,7 @@ export function createAnimationDispatcher(gsap) {
     }
   }
 
-  function animate(slide, indexh) {
+  function animate(slide, indexh, direction = 0) {
     if (prefersReduced || printing || qa) {
       if (slide) {
         forceAnimFinalState(slide);
@@ -199,10 +199,17 @@ export function createAnimationDispatcher(gsap) {
       return;
     }
     if (!slide) return;
+    // Clean stale revealed state before re-init (prevents flash on re-visit)
+    slide.querySelectorAll('.revealed').forEach(el => el.classList.remove('revealed'));
     const ctx = gsap.context(() => {
-      animateSlide(gsap, slide);
+      if (direction < 0) {
+        // Backward entry: skip auto animations, show final state
+        forceAnimFinalState(slide);
+      } else {
+        animateSlide(gsap, slide);
+      }
       const customFn = customAnimations.get(slide.id);
-      if (customFn) customFn(slide, gsap);
+      if (customFn) customFn(slide, gsap, direction);
     }, slide);
     contexts.set(slide, ctx);
   }
@@ -231,10 +238,11 @@ export function createAnimationDispatcher(gsap) {
           }
         }, 450);
 
+        const dir = e.detail.direction || 0;
         if (qa) {
-          requestAnimationFrame(() => animate(e.detail.currentSlide, e.detail.indexh));
+          requestAnimationFrame(() => animate(e.detail.currentSlide, e.detail.indexh, dir));
         } else {
-          animate(e.detail.currentSlide, e.detail.indexh);
+          animate(e.detail.currentSlide, e.detail.indexh, dir);
           animatedSlide = e.detail.currentSlide;
         }
       });

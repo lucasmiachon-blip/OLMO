@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 165 | tuning + forest 2
+> Sessao 166 | QA-FOREST
 
 ## ESTADO ATUAL
 
@@ -9,12 +9,12 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## P0 — Forest plot slides
 
-- **s-forest1 (Li 2026) — FUNCIONAL:** 4 faixas (CI+OR, events, weight, studies) + 3 destaques (weight-max, weight-min, diamond) + het sutil. Zonas realinhadas S165 (~90%). Fine-tune pendente via Gemini Gate 4.
-- **s-forest2 (Ebrahimi Cochrane) — FUNCIONAL:** 4 auto-zones (reconhecimento forest1) + Cochrane logo clicavel (clipPath reveal) + RoB zoom (ultimo beat, gancho para slide de vieses). Fine-tune pendente.
+- **s-forest1 (Li 2026) — FUNCIONAL:** 5 click-reveals (zones). Fine-tune pendente via Gemini Gate 4.
+- **s-forest2 (Ebrahimi Cochrane) — REDESIGNED S166:** 7 click-reveals (4 zones individuais + info box "15 MAs" + Cochrane logo clipPath + RoB zoom). Fine-tune pendente.
+- **advance/retreat FIXED S166:** direction propagado deck.js→engine.js→slide-registry. Backward entry mostra estado final. Navegacao simetrica em TODOS os slides.
 - **PENDENTE prox sessao:**
-  - Gemini Gate 4 (Inspect) nos dois forest slides — 10 must-fix suggestions
-  - Fix global JS: advance/retreat nao retorna mesma sequencia sempre (afeta TODOS os slides)
-  - Redesign forest2 layout (sketch em `dist/assets/Screenshot 2026-04-12 155443.png`): cada faixa = 1 beat (4 zonas individuais, mesmo padrao forest1) → box info (15 MAs, 14 meses) → Cochrane logo clicavel → zoom "Risk of Bias" (ponte para slide vieses). clickReveals 2→7. Tipo de interacao (click vs auto) a decidir com Gemini Gate 4
+  - Gemini Gate 4 (Inspect) nos dois forest slides
+  - Fine-tune visual (posicoes das zones, info-box sizing) via browser
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
@@ -40,7 +40,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Plans lifecycle (S152):** `archive/SXXX-name.md`, per-file decision, default=keep.
 - **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes.
 - **Docling = caminho canonico para PDFs (S162).**
-- **Animacoes forest slides (S163→S165):** zonas coloridas + Cochrane clipPath + RoB zoom. Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
+- **Animacoes forest slides (S163→S166):** zonas coloridas click-reveal + Cochrane clipPath + RoB zoom. Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
 
 ## CUIDADOS
 
@@ -60,4 +60,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S165 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S166 2026-04-12

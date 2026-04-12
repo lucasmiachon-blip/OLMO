@@ -22,7 +22,7 @@ function dispatch(name, detail) {
   document.dispatchEvent(new CustomEvent(name, { detail, bubbles: false }));
 }
 
-function goTo(next) {
+function goTo(next, direction = 0) {
   if (next < 0 || next >= sections.length || next === currentIndex) return;
 
   const previousSlide = sections[currentIndex];
@@ -34,7 +34,7 @@ function goTo(next) {
     activeTransitionEnd = null;
   }
 
-  dispatch('slide:changed', { currentSlide, previousSlide, indexh: next });
+  dispatch('slide:changed', { currentSlide, previousSlide, indexh: next, direction });
 
   previousSlide.classList.remove('slide-active');
   currentIndex = next;
@@ -83,7 +83,7 @@ function navigate(delta) {
     if (slide.__clickRevealNext()) return;
   }
 
-  goTo(currentIndex + delta);
+  goTo(currentIndex + delta, delta);
 }
 
 function onKeydown(e) {
