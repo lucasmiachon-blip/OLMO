@@ -6,7 +6,7 @@
  * Validação: npm run lint:narrative-sync metanalise
  *
  * Coautoria: Lucas (decisão clínica) · Opus 4.6 (código + governance)
- * Atualizado: 2026-04-09 — 16 slides (S136: removidos s-abstract, s-grade, s-aplicacao; archetype field removido)
+ * Atualizado: 2026-04-12 — 17 slides (S161: +s-forest1, +s-forest2; archetype field removido)
  */
 
 export const slides = [
@@ -22,6 +22,9 @@ export const slides = [
   { id: 's-pico',         file: '04-pico.html',         phase: 'F2', headline: 'O valor da RS e da MA depende em grande parte da concordância entre o study PICO e o seu target PICO', timing: 60, clickReveals: 1, customAnim: 's-pico', narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
 
   { id: 's-benefit-harm', file: '07-benefit-harm.html', phase: 'F2', headline: 'Benefício e dano podem ter certeza GRADE diferente na mesma MA — avaliar ambos separadamente',                        timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false },
+
+  { id: 's-forest1',      file: '08a-forest1.html',     phase: 'F2', headline: 'Forest Plot 1 — Li et al. 2026',                                                                                        timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-forest-plot-final.html' },
+  { id: 's-forest2',      file: '08b-forest2.html',     phase: 'F2', headline: 'Forest Plot 2 — Ebrahimi et al. 2025',                                                                                  timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false, evidence: 's-forest-plot-final.html' },
 
   { id: 's-heterogeneity',file: '09-heterogeneity.html',phase: 'F2', headline: 'I² alto não invalida a MA — importa se a heterogeneidade é explicável e clinicamente relevante',                      timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false },
   { id: 's-fixed-random', file: '10-fixed-random.html', phase: 'F2', headline: 'Random-effects alarga o IC quando há heterogeneidade — resultado significativo em fixed-effect pode desaparecer',      timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 1, narrativeCritical: false },

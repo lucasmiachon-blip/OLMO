@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 161 — 2026-04-12 (HTML_E+BUILD — forest plot slides + evidence expansion + build modernization)
+
+- Expand `evidence/s-forest-plot-final.html`: glossario termos estatisticos, caracteristicas metodologicas verificadas dos PDFs (Li: MH random-effects, Scopus/PubMed/Embase, PRISMA 728→14; Ebrahimi: IV Random, COVIDENCE, SoF Table completa), forest plot individual data, angulo pedagogico "15 MAs em 14 meses"
+- Add `slides/08a-forest1.html` — Forest Plot 1 Li et al. 2026 (MACE, 14 RCTs, crop 4084×2876)
+- Add `slides/08b-forest2.html` — Forest Plot 2 Ebrahimi et al. 2025 (Cochrane MI, link Cochrane Library)
+- Update `_manifest.js` (15→17 slides), `metanalise.css` (CSS scopado forest-fig)
+- Add `scripts/build-html.mjs` — unified Node.js build replacing 3 per-aula PS1 scripts (ghost canary + integrity fingerprint)
+- Update `package.json` — 3 build scripts apontam para build-html.mjs
+- Memory: `project_living_html.md` aside.notes PROIBIDO (nao opcional) em slides novos
+
 ## Sessao 160 — 2026-04-12 (DOCLING+HTML — forest plot crops para slides)
 
 - Setup `docling-tools` project (uv + Python 3.13 + docling 2.86 + PyMuPDF) em `C:\Dev\Projetos\docling-tools\`

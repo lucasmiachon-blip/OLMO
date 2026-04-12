@@ -1065,3 +1065,54 @@ section#s-importancia p.source-tag {
   color: var(--text-secondary);
   line-height: 1.3;
 }
+
+/* --- Forest plot slides (figure-centric, cropado de paper) --- */
+
+/* s-forest1: Li 2026 MACE — image nearly square (4084×2876, 1.42:1) → height-constrained */
+section#s-forest1 .slide-inner {
+  gap: var(--space-sm);
+}
+section#s-forest1 .forest-fig {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+}
+section#s-forest1 .forest-fig img {
+  max-width: 100%;
+  max-height: 480px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--shadow-soft);
+  box-shadow: 0 1px 4px var(--shadow-soft), 0 4px 12px var(--shadow-soft);
+}
+
+/* s-forest2: Ebrahimi Cochrane MI — panoramic (4501×1451, 3.1:1) → width-constrained */
+section#s-forest2 .slide-inner {
+  gap: var(--space-sm);
+}
+section#s-forest2 .forest-fig {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+}
+section#s-forest2 .forest-fig img {
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--shadow-soft);
+  box-shadow: 0 1px 4px var(--shadow-soft), 0 4px 12px var(--shadow-soft);
+}
+
+/* Source tag link styling for Cochrane Library */
+section#s-forest2 .source-tag a {
+  color: var(--ui-accent);
+  text-decoration: none;
+}
+section#s-forest2 .source-tag a:hover {
+  text-decoration: underline;
+}

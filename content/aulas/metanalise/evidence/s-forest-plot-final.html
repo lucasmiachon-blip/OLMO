@@ -117,6 +117,21 @@
     <p>Forest plots Cochrane incluem uma coluna adicional: o <strong>Risk of Bias (RoB)</strong> por estudo, usando semaforo de cores (verde/amarelo/vermelho). Isso nao e um "6o elemento estatistico" &mdash; e um <strong>meta-elemento metodologico</strong> que integra qualidade ao resultado. A assinatura visual Cochrane (forest plot + RoB lado a lado) e o padrao-ouro de apresentacao de MA.</p>
     <p>No slide 2 (Ebrahimi 2025), o aluno ja conhece os 5 elementos do slide 1 e pode focar em reconhecer a coluna RoB como diferencial Cochrane.</p>
   </details>
+
+  <details>
+    <summary>Glossario: Termos estatisticos do forest plot</summary>
+    <table>
+      <tr><th scope="col">Termo</th><th scope="col">Definicao</th><th scope="col">No forest plot</th></tr>
+      <tr><td class="glossary-term">OR (Odds Ratio)</td><td>Razao de chances entre grupo intervencao e controle</td><td>Li 2026 usa OR. OR &lt;1 = intervencao reduz desfecho</td></tr>
+      <tr><td class="glossary-term">RR (Risk Ratio)</td><td>Razao de riscos entre grupos. Mais intuitivo que OR para calcular NNT</td><td>Ebrahimi Cochrane usa RR. NNT = 1/ARR</td></tr>
+      <tr><td class="glossary-term">I&sup2;</td><td>Proporcao da variabilidade entre estudos que excede o acaso</td><td>&lt;25% baixa, 25&ndash;50% moderada, &gt;50% substancial, &gt;75% consideravel</td></tr>
+      <tr><td class="glossary-term">Fixed-effect</td><td>Assume efeito verdadeiro unico. Peso = inverso da variancia</td><td>IC mais estreito. Inadequado se I&sup2; alto</td></tr>
+      <tr><td class="glossary-term">Random-effects</td><td>Assume distribuicao de efeitos. Incorpora variabilidade entre estudos</td><td>IC mais largo. Ambas MAs (Li, Ebrahimi) usam random-effects</td></tr>
+      <tr><td class="glossary-term">GRADE</td><td>Sistema de avaliacao da certeza da evidencia (alta/moderada/baixa/muito baixa)</td><td>Ebrahimi: alta para IAM e AVC. Informa confianca no resultado combinado</td></tr>
+      <tr><td class="glossary-term">NNT</td><td>Number Needed to Treat &mdash; quantos pacientes tratar para prevenir 1 evento</td><td>Calculavel a partir de ARR. Nao aparece no forest plot diretamente</td></tr>
+      <tr><td class="glossary-term">Linha de nulo</td><td>Referencia de "sem efeito" (RR=1 ou OR=1)</td><td>Vertical no centro do grafico. Diamante que nao cruza = significativo</td></tr>
+    </table>
+  </details>
 </section>
 
 <!-- ===== SLIDE 1: Li 2026 ===== -->
@@ -147,6 +162,27 @@
   </table>
 
   <div class="key-takeaway"><strong>Achado unico:</strong> Analise de dose cumulativa com threshold protetor &ge;90 mg-dias (~6 meses a 0.5 mg/dia). MAs que incluem trials com dose cumulativa abaixo do threshold tendem a diluir o efeito.</div>
+
+  <details>
+    <summary>Caracteristicas metodologicas &mdash; Li 2026 [fonte: PDF + forest plot]</summary>
+    <table>
+      <tr><td><strong>Desenho</strong></td><td>Meta-analise pairwise de RCTs. PROSPERO: CRD42025100314</td></tr>
+      <tr><td><strong>Bases pesquisadas</strong></td><td>PubMed, Scopus, Embase, Cochrane Library. Busca final: 1 fev 2025</td></tr>
+      <tr><td><strong>PRISMA flow</strong></td><td>728 registros &rarr; 201 duplicatas &rarr; 527 triados &rarr; 508 excluidos &rarr; 19 full-text &rarr; 5 excluidos &rarr; <strong>14 RCTs</strong></td></tr>
+      <tr><td><strong>Inclusao</strong></td><td>RCTs de colchicina vs placebo/cuidado padrao em ASCVD. Sem restricao de idioma (EN, FR, DE, IT, ES, ZH). Follow-up &ge;1 mes</td></tr>
+      <tr><td><strong>Exclusao</strong></td><td>Nao-randomizados, pericardite, gota, pediatrico, abstracts, observacionais. Alto risco de vies excluido</td></tr>
+      <tr><td><strong>Medida de efeito</strong></td><td>OR (Odds Ratio), random-effects <strong>Mantel-Haenszel</strong>. &tau;&sup2; estimado por DerSimonian-Laird. Software: R "meta" package 2024</td></tr>
+      <tr><td><strong>Eventos zero</strong></td><td>Correcao de continuidade +0.5. Excluidos se zero em ambos bracos</td></tr>
+      <tr><td><strong>Subgrupo 1</strong></td><td><strong>Acute Atherothrombotic CVD:</strong> 12 RCTs, N=25.141. OR 0.80 [0.68&ndash;0.93], I&sup2;=42.8%, &tau;&sup2;=0.0238, p=0.057</td></tr>
+      <tr><td><strong>Subgrupo 2</strong></td><td><strong>All CVD Populations:</strong> 14 RCTs, N=31.397. OR 0.72 [0.60&ndash;0.86], I&sup2;=62.1%, &tau;&sup2;=0.0464, p=0.001</td></tr>
+      <tr><td><strong>RCTs incluidos</strong></td><td>CLEAR 2024, CONVINCE 2024, CHANCE-3 2024, Khiali 2024, CONVERT-MI 2024, Akrami 2021, LoDoCo2 2020, COPS 2020, COLCHICINE-PCI 2020, LoDoCo-MI 2019, COLCOT 2019, COLIN 2017, LoDoCo 2013, COOL 2012</td></tr>
+      <tr><td><strong>Maiores pesos (All CVD)</strong></td><td>CLEAR 2024 (17.0%), CHANCE-3 (16.6%), LoDoCo2 (15.7%), CONVINCE (14.6%), COLCOT (14.2%)</td></tr>
+      <tr><td><strong>Risco de vies</strong></td><td>RoB 2 + CONSORT checklist. 11 RCTs baixo risco, 3 "some concerns"</td></tr>
+      <tr><td><strong>Dose cumulativa</strong></td><td>Metrica: mg/dia &times; dias de intervencao. Mediana = 90 mg-dias. Threshold protetor &ge;90 mg-dias (OR 0.66 [0.52&ndash;0.84]). Exclusao de trials abaixo fortalece o sinal</td></tr>
+      <tr><td><strong>MACE definicao</strong></td><td>AVC isquemico, SCA, IAM, angina instavel, revascularizacao coronariana, morte CV</td></tr>
+      <tr><td><strong>Sensibilidade</strong></td><td>Leave-one-out. Meta-regressao para outcomes &gt;10 estudos com I&sup2; moderado-alto</td></tr>
+    </table>
+  </details>
 
   <h3>Funcao pedagogica</h3>
   <p>Forest plot "limpo" com 14 RCTs. Ensina os <strong>5 elementos anatomicos completos</strong> em uma unica sequencia cognitiva. O aluno sai do slide 1 com o kit anatomico internalizado.</p>
@@ -183,6 +219,44 @@
   </table>
 
   <div class="key-takeaway"><strong>Padrao-ouro Cochrane:</strong> Alta certeza GRADE para reducao de IAM e AVC. Mortalidade neutra. GI leve/transitorio. Documento de referencia para a pergunta clinica "colchicina funciona em prevencao secundaria CV?"</div>
+
+  <details>
+    <summary>Caracteristicas metodologicas &mdash; Ebrahimi Cochrane 2025 [fonte: PDF + forest plot]</summary>
+    <table>
+      <tr><td><strong>Desenho</strong></td><td>Revisao sistematica Cochrane com meta-analise de RCTs. 12 estudos, 22.983 pacientes</td></tr>
+      <tr><td><strong>Plataforma de triagem</strong></td><td><strong>COVIDENCE</strong> &mdash; triagem sistematica de titulos/abstracts (dupla-cega independente)</td></tr>
+      <tr><td><strong>Busca</strong></td><td>CENTRAL, MEDLINE, Embase, ClinicalTrials.gov, WHO ICTRP. Ate 18 fev 2025</td></tr>
+      <tr><td><strong>Medida de efeito</strong></td><td>RR (Risk Ratio), <strong>IV Random</strong> (Inverse Variance, random-effects). Tau&sup2; por DerSimonian-Laird</td></tr>
+      <tr><td><strong>RoB</strong></td><td>RoB 2 com 6 dominios (A&ndash;F), semaforo visual integrado ao forest plot. Estudos grandes (LoDoCo2, COLCOT, CLEAR): baixo risco</td></tr>
+    </table>
+
+    <h4>Summary of Findings (fonte: Cochrane SoF Table)</h4>
+    <table>
+      <tr><th scope="col">Desfecho</th><th scope="col">N RCTs</th><th scope="col">N pacientes</th><th scope="col">RR [IC 95%]</th><th scope="col">GRADE</th></tr>
+      <tr><td><strong>IAM</strong></td><td>8</td><td>22.153</td><td><strong>0.74</strong> [0.57&ndash;0.96]</td><td><strong>Alta</strong></td></tr>
+      <tr><td><strong>AVC</strong></td><td>10</td><td>22.483</td><td><strong>0.67</strong> [0.47&ndash;0.95]</td><td><strong>Alta</strong></td></tr>
+      <tr><td>Mortalidade total</td><td>10</td><td>22.747</td><td>1.01 [0.84&ndash;1.21]</td><td>Moderada</td></tr>
+      <tr><td>Mortalidade CV</td><td>8</td><td>22.271</td><td>0.94 [0.73&ndash;1.22]</td><td>Moderada*</td></tr>
+      <tr><td>Eventos adversos graves</td><td>4</td><td>15.677</td><td>0.98 [0.94&ndash;1.02]</td><td>Moderada</td></tr>
+      <tr><td>Revascularizacao coronariana</td><td>3</td><td>12.725</td><td>0.83 [0.64&ndash;1.08]</td><td>Moderada*</td></tr>
+    </table>
+    <p style="font-size:.85rem;color:#555;">* Rebaixada por imprecisao (IC nao exclui dano/beneficio relevante). Hospitalizacoes: nao reportadas.</p>
+
+    <h4>Forest plot IAM (cropado)</h4>
+    <table>
+      <tr><th scope="col">Estudo</th><th scope="col">N colch</th><th scope="col">N ctrl</th><th scope="col">Peso</th><th scope="col">RR [IC 95%]</th></tr>
+      <tr><td>Nidorf 2020 (LoDoCo2)</td><td>2.762</td><td>2.760</td><td>43.5%</td><td>0.71 [0.54&ndash;0.94]</td></tr>
+      <tr><td>Tardif 2019 (COLCOT)</td><td>2.366</td><td>2.379</td><td>23.6%</td><td>0.91 [0.69&ndash;1.21]</td></tr>
+      <tr><td>Jolly 2024 (CLEAR)</td><td>3.528</td><td>3.534</td><td>21.1%</td><td>0.92 [0.71&ndash;1.20]</td></tr>
+      <tr><td>Kelly 2024</td><td>1.569</td><td>1.575</td><td>14.0%</td><td>0.90 [0.53&ndash;1.52]</td></tr>
+      <tr><td>Tong 2020 (COPS)</td><td>396</td><td>399</td><td>6.3%</td><td>0.64 [0.25&ndash;1.64]</td></tr>
+      <tr><td>Nidorf 2013 (LoDoCo)</td><td>282</td><td>250</td><td>5.0%</td><td>0.20 [0.07&ndash;0.57]</td></tr>
+      <tr><td>Akrami 2021</td><td>120</td><td>129</td><td>2.8%</td><td>0.20 [0.04&ndash;0.86]</td></tr>
+      <tr><td>Yu 2024</td><td>52</td><td>52</td><td>0.8%</td><td>0.14 [0.01&ndash;2.70]</td></tr>
+      <tr><td><strong>Total (Wald)</strong></td><td><strong>11.075</strong></td><td><strong>11.078</strong></td><td><strong>100%</strong></td><td><strong>0.74 [0.57&ndash;0.96]</strong></td></tr>
+    </table>
+    <p style="font-size:.85rem;color:#555;">I&sup2;=51%, Tau&sup2;(DL)=0.06, Chi&sup2;=14.33, df=7, p=0.05. Z=2.29, p=0.02.</p>
+  </details>
 
   <h3>Funcao pedagogica</h3>
   <p><strong>Ativacao de reconhecimento:</strong> O aluno ja internalizou os 5 elementos no slide 1. No slide 2, reconhece os mesmos elementos + percebe a coluna RoB como diferencial Cochrane (meta-elemento #6). Carga cognitiva menor, nao maior.</p>
@@ -243,6 +317,13 @@
   </details>
 
   <div class="key-takeaway"><strong>Padrao "high-tier consensus, low-tier outliers":</strong> 9 das 15 MAs estao em Cochrane + Tier 1/2 e TODAS convergem no sinal MACE RR 0.73&ndash;0.88. O unico challenger nulo (Pinheiro) tem 3 RCTs com I&sup2;=73%. O sinal sobreviveu a replicacao massiva em alto impacto &mdash; evidencia antifragil.</div>
+
+  <details>
+    <summary>Angulo pedagogico: O que "15 MAs em 14 meses" ensina</summary>
+    <p><strong>Gatilho:</strong> CLEAR-SYNERGY (OASIS 9) foi publicado no NEJM em novembro de 2024 com resultado <strong>neutro</strong> no desfecho primario composto. Sinal previo positivo (COLCOT, LoDoCo2) + trial neutro grande = janela de oportunidade academica para reanalise.</p>
+    <p><strong>O padrao:</strong> Cada grupo com acesso aos mesmos RCTs publica uma MA "atualizada" com pequenas variacoes &mdash; subgrupos, desfechos diferentes, populacoes restritas &mdash; para justificar publicacao independente. Resultado: 15 MAs com sobreposicao substancial de trials.</p>
+    <p><strong>Perguntas criticas para o aluno:</strong> (1) Quantas dessas 15 MAs usam essencialmente os mesmos RCTs? (2) Qual e a MA marginal que realmente adiciona informacao nova? (3) O que isso diz sobre o sistema de incentivos em pesquisa? Esse tipo de reflexao separa leitor ingenuo de leitor critico.</p>
+  </details>
 </section>
 
 <!-- ===== SPEAKER NOTES ===== -->
@@ -257,9 +338,10 @@
   <h3>Slide 2 &mdash; Ebrahimi Cochrane (~90s + fala 10s)</h3>
   <p>[0:00&ndash;0:20] "Agora uma Cochrane. Reconhecam os mesmos 5 elementos." (mostrar inteiro)<br>
   [0:20&ndash;0:40] "E essa coluna a mais? Isso e Risk of Bias &mdash; assinatura visual Cochrane."<br>
-  [0:40&ndash;0:60] "IAM reduzido em 26%. AVC em 33%. Mortalidade neutra. GRADE alta."<br>
-  [0:60&ndash;0:80] Demo live Cochrane Library (ou screenshot backup).<br>
-  [0:80&ndash;0:90] <strong>Fala de 10s:</strong></p>
+  [0:40&ndash;0:55] "IAM reduzido em 26%. AVC em 33%. Mortalidade neutra. GRADE alta."<br>
+  [0:55&ndash;0:65] "Esse grupo usou COVIDENCE &mdash; plataforma de triagem sistematica &mdash; para gerenciar a revisao. Dupla-cega independente."<br>
+  [0:65&ndash;0:80] Demo live Cochrane Library (link clicavel no slide).<br>
+  [0:80&ndash;0:90] <strong>Beat final:</strong></p>
   <div class="key-takeaway">"Quinze metanalises em quatorze meses sobre o mesmo tema clinico. [pausa 1s] O que isso diz sobre o incentivo do campo?"</div>
 </section>
 
@@ -298,7 +380,7 @@
 
 <footer>
   <p><strong>Coautoria:</strong> Lucas Peres Miachon + Opus 4.6 (orquestrador) | Census S148: Lucas + Opus + Gemini 3.1 Pro + Perplexity sonar-deep-research + SCite MCP</p>
-  <p>S159 &mdash; 2026-04-12 | Evidence benchmark: pre-reading-heterogeneidade.html</p>
+  <p>S159 criado, S161 expandido (glossario, caracteristicas, angulo pedagogico) &mdash; 2026-04-12 | Evidence benchmark: pre-reading-heterogeneidade.html</p>
 </footer>
 
 </body>

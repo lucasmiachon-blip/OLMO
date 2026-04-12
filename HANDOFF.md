@@ -1,20 +1,26 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 161 | Forest plot slides (crops DONE, slides pendentes)
+> Sessao 162 | Forest plot slides DONE, QA pendente
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, 17 apos slides forest).
+Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 20 items.**
 
-## P0 — Forest plot slides
+## P0 — QA forest plot slides
 
-- **Evidence DOING:** `evidence/s-forest-plot-final.html` (Li 2026 + Ebrahimi Cochrane 2025 + census 15 MAs destilado). Census versionado em `references/colchicine-macce-census-S148.md`.
-- **Crops DONE (S160):** `metanalise/assets/forest-ebrahimi-2025-MI.png` (4501×1451 @ 600 DPI) + `metanalise/assets/forest-li-2025-MACE.png` (4084×2876 @ 600 DPI). Extraidos via docling+PyMuPDF. Sem titulo/footnotes/legenda — slide h2+source-tag substituem.
-- **Slides pendentes:** criar `slides/08a-forest1.html` + `slides/08b-forest2.html`, wiring manifest/CSS/registry, QA pipeline. Plano: `.claude/plans/declarative-swimming-sunrise.md`.
-- **Citations:** Ebrahimi et al. 2025, Cochrane Database Syst Rev | Li et al. 2025, Am J Cardiovasc Drugs.
+- **Slides DONE:** `08a-forest1.html` (Li 2026 MACE) + `08b-forest2.html` (Ebrahimi Cochrane 2025 MI). Wired manifest/CSS/registry. Build 17 slides PASS.
+- **Evidence DONE:** `s-forest-plot-final.html` expandido S161 (glossario, caracteristicas PDF-verified, SoF Table, angulo pedagogico).
+- **QA pendente:** pipeline Preflight → Inspect → Editorial, 1 slide por ciclo.
+- **h2 provisorios:** Lucas pode reescrever h2 dos forest plots a qualquer momento.
+- **CSS pendente:** Lucas indicou que CSS tera mais mudancas — nao unificar/otimizar ainda.
 
-## P1 — A11y gaps residuais
+## P1 — Build modernization
+
+- **DONE:** `scripts/build-html.mjs` unificado (Node.js, ghost canary + integrity). PS1 antigos preservados.
+- **Pendente:** decisao sobre remover os 3 PS1 antigos (`cirrose/scripts/build-html.ps1`, `metanalise/scripts/build-html.ps1`, `grade/scripts/build-html.ps1`).
+
+## P2 — A11y gaps residuais
 
 - `pre-reading-heterogeneidade.html`: 14 links sem `rel="noopener"` + 3 `<th>` sem scope (READ-ONLY).
 - `forest-plot-candidates.html`: 9 `<th colspan="2">` label rows.
@@ -28,6 +34,7 @@ Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, 17 apos slid
 - **Living HTML = source of truth = SINTESE CURADA.**
 - **Evidence CSS benchmark S148:** `pre-reading-heterogeneidade.html` = padrao-ouro.
 - **Plans lifecycle (S152):** `archive/SXXX-name.md`, per-file decision, default=keep.
+- **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes. Speaker notes vivem no evidence HTML.
 
 ## CUIDADOS
 
@@ -48,4 +55,4 @@ Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, 17 apos slid
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S160 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S161 2026-04-12
