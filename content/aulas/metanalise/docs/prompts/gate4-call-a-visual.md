@@ -36,6 +36,7 @@ KNOWN DESIGN DECISIONS (NAO sao defeitos — NAO flagear):
 - Navy card 300px e hero INTENCIONAL. ΣN = ancora de design. Lucas decidiu: "a melhor parte e o box com o sigma e o N".
 - S0 com lado direito vazio e INTENCIONAL — click-reveals preenchem progressivamente.
 - Sem notas subjetivas. Cada problema = fato observavel + medida concreta.
+- **Forest plot slides:** Usam imagens cropadas de artigos reais (regra do projeto: "NUNCA SVG construido do zero"). O texto embutido na imagem e inerentemente menor que texto nativo — tradeoff aceito. NAO propor "reconstruir como HTML nativo". O proposito pedagogico e ensinar residentes a LER forest plots reais de papers. A "wall of data" e o PONTO, nao o erro. O professor guia a leitura com click-reveals progressivos (um por vez). S2 mostra TODAS as zonas visiveis simultaneamente, mas isso NUNCA acontece na pratica — avaliar cada zona INDIVIDUALMENTE, nao o acumulo visual do estado final.
 
 ### REGRA DE EVIDENCIA (OBRIGATORIA)
 

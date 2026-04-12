@@ -34,6 +34,7 @@ KNOWN DESIGN DECISIONS (NAO sao defeitos — NAO flagear):
 - Card entry scale 0.92→1 e METAFORA INTENCIONAL (crescimento = combinar amostras). NAO flagear como decorativo.
 - power2.out e escolha PRAGMATICA e intencional para este contexto. NAO flagear como "padrao".
 - Click-reveals (5 beats) controlados pelo professor — timing depende do palestrante, nao do JS.
+- **Forest plot slides:** Revelacao progressiva (1 zona por click) e a ferramenta didatica central — ensina residentes a "fatiar" um forest plot real. Cada zona aparece ISOLADAMENTE durante a aula; o video mostra clicks consecutivos rapidos, mas na pratica o professor pausa e narra entre cada zona. Avaliar a SEQUENCIA DIDATICA (a ordem faz sentido clinico?), nao o acumulo visual do estado final.
 </system>
 
 ## MATERIAL — ANIMATION CODE

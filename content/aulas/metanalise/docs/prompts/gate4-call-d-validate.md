@@ -30,6 +30,7 @@ VOCE NAO VIU este slide antes. Avalie os reports com OLHOS FRESCOS.
 - `[data-qa]` selectors sao para QA capture (design, nao bug)
 - opacity:1 sob .no-js / .stage-bad / [data-qa] / @media print = failsafe intencional
 - scale 0.92→1 no card = metafora (crescimento = combinar amostras)
+- **Forest plot slides:** Imagens cropadas de artigos reais (NUNCA reconstruir como HTML/SVG). Texto embutido menor que nativo = tradeoff aceito. Reveals sao 1-por-vez na aula (S2 final com tudo visivel nunca acontece). "Wall of data" = proposito pedagogico (ensinar residentes a ler forest plots reais). Se Call A rebaixar por "imagem ilegivel" mas o design approach e intencional, ajustar nota para refletir o que e corrigivel (posicionamento, cores) vs inerente (fonte da imagem).
 
 ## OUTPUTS DOS 3 AVALIADORES
 

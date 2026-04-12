@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## Sessao 168 — 2026-04-12 (QA-FOREST)
+
+- **Gate 4 editorial s-forest1 R1+R2:** Gemini 3.1 Pro, 3 calls paralelas (visual/ux+code/motion) + Call D anti-sycophancy
+- **CSS fixes s-forest1:** max-height 480→520px, diamond width 14→8%, weight-min COOL 2012→LoDoCo-MI 2019 (top:28→22%), reveal timing 0.4→0.25s
+- **Gate 4 prompts atualizados:** 4 prompts (A/B/C/D) com KNOWN DESIGN DECISIONS para forest plot slides (imagem real de artigo, reveals progressivos, wall of data = intencional)
+- **Round context s-forest1:** marcado FPs (opacity !important = failsafe) e items ADDRESSED
+- Triagem: Call B R2 alucinando coordenadas (propoe studies 28%, diamond 56.5%) — nao confiar. Call A cor 4/10 valido (overlay opacity reduz contraste). Motion 7.6 pos-calibracao (didatica confirmada)
+- PENDENTE: overlay opacity (18%→~10% ou border-only), verificar posicoes no browser, s-forest2 Gate 4, Cochrane logo reposicionar
+
 ## Sessao 167 — 2026-04-12 (JS reversao)
 
 - **FIX: advance/retreat desync** — root cause: GSAP context scoping. `advance()`/`retreat()` closures executam fora do `gsap.context()` callback → inline styles (opacity, transform) nao rastreados por `ctx.revert()`. Persistiam apos sair do slide, causando desync DOM vs state machine

@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 167 | JS reversao
+> Sessao 168 | QA-FOREST
 
 ## ESTADO ATUAL
 
@@ -9,11 +9,12 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## P0 — Forest plot slides
 
-- **s-forest1 (Li 2026) — FUNCIONAL:** 5 click-reveals. Fine-tune pendente.
-- **s-forest2 (Ebrahimi Cochrane) — FUNCIONAL:** 4 auto-zones + Cochrane logo + RoB zoom (2 click-reveals).
-- **advance/retreat FIXED (S167):** re-entry guard em engine.js (cleanup + clearProps + remove .revealed). State-dispatch order corrigido em deck.js. Verificado via Playwright.
-- **Redesign forest2 pendente:** mockup em `workers/forest2-mockup/mockup.html`. Spec: cada faixa = 1 beat click (4 zonas + info box + Cochrane logo + RoB zoom = 7 clicks).
-- **Gemini Gate 4:** apos redesign
+- **s-forest1 (Li 2026) — Gate 4 R1+R2 rodados.** Fixes aplicados: max-height 480→520px, diamond width 14→8%, weight-min COOL→LoDoCo (28→22%), timing 0.4→0.25s.
+  - **Pendente s-forest1:** overlay opacity (18% → ~10% ou border-only para melhor contraste). Verificar posicoes no browser (diamond, weight-min). Gemini R2 Call B alucinando coordenadas (propoe values absurdos como studies 28%) — nao confiar nos numeros de Call B.
+- **s-forest2 (Ebrahimi Cochrane) — Gate 4 pendente.** Cochrane logo: Lucas quer mover para baixo para nao entrar no zoom.
+- **Gate 4 prompts atualizados (S168):** 4 prompts (A/B/C/D) com contexto de forest plot (imagem real, reveals 1-por-vez, wall of data = intencional). Round context `qa-rounds/s-forest1.md` com status FP/addressed.
+- **advance/retreat FIXED (S167).**
+- **Redesign forest2 pendente:** mockup em `workers/forest2-mockup/mockup.html`.
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
@@ -59,4 +60,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S166 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S168 2026-04-12

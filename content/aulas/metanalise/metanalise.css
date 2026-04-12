@@ -1086,7 +1086,7 @@ section#s-forest1 .forest-annotated {
 }
 section#s-forest1 .forest-annotated img {
   max-width: 100%;
-  max-height: 480px;
+  max-height: 520px;
   object-fit: contain;
   border-radius: var(--radius-sm);
   border: 1px solid var(--shadow-soft);
@@ -1134,11 +1134,11 @@ section#s-forest1 .forest-zone--weight-max {
   width: 17%;
   height: 3%;
 }
-/* Weight-min: COOL 2012 row (last study before pooled in Acute) */
+/* Weight-min: LoDoCo-MI 2019 row (0.3% — true minimum weight) */
 section#s-forest1 .forest-zone--weight-min {
   background: rgba(238, 102, 119, 0.35);
   border: 2px solid rgba(238, 102, 119, 0.8);
-  top: 28%;
+  top: 22%;
   left: 83%;
   width: 17%;
   height: 3%;
@@ -1170,7 +1170,7 @@ section#s-forest1 .forest-zone--diamond {
   border-radius: 50%;
   top: 86%;
   left: 40%;
-  width: 14%;
+  width: 8%;
   height: 6%;
 }
 
