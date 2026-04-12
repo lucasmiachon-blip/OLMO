@@ -2,11 +2,11 @@
 
 ## Sessao 166 — 2026-04-12 (QA-FOREST)
 
-- Fix advance/retreat symmetry: propagate navigation direction through deck.js→engine.js→slide-registry. Backward entry shows final state (all beats revealed). Affects all 9 factories
-- Redesign s-forest2: auto-zones→7 click-reveals (4 individual zones + info box "15 MAs em 14 meses" + Cochrane logo clipPath + RoB zoom)
-- Add .revealed cleanup in engine.js animate() to prevent flash on slide re-visit
-- Update _manifest.js: s-forest2 clickReveals 2→7
-- CSS: rewrite s-forest2 section (add info-box, bottom-bar, deduplicate RoB label-tag)
+- REVERTED: advance/retreat fix + forest2 redesign — ambas tentativas causaram regressoes
+  - Tentativa 1: .revealed cleanup + direction propagation → backward entry showed final state mas bloqueava re-advance
+  - Tentativa 2: revert backward-entry → voltou ao flash original
+  - Root cause identificado mas fix correto requer sessao dedicada com browser testing
+- Codigo voltou ao estado S165 (8b3afc0). Pendente proxima sessao
 
 ## Sessao 165 — 2026-04-12 (tuning + forest 2)
 

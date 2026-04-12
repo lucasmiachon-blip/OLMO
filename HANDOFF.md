@@ -9,12 +9,14 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## P0 — Forest plot slides
 
-- **s-forest1 (Li 2026) — FUNCIONAL:** 5 click-reveals (zones). Fine-tune pendente via Gemini Gate 4.
-- **s-forest2 (Ebrahimi Cochrane) — REDESIGNED S166:** 7 click-reveals (4 zones individuais + info box "15 MAs" + Cochrane logo clipPath + RoB zoom). Fine-tune pendente.
-- **advance/retreat FIXED S166:** direction propagado deck.js→engine.js→slide-registry. Backward entry mostra estado final. Navegacao simetrica em TODOS os slides.
-- **PENDENTE prox sessao:**
-  - Gemini Gate 4 (Inspect) nos dois forest slides
-  - Fine-tune visual (posicoes das zones, info-box sizing) via browser
+- **s-forest1 (Li 2026) — FUNCIONAL:** 5 click-reveals. Fine-tune pendente.
+- **s-forest2 (Ebrahimi Cochrane) — FUNCIONAL:** 4 auto-zones + Cochrane logo + RoB zoom (2 click-reveals).
+- **PENDENTE (advance/retreat bug):**
+  - Root cause: engine.js re-executa factory ao re-visitar slide → counter `revealed` reseta mas classes `.revealed` no DOM persistem → flash/desync
+  - Tentativa S166: (a) cleanup `.revealed` antes de re-init, (b) propagar direction deck.js→engine.js→factories. Resultado: backward-entry mostra estado final mas bloqueia re-advance. Revertido.
+  - **Fix correto requer:** sessao interativa com dev server + browser. Provavelmente: cleanup `.revealed` + NÃO mudar direction (sempre beat 0) + testar cenarios forward-backward em tempo real
+- **Redesign forest2 pendente:** mockup em `workers/forest2-mockup/mockup.html`. Spec: cada faixa = 1 beat click (4 zonas + info box + Cochrane logo + RoB zoom = 7 clicks). Implementar APOS fix do advance/retreat.
+- **Gemini Gate 4:** apos fix + redesign
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
@@ -40,7 +42,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Plans lifecycle (S152):** `archive/SXXX-name.md`, per-file decision, default=keep.
 - **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes.
 - **Docling = caminho canonico para PDFs (S162).**
-- **Animacoes forest slides (S163→S166):** zonas coloridas click-reveal + Cochrane clipPath + RoB zoom. Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
+- **Animacoes forest slides (S163→S165):** zonas coloridas + Cochrane clipPath + RoB zoom. Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
 
 ## CUIDADOS
 

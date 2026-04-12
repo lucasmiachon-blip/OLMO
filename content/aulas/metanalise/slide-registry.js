@@ -2,49 +2,43 @@
  * slide-registry.js — Meta-análise
  * State machines for interactive slides (hook, checkpoints).
  * Pattern: cirrose slide-registry.js
- *
- * Direction param (S166): direction < 0 means backward entry.
- * Factories show final state instantly on backward, enabling symmetric navigation.
  */
 // SplitText import removed S139 — click-reveal replaces auto-stagger
 
 export const slideRegistry = {
-  's-title': (slide, gsap, direction) => {
+  's-title': (slide, gsap) => {
+    // Full choreography: h1 → subtitle → pillars (masking) → dots → identity
     const h1 = slide.querySelector('h1');
     const subtitle = slide.querySelector('.title-subtitle');
     const pillarSpans = slide.querySelectorAll('.pillar > span');
     const dots = slide.querySelectorAll('.pillar-dot');
     const identity = slide.querySelector('.title-identity');
 
-    if (direction < 0) {
-      // Backward: show all elements at final state
-      gsap.set([h1, subtitle, identity].filter(Boolean), { opacity: 1, y: 0 });
-      gsap.set(pillarSpans, { yPercent: 0 });
-      gsap.set(dots, { opacity: 1 });
-      return;
-    }
-
-    // Forward: full choreography
+    // h1: gentle fade+rise (0s)
     if (h1) {
       gsap.fromTo(h1,
         { opacity: 0, y: 12 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
       );
     }
+    // subtitle: fade+rise (0.3s)
     if (subtitle) {
       gsap.fromTo(subtitle,
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', delay: 0.3 }
       );
     }
+    // pillars: masking reveal (0.6s) — overflow:hidden + yPercent
     gsap.fromTo(pillarSpans,
       { yPercent: 100 },
       { yPercent: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out', delay: 0.6 }
     );
+    // dots: fade in between pillars (0.8s)
     gsap.fromTo(dots,
       { opacity: 0 },
       { opacity: 1, duration: 0.4, stagger: 0.2, delay: 0.8, ease: 'power2.out' }
     );
+    // identity: fade+rise last (1.4s)
     if (identity) {
       gsap.fromTo(identity,
         { opacity: 0, y: 8 },
@@ -53,32 +47,24 @@ export const slideRegistry = {
     }
   },
 
-  's-hook': (slide, gsap, direction) => {
+  's-hook': (slide, gsap) => {
     const volume = slide.querySelector('.hook-volume');
     const divider = slide.querySelector('.hook-divider');
     const facts = slide.querySelectorAll('.hook-fact');
     const nums = slide.querySelectorAll('.hook-num');
 
-    if (direction < 0) {
-      // Backward: show all elements + final number values
-      gsap.set(volume, { opacity: 1, x: 0 });
-      gsap.set(divider, { scaleY: 1 });
-      gsap.set(facts, { opacity: 1, x: 0 });
-      nums.forEach((num) => {
-        const decimals = parseInt(num.getAttribute('data-decimals') || '0', 10);
-        const target = decimals > 0 ? parseFloat(num.getAttribute('data-val')) : parseInt(num.getAttribute('data-val'), 10);
-        num.textContent = decimals > 0
-          ? target.toFixed(decimals).replace('.', ',')
-          : Math.round(target);
-      });
-      return;
-    }
-
-    // Forward: full choreography
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    // 1. Volume enters from left (hero moment)
     tl.fromTo(volume, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.9 });
+
+    // 2. Divider scales in like a cut
     tl.to(divider, { scaleY: 1, duration: 0.6, ease: 'expo.inOut' }, '-=0.3');
+
+    // 3. Reality facts enter from right, staggered
     tl.fromTo(facts, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.7, stagger: 0.25 }, '-=0.2');
+
+    // 4. CountUp on all numbers (reset to 0 first — HTML has final values for no-js)
     nums.forEach((num) => {
       const decimals = parseInt(num.getAttribute('data-decimals') || '0', 10);
       const target = decimals > 0 ? parseFloat(num.getAttribute('data-val')) : parseInt(num.getAttribute('data-val'), 10);
@@ -102,28 +88,21 @@ export const slideRegistry = {
     });
   },
 
-  's-importancia': (slide, gsap, direction) => {
+  's-importancia': (slide, gsap) => {
     const mechanism = slide.querySelector('.imp-mechanism');
+
+    // ΣN hero — scale from 0.92 (growth = combining samples)
+    // Auto-plays on slide enter. Professor contextualises the symbol.
+    gsap.fromTo(mechanism,
+      { opacity: 0, scale: 0.92 },
+      { opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out' }
+    );
+
+    // Click-reveal: 5 advantages, one per click
+    // Professor controls pacing — each click = pedagogical beat
     const groups = [1, 2, 3, 4, 5];
     let revealed = 0;
     const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
-
-    if (direction < 0) {
-      // Backward: show mechanism + all reveals at final state
-      gsap.set(mechanism, { opacity: 1, scale: 1 });
-      groups.forEach(n => {
-        const items = getGroup(n);
-        gsap.set(items, { opacity: 1, y: 0 });
-        items.forEach(el => el.classList.add('revealed'));
-      });
-      revealed = groups.length;
-    } else {
-      // Forward: auto mechanism + click-reveals
-      gsap.fromTo(mechanism,
-        { opacity: 0, scale: 0.92 },
-        { opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out' }
-      );
-    }
 
     const advance = () => {
       if (revealed >= groups.length) return false;
@@ -151,9 +130,10 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => revealed;
   },
 
-  's-contrato': (slide, gsap, direction) => {
+  's-contrato': (slide, gsap) => {
     const cards = slide.querySelectorAll('.contrato-card');
 
+    // Reveal a card + its children as a unit
     const revealCard = (card) => {
       const q = card.querySelector('.contrato-question');
       const s = card.querySelector('.contrato-skill');
@@ -163,23 +143,12 @@ export const slideRegistry = {
         .fromTo(s, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35 }, '-=0.1');
     };
 
-    const showCardInstant = (card) => {
-      const q = card.querySelector('.contrato-question');
-      const s = card.querySelector('.contrato-skill');
-      gsap.set([card, q, s].filter(Boolean), { opacity: 1, y: 0 });
-    };
+    // Card 1: auto-play on slide enter
+    revealCard(cards[0]);
 
+    // Cards 2-3: click-reveal (professor controls pacing per question)
     let revealed = 0;
     const clickCards = [cards[1], cards[2]];
-
-    if (direction < 0) {
-      // Backward: all 3 cards visible at final state
-      cards.forEach(c => showCardInstant(c));
-      revealed = clickCards.length;
-    } else {
-      // Forward: card 1 auto, cards 2-3 click-reveal
-      revealCard(cards[0]);
-    }
 
     const advance = () => {
       if (revealed >= clickCards.length) return false;
@@ -203,7 +172,7 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => revealed;
   },
 
-  's-pico': (slide, gsap, direction) => {
+  's-pico': (slide, gsap) => {
     const items = slide.querySelectorAll('.pico-item');
     const punchline = slide.querySelector('.pico-punchline');
     if (!items.length || !punchline) return;
@@ -211,23 +180,17 @@ export const slideRegistry = {
     let state = 0;
     const MAX = 1;
 
-    if (direction < 0) {
-      // Backward: all items + punchline visible
-      gsap.set(items, { opacity: 1, y: 0 });
-      gsap.set(punchline, { opacity: 1, y: 0 });
-      state = MAX;
-    } else {
-      // Forward: auto stagger P→I→C→O
-      gsap.fromTo(items,
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.3, ease: 'power3.out' }
-      );
-    }
+    // Beat 0 (auto): stagger P→I→C→O — models expert letter-by-letter check
+    gsap.fromTo(items,
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.3, ease: 'power3.out' }
+    );
 
     function advance() {
       if (state >= MAX) return false;
       state++;
       if (state === 1) {
+        // Beat 1: punchline — name the concept after feeling the gap
         gsap.fromTo(punchline,
           { opacity: 0, y: 8 },
           { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
@@ -250,7 +213,7 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => state;
   },
 
-  's-checkpoint-2': (slide, gsap, direction) => {
+  's-checkpoint-2': (slide, gsap) => {
     const scenario = slide.querySelector('.checkpoint-scenario');
     const question = slide.querySelector('.checkpoint-question');
     const steps = slide.querySelectorAll('.checkpoint-step');
@@ -260,16 +223,8 @@ export const slideRegistry = {
     let state = 0;
     const MAX = 3;
 
-    if (direction < 0) {
-      // Backward: all elements visible at final state
-      gsap.set([scenario, question, verdict].filter(Boolean), { y: 0, opacity: 1 });
-      gsap.set(steps, { y: 0, opacity: 1 });
-      state = MAX;
-    } else {
-      // Forward: scenario + question auto
-      gsap.to(scenario, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' });
-      gsap.to(question, { y: 0, opacity: 1, duration: 0.6, delay: 0.3, ease: 'power3.out' });
-    }
+    gsap.to(scenario, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' });
+    gsap.to(question, { y: 0, opacity: 1, duration: 0.6, delay: 0.3, ease: 'power3.out' });
 
     function advance() {
       if (state >= MAX) return false;
@@ -307,20 +262,13 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => state;
   },
 
-  's-objetivos': (slide, gsap, direction) => {
+  's-objetivos': (slide, gsap) => {
+    // Click-reveal: 3 groups (1-2 conceitos, 3-4 metodologia, 5 punchline)
     const groups = [1, 2, 3];
     let revealed = 0;
-    const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
 
-    if (direction < 0) {
-      // Backward: all groups visible at final state
-      groups.forEach(n => {
-        const items = getGroup(n);
-        gsap.set(items, { opacity: 1, y: 0 });
-        items.forEach(el => el.classList.add('revealed'));
-      });
-      revealed = groups.length;
-    }
+    // Initial state: all reveal items hidden (CSS handles opacity:0 + translateY)
+    const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
 
     const advance = () => {
       if (revealed >= groups.length) return false;
@@ -348,55 +296,56 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => revealed;
   },
 
-  's-forest2': (slide, gsap, direction) => {
+  's-forest2': (slide, gsap) => {
+    // Auto timeline: img fadeUp → stagger 4 anatomy zones (recognition from forest1)
     const img = slide.querySelector('.forest-annotated img');
+    const autoZones = slide.querySelectorAll('[data-auto]');
     const logo = slide.querySelector('.cochrane-logo');
     const annotated = slide.querySelector('.forest-annotated');
-    const MAX = 7;
-    let revealed = 0;
-    const getReveal = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    // 1. Image fade-up
+    if (img) {
+      tl.fromTo(img,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7 }
+      );
+    }
+
+    // 2. Stagger 4 anatomy zones (0.15s apart — fast recognition)
+    if (autoZones.length) {
+      tl.fromTo(autoZones,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, stagger: 0.15 },
+        '-=0.2'
+      );
+      autoZones.forEach(z => z.classList.add('revealed'));
+    }
 
     // Logo: prevent click from advancing beat (professor clicks to open site)
     if (logo) {
       logo.addEventListener('click', (e) => e.stopPropagation());
     }
 
-    if (direction < 0) {
-      // Backward: show final state (all 7 beats + img + zoom)
-      if (img) gsap.set(img, { opacity: 1, y: 0 });
-      for (let i = 1; i <= MAX; i++) {
-        const items = getReveal(i);
-        if (i === 6) {
-          gsap.set(items, { clipPath: 'inset(0 0 0 0)', opacity: 1 });
-        } else {
-          gsap.set(items, { opacity: 1 });
-        }
-        items.forEach(el => el.classList.add('revealed'));
-      }
-      if (annotated) {
-        gsap.set(annotated, { scale: 1.35, transformOrigin: '90% 50%' });
-      }
-      revealed = MAX;
-    } else {
-      // Forward: auto img fade-up
-      if (img) {
-        gsap.fromTo(img,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
-        );
-      }
-    }
+    // Click-reveal: 2 beats
+    // Beat 1: Cochrane logo clipPath reveal (professor can click to open site)
+    // Beat 2: RoB zoom — focal staging, hook for next slide (bias)
+    let revealed = 0;
+    const MAX = 2;
+    const getReveal = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
 
     const advance = () => {
       if (revealed >= MAX) return false;
       revealed++;
       const items = getReveal(revealed);
-      if (revealed === 6) {
+      if (revealed === 1) {
+        // Beat 1: Cochrane logo clipPath curtain L→R
         gsap.fromTo(items,
           { clipPath: 'inset(0 100% 0 0)', opacity: 1 },
           { clipPath: 'inset(0 0 0 0)', duration: 0.8, ease: 'power2.inOut' }
         );
-      } else if (revealed === 7) {
+      } else {
+        // Beat 2: RoB highlight + zoom toward RoB column
         gsap.fromTo(items,
           { opacity: 0 },
           { opacity: 1, duration: 0.5, ease: 'power2.out' }
@@ -409,11 +358,6 @@ export const slideRegistry = {
             ease: 'power2.inOut'
           });
         }
-      } else {
-        gsap.fromTo(items,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.4, ease: 'power2.out' }
-        );
       }
       items.forEach(el => el.classList.add('revealed'));
       return true;
@@ -422,13 +366,13 @@ export const slideRegistry = {
     const retreat = () => {
       if (revealed <= 0) return false;
       const items = getReveal(revealed);
-      if (revealed === 7 && annotated) {
+      if (revealed === 2 && annotated) {
         gsap.to(annotated, { scale: 1, duration: 0.4, ease: 'power2.out' });
       }
-      if (revealed === 6) {
+      if (revealed === 1) {
         gsap.to(items, { clipPath: 'inset(0 100% 0 0)', duration: 0.4, ease: 'power2.in' });
       } else {
-        gsap.to(items, { opacity: 0, duration: 0.25, ease: 'power2.in' });
+        gsap.to(items, { opacity: 0, duration: 0.3, ease: 'power2.in' });
       }
       items.forEach(el => el.classList.remove('revealed'));
       revealed--;
@@ -440,30 +384,21 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => revealed;
   },
 
-  's-forest1': (slide, gsap, direction) => {
+  's-forest1': (slide, gsap) => {
+    // Auto: image fade-up on slide enter
     const img = slide.querySelector('.forest-annotated img');
+    if (img) {
+      gsap.fromTo(img,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
+      );
+    }
+
+    // Click-reveal: 5 highlight zones, one per click
+    // Colored transparent overlays — professor narrates anatomy
     const beats = [1, 2, 3, 4, 5];
     let revealed = 0;
     const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
-
-    if (direction < 0) {
-      // Backward: show final state (img + all 5 zones)
-      if (img) gsap.set(img, { opacity: 1, y: 0 });
-      beats.forEach(n => {
-        const items = getGroup(n);
-        gsap.set(items, { opacity: 1 });
-        items.forEach(el => el.classList.add('revealed'));
-      });
-      revealed = beats.length;
-    } else {
-      // Forward: auto img fade-up
-      if (img) {
-        gsap.fromTo(img,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
-        );
-      }
-    }
 
     const advance = () => {
       if (revealed >= beats.length) return false;

@@ -9,38 +9,24 @@
         <img src="assets/forest-ebrahimi-2025-MI.png"
              alt="Forest plot Cochrane: colchicina para IAM — Ebrahimi et al. 2025, 12 RCTs com RoB integrado">
 
-        <!-- Beat 1: Study names (yellow) -->
-        <div class="forest-zone forest-zone--studies" data-reveal="1"></div>
+        <!-- Auto: colored zones (same anatomy as forest1 — instant recognition) -->
+        <div class="forest-zone forest-zone--ci" data-auto="1"></div>
+        <div class="forest-zone forest-zone--weight" data-auto="2"></div>
+        <div class="forest-zone forest-zone--events" data-auto="3"></div>
+        <div class="forest-zone forest-zone--studies" data-auto="4"></div>
 
-        <!-- Beat 2: Events columns (green) -->
-        <div class="forest-zone forest-zone--events" data-reveal="2"></div>
-
-        <!-- Beat 3: CI+RR graphical area (blue) -->
-        <div class="forest-zone forest-zone--ci" data-reveal="3"></div>
-
-        <!-- Beat 4: Weight column (pink) -->
-        <div class="forest-zone forest-zone--weight" data-reveal="4"></div>
-
-        <!-- Beat 7: RoB column highlight + zoom -->
-        <div class="forest-zone forest-zone--rob" data-reveal="7">
+        <!-- Click 2 (final): RoB column highlight + zoom — hook for next slide -->
+        <div class="forest-zone forest-zone--rob" data-reveal="2">
           <span class="forest-label-tag">Risk of Bias — assinatura Cochrane</span>
         </div>
       </div>
 
-      <div class="bottom-bar">
-        <!-- Beat 5: Info box (MA overlap) -->
-        <div class="info-box" data-reveal="5">
-          <div class="info-number">15 <span class="info-unit">meta-análises</span></div>
-          <div class="info-label">em 14 meses (2024–2025) sobre colchicina cardiovascular</div>
-        </div>
-
-        <!-- Beat 6: Cochrane logo (clipPath reveal) -->
-        <a class="cochrane-logo" data-reveal="6"
-           href="https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD014808.pub2/full"
-           target="_blank" rel="noopener noreferrer">
-          <img src="assets/cochrane-library-logo.png" alt="Cochrane Library — abrir artigo">
-        </a>
-      </div>
+      <!-- Click 1: Cochrane logo — professor clicks to open site -->
+      <a class="cochrane-logo" data-reveal="1"
+         href="https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD014808.pub2/full"
+         target="_blank" rel="noopener noreferrer">
+        <img src="assets/cochrane-library-logo.png" alt="Cochrane Library — abrir artigo">
+      </a>
     </div>
 
     <p class="source-tag">Ebrahimi et al. Cochrane Database Syst Rev 2025</p>

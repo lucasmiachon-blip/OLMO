@@ -183,7 +183,7 @@ export function createAnimationDispatcher(gsap) {
     }
   }
 
-  function animate(slide, indexh, direction = 0) {
+  function animate(slide, indexh) {
     if (prefersReduced || printing || qa) {
       if (slide) {
         forceAnimFinalState(slide);
@@ -199,11 +199,7 @@ export function createAnimationDispatcher(gsap) {
       return;
     }
     if (!slide) return;
-    // Clean stale revealed state before re-init (prevents flash on re-visit)
-    slide.querySelectorAll('.revealed').forEach(el => el.classList.remove('revealed'));
     const ctx = gsap.context(() => {
-      // Always start from beat 0 regardless of direction.
-      // Direction infra kept in deck.js for future use.
       animateSlide(gsap, slide);
       const customFn = customAnimations.get(slide.id);
       if (customFn) customFn(slide, gsap);
@@ -235,11 +231,10 @@ export function createAnimationDispatcher(gsap) {
           }
         }, 450);
 
-        const dir = e.detail.direction || 0;
         if (qa) {
-          requestAnimationFrame(() => animate(e.detail.currentSlide, e.detail.indexh, dir));
+          requestAnimationFrame(() => animate(e.detail.currentSlide, e.detail.indexh));
         } else {
-          animate(e.detail.currentSlide, e.detail.indexh, dir);
+          animate(e.detail.currentSlide, e.detail.indexh);
           animatedSlide = e.detail.currentSlide;
         }
       });
