@@ -4,12 +4,13 @@
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via Node.js).
+Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 20 items.**
 
 ## P0 — QA forest plot slides
 
-- **Slides DONE:** `08a-forest1.html` (Li 2026 MACE) + `08b-forest2.html` (Ebrahimi Cochrane 2025 MI). Wired manifest/CSS/registry. Build 17 slides PASS.
+- **Slides DONE:** `08a-forest1.html` (Li 2026 MACE) + `08b-forest2.html` (Ebrahimi Cochrane 2025 MI). Wired manifest/CSS/registry. Build 16 slides PASS.
+- **s-benefit-harm removido S162.** Slide + QA screenshots deletados, todas referências em evidence/docs atualizadas.
 - **Evidence DONE:** `s-forest-plot-final.html` expandido S161 (glossario, caracteristicas PDF-verified, SoF Table, angulo pedagogico).
 - **QA pendente:** pipeline Preflight → Inspect → Editorial, 1 slide por ciclo.
 - **h2 provisorios:** Lucas pode reescrever h2 dos forest plots a qualquer momento.

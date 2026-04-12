@@ -60,10 +60,7 @@ Fixed vs random effects.
 
 Papers relevantes encontrados via PubMed (PMIDs 34128998, 29046404). O paper de migraine (JAMA 2021, 34128998) usa DerSimonian-Laird random-effects com Hartung-Knapp-Sidik-Jonkman correction — bom exemplo didático. O paper de cranberry UTI (29046404) mostra decisão explícita entre fixed e random baseada em I².
 
-### s-benefit-harm (MÉDIA PRIORIDADE)
-GRADE separado para benefício e dano.
-
-O GRADE guidance 35 (35934266) cobre imprecisão para benefício e dano. GRADE guidance 36 (36898507) cobre inconsistência. Juntos cobrem este slide.
+### ~~s-benefit-harm~~ (REMOVIDO S162)
 
 ---
 

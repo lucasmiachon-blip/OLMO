@@ -43,7 +43,7 @@ Coautoria: Lucas + Opus 4.6
 | 3 | **s-checkpoint-1** | I1 | HIGH | ACCORD trap + Ray 2009 MA |
 | 4 | **s-abstract** | F2 | MEDIUM | PRISMA 2020 abstract screening |
 | ~~5~~ | ~~s-forest-plot~~ | ~~F2~~ | ~~HIGH~~ | Removed S146 — redesign into 2 real forest-plot slides |
-| 6 | **s-benefit-harm** | F2 | MEDIUM | Separate GRADE for benefit/harm |
+| ~~6~~ | ~~s-benefit-harm~~ | ~~F2~~ | ~~MEDIUM~~ | Removed S162 |
 | 7 | **s-grade** | F2 | HIGH | GRADE framework |
 | 8 | **s-heterogeneity** | F2 | HIGH | I-squared, tau-squared, Q |
 | 9 | **s-fixed-random** | F2 | MEDIUM | Fixed vs random effects |
@@ -129,14 +129,7 @@ Already extensively covered in evidence/s-checkpoint-1.html. Key sources:
 
 ---
 
-### s-benefit-harm — Separate GRADE for benefit/harm
-
-| # | Citation | PMID | Status | Key finding |
-|---|----------|------|--------|-------------|
-| 1 | Alonso-Coello P et al. GRADE EtD frameworks: Introduction. BMJ 2016;353:i2016 | 27353417 | WEB-VERIFIED | Systematic framework: benefits vs harms balance |
-| 2 | Guyatt GH et al. GRADE guidelines 8: indirectness. J Clin Epidemiol 2011;64(12):1303-10 | 21802903 | WEB-VERIFIED | 4 types of indirectness including outcome surrogates |
-| 3 | Cochrane Handbook v6.5, Ch.14 — Summary of findings / GRADE | 31643080 | WEB-VERIFIED | Separate certainty rating per outcome |
-| 4 | Guyatt GH et al. Core GRADE 1: overview. BMJ 2025;389:e081903 | 40262844 | WEB-VERIFIED | Latest GRADE update — separate benefit/harm assessment |
+<!-- s-benefit-harm removed S162 -->
 
 ---
 
@@ -300,7 +293,7 @@ Already extensively covered in evidence/s-checkpoint-1.html. Key sources:
 | Rank | Slide | Rationale |
 |------|-------|-----------|
 | 11 | **s-abstract** | PRISMA 2020 is straightforward |
-| 12 | **s-benefit-harm** | Depends on s-grade being built first |
+| ~~12~~ | ~~s-benefit-harm~~ | Removed S162 |
 | 13 | **s-aplicacao** | Depends on s-ancora + guidelines gap analysis |
 | 14 | **s-checkpoint-2** | May not need evidence HTML (constructed scenario) |
 

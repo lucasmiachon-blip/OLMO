@@ -170,9 +170,9 @@
 
 ---
 
-## 4. benefit-harm
+## 4. ~~benefit-harm~~ (REMOVED S162)
 
-**Slides:** s-benefit-harm (F2 generic), s-aplicacao (F3 with article data) (2 slides)
+**Slides:** ~~s-benefit-harm (F2 generic)~~, ~~s-aplicacao (F3)~~ — both removed
 
 ### Skeleton
 
@@ -282,7 +282,7 @@
 
 ## 6. application
 
-**Slides:** s-ancora, s-aplicabilidade (+ s-aplicacao uses benefit-harm archetype) (2-3 slides)
+**Slides:** s-ancora, s-aplicabilidade (2 slides)
 
 ### Skeleton (s-ancora — article anchor)
 
@@ -317,9 +317,7 @@
 | Metrics | 3-4 key numbers in `.metric-grid` (IPD, N RCTs, N patients, follow-up) |
 | Data source | MUST be from anchor article (Valgimigli 2025 PMID 40902613) |
 
-### Note on s-aplicacao
-
-s-aplicacao uses the **benefit-harm** archetype (`.compare-layout` with 2 columns) but with article-specific data from Valgimigli. It belongs to F3 narratively but follows benefit-harm layout structurally.
+<!-- s-aplicacao note removed S162 — slide removed S136 -->
 
 ---
 
@@ -345,6 +343,6 @@ s-aplicacao uses the **benefit-harm** archetype (`.compare-layout` with 2 column
 | Concept explanation with examples | concept-evidence | h2 assertion + visual evidence |
 | Single impactful number | data-hero | Hero number dominates, context supports |
 | Forest plot anatomy or real plot | forest-plot | Specialized grid layout |
-| Benefit vs harm comparison | benefit-harm | 2-column with semantic symbols |
+| ~~Benefit vs harm comparison~~ | ~~benefit-harm~~ | Removed S162 |
 | Interactive decision point | checkpoint | State machine, dark bg, drama |
 | Article-anchored data | application | Citation + metrics or benefit-harm with real data |

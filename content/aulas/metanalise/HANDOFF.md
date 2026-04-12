@@ -8,20 +8,20 @@
 
 ## Estado atual
 
-- **Fase:** QA slide-a-slide (1 por vez, Lucas decide qual). S157: +2 slides forest plot em execucao.
-- **Slides:** 15/15 no deck. Lint PASS. Build PASS. Orphans: 0.
+- **Fase:** QA slide-a-slide (1 por vez, Lucas decide qual).
+- **Slides:** 16/16 no deck. Lint PASS. Build PASS. Orphans: 0.
 - **Ancora:** Valgimigli 2025 Lancet (PMID 40902613) — IPD-MA, 7 RCTs, 28.982 pts
 - **GSAP plugins:** SplitText + Flip + ScrambleTextPlugin
 - **Dark-bg:** 4 slides (s-checkpoint-2, s-heterogeneity, s-ancora, s-absoluto)
 - **HEX navy:** #162032
 
-> **S157 reconciliation:** linha `s-forest-plot` era fantasma (registrada S146 mas nunca criada). Removida. Contagem corrigida 16→15. Em execucao S157: 2 slides novos (s-forest1 Li + s-forest2 Ebrahimi) com evidence unico `s-forest-plot.html`.
+> **S162:** s-benefit-harm removido. s-forest1 + s-forest2 integrados no deck. Contagem: 16 slides.
 
 ## Ordem do deck (atualizada S157)
 
 ```
 F1: s-title -> s-objetivos -> s-hook -> s-importancia
-F2: s-rs-vs-ma -> s-contrato -> s-pico -> s-benefit-harm -> s-heterogeneity -> s-fixed-random
+F2: s-rs-vs-ma -> s-contrato -> s-pico -> s-forest1 -> s-forest2 -> s-heterogeneity -> s-fixed-random
 I2: s-checkpoint-2
 F3: s-ancora -> s-aplicabilidade -> s-absoluto -> s-takehome
 ```
@@ -41,37 +41,38 @@ Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia 
 | 3 | s-hook | DONE | Asymmetric grid, countUp GSAP. |
 | 4 | s-importancia | LINT-PASS | Criado S135. Build S136. |
 
-### F2 — Metodologia (6 slides)
+### F2 — Metodologia (7 slides)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 5 | s-rs-vs-ma | LINT-PASS | QA pendente. |
 | 6 | s-contrato | DONE | Evidence HTML S143. Click-reveal 2 cards. QA R11 PASS. |
 | 7 | s-pico | LINT-PASS | Evidence refatorado S144 (benchmark). h2 com RS. QA pendente. |
-| 8 | s-benefit-harm | LINT-PASS | QA pendente. |
-| 9 | s-heterogeneity | LINT-PASS | QA pendente. Dark-bg. |
-| 10 | s-fixed-random | LINT-PASS | QA pendente. |
+| 8 | s-forest1 | LINT-PASS | QA pendente. |
+| 9 | s-forest2 | LINT-PASS | QA pendente. |
+| 10 | s-heterogeneity | LINT-PASS | QA pendente. Dark-bg. |
+| 11 | s-fixed-random | LINT-PASS | QA pendente. |
 
 ### I2 — Checkpoint (1 slide)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 11 | s-checkpoint-2 | LINT-PASS | QA pendente. Dark-bg. |
+| 12 | s-checkpoint-2 | LINT-PASS | QA pendente. Dark-bg. |
 
 ### F3 — Aplicacao Valgimigli (4 slides)
 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
-| 12 | s-ancora | LINT-PASS | Dark-bg. |
-| 13 | s-aplicabilidade | LINT-PASS | |
-| 14 | s-absoluto | LINT-PASS | Dark-bg. |
-| 15 | s-takehome | LINT-PASS | |
+| 13 | s-ancora | LINT-PASS | Dark-bg. |
+| 14 | s-aplicabilidade | LINT-PASS | |
+| 15 | s-absoluto | LINT-PASS | Dark-bg. |
+| 16 | s-takehome | LINT-PASS | |
 
 ### Resumo
 
 - **DONE (3):** s-title, s-hook, s-contrato
 - **QA (1):** s-objetivos
-- **LINT-PASS (11):** restantes
+- **LINT-PASS (12):** restantes
 
 ## Proximo (Lucas decide)
 
