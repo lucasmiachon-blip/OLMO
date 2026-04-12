@@ -1106,13 +1106,13 @@ section#s-forest1 .forest-zone.revealed {
   opacity: 1;
 }
 
-/* Beat 1: CI bars — the "eye" of the forest (graphical area) */
+/* Beat 1: CI bars — forest plot graphical area + OR [95%-CI] text column */
 section#s-forest1 .forest-zone--ci {
   background: rgba(68, 119, 170, 0.18);
   border: 2px solid rgba(68, 119, 170, 0.5);
   top: 3%;
-  left: 34%;
-  width: 34%;
+  left: 23%;
+  width: 61%;
   height: 92%;
 }
 
@@ -1121,33 +1121,33 @@ section#s-forest1 .forest-zone--weight {
   background: rgba(238, 102, 119, 0.18);
   border: 2px solid rgba(238, 102, 119, 0.5);
   top: 3%;
-  left: 86%;
-  width: 14%;
+  left: 84%;
+  width: 16%;
   height: 92%;
 }
-/* Weight-max: CLEAR 2024 row (21.5%, 1st row Acute section) */
+/* Weight-max: CLEAR 2024 row (21.5%, 1st data row Acute section) */
 section#s-forest1 .forest-zone--weight-max {
   background: rgba(238, 102, 119, 0.35);
   border: 2px solid rgba(238, 102, 119, 0.8);
-  top: 6%;
-  left: 85%;
-  width: 15%;
+  top: 7%;
+  left: 83%;
+  width: 17%;
   height: 3%;
 }
-/* Weight-min: COOL 2012 row (0.4%, last study before pooled in Acute) */
+/* Weight-min: COOL 2012 row (last study before pooled in Acute) */
 section#s-forest1 .forest-zone--weight-min {
   background: rgba(238, 102, 119, 0.35);
   border: 2px solid rgba(238, 102, 119, 0.8);
-  top: 40%;
-  left: 85%;
-  width: 15%;
+  top: 28%;
+  left: 83%;
+  width: 17%;
   height: 3%;
 }
 /* Heterogeneity stats line (I²=62.1%) — subtle, appears with weight */
 section#s-forest1 .forest-zone--het {
   background: rgba(102, 204, 238, 0.12);
   border: 1px dashed rgba(102, 204, 238, 0.5);
-  top: 92%;
+  top: 90%;
   left: 2%;
   width: 50%;
   height: 3%;
@@ -1158,8 +1158,8 @@ section#s-forest1 .forest-zone--events {
   background: rgba(34, 136, 51, 0.18);
   border: 2px solid rgba(34, 136, 51, 0.5);
   top: 3%;
-  left: 11%;
-  width: 23%;
+  left: 9%;
+  width: 14%;
   height: 92%;
 }
 
@@ -1168,10 +1168,10 @@ section#s-forest1 .forest-zone--diamond {
   background: rgba(170, 51, 119, 0.2);
   border: 2px solid rgba(170, 51, 119, 0.6);
   border-radius: 50%;
-  top: 88%;
-  left: 46%;
-  width: 10%;
-  height: 5%;
+  top: 86%;
+  left: 40%;
+  width: 14%;
+  height: 6%;
 }
 
 /* Beat 5: Study names column */
@@ -1180,7 +1180,7 @@ section#s-forest1 .forest-zone--studies {
   border: 2px solid rgba(204, 187, 68, 0.5);
   top: 3%;
   left: 0%;
-  width: 11%;
+  width: 9%;
   height: 92%;
 }
 
@@ -1198,29 +1198,154 @@ section#s-forest1 .forest-zone--studies {
 
 /* s-forest2: Ebrahimi Cochrane MI — panoramic (4501×1451, 3.1:1) → width-constrained */
 section#s-forest2 .slide-inner {
-  gap: var(--space-sm);
+  gap: var(--space-xs);
 }
 section#s-forest2 .forest-fig {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   flex: 1;
   min-height: 0;
+  gap: var(--space-xs);
 }
-section#s-forest2 .forest-fig img {
+section#s-forest2 .forest-annotated {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+section#s-forest2 .forest-annotated img {
   max-width: 100%;
-  max-height: 420px;
+  max-height: 380px;
   object-fit: contain;
   border-radius: var(--radius-sm);
   border: 1px solid var(--shadow-soft);
   box-shadow: 0 1px 4px var(--shadow-soft), 0 4px 12px var(--shadow-soft);
 }
 
-/* Source tag link styling for Cochrane Library */
-section#s-forest2 .source-tag a {
-  color: var(--ui-accent);
-  text-decoration: none;
+/* --- Auto zones (same anatomy as forest1 — recognition) --- */
+/* Colors: same Tol bright palette as forest1 for instant recognition */
+section#s-forest2 .forest-zone {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 4px;
 }
-section#s-forest2 .source-tag a:hover {
-  text-decoration: underline;
+section#s-forest2 .forest-zone.revealed {
+  opacity: 1;
+}
+/* CI+RR zone (blue) — graphical area + Risk Ratio text */
+section#s-forest2 .forest-zone--ci {
+  background: rgba(68, 119, 170, 0.18);
+  border: 2px solid rgba(68, 119, 170, 0.5);
+  top: 5%;
+  left: 35%;
+  width: 45%;
+  height: 88%;
+}
+/* Weight column (pink) */
+section#s-forest2 .forest-zone--weight {
+  background: rgba(238, 102, 119, 0.18);
+  border: 2px solid rgba(238, 102, 119, 0.5);
+  top: 5%;
+  left: 30%;
+  width: 5%;
+  height: 88%;
+}
+/* Events columns (green) — Colchicine + Comparison */
+section#s-forest2 .forest-zone--events {
+  background: rgba(34, 136, 51, 0.18);
+  border: 2px solid rgba(34, 136, 51, 0.5);
+  top: 5%;
+  left: 12%;
+  width: 18%;
+  height: 88%;
+}
+/* Study names (yellow) */
+section#s-forest2 .forest-zone--studies {
+  background: rgba(204, 187, 68, 0.18);
+  border: 2px solid rgba(204, 187, 68, 0.5);
+  top: 5%;
+  left: 0%;
+  width: 12%;
+  height: 88%;
+}
+
+/* --- Cochrane logo: clipPath reveal (curtain L→R) --- */
+section#s-forest2 .cochrane-logo {
+  display: inline-block;
+  align-self: flex-end;
+  clip-path: inset(0 100% 0 0);
+  line-height: 0;
+}
+section#s-forest2 .cochrane-logo.revealed {
+  clip-path: inset(0 0 0 0);
+}
+section#s-forest2 .cochrane-logo img {
+  height: 32px;
+  width: auto;
+}
+
+/* --- Click 1: RoB column highlight (Von Restorff) --- */
+section#s-forest2 .forest-zone--rob {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 4px;
+  background: rgba(238, 170, 51, 0.22);
+  border: 2px solid rgba(238, 170, 51, 0.6);
+  top: 3%;
+  left: 82%;
+  width: 18%;
+  height: 85%;
+}
+section#s-forest2 .forest-zone--rob.revealed {
+  opacity: 1;
+}
+section#s-forest2 .forest-zone--rob .forest-label-tag {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(238, 170, 51, 0.92);
+  color: var(--navy);
+  font-size: 0.75rem;
+}
+
+/* RoB zone label tag */
+section#s-forest2 .forest-zone--rob .forest-label-tag {
+  display: inline-block;
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(238, 170, 51, 0.92);
+  color: var(--navy);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25em 0.6em;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+/* --- Failsafes: overlays visible when GSAP unavailable --- */
+.no-js section#s-forest2 .forest-zone,
+.no-js section#s-forest2 .cochrane-logo,
+.stage-bad section#s-forest2 .forest-zone,
+.stage-bad section#s-forest2 .cochrane-logo,
+[data-qa] section#s-forest2 .forest-zone,
+[data-qa] section#s-forest2 .cochrane-logo {
+  opacity: 1 !important;
+  clip-path: none !important;
+}
+@media print {
+  section#s-forest2 .forest-zone,
+  section#s-forest2 .cochrane-logo {
+    opacity: 1 !important;
+    clip-path: none !important;
+  }
 }

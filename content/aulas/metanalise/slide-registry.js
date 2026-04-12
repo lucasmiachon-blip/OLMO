@@ -296,6 +296,94 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => revealed;
   },
 
+  's-forest2': (slide, gsap) => {
+    // Auto timeline: img fadeUp → stagger 4 anatomy zones (recognition from forest1)
+    const img = slide.querySelector('.forest-annotated img');
+    const autoZones = slide.querySelectorAll('[data-auto]');
+    const logo = slide.querySelector('.cochrane-logo');
+    const annotated = slide.querySelector('.forest-annotated');
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    // 1. Image fade-up
+    if (img) {
+      tl.fromTo(img,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7 }
+      );
+    }
+
+    // 2. Stagger 4 anatomy zones (0.15s apart — fast recognition)
+    if (autoZones.length) {
+      tl.fromTo(autoZones,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, stagger: 0.15 },
+        '-=0.2'
+      );
+      autoZones.forEach(z => z.classList.add('revealed'));
+    }
+
+    // Logo: prevent click from advancing beat (professor clicks to open site)
+    if (logo) {
+      logo.addEventListener('click', (e) => e.stopPropagation());
+    }
+
+    // Click-reveal: 2 beats
+    // Beat 1: Cochrane logo clipPath reveal (professor can click to open site)
+    // Beat 2: RoB zoom — focal staging, hook for next slide (bias)
+    let revealed = 0;
+    const MAX = 2;
+    const getReveal = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
+
+    const advance = () => {
+      if (revealed >= MAX) return false;
+      revealed++;
+      const items = getReveal(revealed);
+      if (revealed === 1) {
+        // Beat 1: Cochrane logo clipPath curtain L→R
+        gsap.fromTo(items,
+          { clipPath: 'inset(0 100% 0 0)', opacity: 1 },
+          { clipPath: 'inset(0 0 0 0)', duration: 0.8, ease: 'power2.inOut' }
+        );
+      } else {
+        // Beat 2: RoB highlight + zoom toward RoB column
+        gsap.fromTo(items,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.5, ease: 'power2.out' }
+        );
+        if (annotated) {
+          gsap.to(annotated, {
+            scale: 1.35,
+            transformOrigin: '90% 50%',
+            duration: 0.8,
+            ease: 'power2.inOut'
+          });
+        }
+      }
+      items.forEach(el => el.classList.add('revealed'));
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      const items = getReveal(revealed);
+      if (revealed === 2 && annotated) {
+        gsap.to(annotated, { scale: 1, duration: 0.4, ease: 'power2.out' });
+      }
+      if (revealed === 1) {
+        gsap.to(items, { clipPath: 'inset(0 100% 0 0)', duration: 0.4, ease: 'power2.in' });
+      } else {
+        gsap.to(items, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+      }
+      items.forEach(el => el.classList.remove('revealed'));
+      revealed--;
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
+
   's-forest1': (slide, gsap) => {
     // Auto: image fade-up on slide enter
     const img = slide.querySelector('.forest-annotated img');
