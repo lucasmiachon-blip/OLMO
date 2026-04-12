@@ -1,17 +1,20 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 162 | Forest plot slides DONE, QA pendente
+> Sessao 163 | Evidence enriched, slide content next
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 20 items.**
 
-## P0 — QA forest plot slides
+## P0 — Forest plot slides: evidence → slide content
 
-- **Slides DONE:** `08a-forest1.html` (Li 2026 MACE) + `08b-forest2.html` (Ebrahimi Cochrane 2025 MI). Wired manifest/CSS/registry. Build 16 slides PASS.
-- **s-benefit-harm removido S162.** Slide + QA screenshots deletados, todas referências em evidence/docs atualizadas.
-- **Evidence DONE:** `s-forest-plot-final.html` expandido S161 (glossario, caracteristicas PDF-verified, SoF Table, angulo pedagogico).
+- **s-benefit-harm removido S162.** 16 slides no deck.
+- **Evidence DONE:** `s-forest-plot-final.html` expandido S162 — sintese critica (full-text PMC), redundancia meta-research (Ioannidis 2016, Chapelle 2021, Kwok 2025, Ou 2025), matriz sobreposicao trials (Li vs Ebrahimi: 10/14 compartilhados, top 5 = 78-88% peso).
+- **Pendente S163:**
+  - **Pesquisar sobreposicao detalhada:** mapear quantas das 15 MAs compartilham os mesmos RCTs. Objetivo: tabela completa de overlap (15 MAs × 14 RCTs). Vai informar conteudo do slide 2.
+  - **Icone clicavel no slide 2 (s-forest2):** adicionar link/icone que abre a pagina Cochrane da MA (URL: `https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD014808.pub2/full`). Lucas decidira posicao/design.
+  - **Resultados para slides:** pesquisar mais sobre resultados dos trials para informar conteudo visual dos slides (efeitos, animacoes planejadas).
 - **QA pendente:** pipeline Preflight → Inspect → Editorial, 1 slide por ciclo.
 - **h2 provisorios:** Lucas pode reescrever h2 dos forest plots a qualquer momento.
 - **CSS pendente:** Lucas indicou que CSS tera mais mudancas — nao unificar/otimizar ainda.
@@ -19,7 +22,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 ## P1 — Build modernization
 
 - **DONE:** `scripts/build-html.mjs` unificado (Node.js, ghost canary + integrity). PS1 antigos preservados.
-- **Pendente:** decisao sobre remover os 3 PS1 antigos (`cirrose/scripts/build-html.ps1`, `metanalise/scripts/build-html.ps1`, `grade/scripts/build-html.ps1`).
+- **Pendente:** decisao sobre remover os 3 PS1 antigos.
 
 ## P2 — A11y gaps residuais
 
@@ -36,6 +39,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Evidence CSS benchmark S148:** `pre-reading-heterogeneidade.html` = padrao-ouro.
 - **Plans lifecycle (S152):** `archive/SXXX-name.md`, per-file decision, default=keep.
 - **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes. Speaker notes vivem no evidence HTML.
+- **Docling = caminho canonico para PDFs (S162).** PDFs em `content/aulas/dist/assets/`. Repo: `C:\Dev\Projetos\docling-tools`.
 
 ## CUIDADOS
 
@@ -56,4 +60,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S161 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S162 2026-04-12

@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 162 — 2026-04-12 (QA-Forest — benefit-harm removal + evidence enrichment + meta-research critique)
+
+- Remove `s-benefit-harm` slide + all references (17→16 slides, 12 files, -96 lines)
+- Enrich `s-forest-plot-final.html`: sintese critica from full-text PMC reading (Li + Ebrahimi)
+  - 7 accordion findings: cumulative dose, NLRP3 mechanism, non-CV mortality, GI nocebo, NNT, GRADE gaps, CLEAR context
+  - 8-row limitations table, teacher takeaway
+- Add meta-research redundancy critique (Ioannidis 2016, Chapelle 2021, Kwok 2025, Ou 2025)
+- Add trial overlap matrix: Li vs Ebrahimi share 10/14 RCTs, top 5 = 78-88% weight
+- Memory: docling path canonico added to `project_tooling_pipeline.md`
+
 ## Sessao 161 — 2026-04-12 (HTML_E+BUILD — forest plot slides + evidence expansion + build modernization)
 
 - Expand `evidence/s-forest-plot-final.html`: glossario termos estatisticos, caracteristicas metodologicas verificadas dos PDFs (Li: MH random-effects, Scopus/PubMed/Embase, PRISMA 728→14; Ebrahimi: IV Random, COVIDENCE, SoF Table completa), forest plot individual data, angulo pedagogico "15 MAs em 14 meses"

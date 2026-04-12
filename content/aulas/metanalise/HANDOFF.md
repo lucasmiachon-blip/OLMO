@@ -15,7 +15,7 @@
 - **Dark-bg:** 4 slides (s-checkpoint-2, s-heterogeneity, s-ancora, s-absoluto)
 - **HEX navy:** #162032
 
-> **S162:** s-benefit-harm removido. s-forest1 + s-forest2 integrados no deck. Contagem: 16 slides.
+> **S162:** s-benefit-harm removido. Evidence enrichido (sintese critica full-text, meta-research redundancia, overlap matrix). Pendente S163: overlap completo 15 MAs × 14 RCTs + icone Cochrane clicavel no s-forest2 + conteudo visual slides.
 
 ## Ordem do deck (atualizada S157)
 
