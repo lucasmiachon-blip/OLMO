@@ -14,7 +14,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **PENDENTE prox sessao:**
   - Gemini Gate 4 (Inspect) nos dois forest slides — 10 must-fix suggestions
   - Fix global JS: advance/retreat nao retorna mesma sequencia sempre (afeta TODOS os slides)
-  - Redesign forest2 layout (sketch em `dist/assets/Screenshot 2026-04-12 155443.png`): box info embaixo-esquerda (n MAs sobreposicao + estudo), Cochrane penultimo beat, RoB zoom ultimo beat. clickReveals 2→3
+  - Redesign forest2 layout (sketch em `dist/assets/Screenshot 2026-04-12 155443.png`): cada faixa = 1 beat (4 zonas individuais, mesmo padrao forest1) → box info (15 MAs, 14 meses) → Cochrane logo clicavel → zoom "Risk of Bias" (ponte para slide vieses). clickReveals 2→7. Tipo de interacao (click vs auto) a decidir com Gemini Gate 4
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
