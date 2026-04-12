@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 164 — 2026-04-12 (SLIDE_BUILD+QA — forest plot highlight zones)
+
+- Implement s-forest1 click-reveal: 5 highlight zones (CI bars, weight, events, diamond, study names)
+  - Colored transparent overlays (Tol palette, daltonism-safe) — no text, professor narrates
+  - Weight beat includes max+min row marks (heterogeneity) + I² stats zone
+  - slide-registry.js factory with advance/retreat, CSS failsafes (.no-js, [data-qa], @media print)
+- Update `_manifest.js`: s-forest1 clickReveals 0→5, customAnim 's-forest1'
+- CSS: `.forest-annotated` inline-block wrapper for tight-fit label positioning over PNG
+- Plan: s-forest2 zones + clipPath Cochrane logo + RoB highlight (next)
+
 ## Sessao 163 — 2026-04-12 (HTML+SFOREST — overlap research + evidence enrichment)
 
 - Expand `s-forest-plot-final.html`: add overlap matrix section (15 MAs x 16 RCTs)

@@ -4,9 +4,31 @@
   <div class="slide-inner">
     <h2 class="slide-headline">Forest Plot 1 — Li et al. 2026</h2>
 
-    <div class="forest-fig" data-animate="fadeUp">
-      <img src="assets/forest-li-2025-MACE.png"
-           alt="Forest plot: colchicina vs controle para MACE — Li et al. 2026, 14 RCTs, 31.397 pacientes">
+    <div class="forest-fig">
+      <div class="forest-annotated">
+        <img src="assets/forest-li-2025-MACE.png"
+             alt="Forest plot: colchicina vs controle para MACE — Li et al. 2026, 14 RCTs, 31.397 pacientes">
+
+        <!-- Beat 1: CI bars — the "eye" of the forest plot -->
+        <div class="forest-zone forest-zone--ci" data-reveal="1"></div>
+
+        <!-- Beat 2: Weight column + max/min marks (heterogeneity) -->
+        <div class="forest-zone forest-zone--weight" data-reveal="2"></div>
+        <div class="forest-zone forest-zone--weight-max" data-reveal="2"></div>
+        <div class="forest-zone forest-zone--weight-min" data-reveal="2"></div>
+
+        <!-- Beat 3: Events columns -->
+        <div class="forest-zone forest-zone--events" data-reveal="3"></div>
+
+        <!-- Beat 4: Diamond — pooled effect (circle) -->
+        <div class="forest-zone forest-zone--diamond" data-reveal="4"></div>
+
+        <!-- Beat 5: Study names -->
+        <div class="forest-zone forest-zone--studies" data-reveal="5"></div>
+
+        <!-- Subtle: heterogeneity stats (I², tau²) -->
+        <div class="forest-zone forest-zone--het" data-reveal="2"></div>
+      </div>
     </div>
 
     <p class="source-tag">Li et al. Am J Cardiovasc Drugs 2026 | PMID: 40889093</p>

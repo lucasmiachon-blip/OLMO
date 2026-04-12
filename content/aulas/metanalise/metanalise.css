@@ -1079,13 +1079,121 @@ section#s-forest1 .forest-fig {
   flex: 1;
   min-height: 0;
 }
-section#s-forest1 .forest-fig img {
+section#s-forest1 .forest-annotated {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+section#s-forest1 .forest-annotated img {
   max-width: 100%;
   max-height: 480px;
   object-fit: contain;
   border-radius: var(--radius-sm);
   border: 1px solid var(--shadow-soft);
   box-shadow: 0 1px 4px var(--shadow-soft), 0 4px 12px var(--shadow-soft);
+}
+
+/* --- Forest zones (transparent highlight overlays, no text) --- */
+/* Colors: Tol bright palette, daltonism-safe, projection-tuned */
+section#s-forest1 .forest-zone {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 4px;
+}
+section#s-forest1 .forest-zone.revealed {
+  opacity: 1;
+}
+
+/* Beat 1: CI bars — the "eye" of the forest (graphical area) */
+section#s-forest1 .forest-zone--ci {
+  background: rgba(68, 119, 170, 0.18);
+  border: 2px solid rgba(68, 119, 170, 0.5);
+  top: 3%;
+  left: 34%;
+  width: 34%;
+  height: 92%;
+}
+
+/* Beat 2: Weight column */
+section#s-forest1 .forest-zone--weight {
+  background: rgba(238, 102, 119, 0.18);
+  border: 2px solid rgba(238, 102, 119, 0.5);
+  top: 3%;
+  left: 86%;
+  width: 14%;
+  height: 92%;
+}
+/* Weight-max: CLEAR 2024 row (21.5%, 1st row Acute section) */
+section#s-forest1 .forest-zone--weight-max {
+  background: rgba(238, 102, 119, 0.35);
+  border: 2px solid rgba(238, 102, 119, 0.8);
+  top: 6%;
+  left: 85%;
+  width: 15%;
+  height: 3%;
+}
+/* Weight-min: COOL 2012 row (0.4%, last study before pooled in Acute) */
+section#s-forest1 .forest-zone--weight-min {
+  background: rgba(238, 102, 119, 0.35);
+  border: 2px solid rgba(238, 102, 119, 0.8);
+  top: 40%;
+  left: 85%;
+  width: 15%;
+  height: 3%;
+}
+/* Heterogeneity stats line (I²=62.1%) — subtle, appears with weight */
+section#s-forest1 .forest-zone--het {
+  background: rgba(102, 204, 238, 0.12);
+  border: 1px dashed rgba(102, 204, 238, 0.5);
+  top: 92%;
+  left: 2%;
+  width: 50%;
+  height: 3%;
+}
+
+/* Beat 3: Events columns (Colchicine Events/Total + Control Events/Total) */
+section#s-forest1 .forest-zone--events {
+  background: rgba(34, 136, 51, 0.18);
+  border: 2px solid rgba(34, 136, 51, 0.5);
+  top: 3%;
+  left: 11%;
+  width: 23%;
+  height: 92%;
+}
+
+/* Beat 4: Diamond — circle around pooled effect (All CVD) */
+section#s-forest1 .forest-zone--diamond {
+  background: rgba(170, 51, 119, 0.2);
+  border: 2px solid rgba(170, 51, 119, 0.6);
+  border-radius: 50%;
+  top: 88%;
+  left: 46%;
+  width: 10%;
+  height: 5%;
+}
+
+/* Beat 5: Study names column */
+section#s-forest1 .forest-zone--studies {
+  background: rgba(204, 187, 68, 0.18);
+  border: 2px solid rgba(204, 187, 68, 0.5);
+  top: 3%;
+  left: 0%;
+  width: 11%;
+  height: 92%;
+}
+
+/* Failsafes: zones visible when GSAP unavailable */
+.no-js section#s-forest1 .forest-zone,
+.stage-bad section#s-forest1 .forest-zone,
+[data-qa] section#s-forest1 .forest-zone {
+  opacity: 1 !important;
+}
+@media print {
+  section#s-forest1 .forest-zone {
+    opacity: 1 !important;
+  }
 }
 
 /* s-forest2: Ebrahimi Cochrane MI — panoramic (4501×1451, 3.1:1) → width-constrained */

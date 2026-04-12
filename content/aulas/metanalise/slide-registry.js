@@ -295,4 +295,46 @@ export const slideRegistry = {
     slide.__hookRetreat = retreat;
     slide.__hookCurrentBeat = () => revealed;
   },
+
+  's-forest1': (slide, gsap) => {
+    // Auto: image fade-up on slide enter
+    const img = slide.querySelector('.forest-annotated img');
+    if (img) {
+      gsap.fromTo(img,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
+      );
+    }
+
+    // Click-reveal: 5 highlight zones, one per click
+    // Colored transparent overlays — professor narrates anatomy
+    const beats = [1, 2, 3, 4, 5];
+    let revealed = 0;
+    const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
+
+    const advance = () => {
+      if (revealed >= beats.length) return false;
+      revealed++;
+      const items = getGroup(revealed);
+      gsap.fromTo(items,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, ease: 'power2.out' }
+      );
+      items.forEach(el => el.classList.add('revealed'));
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      const items = getGroup(revealed);
+      gsap.to(items, { opacity: 0, duration: 0.25, ease: 'power2.in' });
+      items.forEach(el => el.classList.remove('revealed'));
+      revealed--;
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
 };

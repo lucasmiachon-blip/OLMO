@@ -1,19 +1,22 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 164 | Overlap partial done, slide HTML next
+> Sessao 164 | SLIDE_BUILD+QA — forest zones + Cochrane
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 20 items.**
 
-## P0 — Forest plot slides: evidence → slide content
+## P0 — Forest plot slides: zones + Cochrane
 
-- **Overlap matrix S163 (parcial):** 4 MAs confirmadas full-text (Li, Ebrahimi, Samuel, Xie). 11 pendentes (closed-access, DOIs no evidence HTML para lookup manual CAPES/USP). Core 6 RCTs universal.
-- **Pendente S164:**
-  - **HTML slide 1 (s-forest1, Li 2026):** Adicionar labels (diamante, pesos, autores, coluna eventos) + click-reveal (5 labels, 1 por click). Destacar estudo com ~1 evento (heterogeneidade). Imagem fadeUp.
-  - **HTML slide 2 (s-forest2, Ebrahimi Cochrane):** Botao Cochrane visivel + labels. Dados: RR 0.74 IAM, RR 0.67 AVC, GRADE alta. Stagger nos labels, drawPath no icone Cochrane, highlight no RoB (Von Restorff). Beat final: "15 MAs em 14 meses."
-  - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES → mapear trials incluidos.
+- **s-forest1 (Li 2026) — WIP:** 5 click-reveal highlight zones (CI bars → peso c/ max+min → eventos → diamante → nomes) + zona heterogeneidade sutil. Sem texto overlay — professor narra. Posições precisam tuning visual (proporções ~70% certas).
+- **s-forest2 (Ebrahimi Cochrane) — PENDENTE:**
+  - Mesmas zonas anatômicas do s-forest1 (reconhecimento)
+  - clipPath reveal no PNG Cochrane Library (`dist/assets/Cochrane_Library_idbpG3Kkyq_0.png` → copiar para `metanalise/assets/`)
+  - Logo clicável (abre artigo Cochrane). Substitui link texto no source-tag
+  - Highlight RoB column (Von Restorff)
+  - Beat final: efeito impactante, último beat
+- **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES → mapear trials incluidos.
 - **QA pendente:** pipeline Preflight → Inspect → Editorial, 1 slide por ciclo.
 - **h2 provisorios:** Lucas pode reescrever h2 dos forest plots a qualquer momento.
 - **CSS pendente:** Lucas indicou que CSS tera mais mudancas — nao unificar/otimizar ainda.
@@ -39,7 +42,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Plans lifecycle (S152):** `archive/SXXX-name.md`, per-file decision, default=keep.
 - **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes. Speaker notes vivem no evidence HTML.
 - **Docling = caminho canonico para PDFs (S162).** PDFs em `content/aulas/dist/assets/`. Repo: `C:\Dev\Projetos\docling-tools`.
-- **Animacoes forest slides (S163):** click-reveal para anatomia (slide 1), drawPath+highlight para RoB (slide 2). Proposito pedagogico obrigatorio.
+- **Animacoes forest slides (S163→S164):** highlight zones coloridas para anatomia (slide 1 e 2), clipPath reveal logo Cochrane (slide 2). Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
 
 ## CUIDADOS
 
@@ -60,4 +63,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S163 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S164 2026-04-12
