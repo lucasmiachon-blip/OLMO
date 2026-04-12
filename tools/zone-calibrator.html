@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Forest Zone Calibrator</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ── */
+  #sidebar {
+    width: 320px;
+    background: #16213e;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-right: 1px solid #2a3a5c;
+  }
+  #sidebar h1 {
+    font-size: 1.1rem;
+    color: #64b5f6;
+    border-bottom: 1px solid #2a3a5c;
+    padding-bottom: 8px;
+  }
+  #sidebar label {
+    font-size: 0.8rem;
+    color: #aaa;
+    display: block;
+    margin-bottom: 4px;
+  }
+  #sidebar select, #sidebar button {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #2a3a5c;
+    border-radius: 4px;
+    background: #0f3460;
+    color: #e0e0e0;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  #sidebar button:hover { background: #1a4a8a; }
+  #sidebar button.copy-btn {
+    background: #1b5e20;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  #sidebar button.copy-btn:hover { background: #2e7d32; }
+  #sidebar button.copy-btn.copied {
+    background: #4caf50;
+  }
+
+  .zone-entry {
+    background: #0f3460;
+    border-radius: 6px;
+    padding: 8px 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .zone-entry.active {
+    border-color: #64b5f6;
+  }
+  .zone-entry .zone-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .zone-entry .zone-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+  .zone-entry .zone-values {
+    font-size: 0.75rem;
+    color: #90caf9;
+    font-family: 'Cascadia Code', 'Consolas', monospace;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .zone-entry .zone-toggle {
+    float: right;
+    font-size: 0.7rem;
+    color: #777;
+    cursor: pointer;
+  }
+
+  .instructions {
+    font-size: 0.72rem;
+    color: #777;
+    line-height: 1.5;
+    padding: 8px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+  }
+  .instructions kbd {
+    background: #2a3a5c;
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+  }
+
+  /* ── Canvas area ── */
+  #canvas {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    overflow: auto;
+  }
+
+  #image-container {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+    cursor: crosshair;
+  }
+  #image-container img {
+    max-width: 100%;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    /* max-height matches slide rendering — set by JS per forest plot */
+  }
+
+  /* ── Zone overlays ── */
+  .zone {
+    position: absolute;
+    border-radius: 4px;
+    cursor: move;
+    z-index: 2;
+    transition: box-shadow 0.15s;
+  }
+  .zone:hover, .zone.active {
+    box-shadow: 0 0 0 2px #fff, 0 0 12px rgba(100,181,246,0.5);
+  }
+  .zone .zone-label,
+  .zone .zone-pct {
+    display: none;
+  }
+
+  /* Resize handles */
+  .zone .handle {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #333;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .zone:hover .handle, .zone.active .handle {
+    opacity: 1;
+  }
+  .handle-n  { top: -4px; left: 20%; width: 60%; height: 6px; cursor: n-resize; }
+  .handle-s  { bottom: -4px; left: 20%; width: 60%; height: 6px; cursor: s-resize; }
+  .handle-w  { left: -4px; top: 20%; width: 6px; height: 60%; cursor: w-resize; }
+  .handle-e  { right: -4px; top: 20%; width: 6px; height: 60%; cursor: e-resize; }
+  .handle-nw { top: -5px; left: -5px; width: 8px; height: 8px; cursor: nw-resize; border-radius: 2px; }
+  .handle-ne { top: -5px; right: -5px; width: 8px; height: 8px; cursor: ne-resize; border-radius: 2px; }
+  .handle-sw { bottom: -5px; left: -5px; width: 8px; height: 8px; cursor: sw-resize; border-radius: 2px; }
+  .handle-se { bottom: -5px; right: -5px; width: 8px; height: 8px; cursor: se-resize; border-radius: 2px; }
+
+  /* ── CSS output panel ── */
+  #css-output {
+    font-family: 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.72rem;
+    background: #0a0a1a;
+    color: #a5d6a7;
+    padding: 10px;
+    border-radius: 4px;
+    white-space: pre;
+    overflow-x: auto;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #2a3a5c;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h1>Zone Calibrator</h1>
+
+  <div>
+    <label>Forest Plot</label>
+    <select id="image-select">
+      <option value="forest1">Forest 1 — Li 2026 (4084x2876)</option>
+      <option value="forest2">Forest 2 — Ebrahimi 2025 (4501x1451)</option>
+    </select>
+  </div>
+
+  <div class="instructions">
+    <strong>Como usar:</strong><br>
+    1. Selecione o forest plot acima<br>
+    2. Arraste as zones para alinhar com as colunas<br>
+    3. Use os handles (bordas) para redimensionar<br>
+    4. Clique "Copy CSS" quando pronto<br><br>
+    <kbd>Click</kbd> = selecionar zone<br>
+    <kbd>Drag</kbd> = mover<br>
+    <kbd>Handles</kbd> = redimensionar<br>
+    <kbd>Arrow</kbd> = mover 0.5% (hold <kbd>Shift</kbd> = 0.1%)<br>
+    <kbd>Ctrl+Arrow</kbd> = resize 0.5% (hold <kbd>Shift</kbd> = 0.1%)<br>
+    <kbd>V</kbd> = toggle visibilidade da zone selecionada
+  </div>
+
+  <div id="zone-list"></div>
+
+  <button class="copy-btn" id="copy-btn" onclick="copyCSS()">Copy CSS</button>
+
+  <div id="css-output"></div>
+</div>
+
+<div id="canvas">
+  <div id="image-container">
+    <img id="plot-image" alt="Forest plot">
+  </div>
+</div>
+
+<script>
+// ── Zone definitions per forest plot ──
+const FOREST_CONFIG = {
+  forest1: {
+    src: '../content/aulas/metanalise/assets/forest-li-2025-MACE.png',
+    selector: 'section#s-forest1',
+    maxHeight: 520, // matches metanalise.css max-height for this slide
+    zones: [
+      { id: 'ci',         name: 'CI bars (blue)',          color: 'rgba(68,119,170,0.30)',  border: 'rgba(68,119,170,0.6)',  top: 3, left: 23, width: 61, height: 92 },
+      { id: 'weight',     name: 'Weight (pink)',           color: 'rgba(238,102,119,0.30)', border: 'rgba(238,102,119,0.6)', top: 3, left: 84, width: 16, height: 92 },
+      { id: 'weight-max', name: 'Weight MAX (pink dark)',  color: 'rgba(238,102,119,0.45)', border: 'rgba(238,102,119,0.8)', top: 7, left: 83, width: 17, height: 3 },
+      { id: 'weight-min', name: 'Weight MIN (pink dark)',  color: 'rgba(238,102,119,0.45)', border: 'rgba(238,102,119,0.8)', top: 22, left: 83, width: 17, height: 3 },
+      { id: 'het-1',      name: 'Het 1 (cyan)',            color: 'rgba(102,204,238,0.25)', border: 'rgba(102,204,238,0.5)', top: 47, left: 2, width: 50, height: 3 },
+      { id: 'het-2',      name: 'Het 2 (cyan)',            color: 'rgba(102,204,238,0.25)', border: 'rgba(102,204,238,0.5)', top: 90, left: 2, width: 50, height: 3 },
+      { id: 'events',     name: 'Events (green)',          color: 'rgba(34,136,51,0.30)',   border: 'rgba(34,136,51,0.6)',   top: 3, left: 9, width: 14, height: 92 },
+      { id: 'diamond-1',  name: 'Diamond 1 (purple)',      color: 'rgba(170,51,119,0.30)',  border: 'rgba(170,51,119,0.6)',  top: 44, left: 40, width: 8, height: 5, circular: true },
+      { id: 'diamond-2',  name: 'Diamond 2 (purple)',      color: 'rgba(170,51,119,0.30)',  border: 'rgba(170,51,119,0.6)',  top: 86, left: 40, width: 8, height: 5, circular: true },
+      { id: 'studies',    name: 'Studies (yellow)',         color: 'rgba(204,187,68,0.30)',  border: 'rgba(204,187,68,0.6)', top: 3, left: 0, width: 9, height: 92 },
+    ]
+  },
+  forest2: {
+    src: '../content/aulas/metanalise/assets/forest-ebrahimi-2025-MI.png',
+    selector: 'section#s-forest2',
+    maxHeight: 380, // matches metanalise.css max-height for this slide
+    zones: [
+      { id: 'ci',      name: 'CI+RR (blue)',       color: 'rgba(68,119,170,0.30)',  border: 'rgba(68,119,170,0.6)',  top: 5, left: 35, width: 45, height: 88 },
+      { id: 'weight',  name: 'Weight (pink)',       color: 'rgba(238,102,119,0.30)', border: 'rgba(238,102,119,0.6)', top: 5, left: 30, width: 5, height: 88 },
+      { id: 'events',  name: 'Events (green)',      color: 'rgba(34,136,51,0.30)',   border: 'rgba(34,136,51,0.6)',   top: 5, left: 12, width: 18, height: 88 },
+      { id: 'studies', name: 'Studies (yellow)',     color: 'rgba(204,187,68,0.30)',  border: 'rgba(204,187,68,0.6)', top: 5, left: 0, width: 12, height: 88 },
+      { id: 'rob',     name: 'RoB (orange)',        color: 'rgba(238,170,51,0.30)',  border: 'rgba(238,170,51,0.6)', top: 3, left: 82, width: 18, height: 85 },
+      { id: 'diamond-1', name: 'Diamond 1 (purple)',     color: 'rgba(170,51,119,0.30)',  border: 'rgba(170,51,119,0.6)', top: 70, left: 40, width: 8, height: 8, circular: true },
+      { id: 'diamond-2', name: 'Diamond 2 (purple)',     color: 'rgba(170,51,119,0.30)',  border: 'rgba(170,51,119,0.6)', top: 85, left: 40, width: 8, height: 8, circular: true },
+      { id: 'het-1',     name: 'Het 1 (cyan)',           color: 'rgba(102,204,238,0.25)', border: 'rgba(102,204,238,0.5)', top: 73, left: 2, width: 55, height: 4 },
+      { id: 'het-2',     name: 'Het 2 (cyan)',           color: 'rgba(102,204,238,0.25)', border: 'rgba(102,204,238,0.5)', top: 92, left: 2, width: 55, height: 4 },
+    ]
+  }
+};
+
+let currentForest = 'forest1';
+let zones = [];
+let activeZone = null;
+let dragState = null; // { type: 'move'|'resize', zone, startX, startY, handle, origRect }
+
+const container = document.getElementById('image-container');
+const img = document.getElementById('plot-image');
+const zoneList = document.getElementById('zone-list');
+const cssOutput = document.getElementById('css-output');
+
+// ── Initialize ──
+function loadForest(key) {
+  currentForest = key;
+  const config = FOREST_CONFIG[key];
+  img.style.maxHeight = config.maxHeight + 'px';
+  img.src = config.src;
+
+  // Remove old zone elements
+  container.querySelectorAll('.zone').forEach(el => el.remove());
+  zones = [];
+
+  config.zones.forEach(zd => {
+    const zone = createZoneElement(zd);
+    zones.push({ def: zd, el: zone, visible: true });
+    container.appendChild(zone);
+  });
+
+  activeZone = null;
+  renderSidebar();
+  updateCSSOutput();
+}
+
+function createZoneElement(zd) {
+  const el = document.createElement('div');
+  el.className = 'zone';
+  el.dataset.id = zd.id;
+  el.style.background = zd.color;
+  el.style.border = `2px solid ${zd.border}`;
+  el.style.top = zd.top + '%';
+  el.style.left = zd.left + '%';
+  el.style.width = zd.width + '%';
+  el.style.height = zd.height + '%';
+  if (zd.circular) el.style.borderRadius = '50%';
+
+  // Label
+  const label = document.createElement('span');
+  label.className = 'zone-label';
+  label.textContent = zd.id;
+  el.appendChild(label);
+
+  // Live pct readout
+  const pct = document.createElement('span');
+  pct.className = 'zone-pct';
+  pct.textContent = `${zd.top}/${zd.left} ${zd.width}x${zd.height}`;
+  el.appendChild(pct);
+
+  // Resize handles
+  ['n','s','w','e','nw','ne','sw','se'].forEach(dir => {
+    const h = document.createElement('div');
+    h.className = `handle handle-${dir}`;
+    h.dataset.handle = dir;
+    el.appendChild(h);
+  });
+
+  return el;
+}
+
+// ── Sidebar ──
+function renderSidebar() {
+  zoneList.innerHTML = '';
+  zones.forEach((z, i) => {
+    const entry = document.createElement('div');
+    entry.className = 'zone-entry' + (activeZone === i ? ' active' : '');
+    const rect = getZoneRect(z);
+    entry.innerHTML = `
+      <div class="zone-name">
+        <span class="zone-swatch" style="background:${z.def.color};border-color:${z.def.border}"></span>
+        ${z.def.name}
+        <span class="zone-toggle" data-idx="${i}">${z.visible ? 'ON' : 'OFF'}</span>
+      </div>
+      <div class="zone-values">top: ${rect.top}%  left: ${rect.left}%  width: ${rect.width}%  height: ${rect.height}%</div>
+    `;
+    entry.addEventListener('click', (e) => {
+      if (e.target.classList.contains('zone-toggle')) {
+        z.visible = !z.visible;
+        z.el.style.display = z.visible ? '' : 'none';
+        renderSidebar();
+        return;
+      }
+      setActiveZone(i);
+    });
+    zoneList.appendChild(entry);
+  });
+}
+
+function setActiveZone(idx) {
+  activeZone = idx;
+  zones.forEach((z, i) => {
+    z.el.classList.toggle('active', i === idx);
+  });
+  renderSidebar();
+}
+
+function getZoneRect(z) {
+  const cw = container.offsetWidth;
+  const ch = container.offsetHeight;
+  if (!cw || !ch) return { top: 0, left: 0, width: 0, height: 0 };
+  const el = z.el;
+  return {
+    top:    round2(parseFloat(el.style.top)),
+    left:   round2(parseFloat(el.style.left)),
+    width:  round2(parseFloat(el.style.width)),
+    height: round2(parseFloat(el.style.height)),
+  };
+}
+
+function round2(n) {
+  return Math.round(n * 10) / 10;
+}
+
+// ── Drag & Resize ──
+container.addEventListener('mousedown', (e) => {
+  const handle = e.target.dataset?.handle;
+  const zoneEl = e.target.closest('.zone');
+  if (!zoneEl) return;
+
+  const idx = zones.findIndex(z => z.el === zoneEl);
+  if (idx < 0) return;
+
+  setActiveZone(idx);
+  e.preventDefault();
+
+  const cw = container.offsetWidth;
+  const ch = container.offsetHeight;
+  const z = zones[idx];
+
+  const origRect = {
+    top:    parseFloat(z.el.style.top),
+    left:   parseFloat(z.el.style.left),
+    width:  parseFloat(z.el.style.width),
+    height: parseFloat(z.el.style.height),
+  };
+
+  dragState = {
+    type: handle ? 'resize' : 'move',
+    zone: z,
+    idx,
+    startX: e.clientX,
+    startY: e.clientY,
+    origRect,
+    handle: handle || null,
+    cw, ch,
+  };
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!dragState) return;
+  e.preventDefault();
+  const { zone, startX, startY, origRect, handle, cw, ch, type } = dragState;
+
+  const dx = ((e.clientX - startX) / cw) * 100;
+  const dy = ((e.clientY - startY) / ch) * 100;
+
+  if (type === 'move') {
+    zone.el.style.left = clamp(origRect.left + dx, 0, 100 - origRect.width) + '%';
+    zone.el.style.top  = clamp(origRect.top  + dy, 0, 100 - origRect.height) + '%';
+  } else {
+    // Resize by handle direction
+    let t = origRect.top, l = origRect.left, w = origRect.width, h = origRect.height;
+
+    if (handle.includes('n')) {
+      const newTop = clamp(origRect.top + dy, 0, origRect.top + origRect.height - 1);
+      h = origRect.height - (newTop - origRect.top);
+      t = newTop;
+    }
+    if (handle.includes('s')) {
+      h = clamp(origRect.height + dy, 1, 100 - origRect.top);
+    }
+    if (handle.includes('w')) {
+      const newLeft = clamp(origRect.left + dx, 0, origRect.left + origRect.width - 1);
+      w = origRect.width - (newLeft - origRect.left);
+      l = newLeft;
+    }
+    if (handle.includes('e')) {
+      w = clamp(origRect.width + dx, 1, 100 - origRect.left);
+    }
+
+    zone.el.style.top    = t + '%';
+    zone.el.style.left   = l + '%';
+    zone.el.style.width  = w + '%';
+    zone.el.style.height = h + '%';
+  }
+
+  // Update live pct readout on zone
+  const rect = getZoneRect(zone);
+  zone.el.querySelector('.zone-pct').textContent =
+    `${rect.top}/${rect.left} ${rect.width}x${rect.height}`;
+
+  renderSidebar();
+  updateCSSOutput();
+});
+
+document.addEventListener('mouseup', () => {
+  dragState = null;
+});
+
+function clamp(v, min, max) {
+  return Math.max(min, Math.min(max, v));
+}
+
+// ── Keyboard ──
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'v' || e.key === 'V') {
+    if (activeZone !== null) {
+      const z = zones[activeZone];
+      z.visible = !z.visible;
+      z.el.style.display = z.visible ? '' : 'none';
+      renderSidebar();
+    }
+  }
+  // Arrow keys: move (default) or resize (Ctrl)
+  if (activeZone !== null && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
+    e.preventDefault();
+    const z = zones[activeZone];
+    const step = e.shiftKey ? 0.1 : 0.5;
+    let t = parseFloat(z.el.style.top);
+    let l = parseFloat(z.el.style.left);
+    let w = parseFloat(z.el.style.width);
+    let h = parseFloat(z.el.style.height);
+
+    if (e.ctrlKey) {
+      // Ctrl+Arrow = resize
+      if (e.key === 'ArrowUp')    h = Math.max(0.5, h - step);
+      if (e.key === 'ArrowDown')  h = Math.min(100 - t, h + step);
+      if (e.key === 'ArrowLeft')  w = Math.max(0.5, w - step);
+      if (e.key === 'ArrowRight') w = Math.min(100 - l, w + step);
+      z.el.style.width  = w + '%';
+      z.el.style.height = h + '%';
+    } else {
+      // Arrow = move
+      if (e.key === 'ArrowUp')    t = Math.max(0, t - step);
+      if (e.key === 'ArrowDown')  t = Math.min(100 - h, t + step);
+      if (e.key === 'ArrowLeft')  l = Math.max(0, l - step);
+      if (e.key === 'ArrowRight') l = Math.min(100 - w, l + step);
+      z.el.style.top  = t + '%';
+      z.el.style.left = l + '%';
+    }
+
+    const rect = getZoneRect(z);
+    z.el.querySelector('.zone-pct').textContent =
+      `${rect.top}/${rect.left} ${rect.width}x${rect.height}`;
+    renderSidebar();
+    updateCSSOutput();
+  }
+});
+
+// ── CSS Output ──
+function updateCSSOutput() {
+  const config = FOREST_CONFIG[currentForest];
+  const sel = config.selector;
+  let css = '';
+
+  zones.forEach(z => {
+    const r = getZoneRect(z);
+    const extra = z.def.circular ? '\n  border-radius: 50%;' : '';
+    css += `${sel} .forest-zone--${z.def.id} {\n`;
+    css += `  top: ${r.top}%; left: ${r.left}%; width: ${r.width}%; height: ${r.height}%;${extra}\n`;
+    css += `}\n`;
+  });
+
+  cssOutput.textContent = css;
+}
+
+function copyCSS() {
+  const css = cssOutput.textContent;
+  // clipboard API needs secure context; fallback for file://
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(css).then(flashCopied);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = css;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    flashCopied();
+  }
+}
+function flashCopied() {
+  const btn = document.getElementById('copy-btn');
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.textContent = 'Copy CSS';
+    btn.classList.remove('copied');
+  }, 2000);
+}
+
+// ── Image select ──
+document.getElementById('image-select').addEventListener('change', (e) => {
+  loadForest(e.target.value);
+});
+
+// ── Init ──
+img.addEventListener('load', () => {
+  renderSidebar();
+  updateCSSOutput();
+});
+loadForest('forest1');
+</script>
+</body>
+</html>
