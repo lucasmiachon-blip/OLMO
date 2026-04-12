@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## Sessao 160 — 2026-04-12 (DOCLING+HTML — forest plot crops para slides)
+
+- Setup `docling-tools` project (uv + Python 3.13 + docling 2.86 + PyMuPDF) em `C:\Dev\Projetos\docling-tools\`
+- Docling pipeline: deteccao automatica de figuras (33 pictures Cochrane, 4 Tier2) — detectou Fig1 Tier2 mas falhou MI Cochrane
+- Precision crop via PyMuPDF 600 DPI com coordenadas exatas (`get_text('dict')`) para legibilidade a 10m
+- Add `metanalise/assets/forest-ebrahimi-2025-MI.png` (4501×1451 @ 600 DPI) — Cochrane MI forest plot sem titulo/footnotes/legend, com Risk of Bias dots
+- Add `metanalise/assets/forest-li-2025-MACE.png` (4084×2876 @ 600 DPI) — MACE forest plot 2 subgrupos sem caption
+- Sizing para deck.js 1280×720: Cochrane ~1152×371 canvas, Tier2 ~795×560 canvas
+
 ## Sessao 159 — 2026-04-12 (FOREST_PLOT — evidence + census preservation)
 
 - Add `evidence/s-forest-plot-final.html` — evidence HTML unico denso (Li 2026 + Ebrahimi Cochrane 2025 + census 15 MAs)

@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 160 | Forest plot slides (evidence DONE, slides pendentes)
+> Sessao 161 | Forest plot slides (crops DONE, slides pendentes)
 
 ## ESTADO ATUAL
 
@@ -9,8 +9,10 @@ Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, 17 apos slid
 
 ## P0 — Forest plot slides
 
-- **Evidence DONE:** `evidence/s-forest-plot-final.html` (Li 2026 + Ebrahimi Cochrane 2025 + census 15 MAs destilado). Census versionado em `references/colchicine-macce-census-S148.md`.
-- **Slides pendentes:** criar `slides/08a-forest1.html` + `slides/08b-forest2.html`, wiring manifest/CSS/registry, crops dos PDFs, QA pipeline. Plano: `.claude/plans/declarative-swimming-sunrise.md`.
+- **Evidence DOING:** `evidence/s-forest-plot-final.html` (Li 2026 + Ebrahimi Cochrane 2025 + census 15 MAs destilado). Census versionado em `references/colchicine-macce-census-S148.md`.
+- **Crops DONE (S160):** `metanalise/assets/forest-ebrahimi-2025-MI.png` (4501×1451 @ 600 DPI) + `metanalise/assets/forest-li-2025-MACE.png` (4084×2876 @ 600 DPI). Extraidos via docling+PyMuPDF. Sem titulo/footnotes/legenda — slide h2+source-tag substituem.
+- **Slides pendentes:** criar `slides/08a-forest1.html` + `slides/08b-forest2.html`, wiring manifest/CSS/registry, QA pipeline. Plano: `.claude/plans/declarative-swimming-sunrise.md`.
+- **Citations:** Ebrahimi et al. 2025, Cochrane Database Syst Rev | Li et al. 2025, Am J Cardiovasc Drugs.
 
 ## P1 — A11y gaps residuais
 
@@ -46,4 +48,4 @@ Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, 17 apos slid
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S159 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S160 2026-04-12

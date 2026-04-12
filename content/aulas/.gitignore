@@ -4,6 +4,9 @@ node_modules/
 # Build output
 dist/
 
+# Large binary assets (regenerate from source PDFs via docling-tools)
+*/assets/*.png
+
 # Generated HTML (built from slides/ + template)
 */index.html
 
