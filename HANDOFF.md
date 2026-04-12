@@ -1,15 +1,16 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 159 | Volta ao fluxo normal (slides, research, ensino)
+> Sessao 160 | Forest plot slides (evidence DONE, slides pendentes)
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise).
+Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, 17 apos slides forest).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 20 items.**
 
-## P0 — Slides (desbloqueado, fim da infra)
+## P0 — Forest plot slides
 
-- **Forest plot slides:** s-forest1 (Li 2026 AJCD, PMID 40889093 VERIFIED) + s-forest2 (Ebrahimi 2025 Cochrane, PMID 41224205 VERIFIED). Evidence unico denso `s-forest-plot.html` a criar. Plano: `.claude/plans/abundant-pondering-zebra.md`.
+- **Evidence DONE:** `evidence/s-forest-plot-final.html` (Li 2026 + Ebrahimi Cochrane 2025 + census 15 MAs destilado). Census versionado em `references/colchicine-macce-census-S148.md`.
+- **Slides pendentes:** criar `slides/08a-forest1.html` + `slides/08b-forest2.html`, wiring manifest/CSS/registry, crops dos PDFs, QA pipeline. Plano: `.claude/plans/declarative-swimming-sunrise.md`.
 
 ## P1 — A11y gaps residuais
 
@@ -45,4 +46,4 @@ Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise).
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S158 2026-04-11
+Coautoria: Lucas + Opus 4.6 | S159 2026-04-12

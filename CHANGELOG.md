@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Sessao 159 — 2026-04-12 (FOREST_PLOT — evidence + census preservation)
+
+- Add `evidence/s-forest-plot-final.html` — evidence HTML unico denso (Li 2026 + Ebrahimi Cochrane 2025 + census 15 MAs)
+- Preserve `references/colchicine-macce-census-S148.md` — census movido de worker gitignored para versionado
+- Archive `evidence/s-forest-plot.html` (DRAFT S146) + `forest-plot-candidates.html` (S147) para `_archive/`
+- Worker `colchicine-macce-2025-2026/` removido (Lucas, pos-consumo)
+- Plan: `declarative-swimming-sunrise.md` (slides deferred S160)
+
 ## Sessao 158 — 2026-04-11 (ULTIMA_INFRA — adversarial review + settings drift fix + dream hook fix)
 
 ### Escopo
