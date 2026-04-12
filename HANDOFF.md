@@ -1,29 +1,27 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 164 | SLIDE_BUILD+QA — forest zones + Cochrane
+> Sessao 165 | tuning + forest 2
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 20 items.**
 
-## P0 — Forest plot slides: zones + Cochrane
+## P0 — Forest plot slides
 
-- **s-forest1 (Li 2026) — WIP:** 5 click-reveal highlight zones (CI bars → peso c/ max+min → eventos → diamante → nomes) + zona heterogeneidade sutil. Sem texto overlay — professor narra. Posições precisam tuning visual (proporções ~70% certas).
-- **s-forest2 (Ebrahimi Cochrane) — PENDENTE:**
-  - Mesmas zonas anatômicas do s-forest1 (reconhecimento)
-  - clipPath reveal no PNG Cochrane Library (`dist/assets/Cochrane_Library_idbpG3Kkyq_0.png` → copiar para `metanalise/assets/`)
-  - Logo clicável (abre artigo Cochrane). Substitui link texto no source-tag
-  - Highlight RoB column (Von Restorff)
-  - Beat final: efeito impactante, último beat
-- **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES → mapear trials incluidos.
-- **QA pendente:** pipeline Preflight → Inspect → Editorial, 1 slide por ciclo.
-- **h2 provisorios:** Lucas pode reescrever h2 dos forest plots a qualquer momento.
-- **CSS pendente:** Lucas indicou que CSS tera mais mudancas — nao unificar/otimizar ainda.
+- **s-forest1 (Li 2026) — FUNCIONAL:** 4 faixas (CI+OR, events, weight, studies) + 3 destaques (weight-max, weight-min, diamond) + het sutil. Zonas realinhadas S165 (~90%). Fine-tune pendente via Gemini Gate 4.
+- **s-forest2 (Ebrahimi Cochrane) — FUNCIONAL:** 4 auto-zones (reconhecimento forest1) + Cochrane logo clicavel (clipPath reveal) + RoB zoom (ultimo beat, gancho para slide de vieses). Fine-tune pendente.
+- **PENDENTE prox sessao:**
+  - Gemini Gate 4 (Inspect) nos dois forest slides — 10 must-fix suggestions
+  - Fix global JS: advance/retreat nao retorna mesma sequencia sempre (afeta TODOS os slides)
+  - Redesign forest2 layout (sketch em `dist/assets/Screenshot 2026-04-12 155443.png`): box info embaixo-esquerda (n MAs sobreposicao + estudo), Cochrane penultimo beat, RoB zoom ultimo beat. clickReveals 2→3
+- **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
+- **h2 provisorios:** Lucas pode reescrever a qualquer momento.
+- **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
 
 ## P1 — Build modernization
 
-- **DONE:** `scripts/build-html.mjs` unificado (Node.js, ghost canary + integrity). PS1 antigos preservados.
+- **DONE:** `scripts/build-html.mjs` unificado. PS1 antigos preservados.
 - **Pendente:** decisao sobre remover os 3 PS1 antigos.
 
 ## P2 — A11y gaps residuais
@@ -40,9 +38,9 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Living HTML = source of truth = SINTESE CURADA.**
 - **Evidence CSS benchmark S148:** `pre-reading-heterogeneidade.html` = padrao-ouro.
 - **Plans lifecycle (S152):** `archive/SXXX-name.md`, per-file decision, default=keep.
-- **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes. Speaker notes vivem no evidence HTML.
-- **Docling = caminho canonico para PDFs (S162).** PDFs em `content/aulas/dist/assets/`. Repo: `C:\Dev\Projetos\docling-tools`.
-- **Animacoes forest slides (S163→S164):** highlight zones coloridas para anatomia (slide 1 e 2), clipPath reveal logo Cochrane (slide 2). Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
+- **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes.
+- **Docling = caminho canonico para PDFs (S162).**
+- **Animacoes forest slides (S163→S165):** zonas coloridas + Cochrane clipPath + RoB zoom. Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
 
 ## CUIDADOS
 
@@ -52,7 +50,6 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - Benchmark `pre-reading-heterogeneidade.html` = READ-ONLY.
 - MCP freeze ate 2026-04-14 (9 frozen; PubMed/SCite/Consensus ativos).
 - Gemini FPs conhecidos: css_cascade, failsafes/@media print.
-- **Dream subagent violou KBP-07 em S158** (Python os.remove contornou guard-bash-write.sh 17b). Hook gap → BACKLOG #20. Flagged sentinel.
 
 ## BACKLOG
 
@@ -63,4 +60,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S164 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S165 2026-04-12

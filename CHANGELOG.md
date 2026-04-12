@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## Sessao 165 — 2026-04-12 (tuning + forest 2)
+
+- Tune s-forest1 zones: realign 4 bands to actual column boundaries (CI+OR 23-84%, events 9-23%, weight 84-100%, studies 0-9%). Fix weight-max/min row positions
+- Build s-forest2 (Ebrahimi Cochrane): 4 auto anatomy zones (same colors as forest1), Cochrane logo clickable (clipPath reveal), RoB column zoom as final beat (staging for bias slide)
+- Copy Cochrane Library logo PNG to metanalise/assets/
+- Update slide-registry.js: s-forest2 factory (auto-stagger zones + 2 click beats + stopPropagation on logo link)
+- Update _manifest.js: s-forest2 clickReveals 0→2, customAnim 's-forest2'
+- CSS: forest2 zones, clipPath, RoB highlight, overflow:hidden for zoom, failsafes
+
 ## Sessao 164 — 2026-04-12 (SLIDE_BUILD+QA — forest plot highlight zones)
 
 - Implement s-forest1 click-reveal: 5 highlight zones (CI bars, weight, events, diamond, study names)
