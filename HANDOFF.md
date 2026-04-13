@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 178 | HARDENING
+> Sessao 179 | QA-ROB2
 
 ## ESTADO ATUAL
 
@@ -20,12 +20,15 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 - **Gate 0 contradicao fix:** "beneficio da duvida" removido (todas 3 aulas).
 - **Few-shot Call B (C1):** 2 exemplos (pass + fail) com css_cascade e information_design.
 - **Propagacao parcial:** Gate 0 fix propagado para cirrose/grade. Call A/B/C hardening PENDENTE para cirrose/grade.
+- **Prompt refinements (S179):** threshold table tipografia, kappa KNOWN DECISIONS, ceiling cap 10→9.
 
 ## P0 — s-rob2 (QA em curso)
 
-- **QA Preflight (S177):** Build PASS, Lint PASS, 4 dims visuais PASS
-- **QA CSS fixes (S177):** barras 12→20px, D2 contrast darkened, kappa CSS vars, stagger 0.08→0.15s
-- **Estado: QA** — proximo passo: re-rodar editorial com pipeline hardened (espera-se FPs reduzidos)
+- **QA Editorial r13 (S179):** 7.2/10 (hardened pipeline). css_cascade FPs: ZERO. Fixes estruturados.
+- **CSS fixes (S179):** grid layout (flex→grid+contents), specificity cleanup (#deck removido de 3 selectors)
+- **Motion fixes (S179):** D2 dramatic pause (0.3s extra), bar values delay (staging: barra cresce → numero aparece)
+- **Prompt improvements (S179):** threshold table por tipo (24/18/14px), kappa colors no KNOWN DECISIONS, ceiling cap (10→max 9)
+- **Estado: QA** — proximo passo: visual check no browser, re-rodar editorial r14 se necessario
 
 ## P0 — Forest plot slides
 
@@ -96,4 +99,4 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 - `agents/ai_update/ai_update_agent.py:112`: registra "Gemini 2.0" — stale.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S178 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S179 2026-04-13

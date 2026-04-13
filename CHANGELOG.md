@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Sessao 179 — 2026-04-13 (QA-ROB2)
+
+### QA — s-rob2 editorial r13 (hardened pipeline)
+- **Result:** 7.2/10 (Call D adjusted). css_cascade FPs: ZERO. 5/8 sugestoes validas (62.5%)
+- **CSS fixes:** rob2-layout flex→grid+contents (alinhamento vertical), specificity cleanup (#deck removido 3 selectors), bar-val opacity:0 + failsafe
+- **Motion fixes:** D2 dramatic pause 0.3s (punchline), bar values delayed staging (barra cresce → numero aparece), fills ease power2→power3.out
+- **Prompt improvements:** threshold table tipografia (24/18/14px por tipo), kappa colors KNOWN DECISIONS, ceiling cap (nota 10 impossivel, max 9)
+
 ## Sessao 178 — 2026-04-13 (HARDENING)
 
 ### Pipeline — Adversarial prompt hardening (gemini-qa3.mjs + 5 prompts)

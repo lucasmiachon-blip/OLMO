@@ -31,6 +31,7 @@ KNOWN DESIGN DECISIONS (NAO sao defeitos — NAO flagear):
 - Navy card 300px e hero INTENCIONAL (Lucas decidiu S139).
 - Se um "problema" ja apareceu em rounds anteriores com status ADDRESSED, NAO repetir.
 - **Forest plot slides:** Imagens cropadas de artigos reais (regra: NUNCA reconstruir como HTML/SVG). Texto embutido na imagem e menor que nativo — tradeoff aceito. Focar em bugs de POSICIONAMENTO das zonas de highlight (CSS left/top/width/height) e na correcao de DADOS (zona aponta para estudo errado?), nao na legibilidade inerente da fonte da imagem.
+- **Kappa bar colors (--kappa-d1..d4):** SAO INTENCIONAIS — representam gradiente de concordancia inter-avaliador (0.04→0.45), NAO severidade clinica (safe/warning/danger). Sao uma escala CONTINUA de measurement reliability, semanticamente distinta dos tokens clinicos. NAO propor substituir por var(--safe)/var(--warning)/var(--danger).
 
 ## IGNORE_LIST — Seletores de infraestrutura (NAO avaliar)
 

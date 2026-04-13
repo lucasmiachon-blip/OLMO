@@ -28,6 +28,7 @@ Avalie cada dimensao visual. Para cada uma, de nota 1-10 e LISTE problemas concr
 Nota >= 7 = aceitavel. Nota < 7 = MUST fix (descreva exatamente o que mudar).
 
 Seja DURO. Nao elogie. Foque no que FALHA. Um slide projetado a 10m e MUITO diferente de uma tela de laptop.
+CEILING: nota 10 e IMPOSSIVEL — reservada para referencia platonica. Cap maximo realista = 9 (zero defeitos + polish excepcional). Se voce deu 10 em qualquer dimensao, rebaixe para 9.
 
 FORMATO OBRIGATORIO (WHAT/WHY/PROPOSAL/GUARANTEE):
 - evidencia (WHAT): descricao FACTUAL do que voce VE. Sem adjetivos subjetivos ("excessivo", "pesado", "padrao"). Medidas concretas ("card ocupa 23% da largura", "gap entre items = 10px").
@@ -76,7 +77,13 @@ As cores criam hierarquia visual clara? Ha harmonia cromatica ou ruido? O contra
 
 **4. TIPOGRAFIA (1-10)**
 A escala tipografica funciona para projecao? Ha paralelismo entre elementos do mesmo nivel hierarquico? A mistura de fontes (serif + sans + mono) e intencional e funcional ou gera ruido?
-REGRA DE LEGIBILIDADE: qualquer texto critico (dados clinicos, titulos, labels de decisao) com tamanho estimado < 24px no viewport 1280x720 e FAIL automatico para esta dimensao. Captions e source-tags podem ser menores (min 14px). Use a proporcao relativa ao viewport para estimar — um texto que ocupa menos de 1.9% da altura do viewport (24/1280) e suspeito.
+THRESHOLDS DE LEGIBILIDADE por tipo de elemento (viewport 1280x720):
+| Tipo | Min px | Exemplos |
+|------|--------|----------|
+| Texto critico | 24px | titulos, dados clinicos, labels de decisao, hero numbers |
+| Texto corpo | 18px | paragrafos, descricoes, itens de lista |
+| Captions/source-tags | 14px | notas de rodape, source-tag, kappa-note, trend annotations |
+Texto critico < 24px = FAIL automatico. Caption < 14px = FAIL. Entre 14-24px, classificar pelo TIPO (caption = OK, dado clinico = FAIL).
 
 **5. COMPOSICAO (1-10)**
 Existe uma ancora visual clara (o elemento que domina o slide)? O olho flui naturalmente do mais importante ao menos importante? O layout e equilibrado? O slide parece uma apresentacao de elite ou um wireframe/dashboard?

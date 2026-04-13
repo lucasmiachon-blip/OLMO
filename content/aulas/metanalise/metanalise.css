@@ -1442,16 +1442,15 @@ section#s-rob2 .slide-inner {
 }
 
 section#s-rob2 .rob2-layout {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--space-md) var(--space-lg);
+  align-items: start;
   min-height: 0;
-  gap: var(--space-md);
 }
 
 section#s-rob2 .rob2-top {
-  display: flex;
-  gap: var(--space-lg);
-  align-items: flex-start;
+  display: contents;
 }
 
 section#s-rob2 .rob2-figure {
@@ -1468,9 +1467,7 @@ section#s-rob2 .rob2-figure img {
 }
 
 section#s-rob2 .rob2-bottom {
-  display: flex;
-  gap: var(--space-xl);
-  min-height: 0;
+  display: contents;
 }
 
 /* --- Click 1: Domain table (compact 5×2) --- */
@@ -1506,7 +1503,7 @@ section#s-rob2 .rob2-d-en {
   margin-left: var(--space-xs);
 }
 
-#deck section#s-rob2 p.rob2-rule {
+section#s-rob2 .rob2-rule {
   font-family: var(--font-body);
   font-size: var(--text-small);
   color: var(--text-secondary);
@@ -1559,6 +1556,7 @@ section#s-rob2 .rob2-bar-val {
   color: var(--text-secondary);
   white-space: nowrap;
   font-variant-numeric: tabular-nums lining-nums;
+  opacity: 0;
 }
 
 section#s-rob2 .rob2-bar-val--worst {
@@ -1566,7 +1564,7 @@ section#s-rob2 .rob2-bar-val--worst {
   font-weight: 600;
 }
 
-#deck section#s-rob2 p.rob2-kappa-note {
+section#s-rob2 .rob2-kappa-note {
   font-family: var(--font-body);
   font-size: var(--text-caption);
   color: var(--text-muted);
@@ -1609,7 +1607,7 @@ section#s-rob2 .rob2-alt-detail {
   color: var(--text-secondary);
 }
 
-#deck section#s-rob2 p.rob2-alt-trend {
+section#s-rob2 .rob2-alt-trend {
   font-family: var(--font-body);
   font-size: var(--text-caption);
   color: var(--text-muted);
@@ -1621,15 +1619,19 @@ section#s-rob2 .rob2-alt-detail {
 /* --- Failsafes: all reveal elements visible when GSAP unavailable --- */
 .no-js section#s-rob2 [data-reveal],
 .no-js section#s-rob2 .rob2-figure img,
+.no-js section#s-rob2 .rob2-bar-val,
 .stage-bad section#s-rob2 [data-reveal],
 .stage-bad section#s-rob2 .rob2-figure img,
+.stage-bad section#s-rob2 .rob2-bar-val,
 [data-qa] section#s-rob2 [data-reveal],
-[data-qa] section#s-rob2 .rob2-figure img {
+[data-qa] section#s-rob2 .rob2-figure img,
+[data-qa] section#s-rob2 .rob2-bar-val {
   opacity: 1 !important;
 }
 @media print {
   section#s-rob2 [data-reveal],
-  section#s-rob2 .rob2-figure img {
+  section#s-rob2 .rob2-figure img,
+  section#s-rob2 .rob2-bar-val {
     opacity: 1 !important;
   }
 }

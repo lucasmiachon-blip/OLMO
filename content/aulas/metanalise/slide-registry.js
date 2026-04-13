@@ -451,23 +451,31 @@ export const slideRegistry = {
       }
 
       if (revealed === 2) {
-        // Kappa bars: stagger top→bottom (D2 arrives last = punchline)
+        // Kappa bars: stagger top→bottom, D2 arrives last with dramatic pause
         const bars = slide.querySelectorAll('.rob2-bar');
         const fills = slide.querySelectorAll('.rob2-bar-fill');
+        const vals = slide.querySelectorAll('.rob2-bar-val');
         const note = slide.querySelector('.rob2-kappa-note');
+        // D2 (index 3) gets extra 0.3s pause — worst domain = punchline
+        const d2Pause = (i) => i === 3 ? 0.75 : i * 0.15;
         gsap.fromTo(bars,
           { opacity: 0, x: -12 },
-          { opacity: 1, x: 0, duration: 0.4, stagger: 0.15, ease: 'power2.out' }
+          { opacity: 1, x: 0, duration: 0.4, stagger: d2Pause, ease: 'power2.out' }
         );
         // Bar fills grow left→right via scaleX (GPU, no reflow)
         gsap.fromTo(fills,
           { scaleX: 0 },
-          { scaleX: 1, duration: 0.6, stagger: 0.15, delay: 0.1, ease: 'power2.out' }
+          { scaleX: 1, duration: 0.6, stagger: d2Pause, delay: 0.1, ease: 'power3.out' }
+        );
+        // Values fade in after each fill completes (staging: see bar size, then read number)
+        gsap.fromTo(vals,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.3, stagger: d2Pause, delay: 0.8, ease: 'power2.out' }
         );
         if (note) {
           gsap.fromTo(note,
             { opacity: 0 },
-            { opacity: 1, duration: 0.3, delay: 0.85, ease: 'power2.out' }
+            { opacity: 1, duration: 0.3, delay: 1.4, ease: 'power2.out' }
           );
         }
       }
@@ -501,10 +509,12 @@ export const slideRegistry = {
       if (revealed === 2) {
         const bars = slide.querySelectorAll('.rob2-bar');
         const fills = slide.querySelectorAll('.rob2-bar-fill');
+        const vals = slide.querySelectorAll('.rob2-bar-val');
         const note = slide.querySelector('.rob2-kappa-note');
-        gsap.to(fills, { scaleX: 0, duration: 0.25, ease: 'power2.in' });
+        gsap.to(vals, { opacity: 0, duration: 0.2, ease: 'power2.in' });
+        gsap.to(fills, { scaleX: 0, duration: 0.25, delay: 0.1, ease: 'power2.in' });
         gsap.to([...bars, note].filter(Boolean),
-          { opacity: 0, x: -12, duration: 0.3, ease: 'power2.in' }
+          { opacity: 0, x: -12, duration: 0.3, delay: 0.15, ease: 'power2.in' }
         );
       }
       if (revealed === 3) {
