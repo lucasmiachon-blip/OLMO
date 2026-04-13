@@ -417,10 +417,10 @@ export const slideRegistry = {
   },
 
   's-rob2': (slide, gsap) => {
-    // Auto: image fade-up on slide enter
-    const img = slide.querySelector('.rob2-figure img');
-    if (img) {
-      gsap.fromTo(img,
+    // Auto: image fade-up on slide enter (target = container, where opacity:0 lives)
+    const figure = slide.querySelector('.rob2-figure');
+    if (figure) {
+      gsap.fromTo(figure,
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
       );

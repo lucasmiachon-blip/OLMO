@@ -1091,6 +1091,7 @@ section#s-forest1 .forest-annotated img {
   border-radius: var(--radius-sm);
   border: 1px solid var(--shadow-soft);
   box-shadow: 0 1px 4px var(--shadow-soft), 0 4px 12px var(--shadow-soft);
+  opacity: 0;
 }
 
 /* --- Forest zones (transparent highlight overlays, no text) --- */
@@ -1212,12 +1213,16 @@ section#s-forest1 .forest-zone--studies {
 
 /* Failsafes: zones visible when GSAP unavailable */
 .no-js section#s-forest1 .forest-zone,
+.no-js section#s-forest1 .forest-annotated img,
 .stage-bad section#s-forest1 .forest-zone,
-[data-qa] section#s-forest1 .forest-zone {
+.stage-bad section#s-forest1 .forest-annotated img,
+[data-qa] section#s-forest1 .forest-zone,
+[data-qa] section#s-forest1 .forest-annotated img {
   opacity: 1 !important;
 }
 @media print {
-  section#s-forest1 .forest-zone {
+  section#s-forest1 .forest-zone,
+  section#s-forest1 .forest-annotated img {
     opacity: 1 !important;
   }
 }
@@ -1248,6 +1253,7 @@ section#s-forest2 .forest-annotated img {
   border-radius: var(--radius-sm);
   border: 1px solid var(--shadow-soft);
   box-shadow: 0 1px 4px var(--shadow-soft), 0 4px 12px var(--shadow-soft);
+  opacity: 0;
 }
 
 /* --- Auto zones (same anatomy as forest1 — recognition) --- */
@@ -1401,12 +1407,15 @@ section#s-forest2 .forest-zone--rob .forest-label-tag {
 
 /* --- Failsafes: overlays visible when GSAP unavailable --- */
 .no-js section#s-forest2 .forest-zone,
+.no-js section#s-forest2 .forest-annotated img,
 .no-js section#s-forest2 .cochrane-logo,
 .no-js section#s-forest2 .forest-ma-stat,
 .stage-bad section#s-forest2 .forest-zone,
+.stage-bad section#s-forest2 .forest-annotated img,
 .stage-bad section#s-forest2 .cochrane-logo,
 .stage-bad section#s-forest2 .forest-ma-stat,
 [data-qa] section#s-forest2 .forest-zone,
+[data-qa] section#s-forest2 .forest-annotated img,
 [data-qa] section#s-forest2 .cochrane-logo,
 [data-qa] section#s-forest2 .forest-ma-stat {
   opacity: 1 !important;
@@ -1414,6 +1423,7 @@ section#s-forest2 .forest-zone--rob .forest-label-tag {
 }
 @media print {
   section#s-forest2 .forest-zone,
+  section#s-forest2 .forest-annotated img,
   section#s-forest2 .cochrane-logo,
   section#s-forest2 .forest-ma-stat {
     opacity: 1 !important;
@@ -1682,6 +1692,7 @@ section#s-rob2 .source-tag {
 
 section#s-pubbias2 .slide-inner {
   display: grid;
+  grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   height: 100%;
   gap: var(--space-xs);
