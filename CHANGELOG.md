@@ -23,6 +23,13 @@
 
 ### CSS — s-rob2 QA integration (outro agente)
 - **Integrado:** opacity:0 migrado img→.rob2-figure, kappa grid ajustado, will-change removido (exceto .rob2-figure)
+- **rob2 HTML:** kappa-stats reestruturado (rob2-bar-val → kappa-stats/kappa-val/kappa-desc) + h3 header
+
+### Bug fixes — FOUC flash em transicoes de slide
+- **forest1/forest2:** `opacity: 0` na img CSS (GSAP fromTo flashava 1 frame sem failsafe)
+- **rob2:** GSAP target corrigido (.rob2-figure em vez de .rob2-figure img) apos migracao opacity
+- **pubbias2:** h2 centralizado → fix `grid-template-columns: 1fr`; `<cite>` → `<p>` source-tag
+- **pubbias2 PENDENTE:** flash por `mix-blend-mode: multiply` — fix opacity:0 + GSAP auto-reveal para proxima sessao
 - **Bug fix:** will-change removal em multiplos elementos (flash em transicoes GPU composite)
 
 ### Docs
