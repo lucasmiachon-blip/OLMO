@@ -1402,16 +1402,20 @@ section#s-forest2 .forest-zone--rob .forest-label-tag {
 /* --- Failsafes: overlays visible when GSAP unavailable --- */
 .no-js section#s-forest2 .forest-zone,
 .no-js section#s-forest2 .cochrane-logo,
+.no-js section#s-forest2 .forest-ma-stat,
 .stage-bad section#s-forest2 .forest-zone,
 .stage-bad section#s-forest2 .cochrane-logo,
+.stage-bad section#s-forest2 .forest-ma-stat,
 [data-qa] section#s-forest2 .forest-zone,
-[data-qa] section#s-forest2 .cochrane-logo {
+[data-qa] section#s-forest2 .cochrane-logo,
+[data-qa] section#s-forest2 .forest-ma-stat {
   opacity: 1 !important;
   clip-path: none !important;
 }
 @media print {
   section#s-forest2 .forest-zone,
-  section#s-forest2 .cochrane-logo {
+  section#s-forest2 .cochrane-logo,
+  section#s-forest2 .forest-ma-stat {
     opacity: 1 !important;
     clip-path: none !important;
   }

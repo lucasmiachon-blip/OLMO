@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 173 — 2026-04-13 (QA-forest2)
+
+### QA — s-forest2 Gate 4 DONE
+- **Preflight:** 4/4 PASS. Tipografia sub-labels (0.72-0.82rem) aceitos — professor narra, nao lidos pela plateia
+- **Inspect (Gemini Flash):** PASS. 1 warning readability (texto baked no PNG do artigo, inerente ao crop)
+- **Editorial (Gemini 3.1 Pro):** 7.1/10 pos-calibracao (V:7, UX:6.6, M:7.8). 3 calls + Call D anti-sycophancy
+- **Fix aplicado:** `.forest-ma-stat` adicionado a failsafes (.no-js, .stage-bad, [data-qa], @media print)
+- **Triagem editorial:** 1 genuino (fix acima), 4 design intencional (badge zoom, source-tag, borda RoB, alinhamento citacao), 3 FPs Gemini (@media print confundido com bloco solto, "race condition" inexistente entre beats sequenciais, drop-shadow ja existente)
+- **Gemini FP confirmado S173:** @media print block misidentificado como failsafe orfao — reforca pattern conhecido (css_cascade FP)
+
+### /insights (sentinel)
+- Skills count corrigido: 19 (HANDOFF dizia 20)
+- 3 Skill() permissions mortas: loop, codex:rescue, codex:gpt-5-4-prompting
+- Hooks 38/38, agents 10/10, rules 11/11, memory 20/20 — todos OK
+- BACKLOG #9 source file possivelmente perdido (.claude/tmp/c1-result.md)
+- Inline TODOs em gemini-qa3.mjs sem espelho no BACKLOG (low priority)
+
 ## Sessao 172 — 2026-04-12 (QA-forest-final)
 
 - **s-forest1 Gate 4 DONE:** Preflight PASS (4/4 dims), Inspect PASS (1 warning readability — FP, texto e do artigo), Editorial 7.5/10 pos-calibracao

@@ -1,16 +1,16 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 172 | QA-forest-final
+> Sessao 173 | QA-forest2
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
-**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 20.** **Memory: 20/20.** **Backlog: 21 items.**
+**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 21 items.**
 
 ## P0 — Forest plot slides
 
-- **s-forest1 (Li 2026) — DONE.** Gate 4 completo (Preflight + Inspect + Editorial). Reveal 350ms.
-- **s-forest2 (Ebrahimi Cochrane) — Gate 4 PENDENTE.** 8 beats implementados. Zoom RoB calibrado.
+- **s-forest1 (Li 2026) — DONE.** Gate 4 completo (S172).
+- **s-forest2 (Ebrahimi Cochrane) — DONE.** Gate 4 completo (S173). 1 fix: failsafe badge MA.
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
@@ -62,8 +62,14 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: 6 plans untracked (5 anteriores + 1 desta sessao). Lucas decide per-file.
+- `.claude/plans/`: 8 plans untracked (7 anteriores + 1 desta sessao). Lucas decide per-file.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
 
+## INSIGHTS S173
+
+- 3 Skill() permissions mortas em settings.local.json (loop, codex:rescue, codex:gpt-5-4-prompting)
+- Skills count: 19 (HANDOFF dizia 20 — corrigido)
+- BACKLOG #9 source file possivelmente perdido (.claude/tmp/c1-result.md)
+
 ---
-Coautoria: Lucas + Opus 4.6 | S171 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S173 2026-04-13
