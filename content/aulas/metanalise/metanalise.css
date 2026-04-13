@@ -1468,16 +1468,17 @@ section#s-rob2 .slide-headline {
 section#s-rob2 .rob2-figure {
   grid-area: hero;
   min-height: 0;
+  opacity: 0;
+  will-change: opacity, transform;
 }
 
 section#s-rob2 .rob2-figure img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 100%;
   object-fit: contain;
   object-position: center top;
   mix-blend-mode: multiply;
-  opacity: 0;
-  will-change: opacity, transform;
 }
 
 /* --- Click 1: Domain table (D1-D5) --- */
@@ -1496,7 +1497,7 @@ section#s-rob2 .rob2-domain {
   color: var(--text-primary);
   line-height: 1.3;
   opacity: 0;
-  will-change: opacity, transform;
+
 }
 
 section#s-rob2 .rob2-d-num {
@@ -1536,18 +1537,15 @@ section#s-rob2 .rob2-kappa {
   flex-direction: column;
   gap: var(--space-xs);
   justify-content: center;
-  justify-self: start;
-  width: 100%;
-  max-width: 24rem;
 }
 
 section#s-rob2 .rob2-bar {
   display: grid;
-  grid-template-columns: 2.5ch 1fr auto;
-  align-items: center;
+  grid-template-columns: 2.5ch minmax(12rem, 16rem) max-content;
+  align-items: baseline;
   gap: var(--space-sm);
   opacity: 0;
-  will-change: opacity, transform;
+
 }
 
 section#s-rob2 .rob2-bar-label {
@@ -1586,6 +1584,7 @@ section#s-rob2 .rob2-val-num {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin-right: var(--space-2xs);
 }
 
 section#s-rob2 .rob2-bar-val--worst {
@@ -1626,7 +1625,7 @@ section#s-rob2 .rob2-alt {
   border-radius: 8px;
   box-shadow: none;
   opacity: 0;
-  will-change: opacity, transform;
+
 }
 
 section#s-rob2 .rob2-alt-name {
@@ -1674,4 +1673,105 @@ section#s-rob2 .source-tag {
   section#s-rob2 .rob2-bar-val {
     opacity: 1 !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════
+   s-pubbias2 — Interpretando o Funnel Plot
+   Zones calibrated via funnel-calibrator.html (S181)
+   ═══════════════════════════════════════════════════════ */
+
+section#s-pubbias2 .slide-inner {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  gap: var(--space-xs);
+}
+
+/* Neutralize base.css pseudo-elements (E005/E032) */
+section#s-pubbias2 .slide-inner::before,
+section#s-pubbias2 .slide-inner::after {
+  display: none;
+}
+
+section#s-pubbias2 .funnel-container {
+  position: relative;
+  min-height: 0;
+  aspect-ratio: 2180 / 1520;
+  max-height: 100%;
+  align-self: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+section#s-pubbias2 .funnel-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: multiply;
+}
+
+/* --- Zone overlays (calibrated coordinates) --- */
+section#s-pubbias2 .funnel-zone {
+  position: absolute;
+  border: 2px solid;
+  border-radius: 6px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: var(--space-xs);
+  opacity: 0;
+
+}
+
+section#s-pubbias2 .funnel-zone--topo {
+  left: 37.8%;
+  top: 10.8%;
+  width: 27.9%;
+  height: 18.9%;
+  background: oklch(0.64 0.17 145 / 0.12);
+  border-color: oklch(0.64 0.17 145 / 0.6);
+}
+
+section#s-pubbias2 .funnel-zone--meio {
+  left: 27%;
+  top: 29.8%;
+  width: 50%;
+  height: 24%;
+  background: oklch(0.75 0.14 85 / 0.12);
+  border-color: oklch(0.75 0.14 85 / 0.6);
+}
+
+section#s-pubbias2 .funnel-zone--base {
+  left: 18.1%;
+  top: 53.8%;
+  width: 68%;
+  height: 24.3%;
+  background: oklch(0.55 0.20 25 / 0.12);
+  border-color: oklch(0.55 0.20 25 / 0.6);
+}
+
+section#s-pubbias2 .funnel-zone-label {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 600;
+  padding: 2px 6px;
+  white-space: nowrap;
+  background: none;
+}
+
+section#s-pubbias2 .funnel-zone--topo .funnel-zone-label {
+  color: oklch(0.40 0.12 145);
+}
+
+section#s-pubbias2 .funnel-zone--meio .funnel-zone-label {
+  color: oklch(0.45 0.12 85);
+}
+
+section#s-pubbias2 .funnel-zone--base .funnel-zone-label {
+  color: oklch(0.40 0.15 25);
+}
+
+/* --- Failsafes: zones visible when GSAP unavailable --- */
+.no-js section#s-pubbias2 .funnel-zone {
+  opacity: 1 !important;
 }

@@ -530,4 +530,36 @@ export const slideRegistry = {
     slide.__hookRetreat = retreat;
     slide.__hookCurrentBeat = () => revealed;
   },
+
+  's-pubbias2': (slide, gsap) => {
+    // Click-reveal: 3 funnel plot zones (topo → meio → base)
+    const groups = [1, 2, 3];
+    let revealed = 0;
+    const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
+
+    const advance = () => {
+      if (revealed >= groups.length) return false;
+      revealed++;
+      const items = getGroup(revealed);
+      gsap.fromTo(items,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: 'power2.out' }
+      );
+      items.forEach(el => el.classList.add('revealed'));
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      const items = getGroup(revealed);
+      gsap.to(items, { opacity: 0, duration: 0.35, ease: 'power2.in' });
+      items.forEach(el => el.classList.remove('revealed'));
+      revealed--;
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
 };

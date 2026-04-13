@@ -13,6 +13,18 @@
 - **CSS:** grid 4×2 areas (header/hero+legend/kappa+cards/footer), rows 3fr/2fr
 - **Mudancas visuais:** EN text hidden, bar height 20→8px, kappa val-num com span hero, card styling limpo
 
+### Slide — s-pubbias2 (funnel plot, DRAFT)
+- **HTML:** `11b-pubbias2.html` — 3 click-reveal zones (topo/meio/base) sobre funnel plot cropado
+- **Image:** `assets/funnel-colchicine-crop.png` — Supl. Fig 12, Colchicine CVD MA 2025 (pymupdf 4x)
+- **CSS:** zonas oklch calibradas (v2 calibrator), labels sem background
+- **Registry:** `slide-registry.js` — advance/retreat closures para 3 zones
+- **Manifest:** 18 slides (was 17). Posicao: apos s-rob2, antes s-heterogeneity
+- **Calibrator:** `assets/funnel-calibrator.html` v2 — replica grid layout real do slide
+
+### CSS — s-rob2 QA integration (outro agente)
+- **Integrado:** opacity:0 migrado img→.rob2-figure, kappa grid ajustado, will-change removido (exceto .rob2-figure)
+- **Bug fix:** will-change removal em multiplos elementos (flash em transicoes GPU composite)
+
 ### Docs
 - **Memory:** feedback_research.md atualizado (regra /evidence skill obrigatoria, S174+S181)
 - **Plan:** snazzy-chasing-spark.md (S181 VIES_PUB1)

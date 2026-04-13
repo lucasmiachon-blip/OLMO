@@ -4,22 +4,22 @@
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via Node.js).
+Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 21 items.**
 
 ## P0 — s-pubbias (vies de publicacao — 2 slides novos)
 
-- **Living HTML DONE:** `evidence/s-pubbias.html` — 11 refs (6 PMID-VERIFIED + 5 DOI-VERIFIED), pesquisa 5/6 pernas (PubMed MCP down)
-- **Slides PENDENTES:** s-pubbias1 (conceitual) + s-pubbias2 (funnel plot). h2 e layout = Lucas decide.
-- **Posicao:** F2, apos s-rob2, antes de s-heterogeneity. Files: `11a-pubbias1.html`, `11b-pubbias2.html`.
-- **Funnel plot image:** Lucas decide fonte (Egger 1997 Fig.2 ou Sterne 2011).
-- **Pendente apos slides:** _manifest.js + slide-registry.js + CSS scopado + build + lint.
+- **Living HTML DONE:** `evidence/s-pubbias.html` — 11 refs (6 PMID-VERIFIED + 5 DOI-VERIFIED)
+- **s-pubbias2 DRAFT:** HTML + CSS (oklch, calibrated v2) + registry + manifest. QA pendente (Gate 4).
+- **s-pubbias1 PENDENTE:** slide conceitual. h2 e layout = Lucas decide.
+- **Posicao:** F2, apos s-rob2, antes de s-heterogeneity.
+- **Bug transicao:** will-change removido (flash em GPU composite layers). Confirmar fix.
 
-## P0 — s-rob2 (grid redesign aplicado S181)
+## P0 — s-rob2 (grid redesign + QA CSS)
 
-- **Redesign FEITO:** HTML flat (sem wrappers rob2-layout/top/bottom) + CSS grid 4 areas (header/hero+legend/kappa+cards/footer).
-- **Mudancas:** grid-template-rows 3fr/2fr, EN text hidden, bar height 20→8px, kappa val-num hero, card styling limpo.
-- **Pendente:** build + QA cycle completo (Preflight → Inspect → Editorial).
+- **Redesign FEITO:** HTML flat + CSS grid 4 areas.
+- **QA CSS (outro agente S181):** opacity:0 migrado para .rob2-figure, kappa grid ajustado, will-change mantido so em .rob2-figure.
+- **Pendente:** QA cycle completo (Preflight → Inspect → Editorial).
 - **Call D hardening pendente:** coverage audit + call tipografia/legibilidade.
 
 ## P0 — Forest plot slides
@@ -86,6 +86,7 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 - `.claude/plans/`: 13 plans untracked (12 anteriores + snazzy-chasing-spark S181). Lucas decide per-file.
 - `.claude/workers/`: workers de S178 + S181 (vies-pub-research). Lucas decide manter/remover.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
+- `assets/funnel-calibrator.html`: ferramenta calibracao zonas funnel plot (v2). Lucas decide manter/remover.
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---

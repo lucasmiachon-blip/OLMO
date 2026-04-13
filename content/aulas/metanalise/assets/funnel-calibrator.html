@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Funnel Plot Zone Calibrator v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; color: #e0e0e0; font-family: system-ui, sans-serif; }
+
+  .toolbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: #0d1117; padding: 10px 20px;
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+    border-bottom: 1px solid #333;
+  }
+  .toolbar button {
+    padding: 6px 14px; border: 1px solid #555; border-radius: 4px;
+    background: #21262d; color: #e0e0e0; cursor: pointer; font-size: 13px;
+  }
+  .toolbar button:hover { background: #30363d; }
+  .toolbar button.active { background: #238636; border-color: #2ea043; }
+  .toolbar .output {
+    flex: 1; min-width: 300px;
+    font-family: monospace; font-size: 12px; color: #7ee787;
+    background: #161b22; padding: 6px 10px; border-radius: 4px;
+    white-space: pre; overflow-x: auto; max-height: 80px;
+  }
+
+  .canvas-area {
+    margin-top: 70px;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 20px;
+  }
+
+  /* === Replicate EXACT slide layout === */
+  .slide-preview {
+    width: 1280px; height: 720px;
+    background: #fff;
+    border: 2px solid #444;
+    /* Same grid as section#s-pubbias2 .slide-inner */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 4px;
+    padding: 32px 48px 24px;
+  }
+
+  .slide-preview h2 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #1a1a2e;
+    margin: 0;
+  }
+
+  .slide-preview .source-tag {
+    font-size: 0.75rem;
+    color: #888;
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* The container where zones are positioned — matches real CSS */
+  .funnel-container {
+    position: relative;
+    min-height: 0;
+    aspect-ratio: 2180 / 1520;
+    max-height: 100%;
+    align-self: center;
+    margin: 0 auto;
+    overflow: visible; /* visible so zones can slightly exceed */
+    outline: 1px dashed rgba(100,100,255,0.3);
+  }
+
+  .funnel-container img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* Zones are now relative to .funnel-container */
+  .zone {
+    position: absolute;
+    border: 2px dashed;
+    border-radius: 6px;
+    cursor: move;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end;
+    padding-bottom: 4px;
+    font-size: 14px; font-weight: 600;
+    text-align: center;
+    user-select: none;
+  }
+
+  .zone .label {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    max-width: 95%;
+    text-align: center;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .zone .resize-handle {
+    position: absolute; bottom: -5px; right: -5px;
+    width: 14px; height: 14px;
+    background: #fff; border: 2px solid #333;
+    border-radius: 2px; cursor: nwse-resize;
+  }
+
+  .zone-topo {
+    background: rgba(46, 160, 67, 0.15);
+    border-color: rgba(46, 160, 67, 0.7);
+    color: #2ea043;
+  }
+  .zone-topo .label { background: rgba(46, 160, 67, 0.2); }
+
+  .zone-meio {
+    background: rgba(210, 153, 34, 0.15);
+    border-color: rgba(210, 153, 34, 0.7);
+    color: #d29922;
+  }
+  .zone-meio .label { background: rgba(210, 153, 34, 0.2); }
+
+  .zone-base {
+    background: rgba(218, 54, 51, 0.15);
+    border-color: rgba(218, 54, 51, 0.7);
+    color: #da3633;
+  }
+  .zone-base .label { background: rgba(218, 54, 51, 0.2); }
+
+  .help {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #0d1117; padding: 8px 20px;
+    font-size: 12px; color: #8b949e; border-top: 1px solid #333;
+  }
+  .help strong { color: #58a6ff; }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button id="btn-topo" class="active" onclick="selectZone('topo')">Topo (verde)</button>
+  <button id="btn-meio" onclick="selectZone('meio')">Meio (amarelo)</button>
+  <button id="btn-base" onclick="selectZone('base')">Base (vermelho)</button>
+  <button onclick="exportCoords()">📋 Copiar CSS</button>
+  <button onclick="resetAll()">Reset</button>
+  <div class="output" id="output">v2 — zonas relativas ao container (contorno azul tracejado). Arraste e redimensione.</div>
+</div>
+
+<div class="canvas-area">
+  <!-- Replicate exact slide structure -->
+  <div class="slide-preview">
+    <h2>Interpretando o Funnel Plot</h2>
+
+    <div class="funnel-container" id="container">
+      <img src="funnel-colchicine-crop.png" alt="Funnel plot">
+
+      <div class="zone zone-topo" id="zone-topo" data-zone="topo"
+           style="left:33%; top:5%; width:28%; height:28%;">
+        <span class="label">Menor imprecisão</span>
+        <div class="resize-handle"></div>
+      </div>
+
+      <div class="zone zone-meio" id="zone-meio" data-zone="meio"
+           style="left:22%; top:33%; width:50%; height:24%;">
+        <span class="label">Imprecisão moderada</span>
+        <div class="resize-handle"></div>
+      </div>
+
+      <div class="zone zone-base" id="zone-base" data-zone="base"
+           style="left:12%; top:57%; width:70%; height:28%;">
+        <span class="label">Estudos pequenos — alta variância, maior imprecisão</span>
+        <div class="resize-handle"></div>
+      </div>
+    </div>
+
+    <p class="source-tag">Supl. Fig. 12 — Colchicine CVD MA, Am J Cardiovasc Drugs 2025 (Egger p = 0,06)</p>
+  </div>
+</div>
+
+<div class="help">
+  <strong>v2:</strong> Layout replica o slide real (grid: h2 + container + source). Zonas relativas ao container (contorno azul). Coordenadas funcionam direto no CSS.
+</div>
+
+<script>
+/* Drag/resize relative to .funnel-container (not full slide) */
+const container = document.getElementById('container');
+const output = document.getElementById('output');
+let dragState = null;
+
+function selectZone(name) {
+  document.querySelectorAll('.toolbar button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + name).classList.add('active');
+}
+
+document.addEventListener('mousedown', (e) => {
+  const handle = e.target.closest('.resize-handle');
+  const zone = e.target.closest('.zone');
+  if (!zone) return;
+
+  e.preventDefault();
+  const rect = zone.getBoundingClientRect();
+  const cRect = container.getBoundingClientRect();
+
+  if (handle) {
+    dragState = {
+      type: 'resize', zone,
+      startX: e.clientX, startY: e.clientY,
+      startW: rect.width, startH: rect.height,
+      cW: cRect.width, cH: cRect.height
+    };
+  } else {
+    dragState = {
+      type: 'move', zone,
+      offsetX: e.clientX - rect.left,
+      offsetY: e.clientY - rect.top,
+      cRect
+    };
+  }
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!dragState) return;
+  const { zone } = dragState;
+
+  if (dragState.type === 'move') {
+    const { cRect, offsetX, offsetY } = dragState;
+    const x = e.clientX - cRect.left - offsetX;
+    const y = e.clientY - cRect.top - offsetY;
+    zone.style.left = (x / cRect.width * 100).toFixed(1) + '%';
+    zone.style.top = (y / cRect.height * 100).toFixed(1) + '%';
+    updateOutput();
+  } else if (dragState.type === 'resize') {
+    const dx = e.clientX - dragState.startX;
+    const dy = e.clientY - dragState.startY;
+    zone.style.width = Math.max(5, (dragState.startW + dx) / dragState.cW * 100).toFixed(1) + '%';
+    zone.style.height = Math.max(5, (dragState.startH + dy) / dragState.cH * 100).toFixed(1) + '%';
+    updateOutput();
+  }
+});
+
+document.addEventListener('mouseup', () => { dragState = null; });
+
+function updateOutput() {
+  const zones = document.querySelectorAll('.zone');
+  const lines = Array.from(zones).map(z => {
+    const n = z.dataset.zone;
+    return `${n}: left=${z.style.left} top=${z.style.top} w=${z.style.width} h=${z.style.height}`;
+  });
+  output.textContent = lines.join('\n');
+}
+
+function exportCoords() {
+  const zones = document.querySelectorAll('.zone');
+  const css = Array.from(zones).map(z => {
+    const n = z.dataset.zone;
+    return `.funnel-zone--${n} {\n  left: ${z.style.left};\n  top: ${z.style.top};\n  width: ${z.style.width};\n  height: ${z.style.height};\n}`;
+  }).join('\n\n');
+
+  navigator.clipboard.writeText(css).then(() => {
+    output.textContent = '✓ Copiado!\n\n' + css;
+  }).catch(() => {
+    output.textContent = css;
+  });
+}
+
+function resetAll() {
+  document.getElementById('zone-topo').style.cssText = 'left:33%;top:5%;width:28%;height:28%';
+  document.getElementById('zone-meio').style.cssText = 'left:22%;top:33%;width:50%;height:24%';
+  document.getElementById('zone-base').style.cssText = 'left:12%;top:57%;width:70%;height:28%';
+  updateOutput();
+}
+
+updateOutput();
+</script>
+</body>
+</html>
