@@ -314,10 +314,10 @@ export const slideRegistry = {
       logo.addEventListener('click', (e) => e.stopPropagation());
     }
 
-    // Click-reveal: 7 beats (same anatomy order as forest1 + Cochrane + RoB)
+    // Click-reveal: 8 beats (anatomy + MA count + Cochrane + RoB)
     // 1: CI + diamond | 2: Weight | 3: Events | 4: Studies | 5: Het
-    // 6: Cochrane logo (clipPath) | 7: RoB (highlight + zoom)
-    const MAX = 7;
+    // 6: MA count badge | 7: Cochrane logo (clipPath) | 8: RoB (highlight + zoom)
+    const MAX = 8;
     let revealed = 0;
     const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
 
@@ -325,13 +325,13 @@ export const slideRegistry = {
       if (revealed >= MAX) return false;
       revealed++;
       const items = getGroup(revealed);
-      if (revealed === 6) {
+      if (revealed === 7) {
         // Cochrane logo: clipPath curtain L→R
         gsap.fromTo(items,
           { clipPath: 'inset(0 100% 0 0)', opacity: 1 },
           { clipPath: 'inset(0 0 0 0)', duration: 0.8, ease: 'power2.inOut' }
         );
-      } else if (revealed === 7) {
+      } else if (revealed === 8) {
         // RoB: highlight + zoom toward RoB column
         gsap.fromTo(items,
           { opacity: 0 },
@@ -339,14 +339,14 @@ export const slideRegistry = {
         );
         if (annotated) {
           gsap.to(annotated, {
-            scale: 1.35,
+            scale: 2.5,
             transformOrigin: '90% 50%',
-            duration: 0.8,
-            ease: 'power2.inOut'
+            duration: 1.2,
+            ease: 'power3.inOut'
           });
         }
       } else {
-        // Beats 1-5: zone highlights (same as forest1)
+        // Beats 1-6: zone highlights + MA stat badge
         gsap.fromTo(items,
           { opacity: 0 },
           { opacity: 1, duration: 0.25, ease: 'power2.out' }
@@ -359,10 +359,10 @@ export const slideRegistry = {
     const retreat = () => {
       if (revealed <= 0) return false;
       const items = getGroup(revealed);
-      if (revealed === 7 && annotated) {
+      if (revealed === 8 && annotated) {
         gsap.to(annotated, { scale: 1, duration: 0.4, ease: 'power2.out' });
       }
-      if (revealed === 6) {
+      if (revealed === 7) {
         gsap.to(items, { clipPath: 'inset(0 100% 0 0)', duration: 0.4, ease: 'power2.in' });
       } else {
         gsap.to(items, { opacity: 0, duration: 0.25, ease: 'power2.in' });

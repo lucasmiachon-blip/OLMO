@@ -1312,15 +1312,58 @@ section#s-forest2 .forest-zone--het-2 {
   height: 4.5%;
 }
 
+/* --- Beat 6: MA count stat --- */
+section#s-forest2 .forest-ma-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  align-self: flex-start;
+  opacity: 0;
+  pointer-events: none;
+  padding: 0.25em 0.7em;
+  background: rgba(170, 51, 119, 0.08);
+  border-left: 4px solid rgba(170, 51, 119, 0.7);
+  border-radius: 3px;
+}
+section#s-forest2 .forest-ma-stat.revealed {
+  opacity: 1;
+}
+section#s-forest2 .forest-ma-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(140, 30, 90, 0.95);
+  font-variant-numeric: tabular-nums lining-nums;
+  line-height: 1;
+}
+section#s-forest2 .forest-ma-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}
+section#s-forest2 .forest-ma-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+section#s-forest2 .forest-ma-sub {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.2;
+}
+
 /* --- Cochrane logo: clipPath reveal (curtain L→R) --- */
 section#s-forest2 .cochrane-logo {
   display: inline-block;
   align-self: flex-end;
   clip-path: inset(0 100% 0 0);
+  pointer-events: none;
   line-height: 0;
 }
 section#s-forest2 .cochrane-logo.revealed {
   clip-path: inset(0 0 0 0);
+  pointer-events: auto;
 }
 section#s-forest2 .cochrane-logo img {
   height: 32px;
@@ -1344,21 +1387,11 @@ section#s-forest2 .forest-zone--rob {
 section#s-forest2 .forest-zone--rob.revealed {
   opacity: 1;
 }
-section#s-forest2 .forest-zone--rob .forest-label-tag {
-  position: absolute;
-  bottom: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(238, 170, 51, 0.92);
-  color: var(--navy);
-  font-size: 0.75rem;
-}
-
-/* RoB zone label tag */
+/* RoB zone label tag — inside zone to survive overflow:hidden + zoom */
 section#s-forest2 .forest-zone--rob .forest-label-tag {
   display: inline-block;
   position: absolute;
-  bottom: -28px;
+  bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(238, 170, 51, 0.92);

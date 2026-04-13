@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 168 | QA-FOREST
+> Sessao 170 | QA-FOREST 3
 
 ## ESTADO ATUAL
 
@@ -9,12 +9,16 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## P0 — Forest plot slides
 
-- **s-forest1 (Li 2026) — Gate 4 R1+R2 rodados.** Fixes aplicados: max-height 480→520px, diamond width 14→8%, weight-min COOL→LoDoCo (28→22%), timing 0.4→0.25s.
-  - **Pendente s-forest1:** overlay opacity (18% → ~10% ou border-only para melhor contraste). Verificar posicoes no browser (diamond, weight-min). Gemini R2 Call B alucinando coordenadas (propoe values absurdos como studies 28%) — nao confiar nos numeros de Call B.
-- **s-forest2 (Ebrahimi Cochrane) — Gate 4 pendente.** Cochrane logo: Lucas quer mover para baixo para nao entrar no zoom.
-- **Gate 4 prompts atualizados (S168):** 4 prompts (A/B/C/D) com contexto de forest plot (imagem real, reveals 1-por-vez, wall of data = intencional). Round context `qa-rounds/s-forest1.md` com status FP/addressed.
+- **s-forest1 (Li 2026) — Gate 4 R1+R2 rodados, status PENDENTE.**
+  - Pendente: overlay opacity (18% → ~10% ou border-only), verificar posicoes no browser. Gemini R2 Call B alucina coordenadas — nao confiar.
+- **s-forest2 (Ebrahimi Cochrane) — 8 beats implementados, Gate 4 pendente.**
+  - Beats: 1-5 zonas anatomicas, 6 badge "15 MAs em 14 meses", 7 Cochrane logo (clipPath), 8 RoB zoom
+  - Source-tag simplificada: "Ebrahimi et al. 2025" (sem "Cochrane" — logo ja serve)
+  - Cochrane logo: pointer-events:none ate .revealed (fix: clicks roubados pelo `<a>`)
+  - CSS regra duplicada label-tag consolidada
+  - **PENDENTE zoom RoB (beat 8):** scale+transformOrigin sozinhos nao centralizam. Solucao: combinar `scale: 2.5` + `xPercent: -40` no GSAP (math: RoB center 90% - viewport center 50% = 40% offset) + `overflow: hidden` no `.forest-fig`. Retreat desfaz ambos.
+- **Gate 4 prompts atualizados (S168).**
 - **advance/retreat FIXED (S167).**
-- **Redesign forest2 pendente:** mockup em `workers/forest2-mockup/mockup.html`.
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
@@ -50,6 +54,9 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - Benchmark `pre-reading-heterogeneidade.html` = READ-ONLY.
 - MCP freeze ate 2026-04-14 (9 frozen; PubMed/SCite/Consensus ativos).
 - Gemini FPs conhecidos: css_cascade, failsafes/@media print.
+- **clip-path nao desabilita pointer-events** — elementos clipados ainda roubam clicks. Usar pointer-events:none.
+- **overflow:hidden em flex + min-height:0** corta conteudo se flex children consomem espaco vertical demais.
+- **transform:scale() com transformOrigin nao centraliza** — so fixa o ponto. Centralizar requer translate combinado.
 
 ## BACKLOG
 
@@ -60,4 +67,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 (nenhum ativo)
 
 ---
-Coautoria: Lucas + Opus 4.6 | S168 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S170 2026-04-12

@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 170 — 2026-04-12 (QA-FOREST 3)
+
+- **s-forest2: novo beat 6 "15 MAs em 14 meses"** — badge stat entre heterogeneidade e Cochrane logo. Dados do evidence HTML (censo 15 MAs colchicina 2025-2026)
+- **s-forest2: reordenacao de beats** — 7→8 beats. Beat 6=MA stat, 7=Cochrane logo, 8=RoB zoom
+- **s-forest2: source-tag simplificada** — removido "Cochrane Database Syst Rev" (logo ja identifica)
+- **Fix: pointer-events no Cochrane logo** — `<a>` com clip-path roubava clicks via deck.js guard (line 159). Fix: pointer-events:none inicial, auto quando .revealed
+- **CSS: label-tag duplicada consolidada**, bottom:-28px→8px (dentro da zona, visivel no zoom)
+- **s-forest2: _manifest.js clickReveals 7→8**
+- PENDENTE: zoom RoB beat 8 precisa scale+translate combinados (nao so transformOrigin). Ver HANDOFF
+
 ## Sessao 168 — 2026-04-12 (QA-FOREST)
 
 - **Gate 4 editorial s-forest1 R1+R2:** Gemini 3.1 Pro, 3 calls paralelas (visual/ux+code/motion) + Call D anti-sycophancy
