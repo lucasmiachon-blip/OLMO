@@ -532,6 +532,15 @@ export const slideRegistry = {
   },
 
   's-pubbias2': (slide, gsap) => {
+    // Auto: funnel image fade-up (FOUC fix — multiply blend)
+    const container = slide.querySelector('.funnel-container');
+    if (container) {
+      gsap.fromTo(container,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
+      );
+    }
+
     // Click-reveal: 3 funnel plot zones (topo → meio → base)
     const groups = [1, 2, 3];
     let revealed = 0;

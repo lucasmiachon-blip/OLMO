@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 181 | VIES_PUB1
+> Sessao 182 | FOUC_FIX
 
 ## ESTADO ATUAL
 
@@ -13,7 +13,7 @@ Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via No
 - **s-pubbias2 DRAFT:** HTML + CSS + registry + manifest. h2 e source-tag padronizados. QA pendente (Gate 4).
 - **s-pubbias1 PENDENTE:** slide conceitual. h2 e layout = Lucas decide.
 - **Posicao:** F2, apos s-rob2, antes de s-heterogeneity.
-- **Bug FOUC pendente:** `mix-blend-mode: multiply` na img causa flash na transicao. Fix: opacity:0 CSS + GSAP auto-reveal com delay.
+- **FOUC FIXED (S182):** opacity:0 + GSAP auto-reveal + failsafes completos.
 
 ## P0 — s-rob2 (grid redesign + QA CSS)
 
@@ -21,12 +21,13 @@ Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via No
 - **QA CSS (outro agente S181):** opacity:0 em .rob2-figure, kappa-stats reestruturado (HTML), grid ajustado.
 - **GSAP fix:** target corrigido (.rob2-figure em vez de img) apos migracao opacity.
 - **Pendente:** h2 padronizar (Lucas apontou diferenca) + QA cycle completo.
+- **Failsafe bug (S182):** failsafes targetam `.rob2-figure img` mas opacity:0 vive em `.rob2-figure` — GSAP fail = imagem invisivel.
 - **Call D hardening pendente:** coverage audit + call tipografia/legibilidade.
 
 ## P0 — Forest plot slides
 
 - **s-forest1 + s-forest2 — DONE.** Gates completos (S172-S173).
-- **FOUC fix S181:** opacity:0 na img CSS + failsafes .no-js/.stage-bad/[data-qa]/@media print.
+- **FOUC fix S181+S182:** opacity:0 na img CSS + failsafes. Todos slides com mix-blend-mode corrigidos.
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 
@@ -92,4 +93,4 @@ Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via No
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S181 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S182 2026-04-13

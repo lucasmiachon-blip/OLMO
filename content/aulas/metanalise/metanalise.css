@@ -1712,6 +1712,8 @@ section#s-pubbias2 .funnel-container {
   align-self: center;
   margin: 0 auto;
   overflow: hidden;
+  opacity: 0;
+  will-change: opacity, transform;
 }
 
 section#s-pubbias2 .funnel-container img {
@@ -1782,7 +1784,18 @@ section#s-pubbias2 .funnel-zone--base .funnel-zone-label {
   color: oklch(0.40 0.15 25);
 }
 
-/* --- Failsafes: zones visible when GSAP unavailable --- */
-.no-js section#s-pubbias2 .funnel-zone {
+/* --- Failsafes: zones + container visible when GSAP unavailable --- */
+.no-js section#s-pubbias2 .funnel-zone,
+.no-js section#s-pubbias2 .funnel-container,
+.stage-bad section#s-pubbias2 .funnel-zone,
+.stage-bad section#s-pubbias2 .funnel-container,
+[data-qa] section#s-pubbias2 .funnel-zone,
+[data-qa] section#s-pubbias2 .funnel-container {
   opacity: 1 !important;
+}
+@media print {
+  section#s-pubbias2 .funnel-zone,
+  section#s-pubbias2 .funnel-container {
+    opacity: 1 !important;
+  }
 }

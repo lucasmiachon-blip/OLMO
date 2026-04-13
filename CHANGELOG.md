@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Sessao 182 — 2026-04-13 (FOUC_FIX)
+
+### Bug fix — FOUC s-pubbias2
+- **CSS:** `opacity: 0` + `will-change: opacity, transform` em `.funnel-container` (mesma pattern forest/rob2)
+- **GSAP:** auto-reveal `fromTo()` na factory `s-pubbias2` (fade+rise 0.7s antes dos click-reveals)
+- **Failsafes:** expandidos para `.funnel-container` — `.no-js`, `.stage-bad`, `[data-qa]`, `@media print`
+
 ## Sessao 181 — 2026-04-13 (VIES_PUB1)
 
 ### Evidence — Living HTML vies de publicacao
