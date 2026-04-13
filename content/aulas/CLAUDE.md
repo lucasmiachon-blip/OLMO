@@ -81,3 +81,4 @@ Cada aula segue a mesma estrutura:
 | `h2` no slide HTML | `_manifest.js` headline |
 | dados numericos | evidence HTML + speaker notes `[DATA]` tag |
 | click-reveals | `_manifest.js` clickReveals + `slide-registry.js` |
+| modelo Gemini | `scripts/gemini-qa3.mjs` + `skills/research/SKILL.md` + `docs/prompts/*.md` |

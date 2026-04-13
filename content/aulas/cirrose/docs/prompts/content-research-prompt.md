@@ -6,7 +6,7 @@
 ## Modelos
 - **Claude:** Opus 4.6 (via assinatura Max — Claude Code ou claude.ai — custo $0)
 - **Gemini:** 3.1 Pro (melhor raciocinio disponivel, $2.00/$12.00 per 1M tokens)
-- Fallback: Gemini 2.5 Pro (GA estavel, $1.25/$10.00 — trocar modelo na URI)
+- Fallback: Gemini 3-flash-preview (mais barato — trocar modelo na URI)
 
 ## Prompt Engineering — decisoes especificas pro Gemini 3.1 Pro
 

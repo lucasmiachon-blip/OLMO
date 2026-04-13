@@ -190,6 +190,518 @@
   <div class="key-takeaway"><strong>Ponto-chave:</strong> O RoB 2 e a ferramenta-padrao para todas as revisoes sistematicas Cochrane desde 2019. Entender seus dominios e pre-requisito para interpretar qualquer forest plot Cochrane com coluna RoB &mdash; como o do slide anterior (Ebrahimi 2025).</div>
 </section>
 
+<!-- ===== GUIA DOS DOMÍNIOS D1-D5 (EN/PT) ===== -->
+<section id="domain-guide">
+  <h2>Guia Detalhado dos Dominios &mdash; D1 a D5</h2>
+
+  <p><strong>Fonte primaria:</strong> Sterne 2019 (RoB 2 guidance document). Kappa por dominio: Minozzi 2020. Termos oficiais em ingles com traducao para portugues.</p>
+
+  <p><strong>Regra geral do julgamento:</strong> Cada dominio e avaliado por <strong>signaling questions</strong> (perguntas-guia) com respostas padrao (Yes / Probably yes / Probably no / No / No information). Um algoritmo converte as respostas em julgamento de dominio. O julgamento geral segue a regra do <strong>pior dominio governa</strong> (<em>worst governs overall</em>): se qualquer dominio e "High risk", o geral e "High risk". Para ser "Low risk" geral, todos os 5 devem ser "Low risk".</p>
+
+  <table>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">English</th>
+      <th scope="col">Portugues</th>
+      <th scope="col">Avalia</th>
+      <th scope="col">&kappa; (Minozzi)</th>
+      <th scope="col">Tendencia</th>
+    </tr>
+    <tr><td>D1</td><td><strong>Randomization process</strong></td><td>Processo de randomizacao</td><td>Geracao da sequencia + ocultacao da alocacao</td><td class="k-moderate">0.45</td><td>Mais objetivo &rarr; melhor &kappa;</td></tr>
+    <tr><td>D2</td><td><strong>Deviations from intended interventions</strong></td><td>Desvios da intervencao pretendida</td><td>Blinding + desvios do protocolo</td><td class="k-slight">0.04 / 0.21</td><td>Mais contextual &rarr; pior &kappa;</td></tr>
+    <tr><td>D3</td><td><strong>Missing outcome data</strong></td><td>Dados de desfecho faltantes</td><td>Attrition diferencial + dados ausentes</td><td class="k-fair">0.22</td><td>"Quanto e aceitavel?" e subjetivo</td></tr>
+    <tr><td>D4</td><td><strong>Measurement of the outcome</strong></td><td>Medicao do desfecho</td><td>Metodo de mensuracao + blinding dos avaliadores</td><td class="k-fair">0.28</td><td>Depende de outcome duro vs mole</td></tr>
+    <tr><td>D5</td><td><strong>Selection of the reported result</strong></td><td>Selecao do resultado reportado</td><td>Reporting seletivo de outcomes/analises</td><td class="k-fair">0.30</td><td>Requer acesso ao protocolo</td></tr>
+  </table>
+
+  <!-- ── D1 ── -->
+  <h3>D1 &mdash; Randomization process / Processo de randomizacao</h3>
+
+  <p><strong>O que avalia:</strong> Dois aspectos distintos &mdash; (1) se a sequencia de alocacao foi genuinamente aleatoria (<em>sequence generation</em>) e (2) se a alocacao foi ocultada ate o momento da inclusao (<em>allocation concealment</em>). Sao perguntas diferentes: uma sequencia pode ser aleatoria mas nao oculta (o investigador ve quem vai para qual grupo antes de incluir o paciente).</p>
+
+  <p><strong>Signaling questions-chave:</strong></p>
+  <table>
+    <tr><th scope="col">#</th><th scope="col">Pergunta (simplificada)</th><th scope="col">O que busca</th></tr>
+    <tr><td>1.1</td><td>A sequencia de alocacao era aleatoria?</td><td>Computador, tabela de numeros aleatorios &mdash; vs dia da semana, numero do prontuario</td></tr>
+    <tr><td>1.2</td><td>A alocacao era oculta ate o momento da inclusao?</td><td>Envelopes opacos selados, farmacia central &mdash; vs lista aberta</td></tr>
+    <tr><td>1.3</td><td>Diferencas basais sugerem problemas na randomizacao?</td><td>Desbalancos que nao seriam esperados por acaso</td></tr>
+  </table>
+
+  <table>
+    <tr><th scope="col">Julgamento</th><th scope="col">EN</th><th scope="col">Criterio</th><th scope="col">Exemplo clinico</th></tr>
+    <tr>
+      <td><strong>&#9786;</strong></td>
+      <td><strong>Low risk</strong></td>
+      <td>Sequencia computadorizada + alocacao oculta (farmacia central ou sistema web)</td>
+      <td>Trial de atorvastatina vs placebo. Randomizacao por SAS PROC PLAN, alocacao por sistema eletronico centralizado (IVRS). Grupos basais equilibrados.</td>
+    </tr>
+    <tr>
+      <td><strong>&#9888;</strong></td>
+      <td><strong>Some concerns</strong></td>
+      <td>Metodo descrito como "random" sem detalhar; ou sem informacao sobre concealment</td>
+      <td>"Patients were randomly assigned..." sem especificar metodo. Envelopes mencionados mas nao descritos como opacos ou selados.</td>
+    </tr>
+    <tr>
+      <td><strong>&#10005;</strong></td>
+      <td><strong>High risk</strong></td>
+      <td>Alocacao previsivel ou manipulavel</td>
+      <td>Alocacao por numero de prontuario (par/impar), dia da semana, ou alternancia. Ou: desbalanco basal incompativel com randomizacao adequada.</td>
+    </tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Por que D1 tem o melhor &kappa; (0.45):</strong> E o dominio mais <em>mecanico</em>. A randomizacao ou foi computadorizada ou nao. A alocacao ou foi central ou nao. Ha pouco espaco para julgamento contextual &mdash; o avaliador checa fatos reportados, nao interpreta nuances clinicas.</div>
+
+  <details>
+    <summary>Avancado: Quando D1 engana</summary>
+    <p>Mesmo com &kappa; moderado, D1 nao e infalivel. Dois cenarios:</p>
+    <p><strong>1. Reporting incompleto:</strong> Muitos artigos dizem "randomly assigned" sem detalhar o metodo. O avaliador deve julgar: "No information" = "Some concerns"? Ou "Low risk" porque e um journal de alto impacto e o peer review provavelmente verificou? Essa inferencia baseada em reputacao e subjetiva.</p>
+    <p><strong>2. Prevalencia de "low risk":</strong> Em RCTs modernos publicados em bons journals, a grande maioria (70-90%) usa randomizacao computadorizada. Quando quase todos sao "low risk", o &kappa; pode ser artificialmente deflacionado pelo paradoxo da prevalencia (ver secao Kappa abaixo). Parte do &kappa;=0.45 pode refletir prevalencia, nao discordancia real.</p>
+  </details>
+
+  <!-- ── D2 ── -->
+  <h3>D2 &mdash; Deviations from intended interventions / Desvios da intervencao pretendida</h3>
+
+  <p><strong>O que avalia:</strong> Se houve desvios do protocolo que poderiam afetar o resultado &mdash; incluindo falhas de blinding, co-intervencoes nao planejadas, crossover entre grupos, e nao-aderencia. E o <strong>unico dominio com dois caminhos</strong> (sub-avaliacoes) dependendo do estimando de interesse:</p>
+
+  <table>
+    <tr><th scope="col">Caminho</th><th scope="col">EN</th><th scope="col">Estimando</th><th scope="col">Analise tipica</th><th scope="col">&kappa; (Minozzi)</th></tr>
+    <tr><td><strong>A</strong></td><td>Effect of assignment</td><td>Efeito de ser <em>designado</em> para a intervencao (intencao de tratar)</td><td>ITT</td><td class="k-slight"><strong>0.04</strong></td></tr>
+    <tr><td><strong>B</strong></td><td>Effect of adhering</td><td>Efeito de <em>aderir</em> a intervencao (per-protocol)</td><td>Per-protocol, CACE</td><td class="k-fair">0.21</td></tr>
+  </table>
+
+  <p><strong>Signaling questions-chave (caminho A &mdash; effect of assignment):</strong></p>
+  <table>
+    <tr><th scope="col">#</th><th scope="col">Pergunta (simplificada)</th><th scope="col">O que busca</th></tr>
+    <tr><td>2.1</td><td>Participantes sabiam a que grupo pertenciam?</td><td>Open-label vs blinded</td></tr>
+    <tr><td>2.2</td><td>Cuidadores sabiam a alocacao?</td><td>Pode influenciar co-intervencoes</td></tr>
+    <tr><td>2.3</td><td>Houve desvios do protocolo alem do que seria esperado?</td><td>Crossover, co-intervencoes, quebra de cegamento</td></tr>
+    <tr><td>2.6</td><td>A analise foi compativel com o estimando (ITT)?</td><td>Exclusao pos-randomizacao sem justificativa = vies</td></tr>
+  </table>
+
+  <table>
+    <tr><th scope="col">Julgamento</th><th scope="col">EN</th><th scope="col">Criterio</th><th scope="col">Exemplo clinico</th></tr>
+    <tr>
+      <td><strong>&#9786;</strong></td>
+      <td><strong>Low risk</strong></td>
+      <td>Duplo-cego efetivo + sem desvios relevantes + ITT</td>
+      <td>Trial de colchicina vs placebo em IAM. Comprimidos identicos, cegamento verificado, 2% de crossover em ambos os grupos. Analise ITT.</td>
+    </tr>
+    <tr>
+      <td><strong>&#9888;</strong></td>
+      <td><strong>Some concerns</strong></td>
+      <td>Open-label mas desvios improvaveis de afetar desfecho</td>
+      <td>Trial open-label de metformina vs sulfonilureia. Desfecho primario: HbA1c (laboratorial, nao influenciado por conhecimento da alocacao). Alguns pacientes adicionaram insulina em ambos os grupos.</td>
+    </tr>
+    <tr>
+      <td><strong>&#10005;</strong></td>
+      <td><strong>High risk</strong></td>
+      <td>Open-label + desvios substanciais + desfecho influenciavel</td>
+      <td>Trial de cirurgia vs tratamento conservador para lombalgia. Open-label. 32% do grupo conservador migrou para cirurgia. Desfecho: dor (subjetivo, influenciado pelo desmascaramento). Analise "as-treated" em vez de ITT.</td>
+    </tr>
+  </table>
+
+  <div class="caveat"><strong>Por que D2 tem o pior &kappa; (0.04):</strong> A pergunta-chave &mdash; "os desvios foram <em>substanciais o suficiente</em> para afetar o resultado?" &mdash; exige julgamento clinico contextual. O que e "substancial" depende do desfecho (morte vs QoL), da intervencao (farmaco vs cirurgia), e da populacao. Dois avaliadores com experiencias clinicas diferentes chegarao a conclusoes diferentes sobre o mesmo estudo &mdash; e ambos estarao "corretos" dentro de suas premissas.</div>
+
+  <details>
+    <summary>Avancado: A bifurcacao assignment/adhering como fonte de confusao</summary>
+    <p>O RoB 2 e o unico tool de vies que exige que o avaliador declare o <strong>estimando de interesse</strong> (effect of assignment ou effect of adhering) <em>antes</em> de avaliar. Isso e conceitualmente elegante mas operacionalmente confuso:</p>
+    <p><strong>Problema 1:</strong> Muitos revisores nao distinguem entre os dois estimandos. A pergunta "qual e o efeito de <em>receber</em> vs <em>aderir a</em> um tratamento?" e fundamental em epidemiologia causal, mas nao e intuitiva para clinicos treinados principalmente em interpretacao de resultados.</p>
+    <p><strong>Problema 2:</strong> O mesmo estudo pode ser "low risk" no caminho A (ITT) e "high risk" no caminho B (per-protocol), ou vice-versa. Se o avaliador escolhe o caminho errado para a pergunta da meta-analise, o julgamento pode ser inaplicavel.</p>
+    <p><strong>Problema 3:</strong> Minozzi 2020 encontrou &kappa;=0.04 no caminho A e &kappa;=0.21 no caminho B. Mesmo o caminho "melhor" (B, &kappa;=0.21) tem concordancia apenas <em>razoavel</em>. A complexidade da bifurcacao adiciona ruido sem produzir concordancia aceitavel em nenhum dos dois caminhos.</p>
+  </details>
+
+  <!-- ── D3 ── -->
+  <h3>D3 &mdash; Missing outcome data / Dados de desfecho faltantes</h3>
+
+  <p><strong>O que avalia:</strong> Se os dados de desfecho estao disponiveis para todos (ou quase todos) os participantes randomizados. Foco em <strong>attrition diferencial</strong> (<em>differential dropout</em>) &mdash; perdas que diferem entre grupos em magnitude ou razao, especialmente quando a razao esta relacionada ao desfecho.</p>
+
+  <p><strong>Signaling questions-chave:</strong></p>
+  <table>
+    <tr><th scope="col">#</th><th scope="col">Pergunta (simplificada)</th><th scope="col">O que busca</th></tr>
+    <tr><td>3.1</td><td>Os dados de desfecho estao disponiveis para todos os randomizados?</td><td>Proporcao de missing por grupo</td></tr>
+    <tr><td>3.2</td><td>Ha evidencia de que o resultado nao foi enviesado por dados faltantes?</td><td>Analise de sensibilidade, padrao de missing</td></tr>
+    <tr><td>3.3</td><td>O missing poderia depender do valor real do desfecho?</td><td>Missing informativo vs aleatorio (MCAR/MAR/MNAR)</td></tr>
+  </table>
+
+  <table>
+    <tr><th scope="col">Julgamento</th><th scope="col">EN</th><th scope="col">Criterio</th><th scope="col">Exemplo clinico</th></tr>
+    <tr>
+      <td><strong>&#9786;</strong></td>
+      <td><strong>Low risk</strong></td>
+      <td>Dados completos ou quase (&lt;5% missing), equilibrado entre grupos, razoes nao relacionadas ao desfecho</td>
+      <td>Trial de 500 pacientes. 12 perdas (2.4%): 7 intervencao, 5 controle. Razoes: mudanca de cidade (4), recusa de retorno sem relacao com o tratamento (8). Analise ITT com imputacao por ultimo valor.</td>
+    </tr>
+    <tr>
+      <td><strong>&#9888;</strong></td>
+      <td><strong>Some concerns</strong></td>
+      <td>5-20% missing, alguma assimetria, mas analise de sensibilidade suporta robustez</td>
+      <td>18% de perdas no grupo droga (inclui 4% por efeitos adversos), 10% no placebo. Analise de sensibilidade com cenarios extremos (best-case / worst-case) nao altera direcao do resultado.</td>
+    </tr>
+    <tr>
+      <td><strong>&#10005;</strong></td>
+      <td><strong>High risk</strong></td>
+      <td>&gt;20% missing, ou diferencial com razao ligada ao desfecho, sem analise de sensibilidade</td>
+      <td>28% de perdas no grupo quimioterapia (15% por toxicidade/obito), 6% no controle (mudanca de centro). Sem analise de sensibilidade. Resultado final pode refletir so os que toleraram o tratamento.</td>
+    </tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Conceito-chave &mdash; missing informativo (MNAR):</strong> O dado mais perigoso e aquele que falta <em>porque</em> o paciente piorou &mdash; saiu do estudo por toxicidade, morreu antes da visita, ou estava muito debilitado para completar o questionario. Nesse caso, o dado ausente esta sistematicamente associado ao desfecho, e ignora-lo superestima o beneficio do tratamento. A sigla e <strong>MNAR</strong> (<em>Missing Not At Random</em>) &mdash; o oposto de <strong>MCAR</strong> (<em>Missing Completely At Random</em>), onde a ausencia e independente do desfecho.</div>
+
+  <details>
+    <summary>Intermediario: As tres categorias de dados faltantes</summary>
+    <table>
+      <tr><th scope="col">Sigla</th><th scope="col">EN</th><th scope="col">Portugues</th><th scope="col">Significado</th><th scope="col">Exemplo</th></tr>
+      <tr><td><strong>MCAR</strong></td><td>Missing Completely At Random</td><td>Faltante completamente ao acaso</td><td>O dado falta por razao totalmente independente do tratamento e do desfecho</td><td>Tubo de sangue quebrou no laboratorio. Paciente mudou de cidade.</td></tr>
+      <tr><td><strong>MAR</strong></td><td>Missing At Random</td><td>Faltante ao acaso (condicional)</td><td>O dado falta por razao ligada a variaveis <em>observadas</em>, mas nao ao valor do desfecho em si</td><td>Pacientes mais velhos faltam mais a visitas (idade e observada e pode ser ajustada).</td></tr>
+      <tr><td><strong>MNAR</strong></td><td>Missing Not At Random</td><td>Faltante nao ao acaso</td><td>O dado falta por razao ligada ao <em>proprio valor do desfecho</em></td><td>Paciente com dor intensa para de responder questionario de dor. Paciente que piora morre antes da visita de seguimento.</td></tr>
+    </table>
+    <p><strong>Regra pratica:</strong> MCAR = inofensivo (so perde potencia). MAR = controlavel (metodos de imputacao ajudam). MNAR = perigoso (nenhum metodo estatistico corrige completamente, porque o dado que falta e exatamente o que voce precisaria saber).</p>
+  </details>
+
+  <!-- ── D4 ── -->
+  <h3>D4 &mdash; Measurement of the outcome / Medicao do desfecho</h3>
+
+  <p><strong>O que avalia:</strong> Se o metodo de mensuracao do desfecho pode ter sido influenciado pelo conhecimento da alocacao. Avalia tanto o <strong>metodo</strong> (objetivo vs subjetivo) quanto o <strong>avaliador</strong> (cego vs nao-cego).</p>
+
+  <p><strong>Conceito central &mdash; desfecho "duro" vs "mole" (<em>hard vs soft outcome</em>):</strong></p>
+  <table>
+    <tr><th scope="col">Tipo</th><th scope="col">EN</th><th scope="col">Exemplos</th><th scope="col">Influenciavel por desmascaramento?</th></tr>
+    <tr><td><strong>Duro</strong></td><td><em>Hard outcome</em></td><td>Morte por qualquer causa, IAM (com troponina), AVC (com imagem)</td><td>Nao ou minimamente &mdash; o evento e objetivamente verificavel</td></tr>
+    <tr><td><strong>Intermediario</strong></td><td><em>Semi-hard</em></td><td>Hospitalizacao, fratura, rejeicao de transplante</td><td>Parcialmente &mdash; a decisao de internar pode ser influenciada</td></tr>
+    <tr><td><strong>Mole</strong></td><td><em>Soft outcome</em></td><td>Qualidade de vida (PRO), dor (EVA), "melhora clinica", satisfacao</td><td>Altamente &mdash; paciente e medico cientes da alocacao mudam respostas</td></tr>
+  </table>
+
+  <p><strong>Signaling questions-chave:</strong></p>
+  <table>
+    <tr><th scope="col">#</th><th scope="col">Pergunta (simplificada)</th><th scope="col">O que busca</th></tr>
+    <tr><td>4.1</td><td>O metodo de mensuracao e inadequado?</td><td>Instrumento nao validado, impreciso</td></tr>
+    <tr><td>4.2</td><td>A mensuracao poderia diferir entre grupos?</td><td>Frequencia diferente de visitas, exames diferentes</td></tr>
+    <tr><td>4.3</td><td>Os avaliadores do desfecho sabiam a alocacao?</td><td>Blinding dos outcome assessors</td></tr>
+    <tr><td>4.4</td><td>A avaliacao poderia ter sido influenciada pelo conhecimento da alocacao?</td><td>Desfechos subjetivos + assessores desmascarados</td></tr>
+  </table>
+
+  <table>
+    <tr><th scope="col">Julgamento</th><th scope="col">EN</th><th scope="col">Criterio</th><th scope="col">Exemplo clinico</th></tr>
+    <tr>
+      <td><strong>&#9786;</strong></td>
+      <td><strong>Low risk</strong></td>
+      <td>Desfecho hard (morte, lab) OU blinded central adjudication</td>
+      <td>Desfecho primario: mortalidade por todas as causas. Verificacao por registros de obito + comite adjudicador cego a alocacao.</td>
+    </tr>
+    <tr>
+      <td><strong>&#9888;</strong></td>
+      <td><strong>Some concerns</strong></td>
+      <td>Desfecho subjetivo + avaliadores nao-cegos MAS usando criterios padronizados</td>
+      <td>Desfecho: resposta PASI 90 em psoriase. Avaliadores nao-cegos mas usando escala padronizada com criterios fotograficos de referencia.</td>
+    </tr>
+    <tr>
+      <td><strong>&#10005;</strong></td>
+      <td><strong>High risk</strong></td>
+      <td>Desfecho soft + avaliadores desmascarados + sem padronizacao</td>
+      <td>Desfecho: "melhora clinica global" avaliada pelo medico assistente (open-label). Sem escala padronizada. O conhecimento de que o paciente recebeu a droga experimental enviesa o julgamento.</td>
+    </tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Regra pratica:</strong> Quando o desfecho e "duro" (morte, IAM laboratorial), D4 quase sempre e "low risk" &mdash; independentemente do blinding. Por isso, mortalidade por todas as causas e o desfecho preferido em meta-analises: e resistente a vies de mensuracao. Quando o desfecho e "mole", D4 depende criticamente do blinding dos avaliadores.</div>
+
+  <!-- ── D5 ── -->
+  <h3>D5 &mdash; Selection of the reported result / Selecao do resultado reportado</h3>
+
+  <p><strong>O que avalia:</strong> Se o resultado reportado foi selecionado, entre varios possiveis, com base nos achados. Tres formas de selecao: (1) entre multiplos desfechos medidos, (2) entre multiplas analises do mesmo desfecho, (3) entre multiplos time points.</p>
+
+  <p><strong>Signaling questions-chave:</strong></p>
+  <table>
+    <tr><th scope="col">#</th><th scope="col">Pergunta (simplificada)</th><th scope="col">O que busca</th></tr>
+    <tr><td>5.1</td><td>Os dados foram analisados de acordo com um plano pre-especificado?</td><td>Protocolo registrado antes dos resultados</td></tr>
+    <tr><td>5.2</td><td>O resultado numerico pode ter sido selecionado entre multiplas analises?</td><td>ITT vs per-protocol vs subgrupo &mdash; qual foi reportado?</td></tr>
+    <tr><td>5.3</td><td>O resultado pode ter sido selecionado entre multiplas medidas do desfecho?</td><td>Varias escalas para o mesmo conceito (ex: 3 escalas de depressao)</td></tr>
+  </table>
+
+  <table>
+    <tr><th scope="col">Julgamento</th><th scope="col">EN</th><th scope="col">Criterio</th><th scope="col">Exemplo clinico</th></tr>
+    <tr>
+      <td><strong>&#9786;</strong></td>
+      <td><strong>Low risk</strong></td>
+      <td>Protocolo pre-registrado + todos outcomes pre-especificados reportados + analise conforme SAP</td>
+      <td>Protocolo em ClinicalTrials.gov registrado 6 meses antes do inicio. SAP publicado antes do database lock. Todos os 4 desfechos primarios e 8 secundarios reportados conforme planejado.</td>
+    </tr>
+    <tr>
+      <td><strong>&#9888;</strong></td>
+      <td><strong>Some concerns</strong></td>
+      <td>Protocolo existe mas ha discrepancias menores; ou protocolo nao acessivel</td>
+      <td>Protocolo registrado. 6 de 8 outcomes secundarios reportados. 2 ausentes eram exploratorios. Desfecho primario e analise principal consistentes com registro.</td>
+    </tr>
+    <tr>
+      <td><strong>&#10005;</strong></td>
+      <td><strong>High risk</strong></td>
+      <td>Evidencia clara de reporting seletivo</td>
+      <td>Protocolo lista HbA1c em 12 meses como desfecho primario. Publicacao reporta HbA1c em 6 meses (resultado favoravel, p=0.03) e relega 12 meses ao suplemento (nao significativo, p=0.41). Sem explicacao para a mudanca.</td>
+    </tr>
+  </table>
+
+  <div class="caveat"><strong>Armadilha pratica:</strong> D5 depende de acesso ao protocolo/registro. Se o trial nao foi registrado (raro apos 2005, mais comum em trials antigos), o avaliador nao tem referencia para comparar. Nesses casos, a avaliacao e "Some concerns" por padrao &mdash; trials mais antigos recebem julgamento mais conservador que trials recentes, mesmo que nao tenham cometido reporting seletivo.</div>
+
+  <details>
+    <summary>Avancado: A era ClinicalTrials.gov e o que mudou</summary>
+    <p>O ICMJE (International Committee of Medical Journal Editors) exige registro prospectivo de trials desde 2005 para publicacao em journals membros. Desde entao, a verificacao de D5 tornou-se mais factivel &mdash; mas nao trivial.</p>
+    <p><strong>Problema persistente:</strong> Registro retrospectivo (apos inicio do recrutamento), registro com descricao vaga dos desfechos, e atualizacoes do registro durante o estudo (sem documentacao de data/razao) ainda permitem selecao sutil que o avaliador pode nao detectar.</p>
+    <p><strong>Ferramentas:</strong> ClinicalTrials.gov Results Database, WHO ICTRP (<em>International Clinical Trials Registry Platform</em>), e a funcao "History of Changes" nos registros. O avaliador diligente verifica nao so o registro atual, mas as versoes historicas.</p>
+  </details>
+
+  <!-- ── Ranking de tendência a "low risk" ── -->
+  <h3>Qual dominio classifica mais como "low risk"?</h3>
+
+  <p>A distribuicao de julgamentos por dominio nao e uniforme. Baseado na logica dos dominios e nos dados empiricos (Minozzi 2020, Guelimi 2025):</p>
+
+  <table>
+    <tr><th scope="col">Ranking</th><th scope="col">Dominio</th><th scope="col">Tendencia "low risk"</th><th scope="col">Razao</th></tr>
+    <tr>
+      <td><strong>1 (mais "low risk")</strong></td>
+      <td>D1 &mdash; Randomization</td>
+      <td>Alta (RCTs modernos)</td>
+      <td>Randomizacao computadorizada e padrao desde ~2000. A maioria dos RCTs publicados em bons journals usa metodos adequados.</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td>D4 &mdash; Measurement</td>
+      <td>Alta quando desfecho e "duro"</td>
+      <td>Mortalidade, IAM, AVC com confirmacao laboratorial/imagem sao resistentes a vies de mensuracao. Quando o desfecho e objetivo, D4 e quase automaticamente "low risk".</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td>D5 &mdash; Selective reporting</td>
+      <td>Moderada-alta (pos-2005)</td>
+      <td>Registro prospectivo obrigatorio (ICMJE 2005) torna verificacao mais facil. Mas discrepancias sutis persistem.</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td>D3 &mdash; Missing data</td>
+      <td>Variavel</td>
+      <td>Depende da duracao do follow-up e da doenca. Trials curtos (semanas) = menos perdas. Trials longos (anos, oncologia) = mais attrition.</td>
+    </tr>
+    <tr>
+      <td><strong>5 (menos "low risk")</strong></td>
+      <td>D2 &mdash; Deviations</td>
+      <td>Baixa</td>
+      <td>A maioria dos RCTs tem algum nivel de desvio do protocolo. Open-label trials (comuns em cirurgia, reabilitacao) tem D2 quase sempre &ge; "Some concerns".</td>
+    </tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Padrao geral:</strong> Quanto mais <em>mecanico</em> o dominio (D1, D4 com hard outcomes), mais "low risk". Quanto mais <em>contextual</em> o julgamento (D2, D3 em trials longos), mais "some concerns" ou "high risk". Isso espelha exatamente o ranking de &kappa;: mecanico &rarr; concordancia alta, contextual &rarr; concordancia baixa.</div>
+</section>
+
+<!-- ===== KAPPA: ESTATÍSTICA OBJETIVA ===== -->
+<section id="kappa-guide">
+  <h2>Kappa de Cohen &mdash; Estatistica Objetiva</h2>
+
+  <p class="meta">Fontes: Cohen 1960 (paper original), Fleiss 1971 (extensao multi-rater), Landis &amp; Koch 1977 (escala de interpretacao), Feinstein &amp; Cicchetti 1990 (paradoxo da prevalencia). Material de referencia estatistico estabelecido.</p>
+
+  <h3>Basico: O que &kappa; mede</h3>
+
+  <p>O <strong>kappa de Cohen (&kappa;)</strong> responde uma pergunta simples: <em>"Quanto da concordancia observada entre dois avaliadores e real (nao devida ao acaso)?"</em></p>
+
+  <p><strong>A formula conceitual:</strong></p>
+  <table>
+    <tr><td style="font-size:1.1rem; text-align:center;"><strong>&kappa; = (P<sub>o</sub> &minus; P<sub>e</sub>) / (1 &minus; P<sub>e</sub>)</strong></td></tr>
+  </table>
+  <table>
+    <tr><td><strong>P<sub>o</sub></strong></td><td>Proporcao de concordancia <strong>observada</strong> (quantos casos os avaliadores classificaram igual)</td></tr>
+    <tr><td><strong>P<sub>e</sub></strong></td><td>Proporcao de concordancia <strong>esperada por acaso</strong> (quantos concordariam jogando moedas com as mesmas probabilidades)</td></tr>
+    <tr><td><strong>1 &minus; P<sub>e</sub></strong></td><td>O <strong>espaco disponivel</strong> para concordancia alem do acaso (o denominador &mdash; o maximo que &kappa; pode atingir)</td></tr>
+  </table>
+
+  <p><strong>Em linguagem humana:</strong> "De toda a concordancia que <em>poderia existir</em> alem do acaso, quanto foi <em>realmente alcancada</em>?"</p>
+
+  <h3>Intermediario: O que &kappa; = 0.20 realmente significa (com numeros)</h3>
+
+  <p><strong>Cenario concreto:</strong> 2 avaliadores, 100 RCTs, julgamento binario (Low risk / High risk).</p>
+
+  <table>
+    <tr><th scope="col"></th><th scope="col">Avaliador B: Low</th><th scope="col">Avaliador B: High</th><th scope="col">Total</th></tr>
+    <tr><td><strong>Avaliador A: Low</strong></td><td><strong>30</strong></td><td>20</td><td>50</td></tr>
+    <tr><td><strong>Avaliador A: High</strong></td><td>20</td><td><strong>30</strong></td><td>50</td></tr>
+    <tr><td><strong>Total</strong></td><td>50</td><td>50</td><td>100</td></tr>
+  </table>
+
+  <p><strong>Passo 1 &mdash; Concordancia observada (P<sub>o</sub>):</strong></p>
+  <p>Concordam em 30 + 30 = <strong>60 de 100</strong>. P<sub>o</sub> = 0.60.</p>
+
+  <p><strong>Passo 2 &mdash; Concordancia esperada por acaso (P<sub>e</sub>):</strong></p>
+  <p>A classifica 50% como Low, B tambem 50% como Low. Se fossem independentes (sem comunicacao), concordariam em "Low" por acaso em 50% &times; 50% = 25%. Analogamente, concordariam em "High" por acaso em 50% &times; 50% = 25%. Total por acaso: P<sub>e</sub> = 0.25 + 0.25 = <strong>0.50</strong>.</p>
+
+  <p><strong>Passo 3 &mdash; Kappa:</strong></p>
+  <p>&kappa; = (0.60 &minus; 0.50) / (1 &minus; 0.50) = 0.10 / 0.50 = <strong>0.20</strong></p>
+
+  <p><strong>Interpretacao objetiva:</strong> "Os avaliadores concordam em 60% dos casos. Mas 50% dessa concordancia e esperada por acaso (moedas equilibradas). Dos 50 pontos percentuais de concordancia que <em>poderiam</em> existir alem do acaso, apenas 10 foram alcancados &mdash; ou seja, <strong>20% do potencial</strong>."</p>
+
+  <div class="caveat"><strong>Outra forma de dizer:</strong> Em 100 estudos, 60 receberam o mesmo julgamento dos dois avaliadores. Mas 50 desses 60 teriam concordado <em>de qualquer forma, por acaso</em>. A concordancia "real" (alem do acaso) e de apenas <strong>10 estudos em 100</strong>. E o maximo possivel seria 50. Entao &kappa; = 10/50 = 0.20.</div>
+
+  <h3>Escala de Landis &amp; Koch (1977) &mdash; com interpretacao pratica</h3>
+
+  <table class="kappa-table">
+    <tr>
+      <th scope="col">&kappa;</th>
+      <th scope="col">Classificacao</th>
+      <th scope="col">% do potencial</th>
+      <th scope="col">O que significa na pratica</th>
+    </tr>
+    <tr>
+      <td class="k-poor">&lt; 0.00</td>
+      <td>Pobre (<em>poor</em>)</td>
+      <td>Negativo</td>
+      <td>Os avaliadores divergem sistematicamente: o que A chama de "low", B chama de "high". Sugere criterios opostos ou definicoes diferentes.</td>
+    </tr>
+    <tr>
+      <td class="k-slight">0.00 &ndash; 0.20</td>
+      <td>Ligeira (<em>slight</em>)</td>
+      <td>0 &ndash; 20%</td>
+      <td>Concordancia marginal acima do acaso. O instrumento pode ter problemas de definicao, ou os avaliadores nao estao calibrados. <strong>D2 do RoB 2 (&kappa;=0.04) esta aqui.</strong></td>
+    </tr>
+    <tr>
+      <td class="k-fair">0.21 &ndash; 0.40</td>
+      <td>Razoavel (<em>fair</em>)</td>
+      <td>21 &ndash; 40%</td>
+      <td>Concordam nos casos faceis, divergem nos dificeis. <strong>D3 (0.22), D4 (0.28), D5 (0.30)</strong> do RoB 2 estao aqui. Serve para triagem grosseira, mas julgamentos individuais sao pouco confiaveis.</td>
+    </tr>
+    <tr>
+      <td class="k-moderate">0.41 &ndash; 0.60</td>
+      <td>Moderada (<em>moderate</em>)</td>
+      <td>41 &ndash; 60%</td>
+      <td>Concordancia majoritaria. <strong>D1 do RoB 2 (&kappa;=0.45) esta aqui</strong> &mdash; o melhor dominio. A maioria dos casos gera o mesmo julgamento; discordancia concentra-se nos ambiguos.</td>
+    </tr>
+    <tr>
+      <td class="k-substantial">0.61 &ndash; 0.80</td>
+      <td>Substancial (<em>substantial</em>)</td>
+      <td>61 &ndash; 80%</td>
+      <td>Dois avaliadores chegam ao mesmo resultado na grande maioria. E o patamar considerado <strong>clinicamente aceitavel</strong> para instrumentos diagnosticos. Nenhum dominio do RoB 2 atinge esta faixa.</td>
+    </tr>
+    <tr>
+      <td class="k-perfect">0.81 &ndash; 1.00</td>
+      <td>Quase perfeita (<em>almost perfect</em>)</td>
+      <td>81 &ndash; 100%</td>
+      <td>Concordancia excepcional. Reservada para medidas muito objetivas (hemoglobina automatizada, diagnostico anatomopatologico com criterios claros). Instrumentos baseados em julgamento clinico raramente atingem.</td>
+    </tr>
+  </table>
+
+  <div class="key-takeaway"><strong>O ponto critico:</strong> O patamar <em>clinicamente aceitavel</em> para instrumentos diagnosticos e &kappa; &ge; 0.61 (substancial). <strong>Nenhum dominio do RoB 2 atinge esse patamar.</strong> O melhor dominio (D1, randomizacao) esta em 0.45 (moderado). O pior (D2, desvios) esta em 0.04 (ligeiro). A ferramenta-padrao para avaliar vies em meta-analises Cochrane opera abaixo do limiar que consideramos aceitavel para diagnosticos clinicos.</div>
+
+  <details>
+    <summary>Avancado: Kappa ponderado vs nao-ponderado</summary>
+
+    <p>O RoB 2 usa 3 categorias <strong>ordinais</strong>: Low risk &rarr; Some concerns &rarr; High risk. A distancia entre "Low" e "Some concerns" e menor que entre "Low" e "High risk". O &kappa; nao-ponderado ignora essa ordenacao:</p>
+
+    <table>
+      <tr><th scope="col">Tipo de &kappa;</th><th scope="col">Como trata discordancia</th><th scope="col">Exemplo</th></tr>
+      <tr>
+        <td><strong>Nao-ponderado</strong> (Cohen, Fleiss)</td>
+        <td>Toda discordancia = penalidade total (1.0)</td>
+        <td>"Low" vs "Some concerns" = mesma penalidade que "Low" vs "High risk"</td>
+      </tr>
+      <tr>
+        <td><strong>Ponderado linear</strong></td>
+        <td>Penalidade proporcional a distancia ordinal</td>
+        <td>"Low" vs "Some" = penalidade 0.5; "Low" vs "High" = penalidade 1.0</td>
+      </tr>
+      <tr>
+        <td><strong>Ponderado quadratico</strong></td>
+        <td>Penalidade proporcional ao quadrado da distancia</td>
+        <td>"Low" vs "Some" = penalidade 0.25; "Low" vs "High" = penalidade 1.0</td>
+      </tr>
+    </table>
+
+    <p><strong>Consequencia pratica:</strong> O &kappa; ponderado quadratico e <em>sempre</em> &ge; &kappa; nao-ponderado para dados ordinais. Se Minozzi tivesse usado &kappa; ponderado quadratico, os valores seriam mais altos &mdash; possivelmente 0.10-0.15 para D2 em vez de 0.04.</p>
+
+    <h4>Matriz de pesos (quadratico) para 3 categorias</h4>
+    <table>
+      <tr><th scope="col"></th><th scope="col">Low</th><th scope="col">Some</th><th scope="col">High</th></tr>
+      <tr><td><strong>Low</strong></td><td>1.00 (concordancia)</td><td>0.75 (parcial)</td><td>0.00 (discordancia total)</td></tr>
+      <tr><td><strong>Some</strong></td><td>0.75</td><td>1.00</td><td>0.75</td></tr>
+      <tr><td><strong>High</strong></td><td>0.00</td><td>0.75</td><td>1.00</td></tr>
+    </table>
+    <p class="meta">Peso = 1 &minus; (distancia / max_distancia)&sup2;. Low&harr;Some: 1 &minus; (1/2)&sup2; = 0.75. Low&harr;High: 1 &minus; (2/2)&sup2; = 0.00.</p>
+
+    <h4>Exemplo numerico comparativo</h4>
+    <p>100 estudos, 3 categorias (L = Low, S = Some concerns, H = High):</p>
+    <table>
+      <tr><th scope="col"></th><th scope="col">B: Low</th><th scope="col">B: Some</th><th scope="col">B: High</th><th scope="col">Total</th></tr>
+      <tr><td><strong>A: Low</strong></td><td>30</td><td>8</td><td>2</td><td>40</td></tr>
+      <tr><td><strong>A: Some</strong></td><td>5</td><td>20</td><td>10</td><td>35</td></tr>
+      <tr><td><strong>A: High</strong></td><td>1</td><td>7</td><td>17</td><td>25</td></tr>
+      <tr><td><strong>Total</strong></td><td>36</td><td>35</td><td>29</td><td>100</td></tr>
+    </table>
+    <p><strong>Resultado:</strong> &kappa; nao-ponderado &asymp; 0.47 (moderado); &kappa; ponderado quadratico &asymp; 0.62 (substancial). <strong>A mesma tabela de dados pode ser "moderada" ou "substancial"</strong> dependendo da escolha do &kappa;.</p>
+
+    <p><strong>Por que Minozzi escolheu Fleiss' &kappa; (nao-ponderado):</strong></p>
+    <p><strong>1. Razao tecnica:</strong> Fleiss' &kappa; e a extensao natural para &gt;2 avaliadores (Minozzi usou 4). O Cohen's &kappa; (incluindo versao ponderada) e para exatamente 2 avaliadores.</p>
+    <p><strong>2. Razao clinica (deliberada):</strong> Em avaliacao de vies de pesquisa, a diferenca entre "Some concerns" e "High risk" tem consequencia clinica direta. Um estudo com "Some concerns" pode nao levar a rebaixamento GRADE; um com "High risk" provavelmente leva. Tratar essa discordancia como "parcial" (ponderacao) subestimaria o impacto real da divergencia.</p>
+
+    <div class="key-takeaway"><strong>Regra para interpretar papers que reportam &kappa;:</strong> Sempre verifique se usaram &kappa; ponderado ou nao-ponderado. Ponderado quadratico &asymp; ICC (<em>intraclass correlation coefficient</em>). Nao-ponderado e mais conservador. Comparar &kappa; ponderado de um estudo com &kappa; nao-ponderado de outro e como comparar odds ratio com risco relativo &mdash; tecnicamente incorreto.</div>
+  </details>
+
+  <details>
+    <summary>Avancado: Paradoxo da prevalencia (Feinstein &amp; Cicchetti 1990)</summary>
+
+    <p>O &kappa; tem uma armadilha contra-intuitiva: quando a <strong>prevalencia</strong> de uma categoria e muito alta ou muito baixa, o &kappa; pode ser artificialmente baixo mesmo com alta concordancia percentual.</p>
+
+    <h4>Por que isso acontece</h4>
+    <p>Se 95% dos estudos sao "low risk" para D1 (randomizacao), dois avaliadores concordariam em ~90% dos casos <em>so por acaso</em> &mdash; porque quase tudo e "low risk" de qualquer forma. O &kappa; desconta essa concordancia trivial. O que sobra (a concordancia "dificil") e um denominador pequeno, e qualquer discordancia o penaliza brutalmente.</p>
+
+    <h4>Exemplo numerico: mesma concordancia, &kappa; muito diferente</h4>
+
+    <p><strong>Cenario 1 &mdash; prevalencia alta (95% "low risk"):</strong></p>
+    <table>
+      <tr><th scope="col"></th><th scope="col">B: Low</th><th scope="col">B: High</th><th scope="col">Total</th></tr>
+      <tr><td><strong>A: Low</strong></td><td>90</td><td>5</td><td>95</td></tr>
+      <tr><td><strong>A: High</strong></td><td>3</td><td>2</td><td>5</td></tr>
+      <tr><td><strong>Total</strong></td><td>93</td><td>7</td><td>100</td></tr>
+    </table>
+    <p>P<sub>o</sub> = (90+2)/100 = <strong>0.92</strong> | P<sub>e</sub> = (95&times;93 + 5&times;7)/10000 = <strong>0.887</strong> | &kappa; = (0.92&minus;0.887)/(1&minus;0.887) = <strong>0.29</strong></p>
+
+    <p><strong>Cenario 2 &mdash; prevalencia equilibrada (50/50):</strong></p>
+    <table>
+      <tr><th scope="col"></th><th scope="col">B: Low</th><th scope="col">B: High</th><th scope="col">Total</th></tr>
+      <tr><td><strong>A: Low</strong></td><td>45</td><td>4</td><td>49</td></tr>
+      <tr><td><strong>A: High</strong></td><td>4</td><td>47</td><td>51</td></tr>
+      <tr><td><strong>Total</strong></td><td>49</td><td>51</td><td>100</td></tr>
+    </table>
+    <p>P<sub>o</sub> = (45+47)/100 = <strong>0.92</strong> | P<sub>e</sub> = (49&times;49 + 51&times;51)/10000 = <strong>0.50</strong> | &kappa; = (0.92&minus;0.50)/(1&minus;0.50) = <strong>0.84</strong></p>
+
+    <div class="caveat"><strong>Mesma concordancia percentual (92%), mas &kappa; = 0.29 vs 0.84.</strong> A prevalencia desigual "comeu" 0.55 pontos de &kappa;. O primeiro cenario parece "razoavel", o segundo "quase perfeito" &mdash; com a mesma taxa de acerto.</div>
+
+    <p><strong>Implicacao para o RoB 2:</strong></p>
+    <p>No dominio D1 (randomizacao), a maioria dos RCTs modernos e "low risk" (prevalencia alta de uma categoria). Parte do &kappa;=0.45 de Minozzi pode refletir o paradoxo da prevalencia &mdash; a concordancia real pode ser <em>melhor</em> do que 0.45 sugere.</p>
+    <p>No dominio D2 (desvios), a distribuicao de julgamentos e mais equilibrada (mistura de Low/Some/High). O paradoxo tem menor impacto &mdash; o &kappa;=0.04 e provavelmente uma estimativa mais fidedigna da concordancia real. O problema de D2 <em>nao</em> e prevalencia &mdash; e discordancia genuina.</p>
+
+    <h4>PABAK &mdash; uma correcao imperfeita (Byrt 1993)</h4>
+    <p>O <strong>PABAK</strong> (<em>Prevalence-Adjusted Bias-Adjusted Kappa</em>) tenta corrigir o paradoxo:</p>
+    <table>
+      <tr><td style="font-size:1.1rem; text-align:center;"><strong>PABAK = 2P<sub>o</sub> &minus; 1</strong></td></tr>
+    </table>
+    <p>No cenario 1: PABAK = 2 &times; 0.92 &minus; 1 = <strong>0.84</strong> &mdash; igual ao &kappa; com prevalencia equilibrada. A correcao "restaura" o valor esperado.</p>
+    <p><strong>Limitacao:</strong> O PABAK remove <em>toda</em> informacao sobre prevalencia e vies do avaliador. Em contextos onde a prevalencia e clinicamente relevante (como "a maioria dos RCTs realmente tem randomizacao adequada"), remover seu efeito pode ser enganoso. O PABAK e util como <em>check</em> complementar, nao como substituto do &kappa;.</p>
+  </details>
+
+  <details>
+    <summary>Avancado: Fleiss' &kappa; &mdash; extensao para multiplos avaliadores</summary>
+    <p>O &kappa; de Cohen funciona para <strong>exatamente 2 avaliadores</strong>. Quando ha 3+ avaliadores (como Minozzi 2020 com 4), usa-se o <strong>Fleiss' &kappa;</strong> (Fleiss 1971).</p>
+    <p><strong>Diferenca conceitual:</strong> Cohen's &kappa; pergunta "estes dois avaliadores <em>especificos</em> concordam?". Fleiss' &kappa; pergunta "avaliadores <em>aleatorios desta populacao</em> de avaliadores concordariam?".</p>
+    <p><strong>Propriedade importante:</strong> Fleiss' &kappa; e geralmente <strong>mais baixo</strong> que Cohen's &kappa; para os mesmos dados, porque captura a variabilidade entre <em>todos os pares possiveis</em> de avaliadores, nao apenas um par especifico. Quando Minozzi reporta &kappa;=0.04 para D2, e o Fleiss' &kappa; &mdash; o Cohen's &kappa; para pares especificos de avaliadores pode ser maior (ou menor).</p>
+    <p><strong>Implicacao:</strong> Os valores de Minozzi 2020 sao conservadores (Fleiss', nao-ponderado, multi-rater). Se outro estudo reportar Cohen's &kappa; ponderado para D2 com valor mais alto, nao significa que D2 tem concordancia melhor &mdash; pode significar apenas que usaram uma metrica menos conservadora. Sempre comparar &kappa; com a mesma metrica.</p>
+  </details>
+
+  <details>
+    <summary>Avancado: ICC vs &kappa; &mdash; quando usar cada um</summary>
+    <p>O <strong>ICC</strong> (<em>Intraclass Correlation Coefficient</em>) e o <strong>&kappa;</strong> medem concordancia, mas para tipos de dados diferentes:</p>
+    <table>
+      <tr><th scope="col">Metrica</th><th scope="col">Tipo de dado</th><th scope="col">Quando usar</th></tr>
+      <tr><td><strong>&kappa; (Cohen, Fleiss)</strong></td><td>Categorico (nominal ou ordinal)</td><td>Low/Some/High, diagnostico sim/nao, classificacao em categorias discretas</td></tr>
+      <tr><td><strong>ICC</strong></td><td>Continuo ou ordinal tratado como continuo</td><td>Scores numericos (PASI, escala de dor 0-10), medidas repetidas</td></tr>
+      <tr><td><strong>&kappa; ponderado quadratico</strong></td><td>Ordinal</td><td>Equivalente matematico ao ICC para dados ordinais (Fleiss &amp; Cohen 1973)</td></tr>
+    </table>
+    <p><strong>Armadilha:</strong> Artigos que reportam "ICC = 0.60" para concordancia de RoB 2 estao usando os julgamentos ordinais como se fossem continuos. Isso e matematicamente equivalente ao &kappa; ponderado quadratico &mdash; e portanto gera valores mais altos que o &kappa; nao-ponderado. Ao comparar resultados entre estudos, sempre verifique qual metrica foi usada.</p>
+  </details>
+</section>
+
 <!-- ===== CONFIABILIDADE INTER-AVALIADOR ===== -->
 <section id="reliability">
   <h2>Confiabilidade Inter-Avaliador: O Problema Central</h2>
@@ -556,7 +1068,7 @@
 </section>
 
 <footer>
-  <p><strong>Coautoria:</strong> Lucas Peres Miachon + Opus 4.6 (orquestrador) + Gemini 2.5 Deep Think + PubMed MCP + SCite MCP</p>
+  <p><strong>Coautoria:</strong> Lucas Peres Miachon + Opus 4.6 (orquestrador) + Gemini 3.1-pro-preview + PubMed MCP + SCite MCP</p>
   <p>S174 criado &mdash; 2026-04-13 | Evidence benchmark: pre-reading-heterogeneidade.html | Pipeline: 4 pernas (Gemini + Evidence Researcher + SCite gap-fill + Gemini gap-fill)</p>
 </footer>
 

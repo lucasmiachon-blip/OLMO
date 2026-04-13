@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 175 — 2026-04-13 (BUILD-S-ROB2)
+
+### Evidence HTML — s-rob2.html enriched
+- **Guia D1-D5 bilíngue (EN/PT):** signaling questions-chave, tabela Low/Some concerns/High com exemplos clínicos concretos, armadilhas por domínio
+- **Ranking de tendência "low risk":** D1 (mais mecânico) → D2 (mais contextual, menos low risk)
+- **Kappa estatística objetiva:** exemplo numérico κ=0.20 passo-a-passo, escala Landis & Koch com % do potencial, mapeamento aos domínios RoB 2
+- **Kappa avançado:** ponderado vs não-ponderado (matriz de pesos, Fleiss vs Cohen), paradoxo da prevalência (mesmo 92% concordância → κ=0.29 vs 0.84), PABAK, ICC vs κ
+- **MCAR/MAR/MNAR:** categorias de dados faltantes explicadas (D3)
+- **h2 decidido:** "Avaliação de vieses de estudo — RoB 2 e além"
+- **Layout decidido:** 3 clicks, kappa = ator não protagonista
+
+### Fix — Gemini model drift (sistêmico)
+- Root cause: nenhum registro único do modelo Gemini; nome espalhado em 7+ arquivos
+- `evidence/s-rob2.html` footer: "Gemini 2.5 Deep Think" → "Gemini 3.1-pro-preview"
+- `cirrose/docs/prompts/content-research-prompt.md`: "Gemini 2.5 Pro" → "Gemini 3-flash-preview"
+- `aulas/CLAUDE.md` propagation map: nova linha "modelo Gemini → 3 locais canônicos"
+- Memory wiki: modelo canônico registrado em project_tooling_pipeline.md
+- HANDOFF: CUIDADO adicionado ("NUNCA escrever Gemini 2.5")
+
 ## Sessao 174 — 2026-04-13 (ROB2)
 
 ### Research — s-rob2 pipeline completo

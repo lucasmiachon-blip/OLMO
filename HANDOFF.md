@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 174 | ROB2
+> Sessao 175 | BUILD-S-ROB2
 
 ## ESTADO ATUAL
 
@@ -9,11 +9,11 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## P0 — s-rob2 (novo slide)
 
-- **Evidence HTML DONE:** `evidence/s-rob2.html` — 12 papers (7 VERIFIED, 5 CANDIDATE), pre-reading 3 camadas, conceitos avancados, speaker notes
-- **Crop DONE:** `assets/rob2-ebrahimi-crop.png` (1250x951 @ 600 DPI, composited via PyMuPDF+PIL)
-- **Pendente:** slide HTML (`slides/08c-rob2.html`), CSS (`section#s-rob2`), _manifest.js, build
-- **h2:** Lucas decide
-- **Decisoes pendentes:** N de click-reveals, layout final, h2
+- **Evidence HTML ENRICHED (S175):** domínios D1-D5 bilíngues (EN/PT) com exemplos Low/Some/High, kappa estatística objetiva (ponderado, prevalência, Fleiss, ICC), ranking de fragilidade
+- **Crop DONE:** `assets/rob2-ebrahimi-crop.png` (1250x951 @ 600 DPI)
+- **h2 DECIDIDO:** "Avaliação de vieses de estudo — RoB 2 e além"
+- **Layout DECIDIDO:** 3 clicks (domínios → panorama limitações → alternativas). Kappa = ator, não protagonista
+- **Pendente:** slide HTML (`slides/08c-rob2.html`), CSS (`section#s-rob2`), _manifest.js, slide-registry.js, build
 
 ## P0 — Forest plot slides
 
@@ -46,6 +46,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Docling = caminho canonico para PDFs (S162).**
 - **Animacoes forest slides (S163→S165):** zonas coloridas + Cochrane clipPath + RoB zoom. Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
 - **OKLCH obrigatorio (S171):** rgba/rgb PROIBIDO em CSS novo/editado. Tabela Tol→OKLCH no metanalise.css.
+- **Gemini model canonical (S175):** Pro = `gemini-3.1-pro-preview`, Flash = `gemini-3-flash-preview`. Propagation map em `aulas/CLAUDE.md`.
 
 ## CUIDADOS
 
@@ -59,10 +60,12 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **overflow:hidden em flex + min-height:0** corta conteudo se flex children consomem espaco vertical demais.
 - **transform:scale() com transformOrigin nao centraliza** — so fixa o ponto. Centralizar requer translate combinado.
 - **KBP-18 (S171):** NAO editar mecanicamente — verificar formato da linha inteira contra regras carregadas. NAO insistir na mesma estrategia falhada — 1 falha = repensar abordagem.
+- **NUNCA escrever "Gemini 2.5"** — modelo obsoleto, recorrente por training data LLM. Canonical: `gemini-3.1-pro-preview`.
 
 ## BACKLOG
 
 → `.claude/BACKLOG.md` (21 items; #10 RESOLVED S156, #12 RESOLVED S158, #17-20 novos)
+- **Candidato backlog:** hook guard para grep "Gemini 2\." em arquivos novos (enforcement automatico)
 
 ## CONFLITOS
 
@@ -70,8 +73,9 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: 9 plans untracked (8 anteriores + 1 desta sessao). Lucas decide per-file.
+- `.claude/plans/`: 9 plans untracked (8 anteriores + 1 de S174). Lucas decide per-file.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
+- `agents/ai_update/ai_update_agent.py:112`: registra "Gemini 2.0" — stale (Python agent, baixa prioridade).
 
 ---
-Coautoria: Lucas + Opus 4.6 | S174 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S175 2026-04-13
