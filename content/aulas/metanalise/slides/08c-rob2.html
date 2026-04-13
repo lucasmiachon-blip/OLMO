@@ -2,64 +2,58 @@
   <div class="slide-inner">
     <h2 class="slide-headline">Avaliação de vieses de estudo — RoB 2 e além</h2>
 
-    <div class="rob2-layout">
-      <div class="rob2-top">
-        <!-- Visual anchor: RoB 2 traffic light (auto fade-in on enter) -->
-        <div class="rob2-figure">
-          <img src="assets/rob2-ebrahimi-crop.png"
-               alt="Semáforo RoB 2: 8 RCTs avaliados em 5 domínios — Ebrahimi 2025">
-        </div>
+    <!-- Visual anchor: RoB 2 traffic light (auto fade-in on enter) -->
+    <div class="rob2-figure">
+      <img src="assets/rob2-ebrahimi-crop.png"
+           alt="Semáforo RoB 2: 8 RCTs avaliados em 5 domínios — Ebrahimi 2025">
+    </div>
 
-        <!-- Click 1: D1-D5 domain table (compact 5×2) -->
-        <div class="rob2-domains">
-          <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D1</span> Randomização <span class="rob2-d-en">Randomization process</span></div>
-          <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D2</span> Desvios da intervenção <span class="rob2-d-en">Deviations from intended interventions</span></div>
-          <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D3</span> Dados faltantes <span class="rob2-d-en">Missing outcome data</span></div>
-          <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D4</span> Medição do desfecho <span class="rob2-d-en">Measurement of the outcome</span></div>
-          <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D5</span> Seleção do resultado <span class="rob2-d-en">Selection of the reported result</span></div>
-          <p class="rob2-rule" data-reveal="1">Pior domínio governa o julgamento geral</p>
-        </div>
+    <!-- Click 1: D1-D5 domain table -->
+    <div class="rob2-domains">
+      <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D1</span> Randomização <span class="rob2-d-en">Randomization process</span></div>
+      <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D2</span> Desvios da intervenção <span class="rob2-d-en">Deviations from intended interventions</span></div>
+      <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D3</span> Dados faltantes <span class="rob2-d-en">Missing outcome data</span></div>
+      <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D4</span> Medição do desfecho <span class="rob2-d-en">Measurement of the outcome</span></div>
+      <div class="rob2-domain" data-reveal="1"><span class="rob2-d-num">D5</span> Seleção do resultado <span class="rob2-d-en">Selection of the reported result</span></div>
+      <p class="rob2-rule" data-reveal="1">Pior domínio governa o julgamento geral</p>
+    </div>
+
+    <!-- Click 2: kappa concordance bars (ranked D1→D2, worst arrives last) -->
+    <div class="rob2-kappa">
+      <div class="rob2-bar" data-reveal="2">
+        <span class="rob2-bar-label">D1</span>
+        <span class="rob2-bar-fill rob2-bar--d1"></span>
+        <span class="rob2-bar-val"><span class="rob2-val-num">0,45</span> moderada</span>
       </div>
-
-      <div class="rob2-bottom">
-        <!-- Click 2: kappa concordance bars (ranked D1→D2, worst arrives last) -->
-        <div class="rob2-kappa">
-          <div class="rob2-bar" data-reveal="2">
-            <span class="rob2-bar-label">D1</span>
-            <span class="rob2-bar-fill rob2-bar--d1"></span>
-            <span class="rob2-bar-val">0,45 moderada</span>
-          </div>
-          <div class="rob2-bar" data-reveal="2">
-            <span class="rob2-bar-label">D4</span>
-            <span class="rob2-bar-fill rob2-bar--d4"></span>
-            <span class="rob2-bar-val">0,28 razoável</span>
-          </div>
-          <div class="rob2-bar" data-reveal="2">
-            <span class="rob2-bar-label">D3</span>
-            <span class="rob2-bar-fill rob2-bar--d3"></span>
-            <span class="rob2-bar-val">0,22 razoável</span>
-          </div>
-          <div class="rob2-bar" data-reveal="2">
-            <span class="rob2-bar-label">D2</span>
-            <span class="rob2-bar-fill rob2-bar--d2"></span>
-            <span class="rob2-bar-val rob2-bar-val--worst">0,04 ligeira</span>
-          </div>
-          <p class="rob2-kappa-note" data-reveal="2">Mais contextual → pior concordância inter-avaliador</p>
-        </div>
-
-        <!-- Click 3: emerging alternatives -->
-        <div class="rob2-alts">
-          <div class="rob2-alt" data-reveal="3">
-            <span class="rob2-alt-name">ROBUST-RCT</span>
-            <span class="rob2-alt-detail">Wang 2025, BMJ — simplificação</span>
-          </div>
-          <div class="rob2-alt" data-reveal="3">
-            <span class="rob2-alt-name">ROBINS-I V2</span>
-            <span class="rob2-alt-detail">Sterne 2025, Cochrane — especialização</span>
-          </div>
-          <p class="rob2-alt-trend" data-reveal="3">Tendência: simplificar + especializar</p>
-        </div>
+      <div class="rob2-bar" data-reveal="2">
+        <span class="rob2-bar-label">D4</span>
+        <span class="rob2-bar-fill rob2-bar--d4"></span>
+        <span class="rob2-bar-val"><span class="rob2-val-num">0,28</span> razoável</span>
       </div>
+      <div class="rob2-bar" data-reveal="2">
+        <span class="rob2-bar-label">D3</span>
+        <span class="rob2-bar-fill rob2-bar--d3"></span>
+        <span class="rob2-bar-val"><span class="rob2-val-num">0,22</span> razoável</span>
+      </div>
+      <div class="rob2-bar" data-reveal="2">
+        <span class="rob2-bar-label">D2</span>
+        <span class="rob2-bar-fill rob2-bar--d2"></span>
+        <span class="rob2-bar-val rob2-bar-val--worst"><span class="rob2-val-num">0,04</span> ligeira</span>
+      </div>
+      <p class="rob2-kappa-note" data-reveal="2">Mais contextual → pior concordância inter-avaliador</p>
+    </div>
+
+    <!-- Click 3: emerging alternatives -->
+    <div class="rob2-alts">
+      <div class="rob2-alt" data-reveal="3">
+        <span class="rob2-alt-name">ROBUST-RCT</span>
+        <span class="rob2-alt-detail">Wang 2025, BMJ — simplificação</span>
+      </div>
+      <div class="rob2-alt" data-reveal="3">
+        <span class="rob2-alt-name">ROBINS-I V2</span>
+        <span class="rob2-alt-detail">Sterne 2025, Cochrane — especialização</span>
+      </div>
+      <p class="rob2-alt-trend" data-reveal="3">Tendência: simplificar + especializar</p>
     </div>
 
     <p class="source-tag">Sterne 2019 (RoB 2) · Minozzi 2020 (κ) · Wang 2025 (ROBUST-RCT)</p>

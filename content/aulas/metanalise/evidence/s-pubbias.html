@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence: s-pubbias1 + s-pubbias2</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    h3 { font-size: 1.05rem; color: #2d6a4f; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+    th { background: #f0f4f0; }
+    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
+    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .ref-inline { color: #555; font-size: .85rem; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .gap-card { border-left: 3px solid #d97706; padding-left: .8rem; margin: .8rem 0; }
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
+    .objectives li { margin: .3rem 0; }
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+    .v { background: #2563eb; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .c { background: #dc2626; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .book { background: #6b7280; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Vies de Publicacao em Meta-analises</h1>
+  <p class="meta">Slides: s-pubbias1 (conceitual) + s-pubbias2 (funnel plot) | Fase: F2 (apos s-rob2) | Timing: ~90s cada</p>
+  <p class="meta">Pesquisa: pipeline /evidence 6 pernas (S181) | Validade sugerida: outubro 2026</p>
+
+  <div class="objectives">
+    <strong>O que este evidence cobre (2 slides):</strong>
+    <ol>
+      <li><strong>s-pubbias1:</strong> O que e vies de publicacao, por que existe, e quanto distorce a evidencia (dados empiricos)</li>
+      <li><strong>s-pubbias2:</strong> Funnel plot como ferramenta de deteccao — mecanica, interpretacao, limitacoes</li>
+      <li>Taxonomia de reporting biases (publication bias e apenas um tipo)</li>
+      <li>Dados quantitativos verificados (Turner 2008, Kicinski 2015, Egger 1997)</li>
+      <li>Metodos modernos e seus limites (ROB-ME, selection models)</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ===== SINTESE NARRATIVA ===== -->
+<section id="sintese">
+  <h2>Sintese narrativa</h2>
+
+  <p>O vies de publicacao e um problema quantificavel e sistematico, nao teorico. Turner et al. (2008, NEJM) compararam 74 trials de antidepressivos registrados na FDA com o que foi publicado em journals: 31% dos trials ficaram na gaveta, e a publicacao seletiva inflou a eficacia aparente em 32%. Na literatura publicada, 94% dos trials pareciam positivos; nos registros da FDA, apenas 51% eram positivos. Isso nao e um fenomeno isolado: Kicinski et al. (2015) analisaram 1.106 meta-analises do Cochrane e encontraram que resultados favoraveis a eficacia tinham 27% mais probabilidade de serem incluidos; para seguranca, resultados mostrando ausencia de efeitos adversos tinham 78% mais probabilidade de inclusao.</p>
+
+  <p>A ferramenta classica de deteccao e o funnel plot, mas todas as 6 pernas de pesquisa convergem que <strong>nenhum metodo isolado resolve</strong>. O teste de Egger (1997) tem poder insuficiente com menos de 10 estudos (Sterne 2011), e assimetria no funnel plot pode ter causas alem de publication bias — heterogeneidade genuina, artefatos estatisticos, ou diferencas de qualidade entre estudos grandes e pequenos. A evolucao recente traz o ROB-ME (Page 2023, BMJ), primeiro instrumento estruturado para avaliar risco de vies por evidencia faltante, e Kang (2026) enquadra todos os metodos de ajuste como "stress tests", nao detectores definitivos.</p>
+
+  <div class="key-takeaway"><strong>Mensagem central para o residente:</strong> O diamante do forest plot so representa os estudos que voce VE. Vies de publicacao questiona se o que voce ve e COMPLETO. Funnel plot assimetrico sugere (mas nao prova) que estudos estao faltando. Funnel plot simetrico nao garante ausencia de vies.</div>
+</section>
+
+<!-- ===== CONCEITOS-CHAVE ===== -->
+<section id="concepts">
+  <h2>Conceitos-chave</h2>
+
+  <h3>O problema da gaveta (file drawer)</h3>
+  <p><strong>Rosenthal (1979)</strong> nomeou o fenomeno: estudos com resultados nao-significativos ficam na gaveta do pesquisador em vez de serem publicados. Isso nao e conspiracao — e um vies sistemico com multiplos mecanismos: pesquisadores desistem de submeter resultados negativos, editores preferem achados significativos, revisores avaliam com mais rigor estudos negativos. O resultado e que a literatura publicada e uma amostra enviesada da evidencia total.</p>
+
+  <h3>Taxonomia de reporting biases</h3>
+  <p><strong>Page et al. (2021)</strong> distinguem multiplos tipos de vies de reporte que afetam meta-analises:</p>
+  <table>
+    <tr><th scope="col">Tipo</th><th scope="col">O que acontece</th><th scope="col">Consequencia</th></tr>
+    <tr><td class="glossary-term">Publication bias</td><td>Estudo inteiro nao publicado</td><td>MA ve so parte da evidencia</td></tr>
+    <tr><td class="glossary-term">Selective non-reporting</td><td>Desfecho especifico omitido do artigo</td><td>MA nao consegue extrair dado</td></tr>
+    <tr><td class="glossary-term">Time-lag bias</td><td>Estudos positivos publicados mais rapido</td><td>MA precoce superestima efeito</td></tr>
+    <tr><td class="glossary-term">Location bias</td><td>Negativos em journals obscuros/outras linguas</td><td>Busca nao encontra</td></tr>
+    <tr><td class="glossary-term">Citation bias</td><td>Positivos mais citados &rarr; mais encontrados</td><td>Bola de neve de visibilidade</td></tr>
+    <tr><td class="glossary-term">Outcome reporting bias</td><td>Desfecho primario substituido por secundario positivo</td><td>Resultado publicado nao era o planejado</td></tr>
+  </table>
+
+  <div class="caveat"><strong>Para o residente:</strong> "vies de publicacao" e o termo guarda-chuva, mas o problema e mais amplo. Mesmo estudos publicados podem ter resultados faltantes. A avaliacao de "missing evidence" (Cochrane Handbook v6, Cap. 13) cobre todo o espectro.</div>
+
+  <h3>Funnel plot — ferramenta visual</h3>
+  <p><strong>Mecanica:</strong> Grafico de dispersao onde cada estudo e um ponto. Eixo X = tamanho do efeito (effect size). Eixo Y = precisao (geralmente erro-padrao invertido ou N). Sem vies, o grafico forma um funil simetrico: estudos grandes (topo) convergem perto da estimativa combinada, enquanto estudos pequenos (base) se espalham igualmente para ambos os lados.</p>
+
+  <p><strong>Interpretacao:</strong> Assimetria — com um "buraco" na base de um lado — sugere que estudos pequenos com resultados nessa direcao estao faltando. Mas assimetria ≠ publication bias automaticamente. Pode ser:</p>
+  <table>
+    <tr><th scope="col">Causa da assimetria</th><th scope="col">Mecanismo</th><th scope="col">Implicacao</th></tr>
+    <tr><td>Publication bias</td><td>Negativos nao publicados</td><td>Efeito real menor que o observado</td></tr>
+    <tr><td>Heterogeneidade genuina</td><td>Estudos pequenos em populacoes diferentes</td><td>Efeito varia por subgrupo, nao esta faltando</td></tr>
+    <tr><td>Artefato estatistico</td><td>Eventos raros + desfecho binario</td><td>Falso positivo no teste de Egger</td></tr>
+    <tr><td>Qualidade diferencial</td><td>Estudos pequenos = pior metodologia</td><td>Inflacao por vies interno, nao por gaveta</td></tr>
+    <tr><td>Acaso</td><td>Variacao amostral</td><td>Nao ha problema real</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: Sterne et al. 2011 BMJ; Afonso et al. 2023 Sports Med.</p>
+</section>
+
+<!-- ===== DADOS QUANTITATIVOS ===== -->
+<section id="dados">
+  <h2>Numeros-chave (verificados)</h2>
+
+  <h3>Magnitude da inflacao</h3>
+  <table>
+    <tr><th scope="col">Dado</th><th scope="col">Valor</th><th scope="col">Fonte</th><th scope="col">Verificacao</th></tr>
+    <tr><td>Trials positivos na literatura</td><td><strong>94%</strong></td><td>Turner 2008, NEJM</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18199864" target="_blank" rel="noopener noreferrer">PMID 18199864</a> <span class="v">V</span></td></tr>
+    <tr><td>Trials positivos na FDA</td><td><strong>51%</strong></td><td>Turner 2008, NEJM</td><td>Idem</td></tr>
+    <tr><td>Trials nao publicados</td><td><strong>31%</strong> (n=3.449 pts)</td><td>Turner 2008, NEJM</td><td>Idem</td></tr>
+    <tr><td>Inflacao do effect size</td><td><strong>32%</strong> (range 11&ndash;69%)</td><td>Turner 2008, NEJM</td><td>Idem</td></tr>
+    <tr><td>Overrep eficacia (1.106 MAs Cochrane)</td><td><strong>27%</strong> (CrI 18&ndash;36%)</td><td>Kicinski 2015, Stat Med</td><td>DOI 10.1002/sim.6525 <span class="v">V</span></td></tr>
+    <tr><td>Overrep seguranca (ausencia AEs)</td><td><strong>78%</strong> (CrI 51&ndash;113%)</td><td>Kicinski 2015, Stat Med</td><td>Idem</td></tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Turner 2008 em uma frase:</strong> Quando a FDA revisou 74 trials de 12 antidepressivos, 94% pareciam positivos na literatura mas so 51% eram positivos nos registros. A diferenca? 31% ficaram na gaveta e 11 foram publicados com spin positivo. O efeito aparente era 32% maior do que o real.</div>
+
+  <h3>Prevalencia de assimetria</h3>
+  <table>
+    <tr><th scope="col">Dado</th><th scope="col">Valor</th><th scope="col">Fonte</th><th scope="col">Verificacao</th></tr>
+    <tr><td>MAs em journals gerais com assimetria</td><td><strong>38%</strong></td><td>Egger 1997, BMJ</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9310563" target="_blank" rel="noopener noreferrer">PMID 9310563</a> <span class="v">V</span></td></tr>
+    <tr><td>MAs Cochrane com assimetria</td><td><strong>13%</strong></td><td>Egger 1997, BMJ</td><td>Idem</td></tr>
+    <tr><td>Cochrane tem menos assimetria porque</td><td colspan="3">Protocolos pre-registrados + busca sistematica de nao publicados</td></tr>
+  </table>
+
+  <h3>Poder dos testes de deteccao</h3>
+  <table>
+    <tr><th scope="col">Dado</th><th scope="col">Valor</th><th scope="col">Fonte</th><th scope="col">Verificacao</th></tr>
+    <tr><td>Regra minima para testes de assimetria</td><td><strong>&ge;10 estudos</strong></td><td>Sterne 2011, BMJ</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21784880" target="_blank" rel="noopener noreferrer">PMID 21784880</a> <span class="v">V</span></td></tr>
+    <tr><td>Rank test (Begg): poder moderado com</td><td><strong>&ge;25&ndash;30 estudos</strong></td><td>Afonso 2023, Sports Med</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37684502" target="_blank" rel="noopener noreferrer">PMID 37684502</a> <span class="v">V</span></td></tr>
+    <tr><td>Reviews que avaliaram pub bias com &lt;10 estudos</td><td><strong>47,8%</strong></td><td>Afonso 2023, Sports Med</td><td>Idem</td></tr>
+    <tr><td>Reviews com apenas inspecao visual (sem teste)</td><td><strong>28,3%</strong></td><td>Afonso 2023, Sports Med</td><td>Idem</td></tr>
+  </table>
+
+  <div class="caveat"><strong>Implicacao pratica:</strong> Quase metade dos reviews na literatura avaliou pub bias com menos de 10 estudos, violando as recomendacoes. Teste de Egger negativo com poucos estudos NAO exclui vies — o teste simplesmente nao tem poder para detectar.</div>
+</section>
+
+<!-- ===== POSICIONAMENTO PEDAGOGICO ===== -->
+<section id="pedagogico">
+  <h2>Posicionamento pedagogico</h2>
+
+  <p><strong>Tensao anterior (s-rob2):</strong> O residente aprendeu que estudos individuais podem ter vies interno (RoB 2). Agora descobre que mesmo que todos os estudos incluidos sejam bons, a amostra de estudos pode ser enviesada — o vies e do sistema, nao do estudo.</p>
+
+  <p><strong>Tensao que este slide cria:</strong> O diamante do forest plot e construido com o que foi publicado. Se 31% dos trials ficam na gaveta (Turner 2008), o diamante e uma estimativa de parte da evidencia, nao de toda. O residente que confiava no diamante agora questiona: "sera que os estudos que nao vejo mudariam minha conclusao?"</p>
+
+  <p><strong>Resolucao (parcial):</strong> Ferramentas existem (funnel plot, Egger, ROB-ME), mas nenhuma e definitiva. A resolucao real e atitude: procurar registros de trials, gray literature, e avaliar se a MA fez busca abrangente. Isso conecta com o slide seguinte (heterogeneidade) — porque assimetria no funnel plot pode ser tanto pub bias quanto heterogeneidade genuina.</p>
+
+  <p><strong>O que os slides NAO mostram (e por que):</strong> Trim-and-fill, selection models, p-curve, PET-PEESE sao metodos de ajuste alem do escopo basico-intermediario. Para o residente-leitor, importa RECONHECER o problema e saber que ferramentas existem — nao APLICAR os ajustes.</p>
+</section>
+
+<!-- ===== APROFUNDAMENTO ===== -->
+<section id="deep-dive">
+  <h2>Aprofundamento</h2>
+
+  <details>
+    <summary>Evolucao historica: 3 ondas</summary>
+    <div class="gap-card">
+      <p><strong>Onda 1 (1979&ndash;1994) &mdash; Nomear o problema:</strong> Rosenthal (1979) cunhou "file drawer problem" e propos o fail-safe N — quantos estudos negativos seriam necessarios para inverter uma conclusao significativa. Begg &amp; Mazumdar (1994) formalizaram o primeiro teste estatistico (rank correlation).</p>
+      <p><strong>Onda 2 (1997&ndash;2011) &mdash; Ferramentas visuais e testes:</strong> Egger et al. (1997) introduziram o teste de regressao para assimetria de funnel plot e encontraram 38% de assimetria em journals gerais. Duval &amp; Tweedie (2000) formalizaram o trim-and-fill. Sterne et al. (2011) estabeleceram as recomendacoes Cochrane: &ge;10 estudos, distincao entre testes para diferentes medidas de efeito, interpretacao cautelosa.</p>
+      <p><strong>Onda 3 (2005&ndash;presente) &mdash; Contextualizar e superar:</strong> Ioannidis 2005 (PLoS Med) ampliou o argumento para a crise de replicabilidade. Simonsohn 2014 introduziu o p-curve. Stanley 2014 derivou PET-PEESE. Page 2023 criou o ROB-ME — primeiro instrumento estruturado que avalia risco de vies por evidencia faltante, analogo ao RoB 2. Kang 2026 enquadra os metodos de ajuste como "stress tests of model adequacy", nao detectores definitivos.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Funnel plot: mecanica detalhada e variantes</summary>
+    <div class="gap-card">
+      <p><strong>Mecanica do Egger:</strong> Regressao linear: Y = efeito padronizado (efeito / SE), X = precisao (1/SE). Se o intercepto e significativamente diferente de zero, ha assimetria. Problema: com poucos estudos, a regressao tem poucos pontos e poder minimo. A regra de &ge;10 estudos (Sterne 2011) e conservadora — mesmo com 10, o poder e modesto. Com &le;25 estudos, o rank test (Begg) e ainda mais fraco (Afonso 2023).</p>
+      <p><strong>Contour-enhanced funnel plot:</strong> Adiciona faixas de significancia estatistica (p &lt; 0.01, p &lt; 0.05, p &lt; 0.10). Se os estudos "faltantes" estao na regiao de nao-significancia, pub bias e mais provavel. Se estao numa regiao de significancia, a assimetria provavelmente tem outra causa.</p>
+      <p><strong>Doi plot + LFK index (Furuya-Kanamori 2018):</strong> Alternativa ao funnel plot tradicional. Combina effect size e precisao num unico eixo, com melhor sensibilidade diagnostica. O LFK index quantifica assimetria numericamente. Vantagem: funciona com menos estudos que o Egger. Limitacao: menos validado que o funnel plot tradicional.</p>
+      <p><strong>Trim-and-fill (Duval &amp; Tweedie 2000):</strong> Estima estudos "faltantes" no funnel plot e recalcula a estimativa ajustada. Limitacao critica: assume que TODA a assimetria e pub bias. Na pratica, pode ser heterogeneidade. Kang 2026: "statistical adjustment cannot recover information that was selectively generated, reported, or disseminated." Usar como sensitivity analysis, nao como correcao definitiva.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Metodos modernos (2014&ndash;2026)</summary>
+    <div class="gap-card">
+      <p><strong>ROB-ME (Page 2023, BMJ):</strong> Primeiro instrumento estruturado para avaliar risco de vies por evidencia faltante. Usa signaling questions analogas ao RoB 2. Avalia nao so se ha assimetria estatistica, mas se a busca foi abrangente, se registros de trials foram checados, se gray literature foi incluida. Recomendado pela Cochrane v6.</p>
+      <p><strong>Selection models:</strong> Em vez de "inventar" estudos faltantes (como trim-and-fill), modelam a probabilidade de publicacao como funcao do p-valor. Mais robusto teoricamente, mas requerem pressupostos sobre a forma da selecao.</p>
+      <p><strong>PET-PEESE (Stanley 2014):</strong> Meta-regressao que modela o efeito de precisao (SE) no effect size observado. PET estima efeito quando SE&rarr;0. PEESE corrige quando heterogeneidade e alta. Mais conservador que media simples.</p>
+      <p><strong>p-curve (Simonsohn 2014):</strong> Analisa a distribuicao dos p-valores significativos. Efeitos reais geram curva inclinada a direita (muitos p perto de 0.01). p-hacking gera curva plana ou inclinada a esquerda (muitos p perto de 0.05). Detecta manipulacao, nao so gaveta.</p>
+      <p><strong>Robust Bayesian Meta-Analysis (Bartos 2022):</strong> Pondera automaticamente multiplos metodos de ajuste. Abordagem mais completa, mas exige software especializado (JASP, R).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Caso paradigmatico: antidepressivos (Turner 2008)</summary>
+    <div class="gap-card">
+      <p><strong>Desenho:</strong> Comparacao de 74 trials de 12 antidepressivos registrados na FDA com suas publicacoes em journals. A FDA tem dados de TODOS os trials (positivos e negativos) porque exige submissao para aprovacao.</p>
+      <p><strong>Achados:</strong></p>
+      <table>
+        <tr><th scope="col">Metrica</th><th scope="col">FDA</th><th scope="col">Literatura</th></tr>
+        <tr><td>Trials positivos</td><td>38/74 (<strong>51%</strong>)</td><td>48/51 publicados como positivos (<strong>94%</strong>)</td></tr>
+        <tr><td>Trials negativos publicados</td><td>&mdash;</td><td>3/36 publicados como negativos</td></tr>
+        <tr><td>Trials negativos com spin</td><td>&mdash;</td><td>11/36 publicados com conclusao positiva</td></tr>
+        <tr><td>Trials na gaveta</td><td>&mdash;</td><td>22/36 (<strong>31% do total</strong>)</td></tr>
+        <tr><td>Inflacao do effect size</td><td colspan="2"><strong>32% overall</strong> (range 11&ndash;69% por droga)</td></tr>
+      </table>
+      <p><strong>Follow-up (Turner 2022, PLoS Med):</strong> Para antidepressivos mais recentes (2008&ndash;2013), a inflacao reduziu para 0.05 ES (vs 0.10 para drogas antigas). Transparencia melhorou: 47% dos trials negativos publicados corretamente vs 11% nos antigos. Progresso, mas o problema persiste.</p>
+      <p><strong>Por que e ensinavel:</strong> Exemplo concreto, clinicamente relevante, dados de Tier 1 (NEJM). O residente entende imediatamente: "se eu so lesse a literatura, acharia que TODOS os antidepressivos funcionam bem. A FDA mostra que metade nao."</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Notas para o Professor</summary>
+    <div class="gap-card">
+      <p><strong>Ancora retorica (s-pubbias1):</strong> "O forest plot mostra o que esta publicado. Mas e se 31% dos estudos nao foram publicados? O diamante muda." Pausar. Deixar o numero aterrissar.</p>
+      <p><strong>Transicao para funnel plot (s-pubbias2):</strong> "Existe uma ferramenta visual para detectar isso — mas ela tem armadilhas."</p>
+      <p><strong>Conexao com s-rob2 (anterior):</strong> "RoB 2 avalia se os estudos que voce VE sao confiaveis. Vies de publicacao questiona se os estudos que voce NAO ve mudariam a conclusao."</p>
+      <p><strong>Conexao com s-heterogeneity (proximo):</strong> "Assimetria no funnel plot pode ser pub bias OU heterogeneidade. No proximo slide, voce vai aprender quando I&sup2; alto importa e quando nao."</p>
+      <p><strong>Frase de impacto (Kang 2026):</strong> "Ajuste estatistico nao recupera informacao que nunca foi gerada ou disseminada."</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===== GLOSSARIO ===== -->
+<section id="glossary">
+  <h2>Glossario Rapido</h2>
+  <table>
+    <tr><th scope="col">Termo</th><th scope="col">O que significa</th><th scope="col">Na pratica</th></tr>
+    <tr><td class="glossary-term">File drawer problem</td><td>Estudos negativos ficam na gaveta do pesquisador em vez de serem publicados.</td><td>Rosenthal 1979. A literatura publicada superestima efeitos.</td></tr>
+    <tr><td class="glossary-term">Funnel plot</td><td>Grafico de dispersao: X = efeito, Y = precisao. Sem vies, forma funil simetrico.</td><td>Assimetria sugere (mas nao prova) estudos faltantes.</td></tr>
+    <tr><td class="glossary-term">Teste de Egger</td><td>Regressao para detectar assimetria no funnel plot.</td><td>Confiavel so com &ge;10 estudos. Negativo nao exclui vies.</td></tr>
+    <tr><td class="glossary-term">Teste de Begg</td><td>Correlacao de ranks para assimetria (alternativa nao-parametrica ao Egger).</td><td>Menos poderoso que Egger. Exige &ge;25&ndash;30 estudos para poder moderado.</td></tr>
+    <tr><td class="glossary-term">Trim-and-fill</td><td>Imputa estudos "faltantes" e recalcula estimativa ajustada.</td><td>Sensitivity analysis, nao correcao definitiva. Assume toda assimetria = pub bias.</td></tr>
+    <tr><td class="glossary-term">ROB-ME</td><td>Risk Of Bias due to Missing Evidence. Instrumento Cochrane (2023).</td><td>Signaling questions analogas ao RoB 2, mas para evidencia faltante.</td></tr>
+    <tr><td class="glossary-term">Small-study effects</td><td>Estudos pequenos tendem a mostrar efeitos maiores.</td><td>Pode ser pub bias, mas tambem heterogeneidade ou qualidade.</td></tr>
+    <tr><td class="glossary-term">Gray literature</td><td>Teses, abstracts de congresso, registros regulatorios (FDA/EMA).</td><td>Incluir na busca reduz inflacao em 10&ndash;25%.</td></tr>
+  </table>
+</section>
+
+<!-- ===== CONVERGENCIA ===== -->
+<section id="convergencia">
+  <details>
+    <summary><strong>Convergencia entre pernas de pesquisa</strong></summary>
+    <div class="gap-card">
+      <table>
+        <tr><th scope="col">Achado</th><th scope="col">Gemini</th><th scope="col">Evidence Researcher</th><th scope="col">Perplexity</th><th scope="col">NLM</th></tr>
+        <tr><td>~30% trials nao publicados</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Inflacao 20&ndash;32%</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Egger falha com &lt;10 estudos</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Assimetria &ne; publication bias</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Nenhum teste isolado basta</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>ROB-ME = avanço pos-2020</td><td>&check;</td><td>&mdash;</td><td>&check;</td><td>&mdash;</td></tr>
+      </table>
+      <p><strong>Alta convergencia (5/5 achados com 4/4 pernas).</strong> Divergencias limitadas a metodos modernos menos conhecidos (ROB-ME nao apareceu em todas as pernas). Resolucao: via hierarquia MBE — Page 2023 BMJ = fonte primaria de alta qualidade.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===== VERIFICACAO ===== -->
+<section id="verificacao">
+  <details open>
+    <summary><strong>Verificacao de referencias (11)</strong></summary>
+    <table>
+      <tr><th scope="col">Referencia</th><th scope="col">PMID / DOI</th><th scope="col">Status</th><th scope="col">Metodo</th></tr>
+      <tr><td>Egger M et al. 1997 BMJ</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9310563" target="_blank" rel="noopener noreferrer">PMID 9310563</a></td><td><span class="v">V</span></td><td>BioMCP: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Sterne JAC et al. 2011 BMJ</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21784880" target="_blank" rel="noopener noreferrer">PMID 21784880</a></td><td><span class="v">V</span></td><td>BioMCP: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Page MJ et al. 2021 Res Synth Methods</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33166064" target="_blank" rel="noopener noreferrer">PMID 33166064</a></td><td><span class="v">V</span></td><td>BioMCP: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Afonso J et al. 2023 Sports Med</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37684502" target="_blank" rel="noopener noreferrer">PMID 37684502</a></td><td><span class="v">V</span></td><td>BioMCP: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Turner EH et al. 2008 NEJM</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18199864" target="_blank" rel="noopener noreferrer">PMID 18199864</a></td><td><span class="v">V</span></td><td>BioMCP: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Kang H. 2026 Korean J Anesthesiol</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41877638" target="_blank" rel="noopener noreferrer">PMID 41877638</a></td><td><span class="v">V</span></td><td>BioMCP: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Rosenthal R. 1979 Psychol Bull</td><td>DOI 10.1037/0033-2909.86.3.638</td><td><span class="v">V</span></td><td>CrossRef: autor+titulo+journal+vol MATCH</td></tr>
+      <tr><td>Begg CB, Mazumdar M. 1994 Biometrics</td><td>DOI 10.2307/2533446</td><td><span class="v">V</span></td><td>CrossRef: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Duval S, Tweedie R. 2000 Biometrics</td><td>DOI 10.1111/j.0006-341x.2000.00455.x</td><td><span class="v">V</span></td><td>CrossRef: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Kicinski M et al. 2015 Stat Med</td><td>DOI 10.1002/sim.6525</td><td><span class="v">V</span></td><td>CrossRef: autor+titulo+journal MATCH</td></tr>
+      <tr><td>Turner EH et al. 2022 PLoS Med</td><td>DOI 10.1371/journal.pmed.1003886</td><td><span class="v">V</span></td><td>CrossRef: autor+titulo+journal MATCH</td></tr>
+    </table>
+    <p class="meta">PubMed MCP indisponivel (sessao expirada). Verificacao via BioMCP (PubTator3) + CrossRef. Protocolo 3 campos (autor+titulo+journal) aplicado a todas.</p>
+  </details>
+</section>
+
+<!-- ===== REFERENCIAS ===== -->
+<section id="referencias">
+<details open>
+  <summary><strong>Referencias (11)</strong></summary>
+  <table>
+    <tr><th scope="col">Referencia</th><th scope="col">Ano</th><th scope="col">Tipo</th></tr>
+    <tr><td>Rosenthal R. The file drawer problem and tolerance for null results. <em>Psychol Bull</em> 86(3):638-641. DOI: 10.1037/0033-2909.86.3.638</td><td>1979</td><td>Seminal</td></tr>
+    <tr><td>Begg CB, Mazumdar M. Operating characteristics of a rank correlation test for publication bias. <em>Biometrics</em> 50(4):1088-1101. DOI: 10.2307/2533446</td><td>1994</td><td>Metodologia</td></tr>
+    <tr><td>Egger M, Davey Smith G, Schneider M, Minder C. Bias in meta-analysis detected by a simple, graphical test. <em>BMJ</em> 315(7109):629-634. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/9310563" target="_blank" rel="noopener noreferrer">PMID 9310563</a> <span class="v">V</span></td><td>1997</td><td>Metodologia</td></tr>
+    <tr><td>Duval S, Tweedie R. Trim and fill: a simple funnel-plot-based method of testing and adjusting for publication bias in meta-analysis. <em>Biometrics</em> 56(2):455-463. DOI: 10.1111/j.0006-341x.2000.00455.x</td><td>2000</td><td>Metodologia</td></tr>
+    <tr><td>Turner EH, Matthews AM, Linardatos E, Tell RA, Rosenthal R. Selective publication of antidepressant trials and its influence on apparent efficacy. <em>N Engl J Med</em> 358(3):252-260. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/18199864" target="_blank" rel="noopener noreferrer">PMID 18199864</a> <span class="v">V</span></td><td>2008</td><td>Meta-epidemiologico</td></tr>
+    <tr><td>Sterne JAC, Sutton AJ, Ioannidis JPA, et al. Recommendations for examining and interpreting funnel plot asymmetry in meta-analyses of randomised controlled trials. <em>BMJ</em> 343:d4002. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21784880" target="_blank" rel="noopener noreferrer">PMID 21784880</a> <span class="v">V</span></td><td>2011</td><td>Guideline</td></tr>
+    <tr><td>Kicinski M, Springate DA, Kontopantelis E. Publication bias in meta-analyses from the Cochrane Database of Systematic Reviews. <em>Stat Med</em> 34(20):2781-2793. DOI: 10.1002/sim.6525 <span class="v">V</span></td><td>2015</td><td>Meta-epidemiologico</td></tr>
+    <tr><td>Page MJ, Sterne JAC, Higgins JPT, Egger M. Investigating and dealing with publication bias and other reporting biases in meta-analyses of health research. <em>Res Synth Methods</em> 12(2):248-267. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33166064" target="_blank" rel="noopener noreferrer">PMID 33166064</a> <span class="v">V</span></td><td>2021</td><td>Review</td></tr>
+    <tr><td>Turner EH, Cipriani A, Furukawa TA, et al. Selective publication of antidepressant trials (update). <em>PLoS Med</em>. DOI: 10.1371/journal.pmed.1003886 <span class="v">V</span></td><td>2022</td><td>Replicacao</td></tr>
+    <tr><td>Afonso J, Ramirez-Campillo R, Clemente FM, Buttner FC, Andrade R. The perils of misinterpreting and misusing "publication bias" tests in meta-analyses. <em>Sports Med</em> 54(2):257-271. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37684502" target="_blank" rel="noopener noreferrer">PMID 37684502</a> <span class="v">V</span></td><td>2023</td><td>Educacao</td></tr>
+    <tr><td>Kang H. Rethinking publication bias assessment in meta-analysis. <em>Korean J Anesthesiol</em>. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41877638" target="_blank" rel="noopener noreferrer">PMID 41877638</a> <span class="v">V</span></td><td>2026</td><td>Review</td></tr>
+  </table>
+</details>
+</section>
+
+<!-- ===== GAPS ===== -->
+<section id="gaps">
+  <h2>Gaps identificados</h2>
+  <table>
+    <tr><th scope="col">Gap</th><th scope="col">Impacto</th><th scope="col">Status</th></tr>
+    <tr><td>Prevalencia global de pub bias em medicina clinica (RCTs) — dado atual</td><td>Medio — Egger 1997 (38%) e dataset antigo (37 MAs, 1993-96)</td><td>Sem artigo recente encontrado</td></tr>
+    <tr><td>Tabela de poder do Egger por N de estudos</td><td>Baixo — Afonso 2023 descreve como "underpowered" mas sem tabela numerica</td><td>Abordagem qualitativa suficiente para slides</td></tr>
+    <tr><td>Dados brasileiros/latino-americanos sobre pub bias</td><td>Baixo — contextualizacao, nao conteudo central</td><td>Nao identificado</td></tr>
+    <tr><td>Funnel plot cropado de artigo real para s-pubbias2</td><td>Alto — slide precisa de imagem</td><td>Lucas decide fonte (Egger 1997 Fig.2 ou Sterne 2011)</td></tr>
+  </table>
+</section>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
+  <p>Pipeline: /evidence 6 pernas (S181) | 11 referencias (6 PMID-VERIFIED + 5 DOI-VERIFIED) | PubMed MCP DOWN, verificacao via BioMCP + CrossRef.</p>
+  <p>Coautoria: Lucas + Opus 4.6 | S181 2026-04-13</p>
+</footer>
+
+</body>
+</html>

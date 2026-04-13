@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 181 — 2026-04-13 (VIES_PUB1)
+
+### Evidence — Living HTML vies de publicacao
+- **Criado `evidence/s-pubbias.html`:** 310 linhas, 11 refs (6 PMID-VERIFIED + 5 DOI-VERIFIED)
+- **Pesquisa /evidence:** 5/6 pernas (Gemini ×2, evidence-researcher ×2, Perplexity, NLM). PubMed MCP down.
+- **Dados-chave:** Turner 2008 (94% vs 51%, inflacao 32%), Kicinski 2015 (27% overrep Cochrane), Egger 1997 (38% assimetria), Afonso 2023 (47.8% violacao regra ≥10)
+- **Convergencia:** 5/5 achados concordam entre 4 pernas
+
+### Slide — s-rob2 grid redesign
+- **HTML:** removidos wrappers (rob2-layout/top/bottom), estrutura flat direto no slide-inner
+- **CSS:** grid 4×2 areas (header/hero+legend/kappa+cards/footer), rows 3fr/2fr
+- **Mudancas visuais:** EN text hidden, bar height 20→8px, kappa val-num com span hero, card styling limpo
+
+### Docs
+- **Memory:** feedback_research.md atualizado (regra /evidence skill obrigatoria, S174+S181)
+- **Plan:** snazzy-chasing-spark.md (S181 VIES_PUB1)
+
 ## Sessao 180 — 2026-04-13 (ROB2.1)
 
 ### QA — s-rob2 editorial r14-r15 + call focada

@@ -1430,6 +1430,10 @@ section#s-forest2 .forest-zone--rob .forest-label-tag {
      D3 amber  oklch(0.68 0.13 70)
      D2 red    oklch(0.58 0.18 25)  */
 
+/* ═══════════════════════════════════════════════════════
+   s-rob2 — Avaliação de vieses de estudo
+   Grid: 4 rows × 2 cols (header / hero+legend / kappa+cards / footer)
+   ═══════════════════════════════════════════════════════ */
 section#s-rob2 {
   --kappa-d1: oklch(0.60 0.14 145);
   --kappa-d4: oklch(0.72 0.12 90);
@@ -1438,44 +1442,52 @@ section#s-rob2 {
 }
 
 section#s-rob2 .slide-inner {
-  gap: var(--space-sm);
+  display: grid;
+  grid-template-areas:
+    "header  header"
+    "hero    legend"
+    "kappa   cards"
+    "footer  footer";
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: auto 3fr 2fr auto;
+  gap: var(--space-sm) var(--space-lg);
+  height: 100%;
 }
 
-section#s-rob2 .rob2-layout {
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: var(--space-md) var(--space-lg);
-  align-items: start;
+/* Neutralize base.css pseudo-elements in grid context (E005/E032) */
+section#s-rob2 .slide-inner::before,
+section#s-rob2 .slide-inner::after {
+  display: none;
+}
+
+section#s-rob2 .slide-headline {
+  grid-area: header;
+}
+
+/* --- Hero: RoB 2 traffic-light crop --- */
+section#s-rob2 .rob2-figure {
+  grid-area: hero;
   min-height: 0;
 }
 
-section#s-rob2 .rob2-top {
-  display: contents;
-}
-
-section#s-rob2 .rob2-figure {
-  flex-shrink: 0;
-}
-
 section#s-rob2 .rob2-figure img {
-  max-height: 200px;
-  width: auto;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--shadow-soft);
-  box-shadow: 0 1px 4px var(--shadow-soft), 0 4px 12px var(--shadow-soft);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+  mix-blend-mode: multiply;
   opacity: 0;
+  will-change: opacity, transform;
 }
 
-section#s-rob2 .rob2-bottom {
-  display: contents;
-}
-
-/* --- Click 1: Domain table (compact 5×2) --- */
+/* --- Click 1: Domain table (D1-D5) --- */
 section#s-rob2 .rob2-domains {
+  grid-area: legend;
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
   justify-content: center;
+  justify-self: start;
 }
 
 section#s-rob2 .rob2-domain {
@@ -1484,6 +1496,7 @@ section#s-rob2 .rob2-domain {
   color: var(--text-primary);
   line-height: 1.3;
   opacity: 0;
+  will-change: opacity, transform;
 }
 
 section#s-rob2 .rob2-d-num {
@@ -1497,11 +1510,14 @@ section#s-rob2 .rob2-d-num {
 }
 
 section#s-rob2 .rob2-d-en {
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-  font-style: italic;
-  margin-left: var(--space-xs);
+  display: none;
 }
+
+/* Cognitive bridge: match acronym colors with Kappa bars */
+section#s-rob2 .rob2-domain:nth-child(1) .rob2-d-num { color: var(--kappa-d1); }
+section#s-rob2 .rob2-domain:nth-child(2) .rob2-d-num { color: var(--kappa-d2); }
+section#s-rob2 .rob2-domain:nth-child(3) .rob2-d-num { color: var(--kappa-d3); }
+section#s-rob2 .rob2-domain:nth-child(4) .rob2-d-num { color: var(--kappa-d4); }
 
 section#s-rob2 .rob2-rule {
   font-family: var(--font-body);
@@ -1515,11 +1531,14 @@ section#s-rob2 .rob2-rule {
 
 /* --- Click 2: Kappa concordance bars --- */
 section#s-rob2 .rob2-kappa {
-  flex: 3;
+  grid-area: kappa;
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
   justify-content: center;
+  justify-self: start;
+  width: 100%;
+  max-width: 24rem;
 }
 
 section#s-rob2 .rob2-bar {
@@ -1528,6 +1547,7 @@ section#s-rob2 .rob2-bar {
   align-items: center;
   gap: var(--space-sm);
   opacity: 0;
+  will-change: opacity, transform;
 }
 
 section#s-rob2 .rob2-bar-label {
@@ -1539,8 +1559,8 @@ section#s-rob2 .rob2-bar-label {
 
 section#s-rob2 .rob2-bar-fill {
   display: block;
-  height: 20px;
-  border-radius: 10px;
+  height: 8px;
+  border-radius: 999px;
   transform-origin: left center;
 }
 
@@ -1555,13 +1575,26 @@ section#s-rob2 .rob2-bar-val {
   font-size: var(--text-small);
   color: var(--text-secondary);
   white-space: nowrap;
-  font-variant-numeric: tabular-nums lining-nums;
+  font-variant-numeric: tabular-nums;
   opacity: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+}
+
+section#s-rob2 .rob2-val-num {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 section#s-rob2 .rob2-bar-val--worst {
   color: oklch(0.45 0.20 25);
   font-weight: 600;
+}
+
+section#s-rob2 .rob2-bar-val--worst .rob2-val-num {
+  color: oklch(0.45 0.20 25);
 }
 
 section#s-rob2 .rob2-kappa-note {
@@ -1576,22 +1609,24 @@ section#s-rob2 .rob2-kappa-note {
 
 /* --- Click 3: Alternatives --- */
 section#s-rob2 .rob2-alts {
-  flex: 2;
+  grid-area: cards;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 1rem;
   justify-content: center;
 }
 
 section#s-rob2 .rob2-alt {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: var(--space-sm) var(--space-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  gap: var(--space-2xs);
+  padding: 1.25rem;
+  background: #FFFFFF;
+  border: 1px solid color-mix(in oklch, var(--text-primary) 8%, transparent);
+  border-radius: 8px;
+  box-shadow: none;
   opacity: 0;
+  will-change: opacity, transform;
 }
 
 section#s-rob2 .rob2-alt-name {
@@ -1614,6 +1649,11 @@ section#s-rob2 .rob2-alt-trend {
   font-style: italic;
   max-width: none;
   opacity: 0;
+}
+
+/* --- Footer --- */
+section#s-rob2 .source-tag {
+  grid-area: footer;
 }
 
 /* --- Failsafes: all reveal elements visible when GSAP unavailable --- */
