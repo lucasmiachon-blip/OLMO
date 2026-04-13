@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 177 — 2026-04-13 (QA-ROB2)
+
+### QA — s-rob2 Preflight + CSS fixes
+- **Preflight (Gates 1-3):** Build PASS, Lint PASS, 4 dims visuais PASS
+- **CSS fixes:** barras kappa 12→20px, D2 text contrast darkened (oklch 0.58→0.45), `flex:1` dead space removido, kappa colors extraídas para CSS vars (`--kappa-d1..d4`), stagger 0.08→0.15s
+- **`.slide-integrity`:** s-rob2 avançou para QA
+
+### Pipeline — gemini-qa3.mjs improvements (6 fixes)
+- **CSS extraction:** `extractCSSBlocksBySelector()` novo helper; base.css global rules incluídas; `rawCSS` injetado em Call D prompt
+- **Prompt fixes:** S2 progressive-reveal weighting corrigido (Call A); quota forçada removida (Call B); CSS verification section adicionada (Call D)
+- **Token tuning:** thinkingBudget 4096→2048 (KBP-11: pool compartilhado com output)
+
+### Resultado
+- R12 editorial: 6.8/10 (css_cascade FP persistente — limitação fundamental do modelo, não do pipeline)
+- Estado: QA — pendente decisão Lucas sobre auto-suppress css_cascade vs intermediate captures
+
 ## Sessao 176 — 2026-04-13 (BUILD-S-ROB2.1)
 
 ### Slide — s-rob2 HTML + CSS + build

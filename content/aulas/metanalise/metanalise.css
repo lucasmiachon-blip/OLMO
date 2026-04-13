@@ -1430,6 +1430,13 @@ section#s-forest2 .forest-zone--rob .forest-label-tag {
      D3 amber  oklch(0.68 0.13 70)
      D2 red    oklch(0.58 0.18 25)  */
 
+section#s-rob2 {
+  --kappa-d1: oklch(0.60 0.14 145);
+  --kappa-d4: oklch(0.72 0.12 90);
+  --kappa-d3: oklch(0.68 0.13 70);
+  --kappa-d2: oklch(0.58 0.18 25);
+}
+
 section#s-rob2 .slide-inner {
   gap: var(--space-sm);
 }
@@ -1437,7 +1444,6 @@ section#s-rob2 .slide-inner {
 section#s-rob2 .rob2-layout {
   display: flex;
   flex-direction: column;
-  flex: 1;
   min-height: 0;
   gap: var(--space-md);
 }
@@ -1464,7 +1470,6 @@ section#s-rob2 .rob2-figure img {
 section#s-rob2 .rob2-bottom {
   display: flex;
   gap: var(--space-xl);
-  flex: 1;
   min-height: 0;
 }
 
@@ -1537,27 +1542,27 @@ section#s-rob2 .rob2-bar-label {
 
 section#s-rob2 .rob2-bar-fill {
   display: block;
-  height: 12px;
-  border-radius: 6px;
+  height: 20px;
+  border-radius: 10px;
   transform-origin: left center;
 }
 
 /* Bar widths scaled to 0.50 reference = 100% of track */
-section#s-rob2 .rob2-bar--d1 { width: 90%; background: oklch(0.60 0.14 145); }
-section#s-rob2 .rob2-bar--d4 { width: 56%; background: oklch(0.72 0.12 90); }
-section#s-rob2 .rob2-bar--d3 { width: 44%; background: oklch(0.68 0.13 70); }
-section#s-rob2 .rob2-bar--d2 { width: 8%;  background: oklch(0.58 0.18 25); }
+section#s-rob2 .rob2-bar--d1 { width: 90%; background: var(--kappa-d1); }
+section#s-rob2 .rob2-bar--d4 { width: 56%; background: var(--kappa-d4); }
+section#s-rob2 .rob2-bar--d3 { width: 44%; background: var(--kappa-d3); }
+section#s-rob2 .rob2-bar--d2 { width: 8%;  background: var(--kappa-d2); }
 
 section#s-rob2 .rob2-bar-val {
   font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
   color: var(--text-secondary);
   white-space: nowrap;
   font-variant-numeric: tabular-nums lining-nums;
 }
 
 section#s-rob2 .rob2-bar-val--worst {
-  color: oklch(0.58 0.18 25);
+  color: oklch(0.45 0.20 25);
   font-weight: 600;
 }
 

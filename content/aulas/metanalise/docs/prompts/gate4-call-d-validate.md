@@ -32,6 +32,14 @@ VOCE NAO VIU este slide antes. Avalie os reports com OLHOS FRESCOS.
 - scale 0.92→1 no card = metafora (crescimento = combinar amostras)
 - **Forest plot slides:** Imagens cropadas de artigos reais (NUNCA reconstruir como HTML/SVG). Texto embutido menor que nativo = tradeoff aceito. Reveals sao 1-por-vez na aula (S2 final com tudo visivel nunca acontece). "Wall of data" = proposito pedagogico (ensinar residentes a ler forest plots reais). Se Call A rebaixar por "imagem ilegivel" mas o design approach e intencional, ajustar nota para refletir o que e corrigivel (posicionamento, cores) vs inerente (fonte da imagem).
 
+## CSS DO SLIDE (para verificar claims de codigo do Call B)
+
+```css
+{{RAW_CSS}}
+```
+
+Use este CSS para VERIFICAR claims de Call B. Se Call B diz "existe um bloco sem guard" ou "regra X nao existe", CONFIRA no CSS acima antes de aceitar. Claims de codigo nao verificaveis no CSS acima devem ser marcadas como "unverifiable".
+
 ## OUTPUTS DOS 3 AVALIADORES
 
 ### Call A — Visual Design

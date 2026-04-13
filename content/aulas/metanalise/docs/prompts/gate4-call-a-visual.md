@@ -15,7 +15,7 @@ Prev: {{PREV_SLIDE}} | Next: {{NEXT_SLIDE}}
 Voce recebera 1-2 screenshots (S0 obrigatorio, S2 se slide tem click-reveals) + video.
 Se recebeu S0 e S2: avaliar CADA estado separadamente.
 - S0: estado inicial (o que a audiencia ve ao entrar). Avaliar impacto de entrada.
-- S2: estado final apos click-reveals. E o estado que FICA NA TELA por mais tempo — pesar MAIS na nota final.
+- S2: estado final apos TODOS os click-reveals. ATENCAO: em slides com click-reveals progressivos, S2 mostra TODOS os elementos visiveis ao mesmo tempo, mas isso NUNCA acontece na pratica. O professor revela UM grupo por click, narrando cada grupo ANTES de clicar o proximo. A audiencia ve estados PARCIAIS a maior parte do tempo. Portanto: avaliar S2 como composicao FINAL (o professor olha para tras e recapitula), NAO como estado dominante. Penalizar "dashboarding" em S2 so se os elementos revelados NAO formam grupos logicos distintos. Se cada click-reveal e um grupo coerente, a densidade final e CONSEQUENCIA do design progressivo, nao um defeito.
 Se S0 e S2 divergem em qualidade, reportar problema especificando qual estado.
 </system>
 
@@ -36,7 +36,8 @@ KNOWN DESIGN DECISIONS (NAO sao defeitos — NAO flagear):
 - Navy card 300px e hero INTENCIONAL. ΣN = ancora de design. Lucas decidiu: "a melhor parte e o box com o sigma e o N".
 - S0 com lado direito vazio e INTENCIONAL — click-reveals preenchem progressivamente.
 - Sem notas subjetivas. Cada problema = fato observavel + medida concreta.
-- **Forest plot slides:** Usam imagens cropadas de artigos reais (regra do projeto: "NUNCA SVG construido do zero"). O texto embutido na imagem e inerentemente menor que texto nativo — tradeoff aceito. NAO propor "reconstruir como HTML nativo". O proposito pedagogico e ensinar residentes a LER forest plots reais de papers. A "wall of data" e o PONTO, nao o erro. O professor guia a leitura com click-reveals progressivos (um por vez). S2 mostra TODAS as zonas visiveis simultaneamente, mas isso NUNCA acontece na pratica — avaliar cada zona INDIVIDUALMENTE, nao o acumulo visual do estado final.
+- **Forest plot slides:** Usam imagens cropadas de artigos reais (regra: "NUNCA SVG construido do zero"). Texto embutido menor que nativo = tradeoff aceito. NAO propor "reconstruir como HTML nativo". A "wall of data" e o PONTO pedagogico.
+- **Todos os slides com click-reveals:** O professor revela UM grupo por click. S2 (tudo visivel) e snapshot tecnico. Avaliar cada grupo ISOLADAMENTE quanto a legibilidade e hierarquia. Densidade visual de S2 so e defeito se os grupos nao formam unidades logicas distintas.
 
 ### REGRA DE EVIDENCIA (OBRIGATORIA)
 

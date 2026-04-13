@@ -604,26 +604,83 @@ function extractSlideCSS(slideId) {
   return result;
 }
 
-function extractBaseTokens() {
-  const cssPath = join(AULA_DIR, `${aula}.css`);
-  if (!existsSync(cssPath)) return `/* ${aula}.css not found */`;
-  const css = readFileSync(cssPath, 'utf8');
+/** Extract CSS rule blocks from content by selector needle (brace-balanced). */
+function extractCSSBlocksBySelector(css, selectors) {
+  const lines = css.split('\n');
+  const results = [];
+  for (const sel of selectors) {
+    const needle = sel.replace(/\s*\{$/, '').trim();
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].includes(needle) && lines[i].includes('{')) {
+        let depth = 0;
+        const block = [];
+        for (let j = i; j < lines.length; j++) {
+          block.push(lines[j]);
+          depth += (lines[j].match(/\{/g) || []).length;
+          depth -= (lines[j].match(/\}/g) || []).length;
+          if (depth === 0 && block.length > 1) break;
+        }
+        results.push(block.join('\n'));
+        break; // first match per selector
+      }
+    }
+  }
+  return results;
+}
 
-  // Extract :root block (design tokens)
-  const rootMatch = css.match(/:root\s*\{[^}]*\}/s);
-  if (!rootMatch) return `/* :root not found in ${aula}.css */`;
-  return rootMatch[0];
+function extractBaseTokens() {
+  const sections = [];
+
+  // 1. :root tokens from {aula}.css
+  const cssPath = join(AULA_DIR, `${aula}.css`);
+  if (existsSync(cssPath)) {
+    const css = readFileSync(cssPath, 'utf8');
+    const rootMatch = css.match(/:root\s*\{[^}]*\}/s);
+    if (rootMatch) sections.push(rootMatch[0]);
+  }
+
+  // 2. Key global cascade rules from shared/css/base.css
+  //    Without these, model hallucinates cascade issues (FP: source-tag, #deck p max-width)
+  const basePath = join(SCRIPTS_DIR, '..', 'shared', 'css', 'base.css');
+  if (existsSync(basePath)) {
+    const base = readFileSync(basePath, 'utf8');
+    const globals = extractCSSBlocksBySelector(base, [
+      '#deck p {',
+      '.stage-c #deck p {',
+      '.stage-c .source-tag {',
+      '#slide-viewport > section .slide-inner {',
+    ]);
+    if (globals.length) {
+      sections.push('\n/* === Global cascade (shared/css/base.css) === */');
+      sections.push(globals.join('\n\n'));
+    }
+  }
+
+  return sections.join('\n') || `/* No tokens found */`;
 }
 
 function extractCSS(slideId) {
   const sections = [];
 
-  // 1. Design tokens from {aula}.css :root
+  // 1. Design tokens + base.css global cascade
   const tokens = extractBaseTokens();
-  sections.push('/* === Design Tokens (:root) === */');
+  sections.push('/* === Design Tokens + Global Cascade === */');
   sections.push(tokens);
 
-  // 2. Slide-specific CSS from {aula}.css (#slideId selectors)
+  // 2. Global rules from {aula}.css that affect ALL slides (source-tag, shared components)
+  const cssPath = join(AULA_DIR, `${aula}.css`);
+  if (existsSync(cssPath)) {
+    const css = readFileSync(cssPath, 'utf8');
+    const aulaGlobals = extractCSSBlocksBySelector(css, [
+      '#deck p.source-tag {',
+    ]);
+    if (aulaGlobals.length) {
+      sections.push(`\n/* === Global rules (${aula}.css) === */`);
+      sections.push(aulaGlobals.join('\n\n'));
+    }
+  }
+
+  // 3. Slide-specific CSS from {aula}.css (#slideId selectors)
   const slideLines = extractSlideCSS(slideId);
   if (slideLines.length > 0) {
     sections.push(`\n/* === Slide-specific CSS (${aula}.css) === */`);
@@ -632,7 +689,7 @@ function extractCSS(slideId) {
 
   const combined = sections.join('\n');
   const lineCount = combined.split('\n').length;
-  console.log(`  CSS: ${lineCount} lines (tokens + slide-specific)`);
+  console.log(`  CSS: ${lineCount} lines (tokens + globals + slide-specific)`);
   return combined;
 }
 
@@ -967,7 +1024,7 @@ async function waitForProcessing(fileName) {
 }
 
 // --- Call D: Anti-Sycophancy Validation ---
-async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUris, meta) {
+async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUris, meta, rawCSS) {
   if (!existsSync(CALL_D_PROMPT_PATH)) {
     console.log('  Call D prompt not found — skipping validation');
     return null;
@@ -986,6 +1043,7 @@ async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUr
     '{{SLIDE_ID}}': slideId,
     '{{SLIDE_POS}}': String(meta.pos),
     '{{MEDIA_LIST}}': mediaList,
+    '{{RAW_CSS}}': rawCSS || '/* CSS not available */',
     '{{CALL_A_OUTPUT}}': JSON.stringify(callA, null, 2),
     '{{CALL_B_OUTPUT}}': JSON.stringify(callB, null, 2),
     '{{CALL_C_OUTPUT}}': JSON.stringify(callC, null, 2),
@@ -1007,7 +1065,7 @@ async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUr
     responseSchema: SCHEMAS_GATE4.validate,
   };
   if (MODEL.includes('3.1') || MODEL.includes('3-')) {
-    config.thinkingConfig = { thinkingBudget: 4096 };
+    config.thinkingConfig = { thinkingBudget: 2048 };
   }
 
   const payload = { contents: [{ parts }], generationConfig: config };
@@ -1102,7 +1160,7 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
   if (SCHEMAS_GATE4[callType]) config.responseSchema = SCHEMAS_GATE4[callType];
   // Gemini 3.x: enable thinking for deeper editorial analysis
   if (MODEL.includes('3.1') || MODEL.includes('3-')) {
-    config.thinkingConfig = { thinkingBudget: 4096 };
+    config.thinkingConfig = { thinkingBudget: 2048 };
   }
 
   return { contents: [{ parts }], generationConfig: config };
@@ -1475,7 +1533,7 @@ ${JSON.stringify(callC_result, null, 2)}
   // Step 6b: Call D — Anti-Sycophancy Validation
   console.log('\n6b. Running Call D — Anti-Sycophancy Validation...');
   const validation = await runValidation(slideId, round, qaDir,
-    callA_result, callB_result, callC_result, mediaUris, meta);
+    callA_result, callB_result, callC_result, mediaUris, meta, rawCSS);
   if (validation) {
     const cv = validation.ceiling_violations || [];
     const fp = validation.false_positives || [];

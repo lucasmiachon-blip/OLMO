@@ -1,18 +1,18 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 176 | BUILD-S-ROB2.1
+> Sessao 177 | QA-ROB2
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 21 items.**
 
-## P0 — s-rob2 (novo slide)
+## P0 — s-rob2 (QA em curso)
 
-- **Evidence HTML ENRICHED (S175):** domínios D1-D5 bilíngues, kappa estatística, ranking de fragilidade
-- **Slide HTML DONE (S176):** `slides/08c-rob2.html` + CSS + manifest + registry + build
-- **Layout:** imagem topo-esquerda + 3 clicks (domínios 5×2 bilíngue → barras kappa D1→D2 → alternativas ROBUST-RCT/ROBINS-I V2)
-- **Estado: DRAFT** — precisa QA (Gate 1→4)
+- **QA Preflight (S177):** Build PASS, Lint PASS, 4 dims visuais PASS
+- **QA CSS fixes (S177):** barras 12→20px, D2 text contrast darkened (oklch 0.58→0.45), flex:1 dead space removido, kappa colors extraídas para CSS vars, stagger 0.08→0.15s
+- **QA Editorial R11+R12:** 6.93→6.8/10. FPs persistentes: css_cascade (FOUC hallucination), composição (penaliza progressive reveal)
+- **Estado: QA** — Gemini editorial pendente (css_cascade FP não resolvido; S2 bias em progressive reveals)
 
 ## P0 — Forest plot slides
 

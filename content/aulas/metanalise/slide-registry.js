@@ -440,7 +440,7 @@ export const slideRegistry = {
         const rule = slide.querySelector('.rob2-rule');
         gsap.fromTo(domains,
           { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: 'power2.out' }
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.15, ease: 'power2.out' }
         );
         if (rule) {
           gsap.fromTo(rule,

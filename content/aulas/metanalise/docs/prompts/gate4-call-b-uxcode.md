@@ -110,7 +110,7 @@ Se o resultado visual (PNG) mostra problema de LAYOUT (elementos acumulados num 
   "media_uxcode": N,
   "dead_css": ["seletor1", "seletor2"],
   "specificity_conflicts": ["descricao1"],
-  "proposals": [ MINIMO 4 MUST + 4 SHOULD/COULD, sem limite maximo, ordenadas por impacto (MUST primeiro, depois SHOULD, depois COULD)
+  "proposals": [ ordenadas por impacto (MUST primeiro, depois SHOULD, depois COULD). Reporte APENAS problemas REAIS que voce VERIFICOU no codigo e no PNG. Se so ha 2 problemas, reporte 2. NUNCA inventar issues para atingir quota — qualidade > quantidade.
     { "severity": "MUST|SHOULD|COULD", "titulo": "max 15 palavras, acao concreta (ex: 'Corrigir margem accent card')", "fix": "snippet de codigo COMPLETO E CONCISO — max 20 linhas", "arquivo": "slide.html|metanalise.css|slide-registry.js", "tipo": "html|css|js" }
   ]
 }
