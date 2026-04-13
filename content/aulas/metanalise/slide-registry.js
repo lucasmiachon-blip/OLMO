@@ -332,15 +332,12 @@ export const slideRegistry = {
           { clipPath: 'inset(0 0 0 0)', duration: 0.8, ease: 'power2.inOut' }
         );
       } else if (revealed === 8) {
-        // RoB: highlight + zoom toward RoB column
-        gsap.fromTo(items,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.5, ease: 'power2.out' }
-        );
+        // RoB: zoom only — no yellow overlay (professor reads the column directly)
         if (annotated) {
           gsap.to(annotated, {
-            scale: 2.5,
-            transformOrigin: '90% 50%',
+            scale: 2,
+            xPercent: -35,
+            transformOrigin: '88% 25%',
             duration: 1.2,
             ease: 'power3.inOut'
           });
@@ -360,7 +357,7 @@ export const slideRegistry = {
       if (revealed <= 0) return false;
       const items = getGroup(revealed);
       if (revealed === 8 && annotated) {
-        gsap.to(annotated, { scale: 1, duration: 0.4, ease: 'power2.out' });
+        gsap.to(annotated, { scale: 1, xPercent: 0, duration: 0.4, ease: 'power2.out' });
       }
       if (revealed === 7) {
         gsap.to(items, { clipPath: 'inset(0 100% 0 0)', duration: 0.4, ease: 'power2.in' });

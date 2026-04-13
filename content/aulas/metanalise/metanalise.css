@@ -1094,7 +1094,14 @@ section#s-forest1 .forest-annotated img {
 }
 
 /* --- Forest zones (transparent highlight overlays, no text) --- */
-/* Colors: Tol bright palette, daltonism-safe, projection-tuned */
+/* Tol bright palette (daltonism-safe) — HEX source → OKLCH:
+   Blue   #4477AA → oklch(0.56 0.097 250)
+   Pink   #EE6677 → oklch(0.68 0.168 15.1)
+   Green  #228833 → oklch(0.55 0.153 145.6)
+   Yellow #CCBB44 → oklch(0.78 0.138 101.1)
+   Purple #AA3377 → oklch(0.52 0.169 349.4)
+   Cyan   #66CCEE → oklch(0.80 0.106 222.5)
+   DkPurp #8C1E5A → oklch(0.44 0.155 352.4)  */
 section#s-forest1 .forest-zone {
   position: absolute;
   opacity: 0;
@@ -1108,8 +1115,8 @@ section#s-forest1 .forest-zone.revealed {
 
 /* Beat 1: CI bars — forest plot graphical area + OR [95%-CI] text column */
 section#s-forest1 .forest-zone--ci {
-  background: rgba(68, 119, 170, 0.18);
-  border: 2px solid rgba(68, 119, 170, 0.5);
+  background: oklch(0.56 0.097 250 / 0.10);
+  border: 2px solid oklch(0.56 0.097 250 / 0.5);
   top: 0%;
   left: 53.4%;
   width: 34.6%;
@@ -1118,8 +1125,8 @@ section#s-forest1 .forest-zone--ci {
 
 /* Beat 2: Weight column */
 section#s-forest1 .forest-zone--weight {
-  background: rgba(238, 102, 119, 0.18);
-  border: 2px solid rgba(238, 102, 119, 0.5);
+  background: oklch(0.68 0.168 15.1 / 0.10);
+  border: 2px solid oklch(0.68 0.168 15.1 / 0.5);
   top: 0%;
   left: 87.3%;
   width: 12.7%;
@@ -1127,8 +1134,8 @@ section#s-forest1 .forest-zone--weight {
 }
 /* Weight-max: CLEAR 2024 row (21.5%, 1st data row Acute section) */
 section#s-forest1 .forest-zone--weight-max {
-  background: rgba(238, 102, 119, 0.35);
-  border: 2px solid rgba(238, 102, 119, 0.8);
+  background: oklch(0.68 0.168 15.1 / 0.20);
+  border: 2px solid oklch(0.68 0.168 15.1 / 0.8);
   top: 11.8%;
   left: 89%;
   width: 5%;
@@ -1136,8 +1143,8 @@ section#s-forest1 .forest-zone--weight-max {
 }
 /* Weight-min: LoDoCo-MI 2019 row (0.3% — true minimum weight) */
 section#s-forest1 .forest-zone--weight-min {
-  background: rgba(238, 102, 119, 0.35);
-  border: 2px solid rgba(238, 102, 119, 0.8);
+  background: oklch(0.68 0.168 15.1 / 0.20);
+  border: 2px solid oklch(0.68 0.168 15.1 / 0.8);
   top: 40.1%;
   left: 89.1%;
   width: 5.5%;
@@ -1145,8 +1152,8 @@ section#s-forest1 .forest-zone--weight-min {
 }
 /* Heterogeneity stats line — subgroup 1 (Acute CVD) */
 section#s-forest1 .forest-zone--het-1 {
-  background: rgba(102, 204, 238, 0.12);
-  border: 1px dashed rgba(102, 204, 238, 0.5);
+  background: oklch(0.80 0.106 222.5 / 0.12);
+  border: 1px dashed oklch(0.80 0.106 222.5 / 0.5);
   top: 45.5%;
   left: 7%;
   width: 32.5%;
@@ -1154,8 +1161,8 @@ section#s-forest1 .forest-zone--het-1 {
 }
 /* Heterogeneity stats line — subgroup 2 (All CVD) */
 section#s-forest1 .forest-zone--het-2 {
-  background: rgba(102, 204, 238, 0.12);
-  border: 1px dashed rgba(102, 204, 238, 0.5);
+  background: oklch(0.80 0.106 222.5 / 0.12);
+  border: 1px dashed oklch(0.80 0.106 222.5 / 0.5);
   top: 91%;
   left: 7.1%;
   width: 32.3%;
@@ -1164,8 +1171,8 @@ section#s-forest1 .forest-zone--het-2 {
 
 /* Beat 3: Events columns (Colchicine Events/Total + Control Events/Total) */
 section#s-forest1 .forest-zone--events {
-  background: rgba(34, 136, 51, 0.18);
-  border: 2px solid rgba(34, 136, 51, 0.5);
+  background: oklch(0.55 0.153 145.6 / 0.10);
+  border: 2px solid oklch(0.55 0.153 145.6 / 0.5);
   top: 0%;
   left: 31.9%;
   width: 22.9%;
@@ -1174,8 +1181,8 @@ section#s-forest1 .forest-zone--events {
 
 /* Beat 4: Diamond — circle around pooled effect (Acute CVD subgroup) */
 section#s-forest1 .forest-zone--diamond-1 {
-  background: rgba(170, 51, 119, 0.2);
-  border: 2px solid rgba(170, 51, 119, 0.6);
+  background: oklch(0.52 0.169 349.4 / 0.2);
+  border: 2px solid oklch(0.52 0.169 349.4 / 0.6);
   border-radius: 50%;
   top: 42.3%;
   left: 59.5%;
@@ -1184,8 +1191,8 @@ section#s-forest1 .forest-zone--diamond-1 {
 }
 /* Diamond — circle around pooled effect (All CVD) */
 section#s-forest1 .forest-zone--diamond-2 {
-  background: rgba(170, 51, 119, 0.2);
-  border: 2px solid rgba(170, 51, 119, 0.6);
+  background: oklch(0.52 0.169 349.4 / 0.2);
+  border: 2px solid oklch(0.52 0.169 349.4 / 0.6);
   border-radius: 50%;
   top: 87.5%;
   left: 59.1%;
@@ -1195,8 +1202,8 @@ section#s-forest1 .forest-zone--diamond-2 {
 
 /* Beat 5: Study names column */
 section#s-forest1 .forest-zone--studies {
-  background: rgba(204, 187, 68, 0.18);
-  border: 2px solid rgba(204, 187, 68, 0.5);
+  background: oklch(0.78 0.138 101.1 / 0.10);
+  border: 2px solid oklch(0.78 0.138 101.1 / 0.5);
   top: 0%;
   left: 0%;
   width: 32.3%;
@@ -1257,8 +1264,8 @@ section#s-forest2 .forest-zone.revealed {
 }
 /* CI+RR zone (blue) — graphical area + Risk Ratio text */
 section#s-forest2 .forest-zone--ci {
-  background: rgba(68, 119, 170, 0.18);
-  border: 2px solid rgba(68, 119, 170, 0.5);
+  background: oklch(0.56 0.097 250 / 0.18);
+  border: 2px solid oklch(0.56 0.097 250 / 0.5);
   top: 0%;
   left: 46.2%;
   width: 33.8%;
@@ -1266,8 +1273,8 @@ section#s-forest2 .forest-zone--ci {
 }
 /* Weight column (pink) */
 section#s-forest2 .forest-zone--weight {
-  background: rgba(238, 102, 119, 0.18);
-  border: 2px solid rgba(238, 102, 119, 0.5);
+  background: oklch(0.68 0.168 15.1 / 0.18);
+  border: 2px solid oklch(0.68 0.168 15.1 / 0.5);
   top: 0.3%;
   left: 40.9%;
   width: 5.6%;
@@ -1275,8 +1282,8 @@ section#s-forest2 .forest-zone--weight {
 }
 /* Events columns (green) — Colchicine + Comparison */
 section#s-forest2 .forest-zone--events {
-  background: rgba(34, 136, 51, 0.18);
-  border: 2px solid rgba(34, 136, 51, 0.5);
+  background: oklch(0.55 0.153 145.6 / 0.18);
+  border: 2px solid oklch(0.55 0.153 145.6 / 0.5);
   top: 0%;
   left: 19%;
   width: 22.1%;
@@ -1284,8 +1291,8 @@ section#s-forest2 .forest-zone--events {
 }
 /* Study names (yellow) */
 section#s-forest2 .forest-zone--studies {
-  background: rgba(204, 187, 68, 0.18);
-  border: 2px solid rgba(204, 187, 68, 0.5);
+  background: oklch(0.78 0.138 101.1 / 0.18);
+  border: 2px solid oklch(0.78 0.138 101.1 / 0.5);
   top: 0%;
   left: 0%;
   width: 19.1%;
@@ -1294,8 +1301,8 @@ section#s-forest2 .forest-zone--studies {
 
 /* Diamond — pooled effect circle (subgroup, if applicable) */
 section#s-forest2 .forest-zone--diamond-1 {
-  background: rgba(170, 51, 119, 0.2);
-  border: 2px solid rgba(170, 51, 119, 0.6);
+  background: oklch(0.52 0.169 349.4 / 0.2);
+  border: 2px solid oklch(0.52 0.169 349.4 / 0.6);
   border-radius: 50%;
   top: 67.1%;
   left: 67.5%;
@@ -1304,8 +1311,8 @@ section#s-forest2 .forest-zone--diamond-1 {
 }
 /* Heterogeneity stats line (bottom — only one in Ebrahimi) */
 section#s-forest2 .forest-zone--het-2 {
-  background: rgba(102, 204, 238, 0.12);
-  border: 1px dashed rgba(102, 204, 238, 0.5);
+  background: oklch(0.80 0.106 222.5 / 0.12);
+  border: 1px dashed oklch(0.80 0.106 222.5 / 0.5);
   top: 91.7%;
   left: 5.5%;
   width: 39.5%;
@@ -1321,8 +1328,8 @@ section#s-forest2 .forest-ma-stat {
   opacity: 0;
   pointer-events: none;
   padding: 0.25em 0.7em;
-  background: rgba(170, 51, 119, 0.08);
-  border-left: 4px solid rgba(170, 51, 119, 0.7);
+  background: oklch(0.52 0.169 349.4 / 0.08);
+  border-left: 4px solid oklch(0.52 0.169 349.4 / 0.7);
   border-radius: 3px;
 }
 section#s-forest2 .forest-ma-stat.revealed {
@@ -1332,7 +1339,7 @@ section#s-forest2 .forest-ma-number {
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 700;
-  color: rgba(140, 30, 90, 0.95);
+  color: oklch(0.44 0.155 352.4 / 0.95);
   font-variant-numeric: tabular-nums lining-nums;
   line-height: 1;
 }
@@ -1370,38 +1377,26 @@ section#s-forest2 .cochrane-logo img {
   width: auto;
 }
 
-/* --- Click 1: RoB column highlight (Von Restorff) --- */
+/* --- Beat 8: RoB grid frame (border-only around circle grid, not headers) --- */
 section#s-forest2 .forest-zone--rob {
   position: absolute;
   opacity: 0;
   pointer-events: none;
   z-index: 2;
-  border-radius: 4px;
-  background: rgba(238, 170, 51, 0.22);
-  border: 2px solid rgba(238, 170, 51, 0.6);
-  top: 0%;
-  left: 80%;
-  width: 20%;
-  height: 100%;
+  border-radius: 3px;
+  background: none;
+  border: 3px solid oklch(0.50 0.13 260 / 0.75);
+  top: 14%;
+  left: 82%;
+  width: 17%;
+  height: 80%;
 }
 section#s-forest2 .forest-zone--rob.revealed {
   opacity: 1;
 }
-/* RoB zone label tag — inside zone to survive overflow:hidden + zoom */
+/* Label hidden — header visible in zoomed crop */
 section#s-forest2 .forest-zone--rob .forest-label-tag {
-  display: inline-block;
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(238, 170, 51, 0.92);
-  color: var(--navy);
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25em 0.6em;
-  border-radius: 4px;
-  white-space: nowrap;
-  line-height: 1.3;
+  display: none;
 }
 
 /* --- Failsafes: overlays visible when GSAP unavailable --- */

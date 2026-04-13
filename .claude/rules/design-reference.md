@@ -24,6 +24,8 @@ Cores clínicas ≠ UI. ΔL ≥ 10% entre safe/warning/danger. Ícone obrigatór
 
 HEX é verdade. Se OKLCH divergir, HEX vence. Paleta de dados: Tol (daltonism-safe).
 
+**PROIBIDO `rgba()`/`rgb()` em CSS novo ou editado.** Usar `oklch(L C H / alpha)`. Ao tocar linha com rgba, converter para oklch no mesmo edit. Tabela Tol→OKLCH: `metanalise.css` comment block (forest zones). Conversao: `node -e` com sRGB→linear→XYZ→Oklab→OKLCH.
+
 ### Hierarquia Semântica Intra-Slide (E073, E074, E075)
 
 - **Punchline > Suporte:** O elemento culminante do argumento DEVE ter tratamento visual superior (cor elevada, tamanho/peso maior, ou ambos). Mesma cor entre suportes é OK.
