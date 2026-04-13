@@ -1386,10 +1386,10 @@ section#s-forest2 .forest-zone--rob {
   border-radius: 3px;
   background: none;
   border: 3px solid oklch(0.50 0.13 260 / 0.75);
-  top: 14%;
-  left: 82%;
+  top: 1%;
+  left: 79%;
   width: 17%;
-  height: 80%;
+  height: 70%;
 }
 section#s-forest2 .forest-zone--rob.revealed {
   opacity: 1;

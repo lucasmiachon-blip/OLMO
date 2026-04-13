@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 171 — 2026-04-12 (QA-profissional-forest)
+
+- **OKLCH migration (fix grave):** 33 rgba() literal → oklch() nos forest zones. Tol bright palette computada via sRGB→Oklab→OKLCH
+- **Regra fortalecida:** design-reference.md proibe rgba/rgb em CSS novo/editado
+- **KBP-18:** Mechanical Edit Without Format Verification + Strategy Persistence Trap
+- **s-forest1:** overlay opacity 18%→10% (zonas), 35%→20% (weight max/min)
+- **s-forest2 beat 8:** zoom RoB fix (scale 2 + xPercent:-35 + transformOrigin 88% 25%)
+- **s-forest2 beat 8:** faixa amarela removida, border-only frame com coordenadas calibradas
+- **Calibrador HTML:** assets/rob-calibrator.html para ajuste manual de coordenadas
+
 ## Sessao 170 — 2026-04-12 (QA-FOREST 3)
 
 - **s-forest2: novo beat 6 "15 MAs em 14 meses"** — badge stat entre heterogeneidade e Cochrane logo. Dados do evidence HTML (censo 15 MAs colchicina 2025-2026)

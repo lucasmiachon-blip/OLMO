@@ -102,6 +102,8 @@ Additional rules:
 - Claim about history (who introduced X, which commit, which file/session): verify via `git log -S '<literal>'` or `git blame` before asserting. Working memory is coherence-biased, not verification-biased. **KBP-13.**
 - Claim about intent (sync vs on-demand, required vs optional, artifact vs output): verify by reading the doc's own header or asking Lucas. Never assume synchronization/ownership contracts.
 - Research output grounding: When producing content for evidence/pre-reading, every claim must trace to a retrieved source (PubMed, SCite, Perplexity, NLM). Training-data synthesis ("examples") is NOT acceptable as primary content. If no source found, state the gap explicitly rather than generating plausible content.
+- Edit-time format compliance: When editing ANY line of code, verify the ENTIRE line complies with applicable rules — not just the value you changed. Changing alpha 0.18→0.10 while leaving `rgba()` intact when `design-reference.md` mandates `oklch()` = format violation. Rules are auto-loaded — cross-reference on every edit.
+- Strategy persistence trap: When an approach fails once, STOP and reconsider the strategy before retrying with tweaked values. Guessing CSS coordinates 3× (9%, 14%, 18%) instead of switching to a calibrator tool or measuring the source image = wasted cycles and trust. 1 failure = rethink approach, not tweak params. **KBP-18.**
 
 **When violated**: flag the fabrication explicitly to the user.
 

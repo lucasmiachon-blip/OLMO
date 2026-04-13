@@ -1,24 +1,17 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 170 | QA-FOREST 3
+> Sessao 171 | QA-profissional-forest
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
-**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 17.** **Skills: 20.** **Memory: 20/20.** **Backlog: 21 items.**
+**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 20.** **Memory: 20/20.** **Backlog: 21 items.**
 
 ## P0 — Forest plot slides
 
-- **s-forest1 (Li 2026) — Gate 4 R1+R2 rodados, status PENDENTE.**
-  - Pendente: overlay opacity (18% → ~10% ou border-only), verificar posicoes no browser. Gemini R2 Call B alucina coordenadas — nao confiar.
-- **s-forest2 (Ebrahimi Cochrane) — 8 beats implementados, Gate 4 pendente.**
-  - Beats: 1-5 zonas anatomicas, 6 badge "15 MAs em 14 meses", 7 Cochrane logo (clipPath), 8 RoB zoom
-  - Source-tag simplificada: "Ebrahimi et al. 2025" (sem "Cochrane" — logo ja serve)
-  - Cochrane logo: pointer-events:none ate .revealed (fix: clicks roubados pelo `<a>`)
-  - CSS regra duplicada label-tag consolidada
-  - **PENDENTE zoom RoB (beat 8):** scale+transformOrigin sozinhos nao centralizam. Solucao: combinar `scale: 2.5` + `xPercent: -40` no GSAP (math: RoB center 90% - viewport center 50% = 40% offset) + `overflow: hidden` no `.forest-fig`. Retreat desfaz ambos.
-- **Gate 4 prompts atualizados (S168).**
-- **advance/retreat FIXED (S167).**
+- **s-forest1 (Li 2026) — Gate 4 PENDENTE.** Overlay opacity reduzida (10%). Pronto para Gate 4.
+- **s-forest2 (Ebrahimi Cochrane) — Gate 4 PENDENTE.** 8 beats implementados. Zoom RoB (beat 8) com scale 2 + xPercent:-35 + border-only frame (coordenadas calibradas por Lucas: top 1%, left 79%, width 17%, height 70%).
+- **Proxima sessao: Gate 4 Gemini para cada slide** (Preflight → Inspect → Editorial, 1 por vez).
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
@@ -45,6 +38,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes.
 - **Docling = caminho canonico para PDFs (S162).**
 - **Animacoes forest slides (S163→S165):** zonas coloridas + Cochrane clipPath + RoB zoom. Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
+- **OKLCH obrigatorio (S171):** rgba/rgb PROIBIDO em CSS novo/editado. Tabela Tol→OKLCH no metanalise.css.
 
 ## CUIDADOS
 
@@ -57,14 +51,20 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **clip-path nao desabilita pointer-events** — elementos clipados ainda roubam clicks. Usar pointer-events:none.
 - **overflow:hidden em flex + min-height:0** corta conteudo se flex children consomem espaco vertical demais.
 - **transform:scale() com transformOrigin nao centraliza** — so fixa o ponto. Centralizar requer translate combinado.
+- **KBP-18 (S171):** NAO editar mecanicamente — verificar formato da linha inteira contra regras carregadas. NAO insistir na mesma estrategia falhada — 1 falha = repensar abordagem.
 
 ## BACKLOG
 
-→ `.claude/BACKLOG.md` (20 items; #10 RESOLVED S156, #12 RESOLVED S158, #17-20 novos)
+→ `.claude/BACKLOG.md` (21 items; #10 RESOLVED S156, #12 RESOLVED S158, #17-20 novos)
 
 ## CONFLITOS
 
 (nenhum ativo)
 
+## CLEANUP PENDENTE
+
+- `.claude/plans/`: 6 plans untracked (5 anteriores + 1 desta sessao). Lucas decide per-file.
+- `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
+
 ---
-Coautoria: Lucas + Opus 4.6 | S170 2026-04-12
+Coautoria: Lucas + Opus 4.6 | S171 2026-04-12
