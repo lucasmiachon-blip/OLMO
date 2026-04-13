@@ -451,6 +451,14 @@ export const slideRegistry = {
       }
 
       if (revealed === 2) {
+        // Kappa header: context label appears first (name → then data)
+        const header = slide.querySelector('.rob2-kappa-header');
+        if (header) {
+          gsap.fromTo(header,
+            { opacity: 0, y: 8 },
+            { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+          );
+        }
         // Kappa bars: stagger top→bottom, D2 arrives last with dramatic pause
         const bars = slide.querySelectorAll('.rob2-bar');
         const fills = slide.querySelectorAll('.rob2-bar-fill');
@@ -511,11 +519,15 @@ export const slideRegistry = {
         const fills = slide.querySelectorAll('.rob2-bar-fill');
         const vals = slide.querySelectorAll('.kappa-stats');
         const note = slide.querySelector('.rob2-kappa-note');
+        const header = slide.querySelector('.rob2-kappa-header');
         gsap.to(vals, { opacity: 0, duration: 0.2, ease: 'power2.in' });
         gsap.to(fills, { scaleX: 0, duration: 0.25, delay: 0.1, ease: 'power2.in' });
         gsap.to([...bars, note].filter(Boolean),
           { opacity: 0, x: -12, duration: 0.3, delay: 0.15, ease: 'power2.in' }
         );
+        if (header) {
+          gsap.to(header, { opacity: 0, duration: 0.3, delay: 0.15, ease: 'power2.in' });
+        }
       }
       if (revealed === 3) {
         const els = slide.querySelectorAll('[data-reveal="3"]');

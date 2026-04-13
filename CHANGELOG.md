@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 183 — 2026-04-13 (ROB2_REFINE)
+
+### Slide — s-rob2 professional refinement pass
+- **State leak fix:** κ header (`h3.rob2-kappa-header`) tinha opacity:0 ausente no CSS + GSAP não o animava — agora oculto no frame 0, revelado no beat 2
+- **Grid unificado:** rows `2fr 3fr 1fr` → `auto 1fr auto` — rail direito flui como coluna contínua, sem centering independente
+- **Título rebalanceado:** h2 34→28px + margin 24→16px — cede energia visual ao corpo
+- **Hero alinhado:** `align-items: center→start` em `.rob2-figure` — imagem ancora ao topo, alinhada com domains
+- **κ tipografia:** token `--space-2xs` (inexistente→0px) substituído por `gap: var(--space-xs)` + `min-width: 4ch` no valor — grid tipográfico profissional
+- **Centering removido:** `justify-content: center` eliminado de `.rob2-domains` e `.rob2-alts` (desnecessário com auto rows)
+- **κ header styling:** nova regra com `font-size: var(--text-h3)`, `font-weight: 600`, failsafe já coberto por `[data-reveal]`
+
 ## Sessao 182 — 2026-04-13 (FOUC_FIX)
 
 ### Bug fix — FOUC s-pubbias2

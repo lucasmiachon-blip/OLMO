@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 182 | FOUC_FIX
+> Sessao 183 | ROB2_REFINE
 
 ## ESTADO ATUAL
 
@@ -15,13 +15,10 @@ Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via No
 - **Posicao:** F2, apos s-rob2, antes de s-heterogeneity.
 - **FOUC FIXED (S182):** opacity:0 + GSAP auto-reveal + failsafes completos.
 
-## P0 — s-rob2 (grid redesign + QA CSS)
+## P0 — s-rob2 (refinement pass S183 DONE)
 
-- **Redesign FEITO:** HTML flat + CSS grid 4 areas.
-- **QA CSS (outro agente S181):** opacity:0 em .rob2-figure, kappa-stats reestruturado (HTML), grid ajustado.
-- **GSAP fix:** target corrigido (.rob2-figure em vez de img) apos migracao opacity.
-- **Pendente:** h2 padronizar (Lucas apontou diferenca) + QA cycle completo.
-- **Failsafe bug (S182):** failsafes targetam `.rob2-figure img` mas opacity:0 vive em `.rob2-figure` — GSAP fail = imagem invisivel.
+- **S183 refine DONE:** state leak corrigido, grid unificado, titulo rebalanceado, kappa tipografia profissional.
+- **Pendente:** h2 padronizar (Lucas decide) + QA cycle completo (Gate 4).
 - **Call D hardening pendente:** coverage audit + call tipografia/legibilidade.
 
 ## P0 — Forest plot slides
@@ -86,11 +83,11 @@ Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via No
 
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: 13 plans untracked (12 anteriores + snazzy-chasing-spark S181). Lucas decide per-file.
+- `.claude/plans/`: 14 plans untracked (13 anteriores + witty-scribbling-harbor S183). Lucas decide per-file.
 - `.claude/workers/`: workers de S178 + S181 (vies-pub-research). Lucas decide manter/remover.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
 - `assets/funnel-calibrator.html`: ferramenta calibracao zonas funnel plot (v2). Lucas decide manter/remover.
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S182 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S183 2026-04-13
