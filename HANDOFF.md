@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 179 | QA-ROB2
+> Sessao 180 | ROB2.1
 
 ## ESTADO ATUAL
 
@@ -22,13 +22,14 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 - **Propagacao parcial:** Gate 0 fix propagado para cirrose/grade. Call A/B/C hardening PENDENTE para cirrose/grade.
 - **Prompt refinements (S179):** threshold table tipografia, kappa KNOWN DECISIONS, ceiling cap 10→9.
 
-## P0 — s-rob2 (QA em curso)
+## P0 — s-rob2 (layout redesign pendente)
 
-- **QA Editorial r13 (S179):** 7.2/10 (hardened pipeline). css_cascade FPs: ZERO. Fixes estruturados.
-- **CSS fixes (S179):** grid layout (flex→grid+contents), specificity cleanup (#deck removido de 3 selectors)
-- **Motion fixes (S179):** D2 dramatic pause (0.3s extra), bar values delay (staging: barra cresce → numero aparece)
-- **Prompt improvements (S179):** threshold table por tipo (24/18/14px), kappa colors no KNOWN DECISIONS, ceiling cap (10→max 9)
-- **Estado: QA** — proximo passo: visual check no browser, re-rodar editorial r14 se necessario
+- **QA r14-r15 (S180):** score 7.3→5.0 apos Call D. Sobreposicao kappa-note/source-tag confirmada.
+- **Call focada (S180):** tipografia 4, varredura 5, legibilidade **3**, hierarquia 5, disposicao 4, sobreposicao **2**. Slide tem problema **estrutural** de densidade (8 elementos, sem heroi).
+- **Herois confirmados:** crop RoB + dominios D1-D5. Kappa bars e cards = apoio.
+- **CSS experiments (S180):** tentativas incrementais falharam (remendos sem visao global). Revertido a HEAD.
+- **Proxima sessao:** redesign coerente do layout com grid rows explicitas (3fr/2fr), crop preenchendo celula, EN text hidden. Pensar ANTES, 1 rewrite, nao patches.
+- **Call D hardening pendente:** adicionar coverage audit ("defeitos que nenhuma call mencionou") + call especifica tipografia/hierarquia/legibilidade.
 
 ## P0 — Forest plot slides
 
@@ -99,4 +100,4 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 - `agents/ai_update/ai_update_agent.py:112`: registra "Gemini 2.0" — stale.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S179 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S180 2026-04-13

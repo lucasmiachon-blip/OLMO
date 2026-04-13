@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Sessao 180 — 2026-04-13 (ROB2.1)
+
+### QA — s-rob2 editorial r14-r15 + call focada
+- **r14:** 7.3/10 (Call D: 6 ceiling violations). Call A nao detectou sobreposicao.
+- **r15:** 5.0/10 (Call D adjusted). Tipografia 3/10. Call A finalmente detectou overlap.
+- **Call B r15 falhou:** MAX_TOKENS (parse failed). So 10/15 dims parseadas.
+- **Call focada ad-hoc:** 6 dims especificas (tipografia, varredura, legibilidade, hierarquia, disposicao, sobreposicao). Confirmou problema estrutural: 8 elementos sem heroi, legibilidade 3/10 a 10m.
+- **Herois definidos:** crop RoB (imagem) + dominios D1-D5. Kappa bars + cards = apoio.
+- **CSS experiments (revertidos):** tentativas incrementais falharam — cada fix gerava novo problema. Abordagem correta: grid rows explicitas (3fr/2fr) + 1 rewrite coerente.
+- **Descoberta:** Call D so recalibra notas, nao audita cobertura. Sobreposicao escapou 4 calls.
+- **Pendente:** Call D hardening (coverage audit) + call tipografia/legibilidade no pipeline.
+
 ## Sessao 179 — 2026-04-13 (QA-ROB2)
 
 ### QA — s-rob2 editorial r13 (hardened pipeline)
