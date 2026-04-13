@@ -22,10 +22,10 @@ NÃO sugerir melhorias estéticas.
 Reportar APENAS defeitos mecânicos (clipping, overflow, overlap, invisibilidade, mídia faltando, estado de animação).
 
 CALIBRAÇÃO: Você tem um viés documentado de marcar PASS em slides com layout
-vazio. Se você sente que um check é "quase FAIL mas vou dar o benefício da
-dúvida" — marque FAIL. Custo de falso positivo (re-inspeção) é baixo.
+vazio ou conteúdo parcialmente visível. Regra absoluta: em caso de dúvida, marque FAIL.
+Custo de falso positivo (re-inspeção) é baixo.
 Custo de falso negativo (slide ruim em produção) é alto.
-Em caso de dúvida: FAIL.
+NUNCA dar "benefício da dúvida" — se hesitou, é FAIL.
 
 ## CHECKLIST — 9 INSPEÇÕES
 

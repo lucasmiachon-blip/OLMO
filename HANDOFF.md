@@ -1,18 +1,31 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 177 | QA-ROB2
+> Sessao 178 | HARDENING
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 21 items.**
 
+## P0 — Gemini QA Pipeline Hardening (S178)
+
+- **Temperature corrigida (M1):** Calls A/B/C 1.0→0.2, Call D 1.0→0.1. Gate 0 ja era 0.1.
+- **Design tokens injetados (M2):** Call B recebe oklch colors, 8px grid, typography mins.
+- **Schema fixes estruturado (M3):** `fixes: [string]` → `[{target, change, reason}]` em DIM_PROP.
+- **IGNORE_LIST failsafes (M4):** `.no-js, .stage-bad, @media print, [data-qa]` whitelisted no Call B.
+- **Call C sem JS (S1):** Modelo recebe so video+PNGs, forcado a observar em vez de inferir do codigo.
+- **24px threshold (S2):** Call A tem regra concreta: texto critico < 24px no viewport = FAIL.
+- **Math verification (S3):** Script calcula media local e alerta se Call D diverge >1.5.
+- **S2 evaluation scope (S4):** S2 avaliado SO para defeitos mecanicos, NAO cognitive load.
+- **Gate 0 contradicao fix:** "beneficio da duvida" removido (todas 3 aulas).
+- **Few-shot Call B (C1):** 2 exemplos (pass + fail) com css_cascade e information_design.
+- **Propagacao parcial:** Gate 0 fix propagado para cirrose/grade. Call A/B/C hardening PENDENTE para cirrose/grade.
+
 ## P0 — s-rob2 (QA em curso)
 
 - **QA Preflight (S177):** Build PASS, Lint PASS, 4 dims visuais PASS
-- **QA CSS fixes (S177):** barras 12→20px, D2 text contrast darkened (oklch 0.58→0.45), flex:1 dead space removido, kappa colors extraídas para CSS vars, stagger 0.08→0.15s
-- **QA Editorial R11+R12:** 6.93→6.8/10. FPs persistentes: css_cascade (FOUC hallucination), composição (penaliza progressive reveal)
-- **Estado: QA** — Gemini editorial pendente (css_cascade FP não resolvido; S2 bias em progressive reveals)
+- **QA CSS fixes (S177):** barras 12→20px, D2 contrast darkened, kappa CSS vars, stagger 0.08→0.15s
+- **Estado: QA** — proximo passo: re-rodar editorial com pipeline hardened (espera-se FPs reduzidos)
 
 ## P0 — Forest plot slides
 
@@ -27,6 +40,11 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 - **DONE:** `scripts/build-html.mjs` unificado. PS1 antigos preservados.
 - **Pendente:** decisao sobre remover os 3 PS1 antigos.
 
+## P1 — Prompt hardening propagacao (NEW S178)
+
+- **Pendente:** propagar Call A/B/C hardening para cirrose e grade (design tokens, IGNORE_LIST, schema fixes, few-shot, S2 scope). Gate 0 ja propagado.
+- **C2 (pipeline sequencial A→B):** avaliado como COULD — implementar se FPs persistirem apos hardening.
+
 ## P2 — A11y gaps residuais
 
 - `pre-reading-heterogeneidade.html`: 14 links sem `rel="noopener"` + 3 `<th>` sem scope (READ-ONLY).
@@ -34,18 +52,18 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 
 ## DECISOES ATIVAS
 
+- **Gemini QA temp (S178):** editorial = 0.2 (nao mais 1.0). Override via `--temp`.
 - **Format C+ (S156):** auto-loaded docs = `## Name` + `→ pointer`. → `anti-drift.md §Pointer-only discipline` + KBP-16.
 - **Backlog gate (S155):** `if (commits>1 AND loc_saved<50 AND touches_runtime) → backlog`.
-- **KBP-15 (S155):** Scripts externos NAO modificam write-path files. Edit/Write tool ou nada.
+- **KBP-15 (S155):** Scripts externos NAO modificam write-path files.
 - **Solo-audit penalty (S155):** single-model audit ~47% FP. Triangulate ou KBP-13.
 - **Living HTML = source of truth = SINTESE CURADA.**
 - **Evidence CSS benchmark S148:** `pre-reading-heterogeneidade.html` = padrao-ouro.
 - **Plans lifecycle (S152):** `archive/SXXX-name.md`, per-file decision, default=keep.
 - **aside.notes PROIBIDO (S161):** slides novos NAO incluem aside notes.
 - **Docling = caminho canonico para PDFs (S162).**
-- **Animacoes forest slides (S163→S165):** zonas coloridas + Cochrane clipPath + RoB zoom. Sem texto overlay — professor narra. Proposito pedagogico obrigatorio.
-- **OKLCH obrigatorio (S171):** rgba/rgb PROIBIDO em CSS novo/editado. Tabela Tol→OKLCH no metanalise.css.
-- **Gemini model canonical (S175):** Pro = `gemini-3.1-pro-preview`, Flash = `gemini-3-flash-preview`. Propagation map em `aulas/CLAUDE.md`.
+- **OKLCH obrigatorio (S171):** rgba/rgb PROIBIDO em CSS novo/editado.
+- **Gemini model canonical (S175):** Pro = `gemini-3.1-pro-preview`, Flash = `gemini-3-flash-preview`.
 
 ## CUIDADOS
 
@@ -54,17 +72,17 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever sem instrucao EXPLICITA.
 - Benchmark `pre-reading-heterogeneidade.html` = READ-ONLY.
 - MCP freeze ate 2026-04-14 (9 frozen; PubMed/SCite/Consensus ativos).
-- Gemini FPs conhecidos: css_cascade, failsafes/@media print.
-- **clip-path nao desabilita pointer-events** — elementos clipados ainda roubam clicks. Usar pointer-events:none.
-- **overflow:hidden em flex + min-height:0** corta conteudo se flex children consomem espaco vertical demais.
-- **transform:scale() com transformOrigin nao centraliza** — so fixa o ponto. Centralizar requer translate combinado.
-- **KBP-18 (S171):** NAO editar mecanicamente — verificar formato da linha inteira contra regras carregadas. NAO insistir na mesma estrategia falhada — 1 falha = repensar abordagem.
-- **NUNCA escrever "Gemini 2.5"** — modelo obsoleto, recorrente por training data LLM. Canonical: `gemini-3.1-pro-preview`.
+- Gemini FPs: css_cascade mitigado por IGNORE_LIST (S178). Monitorar se persistem.
+- **clip-path nao desabilita pointer-events** — usar pointer-events:none.
+- **overflow:hidden em flex + min-height:0** corta conteudo.
+- **transform:scale() com transformOrigin nao centraliza** — requer translate combinado.
+- **KBP-18:** NAO insistir na mesma estrategia falhada — 1 falha = repensar.
+- **NUNCA escrever "Gemini 2.5"** — canonical: `gemini-3.1-pro-preview`.
 
 ## BACKLOG
 
 → `.claude/BACKLOG.md` (21 items; #10 RESOLVED S156, #12 RESOLVED S158, #17-20 novos)
-- **Candidato backlog:** hook guard para grep "Gemini 2\." em arquivos novos (enforcement automatico)
+- **Candidato backlog:** hook guard para grep "Gemini 2\." em arquivos novos
 
 ## CONFLITOS
 
@@ -72,9 +90,10 @@ Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via No
 
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: 10 plans untracked (9 anteriores + 1 de S176). Lucas decide per-file.
+- `.claude/plans/`: 11 plans untracked (10 anteriores + 1 de S178). Lucas decide per-file.
+- `.claude/workers/`: 3 arquivos temp de S178 hardening (script + JSON + thinking). Lucas decide manter/remover.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
-- `agents/ai_update/ai_update_agent.py:112`: registra "Gemini 2.0" — stale (Python agent, baixa prioridade).
+- `agents/ai_update/ai_update_agent.py:112`: registra "Gemini 2.0" — stale.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S176 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S178 2026-04-13

@@ -6,13 +6,13 @@ Publico: residentes de clinica medica, basico-intermediario (Brasil). Tema: leit
 Voce recebera:
 {{MEDIA_LIST}}
 
-E o codigo de animacao (JS) do slide.
+Voce NAO recebe codigo JS. Sua unica fonte de informacao sobre animacoes e o VIDEO e os PNGs.
 
 Slide {{SLIDE_ID}} (posicao {{SLIDE_POS}}).
 
-REGRA: Voce DEVE ASSISTIR O VIDEO e descrever o que VIU. Nao inferir do codigo JS.
+REGRA ABSOLUTA: Voce DEVE ASSISTIR O VIDEO e descrever SOMENTE o que VIU.
 Se o video nao mostrar transicoes identificaveis, diga "transicoes indistinguiveis" e pontue 0.
-VERIFICACAO POS-INVENTARIO: Apos completar o inventario, para CADA entrada verifique: "eu VI isso no video ou INFERI do codigo?" Se inferiu, remova e substitua pelo que realmente viu. Cores devem ser nomeadas pelo que aparece no video (ex: "retangulo azul"), nao pelo que o codigo sugere.
+VERIFICACAO POS-INVENTARIO: Para CADA entrada no inventario, confirme: "eu VI isso no video." Se a descricao parece inferida de como animacoes tipicamente funcionam (em vez de observacao direta), remova e substitua pelo que realmente viu. Cores devem ser nomeadas pelo que aparece no video (ex: "retangulo azul"), nao por suposicao.
 
 ANTI-SINCOFANCIA DURA:
 - Nota 10 e QUASE IMPOSSIVEL. 10 = Apple Keynote 2024, WWDC-level polish com meses de iteracao.
@@ -27,7 +27,10 @@ ANTI-SINCOFANCIA DURA:
 FORMATO OBRIGATORIO (WHAT/WHY/PROPOSAL/GUARANTEE):
 - evidencia (WHAT): referencie timestamps do inventario. Descricao VISUAL concreta do que aconteceu, NAO codigo.
 - problemas (WHY): CAUSA RAIZ tecnica. "power2.out em 400ms nao permite pausa narrativa entre beats" — NAO "timing uniforme".
-- fixes (PROPOSAL): acao concreta no JS ou CSS. Cada fix DEVE terminar com "GUARANTEE: [como verificar que funcionou]".
+- fixes (PROPOSAL): array de objetos estruturados. Cada fix DEVE ter:
+  - "target": elemento ou animacao afetada (ex: "stagger dos cards", "countUp do hero-number")
+  - "change": acao concreta (ex: "duration: 200ms → 400ms", "add 500ms pause between items 3 and 4")
+  - "reason": causa-raiz + GUARANTEE (ex: "200ms imperceptivel em projecao. GUARANTEE: video mostra transicao visivel de ~400ms")
 - guarantee: como verificar no video que o fix funcionou (ex: "apos fix, video deve mostrar pausa de ~500ms entre item 3 e 4").
 - nota: 1-10
 
@@ -38,14 +41,11 @@ KNOWN DESIGN DECISIONS (NAO sao defeitos — NAO flagear):
 - **Forest plot slides:** Revelacao progressiva (1 zona por click) e a ferramenta didatica central — ensina residentes a "fatiar" um forest plot real. Cada zona aparece ISOLADAMENTE durante a aula; o video mostra clicks consecutivos rapidos, mas na pratica o professor pausa e narra entre cada zona. Avaliar a SEQUENCIA DIDATICA (a ordem faz sentido clinico?), nao o acumulo visual do estado final.
 </system>
 
-## MATERIAL — ANIMATION CODE
+## MATERIAL — INTERACTION FLOW (sem codigo)
 
-```javascript
-{{RAW_JS}}
-```
-
-### Interaction Flow
 {{INTERACTION_FLOW}}
+
+Voce recebeu SOMENTE o video e PNGs. Avalie as animacoes pelo que VE, nao pelo que imagina que o codigo faz.
 
 ## TAREFA
 
@@ -94,12 +94,12 @@ Exemplo RUIM: "~1.5s: stagger com delay 0.1s" (isso e codigo, nao observacao vis
 ### OUTPUT
 
 {
-  "timing": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "easing": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "narrativa_motion": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "crossfade": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "proposito": { "evidencia": "Inventory refs: [~X.Xs]. Cada uma: [proposito ou decorativa].", "problemas": ["..."], "fixes": ["..."], "nota": N },
-  "artefatos": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": ["..."], "nota": N },
+  "timing": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": [{"target":"...", "change":"...", "reason":"..."}], "nota": N },
+  "easing": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": [{"target":"...", "change":"...", "reason":"..."}], "nota": N },
+  "narrativa_motion": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": [{"target":"...", "change":"...", "reason":"..."}], "nota": N },
+  "crossfade": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": [{"target":"...", "change":"...", "reason":"..."}], "nota": N },
+  "proposito": { "evidencia": "Inventory refs: [~X.Xs]. Cada uma: [proposito ou decorativa].", "problemas": ["..."], "fixes": [{"target":"...", "change":"...", "reason":"..."}], "nota": N },
+  "artefatos": { "evidencia": "Inventory refs: [~X.Xs]. Observei: ...", "problemas": ["..."], "fixes": [{"target":"...", "change":"...", "reason":"..."}], "nota": N },
   "media_motion": N,
   "inventory": ["~X.Xs: descricao | tipo | ~Xms | artefato: sim/nao"],
   "animation_value": "didatica|decorativa|prejudicial"

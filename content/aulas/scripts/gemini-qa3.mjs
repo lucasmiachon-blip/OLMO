@@ -99,6 +99,12 @@ const PRICING = {
 };
 function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
 
+// H1: Per-gate temperature defaults (S178 hardening — lower temp = less hallucination in QA)
+// Gate 0 (inspect): 0.1 (binary classification, max determinism)
+// Calls A/B/C (editorial): 0.2 (factual analysis, minimal creativity)
+// Call D (validate): 0.1 (audit/verification, max determinism)
+const TEMP_DEFAULTS = { inspect: 0.1, visual: 0.2, uxcode: 0.2, motion: 0.2, validate: 0.1 };
+
 // --- CLI args ---
 const args = process.argv.slice(2);
 function getArg(name, fallback) {
@@ -377,7 +383,15 @@ const DIM_PROP = {
   properties: {
     evidencia: { type: "STRING" },
     problemas: { type: "ARRAY", items: { type: "STRING" } },
-    fixes: { type: "ARRAY", items: { type: "STRING" } },
+    fixes: { type: "ARRAY", items: {
+      type: "OBJECT",
+      properties: {
+        target: { type: "STRING" },   // CSS selector, HTML element, or JS function
+        change: { type: "STRING" },   // concrete action: "gap: 8px → 24px" or "add grid-template-columns: 1fr 2fr"
+        reason: { type: "STRING" },   // why: cause-based, not symptom
+      },
+      required: ["target", "change", "reason"],
+    } },
     guarantee: { type: "ARRAY", items: { type: "STRING" } },
     nota: { type: "NUMBER", minimum: 0, maximum: 10 },
   },
@@ -1058,7 +1072,7 @@ async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUr
   parts.push({ text });
 
   const config = {
-    temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0,
+    temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : TEMP_DEFAULTS.validate,
     topP: 0.95,
     maxOutputTokens: 8192,
     responseMimeType: 'application/json',
@@ -1152,7 +1166,7 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
   parts.push({ text });
 
   const config = {
-    temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : 1.0,
+    temperature: CUSTOM_TEMP ? parseFloat(CUSTOM_TEMP) : (TEMP_DEFAULTS[callType] ?? 0.2),
     topP: 0.95,
     maxOutputTokens: maxTokens || 8192,
     responseMimeType: 'application/json',
@@ -1251,14 +1265,12 @@ async function runEditorial(slideId, round, qaDir) {
     slideId, meta, mediaUris, rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest,
     { video: false, s0: true, s2: true, ref: true }, 16384);
 
-  // Call C — Motion Design: PNGs + video + animation JS only
-  // Strip line comments from JS to prevent bias — forces Gemini to watch the video
-  // instead of parroting beat descriptions from code comments (S172 fix)
-  const strippedJS = rawJS
-    ? rawJS.replace(/^\s*\/\/.*$/gm, '').replace(/\n{3,}/g, '\n\n').trim()
-    : rawJS;
+  // Call C — Motion Design: PNGs + video ONLY (no JS code)
+  // S178 hardening: removing JS entirely forces Gemini to analyze the actual video
+  // instead of reading code and fabricating timestamps. S172 stripped comments but
+  // model still cheated by reading function structure. Full removal is the fix.
   const payloadC = buildSplitCallPayload('motion', CALL_C_PROMPT_PATH,
-    slideId, meta, mediaUris, null, null, strippedJS, null, null, null,
+    slideId, meta, mediaUris, null, null, null, null, null, null,
     { video: true, s0: true, s2: true, ref: false }, 8192);
 
   // Step 3: Fire 3 calls in parallel
@@ -1543,11 +1555,18 @@ ${JSON.stringify(callC_result, null, 2)}
       console.log('  Recalibrated:');
       for (const v of cv) console.log(`    ${v.call}/${v.dimension}: ${v.original_score} → ${v.adjusted_score} (${v.reason})`);
     }
+    // S178: Local math verification — LLMs hallucinate arithmetic.
+    // Use Call D's adjusted scores as qualitative judgment, but verify overall is plausible.
     const adjV = validation.adjusted_visual;
     const adjU = validation.adjusted_uxcode;
     const adjM = validation.adjusted_motion;
     const adjO = validation.adjusted_overall;
-    console.log(`  Adjusted scores: V:${adjV} U:${adjU} M:${adjM} Overall:${adjO}`);
+    const localMean = [adjV, adjU, adjM].filter(v => typeof v === 'number').reduce((a, b) => a + b, 0)
+      / [adjV, adjU, adjM].filter(v => typeof v === 'number').length;
+    if (typeof adjO === 'number' && Math.abs(adjO - localMean) > 1.5) {
+      console.warn(`  WARN: Call D overall (${adjO}) diverges from local mean (${localMean.toFixed(1)}) by >${1.5} — possible LLM math error`);
+    }
+    console.log(`  Adjusted scores: V:${adjV} U:${adjU} M:${adjM} Overall:${adjO} (local mean: ${localMean.toFixed(1)})`);
     if (pa.length > 0) {
       console.log('  Priority actions:');
       for (const a of pa) console.log(`    #${a.rank} [${a.severity}] ${a.what}`);

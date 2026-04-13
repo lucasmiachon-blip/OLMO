@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## Sessao 178 — 2026-04-13 (HARDENING)
+
+### Pipeline — Adversarial prompt hardening (gemini-qa3.mjs + 5 prompts)
+
+**Diagnostico:** dual adversarial audit — Codex red-team (GPT-5.4) + Gemini self-interrogation (3.1 Pro deep think). Ambos convergem nos mesmos 4 eixos: temperature, tokens, schema, whitelist.
+
+**Script (gemini-qa3.mjs):**
+- **M1 Temperature:** Calls A/B/C 1.0→0.2, Call D 1.0→0.1 via `TEMP_DEFAULTS` map. Gate 0 mantido 0.1. `--temp` override preservado.
+- **M3 Schema fixes:** `DIM_PROP.fixes` de `[string]` para `[{target, change, reason}]` — forca specificidade
+- **S1 Call C sem JS:** `null` em vez de `strippedJS`. Modelo forcado a analisar video puro.
+- **S3 Math verification:** media local calculada no script; WARN se Call D diverge >1.5
+
+**Prompts metanalise:**
+- **Gate 0:** removida contradicao "beneficio da duvida" vs "em caso de duvida FAIL"
+- **Call A:** S2 avaliado SO para defeitos mecanicos (z-index, clipping), NAO cognitive load; 24px threshold para tipografia
+- **Call B:** IGNORE_LIST (`.no-js, .stage-bad, @media print, [data-qa]`); bloco DESIGN SYSTEM com oklch/grid/clamp; 2 few-shot examples (pass/fail css_cascade + information_design); fixes estruturados
+- **Call C:** secao JS removida do template; instrucoes reforçadas para observacao pura do video
+- **Call D:** "Recalcular medias" substituido por "julgamento qualitativo" (LLMs erram aritmetica)
+
+**Propagacao cross-aula:**
+- Gate 0 contradicao fix: cirrose + grade (propagado)
+- Call A/B/C hardening: cirrose + grade (PENDENTE — prompts tem adaptacoes per-aula)
+
+### Resultado esperado
+- FPs css_cascade: eliminados (IGNORE_LIST explicita)
+- FPs composicao/progressive reveal: eliminados (S2 scope reduzido)
+- Fixes vagos ("improve spacing"): eliminados (schema estruturado + design tokens)
+- CSS desatualizado (rgba, px): eliminado (DESIGN SYSTEM block + regra de descarte)
+
 ## Sessao 177 — 2026-04-13 (QA-ROB2)
 
 ### QA — s-rob2 Preflight + CSS fixes
