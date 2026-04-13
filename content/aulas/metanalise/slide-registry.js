@@ -415,4 +415,109 @@ export const slideRegistry = {
     slide.__hookRetreat = retreat;
     slide.__hookCurrentBeat = () => revealed;
   },
+
+  's-rob2': (slide, gsap) => {
+    // Auto: image fade-up on slide enter
+    const img = slide.querySelector('.rob2-figure img');
+    if (img) {
+      gsap.fromTo(img,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
+      );
+    }
+
+    // Click-reveal: 3 beats (domains → kappa bars → alternatives)
+    const MAX = 3;
+    let revealed = 0;
+
+    const advance = () => {
+      if (revealed >= MAX) return false;
+      revealed++;
+
+      if (revealed === 1) {
+        // Domains: stagger D1→D5 + rule
+        const domains = slide.querySelectorAll('.rob2-domain');
+        const rule = slide.querySelector('.rob2-rule');
+        gsap.fromTo(domains,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: 'power2.out' }
+        );
+        if (rule) {
+          gsap.fromTo(rule,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, delay: 0.5, ease: 'power2.out' }
+          );
+        }
+      }
+
+      if (revealed === 2) {
+        // Kappa bars: stagger top→bottom (D2 arrives last = punchline)
+        const bars = slide.querySelectorAll('.rob2-bar');
+        const fills = slide.querySelectorAll('.rob2-bar-fill');
+        const note = slide.querySelector('.rob2-kappa-note');
+        gsap.fromTo(bars,
+          { opacity: 0, x: -12 },
+          { opacity: 1, x: 0, duration: 0.4, stagger: 0.15, ease: 'power2.out' }
+        );
+        // Bar fills grow left→right via scaleX (GPU, no reflow)
+        gsap.fromTo(fills,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.6, stagger: 0.15, delay: 0.1, ease: 'power2.out' }
+        );
+        if (note) {
+          gsap.fromTo(note,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, delay: 0.85, ease: 'power2.out' }
+          );
+        }
+      }
+
+      if (revealed === 3) {
+        // Alternatives: fade up
+        const alts = slide.querySelectorAll('.rob2-alt');
+        const trend = slide.querySelector('.rob2-alt-trend');
+        gsap.fromTo(alts,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, ease: 'power2.out' }
+        );
+        if (trend) {
+          gsap.fromTo(trend,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, delay: 0.35, ease: 'power2.out' }
+          );
+        }
+      }
+
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+
+      if (revealed === 1) {
+        const els = slide.querySelectorAll('[data-reveal="1"]');
+        gsap.to(els, { opacity: 0, y: 12, duration: 0.3, ease: 'power2.in' });
+      }
+      if (revealed === 2) {
+        const bars = slide.querySelectorAll('.rob2-bar');
+        const fills = slide.querySelectorAll('.rob2-bar-fill');
+        const note = slide.querySelector('.rob2-kappa-note');
+        gsap.to(fills, { scaleX: 0, duration: 0.25, ease: 'power2.in' });
+        gsap.to([...bars, note].filter(Boolean),
+          { opacity: 0, x: -12, duration: 0.3, ease: 'power2.in' }
+        );
+      }
+      if (revealed === 3) {
+        const els = slide.querySelectorAll('[data-reveal="3"]');
+        gsap.to(els, { opacity: 0, y: 12, duration: 0.3, ease: 'power2.in' });
+      }
+
+      revealed--;
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
 };

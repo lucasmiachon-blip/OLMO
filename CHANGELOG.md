@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 176 — 2026-04-13 (BUILD-S-ROB2.1)
+
+### Slide — s-rob2 HTML + CSS + build
+- **`slides/08c-rob2.html`:** 3-click progressive reveal (domínios D1-D5 bilíngue → barras kappa concordância → alternativas ROBUST-RCT/ROBINS-I V2)
+- **Layout:** imagem topo-esquerda (crop RoB 2 Ebrahimi) + conteúdo em grid 2×2
+- **CSS (`section#s-rob2`):** grid layout, kappa bars com OKLCH (green→amber→red), failsafes (.no-js, .stage-bad, @media print)
+- **`slide-registry.js`:** 3-beat click-reveal com stagger (domínios D1→D5, barras top→bottom com scaleX grow, alts fadeUp)
+- **`_manifest.js`:** entrada após s-forest2, fase F2. Fix contagem: 16→17 slides (comentário anterior dizia 17 erroneamente)
+- **Build PASS:** `npm run build:metanalise` + `npm run lint:slides` clean
+- **Estado: DRAFT** — pendente QA (Gate 1→4)
+
 ## Sessao 175 — 2026-04-13 (BUILD-S-ROB2)
 
 ### Evidence HTML — s-rob2.html enriched

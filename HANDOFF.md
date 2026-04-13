@@ -1,19 +1,18 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 175 | BUILD-S-ROB2
+> Sessao 176 | BUILD-S-ROB2.1
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
+Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 21 items.**
 
 ## P0 — s-rob2 (novo slide)
 
-- **Evidence HTML ENRICHED (S175):** domínios D1-D5 bilíngues (EN/PT) com exemplos Low/Some/High, kappa estatística objetiva (ponderado, prevalência, Fleiss, ICC), ranking de fragilidade
-- **Crop DONE:** `assets/rob2-ebrahimi-crop.png` (1250x951 @ 600 DPI)
-- **h2 DECIDIDO:** "Avaliação de vieses de estudo — RoB 2 e além"
-- **Layout DECIDIDO:** 3 clicks (domínios → panorama limitações → alternativas). Kappa = ator, não protagonista
-- **Pendente:** slide HTML (`slides/08c-rob2.html`), CSS (`section#s-rob2`), _manifest.js, slide-registry.js, build
+- **Evidence HTML ENRICHED (S175):** domínios D1-D5 bilíngues, kappa estatística, ranking de fragilidade
+- **Slide HTML DONE (S176):** `slides/08c-rob2.html` + CSS + manifest + registry + build
+- **Layout:** imagem topo-esquerda + 3 clicks (domínios 5×2 bilíngue → barras kappa D1→D2 → alternativas ROBUST-RCT/ROBINS-I V2)
+- **Estado: DRAFT** — precisa QA (Gate 1→4)
 
 ## P0 — Forest plot slides
 
@@ -73,9 +72,9 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: 9 plans untracked (8 anteriores + 1 de S174). Lucas decide per-file.
+- `.claude/plans/`: 10 plans untracked (9 anteriores + 1 de S176). Lucas decide per-file.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
 - `agents/ai_update/ai_update_agent.py:112`: registra "Gemini 2.0" — stale (Python agent, baixa prioridade).
 
 ---
-Coautoria: Lucas + Opus 4.6 | S175 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S176 2026-04-13
