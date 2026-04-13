@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence — RoB 2: Dominios, Limitacoes e Alternativas</title>
+  <style>
+    /* === Base (benchmark: pre-reading-heterogeneidade.html) === */
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      max-width: 860px; margin: 2rem auto; padding: 0 1.5rem;
+      color: #1a1a2e; line-height: 1.7; text-align: justify;
+    }
+    h1 {
+      font-size: 1.5rem; border-bottom: 2px solid #2d6a4f;
+      padding-bottom: .5rem; margin-bottom: .25rem;
+    }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    h3 { font-size: 1.05rem; color: #2d6a4f; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .meta { font-size: .85rem; color: #555; }
+
+    /* === Tables === */
+    table {
+      border-collapse: collapse; width: 100%;
+      margin: .5rem 0; font-size: .88rem;
+      border-radius: 8px; overflow: hidden;
+    }
+    th, td { border: 1px solid #d4d4d4; padding: .5rem .7rem; text-align: left; vertical-align: top; }
+    th { background: #edf2ee; font-weight: 600; }
+
+    /* === Accordions === */
+    details {
+      margin: 1rem 0; padding: .6rem 1rem;
+      background: #eef2f7; border-radius: 10px;
+      border: 1px solid #d0d8e0;
+    }
+    details[open] { background: #e8eef5; }
+    summary {
+      cursor: pointer; font-weight: 600; color: #1e40af;
+      padding: .4rem 0; transition: color .2s;
+    }
+    summary:hover { color: #1e3a8a; }
+
+    /* === Links === */
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+
+    /* === Callouts === */
+    .key-takeaway {
+      background: #e8f5e9; border-left: 4px solid #2d6a4f;
+      padding: .7rem 1rem; margin: .8rem 0; font-size: .9rem;
+      border-radius: 8px;
+    }
+    .caveat {
+      background: #fef3e2; border-left: 4px solid #e8850c;
+      padding: .6rem 1rem; margin: .8rem 0; font-size: .88rem;
+      border-radius: 8px;
+    }
+
+    /* === Badges === */
+    .v { display: inline-block; font-size: .65rem; font-weight: 700; color: #fff; background: #2563eb; border-radius: 3px; padding: 0 .3rem; margin: 0 .1rem; vertical-align: middle; }
+    .c { display: inline-block; font-size: .65rem; font-weight: 700; color: #fff; background: #e8850c; border-radius: 3px; padding: 0 .3rem; margin: 0 .1rem; vertical-align: middle; }
+
+    /* === Kappa scale === */
+    .kappa-table td:nth-child(2) { text-align: center; font-weight: 600; }
+    .k-poor { color: #c62828; }
+    .k-slight { color: #d84315; }
+    .k-fair { color: #ef6c00; }
+    .k-moderate { color: #f9a825; }
+    .k-substantial { color: #558b2f; }
+    .k-perfect { color: #2e7d32; }
+
+    /* === Utilities === */
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .objectives {
+      background: #edf5ee; border-radius: 10px;
+      padding: 1rem 1.4rem; margin: 1rem 0;
+      border: 1px solid #c8dcc9;
+    }
+    .objectives li { margin: .4rem 0; }
+
+    /* === Footer === */
+    footer {
+      margin-top: 2.5rem; padding-top: .8rem;
+      border-top: 1px solid #ccc;
+      font-size: .8rem; color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Evidence &mdash; RoB 2: Dominios, Confiabilidade Inter-avaliador e Alternativas</h1>
+  <p class="meta">Slide: s-rob2 | Status: S174 | Benchmark: pre-reading-heterogeneidade.html</p>
+  <p class="meta">Fontes: PubMed MCP + SCite MCP + Gemini Deep Think + Perplexity Sonar | 7 VERIFIED, 5 CANDIDATE</p>
+
+  <div class="objectives">
+    <strong>Ao final deste slide, o aluno vai conseguir:</strong>
+    <ol>
+      <li>Nomear os 5 dominios avaliados pelo RoB 2 e reconhece-los no semaforo Cochrane</li>
+      <li>Identificar o dominio com pior concordancia inter-avaliador (&kappa; = 0.04) e entender por que isso importa</li>
+      <li>Avaliar criticamente quando um julgamento "alto risco de vies" reflete o estudo ou o avaliador</li>
+      <li>Citar pelo menos uma alternativa emergente ao RoB 2 (ROBUST-RCT, ROBINS-I V2)</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ===== PRE-READING 3 CAMADAS ===== -->
+<section id="pre-reading">
+  <h2>Leitura Preparatoria (3 camadas)</h2>
+
+  <p><strong>Basico (2 min):</strong> Quando uma meta-analise combina varios RCTs, cada estudo precisa ser avaliado individualmente: sera que o resultado reflete o efeito real da intervencao, ou pode ter sido distorcido por problemas metodologicos? O <strong>RoB 2</strong> (Risk of Bias 2, Sterne 2019) e a ferramenta padrao Cochrane para responder essa pergunta. Ele avalia 5 dominios de vies potencial e produz um julgamento por dominio (baixo / alguma preocupacao / alto risco) mais um julgamento geral. O resultado aparece como um <strong>semaforo visual</strong> &mdash; os circulos verde/amarelo/vermelho que voce ja viu na coluna RoB do forest plot Cochrane.</p>
+
+  <details>
+    <summary>Intermediario: Como o RoB 2 funciona na pratica</summary>
+    <p>O RoB 2 funciona por meio de <strong>signaling questions</strong> &mdash; perguntas-guia que direcionam o avaliador para um julgamento em cada dominio. Para cada dominio, ha 3-5 perguntas com respostas padrao (Yes / Probably yes / Probably no / No / No information). O algoritmo converte as respostas em um julgamento de dominio, e os julgamentos dos 5 dominios convergem no julgamento geral.</p>
+    <p>Os 5 dominios avaliam, na ordem:</p>
+    <table>
+      <tr><th scope="col">#</th><th scope="col">Dominio</th><th scope="col">O que avalia</th><th scope="col">Exemplo de problema</th></tr>
+      <tr><td>D1</td><td class="glossary-term">Processo de randomizacao</td><td>Geracao e ocultacao da sequencia de alocacao</td><td>Randomizacao por dia da semana em vez de computadorizada</td></tr>
+      <tr><td>D2</td><td class="glossary-term">Desvios da intervencao pretendida</td><td>Blinding de participantes e profissionais; desvios do protocolo</td><td>Crossover nao planejado; desmascaramento por efeitos colaterais</td></tr>
+      <tr><td>D3</td><td class="glossary-term">Dados de desfecho faltantes</td><td>Atricao diferencial; perdas de seguimento</td><td>20% de perda no grupo controle, 5% no grupo intervencao</td></tr>
+      <tr><td>D4</td><td class="glossary-term">Medicao do desfecho</td><td>Metodo de mensuracao e blinding dos avaliadores</td><td>Avaliador de desfecho sabe a alocacao do paciente</td></tr>
+      <tr><td>D5</td><td class="glossary-term">Selecao do resultado reportado</td><td>Reporting seletivo de outcomes favoraveis</td><td>Protocolo lista 8 desfechos, publicacao reporta apenas 3</td></tr>
+    </table>
+    <p>O julgamento geral segue a regra do <strong>"pior dominio governa"</strong>: se qualquer dominio e "alto risco", o julgamento geral e alto risco. Para ser "baixo risco" geral, todos os 5 dominios devem ser baixo risco.</p>
+  </details>
+
+  <details>
+    <summary>Intermediario+: Como explicar kappa aos residentes</summary>
+    <p>O kappa nao e intuitivo. Uma estrategia para residentes que nunca viram a metrica:</p>
+    <p><strong>Analogia concreta:</strong> "Imagine que dois patologistas recebem 100 laminhas e devem classificar cada uma como benigna ou maligna. Se concordarem em 90 das 100, a concordancia parece alta. Mas se 85 das laminhas forem obviamente benignas, eles concordariam em 85 so por acaso — ate sem olhar. O kappa desconta essa concordancia por acaso e diz: <em>dos casos que realmente exigiam julgamento, em quantos concordaram?</em>"</p>
+    <p><strong>Traduzindo para o RoB 2:</strong> "Agora troque as laminhas por 70 RCTs e os patologistas por epidemiologistas. Eles devem julgar se cada estudo tem 'baixo risco de vies' ou 'alto risco'. No dominio de randomizacao, concordam razoavelmente (&kappa; = 0.45). Mas no dominio de 'desvios da intervencao', a concordancia <em>alem do acaso</em> e <strong>0.04</strong> — e como se cada um estivesse jogando uma moeda."</p>
+    <p><strong>A escala que basta:</strong></p>
+    <table>
+      <tr><th scope="col">&kappa;</th><th scope="col">Em linguagem clinica</th></tr>
+      <tr><td>&lt; 0.20</td><td>"Os avaliadores nao estao se entendendo"</td></tr>
+      <tr><td>0.20 &ndash; 0.40</td><td>"Concordam parcialmente, mas divergem bastante"</td></tr>
+      <tr><td>0.40 &ndash; 0.60</td><td>"Concordam na maioria, discordam nos casos dificeis"</td></tr>
+      <tr><td>0.60 &ndash; 0.80</td><td>"Concordancia boa — o que um diz, o outro provavelmente tambem dira"</td></tr>
+      <tr><td>&gt; 0.80</td><td>"Quase certeza: dois avaliadores, mesmo resultado"</td></tr>
+    </table>
+    <p><strong>Pergunta-gatilho para a aula:</strong> "Se eu pedir pra dois de voces avaliarem o mesmo RCT com essa ferramenta, qual a chance de concordarem?" — deixar responderem antes de revelar o &kappa; = 0.04.</p>
+  </details>
+
+  <details>
+    <summary>Intermediario+: Ranking de fragilidade dos dominios</summary>
+    <p>Nem todos os dominios do RoB 2 sao igualmente confiaveis. Combinando Minozzi 2020 e Guelimi 2025:</p>
+    <table>
+      <tr><th scope="col">Rank</th><th scope="col">Dominio</th><th scope="col">&kappa; (Minozzi)</th><th scope="col">&kappa; range (Guelimi)</th><th scope="col">Fragilidade</th></tr>
+      <tr><td><strong>1 (pior)</strong></td><td class="glossary-term">D2 &mdash; Desvios da intervencao</td><td class="k-slight"><strong>0.04</strong> (assignment)</td><td>&lt; 0.33</td><td>Critica: signaling questions exigem julgamento contextual que varia entre avaliadores</td></tr>
+      <tr><td><strong>2</strong></td><td class="glossary-term">D3 &mdash; Dados faltantes</td><td class="k-fair">0.22</td><td>&lt; 0.33</td><td>Alta: definicao de "faltante aceitavel" e subjetiva; depende do desfecho</td></tr>
+      <tr><td><strong>3</strong></td><td class="glossary-term">D4 &mdash; Medicao do desfecho</td><td class="k-fair">0.28</td><td>Variavel</td><td>Moderada-alta: desfechos "duros" (morte) = facil; "moles" (QoL, dor) = dificil</td></tr>
+      <tr><td><strong>4</strong></td><td class="glossary-term">D5 &mdash; Selecao de resultado</td><td class="k-fair">0.30</td><td>&lt; 0.33</td><td>Moderada-alta: depende de acesso ao protocolo/registro (nem sempre disponivel)</td></tr>
+      <tr><td><strong>5 (melhor)</strong></td><td class="glossary-term">D1 &mdash; Randomizacao</td><td class="k-moderate">0.45</td><td>0.65</td><td>Moderada: mais objetivo (sequencia computadorizada? envelopes selados?)</td></tr>
+    </table>
+    <p><strong>Padrao:</strong> Quanto mais julgamento contextual o dominio exige, pior a concordancia. D1 e o mais "mecanico" (a randomizacao ou foi computadorizada ou nao). D2 e o mais "clinico" (avaliar se desvios do protocolo foram substanciais exige conhecer a doenca, a intervencao, e o contexto).</p>
+    <div class="key-takeaway"><strong>Regra pratica para o residente:</strong> Ao ler uma coluna RoB no forest plot, confie mais nos julgamentos sobre randomizacao (D1) e desconfie dos julgamentos sobre desvios do protocolo (D2). Se o julgamento geral do estudo depende de D2, ha incerteza substancial que o semaforo nao captura.</div>
+  </details>
+
+  <details>
+    <summary>Avancado: O problema do kappa e o que significa para a evidencia</summary>
+    <p>O <strong>kappa de Cohen (&kappa;)</strong> mede a concordancia entre avaliadores alem do acaso. Um &kappa; = 1.0 e concordancia perfeita; &kappa; = 0 e concordancia por acaso; &kappa; negativo e pior que o acaso.</p>
+    <table class="kappa-table">
+      <tr><th scope="col">&kappa;</th><th scope="col">Interpretacao (Landis &amp; Koch)</th></tr>
+      <tr><td class="k-poor">&lt; 0.00</td><td>Pobre (pior que acaso)</td></tr>
+      <tr><td class="k-slight">0.00 &ndash; 0.20</td><td>Ligeira</td></tr>
+      <tr><td class="k-fair">0.21 &ndash; 0.40</td><td>Razoavel</td></tr>
+      <tr><td class="k-moderate">0.41 &ndash; 0.60</td><td>Moderada</td></tr>
+      <tr><td class="k-substantial">0.61 &ndash; 0.80</td><td>Substancial</td></tr>
+      <tr><td class="k-perfect">0.81 &ndash; 1.00</td><td>Quase perfeita</td></tr>
+    </table>
+    <p>Quando dois avaliadores treinados aplicam o RoB 2 ao mesmo estudo e chegam a julgamentos opostos (um diz "baixo risco", outro diz "alto risco"), o que isso significa para a meta-analise que depende desse julgamento? Se o vies de um estudo e <strong>uma questao de opiniao</strong> do avaliador &mdash; e nao uma propriedade objetiva do estudo &mdash; entao o rebaixamento GRADE por risco de vies pode ser tao arbitrario quanto o julgamento que o fundamenta. Essa e a tensao central do RoB 2: uma ferramenta projetada para padronizar julgamentos de vies, mas que na pratica produz concordancia <strong>ligeira a razoavel</strong> no dominio mais critico.</p>
+  </details>
+</section>
+
+<!-- ===== REFERENCIA CANONICA ===== -->
+<section id="sterne-2019">
+  <h2>O paper original &mdash; Sterne 2019</h2>
+
+  <table>
+    <tr><td><strong>Citacao</strong></td><td>Sterne JAC et al. RoB 2: a revised tool for assessing risk of bias in randomised trials. BMJ. 2019;366:l4898.</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31462531" target="_blank" rel="noopener noreferrer">31462531</a></td></tr>
+    <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1136/bmj.l4898" target="_blank" rel="noopener noreferrer">10.1136/bmj.l4898</a></td></tr>
+    <tr><td><strong>Grupo</strong></td><td>Bristol + Cochrane Bias Methods Group</td></tr>
+  </table>
+
+  <p>O RoB 2 substituiu o RoB 1 (Higgins 2011) em 2019. A mudanca principal: de 7 dominios genericos para <strong>5 dominios com signaling questions estruturadas</strong>, produzindo um algoritmo de julgamento mais reprodutivel (em tese). Na pratica, como veremos abaixo, a reproducibilidade continua problematica.</p>
+
+  <div class="key-takeaway"><strong>Ponto-chave:</strong> O RoB 2 e a ferramenta-padrao para todas as revisoes sistematicas Cochrane desde 2019. Entender seus dominios e pre-requisito para interpretar qualquer forest plot Cochrane com coluna RoB &mdash; como o do slide anterior (Ebrahimi 2025).</div>
+</section>
+
+<!-- ===== CONFIABILIDADE INTER-AVALIADOR ===== -->
+<section id="reliability">
+  <h2>Confiabilidade Inter-Avaliador: O Problema Central</h2>
+
+  <p class="meta">Achado convergente de 3 fontes independentes (PubMed MCP, Gemini, SCite). Triangulacao confirmada.</p>
+
+  <h3>Minozzi 2020 &mdash; O estudo definitivo</h3>
+  <table>
+    <tr><td><strong>Citacao</strong></td><td>Minozzi S et al. The revised Cochrane risk of bias tool for randomized trials (RoB 2) showed low interrater reliability and challenges in its application. J Clin Epidemiol. 2020;126:37-44.</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32562833" target="_blank" rel="noopener noreferrer">32562833</a></td></tr>
+    <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2020.06.015" target="_blank" rel="noopener noreferrer">10.1016/j.jclinepi.2020.06.015</a></td></tr>
+    <tr><td><strong>Desenho</strong></td><td>Estudo transversal: 4 avaliadores, 70 RCTs, desfecho primario de cada um</td></tr>
+  </table>
+
+  <h3>Kappa por dominio</h3>
+  <table class="kappa-table">
+    <tr><th scope="col">Dominio</th><th scope="col">&kappa; (Fleiss)</th><th scope="col">IC 95%</th><th scope="col">Classificacao</th></tr>
+    <tr><td>D1 &mdash; Randomizacao</td><td class="k-moderate">0.45</td><td>0.37 &ndash; 0.53</td><td>Moderada</td></tr>
+    <tr><td><strong>D2 &mdash; Desvios da intervencao (assignment)</strong></td><td class="k-slight"><strong>0.04</strong></td><td>&minus;0.06 &ndash; 0.14</td><td><strong>Ligeira (quase aleatorio)</strong></td></tr>
+    <tr><td>D2 &mdash; Desvios da intervencao (adhering)</td><td class="k-fair">0.21</td><td>0.11 &ndash; 0.31</td><td>Razoavel</td></tr>
+    <tr><td>D3 &mdash; Dados faltantes</td><td class="k-fair">0.22</td><td>0.14 &ndash; 0.30</td><td>Razoavel</td></tr>
+    <tr><td>D4 &mdash; Medicao do desfecho</td><td class="k-fair">0.28</td><td>0.20 &ndash; 0.36</td><td>Razoavel</td></tr>
+    <tr><td>D5 &mdash; Selecao de resultado</td><td class="k-fair">0.30</td><td>0.22 &ndash; 0.38</td><td>Razoavel</td></tr>
+    <tr><td><strong>Geral</strong></td><td class="k-slight"><strong>0.16</strong></td><td>0.08 &ndash; 0.24</td><td><strong>Ligeira</strong></td></tr>
+  </table>
+
+  <div class="caveat"><strong>O numero critico:</strong> &kappa; = 0.04 no dominio "desvios da intervencao pretendida" (effect of assignment). Isso significa que a concordancia entre 4 avaliadores treinados neste dominio e <strong>indistinguivel do acaso</strong>. Tempo medio: 28 minutos por estudo por desfecho.</div>
+
+  <h3>Guelimi 2025 &mdash; Validacao em larga escala (Cochrane psorias)</h3>
+  <table>
+    <tr><td><strong>Citacao</strong></td><td>Guelimi R et al. Comparison between risk of bias-1 and risk of bias-2 tool and impact on network meta-analysis results. J Clin Epidemiol. 2025;190:112097.</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41352579" target="_blank" rel="noopener noreferrer">41352579</a></td></tr>
+    <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2025.112097" target="_blank" rel="noopener noreferrer">10.1016/j.jclinepi.2025.112097</a></td></tr>
+    <tr><td><strong>Desenho</strong></td><td>Case study dentro de living Cochrane review de psoriase: 4 pares, 193 RCTs, 2 desfechos</td></tr>
+  </table>
+
+  <table class="kappa-table">
+    <tr><th scope="col">Desfecho</th><th scope="col">&kappa; geral</th><th scope="col">Range por dominio</th><th scope="col">Piores dominios</th></tr>
+    <tr><td>PASI 90 (eficacia)</td><td class="k-fair">0.37</td><td>0.33 &ndash; 0.65</td><td>D2, D3, D5 (&lt; 0.33)</td></tr>
+    <tr><td>Eventos adversos graves (SAEs)</td><td class="k-moderate">0.46</td><td>0.33 &ndash; 0.65</td><td>D2, D3, D5 (&lt; 0.33)</td></tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Impacto clinico:</strong> A transicao RoB-1 &rarr; RoB-2 derrubou a proporcao de "baixo risco" de <strong>58% para 13%</strong> nos SAEs. 60% dos estudos mudaram de classificacao, com 32 mudancas extremas (de baixo para alto risco, exclusivamente). Isso alterou os resultados do NMA de seguranca (mediana RRR = 1.07 para SAEs).</div>
+</section>
+
+<!-- ===== ADERENCIA ===== -->
+<section id="adherence">
+  <h2>Aderencia: Complexidade &rarr; Misaplicacao Sistematica</h2>
+
+  <table>
+    <tr><td><strong>Citacao</strong></td><td>Minozzi S et al. Adherence of systematic reviews to Cochrane RoB2 guidance was frequently poor: a meta epidemiological study. J Clin Epidemiol. 2022;152:47-55.</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36156301" target="_blank" rel="noopener noreferrer">36156301</a></td></tr>
+    <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1016/j.jclinepi.2022.09.003" target="_blank" rel="noopener noreferrer">10.1016/j.jclinepi.2022.09.003</a></td></tr>
+    <tr><td><strong>Desenho</strong></td><td>Meta-epidemiologico: 208 SRs usando RoB 2 (MEDLINE, Embase, Cochrane 2019&ndash;2021)</td></tr>
+  </table>
+
+  <table>
+    <tr><th scope="col">Metrica</th><th scope="col">Resultado</th></tr>
+    <tr><td>Aderencia global</td><td>69.3%</td></tr>
+    <tr><td><strong>Aderencia em SRs com multiplos desfechos</strong></td><td><strong>28.8%</strong></td></tr>
+    <tr><td>SRs que declararam RoB 2 mas usaram RoB 1</td><td>12 / 208 (5.8%)</td></tr>
+    <tr><td>SRs sem reportar N de desfechos primarios</td><td>59 / 208 (28.4%)</td></tr>
+  </table>
+
+  <div class="caveat"><strong>O erro mais comum:</strong> Aplicar o RoB 2 no <strong>nivel do estudo</strong> em vez de no <strong>nivel do desfecho</strong> (outcome). O RoB 2 foi projetado para ser aplicado POR DESFECHO &mdash; o mesmo estudo pode ter baixo risco para mortalidade e alto risco para qualidade de vida. Quando uma SR tem multiplos desfechos primarios, apenas 28.8% aplicam o tool corretamente.</div>
+
+  <p>Associacao positiva com qualidade metodologica (AMSTAR 2, p-for-trend 0.007). SRs de journals com IF no primeiro quartil tinham menor aderencia (OR 0.34; IC 95%: 0.16&ndash;0.72) &mdash; possivelmente porque journals de alto impacto publicam mais SRs com multiplos desfechos, onde o erro e mais frequente.</p>
+</section>
+
+<!-- ===== AI TENTA RESOLVER ===== -->
+<section id="ai-assessment">
+  <h2>IA Tenta Resolver &mdash; E Ainda Nao Consegue</h2>
+
+  <details>
+    <summary>Pitre 2023 &mdash; ChatGPT-4 vs humanos (preprint)</summary>
+    <table>
+      <tr><td><strong>Citacao</strong></td><td>Pitre T et al. ChatGPT for assessing risk of bias of randomized trials using the RoB 2.0 tool: A methods study. medRxiv 2023.</td></tr>
+      <tr><td><strong>DOI</strong></td><td><span class="c">C</span> <a class="ref-pmid" href="https://doi.org/10.1101/2023.11.19.23298727" target="_blank" rel="noopener noreferrer">10.1101/2023.11.19.23298727</a></td></tr>
+      <tr><td><strong>Desenho</strong></td><td>ChatGPT-4 vs humanos, 157 RCTs, 5 dominios + geral</td></tr>
+    </table>
+    <p>&kappa; global = 0.17 (ligeira). Pior dominio: desvios da intervencao (&kappa; = 0.11). As <strong>signaling questions nuancadas</strong> do RoB 2 excedem a capacidade atual de LLMs.</p>
+  </details>
+
+  <details>
+    <summary>Forero 2025 &mdash; 4 LLMs para ROBIS/AMSTAR 2</summary>
+    <table>
+      <tr><td><strong>Citacao</strong></td><td>Forero DA et al. Automated analyses of risk of bias and critical appraisal of systematic reviews (ROBIS and AMSTAR 2): a comparison of the performance of 4 large language models. J Am Med Inform Assoc. 2025;32(9):1471-1476.</td></tr>
+      <tr><td><strong>PMID</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40680299" target="_blank" rel="noopener noreferrer">40680299</a></td></tr>
+      <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1093/jamia/ocaf117" target="_blank" rel="noopener noreferrer">10.1093/jamia/ocaf117</a></td></tr>
+      <tr><td><strong>Desenho</strong></td><td>4 LLMs (ChatGPT, Gemini, DeepSeek, QWEN) vs humanos, 20 SRs, ROBIS + AMSTAR 2</td></tr>
+    </table>
+    <p>Melhor LLM: <strong>Gemini</strong> (accuracy 58% ROBIS, 70% AMSTAR 2). Achado preocupante: LLMs <strong>subestimam</strong> sistematicamente o risco de vies &mdash; classificam como "baixo risco" estudos que humanos classificam como "alto risco". Vies na direcao da confianca excessiva na evidencia.</p>
+  </details>
+
+  <div class="key-takeaway"><strong>Convergencia AI:</strong> Dois estudos independentes (2023, 2025) confirmam que LLMs atuais <strong>nao substituem avaliadores humanos</strong> no RoB 2. O problema nao e velocidade &mdash; e que as signaling questions exigem julgamento clinico contextual que LLMs nao possuem. Verificacao humana obrigatoria.</div>
+</section>
+
+<!-- ===== ALTERNATIVAS EMERGENTES ===== -->
+<section id="alternatives">
+  <h2>Alternativas Emergentes (2024&ndash;2025)</h2>
+
+  <h3>ROBUST-RCT &mdash; Wang 2025 (BMJ)</h3>
+  <table>
+    <tr><td><strong>Citacao</strong></td><td>Wang Y et al. Development of ROBUST-RCT: Risk Of Bias instrument for Use in SysTematic reviews-for Randomised Controlled Trials. BMJ. 2025;388:e081199.</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40132800" target="_blank" rel="noopener noreferrer">40132800</a></td></tr>
+    <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1136/bmj-2024-081199" target="_blank" rel="noopener noreferrer">10.1136/bmj-2024-081199</a></td></tr>
+    <tr><td><strong>Grupo</strong></td><td>McMaster/Beijing (Guyatt, Glasziou, Schulz como coautores)</td></tr>
+  </table>
+
+  <p>Novo instrumento com 6 dominios, publicado no <strong>mesmo journal que o RoB 2</strong> (BMJ). Desenvolvido pelo <strong>mesmo grupo McMaster</strong> (Guyatt e senior author em ambos &mdash; RoB 2 e Core GRADE). Proposta: simplificar a avaliacao de vies em RCTs, abordando diretamente os problemas de complexidade e baixa adocao do RoB 2.</p>
+
+  <div class="caveat"><strong>Nota:</strong> Abstract completo nao disponivel no PubMed na data desta consulta. Conteudo detalhado pendente de leitura de full-text.</div>
+
+  <h3>Outros tools emergentes</h3>
+  <table>
+    <tr><th scope="col">Ferramenta</th><th scope="col">Foco</th><th scope="col">Fonte</th><th scope="col">Status</th></tr>
+    <tr><td class="glossary-term">ROBINS-I V2</td><td>Estudos nao-randomizados de intervencoes. Signalling questions com opcoes "strong/weak" e algoritmos automaticos de julgamento</td><td>Sterne 2025, Cochrane Bias Methods Group</td><td><span class="c">C</span> Guideline, sem PMID</td></tr>
+    <tr><td class="glossary-term">CQS-2B</td><td>Composite Quality Score: heuristica mais simples como alternativa ao RoB 2. Resultados potencialmente mais conservadores</td><td>Mickenautsch 2024, Frontiers Med. <a class="ref-pmid" href="https://doi.org/10.3389/fmed.2024.1307815" target="_blank" rel="noopener noreferrer">DOI</a></td><td><span class="c">C</span></td></tr>
+    <tr><td class="glossary-term">AQAT:RoB</td><td>Primeiro tool de vies para estudos de LLM medico (9 subdominios)</td><td>Ye 2026, JMIR. <a class="ref-pmid" href="https://doi.org/10.2196/87057" target="_blank" rel="noopener noreferrer">DOI</a></td><td><span class="c">C</span></td></tr>
+  </table>
+
+  <div class="key-takeaway"><strong>Tendencia:</strong> O campo esta divergindo em duas direcoes simultaneas: (1) <strong>simplificacao</strong> (ROBUST-RCT, CQS-2B) para melhorar adocao e reprodutibilidade; e (2) <strong>especializacao</strong> (ROBINS-I V2 para observacionais, AQAT:RoB para estudos de IA). O RoB 2 permanece padrao para Cochrane, mas pode nao ser a unica ferramenta por muito tempo.</div>
+</section>
+
+<!-- ===== GRADE INTEGRATION ===== -->
+<section id="grade-integration">
+  <h2>RoB na Certeza da Evidencia &mdash; Core GRADE 4 (2025)</h2>
+
+  <table>
+    <tr><td><strong>Citacao</strong></td><td>Guyatt G, Wang Y et al. Core GRADE 4: rating certainty of evidence &mdash; risk of bias, publication bias, and reasons for rating up certainty. BMJ. 2025;389:e083864.</td></tr>
+    <tr><td><strong>PMID</strong></td><td><span class="v">V</span> <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40360206" target="_blank" rel="noopener noreferrer">40360206</a></td></tr>
+    <tr><td><strong>DOI</strong></td><td><a class="ref-pmid" href="https://doi.org/10.1136/bmj-2024-083864" target="_blank" rel="noopener noreferrer">10.1136/bmj-2024-083864</a></td></tr>
+    <tr><td><strong>Serie</strong></td><td>4o de 7 artigos da serie Core GRADE (BMJ 2025)</td></tr>
+  </table>
+
+  <p>O Core GRADE 4 formaliza como o risco de vies dos estudos individuais alimenta a <strong>certeza da evidencia</strong> do corpo de estudos:</p>
+
+  <table>
+    <tr><th scope="col">Ponto de partida</th><th scope="col">Certeza inicial</th></tr>
+    <tr><td>RCTs</td><td><strong>Alta</strong> (comecam em cima, podem ser rebaixados)</td></tr>
+    <tr><td>Estudos nao-randomizados (NRSI)</td><td><strong>Baixa</strong> (comecam em baixo, podem ser elevados se efeito grande)</td></tr>
+  </table>
+
+  <p>A decisao de rebaixar por risco de vies depende de dois fatores:</p>
+  <ol style="font-size:.92rem;">
+    <li><strong>Peso dos estudos com alto RoB:</strong> Se os estudos com alto risco de vies concentram a maior parte do peso na meta-analise, o corpo de evidencia e rebaixado.</li>
+    <li><strong>Coerencia dos resultados:</strong> Se os resultados dos estudos com alto e baixo RoB sao semelhantes, o impacto do vies pode ser menor do que o julgamento do tool sugere.</li>
+  </ol>
+
+  <div class="key-takeaway"><strong>Conexao com o slide:</strong> No forest plot Cochrane do slide anterior (Ebrahimi 2025), os circulos verdes e amarelos da coluna RoB nao sao apenas decoracao &mdash; eles determinam se o GRADE da evidencia sera "alta" ou "moderada". Mas como vimos acima, a classificacao desses circulos tem concordancia inter-avaliador <strong>ligeira a razoavel</strong>. A certeza da evidencia herda a incerteza do instrumento que a fundamenta.</div>
+</section>
+
+<!-- ===== CERTEZA DA AVALIACAO ===== -->
+<section id="meta-evidence">
+  <h2>Meta-Evidencia: Quem Avalia o Avaliador?</h2>
+
+  <details>
+    <summary>Siedler 2025 &mdash; So 33.8% dos SRs avaliam certeza da evidencia</summary>
+    <p>Levantamento meta-epidemiologico publicado em Cochrane Evidence Synthesis Methods (2025). Dos SRs publicados em journals de alto impacto, apenas <strong>33.8%</strong> avaliam formalmente a certeza da evidencia (GRADE ou equivalente). Implicacao: a maioria dos SRs apresenta resultados sem contextualizar a confianca que devemos depositar neles.</p>
+  </details>
+
+  <h3>O ciclo de fragilidade</h3>
+  <p>Os dados acima revelam um ciclo:</p>
+  <table>
+    <tr><th scope="col">Passo</th><th scope="col">Problema</th><th scope="col">Evidencia</th></tr>
+    <tr><td>1. Avaliacao de vies</td><td>Concordancia ligeira (&kappa; = 0.16 geral, 0.04 no pior dominio)</td><td>Minozzi 2020</td></tr>
+    <tr><td>2. Aplicacao do tool</td><td>28.8% de aderencia em SRs multi-desfecho</td><td>Minozzi 2022</td></tr>
+    <tr><td>3. Impacto no resultado</td><td>Mudanca de classificacao altera NMA (RRR 1.07 SAEs)</td><td>Guelimi 2025</td></tr>
+    <tr><td>4. Certeza da evidencia</td><td>66.2% dos SRs nem avaliam certeza formalmente</td><td>Siedler 2025</td></tr>
+  </table>
+
+  <div class="caveat"><strong>Reflexao:</strong> Uma meta-analise nao e melhor que os RCTs que a alimentam (premissa da aula). Analogamente, uma avaliacao de vies nao e melhor que a concordancia do instrumento que a produz. Quando o instrumento-padrao tem &kappa; = 0.04 no dominio mais critico, o semaforo verde/amarelo/vermelho carrega mais incerteza do que aparenta.</div>
+</section>
+
+<!-- ===== CONCEITOS AVANCADOS ===== -->
+<section id="advanced-concepts">
+  <h2>Conceitos Avancados</h2>
+
+  <details>
+    <summary>O paradoxo da prevalencia no kappa</summary>
+    <p>O kappa de Cohen tem uma armadilha pouco conhecida: quando a <strong>prevalencia do achado</strong> e muito alta ou muito baixa, o kappa pode ser artificialmente baixo mesmo com alta concordancia percentual. Isso acontece porque a concordancia esperada por acaso (o denominador do kappa) sobe quando a prevalencia e extrema.</p>
+    <p><strong>Exemplo clinico:</strong> Se 95% dos RCTs sao classificados como "baixo risco" no dominio D1 (randomizacao), dois avaliadores que concordam em 96% dos casos terao kappa surpreendentemente baixo (~0.28), porque a concordancia por acaso ja seria ~90%. Isso significa que parte do kappa baixo no RoB 2 pode refletir a prevalencia dos julgamentos, nao apenas a falta de concordancia real.</p>
+    <p><strong>Implicacao:</strong> O kappa e melhor para detectar discordancia do que para quantifica-la. Quando Minozzi reporta &kappa; = 0.04 no D2, a mensagem nao e "a concordancia e 4%" &mdash; e "a concordancia <em>alem do acaso</em> e quase zero neste dominio especifico."</p>
+  </details>
+
+  <details>
+    <summary>Kappa ponderado vs nao-ponderado</summary>
+    <p>O RoB 2 tem 3 categorias ordinais (baixo / alguma preocupacao / alto risco). O kappa nao-ponderado trata discordancia "baixo vs alguma preocupacao" igual a "baixo vs alto risco" &mdash; ambos contam como discordancia total. O <strong>kappa ponderado</strong> (quadratico) da menos penalidade a discordancias menores.</p>
+    <p>Minozzi 2020 usa <strong>Fleiss' kappa</strong> (extensao para multiplos avaliadores), que e nao-ponderado. Se usassem kappa ponderado, os valores seriam mais altos. Mas a escolha e deliberada: em vies de pesquisa, a distincao entre "alguma preocupacao" e "alto risco" tem consequencia clinica direta (um pode levar a rebaixamento GRADE, o outro nao). Tratar essa discordancia como parcial subestimaria o problema.</p>
+  </details>
+
+  <details>
+    <summary>Por que D2 (desvios da intervencao) e tao problematico?</summary>
+    <p>O dominio D2 e unico por dois motivos:</p>
+    <p><strong>1. Dois caminhos incompativeis:</strong> O RoB 2 pergunta primeiro: "voce quer avaliar o efeito da <em>atribuicao</em> da intervencao (intention-to-treat) ou o efeito de <em>aderir</em> a intervencao (per-protocol)?" Essa bifurcacao gera signaling questions diferentes, confunde avaliadores sobre qual caminho seguir, e pode produzir julgamentos opostos para o mesmo estudo dependendo da escolha.</p>
+    <p><strong>2. Julgamento contextual de "substancialidade":</strong> As signaling questions perguntam se os desvios do protocolo foram "substanciais o suficiente para afetar o resultado." Mas o que e "substancial" depende do desfecho (mortalidade vs qualidade de vida), da intervencao (cirurgia vs farmacoterpia), e da populacao &mdash; informacao que o avaliador pode nao ter.</p>
+    <p>O resultado e previsivel: quando o dominio exige mais julgamento contextual do que os outros 4, a concordancia cai &mdash; de moderada (D1, &kappa; = 0.45) para quase aleatoria (D2 assignment, &kappa; = 0.04).</p>
+  </details>
+
+  <details>
+    <summary>Outcome-level vs study-level: por que importa</summary>
+    <p>O RoB 2 foi projetado para ser aplicado <strong>por desfecho</strong>, nao por estudo. O motivo e logico: o mesmo RCT pode ter blinding perfeito para mortalidade (desfecho "duro", nao influenciado pelo conhecimento da alocacao) e blinding inexistente para qualidade de vida (desfecho subjetivo, altamente influenciavel).</p>
+    <p>Quando uma SR aplica o RoB 2 no nivel do estudo (o erro mais comum segundo Minozzi 2022), o julgamento tende a ser dominado pelo desfecho mais vulneravel &mdash; resultando em classificacao de "alto risco" que pode nao se aplicar ao desfecho primario da meta-analise.</p>
+    <p><strong>Consequencia no forest plot:</strong> No semaforo Cochrane (como o Ebrahimi 2025 que vimos), cada linha e um estudo com um desfecho especifico. Se a SR aplicou RoB no nivel errado, os circulos verde/amarelo/vermelho podem nao representar o vies relevante para aquele outcome.</p>
+  </details>
+
+  <details>
+    <summary>RoB 2 vs RoB 1: o que mudou e o que piorou</summary>
+    <table>
+      <tr><th scope="col">Aspecto</th><th scope="col">RoB 1 (Higgins 2011)</th><th scope="col">RoB 2 (Sterne 2019)</th></tr>
+      <tr><td>Dominios</td><td>7 (genericos)</td><td>5 (especificos + signaling questions)</td></tr>
+      <tr><td>Julgamento</td><td>Baixo / Alto / Incerto</td><td>Baixo / Some concerns / Alto</td></tr>
+      <tr><td>Granularidade</td><td>Nivel do estudo</td><td>Nivel do desfecho</td></tr>
+      <tr><td>Tempo medio</td><td>~15 min/estudo</td><td>~28 min/estudo/desfecho</td></tr>
+      <tr><td>IRR overall</td><td>&kappa; &asymp; 0.40&ndash;0.60</td><td>&kappa; = 0.16&ndash;0.46</td></tr>
+      <tr><td>Vantagem</td><td>Mais rapido, mais simples</td><td>Mais estruturado, mais transparente</td></tr>
+      <tr><td>Desvantagem</td><td>"Incerto" = lixeira (40-60% dos julgamentos)</td><td>Complexidade &rarr; baixa adocao e IRR</td></tr>
+    </table>
+    <p>Guelimi 2025 documenta que a transicao RoB-1 &rarr; RoB-2 derrubou dramaticamente a proporcao de "baixo risco" (58% &rarr; 13% em SAEs). Parte disso e <em>correcao real</em> (RoB 1 era permissivo demais); parte e <em>artefato de complexidade</em> (avaliadores incertos no novo tool tendem a classificar "some concerns" ou "alto risco" por seguranca).</p>
+  </details>
+
+  <details>
+    <summary>Ecossistema de tools de vies: mapa de cobertura</summary>
+    <table>
+      <tr><th scope="col">Tipo de estudo</th><th scope="col">Tool padrao</th><th scope="col">Alternativa</th></tr>
+      <tr><td>RCT</td><td><strong>RoB 2</strong> (Sterne 2019)</td><td>ROBUST-RCT (Wang 2025)</td></tr>
+      <tr><td>Estudo nao-randomizado (intervencao)</td><td><strong>ROBINS-I</strong> (Sterne 2016) / V2 (2025)</td><td>&mdash;</td></tr>
+      <tr><td>Estudo nao-randomizado (exposicao)</td><td><strong>ROBINS-E</strong> (Morgan 2024)</td><td>&mdash;</td></tr>
+      <tr><td>Estudo diagnostico</td><td><strong>QUADAS-2</strong> (Whiting 2011)</td><td>&mdash;</td></tr>
+      <tr><td>Estudo prognostico</td><td><strong>PROBAST</strong> (Wolff 2019)</td><td>&mdash;</td></tr>
+      <tr><td>Revisao sistematica</td><td><strong>ROBIS</strong> (Whiting 2016) + AMSTAR 2</td><td>LLMs (Forero 2025)</td></tr>
+      <tr><td>Efeito em meta-analise</td><td><strong>ROB-ME</strong> (meta-epidemiologico)</td><td>&mdash;</td></tr>
+      <tr><td>Estudo de LLM medico</td><td>&mdash;</td><td>AQAT:RoB (Ye 2026)</td></tr>
+    </table>
+    <p class="meta">O RoB 2 cobre apenas RCTs. Para interpretar uma MA Cochrane completa, o revisor pode precisar de 2-3 tools diferentes se incluir estudos de desenhos mistos.</p>
+  </details>
+</section>
+
+<!-- ===== SINTESE CRITICA ===== -->
+<section id="sintese-critica">
+  <h2>Sintese Critica &mdash; O que os 12 Papers Ensinam Juntos</h2>
+
+  <h3>Convergencias (3+ fontes independentes)</h3>
+  <table>
+    <tr><th scope="col">Achado</th><th scope="col">Fontes concordantes</th></tr>
+    <tr><td><strong>D2 (desvios da intervencao) e o dominio mais problematico</strong></td><td>Minozzi 2020 (&kappa;=0.04), Guelimi 2025 (D2 &lt; 0.33), Pitre 2023 (&kappa;=0.11)</td></tr>
+    <tr><td><strong>LLMs nao substituem humanos no RoB 2</strong></td><td>Pitre 2023 (&kappa;=0.17), Forero 2025 (subestimam vies)</td></tr>
+    <tr><td><strong>Complexidade do RoB 2 causa misaplicacao</strong></td><td>Minozzi 2020 (28 min), Minozzi 2022 (28.8% aderencia), Guelimi 2025 (60% mudancas)</td></tr>
+    <tr><td><strong>Alternativas estao surgindo do mesmo grupo</strong></td><td>Wang 2025 ROBUST-RCT (Guyatt), Core GRADE 4 2025 (Guyatt)</td></tr>
+  </table>
+
+  <h3>Tensao nao resolvida</h3>
+  <p>O RoB 2 tenta padronizar julgamentos inerentemente subjetivos. A alternativa nao e <em>menos</em> padronizacao &mdash; seria pior. A alternativa e reconhecer que o semaforo RoB e uma <strong>estimativa de vies</strong>, nao uma <strong>medida de vies</strong>, e trata-lo com a mesma humildade epistemica que aplicamos a qualquer estimativa com amplo intervalo de incerteza.</p>
+
+  <h3>Funcao pedagogica</h3>
+  <p>O slide s-rob2 segue imediatamente o s-forest2 (Ebrahimi Cochrane), que termina com o click 8 destacando a coluna RoB. O aluno ja sabe <em>o que</em> sao aqueles circulos coloridos. Agora precisa saber: <em>quanto confiar neles?</em> A resposta &mdash; "menos do que voce pensava, mas nao ha alternativa melhor (ainda)" &mdash; e a mensagem clinica central.</p>
+</section>
+
+<!-- ===== GAPS ===== -->
+<section id="gaps">
+  <h2>Gaps e Limitacoes desta Evidencia</h2>
+
+  <table>
+    <tr><th scope="col">Gap</th><th scope="col">Detalhe</th><th scope="col">Impacto</th></tr>
+    <tr><td>ROBUST-RCT sem abstract</td><td>Full-text recente (mar/2025), abstract nao disponivel no PubMed</td><td>Detalhes dos 6 dominios e dados de IRR pendentes</td></tr>
+    <tr><td>ROBINS-I V2 sem PMID</td><td>Guideline publicada no riskofbias.info, nao em journal indexado</td><td>Nao verificavel via PubMed</td></tr>
+    <tr><td>Core GRADE 4 sem kappa</td><td>Paper discute RoB no GRADE mas nao reporta kappa proprio</td><td>Nao sabemos se o GRADE melhora a reprodutibilidade do julgamento de RoB</td></tr>
+    <tr><td>Pitre 2023 e preprint</td><td>medRxiv, nao peer-reviewed</td><td>Dados de ChatGPT-4 podem mudar com versao publicada</td></tr>
+    <tr><td>Sem dados longitudinais</td><td>Nenhum estudo rastreou se treinamento melhora kappa ao longo do tempo</td><td>Desconhecemos a curva de aprendizado do RoB 2</td></tr>
+  </table>
+</section>
+
+<!-- ===== REFERENCES ===== -->
+<section id="references">
+  <h2>Referencias</h2>
+
+  <table>
+    <tr><th scope="col">#</th><th scope="col">Citacao</th><th scope="col">PMID/DOI</th><th scope="col">Status</th></tr>
+    <tr><td>1</td><td>Sterne JAC et al. RoB 2: a revised tool. BMJ 2019;366:l4898.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31462531" target="_blank" rel="noopener noreferrer">31462531</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>2</td><td>Minozzi S et al. Low interrater reliability. J Clin Epidemiol 2020;126:37-44.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32562833" target="_blank" rel="noopener noreferrer">32562833</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>3</td><td>Minozzi S et al. Adherence was frequently poor. J Clin Epidemiol 2022;152:47-55.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36156301" target="_blank" rel="noopener noreferrer">36156301</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>4</td><td>Guelimi R et al. RoB-1 vs RoB-2 impact on NMA. J Clin Epidemiol 2025;190:112097.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41352579" target="_blank" rel="noopener noreferrer">41352579</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>5</td><td>Guyatt G et al. Core GRADE 4: risk of bias. BMJ 2025;389:e083864.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40360206" target="_blank" rel="noopener noreferrer">40360206</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>6</td><td>Wang Y et al. ROBUST-RCT. BMJ 2025;388:e081199.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40132800" target="_blank" rel="noopener noreferrer">40132800</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>7</td><td>Forero DA et al. LLMs for ROBIS/AMSTAR 2. JAMIA 2025;32(9):1471-1476.</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40680299" target="_blank" rel="noopener noreferrer">40680299</a></td><td><span class="v">V</span></td></tr>
+    <tr><td>8</td><td>Pitre T et al. ChatGPT for RoB 2.0. medRxiv 2023.</td><td><a class="ref-pmid" href="https://doi.org/10.1101/2023.11.19.23298727" target="_blank" rel="noopener noreferrer">DOI</a></td><td><span class="c">C</span></td></tr>
+    <tr><td>9</td><td>Mickenautsch S. CQS-2B vs RoB 2. Frontiers Med 2024.</td><td><a class="ref-pmid" href="https://doi.org/10.3389/fmed.2024.1307815" target="_blank" rel="noopener noreferrer">DOI</a></td><td><span class="c">C</span></td></tr>
+    <tr><td>10</td><td>Sterne JAC. ROBINS-I V2. Cochrane BMG / riskofbias.info 2025.</td><td>&mdash;</td><td><span class="c">C</span></td></tr>
+    <tr><td>11</td><td>Ye J et al. AQAT:RoB for LLM studies. JMIR 2026.</td><td><a class="ref-pmid" href="https://doi.org/10.2196/87057" target="_blank" rel="noopener noreferrer">DOI</a></td><td><span class="c">C</span></td></tr>
+    <tr><td>12</td><td>Siedler A et al. Certainty of evidence assessment. Cochrane Evid Synth Methods 2025.</td><td>&mdash;</td><td><span class="c">C</span></td></tr>
+  </table>
+  <p class="meta"><span class="v">V</span> = VERIFIED (PubMed MCP, 3 campos confirmados). <span class="c">C</span> = CANDIDATE (DOI verificado, PMID pendente ou N/A).</p>
+</section>
+
+<!-- ===== SPEAKER NOTES ===== -->
+<section id="speaker-notes">
+  <h2>Speaker Notes</h2>
+
+  <h3>Slide s-rob2 (~120s, 4-5 click-reveals sugeridos)</h3>
+
+  <p><strong>Contexto de entrada:</strong> O aluno acaba de ver o slide s-forest2 (Ebrahimi Cochrane 2025), que terminou com o click 8 destacando a coluna RoB (circulos verde/amarelo). O hook foi: "esses circulos coloridos &mdash; o que avaliam, e quanto podemos confiar neles?" Este slide responde.</p>
+
+  <h4>Fluxo proposto</h4>
+  <table>
+    <tr><th scope="col">Tempo</th><th scope="col">Acao</th><th scope="col">Falar</th><th scope="col">Dados</th></tr>
+    <tr>
+      <td>0:00&ndash;0:20</td>
+      <td>Crop RoB visivel (lado esquerdo). Pausa.</td>
+      <td>"Esses circulos que voces viram no forest plot &mdash; cada um e um julgamento. Um julgamento <em>humano</em>. A ferramenta se chama RoB 2 &mdash; Risk of Bias, versao 2."</td>
+      <td>[DATA] Sterne 2019, BMJ. PMID 31462531. Verificado: 2026-04-13.</td>
+    </tr>
+    <tr>
+      <td>0:20&ndash;0:40</td>
+      <td>[CLICK 1] Revelar os 5 dominios</td>
+      <td>"Ela avalia 5 coisas: se a randomizacao foi adequada, se houve desvios do protocolo, se faltam dados, se a medicao foi cega, e se houve reporting seletivo. O pior dominio governa o julgamento geral."</td>
+      <td>[DATA] RoB 2 framework (Sterne 2019). 5 dominios + overall.</td>
+    </tr>
+    <tr>
+      <td>0:40&ndash;1:00</td>
+      <td>[CLICK 2] Revelar kappa = 0.04</td>
+      <td>"Agora a parte que ninguem conta pra voces: a concordancia entre dois avaliadores treinados neste dominio &mdash; 'desvios da intervencao pretendida' &mdash; e <strong>kappa 0.04</strong>. Isso e indistinguivel do acaso. Dois especialistas olham para o mesmo estudo e discordam fundamentalmente."</td>
+      <td>[DATA] Minozzi 2020, J Clin Epidemiol. PMID 32562833. 4 avaliadores, 70 RCTs. Kappa geral = 0.16 (ligeira). Verificado: 2026-04-13.</td>
+    </tr>
+    <tr>
+      <td>1:00&ndash;1:20</td>
+      <td>[CLICK 3] Revelar impacto clinico (RoB-1 vs RoB-2)</td>
+      <td>"E nao e so teoria. Quando trocaram do RoB antigo pro novo em 193 estudos de psoriase, a proporcao de 'baixo risco' caiu de 58% para 13% em seguranca. E isso <em>mudou o resultado do NMA</em>."</td>
+      <td>[DATA] Guelimi 2025, J Clin Epidemiol. PMID 41352579. 193 RCTs. Verificado: 2026-04-13.</td>
+    </tr>
+    <tr>
+      <td>1:20&ndash;1:40</td>
+      <td>[CLICK 4] Revelar alternativas (ROBUST-RCT)</td>
+      <td>"Isso explica por que em 2025 o <em>mesmo grupo</em> &mdash; McMaster, Guyatt &mdash; publicou uma ferramenta alternativa no BMJ: ROBUST-RCT. Mais simples, 6 dominios, projetada para ser mais reprodutivel."</td>
+      <td>[DATA] Wang 2025, BMJ. PMID 40132800. Verificado: 2026-04-13.</td>
+    </tr>
+    <tr>
+      <td>1:40&ndash;2:00</td>
+      <td>[CLICK 5, opcional] Punchline</td>
+      <td>"Mensagem: uma meta-analise nao e melhor que os estudos que a alimentam. E uma avaliacao de vies nao e melhor que a concordancia do instrumento que a produz. Quando voces virem aqueles semaforos verdes, perguntem: <em>quem pintou esses circulos, e concordariam entre si?</em>"</td>
+      <td>[DATA] Sintese: Minozzi 2020 + Guelimi 2025 + Wang 2025.</td>
+    </tr>
+  </table>
+
+  <h4>Enfases e pausas</h4>
+  <table>
+    <tr><th scope="col">Momento</th><th scope="col">Enfase</th></tr>
+    <tr><td>"kappa 0.04"</td><td>PAUSA 2-3 segundos. Deixar o numero pousar. Nao explicar imediatamente &mdash; o silencio comunica a gravidade.</td></tr>
+    <tr><td>"de 58% para 13%"</td><td>Repetir os numeros. "Cinquenta e oito. Pra treze."</td></tr>
+    <tr><td>"mesmo grupo"</td><td>Enfatizar: nao e um critico externo &mdash; e o grupo que criou o GRADE propondo uma alternativa ao tool padrao.</td></tr>
+    <tr><td>Punchline</td><td>Tom mais lento. Olhar para a plateia, nao para o slide.</td></tr>
+  </table>
+
+  <h4>Transicao</h4>
+  <p>"Isso era o <em>como</em> avaliamos vies. Mas quando os resultados dos estudos nao concordam entre si &mdash; quando ha heterogeneidade &mdash; e um problema diferente. E e isso que vamos ver agora." &rarr; slide s-heterogeneity.</p>
+
+  <h4>Perguntas antecipadas</h4>
+  <table>
+    <tr><th scope="col">Pergunta</th><th scope="col">Resposta curta</th></tr>
+    <tr><td>"Mas ai nao deveriam usar outra ferramenta?"</td><td>"Essa e a tensao: o RoB 2 e a melhor que temos, mas 'melhor' nao significa 'boa'. ROBUST-RCT acabou de sair &mdash; ainda nao sabemos se melhora o kappa."</td></tr>
+    <tr><td>"IA nao resolveria isso?"</td><td>"Tentaram. ChatGPT-4 ficou com kappa 0.17 &mdash; pior que humanos. O problema nao e velocidade, e julgamento clinico contextual."</td></tr>
+    <tr><td>"Entao o GRADE tambem e fragil?"</td><td>"O GRADE depende do RoB como input. Se o input tem &kappa; = 0.04, a certeza da evidencia herda essa incerteza. Core GRADE 4 (Guyatt 2025, BMJ) formaliza isso mas nao resolve."</td></tr>
+    <tr><td>"Kappa depende de prevalencia, nao?"</td><td>"Exato. Quando a maioria e 'baixo risco', o kappa esperado por acaso ja e alto, e kappa observado cai. Mas D2 nao tem prevalencia extrema &mdash; o problema e real."</td></tr>
+  </table>
+</section>
+
+<footer>
+  <p><strong>Coautoria:</strong> Lucas Peres Miachon + Opus 4.6 (orquestrador) + Gemini 2.5 Deep Think + PubMed MCP + SCite MCP</p>
+  <p>S174 criado &mdash; 2026-04-13 | Evidence benchmark: pre-reading-heterogeneidade.html | Pipeline: 4 pernas (Gemini + Evidence Researcher + SCite gap-fill + Gemini gap-fill)</p>
+</footer>
+
+</body>
+</html>

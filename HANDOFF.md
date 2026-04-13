@@ -1,16 +1,24 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 173 | QA-forest2
+> Sessao 174 | ROB2
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 21 items.**
 
+## P0 — s-rob2 (novo slide)
+
+- **Evidence HTML DONE:** `evidence/s-rob2.html` — 12 papers (7 VERIFIED, 5 CANDIDATE), pre-reading 3 camadas, conceitos avancados, speaker notes
+- **Crop DONE:** `assets/rob2-ebrahimi-crop.png` (1250x951 @ 600 DPI, composited via PyMuPDF+PIL)
+- **Pendente:** slide HTML (`slides/08c-rob2.html`), CSS (`section#s-rob2`), _manifest.js, build
+- **h2:** Lucas decide
+- **Decisoes pendentes:** N de click-reveals, layout final, h2
+
 ## P0 — Forest plot slides
 
 - **s-forest1 (Li 2026) — DONE.** Gate 4 completo (S172).
-- **s-forest2 (Ebrahimi Cochrane) — DONE.** Gate 4 completo (S173). 1 fix: failsafe badge MA.
+- **s-forest2 (Ebrahimi Cochrane) — DONE.** Gate 4 completo (S173).
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.
@@ -62,14 +70,8 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: 8 plans untracked (7 anteriores + 1 desta sessao). Lucas decide per-file.
+- `.claude/plans/`: 9 plans untracked (8 anteriores + 1 desta sessao). Lucas decide per-file.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
 
-## INSIGHTS S173
-
-- 3 Skill() permissions mortas em settings.local.json (loop, codex:rescue, codex:gpt-5-4-prompting)
-- Skills count: 19 (HANDOFF dizia 20 — corrigido)
-- BACKLOG #9 source file possivelmente perdido (.claude/tmp/c1-result.md)
-
 ---
-Coautoria: Lucas + Opus 4.6 | S173 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S174 2026-04-13

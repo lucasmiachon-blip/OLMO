@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Sessao 174 — 2026-04-13 (ROB2)
+
+### Research — s-rob2 pipeline completo
+- **SKILL.md fix:** removida linguagem de "minimo" (linhas 48, 71). Regra: todas as pernas aplicaveis rodam
+- **Pipeline 4 pernas:** Gemini Deep Think + Evidence Researcher (PubMed/SCite MCPs) + SCite gap-fill + Gemini gap-fill (2025-2026)
+- **12 papers identificados:** 7 VERIFIED (PubMed MCP), 5 CANDIDATE
+- **Papers-chave:** Minozzi 2020 (kappa=0.16, D2=0.04), Guelimi 2025 (RoB-1 vs RoB-2, NMA impact), Wang 2025 (ROBUST-RCT), Guyatt 2025 (Core GRADE 4)
+
+### Evidence HTML — s-rob2.html DONE
+- Pre-reading 3 camadas (basico, intermediario, avancado)
+- Explicacao de kappa para residentes iniciantes + ranking fragilidade dominios
+- 6 conceitos avancados (paradoxo prevalencia, kappa ponderado, D2 problematico, outcome vs study level, RoB 1 vs 2, ecossistema tools)
+- Speaker notes com fluxo temporal (120s, 4-5 clicks), enfases, transicao, perguntas antecipadas
+- Benchmark CSS: pre-reading-heterogeneidade.html
+
+### Crop — rob2-ebrahimi-crop.png DONE
+- Composite 2 regioes do PDF Cochrane p.15 (study names + RoB dots A-F)
+- 1250x951 px @ 600 DPI via PyMuPDF + PIL
+
 ## Sessao 173 — 2026-04-13 (QA-forest2)
 
 ### QA — s-forest2 Gate 4 DONE
