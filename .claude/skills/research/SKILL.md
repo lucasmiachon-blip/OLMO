@@ -45,7 +45,7 @@ echo "GEMINI: $(echo $GEMINI_API_KEY | head -c4)... | PERPLEXITY: $(echo $PERPLE
 - Prefixo visivel = key configurada → perna disponivel
 - Vazio = key ausente → reportar: "Perna X indisponivel: API key nao configurada"
 - **NAO substituir por WebSearch.** NAO lancar agente general-purpose como substituto. Pular a perna.
-- Continuar com pernas restantes (minimo: Perna 2 evidence-researcher).
+- Continuar com pernas restantes.
 - Se AMBAS keys ausentes: avisar usuario que pesquisa tera cobertura reduzida (so MCPs academicos).
 
 ### Worker Mode Override
@@ -68,7 +68,7 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 | 5 | Perplexity API — Bash `node -e` (**Orquestrador**) | sonar-deep-research | Sempre | topic (prompt aberto) | inline (console) |
 | 6 | NLM CLI `nlm notebook query` (**Orquestrador**, OAuth) | — | Notebook mapeado | topic + adjacent context | inline (console) |
 
-Minimo: Pernas 1+2+5. Maximo: todas 6.
+Todas as pernas aplicaveis rodam. Perna indisponivel (key ausente, tool quebrada) = reportar e pular.
 
 **Principio I/O (S145):** OPEN topic + CLOSED format. Nunca ambos abertos.
 - OPEN: "What are the most practice-changing..." (topico livre, nao-deterministico)
