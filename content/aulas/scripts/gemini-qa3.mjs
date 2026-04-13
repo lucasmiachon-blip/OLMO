@@ -1194,8 +1194,13 @@ async function runEditorial(slideId, round, qaDir) {
     { video: false, s0: true, s2: true, ref: true }, 16384);
 
   // Call C — Motion Design: PNGs + video + animation JS only
+  // Strip line comments from JS to prevent bias — forces Gemini to watch the video
+  // instead of parroting beat descriptions from code comments (S172 fix)
+  const strippedJS = rawJS
+    ? rawJS.replace(/^\s*\/\/.*$/gm, '').replace(/\n{3,}/g, '\n\n').trim()
+    : rawJS;
   const payloadC = buildSplitCallPayload('motion', CALL_C_PROMPT_PATH,
-    slideId, meta, mediaUris, null, null, rawJS, null, null, null,
+    slideId, meta, mediaUris, null, null, strippedJS, null, null, null,
     { video: true, s0: true, s2: true, ref: false }, 8192);
 
   // Step 3: Fire 3 calls in parallel

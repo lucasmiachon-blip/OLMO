@@ -53,7 +53,7 @@ VOCE NAO VIU este slide antes. Avalie os reports com OLHOS FRESCOS.
 
 1. **Auditar cada nota**: para cada dimensao, verificar se a nota e coerente com a evidencia e os problemas listados. Se nao for, ajustar.
 2. **Detectar falsos positivos**: itens flagados como problema que sao decisoes de design (ver lista acima).
-3. **Produzir lista de acoes priorizadas**: max 5, ordenadas por impacto. Cada acao no formato WHAT/WHY/PROPOSAL/GUARANTEE.
+3. **Produzir lista de acoes priorizadas**: MINIMO 4 MUST + 4 SHOULD/COULD, sem limite maximo, ordenadas por impacto. Cada acao no formato WHAT/WHY/PROPOSAL/GUARANTEE.
 4. **Recalcular medias**: visual, uxcode, motion, overall.
 
 ### OUTPUT

@@ -12,6 +12,7 @@ Slide {{SLIDE_ID}} (posicao {{SLIDE_POS}}).
 
 REGRA: Voce DEVE ASSISTIR O VIDEO e descrever o que VIU. Nao inferir do codigo JS.
 Se o video nao mostrar transicoes identificaveis, diga "transicoes indistinguiveis" e pontue 0.
+VERIFICACAO POS-INVENTARIO: Apos completar o inventario, para CADA entrada verifique: "eu VI isso no video ou INFERI do codigo?" Se inferiu, remova e substitua pelo que realmente viu. Cores devem ser nomeadas pelo que aparece no video (ex: "retangulo azul"), nao pelo que o codigo sugere.
 
 ANTI-SINCOFANCIA DURA:
 - Nota 10 e QUASE IMPOSSIVEL. 10 = Apple Keynote 2024, WWDC-level polish com meses de iteracao.

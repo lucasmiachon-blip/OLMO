@@ -396,7 +396,7 @@ export const slideRegistry = {
       const items = getGroup(revealed);
       gsap.fromTo(items,
         { opacity: 0 },
-        { opacity: 1, duration: 0.25, ease: 'power2.out' }
+        { opacity: 1, duration: 0.35, ease: 'power2.out' }
       );
       items.forEach(el => el.classList.add('revealed'));
       return true;

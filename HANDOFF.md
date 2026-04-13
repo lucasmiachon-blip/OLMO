@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 171 | QA-profissional-forest
+> Sessao 172 | QA-forest-final
 
 ## ESTADO ATUAL
 
@@ -9,9 +9,8 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## P0 — Forest plot slides
 
-- **s-forest1 (Li 2026) — Gate 4 PENDENTE.** Overlay opacity reduzida (10%). Pronto para Gate 4.
-- **s-forest2 (Ebrahimi Cochrane) — Gate 4 PENDENTE.** 8 beats implementados. Zoom RoB (beat 8) com scale 2 + xPercent:-35 + border-only frame (coordenadas calibradas por Lucas: top 1%, left 79%, width 17%, height 70%).
-- **Proxima sessao: Gate 4 Gemini para cada slide** (Preflight → Inspect → Editorial, 1 por vez).
+- **s-forest1 (Li 2026) — DONE.** Gate 4 completo (Preflight + Inspect + Editorial). Reveal 350ms.
+- **s-forest2 (Ebrahimi Cochrane) — Gate 4 PENDENTE.** 8 beats implementados. Zoom RoB calibrado.
 - **Completar overlap:** Lucas baixa PDFs das 11 MAs restantes via CAPES.
 - **h2 provisorios:** Lucas pode reescrever a qualquer momento.
 - **CSS pendente:** Lucas indicou mudancas globais — nao otimizar ainda.

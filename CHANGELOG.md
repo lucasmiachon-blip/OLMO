@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Sessao 172 — 2026-04-12 (QA-forest-final)
+
+- **s-forest1 Gate 4 DONE:** Preflight PASS (4/4 dims), Inspect PASS (1 warning readability — FP, texto e do artigo), Editorial 7.5/10 pos-calibracao
+- **Fix s-forest1:** reveal duration 250ms→350ms (suaviza transicao sem atrasar ritmo)
+- **Gemini QA anti-bias:** strip JS comments antes de enviar ao Call C (S172 — Gemini papagueava beat comments em vez de assistir video)
+- **Gemini QA cobertura:** "max 5" proposals → "MINIMO 4 MUST + 4 SHOULD/COULD" em Call B e Call D
+- **Gemini QA verificacao:** Call C prompt exige auto-check "VIU ou INFERIU?" pos-inventario
+
 ## Sessao 171 — 2026-04-12 (QA-profissional-forest)
 
 - **OKLCH migration (fix grave):** 33 rgba() literal → oklch() nos forest zones. Tol bright palette computada via sRGB→Oklab→OKLCH
