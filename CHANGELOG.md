@@ -1,10 +1,23 @@
 # CHANGELOG
 
-## Sessao 196 — 2026-04-14 (hooks Fase 2 step 5 — COMPLETE)
+## Sessao 196 — 2026-04-14 (hooks Fase 2 COMPLETE + audit-driven fixes)
 
 ### Consolidacao
 - Step 5: Stop merge — crossref+detect-issues+hygiene → stop-quality, scorecard+chaos → stop-metrics (7→4, git diff 10→4)
 - **Hooks Fase 2 DONE:** 34→29 registros, 0 node spawns, 5 steps across S193-S196
+
+### Audit sentinel (scripts professionalism)
+- **CRITICAL fix:** tool-call counter glob broken desde session-number prefix — SCORECARD/APL mostrava 0. Fix: `cc-calls-*_${TODAY}_*.txt`
+- **CRITICAL fix:** guard-bash-write Pattern 7 FP em `mypy` — regex `py\s+` matchava sufixo. Fix: `\b(python3?|py)\b`
+- **WARN fix:** hygiene dedup removida de stop-metrics (stop-quality e autoritativo)
+- **WARN fix:** "Armed" noise removido de post-global-handler (~300 prints/sessao)
+- Chaos section: SESSION_ID corrigido para ler de `/tmp/cc-session-id.txt`
+- Sentinel erros: 1 FP (apl-cache-refresh claim), 1 truncado (orchestration)
+
+### Infra
+- Rule: `proven-wins.md` — maturity tiers (unaudited→audited→tested→proven)
+- Plans S196 arquivados (crispy-munching-blum, functional-prancing-clarke)
+- Backlog: #3 e #15 RESOLVED, +#31 (sentinel quality), +#32 (node→jq restante)
 
 ## Sessao 195 — 2026-04-14 (INFRA10: hooks Fase 2 step 4 + rule)
 

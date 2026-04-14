@@ -37,9 +37,10 @@ fi
 # ═══ 2. Momentum brake arm (anti KBP-01) ═══
 # After any tool call, arm brake so enforce hook gates the next action.
 # Cycle: arm (PostToolUse) → enforce (PreToolUse) → clear (UserPromptSubmit)
+# State is file-based (/tmp/olmo-momentum-brake/armed) — no stdout needed.
+# S196 audit: removed "Armed" printf (300 lines/session noise, enforce handles gating).
 LOCK_DIR="/tmp/olmo-momentum-brake"
 mkdir -p "$LOCK_DIR"
 date '+%s' > "$LOCK_DIR/armed"
-printf '\n[momentum-brake] Armed — proxima acao requer aprovacao.\n'
 
 exit 0

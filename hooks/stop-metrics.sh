@@ -2,6 +2,7 @@
 # Claude Code hook: Stop
 # Merged: scorecard + chaos-report (Fase 2 step 5)
 # Session summary (2 lines) + conditional chaos report.
+# Hygiene check deferred to stop-quality.sh (authoritative).
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
 # Drain stdin (hook protocol — prevent parent process stall)
@@ -42,10 +43,10 @@ if [ "$START_TS" -gt 0 ]; then
   COMMITS=$(git -C "$PROJECT_ROOT" log --oneline --since="@$START_TS" 2>/dev/null | wc -l | tr -d ' ')
 fi
 
-# Tool calls today
+# Tool calls today (glob matches session-number prefix: cc-calls-{NUM}_{DATE}_{TIME}.txt)
 CALLS=0
 TODAY=$(date +%Y%m%d)
-for f in /tmp/cc-calls-${TODAY}_*.txt; do
+for f in /tmp/cc-calls-*_${TODAY}_*.txt; do
   [ -f "$f" ] || continue
   n=$(cat "$f" 2>/dev/null || echo 0)
   [[ $n =~ ^[0-9]+$ ]] || n=0
@@ -61,21 +62,9 @@ else
   COST="HIGH"
 fi
 
-# Hygiene status
-HYGIENE="OK"
-UNCOMMITTED=$(git -C "$PROJECT_ROOT" diff --name-only 2>/dev/null)
-STAGED_FILES=$(git -C "$PROJECT_ROOT" diff --cached --name-only 2>/dev/null)
-if [ -n "$UNCOMMITTED" ] || [ -n "$STAGED_FILES" ]; then
-  HANDOFF_TOUCHED=$(printf '%s\n%s\n' "$UNCOMMITTED" "$STAGED_FILES" | grep -c 'HANDOFF.md' || true)
-  CHANGELOG_TOUCHED=$(printf '%s\n%s\n' "$UNCOMMITTED" "$STAGED_FILES" | grep -c 'CHANGELOG.md' || true)
-  if [ "$HANDOFF_TOUCHED" -eq 0 ] || [ "$CHANGELOG_TOUCHED" -eq 0 ]; then
-    HYGIENE="PENDENTE"
-  fi
-fi
-
-# Output (2 lines)
+# Output (2 lines — hygiene handled by stop-quality.sh)
 echo "[SCORECARD] Foco: \"$SESSION_NAME\" | Duracao: $DURATION"
-echo "[SCORECARD] Commits: $COMMITS | Tool calls: $CALLS | Custo: $COST | Hygiene: $HYGIENE"
+echo "[SCORECARD] Commits: $COMMITS | Tool calls: $CALLS | Custo: $COST"
 
 # ===== CHAOS REPORT (conditional) =====
 
@@ -95,7 +84,8 @@ COUNT_MODEL=$(trim "$(grep -c '"vector":"model_unavailable".*"injected":true' "$
 COUNT_RAPID=$(trim "$(grep -c '"vector":"rapid_calls".*"injected":true' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 
 FAILURE_LOG="/tmp/cc-model-failures.log"
-SESSION_ID=$(date '+%Y%m%d_%H')
+# Read session ID from the same source as post-global-handler.sh
+SESSION_ID=$(cat /tmp/cc-session-id.txt 2>/dev/null || date '+%Y%m%d_%H%M%S')
 CALLS_FILE="/tmp/cc-calls-${SESSION_ID}.txt"
 
 L2_FAILURES=0

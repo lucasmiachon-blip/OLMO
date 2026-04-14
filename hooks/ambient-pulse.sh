@@ -20,7 +20,7 @@ get_calls() {
   local total=0
   local today
   today=$(date +%Y%m%d)
-  for f in /tmp/cc-calls-${today}_*.txt; do
+  for f in /tmp/cc-calls-*_${today}_*.txt; do
     [ -f "$f" ] || continue
     local n
     n=$(cat "$f" 2>/dev/null || echo 0)

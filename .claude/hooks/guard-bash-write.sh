@@ -70,9 +70,10 @@ fi
 # Pattern 7: Python execution (inline -c AND script files — S193 fix backlog #20)
 # Catches: python -c, python script.py, python ./file.py, python3, py
 # Allows: python --version, python --help, python -m pip
-if echo "$CMD" | grep -qE '(python3?|py)\s+(-c\b|[^-][^-])'; then
-  if ! echo "$CMD" | grep -qE '(python3?|py)\s+--(version|help)' && \
-     ! echo "$CMD" | grep -qE '(python3?|py)\s+-m\s+pip'; then
+# \b prevents matching suffixes like mypy, scipy (S196 audit fix)
+if echo "$CMD" | grep -qE '\b(python3?|py)\b\s+(-c\b|[^-][^-])'; then
+  if ! echo "$CMD" | grep -qE '\b(python3?|py)\b\s+--(version|help)' && \
+     ! echo "$CMD" | grep -qE '\b(python3?|py)\b\s+-m\s+pip'; then
     printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"Python execution detectado — confirme se intencional"}}\n'
     exit 0
   fi

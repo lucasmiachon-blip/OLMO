@@ -1,16 +1,23 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 197 | Hooks Fase 2 DONE, auditorias pendentes
+> Sessao 197 | Audit-driven fixes DONE, backlog atualizado
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Agentes: 10.** **Hooks: 29 registros, 29 scripts (era 34).** **Rules: 12.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 19.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 30 items.**
+**Agentes: 10.** **Hooks: 29 registros, 29 scripts.** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 19.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 32 items (4 resolved S196).**
 
 ## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
 
 - Evidence `evidence/s-tipos-ma.html`: 16 refs VERIFIED + 1 book, ~480 linhas.
 - **Pendente:** Lucas decide quantos slides, posicao no manifest, h2.
+
+## P1 — Audit deferred items
+
+- 4 scripts com node→jq pendente (backlog #32)
+- guard-lint-before-build: hardcoded absolute path (backlog #32 ou fix avulso)
+- Sentinel quality improvement (backlog #31)
+- Orchestration audit re-run (S196 truncou)
 
 ## P1 — Prompt hardening propagacao (backlog #30)
 
@@ -22,17 +29,19 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - Living HTML = source of truth. Benchmark CSS = `pre-reading-heterogeneidade.html` (READ-ONLY).
 - Agent effort: max (degrada para high em Sonnet/Haiku).
 - Hook scripts: Edit BLOCK + deploy via Write→cp (guard-bash-write asks). Settings: Edit ASK.
-- **Elite-conduct loop:** `.claude/rules/elite-conduct.md` (promoted from memory S195).
+- **Elite-conduct loop:** `.claude/rules/elite-conduct.md` (promoted S195).
+- **Proven-wins rule:** `.claude/rules/proven-wins.md` — maturity tiers (unaudited→proven). Audit antes de confiar.
 
 ## CUIDADOS
 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro (LLM).
 - npm scripts: rodar de `content/aulas/`, NAO da raiz.
 - **h2 = trabalho do Lucas.** NUNCA remover/reescrever sem instrucao EXPLICITA.
+- **Sentinel claims: verificar antes de agir.** S196: 1 FP (apl-cache-refresh), 1 truncado.
 
 ## BACKLOG
 
-→ `.claude/BACKLOG.md` (30 items)
+→ `.claude/BACKLOG.md` (32 items, 6 resolved)
 
 ## CLEANUP PENDENTE
 
