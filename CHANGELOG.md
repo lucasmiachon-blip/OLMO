@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 194 — 2026-04-14 (hooks Fase 2 — consolidacao parcial 3/5)
+
+### Consolidacao (3 steps completos)
+- Step 1: PostToolUse `.*` merge — cost-circuit-breaker + momentum-brake-arm → post-global-handler (-1 fork/tool call)
+- Step 2: PreToolUse Write|Edit merge — guard-worker-write + guard-generated + guard-product-files → guard-write-unified (4 node→0, -57 linhas)
+- Step 3: guard-secrets node→jq migration (1 node→0 em git commands)
+
+### Decisoes
+- guard-secrets + guard-bash-write mantidos separados (divergencia do plano original — merge nao-elite)
+- Mensagem timestamp worker: "Titulo do MD precisa de timestamp" (correcao Lucas)
+
+### Feedback
+- Elite-conduct loop: refletir "conduta de elite?" antes de cada implementacao (salvo em memory)
+
+### Pendente (steps 4-5)
+- Step 4: PostToolUse Bash 3→1 (build-monitor + success-capture + hook-calibration)
+- Step 5: Stop 7→4 (quality + metrics merges)
+
 ## Sessao 193 — 2026-04-14 (hooks Fase 1 — ADVERSARIAL)
 
 ### node→jq migration (6 hooks, 8 spawns eliminados)

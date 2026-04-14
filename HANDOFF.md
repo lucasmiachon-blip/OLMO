@@ -1,27 +1,28 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 194 | pos hooks Fase 1
+> Sessao 195 | Hooks Fase 2 parcial (3/5 steps)
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Agentes: 10 (hardened S192).** **Hooks: 37 (-1 dead code).** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 19 (+KBP-19 S193).** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 30 items.**
+**Agentes: 10.** **Hooks: 34 registros, 34 scripts (era 37).** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 19.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 30 items.**
 
 ## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
 
 - Evidence `evidence/s-tipos-ma.html`: 16 refs VERIFIED + 1 book, ~480 linhas.
 - **Pendente:** Lucas decide quantos slides, posicao no manifest, h2.
 
-## P1 — Hooks Fase 2 (consolidacao)
+## P1 — Hooks Fase 2 (steps 4-5 pendentes)
 
-- Plano completo em `.claude/plans/polished-wibbling-cloud.md`
-- Merge 3 Write|Edit guards → 1, 3 PostToolUse Bash → 1, 2 PreToolUse Bash → 1, 7 Stop → 2-3
-- guard-worker-write.sh ainda tem 3-4 node spawns (unico nao migrado Fase 1)
-- Estimativa: 37→~22 hooks, 0-1 node spawns por Edit
+- Plano ativo: `.claude/plans/crispy-munching-blum.md`
+- **DONE:** Step 1 (PostToolUse .* 2→1), Step 2 (Write|Edit 3→1 + 4 node→0), Step 3 (guard-secrets node→jq)
+- **PENDENTE:** Step 4 (PostToolUse Bash 3→1, script ja escrito nao deployado), Step 5 (Stop 7→4)
+- Divergencia do plano original: guard-secrets + guard-bash-write mantidos separados (nao-elite merge)
+- Projecao final: 34→29 registros quando steps 4-5 completos
 
 ## P1 — Prompt hardening propagacao (backlog #30)
 
-## P1 — /insights stale (39 sessoes atras, last S154)
+## P1 — /insights stale (40 sessoes atras, last S154)
 
 ## DECISOES ATIVAS
 
@@ -29,6 +30,7 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - Living HTML = source of truth. Benchmark CSS = `pre-reading-heterogeneidade.html` (READ-ONLY).
 - Agent effort: max (degrada para high em Sonnet/Haiku).
 - Hook scripts: Edit BLOCK + deploy via Write→cp (guard-bash-write asks). Settings: Edit ASK.
+- **Elite-conduct loop:** antes de implementar, refletir "isso e conduta de elite?" Se sim, implementar.
 
 ## CUIDADOS
 
@@ -44,7 +46,6 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 
 - `.claude/workers/`: S178 + S181. Lucas decide.
 - `02-contrato.html` menciona slides demolidos.
-- `.claude/plans/`: groovy-fluttering-bunny.md (S193 rascunho), polished-wibbling-cloud.md (S193 Fase 1-3 plano ativo).
 
 ---
-Coautoria: Lucas + Opus 4.6 | S193 2026-04-14
+Coautoria: Lucas + Opus 4.6 | S194 2026-04-14
