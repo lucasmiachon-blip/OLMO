@@ -3,17 +3,15 @@
 # Wired: PreToolUse → Bash (git commit/add)
 # Comportamento: fail-closed (exit 2) em match confirmado. Falsos positivos: allowlist abaixo.
 # Fixed S51: scan staged blobs (not working-tree), safe word-splitting, expanded patterns
+# Fixed S194: node→jq migration (Fase 2 step 3)
 
 set -euo pipefail
 
 # Read stdin (PreToolUse passes JSON via stdin)
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Só roda em comandos git commit/add
-CMD=$(echo "$INPUT" | node -e "
-const d=JSON.parse(require('fs').readFileSync(0,'utf8') || '{}');
-console.log((d.tool_input||{}).command||'');
-" 2>/dev/null)
+# Só roda em comandos git commit/add — jq (10x faster than node, S194)
+CMD=$(echo "$INPUT" | jq -r '.tool_input.command // ""' 2>/dev/null)
 
 if ! echo "$CMD" | grep -qE 'git\s+(commit|add)'; then
   exit 0
