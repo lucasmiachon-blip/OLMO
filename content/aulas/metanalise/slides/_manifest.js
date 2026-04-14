@@ -6,7 +6,7 @@
  * Validação: npm run lint:narrative-sync metanalise
  *
  * Coautoria: Lucas (decisão clínica) · Opus 4.6 (código + governance)
- * Atualizado: 2026-04-13 — 17 slides (S176: +s-rob2; fix count 16→17)
+ * Atualizado: 2026-04-13 — 19 slides (S184: +s-pubbias1)
  */
 
 export const slides = [
@@ -24,6 +24,7 @@ export const slides = [
   { id: 's-forest1',      file: '08a-forest1.html',     phase: 'F2', headline: 'Forest Plot 1 — Li et al. 2026',                                                                                        timing: 90,   clickReveals: 5, customAnim: 's-forest1',     narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-forest-plot-final.html' },
   { id: 's-forest2',      file: '08b-forest2.html',     phase: 'F2', headline: 'Forest Plot 2 — Ebrahimi et al. 2025',                                                                                  timing: 90,   clickReveals: 8, customAnim: 's-forest2',     narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false, evidence: 's-forest-plot-final.html' },
   { id: 's-rob2',          file: '08c-rob2.html',        phase: 'F2', headline: 'Avaliação de vieses de estudo — RoB 2 e além',                                                                          timing: 90,   clickReveals: 3, customAnim: 's-rob2',        narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-rob2.html' },
+  { id: 's-pubbias1',      file: '11a-pubbias1.html',    phase: 'F2', headline: 'Até um terço dos ensaios clínicos nunca é publicado — e os que faltam não são aleatórios',                                    timing: 90,   clickReveals: 3, customAnim: 's-pubbias1',    narrativeRole: 'setup',      tensionLevel: 3, narrativeCritical: false, evidence: 's-pubbias.html' },
   { id: 's-pubbias2',      file: '11b-pubbias2.html',    phase: 'F2', headline: 'Interpretando o Funnel Plot',                                                                                          timing: 90,   clickReveals: 3, customAnim: 's-pubbias2',     narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-pubbias.html' },
 
   { id: 's-heterogeneity',file: '09-heterogeneity.html',phase: 'F2', headline: 'I² alto não invalida a MA — importa se a heterogeneidade é explicável e clinicamente relevante',                      timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false },

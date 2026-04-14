@@ -1,19 +1,18 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 184 | ROB2_COLOR_FIX
+> Sessao 185 | PUBBIAS1_COMMIT
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via Node.js).
+Monorepo funcional. CI verde. Build PASS (**19 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 21 items.**
 
-## P0 — s-pubbias (vies de publicacao — 2 slides novos)
+## P0 — s-pubbias (vies de publicacao — 2 slides)
 
-- **Living HTML DONE:** `evidence/s-pubbias.html` — 11 refs (6 PMID-VERIFIED + 5 DOI-VERIFIED)
+- **s-pubbias1 DONE (S185).** 3 click-reveals (bars, punchline, chips). GSAP + FOUC failsafes.
 - **s-pubbias2 DONE (S184).**
-- **s-pubbias1 PENDENTE:** slide conceitual. h2 e layout = Lucas decide.
-- **Posicao:** F2, apos s-rob2, antes de s-heterogeneity.
-- **FOUC FIXED (S182):** opacity:0 + GSAP auto-reveal + failsafes completos.
+- **Living HTML DONE:** `evidence/s-pubbias.html` — 11 refs (6 PMID-VERIFIED + 5 DOI-VERIFIED)
+- **Pendente:** h2 padronizar (Lucas decide). Speaker notes a definir.
 
 ## P0 — s-rob2 (DONE S184)
 
@@ -82,11 +81,11 @@ Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via No
 
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: 14 plans untracked (13 anteriores + witty-scribbling-harbor S183). Lucas decide per-file.
+- `.claude/plans/`: 17 plans untracked. Lucas decide per-file.
 - `.claude/workers/`: workers de S178 + S181 (vies-pub-research). Lucas decide manter/remover.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
 - `assets/funnel-calibrator.html`: ferramenta calibracao zonas funnel plot (v2). Lucas decide manter/remover.
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S184 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S185 2026-04-13

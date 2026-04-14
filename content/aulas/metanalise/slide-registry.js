@@ -543,6 +543,75 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => revealed;
   },
 
+  's-pubbias1': (slide, gsap) => {
+    // Click-reveal: 3 beats (bars → punchline → taxonomy chips)
+    const MAX = 3;
+    let revealed = 0;
+
+    const advance = () => {
+      if (revealed >= MAX) return false;
+      revealed++;
+
+      if (revealed === 1) {
+        // Bars: fade container + animate fill widths via scaleX
+        const comp = slide.querySelector('.pubbias-comparison');
+        const fills = slide.querySelectorAll('.pubbias-bar-fill');
+        gsap.fromTo(comp,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+        );
+        gsap.fromTo(fills,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.8, delay: 0.3, ease: 'power2.out' }
+        );
+      }
+
+      if (revealed === 2) {
+        // Punchline: fade + rise
+        const punch = slide.querySelector('.pubbias-punchline');
+        gsap.fromTo(punch,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+        );
+      }
+
+      if (revealed === 3) {
+        // Taxonomy chips: staggered fade
+        const chips = slide.querySelectorAll('.pubbias-chip');
+        gsap.fromTo(chips,
+          { opacity: 0, y: 8 },
+          { opacity: 1, y: 0, duration: 0.35, stagger: 0.1, ease: 'power2.out' }
+        );
+      }
+
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      if (revealed === 1) {
+        const comp = slide.querySelector('.pubbias-comparison');
+        const fills = slide.querySelectorAll('.pubbias-bar-fill');
+        gsap.to(comp, { opacity: 0, duration: 0.35, ease: 'power2.in' });
+        gsap.to(fills, { scaleX: 0, duration: 0.3, ease: 'power2.in' });
+      }
+      if (revealed === 2) {
+        const punch = slide.querySelector('.pubbias-punchline');
+        gsap.to(punch, { opacity: 0, duration: 0.35, ease: 'power2.in' });
+      }
+      if (revealed === 3) {
+        const chips = slide.querySelectorAll('.pubbias-chip');
+        gsap.to(chips, { opacity: 0, duration: 0.35, ease: 'power2.in' });
+      }
+      revealed--;
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
+
   's-pubbias2': (slide, gsap) => {
     // Auto: funnel image fade-up (FOUC fix — multiply blend)
     const container = slide.querySelector('.funnel-container');

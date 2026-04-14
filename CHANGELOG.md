@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 185 — 2026-04-13 (PUBBIAS1_COMMIT)
+
+### Slide — s-pubbias1 (publication bias conceitual)
+- **Novo slide:** 3 click-reveals (FDA vs lit bars, +32% hero, taxonomy chips)
+- **CSS:** layout flex, proportion bars grid, OKLCH colors, FOUC failsafes
+- **GSAP:** advance/retreat 3-beat no slide-registry.js
+- **Manifest:** 18→19 slides, s-pubbias1 posicionado antes de s-pubbias2
+- **source-tag:** PMID removido (padrao conceitual = Autor Ano)
+- **Build:** index.html reconstruido (pending fix S184 resolvido)
+
 ## Sessao 184 — 2026-04-13 (ROB2_COLOR_FIX)
 
 ### Slide — s-rob2 NEJM/JACC palette + cleanup

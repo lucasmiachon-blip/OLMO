@@ -1679,6 +1679,159 @@ section#s-rob2 .source-tag {
 }
 
 /* ═══════════════════════════════════════════════════════
+   s-pubbias1 — Publication Bias (concept + magnitude)
+   Keynote-style: centered content, proportion bars, hero number
+   Turner 2008 NEJM (PMID 18199864) — FDA vs Literature
+   ═══════════════════════════════════════════════════════ */
+
+section#s-pubbias1 .slide-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+/* Neutralize base.css pseudo-elements (E005/E032) */
+section#s-pubbias1 .slide-inner::before,
+section#s-pubbias1 .slide-inner::after {
+  display: none;
+}
+
+section#s-pubbias1 .slide-headline {
+  align-self: flex-start;
+  font-size: 28px;
+  margin-bottom: var(--space-sm);
+}
+
+/* --- Click 1: Proportion bars (FDA vs Literature) --- */
+section#s-pubbias1 .pubbias-comparison {
+  margin-top: auto;
+  width: min(100%, 640px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  opacity: 0;
+}
+
+section#s-pubbias1 .pubbias-bar {
+  display: grid;
+  grid-template-columns: 12ch 1fr 5ch;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+section#s-pubbias1 .pubbias-bar-label {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  text-align: right;
+}
+
+section#s-pubbias1 .pubbias-bar-track {
+  height: 14px;
+  background: color-mix(in oklch, var(--text-primary) 8%, transparent);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+section#s-pubbias1 .pubbias-bar-fill {
+  height: 100%;
+  background: oklch(0.50 0.06 255);
+  border-radius: 999px;
+  transform-origin: left center;
+}
+
+section#s-pubbias1 .pubbias-bar--fda { width: 51%; }
+section#s-pubbias1 .pubbias-bar--lit { width: 94%; }
+
+section#s-pubbias1 .pubbias-bar-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+section#s-pubbias1 .pubbias-bar-context {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  max-width: none;
+}
+
+/* --- Click 2: Punchline hero number --- */
+section#s-pubbias1 .pubbias-punchline {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  opacity: 0;
+}
+
+section#s-pubbias1 .pubbias-hero-number {
+  font-family: var(--font-mono);
+  font-size: 3rem;
+  font-weight: 700;
+  color: oklch(0.50 0.12 15);
+}
+
+section#s-pubbias1 .pubbias-hero-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+}
+
+/* --- Click 3: Bias taxonomy chips --- */
+section#s-pubbias1 .pubbias-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+section#s-pubbias1 .pubbias-chip {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  padding: 4px 16px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--ui-accent) 10%, transparent);
+  color: var(--text-secondary);
+  opacity: 0;
+}
+
+section#s-pubbias1 .pubbias-chip--antidote {
+  background: transparent;
+  border: 1px solid var(--term);
+  color: var(--term);
+}
+
+/* --- Footer --- */
+section#s-pubbias1 .source-tag {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* --- Failsafes: visible when GSAP unavailable --- */
+.no-js section#s-pubbias1 [data-reveal],
+.no-js section#s-pubbias1 .pubbias-chip,
+.stage-bad section#s-pubbias1 [data-reveal],
+.stage-bad section#s-pubbias1 .pubbias-chip,
+[data-qa] section#s-pubbias1 [data-reveal],
+[data-qa] section#s-pubbias1 .pubbias-chip {
+  opacity: 1 !important;
+}
+@media print {
+  section#s-pubbias1 [data-reveal],
+  section#s-pubbias1 .pubbias-chip {
+    opacity: 1 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
    s-pubbias2 — Interpretando o Funnel Plot
    Zones calibrated via funnel-calibrator.html (S181)
    ═══════════════════════════════════════════════════════ */
