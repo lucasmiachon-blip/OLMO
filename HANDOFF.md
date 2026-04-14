@@ -1,24 +1,23 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 195 | Hooks Fase 2 parcial (3/5 steps)
+> Sessao 196 | Hooks Fase 2 step 5 pendente
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Agentes: 10.** **Hooks: 34 registros, 34 scripts (era 37).** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 19.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 30 items.**
+**Agentes: 10.** **Hooks: 32 registros, 32 scripts (era 34).** **Rules: 12.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 19.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 30 items.**
 
 ## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
 
 - Evidence `evidence/s-tipos-ma.html`: 16 refs VERIFIED + 1 book, ~480 linhas.
 - **Pendente:** Lucas decide quantos slides, posicao no manifest, h2.
 
-## P1 — Hooks Fase 2 (steps 4-5 pendentes)
+## P1 — Hooks Fase 2 (step 5 pendente)
 
 - Plano ativo: `.claude/plans/crispy-munching-blum.md`
-- **DONE:** Step 1 (PostToolUse .* 2→1), Step 2 (Write|Edit 3→1 + 4 node→0), Step 3 (guard-secrets node→jq)
-- **PENDENTE:** Step 4 (PostToolUse Bash 3→1, script ja escrito nao deployado), Step 5 (Stop 7→4)
-- Divergencia do plano original: guard-secrets + guard-bash-write mantidos separados (nao-elite merge)
-- Projecao final: 34→29 registros quando steps 4-5 completos
+- **DONE:** Steps 1-4 (PostToolUse .* 2→1, Write|Edit 3→1, guard-secrets jq, Bash 3→1)
+- **PENDENTE:** Step 5 — Stop 7→4 (crossref+detect+hygiene → stop-quality, scorecard+chaos → stop-metrics)
+- Projecao: 32→29 registros
 
 ## P1 — Prompt hardening propagacao (backlog #30)
 
@@ -30,7 +29,7 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - Living HTML = source of truth. Benchmark CSS = `pre-reading-heterogeneidade.html` (READ-ONLY).
 - Agent effort: max (degrada para high em Sonnet/Haiku).
 - Hook scripts: Edit BLOCK + deploy via Write→cp (guard-bash-write asks). Settings: Edit ASK.
-- **Elite-conduct loop:** antes de implementar, refletir "isso e conduta de elite?" Se sim, implementar.
+- **Elite-conduct loop:** `.claude/rules/elite-conduct.md` (promoted from memory S195).
 
 ## CUIDADOS
 
@@ -48,4 +47,4 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - `02-contrato.html` menciona slides demolidos.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S194 2026-04-14
+Coautoria: Lucas + Opus 4.6 | S195 2026-04-14

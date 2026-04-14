@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## Sessao 195 — 2026-04-14 (INFRA10: hooks Fase 2 step 4 + rule)
+
+### Consolidacao
+- Step 4: PostToolUse Bash merge — build-monitor + success-capture + hook-calibration → post-bash-handler (4 node→0, 34→32 registros)
+- jq parse: `[[:space:]]` POSIX class (jq rejeita `\s` em string literals)
+- `jq -cn` obrigatorio para JSONL (compact single-line)
+
+### Infra
+- `elite-conduct.md`: promoted de memory sub-regra para rule auto-loaded (memory nao era lido)
+- Plans S193 + S194 efetivamente arquivados (commit S194 nao os incluiu)
+- JSONL logs limpos (test contamination de desenvolvimento)
+
+### Pendente
+- Step 5: Stop 7→4 (stop-quality + stop-metrics)
+
 ## Sessao 194 — 2026-04-14 (hooks Fase 2 — consolidacao parcial 3/5)
 
 ### Consolidacao (3 steps completos)
@@ -13,10 +28,6 @@
 
 ### Feedback
 - Elite-conduct loop: refletir "conduta de elite?" antes de cada implementacao (salvo em memory)
-
-### Pendente (steps 4-5)
-- Step 4: PostToolUse Bash 3→1 (build-monitor + success-capture + hook-calibration)
-- Step 5: Stop 7→4 (quality + metrics merges)
 
 ## Sessao 193 — 2026-04-14 (hooks Fase 1 — ADVERSARIAL)
 
