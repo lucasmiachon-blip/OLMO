@@ -16,11 +16,14 @@
 
 ## Documentacao e cross-referencia
 
-O loop aplica-se a docs com o mesmo rigor que a codigo:
-- **HANDOFF:** numeros (hooks, rules, agents) devem refletir o estado REAL — verificar contagem antes de escrever
-- **CHANGELOG:** historico preciso. Sessao anterior nao carrega "pendente" se ja foi feito. Append-only para o que foi feito.
-- **Cross-ref:** se HANDOFF diz "34 hooks", settings deve ter 34. Se CHANGELOG diz "archived", git deve ter o arquivo. Claim sem verificacao = drift documental.
-- **Commit messages:** devem descrever o que o commit REALMENTE contem, nao o que se pretendia. "plans archived" sem os arquivos = mentira documental.
+O loop aplica-se a docs com o mesmo rigor que a codigo. Gate adicional para cada linha/secao:
+
+> **"Isso vai poluir meu contexto?"** Cada linha auto-loaded compete por context window. Necessario → reescreva com precisao. Desnecessario → mova para pointer ou remova. Docs existem para ORIENTAR decisoes, nao para acumular historico.
+
+- **HANDOFF:** numeros (hooks, rules, agents) devem refletir o estado REAL — verificar contagem antes de escrever. So pendencias e futuro, nunca historico.
+- **CHANGELOG:** historico preciso. Append-only para o que foi feito. Sem redundancia com HANDOFF.
+- **Cross-ref:** se HANDOFF diz "32 hooks", settings deve ter 32. Claim sem verificacao = drift documental.
+- **Commit messages:** descrevem o que o commit CONTEM, nao o que se pretendia.
 
 ## Aplicacao
 
