@@ -29,7 +29,7 @@ export const slides = [
 
   { id: 's-heterogeneity', file: '09a-heterogeneity.html', phase: 'F2', headline: 'Dois forest plots com I² de 67% podem esconder realidades clínicas opostas',                                    timing: 90,   clickReveals: 3, customAnim: 's-heterogeneity', narrativeRole: 'setup',      tensionLevel: 3, narrativeCritical: true,  evidence: 's-heterogeneity.html' },
 
-  { id: 's-fixed-random',  file: '10-fixed-random.html',    phase: 'F2', headline: '42% das meta-análises escolhem o modelo baseado no I² — e o IC muda 42% quando o método correto é aplicado',          timing: 90,   clickReveals: 2, customAnim: 's-fixed-random',  narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false, evidence: 's-heterogeneity.html' },
+  { id: 's-fixed-random',  file: '10-fixed-random.html',    phase: 'F2', headline: 'Mesmos dados, conclusões diferentes',          timing: 90,   clickReveals: 3, customAnim: 's-fixed-random',  narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false, evidence: 's-heterogeneity.html' },
 
 
   // ── Fase 3: Aplicação (Valgimigli 2025) ──

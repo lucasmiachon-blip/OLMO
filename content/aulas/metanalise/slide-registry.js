@@ -617,33 +617,24 @@ export const slideRegistry = {
   },
 
   's-fixed-random': (slide, gsap) => {
-    // Auto: 42% error number — subtle scale entrance
-    const error = slide.querySelector('.fr-error');
-    gsap.fromTo(error, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out' });
-
-    // Click-reveal: premises, then CI visualization
-    const MAX = 2;
+    // Click-reveal only: FE panel → RE panel → insight
+    const MAX = 3;
     let revealed = 0;
 
     const advance = () => {
       if (revealed >= MAX) return false;
       revealed++;
       if (revealed === 1) {
-        const premise = slide.querySelector('.fr-premise');
-        const items = slide.querySelectorAll('.fr-premise-item');
-        gsap.fromTo(premise, { opacity: 0 }, { opacity: 1, duration: 0.3 });
-        gsap.fromTo(items[0], { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' });
-        gsap.fromTo(items[1], { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.5, delay: 0.15, ease: 'power2.out' });
+        const panel = slide.querySelector('.fr-panel[data-reveal="1"]');
+        gsap.fromTo(panel, { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' });
       }
       if (revealed === 2) {
-        const hksj = slide.querySelector('.fr-hksj');
-        const dlBar = slide.querySelector('.fr-ci-bar--dl');
-        const hksjBar = slide.querySelector('.fr-ci-bar--hksj');
-        const impact = slide.querySelector('.fr-hksj-impact');
-        gsap.fromTo(hksj, { opacity: 0 }, { opacity: 1, duration: 0.3 });
-        gsap.fromTo(dlBar, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power2.out', delay: 0.2 });
-        gsap.fromTo(hksjBar, { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: 'power2.out', delay: 0.7 });
-        gsap.fromTo(impact, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, delay: 1.3, ease: 'power2.out' });
+        const panel = slide.querySelector('.fr-panel[data-reveal="2"]');
+        gsap.fromTo(panel, { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power2.out' });
+      }
+      if (revealed === 3) {
+        const insight = slide.querySelector('.fr-insight');
+        gsap.fromTo(insight, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
       }
       return true;
     };
@@ -651,12 +642,16 @@ export const slideRegistry = {
     const retreat = () => {
       if (revealed <= 0) return false;
       if (revealed === 1) {
-        const premise = slide.querySelector('.fr-premise');
-        gsap.to(premise, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+        const panel = slide.querySelector('.fr-panel[data-reveal="1"]');
+        gsap.to(panel, { opacity: 0, duration: 0.3, ease: 'power2.in' });
       }
       if (revealed === 2) {
-        const hksj = slide.querySelector('.fr-hksj');
-        gsap.to(hksj, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+        const panel = slide.querySelector('.fr-panel[data-reveal="2"]');
+        gsap.to(panel, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+      }
+      if (revealed === 3) {
+        const insight = slide.querySelector('.fr-insight');
+        gsap.to(insight, { opacity: 0, duration: 0.3, ease: 'power2.in' });
       }
       revealed--;
       return true;

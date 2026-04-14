@@ -21,13 +21,13 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Enrichment fixes:** ROBINS-I "88%" → "12% no nivel do desfecho", Yan "5 de 10" → abstract-verified language.
 - **Pendente:** (1) Lucas decide quantos slides e posicao no manifest; (2) h2 = Lucas; (3) nenhum slide criado ainda.
 
-## P0 — s-heterogeneity (DONE S188) + s-fixed-random (DRAFT — precisa rewrite)
+## P0 — s-heterogeneity (DONE S188) + s-fixed-random (DONE S188 — polish pendente)
 
-- **s-heterogeneity:** DONE. SVG forest plots, 3 clicks, QA fino (hierarchy+legibility PASS). CI stroke 2.5, PI band 0.22, italic removido, margin insight. System tokens only.
+- **s-heterogeneity:** DONE. SVG forest plots, 3 clicks, QA fino (hierarchy+legibility PASS). System tokens only.
 - **s-i2:** ABSORBED into s-heterogeneity (S188). HTML em slides/09b-i2.html fora do build.
-- **s-fixed-random:** DRAFT. Tem DSL/REML/HKSJ (fora de escopo residentes), tokens privados (--fr-*), CSS amador (~140 linhas). Precisa rewrite completo forest-plot-first.
+- **s-fixed-random:** DONE (rewrite S188). SVG forest plots side-by-side (FE vs RE, mesmos dados). 3 clicks. System tokens only. CSS 185→67 linhas, 5→0 tokens privados. DSL/REML/HKSJ removidos. h2 = Lucas ("Mesmos dados, conclusoes diferentes").
 - **Evidence intacto:** `evidence/s-heterogeneity.html` — 17 refs (12 PMID-VERIFIED).
-- **Pendente:** (1) rewrite s-fixed-random; (2) verificar 2 DOIs pendentes (Higgins 2025, Siemens 2025).
+- **Pendente:** (1) polish visual fino amanha; (2) verificar 2 DOIs pendentes (Higgins 2025, Siemens 2025).
 
 ## P0 — evidence-audit skill (NEW S189)
 

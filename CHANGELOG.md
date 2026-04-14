@@ -19,6 +19,13 @@
 
 ## Sessao 188 — 2026-04-14 (HETERO-POLISH)
 
+### Slides — s-fixed-random rewrite forest-plot-first
+- **10-fixed-random.html:** rewrite completo. SVG schematic forest plots side-by-side (FE: estudo grande domina, diamante estreito; RE: pesos equilibrados, diamante largo cruza nula). 3 click-reveals. DSL/REML/HKSJ removidos (fora de escopo residentes).
+- **metanalise.css:** s-fixed-random CSS reescrito (185→67 linhas). 5 tokens privados (--fr-*) → 0. Error badge, PI band, premise cards, CI bars eliminados. System tokens only.
+- **slide-registry.js:** factory reescrita (click-only, sem auto animation). 3 clicks: FE panel, RE panel, insight.
+- **_manifest.js:** clickReveals 2→3, headline atualizado ("Mesmos dados, conclusoes diferentes").
+- **h2:** Lucas reescreveu (era redundante com badge). "Mesmos dados, conclusoes diferentes".
+
 ### Slides — s-heterogeneity professional rewrite + s-i2 absorbed (17→16)
 - **09a-heterogeneity.html:** SVG schematic forest plots (Panel A safe, Panel B danger). 3 click-reveals: panel A ← esquerda, panel B → direita, insight (definição I² + motivo para não confiar). PMID removido da source-tag.
 - **s-i2 absorbed:** conteúdo redundante após enriquecimento do s-heterogeneity (definição I² + paradox visual já cobertos). Removido de manifest, CSS (~170 linhas), registry. HTML permanece em slides/ fora do build.

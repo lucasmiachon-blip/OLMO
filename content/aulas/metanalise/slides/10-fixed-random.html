@@ -1,41 +1,47 @@
 <section id="s-fixed-random" data-timing="90">
   <div class="slide-inner">
-    <h2 class="slide-headline">42% das meta-análises escolhem o modelo baseado no I² — e o IC muda 42% quando o método correto é aplicado</h2>
+    <h2>Mesmos dados, conclusões diferentes</h2>
 
-    <!-- Beat 0 (auto): The error — 42% do it wrong -->
-    <div class="fr-error">
-      <span class="fr-error-number">42%</span>
-      <span class="fr-error-desc">escolhem efeito fixo ou aleatório<br>com base no valor do I²</span>
-      <span class="fr-error-verdict">Erro metodológico</span>
+    <div class="fr-compare">
+      <!-- Beat 1: Fixed-effect — large study dominates -->
+      <figure class="fr-panel" data-reveal="1">
+        <svg class="fr-forest" viewBox="0 0 280 130" role="img" aria-label="Forest plot efeito fixo: estudo grande domina, diamante estreito">
+          <line x1="140" y1="0" x2="140" y2="130" class="fr-null"/>
+          <line x1="108" y1="14" x2="142" y2="14" class="fr-ci"/><rect x="112" y="6"  width="16" height="16" class="fr-wt"/>
+          <line x1="94"  y1="32" x2="136" y2="32" class="fr-ci"/><rect x="109" y="29" width="6"  height="6"  class="fr-wt"/>
+          <line x1="100" y1="50" x2="152" y2="50" class="fr-ci"/><rect x="123" y="48" width="4"  height="4"  class="fr-wt"/>
+          <line x1="82"  y1="68" x2="138" y2="68" class="fr-ci"/><rect x="107" y="67" width="3"  height="3"  class="fr-wt"/>
+          <line x1="106" y1="86" x2="160" y2="86" class="fr-ci"/><rect x="131" y="85" width="2"  height="2"  class="fr-wt"/>
+          <polygon points="112,112 118,104 124,112 118,120" class="fr-diamond--fe"/>
+        </svg>
+        <figcaption>
+          <strong class="fr-model">Efeito Fixo</strong>
+          <span class="fr-verdict fr-verdict--fe">Peso concentrado nos grandes</span>
+        </figcaption>
+      </figure>
+
+      <!-- Beat 2: Random-effects — balanced weights, wider diamond -->
+      <figure class="fr-panel" data-reveal="2">
+        <svg class="fr-forest" viewBox="0 0 280 130" role="img" aria-label="Forest plot efeitos aleatórios: pesos equilibrados, diamante largo cruza a nula">
+          <line x1="140" y1="0" x2="140" y2="130" class="fr-null"/>
+          <line x1="108" y1="14" x2="142" y2="14" class="fr-ci"/><rect x="116" y="10" width="8" height="8" class="fr-wt"/>
+          <line x1="94"  y1="32" x2="136" y2="32" class="fr-ci"/><rect x="109" y="29" width="7" height="7" class="fr-wt"/>
+          <line x1="100" y1="50" x2="152" y2="50" class="fr-ci"/><rect x="122" y="47" width="7" height="7" class="fr-wt"/>
+          <line x1="82"  y1="68" x2="138" y2="68" class="fr-ci"/><rect x="105" y="65" width="6" height="6" class="fr-wt"/>
+          <line x1="106" y1="86" x2="160" y2="86" class="fr-ci"/><rect x="129" y="83" width="6" height="6" class="fr-wt"/>
+          <polygon points="98,112 120,102 142,112 120,122" class="fr-diamond--re"/>
+        </svg>
+        <figcaption>
+          <strong class="fr-model">Efeitos Aleatórios</strong>
+          <span class="fr-verdict fr-verdict--re">Peso redistribuído aos menores — IC mais amplo</span>
+        </figcaption>
+      </figure>
     </div>
 
-    <!-- Beat 1: The real premise -->
-    <div class="fr-premise" data-reveal="1">
-      <div class="fr-premise-item fr-premise--fe">
-        <span class="fr-premise-model">Efeito Fixo</span>
-        <span class="fr-premise-assumption">Um único efeito verdadeiro</span>
-        <span class="fr-premise-use">Estudos funcionalmente idênticos — raro</span>
-      </div>
-      <div class="fr-premise-item fr-premise--re">
-        <span class="fr-premise-model">Efeitos Aleatórios</span>
-        <span class="fr-premise-assumption">Distribuição de efeitos (μ + τ²)</span>
-        <span class="fr-premise-use">Padrão Cochrane v6.5 — a vasta maioria</span>
-      </div>
-    </div>
-
-    <!-- Beat 2: HKSJ impact — the CI physically widens -->
-    <div class="fr-hksj" data-reveal="2">
-      <div class="fr-ci-visual">
-        <span class="fr-ci-label">DerSimonian-Laird</span>
-        <div class="fr-ci-bar fr-ci-bar--dl"></div>
-        <span class="fr-ci-z">Z = 1,96</span>
-      </div>
-      <div class="fr-ci-visual">
-        <span class="fr-ci-label">REML + Hartung-Knapp</span>
-        <div class="fr-ci-bar fr-ci-bar--hksj"></div>
-        <span class="fr-ci-z">t = 2,78 (df=4)</span>
-      </div>
-      <span class="fr-hksj-impact">IC alarga ~42% com 5 estudos — significância frequentemente desaparece</span>
+    <!-- Beat 3: Insight -->
+    <div class="fr-insight" data-reveal="3">
+      <p class="fr-def"><strong>Efeitos aleatórios</strong> = padrão Cochrane v6.5 — 42% das MA escolhem pelo critério errado</p>
+      <p class="fr-caveat">Modelo fixo só quando estudos são funcionalmente idênticos — raro na prática</p>
     </div>
 
     <p class="source-tag">Tatas 2025 · Mheissen 2024 (PMID 38502662) · Cochrane v6.5</p>
