@@ -31,19 +31,19 @@ globs: "**/*"
 → anti-drift.md §Failure response
 
 ## KBP-08 API/MCP Substitution
-→ evidence-researcher SKILL.md §Step 2
+→ research/SKILL.md §ENFORCEMENT
 
 ## KBP-09 API Key Tool via MCP — Wrong Execution Path
-→ evidence-researcher SKILL.md §Step 2 tabela
+→ research/SKILL.md §Step 2 tabela
 
 ## KBP-10 Destructive Commands Without Approval
 → guard-bash-write.sh Pattern 17a/17b
 
 ## KBP-11 Gemini Thinking Token Pool Shared with Output
-→ evidence-researcher SKILL.md §Perna 1 generationConfig
+→ research/SKILL.md §Perna 1 generationConfig
 
 ## KBP-12 Research Prompts Without Output Schema
-→ evidence-researcher SKILL.md §Output Schema Suffix
+→ research/SKILL.md §Output Schema Suffix
 
 ## KBP-13 Factual Claim Without Verification
 → anti-drift.md §Verification

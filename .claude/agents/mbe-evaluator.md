@@ -1,12 +1,10 @@
 ---
 name: mbe-evaluator
 description: "MBE framework evaluator — one leg of the /research pipeline. Evaluates slide content against GRADE, Oxford CEBM, CONSORT/STROBE/PRISMA. Depth rubric 8 dimensions. Reports methodology gaps. Use when slides need evidence quality assessment."
-tools:
-  - Read
-  - Grep
-  - Glob
+disallowedTools: Write, Edit, Bash, Agent
 model: sonnet
 maxTurns: 15
+effort: max
 color: purple
 ---
 

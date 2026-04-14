@@ -1,5 +1,49 @@
 # CHANGELOG
 
+## Sessao 192 — 2026-04-14 (hardening agents + KBP fix)
+
+### Agents hardened (10/10)
+- All 10 agents: `effort: max` added
+- 7 read-only agents: `tools:` allowlist → `disallowedTools:` denylist (futureproof per Anthropic docs)
+- notion-ops: removed `tools: Read, Grep, Glob` that blocked Notion MCP tools (CRITICAL fix)
+- 3 agents kept allowlist (evidence-researcher, qa-engineer, reference-checker — specific MCP/Write needs)
+
+### KBP pointers fixed (4)
+- KBP-08/09/11/12: `evidence-researcher SKILL.md` → `research/SKILL.md` (file never existed standalone)
+
+### Self-healing cleanup
+- 32 orphan `pending-fixes-*.md` deleted (all identical false-positive: manifest without rebuild)
+- Root cause identified: session-start.sh rename + stop-detect dedup cross-session failure
+
+### Research: state-of-art agent architectures
+- HyperAgents (Meta 2026), DGM (Sakana 2025), Reflexion (Shinn 2023), Voyager (Wang 2023)
+- OpenAI Self-Evolving Agents Cookbook, Kaizen agent, OWASP AI Agent Security
+- Anthropic docs: new fields (effort, disallowedTools, skills, background, isolation, hooks)
+- /improve health dashboard: registry stale (S154), 9 backlog items aging, hook count validated
+
+## Sessao 192 — 2026-04-14 (hardening agents + KBP fix)
+
+### Agents hardened (10/10)
+- All 10 agents:  added
+- 7 read-only agents:  allowlist →  denylist (futureproof per Anthropic docs)
+- notion-ops: removed  that blocked Notion MCP tools (CRITICAL fix)
+- 3 agents kept allowlist (evidence-researcher, qa-engineer, reference-checker — specific MCP/Write needs)
+
+### KBP pointers fixed (4)
+- KBP-08/09/11/12:  →  (file never existed standalone)
+
+### Self-healing cleanup
+- 32 orphan  deleted (all identical false-positive: manifest without rebuild)
+- Root cause identified: session-start.sh rename + stop-detect dedup cross-session failure
+
+### Research: state-of-art agent architectures
+- HyperAgents (Meta 2026), DGM (Sakana 2025), Reflexion (Shinn 2023), Voyager (Wang 2023)
+- OpenAI Self-Evolving Agents Cookbook, Kaizen agent, OWASP AI Agent Security
+- Anthropic docs: new fields (effort, disallowedTools, skills, background, isolation, hooks)
+- /improve health dashboard: registry stale (S154), 9 backlog items aging, hook count validated
+
+# CHANGELOG
+
 ## Sessao 191 — 2026-04-14 (s-quality + s-etd)
 
 ### Slide — s-etd (NEW, DONE)

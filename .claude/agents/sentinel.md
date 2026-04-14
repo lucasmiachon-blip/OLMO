@@ -1,13 +1,10 @@
 ---
 name: sentinel
 description: "Read-only self-improvement agent. Scans code for anti-patterns, detects recurring issues, checks hook health. Produces report as text return to orchestrator — never modifies files. Use frequently during sessions for continuous improvement."
-tools:
-  - Read
-  - Bash
-  - Glob
-  - Grep
+disallowedTools: Write, Edit, Agent
 model: sonnet
 maxTurns: 25
+effort: max
 color: yellow
 memory: project
 ---

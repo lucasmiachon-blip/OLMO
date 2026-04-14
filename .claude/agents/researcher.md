@@ -2,8 +2,9 @@
 name: researcher
 description: Exploracao de codebase e pesquisa em arquivos. Usar para buscas que tocam 3+ arquivos ou precisam de analise profunda sem poluir o contexto principal.
 model: haiku
-tools: Read, Grep, Glob, Bash
+disallowedTools: Write, Edit, Agent
 maxTurns: 15
+effort: max
 color: cyan
 ---
 

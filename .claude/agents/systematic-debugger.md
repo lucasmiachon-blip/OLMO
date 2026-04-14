@@ -4,15 +4,12 @@ description: >
   Use when something breaks, errors appear, tests fail, hooks misfire,
   or behavior diverges from expected. Structured 4-phase debugging with
   mandatory STOP before any fix. NOT for scan/audit (use sentinel).
-tools:
-  - Read
-  - Grep
-  - Glob
-  - Bash
+disallowedTools: Write, Edit, Agent
 model: sonnet
 color: orange
 memory: project
 maxTurns: 25
+effort: max
 ---
 
 # Systematic Debugger — Read-Only Diagnosis

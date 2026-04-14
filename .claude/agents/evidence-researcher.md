@@ -41,6 +41,7 @@ mcpServers:
 model: sonnet
 maxTurns: 35
 memory: project
+effort: max
 color: red
 ---
 

@@ -10,6 +10,7 @@
 3. Build ANTES de QA: npm run build:{aula} → gemini-qa3.mjs (unico script QA).
 4. QA: Preflight (dims objetivas $0) → Inspect (Gemini Flash) → Editorial (Gemini Pro). Tudo via gemini-qa3.mjs.
 5. Plan mode quando pedido. NAO pule direto para execucao.
+6. POS-COMPACTION: summary = contexto, NAO todo-list. Reportar estado, perguntar foco.
 
 ## SCOPE DISCIPLINE (24 eventos de scope creep)
 

@@ -1,13 +1,10 @@
 ---
 name: repo-janitor
 description: "Audits repo for orphan files, broken MD links, dead HTML, and temp files. READ-ONLY by default — only cleans with explicit --fix. Use when suspecting accumulated debris."
-tools:
-  - Read
-  - Bash
-  - Glob
-  - Grep
+disallowedTools: Write, Edit, Agent
 model: haiku
 maxTurns: 12
+effort: max
 color: orange
 ---
 

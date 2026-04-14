@@ -2,8 +2,9 @@
 name: quality-gate
 description: Verificacao de qualidade pre-commit. Usar para lint, type-check, testes e review rapido antes de commitar. Cobre Python (ruff/mypy) e JS/CSS (lint-slides, lint-case-sync, validate-css).
 model: haiku
-tools: Read, Grep, Glob, Bash
+disallowedTools: Write, Edit, Agent
 maxTurns: 10
+effort: max
 color: green
 ---
 

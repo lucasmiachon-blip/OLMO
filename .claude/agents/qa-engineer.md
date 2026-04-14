@@ -9,6 +9,7 @@ tools:
 model: sonnet
 maxTurns: 12
 memory: project
+effort: max
 color: blue
 ---
 

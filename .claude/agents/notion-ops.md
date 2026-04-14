@@ -2,10 +2,11 @@
 name: notion-ops
 description: Operacoes no Notion (read, write, organize). Usar para qualquer interacao com Notion DB que precise do protocolo MCP safety.
 model: haiku
-tools: Read, Grep, Glob
+disallowedTools: Bash, Write, Edit, Agent
 mcpServers:
   - claude_ai_Notion
 maxTurns: 10
+effort: max
 color: pink
 ---
 

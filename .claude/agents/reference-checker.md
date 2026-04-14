@@ -17,6 +17,7 @@ mcpServers:
 model: haiku
 maxTurns: 15
 memory: project
+effort: max
 color: magenta
 ---
 
