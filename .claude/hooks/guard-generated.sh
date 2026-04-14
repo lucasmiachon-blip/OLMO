@@ -8,18 +8,13 @@ set -u
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Parse file_path with fail-closed (Codex S60 O1/A4)
-FILE_PATH=$(echo "$INPUT" | node -e "
-  try {
-    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
-    const p=(d.tool_input||{}).file_path||(d.tool_input||{}).path||'';
-    console.log(p.replace(/\\\\/g,'/'));
-  } catch(e) { process.exit(1); }
-" 2>/dev/null) || {
-  # Fail-closed: can't parse → block write to be safe
+# Parse file_path — jq (10x faster than node, S193)
+# Fail-closed: can't parse → block write to be safe (Codex S60 O1/A4)
+FILE_PATH=$(echo "$INPUT" | jq -r '(.tool_input.file_path // .tool_input.path // "") | gsub("\\\\"; "/")' 2>/dev/null)
+if [ -z "$FILE_PATH" ] && echo "$INPUT" | grep -q '"tool_input"'; then
   printf '{"error": "BLOQUEADO: guard-generated falhou ao parsear input (fail-closed)"}\n'
   exit 2
-}
+fi
 
 # Only block content/aulas/*/index.html (generated files)
 if [[ "$FILE_PATH" == *"content/aulas/"*"/index.html" ]]; then

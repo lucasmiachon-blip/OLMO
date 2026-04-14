@@ -7,13 +7,8 @@
 # Read stdin to get the tool input (contains file_path)
 INPUT=$(cat 2>/dev/null || true)
 
-# Extract file path from the Edit tool input (node parsing — grep -oP broken on MSYS2)
-FILE_PATH=$(echo "$INPUT" | node -e "
-  try {
-    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
-    console.log((d.tool_input||{}).file_path||'');
-  } catch(e) { console.log(''); }
-" 2>/dev/null)
+# Extract file path — jq (10x faster than node, S193)
+FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // ""' 2>/dev/null)
 [ -z "$FILE_PATH" ] && exit 0
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -30,8 +25,9 @@ if echo "$FILE_REL" | grep -qE 'content/aulas/.+/slides/[^_].+\.html'; then
   EVIDENCE="$PROJECT_ROOT/content/aulas/$AULA/evidence/${SLIDE_ID}.html"
 
   if [ -f "$EVIDENCE" ]; then
-    SLIDE_MOD=$(node -e "try{console.log(Math.floor(require('fs').statSync(process.argv[1]).mtimeMs/1000))}catch(e){console.log(0)}" "$FILE_PATH" 2>/dev/null || echo 0)
-    EV_MOD=$(node -e "try{console.log(Math.floor(require('fs').statSync(process.argv[1]).mtimeMs/1000))}catch(e){console.log(0)}" "$EVIDENCE" 2>/dev/null || echo 0)
+    # stat -c %Y = modification time in epoch seconds (GNU coreutils, S193)
+    SLIDE_MOD=$(stat -c %Y "$FILE_PATH" 2>/dev/null || echo 0)
+    EV_MOD=$(stat -c %Y "$EVIDENCE" 2>/dev/null || echo 0)
     DIFF=$(( (SLIDE_MOD - EV_MOD) / 86400 ))
     if [ "$DIFF" -gt 7 ]; then
       # Breadcrumb for hook-calibration.sh

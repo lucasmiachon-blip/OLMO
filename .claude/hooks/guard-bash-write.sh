@@ -6,17 +6,13 @@
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Extract command from tool_input — node parser (not sed, avoids JSON truncation)
-# Fail-closed: if parse fails, block (Codex S60 O4/A2/A4)
-CMD=$(echo "$INPUT" | node -e "
-  try {
-    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
-    console.log((d.tool_input||{}).command||'');
-  } catch(e) { process.exit(1); }
-" 2>/dev/null) || {
+# Extract command from tool_input — jq (10x faster than node, S193)
+# Fail-closed: if parse fails, ask (Codex S60 O4/A2/A4)
+CMD=$(echo "$INPUT" | jq -r '.tool_input.command // ""' 2>/dev/null)
+if [ -z "$CMD" ] && echo "$INPUT" | grep -q '"command"'; then
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"JSON parse falhou — confirme comando"}}\n'
   exit 0
-}
+fi
 
 [ -z "$CMD" ] && exit 0
 
@@ -71,10 +67,15 @@ if echo "$CMD" | grep -qE 'wget\b.*(-O\b|--output-document\b)'; then
   exit 0
 fi
 
-# Pattern 7: Python one-liner (-c flag can write files via open())
-if echo "$CMD" | grep -qE 'python3?\s+-c\b'; then
-  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"python -c detectado — confirme se intencional"}}\n'
-  exit 0
+# Pattern 7: Python execution (inline -c AND script files — S193 fix backlog #20)
+# Catches: python -c, python script.py, python ./file.py, python3, py
+# Allows: python --version, python --help, python -m pip
+if echo "$CMD" | grep -qE '(python3?|py)\s+(-c\b|[^-][^-])'; then
+  if ! echo "$CMD" | grep -qE '(python3?|py)\s+--(version|help)' && \
+     ! echo "$CMD" | grep -qE '(python3?|py)\s+-m\s+pip'; then
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"Python execution detectado — confirme se intencional"}}\n'
+    exit 0
+  fi
 fi
 
 # Pattern 8: cp/mv/install/rsync — file copy/move primitives (Codex S60 O5/A1)

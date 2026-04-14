@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# guard-product-files.sh — ASK confirmation before editing product files (all aulas).
+# guard-product-files.sh — ASK confirmation before editing product/infra files (all aulas + hooks/settings).
 # PreToolUse: Write|Edit
 # Motivation: ERRO-053 (QA pipeline bypassed), ERRO-049 (approved elements removed)
 # Fixed S51: removed SPRINT_MODE bypass, fail-closed on parse errors, path canonicalization
 # Fixed S58: expanded from cirrose-only to all aulas, changed from block to ask
+# Fixed S193: infra guard changed from block to ask — Lucas decides, not the hook
 
 set -u
 
@@ -15,14 +16,15 @@ if [ -z "$INPUT" ]; then
   exit 2
 fi
 
-# Parse file_path with node — robust JSON parsing (Codex S60 O4/A2/A4)
-FILE_PATH=$(echo "$INPUT" | node -e "
-  try {
-    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
-    const p=(d.tool_input||{}).file_path||(d.tool_input||{}).path||'';
-    console.log(p.replace(/\\\\/g,'/').replace(/\/\//g,'/').replace(/[^/]+\/\.\.\//g,'').replace(/^\.\//,''));
-  } catch(e) { process.exit(1); }
-" 2>/dev/null) || {
+# Parse file_path — jq (10x faster than node, S193)
+# Path normalization: \\ → /, // → /, strip ./ prefix, remove ../ traversals
+FILE_PATH=$(echo "$INPUT" | jq -r '
+  (.tool_input.file_path // .tool_input.path // "")
+  | gsub("\\\\"; "/")
+  | gsub("//"; "/")
+  | gsub("[^/]+/\\.\\./"; "")
+  | if startswith("./") then .[2:] else . end
+' 2>/dev/null) || {
   echo "BLOQUEADO: guard-product-files falhou ao parsear JSON (fail-closed)" >&2
   exit 2
 }
@@ -36,19 +38,32 @@ if [ -z "$FILE_PATH" ]; then
   exit 0
 fi
 
-# CRITICAL GUARD: Block edits to hook infrastructure (A6 — Codex S60)
-# These files control the guard system itself. Editing them disables all protection.
+# INFRA GUARD (A6 — Codex S60, refined S193)
+# Hook scripts: BLOCK Edit/Write (defense-in-depth against prompt injection/fast-approval).
+# Deploy path: Write→temp→test→cp (guard-bash-write asks Lucas on cp).
+# Settings files: ASK (need Edit access to register/update hooks).
 INFRA_BLOCK_PATTERNS=(
-  '(^|/)\.claude/settings\.local\.json$'
-  '(^|/)\.claude/settings\.json$'
   '(^|/)\.claude/hooks/.*\.sh$'
   '(^|/)hooks/.*\.sh$'
 )
 
+BASENAME=$(echo "$FILE_PATH" | sed 's|.*/||')
 for pattern in "${INFRA_BLOCK_PATTERNS[@]}"; do
   if echo "$FILE_PATH" | grep -qE "$pattern"; then
-    printf '{"error": "BLOQUEADO: %s e infraestrutura de seguranca. Edite manualmente se necessario."}\n' "$(echo "$FILE_PATH" | sed 's|.*/||')"
+    printf '{"error": "BLOQUEADO: %s e hook de seguranca. Deploy via Write→temp→cp (guard-bash-write pede aprovacao)."}\n' "$BASENAME"
     exit 2
+  fi
+done
+
+INFRA_ASK_PATTERNS=(
+  '(^|/)\.claude/settings\.local\.json$'
+  '(^|/)\.claude/settings\.json$'
+)
+
+for pattern in "${INFRA_ASK_PATTERNS[@]}"; do
+  if echo "$FILE_PATH" | grep -qE "$pattern"; then
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"[INFRA] %s — config de seguranca. Lucas aprova?"}}\n' "$BASENAME"
+    exit 0
   fi
 done
 

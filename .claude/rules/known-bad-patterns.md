@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-19.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-20.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target. See anti-drift.md §Pointer-only discipline.
 
 ## KBP-01 Scope Creep
@@ -62,3 +62,6 @@ globs: "**/*"
 
 ## KBP-18 Mechanical Edit Without Format Verification
 → anti-drift.md §Verification (Edit-time format compliance)
+
+## KBP-19 Bash Indirection for Protected Files
+→ guard-product-files.sh §INFRA GUARD comment (code is the fix: block→ask, S193)

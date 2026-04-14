@@ -13,14 +13,8 @@ if [ -z "$INPUT" ]; then
   exit 0
 fi
 
-# Parse file_path with node — robust JSON (Codex S60 A4)
-FILE_PATH=$(echo "$INPUT" | node -e "
-  try {
-    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
-    const p=(d.tool_input||{}).file_path||(d.tool_input||{}).path||'';
-    console.log(p.replace(/\\\\/g,'/'));
-  } catch(e) { console.log(''); }
-" 2>/dev/null)
+# Parse file_path — jq (10x faster than node, S193)
+FILE_PATH=$(echo "$INPUT" | jq -r '(.tool_input.file_path // .tool_input.path // "") | gsub("\\\\"; "/")' 2>/dev/null)
 
 [ -z "$FILE_PATH" ] && exit 0
 BASENAME=$(echo "$FILE_PATH" | sed 's|.*/||')

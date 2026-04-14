@@ -35,13 +35,8 @@ fi
 # No brake armed = allow immediately
 [ -z "$ARMED" ] && exit 0
 
-# Parse tool name from hook input
-TOOL_NAME=$(echo "$INPUT" | node -e "
-  try {
-    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
-    console.log(d.tool_name||'');
-  } catch(e) { console.log(''); }
-" 2>/dev/null)
+# Parse tool name from hook input (jq — 10x faster than node, S193)
+TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name // ""' 2>/dev/null)
 
 # Exempt tools: allow without asking
 case "$TOOL_NAME" in

@@ -37,9 +37,9 @@ if [ -f "$PENDING" ] && [ -s "$PENDING" ]; then
   echo "=== PENDING FIXES (from previous session) ==="
   cat "$PENDING"
   echo ""
-  echo "→ Address these before starting new work. Clear with: rm .claude/pending-fixes.md"
-  # Archive — don't delete (audit trail). Silently fail if rename fails.
-  mv "$PENDING" "$PROJECT_ROOT/.claude/pending-fixes-$(date +%Y%m%d-%H%M).md" 2>/dev/null || true
+  echo "→ Address these before starting new work."
+  # Truncate after surfacing — no rename, no orphans (S193 fix)
+  > "$PENDING"
 fi
 
 # Surface dream-pending flag for auto-dream contract
