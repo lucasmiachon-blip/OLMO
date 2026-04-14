@@ -1,51 +1,115 @@
 #!/usr/bin/env bash
-# Stop hook: chaos report (Antifragile L6)
-# At session end, if CHAOS_MODE was active, reports:
-#   - Total injections per vector
-#   - Whether defense hooks activated
-#   - Any gaps (injections without defense response)
+# Claude Code hook: Stop
+# Merged: scorecard + chaos-report (Fase 2 step 5)
+# Session summary (2 lines) + conditional chaos report.
+# Evento: Stop | Timeout: 5s | Exit: sempre 0
 
 # Drain stdin (hook protocol — prevent parent process stall)
 cat >/dev/null 2>&1
 
-# Gate: skip if chaos was never enabled this session
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+APL_DIR="$PROJECT_ROOT/.claude/apl"
+
+# ===== SCORECARD =====
+
+# Focus
+SESSION_NAME="(sem nome)"
+if [ -f "$PROJECT_ROOT/.claude/.session-name" ]; then
+  NAME=$(cat "$PROJECT_ROOT/.claude/.session-name" 2>/dev/null)
+  [ -n "$NAME" ] && SESSION_NAME="$NAME"
+fi
+
+# Duration
+DURATION="(?)"
+START_TS=0
+if [ -f "$APL_DIR/session-ts.txt" ]; then
+  START_TS=$(cat "$APL_DIR/session-ts.txt" 2>/dev/null || echo 0)
+  [[ $START_TS =~ ^[0-9]+$ ]] || START_TS=0
+  NOW_TS=$(date +%s)
+  ELAPSED_MIN=$(( (NOW_TS - START_TS) / 60 ))
+  HOURS=$((ELAPSED_MIN / 60))
+  MINS=$((ELAPSED_MIN % 60))
+  if [ "$HOURS" -gt 0 ]; then
+    DURATION="${HOURS}h${MINS}m"
+  else
+    DURATION="${MINS}m"
+  fi
+fi
+
+# Commits since session start
+COMMITS=0
+if [ "$START_TS" -gt 0 ]; then
+  COMMITS=$(git -C "$PROJECT_ROOT" log --oneline --since="@$START_TS" 2>/dev/null | wc -l | tr -d ' ')
+fi
+
+# Tool calls today
+CALLS=0
+TODAY=$(date +%Y%m%d)
+for f in /tmp/cc-calls-${TODAY}_*.txt; do
+  [ -f "$f" ] || continue
+  n=$(cat "$f" 2>/dev/null || echo 0)
+  [[ $n =~ ^[0-9]+$ ]] || n=0
+  CALLS=$((CALLS + n))
+done
+
+# Cost verdict
+if [ "$CALLS" -lt 100 ]; then
+  COST="OK"
+elif [ "$CALLS" -lt 300 ]; then
+  COST="MODERATE"
+else
+  COST="HIGH"
+fi
+
+# Hygiene status
+HYGIENE="OK"
+UNCOMMITTED=$(git -C "$PROJECT_ROOT" diff --name-only 2>/dev/null)
+STAGED_FILES=$(git -C "$PROJECT_ROOT" diff --cached --name-only 2>/dev/null)
+if [ -n "$UNCOMMITTED" ] || [ -n "$STAGED_FILES" ]; then
+  HANDOFF_TOUCHED=$(printf '%s\n%s\n' "$UNCOMMITTED" "$STAGED_FILES" | grep -c 'HANDOFF.md' || true)
+  CHANGELOG_TOUCHED=$(printf '%s\n%s\n' "$UNCOMMITTED" "$STAGED_FILES" | grep -c 'CHANGELOG.md' || true)
+  if [ "$HANDOFF_TOUCHED" -eq 0 ] || [ "$CHANGELOG_TOUCHED" -eq 0 ]; then
+    HYGIENE="PENDENTE"
+  fi
+fi
+
+# Output (2 lines)
+echo "[SCORECARD] Foco: \"$SESSION_NAME\" | Duracao: $DURATION"
+echo "[SCORECARD] Commits: $COMMITS | Tool calls: $CALLS | Custo: $COST | Hygiene: $HYGIENE"
+
+# ===== CHAOS REPORT (conditional) =====
+
 CHAOS_LOG="/tmp/cc-chaos-log.jsonl"
 [ ! -f "$CHAOS_LOG" ] && exit 0
 
-# Trim helper (wc -l and cat may include whitespace/newlines)
 trim() { echo "$1" | tr -d '[:space:]'; }
 
-# Count injections (only lines with "injected":true)
 TOTAL_INJECTED=$(trim "$(grep -c '"injected":true' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 TOTAL_SKIPPED=$(trim "$(grep -c '"injected":false' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 
-# If no injections happened, nothing to report
 [ "$TOTAL_INJECTED" -eq 0 ] && exit 0
 
-# Count per vector
 COUNT_429=$(trim "$(grep -c '"vector":"http_429".*"injected":true' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 COUNT_TIMEOUT=$(trim "$(grep -c '"vector":"socket_timeout".*"injected":true' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 COUNT_MODEL=$(trim "$(grep -c '"vector":"model_unavailable".*"injected":true' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 COUNT_RAPID=$(trim "$(grep -c '"vector":"rapid_calls".*"injected":true' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 
-# Check defense activation
 FAILURE_LOG="/tmp/cc-model-failures.log"
 SESSION_ID=$(date '+%Y%m%d_%H')
 CALLS_FILE="/tmp/cc-calls-${SESSION_ID}.txt"
 
 L2_FAILURES=0
 if [ -f "$FAILURE_LOG" ]; then
-    L2_FAILURES=$(trim "$(wc -l < "$FAILURE_LOG" 2>/dev/null || echo 0)")
-    [[ $L2_FAILURES =~ ^[0-9]+$ ]] || L2_FAILURES=0
+  L2_FAILURES=$(trim "$(wc -l < "$FAILURE_LOG" 2>/dev/null || echo 0)")
+  [[ $L2_FAILURES =~ ^[0-9]+$ ]] || L2_FAILURES=0
 fi
 
 L3_COUNT=0
 if [ -f "$CALLS_FILE" ]; then
-    L3_COUNT=$(trim "$(cat "$CALLS_FILE" 2>/dev/null || echo 0)")
-    [[ $L3_COUNT =~ ^[0-9]+$ ]] || L3_COUNT=0
+  L3_COUNT=$(trim "$(cat "$CALLS_FILE" 2>/dev/null || echo 0)")
+  [[ $L3_COUNT =~ ^[0-9]+$ ]] || L3_COUNT=0
 fi
 
-# Report
 printf '\n╔══════════════════════════════════════╗\n'
 printf '║     [CHAOS-L6] Session Report        ║\n'
 printf '╠══════════════════════════════════════╣\n'
@@ -62,18 +126,17 @@ printf '║   L2 failure log entries: %-4d       ║\n' "$L2_FAILURES"
 printf '║   L3 call counter: %-4d              ║\n' "$L3_COUNT"
 printf '╠══════════════════════════════════════╣\n'
 
-# Gap analysis
 GAPS=0
 if [ "$((COUNT_429 + COUNT_TIMEOUT + COUNT_MODEL))" -gt 0 ] && [ "$L2_FAILURES" -eq 0 ]; then
-    printf '║ GAP: L2 injections but no failures   ║\n'
-    GAPS=$((GAPS + 1))
+  printf '║ GAP: L2 injections but no failures   ║\n'
+  GAPS=$((GAPS + 1))
 fi
 if [ "$COUNT_RAPID" -gt 0 ] && [ "$L3_COUNT" -lt 50 ]; then
-    printf '║ GAP: L3 injection but counter low     ║\n'
-    GAPS=$((GAPS + 1))
+  printf '║ GAP: L3 injection but counter low     ║\n'
+  GAPS=$((GAPS + 1))
 fi
 if [ "$GAPS" -eq 0 ]; then
-    printf '║ No gaps detected — defenses OK        ║\n'
+  printf '║ No gaps detected — defenses OK        ║\n'
 fi
 
 printf '╚══════════════════════════════════════╝\n\n'
