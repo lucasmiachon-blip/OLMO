@@ -1732,9 +1732,9 @@ section#s-heterogeneity .het-forest { width: 100%; max-height: 240px; }
 
 /* SVG element styles — colors via system tokens */
 section#s-heterogeneity .het-null { stroke: var(--border); stroke-dasharray: 4 3; }
-section#s-heterogeneity .het-ci   { stroke: var(--text-primary); stroke-width: 2; }
+section#s-heterogeneity .het-ci   { stroke: var(--text-primary); stroke-width: 2.5; }
 section#s-heterogeneity .het-wt   { fill: var(--text-primary); }
-section#s-heterogeneity .het-pi   { opacity: 0.15; }
+section#s-heterogeneity .het-pi   { opacity: 0.22; }
 section#s-heterogeneity .het-pi--safe       { fill: var(--safe); }
 section#s-heterogeneity .het-pi--danger     { fill: var(--danger); }
 section#s-heterogeneity .het-diamond--safe   { fill: var(--safe); }
@@ -1767,6 +1767,7 @@ section#s-heterogeneity .het-insight {
   max-width: none;
   width: min(100%, 640px);
   align-self: center;
+  margin-top: var(--space-sm);
   opacity: 0;
 }
 section#s-heterogeneity .het-def {
@@ -1777,7 +1778,6 @@ section#s-heterogeneity .het-def {
 section#s-heterogeneity .het-caveat {
   font-size: var(--text-caption);
   color: var(--text-muted);
-  font-style: italic;
   max-width: none;
 }
 

@@ -11,6 +11,13 @@
 - **_manifest.js:** s-heterogeneity clickReveals 2→3, s-i2 removido, 17→16 slides.
 - **Design:** zero tokens privados (--het-*, --i2-* eliminados). Apenas system tokens (--safe, --danger, --text-primary, --border, --text-muted, --text-caption).
 
+### QA fino — hierarquia + legibilidade (s-heterogeneity → DONE)
+- **CI stroke-width:** 2→2.5 (legibilidade linhas IC a 10m projeção).
+- **PI band opacity:** 0.15→0.22 (faixa predição visível em projetor).
+- **Insight margin-top:** 0→var(--space-sm) (respiro entre forest plots e texto).
+- **Caveat italic:** removido (italic reduz legibilidade em projeção a distância; cor muted já sinaliza subordinação).
+- **Status: DONE.** Hierarquia 5 níveis (34→24→20→18→16px), todos ≥18px canvas (≥27px renderizado 1.5x).
+
 ## Sessao 187 — 2026-04-14 (TIPOS-MA + QUALITY-GRADE-ROB + HETERO_SLIDES)
 
 ### Slides — 3 slides heterogeneidade (2 novos + 1 rewrite, 15→17)
