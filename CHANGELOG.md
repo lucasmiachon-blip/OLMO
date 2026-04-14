@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 190 — 2026-04-14 (SKILLS)
+
+### Skills — /backlog (NEW)
+- Inline skill (sem fork). CRUD + auto-scoring (staleness × dependency × alignment × complexity). Modes: add, triage, close, report, score.
+
+### Skills — /improve (NEW)
+- context:fork skill. System-wide improvement cycle: health snapshot, double-loop rule audit, NeoSigma trend analysis.
+- Research-backed: PDSA (Deming), Double-loop (Argyris), Boris Cherny "simplest possible option" + "don't railroad".
+- Modes: health (5min), audit (15min), trend (10min), cycle (30min full).
+
+### Skills — /insights extension
+- Phase 4.5 QUESTION: double-loop audit of existing KBPs/rules. Questions relevance, false positives, staleness.
+- Transforms /insights from PDCA (check pass/fail) to PDSA (study WHY).
+
+### Backlog — #24-28 added (research-backed ambitious items)
+- #24 Voyager skill extraction (Wang 2023), #25 Kaizen test generation, #26 DGM strategy archive (Sakana 2025), #27 Metaprompt optimization (OpenAI 2025), #28 Reflexion embed (Shinn 2023).
+
 ## Sessao 189 — 2026-04-14 (EVIDENCE-AUDIT)
 
 ### Skills — evidence-audit skill (NEW)

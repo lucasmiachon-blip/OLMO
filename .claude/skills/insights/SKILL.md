@@ -187,6 +187,34 @@ Rank findings by:
 - Hook proposals include the shell command and where to wire it
 - NEVER auto-apply changes. Present the report, let Lucas decide.
 
+#### Phase 4.5: QUESTION — Double-Loop Audit
+
+**Goal:** Question whether existing rules and KBPs are still serving the project. Single-loop adds rules; double-loop removes or modifies them. Via Negativa: removing a wrong rule > adding a right one.
+
+This phase transforms /insights from PDCA (check pass/fail) to PDSA (study WHY).
+
+For each KBP in `known-bad-patterns.md`:
+1. Read the pointer target
+2. Search Phase 1 incidents for evidence the KBP was:
+   - **Applied correctly** — pattern caught and avoided
+   - **False positive** — pattern triggered but the action was justified
+   - **Irrelevant** — pattern covers something that never came up in the analysis window
+3. Propose: KEEP / MODIFY (with draft) / DEPRECATE (with rationale)
+
+For each rule in `.claude/rules/`:
+1. Were any referenced file paths moved or deleted?
+2. Is the rule redundant with another rule? (overlap detection)
+3. Does the rule conflict with any accepted /insights proposal?
+
+**Output:** Append to the main report:
+```markdown
+### Double-Loop Audit
+| KBP/Rule | Verdict | Evidence | Action |
+|----------|---------|----------|--------|
+```
+
+Only flag items with actual evidence. "No data" = KEEP by default.
+
 #### Evolution metrics
 
 If a previous `/insights` report exists (check `references/previous-report.md`):
