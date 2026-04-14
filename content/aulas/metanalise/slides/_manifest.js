@@ -18,6 +18,7 @@ export const slides = [
 
   // ── Fase 2: Metodologia ──
   { id: 's-rs-vs-ma',     file: '04-rs-vs-ma.html',     phase: 'F2', headline: 'Nem toda revisão é sistemática — e RS ≠ MA',                                                                          timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 1, narrativeCritical: false },
+  { id: 's-quality',      file: '05-quality.html',      phase: 'F2', headline: 'A qualidade metodológica de uma MA não garante a certeza da evidência',                                                                                                    timing: 90,   clickReveals: 3, customAnim: 's-quality',      narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-quality-grade-rob.html' },
   { id: 's-contrato',     file: '02-contrato.html',     phase: 'F2', headline: '3 perguntas que você faz a toda meta-análise',                                            timing: 45,   clickReveals: 2, customAnim: 's-contrato',             narrativeRole: 'setup',      tensionLevel: 1, narrativeCritical: false, evidence: 's-contrato.html' },
   { id: 's-pico',         file: '04-pico.html',         phase: 'F2', headline: 'O valor da RS e da MA depende em grande parte da concordância entre o study PICO e o seu target PICO', timing: 60, clickReveals: 1, customAnim: 's-pico', narrativeRole: 'setup', tensionLevel: 2, narrativeCritical: false },
 
@@ -33,7 +34,6 @@ export const slides = [
 
 
   // ── Fase 3: Aplicação (Valgimigli 2025) ──
-  { id: 's-ancora',       file: '13-ancora.html',       phase: 'F3', headline: 'Clopidogrel reduziu eventos CV vs aspirina — 7 RCTs e 28.982 pacientes com dados individuais',                       timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-ancora.html' },
 
   { id: 's-takehome',     file: '17-takehome.html',     phase: 'F3', headline: 'Três perguntas que você faz a toda MA antes de mudar sua conduta',                                                   timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'resolve',    tensionLevel: 1, narrativeCritical: true },
 ];

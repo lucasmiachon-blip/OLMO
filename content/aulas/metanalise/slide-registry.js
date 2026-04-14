@@ -130,6 +130,48 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => revealed;
   },
 
+  's-quality': (slide, gsap) => {
+    const levels = slide.querySelectorAll('.quality-level');
+    const example = slide.querySelector('.quality-example');
+    const MAX = 3;
+    let revealed = 0;
+
+    const advance = () => {
+      if (revealed >= MAX) return false;
+      revealed++;
+
+      const level = levels[revealed - 1];
+      gsap.fromTo(level,
+        { opacity: 0, x: -12 },
+        { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' }
+      );
+
+      if (revealed === 3 && example) {
+        gsap.fromTo(example,
+          { opacity: 0, y: 8 },
+          { opacity: 1, y: 0, duration: 0.45, delay: 0.25, ease: 'power2.out' }
+        );
+      }
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      if (revealed === 3 && example) {
+        gsap.to(example, { opacity: 0, y: 8, duration: 0.25, ease: 'power2.in' });
+      }
+      gsap.to(levels[revealed - 1],
+        { opacity: 0, x: -12, duration: 0.3, ease: 'power2.in' }
+      );
+      revealed--;
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
+
   's-contrato': (slide, gsap) => {
     const cards = slide.querySelectorAll('.contrato-card');
 

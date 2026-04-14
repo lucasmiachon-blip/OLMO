@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Sessao 191 — 2026-04-14 (s-quality)
+
+### Slide — s-quality (NEW, DONE)
+- 1 slide, 3 click-reveals. 3 níveis de "qualidade" em MA (RoB 2, GRADE, AMSTAR-2).
+- Exemplo dissociação: processo Alta + estudos baixo risco → certeza muito baixa.
+- Hand-crafted OKLCH tokens: accents C=0.16-0.20 (hue visible at 10m), bg C=0.03 (paper tints).
+- Adversarial review: Gemini 3.1 Pro + Codex merge. Key: C≥0.18 minimum for projection hue perception.
+- Fail badge SOLID fill (structural contrast vs outlined pass badges).
+- s-ancora removido do manifest (outra janela).
+
 ## Sessao 190 — 2026-04-14 (SKILLS)
 
 ### Skills — /backlog (NEW)

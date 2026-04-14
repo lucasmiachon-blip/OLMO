@@ -26,8 +26,9 @@ aside.notes { display: none; }
   /* Term — technical vocabulary introduced for the first time.
      Teal hue (190°) distinct from all semantic tokens: danger(8°), downgrade(55°), safe(140°), accent(258°).
      Chroma 0.12 = clearly colored at 10m projection. */
-  --term:       oklch(35% 0.12 190);
-  --term-light: color-mix(in oklch, var(--term) 15%, oklch(97% 0.001 258));
+  --term:         oklch(35% 0.12 190);
+  --term-light:   color-mix(in oklch, var(--term) 15%, oklch(97% 0.001 258));
+  --term-on-dark: oklch(75% 0.12 190);
 }
 
 /* --- Slide layout --- */
@@ -350,49 +351,154 @@ aside.notes { display: none; }
   flex: 1;
 }
 
-/* --- Anchor card (article identity + metrics) --- */
-.anchor-card {
-  background: var(--bg-navy-mid);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+/* --- s-quality: 3 levels of "quality" in MA ---
+   Merge: Gemini (projection-safe values) + Opus (cascade arch) + Codex (synthesis).
+   Hand-crafted OKLCH: L=91% C=0.06 bg (visible at 10m), system accent tokens.
+   10px left border + 64px numbers + solid pills = auditorium hierarchy. */
+section#s-quality {
+  /* Accents — slide-scoped, C≥0.16 for hue at 10m projection.
+     L=48%: white text contrast ≈ 5:1 (AA). */
+  --q-study:    oklch(48% 0.18 85);
+  --q-evidence: oklch(48% 0.20 258);
+  --q-process:  oklch(48% 0.16 185);
+
+  /* Backgrounds — paper tints. C=0.03 (0.025=invisible, 0.06=Easter egg).
+     L=92%: 3% ΔL from bg-surface (95%) = soft but real separation. */
+  --q-bg-study:    oklch(92% 0.03 85);
+  --q-bg-evidence: oklch(92% 0.03 258);
+  --q-bg-process:  oklch(92% 0.03 185);
+
+  /* Badges — structural contrast: pass=outlined, fail=SOLID FILL.
+     Pass: green outline readable at 10m. Fail: red block = punchline. */
+  --q-pass-text:   oklch(35% 0.16 170);
+  --q-pass-border: oklch(50% 0.14 170);
+  --q-pass-bg:     oklch(94% 0.02 170);
+  --q-fail-fill:   oklch(52% 0.20 10);
+}
+
+section#s-quality .quality-levels {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
-}
-.anchor-citation {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-  line-height: 1.5;
-  border-left: 3px solid var(--ui-accent-on-dark);
-  padding-left: var(--space-sm);
-}
-.metric-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  flex: 1;
+  justify-content: center;
   gap: var(--space-md);
 }
-.metric-item {
-  display: flex;
-  flex-direction: column;
+
+/* Row — 10px border anchors the eye, box-shadow lifts from canvas */
+section#s-quality .quality-level {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-md);
+  padding: calc(var(--space-md) + var(--space-xs)) var(--space-md);
+  border-left: 10px solid var(--q-accent);
+  border-radius: var(--radius-md);
+  background: var(--q-bg);
+  box-shadow: 0 1px 3px var(--shadow-subtle);
+  opacity: 0;
 }
-.metric-value {
-  font-family: var(--font-mono);
-  font-size: var(--text-h1);
-  color: var(--text-primary);
-  font-weight: 600;
+section#s-quality .quality-level[data-reveal="1"] { --q-accent: var(--q-study);    --q-bg: var(--q-bg-study); }
+section#s-quality .quality-level[data-reveal="2"] { --q-accent: var(--q-evidence); --q-bg: var(--q-bg-evidence); }
+section#s-quality .quality-level[data-reveal="3"] { --q-accent: var(--q-process);  --q-bg: var(--q-bg-process); }
+
+.no-js section#s-quality .quality-level,
+[data-qa] section#s-quality .quality-level,
+.stage-bad section#s-quality .quality-level { opacity: 1; }
+@media print { section#s-quality .quality-level { opacity: 1; } }
+
+/* Number — 64px serif, projection anchor */
+section#s-quality .quality-num {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 400;
   line-height: 1;
-}
-.metric-label {
-  font-family: var(--font-body);
-  font-size: var(--text-small);
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   text-align: center;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--q-accent);
 }
+
+/* Prevent text overflow in middle column */
+section#s-quality .quality-content { min-width: 0; }
+
+/* Question — primary */
+section#s-quality .quality-content h3 {
+  font-family: var(--font-body);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--text-primary);
+}
+section#s-quality .quality-content p {
+  width: 100%;
+  max-width: none;
+  margin: var(--space-xs) 0 0;
+  font-size: var(--text-caption);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
+
+/* Tool pill — solid fill for 10m readability, deck 100px pattern */
+section#s-quality .quality-tool {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--bg-elevated);
+  background: var(--q-accent);
+  border: 0;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* Example — dissociation punchline */
+section#s-quality .quality-example {
+  margin-top: var(--space-md);
+  opacity: 0;
+}
+section#s-quality .quality-scenario {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+section#s-quality .quality-ex {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  line-height: 1.2;
+  padding: var(--space-xs) var(--space-md);
+  border: 2px solid transparent;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+section#s-quality .quality-ex--pass {
+  color: var(--q-pass-text);
+  background: var(--q-pass-bg);
+  border-color: var(--q-pass-border);
+}
+section#s-quality .quality-ex--fail {
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--bg-elevated);
+  background: var(--q-fail-fill);
+  border-color: var(--q-fail-fill);
+  padding: var(--space-xs) calc(var(--space-md) + var(--space-xs));
+}
+section#s-quality .quality-ex-sep {
+  font-size: var(--text-h3);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-secondary);
+}
+.no-js section#s-quality .quality-example,
+[data-qa] section#s-quality .quality-example,
+.stage-bad section#s-quality .quality-example { opacity: 1; }
+@media print { section#s-quality .quality-example { opacity: 1; } }
+
 
 /* --- PICO grid (2×2 mismatch layout) --- */
 .pico-grid {

@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 190 | SKILLS
+> Sessao 191 | s-quality slide
 
 ## ESTADO ATUAL
 
@@ -14,12 +14,13 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Enrichment fixes:** Welton 2009 DOI/journal corrigidos (era Stat Med → Am J Epidemiol), Wang 2021 "64%" → abstract-verified "39%", AllTrials claim genericizado.
 - **Pendente:** (1) Lucas decide quantos slides e posicao no manifest; (2) h2 = Lucas; (3) nenhum slide criado ainda.
 
-## P0 — evidence/s-quality-grade-rob.html (S187 — ENRICHED, BENCHMARK CSS)
+## P0 — s-quality (DONE S191)
 
-- **14 refs VERIFIED** (incluindo Guyatt 2011 PMID 21839614 — GRADE imprecision, verificado NCBI). ~420 linhas. Benchmark CSS.
-- **3-layer content:** conceitos-chave (initial) → framework 3 niveis + tools (intermediate) → 4 deep-dive accordions (advanced/Lucas).
-- **Enrichment fixes:** ROBINS-I "88%" → "12% no nivel do desfecho", Yan "5 de 10" → abstract-verified language.
-- **Pendente:** (1) Lucas decide quantos slides e posicao no manifest; (2) h2 = Lucas; (3) nenhum slide criado ainda.
+- **1 slide, 3 click-reveals.** Após s-rs-vs-ma, antes de s-contrato (F2).
+- **Conceito:** 3 níveis de "qualidade" em MA (estudo individual / corpo de evidência / processo da revisão). Exemplo dissociação: processo+estudos OK → certeza muito baixa.
+- **Design:** editorial rows, hand-crafted OKLCH tokens (C=0.16-0.20 accents, C=0.03 bg), 10px left border, 64px numbers, solid-fill pills, fail badge SOLID red.
+- **Adversarial review:** Gemini 3.1 Pro (5.5/10 → prescriptions) + Codex (6/10 → merge). Key fix: accents C≥0.18 for 10m projection hue perception.
+- **Evidence:** `evidence/s-quality-grade-rob.html` (14 refs VERIFIED, S187).
 
 ## P0 — s-heterogeneity (DONE S188) + s-fixed-random (DONE S188 — polish pendente)
 
@@ -118,4 +119,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S190 2026-04-14
+Coautoria: Lucas + Opus 4.6 | S191 2026-04-14
