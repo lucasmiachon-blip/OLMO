@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Sessao 196 — 2026-04-14 (hooks Fase 2 step 5 — COMPLETE)
+
+### Consolidacao
+- Step 5: Stop merge — crossref+detect-issues+hygiene → stop-quality, scorecard+chaos → stop-metrics (7→4, git diff 10→4)
+- **Hooks Fase 2 DONE:** 34→29 registros, 0 node spawns, 5 steps across S193-S196
+
 ## Sessao 195 — 2026-04-14 (INFRA10: hooks Fase 2 step 4 + rule)
 
 ### Consolidacao
