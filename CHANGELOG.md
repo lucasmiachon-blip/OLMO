@@ -1,14 +1,26 @@
 # CHANGELOG
 
-## Sessao 185 — 2026-04-13 (PUBBIAS1_COMMIT)
+## Sessao 185 — 2026-04-13 (PUBBIAS1_COMMIT + HETEROGENEITY_EVIDENCE)
+
+### Evidence — Living HTML heterogeneidade (s-heterogeneity)
+- **Criado `evidence/s-heterogeneity.html`:** 17 refs, 12 PMID-VERIFIED, ~350 linhas
+- **Pesquisa /evidence:** 5+1 pernas — Gemini API (4 queries), Perplexity Sonar (2 queries), NLM (4 queries), PubMed MCP (PMID verification), pre-reading mining, evidence-researcher (7 PMID verified + 3 DOI verified)
+- **Conceitos cobertos:** triade Q/I²/tau², paradoxo I², PI clinico, FE vs RE, DL→REML+HKSJ, subgrupos/ICEMAN, GRADE Core inconsistencia
+- **Dados-chave:** Tatas 2025 (98% I²-only, 4% tau²), Migliavaca 2022 (mediana I² 96.9% prevalencia), Ademola 2023 (65% baixa credibilidade), 2 exemplos PI (GLP-1/clozapina)
+- **Convergencia:** 5 pernas, 8 achados, alta convergencia
 
 ### Slide — s-pubbias1 (publication bias conceitual)
 - **Novo slide:** 3 click-reveals (FDA vs lit bars, +32% hero, taxonomy chips)
-- **CSS:** layout flex, proportion bars grid, OKLCH colors, FOUC failsafes
+- **CSS QA:** dual auto-margin centering, bars 780px+18px, stagger GSAP (FDA primeiro → pausa → Literatura), chip hierarchy (problema=outline, antidoto=cor), redundancias removidas
 - **GSAP:** advance/retreat 3-beat no slide-registry.js
 - **Manifest:** 18→19 slides, s-pubbias1 posicionado antes de s-pubbias2
 - **source-tag:** PMID removido (padrao conceitual = Autor Ano)
 - **Build:** index.html reconstruido (pending fix S184 resolvido)
+
+### Evidence — Living HTML pubbias enrichment
+- **Fundamentos:** effect size, trial positivo/negativo, incentivos sistemicos (tabela 5 atores)
+- **Deep-dives novos:** pre-registro (FDAAA/ICMJE/Registered Reports), pub bias multi-dominio (oncologia/cardio/ortopedia/anestesia), spin em trials (Boutron 2010), checklist residente (6 perguntas)
+- **Glossario:** +5 entradas (effect size, spin, pre-registro, FDAAA, Registered Reports)
 
 ## Sessao 184 — 2026-04-13 (ROB2_COLOR_FIX)
 

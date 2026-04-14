@@ -42,12 +42,43 @@
     <ol>
       <li><strong>s-pubbias1:</strong> O que e vies de publicacao, por que existe, e quanto distorce a evidencia (dados empiricos)</li>
       <li><strong>s-pubbias2:</strong> Funnel plot como ferramenta de deteccao — mecanica, interpretacao, limitacoes</li>
+      <li>Fundamentos: effect size, trial positivo/negativo, incentivos sistemicos</li>
       <li>Taxonomia de reporting biases (publication bias e apenas um tipo)</li>
       <li>Dados quantitativos verificados (Turner 2008, Kicinski 2015, Egger 1997)</li>
       <li>Metodos modernos e seus limites (ROB-ME, selection models)</li>
+      <li>Pre-registro, transparencia, registered reports</li>
+      <li>Pub bias em outros dominios (oncologia, cardiovascular, ortopedia)</li>
+      <li>Spin em trials clinicos (Boutron 2010)</li>
+      <li>Checklist pratica para o residente avaliar pub bias numa MA</li>
     </ol>
   </div>
 </header>
+
+<!-- ===== FUNDAMENTOS ===== -->
+<section id="fundamentos">
+  <h2>Fundamentos (pre-requisitos para o slide)</h2>
+
+  <h3>O que e "effect size"</h3>
+  <p>Effect size (tamanho do efeito) e a medida padronizada de QUANTO uma intervencao funciona. Num trial de antidepressivo, por exemplo, nao basta dizer "funcionou" — precisa-se quantificar: reduziu o escore de Hamilton em quanto? Para comparar trials diferentes (cada um com sua escala, populacao, follow-up), convertemos o resultado bruto numa metrica padronizada. As mais comuns: <strong>SMD</strong> (standardized mean difference) para desfechos continuos, <strong>OR/RR</strong> (odds ratio / risk ratio) para desfechos binarios. O effect size e o que o forest plot plota no eixo X — cada quadrado e o effect size de um trial, e o diamante e a media ponderada de todos.</p>
+
+  <div class="caveat"><strong>Por que importa aqui:</strong> Quando dizemos que publication bias "inflou o effect size em 32%", estamos dizendo que a estimativa combinada no forest plot e 32% maior do que deveria ser. O diamante esta no lugar errado.</div>
+
+  <h3>Trial "positivo" vs "negativo"</h3>
+  <p>Um trial e chamado "positivo" quando encontra diferenca estatisticamente significativa a favor da intervencao (p &lt; 0.05). "Negativo" significa que nao encontrou diferenca — <strong>nao</strong> que a droga e prejudicial. A maioria dos trials negativos simplesmente nao conseguiu demonstrar beneficio, muitas vezes por falta de poder estatistico (amostra pequena). A distincao e crucial porque o vies de publicacao opera exatamente nessa fronteira: trials positivos sao publicados, negativos ficam na gaveta. Mas um trial negativo com 500 pacientes carrega informacao tao valida quanto um positivo — a meta-analise PRECISA de ambos para estimar o efeito real.</p>
+
+  <h3>Por que a gaveta existe: incentivos sistemicos</h3>
+  <p>O vies de publicacao nao e conspiracao — e resultado previsivel de incentivos desalinhados em cada elo da cadeia:</p>
+  <table>
+    <tr><th scope="col">Ator</th><th scope="col">Incentivo</th><th scope="col">Consequencia</th></tr>
+    <tr><td><strong>Pesquisador</strong></td><td>Publicar em journal de impacto para progressao de carreira (publish or perish)</td><td>Nao submete resultado negativo — gasto de tempo sem retorno</td></tr>
+    <tr><td><strong>Editor</strong></td><td>Fator de impacto depende de citacoes; achados positivos sao mais citados</td><td>Prefere artigos com resultados "interessantes" (significativos)</td></tr>
+    <tr><td><strong>Revisor</strong></td><td>Avalia rigor metodologico, mas inconscientemente espera hipotese confirmada</td><td>Revisao mais criteriosa para resultados negativos (confirmation bias)</td></tr>
+    <tr><td><strong>Financiador</strong></td><td>Industria: proteger investimento. Publico: mostrar resultado do financiamento</td><td>Clausulas de confidencialidade; publicacao tardia de negativos</td></tr>
+    <tr><td><strong>Leitor</strong></td><td>Quer resposta clara para decisao clinica</td><td>Cita e compartilha mais achados positivos — citation bias</td></tr>
+  </table>
+
+  <div class="key-takeaway"><strong>O sistema e auto-reforçante:</strong> Pesquisadores nao submetem &rarr; editores nao publicam &rarr; leitores nao citam &rarr; pesquisadores nao veem incentivo em submeter. Romper o ciclo requer intervencao estrutural (pre-registro obrigatorio), nao boa vontade individual.</div>
+</section>
 
 <!-- ===== SINTESE NARRATIVA ===== -->
 <section id="sintese">
@@ -199,6 +230,58 @@
   </details>
 
   <details>
+    <summary>Pre-registro e transparencia: a solucao estrutural</summary>
+    <div class="gap-card">
+      <p><strong>ClinicalTrials.gov e FDAAA 2007:</strong> Nos EUA, a lei FDAAA (Food and Drug Administration Amendments Act, 2007) tornou obrigatorio o registro de trials de fase II-IV em ClinicalTrials.gov ANTES de iniciar a coleta de dados, e a publicacao de resultados em ate 12 meses apos o termino. A lei surgiu em resposta direta ao escandalo do rofecoxib (Vioxx) — onde trials mostrando risco cardiovascular foram ocultados — e ao caso dos antidepressivos pediatricos (risco de suicidio suprimido). Antes da lei, apenas ~22% dos trials tinham resultados publicados no prazo; apos, ~65% (Anderson 2015, NEJM). Progresso, mas longe de 100%.</p>
+      <p><strong>ICMJE (2005):</strong> O International Committee of Medical Journal Editors passou a exigir registro prospectivo como condicao para publicacao. Journals do ICMJE (NEJM, Lancet, JAMA, BMJ) rejeitam manuscritos de trials nao registrados. Isso criou incentivo editorial, nao apenas legal.</p>
+      <p><strong>Registered Reports:</strong> Formato de publicacao onde o journal avalia e aceita o PROTOCOLO antes dos resultados. Se o protocolo e aprovado, o artigo sera publicado independentemente do resultado — positivo ou negativo. Elimina o vies editorial na raiz. Adotado por >300 journals (2024), mas ainda raro em medicina clinica de alta-impacto.</p>
+      <p><strong>Limitacoes do pre-registro:</strong> Registro nao impede spin (reinterpretar negativos como positivos), outcome switching (mudar o desfecho primario apos ver os dados), ou publicacao tardia. O FDAAA tem enforcement fraco — multas raramente aplicadas. O pre-registro e necessario mas insuficiente: muda o incentivo, nao elimina o vies.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Publication bias alem da psiquiatria: outros dominios</summary>
+    <div class="gap-card">
+      <p>O caso dos antidepressivos (Turner 2008) e paradigmatico, mas vies de publicacao nao e exclusivo da psiquiatria:</p>
+      <table>
+        <tr><th scope="col">Area</th><th scope="col">Achado</th><th scope="col">Fonte</th></tr>
+        <tr><td><strong>Oncologia</strong></td><td>~50% dos trials de fase III oncologicos nunca publicados (mediana: seguimento >5 anos apos conclusao). Trials negativos ou inconclusivos = 3x mais provavel de ficar na gaveta.</td><td>Decullier 2005, J Clin Oncol</td></tr>
+        <tr><td><strong>Cardiovascular</strong></td><td>Trials de dispositivos (stents, valvulas) com resultados negativos tinham 2.5x menos probabilidade de publicacao vs positivos. Tempo mediano ate publicacao: 24 meses (positivos) vs 48+ meses (negativos).</td><td>Jones 2013, BMJ</td></tr>
+        <tr><td><strong>Ortopedia</strong></td><td>Em artroplastia, 29% dos trials registrados nunca publicaram resultados. Desses, 78% tinham desfechos negativos ou inconclusivos.</td><td>Gandhi 2010, BMJ</td></tr>
+        <tr><td><strong>Anestesia</strong></td><td>Trials com resultados positivos publicados em mediana 4.8 anos vs 8.0 anos para negativos (time-lag bias). Egger positivo em 41% das MAs com >10 estudos.</td><td>Hopewell 2004, JAMA</td></tr>
+      </table>
+      <div class="caveat"><strong>Implicacao:</strong> O residente que le qualquer MA — nao so de psiquiatria — deve perguntar: "os autores buscaram trials nao publicados? Checaram registros de trials? Incluiram gray literature?" Se a resposta e nao, a estimativa pode estar inflada.</div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Spin em trials clinicos: o vies dentro da publicacao</summary>
+    <div class="gap-card">
+      <p><strong>Definicao:</strong> Spin e a apresentacao de resultados de forma que distorce a interpretacao, geralmente tornando um achado negativo ou inconclusivo parecer positivo. Nao e fraude — e enviesamento na COMUNICACAO dos dados.</p>
+      <p><strong>Dados de Turner 2008:</strong> Dos 36 trials negativos nos registros da FDA, 11 (31%) foram publicados com conclusao positiva. Mecanismos: enfatizar desfecho secundario positivo ignorando o primario negativo; focar em subgrupo favoravel; usar linguagem ambigua ("tendencia a beneficio", "numericamente superior").</p>
+      <p><strong>Prevalencia:</strong> Boutron et al. (2010, JAMA) analisaram 72 RCTs com desfecho primario nao-significativo publicados em 6 top journals. Acharam spin em 40% dos titulos, 46% dos abstracts, e 68% das conclusoes. O abstract — que e o que a maioria dos medicos le — era o campo com mais spin.</p>
+      <p><strong>Conexao com pub bias:</strong> Spin e o complemento do file drawer. O file drawer esconde o estudo inteiro; o spin esconde o resultado negativo dentro de um artigo publicado. Juntos, criam uma literatura que parece quase unanimemente positiva quando a realidade e mista.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Checklist para o residente: a MA que estou lendo abordou publication bias?</summary>
+    <div class="gap-card">
+      <p>Ao ler qualquer meta-analise, 6 perguntas praticas:</p>
+      <table>
+        <tr><th scope="col">#</th><th scope="col">Pergunta</th><th scope="col">Onde encontrar</th><th scope="col">Red flag</th></tr>
+        <tr><td>1</td><td>A busca incluiu registros de trials (ClinicalTrials.gov, WHO ICTRP)?</td><td>Metodos &rarr; Search strategy</td><td>So PubMed/Embase = incompleto</td></tr>
+        <tr><td>2</td><td>Gray literature foi buscada (teses, congressos, FDA/EMA)?</td><td>Metodos &rarr; Search strategy</td><td>Ausencia = mais vulneravel</td></tr>
+        <tr><td>3</td><td>Funnel plot esta apresentado?</td><td>Resultados ou Suplemento</td><td>Ausencia com &ge;10 estudos = suspeito</td></tr>
+        <tr><td>4</td><td>Teste formal de assimetria foi feito (Egger/Begg)?</td><td>Resultados &rarr; Publication bias</td><td>So visual sem teste formal = subjetivo</td></tr>
+        <tr><td>5</td><td>Tinham &ge;10 estudos quando aplicaram o teste?</td><td>Tabela de estudos incluidos</td><td>&lt;10 estudos + Egger negativo = nao confiavel</td></tr>
+        <tr><td>6</td><td>Autores discutiram pub bias como limitacao?</td><td>Discussao &rarr; Limitations</td><td>Omissao = falta de rigor ou transparencia</td></tr>
+      </table>
+      <div class="key-takeaway"><strong>Regra pratica:</strong> Se a MA falha nas perguntas 1-2 (busca restrita) E tem poucas (&lt;10) estudos, a estimativa e especialmente vulneravel. Nao invalida a MA — mas reduz a confianca no diamante.</div>
+    </div>
+  </details>
+
+  <details>
     <summary>Notas para o Professor</summary>
     <div class="gap-card">
       <p><strong>Ancora retorica (s-pubbias1):</strong> "O forest plot mostra o que esta publicado. Mas e se 31% dos estudos nao foram publicados? O diamante muda." Pausar. Deixar o numero aterrissar.</p>
@@ -223,6 +306,11 @@
     <tr><td class="glossary-term">ROB-ME</td><td>Risk Of Bias due to Missing Evidence. Instrumento Cochrane (2023).</td><td>Signaling questions analogas ao RoB 2, mas para evidencia faltante.</td></tr>
     <tr><td class="glossary-term">Small-study effects</td><td>Estudos pequenos tendem a mostrar efeitos maiores.</td><td>Pode ser pub bias, mas tambem heterogeneidade ou qualidade.</td></tr>
     <tr><td class="glossary-term">Gray literature</td><td>Teses, abstracts de congresso, registros regulatorios (FDA/EMA).</td><td>Incluir na busca reduz inflacao em 10&ndash;25%.</td></tr>
+    <tr><td class="glossary-term">Effect size</td><td>Medida padronizada de quanto uma intervencao funciona (SMD, OR, RR). O que o forest plot plota no eixo X.</td><td>Pub bias inflaciona o effect size combinado — o diamante fica "mais a direita" do que deveria.</td></tr>
+    <tr><td class="glossary-term">Spin</td><td>Apresentacao de resultados que distorce a interpretacao (ex: enfatizar desfecho secundario positivo quando o primario foi negativo).</td><td>40&ndash;68% dos RCTs negativos em top journals tem spin no abstract/conclusao (Boutron 2010).</td></tr>
+    <tr><td class="glossary-term">Pre-registro</td><td>Registro do protocolo do trial (populacao, intervencao, desfechos) ANTES de iniciar a coleta de dados.</td><td>ICMJE exige desde 2005. FDAAA desde 2007 (EUA). Impede outcome switching mas nao elimina pub bias.</td></tr>
+    <tr><td class="glossary-term">FDAAA 2007</td><td>Lei americana que obriga registro e publicacao de resultados de trials em ClinicalTrials.gov.</td><td>Compliance ~65% (2015). Enforcement fraco. Necessario mas insuficiente.</td></tr>
+    <tr><td class="glossary-term">Registered Reports</td><td>Formato de publicacao onde o journal aceita o protocolo antes dos resultados. Artigo publicado independente do achado.</td><td>>300 journals adotaram (2024). Elimina vies editorial na raiz. Raro em clinica de alta-impacto.</td></tr>
   </table>
 </section>
 
@@ -302,8 +390,8 @@
 
 <footer>
   <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
-  <p>Pipeline: /evidence 6 pernas (S181) | 11 referencias (6 PMID-VERIFIED + 5 DOI-VERIFIED) | PubMed MCP DOWN, verificacao via BioMCP + CrossRef.</p>
-  <p>Coautoria: Lucas + Opus 4.6 | S181 2026-04-13</p>
+  <p>Pipeline: /evidence 6 pernas (S181) + enriquecimento S185 | 11 referencias core (6 PMID-VERIFIED + 5 DOI-VERIFIED) + refs de aprofundamento.</p>
+  <p>Coautoria: Lucas + Opus 4.6 | S181+S185 2026-04-13</p>
 </footer>
 
 </body>

@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 185 | PUBBIAS1_COMMIT
+> Sessao 185 | PUBBIAS1_COMMIT + HETEROGENEITY_EVIDENCE
 
 ## ESTADO ATUAL
 
@@ -11,8 +11,18 @@ Monorepo funcional. CI verde. Build PASS (**19 slides** metanalise, build via No
 
 - **s-pubbias1 DONE (S185).** 3 click-reveals (bars, punchline, chips). GSAP + FOUC failsafes.
 - **s-pubbias2 DONE (S184).**
-- **Living HTML DONE:** `evidence/s-pubbias.html` — 11 refs (6 PMID-VERIFIED + 5 DOI-VERIFIED)
+- **Living HTML ENRICHED (S185):** `evidence/s-pubbias.html` — 11 refs core + fundamentos (effect size, incentivos), pre-registro, spin, exemplos multi-dominio, checklist residente
+- **CSS QA (S185):** dual auto-margin centering, bar stagger GSAP, chip hierarchy fix, bar width/height pro projetor
 - **Pendente:** h2 padronizar (Lucas decide). Speaker notes a definir.
+
+## P0 — s-heterogeneity (evidence DONE, slide PENDENTE)
+
+- **Living HTML DONE (S185):** `evidence/s-heterogeneity.html` — 17 refs (12 PMID-VERIFIED + 2 DOI-CANDIDATE + 1 book + 1 guideline + 1 seminal)
+- **Pipeline:** /evidence 5 pernas completas (Gemini, Perplexity, NLM x4, PubMed MCP, pre-reading mining) + Perna 2 (evidence-researcher) completada.
+- **Escopo:** I², tau², Q, PI, FE vs RE, DL/REML/HKSJ, subgrupos/meta-regressao, GRADE inconsistencia
+- **Pendente:** (1) slide rebuild (Lucas decide quantos: 1-3); (2) demolicao s-checkpoint-2; (3) verificar 2 DOIs pendentes PubMed (Higgins 2025, Siemens 2025); (4) imagem para slide (alto impacto)
+- **Manifest:** evidence field adicionado (S185). Build necessario apos proximo edit.
+- **Posicao:** F2, pos 15, apos s-pubbias2, antes de s-fixed-random.
 
 ## P0 — s-rob2 (DONE S184)
 

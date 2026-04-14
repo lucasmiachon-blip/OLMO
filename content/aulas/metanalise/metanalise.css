@@ -1684,12 +1684,11 @@ section#s-rob2 .source-tag {
    Turner 2008 NEJM (PMID 18199864) — FDA vs Literature
    ═══════════════════════════════════════════════════════ */
 
+/* Layout: flex column (inherited from base.css .slide-inner).
+   Dual auto-margin centers the content group (bars+punch+chips)
+   between h2 (top) and source-tag (bottom). */
 section#s-pubbias1 .slide-inner {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  height: 100%;
 }
 
 /* Neutralize base.css pseudo-elements (E005/E032) */
@@ -1701,13 +1700,12 @@ section#s-pubbias1 .slide-inner::after {
 section#s-pubbias1 .slide-headline {
   align-self: flex-start;
   font-size: 28px;
-  margin-bottom: var(--space-sm);
 }
 
 /* --- Click 1: Proportion bars (FDA vs Literature) --- */
 section#s-pubbias1 .pubbias-comparison {
   margin-top: auto;
-  width: min(100%, 640px);
+  width: min(100%, 780px);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -1716,7 +1714,7 @@ section#s-pubbias1 .pubbias-comparison {
 
 section#s-pubbias1 .pubbias-bar {
   display: grid;
-  grid-template-columns: 12ch 1fr 5ch;
+  grid-template-columns: 15ch 1fr 5ch;
   align-items: center;
   gap: var(--space-sm);
 }
@@ -1729,8 +1727,8 @@ section#s-pubbias1 .pubbias-bar-label {
 }
 
 section#s-pubbias1 .pubbias-bar-track {
-  height: 14px;
-  background: color-mix(in oklch, var(--text-primary) 8%, transparent);
+  height: 18px;
+  background: color-mix(in oklch, var(--text-primary) 15%, transparent);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -1743,7 +1741,7 @@ section#s-pubbias1 .pubbias-bar-fill {
 }
 
 section#s-pubbias1 .pubbias-bar--fda { width: 51%; }
-section#s-pubbias1 .pubbias-bar--lit { width: 94%; }
+section#s-pubbias1 .pubbias-bar--lit { width: 94%; background: oklch(0.50 0.12 15); }
 
 section#s-pubbias1 .pubbias-bar-value {
   font-family: var(--font-mono);
@@ -1765,15 +1763,15 @@ section#s-pubbias1 .pubbias-bar-context {
 /* --- Click 2: Punchline hero number --- */
 section#s-pubbias1 .pubbias-punchline {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-sm);
+  flex-direction: column;
+  align-items: center;
   margin-top: var(--space-md);
   opacity: 0;
 }
 
 section#s-pubbias1 .pubbias-hero-number {
   font-family: var(--font-mono);
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
   color: oklch(0.50 0.12 15);
 }
@@ -1791,6 +1789,7 @@ section#s-pubbias1 .pubbias-types {
   gap: var(--space-xs);
   justify-content: center;
   margin-top: var(--space-md);
+  margin-bottom: auto;
 }
 
 section#s-pubbias1 .pubbias-chip {
@@ -1798,20 +1797,19 @@ section#s-pubbias1 .pubbias-chip {
   font-size: var(--text-caption);
   padding: 4px 16px;
   border-radius: 999px;
-  background: color-mix(in oklch, var(--ui-accent) 10%, transparent);
+  border: 1px solid color-mix(in oklch, var(--text-primary) 20%, transparent);
+  background: transparent;
   color: var(--text-secondary);
   opacity: 0;
 }
 
 section#s-pubbias1 .pubbias-chip--antidote {
-  background: transparent;
-  border: 1px solid var(--term);
+  border-color: var(--term);
   color: var(--term);
 }
 
 /* --- Footer --- */
 section#s-pubbias1 .source-tag {
-  margin-top: auto;
   align-self: flex-start;
 }
 

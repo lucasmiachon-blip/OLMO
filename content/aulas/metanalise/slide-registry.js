@@ -553,16 +553,21 @@ export const slideRegistry = {
       revealed++;
 
       if (revealed === 1) {
-        // Bars: fade container + animate fill widths via scaleX
+        // Bars: fade container, then stagger fills — FDA first, pause, Literature grows past
         const comp = slide.querySelector('.pubbias-comparison');
-        const fills = slide.querySelectorAll('.pubbias-bar-fill');
+        const fdaFill = slide.querySelector('.pubbias-bar--fda');
+        const litFill = slide.querySelector('.pubbias-bar--lit');
         gsap.fromTo(comp,
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
         );
-        gsap.fromTo(fills,
+        gsap.fromTo(fdaFill,
           { scaleX: 0 },
           { scaleX: 1, duration: 0.8, delay: 0.3, ease: 'power2.out' }
+        );
+        gsap.fromTo(litFill,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 1.0, delay: 1.5, ease: 'power2.out' }
         );
       }
 
@@ -591,9 +596,11 @@ export const slideRegistry = {
       if (revealed <= 0) return false;
       if (revealed === 1) {
         const comp = slide.querySelector('.pubbias-comparison');
-        const fills = slide.querySelectorAll('.pubbias-bar-fill');
-        gsap.to(comp, { opacity: 0, duration: 0.35, ease: 'power2.in' });
-        gsap.to(fills, { scaleX: 0, duration: 0.3, ease: 'power2.in' });
+        const fdaFill = slide.querySelector('.pubbias-bar--fda');
+        const litFill = slide.querySelector('.pubbias-bar--lit');
+        gsap.to(litFill, { scaleX: 0, duration: 0.3, ease: 'power2.in' });
+        gsap.to(fdaFill, { scaleX: 0, duration: 0.3, delay: 0.1, ease: 'power2.in' });
+        gsap.to(comp, { opacity: 0, duration: 0.35, delay: 0.2, ease: 'power2.in' });
       }
       if (revealed === 2) {
         const punch = slide.querySelector('.pubbias-punchline');
