@@ -744,4 +744,65 @@ export const slideRegistry = {
     slide.__hookRetreat = retreat;
     slide.__hookCurrentBeat = () => revealed;
   },
+
+  's-etd': (slide, gsap) => {
+    /* Dark-bg edge bleed fix — body.stage-c has light background that shows
+       through scaling gaps in fullscreen. Toggle body to near-black when active. */
+    const setEdgeBg = () => {
+      document.body.style.background =
+        slide.classList.contains('slide-active') ? '#0a0e16' : '';
+    };
+    new MutationObserver(setEdgeBg)
+      .observe(slide, { attributes: true, attributeFilter: ['class'] });
+    setEdgeBg();
+
+    const table  = slide.querySelector('.etd-table');
+    const rows   = slide.querySelectorAll('.etd-row');
+    const badges = slide.querySelectorAll('.etd-badge');
+    const caveat = slide.querySelector('.etd-caveat');
+    const MAX = 3;
+    let revealed = 0;
+
+    const advance = () => {
+      if (revealed >= MAX) return false;
+      revealed++;
+
+      if (revealed === 1) {
+        gsap.to(table, { opacity: 1, duration: 0.2 });
+        gsap.fromTo(rows,
+          { opacity: 0, x: -20 },
+          { opacity: 1, x: 0, duration: 0.45, stagger: 0.1, ease: 'power3.out', delay: 0.15 }
+        );
+      } else if (revealed === 2) {
+        gsap.fromTo(badges,
+          { opacity: 0, scale: 0.85 },
+          { opacity: 1, scale: 1, duration: 0.35, stagger: 0.08, ease: 'power2.out' }
+        );
+      } else if (revealed === 3) {
+        gsap.fromTo(caveat,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }
+        );
+      }
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      if (revealed === 3) {
+        gsap.to(caveat, { opacity: 0, y: 16, duration: 0.3, ease: 'power2.in' });
+      } else if (revealed === 2) {
+        gsap.to(badges, { opacity: 0, scale: 0.85, duration: 0.25, ease: 'power2.in' });
+      } else if (revealed === 1) {
+        gsap.to(rows, { opacity: 0, x: -20, duration: 0.3, ease: 'power2.in' });
+        gsap.to(table, { opacity: 0, duration: 0.15, delay: 0.25 });
+      }
+      revealed--;
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat    = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
 };

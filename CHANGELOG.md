@@ -1,14 +1,32 @@
 # CHANGELOG
 
-## Sessao 191 — 2026-04-14 (s-quality)
+## Sessao 191 — 2026-04-14 (s-quality + s-etd)
+
+### Slide — s-etd (NEW, DONE)
+- Evidence-to-Decision: Valgimigli 2025 clopidogrel vs aspirina. 4 endpoints head-to-head (/1.000 PA).
+- 3 click-reveals: data table → classification badges (Moderado/Importante/NS) → NNT caveat.
+- NNT strikethrough (≈46) → −3,8 /1.000 PA como metrica correta. Altman 1999 + Ludwig 2020.
+- CSS Grid `auto` columns, fixed px bars (140/103/55/22), color-mix badges, IAM hero row (6px border).
+- Dark-bg edge bleed fix: MutationObserver toggles body bg on slide activation (fullscreen).
+- Multi-model data: Gemini 3.1 Pro + GPT (paper completo 181KB) → dual NNT methodology analysis.
+
+### Slide — s-ancora (REMOVED)
+- Replaced by s-etd (F3 application phase). Dead CSS cleaned: anchor-card, metric-grid (−43 lines).
 
 ### Slide — s-quality (NEW, DONE)
 - 1 slide, 3 click-reveals. 3 níveis de "qualidade" em MA (RoB 2, GRADE, AMSTAR-2).
 - Exemplo dissociação: processo Alta + estudos baixo risco → certeza muito baixa.
 - Hand-crafted OKLCH tokens: accents C=0.16-0.20 (hue visible at 10m), bg C=0.03 (paper tints).
 - Adversarial review: Gemini 3.1 Pro + Codex merge. Key: C≥0.18 minimum for projection hue perception.
-- Fail badge SOLID fill (structural contrast vs outlined pass badges).
-- s-ancora removido do manifest (outra janela).
+
+### Slide — s-takehome (REWRITTEN)
+- Simplificado: 3 mensagens concisas. aside.notes removido. h2: "Take-home messages".
+
+### Slide — s-title
+- Co-autor adicionado: Samoel Masao.
+
+### Plans cleanup
+- 5 plans tracked deletados: abundant-pondering-zebra, declarative-swimming-sunrise, enumerated-soaring-gizmo, modular-soaring-wolf, vectorized-imagining-crescent.
 
 ## Sessao 190 — 2026-04-14 (SKILLS)
 

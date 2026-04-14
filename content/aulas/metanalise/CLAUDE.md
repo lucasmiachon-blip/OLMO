@@ -81,7 +81,7 @@ Detalhes QA por slide: `HANDOFF.md`.
 ## Status
 
 Tracking: `HANDOFF.md` (project-level).
-15/15 slides. Âncora: Valgimigli 2025 Lancet (PMID 40902613). HEX navy: #162032.
+17/17 slides. Âncora: Valgimigli 2025 Lancet (PMID 40902613). HEX navy: #162032.
 
 ## Display de apresentação
 

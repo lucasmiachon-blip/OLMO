@@ -1,10 +1,10 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 191 | s-quality slide
+> Sessao 191 | s-quality + s-etd
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
+Monorepo funcional. CI verde. Build PASS (**17 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 28 items.**
 
 ## P0 — evidence/s-tipos-ma.html (S187 — ENRICHED, BENCHMARK CSS)
@@ -14,13 +14,13 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **Enrichment fixes:** Welton 2009 DOI/journal corrigidos (era Stat Med → Am J Epidemiol), Wang 2021 "64%" → abstract-verified "39%", AllTrials claim genericizado.
 - **Pendente:** (1) Lucas decide quantos slides e posicao no manifest; (2) h2 = Lucas; (3) nenhum slide criado ainda.
 
-## P0 — s-quality (DONE S191)
+## P0 — s-quality (DONE S191) + s-etd (DONE S191)
 
-- **1 slide, 3 click-reveals.** Após s-rs-vs-ma, antes de s-contrato (F2).
-- **Conceito:** 3 níveis de "qualidade" em MA (estudo individual / corpo de evidência / processo da revisão). Exemplo dissociação: processo+estudos OK → certeza muito baixa.
-- **Design:** editorial rows, hand-crafted OKLCH tokens (C=0.16-0.20 accents, C=0.03 bg), 10px left border, 64px numbers, solid-fill pills, fail badge SOLID red.
-- **Adversarial review:** Gemini 3.1 Pro (5.5/10 → prescriptions) + Codex (6/10 → merge). Key fix: accents C≥0.18 for 10m projection hue perception.
-- **Evidence:** `evidence/s-quality-grade-rob.html` (14 refs VERIFIED, S187).
+- **s-quality:** 1 slide, 3 click-reveals (F2). 3 níveis de "qualidade" em MA. Adversarial review Gemini+Codex. Evidence: `evidence/s-quality-grade-rob.html`.
+- **s-etd:** 1 slide, 3 click-reveals (F3). Valgimigli 2025 EtD: 4 endpoints /1.000 PA, badges (Moderado/Importante/NS), NNT caveat. CSS Grid `auto`, color-mix badges, MutationObserver dark-bg. Multi-model data: Gemini+GPT full paper.
+- **s-ancora:** REMOVIDO S191. Replaced by s-etd. Dead CSS cleaned (−43 lines).
+- **s-takehome:** REESCRITO S191. 3 mensagens concisas, aside.notes removido.
+- **s-title:** Co-autor Samoel Masao adicionado S191.
 
 ## P0 — s-heterogeneity (DONE S188) + s-fixed-random (DONE S188 — polish pendente)
 
@@ -109,14 +109,15 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - `s-checkpoint-2` (12) — REMOVIDO S186. I2 phase eliminada.
 - `s-aplicabilidade` (15) — REMOVIDO S186. pico-* CSS mantido (usado por s-pico).
 - `s-absoluto` (16) — REMOVIDO S186. CSS conversion removido.
-- `s-takehome` (17) — MANTIDO por enquanto.
+- `s-takehome` (17) — REESCRITO S191. 3 mensagens, aside.notes removido.
+- `s-ancora` (13) — REMOVIDO S191. Replaced by s-etd.
 
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: ~11 plans untracked. Lucas decide per-file.
+- `.claude/plans/`: ~15 plans untracked (5 tracked deletados S191). Lucas decide per-file.
 - `.claude/workers/`: workers de S178 + S181 (vies-pub-research). Lucas decide manter/remover.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S191 2026-04-14
+Coautoria: Lucas + Samoel Masao + Opus 4.6 | S191 2026-04-14
