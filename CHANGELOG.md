@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 184 — 2026-04-13 (ROB2_COLOR_FIX)
+
+### Slide — s-rob2 NEJM/JACC palette + cleanup
+- **Paleta:** 4-hue carnival (green/yellow/amber/red) → slate monochrome (oklch hue 255°) + muted brick accent (hue 15°) no pior domínio (D2)
+- **D-num labels:** removidos 4 nth-child color overrides → todos em var(--term)
+- **Kappa termos:** "razoável"→"fraca", "ligeira"→"pobre" (Landis & Koch canônico)
+- **ROBINS-I V2:** removido (Lucas decidiu manter só ROBUST-RCT)
+- **Barras:** height 8→14px, valores 1.75→1.4rem — hierarquia reequilibrada
+- **Dead CSS:** .rob2-alt-trend removido, border-top alts removido
+- **s-pubbias2:** marcado DONE
+
 ## Sessao 183 — 2026-04-13 (ROB2_REFINE)
 
 ### Slide — s-rob2 professional refinement pass

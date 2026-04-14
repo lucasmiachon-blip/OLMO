@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 183 | ROB2_REFINE
+> Sessao 184 | ROB2_COLOR_FIX
 
 ## ESTADO ATUAL
 
@@ -10,16 +10,15 @@ Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via No
 ## P0 — s-pubbias (vies de publicacao — 2 slides novos)
 
 - **Living HTML DONE:** `evidence/s-pubbias.html` — 11 refs (6 PMID-VERIFIED + 5 DOI-VERIFIED)
-- **s-pubbias2 DRAFT:** HTML + CSS + registry + manifest. h2 e source-tag padronizados. QA pendente (Gate 4).
+- **s-pubbias2 DONE (S184).**
 - **s-pubbias1 PENDENTE:** slide conceitual. h2 e layout = Lucas decide.
 - **Posicao:** F2, apos s-rob2, antes de s-heterogeneity.
 - **FOUC FIXED (S182):** opacity:0 + GSAP auto-reveal + failsafes completos.
 
-## P0 — s-rob2 (refinement pass S183 DONE)
+## P0 — s-rob2 (DONE S184)
 
-- **S183 refine DONE:** state leak corrigido, grid unificado, titulo rebalanceado, kappa tipografia profissional.
-- **Pendente:** h2 padronizar (Lucas decide) + QA cycle completo (Gate 4).
-- **Call D hardening pendente:** coverage audit + call tipografia/legibilidade.
+- **S184:** paleta NEJM/JACC (slate monochrome + brick accent), termos kappa Landis&Koch, ROBINS-I removido, dead CSS limpo.
+- **Pendente:** h2 padronizar (Lucas decide). Verificar contraste brick a 10m no projetor real.
 
 ## P0 — Forest plot slides
 
@@ -90,4 +89,4 @@ Monorepo funcional. CI verde. Build PASS (**18 slides** metanalise, build via No
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S183 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S184 2026-04-13
