@@ -1,32 +1,28 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 185 | PUBBIAS1_COMMIT + HETEROGENEITY_EVIDENCE
+> Sessao 186 | SLIDE_DEMOLITION
 
 ## ESTADO ATUAL
 
-Monorepo funcional. CI verde. Build PASS (**19 slides** metanalise, build via Node.js).
+Monorepo funcional. CI verde. Build PASS (**15 slides** metanalise, build via Node.js).
 **Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 21 items.**
 
-## P0 — s-pubbias (vies de publicacao — 2 slides)
+## P0 — s-heterogeneity (SLIDE REBUILD — proximo passo)
 
-- **s-pubbias1 DONE (S185).** 3 click-reveals (bars, punchline, chips). GSAP + FOUC failsafes.
-- **s-pubbias2 DONE (S184).**
-- **Living HTML ENRICHED (S185):** `evidence/s-pubbias.html` — 11 refs core + fundamentos (effect size, incentivos), pre-registro, spin, exemplos multi-dominio, checklist residente
-- **CSS QA (S185):** dual auto-margin centering, bar stagger GSAP, chip hierarchy fix, bar width/height pro projetor
-- **Pendente:** h2 padronizar (Lucas decide). Speaker notes a definir.
-
-## P0 — s-heterogeneity (evidence DONE, slide PENDENTE)
-
-- **Living HTML DONE (S185):** `evidence/s-heterogeneity.html` — 17 refs (12 PMID-VERIFIED + 2 DOI-CANDIDATE + 1 book + 1 guideline + 1 seminal)
-- **Pipeline:** /evidence 5 pernas completas (Gemini, Perplexity, NLM x4, PubMed MCP, pre-reading mining) + Perna 2 (evidence-researcher) completada.
+- **Slide antigo demolido (S186).** CSS (concept-card) e manifest removidos.
+- **Living HTML intacto:** `evidence/s-heterogeneity.html` — 17 refs (12 PMID-VERIFIED + 2 DOI-CANDIDATE + 1 book + 1 guideline + 1 seminal)
 - **Escopo:** I², tau², Q, PI, FE vs RE, DL/REML/HKSJ, subgrupos/meta-regressao, GRADE inconsistencia
-- **Pendente:** (1) slide rebuild (Lucas decide quantos: 1-3); (2) demolicao s-checkpoint-2; (3) verificar 2 DOIs pendentes PubMed (Higgins 2025, Siemens 2025); (4) imagem para slide (alto impacto)
-- **Manifest:** evidence field adicionado (S185). Build necessario apos proximo edit.
-- **Posicao:** F2, pos 15, apos s-pubbias2, antes de s-fixed-random.
+- **Pendente:** (1) slide rebuild do zero (Lucas decide quantos: 1-3); (2) verificar 2 DOIs pendentes PubMed (Higgins 2025, Siemens 2025); (3) imagem para slide (alto impacto)
+- **Posicao prevista:** F2, apos s-pubbias2, antes de s-fixed-random
+- **ATENÇÃO multi-janela:** Lucas pode estar construindo em outra janela. Verificar estado do repo antes de editar.
+
+## P0 — s-pubbias (vies de publicacao — 2 slides, DONE)
+
+- **s-pubbias1 DONE (S185).** **s-pubbias2 DONE (S184).**
+- **Pendente:** h2 padronizar (Lucas decide). Speaker notes a definir.
 
 ## P0 — s-rob2 (DONE S184)
 
-- **S184:** paleta NEJM/JACC (slate monochrome + brick accent), termos kappa Landis&Koch, ROBINS-I removido, dead CSS limpo.
 - **Pendente:** h2 padronizar (Lucas decide). Verificar contraste brick a 10m no projetor real.
 
 ## P0 — Forest plot slides
@@ -89,13 +85,24 @@ Monorepo funcional. CI verde. Build PASS (**19 slides** metanalise, build via No
 
 (nenhum ativo)
 
+## FLAG — s-contrato precisa update
+
+`02-contrato.html` menciona "heterogeneidade", "efeito absoluto + aplicabilidade". Com s-aplicabilidade e s-absoluto removidos, contrato promete conteudo que nao sera entregue. Lucas decide se atualiza.
+
+## SLIDES DEMOLIDOS (S186)
+
+- `s-heterogeneity` (09) — slide removido, evidence/s-heterogeneity.html MANTIDO, CSS concept-card removido
+- `s-checkpoint-2` (12) — slide + CSS checkpoint + registry animation removidos. I2 phase eliminada
+- `s-aplicabilidade` (15) — slide removido, pico-* CSS mantido (usado por s-pico)
+- `s-absoluto` (16) — slide + CSS conversion removidos
+- `s-takehome` (17) — MANTIDO por enquanto
+
 ## CLEANUP PENDENTE
 
-- `.claude/plans/`: 17 plans untracked. Lucas decide per-file.
+- `.claude/plans/`: ~10 plans untracked. Lucas decide per-file.
 - `.claude/workers/`: workers de S178 + S181 (vies-pub-research). Lucas decide manter/remover.
 - `assets/rob-calibrator.html`: ferramenta temp de calibracao. Lucas decide manter/remover.
-- `assets/funnel-calibrator.html`: ferramenta calibracao zonas funnel plot (v2). Lucas decide manter/remover.
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S185 2026-04-13
+Coautoria: Lucas + Opus 4.6 | S186 2026-04-14

@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 186 — 2026-04-14 (SLIDE_DEMOLITION)
+
+### Slides — 4 slides removidos (19 → 15)
+- **git rm:** `09-heterogeneity.html`, `12-checkpoint-2.html`, `15-aplicabilidade.html`, `16-absoluto.html`
+- **_manifest.js:** 4 entries removidas, header atualizado (15 slides)
+- **slide-registry.js:** bloco `s-checkpoint-2` animation removido (~48 linhas)
+- **metanalise.css:** ~180 linhas dead CSS removidas (concept-card, checkpoint, conversion, symbol-neutral)
+- **Mantidos:** s-takehome (slide+CSS), evidence/s-heterogeneity.html, pico-* CSS (usado por s-pico)
+- **Phase I2 eliminada** (checkpoint-2 era o unico slide I2)
+- Build PASS + Lint PASS (15 slides)
+
 ## Sessao 185 — 2026-04-13 (PUBBIAS1_COMMIT + HETEROGENEITY_EVIDENCE)
 
 ### Evidence — Living HTML heterogeneidade (s-heterogeneity)

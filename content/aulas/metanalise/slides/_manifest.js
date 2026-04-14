@@ -6,7 +6,7 @@
  * Validação: npm run lint:narrative-sync metanalise
  *
  * Coautoria: Lucas (decisão clínica) · Opus 4.6 (código + governance)
- * Atualizado: 2026-04-13 — 19 slides (S184: +s-pubbias1)
+ * Atualizado: 2026-04-13 — 15 slides (S186: -heterogeneity, -checkpoint-2, -aplicabilidade, -absoluto)
  */
 
 export const slides = [
@@ -27,16 +27,11 @@ export const slides = [
   { id: 's-pubbias1',      file: '11a-pubbias1.html',    phase: 'F2', headline: 'Até um terço dos ensaios clínicos nunca é publicado — e os que faltam não são aleatórios',                                    timing: 90,   clickReveals: 3, customAnim: 's-pubbias1',    narrativeRole: 'setup',      tensionLevel: 3, narrativeCritical: false, evidence: 's-pubbias.html' },
   { id: 's-pubbias2',      file: '11b-pubbias2.html',    phase: 'F2', headline: 'Interpretando o Funnel Plot',                                                                                          timing: 90,   clickReveals: 3, customAnim: 's-pubbias2',     narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-pubbias.html' },
 
-  { id: 's-heterogeneity',file: '09-heterogeneity.html',phase: 'F2', headline: 'I² alto não invalida a MA — importa se a heterogeneidade é explicável e clinicamente relevante',                      timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false },
   { id: 's-fixed-random', file: '10-fixed-random.html', phase: 'F2', headline: 'Random-effects alarga o IC quando há heterogeneidade — resultado significativo em fixed-effect pode desaparecer',      timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 1, narrativeCritical: false },
 
-  // ── Interação 2: Checkpoint de consolidação ──
-  { id: 's-checkpoint-2', file: '12-checkpoint-2.html', phase: 'I2', headline: 'RR 0,75 (IC 0,60–0,93), I²=72%, GRADE baixa — o diamante favorece. Você muda?',                                     timing: 120,  clickReveals: 3, customAnim: 's-checkpoint-2', narrativeRole: 'checkpoint', tensionLevel: 4, narrativeCritical: true },
 
   // ── Fase 3: Aplicação (Valgimigli 2025) ──
   { id: 's-ancora',       file: '13-ancora.html',       phase: 'F3', headline: 'Clopidogrel reduziu eventos CV vs aspirina — 7 RCTs e 28.982 pacientes com dados individuais',                       timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-ancora.html' },
 
-  { id: 's-aplicabilidade',file:'15-aplicabilidade.html',phase:'F3', headline: 'Prevenção secundária de DAC, seguimento 2,3a — antes de adotar, verifique se seu paciente se encaixa',                timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false },
-  { id: 's-absoluto',     file: '16-absoluto.html',     phase: 'F3', headline: 'Mesmo RR pode significar NNT 25 ou NNT 250 — sem risco basal, efeito relativo não informa decisão',                  timing: 90,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 3, narrativeCritical: false },
   { id: 's-takehome',     file: '17-takehome.html',     phase: 'F3', headline: 'Três perguntas que você faz a toda MA antes de mudar sua conduta',                                                   timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'resolve',    tensionLevel: 1, narrativeCritical: true },
 ];

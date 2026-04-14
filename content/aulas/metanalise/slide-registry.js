@@ -213,54 +213,6 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => state;
   },
 
-  's-checkpoint-2': (slide, gsap) => {
-    const scenario = slide.querySelector('.checkpoint-scenario');
-    const question = slide.querySelector('.checkpoint-question');
-    const steps = slide.querySelectorAll('.checkpoint-step');
-    const verdict = slide.querySelector('.checkpoint-verdict');
-    if (!scenario || !question) return;
-
-    let state = 0;
-    const MAX = 3;
-
-    gsap.to(scenario, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' });
-    gsap.to(question, { y: 0, opacity: 1, duration: 0.6, delay: 0.3, ease: 'power3.out' });
-
-    function advance() {
-      if (state >= MAX) return false;
-      state++;
-      if (state === 1 && steps[0]) {
-        gsap.to(steps[0], { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' });
-      }
-      if (state === 2) {
-        if (steps[1]) gsap.to(steps[1], { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' });
-        if (steps[2]) gsap.to(steps[2], { y: 0, opacity: 1, duration: 0.5, delay: 0.3, ease: 'power3.out' });
-      }
-      if (state === 3 && verdict) {
-        gsap.to(verdict, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' });
-      }
-      return true;
-    }
-
-    function retreat() {
-      if (state <= 0) return false;
-      if (state === 3 && verdict) {
-        gsap.to(verdict, { opacity: 0, y: 12, duration: 0.3 });
-      }
-      if (state === 2) {
-        gsap.to([steps[1], steps[2]].filter(Boolean), { opacity: 0, y: 12, duration: 0.3 });
-      }
-      if (state === 1 && steps[0]) {
-        gsap.to(steps[0], { opacity: 0, y: 12, duration: 0.3 });
-      }
-      state--;
-      return true;
-    }
-
-    slide.__hookAdvance = advance;
-    slide.__hookRetreat = retreat;
-    slide.__hookCurrentBeat = () => state;
-  },
 
   's-objetivos': (slide, gsap) => {
     // Click-reveal: 3 groups (1-2 conceitos, 3-4 metodologia, 5 punchline)
