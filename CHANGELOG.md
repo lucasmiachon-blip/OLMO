@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## Sessao 193 — 2026-04-14 (hooks Fase 1 — ADVERSARIAL)
+
+### node→jq migration (6 hooks, 8 spawns eliminados)
+- momentum-brake-enforce, guard-bash-write, guard-read-secrets, guard-generated, guard-product-files, coupling-proactive
+- coupling-proactive: 3 node→0 (jq + `stat -c %Y`)
+- Overhead por Edit call: ~210-450ms economizados
+
+### Campo `if` adicionado (4 hooks)
+- guard-secrets (`git *`), guard-lint-before-build (`npm run build*`), build-monitor (`npm run build*`), success-capture (`git commit*`)
+- Evita spawn em ~80% dos Bash calls que nao matcham
+
+### Bug fixes (3)
+- stop-detect-issues.sh: hash-based dedup (MD5) substitui flatten+grep fragil
+- session-start.sh: truncate pending-fixes apos surfacear (eliminados orphan renames)
+- stop-should-dream.sh: indentacao corrigida + jq `fromdateiso8601` fallback
+
+### Security model refinement
+- guard-product-files.sh: hooks BLOCK (defense-in-depth), settings ASK (Lucas decide)
+- guard-bash-write.sh Pattern 7: expandido para python script.py/python3/py (backlog #20)
+- guard-pause.sh deletado (dead code — sem registro em settings)
+- KBP-19: Bash indirection para arquivos protegidos
+
 ## Sessao 192 — 2026-04-14 (hardening agents + KBP fix)
 
 ### Agents hardened (10/10)
