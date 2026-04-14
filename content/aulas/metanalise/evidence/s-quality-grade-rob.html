@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence: Qualidade da MA vs GRADE vs Risco de Vies</title>
+  <style>
+    /* === Base === */
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      max-width: 860px; margin: 2rem auto; padding: 0 1.5rem;
+      color: #1a1a2e; line-height: 1.7; text-align: justify;
+    }
+    h1 {
+      font-size: 1.5rem; border-bottom: 2px solid #2d6a4f;
+      padding-bottom: .5rem; margin-bottom: .25rem;
+    }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    h3 { font-size: 1.05rem; color: #2d6a4f; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .meta { font-size: .85rem; color: #555; }
+
+    /* === Tables === */
+    table {
+      border-collapse: collapse; width: 100%;
+      margin: .5rem 0; font-size: .88rem;
+      border-radius: 8px; overflow: hidden;
+    }
+    th, td { border: 1px solid #d4d4d4; padding: .5rem .7rem; text-align: left; }
+    th { background: #edf2ee; font-weight: 600; }
+
+    /* === Accordions === */
+    details {
+      margin: 1rem 0; padding: .6rem 1rem;
+      background: #eef2f7; border-radius: 10px;
+      border: 1px solid #d0d8e0;
+    }
+    details[open] { background: #e8eef5; }
+    summary {
+      cursor: pointer; font-weight: 600; color: #1e40af;
+      padding: .4rem 0; transition: color .2s;
+    }
+    summary:hover { color: #1e3a8a; }
+
+    /* === Links === */
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+    .ref-inline { color: #555; font-size: .85rem; }
+
+    /* === Callouts === */
+    .key-takeaway {
+      background: #e8f5e9; border-left: 4px solid #2d6a4f;
+      padding: .7rem 1rem; margin: .8rem 0; font-size: .9rem;
+      border-radius: 8px;
+    }
+    .caveat {
+      background: #fef3e2; border-left: 4px solid #e8850c;
+      padding: .6rem 1rem; margin: .8rem 0; font-size: .88rem;
+      border-radius: 8px;
+    }
+    .gap-card {
+      border-left: 3px solid #e8850c;
+      padding: .5rem .8rem; margin: .8rem 0;
+      background: #fef8f0; border-radius: 8px;
+    }
+    details .gap-card {
+      background: transparent; border-left: none;
+      padding: .2rem 0; margin: .4rem 0;
+    }
+
+    /* === Objectives === */
+    .objectives {
+      background: #edf5ee; border-radius: 10px;
+      padding: 1rem 1.4rem; margin: 1rem 0;
+      border: 1px solid #c8dcc9;
+    }
+    .objectives li { margin: .4rem 0; }
+
+    /* === Badges === */
+    .v { background: #2563eb; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .c { background: #dc2626; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+
+    /* === Framework box === */
+    .framework-box {
+      background: #f8f9fa; border: 2px solid #2d6a4f;
+      border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1rem 0;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-size: .85rem; line-height: 1.9;
+    }
+    .framework-box .level { font-weight: 700; color: #2d6a4f; }
+    .framework-box .tool { color: #1a56db; font-weight: 600; }
+    .framework-box .arrow { color: #888; }
+
+    /* === Utilities === */
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .example {
+      margin-left: 1.5rem; border-left: 2px solid #ccc;
+      padding-left: 1rem; margin-top: .5rem; margin-bottom: .5rem;
+    }
+
+    /* === Footer === */
+    footer {
+      margin-top: 2.5rem; padding-top: .8rem;
+      border-top: 1px solid #ccc;
+      font-size: .8rem; color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Qualidade da MA vs Certeza da Evidencia (GRADE) vs Risco de Vies</h1>
+  <p class="meta">Slide: s-quality-grade-rob (F2, posicao TBD &mdash; Lucas decide) | Timing: ~90s | Fase: Metodologia</p>
+  <p class="meta">Pesquisa: pipeline /evidence 5 pernas (S187) | Validade sugerida: outubro 2026</p>
+
+  <div class="objectives">
+    <strong>Ao final desta leitura, voce vai conseguir:</strong>
+    <ol>
+      <li>Distinguir tres perguntas diferentes quando alguem diz "esta MA e de alta qualidade"</li>
+      <li>Explicar o que cada ferramenta avalia: AMSTAR-2 (processo), GRADE (certeza), RoB 2/ROBINS-I (vies)</li>
+      <li>Descrever como RoB alimenta o GRADE (dominio 1 de 5) &mdash; e por que os outros 4 dominios importam tanto quanto</li>
+      <li>Reconhecer que AMSTAR-2 e GRADE sao ortogonais: uma MA impecavel pode produzir certeza muito baixa</li>
+      <li>Identificar as 6 concepcoes erroneas mais comuns sobre qualidade de evidencia</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ===== CONCEITOS-CHAVE ===== -->
+<section id="concepts-intro">
+  <h2>Conceitos-chave antes de comecar</h2>
+  <p>Tres termos que residentes usam como sinonimos &mdash; mas que significam coisas diferentes.</p>
+
+  <p><strong>Qualidade metodologica (de uma revisao sistematica):</strong> Se refere a <em>como a RS foi conduzida</em>. A busca foi abrangente? Os revisores usaram ferramentas de avaliacao de vies? Os metodos estatisticos foram adequados? E avaliada pela AMSTAR-2 (16 itens, 7 criticos). Uma RS de alta qualidade metodologica pode concluir que a evidencia e muito incerta &mdash; porque fez tudo certo e mesmo assim os dados sao fracos. A qualidade do trabalho de revisao nao garante a qualidade da evidencia encontrada.</p>
+
+  <p><strong>Certeza da evidencia (por desfecho):</strong> Se refere a <em>quanta confianca temos de que o efeito observado esta proximo do efeito verdadeiro</em>. E avaliada pelo GRADE, que opera no <strong>corpo de evidencia por desfecho</strong> &mdash; nao no estudo individual e nao na RS como um todo. A certeza pode ser alta para mortalidade e baixa para qualidade de vida na mesma MA. Os 5 dominios de rebaixamento sao: limitacoes do estudo (RoB), inconsistencia, evidencia indireta, imprecisao e vies de publicacao.</p>
+
+  <p><strong>Risco de vies (de um estudo individual):</strong> Se refere a <em>quanto confiamos que o resultado de um estudo especifico nao foi distorcido por falhas no seu desenho ou conducao</em>. RoB 2 avalia RCTs em 5 dominios (randomizacao, desvios, dados faltantes, mensuracao, relato seletivo). ROBINS-I avalia estudos nao-randomizados em 7 dominios (adiciona confusao e selecao). O resultado e um julgamento por desfecho: Baixo / Alguma preocupacao / Alto (RoB 2) ou Baixo / Moderado / Serio / Critico (ROBINS-I).</p>
+
+  <div class="key-takeaway"><strong>A distincao fundamental:</strong> RoB avalia <em>cada ingrediente</em>. GRADE avalia <em>o produto final</em>. AMSTAR-2 avalia <em>o processo de fabricacao</em>. Sao tres perguntas sobre tres objetos diferentes. Confundir os niveis leva a conclusoes clinicas erradas.</div>
+</section>
+
+<!-- ===== POR QUE IMPORTA ===== -->
+<section id="narrative">
+  <h2>Por que esta distincao importa na pratica clinica</h2>
+
+  <p>Na vida real, residentes e clinicos dizem "esta meta-analise e de alta qualidade" como se fosse uma frase com significado unico. Nao e. Essa frase pode significar tres coisas completamente diferentes, e confundi-las tem consequencias concretas.</p>
+
+  <div class="example">
+    <p><em>Cenario 1:</em> Um residente le uma RS sobre albumina na peritonite bacteriana espontanea. A RS foi bem conduzida (busca em 5 bases, protocolo registrado, avaliacao de RoB completa). AMSTAR-2: alta. Mas os 3 RCTs incluidos sao pequenos (n=30 cada), inconsistentes entre si, e os intervalos de confianca cruzam o 1. GRADE para mortalidade: muito baixa. O residente conclui "a evidencia e forte" porque a RS e boa. Erro: confundiu qualidade do processo com certeza da evidencia.</p>
+  </div>
+  <div class="example">
+    <p><em>Cenario 2:</em> Uma guideline cita "evidencia de alta qualidade" para recomendar um tratamento. O leitor assume que os estudos sao impecaveis (RoB baixo). Na verdade, a guideline usou "alta qualidade" referindo-se ao GRADE &mdash; que integra RoB mas tambem precisao, consistencia e outros dominios. Os estudos individuais tinham algum risco de vies, mas a imprecisao era a razao principal do rebaixamento. Erro: equiparou GRADE com RoB.</p>
+  </div>
+  <div class="example">
+    <p><em>Cenario 3:</em> Um revisor descarta uma RS inteira porque sua avaliacao AMSTAR-2 deu "criticamente baixa" (a busca foi limitada a uma unica base). Mas os 5 mega-trials que a RS encontrou sao todos de baixo RoB, com estimativas precisas e consistentes. A evidencia contida na RS e excelente &mdash; apesar do processo de busca ser falho. O risco real e que a RS <em>nao encontrou tudo</em>, mas o que encontrou e confiavel. Erro: descartou evidencia boa por causa de processo imperfeito.</p>
+  </div>
+</section>
+
+<!-- ===== SINTESE NARRATIVA ===== -->
+<section id="sintese">
+  <h2>Sintese: tres ferramentas, tres niveis</h2>
+
+  <p>Tres ferramentas dominam a avaliacao de evidencia em MBE &mdash; e sao sistematicamente confundidas. AMSTAR-2 pergunta "esta revisao sistematica foi <em>bem conduzida</em>?", GRADE pergunta "quanta <em>confianca</em> temos no resultado?", e RoB 2/ROBINS-I pergunta "os <em>estudos individuais</em> tem vieses sistematicos?". Cada uma opera em um nivel diferente da hierarquia.</p>
+
+  <p>A relacao mais critica &mdash; e mais mal compreendida &mdash; e entre RoB e GRADE. O risco de vies nos estudos individuais alimenta <strong>um dos cinco dominios</strong> do GRADE (dominio "limitacoes do estudo"). Mas GRADE nao e apenas RoB: imprecisao, inconsistencia, evidencia indireta e vies de publicacao tambem rebaixam a certeza. Um grupo de RCTs com baixo risco de vies pode ainda ter certeza baixa se os intervalos de confianca forem amplos (imprecisao) ou se os estudos apontarem em direcoes opostas (inconsistencia).</p>
+
+  <p>AMSTAR-2, por outro lado, e <strong>ortogonal</strong> ao GRADE. AMSTAR-2 audita se os revisores fizeram busca abrangente, aplicaram ferramentas de RoB adequadamente, usaram metodos estatisticos corretos &mdash; mas nao avalia a certeza da evidencia. E completamente possivel (e <em>comum</em>) que uma MA impecavelmente conduzida (AMSTAR-2 alta) conclua com certeza muito baixa no GRADE.</p>
+</section>
+
+<!-- ===== FRAMEWORK VISUAL ===== -->
+<section id="framework">
+  <h2>Framework: tres niveis, tres ferramentas</h2>
+
+  <div class="framework-box">
+    <span class="level">NIVEL 1 &mdash; ESTUDO INDIVIDUAL</span><br>
+    &nbsp;&nbsp;<span class="tool">RoB 2</span> (RCTs): 5 dominios &rarr; Baixo / Alguma preocupacao / Alto<br>
+    &nbsp;&nbsp;<span class="tool">ROBINS-I</span> (observacionais): 7 dominios &rarr; Baixo / Moderado / Serio / Critico<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="arrow">&darr; agregado entre estudos <em>por desfecho</em></span><br>
+    <br>
+    <span class="level">NIVEL 2 &mdash; CORPO DE EVIDENCIA (por desfecho)</span><br>
+    &nbsp;&nbsp;<span class="tool">GRADE</span> dominio 1: "Limitacoes do estudo" <strong>(= RoB agregado)</strong><br>
+    &nbsp;&nbsp;+ dominio 2: Inconsistencia (resultados divergem entre estudos?)<br>
+    &nbsp;&nbsp;+ dominio 3: Evidencia indireta (PICO nao e exatamente o do seu paciente?)<br>
+    &nbsp;&nbsp;+ dominio 4: Imprecisao (ICs amplos demais para decidir?)<br>
+    &nbsp;&nbsp;+ dominio 5: Vies de publicacao (faltam estudos negativos?)<br>
+    &nbsp;&nbsp;&rarr; Certeza: <strong>Alta &rarr; Moderada &rarr; Baixa &rarr; Muito baixa</strong><br>
+    <br>
+    <span class="level">NIVEL 3 &mdash; PROCESSO DA REVISAO (independente dos niveis 1-2)</span><br>
+    &nbsp;&nbsp;<span class="tool">AMSTAR-2</span>: 16 itens, 7 criticos &mdash; audita o processo da RS/MA<br>
+    &nbsp;&nbsp;Pergunta: os revisores fizeram avaliacao de RoB? (item 9)<br>
+    &nbsp;&nbsp;NAO avalia certeza da evidencia. NAO substitui GRADE.<br>
+    &nbsp;&nbsp;&rarr; Confianca na RS: <strong>Alta / Moderada / Baixa / Criticamente baixa</strong>
+  </div>
+
+  <div class="caveat"><strong>Ponto-chave:</strong> AMSTAR-2 e GRADE sao <strong>ortogonais</strong>. Uma RS pode ser metodologicamente rigorosa (AMSTAR-2 alta) enquanto sua evidencia e muito incerta (GRADE muito baixa) &mdash; por exemplo, uma RS perfeitamente conduzida de RCTs pequenos, heterogeneos e imprecisos. Inversamente, uma RS falha no processo pode acidentalmente conter RCTs excelentes.</div>
+</section>
+
+<!-- ===== DETALHAMENTO DAS 3 FERRAMENTAS ===== -->
+<section id="tools">
+  <h2>Detalhamento das tres ferramentas</h2>
+
+  <h3>AMSTAR-2 &mdash; avaliacao do processo da revisao</h3>
+  <p>Desenvolvida por Shea et al. (2017), AMSTAR-2 e um checklist de 16 itens para avaliar se a revisao sistematica foi conduzida com rigor metodologico. Nao gera um escore numerico &mdash; identifica <strong>falhas criticas</strong> no processo. Uma unica falha critica pode rebaixar a confianca para "criticamente baixa".</p>
+  <table>
+    <tr><th scope="col">#</th><th scope="col">Dominio critico</th><th scope="col">Pergunta que faz</th><th scope="col">Red flag se ausente</th></tr>
+    <tr><td>2</td><td>Protocolo a priori</td><td>Houve protocolo registrado antes da revisao?</td><td>Decisoes podem ter sido post-hoc (data-dredging)</td></tr>
+    <tr><td>4</td><td>Busca abrangente</td><td>A estrategia foi adequada (2+ bases, descritores, sem restricao)?</td><td>Estudos relevantes podem ter sido perdidos</td></tr>
+    <tr><td>7</td><td>Lista de excluidos</td><td>Estudos excluidos foram listados com justificativa?</td><td>Exclusao seletiva nao pode ser verificada</td></tr>
+    <tr><td>9</td><td>Avaliacao de RoB</td><td>Usaram ferramenta adequada (RoB 2, ROBINS-I)?</td><td>Vieses dos estudos podem ter sido ignorados</td></tr>
+    <tr><td>11</td><td>Metodos estatisticos</td><td>Metodos de MA foram apropriados?</td><td>Resultados podem ser artefatos estatisticos</td></tr>
+    <tr><td>13</td><td>RoB na interpretacao</td><td>RoB foi considerado ao discutir resultados?</td><td>Conclusoes podem nao refletir a qualidade da evidencia</td></tr>
+    <tr><td>15</td><td>Vies de publicacao</td><td>Vies de publicacao foi investigado e discutido?</td><td>Estimativa de efeito pode estar inflada</td></tr>
+  </table>
+  <p class="ref-inline">Fonte: Shea et al. 2017 (<a href="https://pubmed.ncbi.nlm.nih.gov/28935701/" class="ref-pmid" target="_blank" rel="noopener">PMID 28935701</a><span class="v">V</span>). BMJ. DOI: 10.1136/bmj.j4008</p>
+
+  <h3>GRADE &mdash; certeza da evidencia por desfecho</h3>
+  <p>O GRADE avalia quanta confianca temos de que o efeito verdadeiro esta proximo da estimativa. Opera no <strong>corpo de evidencia por desfecho</strong>. A certeza comeca em "alta" para RCTs e "baixa" para estudos observacionais, e pode ser modificada por 8 dominios:</p>
+  <table>
+    <tr><th scope="col">Dominio</th><th scope="col">Direcao</th><th scope="col">Pergunta</th><th scope="col">Relacao com RoB</th></tr>
+    <tr><td class="glossary-term">Limitacoes do estudo</td><td>&darr; Rebaixa</td><td>Os estudos tem vieses que comprometem as estimativas?</td><td><strong>ALIMENTADO pelo RoB 2/ROBINS-I</strong></td></tr>
+    <tr><td class="glossary-term">Inconsistencia</td><td>&darr; Rebaixa</td><td>Os efeitos variam entre estudos sem explicacao clinica?</td><td>Independente do RoB</td></tr>
+    <tr><td class="glossary-term">Evidencia indireta</td><td>&darr; Rebaixa</td><td>Os estudos respondem diretamente a pergunta clinica (PICO)?</td><td>Independente do RoB</td></tr>
+    <tr><td class="glossary-term">Imprecisao</td><td>&darr; Rebaixa</td><td>Os intervalos de confianca sao estreitos o suficiente para decidir?</td><td>Independente do RoB</td></tr>
+    <tr><td class="glossary-term">Vies de publicacao</td><td>&darr; Rebaixa</td><td>Estudos negativos podem estar faltando?</td><td>Independente do RoB</td></tr>
+    <tr><td>Magnitude do efeito</td><td>&uarr; Eleva</td><td>Efeito grande e consistente (RR&gt;2 ou RR&lt;0.5)?</td><td>&mdash;</td></tr>
+    <tr><td>Gradiente dose-resposta</td><td>&uarr; Eleva</td><td>Mais exposicao = mais efeito?</td><td>&mdash;</td></tr>
+    <tr><td>Confusao residual</td><td>&uarr; Eleva</td><td>Vieses plaussiveis subestimam o efeito (direcao oposta)?</td><td>&mdash;</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: GRADE Working Group 2004 (<a href="https://pubmed.ncbi.nlm.nih.gov/15205295/" class="ref-pmid" target="_blank" rel="noopener">PMID 15205295</a><span class="v">V</span>); Balshem et al. 2011 (<a href="https://pubmed.ncbi.nlm.nih.gov/21208779/" class="ref-pmid" target="_blank" rel="noopener">PMID 21208779</a><span class="v">V</span>); Guyatt et al. 2011 GRADE 4 (<a href="https://pubmed.ncbi.nlm.nih.gov/21247734/" class="ref-pmid" target="_blank" rel="noopener">PMID 21247734</a><span class="v">V</span>).</p>
+
+  <div class="key-takeaway"><strong>Para o residente:</strong> "Qualidade" no GRADE significa mais do que risco de vies. Mesmo com RoB baixo em todos os estudos, a certeza pode ser rebaixada por imprecisao, inconsistencia, evidencia indireta ou vies de publicacao. RoB e o primeiro domino, nao o veredicto final.</div>
+
+  <h3>RoB 2 e ROBINS-I &mdash; vies nos estudos individuais</h3>
+  <p>Operam exclusivamente no <strong>nivel do estudo primario</strong>. RoB 2 avalia RCTs em 5 dominios; ROBINS-I avalia estudos nao-randomizados em 7 dominios, comparando com um "trial alvo" hipotetico &mdash; o RCT que teria respondido perfeitamente a pergunta.</p>
+  <table>
+    <tr><th scope="col">Ferramenta</th><th scope="col">Alvo</th><th scope="col">Dominios</th><th scope="col">Julgamento</th><th scope="col">Nota</th></tr>
+    <tr>
+      <td class="glossary-term">RoB 2</td>
+      <td>RCTs</td>
+      <td>5: randomizacao, desvios da intervencao, dados faltantes, mensuracao, relato seletivo</td>
+      <td>Baixo / Alguma preocupacao / Alto</td>
+      <td>Substituiu o RoB 1 (Cochrane). Usa signalling questions em vez de checklist.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">ROBINS-I</td>
+      <td>Estudos nao-randomizados</td>
+      <td>7: confusao, selecao, classificacao, desvios, dados faltantes, mensuracao, relato seletivo</td>
+      <td>Baixo / Moderado / Serio / Critico / Sem informacao</td>
+      <td>"Baixo" no ROBINS-I = equivalente a RCT bem conduzido (raro, mas possivel).</td>
+    </tr>
+  </table>
+  <p class="ref-inline">Fontes: Sterne et al. 2019 RoB 2 (<a href="https://pubmed.ncbi.nlm.nih.gov/31462531/" class="ref-pmid" target="_blank" rel="noopener">PMID 31462531</a><span class="v">V</span>); Sterne et al. 2016 ROBINS-I (<a href="https://pubmed.ncbi.nlm.nih.gov/27733354/" class="ref-pmid" target="_blank" rel="noopener">PMID 27733354</a><span class="v">V</span>).</p>
+
+  <h3>Como RoB alimenta o GRADE</h3>
+  <p>A conexao e direta mas nao exclusiva: o julgamento de RoB dos estudos individuais e <strong>agregado por desfecho</strong> e alimenta o dominio "limitacoes do estudo" do GRADE. Guyatt et al. (2011, GRADE guideline 4) detalham: se a maioria da informacao vem de estudos com risco de vies serio ou muito serio, a certeza e rebaixada em 1 ou 2 niveis para aquele desfecho.</p>
+  <p>Inovacao do ROBINS-I: se um estudo observacional recebe "Baixo risco" no ROBINS-I (equivalente a um RCT bem conduzido), o GRADE pode iniciar a certeza daquele corpo de evidencia em "Alta" em vez da classificacao automatica "Baixa" para estudos observacionais.</p>
+  <p class="ref-inline">Fontes: Guyatt et al. 2011 GRADE 4 (<a href="https://pubmed.ncbi.nlm.nih.gov/21247734/" class="ref-pmid" target="_blank" rel="noopener">PMID 21247734</a><span class="v">V</span>); Brignardello-Petersen &amp; Guyatt 2024 (<a href="https://pubmed.ncbi.nlm.nih.gov/39218429/" class="ref-pmid" target="_blank" rel="noopener">PMID 39218429</a><span class="v">V</span>); Sterne et al. 2016 ROBINS-I (<a href="https://pubmed.ncbi.nlm.nih.gov/27733354/" class="ref-pmid" target="_blank" rel="noopener">PMID 27733354</a><span class="v">V</span>).</p>
+</section>
+
+<!-- ===== CONCEPCOES ERRONEAS ===== -->
+<section id="misconceptions">
+  <h2>Concepcoes erroneas documentadas</h2>
+  <p>A confusao entre estes niveis nao e teorica &mdash; e empirica e prevalente:</p>
+
+  <table>
+    <tr><th scope="col">Concepcao erronea</th><th scope="col">O que a evidencia mostra</th><th scope="col">Fonte</th></tr>
+    <tr>
+      <td>"Esta MA e de alta qualidade" (sem especificar <em>o que</em>)</td>
+      <td>Qualidade do processo (AMSTAR-2), da evidencia (GRADE) e dos estudos (RoB) sao respostas independentes. Alta em uma nao implica alta nas outras.</td>
+      <td>Kolaski et al. 2023 (<a href="https://pubmed.ncbi.nlm.nih.gov/37302044/" class="ref-pmid" target="_blank" rel="noopener">PMID 37302044</a><span class="v">V</span>)</td>
+    </tr>
+    <tr>
+      <td>"RoB baixo = certeza alta no GRADE"</td>
+      <td>RoB e apenas 1 de 5 dominios de rebaixamento do GRADE. Imprecisao, inconsistencia, evidencia indireta e vies de publicacao tambem rebaixam. Baixo RoB nao garante alta certeza.</td>
+      <td>Balshem et al. 2011 (<a href="https://pubmed.ncbi.nlm.nih.gov/21208779/" class="ref-pmid" target="_blank" rel="noopener">PMID 21208779</a><span class="v">V</span>)</td>
+    </tr>
+    <tr>
+      <td>"AMSTAR-2 valida o GRADE"</td>
+      <td>AMSTAR-2 verifica se os revisores <em>aplicaram</em> GRADE e RoB, mas nao substitui nem valida a avaliacao GRADE em si. Sao ferramentas ortogonais.</td>
+      <td>Kolaski et al. 2023 (<a href="https://pubmed.ncbi.nlm.nih.gov/37302044/" class="ref-pmid" target="_blank" rel="noopener">PMID 37302044</a><span class="v">V</span>)</td>
+    </tr>
+    <tr>
+      <td>"Guidelines que citam GRADE realmente seguem o GRADE"</td>
+      <td>A aderencia ao GRADE entre CPGs e heterogenea: criterios de certeza e recomendacoes sao os mais frequentemente abordados, mas framing de perguntas e selecao de desfechos sao negligenciados. Nenhum dos instrumentos de avaliacao identificados passou por user testing.</td>
+      <td>Yan et al. 2026 (<a href="https://pubmed.ncbi.nlm.nih.gov/41722827/" class="ref-pmid" target="_blank" rel="noopener">PMID 41722827</a><span class="v">V</span>)</td>
+    </tr>
+    <tr>
+      <td>"ROBINS-I = avaliacao no nivel do estudo = suficiente"</td>
+      <td>Em 492 SRs usando ROBINS-I, apenas 12% reportaram resultados no nivel do desfecho (como a orientacao requer) &mdash; a maioria reportou apenas no nivel do estudo. Apenas 1 SR cumpriu todas as orientacoes.</td>
+      <td>Iheozor-Ejiofor et al. 2026 (<a href="https://pubmed.ncbi.nlm.nih.gov/41635947/" class="ref-pmid" target="_blank" rel="noopener">PMID 41635947</a><span class="v">V</span>)</td>
+    </tr>
+    <tr>
+      <td>"Todos estudos observacionais = vies alto automaticamente"</td>
+      <td>ROBINS-I avalia dominios especificos. Um estudo observacional pode receber "Baixo risco", equivalente a um RCT bem conduzido &mdash; nesse caso, a certeza GRADE pode iniciar em "Alta".</td>
+      <td>Sterne et al. 2016 (<a href="https://pubmed.ncbi.nlm.nih.gov/27733354/" class="ref-pmid" target="_blank" rel="noopener">PMID 27733354</a><span class="v">V</span>)</td>
+    </tr>
+  </table>
+
+  <div class="caveat"><strong>Core GRADE 2025:</strong> A iniciativa Core GRADE (Colunga-Lozano et al. 2025, <a href="https://pubmed.ncbi.nlm.nih.gov/41207400/" class="ref-pmid" target="_blank" rel="noopener">PMID 41207400</a><span class="v">V</span>) simplifica o framework GRADE, enfatizando que os dominios (incluindo RoB) devem ser vistos como continua, nao como decisoes binarias. A separacao entre RoB individual e certeza GRADE permanece fundamental no framework atualizado.</div>
+</section>
+
+<!-- ===== CENARIOS CLINICOS ===== -->
+<section id="scenarios">
+  <h2>Cenarios que ilustram a dissociacao</h2>
+  <p>Cada cenario mostra como os tres niveis podem divergir na pratica:</p>
+
+  <table>
+    <tr><th scope="col">Cenario</th><th scope="col">AMSTAR-2</th><th scope="col">RoB dos estudos</th><th scope="col">GRADE</th><th scope="col">Licao</th></tr>
+    <tr>
+      <td>RS impecavel de 3 RCTs pequenos (n=30 cada), resultados inconsistentes</td>
+      <td><strong>Alta</strong></td>
+      <td>Baixo</td>
+      <td><strong>Muito baixa</strong> (imprecisao + inconsistencia)</td>
+      <td>Processo perfeito nao salva evidencia fraca</td>
+    </tr>
+    <tr>
+      <td>RS com busca limitada (1 base) encontrou 5 mega-trials bem conduzidos</td>
+      <td><strong>Criticamente baixa</strong> (busca inadequada)</td>
+      <td>Baixo</td>
+      <td><strong>Alta</strong> (se nao rebaixada por outros dominios)</td>
+      <td>Processo falho pode conter boa evidencia &mdash; mas nao confiar que encontrou tudo</td>
+    </tr>
+    <tr>
+      <td>RS rigorosa de 20 estudos observacionais com confusao residual importante</td>
+      <td><strong>Alta</strong></td>
+      <td>Serio (confusao)</td>
+      <td><strong>Muito baixa</strong> (inicia baixa + rebaixa por RoB)</td>
+      <td>Ate uma RS perfeita de observacionais com vieses produz baixa certeza</td>
+    </tr>
+    <tr>
+      <td>RS adequada de 8 RCTs com RoB baixo, mas populacao nao e a do seu paciente</td>
+      <td><strong>Moderada</strong></td>
+      <td>Baixo</td>
+      <td><strong>Moderada</strong> (rebaixada por evidencia indireta)</td>
+      <td>RoB baixo nao garante certeza se a pergunta clinica nao e a do estudo</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ===== GLOSSARIO ===== -->
+<section id="glossary">
+  <h2>Glossario rapido</h2>
+  <table>
+    <tr><th scope="col">Termo</th><th scope="col">O que significa</th><th scope="col">Na pratica</th></tr>
+    <tr><td class="glossary-term">Corpo de evidencia</td><td>Conjunto de todos os estudos que respondem a uma pergunta especifica sobre um desfecho especifico.</td><td>GRADE opera neste nivel &mdash; nao no estudo individual. Uma MA pode ter alta certeza para mortalidade e baixa para qualidade de vida.</td></tr>
+    <tr><td class="glossary-term">Signalling questions</td><td>Perguntas-guia do RoB 2 que levam ao julgamento de cada dominio. Substituiram checklists binarios.</td><td>Ex: "A sequencia de randomizacao foi adequadamente gerada?" Resposta: Sim/Provavelmente sim/Nao/Provavelmente nao/Sem informacao.</td></tr>
+    <tr><td class="glossary-term">Target trial</td><td>O RCT hipotetico que responderia perfeitamente a pergunta. ROBINS-I compara cada estudo observacional contra esse ideal.</td><td>Se o target trial e um RCT paralelo com ITT, e o estudo real usa coorte retrospectiva, os dominios de confusao e selecao serao mais exigentes.</td></tr>
+    <tr><td class="glossary-term">Dominio critico</td><td>Os 7 itens da AMSTAR-2 (de 16) cujo nao-cumprimento isolado pode rebaixar a confianca para "criticamente baixa".</td><td>Uma RS pode cumprir 15 de 16 itens, mas se o unico item falho for um dominio critico (ex: nao avaliou RoB), a confianca na RS cai drasticamente.</td></tr>
+    <tr><td class="glossary-term">Certeza vs forca</td><td>No GRADE, <em>certeza</em> = quanta confianca no efeito. <em>Forca da recomendacao</em> = forte vs condicional. Nao sao a mesma coisa.</td><td>E possivel ter recomendacao forte com certeza baixa (ex: nao usar tratamento claramente danoso) e recomendacao condicional com certeza alta (ex: beneficio marginal, depende de preferencia do paciente).</td></tr>
+    <tr><td class="glossary-term">Ortogonal</td><td>Dois eixos independentes. Saber o valor de um nao prediz o valor do outro.</td><td>AMSTAR-2 e GRADE sao ortogonais: alta AMSTAR-2 + baixa GRADE e tao possivel quanto alta AMSTAR-2 + alta GRADE.</td></tr>
+  </table>
+</section>
+
+<!-- ===== ANALOGIA PEDAGOGICA ===== -->
+<section id="analogy">
+  <h2>Analogia: container, conteudo, ingredientes</h2>
+  <p>Uma analogia util para residentes (Kolaski et al. 2023):</p>
+  <table>
+    <tr><th scope="col">Metafora</th><th scope="col">Ferramenta</th><th scope="col">Pergunta</th><th scope="col">Exemplo de falha isolada</th></tr>
+    <tr><td><strong>Container</strong> (a revisao)</td><td>AMSTAR-2</td><td>A caixa foi montada com cuidado? Busca completa? Metodos transparentes?</td><td>Busca limitada = pode faltar estudos. Mas o que esta dentro pode ser excelente.</td></tr>
+    <tr><td><strong>Conteudo</strong> (a evidencia)</td><td>GRADE</td><td>O que esta dentro da caixa e confiavel? Quanto confiar na estimativa?</td><td>3 RCTs pequenos e inconsistentes = baixa certeza, mesmo que o container seja perfeito.</td></tr>
+    <tr><td><strong>Ingredientes</strong> (os estudos)</td><td>RoB 2 / ROBINS-I</td><td>Cada ingrediente individual esta intacto ou contaminado?</td><td>Estudos com randomizacao falha = ingrediente comprometido. Mas ingrediente bom num container ruim tambem e possivel.</td></tr>
+  </table>
+  <p>A integridade do container (AMSTAR-2) nao garante a qualidade dos ingredientes (RoB), e nenhum dos dois garante que o conteudo final (GRADE) sera confiavel. Uma caixa perfeita pode conter ingredientes ruins; ingredientes bons podem ser mal montados.</p>
+</section>
+
+<!-- ===== PARA QUEM QUISER IR ALEM ===== -->
+<section id="deep-dive">
+  <h2>Para quem quiser ir alem</h2>
+  <p>Topicos avancados sobre cada ferramenta.</p>
+
+  <details>
+    <summary>A) AMSTAR-2 na pratica: por que "criticamente baixa" nao significa "descarte a RS"</summary>
+    <p>O erro mais comum ao usar AMSTAR-2 e tratar o resultado como binario: "alta = aceitar, criticamente baixa = descartar". Na realidade, AMSTAR-2 identifica <em>onde</em> o processo falhou, e o leitor deve julgar o impacto.</p>
+    <p>Exemplo: uma RS nao listou estudos excluidos (item 7, critico). Resultado: AMSTAR-2 criticamente baixa. Mas a busca foi abrangente, o RoB foi avaliado com RoB 2, e os metodos estatisticos sao adequados. A falha no item 7 significa que voce nao pode verificar se a exclusao foi seletiva &mdash; mas o restante do processo e solido. Descartar a RS inteira por causa de um item seria desperdicio de evidencia.</p>
+    <p>Regra pratica: leia o <em>perfil</em> de AMSTAR-2, nao apenas o julgamento global. Quais dominios criticos falharam? Qual o impacto provavel de cada falha nos resultados? A confianca no processo e uma escala, nao um interruptor.</p>
+    <p><strong>Shea BJ et al.</strong> AMSTAR 2. <em>BMJ</em>. 2017;358:j4008. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28935701/" target="_blank" rel="noopener">PMID 28935701</a><span class="v">V</span></p>
+  </details>
+
+  <details>
+    <summary>B) GRADE: o dominio mais subestimado e a imprecisao</summary>
+    <p>Residentes frequentemente focam no RoB (dominio 1) e ignoram imprecisao (dominio 4). Mas imprecisao e o dominio que mais frequentemente rebaixa a certeza na pratica &mdash; porque muitas MAs incluem poucos estudos com poucos eventos.</p>
+    <p>O criterio GRADE para imprecisao e: o intervalo de confianca inclui ambos: (a) beneficio clinicamente relevante e (b) dano ou ausencia de efeito? Se sim, a evidencia nao e suficiente para decidir, mesmo que o ponto estimado favoreca o tratamento.</p>
+    <p>Isso se conecta ao conceito de Optimal Information Size (OIS): se o numero total de pacientes na MA e menor do que o tamanho amostral que um unico RCT precisaria para detectar o efeito, a MA e imprecisa por definicao &mdash; nao importa quantos estudos tem.</p>
+    <p><strong>Guyatt GH et al.</strong> GRADE guidelines 6: rating the quality of evidence &mdash; imprecision. <em>J Clin Epidemiol</em>. 2011;64(12):1283-93. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21839614/" target="_blank" rel="noopener">PMID 21839614</a><span class="v">V</span></p>
+  </details>
+
+  <details>
+    <summary>C) ROBINS-I "Baixo risco": quando um estudo observacional vale tanto quanto um RCT</summary>
+    <p>A inovacao conceitual do ROBINS-I e que estudos observacionais nao sao automaticamente "de baixa qualidade". Se um estudo de coorte tem confusao adequadamente controlada (ex: propensity score com sensibilidade), selecao nao-enviesada, e desfechos mensurados de forma identica ao target trial, ele pode receber "Baixo risco" &mdash; o mesmo julgamento de um RCT bem conduzido.</p>
+    <p>Nesse caso, o GRADE pode iniciar a certeza do corpo de evidencia em "Alta" em vez de "Baixa" (o default para observacionais). Isso e raro mas acontece &mdash; por exemplo, em estudos de efetividade com registros clinicos de alta qualidade e desfechos duros (mortalidade, hospitalizacao).</p>
+    <p>Porem, na pratica, Iheozor-Ejiofor et al. (2026) mostraram que a maioria das SRs nao aplica ROBINS-I corretamente: em 492 SRs, apenas 12% reportaram resultados no nivel do desfecho (como requerido) e apenas 1 SR cumpriu todas as orientacoes.</p>
+    <p><strong>Sterne JA et al.</strong> ROBINS-I. <em>BMJ</em>. 2016;355:i4919. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/27733354/" target="_blank" rel="noopener">PMID 27733354</a><span class="v">V</span></p>
+    <p><strong>Iheozor-Ejiofor Z et al.</strong> The application of ROBINS-I guidance in systematic reviews. <em>Res Synth Methods</em>. 2026. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41635947/" target="_blank" rel="noopener">PMID 41635947</a><span class="v">V</span></p>
+  </details>
+
+  <details>
+    <summary>D) Certeza vs forca da recomendacao: por que nao sao a mesma coisa</summary>
+    <p>Um erro frequente em guidelines: assumir que alta certeza = recomendacao forte e baixa certeza = recomendacao fraca. Na realidade, o GRADE separa explicitamente certeza da evidencia (epistemologica) de forca da recomendacao (decisional).</p>
+    <p>Quatro cenarios:</p>
+    <table>
+      <tr><th scope="col">Certeza</th><th scope="col">Recomendacao</th><th scope="col">Exemplo</th></tr>
+      <tr><td>Alta</td><td>Forte</td><td>Trombolise no IAMCSST &lt;12h: evidencia clara, beneficio grande, risco aceitavel.</td></tr>
+      <tr><td>Alta</td><td>Condicional</td><td>Estatina em prevenção primaria em idosos &gt;75a: beneficio marginal, depende de preferencia do paciente.</td></tr>
+      <tr><td>Baixa</td><td>Forte</td><td>Nao usar terapia nao comprovada com risco conhecido: evidencia limitada, mas potencial de dano claro.</td></tr>
+      <tr><td>Baixa</td><td>Condicional</td><td>Muitas situacoes clinicas onde os dados sao escassos e as preferencias importam.</td></tr>
+    </table>
+    <p>A forca da recomendacao depende de: certeza da evidencia + balanco beneficio-dano + valores do paciente + recursos. Certeza e apenas um dos ingredientes.</p>
+  </details>
+</section>
+
+<!-- ===== CONVERGENCIA ===== -->
+<details>
+  <summary>Convergencia entre pernas de pesquisa (5 bracos)</summary>
+  <table>
+    <tr><th scope="col">Achado</th><th scope="col">Gemini</th><th scope="col">Perplexity</th><th scope="col">NLM</th><th scope="col">Evidence-researcher</th><th scope="col">Convergencia</th></tr>
+    <tr><td>AMSTAR-2 independente do GRADE</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>RoB alimenta dominio 1 do GRADE</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>Shea 2017 = landmark AMSTAR-2</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>Sterne 2019 = landmark RoB 2</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>Alta AMSTAR-2 + baixa GRADE e possivel e comum</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>ROBINS-I "Baixo" pode elevar ponto de partida no GRADE</td><td>&check;</td><td>&mdash;</td><td>&mdash;</td><td>&check;</td><td><strong>2/4</strong></td></tr>
+  </table>
+  <p class="ref-inline">Divergencias: nenhuma substantiva. Todas as pernas concordam nos conceitos fundamentais. Perplexity forneceu conteudo correto mas PMIDs 100% fabricados (verificados via NCBI E-utilities).</p>
+</details>
+
+<!-- ===== REFERENCIAS ===== -->
+<section id="references">
+  <h2>Referencias</h2>
+
+  <h3>Ferramentas landmark</h3>
+  <ol>
+    <li>GRADE Working Group (Atkins D, Guyatt GH, Schunemann HJ et al.). Grading quality of evidence and strength of recommendations. <em>BMJ</em>. 2004;328(7454):1490. <a href="https://pubmed.ncbi.nlm.nih.gov/15205295/" class="ref-pmid" target="_blank" rel="noopener">PMID 15205295</a><span class="v">V</span>. DOI: 10.1136/bmj.328.7454.1490</li>
+    <li>Guyatt GH, Oxman AD, Vist GE et al. GRADE: an emerging consensus on rating quality of evidence and strength of recommendations. <em>BMJ</em>. 2008;336(7650):924-6. <a href="https://pubmed.ncbi.nlm.nih.gov/18436948/" class="ref-pmid" target="_blank" rel="noopener">PMID 18436948</a><span class="v">V</span>. DOI: 10.1136/bmj.39489.470347.AD</li>
+    <li>Balshem H, Helfand M, Schunemann HJ et al. GRADE guidelines: 3. Rating the quality of evidence. <em>J Clin Epidemiol</em>. 2011;64(4):401-6. <a href="https://pubmed.ncbi.nlm.nih.gov/21208779/" class="ref-pmid" target="_blank" rel="noopener">PMID 21208779</a><span class="v">V</span>. DOI: 10.1016/j.jclinepi.2010.07.015</li>
+    <li>Guyatt GH, Oxman AD, Vist G et al. GRADE guidelines: 4. Rating the quality of evidence &mdash; study limitations (risk of bias). <em>J Clin Epidemiol</em>. 2011;64(4):407-15. <a href="https://pubmed.ncbi.nlm.nih.gov/21247734/" class="ref-pmid" target="_blank" rel="noopener">PMID 21247734</a><span class="v">V</span>. DOI: 10.1016/j.jclinepi.2010.07.017</li>
+    <li>Shea BJ, Reeves BC, Wells G et al. AMSTAR 2: a critical appraisal tool for systematic reviews. <em>BMJ</em>. 2017;358:j4008. <a href="https://pubmed.ncbi.nlm.nih.gov/28935701/" class="ref-pmid" target="_blank" rel="noopener">PMID 28935701</a><span class="v">V</span>. DOI: 10.1136/bmj.j4008</li>
+    <li>Sterne JA, Hernan MA, Reeves BC et al. ROBINS-I: a tool for assessing risk of bias in non-randomised studies. <em>BMJ</em>. 2016;355:i4919. <a href="https://pubmed.ncbi.nlm.nih.gov/27733354/" class="ref-pmid" target="_blank" rel="noopener">PMID 27733354</a><span class="v">V</span>. DOI: 10.1136/bmj.i4919</li>
+    <li>Sterne JAC, Savovic J, Page MJ et al. RoB 2: a revised tool for assessing risk of bias in randomised trials. <em>BMJ</em>. 2019;366:l4898. <a href="https://pubmed.ncbi.nlm.nih.gov/31462531/" class="ref-pmid" target="_blank" rel="noopener">PMID 31462531</a><span class="v">V</span>. DOI: 10.1136/bmj.l4898</li>
+  </ol>
+
+  <h3>Pedagogia, comparacao e aplicacao</h3>
+  <ol start="8">
+    <li>Guyatt GH, Oxman AD, Akl EA et al. GRADE guidelines: 1. Introduction. <em>J Clin Epidemiol</em>. 2011;64(4):383-94. <a href="https://pubmed.ncbi.nlm.nih.gov/21195583/" class="ref-pmid" target="_blank" rel="noopener">PMID 21195583</a><span class="v">V</span>. DOI: 10.1016/j.jclinepi.2010.04.026</li>
+    <li>Kolaski K, Romeiser Logan L, Ioannidis JPA. Guidance to best tools and practices for systematic reviews. <em>J Pediatr Rehabil Med</em>. 2023;16(3):445-60. <a href="https://pubmed.ncbi.nlm.nih.gov/37302044/" class="ref-pmid" target="_blank" rel="noopener">PMID 37302044</a><span class="v">V</span>. DOI: 10.3233/PRM-230019</li>
+    <li>Brignardello-Petersen R, Guyatt GH. Assessing the certainty of the evidence in systematic reviews. <em>Am J Epidemiol</em>. 2024;193(12):1798-1808. <a href="https://pubmed.ncbi.nlm.nih.gov/39218429/" class="ref-pmid" target="_blank" rel="noopener">PMID 39218429</a><span class="v">V</span>. DOI: 10.1093/aje/kwae332</li>
+    <li>Colunga-Lozano LE, Guyatt G et al. Core GRADE unpacked. <em>J Clin Epidemiol</em>. 2025;183:112047. <a href="https://pubmed.ncbi.nlm.nih.gov/41207400/" class="ref-pmid" target="_blank" rel="noopener">PMID 41207400</a><span class="v">V</span>. DOI: 10.1016/j.jclinepi.2025.112047</li>
+    <li>Iheozor-Ejiofor Z, Savovic J, Bowater RJ, Higgins JPT. The application of ROBINS-I guidance in systematic reviews. <em>Res Synth Methods</em>. 2026. <a href="https://pubmed.ncbi.nlm.nih.gov/41635947/" class="ref-pmid" target="_blank" rel="noopener">PMID 41635947</a><span class="v">V</span>. DOI: 10.1017/rsm.2025.10048</li>
+    <li>Yan S, Guyatt GH, Ren X et al. Evaluation of GRADE Approach Adherence in Clinical Practice Guidelines. <em>J Clin Epidemiol</em>. 2026;185:112186. <a href="https://pubmed.ncbi.nlm.nih.gov/41722827/" class="ref-pmid" target="_blank" rel="noopener">PMID 41722827</a><span class="v">V</span>. DOI: 10.1016/j.jclinepi.2026.112186</li>
+  </ol>
+</section>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
+  <p>Pipeline: /evidence S187 (5 pernas: Gemini API, Perplexity Sonar, NLM CLI, evidence-researcher MCPs, orchestrador NCBI) | 13 refs VERIFIED via PubMed/NCBI. Convergencia 4/4 nos achados centrais.</p>
+  <p>O conteudo deste guia e de responsabilidade exclusiva do autor. Referencias verificadas via PubMed (abril 2026).</p>
+  <p>Verificacao PMIDs: cross-ref 4 bracos. Gemini 5/5 corretos. Perplexity 0/8 PMIDs corretos (titulos corretos, PMIDs fabricados). Evidence-researcher 12/12 corretos.</p>
+</footer>
+
+</body>
+</html>

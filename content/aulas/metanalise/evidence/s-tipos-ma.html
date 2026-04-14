@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence: Tipos de Meta-Analise</title>
+  <style>
+    /* === Base === */
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      max-width: 860px; margin: 2rem auto; padding: 0 1.5rem;
+      color: #1a1a2e; line-height: 1.7; text-align: justify;
+    }
+    h1 {
+      font-size: 1.5rem; border-bottom: 2px solid #2d6a4f;
+      padding-bottom: .5rem; margin-bottom: .25rem;
+    }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    h3 { font-size: 1.05rem; color: #2d6a4f; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .meta { font-size: .85rem; color: #555; }
+
+    /* === Tables === */
+    table {
+      border-collapse: collapse; width: 100%;
+      margin: .5rem 0; font-size: .88rem;
+      border-radius: 8px; overflow: hidden;
+    }
+    th, td { border: 1px solid #d4d4d4; padding: .5rem .7rem; text-align: left; }
+    th { background: #edf2ee; font-weight: 600; }
+
+    /* === Accordions === */
+    details {
+      margin: 1rem 0; padding: .6rem 1rem;
+      background: #eef2f7; border-radius: 10px;
+      border: 1px solid #d0d8e0;
+    }
+    details[open] { background: #e8eef5; }
+    summary {
+      cursor: pointer; font-weight: 600; color: #1e40af;
+      padding: .4rem 0; transition: color .2s;
+    }
+    summary:hover { color: #1e3a8a; }
+
+    /* === Links === */
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+    .ref-inline { color: #555; font-size: .85rem; }
+
+    /* === Callouts === */
+    .key-takeaway {
+      background: #e8f5e9; border-left: 4px solid #2d6a4f;
+      padding: .7rem 1rem; margin: .8rem 0; font-size: .9rem;
+      border-radius: 8px;
+    }
+    .caveat {
+      background: #fef3e2; border-left: 4px solid #e8850c;
+      padding: .6rem 1rem; margin: .8rem 0; font-size: .88rem;
+      border-radius: 8px;
+    }
+    .gap-card {
+      border-left: 3px solid #e8850c;
+      padding: .5rem .8rem; margin: .8rem 0;
+      background: #fef8f0; border-radius: 8px;
+    }
+    details .gap-card {
+      background: transparent; border-left: none;
+      padding: .2rem 0; margin: .4rem 0;
+    }
+
+    /* === Objectives === */
+    .objectives {
+      background: #edf5ee; border-radius: 10px;
+      padding: 1rem 1.4rem; margin: 1rem 0;
+      border: 1px solid #c8dcc9;
+    }
+    .objectives li { margin: .4rem 0; }
+
+    /* === Badges === */
+    .v { background: #2563eb; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .c { background: #dc2626; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .book { background: #6b7280; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .freq-common { background: #2d6a4f; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; }
+    .freq-moderate { background: #d97706; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; }
+    .freq-emerging { background: #7c3aed; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; }
+
+    /* === Utilities === */
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .example {
+      margin-left: 1.5rem; border-left: 2px solid #ccc;
+      padding-left: 1rem; margin-top: .5rem; margin-bottom: .5rem;
+    }
+    .formula {
+      background: #f8f9fa; border: 1px solid #ddd;
+      border-radius: 8px; padding: .8rem 1.2rem; margin: .8rem 0;
+      font-family: 'Cambria Math', 'Times New Roman', serif;
+      font-size: .95rem; text-align: center;
+    }
+
+    /* === Footer === */
+    footer {
+      margin-top: 2.5rem; padding-top: .8rem;
+      border-top: 1px solid #ccc;
+      font-size: .8rem; color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Tipos de Meta-Analise: Taxonomia Compreensiva para o Leitor Critico</h1>
+  <p class="meta">Slide: s-tipos-ma (F2, posicao TBD &mdash; Lucas decide) | Timing: ~90s | Fase: Metodologia</p>
+  <p class="meta">Pesquisa: pipeline /evidence 4 pernas (S187) | Validade sugerida: outubro 2026</p>
+
+  <div class="objectives">
+    <strong>Ao final desta leitura, voce vai conseguir:</strong>
+    <ol>
+      <li>Reconhecer o tipo de MA ao ler um artigo &mdash; e saber por que isso importa para a interpretacao</li>
+      <li>Para cada tipo: entender a pergunta clinica que responde, os dados que usa, e as premissas que deve verificar</li>
+      <li>Identificar ao menos 2 perguntas criticas especificas para cada tipo de MA</li>
+      <li>Diferenciar tipos de MA (categorias) de abordagens analiticas (estrategias dentro de um tipo)</li>
+      <li>Conectar cada tipo aos slides da aula de meta-analise</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ===== CONCEITOS-CHAVE ===== -->
+<section id="concepts">
+  <h2>Conceitos-chave antes de comecar</h2>
+  <p>Estes termos aparecem repetidamente na taxonomia. Definir agora evita confusao adiante.</p>
+
+  <p><strong>Dados agregados (aggregate data):</strong> As estatisticas resumo publicadas em cada estudo &mdash; media, desvio-padrao, odds ratio, risco relativo, intervalo de confianca. E o que voce le na tabela de resultados de um paper. A imensa maioria das meta-analises usa dados agregados porque sao publicamente disponiveis. A alternativa e ter acesso aos dados brutos de cada paciente (IPD).</p>
+
+  <p><strong>Dados individuais (IPD &mdash; Individual Participant Data):</strong> Os dados brutos de cada paciente em cada estudo: idade, sexo, comorbidades, desfechos, tempos de seguimento. Requer que os autores dos estudos originais compartilhem seus bancos de dados &mdash; um processo custoso e politicamente complexo. Permite analises impossiveis com dados agregados: subgrupos, interacoes tratamento-covariavel, time-to-event.</p>
+
+  <p><strong>Efeito resumo (summary effect):</strong> O numero unico que a meta-analise produz ao combinar todos os estudos &mdash; um RR pooled, um OR pooled, uma diferenca de medias ponderada. E representado pelo losango no forest plot. Mas "efeito resumo" so faz sentido se os estudos estiverem medindo aproximadamente a mesma coisa.</p>
+
+  <p><strong>Rede de evidencia (evidence network):</strong> Em uma network meta-analysis (NMA), os tratamentos sao "nos" e os estudos sao "arestas" conectando nos. Se A foi comparado com B em 5 estudos e B com C em 3 estudos, a NMA pode estimar o efeito A vs C indiretamente &mdash; mesmo que nenhum estudo tenha comparado A com C diretamente. A geometria da rede determina quais comparacoes sao possiveis.</p>
+
+  <p><strong>SUCRA / P-score:</strong> Rankings probabilisticos usados em NMA. SUCRA (Surface Under the Cumulative Ranking Curve) vai de 0% a 100% &mdash; quanto maior, maior a probabilidade de o tratamento ser o melhor. P-score e a versao frequentista (sem simulacao Bayesiana). Ambos sao uteis para orientar decisoes, mas nao substituem a avaliacao de certeza (GRADE).</p>
+
+  <p><strong>Modelo hierarquico:</strong> Modelo estatistico com multiplos niveis. Em DTA-MA, o modelo bivariate estima sensibilidade e especificidade simultaneamente &mdash; porque as duas sao inversamente correlacionadas (se voce aumenta o ponto de corte, a especificidade sobe mas a sensibilidade cai). Em IPD-MA one-stage, o modelo tem nivel de paciente e nivel de estudo.</p>
+</section>
+
+<!-- ===== POR QUE IMPORTA ===== -->
+<section id="narrative">
+  <h2>Por que reconhecer o tipo de MA importa</h2>
+
+  <p>Quando um residente le "meta-analise" num artigo, quase sempre assume que se trata de uma pairwise convencional &mdash; estudo A vs B, dados agregados, forest plot, losango no final. Na realidade, "meta-analise" e uma <em>familia</em> de metodos com premissas, dados de entrada e interpretacoes radicalmente diferentes. Uma network meta-analysis (NMA) responde "qual o melhor entre 5 tratamentos?", uma IPD-MA reanalisa dados individuais de pacientes, uma DTA-MA sintetiza sensibilidade e especificidade de um teste diagnostico, e uma prevalence MA estima a carga global de uma doenca.</p>
+
+  <p>O tipo determina o que voce pode e o que voce <em>nao pode</em> concluir. Tres exemplos concretos:</p>
+
+  <div class="example">
+    <p><em>Uma NMA ranqueia 21 antidepressivos (Cipriani 2018, Lancet).</em> Se voce nao sabe que NMAs dependem da premissa de <strong>transitividade</strong> (as populacoes dos estudos precisam ser comparaveis), pode aceitar o ranking cegamente. Mas se os estudos de fluoxetina usaram pacientes jovens ambulatoriais e os de amitriptilina usaram idosos hospitalizados, a comparacao indireta e invalida.</p>
+  </div>
+  <div class="example">
+    <p><em>Uma prevalence MA de long-COVID reporta I&sup2; de 97%.</em> Se voce nao sabe que em prevalence MA a heterogeneidade alta e <strong>esperada e normal</strong> (populacoes de diferentes paises tem prevalencias diferentes por definicao), pode pensar que a MA e ruim. Na verdade, reportar prediction intervals e mais relevante que discutir I&sup2;.</p>
+  </div>
+  <div class="example">
+    <p><em>Uma IPD-MA de DAPT curto vs padrao (Valgimigli 2025, Lancet).</em> Os resultados mostram interacoes subgrupo-tratamento (idosos vs jovens, diabeticos vs nao-diabeticos) que seriam impossiveis com dados agregados &mdash; porque a falacia ecologica impede inferencias sobre subgrupos a partir de medias de grupo.</p>
+  </div>
+
+  <div class="key-takeaway"><strong>Mensagem central:</strong> "Meta-analise" nao e um metodo unico &mdash; e uma familia. O tipo determina quais perguntas a MA pode responder e quais premissas voce deve verificar. Antes de aceitar os resultados, identifique: <em>que tipo de MA e esta?</em></div>
+</section>
+
+<!-- ===== TAXONOMIA PRINCIPAL ===== -->
+<section id="taxonomy">
+  <h2>Taxonomia: tipos de meta-analise</h2>
+
+  <!-- GRUPO 1: Tipos centrais (mais comuns) -->
+  <h3>Tipos centrais &mdash; encontrados com frequencia</h3>
+
+  <table>
+    <tr>
+      <th scope="col" style="width:15%">Tipo</th>
+      <th scope="col" style="width:22%">Definicao</th>
+      <th scope="col" style="width:10%">Dados</th>
+      <th scope="col" style="width:18%">Quando usar</th>
+      <th scope="col" style="width:18%">Forcas</th>
+      <th scope="col" style="width:17%">Limitacoes</th>
+    </tr>
+    <tr>
+      <td class="glossary-term">Pairwise (standard) <span class="freq-common">Comum</span></td>
+      <td>Compara diretamente duas intervencoes (A vs B) sintetizando estimativas de efeito de multiplos estudos.</td>
+      <td>Agregados (OR, RR, MD)</td>
+      <td>Avaliar eficacia/seguranca de uma intervencao vs controle quando existem multiplos estudos head-to-head.</td>
+      <td>Simples, transparente, amplamente compreendida. PRISMA 2020 padroniza relato.</td>
+      <td>So compara 2 intervencoes por vez. Nao ranqueia multiplas opcoes.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Network MA (NMA) <span class="freq-common">Comum</span></td>
+      <td>Sintetiza evidencia direta e indireta para comparar 3+ intervencoes simultaneamente numa rede conectada.</td>
+      <td>Agregados de RCTs formando rede</td>
+      <td>Decidir entre multiplos tratamentos quando nem todos foram comparados head-to-head.</td>
+      <td>Rankings de tratamentos (SUCRA/P-score). Comparacoes que nunca existiram diretamente. Aproveita toda a evidencia disponivel.</td>
+      <td>Requer transitividade e consistencia. Estatisticamente complexa. Rankings podem ser instáveis com poucos estudos.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">IPD-MA <span class="freq-moderate">Moderada</span></td>
+      <td>"Padrao-ouro": coleta dados individuais de cada paciente de cada estudo para reanalise centralizada.</td>
+      <td>Dados individuais (raw)</td>
+      <td>Subgrupos complexos, interacoes paciente-tratamento, time-to-event, padronizacao de definicoes entre estudos.</td>
+      <td>Evita falacia ecologica. Poder estatistico para subgrupos. Analise flexivel. Padroniza definicoes.</td>
+      <td>Extremamente custosa. Depende de data-sharing. Vies de recuperacao se dados incompletos.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">DTA-MA <span class="freq-common">Comum</span></td>
+      <td>Sintetiza sensibilidade e especificidade de testes diagnosticos usando modelos hierarquicos (bivariate/HSROC).</td>
+      <td>Tabelas 2&times;2 (VP, FP, FN, VN)</td>
+      <td>Avaliar utilidade clinica de testes de screening, biomarcadores ou imagem vs padrao-ouro.</td>
+      <td>Preserva a natureza pareada Sen/Esp. Conta para efeito threshold. Gera curvas SROC.</td>
+      <td>Heterogeneidade alta e a norma. Valores preditivos dependem de prevalencia. Modelo bivariate requer 4+ estudos.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Prevalence/Proportion MA <span class="freq-common">Comum</span></td>
+      <td>Sintetiza proporcoes de um unico grupo para estimar prevalencia ou incidencia de condicoes em populacoes.</td>
+      <td>Numerador/denominador por estudo</td>
+      <td>Estimar carga global de doenca, prevalencia regional, planejamento de saude publica.</td>
+      <td>Estimativas robustas para alocacao de recursos e burden of disease. Pode estratificar por regiao/periodo.</td>
+      <td>I&sup2; quase sempre &gt;90% (esperado, nao patologico). Requer transformacoes (logit, arcsine). Definicao de caso deve ser padronizada.</td>
+    </tr>
+  </table>
+  <p class="ref-inline">Fontes: Cochrane Handbook v6.5 Cap. 10, 12, 13 (2024)<span class="book">BOOK</span>; Page et al. 2021 PRISMA (<a href="https://pubmed.ncbi.nlm.nih.gov/33782057/" class="ref-pmid" target="_blank" rel="noopener">PMID 33782057</a><span class="v">V</span>); McInnes et al. 2018 PRISMA-DTA (<a href="https://pubmed.ncbi.nlm.nih.gov/29362800/" class="ref-pmid" target="_blank" rel="noopener">PMID 29362800</a><span class="v">V</span>); Migliavaca et al. 2022 (<a href="https://pubmed.ncbi.nlm.nih.gov/35088937/" class="ref-pmid" target="_blank" rel="noopener">PMID 35088937</a><span class="v">V</span>); Reitsma et al. 2005 (<a href="https://pubmed.ncbi.nlm.nih.gov/16168343/" class="ref-pmid" target="_blank" rel="noopener">PMID 16168343</a><span class="v">V</span>).</p>
+
+  <!-- GRUPO 2: Tipos especializados -->
+  <h3>Tipos especializados &mdash; menos frequentes mas importantes</h3>
+
+  <table>
+    <tr>
+      <th scope="col" style="width:15%">Tipo</th>
+      <th scope="col" style="width:22%">Definicao</th>
+      <th scope="col" style="width:10%">Dados</th>
+      <th scope="col" style="width:18%">Quando usar</th>
+      <th scope="col" style="width:18%">Forcas</th>
+      <th scope="col" style="width:17%">Limitacoes</th>
+    </tr>
+    <tr>
+      <td class="glossary-term">Dose-Response MA <span class="freq-moderate">Moderada</span></td>
+      <td>Estima a relacao continua entre niveis de exposicao/dose e um desfecho (linear, J-shaped, spline).</td>
+      <td>Doses categoricas + eventos por nivel</td>
+      <td>Determinar se existe gradiente biologico; identificar limiares otimos ou toxicos.</td>
+      <td>Identifica curvas nao-lineares (ex: J-shape alcool-mortalidade). Informa doses otimas.</td>
+      <td>Sensivel a como estudos categorizam intervalos de dose. Requer estimativas de covariancia intra-estudo.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Bayesian MA <span class="freq-moderate">Moderada</span></td>
+      <td>Combina distribuicao a priori (prior) com dados observados para gerar probabilidade posterior do efeito.</td>
+      <td>Agregados ou IPD + priors</td>
+      <td>Dados esparsos, poucos estudos, incorporar evidencia historica, gerar probabilidades diretas.</td>
+      <td>Interpretacao probabilistica natural ("95% de probabilidade de superioridade"). Estabiliza estimativas com poucos estudos.</td>
+      <td>Sensivel a escolha de priors. Computacionalmente intensivo (MCMC). Transparencia exige reportar priors e sensibilidade.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Living/Updating SR+MA <span class="freq-emerging">Emergente</span></td>
+      <td>Revisao sistematica continuamente atualizada a medida que novos estudos sao publicados, com criterios pre-definidos de triggers de atualizacao.</td>
+      <td>Vigilancia continua de literatura</td>
+      <td>Campos com evidencia acumulando rapidamente (ex: COVID-19, oncologia de precisao, vacinas).</td>
+      <td>Evidencia nunca obsoleta. Decisoes baseadas nos dados mais recentes. Pode influenciar guidelines em tempo real.</td>
+      <td>Altamente custosa em recursos humanos. Risco de erro tipo I por testagem repetida (requer alpha-spending). Infraestrutura permanente.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Umbrella Review <span class="freq-common">Comum</span></td>
+      <td>Sintese terciaria: agrega resultados de multiplas revisoes sistematicas/MAs ja publicadas sobre um tema amplo.</td>
+      <td>Estimativas de efeito de MAs publicadas</td>
+      <td>Visao panoramica de um campo; comparar intervencoes avaliadas em SRs separadas; mapear lacunas.</td>
+      <td>Visao de alto nivel de campos inteiros. Eficiente para resumir grandes volumes. Identifica inconsistencias entre SRs.</td>
+      <td>Herda falhas das SRs subjacentes. Risco de overlap (contar mesmo estudo primario 2x). Requer AMSTAR-2 das SRs incluidas.</td>
+    </tr>
+  </table>
+  <p class="ref-inline">Fontes: Shim et al. 2019 (<a href="https://pubmed.ncbi.nlm.nih.gov/30999740/" class="ref-pmid" target="_blank" rel="noopener">PMID 30999740</a><span class="v">V</span>); Greenland &amp; Longnecker 1992 (<a href="https://pubmed.ncbi.nlm.nih.gov/1626547/" class="ref-pmid" target="_blank" rel="noopener">PMID 1626547</a><span class="v">V</span>); Sutton &amp; Abrams 2001 (<a href="https://pubmed.ncbi.nlm.nih.gov/11491414/" class="ref-pmid" target="_blank" rel="noopener">PMID 11491414</a><span class="v">V</span>); Simmonds et al. 2022 (<a href="https://pubmed.ncbi.nlm.nih.gov/34550587/" class="ref-pmid" target="_blank" rel="noopener">PMID 34550587</a><span class="v">V</span>); Choi et al. 2023 (<a href="https://pubmed.ncbi.nlm.nih.gov/36761061/" class="ref-pmid" target="_blank" rel="noopener">PMID 36761061</a><span class="v">V</span>).</p>
+
+  <!-- GRUPO 3: Abordagens metodologicas (nao tipos em si) -->
+  <h3>Abordagens metodologicas transversais</h3>
+
+  <div class="caveat"><strong>Importante:</strong> Os itens abaixo nao sao tipos de MA &mdash; sao <em>abordagens analiticas</em> que se aplicam dentro dos tipos acima. Confundir abordagem com tipo leva a erros de interpretacao.</div>
+
+  <table>
+    <tr>
+      <th scope="col" style="width:15%">Abordagem</th>
+      <th scope="col" style="width:30%">O que e</th>
+      <th scope="col" style="width:25%">Contexto</th>
+      <th scope="col" style="width:30%">Distincao importante</th>
+    </tr>
+    <tr>
+      <td class="glossary-term">One-stage vs Two-stage</td>
+      <td><strong>Two-stage:</strong> analisa cada estudo separadamente, depois combina as estimativas (o classico). <strong>One-stage:</strong> modela todos os dados individuais num unico modelo misto hierarquico.</td>
+      <td>Arquitetura estatistica de IPD-MAs. One-stage preferido para eventos raros, preditores continuos complexos, ou quando estudos tem poucos pacientes.</td>
+      <td>Nao sao tipos de MA &mdash; sao abordagens analiticas <em>dentro</em> da IPD-MA. Two-stage e mais transparente e estavel; one-stage e mais flexivel. Resultados geralmente convergem exceto em cenarios de dados esparsos.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Component NMA</td>
+      <td>Decompoem intervencoes complexas (multi-componente) para estimar o efeito de cada componente isolado e suas combinacoes.</td>
+      <td>Intervencoes comportamentais, psicologicas ou multi-drogas onde o "tratamento" inclui combinacoes variaveis de componentes.</td>
+      <td>Extensao de NMA, nao um tipo separado. Assume aditividade dos componentes (premissa forte &mdash; interacoes entre componentes sao ignoradas a menos que modeladas explicitamente).</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Aggregate vs IPD</td>
+      <td>Aggregate usa dados resumo publicados. IPD usa dados brutos dos pacientes.</td>
+      <td>Quase toda MA e aggregate por default (mais facil, mais barata). IPD e escolha deliberada para perguntas especificas que requerem dados de nivel individual.</td>
+      <td>Nao sao tipos de MA &mdash; sao niveis de dados. Tanto pairwise quanto NMA podem ser feitas com aggregate ou IPD. A escolha depende da pergunta, nao do metodo.</td>
+    </tr>
+  </table>
+  <p class="ref-inline">Fontes: Burke et al. 2017 (<a href="https://pubmed.ncbi.nlm.nih.gov/27747915/" class="ref-pmid" target="_blank" rel="noopener">PMID 27747915</a><span class="v">V</span>); Tsokani et al. 2023 (<a href="https://pubmed.ncbi.nlm.nih.gov/35896417/" class="ref-pmid" target="_blank" rel="noopener">PMID 35896417</a><span class="v">V</span>); Riley et al. 2020 (<a href="https://pubmed.ncbi.nlm.nih.gov/32350891/" class="ref-pmid" target="_blank" rel="noopener">PMID 32350891</a><span class="v">V</span>); Welton et al. 2009 (<a href="https://pubmed.ncbi.nlm.nih.gov/19258485/" class="ref-pmid" target="_blank" rel="noopener">PMID 19258485</a><span class="v">V</span>).</p>
+</section>
+
+<!-- ===== EXEMPLOS MEDICOS ===== -->
+<section id="examples">
+  <h2>Exemplos medicos reais</h2>
+  <p>Para cada tipo, um estudo landmark ou cenario clinico concreto que ilustra o uso.</p>
+
+  <table>
+    <tr><th scope="col">Tipo</th><th scope="col">Exemplo landmark</th><th scope="col">Pergunta respondida</th><th scope="col">Por que este tipo (e nao outro)</th></tr>
+    <tr>
+      <td>Pairwise</td>
+      <td>Valgimigli et al. 2025 (Lancet) &mdash; Clopidogrel vs Aspirina. 7 RCTs, 28.982 pacientes IPD.</td>
+      <td>"Clopidogrel reduz eventos CV vs aspirina?"</td>
+      <td>Comparacao direta head-to-head de 2 drogas. Forest plot classico.</td>
+    </tr>
+    <tr>
+      <td>NMA</td>
+      <td>Cipriani et al. 2018 (Lancet) &mdash; 21 antidepressivos, 522 RCTs, 116.477 pts. <a href="https://pubmed.ncbi.nlm.nih.gov/29477251/" class="ref-pmid" target="_blank" rel="noopener">PMID 29477251</a><span class="v">V</span></td>
+      <td>"Qual antidepressivo e mais eficaz e toleravel?"</td>
+      <td>21 opcoes. Impossivel comparar todas em pairwise (210 pares). NMA usa evidencia direta + indireta.</td>
+    </tr>
+    <tr>
+      <td>IPD-MA</td>
+      <td>Ancora da aula: Valgimigli 2025 usa IPD de 7 RCTs para explorar interacoes subgrupo-tratamento (idade, diabetes, tipo de stent).</td>
+      <td>"O beneficio do clopidogrel varia por idade, sexo ou comorbidades?"</td>
+      <td>Subgrupos requerem dados individuais para evitar falacia ecologica. Dados agregados nao permitem.</td>
+    </tr>
+    <tr>
+      <td>DTA-MA</td>
+      <td>D-dimero para exclusao de TEP &mdash; modelo bivariate sintetiza Sen/Esp com efeito threshold.</td>
+      <td>"Qual a acuracia do D-dimero para excluir embolia pulmonar?"</td>
+      <td>Acuracia diagnostica exige preservar correlacao Sen/Esp. MA pairwise nao faz isso.</td>
+    </tr>
+    <tr>
+      <td>Prevalence</td>
+      <td>Long-COVID: prevalencia global de fadiga, dispneia, disfuncao cognitiva 6+ meses pos-infeccao.</td>
+      <td>"Qual a prevalencia de sequelas pos-COVID?"</td>
+      <td>Sem comparacao entre grupos. Estima proporcao unica em populacoes diversas.</td>
+    </tr>
+    <tr>
+      <td>Dose-response</td>
+      <td>Alcool e cirrose: relacao J-shaped entre gramas/dia e risco hepatico. Modelo de spline cubica restrita.</td>
+      <td>"Qual limiar de consumo aumenta significativamente o risco?"</td>
+      <td>Gradiente biologico (dose→efeito) nao e capturado por MA pairwise de "bebe vs nao bebe".</td>
+    </tr>
+    <tr>
+      <td>Bayesian</td>
+      <td>Doenca rara pediatrica: prior informativo de estudos em adultos estabiliza estimativa com n=40.</td>
+      <td>"Qual o efeito provavel dada a escassez de dados diretos?"</td>
+      <td>Apenas 2 RCTs pequenos. Frequentismo gera IC impreciso demais. Prior externo e necessario.</td>
+    </tr>
+    <tr>
+      <td>Living SR</td>
+      <td>OMS REACT: corticosteroides para COVID-19 grave &mdash; atualizada continuamente 2020-2022.</td>
+      <td>"Com base nos dados mais recentes, corticoides reduzem mortalidade?"</td>
+      <td>Evidencia acumulando semanalmente. SR classica ficaria obsoleta antes de publicar.</td>
+    </tr>
+    <tr>
+      <td>Umbrella</td>
+      <td>Dieta mediterranea: 40+ SRs/MAs mapeadas em cancer, neurodegeneracao, cardiovascular, diabetes.</td>
+      <td>"Qual o panorama geral dos beneficios da dieta mediterranea?"</td>
+      <td>Unificar dezenas de SRs dispersas. Requer AMSTAR-2 de cada SR incluida.</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ===== PERGUNTAS-CHAVE ===== -->
+<section id="checklist">
+  <h2>Checklist do leitor critico: perguntas por tipo</h2>
+  <p>Ao identificar o tipo de MA, faca imediatamente estas duas perguntas. Se o artigo nao as responde, e um red flag.</p>
+
+  <table>
+    <tr><th scope="col">Tipo de MA</th><th scope="col">Pergunta critica #1</th><th scope="col">Pergunta critica #2</th></tr>
+    <tr><td>Pairwise</td><td>Existe heterogeneidade clinicamente relevante? (olhe PI, nao so I&sup2;)</td><td>Os estudos sao suficientemente similares em PICO para justificar o pooling?</td></tr>
+    <tr><td>NMA</td><td>A premissa de transitividade foi verificada? (populacoes comparaveis entre nos da rede)</td><td>Existe inconsistencia entre evidencia direta e indireta? (node-splitting test)</td></tr>
+    <tr><td>IPD-MA</td><td>Conseguiram dados de todos os estudos elegiveis? (se &lt;80%, vies de recuperacao e provavel)</td><td>As analises de subgrupo foram pre-especificadas ou post-hoc?</td></tr>
+    <tr><td>DTA-MA</td><td>As populacoes tinham espectro de doenca comparavel? (prevalencia afeta valores preditivos)</td><td>O limiar (cut-off) do teste era padronizado entre estudos ou variava?</td></tr>
+    <tr><td>Prevalence</td><td>I&sup2; alto e esperado &mdash; estao reportando prediction intervals?</td><td>A definicao de caso era consistente entre estudos? (ex: criterio diagnostico identico)</td></tr>
+    <tr><td>Dose-response</td><td>Que forma funcional foi assumida? (linear pode perder relacao J-shaped real)</td><td>Os intervalos de dose eram comparaveis entre estudos? (ex: "moderado" = quantos g?)</td></tr>
+    <tr><td>Bayesian</td><td>Que prior foi usado e qual sua justificativa? (vago, informativo, cetico)</td><td>Analise de sensibilidade com priors alternativos mostra resultados estaveis?</td></tr>
+    <tr><td>Living SR</td><td>Como controlam erro tipo I por testagem repetida? (alpha-spending, futility boundaries)</td><td>Qual o intervalo e criterio de atualizacao? (calendario vs trigger por novo estudo)</td></tr>
+    <tr><td>Umbrella</td><td>Verificaram overlap de estudos primarios entre as SRs? (mesmos pacientes contados 2x)</td><td>A qualidade das SRs subjacentes foi avaliada? (AMSTAR-2 de cada uma)</td></tr>
+  </table>
+</section>
+
+<!-- ===== GLOSSARIO ===== -->
+<section id="glossary">
+  <h2>Glossario rapido</h2>
+  <p>Para consultar durante a leitura. Termos ordenados por tipo de MA.</p>
+
+  <table>
+    <tr><th scope="col">Termo</th><th scope="col">O que significa</th><th scope="col">Na pratica</th></tr>
+    <tr><td class="glossary-term">Transitividade</td><td>Premissa da NMA: as populacoes dos estudos comparados indiretamente devem ser suficientemente similares.</td><td>Se estudos de A vs B incluem jovens e estudos de B vs C incluem idosos, a comparacao A vs C e invalida &mdash; porque "B" nao representa a mesma populacao.</td></tr>
+    <tr><td class="glossary-term">Consistencia</td><td>Na NMA, concordancia entre evidencia direta (A vs C em estudos reais) e indireta (A vs C via B).</td><td>Testada pelo node-splitting (design-by-treatment interaction). Inconsistencia sugere violacao de transitividade ou modificacao de efeito.</td></tr>
+    <tr><td class="glossary-term">SUCRA</td><td>Surface Under the Cumulative Ranking Curve. 0-100%: probabilidade cumulativa de ser o melhor tratamento na NMA.</td><td>SUCRA de 85% nao significa "85% de chance de ser o melhor" &mdash; significa que acumula ranking alto. Pode haver sobreposicao grande entre tratamentos.</td></tr>
+    <tr><td class="glossary-term">Falacia ecologica</td><td>Inferir sobre individuos a partir de dados de grupo. RR do estudo = media. Subgrupos podem ter efeitos opostos.</td><td>Razao fundamental pela qual IPD-MA existe: com dados individuais, voce testa interacoes paciente-tratamento sem cometer falacia ecologica.</td></tr>
+    <tr><td class="glossary-term">Modelo bivariate</td><td>Na DTA-MA: modela sensibilidade e especificidade simultaneamente num modelo hierarquico, preservando sua correlacao inversa.</td><td>Introduzido por Reitsma et al. (2005). Alternativa: HSROC (Rutter & Gatsonis). Ambos convergem com dados suficientes.</td></tr>
+    <tr><td class="glossary-term">Vies de recuperacao</td><td>Em IPD-MA: vies introduzido quando dados de alguns estudos elegiveis nao sao obtidos (autores nao compartilham).</td><td>Se 3 de 10 estudos nao forneceram dados, o resultado pode ser enviesado &mdash; especialmente se os estudos faltantes sao sistematicamente diferentes.</td></tr>
+    <tr><td class="glossary-term">Alpha-spending</td><td>Em living SR: metodo para controlar erro tipo I quando hipoteses sao testadas repetidamente ao longo do tempo.</td><td>Similar a analise interina de RCTs. Sem alpha-spending, uma living MA com 20 atualizacoes tem alta probabilidade de achar significancia por acaso.</td></tr>
+    <tr><td class="glossary-term">Overlap de estudos</td><td>Em umbrella reviews: quando duas SRs incluem os mesmos estudos primarios, seus resultados nao sao independentes.</td><td>Se 3 SRs de dieta mediterranea compartilham 80% dos mesmos RCTs, agregar as 3 e pseudoreplicacao. Matrizes de overlap (CCA) quantificam isso.</td></tr>
+  </table>
+</section>
+
+<!-- ===== PARA QUEM QUISER IR ALEM ===== -->
+<section id="deep-dive">
+  <h2>Para quem quiser ir alem</h2>
+  <p>Topicos avancados que aprofundam aspectos criticos de cada tipo.</p>
+
+  <details>
+    <summary>A) NMA: o que significa violar transitividade &mdash; e como verificar</summary>
+    <p>Transitividade e a premissa mais importante e menos verificada das NMAs. Ela exige que os modificadores de efeito sejam distribuidos de forma similar entre todas as comparacoes da rede. Na pratica: se os estudos de droga A vs placebo incluem pacientes mais graves do que os estudos de droga B vs placebo, a comparacao indireta A vs B e enviesada &mdash; porque o efeito de ambas depende da gravidade basal.</p>
+    <p>Como verificar: (1) tabela de caracteristicas dos estudos por no da rede; (2) node-splitting test (compara estimativa direta vs indireta para cada no); (3) design-by-treatment interaction test (teste global de inconsistencia). Se a tabela mostra distribuicoes diferentes de idade, severidade ou comorbidades entre nos, a premissa esta violada.</p>
+    <p><strong>Salanti G.</strong> Indirect and mixed-treatment comparison, network, or multiple-treatments meta-analysis. <em>Res Synth Methods</em>. 2012;3(2):80-97. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/26062083/" target="_blank" rel="noopener">PMID 26062083</a><span class="v">V</span></p>
+    <p><strong>Cipriani A et al.</strong> 2018 Lancet NMA (exemplo real de avaliacao de consistencia em rede de 21 nos). <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/29477251/" target="_blank" rel="noopener">PMID 29477251</a><span class="v">V</span></p>
+  </details>
+
+  <details>
+    <summary>B) IPD-MA: vies de recuperacao e a politica do data-sharing</summary>
+    <p>O calcanhar de Aquiles da IPD-MA e o vies de recuperacao (availability bias): se voce nao obtem dados de todos os estudos elegiveis, o resultado pode ser enviesado. Wang et al. (2021) mostraram que 39% das IPD-MAs falharam em obter dados de &ge;90% dos estudos elegiveis &mdash; e entre essas, apenas 48% reportaram as razoes e 17% usaram estrategias para compensar os dados faltantes. Os motivos: dados perdidos, autores nao respondem, restricoes de confidencialidade, conflitos de interesse.</p>
+    <p>Iniciativas como AllTrials e politicas de data-sharing de revistas de alto impacto podem mudar esse cenario, mas a realidade atual e que muitas IPD-MAs operam com dados incompletos &mdash; e a direcao do vies depende de <em>por que</em> os dados nao foram compartilhados.</p>
+    <p>Perguntas ao ler uma IPD-MA: (1) Quantos estudos foram identificados vs quantos forneceram dados? (2) Os estudos faltantes diferem sistematicamente dos incluidos? (3) Fizeram analise de sensibilidade comparando aggregate-data dos estudos faltantes com os dados IPD dos incluidos?</p>
+    <p><strong>Wang H et al.</strong> Methodological quality of IPD meta-analyses. <em>BMJ</em>. 2021;373:n736. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33875446/" target="_blank" rel="noopener">PMID 33875446</a><span class="v">V</span></p>
+    <p><strong>Riley RD et al.</strong> IPD meta-analysis to examine interactions. <em>Stat Med</em>. 2020;39(14):2000-2015. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32350891/" target="_blank" rel="noopener">PMID 32350891</a><span class="v">V</span></p>
+  </details>
+
+  <details>
+    <summary>C) DTA-MA: por que sensibilidade e especificidade nao podem ser sintetizadas separadamente</summary>
+    <p>Em uma pairwise MA de tratamento, voce pode sintetizar RRs independentemente. Em DTA-MA, isso e invalido. A razao e o <strong>threshold effect</strong>: cada estudo pode usar um ponto de corte diferente para o teste, e quando o corte e mais alto, a especificidade aumenta mas a sensibilidade diminui (e vice-versa). Sintetizar sensibilidade e especificidade separadamente ignora essa correlacao &mdash; e produz um par impossivel (Sen alta + Esp alta que nenhum estudo individual atingiu).</p>
+    <p>O modelo bivariate (Reitsma 2005) resolve isso modelando Sen e Esp simultaneamente com uma distribuicao normal bivariada nos logits. O modelo HSROC (Rutter &amp; Gatsonis) e algebricamente equivalente mas parametriza de forma diferente (threshold + accuracy parameters). Ambos geram curvas SROC (Summary Receiver Operating Characteristic) que representam a relacao entre Sen e 1-Esp ao longo de diferentes thresholds.</p>
+    <p>Na pratica: quando voce le uma DTA-MA e ve um ponto unico de Sen/Esp com IC, verifique se usaram modelo bivariate ou HSROC. Se sintetizaram separadamente, a estimativa e enviesada.</p>
+    <p><strong>Reitsma JB et al.</strong> Bivariate analysis of sensitivity and specificity. <em>J Clin Epidemiol</em>. 2005;58(10):982-90. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/16168343/" target="_blank" rel="noopener">PMID 16168343</a><span class="v">V</span></p>
+  </details>
+
+  <details>
+    <summary>D) Prevalence MA: por que I&sup2; alto e esperado (e nao sinal de problema)</summary>
+    <p>Em pairwise MA de tratamento, I&sup2; alto sugere que os estudos medem efeitos diferentes e merece investigacao. Em prevalence MA, I&sup2; proximo de 100% e a <em>norma</em> &mdash; e isso e esperado, nao patologico.</p>
+    <p>A razao e simples: prevalencia varia genuinamente entre populacoes. A prevalencia de diabetes tipo 2 no Japao e diferente da do Brasil, que e diferente da Nigéria. Essas diferencas sao reais, nao artefatos. Alem disso, estudos de prevalencia geralmente sao grandes (surveys nacionais), o que torna o I&sup2; ainda mais alto (lembre: I&sup2; depende do tamanho dos estudos, nao apenas da variacao real &mdash; Borenstein 2022).</p>
+    <p>Por isso, Migliavaca et al. (2022) recomendam: (1) nao usar I&sup2; como criterio de qualidade em prevalence MA; (2) reportar prediction intervals; (3) estratificar por subgrupos (regiao, periodo, criterio diagnostico) em vez de reportar apenas a estimativa global.</p>
+    <p><strong>Migliavaca CB et al.</strong> Meta-analysis of prevalence: I&sup2; and how to deal with heterogeneity. <em>Res Synth Methods</em>. 2022;13(3):363-7. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35088937/" target="_blank" rel="noopener">PMID 35088937</a><span class="v">V</span></p>
+  </details>
+
+  <details>
+    <summary>E) Dose-response: o metodo Greenland-Longnecker e os restricted cubic splines</summary>
+    <p>A MA dose-response classica usa o metodo de Greenland &amp; Longnecker (1992): cada estudo reporta categorias de exposicao com RR e IC por categoria, e o metodo reconstroi a tendencia continua usando generalized least squares, contabilizando a covariancia entre categorias (porque compartilham a mesma categoria de referencia).</p>
+    <p>O avanço mais importante foi a adocao de restricted cubic splines (RCS), que permitem detectar relacoes nao-lineares &mdash; essencial para exposicoes como alcool (J-shape: baixo consumo protetor, alto consumo danoso) ou atividade fisica (beneficio crescente ate platô, depois sem ganho adicional). Splines com 3-4 nos sao o padrao atual.</p>
+    <p>Armadilha: muitos estudos antigos assumem linearidade por default. Se a relacao real e J-shaped mas o modelo e linear, a conclusao sera "sem efeito significativo" (a media da curva J e proxima de zero).</p>
+    <p><strong>Greenland S, Longnecker MP.</strong> Methods for trend estimation from summarized dose-response data. <em>Am J Epidemiol</em>. 1992;135(11):1301-9. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1626547/" target="_blank" rel="noopener">PMID 1626547</a><span class="v">V</span></p>
+    <p><strong>Shim SR, Lee J.</strong> Dose-response meta-analysis: application and practice. <em>Epidemiol Health</em>. 2019;41:e2019006. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/30999740/" target="_blank" rel="noopener">PMID 30999740</a><span class="v">V</span></p>
+  </details>
+</section>
+
+<!-- ===== CONEXAO COM A AULA ===== -->
+<section id="connection">
+  <h2>Conexao com a aula de meta-analise</h2>
+
+  <div class="caveat"><strong>Escopo da aula:</strong> A aula foca em <strong>pairwise classico de RCTs</strong> como modelo principal, usando a ancora Valgimigli 2025 (Lancet). Mas a ancora e na verdade uma <strong>IPD-MA</strong> ensinada como pairwise &mdash; essa tensao e deliberada e pode ser explorada pedagogicamente. Este material posiciona o residente para entender que existem outros tipos, sem se aprofundar na metodologia de cada um. Objetivo: reconhecimento e perguntas criticas, nao execucao.</div>
+
+  <p>Slides que se beneficiam desta taxonomia:</p>
+  <table>
+    <tr><th scope="col">Slide</th><th scope="col">Conexao</th></tr>
+    <tr><td><strong>s-rs-vs-ma</strong></td><td>RS pode conter qualquer tipo de MA (ou nenhuma). A distinção RS vs MA e ortogonal ao tipo de MA.</td></tr>
+    <tr><td><strong>s-forest1 / s-forest2</strong></td><td>Forest plots sao visuais de pairwise e NMA. Em NMA, o forest plot mostra cada comparacao separadamente.</td></tr>
+    <tr><td><strong>s-heterogeneity</strong></td><td>I&sup2; se comporta diferentemente em prevalence MA (esperado alto) vs pairwise (requer investigacao).</td></tr>
+    <tr><td><strong>s-ancora</strong></td><td>Valgimigli 2025 e IPD-MA (gold standard) apresentada como pairwise. Dupla natureza para discussao.</td></tr>
+    <tr><td><strong>s-quality-grade-rob</strong></td><td>Umbrella reviews usam AMSTAR-2 para avaliar as SRs incluidas &mdash; primeiro uso pratico da taxonomia.</td></tr>
+  </table>
+</section>
+
+<!-- ===== CONVERGENCIA ===== -->
+<details>
+  <summary>Convergencia entre pernas de pesquisa (4 bracos)</summary>
+  <table>
+    <tr><th scope="col">Achado</th><th scope="col">Gemini</th><th scope="col">NLM</th><th scope="col">Evidence-researcher</th><th scope="col">Convergencia</th></tr>
+    <tr><td>Pairwise = tipo mais comum</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>3/3</strong></td></tr>
+    <tr><td>NMA: transitividade e consistencia sao premissas criticas</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>3/3</strong></td></tr>
+    <tr><td>IPD = "gold standard" de MA</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>3/3</strong></td></tr>
+    <tr><td>DTA requer modelos hierarquicos (bivariate/HSROC)</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>3/3</strong></td></tr>
+    <tr><td>Prevalence MA: I&sup2; alto e esperado, nao patologico</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>3/3</strong></td></tr>
+    <tr><td>One-stage vs two-stage = abordagens, nao tipos</td><td>&check;</td><td>Implicito</td><td>&check;</td><td><strong>3/3</strong></td></tr>
+  </table>
+  <p class="ref-inline">Perplexity recusou gerar tabela para este topico (retornou recomendacoes genericas). Evidence-researcher confirmou todos os achados e adicionou refs fundacionais (Reitsma 2005, Greenland 1992, Salanti 2012).</p>
+</details>
+
+<!-- ===== REFERENCIAS ===== -->
+<section id="references">
+  <h2>Referencias</h2>
+
+  <h3>Referencias metodologicas por tipo</h3>
+  <ol>
+    <li><strong>Pairwise / PRISMA:</strong> Page MJ, McKenzie JE, Bossuyt PM et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. <em>BMJ</em>. 2021;372:n71. <a href="https://pubmed.ncbi.nlm.nih.gov/33782057/" class="ref-pmid" target="_blank" rel="noopener">PMID 33782057</a><span class="v">V</span>. DOI: 10.1136/bmj.n71</li>
+    <li><strong>NMA landmark:</strong> Cipriani A, Furukawa TA, Salanti G et al. Comparative efficacy and acceptability of 21 antidepressant drugs. <em>Lancet</em>. 2018;391(10128):1357-66. <a href="https://pubmed.ncbi.nlm.nih.gov/29477251/" class="ref-pmid" target="_blank" rel="noopener">PMID 29477251</a><span class="v">V</span>. DOI: 10.1016/S0140-6736(17)32802-7</li>
+    <li><strong>NMA methodology:</strong> Salanti G. Indirect and mixed-treatment comparison, network, or multiple-treatments meta-analysis. <em>Res Synth Methods</em>. 2012;3(2):80-97. <a href="https://pubmed.ncbi.nlm.nih.gov/26062083/" class="ref-pmid" target="_blank" rel="noopener">PMID 26062083</a><span class="v">V</span>. DOI: 10.1002/jrsm.1037</li>
+    <li><strong>IPD quality:</strong> Wang H, Chen Y, Lin Y et al. The methodological quality of individual participant data meta-analysis. <em>BMJ</em>. 2021;373:n736. <a href="https://pubmed.ncbi.nlm.nih.gov/33875446/" class="ref-pmid" target="_blank" rel="noopener">PMID 33875446</a><span class="v">V</span>. DOI: 10.1136/bmj.n736</li>
+    <li><strong>IPD interactions:</strong> Riley RD, Debray TPA, Fisher D et al. Individual participant data meta-analysis to examine interactions. <em>Stat Med</em>. 2020;39(14):2000-2015. <a href="https://pubmed.ncbi.nlm.nih.gov/32350891/" class="ref-pmid" target="_blank" rel="noopener">PMID 32350891</a><span class="v">V</span>. DOI: 10.1002/sim.8516</li>
+    <li><strong>One-stage vs two-stage:</strong> Burke DL, Ensor J, Riley RD. Meta-analysis using individual participant data: one-stage and two-stage approaches. <em>Stat Med</em>. 2017;36(5):855-75. <a href="https://pubmed.ncbi.nlm.nih.gov/27747915/" class="ref-pmid" target="_blank" rel="noopener">PMID 27747915</a><span class="v">V</span>. DOI: 10.1002/sim.7141</li>
+    <li><strong>DTA bivariate model:</strong> Reitsma JB, Glas AS, Rutjes AW et al. Bivariate analysis of sensitivity and specificity. <em>J Clin Epidemiol</em>. 2005;58(10):982-90. <a href="https://pubmed.ncbi.nlm.nih.gov/16168343/" class="ref-pmid" target="_blank" rel="noopener">PMID 16168343</a><span class="v">V</span>. DOI: 10.1016/j.jclinepi.2005.02.022</li>
+    <li><strong>DTA PRISMA:</strong> McInnes MDF, Moher D, Thombs BD et al. PRISMA-DTA. <em>JAMA</em>. 2018;319(4):388-96. <a href="https://pubmed.ncbi.nlm.nih.gov/29362800/" class="ref-pmid" target="_blank" rel="noopener">PMID 29362800</a><span class="v">V</span>. DOI: 10.1001/jama.2017.19163</li>
+    <li><strong>Prevalence:</strong> Migliavaca CB, Stein C, Colpani V et al. Meta-analysis of prevalence: I&sup2; and how to deal with heterogeneity. <em>Res Synth Methods</em>. 2022;13(3):363-7. <a href="https://pubmed.ncbi.nlm.nih.gov/35088937/" class="ref-pmid" target="_blank" rel="noopener">PMID 35088937</a><span class="v">V</span>. DOI: 10.1002/jrsm.1547</li>
+    <li><strong>Dose-response foundational:</strong> Greenland S, Longnecker MP. Methods for trend estimation from summarized dose-response data. <em>Am J Epidemiol</em>. 1992;135(11):1301-9. <a href="https://pubmed.ncbi.nlm.nih.gov/1626547/" class="ref-pmid" target="_blank" rel="noopener">PMID 1626547</a><span class="v">V</span>. DOI: 10.1093/oxfordjournals.aje.a116237</li>
+    <li><strong>Dose-response tutorial:</strong> Shim SR, Lee J. Dose-response meta-analysis: application and practice. <em>Epidemiol Health</em>. 2019;41:e2019006. <a href="https://pubmed.ncbi.nlm.nih.gov/30999740/" class="ref-pmid" target="_blank" rel="noopener">PMID 30999740</a><span class="v">V</span>. DOI: 10.4178/epih.e2019006</li>
+    <li><strong>Bayesian:</strong> Sutton AJ, Abrams KR. Bayesian methods in meta-analysis and evidence synthesis. <em>Stat Methods Med Res</em>. 2001;10(4):277-303. <a href="https://pubmed.ncbi.nlm.nih.gov/11491414/" class="ref-pmid" target="_blank" rel="noopener">PMID 11491414</a><span class="v">V</span>. DOI: 10.1177/096228020101000404</li>
+    <li><strong>Living SR:</strong> Simmonds M, Elliott JH, Salanti G. Living Systematic Reviews. <em>Methods Mol Biol</em>. 2022;2345:121-34. <a href="https://pubmed.ncbi.nlm.nih.gov/34550587/" class="ref-pmid" target="_blank" rel="noopener">PMID 34550587</a><span class="v">V</span>. DOI: 10.1007/978-1-0716-1566-9_7</li>
+    <li><strong>Umbrella:</strong> Choi GJ, Kang H. Introduction to Umbrella Reviews as a Useful Evidence-Based Practice. <em>J Lipid Atheroscler</em>. 2023;12(1):3-11. <a href="https://pubmed.ncbi.nlm.nih.gov/36761061/" class="ref-pmid" target="_blank" rel="noopener">PMID 36761061</a><span class="v">V</span>. DOI: 10.12997/jla.2023.12.1.3</li>
+    <li><strong>Component NMA:</strong> Tsokani S, Seitidis G, Mavridis D. Component network meta-analysis in a nutshell. <em>BMJ Evid Based Med</em>. 2023;28(3):183-6. <a href="https://pubmed.ncbi.nlm.nih.gov/35896417/" class="ref-pmid" target="_blank" rel="noopener">PMID 35896417</a><span class="v">V</span>. DOI: 10.1136/bmjebm-2021-111906</li>
+    <li><strong>Component NMA original:</strong> Welton NJ, Caldwell DM, Adamopoulos E, Vedhara K. Mixed treatment comparison meta-analysis of complex interventions: psychological interventions in coronary heart disease. <em>Am J Epidemiol</em>. 2009;169(9):1158-65. <a href="https://pubmed.ncbi.nlm.nih.gov/19258485/" class="ref-pmid" target="_blank" rel="noopener">PMID 19258485</a><span class="v">V</span>. DOI: 10.1093/aje/kwp014</li>
+  </ol>
+
+  <h3>Referencia geral</h3>
+  <ol start="17">
+    <li><strong>Cochrane Handbook v6.5</strong> (2024). Higgins JPT, Thomas J, Chandler J et al., eds. <em>Cochrane Handbook for Systematic Reviews of Interventions</em>. Version 6.5. Cochrane, 2024. Capitulos 10 (pairwise), 12 (IPD), 13 (NMA).<span class="book">BOOK</span></li>
+  </ol>
+</section>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
+  <p>Pipeline: /evidence S187 (4 pernas: Gemini API, NLM CLI, evidence-researcher MCPs, orchestrador NCBI) | 16 refs VERIFIED via PubMed/NCBI + 1 book. Convergencia 3/3 em todos achados centrais.</p>
+  <p>O conteudo deste guia e de responsabilidade exclusiva do autor. Referencias verificadas via PubMed (abril 2026).</p>
+</footer>
+
+</body>
+</html>

@@ -572,81 +572,40 @@ export const slideRegistry = {
   },
 
   's-heterogeneity': (slide, gsap) => {
-    // Auto: I²=67% focal number fades in — looks innocuous
-    const focal = slide.querySelector('.het-focal');
-    gsap.fromTo(focal, { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out' });
-
-    // Click-reveal: Panel A (safe), then Panel B (danger)
-    const MAX = 2;
+    const MAX = 3;
     let revealed = 0;
+    const panels = slide.querySelectorAll('.het-panel');
+    const insight = slide.querySelector('.het-insight');
 
     const advance = () => {
       if (revealed >= MAX) return false;
       revealed++;
-      const panel = slide.querySelector(`.het-panel:nth-child(${revealed})`);
-      const xDir = revealed === 1 ? -20 : 20;
-      gsap.fromTo(panel, { opacity: 0, x: xDir }, { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out' });
-      return true;
-    };
-
-    const retreat = () => {
-      if (revealed <= 0) return false;
-      const panel = slide.querySelector(`.het-panel:nth-child(${revealed})`);
-      gsap.to(panel, { opacity: 0, x: revealed === 1 ? -20 : 20, duration: 0.3, ease: 'power2.in' });
-      revealed--;
-      return true;
-    };
-
-    slide.__clickRevealNext = advance;
-    slide.__hookRetreat = retreat;
-    slide.__hookCurrentBeat = () => revealed;
-  },
-
-  's-i2': (slide, gsap) => {
-    // Auto: countUp for 98% and 4%
-    const nums = slide.querySelectorAll('.i2-audit-number');
-    nums.forEach(num => {
-      const target = parseInt(num.getAttribute('data-target'), 10);
-      num.textContent = '0';
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: target,
-        duration: 1.4,
-        ease: 'power2.out',
-        snap: { val: 1 },
-        onUpdate: () => { num.textContent = Math.round(obj.val); }
-      });
-    });
-
-    // Click-reveal: paradox cards, then Higgins seal
-    const MAX = 2;
-    let revealed = 0;
-
-    const advance = () => {
-      if (revealed >= MAX) return false;
-      revealed++;
-      if (revealed === 1) {
-        const cards = slide.querySelectorAll('.i2-paradox-card');
-        const container = slide.querySelector('.i2-paradox');
-        gsap.fromTo(container, { opacity: 0 }, { opacity: 1, duration: 0.3 });
-        gsap.fromTo(cards, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.2, ease: 'power2.out' });
-      }
-      if (revealed === 2) {
-        const seal = slide.querySelector('.i2-seal');
-        gsap.fromTo(seal, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+      if (revealed <= 2) {
+        const dir = revealed === 1 ? -20 : 20;
+        gsap.fromTo(panels[revealed - 1],
+          { opacity: 0, x: dir },
+          { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out' }
+        );
+      } else {
+        gsap.fromTo(insight,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+        );
       }
       return true;
     };
 
     const retreat = () => {
       if (revealed <= 0) return false;
-      if (revealed === 1) {
-        const container = slide.querySelector('.i2-paradox');
-        gsap.to(container, { opacity: 0, duration: 0.3, ease: 'power2.in' });
-      }
-      if (revealed === 2) {
-        const seal = slide.querySelector('.i2-seal');
-        gsap.to(seal, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+      if (revealed <= 2) {
+        const dir = revealed === 1 ? -20 : 20;
+        gsap.to(panels[revealed - 1],
+          { opacity: 0, x: dir, duration: 0.3, ease: 'power2.in' }
+        );
+      } else {
+        gsap.to(insight,
+          { opacity: 0, y: 12, duration: 0.3, ease: 'power2.in' }
+        );
       }
       revealed--;
       return true;

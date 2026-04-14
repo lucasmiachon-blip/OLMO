@@ -1238,7 +1238,6 @@ section#s-rob2 .slide-inner::after {
 
 section#s-rob2 .slide-headline {
   grid-area: header;
-  font-size: 28px;
   margin-bottom: var(--space-sm);
 }
 
@@ -1463,7 +1462,6 @@ section#s-pubbias1 .slide-inner::after {
 
 section#s-pubbias1 .slide-headline {
   align-self: flex-start;
-  font-size: 28px;
 }
 
 /* --- Click 1: Proportion bars (FDA vs Literature) --- */
@@ -1709,299 +1707,90 @@ section#s-pubbias2 .funnel-zone--base .funnel-zone-label {
 }
 
 /* ═══════════════════════════════════════════════════════
-   s-heterogeneity — I²=67% paradox: same metric, opposite reality
-   S187 HETERO_SLIDES
+   s-heterogeneity — I² paradox: schematic forest plot comparison
+   Borenstein 2024: same I², opposite clinical reality. System tokens only.
    ═══════════════════════════════════════════════════════ */
 
-section#s-heterogeneity {
-  --het-safe: oklch(0.55 0.15 145);
-  --het-danger: oklch(0.55 0.18 25);
-}
-
-section#s-heterogeneity .slide-inner {
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-section#s-heterogeneity .slide-inner::before,
-section#s-heterogeneity .slide-inner::after { display: none; }
-
-section#s-heterogeneity .slide-headline {
-  font-size: 26px;
-  align-self: start;
-}
-
-section#s-heterogeneity .het-focal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2em;
-  opacity: 0;
-}
-
-section#s-heterogeneity .het-i2-value {
-  font-family: var(--font-mono);
-  font-size: 4.5rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-section#s-heterogeneity .het-i2-sub {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  color: var(--text-muted);
-  font-style: italic;
-}
-
-section#s-heterogeneity .het-panels {
+section#s-heterogeneity .het-compare {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
-  width: min(100%, 820px);
-  justify-self: center;
+  width: min(100%, 880px);
+  align-self: center;
 }
 
 section#s-heterogeneity .het-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-md) var(--space-sm);
-  border-radius: var(--radius-lg);
-  opacity: 0;
-}
-
-section#s-heterogeneity .het-panel--safe {
-  background: color-mix(in oklch, var(--het-safe) 12%, transparent);
-  border: 2px solid color-mix(in oklch, var(--het-safe) 40%, transparent);
-}
-
-section#s-heterogeneity .het-panel--danger {
-  background: color-mix(in oklch, var(--het-danger) 12%, transparent);
-  border: 2px solid color-mix(in oklch, var(--het-danger) 40%, transparent);
-}
-
-section#s-heterogeneity .het-panel-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-}
-
-section#s-heterogeneity .het-panel-pi {
-  font-family: var(--font-mono);
-  font-size: 1.8rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-section#s-heterogeneity .het-panel--safe .het-panel-pi { color: var(--het-safe); }
-section#s-heterogeneity .het-panel--danger .het-panel-pi { color: var(--het-danger); }
-
-section#s-heterogeneity .het-panel-verdict {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  font-weight: 600;
-}
-
-section#s-heterogeneity .het-panel--safe .het-panel-verdict { color: var(--het-safe); }
-section#s-heterogeneity .het-panel--danger .het-panel-verdict { color: var(--het-danger); }
-
-/* Failsafes */
-.no-js section#s-heterogeneity .het-focal,
-.no-js section#s-heterogeneity .het-panel,
-.stage-bad section#s-heterogeneity .het-focal,
-.stage-bad section#s-heterogeneity .het-panel,
-[data-qa] section#s-heterogeneity .het-focal,
-[data-qa] section#s-heterogeneity .het-panel { opacity: 1 !important; }
-@media print {
-  section#s-heterogeneity .het-focal,
-  section#s-heterogeneity .het-panel { opacity: 1 !important; }
-}
-
-/* ═══════════════════════════════════════════════════════
-   s-i2 — The I² trap: 98% report it, few understand it
-   S187 HETERO_SLIDES
-   ═══════════════════════════════════════════════════════ */
-
-section#s-i2 {
-  --i2-high: oklch(0.50 0.10 255);
-  --i2-low: oklch(0.55 0.12 55);
-  --i2-safe: oklch(0.55 0.15 145);
-  --i2-danger: oklch(0.55 0.18 25);
-}
-
-section#s-i2 .slide-inner {
-  display: grid;
-  grid-template-rows: auto auto 1fr auto auto;
   gap: var(--space-sm);
+  margin: 0;
+  opacity: 0;
 }
 
-section#s-i2 .slide-inner::before,
-section#s-i2 .slide-inner::after { display: none; }
+section#s-heterogeneity .het-forest { width: 100%; max-height: 240px; }
 
-section#s-i2 .slide-headline { font-size: 26px; }
+/* SVG element styles — colors via system tokens */
+section#s-heterogeneity .het-null { stroke: var(--border); stroke-dasharray: 4 3; }
+section#s-heterogeneity .het-ci   { stroke: var(--text-primary); stroke-width: 2; }
+section#s-heterogeneity .het-wt   { fill: var(--text-primary); }
+section#s-heterogeneity .het-pi   { opacity: 0.15; }
+section#s-heterogeneity .het-pi--safe       { fill: var(--safe); }
+section#s-heterogeneity .het-pi--danger     { fill: var(--danger); }
+section#s-heterogeneity .het-diamond--safe   { fill: var(--safe); }
+section#s-heterogeneity .het-diamond--danger { fill: var(--danger); }
 
-/* Audit hero: 98% vs 4% */
-section#s-i2 .i2-audit {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-lg);
-  width: min(100%, 700px);
-  justify-self: center;
-  position: relative;
-}
+/* Caption */
+section#s-heterogeneity figcaption { text-align: center; }
 
-section#s-i2 .i2-audit-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-section#s-i2 .i2-audit-number {
+section#s-heterogeneity .het-i2 {
   font-family: var(--font-mono);
-  font-size: 5rem;
-  font-weight: 700;
+  font-size: var(--text-h3);
   font-variant-numeric: tabular-nums;
-  line-height: 1;
-  letter-spacing: -0.03em;
+  color: var(--text-primary);
 }
 
-section#s-i2 .i2-audit-pct {
-  font-family: var(--font-mono);
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-section#s-i2 .i2-audit--high .i2-audit-number,
-section#s-i2 .i2-audit--high .i2-audit-pct { color: var(--i2-high); }
-
-section#s-i2 .i2-audit--low .i2-audit-number,
-section#s-i2 .i2-audit--low .i2-audit-pct { color: var(--i2-low); }
-
-section#s-i2 .i2-audit-desc {
+section#s-heterogeneity .het-verdict {
+  display: block;
   font-family: var(--font-body);
   font-size: var(--text-body);
-  color: var(--text-secondary);
-  margin-top: 0.3em;
+  font-weight: 600;
+  margin-top: 0.2em;
 }
 
-section#s-i2 .i2-audit-source {
-  position: absolute;
-  bottom: -1.5em;
-  left: 50%;
-  translate: -50% 0;
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-  white-space: nowrap;
-}
+section#s-heterogeneity .het-verdict--safe   { color: var(--safe); }
+section#s-heterogeneity .het-verdict--danger { color: var(--danger); }
 
-/* Paradox cards */
-section#s-i2 .i2-paradox {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
-  width: min(100%, 780px);
-  justify-self: center;
-  opacity: 0;
-}
-
-section#s-i2 .i2-paradox-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-md) var(--space-sm);
-  border-radius: var(--radius-lg);
-}
-
-section#s-i2 .i2-paradox--trap-high {
-  background: color-mix(in oklch, var(--i2-safe) 10%, transparent);
-  border: 2px solid color-mix(in oklch, var(--i2-safe) 35%, transparent);
-}
-
-section#s-i2 .i2-paradox--trap-low {
-  background: color-mix(in oklch, var(--i2-danger) 10%, transparent);
-  border: 2px solid color-mix(in oklch, var(--i2-danger) 35%, transparent);
-}
-
-section#s-i2 .i2-paradox-i2 {
-  font-family: var(--font-mono);
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-section#s-i2 .i2-paradox--trap-high .i2-paradox-i2 { color: var(--i2-safe); }
-section#s-i2 .i2-paradox--trap-low .i2-paradox-i2 { color: var(--i2-danger); }
-
-section#s-i2 .i2-paradox-reality {
-  font-family: var(--font-body);
-  font-size: var(--text-h3);
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-section#s-i2 .i2-paradox-why {
-  font-family: var(--font-body);
-  font-size: var(--text-caption);
-  color: var(--text-muted);
-}
-
-/* Higgins seal */
-section#s-i2 .i2-seal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
-  opacity: 0;
-}
-
-section#s-i2 .i2-thresholds {
-  font-family: var(--font-mono);
-  font-size: 1.4rem;
-  color: var(--text-muted);
-  letter-spacing: 0.3em;
-}
-
-section#s-i2 .i2-thresholds s {
-  text-decoration: line-through;
-  text-decoration-color: var(--i2-danger);
-  text-decoration-thickness: 3px;
-}
-
-section#s-i2 .i2-higgins {
-  font-family: var(--font-display);
-  font-size: var(--text-h3);
-  font-style: italic;
-  color: var(--text-primary);
+/* Insight block (click 3) */
+section#s-heterogeneity .het-insight {
   text-align: center;
-  max-width: 38ch;
+  max-width: none;
+  width: min(100%, 640px);
+  align-self: center;
+  opacity: 0;
 }
-
-section#s-i2 .i2-higgins-author {
-  font-family: var(--font-body);
+section#s-heterogeneity .het-def {
+  font-size: var(--text-body);
+  color: var(--text-primary);
+  max-width: none;
+}
+section#s-heterogeneity .het-caveat {
   font-size: var(--text-caption);
   color: var(--text-muted);
+  font-style: italic;
+  max-width: none;
 }
 
 /* Failsafes */
-.no-js section#s-i2 .i2-paradox,
-.no-js section#s-i2 .i2-seal,
-.stage-bad section#s-i2 .i2-paradox,
-.stage-bad section#s-i2 .i2-seal,
-[data-qa] section#s-i2 .i2-paradox,
-[data-qa] section#s-i2 .i2-seal { opacity: 1 !important; }
+.no-js section#s-heterogeneity .het-panel,
+.no-js section#s-heterogeneity .het-insight,
+.stage-bad section#s-heterogeneity .het-panel,
+.stage-bad section#s-heterogeneity .het-insight,
+[data-qa] section#s-heterogeneity .het-panel,
+[data-qa] section#s-heterogeneity .het-insight { opacity: 1 !important; }
 @media print {
-  section#s-i2 .i2-paradox,
-  section#s-i2 .i2-seal { opacity: 1 !important; }
+  section#s-heterogeneity .het-panel,
+  section#s-heterogeneity .het-insight { opacity: 1 !important; }
 }
 
 /* ═══════════════════════════════════════════════════════

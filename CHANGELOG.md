@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 188 — 2026-04-14 (HETERO-POLISH)
+
+### Slides — s-heterogeneity professional rewrite + s-i2 absorbed (17→16)
+- **09a-heterogeneity.html:** SVG schematic forest plots (Panel A safe, Panel B danger). 3 click-reveals: panel A ← esquerda, panel B → direita, insight (definição I² + motivo para não confiar). PMID removido da source-tag.
+- **s-i2 absorbed:** conteúdo redundante após enriquecimento do s-heterogeneity (definição I² + paradox visual já cobertos). Removido de manifest, CSS (~170 linhas), registry. HTML permanece em slides/ fora do build.
+- **metanalise.css:** s-heterogeneity CSS reescrito (120→45 linhas, zero tokens privados, zero override .slide-inner). s-i2 CSS eliminado (~170 linhas). Total: −300+ linhas.
+- **h2 standardization:** removido font-size override de s-rob2 (28px→herda 34px) e s-pubbias1 (28px→herda 34px).
+- **slide-registry.js:** s-heterogeneity factory reescrita (3 clicks). s-i2 factory removida (~55 linhas).
+- **_manifest.js:** s-heterogeneity clickReveals 2→3, s-i2 removido, 17→16 slides.
+- **Design:** zero tokens privados (--het-*, --i2-* eliminados). Apenas system tokens (--safe, --danger, --text-primary, --border, --text-muted, --text-caption).
+
 ## Sessao 187 — 2026-04-14 (TIPOS-MA + QUALITY-GRADE-ROB + HETERO_SLIDES)
 
 ### Slides — 3 slides heterogeneidade (2 novos + 1 rewrite, 15→17)
@@ -28,6 +39,14 @@
 - Tabelas AMSTAR-2 (7 dominios criticos), GRADE (8 dominios), RoB 2 vs ROBINS-I
 - 6 misconceptions com fontes, 4 cenarios clinicos, analogia container/conteudo/ingredientes
 - Landmark refs: Shea 2017 (PMID 28935701), Sterne 2019 (PMID 31462531), Guyatt 2011 (PMID 21247734)
+
+### Evidence Enrichment — benchmark CSS + 3-layer content + PMID verification
+
+**Ambos os HTMLs reescritos** com CSS benchmark (pre-reading-heterogeneidade.html) e conteudo 3 niveis:
+- **s-tipos-ma.html:** 15→16 VERIFIED refs (+Guyatt GRADE 6 imprecision, PMID 21839614). 340→~480 linhas. 5 deep-dive accordions (NMA transitivity, IPD availability bias, DTA threshold, prevalence I2, dose-response Greenland-Longnecker).
+- **s-quality-grade-rob.html:** 13→14 VERIFIED refs. 280→~420 linhas. 4 deep-dive accordions (AMSTAR-2 critically low, GRADE imprecision/OIS, ROBINS-I low risk, certeza vs forca).
+- **PMID corrections:** Welton 2009 DOI/journal (Stat Med→Am J Epidemiol), Wang 2021 "64%"→"39%" (abstract-verified), ROBINS-I "88%"→"12%", Yan "5/10"→abstract language, AllTrials genericizado.
+- **Verification method:** NCBI E-utilities (esummary metadata + efetch abstracts) para cross-ref every numerical claim.
 
 ### PMID Verification — taxa de erro confirmada
 - Perplexity: 0/7 PMIDs corretos (100% erro) — incluindo AMSTAR-2 PMID apontando para paper de fibronectina renal

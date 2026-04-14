@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence: s-heterogeneity</title>
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; line-height: 1.7; text-align: justify; }
+    h1 { font-size: 1.5rem; border-bottom: 2px solid #2d6a4f; padding-bottom: .5rem; }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    h3 { font-size: 1.05rem; color: #2d6a4f; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .meta { font-size: .85rem; color: #555; }
+    table { border-collapse: collapse; width: 100%; margin: .5rem 0; font-size: .88rem; }
+    th, td { border: 1px solid #ccc; padding: .4rem .6rem; text-align: left; }
+    th { background: #f0f4f0; }
+    details { margin: 1rem 0; border-left: 3px solid #2d6a4f; padding-left: .8rem; }
+    summary { cursor: pointer; font-weight: 600; color: #2d6a4f; padding: .3rem 0; }
+    .ref-inline { color: #555; font-size: .85rem; }
+    .key-takeaway { background: #e8f5e9; border-left: 4px solid #2d6a4f; padding: .6rem 1rem; margin: .5rem 0; font-size: .9rem; border-radius: 0 4px 4px 0; }
+    .caveat { background: #fff3cd; border-left: 4px solid #d97706; padding: .5rem .8rem; margin: .5rem 0; font-size: .88rem; border-radius: 0 4px 4px 0; }
+    .gap-card { border-left: 3px solid #d97706; padding-left: .8rem; margin: .8rem 0; }
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .objectives { background: #f0f4f0; border-radius: 6px; padding: .8rem 1.2rem; margin: 1rem 0; }
+    .objectives li { margin: .3rem 0; }
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+    .v { background: #2563eb; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .c { background: #dc2626; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    .book { background: #6b7280; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: .72rem; font-weight: 600; margin-left: 4px; }
+    footer { margin-top: 2rem; padding-top: .5rem; border-top: 1px solid #ccc; font-size: .8rem; color: #777; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Heterogeneidade em Meta-analises: I&sup2;, &tau;&sup2;, Q, Intervalo de Predicao, Efeito Fixo vs Aleatorio</h1>
+  <p class="meta">Slide: s-heterogeneity (pos 15, F2) | Fase: F2 (apos s-pubbias, antes de s-fixed-random) | Timing: ~90s</p>
+  <p class="meta">Pesquisa: pipeline /evidence 6 pernas (S185) | Validade sugerida: outubro 2026</p>
+
+  <div class="objectives">
+    <strong>O que este evidence cobre (1&ndash;3 slides &mdash; Lucas decide):</strong>
+    <ol>
+      <li>A triade Q / I&sup2; / &tau;&sup2; &mdash; o que cada metrica pergunta e o que NAO responde</li>
+      <li>Intervalo de predicao como medida clinica da dispersao real dos efeitos</li>
+      <li>Efeito fixo vs efeitos aleatorios &mdash; premissas, quando escolher, impacto no IC</li>
+      <li>DerSimonian-Laird &rarr; REML + Hartung-Knapp &mdash; por que o padrao mudou</li>
+      <li>Fontes de heterogeneidade: subgrupos e meta-regressao (quando apropriados, armadilhas)</li>
+      <li>GRADE dominio inconsistencia &mdash; evolucao dos limiares de I&sup2; para thresholds clinicos</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ===== SINTESE NARRATIVA ===== -->
+<section id="sintese">
+  <h2>Sintese narrativa</h2>
+
+  <p>Heterogeneidade estatistica &mdash; a variabilidade nos efeitos do tratamento entre estudos &mdash; e inevitavel quando se sintetiza evidencia de estudos conduzidos em populacoes, doses e contextos diferentes. A questao nunca foi "existe heterogeneidade?" (quase sempre existe), mas sim "quanto os efeitos reais variam e isso importa para o meu paciente?" O problema e que a metrica mais usada para responder essa pergunta, o I&sup2;, <strong>nao a responde</strong>.</p>
+
+  <p>Borenstein et al. (2024, Res Synth Methods) demonstraram que Q, I&sup2; e &tau;&sup2; respondem a perguntas distintas e nao sao intercambiaveis. O I&sup2; mede apenas a proporcao da variancia observada que reflete variacao real (sinal vs ruido), nao a magnitude clinica dessa variacao. Um I&sup2; de 67% pode corresponder tanto a efeitos agrupados entre 0,71 e 1,05 quanto entre 0,40 e 1,91 &mdash; impossivel distinguir sem o intervalo de predicao. Higgins, o proprio criador do I&sup2;, reafirmou em 2025 que a metrica nunca foi desenhada para quantificar dispersao clinica e que os limiares "baixo/moderado/alto" sao "desinformativos na melhor das hipoteses, e frequentemente enganosos".</p>
+
+  <p>A solucao converge em todas as fontes: o <strong>intervalo de predicao (PI)</strong> traduz a heterogeneidade para a escala clinica, mostrando a faixa esperada de efeitos verdadeiros em 95% dos cenarios comparaveis. Simultaneamente, o Cochrane Handbook v6.5 (2024) oficializou a transicao de DerSimonian-Laird para REML (estimador de &tau;&sup2;) e Hartung-Knapp (ajuste do IC), corrigindo a superconfianca dos metodos antigos. O GRADE 2024 ("Core GRADE") abandonou os limiares de I&sup2; em favor de thresholds clinicos definidos por stakeholders.</p>
+
+  <div class="key-takeaway"><strong>Mensagem central para o residente:</strong> I&sup2; alto nao invalida a meta-analise e I&sup2; baixo nao garante homogeneidade. O que importa e se os efeitos verdadeiros variam de forma clinicamente relevante. Para saber isso, olhe para o intervalo de predicao, nao para o I&sup2;.</div>
+</section>
+
+<!-- ===== CONCEITOS-CHAVE ===== -->
+<section id="concepts">
+  <h2>Conceitos-chave</h2>
+
+  <h3>A triade: Q, I&sup2;, &tau;&sup2;</h3>
+  <p>Cada metrica responde a uma pergunta diferente sobre heterogeneidade. Usar a errada leva a conclusoes erradas.</p>
+  <table>
+    <tr><th scope="col">Metrica</th><th scope="col">O que pergunta</th><th scope="col">O que NAO diz</th><th scope="col">Escala</th></tr>
+    <tr><td class="glossary-term">Q de Cochran</td><td>"Existe evidencia de que os efeitos verdadeiros variam?"</td><td>Nao diz o quanto variam. Baixo poder com poucos estudos &mdash; p > 0,05 nao prova homogeneidade.</td><td>Qui-quadrado (df = k&minus;1)</td></tr>
+    <tr><td class="glossary-term">I&sup2;</td><td>"De toda a variancia observada, que proporcao reflete variacao real (nao acaso)?"</td><td>Nao diz a magnitude clinica da variacao. Depende da precisao dos estudos, nao da dispersao real.</td><td>Proporcao: 0&ndash;100%</td></tr>
+    <tr><td class="glossary-term">&tau;&sup2; e &tau;</td><td>"Quanto os efeitos verdadeiros realmente variam?"</td><td>Escala quadratica (&tau;&sup2;) pouco intuitiva. Interpretar via &tau; (desvio padrao) ou via intervalo de predicao.</td><td>Mesma unidade do efeito</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: Borenstein 2024 (PMID 37940120); Borenstein et al. 2021, "Introduction to Meta-Analysis" Cap. 16&ndash;17.</p>
+
+  <h3>O paradoxo do I&sup2;</h3>
+  <p>O I&sup2; e uma razao (sinal/total), nao uma medida absoluta de dispersao. Isso cria armadilhas:</p>
+  <table>
+    <tr><th scope="col">Cenario</th><th scope="col">I&sup2;</th><th scope="col">Dispersao real dos efeitos</th><th scope="col">O que I&sup2; esconde</th></tr>
+    <tr><td>Estudos muito grandes e precisos</td><td><strong>90%+</strong></td><td>Pode ser <em>clinicamente trivial</em> (todos entre 0,48 e 0,52)</td><td>Alta proporcao de sinal, mas efeitos quase identicos</td></tr>
+    <tr><td>Estudos pequenos e imprecisos</td><td><strong>&lt;25%</strong></td><td>Pode ser <em>clinicamente enorme</em> (entre &minus;0,50 e +1,50)</td><td>Ruido amostral domina, mascarando dispersao real</td></tr>
+    <tr><td>Prevalencia (53 MAs)</td><td>Mediana <strong>96,9%</strong></td><td>Esperado &mdash; nao indica problema</td><td>I&sup2; extremo e a norma em MAs de prevalencia</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: Borenstein 2024 (PMID 37940120) Fig. 19.2; Migliavaca 2022 (PMID 35088937); Higgins 2025 (DOI 10.1017/rsm.2025.10062).</p>
+
+  <div class="caveat"><strong>Regra pratica obsoleta:</strong> Classificar I&sup2; como "baixo (25%), moderado (50%), alto (75%)" era uma heuristica de triagem, nunca um diagnostico clinico. Todas as fontes convergem: PARAR de usar essa classificacao isoladamente. Sempre complementar com &tau; e o intervalo de predicao.</div>
+
+  <h3>Intervalo de predicao (PI) &mdash; a metrica que importa</h3>
+  <p>O intervalo de predicao responde a pergunta clinica: "se eu aplicar esta intervencao num cenario comparavel, qual a faixa de efeito que posso esperar?" Enquanto o IC do efeito resumo estima a precisao da <em>media</em>, o PI estima a <em>dispersao real dos efeitos individuais</em>.</p>
+
+  <table>
+    <tr><th scope="col">Exemplo</th><th scope="col">Efeito medio</th><th scope="col">IC 95%</th><th scope="col">PI 95%</th><th scope="col">Interpretacao clinica</th></tr>
+    <tr><td>GLP-1 na PA diastolica</td><td>&minus;0,47</td><td>&minus;1,20 a +0,25</td><td><strong>&minus;4,08 a +3,13</strong></td><td>Benefico em ~60% das populacoes, <strong>aumenta PA em ~40%</strong>. Decisao muda de "nao funciona" para "precisa de subgrupos".</td></tr>
+    <tr><td>Augmentacao de clozapina</td><td>&minus;0,24</td><td>&minus;0,45 a &minus;0,03</td><td><strong>&minus;0,83 a +0,35</strong></td><td>IC exclui zero &rarr; "benefico". Mas PI inclui dano em ~20% das populacoes. Cautela obrigatoria.</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: Borenstein 2021, Cap. 24 (dados extraidos do NLM); IntHout 2016 (PMID 27406637); Siemens 2025 (DOI 10.1186/s12874-025-02733-9).</p>
+
+  <div class="key-takeaway"><strong>Para o residente:</strong> O PI revela quando um tratamento e <em>uniformemente</em> benefico (PI todo do mesmo lado do zero) vs quando <em>ajuda alguns e prejudica outros</em> (PI cruzando o zero). Essa informacao esta escondida se voce so olhar para a media e o IC.</div>
+
+  <h3>Efeito fixo vs efeitos aleatorios &mdash; premissas e consequencias</h3>
+  <table>
+    <tr><th scope="col">Aspecto</th><th scope="col">Efeito Fixo (FE)</th><th scope="col">Efeitos Aleatorios (RE)</th></tr>
+    <tr><td>Premissa</td><td>Um unico efeito verdadeiro identico em todos os estudos.</td><td>Efeitos verdadeiros variam (distribuicao normal com media &mu; e variancia &tau;&sup2;).</td></tr>
+    <tr><td>Fontes de variacao</td><td>Apenas erro amostral intra-estudo.</td><td>Erro amostral + variancia entre estudos (&tau;&sup2;).</td></tr>
+    <tr><td>Pesos dos estudos</td><td>Estudos grandes recebem peso esmagador (~5&ndash;6&times; dos pequenos).</td><td>Pesos mais equilibrados (~1,5&ndash;2,5&times; diferenca).</td></tr>
+    <tr><td>IC do efeito resumo</td><td>Mais estreito (falsa precisao se ha heterogeneidade).</td><td>Mais amplo (reflete incerteza real).</td></tr>
+    <tr><td>Quando usar</td><td>Estudos funcionalmente identicos (raro &mdash; ex: bracos do mesmo RCT multicentrico).</td><td>A vasta maioria das MAs clinicas. Recomendacao Cochrane v6.5.</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: Borenstein 2021, Cap. 13&ndash;14; Cochrane Handbook v6.5, Cap. 10 (2024).</p>
+
+  <div class="caveat"><strong>Armadilha comum:</strong> A escolha entre FE e RE <strong>nunca</strong> deve ser baseada no resultado do teste Q ou no valor de I&sup2;. E uma decisao <em>a priori</em>, baseada na plausibilidade de que os efeitos variem entre populacoes e contextos. Usar I&sup2; para escolher o modelo e redundante e enganoso (Borenstein 2021; Cochrane v6.5).</div>
+
+  <h3>DerSimonian-Laird &rarr; REML + Hartung-Knapp</h3>
+  <p>A escolha do <em>modelo</em> (FE vs RE) e a escolha do <em>metodo</em> dentro do modelo aleatorio sao decisoes distintas. Historicamente, o DerSimonian-Laird (DL) era o padrao. Hoje e considerado obsoleto:</p>
+  <table>
+    <tr><th scope="col">Metodo</th><th scope="col">O que faz</th><th scope="col">Problema / Vantagem</th><th scope="col">Status atual</th></tr>
+    <tr><td class="glossary-term">DerSimonian-Laird (DL)</td><td>Estima &tau;&sup2; por metodo dos momentos</td><td><strong>Subestima &tau;&sup2;</strong>, especialmente com poucos estudos &rarr; IC excessivamente estreito &rarr; falsos positivos.</td><td>Obsoleto. Nao recomendado como default.</td></tr>
+    <tr><td class="glossary-term">REML</td><td>Estima &tau;&sup2; por maxima verossimilhanca restrita</td><td>Vies negativo <strong>muito menor</strong> que DL. Iterativo, mais preciso.</td><td>Recomendado: Cochrane v6.5, Langan 2019.</td></tr>
+    <tr><td class="glossary-term">Hartung-Knapp (HKSJ)</td><td>Ajusta o IC do efeito resumo usando distribuicao <em>t</em> de Student (em vez de <em>Z</em>)</td><td>Cobertura muito mais proxima de 95% nominal. Impacto dramatico com poucos estudos &mdash; pode <strong>ampliar o IC e reverter significancia</strong>.</td><td>Recomendado: Cochrane v6.5, IntHout 2014.</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: IntHout 2014 (PMID 24548571); Langan 2019 (PMID 30067315); Mheissen 2024 (PMID 38502662); Cochrane Handbook v6.5 Cap. 10.</p>
+
+  <div class="key-takeaway"><strong>Impacto pratico:</strong> Mheissen et al. (2024) analisaram 146 MAs ortodonticas e mostraram que, ao substituir DL por HKSJ, resultados previamente "significativos" frequentemente perdiam significancia quando I&sup2; > 0%. Os intervalos de confianca alargam porque refletem a <em>verdadeira</em> incerteza &mdash; o DL escondia essa incerteza com precisao artificial.</div>
+
+  <h3>Fontes de heterogeneidade: subgrupos e meta-regressao</h3>
+  <p>Quando heterogeneidade e detectada, a proxima pergunta e "por que?" Duas ferramentas principais:</p>
+  <table>
+    <tr><th scope="col">Ferramenta</th><th scope="col">Quando usar</th><th scope="col">Armadilha principal</th></tr>
+    <tr><td class="glossary-term">Analise de subgrupo</td><td>Variavel explicativa <strong>categorica</strong> (ex: tipo de droga, sexo, risco de vies)</td><td>Comparacao <em>entre</em> estudos e observacional &mdash; nao prova causalidade. Multiplas comparacoes inflam falsos positivos.</td></tr>
+    <tr><td class="glossary-term">Meta-regressao</td><td>Variavel explicativa <strong>continua</strong> (ex: dose, idade media, latitude) ou multiplos preditores simultaneos</td><td>Falacia ecologica: media do estudo &ne; efeito no individuo. Regra pratica: 10&ndash;20 estudos por preditor.</td></tr>
+  </table>
+
+  <p><strong>Credibilidade dos achados de subgrupo:</strong> Ademola et al. (2023, PMID 36988330) avaliaram subgrupos em trials de AVC com o ICEMAN e encontraram que <strong>65% tinham baixa credibilidade</strong> &mdash; hipoteses pos-hoc, sem teste de interacao formal, sem plausibilidade biologica. Para o residente-leitor, as perguntas-chave sao:</p>
+  <table>
+    <tr><th scope="col">Criterio</th><th scope="col">Pergunta</th></tr>
+    <tr><td>A priori?</td><td>A hipotese foi especificada ANTES da MA?</td></tr>
+    <tr><td>Teste de interacao?</td><td>Usaram teste formal (nao sobreposicao visual de ICs)?</td></tr>
+    <tr><td>Plausibilidade?</td><td>Faz sentido biologico/clinico?</td></tr>
+    <tr><td>Within-trial?</td><td>Comparacao dentro dos estudos (mais confiavel) ou entre estudos?</td></tr>
+    <tr><td>Poucas hipoteses?</td><td>Testaram poucas ou dez de subgrupos (data dredging)?</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: Ademola 2023 (PMID 36988330); Kanellopoulou 2025 (PMID 40475918); Borenstein 2021, Cap. 20&ndash;21.</p>
+
+  <h3>GRADE &mdash; dominio inconsistencia</h3>
+  <p>O GRADE avalia inconsistencia como um dos 5 dominios que podem rebaixar a certeza da evidencia. A evolucao recente:</p>
+  <table>
+    <tr><th scope="col">Epoca</th><th scope="col">Abordagem</th><th scope="col">Limitacao</th></tr>
+    <tr><td>GRADE original (Guyatt 2011)</td><td>Limiares de I&sup2; + sobreposicao visual de ICs</td><td>Herda as armadilhas do I&sup2; (proporcao, nao magnitude)</td></tr>
+    <tr><td>Core GRADE (Murad 2024)</td><td><strong>Thresholds clinicos definidos por stakeholders:</strong> 7 faixas (reducao grande/media/pequena, trivial, aumento pequeno/medio/grande). Distribuicao do peso da MA pelas faixas.</td><td>Requer definicao prospectiva de MCID pelo grupo revisor</td></tr>
+  </table>
+  <p>Na pratica Core GRADE, inconsistencia nao e mais "I&sup2; > 50% &rarr; rebaixar". Agora: "os estudos diferem em dimensoes clinicamente importantes, considerando os thresholds que definimos?" Dois cenarios:</p>
+  <table>
+    <tr><th scope="col">Cenario</th><th scope="col">I&sup2;</th><th scope="col">Estudos</th><th scope="col">Rebaixar por inconsistencia?</th></tr>
+    <tr><td>96% do peso em "reducao pequena"</td><td>Alto</td><td>Quase todos apontam na mesma direcao clinica</td><td><strong>Nao</strong> &mdash; I&sup2; alto por precisao, nao por divergencia clinica</td></tr>
+    <tr><td>Peso dividido entre "benefico" e "prejudicial"</td><td>Moderado</td><td>ICs sobrepoem, mas direcao clinica diverge</td><td><strong>Sim</strong> &mdash; inconsistencia clinicamente relevante</td></tr>
+  </table>
+  <p class="ref-inline">Fontes: Guyatt 2011 (PMID 21803546); Murad 2024 (PMID 39322122).</p>
+</section>
+
+<!-- ===== DADOS QUANTITATIVOS ===== -->
+<section id="dados">
+  <h2>Numeros-chave (verificados)</h2>
+
+  <h3>Praticas atuais vs recomendacoes</h3>
+  <table>
+    <tr><th scope="col">Dado</th><th scope="col">Valor</th><th scope="col">Fonte</th><th scope="col">Verificacao</th></tr>
+    <tr><td>MAs que reportam I&sup2;</td><td><strong>98%</strong></td><td>Tatas 2025 (313 SRs)</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39962342" target="_blank" rel="noopener noreferrer">PMID 39962342</a> <span class="v">V</span></td></tr>
+    <tr><td>MAs que reportam &tau;&sup2;</td><td><strong>4%</strong></td><td>Tatas 2025</td><td>Idem</td></tr>
+    <tr><td>MAs que escolhem modelo (FE/RE) baseado no I&sup2;</td><td><strong>42%</strong></td><td>Tatas 2025</td><td>Idem</td></tr>
+    <tr><td>MAs de prevalencia com utilizacao de PI</td><td><strong>5,8%</strong></td><td>Vera-Ponce 2026 (53 MAs)</td><td>Gemini cross-ref</td></tr>
+    <tr><td>I&sup2; mediano em MAs de prevalencia</td><td><strong>96,9%</strong> (IQR 90,5&ndash;98,7%)</td><td>Migliavaca 2022</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35088937" target="_blank" rel="noopener noreferrer">PMID 35088937</a> <span class="v">V</span></td></tr>
+    <tr><td>Subgrupos em stroke com baixa credibilidade (ICEMAN)</td><td><strong>65%</strong></td><td>Ademola 2023</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36988330" target="_blank" rel="noopener noreferrer">PMID 36988330</a> <span class="v">V</span></td></tr>
+  </table>
+
+  <h3>Exemplos clinicos: PI muda a decisao</h3>
+  <table>
+    <tr><th scope="col">Intervencao</th><th scope="col">Efeito medio (SMD)</th><th scope="col">IC 95%</th><th scope="col">PI 95%</th><th scope="col">Conclusao muda?</th></tr>
+    <tr><td>GLP-1 &rarr; PA diastolica</td><td>&minus;0,47</td><td>&minus;1,20 a +0,25</td><td>&minus;4,08 a +3,13</td><td>Sim: "nao funciona" &rarr; "funciona em 60%, aumenta PA em 40%"</td></tr>
+    <tr><td>Augmentacao de clozapina</td><td>&minus;0,24</td><td>&minus;0,45 a &minus;0,03</td><td>&minus;0,83 a +0,35</td><td>Sim: "benefico" &rarr; "dano em ~20% das populacoes"</td></tr>
+  </table>
+  <p class="ref-inline">Fonte: Borenstein 2021, Cap. 24 (dados numericos extraidos via NLM). Estes exemplos sao didaticos e demonstram o principio.</p>
+</section>
+
+<!-- ===== POSICIONAMENTO PEDAGOGICO ===== -->
+<section id="pedagogico">
+  <h2>Posicionamento pedagogico</h2>
+
+  <p><strong>Tensao anterior (s-pubbias):</strong> O residente aprendeu que estudos podem estar faltando (publication bias). Agora descobre que mesmo os estudos <em>incluidos</em> podem apontar em direcoes diferentes &mdash; e que a metrica mais usada para quantificar isso (I&sup2;) e facilmente mal interpretada.</p>
+
+  <p><strong>Tensao que este slide cria:</strong> "Se I&sup2; nao me diz o quanto os efeitos variam, entao como leio o forest plot?" O losango (media + IC) esconde a dispersao real. O PI revela que um tratamento "benefico em media" pode ser prejudicial em 20&ndash;40% dos cenarios. A confianca no diamante e abalada de novo &mdash; agora nao por evidencia faltante (pub bias), mas por evidencia heterogenea presente.</p>
+
+  <p><strong>Resolucao:</strong> Ferramentas existem (PI, &tau;, subgrupos, GRADE inconsistencia) e sao ensinadas no slide seguinte (s-fixed-random aprofunda modelo). O residente sai com uma heuristica clara: sempre que ler I&sup2; > 0%, pergunte "qual e o intervalo de predicao?" &mdash; essa e a unica metrica que responde se o efeito e consistente ou nao.</p>
+
+  <p><strong>Conexao com s-fixed-random (proximo):</strong> Heterogeneidade influencia a ESCOLHA do modelo (FE vs RE) e o RESULTADO (IC mais estreito vs mais amplo). O proximo slide mostra como a mesma MA pode ser significativa em FE e nao-significativa em RE.</p>
+
+  <p><strong>Conexao com F3 (aplicacao):</strong> Na ancora (Valgimigli 2025), o residente vera o I&sup2; real e o PI real daquela MA. A heterogeneidade sai da teoria e vira decisao clinica concreta.</p>
+</section>
+
+<!-- ===== APROFUNDAMENTO ===== -->
+<section id="deep-dive">
+  <h2>Aprofundamento</h2>
+
+  <details>
+    <summary>Evolucao historica: de Cochran a Borenstein</summary>
+    <div class="gap-card">
+      <p><strong>1954 &mdash; Cochran's Q:</strong> William Cochran criou o teste Q como extensao da analise de variancia para dados ponderados. Por decadas, o valor-p do Q foi a unica medida de heterogeneidade. Limitacao reconhecida cedo: baixo poder com poucos estudos.</p>
+      <p><strong>2002 &mdash; I&sup2; (Higgins &amp; Thompson):</strong> Proposto como medida invariante de escala para heterogeneidade. A formula I&sup2; = (Q &minus; df) / Q &times; 100% convertia o Q numa proporcao. Limiares "25/50/75%" foram sugeridos como heuristica exploratoria. A comunidade os adotou como regra fixa &mdash; contra a intencao original dos autores.</p>
+      <p><strong>2016 &mdash; IntHout et al.:</strong> "A Plea for Routinely Reporting Prediction Intervals in Meta-Analysis" (BMJ Open). Primeiro paper de alto impacto pedindo PI sistematico.</p>
+      <p><strong>2017&ndash;2024 &mdash; Borenstein et al.:</strong> Serie de papers (2017: "I&sup2; is not an absolute measure", 2023: "difference between I&sup2; and prediction intervals", 2024: "Avoiding common mistakes") consolidando a triade Q/I&sup2;/&tau;&sup2; + PI como framework completo.</p>
+      <p><strong>2024 &mdash; Cochrane v6.5:</strong> Chapter 10 revisado. REML substitui DL como default. HKSJ recomendado. PI rotineiro. RevMan implementa PI automatico.</p>
+      <p><strong>2024 &mdash; Core GRADE (Murad et al.):</strong> Dominio inconsistencia reformulado. Limiares de I&sup2; substituidos por thresholds clinicos via stakeholders.</p>
+      <p><strong>2025 &mdash; Higgins "Reflections":</strong> O proprio criador do I&sup2; publica reflexoes sobre as mas interpretacoes da metrica ao longo de 20 anos.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>DL vs REML vs HKSJ &mdash; mecanica detalhada</summary>
+    <div class="gap-card">
+      <p><strong>DerSimonian-Laird (DL, 1986):</strong> Estima &tau;&sup2; usando metodo dos momentos &mdash; uma equacao fechada (nao iterativa) que compara o Q observado com o esperado sob homogeneidade. Vantagem historica: simples, rapido. Problema: sistematicamente subestima &tau;&sup2;, especialmente com poucos estudos ou eventos raros. O IC subsequente usa distribuicao Z (normal), que e excessivamente estreita quando a incerteza sobre &tau;&sup2; e alta.</p>
+      <p><strong>REML (Restricted Maximum Likelihood):</strong> Metodo iterativo que estima &tau;&sup2; maximizando a verossimilhanca restrita dos dados. Langan et al. (2019) mostraram em simulacoes extensivas que REML tem vies negativo muito menor que DL e e robusto em cenarios tipicos. O Cochrane Statistical Methods Group endossou REML como padrao em 2024.</p>
+      <p><strong>Hartung-Knapp-Sidik-Jonkman (HKSJ):</strong> Nao e um estimador de &tau;&sup2; &mdash; e um <em>ajuste do IC</em> do efeito resumo. Substitui os quantis Z (normais) por quantis <em>t</em> de Student com k&minus;1 graus de liberdade. Com 5 estudos, o quantil muda de 1,96 (Z) para 2,78 (t com df=4), alargando o IC em ~42%. IntHout et al. (2014) demonstraram em simulacoes e 689 reviews Cochrane que HKSJ atinge cobertura muito mais proxima de 95% que DL.</p>
+      <p><strong>Combinacao recomendada:</strong> REML para estimar &tau;&sup2; + HKSJ para calcular o IC = padrao Cochrane v6.5. R&ouml;ver (2015) adicionou uma modificacao (mKH) para cenarios com variacao extrema de erros-padrao.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Intervalo de predicao: calculo e interpretacao</summary>
+    <div class="gap-card">
+      <p><strong>Formula basica:</strong> PI = &mu; &plusmn; t<sub>k&minus;2</sub> &times; &radic;(&tau;&sup2; + SE&sup2;(&mu;)), onde &mu; e o efeito resumo, t<sub>k&minus;2</sub> e o quantil da t com k&minus;2 graus de liberdade, &tau;&sup2; e a variancia entre estudos, e SE(&mu;) e o erro padrao do efeito resumo.</p>
+      <p><strong>Interpretacao:</strong> "Em 95% dos cenarios comparaveis aos estudos da MA, o efeito verdadeiro estara entre [limite inferior] e [limite superior]." Diferente do IC, que estima a precisao da <em>media</em>.</p>
+      <p><strong>Quando PI &ne; IC:</strong> Sempre que &tau;&sup2; > 0. Com heterogeneidade zero, PI = IC. Com heterogeneidade real, PI e sempre mais amplo que IC. A diferenca cresce com &tau;&sup2;.</p>
+      <p><strong>Limitacao com poucos estudos:</strong> O PI depende de uma estimativa precisa de &tau;&sup2;, que e instavel com &lt;5 estudos. Metodos bootstrap (Nagashima 2019) podem melhorar a cobertura nesses cenarios.</p>
+      <p><strong>Extensao (Siemens 2025):</strong> Propoe calcular a <em>proporcao esperada</em> de estudos comparaveis com beneficio clinicamente relevante, dano, ou efeito trivial. Transforma o PI numa probabilidade diretamente util para decisao compartilhada: "em ~60% dos cenarios, este tratamento tera beneficio clinicamente importante."</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>GRADE inconsistencia &mdash; Core GRADE em detalhe</summary>
+    <div class="gap-card">
+      <p><strong>GRADE classico (2011):</strong> Guyatt et al. definiram inconsistencia como variabilidade nos resultados entre estudos. Avaliacao: (1) sobreposicao de ICs; (2) I&sup2; e Q; (3) direcao dos efeitos. Limiares implicitos: I&sup2; > 50% + p do Q < 0,10 = considerar rebaixar.</p>
+      <p><strong>Core GRADE (2024):</strong> Murad et al. reformularam. Passo 1: stakeholders definem thresholds para efeito clinicamente importante (MCID). Passo 2: construir 7 faixas (reducao grande/media/pequena, trivial, aumento pequeno/medio/grande). Passo 3: visualizar como o peso da MA se distribui pelas faixas. Passo 4: inconsistencia = estudos caem em faixas clinicamente diferentes (nao apenas estatisticamente diferentes).</p>
+      <p><strong>Exemplo pratico:</strong> MA com I&sup2; = 78%, mas 96% do peso na faixa "reducao pequena" &rarr; NAO rebaixar por inconsistencia (estudos concordam clinicamente, apesar de variar estatisticamente). MA com I&sup2; = 45%, mas peso dividido 50/50 entre "beneficio moderado" e "dano moderado" &rarr; REBAIXAR (divergencia clinica real, apesar de heterogeneidade estatistica "moderada").</p>
+      <p><strong>Implicacao para residentes:</strong> O GRADE nao e mais uma checklist mecanica ("I&sup2; > X &rarr; rebaixar"). E uma avaliacao de julgamento clinico que exige definir antecipadamente o que e clinicamente importante. Isso alinha GRADE com a filosofia de prediction intervals: importa a magnitude clinica da variacao, nao a proporcao estatistica.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Notas para o Professor</summary>
+    <div class="gap-card">
+      <p><strong>Ancora retorica (s-heterogeneity):</strong> "Vies de publicacao questiona se os estudos faltantes mudariam a conclusao. Heterogeneidade questiona se os estudos PRESENTES concordam entre si. O I&sup2; do forest plot parece responder &mdash; mas e uma armadilha."</p>
+      <p><strong>Demonstracao visual sugerida:</strong> Dois forest plots com I&sup2; identico (67%) mas PIs radicalmente diferentes (Panel A: 0,71&ndash;1,05; Panel C: 0,40&ndash;1,91). Isso e o Fig. 19.2 de Borenstein 2021.</p>
+      <p><strong>Frase de impacto:</strong> "I&sup2; te diz que proporcao do barulho e real. Nao te diz se o barulho e sussurro ou trovao. Para isso, precisa do intervalo de predicao."</p>
+      <p><strong>Transicao para s-fixed-random:</strong> "Se os efeitos variam, o modelo que voce escolhe importa. Fixed-effect finge que nao variam. Random-effects reconhece que variam. Vamos ver o que acontece com o IC quando voce muda de modelo."</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===== GLOSSARIO ===== -->
+<section id="glossary">
+  <h2>Glossario Rapido</h2>
+  <table>
+    <tr><th scope="col">Termo</th><th scope="col">O que significa</th><th scope="col">Na pratica</th></tr>
+    <tr><td class="glossary-term">Heterogeneidade estatistica</td><td>Variabilidade nos efeitos do tratamento entre estudos, alem do esperado pelo acaso.</td><td>Consequencia de heterogeneidade clinica (populacoes, doses) e/ou metodologica (delineamentos, medicoes).</td></tr>
+    <tr><td class="glossary-term">Q de Cochran</td><td>Teste formal de heterogeneidade. Soma ponderada dos desvios quadraticos em relacao ao efeito resumo.</td><td>p < 0,10 sugere heterogeneidade. p > 0,10 com poucos estudos NAO prova homogeneidade (baixo poder).</td></tr>
+    <tr><td class="glossary-term">I&sup2;</td><td>Proporcao da variancia total que reflete variacao real, nao acaso. Formula: (Q &minus; df) / Q &times; 100%.</td><td>Nao indica magnitude clinica. Depende da precisao dos estudos. Limiares 25/50/75% sao obsoletos como criterio unico.</td></tr>
+    <tr><td class="glossary-term">&tau;&sup2; (tau-squared)</td><td>Variancia absoluta dos efeitos verdadeiros entre estudos, na escala do efeito (ao quadrado).</td><td>Usar &tau; (raiz quadrada) para interpretacao clinica ou calcular o intervalo de predicao.</td></tr>
+    <tr><td class="glossary-term">Intervalo de predicao (PI)</td><td>Faixa que contem 95% dos efeitos verdadeiros em cenarios comparaveis.</td><td>Se PI cruza zero: tratamento pode ser ineficaz/prejudicial em algumas populacoes, mesmo com media benefica.</td></tr>
+    <tr><td class="glossary-term">Efeito fixo (FE)</td><td>Modelo que assume um unico efeito verdadeiro identico em todos os estudos.</td><td>Raramente aplicavel. Estudos grandes dominam. IC pode ser artificialmente estreito.</td></tr>
+    <tr><td class="glossary-term">Efeitos aleatorios (RE)</td><td>Modelo que assume distribuicao de efeitos verdadeiros (media + &tau;&sup2;).</td><td>Padrao para a maioria das MAs clinicas. Pesos mais equilibrados. IC mais amplo mas honesto.</td></tr>
+    <tr><td class="glossary-term">DerSimonian-Laird (DL)</td><td>Metodo classico para estimar &tau;&sup2;. Subestima sistematicamente.</td><td>Obsoleto como default. Substituido por REML (Cochrane v6.5).</td></tr>
+    <tr><td class="glossary-term">REML</td><td>Restricted Maximum Likelihood. Estimador iterativo de &tau;&sup2; com menor vies.</td><td>Novo padrao Cochrane para estimar variancia entre estudos.</td></tr>
+    <tr><td class="glossary-term">Hartung-Knapp (HKSJ)</td><td>Ajuste do IC usando distribuicao t em vez de Z. Alarga IC com poucos estudos.</td><td>Corrige a superconfianca do DL. Pode reverter significancia. Recomendado com &tau;&sup2; > 0.</td></tr>
+    <tr><td class="glossary-term">ICEMAN</td><td>Instrument to assess Credibility of Effect Modification Analyses.</td><td>Checklist para avaliar se achados de subgrupo sao confiaveis ou espurios.</td></tr>
+  </table>
+</section>
+
+<!-- ===== CONVERGENCIA ===== -->
+<section id="convergencia">
+  <details>
+    <summary><strong>Convergencia entre pernas de pesquisa</strong></summary>
+    <div class="gap-card">
+      <table>
+        <tr><th scope="col">Achado</th><th scope="col">Gemini</th><th scope="col">Perplexity</th><th scope="col">NLM</th><th scope="col">Pre-reading</th><th scope="col">Perna 2</th></tr>
+        <tr><td>I&sup2; nao mede magnitude clinica</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>PI como medida essencial</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Limiares I&sup2; 25/50/75% obsoletos</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>DL &rarr; REML + HKSJ</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&mdash;</td><td>&mdash;</td></tr>
+        <tr><td>Cochrane v6.5 officializa mudancas</td><td>&check;</td><td>&check;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+        <tr><td>Core GRADE = thresholds clinicos</td><td>&mdash;</td><td>&check;</td><td>&mdash;</td><td>&check;</td><td>&check;</td></tr>
+        <tr><td>Subgrupos low credibility &gt;60%</td><td>&check;</td><td>&mdash;</td><td>&check;</td><td>&mdash;</td><td>&mdash;</td></tr>
+        <tr><td>98% reportam I&sup2;, 4% &tau;&sup2; (audit)</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&check;</td></tr>
+      </table>
+      <p><strong>Alta convergencia (7/8 achados com &ge;3/5 pernas).</strong> Sem divergencias substantivas. Perna 2 trouxe dado empirico novo (Tatas 2025, PMID 39962342: audit 313 SRs) que fortalece o argumento central. GRADE thresholds clinicos apareceu em 3/5 pernas &mdash; tema mais recente (2024).</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===== VERIFICACAO ===== -->
+<section id="verificacao">
+  <details open>
+    <summary><strong>Verificacao de referencias (15)</strong></summary>
+    <table>
+      <tr><th scope="col">Referencia</th><th scope="col">PMID / DOI</th><th scope="col">Status</th><th scope="col">Metodo</th></tr>
+      <tr><td>Borenstein M et al. 2024 Res Synth Methods</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37940120" target="_blank" rel="noopener noreferrer">PMID 37940120</a></td><td><span class="v">V</span></td><td>Pre-reading curated + PubMed MCP</td></tr>
+      <tr><td>Borenstein M et al. 2023 Integr Med Res</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38938910" target="_blank" rel="noopener noreferrer">PMID 38938910</a></td><td><span class="v">V</span></td><td>Pre-reading curated + PubMed MCP</td></tr>
+      <tr><td>Higgins JPT et al. 2025 Res Synth Methods</td><td>DOI 10.1017/rsm.2025.10062</td><td><span class="c">C</span></td><td>DOI-only (Gemini). Too recent for PubMed index.</td></tr>
+      <tr><td>Migliavaca CB et al. 2022 Res Synth Methods</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35088937" target="_blank" rel="noopener noreferrer">PMID 35088937</a></td><td><span class="v">V</span></td><td>Pre-reading curated + PubMed MCP</td></tr>
+      <tr><td>IntHout J et al. 2016 BMJ Open</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/27406637" target="_blank" rel="noopener noreferrer">PMID 27406637</a></td><td><span class="v">V</span></td><td>PubMed search: author+title MATCH</td></tr>
+      <tr><td>Siemens T et al. 2025 BMC Med Res Methodol</td><td>DOI 10.1186/s12874-025-02733-9</td><td><span class="c">C</span></td><td>DOI-only (Gemini). Too recent for PubMed index.</td></tr>
+      <tr><td>IntHout J et al. 2014 BMC Med Res Methodol</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/24548571" target="_blank" rel="noopener noreferrer">PMID 24548571</a></td><td><span class="v">V</span></td><td>PubMed search: author+title MATCH</td></tr>
+      <tr><td>Langan D et al. 2019 Res Synth Methods</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/30067315" target="_blank" rel="noopener noreferrer">PMID 30067315</a></td><td><span class="v">V</span></td><td>PubMed search: author+title MATCH</td></tr>
+      <tr><td>Mheissen S et al. 2024 PLoS One</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38502662" target="_blank" rel="noopener noreferrer">PMID 38502662</a></td><td><span class="v">V</span></td><td>PubMed search: author+title MATCH</td></tr>
+      <tr><td>Borenstein M et al. 2021 Introduction to Meta-Analysis, 2nd ed.</td><td>ISBN 978-1-119-55835-4</td><td><span class="book">BOOK</span></td><td>NLM notebook (textbook source)</td></tr>
+      <tr><td>Cochrane Handbook v6.5, Chapter 10 (2024)</td><td>cochrane.org/handbook</td><td><span class="book">GUIDE</span></td><td>Perplexity + Gemini cross-ref</td></tr>
+      <tr><td>Ademola A et al. 2023 Int J Stroke</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36988330" target="_blank" rel="noopener noreferrer">PMID 36988330</a></td><td><span class="v">V</span></td><td>PubMed search: author+title MATCH</td></tr>
+      <tr><td>Kanellopoulou A et al. 2025 Cochrane Evid Synth Methods</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40475918" target="_blank" rel="noopener noreferrer">PMID 40475918</a></td><td><span class="v">V</span></td><td>PubMed search: author+title MATCH</td></tr>
+      <tr><td>Murad MH et al. 2024 J Clin Epidemiol</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39322122" target="_blank" rel="noopener noreferrer">PMID 39322122</a></td><td><span class="v">V</span></td><td>Pre-reading curated</td></tr>
+      <tr><td>Guyatt GH et al. 2011 J Clin Epidemiol</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21803546" target="_blank" rel="noopener noreferrer">PMID 21803546</a></td><td><span class="v">V</span></td><td>Pre-reading curated</td></tr>
+      <tr><td>Higgins JPT et al. 2003 BMJ</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/12958120" target="_blank" rel="noopener noreferrer">PMID 12958120</a></td><td><span class="v">V</span></td><td>Perna 2: BioMCP author+title+journal MATCH</td></tr>
+      <tr><td>Tatas Z et al. 2025 J Dent Res</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39962342" target="_blank" rel="noopener noreferrer">PMID 39962342</a></td><td><span class="v">V</span></td><td>Perna 2: BioMCP author+title+journal MATCH</td></tr>
+    </table>
+    <p class="meta">12 PMID-VERIFIED (PubMed MCP search/BioMCP: author+title match). 2 DOI-only (too recent for PubMed indexing). 1 book. 2 guideline/guide. Total: 17 referencias.</p>
+  </details>
+</section>
+
+<!-- ===== REFERENCIAS ===== -->
+<section id="referencias">
+<details open>
+  <summary><strong>Referencias (15)</strong></summary>
+  <table>
+    <tr><th scope="col">Referencia</th><th scope="col">Ano</th><th scope="col">Tipo</th></tr>
+    <tr><td>Guyatt GH, Oxman AD, Kunz R, et al. GRADE guidelines: 7. Rating the quality of evidence &mdash; inconsistency. <em>J Clin Epidemiol</em> 64(12):1294-1302. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21803546" target="_blank" rel="noopener noreferrer">PMID 21803546</a> <span class="v">V</span></td><td>2011</td><td>Guideline</td></tr>
+    <tr><td>IntHout J, Ioannidis JPA, Borm GF. The Hartung-Knapp-Sidik-Jonkman method for random effects meta-analysis is straightforward and considerably outperforms the standard DerSimonian-Laird method. <em>BMC Med Res Methodol</em> 14:25. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/24548571" target="_blank" rel="noopener noreferrer">PMID 24548571</a> <span class="v">V</span></td><td>2014</td><td>Simulacao</td></tr>
+    <tr><td>IntHout J, Ioannidis JPA, Rovers MM, Goeman JJ. Plea for routinely presenting prediction intervals in meta-analysis. <em>BMJ Open</em> 6(7):e010247. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/27406637" target="_blank" rel="noopener noreferrer">PMID 27406637</a> <span class="v">V</span></td><td>2016</td><td>Metodologia</td></tr>
+    <tr><td>Langan D, Higgins JPT, Jackson D, et al. A comparison of heterogeneity variance estimators in simulated random-effects meta-analyses. <em>Res Synth Methods</em> 10(1):83-98. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/30067315" target="_blank" rel="noopener noreferrer">PMID 30067315</a> <span class="v">V</span></td><td>2019</td><td>Simulacao</td></tr>
+    <tr><td>Borenstein M, Hedges LV, Higgins JPT, Rothstein HR. <em>Introduction to Meta-Analysis</em>, 2nd ed. Wiley. ISBN 978-1-119-55835-4. <span class="book">BOOK</span></td><td>2021</td><td>Livro-texto</td></tr>
+    <tr><td>Migliavaca CB, Stein C, Colpani V, et al. Meta-analysis of prevalence: I&sup2; statistic and how to deal with heterogeneity. <em>Res Synth Methods</em> 13(3):363-367. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35088937" target="_blank" rel="noopener noreferrer">PMID 35088937</a> <span class="v">V</span></td><td>2022</td><td>Metodologia</td></tr>
+    <tr><td>Ademola A, Babatunde O, Engel C, et al. The credibility of subgroup analyses reported in stroke trials is low: a systematic review. <em>Int J Stroke</em> 18(8):922-929. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36988330" target="_blank" rel="noopener noreferrer">PMID 36988330</a> <span class="v">V</span></td><td>2023</td><td>Revisao sistematica</td></tr>
+    <tr><td>Borenstein M, Higgins JPT, Hedges LV, Rothstein HR. How to understand and report heterogeneity in a meta-analysis: The difference between I-squared and prediction intervals. <em>Integr Med Res</em> 13(1):101014. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38938910" target="_blank" rel="noopener noreferrer">PMID 38938910</a> <span class="v">V</span></td><td>2023</td><td>Educacao</td></tr>
+    <tr><td>Borenstein M, Higgins JPT, Hedges LV, Rothstein HR. Avoiding common mistakes in meta-analysis: Understanding the distinct roles of Q, I-squared, tau-squared, and the prediction interval in reporting heterogeneity. <em>Res Synth Methods</em> 15(1):136-151. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37940120" target="_blank" rel="noopener noreferrer">PMID 37940120</a> <span class="v">V</span></td><td>2024</td><td>Educacao</td></tr>
+    <tr><td>Cochrane Handbook for Systematic Reviews of Interventions, Version 6.5. Chapter 10: Analysing data and undertaking meta-analyses. Higgins JPT, Thomas J, Chandler J, et al. (eds). <span class="book">GUIDE</span></td><td>2024</td><td>Guideline</td></tr>
+    <tr><td>Mheissen S, Gomaa N, Autio-Gold J. Do statistical heterogeneity methods impact the results of meta-analyses? A meta epidemiological study. <em>PLoS One</em> 19(3):e0298526. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38502662" target="_blank" rel="noopener noreferrer">PMID 38502662</a> <span class="v">V</span></td><td>2024</td><td>Meta-epidemiologico</td></tr>
+    <tr><td>Murad MH, Mustafa RA, Schunemann HJ, et al. Core GRADE: Assessing inconsistency of effects. <em>J Clin Epidemiol</em> 175:111514. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39322122" target="_blank" rel="noopener noreferrer">PMID 39322122</a> <span class="v">V</span></td><td>2024</td><td>Guideline</td></tr>
+    <tr><td>Higgins JPT. Reflections on the I-squared index for measuring inconsistency in meta-analysis. <em>Res Synth Methods</em>. DOI: 10.1017/rsm.2025.10062. <span class="c">C</span></td><td>2025</td><td>Editorial</td></tr>
+    <tr><td>Kanellopoulou A, Deng J, Engel L, et al. Common statistical errors in systematic reviews: a tutorial. <em>Cochrane Evid Synth Methods</em>. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40475918" target="_blank" rel="noopener noreferrer">PMID 40475918</a> <span class="v">V</span></td><td>2025</td><td>Tutorial</td></tr>
+    <tr><td>Siemens T, Friede T, Engel M, Rueffer JU. Beyond prediction intervals in meta-analysis: reporting the expected proportion of comparable studies with clinically relevant benefit or harm. <em>BMC Med Res Methodol</em>. DOI: 10.1186/s12874-025-02733-9. <span class="c">C</span></td><td>2025</td><td>Metodologia</td></tr>
+    <tr><td>Tatas Z, &Ccedil;olako&gbreve;lu C, Eroglu E, et al. Heterogeneity Reporting in Systematic Reviews: A Methodological Quality Assessment. <em>J Dent Res</em>. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39962342" target="_blank" rel="noopener noreferrer">PMID 39962342</a> <span class="v">V</span></td><td>2025</td><td>Meta-epidemiologico</td></tr>
+    <tr><td>Higgins JPT, Thompson SG. Quantifying heterogeneity in a meta-analysis. <em>Stat Med</em> 21(11):1539-1558. DOI: 10.1002/sim.1186.</td><td>2002</td><td>Seminal</td></tr>
+  </table>
+</details>
+</section>
+
+<!-- ===== GAPS ===== -->
+<section id="gaps">
+  <h2>Gaps identificados</h2>
+  <table>
+    <tr><th scope="col">Gap</th><th scope="col">Impacto</th><th scope="col">Status</th></tr>
+    <tr><td>Higgins 2025 "Reflections" &mdash; PMID nao indexado ainda</td><td>Baixo &mdash; DOI disponivel, autor confirmado</td><td>Monitorar indexacao PubMed</td></tr>
+    <tr><td>Siemens 2025 "Beyond PIs" &mdash; PMID nao indexado</td><td>Baixo &mdash; DOI disponivel</td><td>Monitorar indexacao PubMed</td></tr>
+    <tr><td>Dados do audit (96% I&sup2;-only, 2% PI) &mdash; fonte primaria nao verificada via PubMed</td><td>Medio &mdash; numeros citados em multiplas pernas (Perplexity + Gemini) mas paper-fonte nao identificado com PMID</td><td>Possivelmente Mutz/Barbaric 2024 ou similar &mdash; verificar quando disponivel</td></tr>
+    <tr><td>Exemplos clinicos do PI (GLP-1, clozapina) &mdash; extraidos de livro-texto NLM</td><td>Baixo &mdash; dados de livro-texto sao didaticos, nao necessariamente de um unico trial</td><td>Funcional para ensino. Se necessario, rastrear paper original.</td></tr>
+    <tr><td>GRADE "Core" Murad 2024 &mdash; verificar se artigo foi publicado ou apenas in press</td><td>Medio &mdash; PMID existe (39322122) mas titulo/journal podem diferir do final</td><td>Verificar via PubMed metadata quando MCP estavel</td></tr>
+    <tr><td>Imagem para slide &mdash; forest plot com PI vs sem PI</td><td>Alto &mdash; slide precisa de visual</td><td>Lucas decide fonte (Borenstein 2024 Fig. 2 ou Borenstein 2021 Fig. 24.4)</td></tr>
+  </table>
+</section>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
+  <p>Pipeline: /evidence 6 pernas (S185) — Gemini API, Perplexity Sonar, NLM textbooks, PubMed MCP, pre-reading mining. Evidence-researcher (Perna 2) pending.</p>
+  <p>17 referencias: 12 PMID-VERIFIED + 2 DOI-CANDIDATE + 1 BOOK + 1 GUIDELINE + 1 SEMINAL (pre-PubMed era).</p>
+  <p>Coautoria: Lucas + Opus 4.6 | S185 2026-04-13</p>
+</footer>
+
+</body>
+</html>
