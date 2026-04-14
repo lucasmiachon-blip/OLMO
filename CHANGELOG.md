@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 189 — 2026-04-14 (EVIDENCE-AUDIT)
+
+### Skills — evidence-audit skill (NEW)
+- evidence-audit/SKILL.md: V2 verification pipeline (context:fork, NCBI E-utilities only).
+- 5 steps: parse+extract, V1 batch esummary, V2 per-paper efetch, missing refs, structured report.
+- allowed-tools: Read, Grep, Glob, Bash. Report-only (no edits).
+
+### Memory — V1/V2/V3 verification tiers formalized
+- feedback_research.md: V1 (identity), V2 (claims vs abstract), V3 (full-text). Tier A/B arm classification.
+- Data fabrication category expanded: +Boutron 2010 (S187 recheck), +Wang 2021, +ROBINS-I.
+
+### Backlog — #23 added
+- Edit/Write permission glob nao funciona em Windows. Workaround: broad allow + hooks protegem.
+
+### Config
+- settings.local.json: Write/Edit broadened to unscoped (hooks enforce safety). Backlog #23 tracks root cause.
+
 ## Sessao 188 — 2026-04-14 (HETERO-POLISH)
 
 ### Slides — s-heterogeneity professional rewrite + s-i2 absorbed (17→16)

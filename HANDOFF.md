@@ -1,11 +1,11 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 188 | HETERO-POLISH
+> Sessao 189 | EVIDENCE-AUDIT
 
 ## ESTADO ATUAL
 
 Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via Node.js).
-**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 19.** **Memory: 20/20.** **Backlog: 22 items.**
+**Agentes: 10.** **Hooks: 38.** **Rules: 11.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 18.** **Skills: 20.** **Memory: 20/20.** **Backlog: 23 items.**
 
 ## P0 — evidence/s-tipos-ma.html (S187 — ENRICHED, BENCHMARK CSS)
 
@@ -28,6 +28,13 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - **s-fixed-random:** DRAFT. Tem DSL/REML/HKSJ (fora de escopo residentes), tokens privados (--fr-*), CSS amador (~140 linhas). Precisa rewrite completo forest-plot-first.
 - **Evidence intacto:** `evidence/s-heterogeneity.html` — 17 refs (12 PMID-VERIFIED).
 - **Pendente:** (1) rewrite s-fixed-random; (2) verificar 2 DOIs pendentes (Higgins 2025, Siemens 2025).
+
+## P0 — evidence-audit skill (NEW S189)
+
+- **DONE.** context:fork, allowed-tools: Read/Grep/Glob/Bash, NCBI E-utilities only.
+- V2 verification pipeline: parse PMIDs + claims, esummary batch V1, efetch per-paper V2, missing refs check.
+- Memory updated: V1/V2/V3 tiers, Tier A/B arm classification, 4 hallucination categories.
+- **Pendente:** (1) self-improvement skill/agent design; (2) backlog skill design; (3) permission glob fix (backlog #23).
 
 ## P0 — s-pubbias, s-rob2, Forest plots (DONE)
 
@@ -81,7 +88,7 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 
 ## BACKLOG
 
-→ `.claude/BACKLOG.md` (21 items; #10 RESOLVED S156, #12 RESOLVED S158, #17-20 novos)
+→ `.claude/BACKLOG.md` (23 items; #10 RESOLVED S156, #12 RESOLVED S158, #17-20 novos)
 - **Candidato backlog:** hook guard para grep "Gemini 2\." em arquivos novos
 
 ## CONFLITOS
@@ -109,4 +116,4 @@ Monorepo funcional. CI verde. Build PASS (**16 slides** metanalise, build via No
 - `capture-deck.mjs`: utilitario deck. Lucas decide manter/remover.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S188 2026-04-14
+Coautoria: Lucas + Opus 4.6 | S189 2026-04-14
