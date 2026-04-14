@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## Sessao 187 — 2026-04-14 (TIPOS-MA + QUALITY-GRADE-ROB + HETERO_SLIDES)
+
+### Slides — 3 slides heterogeneidade (2 novos + 1 rewrite, 15→17)
+- **`09a-heterogeneity.html`** (NOVO): I²=67% paradoxo — mesmo valor, realidades clínicas opostas. 2 click-reveals.
+- **`09b-i2.html`** (NOVO): 98% vs 4% audit gap, paradoxo cards, Higgins seal + limiares riscados. 2 click-reveals.
+- **`10-fixed-random.html`** (REWRITE): Duplo-42% (erro metodológico + alargamento IC). DL→REML+HKSJ. 2 click-reveals.
+- **metanalise.css:** 3 blocos novos (~200 linhas). CSS Grid, OKLCH, color-mix(), custom props scoped.
+- **slide-registry.js:** 3 factories (advance/retreat). Motion: countUp, scaleX bars, stagger cards.
+- **_manifest.js:** 2 entries inseridas + s-fixed-random atualizado (timing 60→90, clickReveals 0→2).
+- **Gemini dual-creation:** Query Pro para mockups + Claude drafts independentes. Merge adversarial.
+- **STATUS: DRAFT** — funcional (build+lint PASS) mas precisa refinamento CSS/motion profissional (Lucas flagged).
+
+### Evidence — 2 Living HTML criados via pipeline /evidence (4-5 pernas)
+
+**`evidence/s-tipos-ma.html`** — Taxonomia de tipos de meta-analise
+- 15 PMID-VERIFIED + 1 book (Cochrane Handbook v6.5). ~340 linhas
+- Pipeline 4 pernas: Gemini API (4 queries), NLM CLI (3 queries), evidence-researcher MCPs (17 PMIDs verificados), orchestrador NCBI (cross-ref). Perplexity FALHOU (recusou gerar tabela)
+- Taxonomia 3-tier: 5 centrais (pairwise, NMA, IPD, DTA, prevalence) + 4 especializados (dose-response, Bayesian, living, umbrella) + 3 transversais (one/two-stage, component NMA, aggregate vs IPD)
+- 9 exemplos medicos reais, checklist leitor critico (2 perguntas/tipo), convergencia 3/3 bracos
+- Refs fundacionais: Reitsma 2005 bivariate DTA, Greenland 1992 dose-response, Salanti 2012 NMA
+
+**`evidence/s-quality-grade-rob.html`** — Qualidade vs GRADE vs RoB (3 niveis)
+- 13 PMID-VERIFIED. ~280 linhas
+- Pipeline 5 pernas: Gemini API, Perplexity Sonar, NLM CLI, evidence-researcher MCPs, orchestrador NCBI. Convergencia 5/5
+- Framework 3 niveis: RoB 2/ROBINS-I (estudo) → GRADE (evidencia) → AMSTAR-2 (processo)
+- Tabelas AMSTAR-2 (7 dominios criticos), GRADE (8 dominios), RoB 2 vs ROBINS-I
+- 6 misconceptions com fontes, 4 cenarios clinicos, analogia container/conteudo/ingredientes
+- Landmark refs: Shea 2017 (PMID 28935701), Sterne 2019 (PMID 31462531), Guyatt 2011 (PMID 21247734)
+
+### PMID Verification — taxa de erro confirmada
+- Perplexity: 0/7 PMIDs corretos (100% erro) — incluindo AMSTAR-2 PMID apontando para paper de fibronectina renal
+- Gemini Topic B: 7/8 corretos (~88%). Topic A: 7/12 corretos (~58%)
+- Evidence-researcher MCPs: 17/17 corretos (100%) — verificacao nativa via PubMed MCP
+- Fallback NCBI E-utilities API (esearch/esummary via node fetch) funcionou quando PubMed MCP expirou
+
 ## Sessao 186 — 2026-04-14 (SLIDE_DEMOLITION)
 
 ### Slides — 4 slides removidos (19 → 15)

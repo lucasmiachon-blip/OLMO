@@ -1,44 +1,43 @@
-<section id="s-fixed-random"
-         data-timing="60">
-
+<section id="s-fixed-random" data-timing="90">
   <div class="slide-inner">
-    <h2 class="slide-headline">Random-effects alarga o IC quando há heterogeneidade — resultado significativo em fixed-effect pode desaparecer</h2>
+    <h2 class="slide-headline">42% das meta-análises escolhem o modelo baseado no I² — e o IC muda 42% quando o método correto é aplicado</h2>
 
-    <div class="compare-layout" data-animate="stagger">
-      <div class="compare-col">
-        <span class="compare-abbr">FE</span>
-        <span class="compare-name">Efeito Fixo</span>
-        <p class="compare-desc">Assume efeito verdadeiro único. Estudos maiores dominam.</p>
+    <!-- Beat 0 (auto): The error — 42% do it wrong -->
+    <div class="fr-error">
+      <span class="fr-error-number">42%</span>
+      <span class="fr-error-desc">escolhem efeito fixo ou aleatório<br>com base no valor do I²</span>
+      <span class="fr-error-verdict">Erro metodológico</span>
+    </div>
+
+    <!-- Beat 1: The real premise -->
+    <div class="fr-premise" data-reveal="1">
+      <div class="fr-premise-item fr-premise--fe">
+        <span class="fr-premise-model">Efeito Fixo</span>
+        <span class="fr-premise-assumption">Um único efeito verdadeiro</span>
+        <span class="fr-premise-use">Estudos funcionalmente idênticos — raro</span>
       </div>
-
-      <div class="compare-col">
-        <span class="compare-abbr">RE</span>
-        <span class="compare-name">Efeitos Aleatórios</span>
-        <p class="compare-desc">Assume distribuição de efeitos. Peso equilibrado entre estudos.</p>
+      <div class="fr-premise-item fr-premise--re">
+        <span class="fr-premise-model">Efeitos Aleatórios</span>
+        <span class="fr-premise-assumption">Distribuição de efeitos (μ + τ²)</span>
+        <span class="fr-premise-use">Padrão Cochrane v6.5 — a vasta maioria</span>
       </div>
     </div>
 
-    <p class="compare-footer">Com heterogeneidade, RE dá IC mais largo — estimativa mais conservadora</p>
+    <!-- Beat 2: HKSJ impact — the CI physically widens -->
+    <div class="fr-hksj" data-reveal="2">
+      <div class="fr-ci-visual">
+        <span class="fr-ci-label">DerSimonian-Laird</span>
+        <div class="fr-ci-bar fr-ci-bar--dl"></div>
+        <span class="fr-ci-z">Z = 1,96</span>
+      </div>
+      <div class="fr-ci-visual">
+        <span class="fr-ci-label">REML + Hartung-Knapp</span>
+        <div class="fr-ci-bar fr-ci-bar--hksj"></div>
+        <span class="fr-ci-z">t = 2,78 (df=4)</span>
+      </div>
+      <span class="fr-hksj-impact">IC alarga ~42% com 5 estudos — significância frequentemente desaparece</span>
+    </div>
 
-    <p class="source-tag">Cochrane Handbook v6.5, cap. 10</p>
+    <p class="source-tag">Tatas 2025 · Mheissen 2024 (PMID 38502662) · Cochrane v6.5</p>
   </div>
-
-  <aside class="notes">
-[0:00-0:20] "Quando vocês leem uma MA, em algum lugar diz: 'fixed-effect model' ou 'random-effects model'."
-"A escolha não é trivial — reflete uma premissa sobre como os estudos se relacionam."
-
-[0:20-0:40] "Efeito fixo: assume que TODOS os estudos estimam exatamente o mesmo efeito."
-"Os estudos maiores dominam a análise — e o IC tende a ser mais estreito."
-"Efeitos aleatórios: assume que cada estudo pode ter um efeito ligeiramente diferente."
-"O peso é mais distribuído — e o IC geralmente mais largo."
-
-[0:40-0:60] "Na prática: quando há heterogeneidade, random-effects é mais conservador."
-"Vocês não precisam escolher o modelo — mas precisam saber QUAL foi usado."
-"Se uma MA reporta efeito significativo com fixed-effect e I² alto, perguntem: e com random-effects?"
-"Muitas vezes o diamante alarga e cruza a nulidade."
-
-→ avançar para slide 12 (checkpoint 2)
-
-[DATA] Fonte: Cochrane Handbook v6.5, cap. 10 — Analysing data and undertaking meta-analyses | Verificado: 2026-03-13
-  </aside>
 </section>

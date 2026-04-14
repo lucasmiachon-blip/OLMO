@@ -6,7 +6,7 @@
  * Validação: npm run lint:narrative-sync metanalise
  *
  * Coautoria: Lucas (decisão clínica) · Opus 4.6 (código + governance)
- * Atualizado: 2026-04-13 — 15 slides (S186: -heterogeneity, -checkpoint-2, -aplicabilidade, -absoluto)
+ * Atualizado: 2026-04-14 — 17 slides (S187: +s-heterogeneity, +s-i2, rewrite s-fixed-random)
  */
 
 export const slides = [
@@ -27,7 +27,9 @@ export const slides = [
   { id: 's-pubbias1',      file: '11a-pubbias1.html',    phase: 'F2', headline: 'Até um terço dos ensaios clínicos nunca é publicado — e os que faltam não são aleatórios',                                    timing: 90,   clickReveals: 3, customAnim: 's-pubbias1',    narrativeRole: 'setup',      tensionLevel: 3, narrativeCritical: false, evidence: 's-pubbias.html' },
   { id: 's-pubbias2',      file: '11b-pubbias2.html',    phase: 'F2', headline: 'Interpretando o Funnel Plot',                                                                                          timing: 90,   clickReveals: 3, customAnim: 's-pubbias2',     narrativeRole: 'setup',      tensionLevel: 2, narrativeCritical: false, evidence: 's-pubbias.html' },
 
-  { id: 's-fixed-random', file: '10-fixed-random.html', phase: 'F2', headline: 'Random-effects alarga o IC quando há heterogeneidade — resultado significativo em fixed-effect pode desaparecer',      timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'payoff',     tensionLevel: 1, narrativeCritical: false },
+  { id: 's-heterogeneity', file: '09a-heterogeneity.html', phase: 'F2', headline: 'Dois forest plots com I² de 67% podem esconder realidades clínicas opostas',                                    timing: 90,   clickReveals: 2, customAnim: 's-heterogeneity', narrativeRole: 'setup',      tensionLevel: 3, narrativeCritical: true,  evidence: 's-heterogeneity.html' },
+  { id: 's-i2',             file: '09b-i2.html',             phase: 'F2', headline: 'I² aparece em 98% das meta-análises — mas não responde a pergunta que você pensa',                                     timing: 90,   clickReveals: 2, customAnim: 's-i2',             narrativeRole: 'setup',      tensionLevel: 3, narrativeCritical: false, evidence: 's-heterogeneity.html' },
+  { id: 's-fixed-random',  file: '10-fixed-random.html',    phase: 'F2', headline: '42% das meta-análises escolhem o modelo baseado no I² — e o IC muda 42% quando o método correto é aplicado',          timing: 90,   clickReveals: 2, customAnim: 's-fixed-random',  narrativeRole: 'payoff',     tensionLevel: 2, narrativeCritical: false, evidence: 's-heterogeneity.html' },
 
 
   // ── Fase 3: Aplicação (Valgimigli 2025) ──
