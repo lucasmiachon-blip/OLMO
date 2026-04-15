@@ -15,8 +15,10 @@ Antes de cada Edit/Write, escrever no output as 3 respostas em formato compacto:
 ```
 [EC] Verificacao: <o que verifiquei — escaping, formato, paths, edge cases>
 [EC] Mudanca: <1 frase descrevendo o que muda>
-[EC] Elite: <sim/nao — se nao, PARAR e repensar>
+[EC] Elite: <seguro e profissional? porque: qual risco descartei, que alternativa considerei, por que um senior faria assim>
 ```
+
+**"Elite: sim" e PROIBIDO.** Resposta monossilabica = rubber-stamping = checkpoint nao aplicado. A resposta DEVE conter reflexao substantiva: risco avaliado, alternativa descartada, ou razao concreta de seguranca. Se o edit e trivial (text swap puro), dizer O QUE o torna trivial ("texto puro, sem HTML/CSS/path envolvido"). S205: flaggeado por Lucas — "sim" automatico anulava o proposito do checkpoint.
 
 **Por que visivel:** Lucas e dev iniciante — nao pode ser rede de seguranca. O checkpoint auditable forca reflexao (escrever = pensar) e permite Lucas ver se foi pulado. Sem `[EC]` antes de Edit/Write = loop nao foi aplicado.
 

@@ -14,6 +14,12 @@
 - C: placebo vs paciente já em estatina + AAS
 - O: MACE composto vs mortalidade CV
 
+### s-title — autor atualizado
+- Samoel Masao → Paulo da Ponte
+
+### Rule: elite-conduct [EC] checkpoint
+- [EC] Elite: "sim" proibido — exige reflexão real (seguro e profissional? porque)
+
 ### CSS — forest plot improvements
 - Het zones (forest1 + forest2): cor ciano→âmbar (oklch hue 222→75), alpha 0.12→0.25, border 2px dashed
 - z-index forest zones: 2→5 (ambos slides)
