@@ -7,6 +7,14 @@
 - Verdict text: `--text-body`→`--text-h3` (pairs with I² label — punchline ≥ data)
 - Caveat: 22→12 words (removed tautological clause demonstrated by the visual itself)
 
+### s-etd — grid alignment + animation timing
+- Grid: `auto` ×6 → explicit columns (140/56/56/1fr/auto/auto) + sub-grid for delta alignment
+- Table: max-width 1080px centered (was full-width sprawl)
+- Bars: proportional max 80px (was 140px — HR is the clinical datum, not the bar)
+- Font sizes: delta + HR → `--text-body` (consistent with rates)
+- Row padding: `--space-md` vertical (10m projection readability)
+- Animation timing: all beats ~1.5× slower (same mechanics)
+
 ### Cleanup: aside notes + reveal.js removed from docs
 - `<aside class="notes">` removed from all templates/rules (slides don't use speaker notes)
 - reveal.js references removed from rules, code comments (deck.js is the engine, reveal.js abandoned)

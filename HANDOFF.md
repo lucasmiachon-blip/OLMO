@@ -57,13 +57,6 @@ Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coere
 - Living HTML = source of truth. Agent effort: max.
 - Elite-conduct `[EC]` checkpoint obrigatório. Proven-wins maturity tiers.
 
-## UNCOMMITTED (S205 working tree)
-
-- `metanalise.css`: s-etd grid layout changes (grid-template-columns, max-width, gap)
-- `slide-registry.js`: s-etd animation timing changes (durations, staggers)
-- `.slide-integrity`: hash delta from build
-- Decisão: commit separado ou integrar no próximo trabalho.
-
 ## CUIDADOS
 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.

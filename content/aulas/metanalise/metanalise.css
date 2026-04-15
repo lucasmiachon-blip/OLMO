@@ -1992,12 +1992,14 @@ section#s-fixed-random .fr-caveat {
 /* Section background eliminates light bands at viewport edges */
 section#s-etd { background-color: #162032; }
 
-/* Table container — flex:1 fills vertical space */
+/* Table container — compact, centered */
 section#s-etd .etd-table {
   display: flex;
   flex-direction: column;
   flex: 1;
   justify-content: center;
+  max-width: 1080px;
+  margin: 0 auto;
   opacity: 0;
 }
 
@@ -2005,10 +2007,10 @@ section#s-etd .etd-table {
 section#s-etd .etd-hdr,
 section#s-etd .etd-row {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-columns: 140px 56px 56px minmax(100px, 1fr) auto auto;
   align-items: center;
   gap: 0 var(--space-md);
-  padding: var(--space-sm) var(--space-sm);
+  padding: var(--space-md) var(--space-sm);
 }
 
 /* Header */
@@ -2053,12 +2055,12 @@ section#s-etd .etd-rate {
   text-align: right;
 }
 
-/* Diff cell — horizontal bar + delta value */
+/* Diff cell — sub-grid aligns delta numbers vertically across rows */
 section#s-etd .etd-diff {
-  display: flex;
+  display: grid;
+  grid-template-columns: 90px auto;
   align-items: center;
   gap: var(--space-xs);
-  padding-left: var(--space-xs);
 }
 section#s-etd .etd-bar {
   height: 8px;
@@ -2067,28 +2069,28 @@ section#s-etd .etd-bar {
   flex: 0 0 auto;
 }
 
-/* Bar widths — fixed px, proportional to absolute diff (max = 3.8/1000 PA) */
-section#s-etd .etd-row[data-endpoint="macce"] .etd-bar { width: 140px; }
-section#s-etd .etd-row[data-endpoint="iam"]   .etd-bar { width: 103px; }
-section#s-etd .etd-row[data-endpoint="avc"]   .etd-bar { width: 55px; }
+/* Bar widths — proportional to absolute diff (3.8:2.8:1.5:0.6, max 80px) */
+section#s-etd .etd-row[data-endpoint="macce"] .etd-bar { width: 80px; }
+section#s-etd .etd-row[data-endpoint="iam"]   .etd-bar { width: 59px; }
+section#s-etd .etd-row[data-endpoint="avc"]   .etd-bar { width: 32px; }
 section#s-etd .etd-row[data-endpoint="bleed"] .etd-bar {
-  width: 22px;
+  width: 13px;
   background: var(--text-muted);
 }
 
 section#s-etd .etd-delta {
   font-family: var(--font-mono);
-  font-size: var(--text-small);
+  font-size: var(--text-body);
   font-variant-numeric: tabular-nums lining-nums;
   color: var(--safe-on-dark);
   white-space: nowrap;
 }
 section#s-etd .etd-delta--ns { color: var(--text-muted); }
 
-/* HR column */
+/* HR column — same size as rates (clinical decision datum) */
 section#s-etd .etd-hr {
   font-family: var(--font-mono);
-  font-size: var(--text-small);
+  font-size: var(--text-body);
   font-variant-numeric: tabular-nums lining-nums;
   color: var(--text-secondary);
   white-space: nowrap;
