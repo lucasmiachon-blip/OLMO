@@ -26,7 +26,7 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 
 - **s-hook:** volume removido (80/dia → speaker notes), countUp eliminado, fadeUp estático. Verificado via qa-capture.
 - **s-quality:** ordem 2↔3 trocada (AMSTAR-2 antes de GRADE — bottom-up pedagógico). CSS audit PASS.
-- **s-quality pendente:** speaker notes (Lucas pediu), reference-checker rodando, narrativa por melhorar.
+- **s-quality pendente:** (1) speaker notes com narrativa bottom-up, (2) melhorar narrativa do evidence HTML (`evidence/s-quality-grade-rob.html`) com numeros verificados via /research skills + PubMed MCP + agentes. Reference-checker S202: 3/3 PMIDs VERIFIED, 0 issues.
 
 ## P0 — Design Excellence Loop (S201-S202)
 
