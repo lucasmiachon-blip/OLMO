@@ -388,6 +388,7 @@ const DIM_PROP = {
         target: { type: "STRING" },   // CSS selector, HTML element, or JS function
         change: { type: "STRING" },   // concrete action: "gap: 8px → 24px" or "add grid-template-columns: 1fr 2fr"
         reason: { type: "STRING" },   // why: cause-based, not symptom
+        old_value: { type: "STRING" }, // computed value from capture (grounding)
       },
       required: ["target", "change", "reason"],
     } },
@@ -523,6 +524,51 @@ function validateFixSelectors(rawHTML, callA, callB, callC) {
   checkFixes('A', callA);
   checkFixes('B', callB);
   checkFixes('C', callC);
+  return results;
+}
+
+// --- Token validation: flag var() tokens not found in base.css / aula.css ---
+function validateFixTokens(callB, baseCSS) {
+  if (!callB || !baseCSS) return { valid: [], invalid: [] };
+  const results = { valid: [], invalid: [] };
+
+  function checkTokens(obj) {
+    if (!obj || typeof obj !== 'object') return;
+    for (const [dim, val] of Object.entries(obj)) {
+      if (!val?.fixes || !Array.isArray(val.fixes)) continue;
+      for (const fix of val.fixes) {
+        if (!fix.change || typeof fix.change !== 'string') continue;
+        const tokens = [...fix.change.matchAll(/var\(--([a-z][\w-]*)/g)].map(m => m[1]);
+        for (const t of tokens) {
+          if (baseCSS.includes(`--${t}:`)) {
+            results.valid.push({ dim, target: fix.target, token: `--${t}` });
+          } else {
+            results.invalid.push({ dim, target: fix.target, token: `--${t}`, note: `Token --${t} not found in base.css or aula.css` });
+            fix.token_valid = false;
+            fix.token_note = `Token --${t} not found`;
+          }
+        }
+        if (fix.token_valid !== false && tokens.length > 0) fix.token_valid = true;
+      }
+    }
+  }
+
+  checkTokens(callB);
+  // Also check proposals
+  if (callB.proposals && Array.isArray(callB.proposals)) {
+    for (const p of callB.proposals) {
+      if (!p.fix) continue;
+      const tokens = [...p.fix.matchAll(/var\(--([a-z][\w-]*)/g)].map(m => m[1]);
+      for (const t of tokens) {
+        if (baseCSS.includes(`--${t}:`)) {
+          results.valid.push({ dim: 'proposal', target: p.titulo, token: `--${t}` });
+        } else {
+          results.invalid.push({ dim: 'proposal', target: p.titulo, token: `--${t}`, note: `Token --${t} not found` });
+        }
+      }
+    }
+  }
+
   return results;
 }
 
@@ -1144,7 +1190,8 @@ async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUr
 // includeMedia: { video, s0, s2, ref } — which files to attach
 // Prompt template uses same {{PLACEHOLDER}} syntax as legacy Gate 4.
 function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
-  rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest, includeMedia, maxTokens, computedData) {
+  rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest, includeMedia, maxTokens, computedData,
+  typographyStr, spacingStr) {
 
   if (!existsSync(templatePath)) {
     throw new Error(`Call ${callType} prompt not found: ${templatePath}`);
@@ -1177,6 +1224,9 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
     '{{ROUND_CTX}}': roundCtx || `Round ${ROUND}. Primeiro review.`,
     '{{ERROR_DIGEST}}': errorDigest || '',
     '{{COMPUTED_DATA}}': computedData || '(dados computados indisponiveis — avaliar a partir dos screenshots)',
+    '{{COMPUTED_STYLES}}': computedData || '(estilos computados indisponiveis)',
+    '{{TYPOGRAPHY_HIERARCHY}}': typographyStr || '(hierarquia tipografica indisponivel — avaliar a partir dos screenshots)',
+    '{{SPACING_MAP}}': spacingStr || '(mapa de espacamento indisponivel)',
   };
 
   for (const [ph, val] of Object.entries(replacements)) {
@@ -1283,6 +1333,8 @@ async function runEditorial(slideId, round, qaDir) {
 
   // Read computed CSS data from metrics.json for Call A (step 1.1)
   let computedDataStr = '';
+  let typographyStr = '';
+  let spacingStr = '';
   const metricsPath = join(qaDir, 'metrics.json');
   if (existsSync(metricsPath)) {
     try {
@@ -1291,15 +1343,31 @@ async function runEditorial(slideId, round, qaDir) {
         computedDataStr = JSON.stringify(metricsData.computedStyles, null, 2);
         console.log(`  Computed CSS: ${Object.keys(metricsData.computedStyles).length} elements loaded`);
       }
+      if (metricsData.typographyHierarchy && metricsData.typographyHierarchy.length > 0) {
+        typographyStr = metricsData.typographyHierarchy
+          .map(t => {
+            const family = (t.fontFamily || '?').split(',')[0].replace(/['"]/g, '').trim();
+            return `${t.selector} — ${t.fontSize}px, ${t.fontWeight}, ${family} — ${t.role}`;
+          })
+          .join('\n');
+        console.log(`  Typography: ${metricsData.typographyHierarchy.length} text elements`);
+      }
+      if (metricsData.spacingMap && metricsData.spacingMap.length > 0) {
+        spacingStr = metricsData.spacingMap
+          .map(s => `${s.selector} — gap: ${s.gap}, padding: ${s.padding} — ${s.childCount} children — ${s.note}`)
+          .join('\n');
+        console.log(`  Spacing: ${metricsData.spacingMap.length} containers`);
+      }
     } catch (e) {
-      console.warn(`  WARN: Could not read computed styles: ${e.message}`);
+      console.warn(`  WARN: Could not read metrics: ${e.message}`);
     }
   }
 
   // Call A — Visual Design: PNGs + computed CSS data, NO video/code
   const payloadA = buildSplitCallPayload('visual', CALL_A_PROMPT_PATH,
     slideId, meta, mediaUris, null, null, null, null, null, null,
-    { video: false, s0: true, s2: true, ref: true }, 8192, computedDataStr);
+    { video: false, s0: true, s2: true, ref: true }, 8192, computedDataStr,
+    typographyStr, spacingStr);
 
   // Call B — UI/UX + Code: PNGs + raw code, NO video (5 dims + max 5 proposals; 24k for schema complexity + thinking)
   const payloadB = buildSplitCallPayload('uxcode', CALL_B_PROMPT_PATH,
@@ -1527,6 +1595,21 @@ async function runEditorial(slideId, round, qaDir) {
     console.log(`  Selectors: ${selectorCheck.valid.length} valid, ${selectorCheck.invalid.length} invalid`);
   }
 
+  // Token validation (step 1.7): flag var() tokens not found in base.css / aula.css
+  let tokenBaseCSS = '';
+  const tokenBasePath = join(SCRIPTS_DIR, '..', 'shared', 'css', 'base.css');
+  const tokenAulaPath = join(AULA_DIR, `${aula}.css`);
+  if (existsSync(tokenBasePath)) tokenBaseCSS += readFileSync(tokenBasePath, 'utf-8');
+  if (existsSync(tokenAulaPath)) tokenBaseCSS += readFileSync(tokenAulaPath, 'utf-8');
+  const tokenCheck = validateFixTokens(callB_result, tokenBaseCSS);
+  if (tokenCheck.invalid.length > 0) {
+    console.log(`  WARN: ${tokenCheck.invalid.length} fix token(s) not found in CSS:`);
+    for (const t of tokenCheck.invalid) console.log(`    ✗ ${t.dim}: "${t.token}"`);
+  }
+  if (tokenCheck.valid.length > 0) {
+    console.log(`  Tokens: ${tokenCheck.valid.length} valid, ${tokenCheck.invalid.length} invalid`);
+  }
+
   // Count MUSTs (any dim below threshold)
   const mustFixes = Object.entries(allDims).filter(([, v]) => v < MUST_FIX_THRESHOLD);
   const proposals = [
@@ -1571,6 +1654,11 @@ async function runEditorial(slideId, round, qaDir) {
       valid: selectorCheck.valid.length,
       invalid: selectorCheck.invalid.length,
       invalid_details: selectorCheck.invalid,
+    },
+    token_validation: {
+      valid: tokenCheck.valid.length,
+      invalid: tokenCheck.invalid.length,
+      invalid_details: tokenCheck.invalid,
     },
   };
 

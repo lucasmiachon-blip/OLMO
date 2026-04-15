@@ -6,7 +6,7 @@
  * Validação: npm run lint:narrative-sync metanalise
  *
  * Coautoria: Lucas (decisão clínica) · Opus 4.6 (código + governance)
- * Atualizado: 2026-04-14 — 16 slides (S188: s-i2 absorbed into s-heterogeneity)
+ * Atualizado: 2026-04-15 — 17 slides (S188: s-i2 absorbed into s-heterogeneity)
  */
 
 export const slides = [
@@ -37,5 +37,5 @@ export const slides = [
 
   { id: 's-etd',          file: '14-etd.html',          phase: 'F3', headline: 'Aplicando EtD',                                                                                                         timing: 120,  clickReveals: 3, customAnim: 's-etd',          narrativeRole: 'payoff',     tensionLevel: 3, narrativeCritical: true,  evidence: 's-ancora.html' },
 
-  { id: 's-takehome',     file: '17-takehome.html',     phase: 'F3', headline: 'Take-home messages',                                                   timing: 60,   clickReveals: 0, customAnim: null,             narrativeRole: 'resolve',    tensionLevel: 1, narrativeCritical: true },
+  { id: 's-takehome',     file: '17-takehome.html',     phase: 'F3', headline: 'Take-home messages',                                                   timing: 60,   clickReveals: 3, customAnim: 's-takehome',     narrativeRole: 'resolve',    tensionLevel: 1, narrativeCritical: true },
 ];

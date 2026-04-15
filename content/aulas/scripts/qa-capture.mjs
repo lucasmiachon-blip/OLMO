@@ -237,8 +237,10 @@ async function measureElements(page, slideId) {
 
     // Computed CSS styles for design evaluation (Call A ground truth)
     const computedStyles = {};
-    const STYLE_KEYS = ['fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'color', 'backgroundColor', 'opacity'];
-    const LAYOUT_KEYS = ['display', 'gap', 'gridTemplateColumns', 'gridTemplateRows', 'flexDirection'];
+    const STYLE_KEYS = ['fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'color', 'backgroundColor', 'opacity', 'letterSpacing', 'fontVariantNumeric'];
+    const LAYOUT_KEYS = ['display', 'gap', 'gridTemplateColumns', 'gridTemplateRows', 'flexDirection', 'justifyContent', 'alignItems'];
+    const SPACING_KEYS = ['padding', 'paddingBlock', 'paddingInline', 'margin', 'marginBlock', 'marginInline'];
+    const BORDER_KEYS = ['borderLeft', 'borderRadius'];
 
     function selectorOf(el) {
       const tag = el.tagName.toLowerCase();
@@ -269,6 +271,20 @@ async function measureElements(page, slideId) {
         delete entry.gridTemplateColumns;
         delete entry.gridTemplateRows;
       }
+      // Spacing keys (all elements)
+      for (const k of SPACING_KEYS) {
+        const v = cs[k];
+        if (v && v !== '0px') entry[k] = v;
+      }
+      // Border keys (all elements)
+      for (const k of BORDER_KEYS) {
+        const v = cs[k];
+        if (v && v !== 'none' && v !== '0px') entry[k] = v;
+      }
+      // Child count for containers (used by spacingMap)
+      if (['grid', 'flex', 'inline-grid', 'inline-flex'].includes(disp)) {
+        entry._childCount = el.children.length;
+      }
       computedStyles[label] = entry;
     }
 
@@ -279,31 +295,69 @@ async function measureElements(page, slideId) {
     }
     if (h2) grabStyles(h2, 'h2');
 
-    // Scan slide-inner children + grandchildren for slide-specific elements
+    // Scan slide-inner descendants (depth 4) for slide-specific elements
     if (inner) {
       grabStyles(inner, 'slide-inner');
       let scanned = 0;
-      for (const child of inner.children) {
-        if (scanned >= 25 || child.tagName === 'ASIDE') continue;
-        const alreadyCaptured = [...child.classList].some(c => computedStyles[c]);
-        if (!alreadyCaptured) {
-          grabStyles(child, selectorOf(child));
-          scanned++;
-        }
-        for (const gc of child.children) {
-          if (scanned >= 25) break;
-          if (gc.classList.length > 0) {
-            const gcCaptured = [...gc.classList].some(c => computedStyles[c]);
-            if (!gcCaptured) {
-              grabStyles(gc, selectorOf(gc));
-              scanned++;
-            }
+      const MAX_SCAN = 40;
+      function scanChildren(parent, depth) {
+        if (depth > 4 || scanned >= MAX_SCAN) return;
+        for (const child of parent.children) {
+          if (scanned >= MAX_SCAN) break;
+          if (child.tagName === 'ASIDE') continue;
+          const alreadyCaptured = [...child.classList].some(c => computedStyles[c]);
+          if (!alreadyCaptured) {
+            grabStyles(child, selectorOf(child));
+            scanned++;
           }
+          scanChildren(child, depth + 1);
         }
       }
+      scanChildren(inner, 1);
     }
 
     result.computedStyles = computedStyles;
+
+    // Typography hierarchy: text elements sorted by font-size descending
+    const textElements = [];
+    for (const [label, styles] of Object.entries(computedStyles)) {
+      if (styles.fontSize) {
+        const size = parseFloat(styles.fontSize) || 0;
+        let role = 'body';
+        if (/^h[12]/.test(styles.selector) || /slide-headline/.test(styles.selector)) role = 'headline';
+        else if (size >= 48) role = 'hero';
+        else if (size >= 28) role = 'title';
+        else if (size < 18) role = 'caption';
+        textElements.push({
+          selector: styles.selector,
+          fontSize: size,
+          fontWeight: parseInt(styles.fontWeight) || 400,
+          fontFamily: styles.fontFamily,
+          color: styles.color,
+          role,
+        });
+      }
+    }
+    textElements.sort((a, b) => b.fontSize - a.fontSize);
+    result.typographyHierarchy = textElements;
+
+    // Spacing map: containers with gap/padding relationships
+    const spacingMap = [];
+    for (const [label, styles] of Object.entries(computedStyles)) {
+      const disp = styles.display;
+      if (['grid', 'flex', 'inline-grid', 'inline-flex'].includes(disp)) {
+        const gapVal = parseFloat(styles.gap) || 0;
+        const padVal = parseFloat(styles.padding) || 0;
+        spacingMap.push({
+          selector: styles.selector,
+          gap: styles.gap || '0px',
+          padding: styles.padding || '0px',
+          childCount: styles._childCount || 0,
+          note: gapVal > 0 && gapVal < padVal ? 'WARN: gap < padding (proximity)' : 'OK',
+        });
+      }
+    }
+    result.spacingMap = spacingMap;
 
     return result;
   }, slideId);
@@ -463,7 +517,7 @@ async function main() {
     const checkResult = runChecks(metrics, slide, slideConsoleErrors);
     writeFileSync(
       join(slideDir, 'metrics.json'),
-      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states, checks: checkResult.checks, failCount: checkResult.failCount, warnCount: checkResult.warnCount, ...(metrics?.computedStyles && { computedStyles: metrics.computedStyles }), ...(slideConsoleErrors && { consoleErrors: slideConsoleErrors }) }, null, 2)
+      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states, checks: checkResult.checks, failCount: checkResult.failCount, warnCount: checkResult.warnCount, ...(metrics?.computedStyles && { computedStyles: metrics.computedStyles }), ...(metrics?.typographyHierarchy && { typographyHierarchy: metrics.typographyHierarchy }), ...(metrics?.spacingMap && { spacingMap: metrics.spacingMap }), ...(slideConsoleErrors && { consoleErrors: slideConsoleErrors }) }, null, 2)
     );
 
     // Print check results inline

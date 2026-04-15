@@ -1,5 +1,44 @@
 # CHANGELOG
 
+## Sessao 204 — 2026-04-15 (HARDENING_QA)
+
+### s-quality CSS audit
+- APCA contrast audit: 16/16 PASS (all tokens meet projection thresholds)
+- CSS edits: gap punchline `--space-md`→`--space-lg`, `text-wrap: pretty` on descriptions
+- _manifest.js header: "16 slides"→"17 slides" (stale since S188)
+
+### Tooling: design audit infrastructure
+- `apca-w3` + `colorjs.io` installed (devDeps) — APCA perceptual contrast
+- `wallace-cli` installed (global) — CSS analytics
+- Script: `scripts/apca-audit.mjs` criado — APCA audit para tokens OKLCH
+- Due diligence: Leonardo MCP descartado (v0.1.0, 47 downloads, nao no repo oficial, OKLCH output nao suportado)
+
+### Evidence research (s-quality)
+- 4 refs VERIFIED novas via evidence-researcher agent (PubMed MCP)
+- Dado central: Alvarenga-Brant 2024 (PMID 39003480) — 52% GRADE "very low" em AMSTAR-2 "High"
+- Report: `qa-screenshots/s-quality/content-research.md`
+
+### Pipeline I/O Hardening — Fase 1.5 DONE (5 edits)
+- E1: qa-capture.mjs — scan depth 2→4, cap 25→40, +spacing/border props, typographyHierarchy + spacingMap
+- E2: Call A prompt — 3 seções organizadas + instrução container vs text font-size
+- E3: Call B prompt — token contradiction resolvida (px OK font-size deck.js, tokens obrig. spacing/cores)
+- E4: gemini-qa3 — validateFixTokens() pós-Call-B (cross-ref base.css + aula.css)
+- E5: gemini-qa3 — placeholders {{TYPOGRAPHY_HIERARCHY}} + {{SPACING_MAP}} + {{COMPUTED_STYLES}}
+- Prova: tipografia R11=5 → R12=8 (Δ+3, zero CSS change — data quality pura)
+
+### s-takehome improvements (R12→R13: 7.6→8.0)
+- h2.slide-headline: font-size 44px (hierarchy fix — dominante sobre body 30px)
+- Click-reveal: auto-stagger → 3 clicks professor-controlled (factory em slide-registry.js)
+- _manifest.js: clickReveals 0→3, customAnim null→'s-takehome'
+- Failsafe CSS: .no-js/.stage-bad/@media print → opacity:1 nos cards
+- Diagnóstico honesto: design visualmente fraco (monochrome, sem punchline, sem arco). Precisa direção criativa.
+
+### Wallace CSS-wide findings (diagnostico, nao fix)
+- 35% font-sizes bypassa tokens (29 raw values vs 55 tokenized)
+- 3x `#162032` literal (navy sem token)
+- 20 `!important` declarations
+- 62 OKLCH cores unicas, 89% compliance
+
 ## Sessao 203 — 2026-04-15 (Design)
 
 ### Design Excellence — Pipeline I/O Hardening

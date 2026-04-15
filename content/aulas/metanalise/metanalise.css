@@ -410,6 +410,7 @@ section#s-quality .quality-content p {
   font-weight: 500;
   line-height: 1.35;
   color: var(--text-secondary);
+  text-wrap: pretty;
 }
 
 /* Tool pill — solid fill for 10m readability, deck 100px pattern */
@@ -428,7 +429,7 @@ section#s-quality .quality-tool {
 
 /* Example — dissociation punchline */
 section#s-quality .quality-example {
-  margin-top: var(--space-md);
+  margin-top: var(--space-lg);
   opacity: 0;
 }
 section#s-quality .quality-scenario {
@@ -913,10 +914,17 @@ section#s-takehome .takehome-text {
   line-height: 1.35;
   max-width: none;
 }
+section#s-takehome .slide-headline {
+  font-size: 44px;
+}
 section#s-takehome .takehome-text strong {
   color: var(--text-primary);
   font-weight: 700;
 }
+/* Failsafes */
+.no-js section#s-takehome .takehome-card,
+.stage-bad section#s-takehome .takehome-card { opacity: 1; }
+@media print { section#s-takehome .takehome-card { opacity: 1; } }
 
 /* --- Forest plot slides (figure-centric, cropado de paper) --- */
 

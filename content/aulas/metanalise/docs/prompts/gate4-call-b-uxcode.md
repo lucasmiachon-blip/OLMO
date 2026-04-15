@@ -67,7 +67,10 @@ Ao propor fixes CSS, use EXCLUSIVAMENTE estes tokens. NUNCA usar valores literai
 
 /* Tipografia — minimos para projecao 10m */
 /* Body: min 18px. Titulos: min 28px. Hero numbers: min 48px. */
-/* NUNCA vw/vh em font-size. NUNCA px literal — usar var() ou clamp(). */
+/* NUNCA vw/vh em font-size (deck.js scale).
+   Tokens obrigatorios: spacing (--space-*), cores (--safe/--warning/--danger/--ui-accent/--text-*), border-radius (--radius-*).
+   font-size: px OK para per-slide sizing (deck.js escala viewport). Thresholds: body >=18px, titulos >=28px, hero >=48px.
+   NUNCA inventar tokens. Se nao esta na lista acima, usar valor concreto. */
 
 /* Layout — CSS Grid preferido sobre Flexbox para composicao 2D */
 /* Container Queries para componentes reutilizaveis */

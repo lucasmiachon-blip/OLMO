@@ -1,97 +1,80 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 203 | Design — Pipeline I/O hardening plan approved, s-takehome CSS fixed
+> Sessao 204 | HARDENING_QA — Pipeline I/O hardened (5 edits), s-takehome click-reveal + failsafe, s-quality CSS/evidence research DONE
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Agentes: 10.** **Hooks: 29 registros, 29 scripts (0 node -e JSON parse).** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 20.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
+**Agentes: 10.** **Hooks: 29 registros, 29 scripts.** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 20.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
+**Novos devDeps:** `apca-w3`, `colorjs.io`. **Novo global:** `wallace-cli`.
 
-## P0 — Design Excellence Loop (S201-S203)
+## P0 — Design Excellence Loop (S201-S204)
 
 - **Plano master:** `.claude/plans/mutable-mapping-seal.md` (3 fases)
 - **Fase 1 DONE (S202):** 6 fixes ao Gemini QA evaluator
-- **Fase 1 VALIDADA (S203):** editorial em s-takehome R11. 4/4 calls OK, 6/6 selectors valid, anti-sycophancy 7 deflações + 1 FP capturado. Score 7.5/10.
-- **Fase 1.5 — Pipeline I/O Hardening (PRÓXIMO):** plano aprovado `.claude/plans/snoopy-jingling-aurora.md`
-  - 5 gargalos diagnosticados: G1 shallow scan (2 levels), G2 CSS properties insuficientes, G3 contradição token prompt, G4 sem hierarquia tipográfica, G5 zero validação pós-fix
-  - 5 edits: E1 qa-capture.mjs (depth+properties+hierarchy), E2 call-a prompt, E3 call-b prompt, E4 gemini-qa3 (token validation), E5 gemini-qa3 (placeholders)
-- **Fase 2 (após 1.5):** rule design-excellence.md + skill /polish + Chrome DevTools MCP
+- **Fase 1.5 DONE (S204):** Pipeline I/O Hardening — 5 edits validados
+  - Prova: tipografia R11=5 → R12=8 (Δ+3, zero CSS change — pura qualidade de dados)
+  - Plano: `.claude/plans/snoopy-jingling-aurora.md`
+- **Fase 2 (PRÓXIMO):** rule design-excellence.md + skill /polish + Chrome DevTools MCP
 - **Fase 3 (futuro):** Multi-model — só quando Fases 1-2 Proven
 
-## P0 — s-takehome (S203 CSS fixes aplicados)
+## P0 — s-takehome (DESIGN FRACO — precisa direção criativa)
 
-- gap: `--space-md` → `--space-lg` (proximidade Gestalt)
-- números: 64px → 40px, opacity 0.6 (decorativo, não hero)
-- texto: 26px → 30px, `--text-secondary` → `--text-primary` (protagonista)
-- strong: weight 600 → 700
-- failsafe: `opacity: 0` adicionado aos cards (GSAP stagger)
-- Build PASS, capture PASS (fillRatio OK)
+**R13 score: 8.0 adjusted.** Funcional (click-reveal 3 cards, failsafe, h2 44px) mas visualmente fraco.
+
+Comparado com s-quality/s-absoluto:
+1. **Zero diferenciação cromática** — 3 cards idênticos (mesma cor, border, bg)
+2. **Sem punchline** — msg 3 ("SEU paciente") = culminação da aula, mas CSS = msgs 1 e 2
+3. **Números decorativos** — 40px opacity 0.6 = nem âncora nem invisível
+4. **Estética genérica** — white cards on gray = template PowerPoint
+5. **Sem arco visual** — nenhuma escalação do card 1 ao card 3
+
+**Precisa:** direção criativa do Lucas (cores por card? punchline elevada? ícones?).
+
+## P0 — s-quality (S204 em andamento)
+
+- **CSS audit DONE:** 16/16 APCA PASS. Wallace: 35% font-size raw, 3x #162032 literal, 20 !important.
+- **Evidence research DONE:** 4 refs VERIFIED (Santos 2026, Alvarenga-Brant 2024, Ho 2024, Mickenautsch 2024). Report: `qa-screenshots/s-quality/content-research.md`.
+- **Dado central:** Alvarenga-Brant 2024 (PMID 39003480) — AMSTAR-2 "High" SRs: 0% GRADE alta, 52% muito baixa.
+- **PENDENTE:** (1) integrar 4 refs no evidence HTML, (2) speaker notes bottom-up ~90s, (3) narrativa.
+- **APCA script criado:** `scripts/apca-audit.mjs` — precisa melhorias (ler tokens do CSS, --slide, JSON output).
 
 ## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
 
-- Evidence `evidence/s-tipos-ma.html`: 16 refs VERIFIED + 1 book, ~480 linhas.
-- **Pendente:** Lucas decide quantos slides, posicao no manifest, h2.
+- Lucas decide quantos slides, posição no manifest, h2.
 
-## P0 — drive-package v2.1 (S199-S200)
+## P0 — drive-package v2.1
 
 - **Pendente:** metanalise.pdf stale (17 slides, PDF gerado S166 com 16). Regenerar antes de deploy.
 
-## P0 — Slides metanalise (S202)
+## P1 — Pendentes
 
-- **s-quality pendente:** (1) speaker notes bottom-up, (2) evidence HTML com numeros verificados
-
-## P1 — Loop melhoria continua (rondas restantes)
-
-### Ronda 2: Sentinel agent improvement (backlog #31)
-Adicionar: grep/verify antes de claims, report template obrigatorio, scope limit.
-
-### Ronda 3: Agent optimization audit (backlog #29 — read-only)
-Tools/model/maxTurns review dos 10 agentes. Report-only.
-
-## P1 — Security: node -e fs.writeFileSync bypasses guard-bash-write
-
-- `node -e "require('fs').writeFileSync(...)"` contorna o hook sem ask
-- **Fix:** expandir Pattern 7 para cobrir `fs.writeFileSync`, `fs.copyFileSync`, `fs.rmSync`
-- Relacionado: backlog #20 (python script file bypass)
-
-## P1 — Prompt hardening propagacao (backlog #30)
-
-## P1 — Gemini parametros adicionais (pesquisa pendente)
-
-- thinking_level (high/low/minimal), frequency_penalty, presence_penalty, seed
-- Sem evidencia suficiente — lancar busca dedicada antes de implementar
-- Fontes base: `.claude/plans/archive/S193-groovy-fluttering-bunny.md`
+- Sentinel agent improvement (backlog #31)
+- Agent optimization audit (backlog #29 — read-only)
+- Security: node -e fs.writeFileSync bypasses guard-bash-write
+- Prompt hardening propagação (backlog #30)
+- Gemini parâmetros adicionais (pesquisa pendente)
+- Wallace CSS-wide findings: 29 font-sizes raw (token leakage), #162032 sem token, 20 !important
 
 ## DECISOES ATIVAS
 
-- **Gemini QA temp: APLICADO S198.** Todos gates 1.0 (Google Gemini 3 default). topP 0.95.
-- Format C+ pointer-only. OKLCH obrigatorio.
-- Living HTML = source of truth. Benchmark CSS = `pre-reading-heterogeneidade.html` (READ-ONLY).
-- Agent effort: max (degrada para high em Sonnet/Haiku).
-- Hook scripts: Edit BLOCK + deploy via Write→cp (guard-bash-write asks). Settings: Edit ASK.
-- **Elite-conduct loop:** `.claude/rules/elite-conduct.md` — checkpoint `[EC]` visivel obrigatorio (S200, Unaudited). **Gate visual** adicionado S202 (KBP-20).
-- **Proven-wins rule:** `.claude/rules/proven-wins.md` — maturity tiers (unaudited→proven).
+- Gemini QA temp: 1.0, topP 0.95. Format C+ pointer-only. OKLCH obrigatório.
+- Living HTML = source of truth. Agent effort: max.
+- Elite-conduct `[EC]` checkpoint obrigatório. Proven-wins maturity tiers.
 
 ## CUIDADOS
 
-- NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro (LLM).
-- npm scripts: rodar de `content/aulas/`, NAO da raiz.
-- **h2 = trabalho do Lucas.** NUNCA remover/reescrever sem instrucao EXPLICITA.
-- **Sentinel claims: verificar antes de agir.** S196: 1 FP (apl-cache-refresh), 1 truncado.
-- **node -e fs bypass:** workaround funcional mas brecha de seguranca. Fix P1.
-- **Params sem evidencia: pesquisar antes, nunca inventar.**
+- NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
+- npm scripts: rodar de `content/aulas/`. h2 = trabalho do Lucas.
+- s-takehome: funcional mas visualmente fraco. Não polir sem direção criativa.
 
 ## BACKLOG
 
-→ `.claude/BACKLOG.md` (33 items, 7 resolved — #32 resolved S198)
+→ `.claude/BACKLOG.md` (33 items, 7 resolved)
 
 ## CLEANUP PENDENTE
 
 - `.claude/workers/`: S178 + S181. Lucas decide.
-- `02-contrato.html` menciona slides demolidos.
-- `.claude/plans/mutable-mapping-seal-agent-*.md` — untracked, Lucas decide.
-- `.claude/plans/noble-plotting-lecun.md` — untracked, Lucas decide.
-- `.claude/plans/snoopy-jingling-aurora.md` — plano ativo Pipeline I/O Hardening (S203).
 
 ---
-Coautoria: Lucas + Opus 4.6 | S203 2026-04-15
+Coautoria: Lucas + Opus 4.6 | S204 2026-04-15

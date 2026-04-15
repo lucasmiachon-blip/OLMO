@@ -774,4 +774,32 @@ export const slideRegistry = {
     slide.__hookRetreat    = retreat;
     slide.__hookCurrentBeat = () => revealed;
   },
+
+  's-takehome': (slide, gsap) => {
+    const cards = slide.querySelectorAll('.takehome-card');
+    if (!cards.length) return;
+
+    let revealed = 0;
+
+    const advance = () => {
+      if (revealed >= cards.length) return false;
+      gsap.fromTo(cards[revealed],
+        { opacity: 0, y: 16, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power2.out' }
+      );
+      revealed++;
+      return true;
+    };
+
+    const retreat = () => {
+      if (revealed <= 0) return false;
+      revealed--;
+      gsap.to(cards[revealed], { opacity: 0, y: 16, scale: 0.96, duration: 0.3, ease: 'power2.in' });
+      return true;
+    };
+
+    slide.__clickRevealNext = advance;
+    slide.__hookRetreat    = retreat;
+    slide.__hookCurrentBeat = () => revealed;
+  },
 };

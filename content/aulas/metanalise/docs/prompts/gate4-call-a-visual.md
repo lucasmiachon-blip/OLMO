@@ -29,7 +29,16 @@ Use ESTES valores para avaliar tipografia, cor e proporcao — NAO estime do PNG
 Quando propor fixes no campo "target", use os seletores listados aqui (eles EXISTEM no DOM real).
 Se um seletor NAO aparece nesta lista, provavelmente NAO existe — verifique antes de propor.
 
-{{COMPUTED_DATA}}
+### HIERARQUIA TIPOGRAFICA (sorted by size)
+{{TYPOGRAPHY_HIERARCHY}}
+→ Use ESTES tamanhos de fonte, NAO estime do PNG. O font-size de um container (`<div>`) e o default herdado, NAO o tamanho visivel do texto. Leia os ELEMENTOS DE TEXTO reais (h2, p, span).
+
+### MAPA DE ESPACAMENTO (containers)
+{{SPACING_MAP}}
+→ gap < padding = violacao de proximidade Gestalt.
+
+### ESTILOS COMPUTADOS (raw)
+{{COMPUTED_STYLES}}
 
 ## TAREFA
 
