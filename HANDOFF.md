@@ -18,6 +18,25 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - **Fase 2 (PRÓXIMO):** rule design-excellence.md + skill /polish + Chrome DevTools MCP
 - **Fase 3 (futuro):** Multi-model — só quando Fases 1-2 Proven
 
+## P0 — Paleta convergência 258° (3 slides, URGENTE — apresentação próxima)
+
+Referência: s-importancia/s-objetivos (hue 258°, chroma 0.14). Problema: hues <245° = ciano fritante.
+Executar token swap direto (valores já auditados S206):
+
+| Token (arquivo) | Atual | Novo |
+|-----------------|-------|------|
+| `--q-process` (metanalise.css:334) | 45% 0.14 **220** | 45% 0.13 **253** |
+| `--q-evidence` (metanalise.css:335) | 42% 0.18 **200** | 42% 0.14 **248** |
+| `--q-bg-process` (metanalise.css:340) | 92% 0.03 **220** | 92% 0.025 **253** |
+| `--q-bg-evidence` (metanalise.css:341) | 92% 0.03 **200** | 92% 0.025 **248** |
+| `--th-2` (metanalise.css:882) | 46% 0.15 **235** | 46% 0.13 **253** |
+| `--th-3` (metanalise.css:883) | 44% 0.16 **210** | 44% 0.14 **248** |
+| `--th-bg-2` (metanalise.css:885) | 92% 0.025 **235** | 92% 0.02 **253** |
+| `--th-bg-3` (metanalise.css:886) | 92% 0.03 **210** | 92% 0.025 **248** |
+| s-etd IAM bg (metanalise.css:2039) | 24% 0.015 **170** | 24% 0.02 **258** |
+
+Build + screenshot 3 slides + commit. ~10 min max.
+
 ## P0 — s-heterogeneity (S206: projection polish)
 
 PI bars visíveis (0.35), verdict pareado com I² label (--text-h3), caveat enxuto.
