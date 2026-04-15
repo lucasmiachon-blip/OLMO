@@ -13,13 +13,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
-# Extract command — node parser (not sed, avoids JSON truncation — Codex S60 O7/A4)
-CMD=$(echo "$INPUT" | node -e "
-  try {
-    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
-    console.log((d.tool_input||{}).command||'');
-  } catch(e) { process.exit(1); }
-" 2>/dev/null) || {
+# Extract command — jq parser (S198: migrated from node -e)
+CMD=$(echo "$INPUT" | jq -r '.tool_input.command // ""' 2>/dev/null) || {
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"JSON parse falhou — confirme build"}}\n'
   exit 0
 }
@@ -49,7 +44,9 @@ if [ -z "$AULA" ]; then
 fi
 
 # Run all lint scripts for the aula (O6 fix: was only lint-slides.js)
-AULAS_DIR="/c/Dev/Projetos/OLMO/content/aulas"
+# S198: resolve path relative to script location instead of hardcoded (S196 S6 fix)
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+AULAS_DIR="$REPO_ROOT/content/aulas"
 LINT_SCRIPTS=("lint-slides.js" "lint-case-sync.js")
 LINT_FAILED=0
 LINT_ERRORS=""

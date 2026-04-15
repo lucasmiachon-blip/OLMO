@@ -64,6 +64,7 @@ After completing any discrete action (edit, build, commit, QA check):
 STOP and report the result. Do NOT chain to the next logical step.
 The next step requires Lucas's explicit instruction — not implicit permission.
 Exception: within an approved multi-step plan where all steps were listed upfront.
+- **Pre-execution reflection gate (KBP-14):** Before ANY multi-step execution, state in 1 sentence: WHAT you will do and WHY this approach. Cannot articulate in 1 sentence = haven't reflected enough. Fast approval ("OK") does not exempt this gate.
 
 ## Delegation gate (KBP-17)
 

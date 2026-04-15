@@ -153,8 +153,8 @@ Step-by-step clinical reasoning.
 Navy background, minimal text, sets context for a section.
 
 ```html
-<section id="s-a1-section-treatment" data-background-color="#0d1a2d">
-  <div class="slide-inner slide-navy" style="justify-content: center; align-items: center; text-align: center;">
+<section id="s-a1-section-treatment" class="theme-dark">
+  <div class="slide-inner">
     <p class="section-tag">Part III</p>
     <h1 data-animate="fadeUp">Treatment</h1>
   </div>

@@ -64,7 +64,7 @@ Regras de cor semantica no QA: ver `design-reference.md` §1 (Semantica de Cor).
 - **Penalizacao concreta:** Stagger uniforme = max 7. CountUp sem pausa = max 6.
 - **Motion:** 12 principios Disney (anticipation, follow-through, secondary action, staging focal).
 - Inventario de timestamps prova que modelo VIU, nao que AVALIOU qualidade.
-- Temperatura editorial: 1.0 (testado S71 — baixar torna critica generica). Aplica-se a TODAS as calls editoriais incluindo Call D e futuras.
+- **Temperatura QA:** 1.0 (default Gemini 3 — Google recomenda manter; S178 baixou para 0.2 em Gemini 2.x, revertido S198). Override per-call: `--temp <float>`.
 
 ## 4. Checklists de Transicao
 

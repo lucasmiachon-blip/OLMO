@@ -9,11 +9,7 @@
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Extrai path do arquivo editado (Write usa 'path', Edit usa 'path' tambem)
-FILE_PATH=$(echo "$INPUT" | node -e "
-const d=JSON.parse(require('fs').readFileSync(0,'utf8')||'{}');
-const ti=d.tool_input||{};
-console.log(ti.file_path||ti.path||'');
-" 2>/dev/null) || exit 0
+FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.path // ""' 2>/dev/null) || exit 0
 
 # Filtro: so arquivos slides/*.html
 if ! echo "$FILE_PATH" | grep -qE 'content/aulas/[a-z]+/slides/[^/]+\.html$'; then
@@ -27,10 +23,7 @@ if [ -z "$AULA" ]; then
 fi
 
 # Repo root via cwd do hook
-CWD=$(echo "$INPUT" | node -e "
-const d=JSON.parse(require('fs').readFileSync(0,'utf8')||'{}');
-console.log(d.cwd||'.');
-" 2>/dev/null) || CWD="."
+CWD=$(echo "$INPUT" | jq -r '.cwd // "."' 2>/dev/null) || CWD="."
 
 LINT_SCRIPT="$CWD/content/aulas/scripts/lint-slides.js"
 if [ ! -f "$LINT_SCRIPT" ]; then

@@ -49,7 +49,7 @@ Options:
   --slide <id>       Slide ID (default: s-a1-01)
   --round <N>        Round number for Gate 4 (default: 11)
   --model <id>       Gemini model override (default: flash for Gate 0, pro for Gate 4)
-  --temp <float>     Override temperature (Gate 4 default: 1.0)
+  --temp <float>     Override temperature (default: 1.0, Gemini 3 recommended)
   --output <path>    Custom output path
   --ref-slide <id>   Reference slide for cross-slide consistency
   --no-ref           Disable auto ref-slide detection
@@ -99,11 +99,10 @@ const PRICING = {
 };
 function modelCost(model) { return PRICING[model] || { input: 1.0, output: 5.0 }; }
 
-// H1: Per-gate temperature defaults (S178 hardening — lower temp = less hallucination in QA)
-// Gate 0 (inspect): 0.1 (binary classification, max determinism)
-// Calls A/B/C (editorial): 0.2 (factual analysis, minimal creativity)
-// Call D (validate): 0.1 (audit/verification, max determinism)
-const TEMP_DEFAULTS = { inspect: 0.1, visual: 0.2, uxcode: 0.2, motion: 0.2, validate: 0.1 };
+// H1: Per-gate temperature defaults (S198 — restore Gemini 3 defaults; Google recommends 1.0)
+// S178 lowered to 0.1-0.2 for Gemini 2.x; Gemini 3.x optimized for 1.0 (see Gemini 3 Developer Guide).
+// Lowering below 1.0 causes looping, degraded reasoning, fallback responses.
+const TEMP_DEFAULTS = { inspect: 1.0, visual: 1.0, uxcode: 1.0, motion: 1.0, validate: 1.0 };
 
 // --- CLI args ---
 const args = process.argv.slice(2);
@@ -838,7 +837,7 @@ function buildGate0Payload(slideId, qaDir) {
     payload: {
       contents: [{ parts }],
       generationConfig: {
-        temperature: 0.1, topP: 0.9, maxOutputTokens: 8192,
+        temperature: 1.0, topP: 0.95, maxOutputTokens: 8192,
         responseMimeType: 'application/json',
         responseSchema: GATE0_SCHEMA,
       },

@@ -12,12 +12,7 @@
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Extract tool_response as string (first 2000 chars to avoid parsing huge outputs)
-RESPONSE=$(echo "$INPUT" | node -e "
-const d=JSON.parse(require('fs').readFileSync(0,'utf8') || '{}');
-const tr=d.tool_response||{};
-const s=typeof tr==='string'?tr:JSON.stringify(tr);
-console.log(s.substring(0,2000));
-" 2>/dev/null) || exit 0
+RESPONSE=$(echo "$INPUT" | jq -r '(.tool_response // {}) | if type == "string" then . else tostring end' 2>/dev/null | head -c 2000) || exit 0
 
 # No response = nothing to check
 [ -z "$RESPONSE" ] && exit 0

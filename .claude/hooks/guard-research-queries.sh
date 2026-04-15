@@ -7,12 +7,7 @@
 INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Extract skill name from tool_input
-SKILL=$(echo "$INPUT" | node -e "
-  try {
-    const d=JSON.parse(require('fs').readFileSync(0,'utf8'));
-    console.log((d.tool_input||{}).skill||'');
-  } catch(e) { console.log(''); }
-" 2>/dev/null)
+SKILL=$(echo "$INPUT" | jq -r '.tool_input.skill // ""' 2>/dev/null)
 
 # Only gate the research skill
 case "$SKILL" in
