@@ -1,6 +1,29 @@
 # CHANGELOG
 
+## Sessao 205 — 2026-04-15 (CORES + SLIDE BUILD)
+
+### s-contrato rewrite
+- h2: "3 perguntas" → "3 etapas para avaliar qualquer MA de RCTs de intervenção"
+- Box 1: PICO + credibilidade (era "qualidade da busca")
+- Box 2: Interpretação — Forest plot + heterogeneidade + resultados + (confiança)
+- Box 3: Tradução dos resultados e aplicabilidade
+
+### s-pico — exemplos colchicina + DAC estável
+- P: pós-IAM agudo vs DAC crônica estável
+- I: dose/duração variável
+- C: placebo vs paciente já em estatina + AAS
+- O: MACE composto vs mortalidade CV
+
+### CSS — forest plot improvements
+- Het zones (forest1 + forest2): cor ciano→âmbar (oklch hue 222→75), alpha 0.12→0.25, border 2px dashed
+- z-index forest zones: 2→5 (ambos slides)
+- source-tag: `--text-caption`→`--text-body` (todos slides)
+- MA stat (forest2): raw rem→tokens (`--text-h2`, `--text-body`, `--text-caption`)
+
 ## Sessao 204 — 2026-04-15 (HARDENING_QA)
+
+### Commit a940234 — consolidação
+- 16 files, 762 ins, 89 del: Pipeline I/O Hardening + s-takehome functional + APCA tooling + docs + archived plans
 
 ### s-quality CSS audit
 - APCA contrast audit: 16/16 PASS (all tokens meet projection thresholds)

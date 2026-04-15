@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 204 | HARDENING_QA — Pipeline I/O hardened (5 edits), s-takehome click-reveal + failsafe, s-quality CSS/evidence research DONE
+> Sessao 205 | CORES + SLIDE BUILD — s-contrato rewrite (etapas), s-pico colchicina, forest het zones âmbar, source-tag maior, MA stat tokens.
 
 ## ESTADO ATUAL
 
