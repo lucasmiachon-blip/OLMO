@@ -19,9 +19,9 @@ O OLMO tem um QA pipeline (Gemini 3 Flash/Pro, 15 dimensões, 3+1 calls) que fun
 
 ---
 
-## Fase 1: Consertar o Evaluator (Gemini QA)
+## Fase 1: Consertar o Evaluator (Gemini QA) — ✅ DONE (S202)
 
-### 1.1 Injetar dados computados no Call A
+### 1.1 Injetar dados computados no Call A — ✅
 
 **Problema:** Call A (visual) recebe SOMENTE screenshots. Chuta medidas do PNG. Propõe seletores que não existem (`.bar-chart-value` quando o real é `.rob2-bar-val`).
 
@@ -45,7 +45,7 @@ computed_data.json:
 **Script a modificar:** `qa-capture.mjs` — adicionar extração de computed styles no `measureElements()` (já existe bounding box, falta computed CSS).
 **Prompt a modificar:** `gate4-call-a-visual.md` — adicionar seção `## DADOS COMPUTADOS` com instrução para usar esses valores, não chutar.
 
-### 1.2 Corrigir Call B reliability
+### 1.2 Corrigir Call B reliability — ✅
 
 **Problema:** Call B (ux+code) falha ~30-40% das vezes. `maxOutputTokens: 16384` + schema complexo (5 dims + proposals array + dead_css + specificity_conflicts) = output truncado ou parse failure. Quando falha, 5 dimensões mais acionáveis se perdem.
 
@@ -57,7 +57,7 @@ computed_data.json:
 **Script a modificar:** `gemini-qa3.mjs` — lógica de retry + maxOutputTokens config.
 **Métrica de sucesso:** Call B parse success rate ≥90% em 10 runs consecutivos.
 
-### 1.3 Adicionar few-shot golden evaluations
+### 1.3 Adicionar few-shot golden evaluations — ✅
 
 **Problema:** Prompts dizem "nível Apple Keynote" mas nunca mostram um exemplo concreto de avaliação BEM FEITA neste design system. Zero few-shot em Call A e Call C. Call B tem 2 exemplos triviais.
 
@@ -71,7 +71,7 @@ computed_data.json:
 
 **Como gerar:** Rodar QA nos slides benchmark, curar manualmente o output ideal, usar como golden. Lucas valida.
 
-### 1.4 Implementar delta tracking entre rounds
+### 1.4 Implementar delta tracking entre rounds — ✅
 
 **Problema:** O sistema apaga scores anteriores ("fresh eyes"). Sem diff = sem saber se melhorou.
 
@@ -91,7 +91,7 @@ TAREFA: Avaliar com olhos frescos, MAS reportar delta (melhorou/piorou/estável)
 **Schema a adicionar:** `delta: { dim: "improved"|"regressed"|"stable" }` em cada call.
 **Métrica de sucesso:** Report de round N mostra deltas vs round N-1.
 
-### 1.5 Separar Call D em dois jobs
+### 1.5 Separar Call D em dois jobs — ✅
 
 **Problema:** Call D faz anti-sycophancy (deflacionar scores) E gera ações prioritárias. Em R15: ajustou todos motion dims uniformemente 8.2→7 = "subtraia 1 de tudo".
 
@@ -106,7 +106,7 @@ DEPOIS: Call D (LLM) → ceiling_violations + false_positives
 **Script a modificar:** `gemini-qa3.mjs` — refatorar `runSplitGate4()` para gerar priority_actions via código.
 **Prompt a modificar:** `gate4-call-d-validate.md` — remover `priority_actions` do schema.
 
-### 1.6 Validação de seletores CSS propostos (post-processing)
+### 1.6 Validação de seletores CSS propostos (post-processing) — ✅
 
 **Problema:** Call A propõe fixes com seletores que não existem no CSS.
 

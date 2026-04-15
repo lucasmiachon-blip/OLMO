@@ -18,7 +18,7 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - **3 servidores:** Caddy :18080 → Python :18081 → Miniserve :18082 → PDF
 - **S200 hardening (3 rondas):** health check gates, PID tracking, UX consistency
 - **Padrao uniforme:** orphan cleanup → port check → start → health check → PID save → browser gated → pause → cleanup
-- **Pendente:** metanalise.pdf stale (16 slides, S166). Regenerar com Playwright/Decktape.
+- **Pendente:** metanalise.pdf stale (17 slides agora, PDF gerado em S166 com 16). Regenerar.
 - **Adversarial review DONE S200:** Gemini (D+→fixes) + Codex (0 bugs adicionais) + review holistico (2 self-catch)
 - **Para deploy:** regenerar PDF, zipar, subir Drive
 
