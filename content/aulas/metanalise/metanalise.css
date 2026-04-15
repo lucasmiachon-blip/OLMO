@@ -540,6 +540,9 @@ section#s-quality .quality-ex-sep {
   font-weight: 700;
 }
 
+/* Long headline — single-line fit at 1280 canvas */
+section#s-pico .slide-headline { font-size: var(--text-h3); }
+
 /* GSAP initial state — hidden until custom anim reveals */
 #s-pico .pico-item,
 #s-pico .pico-punchline {
@@ -1582,6 +1585,7 @@ section#s-pubbias1 .slide-inner::after {
 
 section#s-pubbias1 .slide-headline {
   align-self: flex-start;
+  font-size: var(--text-h3); /* long headline — single-line fit */
 }
 
 /* --- Click 1: Proportion bars (FDA vs Literature) --- */
