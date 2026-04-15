@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 207 | A definir.
+> Sessao 207 | s-fixed-random — estética + conteúdo.
 
 ## ESTADO ATUAL
 
@@ -32,7 +32,7 @@ Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coere
 
 - **Paleta corrigida (S205):** blue-teal family (200-258°), raw px→tokens, badges→system tokens.
 - **Evidence research DONE:** 4 refs VERIFIED. Report: `qa-screenshots/s-quality/content-research.md`.
-- **PENDENTE:** (1) integrar 4 refs no evidence HTML, (2) speaker notes bottom-up ~90s, (3) narrativa, (4) Lucas: "pode melhorar mais" — refinar paleta/tamanhos na próxima sessão.
+- **PENDENTE:** (1) integrar 4 refs no evidence HTML, (2) narrativa, (3) Lucas: "pode melhorar mais" — refinar paleta/tamanhos.
 
 ## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
 
@@ -57,10 +57,18 @@ Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coere
 - Living HTML = source of truth. Agent effort: max.
 - Elite-conduct `[EC]` checkpoint obrigatório. Proven-wins maturity tiers.
 
+## UNCOMMITTED (S205 working tree)
+
+- `metanalise.css`: s-etd grid layout changes (grid-template-columns, max-width, gap)
+- `slide-registry.js`: s-etd animation timing changes (durations, staggers)
+- `.slide-integrity`: hash delta from build
+- Decisão: commit separado ou integrar no próximo trabalho.
+
 ## CUIDADOS
 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`. h2 = trabalho do Lucas.
+- Slides não usam `<aside class="notes">` nem reveal.js (removidos S206 de todos docs ativos).
 - s-takehome: funcional mas visualmente fraco. Não polir sem direção criativa.
 
 ## BACKLOG
