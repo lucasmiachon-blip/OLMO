@@ -57,6 +57,18 @@ O loop aplica-se a docs com o mesmo rigor que a codigo. Gate adicional para cada
 - Fast approval do Lucas ("OK", "pode") NAO dispensa o loop — o loop e interno, nao externo
 - Em sequencias multi-step: o loop se aplica a cada step individualmente, nao ao batch
 
+## Scope-audit gate (KBP-21 — Narrow Fix in Dirty Section)
+
+Ao tocar QUALQUER secao CSS/HTML para corrigir 1 problema: auditar a secao INTEIRA antes de editar. Checklist:
+1. Valores raw (px/rem) que deveriam ser tokens?
+2. Cores fora da paleta do deck?
+3. Custom properties que duplicam tokens do sistema?
+4. Tamanhos incoerentes com slides adjacentes?
+
+Narrow fix = resolver X e ignorar Y, Z, W na mesma secao. Um profissional abre o escopo inteiro quando ja esta la dentro.
+
+**S205:** Lucas flaggeou — s-quality tinha 64px raw + custom props redundantes (--q-pass/--q-fail vs --safe/--danger) + paleta multi-hue. Agente corrigiu paleta mas deixou raw px e props redundantes.
+
 ## Evidencia
 
-S195: 3 bugs em sequencia (quoting, jq -cn, JSONL contaminado) por pular o loop. S194: Lucas definiu o loop explicitamente. S200: Caddyfile auto-HTTPS + findstr backslash — loop nao aplicado, capturado por review holistico.
+S195: 3 bugs em sequencia (quoting, jq -cn, JSONL contaminado) por pular o loop. S194: Lucas definiu o loop explicitamente. S200: Caddyfile auto-HTTPS + findstr backslash — loop nao aplicado, capturado por review holistico. S205: narrow fix em s-quality CSS — corrigiu paleta mas ignorou raw px e tokens redundantes na mesma secao.

@@ -20,6 +20,12 @@
 ### Rule: elite-conduct [EC] checkpoint
 - [EC] Elite: "sim" proibido — exige reflexão real (seguro e profissional? porque)
 
+### s-quality — paleta + auditoria CSS
+- Paleta: multi-hue (âmbar 85°/teal 185°/azul 258°) → família blue-teal (200-258°)
+- quality-num: 64px raw → `var(--text-h1)`
+- Pass/fail badges: custom props redundantes → `var(--safe)`/`var(--danger)` do sistema
+- KBP-21: "Narrow Fix in Dirty Section" documentado em elite-conduct.md
+
 ### CSS — forest plot improvements
 - Het zones (forest1 + forest2): cor ciano→âmbar (oklch hue 222→75), alpha 0.12→0.25, border 2px dashed
 - z-index forest zones: 2→5 (ambos slides)

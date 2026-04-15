@@ -328,24 +328,20 @@ aside.notes { display: none; }
    Hand-crafted OKLCH: L=91% C=0.06 bg (visible at 10m), system accent tokens.
    10px left border + 64px numbers + solid pills = auditorium hierarchy. */
 section#s-quality {
-  /* Accents — slide-scoped, C≥0.16 for hue at 10m projection.
-     L=48%: white text contrast ≈ 5:1 (AA). */
-  --q-study:    oklch(48% 0.18 85);
-  --q-evidence: oklch(48% 0.20 258);
-  --q-process:  oklch(48% 0.16 185);
+  /* Accents — blue-teal family (hue 200-258), coherent with deck palette.
+     Differentiation by lightness+chroma, not hue. L≤48%: white text ≈ 5:1 (AA). */
+  --q-study:    oklch(48% 0.16 258);
+  --q-process:  oklch(45% 0.14 220);
+  --q-evidence: oklch(42% 0.18 200);
 
-  /* Backgrounds — paper tints. C=0.03 (0.025=invisible, 0.06=Easter egg).
-     L=92%: 3% ΔL from bg-surface (95%) = soft but real separation. */
-  --q-bg-study:    oklch(92% 0.03 85);
-  --q-bg-evidence: oklch(92% 0.03 258);
-  --q-bg-process:  oklch(92% 0.03 185);
+  /* Backgrounds — paper tints, same hue family.
+     L=92%, C=0.03: soft separation from bg-surface (95%). */
+  --q-bg-study:    oklch(92% 0.03 258);
+  --q-bg-process:  oklch(92% 0.03 220);
+  --q-bg-evidence: oklch(92% 0.03 200);
 
-  /* Badges — structural contrast: pass=outlined, fail=SOLID FILL.
-     Pass: green outline readable at 10m. Fail: red block = punchline. */
-  --q-pass-text:   oklch(35% 0.16 170);
-  --q-pass-border: oklch(50% 0.14 170);
-  --q-pass-bg:     oklch(94% 0.02 170);
-  --q-fail-fill:   oklch(52% 0.20 10);
+  /* Badges — use system semantic tokens (safe/danger).
+     Pass: outlined safe. Fail: solid danger = punchline. */
 }
 
 section#s-quality .quality-levels {
@@ -381,7 +377,7 @@ section#s-quality .quality-level[data-reveal="3"] { --q-accent: var(--q-evidence
 /* Number — 64px serif, projection anchor */
 section#s-quality .quality-num {
   font-family: var(--font-display);
-  font-size: 64px;
+  font-size: var(--text-h1);
   font-weight: 400;
   line-height: 1;
   text-align: center;
@@ -450,16 +446,16 @@ section#s-quality .quality-ex {
   white-space: nowrap;
 }
 section#s-quality .quality-ex--pass {
-  color: var(--q-pass-text);
-  background: var(--q-pass-bg);
-  border-color: var(--q-pass-border);
+  color: var(--safe);
+  background: var(--safe-light);
+  border-color: var(--safe);
 }
 section#s-quality .quality-ex--fail {
   font-size: var(--text-body);
   font-weight: 700;
   color: var(--bg-elevated);
-  background: var(--q-fail-fill);
-  border-color: var(--q-fail-fill);
+  background: var(--danger);
+  border-color: var(--danger);
   padding: var(--space-xs) calc(var(--space-md) + var(--space-xs));
 }
 section#s-quality .quality-ex-sep {
@@ -879,6 +875,16 @@ section#s-importancia p.source-tag {
 
 
 /* --- Take-home: 3 assertion rows closing the lecture arc --- */
+section#s-takehome {
+  /* Accents — cool family (hue 210-258), same pattern as s-quality (200-258).
+     Pedagogical content = blue-to-teal. Semantic tokens (safe/warning/danger) reserved for clinical. */
+  --th-1: oklch(48% 0.14 258);  /* blue — foundation */
+  --th-2: oklch(46% 0.15 235);  /* blue-teal — application */
+  --th-3: oklch(44% 0.16 210);  /* teal — culmination */
+  --th-bg-1: oklch(92% 0.02 258);
+  --th-bg-2: oklch(92% 0.025 235);
+  --th-bg-3: oklch(92% 0.03 210);
+}
 section#s-takehome .takehome-grid {
   display: flex;
   flex-direction: column;
@@ -892,33 +898,35 @@ section#s-takehome .takehome-card {
   align-items: center;
   gap: var(--space-lg);
   padding: var(--space-md) var(--space-lg);
-  background: var(--bg-elevated);
-  border-left: 6px solid var(--ui-accent);
+  border-left: 6px solid var(--_th-accent);
+  background: var(--_th-bg);
   border-radius: var(--radius-lg);
   box-shadow:
     0 2px 4px oklch(0% 0 0 / 0.03),
     0 6px 12px oklch(0% 0 0 / 0.02);
   opacity: 0;
 }
+/* Per-card color via nth-child */
+section#s-takehome .takehome-card:nth-child(1) { --_th-accent: var(--th-1); --_th-bg: var(--th-bg-1); }
+section#s-takehome .takehome-card:nth-child(2) { --_th-accent: var(--th-2); --_th-bg: var(--th-bg-2); }
+section#s-takehome .takehome-card:nth-child(3) { --_th-accent: var(--th-3); --_th-bg: var(--th-bg-3); }
 section#s-takehome .takehome-num {
   font-family: var(--font-display);
-  font-size: 40px;
-  color: var(--ui-accent);
+  font-size: var(--text-h2);
+  color: var(--_th-accent);
   line-height: 1;
   text-align: center;
-  opacity: 0.6;
 }
 section#s-takehome .takehome-text {
-  font-size: 30px;
+  font-size: var(--text-h3);
   color: var(--text-primary);
-  line-height: 1.35;
+  line-height: 1.4;
   max-width: none;
 }
 section#s-takehome .slide-headline {
-  font-size: 44px;
+  font-size: var(--text-h2);
 }
 section#s-takehome .takehome-text strong {
-  color: var(--text-primary);
   font-weight: 700;
 }
 /* Failsafes */

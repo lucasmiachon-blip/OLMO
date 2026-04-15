@@ -5,7 +5,7 @@
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Agentes: 10.** **Hooks: 29 registros, 29 scripts.** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 20.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
+**Agentes: 10.** **Hooks: 29 registros, 29 scripts.** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 21.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
 **Novos devDeps:** `apca-w3`, `colorjs.io`. **Novo global:** `wallace-cli`.
 
 ## P0 — Design Excellence Loop (S201-S204)
@@ -33,11 +33,9 @@ Comparado com s-quality/s-absoluto:
 
 ## P0 — s-quality (S204 em andamento)
 
-- **CSS audit DONE:** 16/16 APCA PASS. Wallace: 35% font-size raw, 3x #162032 literal, 20 !important.
-- **Evidence research DONE:** 4 refs VERIFIED (Santos 2026, Alvarenga-Brant 2024, Ho 2024, Mickenautsch 2024). Report: `qa-screenshots/s-quality/content-research.md`.
-- **Dado central:** Alvarenga-Brant 2024 (PMID 39003480) — AMSTAR-2 "High" SRs: 0% GRADE alta, 52% muito baixa.
-- **PENDENTE:** (1) integrar 4 refs no evidence HTML, (2) speaker notes bottom-up ~90s, (3) narrativa.
-- **APCA script criado:** `scripts/apca-audit.mjs` — precisa melhorias (ler tokens do CSS, --slide, JSON output).
+- **Paleta corrigida (S205):** blue-teal family (200-258°), raw px→tokens, badges→system tokens.
+- **Evidence research DONE:** 4 refs VERIFIED. Report: `qa-screenshots/s-quality/content-research.md`.
+- **PENDENTE:** (1) integrar 4 refs no evidence HTML, (2) speaker notes bottom-up ~90s, (3) narrativa, (4) Lucas: "pode melhorar mais" — refinar paleta/tamanhos na próxima sessão.
 
 ## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
 
