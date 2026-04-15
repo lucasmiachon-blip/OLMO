@@ -8,6 +8,20 @@
 2. **Mudanca?** — O que exatamente muda? Consigo descrever em 1 frase? Se nao consigo, nao entendi o suficiente.
 3. **Elite?** — Um dev senior escreveria isso na primeira tentativa? Se a resposta e "provavelmente nao", PARAR e repensar antes de escrever.
 
+## Checkpoint visivel (OBRIGATORIO)
+
+Antes de cada Edit/Write, escrever no output as 3 respostas em formato compacto:
+
+```
+[EC] Verificacao: <o que verifiquei — escaping, formato, paths, edge cases>
+[EC] Mudanca: <1 frase descrevendo o que muda>
+[EC] Elite: <sim/nao — se nao, PARAR e repensar>
+```
+
+**Por que visivel:** Lucas e dev iniciante — nao pode ser rede de seguranca. O checkpoint auditable forca reflexao (escrever = pensar) e permite Lucas ver se foi pulado. Sem `[EC]` antes de Edit/Write = loop nao foi aplicado.
+
+Tier: Unaudited (S200). Testar 3 sessoes. Se falhar → escalar para hook.
+
 ## Quando o loop falha (sintomas)
 
 - 2+ edits no mesmo arquivo para corrigir o proprio codigo → loop nao foi aplicado
@@ -33,4 +47,4 @@ O loop aplica-se a docs com o mesmo rigor que a codigo. Gate adicional para cada
 
 ## Evidencia
 
-S195: 3 bugs em sequencia (quoting, jq -cn, JSONL contaminado) por pular o loop. S194: Lucas definiu o loop explicitamente.
+S195: 3 bugs em sequencia (quoting, jq -cn, JSONL contaminado) por pular o loop. S194: Lucas definiu o loop explicitamente. S200: Caddyfile auto-HTTPS + findstr backslash — loop nao aplicado, capturado por review holistico.

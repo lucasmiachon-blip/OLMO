@@ -32,6 +32,18 @@
 - 3 scripts: "porta em uso" sugere proximo fallback na cadeia
 - LEIA.txt: checklist pre-aula atualizado
 
+### Adversarial review (Gemini 3.1 Pro)
+- Report: `.claude/gemini-adversarial-drive-package.json` (grade D+ → fixes aplicados)
+- B1: localhost bind nos 3 servidores (Caddyfile http://, Python --bind, Miniserve --interfaces) — elimina firewall popup
+- B3: curl.exe substitui PowerShell nos health checks (GPO-safe, 10x mais rapido)
+- R1: PID capture movido para apos health check (elimina race condition antivirus scan)
+- U2: zip detection no topo dos 3 scripts (findstr /C:"\Temp\")
+- B2: removido netstat cleanup cego nos fallbacks (so PID file)
+
+### Review holistico (self-catch)
+- Caddyfile: `localhost:18080` → `http://localhost:18080` (Caddy auto-HTTPS armadilha)
+- Zip detection: `\\Temp\\` → `/C:"\Temp\"` (findstr literal mode backslash fix)
+
 ### Infra
 - /dream S200: 5 memory files atualizados (tooling, audit, self-improvement, metanalise, all last_challenged)
 

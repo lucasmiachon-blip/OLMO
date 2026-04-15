@@ -19,7 +19,7 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - **S200 hardening (3 rondas):** health check gates, PID tracking, UX consistency
 - **Padrao uniforme:** orphan cleanup → port check → start → health check → PID save → browser gated → pause → cleanup
 - **Pendente:** metanalise.pdf stale (16 slides, S166). Regenerar com Playwright/Decktape.
-- **Pendente:** Gemini adversarial review (em andamento S200)
+- **Adversarial review DONE S200:** Gemini (D+→fixes) + Codex (0 bugs adicionais) + review holistico (2 self-catch)
 - **Para deploy:** regenerar PDF, zipar, subir Drive
 
 ## P0 — Design Excellence Loop (S201 — plan approved)
@@ -61,7 +61,7 @@ Tools/model/maxTurns review dos 10 agentes. Report-only.
 - Living HTML = source of truth. Benchmark CSS = `pre-reading-heterogeneidade.html` (READ-ONLY).
 - Agent effort: max (degrada para high em Sonnet/Haiku).
 - Hook scripts: Edit BLOCK + deploy via Write→cp (guard-bash-write asks). Settings: Edit ASK.
-- **Elite-conduct loop:** `.claude/rules/elite-conduct.md` (promoted S195).
+- **Elite-conduct loop:** `.claude/rules/elite-conduct.md` — checkpoint `[EC]` visivel obrigatorio (S200, Unaudited).
 - **Proven-wins rule:** `.claude/rules/proven-wins.md` — maturity tiers (unaudited→proven).
 
 ## CUIDADOS
