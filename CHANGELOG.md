@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Sessao 206 — 2026-04-15 (s-heterogeneity polish)
+
+### s-heterogeneity — projection readability
+- PI bars: opacity 0.22→0.35 (prediction interval width contrast now visible at 10m)
+- Verdict text: `--text-body`→`--text-h3` (pairs with I² label — punchline ≥ data)
+- Caveat: 22→12 words (removed tautological clause demonstrated by the visual itself)
+
 ## Sessao 205 — 2026-04-15 (CORES + SLIDE BUILD)
 
 ### s-contrato rewrite

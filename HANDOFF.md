@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 205 | CORES + SLIDE BUILD — s-contrato rewrite (etapas), s-pico colchicina, forest het zones âmbar, source-tag maior, MA stat tokens.
+> Sessao 207 | A definir.
 
 ## ESTADO ATUAL
 
@@ -17,6 +17,11 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
   - Plano: `.claude/plans/snoopy-jingling-aurora.md`
 - **Fase 2 (PRÓXIMO):** rule design-excellence.md + skill /polish + Chrome DevTools MCP
 - **Fase 3 (futuro):** Multi-model — só quando Fases 1-2 Proven
+
+## P0 — s-heterogeneity (S206: projection polish)
+
+PI bars visíveis (0.35), verdict pareado com I² label (--text-h3), caveat enxuto.
+**Pendente:** Lucas decide se PI precisa de labels no SVG (escopo pedagógico) e se insight block (click 3) se mantém.
 
 ## P0 — s-takehome (S204: typography + color FIX)
 
@@ -56,6 +61,7 @@ Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coere
 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`. h2 = trabalho do Lucas.
+- Slides metanalise não usam `<aside class="notes">` — Lucas não usa presenter mode.
 - s-takehome: funcional mas visualmente fraco. Não polir sem direção criativa.
 
 ## BACKLOG
@@ -67,4 +73,4 @@ Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coere
 - `.claude/workers/`: S178 + S181. Lucas decide.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S204 2026-04-15
+Coautoria: Lucas + Opus 4.6 | S206 2026-04-15
