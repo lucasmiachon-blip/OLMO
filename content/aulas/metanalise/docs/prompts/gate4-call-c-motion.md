@@ -91,6 +91,42 @@ Para CADA transicao observada no video, descreva:
 Exemplo BOM: "~1.5s: 5 tags aparecem da esquerda para a direita, uma por uma, com fade suave. Cada tag leva ~300ms."
 Exemplo RUIM: "~1.5s: stagger com delay 0.1s" (isso e codigo, nao observacao visual)
 
+### EXEMPLO DE AVALIACAO (s-title — referencia de formato e profundidade)
+
+```json
+{
+  "timing": {
+    "evidencia": "Inventory refs: [~0.5s, ~1.2s, ~2.0s]. Observei: h1 aparece em ~400ms fadeUp. Subtitulo entra ~700ms depois. Pilares entram com masking reveal ~300ms cada, stagger ~200ms.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 8
+  },
+  "narrativa_motion": {
+    "evidencia": "Inventory refs: [~0.5s, ~1.2s, ~2.0s]. Titulo→subtitulo→pilares segue hierarquia de importancia. Masking reveal nos pilares cria progressao didatica (Perguntar→Estimar→Decidir).",
+    "problemas": [],
+    "fixes": [],
+    "nota": 8
+  },
+  "proposito": {
+    "evidencia": "Inventory refs: todos. (1) h1 fadeUp — DIDATICO: ancora atencao. (2) Subtitulo fade — DIDATICO: contexto. (3) Pilares masking — DIDATICO: estrutura da aula. Zero decorativo.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 8
+  },
+  "media_motion": 8.0,
+  "inventory": [
+    "~0.5s: titulo sobe com fade, ~400ms | tipo: fade+translate | artefato: nao",
+    "~1.2s: subtitulo aparece com fade, ~300ms | tipo: fade | artefato: nao",
+    "~2.0s: pillar 'Perguntar' revela com mask, ~300ms | tipo: mask-reveal | artefato: nao",
+    "~2.2s: pillar 'Estimar' revela, ~300ms | tipo: mask-reveal | artefato: nao",
+    "~2.4s: pillar 'Decidir' revela, ~300ms | tipo: mask-reveal | artefato: nao"
+  ],
+  "animation_value": "didatica"
+}
+```
+
+Note: inventory com timestamps observados e tipos concretos. Cada animacao classificada. timing 8 por duracoes adequadas (300-700ms). proposito 8 por zero decorativo.
+
 ### OUTPUT
 
 {

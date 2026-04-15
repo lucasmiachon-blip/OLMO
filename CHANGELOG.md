@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## Sessao 202 — 2026-04-15 (Design_Excellence_F1)
+
+### Gemini QA Evaluator — Phase 1 (6 fixes)
+- 1.1: qa-capture.mjs extrai computedStyles (14 elementos, oklch/fonts/layout) → metrics.json → Call A prompt
+- 1.2: Call B maxOutputTokens 16k→24k + retry-once on parse failure
+- 1.3: Few-shot golden evaluations em Call A (s-quality), Call B (s-etd), Call C (s-title)
+- 1.4: Delta tracking entre rounds (dim-level + overall, improved/regressed/stable)
+- 1.5: priority_actions determinístico (dims<7 sorted ASC + Call B proposals) — removido do Call D LLM
+- 1.6: validateFixSelectors() — valida seletores CSS propostos contra HTML real do slide
+
+### Bug fix
+- qa-capture.mjs: computedStyles não era escrito no metrics.json top-level (producer/consumer gap)
+- gemini-qa3.mjs: sort() mutava callB_result.proposals in-place → defensive copy com spread
+
+### Arquivos modificados
+- `content/aulas/scripts/gemini-qa3.mjs` (+196 linhas)
+- `content/aulas/scripts/qa-capture.mjs` (+72 linhas)
+- `content/aulas/metanalise/docs/prompts/gate4-call-a-visual.md` (computed data section + few-shot)
+- `content/aulas/metanalise/docs/prompts/gate4-call-b-uxcode.md` (few-shot)
+- `content/aulas/metanalise/docs/prompts/gate4-call-c-motion.md` (few-shot)
+- `content/aulas/metanalise/docs/prompts/gate4-call-d-validate.md` (removed priority_actions)
+
 ## Sessao 201 — 2026-04-15 (Design_excelence_loop)
 
 ### Planning (plan mode)

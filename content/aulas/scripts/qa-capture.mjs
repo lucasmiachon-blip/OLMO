@@ -235,6 +235,76 @@ async function measureElements(page, slideId) {
       result.computed.hasPanelOverlap = ir.right > pr.left;
     }
 
+    // Computed CSS styles for design evaluation (Call A ground truth)
+    const computedStyles = {};
+    const STYLE_KEYS = ['fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'color', 'backgroundColor', 'opacity'];
+    const LAYOUT_KEYS = ['display', 'gap', 'gridTemplateColumns', 'gridTemplateRows', 'flexDirection'];
+
+    function selectorOf(el) {
+      const tag = el.tagName.toLowerCase();
+      const cls = [...el.classList].filter(c => c !== 'slide-active' && c !== 'slide-visible').join('.');
+      return cls ? `${tag}.${cls}` : tag;
+    }
+
+    function grabStyles(el, label) {
+      if (computedStyles[label]) return;
+      const cs = getComputedStyle(el);
+      if (cs.display === 'none') return;
+      const entry = { selector: selectorOf(el) };
+      for (const k of STYLE_KEYS) {
+        const v = cs[k];
+        if (v && v !== 'normal' && v !== 'rgba(0, 0, 0, 0)' && v !== '0px') entry[k] = v;
+      }
+      if (entry.opacity === '1') delete entry.opacity;
+      const disp = cs.display;
+      if (['grid', 'flex', 'inline-grid', 'inline-flex'].includes(disp)) {
+        for (const k of LAYOUT_KEYS) {
+          const v = cs[k];
+          if (v && v !== 'normal' && v !== 'none' && v !== '0px') entry[k] = v;
+        }
+      }
+      // Remove cross-type noise (flexDirection on grid, gridTemplate on flex)
+      if (disp === 'grid' || disp === 'inline-grid') delete entry.flexDirection;
+      if (disp === 'flex' || disp === 'inline-flex') {
+        delete entry.gridTemplateColumns;
+        delete entry.gridTemplateRows;
+      }
+      computedStyles[label] = entry;
+    }
+
+    // Styles for elements found via class search
+    for (const cls of classes) {
+      const el = section.querySelector(`.${cls}`);
+      if (el) grabStyles(el, cls);
+    }
+    if (h2) grabStyles(h2, 'h2');
+
+    // Scan slide-inner children + grandchildren for slide-specific elements
+    if (inner) {
+      grabStyles(inner, 'slide-inner');
+      let scanned = 0;
+      for (const child of inner.children) {
+        if (scanned >= 25 || child.tagName === 'ASIDE') continue;
+        const alreadyCaptured = [...child.classList].some(c => computedStyles[c]);
+        if (!alreadyCaptured) {
+          grabStyles(child, selectorOf(child));
+          scanned++;
+        }
+        for (const gc of child.children) {
+          if (scanned >= 25) break;
+          if (gc.classList.length > 0) {
+            const gcCaptured = [...gc.classList].some(c => computedStyles[c]);
+            if (!gcCaptured) {
+              grabStyles(gc, selectorOf(gc));
+              scanned++;
+            }
+          }
+        }
+      }
+    }
+
+    result.computedStyles = computedStyles;
+
     return result;
   }, slideId);
 }
@@ -393,7 +463,7 @@ async function main() {
     const checkResult = runChecks(metrics, slide, slideConsoleErrors);
     writeFileSync(
       join(slideDir, 'metrics.json'),
-      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states, checks: checkResult.checks, failCount: checkResult.failCount, warnCount: checkResult.warnCount, ...(slideConsoleErrors && { consoleErrors: slideConsoleErrors }) }, null, 2)
+      JSON.stringify({ slideId: slide.id, archetype: slide.archetype, clickReveals: slide.clickReveals, timestamp: `${DATE_STAMP}_${TIME_STAMP}`, states, checks: checkResult.checks, failCount: checkResult.failCount, warnCount: checkResult.warnCount, ...(metrics?.computedStyles && { computedStyles: metrics.computedStyles }), ...(slideConsoleErrors && { consoleErrors: slideConsoleErrors }) }, null, 2)
     );
 
     // Print check results inline

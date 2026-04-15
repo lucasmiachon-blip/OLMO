@@ -192,6 +192,37 @@ Razao: flagou infraestrutura como defeito. .no-js e failsafe intencional.
 }
 ```
 
+### EXEMPLO COMPLETO (s-etd — referencia de profundidade para todas dims)
+
+```json
+{
+  "gestalt": {
+    "evidencia": "CSS: section#s-etd .etd-hdr/.etd-row usam mesmo grid-template-columns — header-data alinhados. HTML: 4 .etd-row + 1 .etd-hdr em .etd-table flex-column. Visual: colunas alinhadas, repeticao cria unidade.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 8
+  },
+  "css_cascade": {
+    "evidencia": "CSS: .theme-dark restaura 11 tokens on-dark via base.css. section#s-etd background #162032 (HEX verdade). Slide-scoped: --etd-mod oklch(), --etd-imp oklch(). Cascade: base.css → .theme-dark → section#s-etd. var(--font-mono), var(--text-body), var(--space-md) — tokens corretos.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 9
+  },
+  "failsafes": {
+    "evidencia": "CSS: .etd-table opacity:0 + .etd-row opacity:0 (GSAP pre-hide). .no-js/.stage-bad/[data-qa] section#s-etd .etd-table { opacity:1 } — failsafe presente. @media print coberto.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 9
+  },
+  "media_uxcode": 8.3,
+  "dead_css": [],
+  "specificity_conflicts": [],
+  "proposals": []
+}
+```
+
+Note: css_cascade 9 por tokens OKLCH, cascade 3-tier (base→dark→slide), zero literais. failsafes 9 por cobertura completa. Adapte profundidade para o slide avaliado.
+
 ### REGRAS DE CONCISAO (OBRIGATORIAS)
 
 - Campo `titulo`: max 15 palavras. Acao + alvo. NUNCA repetir palavras. NUNCA listar sinonimos.

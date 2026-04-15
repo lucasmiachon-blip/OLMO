@@ -478,27 +478,53 @@ const SCHEMAS_GATE4 = {
           required: ["call", "dimension", "finding", "reason_fp"],
         },
       },
-      priority_actions: {
-        type: "ARRAY",
-        items: {
-          type: "OBJECT",
-          properties: {
-            rank: { type: "NUMBER" }, severity: { type: "STRING" },
-            what: { type: "STRING" }, why: { type: "STRING" },
-            proposal: { type: "STRING" }, guarantee: { type: "STRING" },
-          },
-          required: ["rank", "severity", "what", "why", "proposal", "guarantee"],
-        },
-      },
       adjusted_visual: { type: "NUMBER" },
       adjusted_uxcode: { type: "NUMBER" },
       adjusted_motion: { type: "NUMBER" },
       adjusted_overall: { type: "NUMBER" },
     },
-    required: ["ceiling_violations", "false_positives", "priority_actions",
+    required: ["ceiling_violations", "false_positives",
                "adjusted_visual", "adjusted_uxcode", "adjusted_motion", "adjusted_overall"],
   },
 };
+
+// --- Selector validation (step 1.6) ---
+// Post-processing: check if CSS selectors proposed by Gemini actually exist in slide HTML
+
+function validateFixSelectors(rawHTML, callA, callB, callC) {
+  if (!rawHTML) return { valid: [], invalid: [] };
+
+  const htmlClasses = new Set();
+  for (const m of rawHTML.matchAll(/class="([^"]+)"/g)) {
+    for (const cls of m[1].split(/\s+/)) if (cls) htmlClasses.add(cls);
+  }
+  const htmlIds = new Set();
+  for (const m of rawHTML.matchAll(/id="([^"]+)"/g)) htmlIds.add(m[1]);
+
+  const results = { valid: [], invalid: [] };
+
+  function checkFixes(callLabel, obj) {
+    if (!obj || typeof obj !== 'object') return;
+    for (const [dim, val] of Object.entries(obj)) {
+      if (!val?.fixes || !Array.isArray(val.fixes)) continue;
+      for (const fix of val.fixes) {
+        if (!fix.target || typeof fix.target !== 'string') continue;
+        const target = fix.target;
+        const classes = [...target.matchAll(/\.([a-zA-Z_][\w-]*)/g)].map(m => m[1]);
+        const ids = [...target.matchAll(/#([a-zA-Z_][\w-]*)/g)].map(m => m[1]);
+        let isValid = true;
+        for (const cls of classes) { if (!htmlClasses.has(cls)) { isValid = false; break; } }
+        if (isValid) { for (const id of ids) { if (!htmlIds.has(id)) { isValid = false; break; } } }
+        (isValid ? results.valid : results.invalid).push({ call: callLabel, dim, target });
+      }
+    }
+  }
+
+  checkFixes('A', callA);
+  checkFixes('B', callB);
+  checkFixes('C', callC);
+  return results;
+}
 
 // --- Dynamic source extraction (E42) ---
 
@@ -1118,7 +1144,7 @@ async function runValidation(slideId, round, qaDir, callA, callB, callC, mediaUr
 // includeMedia: { video, s0, s2, ref } — which files to attach
 // Prompt template uses same {{PLACEHOLDER}} syntax as legacy Gate 4.
 function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
-  rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest, includeMedia, maxTokens) {
+  rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest, includeMedia, maxTokens, computedData) {
 
   if (!existsSync(templatePath)) {
     throw new Error(`Call ${callType} prompt not found: ${templatePath}`);
@@ -1150,6 +1176,7 @@ function buildSplitCallPayload(callType, templatePath, slideId, meta, mediaUris,
     '{{NOTES}}': notes || '(no notes)',
     '{{ROUND_CTX}}': roundCtx || `Round ${ROUND}. Primeiro review.`,
     '{{ERROR_DIGEST}}': errorDigest || '',
+    '{{COMPUTED_DATA}}': computedData || '(dados computados indisponiveis — avaliar a partir dos screenshots)',
   };
 
   for (const [ph, val] of Object.entries(replacements)) {
@@ -1254,15 +1281,30 @@ async function runEditorial(slideId, round, qaDir) {
   const roundCtx = readRoundContext(slideId);
   const errorDigest = readErrorDigest();
 
-  // Call A — Visual Design: PNGs only, NO video/code (static layout + composition)
+  // Read computed CSS data from metrics.json for Call A (step 1.1)
+  let computedDataStr = '';
+  const metricsPath = join(qaDir, 'metrics.json');
+  if (existsSync(metricsPath)) {
+    try {
+      const metricsData = JSON.parse(readFileSync(metricsPath, 'utf-8'));
+      if (metricsData.computedStyles && Object.keys(metricsData.computedStyles).length > 0) {
+        computedDataStr = JSON.stringify(metricsData.computedStyles, null, 2);
+        console.log(`  Computed CSS: ${Object.keys(metricsData.computedStyles).length} elements loaded`);
+      }
+    } catch (e) {
+      console.warn(`  WARN: Could not read computed styles: ${e.message}`);
+    }
+  }
+
+  // Call A — Visual Design: PNGs + computed CSS data, NO video/code
   const payloadA = buildSplitCallPayload('visual', CALL_A_PROMPT_PATH,
     slideId, meta, mediaUris, null, null, null, null, null, null,
-    { video: false, s0: true, s2: true, ref: true }, 8192);
+    { video: false, s0: true, s2: true, ref: true }, 8192, computedDataStr);
 
-  // Call B — UI/UX + Code: PNGs + raw code, NO video (5 dims + max 5 proposals; needs 16k for thinking headroom)
+  // Call B — UI/UX + Code: PNGs + raw code, NO video (5 dims + max 5 proposals; 24k for schema complexity + thinking)
   const payloadB = buildSplitCallPayload('uxcode', CALL_B_PROMPT_PATH,
     slideId, meta, mediaUris, rawHTML, rawCSS, rawJS, notes, roundCtx, errorDigest,
-    { video: false, s0: true, s2: true, ref: true }, 16384);
+    { video: false, s0: true, s2: true, ref: true }, 24576);
 
   // Call C — Motion Design: PNGs + video ONLY (no JS code)
   // S178 hardening: removing JS entirely forces Gemini to analyze the actual video
@@ -1338,6 +1380,45 @@ async function runEditorial(slideId, round, qaDir) {
   }
 
   console.log(`  TOTAL: ${totalTokensIn} in / ${totalTokensOut} out | ~$${totalCost.toFixed(3)}`);
+
+  // Step 4a: Retry Call B once if parse failed (CR-2 fix — complex schema truncation)
+  if (parsedCalls[1].parsed === null && parsedCalls[1].status === 'parse_failed') {
+    console.log('\n  → Retrying Call B once (parse failure — schema complexity)...');
+    try {
+      const retryRes = await fetchWithRetry(apiUrl, {
+        method: 'POST', headers, body: JSON.stringify(payloadB)
+      }).then(r => r.json());
+
+      const ru = retryRes.usageMetadata || {};
+      const rTokIn = ru.promptTokenCount || 0;
+      const rTokOut = ru.candidatesTokenCount || 0;
+      const rCost = (rTokIn / 1e6 * pr.input) + (rTokOut / 1e6 * pr.output);
+      totalTokensIn += rTokIn; totalTokensOut += rTokOut; totalCost += rCost;
+
+      const rFinish = retryRes.candidates?.[0]?.finishReason || 'UNKNOWN';
+      const rRaw = retryRes.candidates?.[0]?.content?.parts
+        ?.map(p => p.text).filter(Boolean).join('') || '{}';
+
+      let rParsed = null;
+      try {
+        rParsed = JSON.parse(rRaw);
+        if (Array.isArray(rParsed)) rParsed = rParsed[0];
+      } catch (e) {
+        console.error(`  ✗ Call B retry parse FAILED: ${e.message}`);
+        writeFileSync(join(qaDir, `gate4-B-uxcode-r${round}-retry-raw.txt`), rRaw);
+      }
+
+      if (rParsed) {
+        const rStatus = rFinish !== 'STOP' ? 'truncated' : 'ok';
+        parsedCalls[1] = { label: 'B-uxcode', parsed: rParsed, tokIn: rTokIn, tokOut: rTokOut, cost: rCost, status: rStatus, finishReason: rFinish };
+        console.log(`  ✓ Call B retry OK: ${rTokIn} in / ${rTokOut} out | ~$${rCost.toFixed(3)} | ${rFinish}`);
+      } else {
+        console.warn('  ✗ Call B retry also failed — continuing with partial data');
+      }
+    } catch (e) {
+      console.error(`  ✗ Call B retry network FAILED: ${e.message}`);
+    }
+  }
 
   // Warn if any call produced no parsed output — continue with partial data
   const failedCalls = parsedCalls.filter(c => c.parsed === null);
@@ -1436,6 +1517,16 @@ async function runEditorial(slideId, round, qaDir) {
   const uxcodeAvg = validateNota(safeNum(callB_result, 'media_uxcode'));   // null if unavailable
   const motionAvg = validateNota(safeNum(callC_result, 'media_motion'));   // null if unavailable
 
+  // Selector validation (step 1.6): flag fix targets not found in slide HTML
+  const selectorCheck = validateFixSelectors(rawHTML, callA_result, callB_result, callC_result);
+  if (selectorCheck.invalid.length > 0) {
+    console.log(`  WARN: ${selectorCheck.invalid.length} fix selector(s) not found in HTML:`);
+    for (const s of selectorCheck.invalid) console.log(`    ✗ ${s.call}/${s.dim}: "${s.target}"`);
+  }
+  if (selectorCheck.valid.length > 0) {
+    console.log(`  Selectors: ${selectorCheck.valid.length} valid, ${selectorCheck.invalid.length} invalid`);
+  }
+
   // Count MUSTs (any dim below threshold)
   const mustFixes = Object.entries(allDims).filter(([, v]) => v < MUST_FIX_THRESHOLD);
   const proposals = [
@@ -1476,7 +1567,65 @@ async function runEditorial(slideId, round, qaDir) {
       C: { label: 'motion', tokens: `${parsedCalls[2].tokIn}/${parsedCalls[2].tokOut}`, cost: parsedCalls[2].cost },
     },
     total_cost: parseFloat(totalCost.toFixed(3)),
+    selector_validation: {
+      valid: selectorCheck.valid.length,
+      invalid: selectorCheck.invalid.length,
+      invalid_details: selectorCheck.invalid,
+    },
   };
+
+  // Deterministic priority_actions: dims < 7 sorted ASC + Call B proposals (step 1.5)
+  // Replaces LLM-generated priority_actions — deterministic = reproducible + no hallucination
+  const priorityActions = [];
+  let paRank = 0;
+  const mustDimsSorted = [...mustFixes].sort(([, a], [, b]) => a - b);
+  for (const [dim, score] of mustDimsSorted) {
+    priorityActions.push({ rank: ++paRank, severity: 'MUST', what: `${dim}: ${score}/10`, source: 'dim-threshold' });
+  }
+  if (artefatosBlocking) {
+    priorityActions.push({ rank: ++paRank, severity: 'MUST', what: 'artefatos: major visual defects', source: 'motion-integrity' });
+  }
+  for (const p of [...(callB_result.proposals || [])].sort((a, b) => {
+    const ord = { MUST: 0, SHOULD: 1, COULD: 2 };
+    return (ord[a.severity] ?? 3) - (ord[b.severity] ?? 3);
+  })) {
+    priorityActions.push({ rank: ++paRank, severity: p.severity || 'SHOULD', what: p.titulo, fix: p.fix, arquivo: p.arquivo, source: 'call-b' });
+  }
+  scorecard.priority_actions = priorityActions;
+
+  // Delta tracking: compare with previous round scorecard (step 1.4)
+  if (round > 1) {
+    const prevPath = join(qaDir, `gate4-scorecard-r${round - 1}.json`);
+    if (existsSync(prevPath)) {
+      try {
+        const prevCard = JSON.parse(readFileSync(prevPath, 'utf-8'));
+        const prevDims = prevCard.scorecard || {};
+        const delta = {};
+        for (const [dim, score] of Object.entries(allDims)) {
+          const prev = prevDims[dim];
+          if (prev != null && score != null) {
+            const diff = score - prev;
+            delta[dim] = { prev, current: score, diff, status: diff > 0 ? 'improved' : diff < 0 ? 'regressed' : 'stable' };
+          }
+        }
+        scorecard.delta = delta;
+        scorecard.delta_overall = {
+          prev: prevCard.media_overall,
+          current: scorecard.media_overall,
+          diff: parseFloat((scorecard.media_overall - (prevCard.media_overall || 0)).toFixed(1)),
+        };
+        const improved = Object.entries(delta).filter(([, d]) => d.status === 'improved');
+        const regressed = Object.entries(delta).filter(([, d]) => d.status === 'regressed');
+        console.log(`\n  Delta vs R${round - 1}:`);
+        if (improved.length) console.log(`    ↑ ${improved.map(([k, d]) => `${k} ${d.prev}→${d.current}`).join(', ')}`);
+        if (regressed.length) console.log(`    ↓ ${regressed.map(([k, d]) => `${k} ${d.prev}→${d.current}`).join(', ')}`);
+        if (!improved.length && !regressed.length) console.log('    = All dims stable');
+        console.log(`    Overall: ${prevCard.media_overall}→${scorecard.media_overall} (${scorecard.delta_overall.diff >= 0 ? '+' : ''}${scorecard.delta_overall.diff})`);
+      } catch (e) {
+        console.warn(`  WARN: Could not read previous scorecard: ${e.message}`);
+      }
+    }
+  }
 
   const scorecardPath = join(qaDir, `gate4-scorecard-r${round}.json`);
   writeFileSync(scorecardPath, JSON.stringify(scorecard, null, 2));
@@ -1548,8 +1697,7 @@ ${JSON.stringify(callC_result, null, 2)}
   if (validation) {
     const cv = validation.ceiling_violations || [];
     const fp = validation.false_positives || [];
-    const pa = validation.priority_actions || [];
-    console.log(`  Ceiling violations: ${cv.length} | False positives: ${fp.length} | Priority actions: ${pa.length}`);
+    console.log(`  Ceiling violations: ${cv.length} | False positives: ${fp.length}`);
     if (cv.length > 0) {
       console.log('  Recalibrated:');
       for (const v of cv) console.log(`    ${v.call}/${v.dimension}: ${v.original_score} → ${v.adjusted_score} (${v.reason})`);
@@ -1566,9 +1714,11 @@ ${JSON.stringify(callC_result, null, 2)}
       console.warn(`  WARN: Call D overall (${adjO}) diverges from local mean (${localMean.toFixed(1)}) by >${1.5} — possible LLM math error`);
     }
     console.log(`  Adjusted scores: V:${adjV} U:${adjU} M:${adjM} Overall:${adjO} (local mean: ${localMean.toFixed(1)})`);
-    if (pa.length > 0) {
-      console.log('  Priority actions:');
-      for (const a of pa) console.log(`    #${a.rank} [${a.severity}] ${a.what}`);
+
+    // Log deterministic priority_actions (generated script-side, not from Call D)
+    if (priorityActions.length > 0) {
+      console.log(`  Priority actions (deterministic, ${priorityActions.length} items):`);
+      for (const a of priorityActions) console.log(`    #${a.rank} [${a.severity}] ${a.what}`);
     }
 
     // Append validation section to the report

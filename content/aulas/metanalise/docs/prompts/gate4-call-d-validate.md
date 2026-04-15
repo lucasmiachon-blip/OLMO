@@ -61,8 +61,7 @@ Use este CSS para VERIFICAR claims de Call B. Se Call B diz "existe um bloco sem
 
 1. **Auditar cada nota**: para cada dimensao, verificar se a nota e coerente com a evidencia e os problemas listados. Se nao for, ajustar.
 2. **Detectar falsos positivos**: itens flagados como problema que sao decisoes de design (ver lista acima).
-3. **Produzir lista de acoes priorizadas**: MINIMO 4 MUST + 4 SHOULD/COULD, sem limite maximo, ordenadas por impacto. Cada acao no formato WHAT/WHY/PROPOSAL/GUARANTEE.
-4. **Ajustar scores**: Para cada area (visual, uxcode, motion, overall), defina o score que VOCE considera justo com base na sua auditoria. NAO calcule media aritmetica — use seu julgamento qualitativo. Se um avaliador deu 8 mas voce encontrou inflacao em 2 dims, o adjusted pode ser 6. Se outro deu 5 mas o problema era FP, o adjusted pode ser 7. O pipeline calcula medias aritmeticas separadamente — seu papel e o julgamento qualitativo.
+3. **Ajustar scores**: Para cada area (visual, uxcode, motion, overall), defina o score que VOCE considera justo com base na sua auditoria. NAO calcule media aritmetica — use seu julgamento qualitativo. Se um avaliador deu 8 mas voce encontrou inflacao em 2 dims, o adjusted pode ser 6. Se outro deu 5 mas o problema era FP, o adjusted pode ser 7. O pipeline calcula medias aritmeticas separadamente — seu papel e o julgamento qualitativo.
 
 ### OUTPUT
 
@@ -72,9 +71,6 @@ Use este CSS para VERIFICAR claims de Call B. Se Call B diz "existe um bloco sem
   ],
   "false_positives": [
     { "call": "A|B|C", "dimension": "nome", "finding": "o que foi flagado", "reason_fp": "por que e FP" }
-  ],
-  "priority_actions": [
-    { "rank": N, "severity": "MUST|SHOULD|COULD", "what": "defeito observavel", "why": "causa raiz", "proposal": "fix concreto", "guarantee": "como verificar" }
   ],
   "adjusted_visual": N,
   "adjusted_uxcode": N,

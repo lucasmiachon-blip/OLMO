@@ -22,6 +22,15 @@ Se recebeu S0 e S2: avaliar CADA estado separadamente.
 Se S0 e S2 divergem em qualidade, reportar problema especificando qual estado.
 </system>
 
+## DADOS COMPUTADOS (Playwright — fonte de verdade)
+
+Os dados abaixo foram extraidos automaticamente do DOM via `getComputedStyle()`.
+Use ESTES valores para avaliar tipografia, cor e proporcao — NAO estime do PNG.
+Quando propor fixes no campo "target", use os seletores listados aqui (eles EXISTEM no DOM real).
+Se um seletor NAO aparece nesta lista, provavelmente NAO existe — verifique antes de propor.
+
+{{COMPUTED_DATA}}
+
 ## TAREFA
 
 Avalie cada dimensao visual. Para cada uma, de nota 1-10 e LISTE problemas concretos.
@@ -87,6 +96,47 @@ Texto critico < 24px = FAIL automatico. Caption < 14px = FAIL. Entre 14-24px, cl
 
 **5. COMPOSICAO (1-10)**
 Existe uma ancora visual clara (o elemento que domina o slide)? O olho flui naturalmente do mais importante ao menos importante? O layout e equilibrado? O slide parece uma apresentacao de elite ou um wireframe/dashboard?
+
+### EXEMPLO DE AVALIACAO (s-quality — referencia de formato e profundidade)
+
+```json
+{
+  "distribuicao": {
+    "evidencia": "S0: 3 cards flex-column gap var(--space-md), fill ratio 0.85. Numeros 64px ancoram esquerda (grid 64px/1fr/auto). Whitespace lateral 64px (5%). S2: .quality-example badge row na base, fill ~0.90.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 8
+  },
+  "proporcao": {
+    "evidencia": "S0: .quality-num 64px Instrument Serif (>24px threshold). .quality-content h3 ~24px 700 — no limite. .quality-content p ~16px. .quality-tool ~16px mono.",
+    "problemas": ["section#s-quality .quality-content p a 16px abaixo threshold corpo (18px) — afeta legibilidade a 10m."],
+    "fixes": [{"target": "section#s-quality .quality-content p", "change": "CSS: font-size: var(--text-caption) → var(--text-body)", "reason": "16px abaixo threshold 18px. GUARANTEE: computed font-size >= 18px"}],
+    "nota": 7
+  },
+  "cor": {
+    "evidencia": "S0: 3 hues OKLCH slide-scoped (L=48% C>=0.16 — discriminacao a 10m). Backgrounds L=92% C=0.03. S2: badges pass=outlined verde vs fail=solid red — punchline maximo destaque.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 9
+  },
+  "tipografia": {
+    "evidencia": "S0: 4 niveis tipograficos: 64px Instrument Serif numeros, ~24px DM Sans 700 perguntas, ~16px DM Sans 500 descricoes, ~16px JetBrains Mono 600 pills. tabular-nums em numeros.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 8
+  },
+  "composicao": {
+    "evidencia": "S0: Numeros 64px = ancora visual, fluxo 1→2→3 vertical. Grid 64px/1fr/auto alinha colunas. Border-left 10px reforça. S2: punchline 'Certeza ✕' solid red domina vs outlined greens = climax.",
+    "problemas": [],
+    "fixes": [],
+    "nota": 8
+  },
+  "media_visual": 8.0,
+  "impressao_geral": "Hierarquia visual clara, paleta OKLCH semantica, punchline eficaz. Minor: caption 16px no limite."
+}
+```
+
+Note: proporcao rebaixada por caption <18px. cor 9 por OKLCH com chroma suficiente + hierarquia pass/fail. Adapte para o slide que esta avaliando.
 
 ### OUTPUT
 
