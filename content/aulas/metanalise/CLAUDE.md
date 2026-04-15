@@ -61,8 +61,7 @@ Threshold: score < 7 → checkpoint Lucas antes de continuar.
 3. Sem dados inventados. Sem fonte Tier 1 → `[TBD]`
 4. GRADE como linguagem clínica, não burocracia
 5. Forest plot: cropado de artigo real quando disponível
-6. Speaker notes em português
-8. Uma MA não é melhor que os RCTs que a alimentam — isso permeia a aula
+6. Uma MA não é melhor que os RCTs que a alimentam — isso permeia a aula
 
 ## QA Pipeline (máquina de estados)
 

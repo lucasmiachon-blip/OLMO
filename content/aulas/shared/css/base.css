@@ -448,7 +448,7 @@ body { width: 100vw; height: 100vh; }
   /* height/position/opacity/transition set in deck layout block above */
 }
 
-/* Speaker notes: hidden in deck.js (Reveal.js uses plugin) */
+/* Notes: hidden (not used — kept for legacy slide compatibility) */
 #slide-viewport > section > .notes {
   display: none;
 }

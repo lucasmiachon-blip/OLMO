@@ -1,5 +1,5 @@
 /**
- * deck.js — Vanilla navigation engine (replaces Reveal.js)
+ * deck.js — Vanilla navigation engine
  *
  * Events dispatched on document:
  *   slide:changed  { currentSlide, previousSlide, indexh } — immediate on navigate

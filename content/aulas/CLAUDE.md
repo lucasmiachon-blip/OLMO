@@ -69,7 +69,6 @@ Cada aula segue a mesma estrutura:
 5. **Dados numericos:** fonte Tier 1 obrigatoria. Sem fonte → `[TBD]`
 6. **PMIDs:** NUNCA confiar em PMID de LLM sem verificar (~56% erro)
 7. **QA:** 1 slide por ciclo. NUNCA batch
-8. **Speaker notes:** `[DATA] Fonte: ... | Verificado: YYYY-MM-DD`
 
 ## Cross-Ref (Propagation Map)
 
@@ -79,6 +78,6 @@ Cada aula segue a mesma estrutura:
 | `evidence/s-{id}.html` | slide correspondente (citation block) |
 | `_manifest.js` | `index.html` (run build) |
 | `h2` no slide HTML | `_manifest.js` headline |
-| dados numericos | evidence HTML + speaker notes `[DATA]` tag |
+| dados numericos | evidence HTML |
 | click-reveals | `_manifest.js` clickReveals + `slide-registry.js` |
 | modelo Gemini | `scripts/gemini-qa3.mjs` + `skills/research/SKILL.md` + `docs/prompts/*.md` |

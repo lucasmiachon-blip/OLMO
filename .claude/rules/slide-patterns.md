@@ -22,13 +22,6 @@ Base template for creating a new slide from scratch:
     </div>
     <cite class="source-tag">Autor et al. Journal Ano;Vol:Pags. PMID: XXXXX</cite>
   </div>
-  <aside class="notes">
-    [TEMPO: ~90s]
-    Falar: ...
-    Enfase: ...
-    [DATA] Fonte: | Verificado: AAAA-MM-DD
-    Transicao: proximo slide aborda ...
-  </aside>
 </section>
 ```
 
@@ -57,11 +50,6 @@ Two or three metric cards supporting the headline assertion.
       </div>
     </div>
   </div>
-  <aside class="notes">
-    [0:00-0:20] State the magnitude. Let numbers land.
-    [DATA] D'Amico 2014, Hepatology | PMID: 25066088
-    [VERIFIED] 2026-03-31
-  </aside>
 </section>
 ```
 
@@ -79,12 +67,6 @@ Full-width image or forest plot supporting the claim.
     </div>
     <p class="source-tag">Valgimigli 2025, Lancet | PMID: pending</p>
   </div>
-  <aside class="notes">
-    [0:00-0:15] Point to the summary diamond.
-    [0:15-0:30] Note the I² — moderate heterogeneity.
-    [DATA] Valgimigli et al. Lancet 2025
-    [VERIFIED] 2026-03-31
-  </aside>
 </section>
 ```
 
@@ -108,11 +90,6 @@ Clean data table with optional row highlight.
       </tbody>
     </table>
   </div>
-  <aside class="notes">
-    [0:00-0:20] Walk through columns. Pause at publication bias.
-    [DATA] Schünemann 2023, JCE | PMID: 36702743
-    [VERIFIED] 2026-03-31
-  </aside>
 </section>
 ```
 
@@ -137,14 +114,6 @@ Step-by-step clinical reasoning.
       <p>With terlipressin — uncertain benefit alone</p>
     </div>
   </div>
-  <aside class="notes">
-    [0:00-0:10] "When do we use albumin?" PAUSE.
-    [CLICK] SBP — strongest evidence.
-    [CLICK] LVP — dose per liter.
-    [CLICK] HRS — controversy.
-    [DATA] EASL 2024 Guidelines | Runyon 2023
-    [VERIFIED] 2026-03-31
-  </aside>
 </section>
 ```
 
@@ -158,9 +127,6 @@ Navy background, minimal text, sets context for a section.
     <p class="section-tag">Part III</p>
     <h1 data-animate="fadeUp">Treatment</h1>
   </div>
-  <aside class="notes">
-    [0:00-0:05] Transition. Breathe.
-  </aside>
 </section>
 ```
 

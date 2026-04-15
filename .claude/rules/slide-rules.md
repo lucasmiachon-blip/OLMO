@@ -19,17 +19,12 @@ paths:
     <h2>Carvedilol reduz HVPG em 20% vs placebo</h2>
     <div class="evidence" data-animate="stagger">...</div>
   </div>
-  <aside class="notes">
-    [0:00-0:30] Hook. PAUSA 3s.
-    [DATA] Fonte: EASL 2024 | Verificado: 2026-02-13
-  </aside>
 </section>
 ```
 
 **Regras estruturais:**
 - `<h2>` = asserção clínica (NUNCA rótulo genérico). `<ul>`/`<ol>` PROIBIDOS em slides.
 - **h2 = trabalho do Lucas.** NUNCA reescrever h2 automaticamente. Flaggear h2 genéricos como "precisa rewrite do Lucas" mas não propor texto. Se Lucas pedir ajuda: oferecer opções como sugestão, nunca como decisão.
-- `<aside class="notes">` opcional (Lucas não usa presenter mode). Manter se já existir, não exigir em slides novos.
 - NUNCA inline style com `display`/`visibility`/`opacity` no `<section>` (E07).
 - NUNCA CSS inline no HTML — exceto `opacity:0` para GSAP init state (pragmático). Inline complexo (layout, cor, fontes) permanece proibido. Todo layout vai no `{aula}.css`, scopado por `#s-{id}`.
 - Layout vai dentro de `.slide-inner`, NUNCA no `<section>`.
@@ -56,7 +51,6 @@ Fontes: Duarte (unity), Alley (assertion-evidence), Refactoring UI (design syste
 
 - [ ] `<h2>` é asserção clínica
 - [ ] Sem `<ul>`/`<ol>` no slide
-- [ ] `<aside class="notes">` se existir: timing e fontes (opcional em slides novos)
 - [ ] `<section>` sem `style` com `display` (E07)
 - [ ] Dados numéricos verificados
 - [ ] `.source-tag`: formato Autor Ano. Recurso conhecido entre parênteses se relevante. Lucas avisa exceções
@@ -166,8 +160,6 @@ Checklist obrigatória ao criar nova aula deck.js:
 
 - [ ] `<body class="stage-c">` (ou `stage-a`). Sem stage class = renderização quebrada (E001).
 - [ ] `body { margin: 0; overflow: hidden; }` no CSS da aula (E002).
-- [ ] `aside.notes { display: none; }` no CSS da aula (E002).
-- [ ] Zero `reveal.js` em `package.json` — Vite cache poisoning (E010).
 - [ ] Zero `zoom` CSS — double-scaling com deck.js (E008).
 - [ ] `vite.config.js`: aula incluída em `discoverEntries()`, frozen excluídas (E010).
 - [ ] Testar `npx vite --force` após setup inicial.

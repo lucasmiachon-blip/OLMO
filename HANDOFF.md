@@ -61,7 +61,6 @@ Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coere
 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`. h2 = trabalho do Lucas.
-- Slides metanalise não usam `<aside class="notes">` — Lucas não usa presenter mode.
 - s-takehome: funcional mas visualmente fraco. Não polir sem direção criativa.
 
 ## BACKLOG

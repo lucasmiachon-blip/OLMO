@@ -68,7 +68,6 @@ Hierarquia: **NNT > ARR > HR**. NNT=decisão (hero, --safe). HR=acadêmico (meno
 - **Verificação PMID:** Confirmar author + title + patient count. PMID errado pode ser de paper similar (mesmo journal, tema próximo).
 - **População:** Verificar população do trial. Prevenção 1ª ≠ 2ª. Trial de pop A ≠ hero de slide pop B.
 - **HR ≠ RR (E25):** HR = trial isolado. RR = meta-análise. NUNCA misturar.
-- **Speaker notes:** `[DATA] Fonte: EASL 2024, Tab.3 | Verificado: 2026-02-12`
 
 ### Vocabulário de Verificação (canônico)
 

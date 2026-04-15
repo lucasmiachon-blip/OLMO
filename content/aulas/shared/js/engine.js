@@ -1,7 +1,7 @@
 /**
  * Aulas Magnas — Engine v6
  * Declarative animation. Print-safe. Stage-aware.
- * Reveal.js removed — uses deck.js custom events (slide:changed, slide:entered).
+ * Uses deck.js custom events (slide:changed, slide:entered).
  */
 
 import { getCurrentSlide, goTo } from './deck.js';

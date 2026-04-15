@@ -7,6 +7,11 @@
 - Verdict text: `--text-body`→`--text-h3` (pairs with I² label — punchline ≥ data)
 - Caveat: 22→12 words (removed tautological clause demonstrated by the visual itself)
 
+### Cleanup: aside notes + reveal.js removed from docs
+- `<aside class="notes">` removed from all templates/rules (slides don't use speaker notes)
+- reveal.js references removed from rules, code comments (deck.js is the engine, reveal.js abandoned)
+- Affected: slide-patterns.md, slide-rules.md, design-reference.md, aulas/CLAUDE.md, metanalise/CLAUDE.md, base.css, deck.js, engine.js
+
 ## Sessao 205 — 2026-04-15 (CORES + SLIDE BUILD)
 
 ### s-contrato rewrite
