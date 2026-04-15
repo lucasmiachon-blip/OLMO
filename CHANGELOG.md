@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 203 — 2026-04-15 (Design)
+
+### Design Excellence — Pipeline I/O Hardening
+- Editorial delta test: s-takehome R11, 4/4 calls OK, score 7.5/10 (após anti-sycophancy)
+- Diagnosticados 5 gargalos: shallow scan depth, CSS properties insuficientes, contradição token prompt, sem hierarquia tipográfica, zero validação pós-fix
+- Plano aprovado: `.claude/plans/snoopy-jingling-aurora.md` (5 edits: qa-capture + gemini-qa3 + 2 prompts)
+
+### s-takehome CSS fixes
+- gap: --space-md→--space-lg (proximidade Gestalt: gap ≥ padding)
+- takehome-num: 64px→40px, opacity 0.6 (decorativo, não hero)
+- takehome-text: 26px→30px, --text-secondary→--text-primary (protagonista)
+- takehome-text strong: weight 600→700
+- takehome-card: opacity:0 (failsafe GSAP stagger)
+- grid column: 80px→56px (proporcional ao número menor)
+- padding: --space-lg→--space-md vertical (evita overflow)
+
+### Infra
+- Dream fix: stop-should-dream.sh ISO→epoch seconds (elimina parsing, previne trigger <24h)
+- CLAUDE.md auto-dream: write-before-spawn pattern (timer reseta antes do agent, não depois)
+- pending-fixes.md: falso positivo limpo (s-hook HTML change sem manifest impact)
+
 ## Sessao 202 — 2026-04-15 (slide_lint_metanalise)
 
 ### Slides metanalise

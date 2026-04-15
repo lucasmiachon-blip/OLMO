@@ -1,11 +1,31 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 202 | slide_lint_metanalise — s-hook refatorado, s-quality reordenado, KBP-20
+> Sessao 203 | Design — Pipeline I/O hardening plan approved, s-takehome CSS fixed
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
 **Agentes: 10.** **Hooks: 29 registros, 29 scripts (0 node -e JSON parse).** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 20.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
+
+## P0 — Design Excellence Loop (S201-S203)
+
+- **Plano master:** `.claude/plans/mutable-mapping-seal.md` (3 fases)
+- **Fase 1 DONE (S202):** 6 fixes ao Gemini QA evaluator
+- **Fase 1 VALIDADA (S203):** editorial em s-takehome R11. 4/4 calls OK, 6/6 selectors valid, anti-sycophancy 7 deflações + 1 FP capturado. Score 7.5/10.
+- **Fase 1.5 — Pipeline I/O Hardening (PRÓXIMO):** plano aprovado `.claude/plans/snoopy-jingling-aurora.md`
+  - 5 gargalos diagnosticados: G1 shallow scan (2 levels), G2 CSS properties insuficientes, G3 contradição token prompt, G4 sem hierarquia tipográfica, G5 zero validação pós-fix
+  - 5 edits: E1 qa-capture.mjs (depth+properties+hierarchy), E2 call-a prompt, E3 call-b prompt, E4 gemini-qa3 (token validation), E5 gemini-qa3 (placeholders)
+- **Fase 2 (após 1.5):** rule design-excellence.md + skill /polish + Chrome DevTools MCP
+- **Fase 3 (futuro):** Multi-model — só quando Fases 1-2 Proven
+
+## P0 — s-takehome (S203 CSS fixes aplicados)
+
+- gap: `--space-md` → `--space-lg` (proximidade Gestalt)
+- números: 64px → 40px, opacity 0.6 (decorativo, não hero)
+- texto: 26px → 30px, `--text-secondary` → `--text-primary` (protagonista)
+- strong: weight 600 → 700
+- failsafe: `opacity: 0` adicionado aos cards (GSAP stagger)
+- Build PASS, capture PASS (fillRatio OK)
 
 ## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
 
@@ -14,27 +34,11 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 
 ## P0 — drive-package v2.1 (S199-S200)
 
-- **Local:** `content/aulas/drive-package/` (gitignored, 71 MB)
-- **3 servidores:** Caddy :18080 → Python :18081 → Miniserve :18082 → PDF
-- **S200 hardening (3 rondas):** health check gates, PID tracking, UX consistency
-- **Padrao uniforme:** orphan cleanup → port check → start → health check → PID save → browser gated → pause → cleanup
-- **Pendente:** metanalise.pdf stale (17 slides agora, PDF gerado em S166 com 16). Regenerar.
-- **Adversarial review DONE S200:** Gemini (D+→fixes) + Codex (0 bugs adicionais) + review holistico (2 self-catch)
-- **Para deploy:** regenerar PDF, zipar, subir Drive
+- **Pendente:** metanalise.pdf stale (17 slides, PDF gerado S166 com 16). Regenerar antes de deploy.
 
-## P0 — Slides metanalise (S202 em andamento)
+## P0 — Slides metanalise (S202)
 
-- **s-hook:** volume removido (80/dia → speaker notes), countUp eliminado, fadeUp estático. Verificado via qa-capture.
-- **s-quality:** ordem 2↔3 trocada (AMSTAR-2 antes de GRADE — bottom-up pedagógico). CSS audit PASS.
-- **s-quality pendente:** (1) speaker notes com narrativa bottom-up, (2) melhorar narrativa do evidence HTML (`evidence/s-quality-grade-rob.html`) com numeros verificados via /research skills + PubMed MCP + agentes. Reference-checker S202: 3/3 PMIDs VERIFIED, 0 issues.
-
-## P0 — Design Excellence Loop (S201-S202)
-
-- **Plano:** `.claude/plans/mutable-mapping-seal.md` (3 fases)
-- **Fase 1 DONE (S202):** 6 fixes ao Gemini QA evaluator implementados e verificados
-- **Fase 2 (próxima):** Design Excellence Loop (rule design-excellence.md + skill /polish + Chrome DevTools MCP + Ralph)
-- **Fase 3 (futuro):** Multi-model (Codex fixer, GPT tiebreaker) — só quando Fases 1-2 Proven
-- **Pendente:** Rodar editorial num slide real para medir delta antes/depois das 6 melhorias
+- **s-quality pendente:** (1) speaker notes bottom-up, (2) evidence HTML com numeros verificados
 
 ## P1 — Loop melhoria continua (rondas restantes)
 
@@ -87,6 +91,7 @@ Tools/model/maxTurns review dos 10 agentes. Report-only.
 - `02-contrato.html` menciona slides demolidos.
 - `.claude/plans/mutable-mapping-seal-agent-*.md` — untracked, Lucas decide.
 - `.claude/plans/noble-plotting-lecun.md` — untracked, Lucas decide.
+- `.claude/plans/snoopy-jingling-aurora.md` — plano ativo Pipeline I/O Hardening (S203).
 
 ---
-Coautoria: Lucas + Opus 4.6 | S202 2026-04-15
+Coautoria: Lucas + Opus 4.6 | S203 2026-04-15
