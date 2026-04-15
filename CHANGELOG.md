@@ -1,6 +1,17 @@
 # CHANGELOG
 
-## Sessao 202 — 2026-04-15 (Design_Excellence_F1)
+## Sessao 202 — 2026-04-15 (slide_lint_metanalise)
+
+### Slides metanalise
+- s-hook: removido bloco volume (~80/dia), removido countUp, animação simplificada para fadeUp estático
+- s-hook: CSS modernizado (grid, text-wrap: balance, margin-inline), JS limpo (5 linhas vs 40)
+- s-quality: ordem trocada 2↔3 (GRADE↔AMSTAR-2) — bottom-up pedagógico + fix CSS color assignment
+- s-quality: text-wrap: balance adicionado ao h3
+
+### Infra
+- KBP-20: Visual Change Without Browser Verification (elite-conduct.md §Gate visual)
+- elite-conduct.md: gate visual obrigatório para CSS/GSAP/motion (qa-capture.mjs como verificação canônica)
+- known-bad-patterns.md: governance counter Next: KBP-21
 
 ### Gemini QA Evaluator — Phase 1 (6 fixes)
 - 1.1: qa-capture.mjs extrai computedStyles (14 elementos, oklch/fonts/layout) → metrics.json → Call A prompt

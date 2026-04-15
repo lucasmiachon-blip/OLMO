@@ -22,11 +22,21 @@ Antes de cada Edit/Write, escrever no output as 3 respostas em formato compacto:
 
 Tier: Unaudited (S200). Testar 3 sessoes. Se falhar → escalar para hook.
 
+## Gate visual (mudancas CSS/GSAP/motion)
+
+Quando o Edit toca CSS, animacao ou layout: o loop NAO termina no build PASS. Verificacao inclui:
+1. Screenshot do slide via `qa-capture.mjs --slide {id}` (script canonico)
+2. Conferir resultado visual (screenshot) — codigo que compila pode produzir slide invisivel
+3. Se animacao: conferir que o motion serve a mensagem, nao compete com ela
+
+**Por que gate separado:** Lint e build verificam sintaxe, nao output. CSS `opacity: 0` (init state GSAP) passa lint mas produz slide em branco se a animacao nao dispara. S202: 4 tentativas de navegacao manual antes de usar qa-capture.mjs — o script canonico resolvia na primeira.
+
 ## Quando o loop falha (sintomas)
 
 - 2+ edits no mesmo arquivo para corrigir o proprio codigo → loop nao foi aplicado
 - Teste revela bug trivial (formato, quoting, path errado) → verificacao pulada
 - Dados de teste contaminam producao → ambiente de teste nao isolado
+- Mudanca visual sem screenshot → gate visual pulado (S202)
 
 ## Documentacao e cross-referencia
 

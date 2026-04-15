@@ -1,11 +1,11 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 202 | Design_Excellence_F1 — Phase 1 DONE, Phase 2 next
+> Sessao 202 | slide_lint_metanalise — s-hook refatorado, s-quality reordenado, KBP-20
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Agentes: 10.** **Hooks: 29 registros, 29 scripts (0 node -e JSON parse).** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 19.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
+**Agentes: 10.** **Hooks: 29 registros, 29 scripts (0 node -e JSON parse).** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 20.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
 
 ## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
 
@@ -21,6 +21,12 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - **Pendente:** metanalise.pdf stale (17 slides agora, PDF gerado em S166 com 16). Regenerar.
 - **Adversarial review DONE S200:** Gemini (D+→fixes) + Codex (0 bugs adicionais) + review holistico (2 self-catch)
 - **Para deploy:** regenerar PDF, zipar, subir Drive
+
+## P0 — Slides metanalise (S202 em andamento)
+
+- **s-hook:** volume removido (80/dia → speaker notes), countUp eliminado, fadeUp estático. Verificado via qa-capture.
+- **s-quality:** ordem 2↔3 trocada (AMSTAR-2 antes de GRADE — bottom-up pedagógico). CSS audit PASS.
+- **s-quality pendente:** speaker notes (Lucas pediu), reference-checker rodando, narrativa por melhorar.
 
 ## P0 — Design Excellence Loop (S201-S202)
 
@@ -59,7 +65,7 @@ Tools/model/maxTurns review dos 10 agentes. Report-only.
 - Living HTML = source of truth. Benchmark CSS = `pre-reading-heterogeneidade.html` (READ-ONLY).
 - Agent effort: max (degrada para high em Sonnet/Haiku).
 - Hook scripts: Edit BLOCK + deploy via Write→cp (guard-bash-write asks). Settings: Edit ASK.
-- **Elite-conduct loop:** `.claude/rules/elite-conduct.md` — checkpoint `[EC]` visivel obrigatorio (S200, Unaudited).
+- **Elite-conduct loop:** `.claude/rules/elite-conduct.md` — checkpoint `[EC]` visivel obrigatorio (S200, Unaudited). **Gate visual** adicionado S202 (KBP-20).
 - **Proven-wins rule:** `.claude/rules/proven-wins.md` — maturity tiers (unaudited→proven).
 
 ## CUIDADOS

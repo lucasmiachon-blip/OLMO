@@ -48,44 +48,13 @@ export const slideRegistry = {
   },
 
   's-hook': (slide, gsap) => {
-    const volume = slide.querySelector('.hook-volume');
-    const divider = slide.querySelector('.hook-divider');
-    const facts = slide.querySelectorAll('.hook-fact');
-    const nums = slide.querySelectorAll('.hook-num');
-
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-    // 1. Volume enters from left (hero moment)
-    tl.fromTo(volume, { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.9 });
-
-    // 2. Divider scales in like a cut
-    tl.to(divider, { scaleY: 1, duration: 0.6, ease: 'expo.inOut' }, '-=0.3');
-
-    // 3. Reality facts enter from right, staggered
-    tl.fromTo(facts, { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.7, stagger: 0.25 }, '-=0.2');
-
-    // 4. CountUp on all numbers (reset to 0 first — HTML has final values for no-js)
-    nums.forEach((num) => {
-      const decimals = parseInt(num.getAttribute('data-decimals') || '0', 10);
-      const target = decimals > 0 ? parseFloat(num.getAttribute('data-val')) : parseInt(num.getAttribute('data-val'), 10);
-      num.textContent = '0';
-      const obj = { val: 0 };
-      const isVolume = num.closest('.hook-volume');
-      const delay = isVolume ? 0 : (num.closest('.hook-fact') === facts[0] ? 1.0 : 1.25);
-      const snapVal = decimals > 0 ? Math.pow(10, -decimals) : 1;
-      gsap.to(obj, {
-        val: target,
-        duration: 1.4,
-        delay: delay,
-        ease: 'power2.out',
-        snap: { val: snapVal },
-        onUpdate: () => {
-          num.textContent = decimals > 0
-            ? obj.val.toFixed(decimals).replace('.', ',')
-            : Math.round(obj.val);
-        }
-      });
-    });
+    // Staging: staggered fadeUp guides attention sequentially.
+    // Numbers are static — the label IS the message, not the count.
+    gsap.fromTo(
+      slide.querySelectorAll('.hook-fact'),
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.4, ease: 'power2.out' }
+    );
   },
 
   's-importancia': (slide, gsap) => {
