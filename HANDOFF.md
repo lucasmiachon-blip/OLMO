@@ -18,18 +18,10 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - **Fase 2 (PRÓXIMO):** rule design-excellence.md + skill /polish + Chrome DevTools MCP
 - **Fase 3 (futuro):** Multi-model — só quando Fases 1-2 Proven
 
-## P0 — s-takehome (DESIGN FRACO — precisa direção criativa)
+## P0 — s-takehome (S204: typography + color FIX)
 
-**R13 score: 8.0 adjusted.** Funcional (click-reveal 3 cards, failsafe, h2 44px) mas visualmente fraco.
-
-Comparado com s-quality/s-absoluto:
-1. **Zero diferenciação cromática** — 3 cards idênticos (mesma cor, border, bg)
-2. **Sem punchline** — msg 3 ("SEU paciente") = culminação da aula, mas CSS = msgs 1 e 2
-3. **Números decorativos** — 40px opacity 0.6 = nem âncora nem invisível
-4. **Estética genérica** — white cards on gray = template PowerPoint
-5. **Sem arco visual** — nenhuma escalação do card 1 ao card 3
-
-**Precisa:** direção criativa do Lucas (cores por card? punchline elevada? ícones?).
+Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coerente com deck.
+**Pendente:** punchline card 3 ainda sem elevação visual distinta. Lucas decide se precisa.
 
 ## P0 — s-quality (S204 em andamento)
 

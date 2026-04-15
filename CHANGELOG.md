@@ -34,6 +34,18 @@
 
 ## Sessao 204 — 2026-04-15 (HARDENING_QA)
 
+### s-takehome — typography + color coherence
+- Font-sizes tokenized: h2→`var(--text-h2)`, text→`var(--text-h3)`, num→`var(--text-h2)` (were 44/30/40px hardcoded)
+- Color: cool palette (hue 258→235→210) per card via nth-child + custom properties. Same blue-to-teal family as s-quality.
+- Layout preserved (padding, gap, border-width, radius untouched). Numbers opacity 0.6 removed (color carries).
+- First attempt reduced all dimensions (scope creep) — caught by Lucas, reverted layout to original.
+
+### s-quality evidence HTML — 6 new refs integrated
+- New section `#empirical-data`: GRADE adoption table (4 studies), RoB adequacy table, dissociation data (Alvarenga-Brant 2024 Table 5)
+- 6 refs added (14-19): Siedler 2025, Alvarenga-Brant 2024, Ho 2024, Mickenautsch 2024, Santos 2026, Liu 2025
+- Siedler was NOT in HTML despite research report claiming "JA EXISTENTE" — added
+- Footer: 13→19 refs VERIFIED
+
 ### Commit a940234 — consolidação
 - 16 files, 762 ins, 89 del: Pipeline I/O Hardening + s-takehome functional + APCA tooling + docs + archived plans
 
