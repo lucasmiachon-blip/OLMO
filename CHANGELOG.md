@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 198 — 2026-04-14 (Ultima_infra_dia — P0 exec + node→jq)
+
+### /insights P001-P003 aplicados
+- P001: anti-drift.md — pre-execution reflection gate (KBP-14 enforcement)
+- P002: qa-pipeline.md — temperatura QA alinhada com Gemini 3 (doc: S178→S198)
+- P003: slide-patterns.md — removido data-background-color + inline style, usar theme-dark
+
+### Gemini parameter fix (gemini-qa3.mjs)
+- TEMP_DEFAULTS: 0.1/0.2 → 1.0 (Google recomenda para Gemini 3)
+- Gate 0: topP 0.9→0.95, temp 0.1→1.0
+- --help atualizado
+
+### node→jq migration (backlog #32 — RESOLVED)
+- 4 hooks migrados: guard-research-queries, lint-on-edit, model-fallback-advisory, guard-lint-before-build
+- guard-lint-before-build: path hardcoded→relativo (S196 S6 fix)
+- 0 `node -e` restantes em .claude/hooks/ (apl-cache-refresh em hooks/ faz calculo, nao JSON)
+
+### Plans archived
+- partitioned-swimming-axolotl.md → S198 (S4+S6 resolvidos)
+- cozy-knitting-breeze.md → S198 (plano desta sessao)
+
 ## Sessao 197 — 2026-04-14 (session docs + backlog #33)
 
 ### Documentacao
