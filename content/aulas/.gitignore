@@ -27,3 +27,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Portable deployment package (caddy.exe + python-embed + dist build)
+drive-package/

@@ -1,5 +1,66 @@
 # CHANGELOG
 
+## Sessao 201 — 2026-04-15 (Design_excelence_loop)
+
+### Planning (plan mode)
+- Exploração: 3 Explore agents (rules/QA pipeline, slides/CSS benchmarks, loop mechanisms)
+- Research SOTA: frontend slideology, CSS moderno, motion design, multi-model evaluation
+- Diagnóstico Gemini QA: 5 causas-raiz identificadas (Call A cego, Call B falha 30%, zero few-shot, zero delta, Call D dual job)
+- Research multi-model: Codex/ChatGPT/GPT-5.4 — evidência que prompt > model (arXiv:2506.13639)
+- Plano 3 fases aprovado: (1) fix evaluator, (2) build loop, (3) multi-model futuro
+
+### Arquivos criados
+- `.claude/plans/mutable-mapping-seal.md` — plano principal (3 fases, 13 arquivos)
+- `.claude/plans/S199-gemini-qa-diagnostic.md` — diagnóstico detalhado do Gemini QA
+- `.claude/plans/S199-research-findings.md` — consolidação de pesquisa SOTA
+
+## Sessao 200 — 2026-04-15 (drive-package v2 hardening loop)
+
+### Ronda 1: Health check gates (SEV-1)
+- iniciar.bat: browser gated por READY==1, diagnostico Caddy se falha
+- 02-iniciar-python.bat: browser gated por READY==1, aponta miniserve
+- 03-iniciar-miniserve.bat: reescrito — background + health check + browser gated (era browser-antes-do-servidor)
+
+### Ronda 2: Cleanup defensivo + integridade
+- 02-iniciar-python.bat: PID tracking (orphan cleanup no startup, python.pid save, PID-based kill)
+- 03-iniciar-miniserve.bat: mesmo padrao PID (miniserve.pid)
+- dist/.build-info criado (date, slides, version, servers)
+- LEIA.txt: diagnostico "FALHA" documentado
+
+### Ronda 3: UX consistency
+- 3 scripts: mensagens "ERRO"/"FALHA" + "Causa provavel" uniformizadas
+- 3 scripts: "porta em uso" sugere proximo fallback na cadeia
+- LEIA.txt: checklist pre-aula atualizado
+
+### Infra
+- /dream S200: 5 memory files atualizados (tooling, audit, self-improvement, metanalise, all last_challenged)
+
+## Sessao 199 — 2026-04-15 (Fallback — drive-package v2 hardened)
+
+### drive-package v2 (content/aulas/drive-package/, gitignored)
+- Copiado de /tmp/audit-20260412-162813/ para dentro do projeto
+- Build atualizado: 16→17 slides (dist fresh)
+- Adicionado ao content/aulas/.gitignore
+
+### SEV-1 fixes (3 criticos)
+- iniciar.bat: health check loop (substitui timeout fixo 2s), PID tracking, cleanup ao sair, verificacao de porta
+- 02-iniciar-python.bat: browser abre DEPOIS do servidor (era antes), porta 18081 (independente), cleanup
+- desbloquear.ps1: usa $MyInvocation.MyCommand.Path (era CWD implicito)
+
+### SEV-2 fixes (5 graves)
+- Caddyfile: MIME font/woff2 + gzip + cache headers (era bare file-server)
+- dist/ limpo: removidos cirrose/, grade/, 3 index.template.html, 9 assets orfaos
+- forest-li-2025 PNG: 2.8 MB→1.4 MB (resize 2x viewport + optimize)
+- LEIA.txt: diagnostico expandido, porta Python atualizada, removida instrucao confusa "NAO Chrome"
+
+### Miniserve adicionado (redundancia)
+- miniserve v0.35.0 (2.1 MB, Rust binary) como fallback 2 (porta 18082)
+- 03-iniciar-miniserve.bat criado
+- Arvore decisao: Caddy :18080 → Python :18081 → Miniserve :18082 → PDF
+
+### Cleanup
+- Removido /tmp/audit-20260412-162813/ (439 MB)
+
 ## Sessao 198 — 2026-04-14 (Ultima_infra_dia — P0 exec + node→jq)
 
 ### /insights P001-P003 aplicados
