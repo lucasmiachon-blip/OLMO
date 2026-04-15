@@ -803,3 +803,6 @@ export const slideRegistry = {
     slide.__hookCurrentBeat = () => revealed;
   },
 };
+
+// Bookend: s-contrato-final reuses s-contrato animation (S207)
+slideRegistry['s-contrato-final'] = slideRegistry['s-contrato'];

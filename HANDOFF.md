@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 207 | s-fixed-random — estética + conteúdo.
+> Sessao 208 | Pronto para próxima tarefa.
 
 ## ESTADO ATUAL
 
@@ -18,38 +18,19 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - **Fase 2 (PRÓXIMO):** rule design-excellence.md + skill /polish + Chrome DevTools MCP
 - **Fase 3 (futuro):** Multi-model — só quando Fases 1-2 Proven
 
-## P0 — Paleta convergência 258° (3 slides, URGENTE — apresentação próxima)
-
-Referência: s-importancia/s-objetivos (hue 258°, chroma 0.14). Problema: hues <245° = ciano fritante.
-Executar token swap direto (valores já auditados S206):
-
-| Token (arquivo) | Atual | Novo |
-|-----------------|-------|------|
-| `--q-process` (metanalise.css:334) | 45% 0.14 **220** | 45% 0.13 **253** |
-| `--q-evidence` (metanalise.css:335) | 42% 0.18 **200** | 42% 0.14 **248** |
-| `--q-bg-process` (metanalise.css:340) | 92% 0.03 **220** | 92% 0.025 **253** |
-| `--q-bg-evidence` (metanalise.css:341) | 92% 0.03 **200** | 92% 0.025 **248** |
-| `--th-2` (metanalise.css:882) | 46% 0.15 **235** | 46% 0.13 **253** |
-| `--th-3` (metanalise.css:883) | 44% 0.16 **210** | 44% 0.14 **248** |
-| `--th-bg-2` (metanalise.css:885) | 92% 0.025 **235** | 92% 0.02 **253** |
-| `--th-bg-3` (metanalise.css:886) | 92% 0.03 **210** | 92% 0.025 **248** |
-| s-etd IAM bg (metanalise.css:2039) | 24% 0.015 **170** | 24% 0.02 **258** |
-
-Build + screenshot 3 slides + commit. ~10 min max.
-
 ## P0 — s-heterogeneity (S206: projection polish)
 
 PI bars visíveis (0.35), verdict pareado com I² label (--text-h3), caveat enxuto.
 **Pendente:** Lucas decide se PI precisa de labels no SVG (escopo pedagógico) e se insight block (click 3) se mantém.
 
-## P0 — s-takehome (S204: typography + color FIX)
+## P0 — s-contrato-final (substituiu s-takehome, S207)
 
-Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coerente com deck.
-**Pendente:** punchline card 3 ainda sem elevação visual distinta. Lucas decide se precisa.
+Slide `18-contrato-final.html` reusa CSS de s-contrato (grid + cards + animações). Manifest atualizado.
+**Nota:** tokens `--th-*` em `section#s-takehome {}` no CSS são agora dead code (paleta convergida S207 mas slide fora do manifest). Cleanup pendente — Lucas decide se remove ou mantém.
 
 ## P0 — s-quality (S204 em andamento)
 
-- **Paleta corrigida (S205):** blue-teal family (200-258°), raw px→tokens, badges→system tokens.
+- **Paleta convergida (S207):** violet family (248-258°), raw px→tokens, badges→system tokens.
 - **Evidence research DONE:** 4 refs VERIFIED. Report: `qa-screenshots/s-quality/content-research.md`.
 - **PENDENTE:** (1) integrar 4 refs no evidence HTML, (2) narrativa, (3) Lucas: "pode melhorar mais" — refinar paleta/tamanhos.
 
@@ -92,4 +73,4 @@ Fonts tokenizados (`--text-h2`/`--text-h3`). Paleta cool (258→235→210) coere
 - `.claude/workers/`: S178 + S181. Lucas decide.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S206 2026-04-15
+Coautoria: Lucas + Opus 4.6 | S207 2026-04-15

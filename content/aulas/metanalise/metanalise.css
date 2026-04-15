@@ -563,7 +563,8 @@ section#s-quality .quality-ex-sep {
   gap: var(--space-md);
 }
 /* s-contrato: CSS Grid + subgrid for perfect cross-card alignment */
-#s-contrato .contrato-grid {
+#s-contrato .contrato-grid,
+#s-contrato-final .contrato-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr auto;
@@ -631,23 +632,38 @@ section#s-quality .quality-ex-sep {
 }
 .contrato-accent { color: var(--ui-accent); }
 /* Animation initial states — GSAP owns endpoints via fromTo() (slide-registry.js) */
-#s-contrato .contrato-card { opacity: 0; }
-#s-contrato .contrato-question { opacity: 0; }
-#s-contrato .contrato-skill { opacity: 0; }
+#s-contrato .contrato-card,
+#s-contrato-final .contrato-card { opacity: 0; }
+#s-contrato .contrato-question,
+#s-contrato-final .contrato-question { opacity: 0; }
+#s-contrato .contrato-skill,
+#s-contrato-final .contrato-skill { opacity: 0; }
 /* Failsafes */
 .no-js #s-contrato .contrato-card,
 .no-js #s-contrato .contrato-question,
-.no-js #s-contrato .contrato-skill { opacity: 1; transform: none; }
+.no-js #s-contrato .contrato-skill,
+.no-js #s-contrato-final .contrato-card,
+.no-js #s-contrato-final .contrato-question,
+.no-js #s-contrato-final .contrato-skill { opacity: 1; transform: none; }
 .stage-bad #s-contrato .contrato-card,
 .stage-bad #s-contrato .contrato-question,
-.stage-bad #s-contrato .contrato-skill { opacity: 1; transform: none; }
+.stage-bad #s-contrato .contrato-skill,
+.stage-bad #s-contrato-final .contrato-card,
+.stage-bad #s-contrato-final .contrato-question,
+.stage-bad #s-contrato-final .contrato-skill { opacity: 1; transform: none; }
 [data-qa] #s-contrato .contrato-card,
 [data-qa] #s-contrato .contrato-question,
-[data-qa] #s-contrato .contrato-skill { opacity: 1; transform: none; }
+[data-qa] #s-contrato .contrato-skill,
+[data-qa] #s-contrato-final .contrato-card,
+[data-qa] #s-contrato-final .contrato-question,
+[data-qa] #s-contrato-final .contrato-skill { opacity: 1; transform: none; }
 @media print {
   #s-contrato .contrato-card,
   #s-contrato .contrato-question,
-  #s-contrato .contrato-skill { opacity: 1; transform: none; }
+  #s-contrato .contrato-skill,
+  #s-contrato-final .contrato-card,
+  #s-contrato-final .contrato-question,
+  #s-contrato-final .contrato-skill { opacity: 1; transform: none; }
 }
 
 /* --- Objetivos: 2-2-1 grid (5 items) --- */

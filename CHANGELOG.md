@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 207 — 2026-04-15 (paleta 258° + s-fixed-random)
+
+### Palette convergence 258° — 3 slides
+- s-quality: --q-process hue 220→253, --q-evidence hue 200→248, chroma reduzida (0.14→0.13, 0.18→0.14)
+- s-takehome: --th-2 hue 235→253, --th-3 hue 210→248, chroma reduzida
+- s-etd: IAM hero bg hue 170→258 (alinhado com deck)
+- Backgrounds convergidos na mesma faixa (248-258°, C≤0.03)
+
+### s-fixed-random — readability (uncommitted from S206)
+- FE weight squares scaled (3→5, 2→4) for 10m projection
+- Caveat text simplified, PMID removed from source-tag
+- fr-caveat font: --text-caption→--text-body
+
+### s-contrato-final — replaces s-takehome (Lucas)
+- New slide 18-contrato-final.html added as bookend (reuses contrato CSS)
+- Manifest: s-takehome suppressed, s-contrato-final added
+- CSS: contrato selectors extended to cover #s-contrato-final
+
 ## Sessao 206 — 2026-04-15 (s-heterogeneity polish)
 
 ### s-heterogeneity — projection readability
