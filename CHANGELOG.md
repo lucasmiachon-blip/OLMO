@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## Sessao 197 — 2026-04-14 (session docs + backlog #33)
+
+### Documentacao
+- Backlog: +#33 (research persistence — minimizar perda inter-sessao)
+- HANDOFF contagem corrigida: 33 items, 6 resolved (era "32 items, 4 resolved")
+- Sessao: rehydration prompt preparado com pointers para execucao P0
+
+## Sessao 196b — 2026-04-14 (/insights S193 + Gemini parameter research)
+
+### /insights (last: S154, gap: 39 sessoes)
+- Report completo: SCAN→AUDIT→DIAGNOSE→PRESCRIBE→QUESTION (5 fases)
+- 19 sessoes analisadas (S174-S192), 29 commits, 146 hook firings
+- Trend: corrections_5avg 0.684→0.553 (-19%), kbp_5avg 0.154→0.165 (marginal +7%)
+- 3 proposals pendentes: P001 (KBP-14 gate), P002 (qa-pipeline temp), P003 (slide-patterns §5)
+- Failure-registry atualizado, timestamp `.last-insights` setado
+
+### Gemini parameter research (5 fontes oficiais Google)
+- Google: "For all Gemini 3 models, strongly recommend temperature 1.0"
+- Baixar temp em Gemini 3 causa looping e degradacao de reasoning
+- Script usa 0.1-0.2 (S178 hardening para Gemini 2.x, NAO atualizado para 3.x)
+- Acao pendente: restaurar TEMP_DEFAULTS para 1.0 em `gemini-qa3.mjs`
+- Fontes: ai.google.dev, cloud.google.com, discuss.ai.google.dev
+
+### Security finding
+- `node -e fs.writeFileSync` bypasses guard-bash-write sem ask — brecha P1
+
 ## Sessao 196 — 2026-04-14 (hooks Fase 2 COMPLETE + audit-driven fixes)
 
 ### Consolidacao
