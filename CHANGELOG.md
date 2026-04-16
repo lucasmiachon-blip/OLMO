@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 212 — 2026-04-16 (cleanup profissional)
+
+### Plans
+- ARCHIVE: 8 plans (3 completos + 5 pesquisa) → `.claude/plans/archive/` com prefixo S-number (12→4 ativos, 28→36 archived)
+
+### Memoria
+- MERGE: `feedback_never_overwrite_research.md` (orphan, 21st file) → secao §Anti-drift em `feedback_research.md` (21→20/20, back at cap)
+- UPDATE: MEMORY.md — infra counts S212 (29/29 pipefail, 0 vulns, 6 async), S211-S212 session entries
+
+### Hooks
+- CONSOLIDATE: 3 PreToolUse Bash entries → 1 entry com array de 3 hooks (if conditions per-handler, parallel execution). PreToolUse 9→7.
+- REMOVE: 2 dead permissions (`Bash(cp .claude/tmp/...)` — tmp dir vazio desde S204)
+- REMOVE: 8 one-shot mv permissions (plan archive ops)
+
+### Repo hygiene
+- MOVE: `content/aulas/.claude/agent-memory/reference-checker/s-quality-audit-S201.md` → `.claude/agent-memory/reference-checker/`
+- REMOVE: `content/aulas/.claude/` orphan directory (nested .claude from agent spawn)
+
 ## Sessao 211 — 2026-04-16 (anti-perda + hooks mecanicos)
 
 ### Fase 2: Hooks mecanicos (29 scripts + 2 libs, settings.local.json)

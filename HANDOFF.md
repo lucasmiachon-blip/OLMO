@@ -1,58 +1,48 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 211 | Fases 1+2 completas. Fase 3 pendente.
+> Sessao 212 | Cleanup profissional. Plano master Fase 3+4 pendente.
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Rules: 5 files, 199 li.** **Hooks: 29+2 shell scripts (8/27 eventos, `command` type, 6 async, 4 `if` guards).** **Permissions: 38.**
-**Memory: 21/20 (over cap).** Agentes: 10. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
-**Strict mode: 29/29 scripts com `set -euo pipefail`** (2 libs sourced herdam do chamador). Paths portaveis via `$CLAUDE_PROJECT_DIR`.
+**Rules: 5 files, 199 li.** **Hooks: 29+2 scripts (8/27 eventos, 6 async, 4 `if` guards).** **Permissions: 38.**
+**Memory: 20/20 (at cap, clean).** Agentes: 10. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
+**Strict mode: 29/29 `set -euo pipefail`.** Paths portaveis via `$CLAUDE_PROJECT_DIR`. 0 vulns. 0 hardcoded paths.
+**Plans: 4 ativos, 36 archived.** Zero debris.
 
 ## PLANO ATIVO: `.claude/plans/hashed-zooming-bonbon.md`
 
-### Fase 0 ✅ COMPLETA (S210)
-- Settings env vars aplicados. Commit: `2c2f52c`.
+### Fases 0-2 ✅ COMPLETAS (S210-S211)
+- Settings, anti-perda (vuln fixes + checkpoint), hooks mecanicos (pipefail, async, $CLAUDE_PROJECT_DIR, if guards)
 
-### Fase 1 ✅ COMPLETA (S211)
-- `pre-compact-checkpoint.sh`: +4 secoes cognitivas (HANDOFF header, plano ativo, plan files recentes, pending-fixes)
-- `post-compact-reread.sh:15`: JSON hand-assembly → `jq -cn --arg` (vuln fix)
-- `retry-utils.sh:28`: `eval "$cmd"` → array execution `"${cmd_args[@]}"` (vuln fix) + 2 chamadores atualizados
-- Regra KBP-17 item 4 + context-essentials item 7: pesquisa de agente → plan file ANTES de reportar
-
-### Fase 2 ✅ COMPLETA (S211)
-- `$CLAUDE_PROJECT_DIR`: 30 command strings migradas em `settings.local.json` (2 permissions mantidas hardcoded)
-- `async: true`: 6 hooks fire-and-forget (stop-metrics, stop-notify, stop-should-dream, chaos-inject-post, model-fallback-advisory, notify)
-- `if` conditions: guard-bash-write (destructive ops) + guard-research-queries (research/evidence skills)
-- `set -euo pipefail`: 29/29 scripts standalone (26 added, 3 upgraded de `set -u`); 2 libs sourced sem pipefail (herdam do chamador) + 15 hazard fixes preventivos
-
-### Fase 3: Hooks seguranca + consolidacao (PENDENTE — ~2h)
-1. Prompt hook Stop — Trail of Bits anti-rationalizacao pattern (Haiku, $0 no Max)
-2. Consolidar PreToolUse — 9→5 entries
-(eval + JSON vulns resolved em Fase 1)
+### Fase 3: Prompt hook Stop + consolidacao (PENDENTE — ~1h)
+1. Prompt hook Stop — Trail of Bits anti-rationalizacao (Haiku, $0 no Max)
+2. PreToolUse consolidado 9→7 (S212). Avaliar se further reduction faz sentido.
 
 ### Fase 4: Memoria — avaliar com dados (PENDENTE — sessao separada)
 - Avaliar em ordem: claude-memory-compiler → ByteRover CLI → nenhum
 
-## P0 — Pendentes Anteriores
+## OUTROS PLANOS ATIVOS
 
-- s-quality: evidence HTML integration + narrativa pendente
+- `mutable-mapping-seal.md` — Design Excellence Loop. Fase 1 DONE (S202). Fase 2: /polish skill + rule. Fase 3: multi-model.
+- `generic-wondering-manatee.md` — CMMI roadmap. Fase 1 DONE (rules reduction). Fase 2: verification loops + PNG export. Fase 3: knowledge graph.
+- `snoopy-jingling-aurora.md` — I/O Pipeline Hardening. Parcialmente feito (S203-S204). 5 gargalos Gemini QA.
+
+## PENDENTES
+
+- s-quality: evidence HTML integration + narrativa
 - s-tipos-ma: slide PENDENTE (Lucas decide quantos, posicao, h2)
 - drive-package: PDF stale, PNG export pendente
-
-## P1
-
 - Wallace CSS-wide: 29 font-sizes raw, #162032 sem token, 20 !important
 - TREE.md desatualizado (S93 → S212)
-- Sentinel agent improvement (backlog #31)
 
 ## DECISOES ATIVAS
 
 - Gemini QA temp: 1.0, topP 0.95. OKLCH obrigatorio.
 - Living HTML = source of truth. Agent effort: max.
 - CMMI maturity model. Hooks = freio (L2). Verification loops = melhoria (L3+).
-- Settings: effort=max, adaptive_thinking=off, subagent=sonnet, 1M=off (perguntar no start).
-- Memoria: sistema atual cobre 80% (Lord 2026). Avaliar claude-memory-compiler antes de adicionar infra.
+- Settings: effort=max, adaptive_thinking=off, subagent=sonnet, 1M=off.
+- Memoria: sistema atual cobre 80% (Lord 2026). Avaliar ferramentas com dados antes de adotar.
 
 ## CUIDADOS
 
@@ -62,4 +52,4 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - Pesquisa de agente: SEMPRE persistir em plan file ANTES de reportar.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S211 2026-04-16
+Coautoria: Lucas + Opus 4.6 | S212 2026-04-16
