@@ -12,6 +12,11 @@
 - Over-engineering > erros invisiveis (infraestrutura inerte = pronta, erro sem metrica = divida)
 - Prompt hook (semantico) + agent hook (deterministico) = dual-check complementar
 
+### Organizacao — Batch 1: Backlogs (3→1)
+- MERGE: PENDENCIAS.md (setup, MCPs, custo) → `.claude/BACKLOG.md` §Setup & Infra
+- DELETE: `BACKLOG.md` (root, S93, 5 items ja cobertos) + `PENDENCIAS.md` (conteudo migrado)
+- UPDATE: 6 refs atualizadas (GETTING_STARTED, TREE, ARCHITECTURE, SYNC-NOTION, backlog skill, cursor skill)
+
 ## Sessao 213 — 2026-04-16 (hooks estado da arte + self-improvement loop)
 
 ### Hooks

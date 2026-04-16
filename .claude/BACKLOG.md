@@ -38,3 +38,43 @@
 | 31 | Sentinel audit quality — melhoria continua | S196: sentinel errou 1 claim (apl-cache-refresh nao tem cc-calls), orchestration sentinel truncou (50 tool calls sem report final). Melhorias: (1) verificacao cruzada obrigatoria antes de claim (grep confirma antes de listar), (2) report estruturado com secoes obrigatorias, (3) limitar scope por invocacao (1 diretorio ou 1 concern), (4) maturity tier do proprio sentinel (atualmente: Audited). Aplicar proven-wins.md ao processo de auditoria. |
 | 32 | [RESOLVED S198] Node→jq migration restante — 4 scripts | guard-lint-before-build, guard-research-queries, lint-on-edit, model-fallback-advisory migrados para jq. guard-lint-before-build: hardcoded path→relativo (S6). 0 `node -e` JSON parse restantes em .claude/hooks/. |
 | 33 | Research persistence — minimizar perda inter-sessao | Pesquisa (Gemini params, evidence, etc.) deve sobreviver context rotation. Pattern: resultados completos em .claude/plans/archive/ com tabela de edits + fontes + verificacao. HANDOFF aponta para plan. Avaliar: (1) research output template obrigatorio, (2) plan archive como persistence layer, (3) HANDOFF pointer discipline para pesquisas. S197 |
+
+---
+
+## Setup & Infra (migrado de PENDENCIAS.md, S214)
+
+### MCPs (11 conectados)
+
+- [x] Notion, PubMed, SCite, Consensus, Scholar Gateway, NotebookLM, Zotero, Excalidraw, Gmail, Google Calendar, Canva
+- ~~Perplexity~~ — migrado para API direta S87. ~~Gemini~~ — descartado S71.
+- [ ] Google Drive — `@piotr-agier/google-drive-mcp` (requer Google Cloud Console OAuth)
+- [ ] Anki MCP — `@ankimcp/anki-mcp-server` (requer Anki Desktop + AnkiConnect)
+
+### Concurso R3 — Setup Pendente
+
+- [ ] Instalar AnkiConnect — Anki Desktop > Tools > Add-ons > 2055492159
+- [ ] Configurar Anki MCP — `npx -y @ankimcp/anki-mcp-server --stdio`
+- [ ] Provas reais em `assets/provas/` — PDFs de bancas R3
+- [ ] SAPs em `assets/sap/` — MKSAP e SAPs de especialidade
+
+### Infra Pendente
+
+- [ ] BudgetTracker (SQLite)
+- [ ] claude-task-master (MCP GTD)
+- [ ] n8n self-hosted (automacao 24/7)
+- [ ] Cowork Skills: UpToDate, DynaMed, BMJ Best Practice
+- [ ] Database Notion "Teaching Log"
+- [ ] Pipeline email → Notion → Obsidian
+- [ ] Obsidian CLI + vault sync com Notion DBs
+
+### Custo Mensal
+
+| Item | Custo/mes |
+|------|----------|
+| Claude Max + Perplexity Max + Google One Ultra | incluso nos planos |
+| Scite + Consensus | ~$20-30 |
+| **TOTAL** | **~$20-30** (budget $100) |
+
+### Aulas — Migracoes Pendentes
+
+- Osteoporose — 70 slides, Reveal.js (frozen), em `legacy/aulas-magnas`. Decidir formato.

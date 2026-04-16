@@ -1,7 +1,7 @@
 # Guia de Inicio Rapido
 
 > Perfil: Medico + Professor + Pesquisador + Developer AI
-> Checklist completo: `PENDENCIAS.md` | Seguranca Notion: `.claude/rules/mcp_safety.md`
+> Checklist completo: `.claude/BACKLOG.md` §Setup & Infra | Seguranca Notion: `.claude/rules/mcp_safety.md`
 
 ## Pre-requisitos
 
@@ -26,7 +26,7 @@ cd content/aulas && npm install && cd ../..
 
 # Variaveis de ambiente
 cp .env.example .env
-# Edite .env com suas API keys (ver PENDENCIAS.md)
+# Edite .env com suas API keys (ver .claude/BACKLOG.md §Setup & Infra)
 ```
 
 ## MCPs Configurados (ver `config/mcp/servers.json`)
@@ -79,7 +79,7 @@ claude "gere o digest medico semanal e publique no Notion"
 OLMO/
 ├── CLAUDE.md                 # Instrucoes root
 ├── CHANGELOG.md              # Historico (ultimas 3 sessoes; arquivo em docs/)
-├── PENDENCIAS.md             # Checklist de setup e custos
+├── .claude/BACKLOG.md        # Backlog + setup checklist
 ├── HANDOFF.md                # Continuidade entre sessoes
 ├── orchestrator.py           # Entry point Python
 ├── agents/                   # Agentes Python (~30% implementados)

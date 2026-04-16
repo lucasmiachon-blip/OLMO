@@ -13,8 +13,8 @@ description: Atualiza HANDOFF e documentação ao encerrar ou repassar contexto 
    - Branch/estado relevante se houver.
    - Linha de coautoria: `Coautoria: Lucas + [modelos usados]`.
 
-2. **PENDENCIAS.md**
-   - Atualizar apenas se checklist de setup ou tarefas pendentes mudou.
+2. **`.claude/BACKLOG.md`**
+   - Atualizar se backlog, setup checklist, ou tarefas pendentes mudou.
 
 3. **docs/**
    - Atualizar `ARCHITECTURE.md` ou `BEST_PRACTICES.md` só se houver decisão técnica ou convenção nova.

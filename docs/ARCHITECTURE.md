@@ -177,7 +177,7 @@ graph TD
 
 ### Weekly
 
-1. **Monday** — review BACKLOG.md, pick week's priorities
+1. **Monday** — review `.claude/BACKLOG.md`, pick week's priorities
 2. **Mid-week** — `/insights` if 3+ sessions since last run (cadence: every 3-4 sessions)
 3. **Friday** — `/dream` memory consolidation (auto-triggered every 24h via hook)
 4. **Every 3 sessions** — memory governance: check merge candidates, TTL dates
@@ -198,7 +198,7 @@ OLMO/
 ├── CLAUDE.md                # Root instructions (85 lines)
 ├── HANDOFF.md               # Session state (future-only, ~50 lines)
 ├── CHANGELOG.md             # Session history (append-only)
-├── BACKLOG.md               # Prioritized work items
+├── .claude/BACKLOG.md       # Prioritized work items + setup checklist
 ├── .claude/
 │   ├── settings.local.json  # Hook registration + env vars
 │   ├── rules/ (10)          # Anti-drift, KBPs, QA pipeline, session hygiene

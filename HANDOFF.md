@@ -8,7 +8,7 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 **Rules: 5 files, 199 li.** **Hooks: 32+2 scripts (10/21 eventos, 7 async, 4 `if` guards) + 1 agent hook.** **Permissions: 38.**
 **Memory: 20/20 (at cap, clean).** Agentes: 10. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
 **Strict mode: 32/32 `set -euo pipefail`.** Paths portaveis via `$CLAUDE_PROJECT_DIR`. 0 vulns. 0 hardcoded paths.
-**Plans: 6 ativos, 36 archived.** Self-improvement: step 2 de 4 DONE (hook-log → /dream → KBP candidates).
+**Plans: 6 ativos, 36 archived.** Backlog: 1 arquivo (`.claude/BACKLOG.md`), consolidado S214.
 
 ## PLANO MASTER: `.claude/plans/hashed-zooming-bonbon.md`
 
@@ -41,7 +41,7 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
 - drive-package: PDF stale, PNG export pendente
 - Wallace CSS-wide: 29 font-sizes raw, #162032 sem token, 20 !important
 - TREE.md desatualizado (S93 → S214)
-- Verificar Auto Dream nativo: Lucas roda `/memory` e reporta
+- Auto Dream nativo: NAO disponivel (verificado S214). /memory so abre CLAUDE.md. Sistema custom continua.
 - Testar agent hook Stop: encerrar sessao sem HANDOFF/CHANGELOG → deve bloquear
 
 ## DECISOES ATIVAS

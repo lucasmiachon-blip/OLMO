@@ -27,7 +27,7 @@ Notion prevalece apenas para **status de PDF** (coluna `Verified` na References 
 |----|---------------|-----|
 | **References DB** (trials, PDFs) | `collection://2b24bb6c-91be-42c0-ae28-908a794e5cf5` | Trials com PMID, status de PDF, tier de evidencia |
 | **Biblia Narrativa** | *(page, nao collection — buscar via `notion-search`)* | Draft narrativo original (ChatGPT 5.4). Repo e canonico. |
-| **Teaching Log** | *(planejado, nao criado — ver PENDENCIAS.md)* | Feedback de aulas, acoes corretivas |
+| **Teaching Log** | *(planejado, nao criado — ver `.claude/BACKLOG.md` §Infra Pendente)* | Feedback de aulas, acoes corretivas |
 
 ---
 

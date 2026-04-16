@@ -9,8 +9,7 @@ CLAUDE.md            # Contexto AI agents (Claude Code le na abertura, ~85 linha
 README.md            # Quick start
 CHANGELOG.md         # Historico sessao-a-sessao (append-only)
 HANDOFF.md           # Continuidade entre sessoes (max ~50 linhas, future-only)
-BACKLOG.md           # Items para proxima semana+
-PENDENCIAS.md        # Checklist setup + infra pendente
+# BACKLOG e PENDENCIAS migrados para .claude/BACKLOG.md (S214)
 orchestrator.py      # Entry point principal
 __main__.py          # Package entry
 pyproject.toml       # Config Python (uv, ruff, mypy, pytest)
