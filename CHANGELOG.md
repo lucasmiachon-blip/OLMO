@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## Sessao 209 — 2026-04-15 (rules Fase 1b — constraints-only pass)
+
+### Rules reduction: 315 → 198 linhas (-37%, acumulado S208+S209: -82%)
+- `slide-rules.md` 82→31: removidos template HTML, pre-edit checklist, data-animate table, motion ranges
+- `design-reference.md` 51→19: removidos color semantics table, hierarchy guidance, typography table
+- `qa-pipeline.md` 49→15: removidos execution steps 1-11, states, propagation table
+- Criterio: cada linha remanescente responde "isto previne um erro?" — so constraints, gates, NEVER/PROIBIDO
+
+### T4 reference enriquecido
+- `docs/aulas/slide-advanced-reference.md`: 8 novas secoes migradas (template, checklist, data-animate, motion ranges, color semantics+hierarchy, typography ref, QA execution path, propagation table)
+- Header atualizado: migracoes S208-S209
+
+### Feedback
+- Insight boxes (★) suprimidos — filler generico gasta tokens sem retorno
+
 ## Sessao 207 — 2026-04-15 (paleta 258° + s-fixed-random)
 
 ### Palette convergence 258° — 3 slides

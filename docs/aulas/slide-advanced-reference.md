@@ -1,6 +1,6 @@
 # Slide Advanced Reference
 
-> Consultar on demand. NÃO auto-loaded. Migrado de rules S208.
+> Consultar on demand. NÃO auto-loaded. Migrado de rules S208-S209.
 > Para constraints ativos, ver: `slide-rules.md`, `design-reference.md`, `qa-pipeline.md`.
 
 ---
@@ -136,3 +136,105 @@ Hierarquia: **NNT > ARR > HR**. NNT=decisão (hero, --safe). HR=acadêmico (meno
 - [ ] Todos sub-stages QA PASS
 - [ ] HANDOFF estado = DONE
 - [ ] CHANGELOG entry
+
+---
+
+## New Slide Template
+
+> Migrado de slide-rules.md S209.
+
+```html
+<section id="s-[id]">
+  <div class="slide-inner">
+    <p class="section-tag">[BLOCO]</p>
+    <h2>[CLINICAL ASSERTION — verifiable complete claim]</h2>
+    <div class="evidence" data-animate="fadeUp">
+      <!-- visual evidence: chart, table, key number, diagram -->
+    </div>
+    <cite class="source-tag">Author et al. Journal Year;Vol:Pages. PMID: XXXXX</cite>
+  </div>
+</section>
+```
+
+## Pre-Edit Checklist
+
+- [ ] `<h2>` is clinical assertion
+- [ ] No `<ul>`/`<ol>`
+- [ ] `<section>` no `style` with `display` (E07)
+- [ ] Numerical data verified
+- [ ] `.source-tag`: Author Year format
+- [ ] Animations via `data-animate` only
+- [ ] CSS: `section#s-{id}` (not `#s-{id}`)
+
+## data-animate Values
+
+| Value | Effect | Extras |
+|-------|--------|--------|
+| `countUp` | Animated number (1.5s) | `data-target` `data-decimals` |
+| `stagger` | Sequential children | `data-stagger="0.15"` |
+| `drawPath` | SVG stroke progressive | — |
+| `fadeUp` | Fade + translateY | — |
+| `highlight` | Von Restorff row | `data-highlight-row` |
+
+Click-reveal: `data-reveal="N"`, max 4. Handlers: `stopPropagation()` (E38).
+
+## Motion QA Ranges
+
+| Property | Range |
+|----------|-------|
+| Fade/translate | 300–600ms |
+| countUp | 800–1200ms |
+| stagger total | ≤ 1.5s |
+| Max duration | ≤ 2s |
+
+## Color Semantics
+
+| Token | Clinical meaning | Use |
+|-------|-----------------|-----|
+| `--safe` | Maintain course | Favorable result, target met |
+| `--warning` | Investigate/monitor | Gray zone, needs follow-up |
+| `--danger` | Intervene now | Real risk: death, bleeding, failure |
+| `--downgrade` | Downgrade evidence | Limitation, caveat (always with ↓) |
+| `--ui-accent` | Chrome/UI | Progress, tags, decoration — NEVER clinical |
+
+### Color Hierarchy
+- **Punchline > Support:** culminating element gets superior visual treatment.
+- Semantic color in text: only when text IS the primary element (title, punchline).
+- Icons MUST have explicit color matching severity.
+
+## Typography Reference
+
+| Rule | Detail |
+|------|--------|
+| Serif = authority | `--font-display` (Instrument Serif) for titles |
+| `tabular-nums lining-nums` | On numerical data |
+
+## QA Execution Path
+
+```
+STEP 1   npm run build:{aula}
+STEP 2   node scripts/qa-capture.mjs --aula {aula} --slide {id}
+STEP 3   Read criteria: design-reference.md, slide-rules.md
+STEP 4   Read screenshot + slide code
+STEP 5   Evaluate 4 dims (Color, Typography, Hierarchy, Design) → PASS/FAIL → STOP
+STEP 6   Lucas reviews → requests changes → re-evaluate
+STEP 7   Lucas says "proceed"
+STEP 8   gemini-qa3.mjs --inspect → report → STOP
+STEP 9   Lucas OK
+STEP 10  gemini-qa3.mjs --editorial → report → STOP
+STEP 11  Save to qa-screenshots/{id}/editorial-suggestions.md
+```
+
+States: BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE.
+
+## Propagation Table
+
+| Changed... | Also update... |
+|-----------|---------------|
+| h2 in HTML | `_manifest.js` headline |
+| `<section id>` | ALL surfaces (manifest, registry, CSS, evidence, HANDOFF) |
+| Slide CSS | Check QA score impact |
+| Numerical data | evidence HTML, notes `[DATA]` tag |
+| Position in deck | `_manifest.js` order |
+| Click-reveals | `_manifest.js` clickReveals, `slide-registry.js` |
+| customAnim | `_manifest.js` customAnim, `slide-registry.js` |
