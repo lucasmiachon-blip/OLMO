@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 215 — 2026-04-16 (Organizacao Batches 2-5 + auditoria)
+
+### Cleanup Batches 2-5
+- REMOVE: .playwright-mcp/ (30 logs), .obsidian/ (4 configs), error.log — Batch 2
+- REMOVE: hooks/stop-should-dream.sh (superseded), .archive/ (6 audits S57-S81) — Batch 3
+- REMOVE: .claude/workers/* (14 files), gemini-adversarial-* (3), skills/.archive/ — Batch 4
+- REMOVE: daily-digest/ (2 digests), docs/.archive/ (3 reports) — Batch 5
+- UPDATE: .gitignore +error.log, AGENTS.md refs atualizadas para historico git
+
+### Auditoria estado da arte
+- REMOVE: .claude/agents/notion-ops.md — agente inoperante (MCP denied). 10→9 agentes.
+- FIX: KBP-19 pointer corrigido (guard-product-files.sh deletado S194 → guard-write-unified.sh)
+- FIX: 3 permissions stale removidas (cp .claude/tmp/*.sh — source files gone)
+- ARCHIVE: hashed-zooming-bonbon.md, curious-honking-platypus.md, S213-state-of-art.md — 6→3 plans ativos
+
+### Dream
+- Auto-dream rodou em background (S214 consolidation, 5 files updated, 1 contradiction resolved)
+
 ## Sessao 214 — 2026-04-16 (self-improvement loop step 2)
 
 ### Self-Improvement

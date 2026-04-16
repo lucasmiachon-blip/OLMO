@@ -1,45 +1,43 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 214 | Self-improvement step 2 + organizacao de diretorios (Batch 1 de 5).
+> Sessao 215 | Organizacao Batches 2-5 + auditoria estado da arte.
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Rules: 5 files, 199 li.** **Hooks: 32+2 scripts (10/21 eventos, 7 async, 4 `if` guards) + 1 agent hook.** **Permissions: 38.**
-**Memory: 20/20 (at cap, clean).** Agentes: 10. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
-**Strict mode: 32/32 `set -euo pipefail`.** Paths portaveis via `$CLAUDE_PROJECT_DIR`. 0 vulns. 0 hardcoded paths.
-**Plans: 6 ativos, 36 archived.** Backlog: 1 arquivo (`.claude/BACKLOG.md`), consolidado S214.
+**Rules: 5 files, 199 li.** **Hooks: 30 scripts (10/21 eventos, 7 async, 4 `if` guards) + 1 agent hook.** **Permissions: 52 (43 allow, 9 deny).**
+**Memory: 20/20 (at cap, clean).** Agentes: 9 (-1 notion-ops). MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
+**Strict mode: 30/30 `set -euo pipefail`.** Paths portaveis via `$CLAUDE_PROJECT_DIR`. 0 vulns. 0 hardcoded paths.
+**Plans: 3 ativos, 39 archived.** Python: 53 tests PASS, ruff clean.
 
-## PLANO MASTER: `.claude/plans/hashed-zooming-bonbon.md`
+## PLANO MASTER: ARCHIVED (`hashed-zooming-bonbon.md`)
 
-### Fases 0-3 ✅ COMPLETAS (S210-S213)
-- Settings, anti-perda, hooks mecanicos, prompt hook Stop, PreToolUse consolidacao
-
-### Fase 4: ❌ CANCELADA — stay native (S213 §6)
-
-### Fase 5: Self-Improvement Loop
-- **Steps 1-2 ✅ DONE:** hook-log.jsonl → /dream consome → reporta KBP candidates
-- **Step 3 PENDENTE:** /insights propoe regras para padroes 5+ ocorrencias
-- **Step 4 FUTURO:** Trust scoring (Auto MoC L1)
+Fases 0-3 completas (S210-S213). Fase 4 cancelada. Fase 5 steps 1-2 done, step 3+ pausado.
+Plano movido para archive S215 — sem pendencias ativas.
 
 ## STOP HOOKS (5 entries, dual-check S214)
 
 Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[2] quality.sh → Stop[3] metrics (async) → Stop[4] notify (async)
 
-## OUTROS PLANOS ATIVOS
+## PLANOS ATIVOS (3)
 
-- `curious-honking-platypus.md` — S214 self-improvement step 2.
 - `mutable-mapping-seal.md` — Design Excellence Loop. Fase 2: /polish skill + rule.
 - `generic-wondering-manatee.md` — CMMI roadmap. Fase 2: verification loops + PNG export.
 - `snoopy-jingling-aurora.md` — I/O Pipeline Hardening. 5 gargalos Gemini QA.
-- `S213-hooks-memory-state-of-art.md` — Pesquisa + plano self-improvement.
 
-## ORGANIZACAO — Batches pendentes (plan: `curious-honking-platypus.md`)
+## S215 — O QUE FOI FEITO
 
-- **Batch 2:** .playwright-mcp/ (30 logs), .obsidian/, error.log — lixo de ferramentas
-- **Batch 3:** hooks/stop-should-dream.sh (superseded), .archive/ (audits S57-S81)
-- **Batch 4:** .claude/workers/ (23 arquivos), gemini-adversarial-*, skills/.archive/
-- **Batch 5:** daily-digest/, docs/.archive/
+### Batches 2-5 (cleanup plan completo)
+- Batch 2: rm .playwright-mcp/ (30), .obsidian/ (4), error.log + gitignore
+- Batch 3: git rm hooks/stop-should-dream.sh, .archive/ (6 audits S57-S81), AGENTS.md atualizado
+- Batch 4: rm .claude/workers/* (14), git rm gemini-adversarial-* (3), rm skills/.archive/
+- Batch 5: rm daily-digest/ (2), docs/.archive/ (3)
+
+### Auditoria estado da arte
+- notion-ops.md removido (MCP denied = agente inoperante)
+- KBP-19 pointer corrigido (guard-product-files.sh → guard-write-unified.sh + guard-bash-write.sh)
+- 3 permissions stale removidas (cp de .claude/tmp/ que nao existe)
+- 3 plans arquivados (hashed-zooming-bonbon, curious-honking-platypus, S213-state-of-art)
 
 ## PENDENTES
 
@@ -47,9 +45,14 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
 - s-tipos-ma: slide PENDENTE (Lucas decide quantos, posicao, h2)
 - drive-package: PDF stale, PNG export pendente
 - Wallace CSS-wide: 29 font-sizes raw, #162032 sem token, 20 !important
-- TREE.md desatualizado (S93 → S214)
+- TREE.md desatualizado (S93 → S215)
 - Testar agent hook Stop: encerrar sessao sem HANDOFF/CHANGELOG → deve bloquear
 - Auto Dream nativo: NAO disponivel (verificado S214)
+
+### Decisoes pendentes (Lucas)
+- `.cursor/` (8 tracked): Lucas ainda usa Cursor neste repo?
+- Python infra (orchestrator.py, agents/, subagents/, skills/): manter, arquivar, ou limpar? Testes passam mas nao e usado no dia-a-dia.
+- docs/ stale: PIPELINE_MBE_NOTION_OBSIDIAN.md, WORKFLOW_MBE.md (mar/29), codex-adversarial-s104.md (S104)
 
 ## DECISOES ATIVAS
 
@@ -73,4 +76,4 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
 - Agent hook Stop: +30-60s no close. Se disruptivo → `async: true` perde blocking.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S214 2026-04-16
+Coautoria: Lucas + Opus 4.6 | S215 2026-04-16

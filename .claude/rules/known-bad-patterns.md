@@ -64,7 +64,7 @@ globs: "**/*"
 → anti-drift.md §Verification
 
 ## KBP-19 Bash Indirection for Protected Files
-→ guard-product-files.sh §INFRA GUARD comment (code is the fix: block→ask, S193)
+→ guard-write-unified.sh + guard-bash-write.sh (merged S194, original guard-product-files.sh removed)
 
 ## KBP-20 Visual Change Without Browser Verification
 → anti-drift.md §EC loop
