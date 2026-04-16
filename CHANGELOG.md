@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 213 — 2026-04-16 (hooks estado da arte + self-improvement loop)
+
+### Hooks
+- ADD: Prompt hook Stop[0] — anti-racionalizacao semantica via Haiku (Trail of Bits pattern, $0 no Max)
+- FIX: Prompt hook response format `{decision:"block"}` → `{ok:false, reason:"..."}` (formato correto prompt/agent hooks)
+- ADD: PostToolUseFailure hook — loga falhas em hook-log.jsonl + injeta corrective systemMessage
+- ADD: SessionEnd hook — dream flag movido de Stop (fire-per-turn) → SessionEnd (fire-once)
+- REMOVE: stop-should-dream.sh de Stop (logica migrada para session-end.sh)
+- ADD: `hooks/lib/hook-log.sh` — utility JSONL logging, sourced por hooks (self-improvement step 1)
+- UPDATE: stop-quality.sh — agora loga warnings em hook-log.jsonl (cross-ref, hygiene)
+- Eventos: 8→10 (adicionados PostToolUseFailure, SessionEnd). Stop: 5→4 entries.
+
+### Pesquisa
+- ADD: `.claude/plans/S213-hooks-memory-state-of-art.md` — pesquisa completa com 40+ fontes
+- Hooks: 4 paradigmas (JSON/Bash/Python/YAML), 4 handler types, 21 eventos, gap analysis
+- Memoria: Auto Dream nativo, Fase 4 cancelada (nenhuma ferramenta justifica), stay native
+- Self-improvement: 6 papers academicos (SICA, Reflexion, MemR3, Survey 2603.07670) + 4 implementacoes praticas (Auto MoC, Learnings Loop, Addy Osmani, mcpmarket)
+
 ## Sessao 212 — 2026-04-16 (cleanup profissional)
 
 ### Plans

@@ -137,10 +137,12 @@ Ordem por impacto/minuto:
 2. **Fix JSON hand-assembly** — post-compact-reread.sh:15 (15 min)
    - `echo "{...\"$MSG\"...}"` → `jq -cn --arg msg "$MSG" '{hookSpecificOutput:{message:$msg}}'`
 
-3. **Prompt hook Stop** — anti-rationalizacao (1h)
+3. **Prompt hook Stop** — anti-rationalizacao ✅ S213
    - Trail of Bits pattern: Haiku avalia se Claude racionalizou pular trabalho
    - Custo: $0 no Max subscription
-   - Substitui ou complementa stop-quality.sh
+   - Complementa stop-quality.sh (mecanico) com avaliacao semantica
+   - Posicao: Stop[0] (antes de quality.sh). Model: default fast (Haiku). Timeout: 30s
+   - Teste real: fim desta sessao. Se $ARGUMENTS nao tiver contexto, pivotar para hibrido
 
 4. **Consolidar PreToolUse** — 9→5 entries (1h)
    - Merge 3 Bash matchers em 1 grupo (executam em paralelo)

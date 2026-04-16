@@ -3,12 +3,14 @@ set -euo pipefail
 # Claude Code hook: Stop
 # Merged: crossref-check + detect-issues + hygiene (Fase 2 step 5)
 # Cross-ref consistency, hygiene, persist pending-fixes, print HANDOFF.
+# Now also logs warnings to hook-log.jsonl (S213 self-improvement loop step 1).
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
 # Drain stdin (hook protocol — prevent parent process stall)
 cat >/dev/null 2>&1
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+. "$PROJECT_ROOT/hooks/lib/hook-log.sh"
 PENDING="$PROJECT_ROOT/.claude/pending-fixes.md"
 HANDOFF="$PROJECT_ROOT/HANDOFF.md"
 
@@ -37,6 +39,7 @@ if [ -n "$SLIDE_CHANGED" ]; then
     echo "$SLIDE_CHANGED" | sed 's/^/  /'
     echo "-> Check: headline, clickReveals, customAnim in _manifest.js"
     ISSUES="${ISSUES}- Slide HTML modified but _manifest.js NOT updated\n"
+    hook_log "Stop" "stop-quality" "cross-ref" "slide-without-manifest" "warn" "Slide HTML modified but _manifest.js NOT updated"
   fi
 fi
 
@@ -48,6 +51,7 @@ if [ -n "$EVIDENCE_CHANGED" ]; then
     echo "$EVIDENCE_CHANGED" | sed 's/^/  /'
     echo "-> Check: citation block in corresponding slide"
     ISSUES="${ISSUES}- Evidence HTML modified but no slide HTML updated\n"
+    hook_log "Stop" "stop-quality" "cross-ref" "evidence-without-slide" "warn" "Evidence HTML modified but no slide HTML updated"
   fi
 fi
 
@@ -57,6 +61,7 @@ if echo "$ALL_CHANGED" | grep -q '_manifest.js'; then
     echo "CROSS-REF WARNING: _manifest.js modified but index.html NOT rebuilt:"
     echo "-> Run: npm run build:{aula} or build-html.ps1"
     ISSUES="${ISSUES}- _manifest.js modified but index.html NOT rebuilt\n"
+    hook_log "Stop" "stop-quality" "cross-ref" "manifest-without-build" "warn" "_manifest.js modified but index.html NOT rebuilt"
   fi
 fi
 
@@ -67,6 +72,7 @@ if [ -n "$AGENT_CHANGED" ]; then
     echo "CROSS-REF WARNING: Agent definition modified but HANDOFF.md NOT updated:"
     echo "$AGENT_CHANGED" | sed 's/^/  /'
     ISSUES="${ISSUES}- Agent definition modified but HANDOFF.md NOT updated\n"
+    hook_log "Stop" "stop-quality" "cross-ref" "agent-without-handoff" "warn" "Agent definition modified but HANDOFF.md NOT updated"
   fi
 fi
 
@@ -82,10 +88,12 @@ if [ -n "$MEANINGFUL" ]; then
     if [ -z "$H_MOD" ] && [ -z "$H_RECENT" ]; then
       echo "  - HANDOFF.md NOT updated"
       ISSUES="${ISSUES}- HANDOFF.md NOT updated\n"
+      hook_log "Stop" "stop-quality" "hygiene" "handoff-not-updated" "warn" "HANDOFF.md NOT updated"
     fi
     if [ -z "$C_MOD" ] && [ -z "$C_RECENT" ]; then
       echo "  - CHANGELOG.md NOT updated"
       ISSUES="${ISSUES}- CHANGELOG.md NOT updated\n"
+      hook_log "Stop" "stop-quality" "hygiene" "changelog-not-updated" "warn" "CHANGELOG.md NOT updated"
     fi
     echo "  Per session-hygiene rule: update both before ending."
   fi
