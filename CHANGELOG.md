@@ -15,6 +15,13 @@
 - FIX: 3 permissions stale removidas (cp .claude/tmp/*.sh — source files gone)
 - ARCHIVE: hashed-zooming-bonbon.md, curious-honking-platypus.md, S213-state-of-art.md — 6→3 plans ativos
 
+### Decisoes de tooling
+- REMOVE: .cursor/ (8 tracked files) — Cursor abandonado, gitignored
+- UPDATE: .gitignore — .obsidian/ removido do ignore (vai voltar como segundo cerebro)
+- DECISION: Obsidian = segundo cerebro (MCP, spaced rep, PARA+MOC). Notion = segundo plano.
+- DECISION: Gemini skills + Antigravity — uso intensificado, setup pendente.
+- NOTE: obsidian-cli npm (v0.5.1) e ObsidianQA, NAO Obsidian note-taking. CLI nativo = URI protocol.
+
 ### Dream
 - Auto-dream rodou em background (S214 consolidation, 5 files updated, 1 contradiction resolved)
 

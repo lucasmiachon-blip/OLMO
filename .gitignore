@@ -108,8 +108,8 @@ htmlcov/
 .claude/.worker-mode
 .archive/
 
-# Obsidian
-.obsidian/
+# Cursor (abandonado S215)
+.cursor/
 
 # Notas soltas
 2026-*.md

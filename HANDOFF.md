@@ -50,9 +50,18 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
 - Auto Dream nativo: NAO disponivel (verificado S214)
 
 ### Decisoes pendentes (Lucas)
-- `.cursor/` (8 tracked): Lucas ainda usa Cursor neste repo?
 - Python infra (orchestrator.py, agents/, subagents/, skills/): manter, arquivar, ou limpar? Testes passam mas nao e usado no dia-a-dia.
 - docs/ stale: PIPELINE_MBE_NOTION_OBSIDIAN.md, WORKFLOW_MBE.md (mar/29), codex-adversarial-s104.md (S104)
+
+### Decisoes tomadas S215
+- **Cursor abandonado:** .cursor/ removido (8 tracked), gitignored. Historico no git.
+- **Obsidian = segundo cerebro:** vai entrar forte. .obsidian/ removido do .gitignore.
+  - MCP: obsidian-mcp-tools (jacksteamdev) — ponte vault→Claude via semantic search
+  - Spaced rep: obsidian-spaced-repetition (st3v3nmw) — flashcards para R3
+  - Template: bramses-highly-opinionated-vault-2023 — Zettelkasten + PARA
+  - Otimizacao: vault precisa ser configurado para performance (lazy loading, plugins minimos)
+- **Notion = segundo plano.** notion-ops agent ja removido S215.
+- **Gemini skills + Antigravity:** Lucas quer usar mais. Setup pendente.
 
 ## DECISOES ATIVAS
 
