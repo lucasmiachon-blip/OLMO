@@ -37,6 +37,12 @@ Before ANY Agent spawn, 3 questions:
 File not found → Glob. Error → read actual message. Claim about code → read the file.
 Claim about state → read source-of-truth file. Claim about history → `git log -S` / `git blame`.
 
+## State files (HANDOFF, CHANGELOG, BACKLOG)
+- NEVER rewrite with Write. Use Edit to add/modify specific sections.
+- Write overwrites silently — forgotten sections vanish without warning.
+- Before touching a state file: Read it, list sections present, verify all sections survive after edit.
+- Adding S(N) content: append new section, do NOT remove S(N-1) history unless anti-drift §Session docs explicitly says to.
+
 ## EC loop (pre-action gate)
 Before EACH Edit/Write, answer visibly:
 ```

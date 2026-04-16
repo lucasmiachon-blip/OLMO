@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 217 — 2026-04-16 (Continuar + KPI)
+
+### KPI System (DORA-inspired)
+- ADD: .claude/apl/metrics.tsv — 10 colunas, 26 sessoes seed (S190-S216)
+- UPDATE: hooks/stop-metrics.sh — persiste leading indicators + HANDOFF snapshot para stuck detection
+- UPDATE: hooks/apl-cache-refresh.sh — trend display + stuck-item detection (>= 3 sessoes)
+- UPDATE: .claude/hooks/post-global-handler.sh — KPI loop a cada 200 calls com baseline comparison
+- RESEARCH: DORA 5 metrics, SPACE framework, CMMI L4, S213 plan archive revisitado
+
+### Guard state files
+- ADD: guard-write-unified.sh Guard 1b — Write bloqueado em HANDOFF/CHANGELOG/BACKLOG (somente Edit)
+- UPDATE: anti-drift.md — regra "State files" (NEVER rewrite with Write)
+- ADD: .claude/plans/async-orbiting-toucan.md — plano fundamentado
+
+### Stop hook fix
+- FIX: settings.local.json Stop[0] prompt — reconhece "proponha→OK→execute" como fluxo correto
+- FIX: stop hook loop infinito quando usuario pedia para discutir antes de implementar
+
+### Decisoes
+- DECISION: Leading indicators > vanity metrics (rework, backlog velocity > commits, tool calls)
+- DECISION: Self-improvement KPI system = passo para CMMI L4
+- RESEARCH: Opus 4.7 disponivel para Claude Code (claude-opus-4-7, v2.1.111+)
+
 ## Sessao 216 — 2026-04-16 (Clean_up + Obsidian + PDF Pipeline)
 
 ### Dream auto-trigger fix

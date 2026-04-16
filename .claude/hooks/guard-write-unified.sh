@@ -5,6 +5,7 @@
 #
 # Priority order:
 #   1. Generated file block (index.html)
+#   1b. State files block Write (HANDOFF, CHANGELOG, BACKLOG) — S217
 #   2. Worker timestamp enforcement + worker-mode guard
 #   3. Infrastructure file block/ask (hooks, settings)
 #   4. Product file ask (slides, CSS, JS, manifests)
@@ -40,6 +41,17 @@ FILE_PATH=$(printf '%s' "$FILE_PATH" | sed -E 's|//|/|g; s|[^/]+/\.\./||g; s|^\.
 if [[ "$FILE_PATH" == *"content/aulas/"*"/index.html" ]]; then
   printf '{"error": "BLOQUEADO: index.html e gerado por npm run build:{aula}. Editar slides/*.html ou index.template.html, depois rodar build."}\n'
   exit 2
+fi
+
+# ═══ Guard 1b: State files structural integrity (S217) ═══
+# Write replaces entire file — block. Edit preserves untouched sections.
+if echo "$FILE_PATH" | grep -qE '(^|/)(HANDOFF|CHANGELOG|BACKLOG)\.md$'; then
+  if [ "$TOOL_NAME" = "Write" ]; then
+    BASENAME=$(basename "$FILE_PATH")
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"BLOQUEADO: Use Edit (nao Write) para %s. Write descarta secoes silenciosamente."}}\n' "$BASENAME"
+    exit 2
+  fi
+  exit 0
 fi
 
 # ═══ Guard 2: Worker mode & timestamp enforcement ═══

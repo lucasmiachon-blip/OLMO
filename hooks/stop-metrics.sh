@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 # Claude Code hook: Stop
-# Merged: scorecard + chaos-report (Fase 2 step 5)
-# Session summary (2 lines) + conditional chaos report.
-# Hygiene check deferred to stop-quality.sh (authoritative).
+# Merged: scorecard + chaos-report (Fase 2 step 5) + metrics persistence (S217)
+# Leading indicators (DORA-inspired): rework_files, backlog velocity, handoff pendentes
+# S217: added HANDOFF snapshot for stuck-item detection across sessions
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
 # Drain stdin (hook protocol — prevent parent process stall)
@@ -24,6 +24,7 @@ fi
 # Duration
 DURATION="(?)"
 START_TS=0
+ELAPSED_MIN=0
 if [ -f "$APL_DIR/session-ts.txt" ]; then
   START_TS=$(cat "$APL_DIR/session-ts.txt" 2>/dev/null || echo 0)
   [[ $START_TS =~ ^[0-9]+$ ]] || START_TS=0
@@ -44,7 +45,7 @@ if [ "$START_TS" -gt 0 ]; then
   COMMITS=$(git -C "$PROJECT_ROOT" log --oneline --since="@$START_TS" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
 fi
 
-# Tool calls today (glob matches session-number prefix: cc-calls-{NUM}_{DATE}_{TIME}.txt)
+# Tool calls today
 CALLS=0
 TODAY=$(date +%Y%m%d)
 for f in /tmp/cc-calls-*_${TODAY}_*.txt; do
@@ -63,9 +64,97 @@ else
   COST="HIGH"
 fi
 
-# Output (2 lines — hygiene handled by stop-quality.sh)
+# Output scorecard
 echo "[SCORECARD] Foco: \"$SESSION_NAME\" | Duracao: $DURATION"
 echo "[SCORECARD] Commits: $COMMITS | Tool calls: $CALLS | Custo: $COST"
+
+# ===== LEADING INDICATORS =====
+
+# Detect session number
+SESSION_NUM=""
+LATEST_COMMIT_MSG=$(git -C "$PROJECT_ROOT" log --oneline -1 --format='%s' 2>/dev/null || echo "")
+if [[ "$LATEST_COMMIT_MSG" =~ ^S([0-9]+): ]]; then
+  SESSION_NUM="S${BASH_REMATCH[1]}"
+fi
+if [ -z "$SESSION_NUM" ] && [[ "$SESSION_NAME" =~ S([0-9]+) ]]; then
+  SESSION_NUM="S${BASH_REMATCH[1]}"
+fi
+
+# --- Rework Rate (DORA 5th metric adapted) ---
+REWORK_FILES=0
+if [ "$START_TS" -gt 0 ]; then
+  THIS_FILES=$(git -C "$PROJECT_ROOT" log --since="@$START_TS" --name-only --format="" 2>/dev/null | sort -u)
+  if [ -n "$THIS_FILES" ]; then
+    PREV_END="$START_TS"
+    PREV_START=$((START_TS - 86400))
+    PREV_FILES=$(git -C "$PROJECT_ROOT" log --since="@$PREV_START" --until="@$PREV_END" --name-only --format="" 2>/dev/null | sort -u)
+    if [ -n "$PREV_FILES" ]; then
+      REWORK_FILES=$(comm -12 <(echo "$THIS_FILES" | grep -v -E '^(HANDOFF\.md|CHANGELOG\.md)$') <(echo "$PREV_FILES" | grep -v -E '^(HANDOFF\.md|CHANGELOG\.md)$') 2>/dev/null | wc -l | tr -d ' ')
+    fi
+  fi
+fi
+
+# --- Backlog Velocity ---
+BACKLOG_OPEN=0
+BACKLOG_RESOLVED=0
+if [ -f "$PROJECT_ROOT/.claude/BACKLOG.md" ]; then
+  BACKLOG_OPEN=$(grep '^| [0-9]' "$PROJECT_ROOT/.claude/BACKLOG.md" 2>/dev/null | grep -cv 'RESOLVED' || echo 0)
+  BACKLOG_RESOLVED=$(grep '^| [0-9]' "$PROJECT_ROOT/.claude/BACKLOG.md" 2>/dev/null | grep -c 'RESOLVED' || echo 0)
+fi
+
+# --- HANDOFF pendentes ---
+HANDOFF_PEND=0
+if [ -f "$PROJECT_ROOT/HANDOFF.md" ]; then
+  HANDOFF_PEND=$(grep -c '^- ' "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null || echo 0)
+fi
+
+# --- CHANGELOG lines this session ---
+CL_LINES=0
+if [ -n "$SESSION_NUM" ] && [ -f "$PROJECT_ROOT/CHANGELOG.md" ]; then
+  NUM_ONLY="${SESSION_NUM#S}"
+  IN_SESSION=0
+  while IFS= read -r line; do
+    if [[ "$line" =~ ^##\ Sessao\ ${NUM_ONLY}\  ]]; then
+      IN_SESSION=1; continue
+    fi
+    if [ "$IN_SESSION" -eq 1 ] && [[ "$line" =~ ^##\  ]]; then
+      break
+    fi
+    if [ "$IN_SESSION" -eq 1 ] && [[ "$line" =~ ^-\  ]]; then
+      CL_LINES=$((CL_LINES + 1))
+    fi
+  done < "$PROJECT_ROOT/CHANGELOG.md"
+fi
+
+# Print leading indicators
+echo "[KPI] Rework: $REWORK_FILES files | Backlog: $BACKLOG_OPEN open, $BACKLOG_RESOLVED resolved | Pendentes: $HANDOFF_PEND"
+
+# ===== PERSIST TO METRICS.TSV =====
+METRICS_FILE="$APL_DIR/metrics.tsv"
+TODAY_DATE=$(date +%Y-%m-%d)
+
+if [ -n "$SESSION_NUM" ] && [ -f "$METRICS_FILE" ]; then
+  if ! grep -q "^${SESSION_NUM}	" "$METRICS_FILE"; then
+    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+      "$SESSION_NUM" "$TODAY_DATE" "$REWORK_FILES" "$BACKLOG_OPEN" "$BACKLOG_RESOLVED" \
+      "$HANDOFF_PEND" "$CL_LINES" "$COMMITS" "$CALLS" "$ELAPSED_MIN" \
+      >> "$METRICS_FILE"
+    echo "[METRICS] Persisted to metrics.tsv"
+  fi
+fi
+
+# ===== HANDOFF SNAPSHOT (for stuck-item detection) =====
+# Save current HANDOFF bullet items so session-start can detect carry-overs
+SNAPSHOT_FILE="$APL_DIR/handoff-prev.txt"
+if [ -f "$PROJECT_ROOT/HANDOFF.md" ]; then
+  grep '^- ' "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null | sed 's/^- //' | sort > "$SNAPSHOT_FILE"
+fi
+
+# Update stuck-counts: increment count for items that persist from previous snapshot
+STUCK_FILE="$APL_DIR/stuck-counts.tsv"
+if [ ! -f "$STUCK_FILE" ]; then
+  printf 'item\tcount\tfirst_seen\n' > "$STUCK_FILE"
+fi
 
 # ===== CHAOS REPORT (conditional) =====
 
@@ -85,7 +174,6 @@ COUNT_MODEL=$(trim "$(grep -c '"vector":"model_unavailable".*"injected":true' "$
 COUNT_RAPID=$(trim "$(grep -c '"vector":"rapid_calls".*"injected":true' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 
 FAILURE_LOG="/tmp/cc-model-failures.log"
-# Read session ID from the same source as post-global-handler.sh
 SESSION_ID=$(cat /tmp/cc-session-id.txt 2>/dev/null || date '+%Y%m%d_%H%M%S')
 CALLS_FILE="/tmp/cc-calls-${SESSION_ID}.txt"
 
