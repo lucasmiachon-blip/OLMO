@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 214 | Self-improvement loop step 2. /dream consome hook-log.jsonl. Agent hook no Stop.
+> Sessao 214 | Self-improvement step 2 + organizacao de diretorios (Batch 1 de 5).
 
 ## ESTADO ATUAL
 
@@ -34,6 +34,13 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
 - `snoopy-jingling-aurora.md` — I/O Pipeline Hardening. 5 gargalos Gemini QA.
 - `S213-hooks-memory-state-of-art.md` — Pesquisa + plano self-improvement.
 
+## ORGANIZACAO — Batches pendentes (plan: `curious-honking-platypus.md`)
+
+- **Batch 2:** .playwright-mcp/ (30 logs), .obsidian/, error.log — lixo de ferramentas
+- **Batch 3:** hooks/stop-should-dream.sh (superseded), .archive/ (audits S57-S81)
+- **Batch 4:** .claude/workers/ (23 arquivos), gemini-adversarial-*, skills/.archive/
+- **Batch 5:** daily-digest/, docs/.archive/
+
 ## PENDENTES
 
 - s-quality: evidence HTML integration + narrativa
@@ -41,8 +48,8 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
 - drive-package: PDF stale, PNG export pendente
 - Wallace CSS-wide: 29 font-sizes raw, #162032 sem token, 20 !important
 - TREE.md desatualizado (S93 → S214)
-- Auto Dream nativo: NAO disponivel (verificado S214). /memory so abre CLAUDE.md. Sistema custom continua.
 - Testar agent hook Stop: encerrar sessao sem HANDOFF/CHANGELOG → deve bloquear
+- Auto Dream nativo: NAO disponivel (verificado S214)
 
 ## DECISOES ATIVAS
 
@@ -52,7 +59,7 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
 - Settings: effort=max, adaptive_thinking=off, subagent=sonnet, 1M=off.
 - Memoria: stay native. Nenhuma ferramenta externa adotada. Auto Dream nativo quando disponivel.
 - Hook errors: NAO sao cosmeticos — tratar como bugs reais (observacao Lucas S213).
-- Self-improvement: dados primeiro. Log estruturado antes de qualquer automacao.
+- Self-improvement: PAUSADO. Sem evidencia de valor real. Retomar quando dados justificarem.
 - Over-engineering > erros invisiveis. Infraestrutura inerte = pronta. Erro sem metrica = divida invisivel. (Lucas S214)
 
 ## CUIDADOS
