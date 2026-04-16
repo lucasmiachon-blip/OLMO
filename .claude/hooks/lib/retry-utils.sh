@@ -4,28 +4,39 @@
 #
 # Usage:
 #   source "$(dirname "$0")/lib/retry-utils.sh"
-#   retry_with_jitter "node my-script.js arg1" 3 1
+#   retry_with_jitter 3 1 -- node my-script.js arg1
 #
 # Parameters:
-#   $1 = command (string, eval'd)
-#   $2 = max_attempts (default: 3)
-#   $3 = base_delay_s (default: 1)
-#   $4 = max_delay_s (default: 30)
+#   $1 = max_attempts (default: 3)
+#   $2 = base_delay_s (default: 1)
+#   -- = separator
+#   remaining args = command + arguments (executed as array, no eval)
 #
 # Returns: exit code of last attempt. stdout/stderr from last attempt in RETRY_OUTPUT.
 
 retry_with_jitter() {
-    local cmd="$1"
-    local max_attempts="${2:-3}"
-    local base_delay="${3:-1}"
-    local max_delay="${4:-30}"
+    local max_attempts="${1:-3}"
+    local base_delay="${2:-1}"
+    local max_delay=30
+    shift 2 2>/dev/null
+
+    # Skip '--' separator if present
+    [[ "${1:-}" == "--" ]] && shift
+
+    # Remaining args are the command
+    local cmd_args=("$@")
+
+    if [ ${#cmd_args[@]} -eq 0 ]; then
+        echo "retry_with_jitter: no command provided" >&2
+        return 1
+    fi
 
     local attempt=0
     local exit_code=1
 
     while [ "$attempt" -lt "$max_attempts" ]; do
-        # Run command, capture output
-        RETRY_OUTPUT=$(eval "$cmd" 2>&1)
+        # Run command as array — no eval, no shell reinterpretation
+        RETRY_OUTPUT=$("${cmd_args[@]}" 2>&1)
         exit_code=$?
 
         if [ "$exit_code" -eq 0 ]; then

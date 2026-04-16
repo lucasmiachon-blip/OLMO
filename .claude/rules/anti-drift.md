@@ -27,6 +27,7 @@ Before ANY Agent spawn, 3 questions:
 1. Read/Grep/Glob resolves directly? → SKIP agent
 2. Lucas gave specific files/PMIDs/paths? → SKIP agent, read what he cited
 3. Agent brings concrete gain (parallelism + massive context + exclusive tool)? No named reason → SKIP
+4. Agent produces research → result written to plan file BEFORE reporting to user. Context is volatile, plan file persists.
 
 ## Verification
 1. Identify verification command (test, build, lint, manual check)

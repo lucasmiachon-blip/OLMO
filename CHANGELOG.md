@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Sessao 211 — 2026-04-16 (Fase1: anti-perda — vulns + checkpoint cognitivo)
+
+### Seguranca
+- FIX: `post-compact-reread.sh:15` — JSON hand-assembly → `jq -cn --arg` (previne injection via session-name)
+- FIX: `retry-utils.sh:28` — `eval "$cmd"` → array execution `"${cmd_args[@]}"` (elimina eval injection vector)
+- UPDATE: `lint-on-edit.sh:37` + `guard-lint-before-build.sh:60` — chamadores atualizados para nova API retry
+
+### Anti-perda
+- IMPROVE: `pre-compact-checkpoint.sh` — +4 secoes cognitivas (HANDOFF header, plano ativo, plan files recentes, pending-fixes)
+- ADD: regra KBP-17 item 4 em `anti-drift.md` — pesquisa de agente → plan file ANTES de reportar
+- ADD: `context-essentials.md` item 7 — mesma regra no survival kit pos-compaction
+
 ## Sessao 210 — 2026-04-15 (Settings+Hooks+Memoria — plano baseado em pesquisa)
 
 ### Settings otimizados (pesquisa comunidade: 6 agentes, fontes verificadas)

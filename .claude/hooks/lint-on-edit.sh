@@ -34,7 +34,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if [ -f "$SCRIPT_DIR/lib/retry-utils.sh" ]; then
     source "$SCRIPT_DIR/lib/retry-utils.sh"
-    retry_with_jitter "node \"$LINT_SCRIPT\" \"$AULA\"" 2 1
+    retry_with_jitter 2 1 -- node "$LINT_SCRIPT" "$AULA"
     LINT_OUTPUT="$RETRY_OUTPUT"
     LINT_EXIT=$?
 else

@@ -57,7 +57,7 @@ for SCRIPT in "${LINT_SCRIPTS[@]}"; do
   fi
 
   if type retry_with_jitter &>/dev/null; then
-    (cd "$AULAS_DIR" && retry_with_jitter "node \"scripts/$SCRIPT\" \"$AULA\"" 3 1)
+    (cd "$AULAS_DIR" && retry_with_jitter 3 1 -- node "scripts/$SCRIPT" "$AULA")
     LINT_OUTPUT="$RETRY_OUTPUT"
     LINT_RC=$?
   else
