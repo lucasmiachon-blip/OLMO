@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## Sessao 218 — 2026-04-16 (KPI + Self-Improvement)
+
+### Stuck-detection fix
+- FIX: hooks/apl-cache-refresh.sh — section-aware HANDOFF parsing (PENDENTES only, ignora DECISOES ATIVAS)
+- FIX: hooks/stop-metrics.sh — mesma correcao + snapshot PENDENTES-only
+- FIX: stuck-counts.tsv schema 2-col → 3-col (item, count, first_seen)
+- RESET: stuck-counts.tsv — 72 items de ruido removidos (decisoes, nao tasks)
+
+### /dream + metrics.tsv
+- ADD: dream/SKILL.md Phase 2.6 — Sub-step 6: Metrics Trend Analysis (condicional, no-op sem metrics.tsv)
+- UPDATE: project_self_improvement.md — resume gate + KPI fixes documentados
+
+### Self-improvement resume gate
+- DECISION: 4 criterios mensuráveis para retomar self-improvement (>= 5 real rows, rework estavel, zero STUCK, /dream Phase 2.6 rodou)
+
+### Stop hook loop guard
+- FIX: settings.local.json Stop[0] prompt — LOOP GUARD previne feedback infinito (bug causou 30+ iteracoes)
+
+### Housekeeping
+- ARCHIVE: async-orbiting-toucan.md → S217-async-orbiting-toucan.md (Guard 1b concluido)
+- ADD: mutable-leaping-wilkinson.md — plano S218
+
 ## Sessao 217 — 2026-04-16 (Continuar + KPI)
 
 ### KPI System (DORA-inspired)

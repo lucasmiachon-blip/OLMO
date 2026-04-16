@@ -4,6 +4,7 @@ set -euo pipefail
 # Merged: scorecard + chaos-report (Fase 2 step 5) + metrics persistence (S217)
 # Leading indicators (DORA-inspired): rework_files, backlog velocity, handoff pendentes
 # S217: added HANDOFF snapshot for stuck-item detection across sessions
+# S218: section-aware HANDOFF parsing (PENDENTES only) + consistent stuck-counts schema
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
 # Drain stdin (hook protocol — prevent parent process stall)
@@ -11,6 +12,16 @@ cat >/dev/null 2>&1
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 APL_DIR="$PROJECT_ROOT/.claude/apl"
+
+# --- Section-aware HANDOFF parsing (S218: only PENDENTES section) ---
+parse_handoff_pendentes() {
+  local file="$1" in_section=0
+  while IFS= read -r line; do
+    [[ "$line" =~ ^##\ PENDENTES ]] && in_section=1 && continue
+    [[ "$line" =~ ^##\  ]] && [ "$in_section" -eq 1 ] && break
+    [ "$in_section" -eq 1 ] && [[ "$line" =~ ^-\  ]] && echo "${line#- }"
+  done < "$file"
+}
 
 # ===== SCORECARD =====
 
@@ -102,10 +113,10 @@ if [ -f "$PROJECT_ROOT/.claude/BACKLOG.md" ]; then
   BACKLOG_RESOLVED=$(grep '^| [0-9]' "$PROJECT_ROOT/.claude/BACKLOG.md" 2>/dev/null | grep -c 'RESOLVED' || echo 0)
 fi
 
-# --- HANDOFF pendentes ---
+# --- HANDOFF pendentes (S218: section-aware, PENDENTES only) ---
 HANDOFF_PEND=0
 if [ -f "$PROJECT_ROOT/HANDOFF.md" ]; then
-  HANDOFF_PEND=$(grep -c '^- ' "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null || echo 0)
+  HANDOFF_PEND=$(parse_handoff_pendentes "$PROJECT_ROOT/HANDOFF.md" | wc -l | tr -d ' ')
 fi
 
 # --- CHANGELOG lines this session ---
@@ -144,13 +155,13 @@ if [ -n "$SESSION_NUM" ] && [ -f "$METRICS_FILE" ]; then
 fi
 
 # ===== HANDOFF SNAPSHOT (for stuck-item detection) =====
-# Save current HANDOFF bullet items so session-start can detect carry-overs
+# S218: save only PENDENTES section bullets (not decisions/context)
 SNAPSHOT_FILE="$APL_DIR/handoff-prev.txt"
 if [ -f "$PROJECT_ROOT/HANDOFF.md" ]; then
-  grep '^- ' "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null | sed 's/^- //' | sort > "$SNAPSHOT_FILE"
+  parse_handoff_pendentes "$PROJECT_ROOT/HANDOFF.md" | sort > "$SNAPSHOT_FILE"
 fi
 
-# Update stuck-counts: increment count for items that persist from previous snapshot
+# Update stuck-counts header if needed (3-col schema)
 STUCK_FILE="$APL_DIR/stuck-counts.tsv"
 if [ ! -f "$STUCK_FILE" ]; then
   printf 'item\tcount\tfirst_seen\n' > "$STUCK_FILE"

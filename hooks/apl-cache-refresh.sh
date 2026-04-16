@@ -3,6 +3,7 @@ set -euo pipefail
 # Claude Code hook: SessionStart (unconditional)
 # APL Foundation — session timer + caches + KPI trends + stuck-item detection
 # S217: metrics trend + stuck-item detection (MemR3-inspired evidence-gap tracker)
+# S218: section-aware HANDOFF parsing (PENDENTES only) + stuck-counts 3-col schema fix
 # Evento: SessionStart | Timeout: 3s | Exit: sempre 0
 
 # Consume stdin (hook protocol)
@@ -44,23 +45,33 @@ done
 DAYS_R3=$(node -e "console.log(Math.floor((new Date('2026-12-01')-new Date())/86400000))" 2>/dev/null)
 [ -n "$DAYS_R3" ] && echo "$DAYS_R3" > "$APL_DIR/deadline-days.txt"
 
+# --- Section-aware HANDOFF parsing (S218: only PENDENTES section) ---
+parse_handoff_pendentes() {
+  local file="$1" in_section=0
+  while IFS= read -r line; do
+    [[ "$line" =~ ^##\ PENDENTES ]] && in_section=1 && continue
+    [[ "$line" =~ ^##\  ]] && [ "$in_section" -eq 1 ] && break
+    [ "$in_section" -eq 1 ] && [[ "$line" =~ ^-\  ]] && echo "${line#- }"
+  done < "$file"
+}
+
 # --- Stuck-item detection (MemR3-inspired) ---
-# Compare current HANDOFF items against previous session's snapshot
+# Compare current HANDOFF PENDENTES against previous session's snapshot
 # Items that persist across sessions get their count incremented
 SNAPSHOT_PREV="$APL_DIR/handoff-prev.txt"
 STUCK_FILE="$APL_DIR/stuck-counts.tsv"
 STUCK_ALERTS=""
 
 if [ -f "$PROJECT_ROOT/HANDOFF.md" ] && [ -f "$SNAPSHOT_PREV" ]; then
-  # Current HANDOFF items (normalized: strip "- ", sort)
-  CURRENT_ITEMS=$(grep '^- ' "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null | sed 's/^- //' | sort)
+  # Current HANDOFF pendentes only (normalized: sort)
+  CURRENT_ITEMS=$(parse_handoff_pendentes "$PROJECT_ROOT/HANDOFF.md" | sort)
 
   # Items present in both current and previous = carried over
   CARRIED=$(comm -12 <(echo "$CURRENT_ITEMS") "$SNAPSHOT_PREV" 2>/dev/null || true)
 
   if [ -n "$CARRIED" ]; then
-    # Initialize stuck file if needed
-    [ ! -f "$STUCK_FILE" ] && printf 'item\tcount\n' > "$STUCK_FILE"
+    # Initialize stuck file if needed (3-col schema: item, count, first_seen)
+    [ ! -f "$STUCK_FILE" ] && printf 'item\tcount\tfirst_seen\n' > "$STUCK_FILE"
 
     while IFS= read -r item; do
       [ -z "$item" ] && continue
@@ -70,18 +81,20 @@ if [ -f "$PROJECT_ROOT/HANDOFF.md" ] && [ -f "$SNAPSHOT_PREV" ]; then
       EXISTING=$(grep -F "$KEY" "$STUCK_FILE" 2>/dev/null | tail -1 || true)
       if [ -n "$EXISTING" ]; then
         OLD_COUNT=$(echo "$EXISTING" | cut -f2)
+        OLD_FIRST=$(echo "$EXISTING" | cut -f3)
         [[ "$OLD_COUNT" =~ ^[0-9]+$ ]] || OLD_COUNT=1
+        [ -z "$OLD_FIRST" ] && OLD_FIRST=$(date +%Y-%m-%d)
         NEW_COUNT=$((OLD_COUNT + 1))
-        # Update in place (remove old, append new)
+        # Update in place (remove old, append new preserving first_seen)
         grep -vF "$KEY" "$STUCK_FILE" > "$STUCK_FILE.tmp" 2>/dev/null || true
         mv "$STUCK_FILE.tmp" "$STUCK_FILE"
-        printf '%s\t%d\n' "$KEY" "$NEW_COUNT" >> "$STUCK_FILE"
+        printf '%s\t%d\t%s\n' "$KEY" "$NEW_COUNT" "$OLD_FIRST" >> "$STUCK_FILE"
         # Alert if stuck >= 3 sessions
         if [ "$NEW_COUNT" -ge 3 ]; then
           STUCK_ALERTS="${STUCK_ALERTS}\"${KEY}...\" (${NEW_COUNT} sessoes). "
         fi
       else
-        printf '%s\t1\n' "$KEY" >> "$STUCK_FILE"
+        printf '%s\t1\t%s\n' "$KEY" "$(date +%Y-%m-%d)" >> "$STUCK_FILE"
       fi
     done <<< "$CARRIED"
   fi

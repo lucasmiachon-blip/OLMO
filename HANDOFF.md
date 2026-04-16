@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 217 | Continuar + KPI
+> Sessao 218 | KPI + Self-Improvement
 
 ## ESTADO ATUAL
 
@@ -8,37 +8,20 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 **Rules: 5 files, 199 li.** **Hooks: 30 scripts (10/21 eventos, 7 async, 4 `if` guards) + 1 agent hook.** **Permissions: 49 (40 allow, 9 deny).**
 **Memory: 20/20 (at cap, clean).** Agentes: 9. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
 **Strict mode: 30/30 `set -euo pipefail`.** Paths portaveis via `$CLAUDE_PROJECT_DIR`. 0 vulns. 0 hardcoded paths.
-**Plans: 4 ativos, 39 archived.** Python: 53 tests PASS, ruff clean.
+**Plans: 4 ativos, 42 archived.** Python: 53 tests PASS, ruff clean.
 **Docling pipeline:** `tools/docling/` com 4 scripts + pyproject. Venv NAO inicializado.
-**KPI system:** metrics.tsv (26 sessoes seed) + KPI loop a cada 200 calls + stuck-item detection. DORA-inspired.
+**KPI system:** metrics.tsv (27 rows, real data starts S217) + KPI loop a cada 200 calls + stuck-detection fix S218 (PENDENTES-only parsing, 3-col schema, reset). DORA-inspired. /dream Phase 2.6 conecta metrics.tsv → memoria.
 
 ## STOP HOOKS (5 entries, dual-check S214)
 
-Stop[0] prompt (semantico — S217: reconhece "proponha→OK→execute" como fluxo correto) → Stop[1] agent (git diff grounded) → Stop[2] quality.sh → Stop[3] metrics (async, S217: persiste metrics.tsv + HANDOFF snapshot) → Stop[4] notify (async)
+Stop[0] prompt (semantico — S218: loop guard adicionado contra feedback infinito) → Stop[1] agent (git diff grounded) → Stop[2] quality.sh → Stop[3] metrics (async, S217: persiste metrics.tsv + HANDOFF snapshot) → Stop[4] notify (async)
 
 ## PLANOS ATIVOS (4)
 
 - `functional-rolling-waffle.md` — S216 Clean_up + Obsidian + PDF Pipeline. Steps 1-5 done, venv pendente.
-- `mutable-mapping-seal.md` — Design Excellence Loop. Fase 2: /polish skill + rule.
+- `mutable-mapping-seal.md` — Design Excellence Loop. Fase 2: /polish skill + rule. Depende de snoopy.
 - `generic-wondering-manatee.md` — CMMI roadmap. Fase 2: verification loops + PNG export.
-- `snoopy-jingling-aurora.md` — I/O Pipeline Hardening. 5 gargalos Gemini QA.
-
-## S217 — O QUE FOI FEITO
-
-### KPI System (DORA-inspired, pesquisa fundamentada)
-- Pesquisa: DORA 5 metrics, SPACE framework, CMMI L4, S213 plan archive consultado
-- **Leading indicators vs vanity metrics**: rework_files, backlog_velocity, handoff_pendentes sao leading; commits, tool_calls sao vanity (contexto only)
-- `.claude/apl/metrics.tsv` — 10 colunas, 26 sessoes seed (S190-S216), append automatico no session-end
-- `hooks/stop-metrics.sh` — persiste metricas + snapshot HANDOFF para stuck detection
-- `hooks/apl-cache-refresh.sh` — trend display + stuck-item detection (>= 3 sessoes = STUCK alert)
-- `.claude/hooks/post-global-handler.sh` — KPI loop a cada 200 calls: compara rework/backlog/pendentes contra baseline das ultimas 5 sessoes, alerta se >20% acima
-
-### Stop hook prompt fix
-- Stop[0] prompt atualizado: reconhece "proponha, espere OK, execute" como fluxo correto do OLMO
-- Bug anterior: stop hook cobrava "nao implementou" quando usuario pedia para discutir antes, criando loop infinito
-
-### Opus 4.7
-- Disponivel para Claude Code desde 2026-04-16. Model ID: `claude-opus-4-7`. Requer v2.1.111+.
+- `snoopy-jingling-aurora.md` — I/O Pipeline Hardening. 5 gargalos Gemini QA. Pre-req de mutable-mapping.
 
 ## PENDENTES
 
@@ -50,9 +33,9 @@ Stop[0] prompt (semantico — S217: reconhece "proponha→OK→execute" como flu
 - Decisao Lucas: venv separado (`tools/docling/.venv`) vs unificado com raiz OLMO
 
 ### KPI system — next steps
-- Validar stuck-item detection apos 2-3 sessoes com dados reais
-- /dream consumir metrics.tsv (Step 2 do S213 plan)
 - Considerar Opus 4.7 como modelo principal (`claude update`)
+- Monitorar stuck-detection com dados reais (reset S218, validar S219+)
+- Rodar /dream para testar Phase 2.6 (metrics.tsv → memoria)
 
 ### Slides e QA (carryover)
 - s-quality: evidence HTML integration + narrativa
@@ -75,12 +58,13 @@ Stop[0] prompt (semantico — S217: reconhece "proponha→OK→execute" como flu
 - Settings: effort=max, adaptive_thinking=off, subagent=sonnet, 1M=off.
 - Memoria: stay native. Auto Dream agora manual (fix S216).
 - Hook errors: NAO sao cosmeticos — tratar como bugs reais.
-- Self-improvement: PAUSADO. Retomar quando dados justificarem. **KPI system deployado S217 — Lucas decide se retoma.**
+- Self-improvement: PAUSADO. **Resume gate (S218):** retomar quando ALL true: (1) >= 5 real rows em metrics.tsv (atual: 1/5), (2) rework_files nao subindo nas ultimas 3 sessoes reais, (3) zero STUCK alerts (stuck-counts >= 3), (4) /dream rodou com Phase 2.6 (metrics trend) pelo menos 1x.
 - Over-engineering > erros invisiveis. Erro sem metrica = divida invisivel.
 - Docling = ferramenta primaria PDF. Marker = alternativa leve. (S216)
 - Hook deploy via python shutil.copy (guard blocks Edit+cp). (S216)
 - **Stop hook reconhece "proponha→OK→execute" como fluxo correto, nao como skip.** (S217)
 - **Leading indicators > vanity metrics.** Rework, backlog velocity, stuck items > commits, tool calls. (S217)
+- **Stop[0] loop guard:** feedback duplicado = ok:true. Previne loop infinito. (S218)
 
 ## CUIDADOS
 
@@ -95,5 +79,7 @@ Stop[0] prompt (semantico — S217: reconhece "proponha→OK→execute" como flu
 - **KPI loop: intervalo default 200 calls (CC_KPI_INTERVAL env var).** (S217)
 - **metrics.tsv colunas: session, date, rework_files, backlog_open, backlog_resolved, handoff_pendentes, changelog_lines, commits, tool_calls, duration_min.** (S217)
 
+- **Stop[0] prompt hook: loop guard obrigatorio.** Sem dedup = loop infinito (30+ iteracoes S218). (S218)
+
 ---
-Coautoria: Lucas + Opus 4.6 | S217 2026-04-16
+Coautoria: Lucas + Opus 4.6 | S218 2026-04-16
