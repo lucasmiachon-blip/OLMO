@@ -59,7 +59,8 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
   - MCP: obsidian-mcp-tools (jacksteamdev) — ponte vault→Claude via semantic search
   - Spaced rep: obsidian-spaced-repetition (st3v3nmw) — flashcards para R3
   - Template: bramses-highly-opinionated-vault-2023 — Zettelkasten + PARA
-  - Otimizacao: vault precisa ser configurado para performance (lazy loading, plugins minimos)
+  - Vault configurado: `C:\Users\lucas\OneDrive\LM\Documentos\Obsidian Vault\`
+  - Junction `OLMO-wiki/` → `wiki/` do repo (graph view funcional, nos visiveis)
 - **Notion = segundo plano.** notion-ops agent ja removido S215.
 - **Gemini skills + Antigravity:** Lucas quer usar mais. Setup pendente.
 

@@ -21,6 +21,12 @@
 - DECISION: Obsidian = segundo cerebro (MCP, spaced rep, PARA+MOC). Notion = segundo plano.
 - DECISION: Gemini skills + Antigravity — uso intensificado, setup pendente.
 - NOTE: obsidian-cli npm (v0.5.1) e ObsidianQA, NAO Obsidian note-taking. CLI nativo = URI protocol.
+- SETUP: Obsidian vault configurado em OneDrive/LM/Documentos/Obsidian Vault/
+  - Estrutura PARA+MOC: 00-MOCs, 10-Projects, 20-Areas, 30-Resources, 40-Archive, _templates, _inbox, _flashcards
+  - Junction OLMO-wiki → C:\Dev\Projetos\OLMO\wiki\ (25 MDs com wikilinks visiveis no graph)
+  - Templates: literature-note, permanent-note, daily-note
+  - app.json otimizado (inbox default, attachments, ignore filters)
+  - .gitignore pronto para obsidian-git
 
 ### Dream
 - Auto-dream rodou em background (S214 consolidation, 5 files updated, 1 contradiction resolved)
