@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: SessionStart (compact matcher)
 # Re-injects critical rules and HANDOFF after context compaction.
 # Without this, compaction drops behavioral rules and agent drifts.

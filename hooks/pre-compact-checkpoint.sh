@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: PreCompact
 # Saves a lightweight checkpoint so session-compact.sh can restore context.
 # Captures both code state (git) and cognitive state (plans, research, pending fixes).

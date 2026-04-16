@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # post-global-handler.sh — PostToolUse(.*): cost tracking + momentum brake
 # Merged: cost-circuit-breaker.sh + momentum-brake-arm.sh (S194 Fase 2)
 # Fires on EVERY tool call. Pure bash, no JSON parsing needed.

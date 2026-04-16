@@ -5,7 +5,7 @@
 # Motivation: S60 — lint gates exist but agent ignores them (no enforcement).
 # Fixed S61 O6: run all 3 linters, not just lint-slides.js.
 
-set -u
+set -euo pipefail
 
 # L1 retry (S89): retry with jitter on transient node failures
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -57,12 +57,10 @@ for SCRIPT in "${LINT_SCRIPTS[@]}"; do
   fi
 
   if type retry_with_jitter &>/dev/null; then
-    (cd "$AULAS_DIR" && retry_with_jitter 3 1 -- node "scripts/$SCRIPT" "$AULA")
-    LINT_OUTPUT="$RETRY_OUTPUT"
-    LINT_RC=$?
+    (cd "$AULAS_DIR" && retry_with_jitter 3 1 -- node "scripts/$SCRIPT" "$AULA") && LINT_RC=0 || LINT_RC=$?
+    LINT_OUTPUT="${RETRY_OUTPUT:-}"
   else
-    LINT_OUTPUT=$(cd "$AULAS_DIR" && node "scripts/$SCRIPT" "$AULA" 2>&1)
-    LINT_RC=$?
+    LINT_OUTPUT=$(cd "$AULAS_DIR" && node "scripts/$SCRIPT" "$AULA" 2>&1) && LINT_RC=0 || LINT_RC=$?
   fi
   if [ $LINT_RC -ne 0 ]; then
     LINT_FAILED=1

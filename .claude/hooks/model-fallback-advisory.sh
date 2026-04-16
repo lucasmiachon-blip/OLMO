@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # PostToolUse: model-fallback-advisory (Antifragile L2)
 # Detects model-related errors in tool output and suggests downgrade.
 # S89 upgrade: state tracking + per-model circuit breaker.

@@ -9,7 +9,7 @@
 #   3. Infrastructure file block/ask (hooks, settings)
 #   4. Product file ask (slides, CSS, JS, manifests)
 
-set -u
+set -euo pipefail
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
@@ -65,7 +65,7 @@ if echo "$FILE_PATH" | grep -q '\.claude/workers/'; then
       fi
 
       # Extract timestamp string
-      TS=$(echo "$FIRST_LINE" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}')
+      TS=$(echo "$FIRST_LINE" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}' || true)
       if [ -n "$TS" ]; then
         # Validate date component ranges
         Y=$(echo "$TS" | cut -c1-4)

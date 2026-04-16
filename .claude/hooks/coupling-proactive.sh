@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # PostToolUse(Edit): coupling-proactive — Detects stale coupled files
 # When editing slide HTML, checks if evidence is older.
 # When editing evidence HTML, checks if slide exists.

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # guard-research-queries.sh — PreToolUse(Skill)
 # Forces user confirmation before /research skill runs.
 # Ensures queries are co-designed with Lucas, not autonomously launched.

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # stop-should-dream.sh — Stop hook: create .dream-pending if >=24h since last dream
 # Contract: ~/.claude/.last-dream (epoch seconds), ~/.claude/.dream-pending (flag)
 # Next session start: CLAUDE.md auto-dream reads .dream-pending → runs /dream → updates .last-dream

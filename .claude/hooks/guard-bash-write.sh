@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # guard-bash-write.sh — PreToolUse(Bash): ask confirmation on shell write patterns
 # Catches file writes via Bash that bypass Edit/Write guards (guard-pause, guard-product-files).
 # Uses "ask" (not block) — legitimate writes proceed with user approval.

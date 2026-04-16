@@ -1,12 +1,13 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 211 | Fase1 — anti-perda completa, Fase 2 em andamento.
+> Sessao 211 | Fases 1+2 completas. Fase 3 pendente.
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Rules: 5 files, 199 li.** **Hooks: 30 shell scripts (8/27 eventos, so `command` type).** **Permissions: 38.**
+**Rules: 5 files, 199 li.** **Hooks: 29+2 shell scripts (8/27 eventos, `command` type, 6 async, 4 `if` guards).** **Permissions: 38.**
 **Memory: 21/20 (over cap).** Agentes: 10. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
+**Strict mode: 29/29 scripts com `set -euo pipefail`** (2 libs sourced herdam do chamador). Paths portaveis via `$CLAUDE_PROJECT_DIR`.
 
 ## PLANO ATIVO: `.claude/plans/hashed-zooming-bonbon.md`
 
@@ -19,11 +20,11 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 - `retry-utils.sh:28`: `eval "$cmd"` → array execution `"${cmd_args[@]}"` (vuln fix) + 2 chamadores atualizados
 - Regra KBP-17 item 4 + context-essentials item 7: pesquisa de agente → plan file ANTES de reportar
 
-### Fase 2: Hooks mecanicos — zero risco, ROI maximo (PENDENTE — ~70 min)
-1. `async: true` em hooks nao-bloqueantes (5 min) — stop-metrics, stop-notify, chaos-inject-post, model-fallback-advisory
-2. `$CLAUDE_PROJECT_DIR` em settings.local.json (15 min) — 29 paths hardcoded → portavel
-3. `set -euo pipefail` nos 28 scripts sem protecao (30 min)
-4. `if` conditions em PreToolUse (20 min) — guard-bash-write, guard-research-queries
+### Fase 2 ✅ COMPLETA (S211)
+- `$CLAUDE_PROJECT_DIR`: 30 command strings migradas em `settings.local.json` (2 permissions mantidas hardcoded)
+- `async: true`: 6 hooks fire-and-forget (stop-metrics, stop-notify, stop-should-dream, chaos-inject-post, model-fallback-advisory, notify)
+- `if` conditions: guard-bash-write (destructive ops) + guard-research-queries (research/evidence skills)
+- `set -euo pipefail`: 29/29 scripts standalone (26 added, 3 upgraded de `set -u`); 2 libs sourced sem pipefail (herdam do chamador) + 15 hazard fixes preventivos
 
 ### Fase 3: Hooks seguranca + consolidacao (PENDENTE — ~2h)
 1. Prompt hook Stop — Trail of Bits anti-rationalizacao pattern (Haiku, $0 no Max)
@@ -42,7 +43,7 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 ## P1
 
 - Wallace CSS-wide: 29 font-sizes raw, #162032 sem token, 20 !important
-- TREE.md desatualizado (S93 → S211)
+- TREE.md desatualizado (S93 → S212)
 - Sentinel agent improvement (backlog #31)
 
 ## DECISOES ATIVAS

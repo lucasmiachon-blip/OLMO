@@ -1,13 +1,18 @@
 # CHANGELOG
 
-## Sessao 211 — 2026-04-16 (Fase1: anti-perda — vulns + checkpoint cognitivo)
+## Sessao 211 — 2026-04-16 (anti-perda + hooks mecanicos)
 
-### Seguranca
+### Fase 2: Hooks mecanicos (29 scripts + 2 libs, settings.local.json)
+- IMPROVE: `settings.local.json` — 30 command strings: `/c/Dev/Projetos/OLMO` → `$CLAUDE_PROJECT_DIR` (portabilidade)
+- ADD: `async: true` em 6 hooks fire-and-forget (stop-metrics, stop-notify, stop-should-dream, chaos-inject-post, model-fallback-advisory, notify)
+- ADD: `if` conditions em guard-bash-write (destructive ops) + guard-research-queries (research/evidence)
+- ADD: `set -euo pipefail` em 29/29 scripts standalone (26 novos, 3 upgrades); 2 libs sourced sem pipefail (herdam do chamador)
+- FIX: 15 hazard fixes — `$?` capture → `&& rc=0 || rc=$?` (retry-utils, lint-on-edit, guard-lint-before-build), `${CHAOS_MODE:-}` defaults, `|| true` em grep/ls pipelines
+
+### Fase 1: Anti-perda (vulns + checkpoint cognitivo)
 - FIX: `post-compact-reread.sh:15` — JSON hand-assembly → `jq -cn --arg` (previne injection via session-name)
 - FIX: `retry-utils.sh:28` — `eval "$cmd"` → array execution `"${cmd_args[@]}"` (elimina eval injection vector)
 - UPDATE: `lint-on-edit.sh:37` + `guard-lint-before-build.sh:60` — chamadores atualizados para nova API retry
-
-### Anti-perda
 - IMPROVE: `pre-compact-checkpoint.sh` — +4 secoes cognitivas (HANDOFF header, plano ativo, plan files recentes, pending-fixes)
 - ADD: regra KBP-17 item 4 em `anti-drift.md` — pesquisa de agente → plan file ANTES de reportar
 - ADD: `context-essentials.md` item 7 — mesma regra no survival kit pos-compaction

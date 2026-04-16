@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: UserPromptSubmit (unconditional)
 # APL Ambient Pulse — injects 1 rotating line of productivity context per prompt.
 # 5 slots rotate every 12 minutes. Silent when no data available.

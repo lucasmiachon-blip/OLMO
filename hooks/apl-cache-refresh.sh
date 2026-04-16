@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: SessionStart (unconditional)
 # APL Foundation — initializes session timer + caches BACKLOG top items.
 # Evento: SessionStart | Timeout: 3s | Exit: sempre 0
@@ -17,15 +18,15 @@ date +%s > "$APL_DIR/session-ts.txt"
 # Cache top 3 unchecked BACKLOG items
 BACKLOG="$PROJECT_ROOT/BACKLOG.md"
 if [ -f "$BACKLOG" ]; then
-  grep -m 3 '^\- \[ \]' "$BACKLOG" | sed 's/^- \[ \] //' > "$APL_DIR/backlog-top.txt"
+  { grep -m 3 '^\- \[ \]' "$BACKLOG" | sed 's/^- \[ \] //' || true; } > "$APL_DIR/backlog-top.txt"
 fi
 
 # --- QA coverage (slides metanalise) ---
 SLIDES_DIR="$PROJECT_ROOT/content/aulas/metanalise/slides"
 QA_DIR="$PROJECT_ROOT/content/aulas/metanalise/qa-screenshots"
 
-TOTAL_SLIDES=$(ls "$SLIDES_DIR"/*.html 2>/dev/null | wc -l | tr -d ' ')
-QA_EDITORIAL=$(find "$QA_DIR" -name "editorial-suggestions.md" 2>/dev/null | wc -l | tr -d ' ')
+TOTAL_SLIDES=$(ls "$SLIDES_DIR"/*.html 2>/dev/null | wc -l | tr -d ' ' || echo 0)
+QA_EDITORIAL=$(find "$QA_DIR" -name "editorial-suggestions.md" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
 echo "${QA_EDITORIAL}/${TOTAL_SLIDES}" > "$APL_DIR/qa-coverage.txt"
 
 # Find next slide needing editorial (has QA dir but no editorial-suggestions.md)

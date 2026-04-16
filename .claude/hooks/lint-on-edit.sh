@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # PostToolUse(Write|Edit): lint-on-edit
 # Se o arquivo editado for slides/*.html, roda lint-slides.js e injeta erros
 # como additionalContext para o agente auto-corrigir (Antifragile L5).
@@ -17,7 +18,7 @@ if ! echo "$FILE_PATH" | grep -qE 'content/aulas/[a-z]+/slides/[^/]+\.html$'; th
 fi
 
 # Extrai nome da aula do path
-AULA=$(echo "$FILE_PATH" | grep -oE 'content/aulas/[a-z]+/slides' | sed 's|content/aulas/||;s|/slides||')
+AULA=$(echo "$FILE_PATH" | grep -oE 'content/aulas/[a-z]+/slides' | sed 's|content/aulas/||;s|/slides||' || true)
 if [ -z "$AULA" ]; then
     exit 0
 fi
@@ -34,12 +35,10 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 if [ -f "$SCRIPT_DIR/lib/retry-utils.sh" ]; then
     source "$SCRIPT_DIR/lib/retry-utils.sh"
-    retry_with_jitter 2 1 -- node "$LINT_SCRIPT" "$AULA"
-    LINT_OUTPUT="$RETRY_OUTPUT"
-    LINT_EXIT=$?
+    retry_with_jitter 2 1 -- node "$LINT_SCRIPT" "$AULA" && LINT_EXIT=0 || LINT_EXIT=$?
+    LINT_OUTPUT="${RETRY_OUTPUT:-}"
 else
-    LINT_OUTPUT=$(node "$LINT_SCRIPT" "$AULA" 2>&1)
-    LINT_EXIT=$?
+    LINT_OUTPUT=$(node "$LINT_SCRIPT" "$AULA" 2>&1) && LINT_EXIT=0 || LINT_EXIT=$?
 fi
 
 # Sucesso: silencio total

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # momentum-brake-clear.sh — UserPromptSubmit: reset brake when user speaks
 # When Lucas sends a message, the brake clears — agent can act freely until next arm.
 # Part of the structural momentum-brake system (anti KBP-01).

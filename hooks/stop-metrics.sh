@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: Stop
 # Merged: scorecard + chaos-report (Fase 2 step 5)
 # Session summary (2 lines) + conditional chaos report.
@@ -40,7 +41,7 @@ fi
 # Commits since session start
 COMMITS=0
 if [ "$START_TS" -gt 0 ]; then
-  COMMITS=$(git -C "$PROJECT_ROOT" log --oneline --since="@$START_TS" 2>/dev/null | wc -l | tr -d ' ')
+  COMMITS=$(git -C "$PROJECT_ROOT" log --oneline --since="@$START_TS" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
 fi
 
 # Tool calls today (glob matches session-number prefix: cc-calls-{NUM}_{DATE}_{TIME}.txt)

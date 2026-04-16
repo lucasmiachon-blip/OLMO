@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # PostToolUse(Bash): Unified handler — build monitor + success capture + hook calibration
 # Replaces: build-monitor.sh, success-capture.sh, hook-calibration.sh
 # S195 Fase 2 step 4. 0 node spawns, 1 jq parse.
@@ -34,7 +35,7 @@ if [[ "$CMD" == *"npm run build"* ]] || [[ "$CMD" == *"build:"* ]] || [[ "$CMD" 
   if [ "$INTERRUPTED" != "1" ] && [ -n "$STDERR" ]; then
     AULA=""
     if echo "$CMD" | grep -qo 'build:[a-z]*'; then
-      AULA=$(echo "$CMD" | grep -o 'build:[a-z]*' | sed 's/build://')
+      AULA=$(echo "$CMD" | grep -o 'build:[a-z]*' | sed 's/build://' || true)
     fi
     if [ -z "$AULA" ]; then
       BRANCH=$(git branch --show-current 2>/dev/null)

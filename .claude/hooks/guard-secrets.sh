@@ -81,7 +81,7 @@ while IFS= read -r file; do
   for pattern in "${PATTERNS[@]}"; do
     if echo "$CONTENT" | grep -qE "$pattern" 2>/dev/null; then
       # Excluir referências a ${VAR} (template vars, não secrets)
-      MATCH=$(echo "$CONTENT" | grep -nE "$pattern" 2>/dev/null | grep -v '\$\{' | head -3)
+      MATCH=$(echo "$CONTENT" | grep -nE "$pattern" 2>/dev/null | grep -v '\$\{' | head -3 || true)
       if [ -n "$MATCH" ]; then
         WARNINGS="$WARNINGS\n⚠ $file:\n$MATCH\n"
         FOUND=1

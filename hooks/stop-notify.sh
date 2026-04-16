@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: Stop
 # Beep + toast quando Claude termina de responder.
 # Evento: Stop | Timeout: 10s | Exit: sempre 0 (nunca bloqueia)

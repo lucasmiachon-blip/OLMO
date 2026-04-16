@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: PostCompact
 # Re-injects HANDOFF + session context after mid-session compaction.
 # Structural fix for KBP-02 (context overflow → lost decisions).

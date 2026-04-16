@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # PostToolUse: chaos-inject-post (Antifragile L6)
 # Fires on Agent|Bash tool responses. When CHAOS_MODE=1, randomly injects
 # fake failures into /tmp state files that L2/L3 defense hooks read.
@@ -13,7 +14,7 @@
 cat > /dev/null 2>&1
 
 # Gate: quick exit if chaos disabled (most common path)
-[ "$CHAOS_MODE" != "1" ] && exit 0
+[ "${CHAOS_MODE:-}" != "1" ] && exit 0
 
 # Source the chaos library
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

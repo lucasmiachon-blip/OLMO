@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # allow-plan-exit.sh — PreToolUse(ExitPlanMode): explicitly allow plan mode exit
 # Fix for Claude Code bug: ExitPlanMode auto-denied despite being in allow list.
 # The platform has a hardcoded permission gate that bypasses allow list for plan tools.

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # UserPromptSubmit: nudge-commit — Proactive commit reminder
 # Alerts when >35min since last commit AND uncommitted changes exist.
 # Output goes to conversation context as [NUDGE].

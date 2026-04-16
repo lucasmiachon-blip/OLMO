@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # PostToolUse(Agent): nudge-checkpoint — Context overflow prevention
 # Counts subagent invocations per session. After 3+, suggests checkpoint.
 # Resets on session start (via /tmp file).

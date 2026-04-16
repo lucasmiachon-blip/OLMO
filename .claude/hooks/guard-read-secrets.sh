@@ -3,7 +3,7 @@
 # Motivation: Codex S60 adversarial A10 — agent can Read .env then exfiltrate via print/WebFetch.
 # Exit 2 = BLOCK.
 
-set -u
+set -euo pipefail
 
 INPUT=$(cat 2>/dev/null || true)
 

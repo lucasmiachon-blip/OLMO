@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: Notification
 # Toast notification no Windows 11 quando Claude precisa de input.
 # Evento: Notification | Timeout: 10s | Exit: sempre 0 (nunca bloqueia)

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # Claude Code hook: Stop
 # Merged: crossref-check + detect-issues + hygiene (Fase 2 step 5)
 # Cross-ref consistency, hygiene, persist pending-fixes, print HANDOFF.
@@ -14,7 +15,7 @@ HANDOFF="$PROJECT_ROOT/HANDOFF.md"
 # Shared git diff (was 6 calls across 3 scripts -> now 2)
 CHANGED=$(git -C "$PROJECT_ROOT" diff --name-only HEAD 2>/dev/null || true)
 STAGED=$(git -C "$PROJECT_ROOT" diff --cached --name-only 2>/dev/null || true)
-ALL_CHANGED=$(printf "%s\n%s" "$CHANGED" "$STAGED" | sort -u | grep -v '^$')
+ALL_CHANGED=$(printf "%s\n%s" "$CHANGED" "$STAGED" | sort -u | grep -v '^$' || true)
 
 # No changes? Print HANDOFF and exit.
 if [ -z "$ALL_CHANGED" ]; then

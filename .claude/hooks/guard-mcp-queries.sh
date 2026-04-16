@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # guard-mcp-queries.sh — PreToolUse(mcp__*)
 # Forces user confirmation before any MCP tool call.
 # Prevents autonomous queries to PubMed, SCite, Consensus, etc.

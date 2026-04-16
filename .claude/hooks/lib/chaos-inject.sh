@@ -20,7 +20,7 @@ CHAOS_PROB="${CHAOS_PROBABILITY:-5}"
 
 # --- Gate: is chaos enabled? ---
 chaos_enabled() {
-    [ "$CHAOS_MODE" = "1" ]
+    [ "${CHAOS_MODE:-}" = "1" ]
 }
 
 # --- Probability roll: returns 0 if chaos should fire ---

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# retry-utils.sh — Antifragile L1: retry with exponential backoff + jitter
+# retry-utils.sh -- Antifragile L1: retry with exponential backoff + jitter
 # Source this file in hooks that need transient retry.
 #
 # Usage:
@@ -35,9 +35,9 @@ retry_with_jitter() {
     local exit_code=1
 
     while [ "$attempt" -lt "$max_attempts" ]; do
-        # Run command as array — no eval, no shell reinterpretation
-        RETRY_OUTPUT=$("${cmd_args[@]}" 2>&1)
-        exit_code=$?
+        # Run command as array -- no eval, no shell reinterpretation
+        # && ok || fail -- safe under set -e (|| neutralizes errexit)
+        RETRY_OUTPUT=$("${cmd_args[@]}" 2>&1) && exit_code=0 || exit_code=$?
 
         if [ "$exit_code" -eq 0 ]; then
             return 0

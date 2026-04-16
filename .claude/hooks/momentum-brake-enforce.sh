@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 # momentum-brake-enforce.sh — PreToolUse: gate consecutive actions
 # If brake is armed AND tool is not exempt, forces permissionDecision: "ask".
 # Part of the structural momentum-brake system (anti KBP-01).
