@@ -1,0 +1,10 @@
+[project]
+name = "olmo-docling"
+version = "0.1.0"
+description = "PDF digestion pipeline for Obsidian knowledge base"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "docling>=2.86.0",
+    "pymupdf>=1.27.2.2",
+]

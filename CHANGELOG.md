@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## Sessao 216 — 2026-04-16 (Clean_up + Obsidian + PDF Pipeline)
+
+### Dream auto-trigger fix
+- FIX: ~/.claude/CLAUDE.md secao "Auto Dream" — instrucao mandatoria → informativa
+- FIX: hooks/session-start.sh — bloco imperativo → 1 linha discreta
+- FIX: ~/.claude/.dream-pending flag removido
+
+### Docling pipeline (tools/docling/)
+- ADD: tools/docling/ — pyproject.toml, .gitignore, .python-version
+- ADD: pdf_to_obsidian.py — PDF → Obsidian literature-note (frontmatter + markdown + figuras)
+- ADD: cross_evidence.py — sintese cruzada anti-alucinacao (triangulacao N fontes)
+- MIGRATE: extract_figures.py, precision_crop.py — de docling-tools/, paths portaveis
+
+### Cleanup
+- REMOVE: docs/PIPELINE_MBE_NOTION_OBSIDIAN.md, WORKFLOW_MBE.md, codex-adversarial-s104.md (3 stale)
+- UPDATE: docs/TREE.md regenerado (S93 → S216)
+
+### Pesquisa
+- RESEARCH: 7 PDF tools avaliados (Docling, Marker, MinerU, PyMuPDF4LLM, Nougat, GROBID, Unstructured)
+- DECISION: Docling primario, Marker alternativa. Nougat/Unstructured descartados.
+
 ## Sessao 215 — 2026-04-16 (Organizacao Batches 2-5 + auditoria + Obsidian)
 
 ### Cleanup Batches 2-5

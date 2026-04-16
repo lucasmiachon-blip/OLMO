@@ -43,14 +43,11 @@ if [ -f "$PENDING" ] && [ -s "$PENDING" ]; then
   > "$PENDING"
 fi
 
-# Surface dream-pending flag for auto-dream contract
+# Surface dream-pending flag (informational only — user decides when to run)
 DREAM_PENDING="$HOME/.claude/.dream-pending"
 if [ -f "$DREAM_PENDING" ]; then
   echo ""
-  echo "=== AUTO-DREAM PENDING ==="
-  echo "Memory consolidation overdue (>24h). Run /dream as background subagent, then:"
-  echo "  rm ~/.claude/.dream-pending"
-  echo "  date -u +%Y-%m-%dT%H:%M:%SZ > ~/.claude/.last-dream"
+  echo "(Dream disponivel — rode /dream quando quiser)"
 fi
 
 exit 0
