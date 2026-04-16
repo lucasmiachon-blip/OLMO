@@ -1,100 +1,100 @@
-# S211 Fase 1: Anti-perda — plano de execucao
+# S211 Fase 2: Hooks mecanicos — plano de execucao
 
 ## Contexto
 
-Sessao 209 perdeu pesquisa de 6 agentes quando compaction apagou o contexto. O diagnostico (S210): o problema nao e memoria, e processo — output de agente ficou em temp/contexto, sem persistencia automatica pre-compaction. Fase 0 (settings) completa. Fase 1 corrige o processo.
+Fase 1 (anti-perda) completa (commit `d5e60b6`). Fase 2 moderniza hooks com melhorias mecanicas. Plano base: `hashed-zooming-bonbon.md` Fase 2. Pesquisa: 6 agentes S210.
 
-## Acoes (4 items, ~45 min total)
+## Acoes (4 items, ~70 min total)
 
-### 1. Melhorar `hooks/pre-compact-checkpoint.sh` (~15 min)
+### 1. `async: true` em hooks nao-bloqueantes (~5 min)
 
-**Arquivo:** `hooks/pre-compact-checkpoint.sh`
-**Problema:** salva apenas git status + arquivos recentes. Nao captura estado cognitivo (planos ativos, pesquisa pendente).
-**Fix:** adicionar ao checkpoint:
-- Plano ativo (cat `.claude/.plan-path` se existir, ou glob mais recente em `.claude/plans/*.md` excluindo archive)
-- Ultimos 5 arquivos modificados em `.claude/plans/` (pesquisa de agente vai para plan files)
-- Conteudo de `.claude/pending-fixes.md` se existir
-- Header do HANDOFF.md (primeiras 5 linhas — estado atual)
+**Arquivo:** `.claude/settings.local.json`
+**Candidatos (6 hooks, todos confirmados non-blocking pelo explore):**
 
-**Nota:** o comentario do script diz "Stop" mas esta registrado em `PreCompact`. Corrigir comentario.
+| Hook | Linha | Evento | Porque async-safe |
+|------|-------|--------|-------------------|
+| `stop-metrics.sh` | 342 | Stop | Pure logging, /tmp reads, exit 0 |
+| `stop-notify.sh` | 351 | Stop | PowerShell toast com Sleep 2.5s — timeout 10s desperdicado |
+| `stop-should-dream.sh` | 360 | Stop | Epoch write em ~/.claude, zero output |
+| `chaos-inject-post.sh` | 269 | PostToolUse | Quick-exit quando CHAOS_MODE != 1, /tmp writes |
+| `model-fallback-advisory.sh` | 279 | PostToolUse | Advisory text, /tmp log |
+| `notify.sh` | 300 | Notification | PowerShell toast, mesmo pattern que stop-notify |
 
-**Verificacao:** `cat .claude/.last-checkpoint` apos simular compaction deve mostrar as secoes novas.
+**Nota:** 4 originais do plano + 2 adicionais (`stop-should-dream.sh`, `notify.sh`) identificados pelo explore com mesmos patterns. Todos sao fire-and-forget — output nao afeta decisao do agente.
 
-### 2. Fix vuln JSON hand-assembly em `hooks/post-compact-reread.sh:15` (~5 min)
+**Fix:** adicionar `"async": true` em cada hook entry.
 
-**Arquivo:** `hooks/post-compact-reread.sh`
-**Problema:** linha 15 monta JSON por string interpolation: `echo "{\"hookSpecificOutput\":{\"message\":\"$MSG\"}}"`. Se SESSION_NAME contiver `"` ou `\`, JSON quebra ou permite injection.
-**Fix:** substituir por `jq -cn --arg msg "$MSG" '{hookSpecificOutput:{message:$msg}}'`
-**Dependencia:** jq 1.8.1 disponivel em PATH (confirmado).
+### 2. `$CLAUDE_PROJECT_DIR` em settings.local.json (~15 min)
 
-**Verificacao:** `echo 'test "quotes"' > .claude/.session-name && bash hooks/post-compact-reread.sh < /dev/null` deve produzir JSON valido.
+**Arquivo:** `.claude/settings.local.json`
+**32 ocorrencias** de `/c/Dev/Projetos/OLMO`:
+- 28 em `"command":` strings de hooks
+- 2 em `permissions.allow` (formato `Bash(cp /c/Dev/...)`)
+- 1 em `statusLine.command`
+- 1 extra
 
-### 3. Fix vuln eval injection em `.claude/hooks/lib/retry-utils.sh:28` (~15 min)
+**Fix:** replace `/c/Dev/Projetos/OLMO` → `$CLAUDE_PROJECT_DIR` nas 28+1+1 command strings.
+**Permissions (2 ocorrencias):** verificar se `$CLAUDE_PROJECT_DIR` resolve dentro de permission patterns. Se nao, manter hardcoded (permissions sao config estatica, nao runtime).
 
-**Arquivo:** `.claude/hooks/lib/retry-utils.sh`
-**Problema:** `eval "$cmd"` na linha 28. Qualquer string com metacharacters shell sera interpretada.
-**Risco real:** BAIXO — so 2 chamadores (lint-on-edit.sh:37, guard-lint-before-build.sh:60), ambos passam strings hardcoded (`node "scripts/X" "Y"`). Mas o pattern e perigoso se alguem adicionar novo chamador.
-**Fix:** mudar interface para aceitar comando como argumentos posicionais (array), nao string eval'd:
+**Teste obrigatorio:** rodar 1 hook simples apos migracao para confirmar que Git Bash resolve `$CLAUDE_PROJECT_DIR`.
 ```bash
-# Antes: retry_with_jitter "node script.js arg1" 3 1
-# Depois: retry_with_jitter 3 1 -- node script.js arg1
-```
-Onde `--` separa config de comando. Internamente usar `"${cmd_args[@]}"` em vez de `eval`.
-
-**Chamadores a atualizar:**
-- `.claude/hooks/lint-on-edit.sh:37` — `retry_with_jitter "node \"$LINT_SCRIPT\" \"$AULA\"" 2 1`
-- `.claude/hooks/guard-lint-before-build.sh:60` — `retry_with_jitter "node \"scripts/$SCRIPT\" \"$AULA\"" 3 1`
-
-**Verificacao:** rodar `npm run lint:slides` de `content/aulas/` — lint-on-edit usa retry-utils internamente.
-
-### 4. Regra operacional: pesquisa de agente persistida antes de reportar (~10 min)
-
-**Problema:** a regra "pesquisa de agente SEMPRE persistida em plan file ANTES de reportar" existe no HANDOFF como cuidado, mas nao e enforced por rules.
-**Fix:** adicionar 2 linhas em `.claude/rules/anti-drift.md` secao "Delegation gate (KBP-17)":
-```
-4. Agent spawn que produz pesquisa → resultado escrito em plan file ANTES de reportar ao usuario. Contexto e volatil, plan file persiste.
-```
-E adicionar em `.claude/context-essentials.md` (pos-compaction survival):
-```
-7. Pesquisa de agente: resultado em plan file ANTES de reportar. Contexto e volatil.
+echo $CLAUDE_PROJECT_DIR  # deve imprimir /c/Dev/Projetos/OLMO
 ```
 
-**Verificacao:** `grep -n "plan file" .claude/rules/anti-drift.md` confirma regra presente.
+### 3. `set -euo pipefail` nos scripts sem protecao (~30 min)
 
----
+**Estado real (corrigido pelo explore):**
+- 1 script com `set -euo pipefail`: `guard-secrets.sh`
+- 3 scripts com `set -u` parcial: `guard-write-unified.sh`, `guard-lint-before-build.sh`, `guard-read-secrets.sh`
+- ~25 scripts sem nenhum strict mode
 
-## Fora de escopo (explicito)
+**Fix:** adicionar `set -euo pipefail` na linha 2 de cada script (apos shebang).
+**Upgrade:** os 3 com `set -u` parcial → `set -euo pipefail` completo.
 
-- `claude-memory-compiler` avaliacao → Fase 4 (sessao separada)
-- `$CLAUDE_PROJECT_DIR` migration → Fase 2
-- `set -euo pipefail` nos 28 scripts → Fase 2
-- `async: true` em hooks → Fase 2
-- Prompt hook Stop → Fase 3
-- Consolidacao PreToolUse → Fase 3
+**Cuidados concretos (verificados no codigo):**
+- `retry-utils.sh` — usa `$?` na linha 29. Com `-e`, o script morre no primeiro erro antes de chegar ao `$?`. Fix: `"${cmd_args[@]}" 2>&1` ja captura exit code via `$?` no while — OK porque assignment nao dispara `-e`.
+- Scripts com `|| exit 0` ou `|| echo` (session-start, ambient-pulse, post-compact-reread): precisam `|| true` nos pontos intencionais.
+- Vars opcionais (`$SESSION_NAME`, `$CHAOS_MODE`): `${VAR:-}` ou `${VAR:-default}`.
+
+**Protocolo por script:**
+1. Adicionar `set -euo pipefail` apos shebang
+2. `bash -n script.sh` (syntax check)
+3. Testar dry run com `bash script.sh < /dev/null`
+
+### 4. `if` conditions em PreToolUse (~20 min)
+
+**Arquivo:** `.claude/settings.local.json`
+**Natureza:** otimizacao de performance (evita process spawn), NAO correcao funcional. Os scripts internamente ja filtram corretamente.
+
+**Candidatos (3, ordenados por impacto):**
+
+| Hook | Matcher atual | `if` proposto | Spawns evitados |
+|------|--------------|---------------|-----------------|
+| `momentum-brake-enforce.sh` | `.*` (TODA tool call) | Sem `if` — catch-all e intencional. Script faz case/esac internamente (l.44-48), ~5ms por spawn | Muitos, mas logica interna protege |
+| `guard-bash-write.sh` | `Bash` | `"if": "Bash(*>*|*>>*|*rm *|*mv *|*cp *|*chmod*|*kill*)"` | ~60% dos Bash calls sao read-only |
+| `guard-research-queries.sh` | `Skill` | `"if": "Skill(research*|evidence*)"` | Maioria dos Skill calls nao sao research |
+
+**Decisao sobre momentum-brake:** NAO adicionar `if` — o catch-all e intencional (defense-in-depth). O custo e ~5ms/call, aceitavel.
 
 ## Ordem de execucao
 
-1. Item 2 (post-compact-reread.sh) — menor, mais simples
-2. Item 3 (retry-utils.sh) — seguranca, 2 chamadores para atualizar
-3. Item 1 (pre-compact-checkpoint.sh) — melhoria funcional
-4. Item 4 (regra operacional) — 2 linhas em 2 arquivos
-5. Commit unico com todos os 4 items
+1. Item 2 ($CLAUDE_PROJECT_DIR) — maior impacto, habilita portabilidade
+2. Item 1 (async) — trivial apos item 2
+3. Item 4 (if conditions) — 2 entries em settings.json
+4. Item 3 (pipefail) — mais trabalhoso, ~25 scripts via Write→tmp→cp
 
 ## Verificacao final
 
 ```bash
-# 1. JSON valido no post-compact
-echo 'test "quotes" \\backslash' > .claude/.session-name
-bash hooks/post-compact-reread.sh < /dev/null | jq .
+# 1. async count
+grep -c '"async": true' .claude/settings.local.json  # >= 6
 
-# 2. retry-utils sem eval
-grep -n 'eval' .claude/hooks/lib/retry-utils.sh  # deve retornar 0
+# 2. hardcoded paths (excl permissions se mantidas)
+grep -c '/c/Dev/Projetos/OLMO' .claude/settings.local.json  # <= 2 (permissions only)
 
-# 3. checkpoint com secoes novas
-bash hooks/pre-compact-checkpoint.sh < /dev/null
-cat .claude/.last-checkpoint  # deve ter secoes Plan, HANDOFF, etc.
+# 3. pipefail coverage
+grep -rl 'set -euo pipefail' hooks/ .claude/hooks/ --include='*.sh' | wc -l  # >= 28
 
-# 4. regra presente
-grep -n 'plan file' .claude/rules/anti-drift.md
-grep -n 'plan file' .claude/context-essentials.md
+# 4. if conditions
+grep -c '"if":' .claude/settings.local.json  # >= 4
 ```
