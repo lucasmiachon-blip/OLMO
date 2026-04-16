@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 210 — 2026-04-15 (Settings+Hooks+Memoria — plano baseado em pesquisa)
+
+### Settings otimizados (pesquisa comunidade: 6 agentes, fontes verificadas)
+- `CLAUDE_CODE_EFFORT_LEVEL=max` via env var (bug: JSON key silenciosamente falha)
+- `CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1` (previne zero-think halucinacoes)
+- `CLAUDE_CODE_SUBAGENT_MODEL=claude-sonnet-4-6` (Sonnet default, Opus via frontmatter)
+- `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` (off por default, perguntar no session-start)
+- `autoMemoryEnabled: false`, `alwaysThinkingEnabled: true`
+
+### Pesquisa persistida (6 agentes — hooks, memoria, settings, triangulacao)
+- Hooks: 27 eventos (usamos 8), 4 handler types (usamos 1), $CLAUDE_PROJECT_DIR, if conditions, prompt hooks, async
+- Memoria: claude-mem (55.8k), ByteRover (4.3k), claude-memory-compiler (800), Mem0 (50.2k) — benchmarks unreliable
+- Settings: effort max bug, adaptive thinking regression, API key billing accident ($1.8k)
+- Plano 4 fases aprovado: `.claude/plans/hashed-zooming-bonbon.md`
+
+### Infraestrutura
+- Momentum brake: WebFetch/WebSearch/Task* isentos (S209)
+- Permissions: 145→38 (S209, nao rastreado git)
+- Commit `2c2f52c`: 9 arquivos, toda pesquisa persistida
+
 ## Sessao 209 — 2026-04-15 (rules Fase 1b — constraints-only pass)
 
 ### Rules reduction: 315 → 198 linhas (-37%, acumulado S208+S209: -82%)
