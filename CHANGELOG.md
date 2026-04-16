@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## Sessao 214 — 2026-04-16 (self-improvement loop step 2)
+
+### Self-Improvement
+- UPDATE: /dream SKILL.md — Phase 2 Sub-step 5: Hook Log Analysis (le hook-log.jsonl, agrega category:pattern, cruza KBPs, reporta CANDIDATEs >=3 ocorrencias)
+- ADD: Log rotation em /dream (>500 linhas → archive em `.claude/hook-log-archive/`)
+- ADD: Agent hook Stop[1] — artifact hygiene grounded via `git diff` real (HANDOFF.md + CHANGELOG.md)
+- Step 2 de 4 COMPLETO. Proximo: Step 3 (/insights consome dados para propor KBPs)
+
+### Decisoes
+- Over-engineering > erros invisiveis (infraestrutura inerte = pronta, erro sem metrica = divida)
+- Prompt hook (semantico) + agent hook (deterministico) = dual-check complementar
+
 ## Sessao 213 — 2026-04-16 (hooks estado da arte + self-improvement loop)
 
 ### Hooks
