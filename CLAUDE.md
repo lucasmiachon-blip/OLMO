@@ -55,8 +55,7 @@ Mapa completo: `docs/TREE.md`. Entry points:
 - Python 3.11+, type hints, async/await
 - YAML para config, JSON para dados
 - Conteudo medico: referenciamento impecavel (PMID, DOI)
-- **Coautoria AI explicita** (`.claude/rules/coauthorship.md`)
-- Notion MCP: protocolo em `.claude/rules/mcp_safety.md`
+- **Coautoria AI explicita:** `Coautoria: Lucas + [modelos]` em todo conteudo compartilhado. Commits: `Co-authored-by:`.
 - Hooks em `hooks/` + `.claude/hooks/` (config em `.claude/settings.local.json`)
 
 ## Propagation Map
@@ -70,7 +69,7 @@ Aulas: ver `content/aulas/CLAUDE.md`. Enforced por `crossref-precommit.sh`.
 
 ## Self-Improvement
 
-- Session docs: `HANDOFF.md` + `CHANGELOG.md`. Regra: `session-hygiene.md`
+- Session docs: `HANDOFF.md` + `CHANGELOG.md`. Regra: `anti-drift.md §Session docs`
 - Self-healing: `stop-detect-issues.sh` → `.claude/pending-fixes.md` → session-start surfacea
 - Via Negativa: `known-bad-patterns.md` acumula anti-patterns
 - `/insights` semanal. Roadmap: `docs/research/implementation-plan-S82.md`

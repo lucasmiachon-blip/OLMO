@@ -1,76 +1,54 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 208 | Pronto para próxima tarefa.
+> Sessao 209 | Continuacao system-maturity Fase 1.
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Agentes: 10.** **Hooks: 29 registros, 29 scripts.** **Rules: 13.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 21.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
-**Novos devDeps:** `apca-w3`, `colorjs.io`. **Novo global:** `wallace-cli`.
+**Agentes: 10.** **Hooks: 29.** **Rules: 5 (era 13).** **MCPs: 3 ativos + 9 frozen.** **KBPs: 21.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
 
-## P0 — Design Excellence Loop (S201-S204)
+## P0 — System Maturity (S208 FEITO, Fase 1 completa)
 
-- **Plano master:** `.claude/plans/mutable-mapping-seal.md` (3 fases)
-- **Fase 1 DONE (S202):** 6 fixes ao Gemini QA evaluator
-- **Fase 1.5 DONE (S204):** Pipeline I/O Hardening — 5 edits validados
-  - Prova: tipografia R11=5 → R12=8 (Δ+3, zero CSS change — pura qualidade de dados)
-  - Plano: `.claude/plans/snoopy-jingling-aurora.md`
-- **Fase 2 (PRÓXIMO):** rule design-excellence.md + skill /polish + Chrome DevTools MCP
-- **Fase 3 (futuro):** Multi-model — só quando Fases 1-2 Proven
+**Rules reduction:** 1,102 → 315 linhas, 13 → 5 files (-71%).
+- T2 unconditional: `anti-drift.md` (60 li), `known-bad-patterns.md` (73 li)
+- T3 path-scoped: `slide-rules.md` (82 li), `design-reference.md` (51 li), `qa-pipeline.md` (49 li)
+- T4 reference: `docs/aulas/slide-advanced-reference.md` (conhecimento tecnico migrado)
+- Deletados: coauthorship, notion-cross-validation, mcp_safety, multi-window, proven-wins, session-hygiene, elite-conduct, slide-patterns
 
-## P0 — s-heterogeneity (S206: projection polish)
+**Pendente Fase 1b — segundo passe (constraints-only):**
+- Rules 315 → ~180: mover templates, tabelas, checklists de rules para T4 reference
+- Manter SOMENTE constraints (proibicoes, gates) nos 3 files path-scoped
 
-PI bars visíveis (0.35), verdict pareado com I² label (--text-h3), caveat enxuto.
-**Pendente:** Lucas decide se PI precisa de labels no SVG (escopo pedagógico) e se insight block (click 3) se mantém.
+**Pendente Fase 2 (S209+):**
+- Hookify: instalar e avaliar
+- CSS verification loop (Boris pattern: edit→build→screenshot→verify)
+- export-png.mjs (Playwright 1920x1080, substitui PDF)
+- Baseline metrics: 0 novos raw px/sessao, rules <300
+- `assets/` root: caminho canonico pendente
 
-## P0 — s-contrato-final (substituiu s-takehome, S207)
+## P0 — Pendentes Anteriores
 
-Slide `18-contrato-final.html` reusa CSS de s-contrato (grid + cards + animações). Manifest atualizado.
-**Nota:** tokens `--th-*` em `section#s-takehome {}` no CSS são agora dead code (paleta convergida S207 mas slide fora do manifest). Cleanup pendente — Lucas decide se remove ou mantém.
+- s-quality: evidence HTML integration + narrativa pendente
+- s-tipos-ma: slide PENDENTE (Lucas decide quantos, posicao, h2)
+- drive-package: PDF stale, PNG export pendente
+- Apresentacao S208: PDF cortou slides, HDMI comprimiu janela
 
-## P0 — s-quality (S204 em andamento)
+## P1
 
-- **Paleta convergida (S207):** violet family (248-258°), raw px→tokens, badges→system tokens.
-- **Evidence research DONE:** 4 refs VERIFIED. Report: `qa-screenshots/s-quality/content-research.md`.
-- **PENDENTE:** (1) integrar 4 refs no evidence HTML, (2) narrativa, (3) Lucas: "pode melhorar mais" — refinar paleta/tamanhos.
-
-## P0 — s-tipos-ma (evidence DONE S187, slide PENDENTE)
-
-- Lucas decide quantos slides, posição no manifest, h2.
-
-## P0 — drive-package v2.1
-
-- **Pendente:** metanalise.pdf stale (17 slides, PDF gerado S166 com 16). Regenerar antes de deploy.
-
-## P1 — Pendentes
-
+- Wallace CSS-wide: 29 font-sizes raw, #162032 sem token, 20 !important
+- TREE.md desatualizado (S93 → S208)
 - Sentinel agent improvement (backlog #31)
-- Agent optimization audit (backlog #29 — read-only)
-- Security: node -e fs.writeFileSync bypasses guard-bash-write
-- Prompt hardening propagação (backlog #30)
-- Gemini parâmetros adicionais (pesquisa pendente)
-- Wallace CSS-wide findings: 29 font-sizes raw (token leakage), #162032 sem token, 20 !important
 
 ## DECISOES ATIVAS
 
-- Gemini QA temp: 1.0, topP 0.95. Format C+ pointer-only. OKLCH obrigatório.
+- Gemini QA temp: 1.0, topP 0.95. OKLCH obrigatorio.
 - Living HTML = source of truth. Agent effort: max.
-- Elite-conduct `[EC]` checkpoint obrigatório. Proven-wins maturity tiers.
+- CMMI maturity model. Hooks = freio (L2). Verification loops = melhoria (L3+).
 
 ## CUIDADOS
 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`. h2 = trabalho do Lucas.
-- Slides não usam `<aside class="notes">` nem reveal.js (removidos S206 de todos docs ativos).
-- s-takehome: funcional mas visualmente fraco. Não polir sem direção criativa.
-
-## BACKLOG
-
-→ `.claude/BACKLOG.md` (33 items, 7 resolved)
-
-## CLEANUP PENDENTE
-
-- `.claude/workers/`: S178 + S181. Lucas decide.
 
 ---
-Coautoria: Lucas + Opus 4.6 | S207 2026-04-15
+Coautoria: Lucas + Opus 4.6 | S208 2026-04-15

@@ -3,118 +3,49 @@ paths:
   - content/aulas/**
 ---
 
-# Design Reference — Semântica, Dados Médicos
+# Design Reference
 
-> Apenas o que NÃO está no código. Tokens carregam de `base.css` :root (shared), com overrides por aula em `{aula}.css` :root (cascade order).
-> Princípios de design (27) → `docs/aulas/design-principles.md` (consultar sob demanda).
+> Tokens from `base.css` :root (shared), overrides per aula in `{aula}.css` :root.
+> Design principles (27) → `docs/aulas/design-principles.md`.
 
----
+## Color Semantics
 
-## 1. Semântica de Cor
+| Token | Clinical meaning | Use |
+|-------|-----------------|-----|
+| `--safe` | Maintain course | Favorable result, target met |
+| `--warning` | Investigate/monitor | Gray zone, needs follow-up |
+| `--danger` | Intervene now | Real risk: death, bleeding, failure |
+| `--downgrade` | Downgrade evidence | Limitation, caveat (always with ↓) |
+| `--ui-accent` | Chrome/UI | Progress, tags, decoration — NEVER clinical |
 
-Cores clínicas ≠ UI. ΔL ≥ 10% entre safe/warning/danger. Ícone obrigatório: ✓ ⚠ ✕ ↓.
+**PROIBIDO `rgba()`/`rgb()`.** Use `oklch(L C H / alpha)`. Convert on touch.
 
-| Token | Significado clínico | Uso |
-|-------|---------------------|-----|
-| `--safe` | Manter conduta | Resultado favorável, meta atingida |
-| `--warning` | Investigar/monitorar | Zona cinza, requer acompanhamento |
-| `--danger` | Intervir agora | Risco real: morte, sangramento, falência |
-| `--downgrade` | Rebaixar evidência | Limitação, caveat (sempre com ↓) |
-| `--ui-accent` | Chrome/UI | Progresso, tags, decoração — NUNCA clínico |
+### Hierarchy
+- **Punchline > Support:** culminating element gets superior visual treatment.
+- Semantic color in text: only when text IS the primary element (title, punchline).
+- Icons MUST have explicit color matching severity.
 
-HEX é verdade. Se OKLCH divergir, HEX vence. Paleta de dados: Tol (daltonism-safe).
+## Typography
 
-**PROIBIDO `rgba()`/`rgb()` em CSS novo ou editado.** Usar `oklch(L C H / alpha)`. Ao tocar linha com rgba, converter para oklch no mesmo edit. Tabela Tol→OKLCH: `metanalise.css` comment block (forest zones). Conversao: `node -e` com sRGB→linear→XYZ→Oklab→OKLCH.
+| Rule | Detail |
+|------|--------|
+| Serif = authority | `--font-display` (Instrument Serif) for titles |
+| NEVER weight 300 | Minimum 400 for body (projector legibility) |
+| `tabular-nums lining-nums` | On numerical data |
+| NEVER `vw`/`vh` font-size | deck.js scale — always forbidden (E52) |
 
-### Hierarquia Semântica Intra-Slide (E073, E074, E075)
+## Medical Data
 
-- **Punchline > Suporte:** O elemento culminante do argumento DEVE ter tratamento visual superior (cor elevada, tamanho/peso maior, ou ambos). Mesma cor entre suportes é OK.
-- **Cor semântica em texto:** Só quando o texto É o elemento semântico primário (título, punchline). Dados numéricos e labels de suporte usam `--text-primary` — o sinal vem de ícone + borda + bg.
-- **Diferenciação dentro da mesma cor:** Usar peso visual (outline vs filled vs punchline), não mais cor. Ex: 3 tiers — outline (labels) → filled (evidência) → highlight (punchline).
-- **Ícones DEVEM ter cor explícita** matching severity — nunca herdar genérico.
+**NUNCA inventar, estimar ou usar de memória.** Sem fonte → `[TBD]`. País-alvo: Brasil.
+- **PMIDs:** NEVER use LLM PMID without PubMed verification. Mark `[CANDIDATE]` until verified. Error rate: **56%**.
+- **Propagation:** On correction, `grep -rn` all instances. Update ALL in same batch.
+- **HR ≠ RR (E25):** HR = single trial. RR = meta-analysis. NEVER mix.
 
-## 2. Tipografia — Regras (valores em cirrose.css :root)
+## OKLCH Constraints
 
-| Regra | Detalhe |
-|-------|---------|
-| Serif = autoridade | `--font-display` (Instrument Serif) para títulos |
-| NUNCA peso 300 em projetor | Mínimo 400 para corpo |
-| tabular-nums lining-nums | Em dados numéricos |
-| `font-display: swap` | Obrigatório. WOFF2 em `shared/assets/fonts/` |
-| NUNCA `vw`/`vh` em font-size (E52) | `clamp()` aceito em layout (width, padding), mas font-size = proibido sempre (deck.js scale) |
+| Token | Constraint | Reason |
+|-------|-----------|--------|
+| `--danger` root | hue ≤ 10°, chroma ≥ 0.20 | hue 25° = terracotta, not red |
+| Severity bg | 25-40% color-mix | 15% invisible in projection |
 
-## 3. Dados Médicos
-
-### Princípio Absoluto
-**NUNCA inventar, estimar ou usar de memória** dado numérico médico. Sem fonte → `[TBD]`.
-**País-alvo padrão:** Brasil.
-
-### Checklist E21 — antes de QUALQUER dado em slide
-- [ ] Valor vem de paper (não memória)?
-- [ ] Paper verificado via PubMed/WebSearch?
-- [ ] Time frame explícito?
-- [ ] NNT com IC 95% e time frame?
-- [ ] Se guideline: leu a guideline, não extrapolou?
-
-### Formato NNT
-```
-NNT [valor] (IC 95%: [lower]–[upper]) em [tempo] | [população]
-```
-Hierarquia: **NNT > ARR > HR**. NNT=decisão (hero, --safe). HR=acadêmico (menor destaque).
-
-### Regras
-- **PMIDs:** NUNCA usar PMID de LLM sem verificar em PubMed. Marcar `[CANDIDATE]` até verificado. Taxa de erro observada: **56% (5/9)** — é frequente, não excepcional (Meta E011).
-- **Propagação:** Ao corrigir PMID/dado: `grep -rn "VALOR_ANTIGO" content/aulas/{aula}/`. Atualizar TODOS no mesmo batch. Living HTML por slide é canônico (substitui evidence-db.md).
-- **Verificação PMID:** Confirmar author + title + patient count. PMID errado pode ser de paper similar (mesmo journal, tema próximo).
-- **População:** Verificar população do trial. Prevenção 1ª ≠ 2ª. Trial de pop A ≠ hero de slide pop B.
-- **HR ≠ RR (E25):** HR = trial isolado. RR = meta-análise. NUNCA misturar.
-
-### Vocabulário de Verificação (canônico)
-
-| Status | Significado | Quando usar |
-|--------|------------|-------------|
-| `VERIFIED` | PubMed MCP confirmou (author + title + patient count match) | Fonte ideal. Requer MCP funcional |
-| `WEB-VERIFIED` | PubMed web ou WebSearch confirmou (MCP indisponível) | Fallback aceitável para reports |
-| `CANDIDATE` | Não verificado — gerado por LLM, aguardando verificação | NUNCA em report final ou slide projetado |
-| `SECONDARY` | Confirmado por 2+ fontes independentes | Cross-referência adicional |
-| `UNRESOLVED` | Fontes discordam — flagged para revisão humana | Requer decisão do Lucas |
-
-### Conteúdo — Permitido vs Proibido
-**OK:** Reduzir texto mantendo significado, reorganizar hierarquia, adicionar de fontes verificadas, remover drogas não disponíveis no Brasil.
-**PROIBIDO:** Inventar dados/referências, modificar números sem fonte, extrapolar entre estudos.
-
-### Diagnostic Tool Framing
-Frame: "Recebi este resultado. Quais condições no MEU paciente tornam este número não confiável?"
-Anti-padrão: "Este é um escore que mede a rigidez hepática dividindo..."
-
-### Fontes Tier 1 — Hepatologia
-
-| Fonte | Tipo | ID |
-|-------|------|----|
-| BAVENO VII | Consenso HP | DOI:10.1016/j.jhep.2021.12.012 |
-| EASL Cirrose 2024 | CPG | DOI: TBD |
-| AASLD Varizes 2024 | Practice Guidance | DOI: TBD |
-| PREDESCI | RCT | PMID:30910320 |
-| CONFIRM | RCT | PMID:33657294 |
-| ANSWER | RCT | PMID:29861076 |
-| D'Amico 2006 | Systematic review | PMID:16298014 |
-
-## 4. Color Safety — OKLCH & color-mix()
-
-> Fonte: Cirrose E059, E072, E073
-
-### Armadilhas
-
-- **color-mix() com endpoint acromático** (hue=0) interpola hue pelo caminho mais curto → salmon/coral inesperado em vez de cinza neutro. NUNCA confiar em `var(--safe-light)` para backgrounds neutros (E059).
-- **CSS Color 5** (`oklch(from var(--token) l c h / alpha)`) = relative color syntax, suporte limitado. Usar **color-mix() (Color 4)** para derivações de cor (E072).
-
-### Constraints de Token
-
-| Token | Constraint | Razão |
-|-------|-----------|-------|
-| `--danger` root | hue ≤ 10°, chroma ≥ 0.20 | hue 25° = terracotta, não vermelho (E073) |
-| Severity bg (cards, zones) | 25-40% color-mix | -light tokens (15%) = invisível em projeção (design target: 10m auditório) |
-| Severity text | `--text-primary` para dados | Sinal vem de ícone+borda+bg, não do texto |
-
-### Regra Geral
-HEX é verdade de renderização. Se OKLCH divergir do HEX pretendido, ajustar OKLCH para match.
+Advanced (color-mix, NNT, vocabulary, Tier 1 sources) → `docs/aulas/slide-advanced-reference.md`.

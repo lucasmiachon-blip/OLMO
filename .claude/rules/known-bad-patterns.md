@@ -7,19 +7,19 @@ globs: "**/*"
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
 > Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-22.
-> Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target. See anti-drift.md §Pointer-only discipline.
+> Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
 → anti-drift.md §Momentum brake
 
 ## KBP-02 Context Overflow
-→ session-hygiene.md §Proactive Checkpoints
+→ anti-drift.md §Session docs
 
 ## KBP-03 Agent-Script Redundancy
 → anti-drift.md §Script Primacy
 
 ## KBP-04 QA Criteria From Training Data
-→ qa-pipeline.md §0 Pre-Read Gate
+→ qa-pipeline.md (criteria in design-reference.md + slide-rules.md)
 
 ## KBP-05 Batch QA Multi-Slide
 → qa-pipeline.md §1
@@ -49,25 +49,25 @@ globs: "**/*"
 → anti-drift.md §Verification
 
 ## KBP-14 Velocity Over Comprehension
-→ anti-drift.md §Execution-phase explanation budget
+→ anti-drift.md §Transparency
 
 ## KBP-15 Write Race via External Script
 → feedback_tool_permissions.md §Write race (memory)
 
 ## KBP-16 Verbosity Drift in Auto-Loaded Docs
-→ anti-drift.md §Pointer-only discipline
+→ this file's own format (pointer-only, no inline prose)
 
 ## KBP-17 Gratuitous Agent Spawning
 → anti-drift.md §Delegation gate
 
 ## KBP-18 Mechanical Edit Without Format Verification
-→ anti-drift.md §Verification (Edit-time format compliance)
+→ anti-drift.md §Verification
 
 ## KBP-19 Bash Indirection for Protected Files
 → guard-product-files.sh §INFRA GUARD comment (code is the fix: block→ask, S193)
 
 ## KBP-20 Visual Change Without Browser Verification
-→ elite-conduct.md §Gate visual
+→ anti-drift.md §EC loop
 
 ## KBP-21 Narrow Fix in Dirty Section
-→ elite-conduct.md §Checkpoint visivel
+→ anti-drift.md §EC loop
