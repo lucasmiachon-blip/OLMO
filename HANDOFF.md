@@ -1,12 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 215 | Organizacao Batches 2-5 + auditoria estado da arte.
+> Sessao 215 | Organizacao Batches 2-5 + auditoria + Obsidian segundo cerebro.
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Rules: 5 files, 199 li.** **Hooks: 30 scripts (10/21 eventos, 7 async, 4 `if` guards) + 1 agent hook.** **Permissions: 52 (43 allow, 9 deny).**
-**Memory: 20/20 (at cap, clean).** Agentes: 9 (-1 notion-ops). MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
+**Rules: 5 files, 199 li.** **Hooks: 30 scripts (10/21 eventos, 7 async, 4 `if` guards) + 1 agent hook.** **Permissions: 49 (40 allow, 9 deny).**
+**Memory: 20/20 (at cap, clean).** Agentes: 9. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
 **Strict mode: 30/30 `set -euo pipefail`.** Paths portaveis via `$CLAUDE_PROJECT_DIR`. 0 vulns. 0 hardcoded paths.
 **Plans: 3 ativos, 39 archived.** Python: 53 tests PASS, ruff clean.
 
@@ -34,10 +34,20 @@ Stop[0] prompt (semantico, cego) → Stop[1] agent (git diff grounded) → Stop[
 - Batch 5: rm daily-digest/ (2), docs/.archive/ (3)
 
 ### Auditoria estado da arte
-- notion-ops.md removido (MCP denied = agente inoperante)
+- notion-ops.md removido (MCP denied = agente inoperante, 10→9)
 - KBP-19 pointer corrigido (guard-product-files.sh → guard-write-unified.sh + guard-bash-write.sh)
-- 3 permissions stale removidas (cp de .claude/tmp/ que nao existe)
-- 3 plans arquivados (hashed-zooming-bonbon, curious-honking-platypus, S213-state-of-art)
+- 3 permissions stale removidas (cp de .claude/tmp/ que nao existe, 52→49)
+- 3 plans arquivados (hashed-zooming-bonbon, curious-honking-platypus, S213-state-of-art, 6→3)
+- .cursor/ removido (8 tracked files, Cursor abandonado)
+
+### Obsidian segundo cerebro
+- Vault: `C:\Users\lucas\OneDrive\LM\Documentos\Obsidian Vault\`
+- Estrutura PARA+MOC: 00-MOCs, 10-Projects, 20-Areas (clinica/ensino/pesquisa/concurso-r3), 30-Resources, 40-Archive
+- Junction `OLMO-wiki/` → `wiki/` do repo (graph view funcional, nos visiveis)
+- Templates: literature-note, permanent-note, daily-note
+- .gitignore + app.json otimizados
+- Plugins pendentes: Templater, Dataview, Periodic Notes, Spaced Repetition, obsidian-git
+- Futuro: obsidian-mcp-tools (ponte vault→Claude), Graphiti (knowledge graph temporal)
 
 ## PENDENTES
 

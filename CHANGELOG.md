@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Sessao 215 — 2026-04-16 (Organizacao Batches 2-5 + auditoria)
+## Sessao 215 — 2026-04-16 (Organizacao Batches 2-5 + auditoria + Obsidian)
 
 ### Cleanup Batches 2-5
 - REMOVE: .playwright-mcp/ (30 logs), .obsidian/ (4 configs), error.log — Batch 2
