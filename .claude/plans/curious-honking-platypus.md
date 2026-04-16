@@ -39,7 +39,7 @@ O problema: cada arquivo extra e contexto que polui, confunde, ou engana.
 
 ---
 
-### Batch 2: Lixo de ferramentas externas
+### Batch 2: Lixo de ferramentas externas ✅ S215
 
 **Arquivos:**
 - `.playwright-mcp/` — 30 logs/ymls de abril 1-4, nao tracked, 0 utilidade
@@ -60,7 +60,7 @@ O problema: cada arquivo extra e contexto que polui, confunde, ou engana.
 
 ---
 
-### Batch 3: Arquivos superseded/orfaos tracked
+### Batch 3: Arquivos superseded/orfaos tracked ✅ S215
 
 **Arquivos:**
 - `hooks/stop-should-dream.sh` — tracked, superseded S213 (logica em session-end.sh)
@@ -81,7 +81,7 @@ O problema: cada arquivo extra e contexto que polui, confunde, ou engana.
 
 ---
 
-### Batch 4: .claude/ — lixo de workers e adversarial
+### Batch 4: .claude/ — lixo de workers e adversarial ✅ S215
 
 **Arquivos:**
 - `.claude/workers/` — 23 arquivos gitignored. Vestigios de pesquisa valgimigli, forest planning, hardening, distributed systems. Mix de .mjs, .md, .json, .txt.
@@ -101,7 +101,7 @@ O problema: cada arquivo extra e contexto que polui, confunde, ou engana.
 
 ---
 
-### Batch 5: daily-digest e docs/.archive
+### Batch 5: daily-digest e docs/.archive ✅ S215
 
 **Arquivos:**
 - `daily-digest/` — 2 digests (abril 9-10), nao tracked

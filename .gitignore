@@ -134,3 +134,6 @@ langfuse_postgres/
 # Playwright
 .playwright-mcp/
 test-results/
+
+# Orphan logs
+error.log

@@ -80,13 +80,12 @@ Model A (GPT-5.4) generates findings → Model B (Opus) validates against code �
 
 P0 = security/data integrity. P1 = correctness. P2 = quality.
 
-### Previous Audits (skip fixed issues)
+### Previous Audits (archived S215 — history in git log)
 
-- `docs/CODEX-AUDIT-S57.md` — Behavioral enforcement (15 objective + 10 adversarial)
-- `docs/CODEX-FIXES-S58.md` — 10 fixes applied, 6 rejected with justification
-- `.archive/CODEX-AUDIT-S60.md` — Security hardening (16 objective + 8 adversarial)
-- `docs/CODEX-MEMORY-AUDIT-S61.md` — Memory consolidation audit
-- `.claude/tmp/codex-round2a.md` — Round 2 queued (cross-file contradictions)
+- S57: Behavioral enforcement (15 objective + 10 adversarial)
+- S58: 10 fixes applied, 6 rejected with justification
+- S60: Security hardening (16 objective + 8 adversarial)
+- S61: Memory consolidation audit
 
 ## Gemini: Research Standards
 
