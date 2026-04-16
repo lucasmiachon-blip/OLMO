@@ -1,26 +1,33 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 210 | System-maturity Fase 2.
+> Sessao 210 | System-maturity: pesquisa concluida, execucao pendente.
 
 ## ESTADO ATUAL
 
 Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Agentes: 10.** **Hooks: 29.** **Rules: 5 files, 198 linhas.** **MCPs: 3 ativos + 9 frozen.** **KBPs: 21.** **Skills: 22 project + 3 user.** **Memory: 20/20.** **Backlog: 33 items (7 resolved).**
+**Rules: 5 files, 198 li.** **Hooks: 30 shell scripts (8/27 eventos, so `command` type).** **Permissions: 38 (era 145).**
+**Memory: 21/20 (over cap).** Agentes: 10. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
 
-## P0 — System Maturity
+## P0 — System Maturity (plano master: `.claude/plans/generic-wondering-manatee.md`)
 
-**Rules reduction completa:** 1,102 → 198 linhas, 13 → 5 files (-82%).
-- S208 Fase 1a: 13→5 files, 1102→315 li. S209 Fase 1b: constraints-only, 315→198 li.
-- T2: `anti-drift.md` (60), `known-bad-patterns.md` (73)
-- T3: `slide-rules.md` (31), `design-reference.md` (19), `qa-pipeline.md` (15)
-- T4: `docs/aulas/slide-advanced-reference.md` (templates, tabelas, checklists, ranges migrados)
+**Rules reduction ✅:** 1,102 → 198 li, 13 → 5 files (-82%). Fase 1a (S208) + Fase 1b (S209).
 
-**Pendente Fase 2 (S210+):**
-- Hookify: instalar e avaliar
-- CSS verification loop (Boris pattern: edit→build→screenshot→verify)
-- export-png.mjs (Playwright 1920x1080, substitui PDF)
-- Baseline metrics: 0 novos raw px/sessao, rules <200
-- `assets/` root: caminho canonico pendente
+**Pesquisa S209 concluida (3 agentes, fontes verificadas):**
+- Hooks: 27 eventos (usamos 8), 4 handler types (usamos 1), Hookify oficial, `prompt` type hooks, `$CLAUDE_PROJECT_DIR`
+- Memoria: ByteRover (zero-infra, SOTA), Mem0 free tier (10k adds/mo), Graphiti (Neo4j required)
+- Audit: 4 bugs runtime, 3 vulns, 5 scripts orfaos, 26/30 sem `set -u`
+
+**Ja feito S209:**
+- Permissions cleanup: 145→38 entradas (redundancias WebFetch/Bash/MCP removidas)
+- Momentum brake: WebFetch/WebSearch/Task* isentos (era ask em tudo)
+- Feedback salvo: nunca sobrescrever planos/pesquisa sem reler
+
+**Pendente execucao (order TBD por Lucas):**
+- Hookify: instalar e avaliar (plugin oficial, YAML declarativo)
+- Bugs: pre-push.sh missing, package.json dead refs, model-fallback Windows date, chaos session ID
+- Vulns: printf injection, eval injection, JSON hand-assembly
+- Mem0 free tier: avaliar vs flat files (pesquisa de comparacao pendente — agente rodando S209)
+- CSS verification loop, export-png.mjs, baseline metrics
 
 ## P0 — Pendentes Anteriores
 

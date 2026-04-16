@@ -9,6 +9,8 @@
 #   ToolSearch               — meta tool, no side effects
 #   AskUserQuestion          — stopping to ask IS the desired behavior
 #   EnterPlanMode/ExitPlanMode — meta tools, not actions
+#   WebFetch, WebSearch      — pure observation (read-only web content), S209
+#   Task*                    — meta tools, no codebase side effects, S209
 #
 # Non-exempt (require approval when armed):
 #   Write, Edit, Agent, MCP tools, etc.
@@ -40,7 +42,7 @@ TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name // ""' 2>/dev/null)
 
 # Exempt tools: allow without asking
 case "$TOOL_NAME" in
-  Read|Grep|Glob|Bash|ToolSearch|AskUserQuestion|EnterPlanMode|ExitPlanMode)
+  Read|Grep|Glob|Bash|ToolSearch|AskUserQuestion|EnterPlanMode|ExitPlanMode|WebFetch|WebSearch|TaskCreate|TaskUpdate|TaskList|TaskStop|TaskGet|TaskOutput)
     exit 0
     ;;
 esac
