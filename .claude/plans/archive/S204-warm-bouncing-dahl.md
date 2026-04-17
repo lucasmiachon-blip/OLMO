@@ -1,5 +1,7 @@
 # S204 Orchestration Plan — Consolidation + Priority Triage
 
+> **Status: FALSE-DONE — S224 audit** — Claim L53-55 "Design Excellence Phase 2 OK pois Phase 1.5 DONE" invalidada: `mutable-mapping-seal:122` ainda exige proof. Ver `BACKLOG-S220-codex-adversarial-report.md` L56.
+
 ## Context
 
 S204 accumulated significant work without a commit: Pipeline I/O Hardening (5 edits to gemini-qa3.mjs + qa-capture.mjs), s-takehome functional improvements (click-reveal 3 cards), s-quality CSS audit, prompt updates, and new APCA tooling. 11 tracked files modified (300 ins, 88 del) + 6 untracked items. Need to consolidate before diverging into new work.

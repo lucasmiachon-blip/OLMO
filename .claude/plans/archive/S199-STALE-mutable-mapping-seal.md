@@ -1,5 +1,7 @@
 # Plan: Design Excellence Loop — S199
 
+> **Status: FALSE-DONE — S224 audit** — Fase 1 nao verificada (sem run logs; Call B ≥90% nao comprovado). Fase 2 deliverables (`.claude/rules/design-excellence.md`, `.claude/skills/polish/SKILL.md`) NUNCA criados. Ver `BACKLOG-S220-codex-adversarial-report.md` L53. Lucas S224 decisao: EXECUTAR Fase 2 em S225+.
+
 ## Context
 
 O OLMO tem um QA pipeline (Gemini 3 Flash/Pro, 15 dimensões, 3+1 calls) que funciona a ~30% do potencial. Causas-raiz diagnosticadas: prompts sem few-shot, Call B falha 30-40%, zero delta tracking, Call A chuta seletores CSS, Call D mistura dois jobs. Construir um loop iterativo sobre essa base = iterar sobre avaliação ruim.

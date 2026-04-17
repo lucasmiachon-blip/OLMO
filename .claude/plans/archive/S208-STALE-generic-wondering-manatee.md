@@ -1,5 +1,7 @@
 # S208 Diagnóstico + Redesign — Quality Loops & System Maturity
 
+> **Status: STALE — S224 audit** — Fase 2 agendada L190 para "proximas 3 sessoes" nunca executada. Artifacts L257, L265 nao existem. Self-improvement PAUSADO por gate (HANDOFF). Ver `BACKLOG-S220-codex-adversarial-report.md` L54.
+
 ## Context
 
 S205-S207 expuseram falhas sistêmicas: CSS com 17 raw px apesar de 1,102 linhas de rules dizendo "NUNCA", PDF cortando slides, árvore desorganizada. Lucas identificou corretamente que o problema não é "faltou um hook" — é que o sistema inteiro de QC está em feedback loop negativo: mais regras → mais contexto → menos compliance → mais regras.

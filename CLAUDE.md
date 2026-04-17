@@ -60,7 +60,7 @@ Mapa completo: `docs/TREE.md`. Entry points:
 
 ## Propagation Map
 
-Aulas: ver `content/aulas/CLAUDE.md`. Enforced por `crossref-precommit.sh`.
+Aulas: ver `content/aulas/CLAUDE.md`.
 
 | Se mudou... | Deve atualizar... |
 |-------------|-------------------|
@@ -70,6 +70,6 @@ Aulas: ver `content/aulas/CLAUDE.md`. Enforced por `crossref-precommit.sh`.
 ## Self-Improvement
 
 - Session docs: `HANDOFF.md` + `CHANGELOG.md`. Regra: `anti-drift.md §Session docs`
-- Self-healing: `stop-detect-issues.sh` → `.claude/pending-fixes.md` → session-start surfacea
+- Self-healing: `hooks/stop-quality.sh` → `.claude/pending-fixes.md` → session-start surfacea
 - Via Negativa: `known-bad-patterns.md` acumula anti-patterns
 - `/insights` semanal. Roadmap: `docs/research/implementation-plan-S82.md`
