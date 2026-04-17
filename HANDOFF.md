@@ -20,6 +20,8 @@ Infrastructure + cleanup + docling canonicalization + research:
 
 ## S225 START HERE
 
+**NOVA ETAPA SHIP (S225-S230) aprovada S224 iter 12:** ver **`ACTIVE-S225-SHIP-roadmap.md`** — 6-session roadmap moving OLMO de RESEARCH+CONSOLIDATE mode para SHIP mode. S225 = Codex debt zero + memory audit + BACKLOG merge. KPI targets post-SHIP: slip rate <15%, ctx_pct_max <60%, commits/session >=3.
+
 **Lucas Fase 0 decisions (S224):**
 - **Design Excellence Fase 2: EXECUTAR** — scope `.claude/rules/design-excellence.md` + `.claude/skills/polish/SKILL.md`. Snoopy-aurora pipeline é prerequisite.
 - **Docling: RESOLVIDO S224** (merged canonical, source deleted).
