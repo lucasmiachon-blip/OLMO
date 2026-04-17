@@ -6,6 +6,7 @@ set -euo pipefail
 # S217: added HANDOFF snapshot for stuck-item detection across sessions
 # S218: section-aware HANDOFF parsing (PENDENTES only) + consistent stuck-counts schema
 # S219: data_quality (11th) + ctx_pct_max (12th) columns for metrics.tsv
+# S225: Issue #5 race fix — flock/mkdir lock around metrics persist (was TOCTOU)
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
 # Drain stdin (hook protocol — prevent parent process stall)
@@ -146,21 +147,33 @@ echo "[KPI] Rework: $REWORK_FILES files | Backlog: $BACKLOG_OPEN open, $BACKLOG_
 METRICS_FILE="$APL_DIR/metrics.tsv"
 TODAY_DATE=$(date +%Y-%m-%d)
 
+# S225 Issue #5: serialize concurrent Stops (TOCTOU race fix between grep-q check and append).
+# flock primary (kernel-level, auto-release on FD close); mkdir atomic fallback for envs sem util-linux.
 if [ -n "$SESSION_NUM" ] && [ -f "$METRICS_FILE" ]; then
-  if ! grep -q "^${SESSION_NUM}	" "$METRICS_FILE"; then
-    # Read peak context % from statusline persistence
-    CTX_MAX="-"
-    CTX_FILE="$APL_DIR/ctx-pct.txt"
-    if [ -f "$CTX_FILE" ]; then
-      CTX_MAX=$(cat "$CTX_FILE" 2>/dev/null || echo "-")
-      [[ "$CTX_MAX" =~ ^[0-9]+$ ]] || CTX_MAX="-"
-      rm -f "$CTX_FILE"
+  _persist_metrics() {
+    if ! grep -q "^${SESSION_NUM}	" "$METRICS_FILE"; then
+      CTX_MAX="-"
+      CTX_FILE="$APL_DIR/ctx-pct.txt"
+      if [ -f "$CTX_FILE" ]; then
+        CTX_MAX=$(cat "$CTX_FILE" 2>/dev/null || echo "-")
+        [[ "$CTX_MAX" =~ ^[0-9]+$ ]] || CTX_MAX="-"
+        rm -f "$CTX_FILE"
+      fi
+      printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+        "$SESSION_NUM" "$TODAY_DATE" "$REWORK_FILES" "$BACKLOG_OPEN" "$BACKLOG_RESOLVED" \
+        "$HANDOFF_PEND" "$CL_LINES" "$COMMITS" "$CALLS" "$ELAPSED_MIN" "full" "$CTX_MAX" \
+        >> "$METRICS_FILE"
+      echo "[METRICS] Persisted to metrics.tsv"
     fi
-    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-      "$SESSION_NUM" "$TODAY_DATE" "$REWORK_FILES" "$BACKLOG_OPEN" "$BACKLOG_RESOLVED" \
-      "$HANDOFF_PEND" "$CL_LINES" "$COMMITS" "$CALLS" "$ELAPSED_MIN" "full" "$CTX_MAX" \
-      >> "$METRICS_FILE"
-    echo "[METRICS] Persisted to metrics.tsv"
+  }
+  if command -v flock >/dev/null 2>&1; then
+    ( flock -x -w 2 9 || exit 0; _persist_metrics ) 9>"${METRICS_FILE}.lock"
+  else
+    LOCK_DIR="${METRICS_FILE}.lock.d"
+    if mkdir "$LOCK_DIR" 2>/dev/null; then
+      _persist_metrics
+      rmdir "$LOCK_DIR" 2>/dev/null
+    fi
   fi
 fi
 
