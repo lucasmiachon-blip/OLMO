@@ -4,7 +4,7 @@
 
 ### INFRA100.1 — Stop[5] dispatch diagnostic
 - DIAG: Stop hook `type: command` dispatch funciona em Windows harness. Trace minimal `bash -c 'echo ... >> /tmp/stop-trace.txt'` async:false gravou entry coerente apos 1 Stop event. H1 (dispatch-broken) REFUTADA via amostra N=1 binaria.
-- Report: `.claude/plans/s224-stop-dispatch-diag.md`. Restore byte-por-byte vs baseline S222.
+- Report: `.claude/plans/archive/S224-stop-dispatch-diag.md`. Restore byte-por-byte vs baseline S222.
 
 ### INFRA100.2 — evolucao com evidencia robusta
 - STABILITY N=3: mtime `.claude/integrity-report.md` monotonic — T=0 `10:37:35` → T=1 `10:42:29` (+294s) → T=2 `10:53:21` (+652s). Dispatch estavel pos-restore. **H4 (reload-via-touch estabilizou dispatch) CONFIRMADA.**
@@ -14,12 +14,12 @@
 - DECISAO: `CLAUDE_CODE_DISABLE_1M_CONTEXT` **mantido removido** (ctx=58 confirma hipotese Lucas empiricamente). Path A/B/C (fix strategy escolha) obsoleto apos H2 refutada.
 
 ### Plan files
-- `.claude/plans/s224-stop-dispatch-diag.md` — INFRA100.1 report (executed)
-- `.claude/plans/fizzy-hopping-honey.md` — INFRA100.2 plan (approved + Phases 1-3 done, Phase 4 commit next)
+- `.claude/plans/archive/S224-stop-dispatch-diag.md` — INFRA100.1 report (archived)
+- `.claude/plans/archive/S224-fizzy-hopping-honey.md` — INFRA100.2 plan (archived pos-commit f8564fe)
 
 ## Sessao 223 — 2026-04-17 (validar-s222)
 
-- VALIDATION: Passo 0 S222 — 2 PASS (#1 orphans, #3 sanity) / 1 FAIL (#2 Stop[5] auto-fire) / 1 INCONCLUSIVE (#4 SessionEnd pos-S222). Report: `.claude/plans/s223-validation-report.md`
+- VALIDATION: Passo 0 S222 — 2 PASS (#1 orphans, #3 sanity) / 1 FAIL (#2 Stop[5] auto-fire) / 1 INCONCLUSIVE (#4 SessionEnd pos-S222). Report: `.claude/plans/archive/S223-validation-report.md`
 - ACHADO: integrity.sh Stop[5] NAO dispara automatico — mtime `.claude/integrity-report.md` inalterado apos 8h22min + multiplos Stop events. Report era fossil da run manual S222. S222 comissionou vigilancia que nunca foi exercida.
 - TEST: `CLAUDE_CODE_DISABLE_1M_CONTEXT` removido de `.claude/settings.json` (hipotese Lucas: flag inflaciona context harness-side). Observacao 1 sessao, sem decisao reverter/manter.
 - NO-OP funcional: sessao puramente diagnostica. Zero fixes. Proxima sessao diagnostica dispatch de Stop hook command-type.
@@ -54,7 +54,7 @@
 - Settings: shared baseline tracked, overrides separados
 
 ### Plan
-- `buzzing-wondering-hickey.md` — 3/3 DONE
+- `archive/S222-buzzing-wondering-hickey.md` — 3/3 DONE
 
 ### Context weight — disables (fim S222)
 - Apos push-back Lucas ("infra estavel? de onde pressupos?"): reframe HANDOFF como "CODIFICADA nao VALIDADA" + Passo 0 validation obrigatorio S223
@@ -78,7 +78,7 @@
 - NEW: `tools/integrity.sh` — invariant checker read-only, reports-only (~120 li bash strict)
 - INV-2: 30/30 hooks registrados existem + bash -n sintaxe OK (baseline PASS)
 - INV-5: 2 orphan dirs FAIL (`.claude/.claude/` + `.claude/tmp/`) — esperado, guia proximo cleanup
-- PLAN: `partitioned-orbiting-hellman.md` (adversarial diagnosis + scope INV-2+5 aprovado)
+- PLAN: `archive/S221-partitioned-orbiting-hellman.md` (adversarial diagnosis + scope INV-2+5 aprovado)
 - ADD: `.gitignore` entry `.claude/integrity-report.md` (ephemeral output)
 - ADD: `.claude/pending-fixes.md` cwd bug flag (gitignored, local state)
 - Bug found in impl: CRLF do jq no Windows → adicionado `tr -d '\r'` na pipeline
@@ -93,7 +93,7 @@
 ## Sessao 220 — 2026-04-16 (context melt fix aprovado)
 
 ### Diagnostico
-- PLAN: humble-toasting-ritchie.md — 5 fixes ranked by bytes/effort ROI
+- PLAN: archive/S220-humble-toasting-ritchie.md — 5 fixes ranked by bytes/effort ROI
 - MEASURE: 13% baseline → 40-50% apos 1a resposta = ~54KB burn em uma troca; identificou skill inline load + Read returns + ToolSearch schemas como dominantes
 
 ### C1 — First-turn discipline (F5)
@@ -466,7 +466,7 @@
 ### Design Excellence — Pipeline I/O Hardening
 - Editorial delta test: s-takehome R11, 4/4 calls OK, score 7.5/10 (após anti-sycophancy)
 - Diagnosticados 5 gargalos: shallow scan depth, CSS properties insuficientes, contradição token prompt, sem hierarquia tipográfica, zero validação pós-fix
-- Plano aprovado: `.claude/plans/snoopy-jingling-aurora.md` (5 edits: qa-capture + gemini-qa3 + 2 prompts)
+- Plano aprovado: `.claude/plans/ACTIVE-snoopy-jingling-aurora.md` (5 edits: qa-capture + gemini-qa3 + 2 prompts)
 
 ### s-takehome CSS fixes
 - gap: --space-md→--space-lg (proximidade Gestalt: gap ≥ padding)
@@ -525,7 +525,7 @@
 - Plano 3 fases aprovado: (1) fix evaluator, (2) build loop, (3) multi-model futuro
 
 ### Arquivos criados
-- `.claude/plans/mutable-mapping-seal.md` — plano principal (3 fases, 13 arquivos)
+- `.claude/plans/archive/S199-STALE-mutable-mapping-seal.md` — plano principal (3 fases, 13 arquivos)
 - `.claude/plans/S199-gemini-qa-diagnostic.md` — diagnóstico detalhado do Gemini QA
 - `.claude/plans/S199-research-findings.md` — consolidação de pesquisa SOTA
 

@@ -10,7 +10,7 @@ Stop hook `type: command` dispatch **FUNCIONA e ESTAVEL** no Claude Code Windows
 - **Hipoteses:** H1 (dispatch-broken) REFUTADA (INFRA100.1). **H2 (composicional) REFUTADA** (stderr empty prova original clean). **H4 (reload-via-touch estabilizou dispatch) CONFIRMADA.**
 - **S223 failure = transient.** Nao composicional, nao harness-dispatch-broken. Hipoteses sobreviventes: harness state corrupt em sessao longa (S223 8h+), race nao-deterministica, context pressure interfering dispatch. Nao reprodutivel em S224.
 
-Reports: `.claude/plans/s224-stop-dispatch-diag.md` (INFRA100.1) + `.claude/plans/fizzy-hopping-honey.md` (INFRA100.2 plan+evidence).
+Reports arquivados: `.claude/plans/archive/S224-stop-dispatch-diag.md` (INFRA100.1) + `.claude/plans/archive/S224-fizzy-hopping-honey.md` (INFRA100.2).
 
 **Consequencia:** Stop[5] agora com **stderr capture permanente** (`2>>/tmp/stop5-stderr.log`) — defensive instrumentation. Se S225+ volta a silenciar, stderr file captura root cause. Principio aplicado: **instrumentation > silence**.
 
@@ -58,7 +58,7 @@ Stop[0] prompt → [1] agent (git diff) → [2] quality → [3] metrics async �
 - Slides: s-quality, s-tipos-ma, drive-package PDF/PNG
 - Wallace CSS: 29 raw px, #162032 sem token, 20 !important
 - Obsidian plugins (Templater, Dataview, Periodic Notes, Spaced Rep, obsidian-git)
-- Codex backlog: 40 findings em `.claude/plans/S220-codex-adversarial-report.md`
+- Codex backlog: 40 findings em `.claude/plans/BACKLOG-S220-codex-adversarial-report.md`
 
 ## DECISOES ATIVAS (key — detalhes em memory/)
 

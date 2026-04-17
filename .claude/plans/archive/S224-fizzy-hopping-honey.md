@@ -1,7 +1,7 @@
 # INFRA100.2 — Consolidar Evolução S224
 
 > Session: S224 | 2026-04-17 | Scope: solidify stability evidence + isolate S223 root cause + document ctx_pct reduction + clean commit.
-> Supersedes INFRA100.1 plan (diag done, evidence preserved in `s224-stop-dispatch-diag.md`).
+> Supersedes INFRA100.1 plan (diag done, evidence preserved in `S224-stop-dispatch-diag.md` — sibling archive).
 
 ---
 

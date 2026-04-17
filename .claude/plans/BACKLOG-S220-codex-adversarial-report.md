@@ -49,13 +49,13 @@
 
 | Plan | Status | Gap | Next Action |
 |------|--------|-----|-------------|
-| `functional-rolling-waffle.md` | FALSE-DONE | HANDOFF diz "steps 1-5 done" mas verification boxes abertas L137-143, decisao venv em aberto L46, sem artifact path | Manter ACTIVE ate completion linkada a artifact |
-| `mutable-mapping-seal.md` | FALSE-DONE | L22 marca Fase 1 DONE mas L122 exige `Call B >=90%`, few-shot validado, delta tracking — nenhum run log. Phase 2 deliverables missing: `.claude/rules/design-excellence.md`, `.claude/skills/polish/SKILL.md` | Tratar Fase 1 nao-verificada ate artifact anexado |
-| `generic-wondering-manatee.md` | STALE | Fase 2 agendada L190 para "proximas 3 sessoes" mas HANDOFF:58 marca self-improvement PAUSADO atras de gate. Artifacts L257, L265 nao existem | Suspender/reclassificar ate gate satisfeito |
-| `snoopy-jingling-aurora.md` | ACTIVE-OK | Escopo concreto, verification L204, L214-218 diferem /polish + design-excellence ate pipeline validado, alinha com HANDOFF:24 | Manter como prerequisito ativo |
+| `archive/S216-functional-rolling-waffle.md` | FALSE-DONE | HANDOFF diz "steps 1-5 done" mas verification boxes abertas L137-143, decisao venv em aberto L46, sem artifact path | Manter ACTIVE ate completion linkada a artifact |
+| `archive/S199-STALE-mutable-mapping-seal.md` | FALSE-DONE | L22 marca Fase 1 DONE mas L122 exige `Call B >=90%`, few-shot validado, delta tracking — nenhum run log. Phase 2 deliverables missing: `.claude/rules/design-excellence.md`, `.claude/skills/polish/SKILL.md` | Tratar Fase 1 nao-verificada ate artifact anexado |
+| `archive/S208-STALE-generic-wondering-manatee.md` | STALE | Fase 2 agendada L190 para "proximas 3 sessoes" mas HANDOFF:58 marca self-improvement PAUSADO atras de gate. Artifacts L257, L265 nao existem | Suspender/reclassificar ate gate satisfeito |
+| `ACTIVE-snoopy-jingling-aurora.md` | ACTIVE-OK | Escopo concreto, verification L204, L214-218 diferem /polish + design-excellence ate pipeline validado, alinha com HANDOFF:24 | Manter como prerequisito ativo |
 | `S204-warm-bouncing-dahl.md` (archived) | FALSE-DONE | L53-55 afirma Design Excellence Phase 2 OK pois "Phase 1.5 DONE", mas mutable-mapping-seal:122 ainda exige proof | Manter archived, tratar claim DONE como invalida |
 
-**Scoped to S220 Part C:** Hygiene — mover `compressed-conjuring-pudding.md` (S219 KBP-22 done) para archive + status notes nos FALSE-DONE/STALE.
+**Scoped to S220 Part C:** Hygiene — mover `compressed-conjuring-pudding.md` (S219 KBP-22 done) para archive + status notes nos FALSE-DONE/STALE. (S224 update: movido para `archive/S219-compressed-conjuring-pudding.md`.)
 
 ---
 
