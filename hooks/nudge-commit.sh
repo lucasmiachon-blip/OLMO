@@ -7,7 +7,8 @@ set -euo pipefail
 # Drain stdin (hook protocol)
 cat > /dev/null 2>&1
 
-PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
+[[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 
 # Quick gate: skip if no git repo
 git -C "$PROJECT_ROOT" rev-parse --git-dir >/dev/null 2>&1 || exit 0

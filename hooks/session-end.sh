@@ -8,7 +8,8 @@ set -euo pipefail
 # Drain stdin
 cat >/dev/null 2>&1
 
-PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
+[[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 . "$PROJECT_ROOT/hooks/lib/hook-log.sh"
 
 LAST_DREAM_FILE="$HOME/.claude/.last-dream"

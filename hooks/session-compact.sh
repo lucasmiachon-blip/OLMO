@@ -5,7 +5,8 @@ set -euo pipefail
 # Without this, compaction drops behavioral rules and agent drifts.
 # Evento: SessionStart (compact) | Timeout: 5s | Exit: sempre 0
 
-PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
+[[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 
 ESSENTIALS="$PROJECT_ROOT/.claude/context-essentials.md"
 if [ -f "$ESSENTIALS" ]; then

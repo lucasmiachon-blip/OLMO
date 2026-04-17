@@ -4,7 +4,8 @@ set -euo pipefail
 # Hidrata sessao nova: projeto, data, sessao, HANDOFF completo.
 # Evento: SessionStart | Timeout: 5s | Exit: sempre 0
 
-PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
+[[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 PROJECT_NAME=$(basename "$PROJECT_ROOT")
 TODAY=$(date +%Y-%m-%d)
 SESSION_FILE="$PROJECT_ROOT/.claude/.session-name"
