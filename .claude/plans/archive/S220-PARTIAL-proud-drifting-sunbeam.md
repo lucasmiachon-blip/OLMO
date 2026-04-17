@@ -1,5 +1,7 @@
 # S220 — Micro-batches (stop + OK per batch)
 
+> **Status: PARTIAL-DONE — S224 audit** — B10 (plans hygiene) e B13 parcial (DEAD-REFs verify) executados em S224. B4-B9 (docling pipeline) aguardam Lucas reflection sobre docling scope. B11-B12 (stop-metrics) unknown status. B1-B3/B14-B15 nao verificados.
+
 ## Ordem profissional, cada batch = STOP + ask OK.
 
 **B1. /dream dry-run** — inspect 4 phases, write nothing. Report proposed changes. STOP.
