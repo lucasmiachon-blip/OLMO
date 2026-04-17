@@ -3,6 +3,7 @@ set -euo pipefail
 # Claude Code hook: SessionStart
 # Hidrata sessao nova: projeto, data, sessao, HANDOFF completo.
 # Evento: SessionStart | Timeout: 5s | Exit: sempre 0
+# S225 Issue #10: reset inter-session /tmp counters (nudge-checkpoint state)
 
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
@@ -19,6 +20,9 @@ NEXT_SESSION=$((LAST_SESSION + 1))
 
 # Generate session-scoped ID for cost brake (B7-06 S102) — AFTER computing NEXT_SESSION
 echo "${NEXT_SESSION}_$(date +%Y%m%d_%H%M%S)" > /tmp/cc-session-id.txt
+
+# S225 Issue #10: reset inter-session counters (nudge-checkpoint state leaks without reset)
+rm -f /tmp/olmo-subagent-count /tmp/olmo-checkpoint-nudged
 
 cat <<EOF
 Projeto: $PROJECT_NAME | Data: $TODAY | Sessao provavel: $NEXT_SESSION
