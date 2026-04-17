@@ -70,7 +70,7 @@ check_inv_2() {
     else
       printf -- '- [PASS] %s: %s\n' "$event" "$path" >> "$REPORT"
     fi
-  done < <(jq -r '.hooks | to_entries[] | .key as $e | .value[] | (.hooks // [])[] | "\($e)\t\(.command // "null")"' .claude/settings.local.json | tr -d '\r')
+  done < <(jq -rs '(.[0] // {}) * (.[1] // {}) | .hooks // {} | to_entries[] | .key as $e | .value[] | (.hooks // [])[] | "\($e)\t\(.command // "null")"' .claude/settings.json .claude/settings.local.json 2>/dev/null | tr -d '\r')
 
   {
     echo ""

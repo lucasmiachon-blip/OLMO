@@ -1,0 +1,413 @@
+{
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+    "CLAUDE_CODE_ENHANCED_TELEMETRY_BETA": "1",
+    "OTEL_METRICS_EXPORTER": "otlp",
+    "OTEL_LOGS_EXPORTER": "otlp",
+    "OTEL_TRACES_EXPORTER": "otlp",
+    "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
+    "CLAUDE_CODE_EFFORT_LEVEL": "max",
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-sonnet-4-6",
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "WebSearch(*)",
+      "WebFetch(*)",
+      "Read",
+      "Glob",
+      "Grep",
+      "Write",
+      "Edit",
+      "ExitPlanMode",
+      "EnterPlanMode",
+      "Agent",
+      "ToolSearch",
+      "TaskCreate",
+      "TaskUpdate",
+      "TaskList",
+      "TaskStop",
+      "mcp__claude_ai_PubMed__*",
+      "mcp__claude_ai_Consensus__*",
+      "mcp__claude_ai_SCite__*",
+      "mcp__pubmed__*",
+      "mcp__biomcp__*",
+      "mcp__crossref__*",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__press_key",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__evaluate_script",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_console_messages",
+      "Skill(research)",
+      "Skill(codex:rescue)",
+      "Skill(codex:gpt-5-4-prompting)",
+      "Skill(dream)",
+      "Skill(wiki-lint)",
+      "Skill(wiki-query)",
+      "Skill(insights)",
+      "Skill(brainstorming)",
+      "Skill(systematic-debugging)",
+      "Skill(loop)",
+      "Skill(update-config)",
+      "Bash(rm ~/.claude/.dream-pending)",
+      "Bash(date +%s)"
+    ],
+    "deny": [
+      "mcp__claude_ai_Gmail__*",
+      "mcp__claude_ai_Google_Calendar__*",
+      "mcp__claude_ai_Excalidraw__*",
+      "mcp__claude_ai_Canva__*",
+      "mcp__claude_ai_Notion__*",
+      "mcp__context7__*",
+      "mcp__claude_ai_Scholar_Gateway__*",
+      "mcp__plugin_playwright_playwright__*",
+      "mcp__zotero__*"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/ambient-pulse.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/momentum-brake-clear.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/nudge-commit.sh",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/session-start.sh",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/session-compact.sh",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/apl-cache-refresh.sh",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/guard-read-secrets.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/guard-write-unified.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/allow-plan-exit.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/guard-secrets.sh",
+            "if": "Bash(*git *)",
+            "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/guard-bash-write.sh",
+            "if": "Bash(*>*|*>>*|*rm *|*mv *|*cp *|*chmod*|*kill*)",
+            "timeout": 3000
+          },
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/guard-lint-before-build.sh",
+            "if": "Bash(*npm run build*)",
+            "timeout": 30000
+          }
+        ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/guard-research-queries.sh",
+            "if": "Skill(research*|evidence*)",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/guard-mcp-queries.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/momentum-brake-enforce.sh",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/post-bash-handler.sh",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/lint-on-edit.sh",
+            "timeout": 15000
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/nudge-checkpoint.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/coupling-proactive.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
+        "matcher": "Agent|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/chaos-inject-post.sh",
+            "timeout": 3000,
+            "async": true
+          }
+        ]
+      },
+      {
+        "matcher": "Agent|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/model-fallback-advisory.sh",
+            "timeout": 3000,
+            "async": true
+          }
+        ]
+      },
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/post-global-handler.sh",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/notify.sh",
+            "timeout": 10000,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/pre-compact-checkpoint.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/post-compact-reread.sh",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "LOOP GUARD: If the conversation already contains 'Stop hook feedback' messages with the SAME 'Skipped:' reason you are about to give, respond {\"ok\":true} immediately — do NOT repeat the same feedback. Only flag an issue ONCE per conversation. Also: if the assistant has acknowledged an error and is waiting for user direction, that is correct behavior — respond {\"ok\":true}.\n\nReview the assistant's final response. Did it complete ALL tasks the user explicitly requested, or did it rationalize skipping something? Rationalization patterns: 'I decided not to', 'this wasn't necessary', 'I skipped X because', 'instead of doing X', 'beyond scope' when user DID request it, or silently omitting a requested deliverable. IMPORTANT CONTEXT: This project follows a 'Proponha, espere OK, execute' workflow — the assistant MUST discuss design decisions with the user before implementing. If the assistant is presenting options, asking for approval, or waiting for user input on design choices, that is CORRECT behavior, not skipping. Only flag as skipped if the assistant unilaterally decided to skip work without the user's direction, or silently omitted a deliverable. If the assistant is mid-conversation discussing how to implement, respond with JSON: {\"ok\":true}. If the assistant skipped explicitly requested work without the user's approval to skip, respond with JSON: {\"ok\":false,\"reason\":\"Skipped: <what was skipped>\"}.\n\nSECOND CHECK — Silent execution: Count the action tool calls (Edit, Write, Bash with side effects, Agent) in the assistant's response. If there are 3+ action tool calls without user-facing text explaining WHAT is being done and WHY before those calls, that is silent execution. Research tools (Read, Grep, Glob, ToolSearch) do NOT count. If silent execution detected, respond with JSON: {\"ok\":false,\"reason\":\"Silent execution: N action tool calls sem explicar ao usuario o que e por que\"}. Both checks must pass — if either fails, respond ok:false. $ARGUMENTS",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "Check session artifact hygiene. You have access to Bash, Read, Grep, and Glob tools. Run these checks:\n\n1. Run: git diff --name-only HEAD -- HANDOFF.md CHANGELOG.md\n2. Run: git log --oneline -1 -- HANDOFF.md CHANGELOG.md\n3. Run: git diff --cached --name-only -- HANDOFF.md CHANGELOG.md\n\nIf NONE of these commands show modifications to HANDOFF.md or CHANGELOG.md, respond with JSON:\n{\"ok\": false, \"reason\": \"Session ended without updating HANDOFF.md or CHANGELOG.md\"}\n\nIf at least one file appears in any of the outputs, respond with JSON:\n{\"ok\": true}",
+            "timeout": 60
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-quality.sh",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-metrics.sh",
+            "timeout": 5000,
+            "async": true
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-notify.sh",
+            "timeout": 10000,
+            "async": true
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/tools/integrity.sh > /dev/null 2>&1 || echo '[INTEGRITY] violations -- see .claude/integrity-report.md'",
+            "timeout": 10000,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/post-tool-use-failure.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/session-end.sh",
+            "timeout": 5000,
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash $CLAUDE_PROJECT_DIR/.claude/statusline.sh"
+  },
+  "alwaysThinkingEnabled": true,
+  "plansDirectory": ".claude/plans",
+  "autoMemoryEnabled": false
+}
