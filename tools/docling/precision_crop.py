@@ -2,6 +2,10 @@
 
 Uses PyMuPDF (fitz) for exact coordinate-based cropping at 600 DPI.
 Migrated from docling-tools/ repo — paths now relative to OLMO project root.
+
+Citations for slide source-tag:
+  Cochrane: Ebrahimi et al. 2025, Cochrane Database Syst Rev
+  Tier2: Li et al. 2025, Am J Cardiovasc Drugs
 """
 
 import os
@@ -49,7 +53,22 @@ def main():
     tier2 = str(PROJECT_ROOT / "content" / "aulas" / "dist" / "assets" / "Colchicine_tier2.pdf")
 
     # COCHRANE p.15 — MI forest plot
-    cochrane_clip = fitz.Rect(28, 98, 568, 272)
+    # Exact positions from get_text('dict') inspection (merged from source repo S224):
+    #   Column headers "Study or Subgroup" + Risk of Bias A-F: y=101-120
+    #   Studies: y=131-208
+    #   Total (Wald.) / Total events: y=218-237
+    #   Test for overall effect: y=238-247
+    #   Axis labels "Colchicine"/"Comparison": y=248-257
+    #   Heterogeneity: y=258-266
+    #   (CUT line)
+    #   "Footnotes": y=277
+    # Skip "Figure 3." title (y=80-90) — slide h2 replaces it.
+    cochrane_clip = fitz.Rect(
+        28,  # left
+        98,  # top: just before column headers (101)
+        568,  # right: include Risk of Bias dots
+        272,  # bottom: after heterogeneity (266), before Footnotes (277)
+    )
     crop_and_save(
         cochrane,
         14,
@@ -58,8 +77,15 @@ def main():
         "Cochrane MI — Ebrahimi et al. 2025, Cochrane Database Syst Rev",
     )
 
-    # TIER2 p.4 — MACE forest plot
-    tier2_clip = fitz.Rect(50, 50, 540, 395)
+    # TIER2 p.4 — MACE forest plot (2 subgroups)
+    # Docling bbox (converted to top-left): top=55.7, bottom=391.0
+    # Caption "Fig 1" text starts at y≈405
+    tier2_clip = fitz.Rect(
+        50,  # left: study names with margin
+        50,  # top: include column headers
+        540,  # right: include Weight column
+        395,  # bottom: include graph axis, stop before caption (~405)
+    )
     crop_and_save(
         tier2,
         3,
