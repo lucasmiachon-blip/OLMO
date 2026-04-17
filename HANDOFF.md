@@ -38,7 +38,7 @@ Infrastructure + cleanup + docling canonicalization + research:
 - Track A decision + setup
 - DE Fase 2 escrita (rule + skill)
 - DE research consolidate (4 docs S199-S204 → `docs/research/design-excellence-research-S199-S204.md`)
-- Codex triage Batch 1 (9 hook issues, 4 HIGH) — read `BACKLOG-S220-codex-adversarial-report.md`
+- Codex triage: **`ACTIVE-S225-codex-triage.md`** (9 issues categorized — 7 FIX + 2 VERIFY, 2.5-3h estimate)
 - BACKLOG.md merge 3→1 (LT-7 S214 deferred)
 - Memory 9 candidates audit — paths podem estar stale (descoberta S224: `.claude/memory/` nao existe; real em `.claude/agent-memory/evidence-researcher/`)
 
