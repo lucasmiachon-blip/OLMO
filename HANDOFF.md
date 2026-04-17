@@ -45,7 +45,12 @@ S222 **codificou** deteccao (integrity.sh Stop[5] + PROJECT_ROOT hardened + sett
 
 **Se Passo 0 FAIL em qualquer item:** nao e "fix refinement", e "S222 foi teatro". Reabrir `buzzing-wondering-hickey.md`.
 
-**Se Passo 0 PASS:** escolher Track A ou B.
+**Se Passo 0 PASS:** seguir tema "arrumar a casa" — Track A prioritario.
+
+**S222 fim — disabled (medir impacto em S223 baseline):**
+- Plugin `superpowers@claude-plugins-official` = false (perde ~150 li/start)
+- MCP `claude.ai SCite` + `claude.ai PubMed` = disabled (case-fix: estava `Scite` vs real `SCite`). Perde ~80+ li de instructions/start.
+- MANTIDO: `explanatory-output-style` (~15 li, valor didatico explicito)
 
 **Track A (context weight — percepcao "pesado" prioridade):**
 1. Medir: baseline honesto do `ctx_pct` em session-start zero-input.
@@ -102,6 +107,11 @@ Stop[0] prompt → [1] agent (git diff) → [2] quality → [3] metrics async �
 - Docling venv separado (tools/docling/.venv).
 - ctx_pct_max metrica (statusline + stop-metrics).
 - **S222 aprendizado: deteccao ≠ reducao. Metricar weight antes de declarar vitoria.**
+
+## ESCOPO PROXIMOS DIAS (Lucas S222 fim)
+
+**Tema: "arrumar a casa".** Slides **FROZEN**. CSS **FROZEN**. Zero content work ate novo OK.
+Foco exclusivo: infra (context weight, hooks resto, memory merges, validacao S222).
 
 ## CUIDADOS
 

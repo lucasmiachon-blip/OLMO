@@ -32,6 +32,17 @@
 ### Plan
 - `buzzing-wondering-hickey.md` — 3/3 DONE
 
+### Context weight — disables (fim S222)
+- Apos push-back Lucas ("infra estavel? de onde pressupos?"): reframe HANDOFF como "CODIFICADA nao VALIDADA" + Passo 0 validation obrigatorio S223
+- Mapeados 8 plugins + MCP servers por peso de auto-load
+- DISABLE: `superpowers@claude-plugins-official` em `~/.claude/settings.json` (~150 li bootstrap/start — skills deferidos permanecem invocaveis via cp manual)
+- DISABLE: `claude.ai SCite` + `claude.ai PubMed` MCP em `~/.claude.json` disabledMcpServers (case-fix: existia `Scite` mas real `SCite` — case mismatch eliminou disable anterior). ~80 li SCite instructions/start.
+- MANTIDO: `explanatory-output-style` (~15 li, valor didatico explicito por CLAUDE.md user)
+- Mapeados nao-plugins pendentes: CLAUDE.md + rules/*.md (~200 li manual trim)
+
+### Escopo proximos dias
+- Slides FROZEN. CSS FROZEN. Tema: "arrumar a casa" (infra + validation + memory merges)
+
 ## Sessao 221 — 2026-04-16 (truth-decay diagnosis + integrity.sh seed)
 
 ### Diagnostico adversarial
