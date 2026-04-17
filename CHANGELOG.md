@@ -17,6 +17,26 @@
 - `.claude/plans/archive/S224-stop-dispatch-diag.md` — INFRA100.1 report (archived)
 - `.claude/plans/archive/S224-fizzy-hopping-honey.md` — INFRA100.2 plan (archived pos-commit f8564fe)
 
+### Housekeeping + consolidation (iters 6-10)
+- 14 plans renamed com status convention (DONE/ACTIVE/BACKLOG/STALE/PARTIAL-DONE)
+- HANDOFF compactado 94→59 li (KBP-23) + refresh final com estado consolidado S224
+- 3 FALSE-DONE annotations (S199 mutable-seal, S208 generic-manatee, S204 warm-bouncing-dahl)
+- 2 DEAD-REFs fixed em CLAUDE.md (L63 crossref-precommit.sh removed; L73 stop-detect-issues.sh → stop-quality.sh)
+- Docling: source `C:/Dev/Projetos/docling-tools/` **deletado** pos-merge; OLMO `tools/docling/` canonical com 4 .py + README + uv.lock + pyproject
+- 3 empty dirs removed (scripts/output, content/aulas/drive-package/slides-png, content/aulas/scripts/qa)
+- 2 archive restamps (S210-hashed-zooming-bonbon, S214-curious-honking-platypus) — convention S##-prefix 100%
+- 3 research reports arquivados (A1 plans archaeology, A2 knowledge graph SOA, A3 memory/dream/wiki SOA)
+- Fizzy-hopping-honey.md renamed → ACTIVE-S224-consolidation-plan.md (convention)
+
+### Commits S224
+f8564fe (infra) → 7bece0a+1217e84 (renames+refs) → c95c405 (HANDOFF) → b682ae4+3bb9591 (FALSE-DONE+DEAD-REFs) → 8131ddf (proud-sunbeam) → 127f4f4+40c5178 (docling) + final pending (restamps+HANDOFF+CHANGELOG)
+
+### Aprendizados novos S224
+- `git mv + Edit` race: pre-commit stash separa rename e content edits; use 2-pass OR `git add` apos Edit
+- Archaeology agent verdict pode ser wrong (A1 classified docling LT-1 wrong — ja migrated S216). Verify claims antes de acting
+- Research agent pode malinterpretar prompts "CREATE new file" vs "rename existing" — prompts explicitos essenciais
+- `.claude/memory/` nao existe; real memory em `.claude/agent-memory/evidence-researcher/`. BACKLOG-S220 refs stale
+
 ## Sessao 223 — 2026-04-17 (validar-s222)
 
 - VALIDATION: Passo 0 S222 — 2 PASS (#1 orphans, #3 sanity) / 1 FAIL (#2 Stop[5] auto-fire) / 1 INCONCLUSIVE (#4 SessionEnd pos-S222). Report: `.claude/plans/archive/S223-validation-report.md`
