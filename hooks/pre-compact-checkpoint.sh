@@ -5,6 +5,7 @@ set -euo pipefail
 # Captures both code state (git) and cognitive state (plans, research, pending fixes).
 # Overwrites each turn — only latest state matters.
 # Evento: PreCompact | Timeout: 5000ms | Exit: sempre 0
+# S225 Issue #8: make write errors visible (was silent 2>/dev/null)
 
 # Drain stdin (hook protocol — prevent parent process stall)
 cat >/dev/null 2>&1
@@ -57,6 +58,6 @@ CHECKPOINT="$PROJECT_ROOT/.claude/.last-checkpoint"
   else
     echo "(none)"
   fi
-} > "$CHECKPOINT" 2>/dev/null
+} > "$CHECKPOINT" 2>&1 || echo "[pre-compact] checkpoint write failed: $CHECKPOINT" >&2
 
 exit 0
