@@ -17,6 +17,13 @@ fi
 PCT=${PCT%.*}  # truncate to integer
 PCT=${PCT:-0}
 
+# Persist context % for KPI hooks (track peak usage across session)
+CTX_FILE="/c/Dev/Projetos/OLMO/.claude/apl/ctx-pct.txt"
+PREV_PCT=0
+[ -f "$CTX_FILE" ] && PREV_PCT=$(cat "$CTX_FILE" 2>/dev/null || echo 0)
+[[ "$PREV_PCT" =~ ^[0-9]+$ ]] || PREV_PCT=0
+[ "$PCT" -gt "$PREV_PCT" ] 2>/dev/null && echo "$PCT" > "$CTX_FILE"
+
 LAST=$(grep -o 'Sessao [0-9]*' "$CHANGELOG" 2>/dev/null | head -1 | grep -o '[0-9]*')
 SESSION=$(( ${LAST:-0} + 1 ))
 

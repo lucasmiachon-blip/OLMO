@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 219 — 2026-04-16 (Self-Improvement)
+
+### KPI interpretado
+- ADD: apl-cache-refresh.sh — moving_avg() + interpret() substituem trend_arrow(). Verdicts com justificativa (BOM/ALTO/OK + razao)
+- ADD: apl-cache-refresh.sh — efficiency ratio (calls/changelog_line) como metrica derivada
+- ADD: apl-cache-refresh.sh — filtro data_quality=full (ignora rows backfill)
+- ADD: metrics.tsv — coluna 11 data_quality (backfill/full) + coluna 12 ctx_pct_max
+- ADD: statusline.sh — persiste ctx% pico em .claude/apl/ctx-pct.txt
+- ADD: stop-metrics.sh — coleta ctx_pct_max como 12a coluna
+- ADD: post-global-handler.sh — efficiency baseline + ctx% no mid-session KPI + alerta ctx>=80%
+
+### Decisoes infra
+- DECISION: Docling venv separado tools/docling/.venv (Python >=3.13 vs root >=3.11)
+- DECISION: Python infra — manter orchestrator.py + agents/ + subagents/ + config/. Limpar skills/efficiency/ (orphaned)
+- DECISION: Opus 4.7 — testar como modelo principal na proxima sessao
+- DECISION: Multi-agent orchestration Docling — deferred
+
 ## Sessao 218 — 2026-04-16 (KPI + Self-Improvement)
 
 ### Stuck-detection fix

@@ -3,6 +3,7 @@ set -euo pipefail
 # post-global-handler.sh — PostToolUse(.*): cost tracking + momentum brake + KPI loop
 # Merged: cost-circuit-breaker.sh + momentum-brake-arm.sh (S194 Fase 2)
 # S217: added periodic KPI reflection loop (every 200 calls)
+# S219: efficiency baseline + ctx % + data_quality filter in KPI reflection
 # Fires on EVERY tool call. Pure bash, no JSON parsing needed.
 # Exit 0 always — this hook never blocks.
 
@@ -75,17 +76,23 @@ if [ "$COUNT" -ge "$KPI_INTERVAL" ] && [ $(( COUNT % KPI_INTERVAL )) -eq 0 ]; th
       fi
     fi
 
-    # Baseline: average of last 5 sessions with real data (not "-")
+    # Baseline: average of last 5 sessions with data_quality=full
     AVG_HANDOFF=0
     AVG_BACKLOG=0
     AVG_REWORK=0
+    AVG_EFF=0
     BASELINE_COUNT=0
-    while IFS=$'\t' read -r sess dt rw bo br hp cl cm tc dur; do
-      [ "$hp" = "-" ] && continue
+    EFF_COUNT=0
+    while IFS=$'\t' read -r sess dt rw bo br hp cl cm tc dur dq cpct; do
+      [ "$dq" = "full" ] || continue
       [[ "$hp" =~ ^[0-9]+$ ]] || continue
       AVG_HANDOFF=$((AVG_HANDOFF + hp))
       [[ "$bo" =~ ^[0-9]+$ ]] && AVG_BACKLOG=$((AVG_BACKLOG + bo))
       [[ "$rw" =~ ^[0-9]+$ ]] && AVG_REWORK=$((AVG_REWORK + rw))
+      if [[ "$tc" =~ ^[0-9]+$ ]] && [[ "$cl" =~ ^[0-9]+$ ]] && [ "$cl" -gt 0 ]; then
+        AVG_EFF=$((AVG_EFF + tc / cl))
+        EFF_COUNT=$((EFF_COUNT + 1))
+      fi
       BASELINE_COUNT=$((BASELINE_COUNT + 1))
     done < <(tail -n +2 "$METRICS_FILE" | tail -5)
 
@@ -110,12 +117,30 @@ if [ "$COUNT" -ge "$KPI_INTERVAL" ] && [ $(( COUNT % KPI_INTERVAL )) -eq 0 ]; th
       fi
     fi
 
+    # Efficiency baseline
+    EFF_INFO=""
+    if [ "$EFF_COUNT" -gt 0 ]; then
+      AVG_EFF=$((AVG_EFF / EFF_COUNT))
+      EFF_INFO=" eff-baseline:${AVG_EFF}calls/cl"
+    fi
+
+    # Context % from statusline persistence
+    CTX_INFO=""
+    CTX_FILE="$APL_DIR/ctx-pct.txt"
+    if [ -f "$CTX_FILE" ]; then
+      CTX_PCT=$(cat "$CTX_FILE" 2>/dev/null || echo 0)
+      [[ "$CTX_PCT" =~ ^[0-9]+$ ]] && CTX_INFO=" ctx:${CTX_PCT}%"
+      if [ "${CTX_PCT:-0}" -ge 80 ] 2>/dev/null; then
+        KPI_MSG="${KPI_MSG}contexto ${CTX_PCT}% (alto — considerar /compact). "
+      fi
+    fi
+
     # Always show snapshot at KPI interval, alert only if degrading
     if [ -n "$KPI_MSG" ]; then
       printf '\n[KPI:%d] ALERTA: %s\n' "$COUNT" "$KPI_MSG"
     else
-      printf '\n[KPI:%d] OK — rework:%d backlog:%d pendentes:%d (dentro do baseline)\n' \
-        "$COUNT" "$NOW_REWORK" "$NOW_BACKLOG_OPEN" "$NOW_HANDOFF"
+      printf '\n[KPI:%d] OK — rework:%d backlog:%d pendentes:%d%s%s\n' \
+        "$COUNT" "$NOW_REWORK" "$NOW_BACKLOG_OPEN" "$NOW_HANDOFF" "$EFF_INFO" "$CTX_INFO"
     fi
   fi
 fi

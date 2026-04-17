@@ -5,6 +5,7 @@ set -euo pipefail
 # Leading indicators (DORA-inspired): rework_files, backlog velocity, handoff pendentes
 # S217: added HANDOFF snapshot for stuck-item detection across sessions
 # S218: section-aware HANDOFF parsing (PENDENTES only) + consistent stuck-counts schema
+# S219: data_quality (11th) + ctx_pct_max (12th) columns for metrics.tsv
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
 # Drain stdin (hook protocol — prevent parent process stall)
@@ -146,9 +147,17 @@ TODAY_DATE=$(date +%Y-%m-%d)
 
 if [ -n "$SESSION_NUM" ] && [ -f "$METRICS_FILE" ]; then
   if ! grep -q "^${SESSION_NUM}	" "$METRICS_FILE"; then
-    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    # Read peak context % from statusline persistence
+    CTX_MAX="-"
+    CTX_FILE="$APL_DIR/ctx-pct.txt"
+    if [ -f "$CTX_FILE" ]; then
+      CTX_MAX=$(cat "$CTX_FILE" 2>/dev/null || echo "-")
+      [[ "$CTX_MAX" =~ ^[0-9]+$ ]] || CTX_MAX="-"
+      rm -f "$CTX_FILE"
+    fi
+    printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
       "$SESSION_NUM" "$TODAY_DATE" "$REWORK_FILES" "$BACKLOG_OPEN" "$BACKLOG_RESOLVED" \
-      "$HANDOFF_PEND" "$CL_LINES" "$COMMITS" "$CALLS" "$ELAPSED_MIN" \
+      "$HANDOFF_PEND" "$CL_LINES" "$COMMITS" "$CALLS" "$ELAPSED_MIN" "full" "$CTX_MAX" \
       >> "$METRICS_FILE"
     echo "[METRICS] Persisted to metrics.tsv"
   fi
