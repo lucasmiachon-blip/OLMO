@@ -1,97 +1,117 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 222 | CONTEXT_ROT 3 — infra fix closed, semantic pendente
+> Sessao 222 | CONTEXT_ROT 3 — infra CODIFICADA (nao validada), context weight NAO caiu
 
-## S223 START HERE (P0 truth-decay semantic)
+## HONESTIDADE S222 (leia antes do START HERE)
 
-**Infra layer fechado em S222** (cwd class fix + settings tracked + orfaos limpos). **Semantic layer intacto.** Comece por INV-3:
+S222 **codificou** deteccao (integrity.sh Stop[5] + PROJECT_ROOT hardened + settings tracked). NAO validou em ciclo real, e NAO reduziu bytes carregados por turno.
 
-1. **INV-3 pointer resolution** — expandir `tools/integrity.sh` para parsear `→ pointer` em `rules/` + KBPs, verificar target exists. Ataca CLAUDE.md:63+73 DEAD-REFs + KBP-06/15 apontando memory mortos. HIGH impact (CLAUDE.md lido todo turno pelos agentes).
-2. **INV-4 count integrity** — grep SCHEMA.md "N rules" vs MEMORY.md "N rules" vs `ls .claude/rules/*.md | wc -l`. Trivial, 1 funcao bash.
-3. **INV-1 md destino** — frontmatter obrigatorio + whitelist grandfather. Maior trabalho (migrar md existentes).
+**Verificado em S222:**
+- `bash -n hooks/*.sh` sintaxe OK (11/11) — sintatico, nao funcional
+- `jq` parseia settings.json + settings.local.json merged — parse OK, nao load-by-harness
+- `bash tools/integrity.sh` manual → 0 violations — manual, nao Stop automatico
+- `ls .claude/.claude .claude/tmp` → ausentes AGORA (deletados +-15min antes do commit)
 
-Depois: hooks resto do diagnose S221 (momentum-brake, PostToolUseFailure, /tmp/cc-session-id).
+**NAO verificado (pressupostos, nao fatos):**
+- Hooks funcionam com novo PROJECT_ROOT em session end real
+- integrity.sh Stop[5] fires automatico (so vi manual run)
+- Harness Claude Code merge settings.json+local corretamente
+- Sanity check `basename == ".claude" && exit 1` triggera (nao testei)
+- Orfaos nao voltam proxima sessao
 
-## ESTADO ATUAL (pos-S222)
+**Primeiro passo obrigatorio S223:** validar o acima ANTES de declarar infra estavel.
 
-**Hooks:** 31 registered, 31 valid. Integrity.sh async wired no Stop (INV-2+5 PASS, 0 violations).
-**Settings:** `.claude/settings.json` TRACKED (baseline 413 li). `settings.local.json` = `{}` (reservado overrides).
-**PROJECT_ROOT hardened** em 11 hooks (`${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}` + sanity check basename).
-**Memory:** 20/20 (at cap, 9 merges pendentes). Rules: 5. Plans: 6 ativos, 42 archived.
-**Build:** 17 slides PASS. Python 53 tests PASS, ruff clean.
-**Docling:** `tools/docling/` com 4 scripts. Venv NAO inicializado.
+**Offenders reais de context weight (nao atacados):**
+1. Skill `superpowers:using-superpowers` auto-loaded full (~150 li YAML/prose todo session start)
+2. MCP `SCite` instructions auto-loaded (~80 li de obrigacoes inline)
+3. SessionStart hook 3-block output (APL + KPI + HANDOFF dump)
+4. CLAUDE.md + rules/*.md auto-loaded (~200 li soma)
+5. Skills list enumerado inteiro (deferido mas nomes visiveis)
 
-## STOP HOOKS (6 entries)
+**Offenders reais de context weight (nao atacados):**
+1. Skill `superpowers:using-superpowers` auto-loaded full (~150 li YAML/prose todo session start)
+2. MCP `SCite` instructions auto-loaded (~80 li de obrigacoes inline)
+3. SessionStart hook 3-block output (APL + KPI + HANDOFF dump)
+4. CLAUDE.md + rules/*.md auto-loaded (~200 li soma)
+5. Skills list enumerado inteiro (deferido mas nomes visiveis)
 
-Stop[0] prompt → [1] agent (git diff) → [2] quality → [3] metrics async → [4] notify async → **[5] integrity.sh async (S222)**
+## S223 START HERE — VALIDAR S222 antes de avancar
 
-## PLANOS ATIVOS (6)
+**Passo 0 — VALIDATION S222 (30 min, obrigatorio):**
+1. Session-start: `ls .claude/.claude .claude/tmp` → confirmar ausentes. Se voltaram → classe de bug NAO foi eliminada.
+2. `cat .claude/integrity-report.md` → verificar timestamp do report. Se igual a S222 manual, Stop[5] NAO firou.
+3. Forcar sanity check: `CLAUDE_PROJECT_DIR=$(pwd)/.claude bash hooks/session-start.sh` → deve exit 1 com ERROR.
+4. Logs harness: procurar invocacao dos hooks com novo PROJECT_ROOT em session end anterior.
 
-- `buzzing-wondering-hickey.md` (S222) — 3/3 DONE (cwd + settings + cleanup)
-- `partitioned-orbiting-hellman.md` (S221) — INV-2+5 done. INV-1/3/4 para S223
-- `humble-toasting-ritchie.md` — C1-C3 done, C4/C5 deferred
-- `proud-drifting-sunbeam.md` — B1+B1.5 done
-- `functional-rolling-waffle.md` — Docling venv pending
-- `mutable-mapping-seal.md` / `generic-wondering-manatee.md` / `snoopy-jingling-aurora.md` — backlog
+**Se Passo 0 FAIL em qualquer item:** nao e "fix refinement", e "S222 foi teatro". Reabrir `buzzing-wondering-hickey.md`.
+
+**Se Passo 0 PASS:** escolher Track A ou B.
+
+**Track A (context weight — percepcao "pesado" prioridade):**
+1. Medir: baseline honesto do `ctx_pct` em session-start zero-input.
+2. Skill auto-load: `using-superpowers` pode ser flag-gated ou lazy?
+3. MCP SCite instructions: 80-li obrigacoes → mover on-demand (so quando tool usada).
+4. SessionStart output: HANDOFF head-50 pode cair pra 30.
+
+**Track B (semantic truth-decay — correctness prioridade):**
+1. INV-3 pointer resolution — expandir integrity.sh para parsear `→ pointer`. Ataca CLAUDE.md:63+73, KBP-06/15.
+2. INV-4 count integrity — SCHEMA vs MEMORY vs `ls`. 1 funcao bash.
+3. INV-1 md destino — frontmatter + whitelist.
+
+**Recomendacao:** Passo 0 (sempre). Depois Track A (percepcao progresso) > Track B (correctness invisivel).
+
+## ESTADO POS-S222
+
+- Hooks: 31 registered, 31 valid. integrity.sh async Stop[5] (INV-2+5 PASS).
+- Settings: `.claude/settings.json` TRACKED (413 li baseline). `settings.local.json` = `{}`.
+- PROJECT_ROOT hardened 11 hooks (`${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}`).
+- Memory: 20/20 at cap, 9 merges pendentes. Rules: 5. Plans: 10 ativos.
+- Build: 17 slides PASS. Python 53 tests PASS, ruff clean.
+
+## STOP HOOKS (6)
+
+Stop[0] prompt → [1] agent (git diff) → [2] quality → [3] metrics async → [4] notify async → [5] integrity.sh async
 
 ## PENDENTES
 
-### Semantic truth-decay (P0 S223)
-- INV-3 → INV-4 → INV-1 (ordem acima)
-- Memory: 9 merges pendentes (review via /dream)
+### P0 — S223
+- Track A ou B (Lucas decide)
+- Memory 9 merges (review via /dream)
 
-### Hooks resto (S221 diagnose)
+### Hooks resto (S221 diagnose, deferred)
 - momentum-brake exempta Bash (policia nao policia)
 - PostToolUseFailure registrado em evento inexistente
 - `/tmp/cc-session-id.txt` compartilhado entre sessoes
 
-### Carryover
+### Carryover (sem prazo)
 - Docling: `cd tools/docling && uv sync` + testar `pdf_to_obsidian.py`
 - Slides: s-quality, s-tipos-ma, drive-package PDF/PNG
 - Wallace CSS: 29 raw px, #162032 sem token, 20 !important
 - Obsidian plugins (Templater, Dataview, Periodic Notes, Spaced Rep, obsidian-git)
-- Testar agent hook Stop bloqueio sem HANDOFF
 - Codex backlog: 40 findings em `.claude/plans/S220-codex-adversarial-report.md`
 
-## DECISOES ATIVAS
+## DECISOES ATIVAS (key — detalhes em memory/)
 
-- **S220 context melt:** C1-C3 DONE. C4 DEFERRED — /dream nao invocado toda sessao (Lucas).
-- **First-turn discipline (KBP-23):** Read limit, skill invocation gate, ToolSearch targeted, agent dispatch for broad scans. (S220)
-- **HANDOFF.md target 50 li:** session-start head -50 + pointer "50/N li" expoe drift. (S220)
-- Gemini QA temp: 1.0, topP 0.95. OKLCH obrigatorio.
+- S220 context melt: C1-C3 DONE. C4 DEFERRED.
+- KBP-23 First-turn discipline. HANDOFF target 50 li.
+- Gemini QA temp 1.0, topP 0.95. OKLCH obrigatorio.
 - Living HTML = source of truth. Agent effort: max.
-- CMMI maturity model. Hooks = freio (L2). Self-improvement loop = L3. **KPI = passo para L4.** (S217)
-- Settings: effort=max, adaptive_thinking=off, subagent=sonnet, 1M=off.
-- Memoria: stay native. Auto Dream agora manual (fix S216).
-- Hook errors: NAO sao cosmeticos — tratar como bugs reais.
-- Self-improvement: PAUSADO. **Resume gate (S218):** retomar quando ALL true: (1) >= 5 real rows em metrics.tsv (atual: 2/5), (2) rework_files nao subindo nas ultimas 3 sessoes reais, (3) zero STUCK alerts (stuck-counts >= 3), (4) /dream rodou com Phase 2.6 (metrics trend) pelo menos 1x.
-- Over-engineering > erros invisiveis. Erro sem metrica = divida invisivel.
-- Docling = ferramenta primaria PDF. Marker = alternativa leve. (S216)
-- Hook deploy via python shutil.copy (guard blocks Edit+cp). (S216)
-- **Stop hook reconhece "proponha→OK→execute" como fluxo correto, nao como skip.** (S217)
-- **Leading indicators > vanity metrics.** Rework, backlog velocity, stuck items > commits, tool calls. (S217)
-- **Stop[0] loop guard:** feedback duplicado = ok:true. Previne loop infinito. (S218)
-- **Opus 4.7:** testar como modelo principal na proxima sessao (`claude update`). (S219)
-- **Docling venv:** `tools/docling/.venv` separado. Python >=3.13 incompativel com root >=3.11. (S219)
-- **Python infra:** manter orchestrator.py + agents/ + subagents/ + config/. Limpar `skills/efficiency/` (orphaned). (S219)
-- **KPI interpretado:** session-start mostra moving avg + verdicts + efficiency ratio. Mid-session mostra ctx%. (S219)
-- **ctx_pct_max:** metrica de pico de contexto por sessao. statusline.sh persiste, stop-metrics.sh coleta. (S219)
-- **KBP-22 Silent Execution:** Stop[0] agora checa silent execution (3+ action tools sem comunicar). EC Elite exige reflexao de excelencia. (S219)
+- Self-improvement PAUSADO (resume gate S218).
+- KBP-22 Silent Execution (Stop[0] enforcement S219).
+- Opus 4.7 teste principal.
+- Docling venv separado (tools/docling/.venv).
+- ctx_pct_max metrica (statusline + stop-metrics).
+- **S222 aprendizado: deteccao ≠ reducao. Metricar weight antes de declarar vitoria.**
 
 ## CUIDADOS
 
 - NUNCA `taskkill //IM node.exe`. CSS: `section#s-{id}`. PMIDs: ~56% erro.
 - npm scripts: rodar de `content/aulas/`. h2 = trabalho do Lucas.
-- NUNCA colocar `ANTHROPIC_API_KEY` no env (bypassa Max, cobra API direto).
-- Pesquisa de agente: SEMPRE persistir em plan file ANTES de reportar.
-- Hook scripts: deploy via Write→tmp→python shutil.copy (guard blocks Edit+cp, python ask=ok).
-- "Funciona" sem metrica = achismo. Medir antes de afirmar.
-- Agent hook Stop: +30-60s no close. Se disruptivo → `async: true` perde blocking.
-- Docling venv pesado (~2GB). Manter separado em tools/docling/.venv.
-- **KPI loop: intervalo default 200 calls (CC_KPI_INTERVAL env var).** (S217)
-- **metrics.tsv colunas (12): session, date, rework_files, backlog_open, backlog_resolved, handoff_pendentes, changelog_lines, commits, tool_calls, duration_min, data_quality, ctx_pct_max.** (S219)
-
-- **Stop[0] prompt hook: loop guard obrigatorio.** Sem dedup = loop infinito (30+ iteracoes S218). (S218)
+- NUNCA `ANTHROPIC_API_KEY` no env (bypassa Max).
+- Agent research: persistir em plan file ANTES de reportar.
+- Hook scripts: Write→tmp→python shutil.copy (guard blocks Edit+cp).
+- "Funciona" sem metrica = achismo.
+- Docling venv ~2GB (separado).
 
 ---
-Coautoria: Lucas + Opus 4.7 | S220 2026-04-16
+Coautoria: Lucas + Opus 4.7 | S222 2026-04-17
