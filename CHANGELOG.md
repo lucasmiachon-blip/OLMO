@@ -54,7 +54,21 @@ f8564fe (infra) → 7bece0a+1217e84 (renames+refs) → c95c405 (HANDOFF) → b68
 
 **Gaps abertos S225:** Track A setup, DE Fase 2 execution, Codex triage fix, BACKLOG merge, Memory audit, write-gate enforcement.
 
-**Commits S224 final:** f8564fe → 7bece0a → 1217e84 → c95c405 → b682ae4 → 3bb9591 → 8131ddf → 127f4f4 → 40c5178 → f3dba9e → dcf3f1a
+**Commits S224 final:** f8564fe → 7bece0a → 1217e84 → c95c405 → b682ae4 → 3bb9591 → 8131ddf → 127f4f4 → 40c5178 → f3dba9e → dcf3f1a → d766c96 → 64d2c1a = **13 commits**.
+
+### S224 Encerramento — trajectory analysis
+**Curva ASCENDENTE:** infra observability (Stop[5] teatro → N=3 stable + stderr permanent), ctx_pct (S223=82 → S224 live end ~42 = -51%), convention (85% → 100% S##-prefix), plans classification (14 mixed → 4 status), commit cadence (avg ~1/sessao → 13 S224), research-grounded decisions (A1+A2+A3 SOA agents), HANDOFF discipline (94→59 li).
+
+**Curva DESCENDENTE:** slip rate 33% (iter 3) → 33% (iter 6) → **45%** (iter 11) — complexity + partnership speed sem enforcement mecanico. KBP markdown rules demonstrated fail.
+
+**Decisao profissional S224 close:** fresh S225 start para discipline recovery. SHIP thesis test: S228 write-gate mechanical pode inverter slip trend.
+
+**S224 final status:**
+- Plans active: 4 (ACTIVE-snoopy + ACTIVE-S225-codex-triage + ACTIVE-S225-SHIP-roadmap + BACKLOG-S220)
+- Archive: +14 novo S224, convention 100% S##-prefix
+- Docling: canonical OLMO (source deleted)
+- Codex debt: triaged (not fixed) — zero buried, all visible
+- SHIP era roadmap: 6 sessoes (S225-S230) aprovadas, target slip <15%, ctx_pct_max <60%, commits/session ≥3
 
 ## Sessao 223 — 2026-04-17 (validar-s222)
 

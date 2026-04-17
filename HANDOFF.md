@@ -1,6 +1,9 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 224 | INFRA100.1+100.2 + housekeeping + docling + research consolidation | ctx live ~40% final (S223=82)
+> **S224 ENCERRADA** 2026-04-17 | 13 commits | 12 iters | slip 45% (honest gap) | ctx live end ~42% (S223=82)
+> Sessao 224 | INFRA100.1+100.2 + housekeeping + docling + research consolidation + SHIP era proposed/approved
+
+**S225 HYDRATION:** Read `.claude/plans/ACTIVE-S225-SHIP-roadmap.md` (multi-session) + `.claude/plans/ACTIVE-S225-codex-triage.md` (S225 work). Priority ordem Phase 1→4. Elite-check #6 at close.
 
 ## VERDICT S224 (consolidated)
 
