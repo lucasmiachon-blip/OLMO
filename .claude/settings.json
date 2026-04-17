@@ -8,8 +8,7 @@
     "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
     "CLAUDE_CODE_EFFORT_LEVEL": "max",
     "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
-    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-sonnet-4-6",
-    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1"
+    "CLAUDE_CODE_SUBAGENT_MODEL": "claude-sonnet-4-6"
   },
   "permissions": {
     "allow": [

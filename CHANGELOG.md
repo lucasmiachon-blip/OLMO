@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Sessao 223 — 2026-04-17 (validar-s222)
+
+- VALIDATION: Passo 0 S222 — 2 PASS (#1 orphans, #3 sanity) / 1 FAIL (#2 Stop[5] auto-fire) / 1 INCONCLUSIVE (#4 SessionEnd pos-S222). Report: `.claude/plans/s223-validation-report.md`
+- ACHADO: integrity.sh Stop[5] NAO dispara automatico — mtime `.claude/integrity-report.md` inalterado apos 8h22min + multiplos Stop events. Report era fossil da run manual S222. S222 comissionou vigilancia que nunca foi exercida.
+- TEST: `CLAUDE_CODE_DISABLE_1M_CONTEXT` removido de `.claude/settings.json` (hipotese Lucas: flag inflaciona context harness-side). Observacao 1 sessao, sem decisao reverter/manter.
+- NO-OP funcional: sessao puramente diagnostica. Zero fixes. Proxima sessao diagnostica dispatch de Stop hook command-type.
+
 ## Sessao 222 — 2026-04-17 (CONTEXT_ROT 3: infra layer closed)
 
 ### Commit 1 — PROJECT_ROOT hardening (4c4e35f)
