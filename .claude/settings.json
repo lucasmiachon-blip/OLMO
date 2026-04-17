@@ -11,6 +11,7 @@
     "CLAUDE_CODE_SUBAGENT_MODEL": "claude-sonnet-4-6"
   },
   "permissions": {
+    "defaultMode": "auto",
     "allow": [
       "Bash(*)",
       "WebSearch(*)",
@@ -371,7 +372,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash $CLAUDE_PROJECT_DIR/tools/integrity.sh > /dev/null 2>&1 || echo '[INTEGRITY] violations -- see .claude/integrity-report.md'",
+            "command": "bash $CLAUDE_PROJECT_DIR/tools/integrity.sh 2>>/tmp/stop5-stderr.log >/dev/null || echo '[INTEGRITY] violations -- see .claude/integrity-report.md'",
             "timeout": 10000,
             "async": true
           }

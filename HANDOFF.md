@@ -1,47 +1,40 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 223 | validar-s222 | S222 parcialmente teatro — Stop[5] nao fira auto
+> Sessao 224 | INFRA100.1+100.2 | Stop[5] **H4 confirmed** — N=3 monotonic, stderr empty, ctx=58 (-29% vs S223)
 
-## VERDICT S223 (Passo 0 done)
+## VERDICT S224 (INFRA100.1 + INFRA100.2 done)
 
-| Check | Verdict |
-|-------|---------|
-| #1 orphans ausentes | PASS |
-| #2 Stop[5] integrity.sh auto-fire | **FAIL** — mtime inalterado 8h22min com multiplos Stop events |
-| #3 sanity check forcado | PASS — exit 1 + ERROR stderr |
-| #4 SessionEnd pos-S222 no hook-log | INCONCLUSIVE — S223 ainda em andamento |
+Stop hook `type: command` dispatch **FUNCIONA e ESTAVEL** no Claude Code Windows harness. Evidencia:
+- **N=3 monotonic mtime** em `.claude/integrity-report.md`: T=0 `10:37:35` → T=1 `10:42:29` → T=2 `10:53:21` (deltas +294s e +652s, sem touch em settings.json entre T=1 e T=2).
+- **stderr EMPTY:** patch `2>>/tmp/stop5-stderr.log` capturou zero bytes em 2+ Stop events com comando original rodando. Comando emite exit 0, no stderr.
+- **Hipoteses:** H1 (dispatch-broken) REFUTADA (INFRA100.1). **H2 (composicional) REFUTADA** (stderr empty prova original clean). **H4 (reload-via-touch estabilizou dispatch) CONFIRMADA.**
+- **S223 failure = transient.** Nao composicional, nao harness-dispatch-broken. Hipoteses sobreviventes: harness state corrupt em sessao longa (S223 8h+), race nao-deterministica, context pressure interfering dispatch. Nao reprodutivel em S224.
 
-Report completo: `.claude/plans/s223-validation-report.md`.
+Reports: `.claude/plans/s224-stop-dispatch-diag.md` (INFRA100.1) + `.claude/plans/fizzy-hopping-honey.md` (INFRA100.2 plan+evidence).
 
-**Consequencia:** S222 comissionou vigilancia (integrity.sh Stop[5]) que nunca foi exercida. O `integrity-report.md` era fossil da run manual de S222, nao autoridade viva. Defense-in-depth parcial: script correto, sanity correta, mas dispatch do Stop hook falha harness-side.
+**Consequencia:** Stop[5] agora com **stderr capture permanente** (`2>>/tmp/stop5-stderr.log`) — defensive instrumentation. Se S225+ volta a silenciar, stderr file captura root cause. Principio aplicado: **instrumentation > silence**.
 
-## S224 START HERE — diagnosticar Stop[5] dispatch
+## S225 START HERE — Track A context weight (Stop[5] resolvido)
 
-**Teste minimo (nao invasivo):**
-1. Substituir temporariamente integrity.sh Stop[5] em `.claude/settings.json:372-379` por:
-   `bash -c 'echo "stop-fired $(date -u +%FT%TZ)" >> /tmp/stop-trace.txt'` com `async: false`
-2. Rodar uma interacao trivial no Claude Code. Observar `/tmp/stop-trace.txt`.
-3. Se **vazio** → Stop hook command-type nao dispara (bug de harness/permissao). Migrar integrity.sh para `SessionEnd` (logger prova que funciona).
-4. Se **grava** → problema e especifico do integrity.sh call (quote, expansao `$CLAUDE_PROJECT_DIR`, redirect silencando falha). Testar sem async + sem redirect.
-5. Restaurar configuracao original apos diagnostico.
+Stop[5] estavel + observavel (stderr capture permanent). Nao ha bloqueio infra. Proximo bottleneck: **context weight**.
 
-**Nao avancar Track A/B ate Stop[5] ser resolvido.** Se migrar para SessionEnd, revisar `buzzing-wondering-hickey.md` Commit 2 como insuficiente.
+**Track A:** skill lazy-load audit + SessionStart enxuto + MCP on-demand. Baseline: `ctx_pct_max` S222=72 / S223=82 vs S224 current snapshot=58. Aguardar SessionEnd para `ctx_pct_max` S224 oficial em `.claude/apl/metrics.tsv`. Hipoteses cumulativas S222-S224 (superpowers off, SCite/PubMed off, `CLAUDE_CODE_DISABLE_1M_CONTEXT` removido) parecem efetivas — **isolar contribuicao individual em S225+ se Lucas quiser granularidade**.
 
-**S222 fim — disabled (medir impacto em S223 baseline):**
-- Plugin `superpowers@claude-plugins-official` = false (perde ~150 li/start)
-- MCP `claude.ai SCite` + `claude.ai PubMed` = disabled (case-fix: `Scite` → `SCite`). Perde ~80+ li/start.
-- MANTIDO: `explanatory-output-style` (~15 li, valor didatico)
-- **S223 test:** `CLAUDE_CODE_DISABLE_1M_CONTEXT` removido (hipotese Lucas: flag inflaciona harness-side). Aguarda 1 sessao comparativa antes de reverter/manter.
+**Decisoes carryover:**
+- `CLAUDE_CODE_DISABLE_1M_CONTEXT`: **keep removido** (S224 ctx=58 confirma hipotese Lucas empiricamente).
+- `defaultMode: auto` em `.claude/settings.json:13` (adicionado pelo harness Auto mode): Lucas decide persistir ou reverter em S225.
+- MCP `SCite`/`PubMed` disabled, plugin `superpowers` off, `explanatory-output-style` mantido.
 
-**Track A/B (apos S224 Stop[5] fix):** Track A = context weight (skill lazy, MCP on-demand, SessionStart enxuto). Track B = semantic truth-decay (INV-3 pointer, INV-4 count, INV-1 md destino). Lucas decide depois do Stop[5] estar green.
+**Track B (deferred):** semantic truth-decay (INV-3 pointer, INV-4 count, INV-1 md destino). Aguarda Track A.
 
-## ESTADO POS-S223
+## ESTADO POS-S224
 
-- Hooks: 31 registered, 31 valid sintaticamente. **Stop[5] integrity.sh nao dispara auto** (FAIL verificado S223).
-- Settings: `.claude/settings.json` TRACKED (412 li, `DISABLE_1M_CONTEXT` removido). `settings.local.json` = `{permissions.allow:["Bash(bash tools/integrity.sh)"]}`.
+- Hooks: 31 registered, 31 valid. **Stop[5] dispatch N=3 stable + stderr capture permanent** (`2>>/tmp/stop5-stderr.log`). Defense-in-depth observavel.
+- Settings: `.claude/settings.json` TRACKED com (a) stderr patch em Stop[5] intencional; (b) `"defaultMode": "auto"` adicionado pelo harness Auto mode. `settings.local.json` = `{permissions.allow:["Bash(bash tools/integrity.sh)"]}`.
 - PROJECT_ROOT hardened 11 hooks. Sanity check PASS.
-- Memory: 20/20 at cap, 9 merges pendentes. Rules: 5. Plans: 11 ativos (+s223-validation-report.md).
-- Build: nao reexecutado S223 (sessao diagnostica, zero fix).
+- Memory: 20/20 at cap, 9 merges pendentes. Rules: 5. Plans: 13 ativos.
+- Context: ctx_pct S224 snapshot=58 (baseline estavel). S222=72, S223=82 historical. `ctx_pct_max` oficial no SessionEnd via metrics.tsv.
+- Build: nao reexecutado (sessao diagnostica + fix defensive, zero feature work).
 
 ## STOP HOOKS (6)
 
@@ -49,9 +42,10 @@ Stop[0] prompt → [1] agent (git diff) → [2] quality → [3] metrics async �
 
 ## PENDENTES
 
-### P0 — S224
-- **Diagnosticar Stop[5] dispatch** (ver S224 START HERE acima) — blocker
-- Decidir CLAUDE_CODE_DISABLE_1M_CONTEXT: reverter ou manter removido
+### P0 — S225
+- **Fix Stop[5] composicional** (Path A/B/C em S225 START HERE acima) — blocker Track A/B
+- Decidir `defaultMode: auto` em `.claude/settings.json:13` — persistir ou remover (veio via harness Auto mode)
+- Decidir `CLAUDE_CODE_DISABLE_1M_CONTEXT`: reverter ou manter removido (sem baseline S222 ainda)
 - Memory 9 merges (review via /dream)
 
 ### Hooks resto (S221 diagnose, deferred)
@@ -79,6 +73,7 @@ Stop[0] prompt → [1] agent (git diff) → [2] quality → [3] metrics async �
 - ctx_pct_max metrica (statusline + stop-metrics).
 - **S222 aprendizado: deteccao ≠ reducao. Metricar weight antes de declarar vitoria.**
 - **S223 aprendizado: codificar != ativar. Hook registrado em settings.json nao prova dispatch harness-side — testar mtime/trace antes de confiar.**
+- **S224 aprendizado: teste minimal binario > teste exaustivo. 1 Stop event foi suficiente para refutar H1 (dispatch-broken) com `/tmp/stop-trace.txt` = 1 entry. N=3 planejado, N=1 bastou. Sempre projetar testes com decisao binaria antes de amostra grande.**
 
 ## ESCOPO PROXIMOS DIAS (Lucas S222 fim)
 
@@ -96,4 +91,4 @@ Foco exclusivo: infra (context weight, hooks resto, memory merges, validacao S22
 - Docling venv ~2GB (separado).
 
 ---
-Coautoria: Lucas + Opus 4.7 | S223 2026-04-17
+Coautoria: Lucas + Opus 4.7 | S224 INFRA100.1 2026-04-17

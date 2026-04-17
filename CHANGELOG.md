@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 224 — 2026-04-17 (INFRA100.1 diag + INFRA100.2 evolucao consolidada)
+
+### INFRA100.1 — Stop[5] dispatch diagnostic
+- DIAG: Stop hook `type: command` dispatch funciona em Windows harness. Trace minimal `bash -c 'echo ... >> /tmp/stop-trace.txt'` async:false gravou entry coerente apos 1 Stop event. H1 (dispatch-broken) REFUTADA via amostra N=1 binaria.
+- Report: `.claude/plans/s224-stop-dispatch-diag.md`. Restore byte-por-byte vs baseline S222.
+
+### INFRA100.2 — evolucao com evidencia robusta
+- STABILITY N=3: mtime `.claude/integrity-report.md` monotonic — T=0 `10:37:35` → T=1 `10:42:29` (+294s) → T=2 `10:53:21` (+652s). Dispatch estavel pos-restore. **H4 (reload-via-touch estabilizou dispatch) CONFIRMADA.**
+- ROOT CAUSE isolation: patch `2>>/tmp/stop5-stderr.log` capturou **zero bytes** em 2+ Stop events. Comando original executa clean (exit 0, sem stderr). **H2 (composicional) REFUTADA.** S223 8h22m silence = transient (harness state corrupt em sessao longa? context pressure? race nao-deterministica?). Nao reprodutivel S224.
+- DEFENSIVE instrumentation: stderr capture mantido permanente em Stop[5] (`2>>/tmp/stop5-stderr.log`). Principio aplicado: **instrumentation > silence**.
+- CONTEXT evidence: S224 `ctx_pct` snapshot=58 vs S222=72, S223=82 (via `.claude/apl/metrics.tsv`). Reducao ~29% vs S223 atribuivel a hipoteses cumulativas (superpowers off, SCite/PubMed off, `CLAUDE_CODE_DISABLE_1M_CONTEXT` removido). `ctx_pct_max` oficial no SessionEnd.
+- DECISAO: `CLAUDE_CODE_DISABLE_1M_CONTEXT` **mantido removido** (ctx=58 confirma hipotese Lucas empiricamente). Path A/B/C (fix strategy escolha) obsoleto apos H2 refutada.
+
+### Plan files
+- `.claude/plans/s224-stop-dispatch-diag.md` — INFRA100.1 report (executed)
+- `.claude/plans/fizzy-hopping-honey.md` — INFRA100.2 plan (approved + Phases 1-3 done, Phase 4 commit next)
+
 ## Sessao 223 — 2026-04-17 (validar-s222)
 
 - VALIDATION: Passo 0 S222 — 2 PASS (#1 orphans, #3 sanity) / 1 FAIL (#2 Stop[5] auto-fire) / 1 INCONCLUSIVE (#4 SessionEnd pos-S222). Report: `.claude/plans/s223-validation-report.md`
