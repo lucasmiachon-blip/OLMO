@@ -228,6 +228,26 @@ Post-Phase 4: global 20 → 18/20 (2 slots liberados).
 
 **Race test (iter 1)**: 3 parallel writers → 1 linha. mkdir atomic lock validado. Flock path será exercitado naturalmente em S226+.
 
+### S225 Phase 1 — COMPLETE (5/5 issues, 5 commits) (2026-04-17)
+
+| Phase | Issue | Commit | Hook modificado |
+|---|---|---|---|
+| 1.1 | #5 race | `c1b3176` | `hooks/stop-metrics.sh` flock/mkdir hybrid + MSYS2 install |
+| 1.2 | #7 fallback | `aba7ca1` | `hooks/post-tool-use-failure.sh` defensive cat |
+| 1.3 | #10 counters | `3ba0a33` | `hooks/session-start.sh` /tmp reset |
+| 1.4 | #2 matcher | `2f0bbc3` | `.claude/hooks/guard-lint-before-build.sh` dev-build + BACKLOG #34 |
+| 1.5 | #6 docs | `d12e751` | `.claude/hooks/README.md` reclassify |
+
+**Slippage honest**: Phase 1 ~75min vs plan 50min. Overage (25min) foi MSYS2 install — approved scope expansion, não drift.
+
+**Remaining (Phase 2-6)**: 3 architectural (#3, #4, #8) + 2 Lucas decisions (#1, #9) + memory consolidation (global 20/20 AT CAP) + BACKLOG cleanup + session docs.
+
+### S225 iter 2 — Consolidacao (rename + cleanup)
+
+- Plan file renamed: `glimmering-meandering-penguin.md` → `ACTIVE-S225-consolidacao-plan.md` (convention alignment with siblings `ACTIVE-S225-SHIP-roadmap.md` + `ACTIVE-S225-codex-triage.md`)
+- Tmp file removed: `guard-lint-before-build-S225-new.sh` (deploy intermediate)
+- CHANGELOG.md updated em tempo real (Phase 6 antecipado para iter 2 — strengthen signal enquanto contexto fresco)
+
 ---
 
 Coautoria: Lucas + Opus 4.7 | S225 plan file | 2026-04-17
