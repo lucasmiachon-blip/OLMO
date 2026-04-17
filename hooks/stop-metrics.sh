@@ -7,6 +7,7 @@ set -euo pipefail
 # S218: section-aware HANDOFF parsing (PENDENTES only) + consistent stuck-counts schema
 # S219: data_quality (11th) + ctx_pct_max (12th) columns for metrics.tsv
 # S225: Issue #5 race fix — flock/mkdir lock around metrics persist (was TOCTOU)
+# S225: Issue #4 — namespace /tmp/cc-session-id file per repo (was shared across repos)
 # Evento: Stop | Timeout: 5s | Exit: sempre 0
 
 # Drain stdin (hook protocol — prevent parent process stall)
@@ -15,6 +16,11 @@ cat >/dev/null 2>&1
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 APL_DIR="$PROJECT_ROOT/.claude/apl"
+
+# S225 Issue #4: compute repo-scoped session-id path (prevents cross-repo collision)
+REPO_SLUG=$(printf '%s' "$PROJECT_ROOT" | sha256sum 2>/dev/null | cut -c1-8)
+[ -z "$REPO_SLUG" ] && REPO_SLUG="default"
+SESSION_ID_FILE="/tmp/cc-session-id-${REPO_SLUG}.txt"
 
 # --- Section-aware HANDOFF parsing (S218: only PENDENTES section) ---
 parse_handoff_pendentes() {
@@ -208,7 +214,7 @@ COUNT_MODEL=$(trim "$(grep -c '"vector":"model_unavailable".*"injected":true' "$
 COUNT_RAPID=$(trim "$(grep -c '"vector":"rapid_calls".*"injected":true' "$CHAOS_LOG" 2>/dev/null || echo 0)")
 
 FAILURE_LOG="/tmp/cc-model-failures.log"
-SESSION_ID=$(cat /tmp/cc-session-id.txt 2>/dev/null || date '+%Y%m%d_%H%M%S')
+SESSION_ID=$(cat "$SESSION_ID_FILE" 2>/dev/null || date '+%Y%m%d_%H%M%S')
 CALLS_FILE="/tmp/cc-calls-${SESSION_ID}.txt"
 
 L2_FAILURES=0

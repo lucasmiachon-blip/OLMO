@@ -4,12 +4,18 @@ set -euo pipefail
 # Hidrata sessao nova: projeto, data, sessao, HANDOFF completo.
 # Evento: SessionStart | Timeout: 5s | Exit: sempre 0
 # S225 Issue #10: reset inter-session /tmp counters (nudge-checkpoint state)
+# S225 Issue #4: namespace /tmp/cc-session-id file per repo (was shared across repos)
 
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 PROJECT_NAME=$(basename "$PROJECT_ROOT")
 TODAY=$(date +%Y-%m-%d)
 SESSION_FILE="$PROJECT_ROOT/.claude/.session-name"
+
+# S225 Issue #4: compute repo-scoped session-id path (prevents cross-repo collision)
+REPO_SLUG=$(printf '%s' "$PROJECT_ROOT" | sha256sum 2>/dev/null | cut -c1-8)
+[ -z "$REPO_SLUG" ] && REPO_SLUG="default"
+SESSION_ID_FILE="/tmp/cc-session-id-${REPO_SLUG}.txt"
 
 # Limpar nome da sessao anterior
 rm -f "$SESSION_FILE"
@@ -19,10 +25,13 @@ LAST_SESSION=$(grep -o 'Sessao [0-9]*' "$PROJECT_ROOT/CHANGELOG.md" 2>/dev/null 
 NEXT_SESSION=$((LAST_SESSION + 1))
 
 # Generate session-scoped ID for cost brake (B7-06 S102) — AFTER computing NEXT_SESSION
-echo "${NEXT_SESSION}_$(date +%Y%m%d_%H%M%S)" > /tmp/cc-session-id.txt
+echo "${NEXT_SESSION}_$(date +%Y%m%d_%H%M%S)" > "$SESSION_ID_FILE"
 
 # S225 Issue #10: reset inter-session counters (nudge-checkpoint state leaks without reset)
 rm -f /tmp/olmo-subagent-count /tmp/olmo-checkpoint-nudged
+
+# S225 Issue #4 migration cleanup: remove legacy shared session-id file (pre-S225) if exists
+rm -f /tmp/cc-session-id.txt
 
 cat <<EOF
 Projeto: $PROJECT_NAME | Data: $TODAY | Sessao provavel: $NEXT_SESSION
