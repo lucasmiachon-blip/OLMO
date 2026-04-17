@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 221 — 2026-04-16 (truth-decay diagnosis + integrity.sh seed)
+
+### Diagnostico adversarial
+- Scan 4 dominios em truth-decay simultaneo: hooks (10 issues), plans (4/6 FALSE-DONE), memory (SCHEMA vs MEMORY contradizem), referencing (CLAUDE.md:63+73 dead refs)
+- Padrao comum: claims declarativos decaem porque nada testa que compilam contra filesystem
+- Orfaos `.claude/.claude/apl/` timestamped 21:01 hoje = cwd bug ATIVO (criando orfaos toda sessao)
+
+### Integrity.sh seed (INV-2 + INV-5)
+- NEW: `tools/integrity.sh` — invariant checker read-only, reports-only (~120 li bash strict)
+- INV-2: 30/30 hooks registrados existem + bash -n sintaxe OK (baseline PASS)
+- INV-5: 2 orphan dirs FAIL (`.claude/.claude/` + `.claude/tmp/`) — esperado, guia proximo cleanup
+- PLAN: `partitioned-orbiting-hellman.md` (adversarial diagnosis + scope INV-2+5 aprovado)
+- ADD: `.gitignore` entry `.claude/integrity-report.md` (ephemeral output)
+- ADD: `.claude/pending-fixes.md` cwd bug flag (gitignored, local state)
+- Bug found in impl: CRLF do jq no Windows → adicionado `tr -d '\r'` na pipeline
+
+### Next (Lucas decide)
+- INV-1 md destino (frontmatter obrigatorio + whitelist)
+- INV-3 pointer resolution (ataca DEAD-REFs CLAUDE.md:63+73, KBP-06, KBP-15)
+- INV-4 count integrity (SCHEMA vs MEMORY reconciliation)
+- Wire integrity.sh no Stop hook (surface em session-start se falhas>0)
+- Fix cwd bug upstream (grep hooks por path relativo sem $CLAUDE_PROJECT_DIR)
+
 ## Sessao 220 — 2026-04-16 (context melt fix aprovado)
 
 ### Diagnostico

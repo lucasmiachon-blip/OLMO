@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 220 | context melt fix aprovado
+> Sessao 221 | truth-decay diagnosis + integrity.sh seed (INV-2 + INV-5)
 
 ## ESTADO ATUAL
 
@@ -11,7 +11,8 @@ Monorepo funcional. Build PASS (**17 slides** metanalise).
 **Plans: 4 ativos, 42 archived.** Python: 53 tests PASS, ruff clean.
 **Docling pipeline:** `tools/docling/` com 4 scripts + pyproject. Venv NAO inicializado.
 **KPI system:** metrics.tsv (28 rows, 12 colunas, data_quality filter, ctx_pct_max) + KPI interpretado no session-start (moving avg + efficiency + verdicts) + mid-session reflection (200 calls) com ctx% + stuck-detection. DORA-inspired.
-**S220 Context melt fix:** C1-C3 DONE (KBP-23 First-turn discipline + STUCK cap 5 + HANDOFF head-50). C4/C5 DEFERRED. Expected savings: ~23-33KB/first-turn.
+**S221 Integrity seed:** `tools/integrity.sh` com INV-2 (30/30 hooks PASS) + INV-5 (2 orphan dirs FAIL, esperado). Report em `.claude/integrity-report.md` (gitignored). Plano: `partitioned-orbiting-hellman.md`.
+**S221 Diagnosis:** truth-decay em 4 dominios (hooks/plans/memory/refs). Claims decaem sem teste. Orfaos `.claude/.claude/apl/` sao cwd bug ATIVO criando lixo toda sessao (ver pending-fixes).
 
 ## STOP HOOKS (5 entries, dual-check S214)
 
@@ -44,10 +45,11 @@ Stop[0] prompt (semantico — S218: loop guard adicionado contra feedback infini
 - drive-package: PDF stale, PNG export pendente
 - Wallace CSS-wide: 29 font-sizes raw, #162032 sem token, 20 !important
 
-### Context melt S220 (carryover)
-- C4 (/dream agent dispatch) — DEFERRED (Lucas: /dream nao invocado toda sessao). Re-evaluate se padrao mudar.
-- C5 (systematic-debugging agent dispatch) — DEFERRED (plugin skill, cuidado extra).
-- S221 backlog: 40 Codex findings em `.claude/plans/S220-codex-adversarial-report.md` (9 hooks + 9 memory + 7 rules).
+### Truth-decay S221 (P0 ativo)
+- **Next invariantes** (ordem Lucas decide): INV-1 md-destino (frontmatter + whitelist), INV-3 pointer resolution (ataca DEAD-REFs), INV-4 count integrity (SCHEMA vs MEMORY), Wire Stop hook, Fix cwd bug upstream, Cleanup orfaos
+- **Plano ativo:** `partitioned-orbiting-hellman.md` (INV-2+5 done, scope restante documentado)
+- **S220 carryover:** C4 (/dream) + C5 (systematic-debugging) DEFERRED — re-evaluate se padrao mudar
+- **Codex backlog:** 40 findings em `.claude/plans/S220-codex-adversarial-report.md` (9 hooks + 9 memory + 7 rules); integrity.sh + INVs futuras cobrem parcialmente
 
 ### Infra (carryover)
 - Testar agent hook Stop: encerrar sessao sem HANDOFF/CHANGELOG → deve bloquear
