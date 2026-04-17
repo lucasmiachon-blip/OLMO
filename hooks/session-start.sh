@@ -29,7 +29,15 @@ OBRIGATORIO: antes de qualquer tarefa, pergunte ao usuario o nome/tema desta ses
 === HANDOFF.md (contexto da sessao anterior) ===
 EOF
 
-cat "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null || echo "(HANDOFF.md nao encontrado)"
+# KBP-23: cap HANDOFF output to 50 li (anti-drift target); pointer if truncated
+HANDOFF_LINES=$(wc -l < "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null || echo 0)
+if [ "$HANDOFF_LINES" -gt 50 ]; then
+  head -n 50 "$PROJECT_ROOT/HANDOFF.md"
+  echo ""
+  echo "(HANDOFF.md truncado em 50/${HANDOFF_LINES} li — Read integral se DECISOES/CUIDADOS precisos)"
+else
+  cat "$PROJECT_ROOT/HANDOFF.md" 2>/dev/null || echo "(HANDOFF.md nao encontrado)"
+fi
 
 # Surface pending fixes from previous session (self-healing loop)
 PENDING="$PROJECT_ROOT/.claude/pending-fixes.md"
