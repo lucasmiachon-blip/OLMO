@@ -1,8 +1,8 @@
 # Hooks — Reference
 
 > 29 Claude Code hook registrations across 2 directories (31 script files; 2 are pre-commit hooks, not Claude hooks).
-> Valid events: SessionStart, PreCompact, PreToolUse, PostToolUse, UserPromptSubmit, Notification, Stop.
-> PostToolUseFailure does NOT exist — using it breaks JSON parsing and silently disables subsequent hooks.
+> Valid events: SessionStart, PreCompact, PreToolUse, PostToolUse, PostToolUseFailure, UserPromptSubmit, Notification, Stop.
+> PostToolUseFailure: active (62+ captures in hook-log.jsonl since S200). Hook at `hooks/post-tool-use-failure.sh` — logs failures + injects corrective guidance. Reclassified S225 (Codex Batch 1 Issue #6 false-positive).
 
 ## `.claude/hooks/` — Tool Guards + Antifragile (14 registered + 2 pre-commit)
 
