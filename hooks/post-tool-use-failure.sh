@@ -3,13 +3,14 @@ set -euo pipefail
 # Claude Code hook: PostToolUseFailure
 # Logs tool failures to hook-log.jsonl + injects corrective guidance as systemMessage.
 # Evento: PostToolUseFailure | Timeout: 5s | Exit: sempre 0
+# S225 Issue #7: defensive cat fallback — prevents hook abort on broken stdin pipe.
 
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 . "$PROJECT_ROOT/hooks/lib/hook-log.sh"
 
-# Read event JSON from stdin
-INPUT=$(cat)
+# Read event JSON from stdin (S225: defensive fallback for broken pipe)
+INPUT=$(cat 2>/dev/null || echo '{}')
 
 # Extract tool name and error (best-effort, jq if available)
 TOOL_NAME=""
