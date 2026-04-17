@@ -1,61 +1,57 @@
 # HANDOFF - Proxima Sessao
 
-> Sessao 221 | truth-decay diagnosis + integrity.sh seed (INV-2 + INV-5)
+> Sessao 222 | CONTEXT_ROT 3 — infra fix closed, semantic pendente
 
-## ESTADO ATUAL
+## S223 START HERE (P0 truth-decay semantic)
 
-Monorepo funcional. Build PASS (**17 slides** metanalise).
-**Rules: 5 files, 199 li.** **Hooks: 30 scripts (10/21 eventos, 7 async, 4 `if` guards) + 1 agent hook.** **Permissions: 49 (40 allow, 9 deny).**
-**Memory: 20/20 (at cap, clean).** Agentes: 9. MCPs: 3+9. KBPs: 21. Skills: 22+3. Backlog: 33 (7 resolved).
-**Strict mode: 30/30 `set -euo pipefail`.** Paths portaveis via `$CLAUDE_PROJECT_DIR`. 0 vulns. 0 hardcoded paths.
-**Plans: 4 ativos, 42 archived.** Python: 53 tests PASS, ruff clean.
-**Docling pipeline:** `tools/docling/` com 4 scripts + pyproject. Venv NAO inicializado.
-**KPI system:** metrics.tsv (28 rows, 12 colunas, data_quality filter, ctx_pct_max) + KPI interpretado no session-start (moving avg + efficiency + verdicts) + mid-session reflection (200 calls) com ctx% + stuck-detection. DORA-inspired.
-**S221 Integrity seed:** `tools/integrity.sh` com INV-2 (30/30 hooks PASS) + INV-5 (2 orphan dirs FAIL, esperado). Report em `.claude/integrity-report.md` (gitignored). Plano: `partitioned-orbiting-hellman.md`.
-**S221 Diagnosis:** truth-decay em 4 dominios (hooks/plans/memory/refs). Claims decaem sem teste. Orfaos `.claude/.claude/apl/` sao cwd bug ATIVO criando lixo toda sessao (ver pending-fixes).
+**Infra layer fechado em S222** (cwd class fix + settings tracked + orfaos limpos). **Semantic layer intacto.** Comece por INV-3:
 
-## STOP HOOKS (5 entries, dual-check S214)
+1. **INV-3 pointer resolution** — expandir `tools/integrity.sh` para parsear `→ pointer` em `rules/` + KBPs, verificar target exists. Ataca CLAUDE.md:63+73 DEAD-REFs + KBP-06/15 apontando memory mortos. HIGH impact (CLAUDE.md lido todo turno pelos agentes).
+2. **INV-4 count integrity** — grep SCHEMA.md "N rules" vs MEMORY.md "N rules" vs `ls .claude/rules/*.md | wc -l`. Trivial, 1 funcao bash.
+3. **INV-1 md destino** — frontmatter obrigatorio + whitelist grandfather. Maior trabalho (migrar md existentes).
 
-Stop[0] prompt (semantico — S218: loop guard adicionado contra feedback infinito) → Stop[1] agent (git diff grounded) → Stop[2] quality.sh → Stop[3] metrics (async, S217: persiste metrics.tsv + HANDOFF snapshot) → Stop[4] notify (async)
+Depois: hooks resto do diagnose S221 (momentum-brake, PostToolUseFailure, /tmp/cc-session-id).
+
+## ESTADO ATUAL (pos-S222)
+
+**Hooks:** 31 registered, 31 valid. Integrity.sh async wired no Stop (INV-2+5 PASS, 0 violations).
+**Settings:** `.claude/settings.json` TRACKED (baseline 413 li). `settings.local.json` = `{}` (reservado overrides).
+**PROJECT_ROOT hardened** em 11 hooks (`${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}` + sanity check basename).
+**Memory:** 20/20 (at cap, 9 merges pendentes). Rules: 5. Plans: 6 ativos, 42 archived.
+**Build:** 17 slides PASS. Python 53 tests PASS, ruff clean.
+**Docling:** `tools/docling/` com 4 scripts. Venv NAO inicializado.
+
+## STOP HOOKS (6 entries)
+
+Stop[0] prompt → [1] agent (git diff) → [2] quality → [3] metrics async → [4] notify async → **[5] integrity.sh async (S222)**
 
 ## PLANOS ATIVOS (6)
 
-- `humble-toasting-ritchie.md` — S220 Context melt fix. C1-C3 DONE. C4 (/dream agent) + C5 (debug agent) DEFERRED.
-- `proud-drifting-sunbeam.md` — S220 micro-batches B1-B15. B1+B1.5 done. B2+ desbloqueado pos-C4-deferral.
-- `functional-rolling-waffle.md` — S216 Clean_up + Obsidian + PDF Pipeline. Steps 1-5 done, venv pendente.
-- `mutable-mapping-seal.md` — Design Excellence Loop. Fase 2: /polish skill + rule. Depende de snoopy.
-- `generic-wondering-manatee.md` — CMMI roadmap. Fase 2: verification loops + PNG export.
-- `snoopy-jingling-aurora.md` — I/O Pipeline Hardening. 5 gargalos Gemini QA. Pre-req de mutable-mapping.
+- `buzzing-wondering-hickey.md` (S222) — 3/3 DONE (cwd + settings + cleanup)
+- `partitioned-orbiting-hellman.md` (S221) — INV-2+5 done. INV-1/3/4 para S223
+- `humble-toasting-ritchie.md` — C1-C3 done, C4/C5 deferred
+- `proud-drifting-sunbeam.md` — B1+B1.5 done
+- `functional-rolling-waffle.md` — Docling venv pending
+- `mutable-mapping-seal.md` / `generic-wondering-manatee.md` / `snoopy-jingling-aurora.md` — backlog
 
 ## PENDENTES
 
-### Docling (carryover S216)
-- `cd tools/docling && uv sync` — inicializar venv (~2GB com PyTorch)
-- Testar `pdf_to_obsidian.py` com PDF real (colchicina cochrane ou tier2)
-- Verificar frontmatter compativel com template literature-note do vault
-- Multi-agente: implementar orquestracao (2-3 agentes independentes como Lucas sugeriu)
+### Semantic truth-decay (P0 S223)
+- INV-3 → INV-4 → INV-1 (ordem acima)
+- Memory: 9 merges pendentes (review via /dream)
 
-### KPI system — next steps
-- Monitorar stuck-detection com dados reais (validar S220+)
-- Rodar /dream para testar Phase 2.6 (metrics.tsv → memoria)
+### Hooks resto (S221 diagnose)
+- momentum-brake exempta Bash (policia nao policia)
+- PostToolUseFailure registrado em evento inexistente
+- `/tmp/cc-session-id.txt` compartilhado entre sessoes
 
-### Slides e QA (carryover)
-- s-quality: evidence HTML integration + narrativa
-- s-tipos-ma: slide PENDENTE (Lucas decide quantos, posicao, h2)
-- drive-package: PDF stale, PNG export pendente
-- Wallace CSS-wide: 29 font-sizes raw, #162032 sem token, 20 !important
-
-### Truth-decay S221 (P0 ativo)
-- **Next invariantes** (ordem Lucas decide): INV-1 md-destino (frontmatter + whitelist), INV-3 pointer resolution (ataca DEAD-REFs), INV-4 count integrity (SCHEMA vs MEMORY), Wire Stop hook, Fix cwd bug upstream, Cleanup orfaos
-- **Plano ativo:** `partitioned-orbiting-hellman.md` (INV-2+5 done, scope restante documentado)
-- **S220 carryover:** C4 (/dream) + C5 (systematic-debugging) DEFERRED — re-evaluate se padrao mudar
-- **Codex backlog:** 40 findings em `.claude/plans/S220-codex-adversarial-report.md` (9 hooks + 9 memory + 7 rules); integrity.sh + INVs futuras cobrem parcialmente
-
-### Infra (carryover)
-- Testar agent hook Stop: encerrar sessao sem HANDOFF/CHANGELOG → deve bloquear
-- Obsidian plugins pendentes: Templater, Dataview, Periodic Notes, Spaced Repetition, obsidian-git
-- obsidian-mcp-tools: ponte vault→Claude (semantic search)
-- Gemini skills + Antigravity: setup pendente
+### Carryover
+- Docling: `cd tools/docling && uv sync` + testar `pdf_to_obsidian.py`
+- Slides: s-quality, s-tipos-ma, drive-package PDF/PNG
+- Wallace CSS: 29 raw px, #162032 sem token, 20 !important
+- Obsidian plugins (Templater, Dataview, Periodic Notes, Spaced Rep, obsidian-git)
+- Testar agent hook Stop bloqueio sem HANDOFF
+- Codex backlog: 40 findings em `.claude/plans/S220-codex-adversarial-report.md`
 
 ## DECISOES ATIVAS
 

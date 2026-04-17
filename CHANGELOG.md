@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## Sessao 222 — 2026-04-17 (CONTEXT_ROT 3: infra layer closed)
+
+### Commit 1 — PROJECT_ROOT hardening (4c4e35f)
+- FIX: 11 hooks em `hooks/*.sh` — padrao `$(cd "$(dirname "$0")/.." && pwd)` substituido por `${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}` + sanity check basename
+- Previne classe de bug "orfao via path resolution" (cwd errado gera `.claude/.claude/apl/` quando script copiado 2-deep)
+- Deploy via Python shutil.copy (KBP-19: guard bloqueia Edit direto em hooks/*.sh)
+- 11/11 patched clean, bash -n sintaxe OK em todos
+
+### Commit 2 — settings migration (291e769)
+- MIGRATE: `.claude/settings.local.json` → `.claude/settings.json` (tracked baseline, 413 li)
+- `settings.local.json` agora `{}` (gitignored, reservado overrides pessoais)
+- Resolve classe "hook registration nao persiste entre maquinas" — baseline agora versionado
+- integrity.sh line 73: `jq -rs '(.[0]//{}) * (.[1]//{})'` para merge settings.json + settings.local.json
+
+### Commit 3 — Wire integrity.sh to Stop (incluido em 291e769)
+- ADD: Stop[5] entry em settings.json — `bash tools/integrity.sh > /dev/null 2>&1 || echo '[INTEGRITY] violations'`
+- async: true (nao bloqueia session end), silent em sucesso, emite linha se exit!=0
+- Fecha loop "invariantes detectam mas nada roda automaticamente"
+
+### Cleanup
+- DELETE: `.claude/.claude/apl/` (4 files APL cache desviado)
+- DELETE: `.claude/tmp/` (5 copias antigas de hooks)
+- INV-5 agora PASS: 0 violations
+
+### Status pos-S222
+- Hooks: 31 registered, 31 valid (baseline 30 + integrity.sh)
+- Integrity report: `2 invariants, 0 violations` (baseline limpo)
+- Settings: shared baseline tracked, overrides separados
+
+### Plan
+- `buzzing-wondering-hickey.md` — 3/3 DONE
+
 ## Sessao 221 — 2026-04-16 (truth-decay diagnosis + integrity.sh seed)
 
 ### Diagnostico adversarial
