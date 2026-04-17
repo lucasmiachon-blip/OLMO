@@ -28,12 +28,50 @@
 - `git mv` via `!` prefix funciona quando CC runtime ASK deny (workaround convenience)
 - EC loop + write-gate + plan mode deixou iter 1 disciplinada apesar de scope creep (MSYS2)
 
-### Pendentes S225 (Phase 2-6)
-- Phase 2 architectural: Issue #3 momentum-brake Bash exemption granular + #4 session-id namespacing + #8 pre-compact-checkpoint visibility
-- Phase 3 Lucas decisions: Issue #1 python open() park-or-fix + #9 stop-quality threshold 1+ vs 3+
-- Phase 4 memory consolidation: global 20/20 AT CAP — TE/CSPH merge + elastography merge + S201 archive
-- Phase 5 BACKLOG cleanup: archive BACKLOG-S220-codex-adversarial-report (é report, não BACKLOG canônico); mark LT-7 DONE
-- Phase 6 session docs: HANDOFF rewrite S226 START HERE; elite-check #6 (já feito meio-sessão acima)
+### Phase 5 — BACKLOG cleanup (LT-7 close, 3→1 merge complete)
+- fd640ef: git mv `plans/BACKLOG-S220-codex-adversarial-report.md` → `plans/archive/S220-codex-adversarial-report.md`. Era REPORT (não BACKLOG canônico). 9 issues cobertos em `ACTIVE-S225-codex-triage.md`.
+- BACKLOG #35 [RESOLVED S225]: LT-7 S214 3→1 merge status finalizado. Canonical BACKLOG único = `.claude/BACKLOG.md`.
+
+### Phase 4 — Memory consolidation (evidence-researcher 8→6, global 20→19)
+- 71903b7: 4 evidence-researcher .md merged em 2:
+  - `te-csph-accuracy-and-gray-zone.md` (24 PMIDs) = te-csph-diagnostic-accuracy + rule-of-five-limitations-gray-zone
+  - `elastography-modality-comparison-and-limitations.md` (17 PMIDs) = elastography-confounders-limitations + mre-vs-te-head-to-head
+- Global `feedback_structured_output.md` absorbido em `feedback_research.md` como seção "Structured output". Cap 20/20 → 19/20 — **desbloqueia /dream.**
+- Archive: `.claude/agent-memory/reference-checker/s-quality-audit-S201.md` (stale) → `plans/archive/S201-quality-audit-reference-checker.md`
+- MEMORY.md indexes updated (evidence-researcher + global), both carry "Last updated: S225"
+- **BACKLOG #36 created**: Memory → Living-HTML migration plan (S226) em `plans/ACTIVE-S226-memory-to-living-html.md`. Lucas rationale: "medical evidence em agent-memory é anti-pattern. SSoT = HTML versionado (benchmark metanalise)". Deferido não-P0/P1.
+
+### Phase 2.3 — Checkpoint visibility (Issue #8)
+- 8f3c4db: `hooks/pre-compact-checkpoint.sh` L60: `2>/dev/null` → `2>&1 || echo "[pre-compact] checkpoint write failed: $CHECKPOINT" >&2`. Disk full / permission errors agora visíveis em stderr; inner stderr preservado em checkpoint file como troubleshooting data.
+
+### Phase 2.2 — Session-id namespacing (Issue #4)
+- 4fc085c: `/tmp/cc-session-id.txt` → `/tmp/cc-session-id-${REPO_SLUG}.txt` onde `REPO_SLUG = sha256sum(PROJECT_ROOT)[0:8]`. Coordena `hooks/session-start.sh` (write) + `hooks/stop-metrics.sh` (read). Fallback "default" se sha256sum indisponível. Session-start também faz migration cleanup (rm legacy `/tmp/cc-session-id.txt`). Previne cross-repo collision em múltiplos CC instances.
+
+### Phase 3 — Lucas decisions (null-action RESOLVED)
+- **Issue #1 PARK**: Pattern 7 em guard-bash-write.sh é abrangente (catches `python -c`, `python script.py`, heredoc, `py` launcher). Audit agent super-estimou gap. Adding regex extra = FP risk sem ataque real observado.
+- **Issue #9 MANTER 1+**: threshold stop-quality.sh L104. "Funciona sem métrica = achismo" (project_values). Missing real single bug > catching noise. Data-first principle aplicado.
+
+### Phase 2.1 — DEFERRED S226 (Issue #3)
+- Momentum-brake Bash exemption blanket → granular. Architectural (45min, risk HIGH). Specs preservados em `plans/archive/S225-consolidacao-plan.md` §Phase 2.1.
+
+### Close iter — signal strengthened
+- Plan archives (S224 consolidation, S225 codex-triage, S225 consolidacao-plan) moved to `plans/archive/`
+- HANDOFF.md rewrite para S226 START HERE (priority ordem com BACKLOG #34 elevado para P0)
+- CHANGELOG.md — esta seção S225 expandida com Phase 2/3/4/5 + close (não só Phase 1 como em consolidate iter 2)
+- Tmp files cleaned, git tree limpa
+
+### Elite-check #6 (S225 close)
+- **Delivered**: 7 hook fixes committed + 2 decisions resolved + memory consolidation + BACKLOG cleanup + S226 design doc. 9/10 Codex Batch 1 addressed.
+- **Gap honest**: Phase 2.1 momentum-brake deferido (~45min saved para S226). Pattern 8 cp bypass mystery não-resolvido (parked BACKLOG #34, elevado P0 S226).
+- **Slippage**: ~75min over plan (MSYS2 install 25min approved scope expansion + memory consolidation iter foi convoluted 30min). Slip rate ~20% (vs S224 45%, target <15%). Melhorando trajectory.
+- **Learning compound**: MSYS2 toolchain durável, hybrid pattern cross-env, null-action decisions valorizadas.
+
+### Pendentes S226 (hidratation order)
+- **P0 absoluto**: BACKLOG #34 cp bypass mystery (friction manual workaround eliminado)
+- Phase 2.1 momentum-brake (specs prontos em archive)
+- Track A semantic memory Lucas decision (ByteRover/MemSearch/Smart Connections)
+- DE Fase 2 escrita + DE research consolidate
+- BACKLOG #36 HTML migration (se S226 escolher — plan completo)
 
 ## Sessao 224 — 2026-04-17 (INFRA100.1 diag + INFRA100.2 evolucao consolidada)
 

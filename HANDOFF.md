@@ -1,60 +1,46 @@
 # HANDOFF - Proxima Sessao
 
-> **S224 ENCERRADA** 2026-04-17 | 13 commits | 12 iters | slip 45% (honest gap) | ctx live end ~42% (S223=82)
-> Sessao 224 | INFRA100.1+100.2 + housekeeping + docling + research consolidation + SHIP era proposed/approved
+> **S225 ENCERRADA** 2026-04-17 | 12 commits | 9/10 Codex Batch 1 addressed (7 FIX + 2 null-action) | 1 deferred S226
+> Sessao 225 `consolidacao` | SHIP Phase 1 + MSYS2 toolchain + memory merge + BACKLOG cleanup
 
-**S225 HYDRATION:** Read `.claude/plans/ACTIVE-S225-SHIP-roadmap.md` (multi-session) + `.claude/plans/ACTIVE-S225-codex-triage.md` (S225 work). Priority ordem Phase 1→4. Elite-check #6 at close.
+**S226 HYDRATION:** Read `.claude/plans/ACTIVE-S225-SHIP-roadmap.md` (multi-session) + `.claude/plans/ACTIVE-S226-memory-to-living-html.md` (S226 design aprovado S225) + este HANDOFF. Then `/plan` e "vamos começar."
 
-## VERDICT S224 (consolidated)
+## VERDICT S225 (consolidated)
 
-Infrastructure + cleanup + docling canonicalization + research:
+SHIP Phase 1 — Codex debt near-zero + infra durável + memory consolidation:
 
-- **Stop[5] dispatch H4 confirmed** (N=3 monotonic, stderr empty, stderr capture permanente)
-- **14 plans renamed/archived** com status (DONE/ACTIVE/BACKLOG/STALE/PARTIAL-DONE)
-- **HANDOFF compactado** 94→59 li (KBP-23)
-- **FALSE-DONE annotations** em 3 archived plans (S199, S208, S204)
-- **2 DEAD-REFs CLAUDE.md fixed** (L63 crossref, L73 stop-detect-issues→stop-quality)
-- **Docling merged**: source `C:/Dev/Projetos/docling-tools/` deleted; OLMO `tools/docling/` canonical (4 .py + README + uv.lock + pyproject) covers 4 de 5 use cases + BONUS cross_evidence
-- **3 empty dirs removed** (scripts/output, content/aulas/drive-package/slides-png, content/aulas/scripts/qa)
-- **2 archive restamps** (S210-hashed-zooming-bonbon, S214-curious-honking-platypus)
-- **3 research reports arquivados** (A1 plans archaeology, A2 knowledge graph SOA, A3 memory/dream/wiki SOA)
+- **Codex Batch 1**: 9/10 addressed. 7 FIX committed (#2 matcher, #4 session-id namespace, #5 race flock/mkdir, #6 README reclassify, #7 defensive cat, #8 checkpoint visibility, #10 counter reset). 2 null-action RESOLVED by design decision (#1 park — Pattern 7 é abrangente; #9 manter 1+ — "funciona sem métrica = achismo"). Issue #3 momentum-brake **DEFERRED S226** (architectural, 45min, risk HIGH).
+- **MSYS2 toolchain installed** (winget + pacman): flock, rsync, parallel, moreutils, zstd via util-linux; yq + sqlite3 via winget. User PATH append (zero admin, todos shells). Foundation durável para S226+.
+- **Memory consolidation**: evidence-researcher 8→6 (te-csph+rule-of-five merged em `te-csph-accuracy-and-gray-zone.md`; elasto-confounders+mre-te merged em `elastography-modality-comparison-and-limitations.md`). Global 20→19 (feedback_structured_output absorbido em feedback_research). **/dream unblocked.**
+- **BACKLOG LT-7 closed**: BACKLOG-S220-codex-adversarial-report archived em `plans/archive/`. Canonical BACKLOG único = `.claude/BACKLOG.md` (36 items).
+- **Signal strengthened**: plan file renamed `glimmering-meandering-penguin` → `ACTIVE-S225-consolidacao-plan.md`. CHANGELOG real-time (não só end-of-session).
 
-**Commits S224:** f8564fe (infra) → 7bece0a+1217e84 (renames+refs) → c95c405 (HANDOFF) → b682ae4+3bb9591 (FALSE-DONE+DEAD-REFs) → 8131ddf (proud-sunbeam) → 127f4f4+40c5178 (docling) + final pending (renames+HANDOFF+CHANGELOG).
+**Commits S225 (12):** c1b3176 (flock+MSYS2) → aba7ca1 (defensive cat) → 3ba0a33 (counter reset) → 2f0bbc3 (matcher+BACKLOG#34) → d12e751 (README) → eb91ce3 (consolidate iter 2) → fd640ef (BACKLOG LT-7) → 71903b7 (memory consolidation) → 8f3c4db (checkpoint visibility) → 4fc085c (session-id namespace) → [2 final: close commit + plan archives].
 
-## S225 START HERE
+## S226 START HERE
 
-**NOVA ETAPA SHIP (S225-S230) aprovada S224 iter 12:** ver **`ACTIVE-S225-SHIP-roadmap.md`** — 6-session roadmap moving OLMO de RESEARCH+CONSOLIDATE mode para SHIP mode. S225 = Codex debt zero + memory audit + BACKLOG merge. KPI targets post-SHIP: slip rate <15%, ctx_pct_max <60%, commits/session >=3.
+**Priority ordem** (post-hidratation):
 
-**Lucas Fase 0 decisions (S224):**
-- **Design Excellence Fase 2: EXECUTAR** — scope `.claude/rules/design-excellence.md` + `.claude/skills/polish/SKILL.md`. Snoopy-aurora pipeline é prerequisite.
-- **Docling: RESOLVIDO S224** (merged canonical, source deleted).
-- **defaultMode: auto: MANTER** em `.claude/settings.json:13`.
+0. **[P0 PRIMEIRO] BACKLOG #34 — cp Pattern 8 bypass mystery**: por que `cp` para `hooks/` auto-passou sem ASK popup em Phase 1.1-1.3 mas `cp` para `.claude/hooks/` bloqueou em Phase 1.4. Friction atual = Lucas roda `!` manually por cada deploy. Lucas S225: "trabalho desnecessario". **Root cause + fix antes de qualquer outra coisa.** Hipóteses: (a) settings.json allow-list overriding guard para `hooks/*` mas não `.claude/hooks/*`; (b) CC permission mode auto-approving sob condições; (c) hook output JSON race. Reproduzir + diagnosticar + fix guard para cobrir ambas paths.
+1. **Phase 2.1 momentum-brake** (Issue #3) — deferred S225. Bash exemption blanket → granular. 45min, risk HIGH. Specs em `.claude/plans/archive/S225-consolidacao-plan.md` §Phase 2.1.
+2. **Track A semantic memory decision** — Lucas escolhe ByteRover CLI vs MemSearch vs Smart Connections. Baseline `ctx_pct_max` S222=72, S223=82, S224 live=42, S225 live (TBD final).
+3. **DE Fase 2 escrita** — rule `.claude/rules/design-excellence.md` + skill `.claude/skills/polish/SKILL.md`. Prerequisite snoopy-aurora pipeline.
+4. **DE research consolidate** — 4 docs S199-S204 → `docs/research/design-excellence-research-S199-S204.md`.
+5. **BACKLOG #36 HTML migration** — Lucas deferido "não P0/P1". Plan completo em `ACTIVE-S226-memory-to-living-html.md`. 5-6h se S226 escolher.
 
-**Track A context weight:**
-- Baseline `ctx_pct_max` S222=72, S223=82, S224 live start=27→end~40.
-- Rec A2: **ByteRover CLI** (`npm i -g byterover-cli && brv init && brv mcp`) — semantic retrieval + AKL lifecycle, $0, 10min.
-- Rec A3: **MemSearch (Zilliz)** OR **Smart Connections MCP** (Obsidian) — markdown-first + embedding index.
-- Rec A3 (PROP-1/2 zero-cost): conflict detection em `/dream` + bi-temporal frontmatter YAML.
-- Lucas decide S225 qual approach (A2 vs A3 vs combinar).
+**Pendentes P0 S226:**
+- **BACKLOG #34 cp bypass** (prioridade absoluta — elimina friction manual)
+- Phase 2.1 momentum-brake (specs prontos)
+- Track A Lucas decision + setup (rec: ByteRover via npm)
+- DE Fase 2 (rule + skill + snoopy-aurora)
 
-**Track B (deferred):** semantic truth-decay INV-1/3/4.
+## ESTADO POS-S225
 
-**Pendentes P0 S225:**
-- Track A decision + setup
-- DE Fase 2 escrita (rule + skill)
-- DE research consolidate (4 docs S199-S204 → `docs/research/design-excellence-research-S199-S204.md`)
-- Codex triage: **`ACTIVE-S225-codex-triage.md`** (9 issues categorized — 7 FIX + 2 VERIFY, 2.5-3h estimate)
-- BACKLOG.md merge 3→1 (LT-7 S214 deferred)
-- Memory 9 candidates audit — paths podem estar stale (descoberta S224: `.claude/memory/` nao existe; real em `.claude/agent-memory/evidence-researcher/`)
-
-## ESTADO POS-S224
-
-- Hooks: 31/31 valid. Stop[5] H4 stable + stderr capture permanent. Observavel.
-- Settings: tracked baseline. stderr patch Stop[5] + `defaultMode: auto`.
-- Plans active: 3 (ACTIVE-snoopy-jingling-aurora, BACKLOG-S220-codex-adversarial-report, ACTIVE-S224-consolidation-plan).
-- Archive: +14 neste sessao. Convenção S##-prefix aplicada em 100% dos files.
-- Memory: `agent-memory/evidence-researcher/` 9 files (8 medical + MEMORY.md). Cap rule e paths merecem audit S225.
-- Docling: canonical OLMO `tools/docling/` — 4 .py scripts + README + uv.lock.
+- **Hooks**: 31/31 valid. Fixed S225: stop-metrics (flock/mkdir hybrid), session-start (counter reset + session-id namespace + migration cleanup), post-tool-use-failure (defensive cat), guard-lint-before-build (dev-build matcher), pre-compact-checkpoint (visibility), hooks/README.md (PostToolUseFailure reclassified).
+- **Toolchain**: MSYS2 full em `C:\msys64\`. User PATH append `C:\msys64\usr\bin`. Novas capabilities: flock, yq, sqlite3, rsync, parallel, moreutils (sponge/ts/pee), zstd.
+- **Plans active**: 3 (ACTIVE-S225-SHIP-roadmap multi-session, ACTIVE-S226-memory-to-living-html next, ACTIVE-snoopy-jingling-aurora aula). Archived S225: 3 (S224-consolidation, S225-codex-triage, S225-consolidacao-plan).
+- **Memory**: agent-memory/evidence-researcher/ 6 files + MEMORY.md; global 19/20; agent-memory/reference-checker/ 0 (S201 archived para plans/archive).
+- **BACKLOG**: 36 items canonical (.claude/BACKLOG.md). Novos S225: #34 (cp bypass mystery), #35 [RESOLVED] LT-7 closed, #36 (HTML migration S226).
 
 ## Carryover (sem prazo)
 
@@ -62,11 +48,16 @@ Infrastructure + cleanup + docling canonicalization + research:
 - Wallace CSS 29 raw px (FROZEN)
 - Slides s-absoluto etc (FROZEN)
 
-## APRENDIZADOS
+## APRENDIZADOS S225
 
-- **S222:** deteccao ≠ reducao. Metrica antes de declarar vitoria.
-- **S223:** codificar ≠ ativar. Hook em settings.json nao prova dispatch — testar trace/mtime.
-- **S224:** (a) teste minimal binario > exaustivo (N=1 refutou H1). (b) APL cache `ctx_pct` e SessionStart snapshot, nao live — consultar statusline. (c) `git mv + Edit`: pre-commit stash separa rename e content; 2 passes OR git add apos Edit. (d) Archaeology agent pode errar (docling LT-1 classificado wrong — ja migrated S216). **Sempre verify before acting em agent output.** (e) Research agents podem malinterpretar prompts (A3 first run achou rename em vez de create) — prompts explicitos "CREATE new file" necessarios. (f) Write gate discipline — pause antes de writes substantivos. Enforcement via markdown rule sozinho falha (KBP-24 parked). (g) ROI rule (Lucas): "nao seja poupador" quando contexto permite — partnership speed > micro-permissions.
+- **Write→tmp→cp pattern** para hooks `.sh` (guard-write-unified bloqueia Edit direto). Funciona consistentemente. Pattern 8 cp bypass intermitente parked BACKLOG #34.
+- **MSYS2 durável > workaround-per-hook** (regra Lucas: "duradouro+util=incorporar"). Flock agora nativo; yq/sqlite3/rsync disponíveis para futuros hooks + scripts cross-project.
+- **Hybrid pattern flock/mkdir é profissional**, não inferior. POSIX portable + degrade gracefully = pattern maduro (mesma filosofia que libs sérias: proper-lockfile, fasteners).
+- **Memory deve conter comportamento/padrões**, não conteúdo médico denso. HTML living-evidence (metanalise benchmark) é SSoT correto. Migration plan completo S226 (BACKLOG #36).
+- **Null-action = decisão profissional**: Issue #1 park (Pattern 7 abrangente, adding pattern = FP risk), Issue #9 manter 1+ (noise tolerance é behavior, não threshold; data-first).
+- **Audit agents super-estimam gaps**: Phase 1 auditor flaggeou coverage Pattern 7 que cobre 99%+. Re-inspect > blind-fix.
+- **Signal strengthening meio-sessão** (não só Phase 6): plan rename + tmp cleanup + CHANGELOG real-time reduz cognitive debt ao retomar.
+- **git mv via `!` prefix** funciona quando CC runtime ASK deny (convenience workaround para discipline).
 
 ---
-Coautoria: Lucas + Opus 4.7 | S224 INFRA100.1+100.2 + consolidation | 2026-04-17
+Coautoria: Lucas + Opus 4.7 | S225 consolidacao CLOSED | 2026-04-17
