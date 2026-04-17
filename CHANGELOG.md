@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 220 — 2026-04-16 (context melt fix aprovado)
+
+### Diagnostico
+- PLAN: humble-toasting-ritchie.md — 5 fixes ranked by bytes/effort ROI
+- MEASURE: 13% baseline → 40-50% apos 1a resposta = ~54KB burn em uma troca; identificou skill inline load + Read returns + ToolSearch schemas como dominantes
+
+### C1 — First-turn discipline (F5)
+- ADD: anti-drift.md §First-turn discipline (KBP-23) — Read limit, skill invocation gate, ToolSearch targeted, agent dispatch for broad scans
+- ADD: known-bad-patterns.md KBP-23 First-Turn Context Explosion + header Next:KBP-24
+- Expected savings: ~20-30KB em primeira resposta
+
+### C2 — STUCK list cap (F2)
+- FIX: apl-cache-refresh.sh — STUCK cap a 5 + overflow counter + suffix "(+N more in stuck-counts.tsv)"
+- Expected savings: ~1.5KB por session-start
+
+### C3 — HANDOFF auto-dump trim (F3)
+- FIX: session-start.sh — conditional head -50 quando HANDOFF > 50 li + pointer "50/N li" expondo drift
+- Expected savings: ~1.5-2KB por session-start
+
+### Deferrals
+- DEFER: C4 /dream agent dispatch — Lucas: /dream nao invocado toda sessao, baixo ROI
+- DEFER: C5 systematic-debugging agent dispatch — plugin skill, decisao Lucas pos-C4
+
 ## Sessao 219 — 2026-04-16 (Self-Improvement)
 
 ### KPI interpretado
