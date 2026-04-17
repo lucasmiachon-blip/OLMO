@@ -4,6 +4,7 @@
 # If any lint fails → BLOCK (exit 2). If all pass → ALLOW (exit 0).
 # Motivation: S60 — lint gates exist but agent ignores them (no enforcement).
 # Fixed S61 O6: run all 3 linters, not just lint-slides.js.
+# S225 Issue #2: matcher expand — added dev-build variant.
 
 set -euo pipefail
 
@@ -21,17 +22,18 @@ CMD=$(echo "$INPUT" | jq -r '.tool_input.command // ""' 2>/dev/null) || {
 
 [ -z "$CMD" ] && exit 0
 
-# Only trigger on build commands (expanded: npm run build, vite build, npx vite — Codex S60 A9)
-if ! echo "$CMD" | grep -qE '(npm run build(:|$)|vite build|npx vite build|build-html\.ps1)'; then
+# Only trigger on build commands (S225: expanded to include dev-build variant)
+if ! echo "$CMD" | grep -qE '(npm run (build|dev-build)(:|$)|vite build|npx vite build|build-html\.ps1)'; then
   exit 0
 fi
 
 # Extract aula name from command
 # npm run build:cirrose → cirrose
+# npm run dev-build:cirrose → cirrose
 # build-html.ps1 in cirrose/scripts/ → cirrose
 AULA=""
-if echo "$CMD" | grep -qE 'npm run build:'; then
-  AULA=$(echo "$CMD" | sed -n 's/.*npm run build:\([a-z_-]*\).*/\1/p')
+if echo "$CMD" | grep -qE 'npm run (build|dev-build):'; then
+  AULA=$(echo "$CMD" | sed -n 's/.*npm run \(build\|dev-build\):\([a-z_-]*\).*/\2/p')
 fi
 if [ -z "$AULA" ] && echo "$CMD" | grep -qE 'build-html\.ps1'; then
   AULA=$(echo "$CMD" | sed -n 's|.*\([a-z_-]*\)/scripts/build-html\.ps1.*|\1|p')
