@@ -67,6 +67,7 @@ Stop[0] prompt (semantico — S218: loop guard adicionado contra feedback infini
 - **Python infra:** manter orchestrator.py + agents/ + subagents/ + config/. Limpar `skills/efficiency/` (orphaned). (S219)
 - **KPI interpretado:** session-start mostra moving avg + verdicts + efficiency ratio. Mid-session mostra ctx%. (S219)
 - **ctx_pct_max:** metrica de pico de contexto por sessao. statusline.sh persiste, stop-metrics.sh coleta. (S219)
+- **KBP-22 Silent Execution:** Stop[0] agora checa silent execution (3+ action tools sem comunicar). EC Elite exige reflexao de excelencia. (S219)
 
 ## CUIDADOS
 

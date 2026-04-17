@@ -1,131 +1,65 @@
-# S219 Plan: Self-Improvement KPI Enhancement + Infra Decisions
+# S219 Plan (Phase 2): Proactive Communication Enforcement
 
 ## Context
 
-The KPI system (metrics.tsv + hooks) was introduced in S217 but only 2 of 27 rows have real data. The session-start display shows raw deltas without interpretation. The user wants the agent to explain WHY metrics are good/bad with justification, not just show numbers. Additionally, pending infra decisions (Docling venv, Python orchestrator) need to be formally registered.
+O agente executa sem comunicar ha 20+ sessoes. Rules textuais (CLAUDE.md §1, anti-drift.md §EC loop, §Momentum brake) nao resolveram porque sao advisory — nenhum hook verifica se o agente explicou antes de agir.
 
-## NOT in scope
+**Gap estrutural identificado:**
+- Momentum brake: exempta Bash/Read/Grep (correto para pesquisa, mas permite cadeias longas de execucao sem comunicacao)
+- Stop[0] prompt: checa se tasks foram skipped, NAO se o agente comunicou antes de executar
+- EC loop: texto puro — o agente pode ignorar e nenhum hook detecta
+- P001 (pre-execution reflection gate): diagnosticado S193, nunca implementado
 
-- Install Docling venv (~2GB)
-- Slides/QA work
-- Run /dream
+**Principio: sem adicionar complexidade nova.** Reusar o que existe.
 
----
+## Abordagem: expandir Stop[0] prompt
 
-## Block 1: metrics.tsv cleanup (data_quality column)
+Stop[0] ja existe, ja funciona, ja tem infraestrutura. A mudanca e adicionar UM criterio ao prompt existente: "o agente executou 3+ tool calls em sequencia sem comunicar ao usuario o que estava fazendo e por que?"
 
-**Why**: 25/27 rows have dashes because stop-metrics.sh didn't exist pre-S217. Trend calculations need to distinguish real vs backfill data cleanly.
+### Por que Stop[0] e nao um novo hook
 
-**File**: `.claude/apl/metrics.tsv`
+1. **Ja existe** — zero infra nova
+2. **Tem acesso ao contexto conversacional** — pode ver se houve texto entre tool calls
+3. **Fires a cada resposta** — feedback imediato
+4. **E semantico** — pode distinguir "Bash(git log)" (pesquisa, ok silencioso) de "Edit+Write+Bash(deploy)" (acao, requer comunicacao)
 
-**Change**: Add 11th column `data_quality` to header and all rows:
-- S190-S216 (backfill): append `backfill`
-- S217-S218 (real): append `full`
+### O que NAO fazer
 
-**Backward-compat**: Existing `while IFS=$'\t' read -r ... dur` loops silently ignore the 11th field. No breakage.
+- Nao criar um novo hook script
+- Nao adicionar PreToolUse gate em Bash (causaria friction em 100% dos bash calls)
+- Nao adicionar variáveis de flag (complexidade sem ganho)
+- Nao expandir o EC loop com mais campos (o problema nao e o template, e a ausencia de enforcement)
 
-**Verify**: `head -1 .claude/apl/metrics.tsv` shows 11 column names. `tail -3` shows S217/S218 ending with `full`.
+## Mudanca unica
 
----
+**Arquivo**: `.claude/settings.local.json` linha 328 (Stop[0] prompt)
 
-## Block 2: apl-cache-refresh.sh — interpreted KPI trends
-
-**Why**: Current `trend_arrow()` only compares last 2 sessions. User wants moving average + interpretation with justification.
-
-**File**: `hooks/apl-cache-refresh.sh` (lines 114-158)
-
-**Changes to the metrics trend section** (lines 114-145):
-
-1. Replace `trend_arrow()` with two new functions:
-   - `moving_avg()`: given space-separated values, returns integer average of all-but-last
-   - `interpret()`: given name, current, avg, direction (lower_better/higher_better) → returns verdict string
-
-2. `interpret()` logic:
-   - `lower_better` + current > avg*1.3 → `ALTO — acima do baseline`
-   - `lower_better` + current < avg*0.8 → `BOM — abaixo do baseline`
-   - `higher_better` + current < avg*0.5 → `BAIXO — abaixo do baseline`
-   - else → `OK`
-
-3. Add efficiency ratio: `EFF = tool_calls / changelog_lines` (computed inline, not stored)
-
-4. Filter: only use rows where `data_quality` = `full` (11th column) for trend calculation
-
-5. Output format (replaces single `[KPI]` line):
-   ```
-   [KPI] calls:2011 (avg:1800) ALTO — acima do baseline | pendentes:17 (avg:35) BOM — abaixo do baseline
-   [KPI] efficiency:201 calls/cl (>150=alto) | commits:1 (avg:1) OK | rework:2 (avg:4) BOM
-   ```
-
-**Deploy**: Write → `.claude/tmp/apl-cache-refresh.sh` → `python shutil.copy` → `hooks/`
-
-**Verify**: `bash hooks/apl-cache-refresh.sh` — no errors, [KPI] lines show interpretations.
-
----
-
-## Block 3: stop-metrics.sh — persist data_quality column
-
-**Why**: New sessions must write `full` as 11th column.
-
-**File**: `hooks/stop-metrics.sh` (line 149)
-
-**Change**: Add `full` to the printf template:
-```bash
-printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-  "$SESSION_NUM" "$TODAY_DATE" "$REWORK_FILES" "$BACKLOG_OPEN" "$BACKLOG_RESOLVED" \
-  "$HANDOFF_PEND" "$CL_LINES" "$COMMITS" "$CALLS" "$ELAPSED_MIN" "full" \
-  >> "$METRICS_FILE"
-```
-
-**Deploy**: Write → `.claude/tmp/stop-metrics.sh` → `python shutil.copy` → `hooks/`
-
-**Verify**: `bash hooks/stop-metrics.sh` — no errors.
-
----
-
-## Block 4: post-global-handler.sh — efficiency in mid-session KPI
-
-**Why**: Mid-session reflection (every 200 calls) should show efficiency alongside rework/backlog.
-
-**File**: `.claude/hooks/post-global-handler.sh` (line 117)
-
-**Change**: Add efficiency to the OK/ALERTA output:
-- Compute `EFF_BASELINE` from metrics.tsv (avg of tool_calls/changelog_lines for full rows)
-- Show `efficiency:~N calls/cl` in the `[KPI:N]` line
-- Alert if current running efficiency > baseline * 1.3
-
-**Deploy**: Write → `.claude/tmp/post-global-handler.sh` → `python shutil.copy` → `.claude/hooks/`
-
-**Verify**: `bash .claude/hooks/post-global-handler.sh` — no errors.
-
----
-
-## Block 5: Infra decisions → HANDOFF + CHANGELOG
-
-**Decisions to register** (no code changes):
-
-1. **Opus 4.7**: Considerar como modelo principal (proxima sessao: testar).
-2. **Docling venv**: `tools/docling/.venv` separado. Razao: PyTorch ~2GB + Python >=3.13 incompativel com root >=3.11.
-3. **Multi-agent orchestration**: deferred.
-4. **Python infra**: Keep orchestrator.py + agents/ + subagents/ + config/. Archive `skills/efficiency/` (orphaned).
-
-**Files**: `HANDOFF.md` (Edit: move items from PENDENTES to DECISOES ATIVAS), `CHANGELOG.md` (Edit: append S219 entries)
-
-**Verify**: Read HANDOFF.md, confirm PENDENTES count decreased, DECISOES ATIVAS updated.
-
----
-
-## Execution order
+**Adicionar ao prompt existente** (antes do `$ARGUMENTS`):
 
 ```
-Block 1 → OK → Block 2 → OK → Block 3 → OK → Block 4 → OK → Block 5 → OK → commit
+SECOND CHECK — Silent execution: Count the tool calls in the assistant's response. If there are 3+ tool calls (Edit, Write, Bash with side effects, Agent) without user-facing text explaining WHAT is being done and WHY before those calls, that is silent execution. Research tools (Read, Grep, Glob) don't count. If silent execution detected, respond with JSON: {"ok":false,"reason":"Silent execution: N tool calls sem explicar ao usuario o que e por que"}. This check is INDEPENDENT of the skip check — both must pass.
 ```
 
-Each block requires explicit approval before proceeding.
+**Tambem adicionar a anti-drift.md §EC loop** (reforco textual do que o hook enforca):
 
-## Critical files
+```
+"Elite: sim" PROIBIDO — must contain: (1) por que esta abordagem e melhor que alternativas, (2) o que seria mais profissional. Reflexao de segurança nao basta — reflexao de excelencia.
+```
 
-- `.claude/apl/metrics.tsv` — data store (Block 1)
-- `hooks/apl-cache-refresh.sh` — session-start KPI display (Block 2)
-- `hooks/stop-metrics.sh` — end-of-session persist (Block 3)
-- `.claude/hooks/post-global-handler.sh` — mid-session KPI (Block 4)
-- `HANDOFF.md`, `CHANGELOG.md` — state docs (Block 5)
+**Tambem adicionar KBP-22 a known-bad-patterns.md:**
+```
+## KBP-22 Silent Execution Chains
+→ anti-drift.md §EC loop + Stop[0] prompt (S219: enforcement mecanico)
+```
+
+## Arquivos a modificar
+
+1. `.claude/settings.local.json` (linha 328) — expandir Stop[0] prompt
+2. `.claude/rules/anti-drift.md` — hardening do EC Elite
+3. `.claude/rules/known-bad-patterns.md` — KBP-22
+
+## Verificacao
+
+1. Testar Stop[0] com cenario que viola: resposta com 4 Edits sem texto → deve retornar `{ok:false}`
+2. Testar Stop[0] com cenario correto: texto explicativo + Edits → deve retornar `{ok:true}`
+3. Confirmar que pesquisa pura (Read+Grep+Glob) nao trigga falso positivo

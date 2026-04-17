@@ -11,6 +11,11 @@
 - ADD: stop-metrics.sh — coleta ctx_pct_max como 12a coluna
 - ADD: post-global-handler.sh — efficiency baseline + ctx% no mid-session KPI + alerta ctx>=80%
 
+### Silent execution enforcement (KBP-22)
+- ADD: Stop[0] prompt — segundo check: silent execution (3+ action tool calls sem comunicar)
+- UPDATE: anti-drift.md §EC loop — Elite hardened: exige reflexao de excelencia, nao so seguranca
+- ADD: known-bad-patterns.md KBP-22 — Silent Execution Chains (enforcement mecanico via Stop[0])
+
 ### Decisoes infra
 - DECISION: Docling venv separado tools/docling/.venv (Python >=3.13 vs root >=3.11)
 - DECISION: Python infra — manter orchestrator.py + agents/ + subagents/ + config/. Limpar skills/efficiency/ (orphaned)

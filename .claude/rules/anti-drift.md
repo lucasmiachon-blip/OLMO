@@ -48,9 +48,9 @@ Before EACH Edit/Write, answer visibly:
 ```
 [EC] Verificacao: <what I checked>
 [EC] Mudanca: <1 sentence>
-[EC] Elite: <risk assessed, alternative considered, why safe>
+[EC] Elite: <(1) por que esta abordagem e melhor que alternativas, (2) o que seria mais profissional>
 ```
-"Elite: sim" PROIBIDO — must contain substantive reflection.
+"Elite: sim" PROIBIDO — must contain: (1) por que esta abordagem e melhor que alternativas descartadas, (2) o que um engenheiro de elite faria diferente. Reflexao de seguranca nao basta — reflexao de excelencia. Enforced por Stop[0] silent execution check (S219).
 CSS/GSAP changes: verification includes screenshot via `qa-capture.mjs`.
 Touching a CSS section: audit ENTIRE section (raw px, off-palette, redundant tokens — KBP-21).
 
