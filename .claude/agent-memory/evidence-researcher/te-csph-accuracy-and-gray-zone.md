@@ -1,23 +1,32 @@
 ---
-name: Rule of Five — Limitations, Gray Zone, F2/F3 Cutoffs
-description: Comprehensive evidence on Baveno VII Rule-of-5 limitations, gray zone (10-25 kPa) accuracy, F2/F3 VCTE cutoffs by etiology, confounders — 15 verified PMIDs (researched 2026-03-30)
+name: TE/FibroScan CSPH Accuracy, Rule-of-5 Limitations, Gray Zone
+description: Transient elastography diagnostic performance for CSPH + Baveno VII Rule-of-5 validation, limitations (7 categories), gray zone (40-60%), F2/F3 VCTE cutoffs by etiology, F3 vs F4 clinical gap, MASLD gap, confounders reference (merged from te-csph-diagnostic-accuracy + rule-of-five-limitations-gray-zone, S225 2026-04-17)
 type: reference
 ---
 
-# Rule of Five — Limitations, Gray Zone, F2/F3 Cutoffs
+# TE/FibroScan — CSPH Accuracy, Rule-of-5 Limitations, Gray Zone
 
-Researched: 2026-03-30
-MCPs used: BioMCP (article_searcher + article_getter + think), WebSearch, WebFetch
+Researched: 2026-03-29 (accuracy) + 2026-03-30 (limitations + gray zone). Merged S225.
+MCPs used: BioMCP (article_searcher + article_getter + think), WebSearch, WebFetch, PubMed MCP (down — 400 errors on date-range queries)
 
-## Verified PMIDs (15 total, all confirmed via BioMCP article_getter)
+## Verified PMIDs (24 total, all confirmed via BioMCP article_getter)
 
 | PMID | First Author | Journal | Year | Type | Key Finding |
 |------|-------------|---------|------|------|-------------|
-| 35120736 | de Franchis | J Hepatol | 2022 | Consensus | Baveno VII: Rule-of-5 for cACLD/CSPH |
+| 35120736 | de Franchis | J Hepatol | 2022 | Consensus | Baveno VII: Rule-of-5 cutoffs for cACLD/CSPH |
 | 34166721 | EASL | J Hepatol | 2021 | CPG | EASL NITs guideline: cutoffs by etiology, confounders, reliability |
 | 38489521 | Duarte-Rojo | Hepatology | 2024 | Systematic review | AASLD: 240 studies, 61,193 pts, TE/SWE/MRE accuracy |
-| 33982942 | Pons | Am J Gastroenterol | 2021 | Derivation cohort | Rule-of-5 derivation. n=836. LSM>=25 PPV 62.8% in obese NASH |
-| 39689352 | Vutien | Hepatology | 2025 | Validation cohort | n=17,076. Rule-of-5 validated. "Critical CSPH" 50-75 kPa |
+| 33982942 | Pons | Am J Gastroenterol | 2021 | Derivation cohort | Rule-of-5 derivation. n=836. LSM>=25 PPV>90% except obese NASH (62.8%). ANTICIPATE-NASH model. |
+| 27639071 | Abraldes | Hepatology | 2016 | Derivation cohort | ANTICIPATE original. n=518. LSM+PLT nomogram. LSPS highest discrimination. |
+| 39689352 | Vutien | Hepatology | 2025 | Validation cohort | n=17,076 Veterans. Rule-of-5 validated. "Critical CSPH" 50-75 kPa: ~2x risk vs 25-49.9 |
+| 41138818 | Banares | J Hepatol | 2025 | IPD meta-analysis | 5 studies, n=1433. LSM>=25 pooled PPV 92%. NPV rule-out 99%. ANTICIPATE >=75% → PPV 95% incl. MASLD+obesity |
+| 35876975 | Kumar | J Med Ultrason | 2022 | Meta-analysis | 26 studies, n=4337. Weighted mean cutoff 22.8 kPa. Sens 79%, Spec 88%, AUROC 0.91 |
+| 37288716 | Song | Liver Int | 2023 | Validation cohort | n=1966 cACLD. 3-yr decompensation: 22% CSPH vs 1.4% excluded. sHR 8.00 |
+| 38479612 | Jachs | J Hepatol | 2024 | Validation (HDV) | n=51 HDV. Baveno VII: 100% sens rule-out, 84.2% spec rule-in. ANTICIPATE AUROC 0.885 |
+| 36214066 | Rabiee | Hepatol Commun | 2022 | External validation | ANTICIPATE validated in NASH. n=222. Both models AUC>0.8. Developed FIB4+ (AUC 0.80) |
+| 38740698 | He | Hepatol Int | 2024 | Validation (2D-SWE) | n=118. LSM>=25 OR SSM>=50: PPV 100%, spec 100% |
+| 40844510 | Prakash | Am J Gastroenterol | 2025 | Prospective | n=116. SSM 100Hz AUROC 0.849 for HREV. SSM 35 kPa cutoff: sens 95.6% |
+| 40719905 | Li | Clin Exp Med | 2025 | Retrospective | n=1409 cACLD. Dynamic LSM (delta/baseline) AUC 0.777-0.782 for decompensation |
 | 36503206 | Rodrigues | Clin Mol Hepatol | 2023 | Editorial | "Shades of Grey" — gray zone 40-60%, SSM reduces to 7-15% |
 | 37646318 | Lin | APT | 2023 | Prospective cohort | n=2763 cACLD. Gray zone 44.9%. 5yr decompensation: 4.2% |
 | 18395077 | Friedrich-Rust | Gastroenterology | 2008 | Meta-analysis | 50 studies. AUROC: 0.84 (F2), 0.89 (F3), 0.94 (F4). Accuracy varies by etiology for F2 |
@@ -34,7 +43,41 @@ MCPs used: BioMCP (article_searcher + article_getter + think), WebSearch, WebFet
 
 ---
 
-## 1. Limitations of the Rule of Five (7 major categories)
+## 1. Baveno VII Rule-of-5 Key Cutoffs
+
+| LSM (kPa) | + Platelet | Classification | PPV/NPV |
+|------------|-----------|----------------|---------|
+| <10 | any | Excludes cACLD | — |
+| 10-14.9 | any | Probable cACLD | — |
+| <15 | >=150x10^9/L | Excludes CSPH | NPV 99% (pooled) |
+| 15-19.9 | <110x10^9/L | Probable CSPH (>=60% risk) | — |
+| 20-24.9 | <150x10^9/L | Probable CSPH (>=60% risk) | — |
+| >=25 | any | Certain CSPH | PPV 92% (pooled) |
+| 50-75 | any | "Critical CSPH" (proposed) | ~2x decompensation risk vs 25-49.9 |
+
+---
+
+## 2. Pooled Diagnostic Accuracy (Kumar 2022 meta-analysis)
+
+- 26 studies, 4337 patients
+- Weighted mean optimal cutoff: 22.8 kPa
+- Sensitivity: 79% (95% CI 74-84%)
+- Specificity: 88% (95% CI 84-91%)
+- AUROC (HSROC): 0.91 (95% CI 0.88-0.93)
+- Correlation with HVPG: r=0.70 (range 0.36-0.86)
+- Heterogeneity: I2 83% (sensitivity), 74% (specificity)
+
+---
+
+## 3. MASLD Gap
+
+- LSM >=25 kPa PPV in obese MASLD: only 62.8% (Pons 2021)
+- ANTICIPATE-NASH (LSM+PLT+BMI) at >=75% risk threshold: PPV 83-95% (Banares 2025)
+- Rule-out (LSM <15 + PLT >=150) works across all etiologies: NPV 99%
+
+---
+
+## 4. Limitations of the Rule of Five (7 major categories)
 
 ### L1. Gray Zone — 40-60% of cACLD patients are "indeterminate"
 - LSM 15-24.9 kPa = "probable CSPH" but PPV/NPV suboptimal
@@ -60,8 +103,8 @@ MCPs used: BioMCP (article_searcher + article_getter + think), WebSearch, WebFet
 - 16% of F3 patients already have varices; decompensation occurs in F3 MASLD
 - Clinical implication: the F3-F4 boundary may be less important than the composite F3-4 for outcomes
 
-### L5. Confounders affect ALL strata (not unique to Rule of 5 but amplified)
-- See section 4 below for quantitative data
+### L5. Confounders affect ALL strata (amplified in gray zone)
+- See [[elastography-modality-comparison-and-limitations]] for quantitative confounder impact (ALT, postprandial, BMI, cholestasis, congestion, alcohol, ascites, severe steatosis)
 
 ### L6. Reliability issues inflate/deflate strata assignment
 - IQR/median >30% = poorly reliable (Boursier criteria)
@@ -76,7 +119,7 @@ MCPs used: BioMCP (article_searcher + article_getter + think), WebSearch, WebFet
 
 ---
 
-## 2. F2/F3 VCTE Cutoffs by Etiology
+## 5. F2/F3 VCTE Cutoffs by Etiology
 
 ### Meta-analytic pooled cutoffs (all etiologies)
 | Stage | Cutoff (kPa) | Sensitivity | Specificity | AUROC | Source |
@@ -98,13 +141,12 @@ MCPs used: BioMCP (article_searcher + article_getter + think), WebSearch, WebFet
 
 ### Key finding: F2 vs F3 overlap
 - AUROC for F2 = 0.84 vs F3 = 0.89 vs F4 = 0.94 (Friedrich-Rust 2008)
-- The accuracy INCREASES with fibrosis stage — F2 has the WORST discrimination
-- "For the diagnosis of significant fibrosis, a high variation of the AUROC was found that is dependent on the underlying liver disease" (Friedrich-Rust 2008)
+- Accuracy INCREASES with fibrosis stage — F2 has the WORST discrimination
 - VCTE has BROAD cutoff ranges for F2-F3: 4.8-16.4 kPa for >=F2, reflecting etiology dependence
 
 ---
 
-## 3. Gray Zone (10-25 kPa) Sub-stratification
+## 6. Gray Zone (10-25 kPa) Sub-stratification
 
 ### Baveno VII classification within gray zone
 | LSM (kPa) | + Platelet | Category | 5yr decompensation |
@@ -127,23 +169,7 @@ MCPs used: BioMCP (article_searcher + article_getter + think), WebSearch, WebFet
 
 ---
 
-## 4. Confounders — Quantitative Impact on LSM
-
-| Confounder | Effect on LSM | Magnitude | Mitigation | Source |
-|-----------|--------------|-----------|-----------|--------|
-| ALT >5x ULN | Overestimation | 1.3-3x fold increase; median 15.6 kPa in acute HBV | Defer until ALT normalizes | EASL 2021 |
-| ALT >100 IU/L | Overestimation | >=2 grade overestimation 50% probability at ~2x ULN | Interpret with caution | Multiple |
-| Postprandial | Elevation | +17-21% in healthy; +21% (range 8-63%) in fibrosis | Fast >=3h (EASL) | EASL 2021 |
-| BMI >30 | Failure + overestimation | M probe failure 5-22%; XL needed; 38.6% 2-stage discordance in class 3 obesity | Use XL probe; lower cutoffs | WFUMB 2024 |
-| Extrahepatic cholestasis | Overestimation | Mean 8.9 -> 5.6 kPa post-drainage; up to 15.2 -> 7.1 kPa | Wait for drainage | Millonig 2008 |
-| Hepatic congestion/CHF | Overestimation | Correlates with RAP, not fibrosis | Treat heart failure first | Multiple |
-| Acute alcohol | Overestimation | 2.6 kPa reduction at 4 wks abstinence | Defer 2-4 wks | EASL 2021 |
-| Ascites | Measurement failure | Shear wave interrupted by fluid | Use 2D-SWE or MRE | EASL 2021 |
-| Severe steatosis (S3) | Low correlation between modalities | TE-pSWE r=0.48 in class 3 obesity | Consider MRE | Losurdo 2025 |
-
----
-
-## 5. F3 vs F4: Clinical Relevance (Barrett 2026)
+## 7. F3 vs F4: Clinical Relevance (Barrett 2026)
 
 - F3 MASLD: HR 8.15 (95% CI 3.42-19.43) for MALO vs controls
 - F4 MASLD: HR 38.16 (95% CI 11.58-125.76) for MALO vs controls
