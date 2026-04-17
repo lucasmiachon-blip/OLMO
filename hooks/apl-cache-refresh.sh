@@ -60,6 +60,8 @@ parse_handoff_pendentes() {
 SNAPSHOT_PREV="$APL_DIR/handoff-prev.txt"
 STUCK_FILE="$APL_DIR/stuck-counts.tsv"
 STUCK_ALERTS=""
+STUCK_COUNT=0
+STUCK_OVERFLOW=0
 
 if [ -f "$PROJECT_ROOT/HANDOFF.md" ] && [ -f "$SNAPSHOT_PREV" ]; then
   CURRENT_ITEMS=$(parse_handoff_pendentes "$PROJECT_ROOT/HANDOFF.md" | sort)
@@ -83,7 +85,12 @@ if [ -f "$PROJECT_ROOT/HANDOFF.md" ] && [ -f "$SNAPSHOT_PREV" ]; then
         mv "$STUCK_FILE.tmp" "$STUCK_FILE"
         printf '%s\t%d\t%s\n' "$KEY" "$NEW_COUNT" "$OLD_FIRST" >> "$STUCK_FILE"
         if [ "$NEW_COUNT" -ge 3 ]; then
-          STUCK_ALERTS="${STUCK_ALERTS}\"${KEY}...\" (${NEW_COUNT} sessoes). "
+          if [ "$STUCK_COUNT" -lt 5 ]; then
+            STUCK_ALERTS="${STUCK_ALERTS}\"${KEY}...\" (${NEW_COUNT} sessoes). "
+            STUCK_COUNT=$((STUCK_COUNT + 1))
+          else
+            STUCK_OVERFLOW=$((STUCK_OVERFLOW + 1))
+          fi
         fi
       else
         printf '%s\t1\t%s\n' "$KEY" "$(date +%Y-%m-%d)" >> "$STUCK_FILE"
@@ -101,6 +108,9 @@ if [ -f "$PROJECT_ROOT/HANDOFF.md" ] && [ -f "$SNAPSHOT_PREV" ]; then
     done <<< "$RESOLVED"
   fi
 fi
+
+# KBP-23: cap STUCK output + report overflow
+[ "$STUCK_OVERFLOW" -gt 0 ] && STUCK_ALERTS="${STUCK_ALERTS}(+${STUCK_OVERFLOW} more in stuck-counts.tsv)"
 
 # --- Interpreted KPI trends (S219: moving avg + efficiency + verdicts) ---
 METRICS_FILE="$APL_DIR/metrics.tsv"
