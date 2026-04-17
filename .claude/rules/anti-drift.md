@@ -29,6 +29,13 @@ Before ANY Agent spawn, 3 questions:
 3. Agent brings concrete gain (parallelism + massive context + exclusive tool)? No named reason → SKIP
 4. Agent produces research → result written to plan file BEFORE reporting to user. Context is volatile, plan file persists.
 
+## First-turn discipline (KBP-23)
+First response after /clear already loads ~25KB auto-content (CLAUDE.md + rules + skills list + HANDOFF + MCP instructions). Additional tool use compounds. Discipline:
+1. **Read with `limit`:** files >100 lines → `limit: 50` first. Expand only after targeted Grep locates the relevant range.
+2. **Skill invocation gate:** heavy skills (>100 li — systematic-debugging, /dream, brainstorming, frontend-design) only when task explicitly requires the framework. Read-only audits use direct logic.
+3. **ToolSearch targeted:** fetch schemas only for tools about to be called in THIS turn. No prefetch.
+4. **Agent dispatch for broad scans:** 3+ Reads + 2+ Greps in unknown area → delegate to Explore/general-purpose. Agent returns ~2KB report vs 30-50KB raw content.
+
 ## Verification
 1. Identify verification command (test, build, lint, manual check)
 2. Execute fully. Read complete output.
