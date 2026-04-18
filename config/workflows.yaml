@@ -393,65 +393,6 @@ workflows:
         content_type: "report"
         description: "Gerar relatorio"
 
-  # Extracao de Fontes Pagas (UpToDate, DynaMed, Best Practice)
-  paid_source_extraction:
-    name: "Fonte Paga → Extracao → MBE → Notion"
-    description: |
-      Usa Cowork ou ChatGPT Agent para acessar fontes pagas
-      com login, extrair conteudo e processar com MBE.
-    trigger: "manual"
-    budget_tracking: true
-    frequency: "2-3x/semana"
-    estimated_calls: 2
-    steps:
-      - name: "extract_from_source"
-        type: "browser_agent"
-        agents:
-          primario: "claude_cowork"
-          backup: "chatgpt_agent"
-        sources:
-          - name: "UpToDate"
-            url: "https://www.uptodate.com"
-            auth: "login institucional/pessoal"
-          - name: "DynaMed"
-            url: "https://www.dynamed.com"
-            auth: "login institucional"
-          - name: "BMJ Best Practice"
-            url: "https://bestpractice.bmj.com"
-            auth: "login institucional/pessoal"
-        action: |
-          1. Abrir browser autenticado na fonte
-          2. Navegar ate o topico de interesse
-          3. Extrair conteudo completo (texto + tabelas + referencias)
-          4. Se disponivel: baixar PDF
-          5. Salvar na pasta compartilhada para processamento
-        output: "data/extracted/"
-        cost: "$0.00 (usa plano Cowork/ChatGPT)"
-      - name: "process_with_mbe"
-        type: "api_call"
-        model: "claude-opus-4-6"
-        action: |
-          Receber conteudo extraido e processar com skill MBE:
-          1. Identificar guidelines e recomendacoes
-          2. Classificar nivel de evidencia (GRADE)
-          3. Extrair dados numericos (NNT, RR, IC 95%)
-          4. Aplicar checklist correto (AGREE II para guidelines)
-          5. Cross-reference com PubMed MCP
-          6. Sintetizar com grau de recomendacao
-        cost: "~$0.05-0.10"
-      - name: "publish_enriched"
-        type: "mcp"
-        server: "notion"
-        action: |
-          Criar pagina Notion enriquecida:
-          - Fonte original (UpToDate/DynaMed/BMJ)
-          - Resumo da guideline/topico
-          - Nivel de evidencia GRADE
-          - Dados numericos em tabela
-          - Referencias cruzadas com PubMed
-          - Link para fonte original
-        cost: "$0.00"
-
   # Organizacao Completa
   full_organization:
     name: "Organizacao Completa"
