@@ -1,11 +1,13 @@
-# Evidence Harvest S112 — Cowork Pipeline Test
+<!-- Origem: gerado via bridge ADR-0001 em S112 (OLMO_COWORK/pipeline/output/). Pre ADR-0001 — mantido como snapshot histórico. -->
+
+# Evidence Harvest S112
 # Aula: Metanálise | Data: 2026-04-08
-# Coautoria: Lucas + Opus 4.6 (Cowork)
+# Coautoria: Lucas + Opus 4.6
 # Fonte: PubMed MCP + SCite MCP (search_literature)
 
 ## Resumo
 
-Pipeline testado end-to-end via Cowork. MCPs funcionais: PubMed, SCite/search_literature, Notion.
+Pipeline testado end-to-end via external producer (snapshot pre ADR-0001). MCPs funcionais: PubMed, SCite/search_literature, Notion.
 14 slides sem evidence HTML identificados. Papers-chave encontrados para os de alta prioridade.
 
 ---
@@ -100,4 +102,4 @@ https://pubmed.ncbi.nlm.nih.gov/40902613/
 ```
 
 ---
-Coautoria: Lucas + Opus 4.6 (Cowork) | S112 2026-04-08
+Coautoria: Lucas + Opus 4.6 | S112 2026-04-08 (pre ADR-0001)
