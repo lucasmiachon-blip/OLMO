@@ -10,7 +10,7 @@ wiki/
 ├── _index.md                ← Indice global
 └── topics/
     ├── medicina-clinica/    ← R3, aulas, MBE, hepatologia
-    │   ├── raw/             ← Fontes EN imutaveis (Cowork alimenta via orquestrador)
+    │   ├── raw/             ← Fontes EN imutaveis (populadas via external inbox — ADR-0002)
     │   ├── wiki/concepts/   ← Notas compiladas PT (principal)
     │   └── wiki/topics/     ← Compilados futuros
     └── sistema-olmo/        ← Self-improvement do OLMO
@@ -21,7 +21,7 @@ wiki/
 
 ## Convencoes
 
-- **raw/** e imutavel — LLM le, nunca escreve. Cowork produz em OLMO_COWORK, orquestrador copia.
+- **raw/** e imutavel — LLM le, nunca escreve. Populado via external inbox (ADR-0002).
 - **wiki/** e compilado — LLM mantem, humano revisa.
 - PT e lingua principal. EN fica em raw/ como material-fonte.
 - Frontmatter YAML obrigatorio (confidence, tags, wikilinks).
@@ -33,7 +33,7 @@ wiki/
 |------|------|
 | Lucas | Tudo |
 | Orquestrador | Compilar raw/ → wiki/, manter indices, lint |
-| Cowork | Produzir em OLMO_COWORK (orquestrador copia para raw/) |
+| External producer | Entrega em $OLMO_INBOX (ADR-0002). Orquestrador copia para raw/. |
 | Workers | Nada (read-only no repo) |
 
 Coautoria: Lucas + Opus 4.6 | S117 2026-04-08

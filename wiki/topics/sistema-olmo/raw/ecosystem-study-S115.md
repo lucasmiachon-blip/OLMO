@@ -2,7 +2,7 @@
 
 **Data**: 2026-04-08
 **Objetivo**: Gap analysis OLMO vs Claude Code ecosystem
-**Base**: best-practices-cowork-skills-2026-04-08.md + pesquisa repos
+**Base**: raw study pre ADR-0001 + pesquisa repos (snapshot 2026-04-08)
 **Coautoria**: Lucas + Opus 4.6
 
 ---
@@ -47,7 +47,6 @@ OLMO is ahead of the ecosystem on hooks (34 vs 5-10 typical), memory governance 
 |------|-------|-------------|
 | anthropics/skills | ~113k | Official skill structure, marketplace |
 | awesome-claude-code-toolkit | — | 135 agents, 35 skills catalog |
-| claude-cowork-guide | — | 43 workflows, 70 prompts |
 | awesome-claude-code | ~37k | Community curation, ToB security |
 | VoltAgent/awesome-agent-skills | — | 1000+ cross-tool skills |
 

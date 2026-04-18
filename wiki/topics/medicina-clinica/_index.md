@@ -1,7 +1,7 @@
 # Medicina Clinica
 
 > Conhecimento medico compilado: hepatologia, albumina, manejo de ascite e cirrose.
-> Fonte: resources/ (migrado S117) + Cowork harvests futuros.
+> Fonte: resources/ (migrado S117) + external harvests futuros (ADR-0002).
 
 ## Concepts (wiki/concepts/)
 

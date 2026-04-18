@@ -7,8 +7,7 @@
 
 | Arquivo | Tema | Data |
 |---------|------|------|
-| best-practices-cowork-skills-2026-04-08.md | Best practices Anthropic + repos | 2026-04-08 |
-| ecosystem-study-S115.md | Estudo do ecossistema OLMO | S115 |
+| ecosystem-study-S115.md | Estudo do ecossistema OLMO (pre ADR-0001) | S115 |
 | workflow-mbe-opus-classificacao.md | Workflow MBE classificacao | 2026-03-29 |
 
 ## Repo Sources (nao copiadas — referenciadas in-place)
