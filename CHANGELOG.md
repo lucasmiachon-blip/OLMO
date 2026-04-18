@@ -1,5 +1,42 @@
 # CHANGELOG
 
+## Sessao 226 — 2026-04-17 (purga-cowork — ADR-0002 enforcement)
+
+### Purga arquitetural (41 ACTIVE cowork refs → 0 drift, 8 commits)
+- e1f0f03 Phase A: wiki cowork refs (4 files, 9 hits) → producer-agnostic language via ADR-0002
+- abaf61a Phase B: BACKLOG + nlm-skill (2 files, 7 hits). SKIP skill-creator (α — 6 upstream Anthropic tokens)
+- ce5ce85 Phase C: config/workflows.yaml remove `paid_source_extraction` (58 li, 3 hits)
+- b0e0a28 Phase D.1: `git mv cowork-evidence-harvest-S112.md → evidence-harvest-S112.md` + bridge origin header (4 hits, content preservado 94% via git)
+- 40ca357 Phase D.2: delete `wiki/.../best-practices-cowork-skills-2026-04-08.md` (242 li, 14 hits, conteúdo era Cowork-scope)
+
+### Infrastructure (novo)
+- 47359aa Phase F: `docs/adr/0002-external-inbox-integration.md` — contrato simétrico lado OLMO. Env var `OLMO_INBOX`, producer-agnostic, ref cruzada a ADR-0001.
+- 6fcc960 Phase G: KBP-24 em `.claude/rules/known-bad-patterns.md` (pointer-only per KBP-16) → ADR-0002 §Decisão. Header Next: KBP-25.
+
+### ADR-0001 + ADR-0002 = sistema bidirecional
+- ADR-0001 (OLMO_COWORK-side): producer nunca escreve em OLMO\
+- ADR-0002 (OLMO-side): consumer lê `$OLMO_INBOX`, opaque quanto ao producer
+- Juntos: substituibilidade do producer, git OLMO limpo, pull-based
+
+### Scope pivot S226
+- Session iniciou como `Melhorias1.1` (discipline rules). Lucas pivotou mid-session para purga arquitetural Cowork-refs.
+- Plan file criado pré-pivot descartado; novo plan `S226-purga-cowork` aprovado com Phases A→B→C→D→F→G→E.
+- Propose-before-pour rule aplicado (plan approval + iteração F+G+budget antes de código).
+
+### Aprendizados S226
+- Scope pivot mid-session válido quando ADR novo justifica (Melhorias1.1 → purga-cowork substituiu ruído por estrutura)
+- Separation of roles (Lucas): skill-creator upstream permanece independent (non-drift) — mechanical purge criaria false-positives em Anthropic product tokens
+- Pointer-only KBP + ADR externo: single source of truth + grepable policy (ADR carries prose, KBP carries pointer)
+- Producer-agnostic future-proof: troca de producer sem re-engenharia OLMO
+- Parallel instance coordination: zero-overlap via paths disjuntos funcionou (eu OLMO, Cowork instance OLMO_COWORK)
+
+### Residual verificado
+- Total grep `cowork` -i: 93 hits, **0 ACTIVE drift**
+- 10 IMMUTABLE (archive 4 + CHANGELOG 6 pre-S226)
+- 75 plan file (→ archive post-close)
+- 6 UPSTREAM α (skill-creator Anthropic tokens, documented exception)
+- 2 producer-refs (evidence-harvest header + ADR-0002 §Ref cruzada, documented in ADR)
+
 ## Sessao 225 — 2026-04-17 (consolidacao — SHIP era Phase 1)
 
 ### Phase 1 — Codex Batch 1 debt zero (5/5 issues, 5 commits)
