@@ -5,6 +5,36 @@
 
 **S226 HYDRATION:** Read `.claude/plans/ACTIVE-S225-SHIP-roadmap.md` (multi-session) + `.claude/plans/ACTIVE-S226-memory-to-living-html.md` (S226 design aprovado S225) + este HANDOFF. Then `/plan` e "vamos começar."
 
+## MELHORIAS S226 — attack visible+easy first
+
+> Lucas S225 pergunta: "melhoramos?". Veredicto: sim (slip 45%→~20%, discipline maior, MSYS2 durável). 4 gaps específicos identificados — endereçar por ordem de visibilidade + facilidade para momentum cedo.
+
+### 1. [P0 CONCRETO] BACKLOG #34 — cp Pattern 8 bypass (visible + ~20min)
+- **Evidência**: Phase 1.1-1.3 cp → `hooks/*.sh` auto-passaram sem popup ASK; Phase 1.4 cp → `.claude/hooks/*.sh` bloqueou. Lucas rodou `!` ~8x manual. Friction acumulada.
+- **Reproduzir**: 2 cp back-to-back um para cada path. Observar qual apresenta ASK vs silent.
+- **Hipóteses**: (a) settings.json allow-list overriding guard para `hooks/*` mas não `.claude/hooks/*`; (b) hook output JSON race; (c) CC permission mode auto-approval sob condições.
+- **Fix path**: root-cause → extender guard-bash-write Pattern 8 para cobrir ambos paths consistente.
+- **ROI**: elimina friction manual permanentemente para todo hook deploy futuro.
+
+### 2. [PROCESS RULE — 5min edit] anti-drift §First-turn discipline expand
+- **Evidência S225**: 925+ tool calls, custo HIGH. Vários Reads full em memory files 150-200 li.
+- **Fix**: adicionar linha em `.claude/rules/anti-drift.md §First-turn discipline`:
+  > "Memory/hooks files >100 li: limit:50 primeiro + Grep targeted seção específica. Full Read só se targeted falhar. Aplica também a Read em .md de memory/agent-memory."
+- **ROI**: menos tokens per session, reduz custo HIGH em sessões longas.
+
+### 3. [PROCESS RULE — 5min edit] Propose-before-pour
+- **Evidência S225**: escrevi `te-csph-accuracy-and-gray-zone.md` (160 li) antes Lucas propor HTML migration. File deletado. ~600 tokens waste.
+- **Fix**: adicionar em `.claude/rules/anti-drift.md §Momentum brake`:
+  > "Operação substantiva (merge ≥3 files OU rewrite ≥100 li OU migration arquitetural): propor approach high-level + 1 short example. Aguardar OK antes de gerar volume completo. Architectural pivots são cheap antes do pour, caros depois."
+- **ROI**: evita waste em mid-session direction changes (S225 teve 2 pivots: HTML migration, memory scope).
+
+### 4. [HABIT — no code] Budget gate em scope extensions
+- **Evidência S225**: MSYS2 install (25min, aprovado) + merge expansion + iter 2 consolidate — nenhum teve explicit "custo Xmin, budget Ymin remaining, prosseguir?" check.
+- **Fix (habit)**: ao propor scope extension, sempre incluir cost estimate + remaining budget in proposal.
+- **ROI**: honest session budgeting, evita late-session crunch.
+
+**Ordem recomendada S226 start**: 1 (fix concreto) → 2+3 (process rules edit juntas, mesmo arquivo) → 4 (habit em prática S226).
+
 ## VERDICT S225 (consolidated)
 
 SHIP Phase 1 — Codex debt near-zero + infra durável + memory consolidation:
