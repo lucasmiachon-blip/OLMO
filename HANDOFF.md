@@ -39,7 +39,7 @@ SHIP Phase 1 — Codex debt near-zero + infra durável + memory consolidation. 1
 1. **Phase 2.1 momentum-brake** (Codex #3): bash exemption blanket → granular. 45min HIGH risk. Specs em `plans/archive/S225-consolidacao-plan.md` §Phase 2.1.
 2. **Track A semantic memory**: ByteRover CLI vs MemSearch vs Smart Connections.
 3. **DE Fase 2**: rule `design-excellence.md` + skill `polish/SKILL.md`.
-4. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S226-memory-to-living-html.md`.
+4. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S227-memory-to-living-html.md`.
 5. **Melhorias1.1 discipline rules**: rejected pivot S226 — retomar ou descartar S227.
 
 ## ESTADO POS-S226
@@ -48,7 +48,7 @@ SHIP Phase 1 — Codex debt near-zero + infra durável + memory consolidation. 1
 - **KBPs**: 24 entries. Next: KBP-25.
 - **Hooks**: 31/31 valid (unchanged from S225).
 - **Toolchain**: MSYS2 full (unchanged).
-- **Plans active**: 2 (`ACTIVE-S225-SHIP-roadmap`, `ACTIVE-S226-memory-to-living-html`). Archived S226: `S226-purga-cowork-plan`.
+- **Plans active**: 2 (`ACTIVE-S225-SHIP-roadmap`, `ACTIVE-S227-memory-to-living-html`). Archived S226: `S226-purga-cowork-plan` + `S204-snoopy-jingling-aurora` (synced post-close) + `S226-post-close-sync-plan` (this sync).
 - **Memory**: 6 evidence-researcher + MEMORY.md; global 19/20.
 - **BACKLOG**: 36 items (Cowork Skills Infra row removed).
 

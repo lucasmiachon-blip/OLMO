@@ -1,3 +1,5 @@
+<!-- SHIPPED S204 (commit a940234 "Pipeline I/O Hardening"). E1-E5 artifacts verified: typographyHierarchy em qa-capture.mjs L342, validateFixTokens em gemini-qa3.mjs L531, {{TYPOGRAPHY_HIERARCHY}}+{{SPACING_MAP}} placeholders L1228-1229. Archived S226 post-close. -->
+
 # Plan: Design Excellence — Input/Output Pipeline Hardening
 
 ## Context
