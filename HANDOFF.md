@@ -3,7 +3,7 @@
 > **S226 ENCERRADA** 2026-04-17 | 8 commits | Purga arquitetural Cowork-refs + ADR-0002 + KBP-24
 > Sessao 226 `purga-cowork` | ADR-0001 enforcement + producer-agnostic infrastructure
 
-**S227 HYDRATION:** Read `.claude/plans/ACTIVE-S225-SHIP-roadmap.md` (multi-session) + `.claude/plans/archive/S226-purga-cowork-plan.md` (histórico S226) + este HANDOFF. Then `/plan` e "vamos começar."
+**S227 HYDRATION:** Read `.claude/plans/ACTIVE-S225-SHIP-roadmap.md` (multi-session, sync S226 post-close) + `.claude/plans/archive/S226-purga-cowork-plan.md` (histórico S226) + optional `.claude/plans/ACTIVE-S227-memory-to-living-html.md` (target #4) + este HANDOFF. Then `/plan` e "vamos começar."
 
 ## VERDICT S226
 

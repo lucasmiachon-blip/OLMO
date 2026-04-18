@@ -34,7 +34,7 @@ Apos 30+ sessoes de research + consolidation (S193 hooks anti-perda → S224 Sto
 
 ## Roadmap S225-S230 (6 sessoes, ~2 semanas)
 
-### S225 — Codex debt zero + memory audit (2.5-3h)
+### S225 — Codex debt zero + memory audit [DONE 2026-04-17, 12 commits]
 **Scope:**
 - Execute `ACTIVE-S225-codex-triage.md`: Phase 1 (verify #5 metrics race) → Phase 2 (quick wins #7+#10+#2+#6+#1, 40-65min) → Phase 3 (architectural #3+#4+#8, 80-95min) → Phase 4 (decide #9)
 - Memory audit: real paths (`.claude/agent-memory/evidence-researcher/` atual 9 files), verificar cap rule aplicavel, consolidar se needed
@@ -47,33 +47,36 @@ Apos 30+ sessoes de research + consolidation (S193 hooks anti-perda → S224 Sto
 
 **Success:** infrastructure a zero known-debt visivel.
 
-### S226 — Design Excellence Fase 2 ship (3-4h)
-**Scope:**
-- Research consolidate: 4 docs S199-S204 → `docs/research/design-excellence-research-S199-S204.md` (A1 rec R4)
-- Write `.claude/rules/design-excellence.md` — principios OKLCH + hierarchy + tipografia + grid + motion
-- Write `.claude/skills/polish/SKILL.md` — trigger-based invocation quando slide needs polish
-- Validate via ACTIVE-snoopy-jingling-aurora pipeline (prerequisite)
+### S226 — Purga arquitetural Cowork↔OLMO [DONE 2026-04-17, 9 commits, PIVOT from planned DE Fase 2]
+**Scope (executed):**
+- ADR-0001 enforcement via purga 41 ACTIVE cowork refs → 0 drift
+- Create ADR-0002 (`docs/adr/0002-external-inbox-integration.md`) — contrato simétrico lado OLMO
+- Add KBP-24 (docs sobre sistemas externos) + KBP-25 (Edit Without Full Read)
+- anti-drift.md: 5 rules additions (APL=HIGH strict, Propose-before-pour, Budget gate, Edit discipline, Plan execution TaskCreate)
+
+**Delivered:**
+- 9 commits (Phase A-G + close + post-close rules)
+- Producer-agnostic infrastructure (env var OLMO_INBOX)
+- ACTIVE-snoopy-jingling-aurora pipeline já era SHIPPED S204 (archived neste sync post-close)
+
+**DE Fase 2 deferred:** rule + skill + research consolidate → S227 target #3.
+
+**Success:** cowork architectural drift eliminated; producer substituibility established.
+
+### S227 — P0 BACKLOG #34 + Semantic memory + DE Fase 2 (carried from S226)
+**Scope (per HANDOFF S227 TARGETS):**
+- **[P0] BACKLOG #34**: cp Pattern 8 bypass mystery (deferred S225→S226→S227). Root cause + fix.
+- **Track A semantic memory** (original S226 roadmap track): ByteRover CLI OR MemSearch Zilliz OR Smart Connections MCP. Setup + 2-3 real medical research queries. Decision doc.
+- **DE Fase 2 (carried from S226)**: rule `.claude/rules/design-excellence.md` + skill `.claude/skills/polish/SKILL.md` + research consolidate docs S199-S204.
+- **BACKLOG #36 memory→living-HTML** (non-P0, HANDOFF target #4): plan `.claude/plans/ACTIVE-S227-memory-to-living-html.md` disponível.
 
 **Deliverables:**
-- Consolidated research doc
-- Rule file + skill file + tests em 1 slide real
+- BACKLOG #34 fixed + committed
+- Memory layer operacional + evidence + decision doc
+- DE rule + skill files + test em 1 slide
+- Optional: HTML migration started (scope dependent)
 
-**Success:** DE Loop operational, zombie priority extinguished (25+ sessoes closed).
-
-### S227 — Semantic memory ship (2-3h)
-**Scope:**
-- Decide A2 vs A3 approach (Lucas): ByteRover CLI OR MemSearch Zilliz OR Smart Connections MCP
-- Setup + init (10-15 min)
-- Run 2-3 real pesquisas medicas usando nova memory layer (hepatologia/elastografia queries)
-- Measure: semantic hit rate, latency, compatibility com /dream + /wiki-query existentes
-- Evaluate: keep, replace baseline, OR fallback
-
-**Deliverables:**
-- Memory layer operacional
-- 2-3 research queries evidence
-- Decision document: retain, replace, ou revert
-
-**Success:** semantic retrieval working em medical terminology; scaling path 20→50+ files unblocked.
+**Success:** semantic retrieval working, DE Fase 2 unblocked, hook bypass mystery resolved.
 
 ### S228 — Hook-level enforcement (3-4h)
 **Scope:**
@@ -158,8 +161,8 @@ Post-SHIP targets (S230):
 | Session | New | Modified |
 |---------|-----|----------|
 | S225 | — | hooks/*.sh (Codex fixes), settings.json (matcher expands), .claude/BACKLOG.md merged |
-| S226 | `docs/research/design-excellence-research-S199-S204.md`, `.claude/rules/design-excellence.md`, `.claude/skills/polish/SKILL.md` | HANDOFF (DE Fase 2 closed), ACTIVE-snoopy-jingling-aurora.md (validate pipeline) |
-| S227 | memory layer config + evidence notes | HANDOFF, MEMORY.md index, possivelmente skills/dream,wiki-query extensions |
+| S226 | `docs/adr/0002-external-inbox-integration.md`, `.claude/rules/known-bad-patterns.md` (KBP-24+25), `.claude/rules/anti-drift.md` (+5 rules) | HANDOFF (purga CLOSED), CHANGELOG S226, archive/S226-purga-cowork-plan.md, archive/S204-snoopy-jingling-aurora.md (sync post-close) |
+| S227 | BACKLOG #34 fix (hooks/settings), memory layer config + evidence notes, `docs/research/design-excellence-research-S199-S204.md`, `.claude/rules/design-excellence.md`, `.claude/skills/polish/SKILL.md` | HANDOFF, MEMORY.md index, ACTIVE-S227-memory-to-living-html.md (optional BACKLOG #36) |
 | S228 | `hooks/guard-write-gate.sh`, restored `.claude/rules/known-bad-patterns.md` KBP-24 | `.claude/settings.json` PreToolUse registration |
 | S229 | `tools/docling/notion_writer.py`, `tools/docling/ocr_to_fillable.py` | `tools/docling/pyproject.toml`, `tools/docling/README.md` |
 | S230 | `docs/kpis/olmo-dashboard.md`, `docs/research/olmo-case-study-anthropic.md` | HANDOFF (SHIP era close), CHANGELOG (retrospective entry) |
