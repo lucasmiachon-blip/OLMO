@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-26.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-27.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -83,3 +83,6 @@ globs: "**/*"
 
 ## KBP-25 Edit Without Full Read (whitespace precision)
 → anti-drift.md §Edit discipline
+
+## KBP-26 CC permissions.ask broken in 2.1.113
+→ `.claude/BACKLOG.md #34` + `.claude/plans/archive/S227-backlog-34-architecture.md`: `permissions.ask` bypassed para TODOS patterns testados (Bash(cp *), Bash(rm *), Write tool-level) em CC 2.1.113 auto+default modes. `permissions.deny` works reliably. Arquitetura final S227: deny-only for destructive ops (34 patterns), no sanctioned ask channel possible pré CC upgrade. Residual gap: shell redirects (> >>) + script-file writes (python script.py, node script.js) structurally ungateable via pattern matching.

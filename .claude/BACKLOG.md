@@ -12,9 +12,7 @@
 
 ## P0 — blocking próxima sessão <a id="p0"></a>
 
-| # | Cat | Effort | Item | Next action |
-|---|-----|--------|------|-------------|
-| 34 | infra | M | guard-bash-write cp Pattern 8 bypass intermittente | Reproduzir: 2 cp back-to-back (hooks/*.sh + .claude/hooks/*.sh), observar popup vs silent. Root-cause antes de fix. S225 iter 1.4 |
+*(empty — no active blockers)*
 
 ---
 
@@ -22,6 +20,7 @@
 
 | # | Cat | Effort | Item | Next action |
 |---|-----|--------|------|-------------|
+| 34 | infra | M | [S227 partial] cp Pattern 8 — CC 2.1.113 ask bypass | Investigation Opus+Codex done: `permissions.ask` fundamentally bypassed (cp/rm/Write all empirical). Applied: 34 destructive deny patterns. Manual via `/clear` + observe popup behavior in new session. Residual gap: redirects + script-file writes ungateable (KBP-26). Next: verify deny stability post-/clear, then close |
 | 36 | content | L | Memory → Living-HTML migration (S227) | Run plan `.claude/plans/ACTIVE-S227-memory-to-living-html.md` steps 1-6. 6 medical .md → `content/aulas/cirrose/evidence/*.html` |
 | 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Write→tmp→cp (guard bloqueia Edit hooks/*.sh). Consequência: cache `backlog-top.txt` stale entre sessões. Descoberto S226 pós-close |
 | 13 | process | M | g3-result memory findings audit | Revisar 15 findings `.claude/tmp/g3-result.md` antes do próximo /dream. Memory no cap 20/20. S156 |

@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 227 — 2026-04-18 (#34 investigation + deny architecture)
+
+### BACKLOG #34 cp Pattern 8 bypass — architecture patch (partial)
+- Investigation: 2 Opus rounds + 2 Codex adversarial rounds, 3 ask fix attempts all BYPASSED empirically
+  - Fix 1: `permissions.ask Bash(cp *)` → silent bypass
+  - Test C: `permissions.deny Bash(cp *)` → WORKS (confirms rules honored)
+  - Phase 1: `defaultMode default + ask Bash(rm *)` → bypass
+  - Phase 2: `ask: [Write]` (tool-level) → bypass
+- **Finding**: CC 2.1.113 `permissions.ask` fundamentally broken for Bash fs ops AND tool-level Write, regardless of defaultMode
+- **Applied**: 34 destructive Bash deny patterns (Codex comprehensive list + python/node/ruby/perl inline eval)
+- **KBP-26**: CC permissions.ask broken 2.1.113 + residual gap docs
+- **BACKLOG #34**: P0 → P1 (manual verification pending `/clear`)
+- **Commits**: 1 previous (179ddeb melhoria1.1.2) + 1 previous (f2b5746 docs-diet) + this atomic
+
 ## Sessao 227 — 2026-04-18 (melhoria1.1.2 CLOSEOUT)
 
 ### Versioning patch — discipline-rules track resolved
