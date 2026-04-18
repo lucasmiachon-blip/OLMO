@@ -22,6 +22,12 @@
 After any discrete action: STOP and report result. Next step requires explicit instruction.
 Exception: within approved multi-step plan where all steps listed upfront.
 
+### Propose-before-pour
+Operação substantiva (merge ≥3 files OU rewrite ≥100 li OU migration arquitetural OU novo file ≥100 li): propor approach high-level + 1 short example (5-10 li). Aguardar OK antes de gerar volume completo. Architectural pivots são cheap antes do pour, caros depois.
+
+### Budget gate em scope extensions
+Scope extension (além do originalmente aprovado) exige proposal format: `[budget] custo estimado: Xmin | budget restante: Ymin | prosseguir?`. Habit sem gate mecânico decai — violação S226 aceitou +15min F+G sem gate explícito no momento da proposta.
+
 ## Delegation gate (KBP-17)
 Before ANY Agent spawn, 3 questions:
 1. Read/Grep/Glob resolves directly? → SKIP agent
@@ -31,10 +37,18 @@ Before ANY Agent spawn, 3 questions:
 
 ## First-turn discipline (KBP-23)
 First response after /clear already loads ~25KB auto-content (CLAUDE.md + rules + skills list + HANDOFF + MCP instructions). Additional tool use compounds. Discipline:
-1. **Read with `limit`:** files >100 lines → `limit: 50` first. Expand only after targeted Grep locates the relevant range.
+1. **Read with `limit`:** files >100 lines → `limit: 50` first. Expand only after targeted Grep locates the relevant range. **APL=HIGH strict:** memory/hooks/rules/skills `.md` files require Grep targeted a seção específica; full Read proibido a menos que targeted falhe (violação S226: 3 Reads integrais com APL já HIGH).
 2. **Skill invocation gate:** heavy skills (>100 li — systematic-debugging, /dream, brainstorming, frontend-design) only when task explicitly requires the framework. Read-only audits use direct logic.
 3. **ToolSearch targeted:** fetch schemas only for tools about to be called in THIS turn. No prefetch.
 4. **Agent dispatch for broad scans:** 3+ Reads + 2+ Greps in unknown area → delegate to Explore/general-purpose. Agent returns ~2KB report vs 30-50KB raw content.
+
+## Edit discipline (KBP-25)
+Edit tool match é literal — whitespace, indentação, Unicode chars (tree `│   ├──` vs ASCII `|   +-`) quebram old_string. Antes de Edit:
+1. Read full file OU range cobrindo old_string ± 20 li. Grep context não suficiente (não mostra tabs vs spaces, box-drawing chars)
+2. Copy old_string direto do Read output — não reconstruir mental
+3. Same-file Edits múltiplos: old_strings em linhas distintas non-overlapping (race-safe)
+
+Violação S226 Phase A: 3 Edits falhados por whitespace mismatch (`│   ├── medicina-clinica` mental vs `    │   ├── medicina-clinica` real com 4-space prefix).
 
 ## Verification
 1. Identify verification command (test, build, lint, manual check)
@@ -63,9 +77,12 @@ Touching a CSS section: audit ENTIRE section (raw px, off-palette, redundant tok
 
 ## Session docs
 - **HANDOFF.md:** pendencias only, max ~50 lines. No history — only future.
-- **CHANGELOG.md:** append-only, 1 line per change.
+- **CHANGELOG.md:** append-only, 1 line per change. Aprendizados + residual verification combinado: max 5 linhas per session. Violação S226: 7 bullets aprendizados + 5 residual breakdown.
 - Update both every session with commits/state changes.
 - P0 items in HANDOFF: surface to Lucas at session start before feature work.
+
+## Plan execution
+Plan approved com ≥4 phases: TaskCreate batch mandatory no approval (1 task per phase). TaskUpdate in_progress ao start de cada phase, completed ao commit. Violação S226: 8 phases sem task tracking, UX Lucas prejudicada (só commits visíveis, sem progress real-time).
 
 ## Script primacy
 Scripts in `content/aulas/scripts/` are canonical. Agents reference, never reimplement.

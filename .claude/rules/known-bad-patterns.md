@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-25.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-26.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -80,3 +80,6 @@ globs: "**/*"
 
 ## KBP-24 Docs sobre sistemas externos dentro de OLMO
 → docs/adr/0002-external-inbox-integration.md §Decisão
+
+## KBP-25 Edit Without Full Read (whitespace precision)
+→ anti-drift.md §Edit discipline
