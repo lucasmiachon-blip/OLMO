@@ -1,51 +1,114 @@
 # BACKLOG — Persistent Self-Improvement Channel
 
-> Non-auto-loaded. Consulted on-demand via Read. Extracted from HANDOFF.md S156 INFRA_3.
-> Governance: items surgem via backlog gate (S155). RESOLVED items stay for historical reference.
+> Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
+> Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
+> Counts: P0=1 | P1=10 | P2=19 | Frozen=3 | Resolved=8 | Setup=separate. Next #=41.
 
-| # | Item | Detalhe |
-|---|------|---------|
-| 1 | Pernas pendentes (research) | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
-| 2 | Adversarial deferred M-01/M-10 | Policy decisions (Bash granularity, Canva MCP wildcard) |
-| 3 | [RESOLVED S196] Hook/config system review | Fase 1 (S193): node→jq, `if` fields, dead code. Fase 2 (S194-S196): 34→29 hooks, 0 node spawns. Audit sentinel S196. |
-| 4 | Pipeline DAG end-to-end | external inbox→NLM→wiki (ADR-0002) |
-| 5 | medicina-clinica stubs | 4 concepts stub/low aguardam external harvest via $OLMO_INBOX (ADR-0002) |
-| 6 | Skill de slides consolidada | Usar skill-creator para criar skill nova |
-| 7 | P006: plan pre-flight tool availability | Re-design: Step 1.5 em research/SKILL.md ou static allowlist |
-| 8 | Postmortem dead JSON+py pipeline | Lucas pediu "para registrar". S156+ |
-| 9 | S155 Group E slide-patterns vs slide-rules drift | 5 findings em `.claude/tmp/c1-result.md` (C1 #6-#10). Defer slide-focused session (touches CSS/runtime + Lucas working area) |
-| 10 | [RESOLVED S156] settings.local.json wildcard collapse | Executado S156 Commit 2. 68→26 entries. MCP wildcards incluidos (pubmed/biomcp/crossref) |
-| 11 | S155 Group G hooks lazy load | Complexity-as-ceremony per backlog gate |
-| 12 | [RESOLVED S158] settings.local.json reflection S157 | Fix aplicado: removeu `"Edit"` e `"Write"` do allow. Volta ao default=ask. Manual via editor pelo Lucas (guard A6 bloqueou agent). |
-| 13 | g3-result memory findings audit | 15 findings Gemini sobre memory duplication/drift (S156 INFRA_3 `.claude/tmp/g3-result.md` foi capturado). Memory ja no cap 20/20 — audit antes de next /dream |
-| 14 | content/aulas metanalise: s-objetivos customAnim | stagger nao wired — apos QA visual |
-| 15 | [RESOLVED S196] Hooks reduction audit | Fase 1 (S193): 38→37, 8 node spawns, 4 `if` fields. Fase 2 (S194-S196): 34→29, 5 steps. S196 audit: 2 CRITICAL fixed (glob counter, mypy FP), 2 WARN fixed (hygiene dedup, Armed noise). |
-| 16 | Zombie refs audit post-archival | S154 arquivou `lint-narrative-sync.js` + `s-checkpoint-1` mas deixou dangling refs. S157 fixou 4 active (done-gate, AGENTS.md, content/aulas/CLAUDE.md, quality-gate). Ainda: docs/aulas/AGENT-AUDIT-S79.md + research-gaps-report.md + evidence-harvest-S112.md (historicos, baixo risco; renomeado S226 per ADR-0002). |
-| 17 | Context reduction — qualitative findings S157 | Adversarial review S158 descartou numeros (bytes/4, nao tokenizado), P11/P12 (dispatch failure), §6 meta-proposals (scope creep), KBP-17 conflict. **Trigo preservado:** (a) P5 ground truth = 8 files auto-loaded (nao 15); (b) Codex R6/R7 demoted (files nao auto-loaded); (c) preservar procedural gates que nao existem em pointer target (R1/R2/R3/R5 caveats); (d) KBP renumerado para KBP-18 (abaixo, item 18). **Pre-exec obrigatorio:** tokenizer real (nao bytes/4), red team verdadeiro (nao auto-validacao). Synthesis consumido+superseded em `.claude/workers/reducao-context/synthesis-2026-04-11-1631.md`. |
-| 18 | KBP-18 — dispatch sem prompting skill | Ex-"KBP-17 candidate" do worker S157 (conflito de numero — KBP-17 ja ocupado por Gratuitous Agent Spawning). 5 root causes: no pre-dispatch ritual, name-matching bias, momentum after correction, complexity-as-ceremony inversion, cognitive vs hook layer. Add como Format C+ pointer → `feedback_agent_delegation §Pre-dispatch ritual`. Hook enforcement proposal separado (L4 move, warn-level primeiro). |
-| 19 | Symmetric vs adversarial triangulation doctrine | §6.4 synthesis: agreement entre modelos similares (mesma training distro) pode ser coherence bias compartilhada, nao validacao independente. Future multi-leg = 1 symmetric + 1 adversarial pair, nao N symmetric legs. Value density de red team genuino > N-esima perna simetrica. Add como decision doctrine em `patterns_adversarial_review.md` apos proximo /dream. |
-| 20 | [RESOLVED S193] guard-bash-write.sh python bypass | Pattern 7 expandido: cobre python -c, python script.py, python3, py. Whitelist: --version, --help, -m pip. 5 testes passam. |
-| 21 | Backward nav: restore beat state (nao beat 0) | Re-entry sempre volta ao beat 0 (replay auto-play + reveals from scratch). UX ideal: backward retorna ao ultimo beat visitado. Requer persistir `revealed` count fora da factory closure (ex: Map no dispatcher ou data-attr no DOM). Baixa prioridade — beat 0 funciona, professor pode re-clicar. S167. |
-| 22 | [RESOLVED S193] /dream multi-fire | stop-should-dream.sh: indentacao corrigida (shebang posicao 0), jq fromdateiso8601 fallback adicionado. |
-| 23 | Edit/Write permission glob nao funciona em Windows | Edit(.claude/skills/**) nao faz match com paths absolutos Windows. Workaround S189: Edit e Write sem args (hooks protegem). Root cause: permission system usa prefix match, nao glob. Investigar se :* syntax funciona ou se precisa path absoluto. Relacionado: backlog #12 (mesmo ciclo add/remove). |
-| 24 | Voyager-style skill auto-extraction | Patterns de tasks bem-sucedidas (QA sequence eficaz, research query que achou PMIDs verificados, CSS fix pattern) auto-extraidos e propostos como skills reutilizaveis. Gate de verificacao: so entra na library se task passed. Ref: Wang 2023 arXiv:2305.16291. Prereq: infra de verificacao (test cases por skill). S190 |
-| 25 | Kaizen test generation para skills/agents | Gerar test cases para skills (ex: "/research com PMID sem resultado retorna gracefully?"). Executar, analisar falhas, propor fix. Long-term memory de testes falhados (mais granular que KBPs). Ref: Kaizen-agent (github). S190 |
-| 26 | Strategy archive (DGM-inspired) | Manter arquivo de estrategias alternativas para tasks comuns (QA, research, evidence). Avaliacao empirica, melhores variantes promovidas. Ref: Sakana AI Darwin Godel Machine arXiv:2505.22954. S190 |
-| 27 | Metaprompt optimization para skills underperformantes | Quando skill underperforma, meta-prompt analisa falhas e propoe melhoria do SKILL.md. Pattern: OpenAI Self-Evolving Agents Cookbook 2025. S190 |
-| 28 | Reflexion pattern embebido em workflows | Self-critique verbal antes de retry (nao skill separado — habito de execucao). Quando build/QA/search falha, auto-critique antes de retry. Previne KBP-18. Ref: Shinn 2023 arXiv:2303.11366. Implementar como principio em anti-drift.md. S190 |
-| 30 | Prompt hardening propagation — cirrose + grade | Propagar 7 hardening measures do metanalise (Call A/B/C) para cirrose e grade: S2 scope mechanical-only, WHAT/WHY/PROPOSAL/GUARANTEE format, 24px threshold, KNOWN DESIGN DECISIONS, IGNORE_LIST, few-shot examples, anti-quota rule. Bug: grade refs "metanalise.css" (l.72+l.96). Per-aula adaptations: display target (TV 55" 6m vs projetor 10m), CSS file, domain decisions. 6 files (3 calls × 2 aulas). Plano detalhado: git log S178. S191 |
-| 29 | Agent/subagent optimization — estado da arte | Audit completo dos 10 agents: (1) tool restrictions audit — cada agent tem SOMENTE os tools que precisa? (sentinel Read+Bash+Glob+Grep ok, mas qa-engineer e evidence-researcher podem estar over-permissioned). (2) Model routing — agents leves (repo-janitor, quality-gate) rodam em Sonnet? Haiku seria suficiente? (3) maxTurns calibration — verificar se maxTurns esta calibrado ao uso real (com margem +20% per session-hygiene.md). (4) Agent composition — HyperAgents pattern (Meta 2026): agents com grafo semantico do proprio codebase, self-representation para auto-optimization. (5) Subagent parallelism — identificar tasks onde 2+ agents rodam em paralelo (ex: sentinel + codex adversarial ja roda; research 6-leg pipeline ja existe; QA preflight+inspect+editorial NAO rodam em paralelo — poderiam?). (6) Agent-as-skill migration — agents que nunca precisam de isolamento real poderiam ser skills com context:fork (mais lean, sem .md agent definition). Ref: HyperAgents (Golchian 2026), DGM (Sakana 2025), Anthropic "Building Effective Agents" (Dec 2024) orchestrator-workers pattern. S190 |
-| 31 | Sentinel audit quality — melhoria continua | S196: sentinel errou 1 claim (apl-cache-refresh nao tem cc-calls), orchestration sentinel truncou (50 tool calls sem report final). Melhorias: (1) verificacao cruzada obrigatoria antes de claim (grep confirma antes de listar), (2) report estruturado com secoes obrigatorias, (3) limitar scope por invocacao (1 diretorio ou 1 concern), (4) maturity tier do proprio sentinel (atualmente: Audited). Aplicar proven-wins.md ao processo de auditoria. |
-| 32 | [RESOLVED S198] Node→jq migration restante — 4 scripts | guard-lint-before-build, guard-research-queries, lint-on-edit, model-fallback-advisory migrados para jq. guard-lint-before-build: hardcoded path→relativo (S6). 0 `node -e` JSON parse restantes em .claude/hooks/. |
-| 33 | Research persistence — minimizar perda inter-sessao | Pesquisa (Gemini params, evidence, etc.) deve sobreviver context rotation. Pattern: resultados completos em .claude/plans/archive/ com tabela de edits + fontes + verificacao. HANDOFF aponta para plan. Avaliar: (1) research output template obrigatorio, (2) plan archive como persistence layer, (3) HANDOFF pointer discipline para pesquisas. S197 |
-| 34 | guard-bash-write cp Pattern 8 bypass intermittente | Pattern 8 (L84) emite `permissionDecision:"ask"` para cp/mv/install/rsync, mas S225 Phase 1.1-1.3 cp→`hooks/*.sh` passaram sem popup ao Lucas (flag: "esse deveria ter sido ask"). Phase 1.4 cp→`.claude/hooks/*.sh` foi bloqueado normalmente. Hipoteses: (a) CC permission mode auto-approving asks em condicoes especificas, (b) hook JSON output race entre ask decisions, (c) settings.json allow-list overriding guard para `hooks/*` mas nao `.claude/hooks/*`. Reproduzir: 2 cp back-to-back um p/ cada path, observar qual apresenta popup, qual passa silent. Root-cause antes de qualquer fix — Lucas pediu investigar S226+. S225 iter 1.4 |
-| 35 | [RESOLVED S225] BACKLOG merge 3→1 (S214 LT-7) | Plano S214 queria merge root `BACKLOG.md` + `PENDENCIAS.md` + `.claude/BACKLOG.md` → canonical único. S214 fez 2/3 (root removed, PENDENCIAS migrada para "## Setup & Infra" em L45 deste arquivo). S225 fecha restante: `BACKLOG-S220-codex-adversarial-report.md` arquivado em `plans/archive/S220-codex-adversarial-report.md` (era REPORT, nao BACKLOG — os 9 issues cobertos em `ACTIVE-S225-codex-triage.md`). Canonical BACKLOG unico: este arquivo. |
-| 36 | Memory → Living-HTML migration (S226) | Medical evidence em agent-memory/evidence-researcher é anti-pattern. Lucas propos S225 iter 3: migrar 6 medical .md → `content/aulas/cirrose/evidence/*.html` (benchmark metanalise 17 files já estabelecido). SSoT = HTML versionado, memory reservada para comportamento/padrões. Plan completo: `.claude/plans/ACTIVE-S226-memory-to-living-html.md` (mapping 6 files, migration steps 1-6, effort 5-6h, 4 decision points Lucas). Libera agent-memory dir inteira eventualmente. |
-| 37 | apl-cache-refresh.sh wrong BACKLOG path | L23: `BACKLOG="$PROJECT_ROOT/BACKLOG.md"` busca root (legacy pre-LT-7 merge S225). Canonical movido para `.claude/BACKLOG.md`. Fix: `BACKLOG="$PROJECT_ROOT/.claude/BACKLOG.md"`. Consequência: cache `backlog-top.txt` stale entre sessões (snapshot antigo persiste). Descoberto S226 pós-close durante purga cowork (statusline mostrava "Cowork — fontes pagas" mesmo após remoção do item). Requer Write→tmp→cp (guard bloqueia Edit direto em hooks/*.sh). |
+## TOC
+
+- [P0 — blocking próxima sessão](#p0) · [P1 — 2-3 sessões](#p1) · [P2 — sem urgência](#p2) · [Frozen](#frozen) · [Resolved — historical](#resolved) · [Setup & Infra](#setup)
 
 ---
 
-## Setup & Infra (migrado de PENDENCIAS.md, S214)
+## P0 — blocking próxima sessão <a id="p0"></a>
+
+| # | Cat | Effort | Item | Next action |
+|---|-----|--------|------|-------------|
+| 34 | infra | M | guard-bash-write cp Pattern 8 bypass intermittente | Reproduzir: 2 cp back-to-back (hooks/*.sh + .claude/hooks/*.sh), observar popup vs silent. Root-cause antes de fix. S225 iter 1.4 |
+
+---
+
+## P1 — importante 2-3 sessões <a id="p1"></a>
+
+| # | Cat | Effort | Item | Next action |
+|---|-----|--------|------|-------------|
+| 36 | content | L | Memory → Living-HTML migration (S227) | Run plan `.claude/plans/ACTIVE-S227-memory-to-living-html.md` steps 1-6. 6 medical .md → `content/aulas/cirrose/evidence/*.html` |
+| 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Write→tmp→cp (guard bloqueia Edit hooks/*.sh). Consequência: cache `backlog-top.txt` stale entre sessões. Descoberto S226 pós-close |
+| 13 | process | M | g3-result memory findings audit | Revisar 15 findings `.claude/tmp/g3-result.md` antes do próximo /dream. Memory no cap 20/20. S156 |
+| 29 | tooling | L | Agent/subagent optimization audit (10 agents) | Phase 1: tool restrictions; Phase 2: model routing (Sonnet/Haiku para repo-janitor/quality-gate); Phase 3: maxTurns calibration; Phase 4: HyperAgents/DGM patterns; Phase 5: parallelism (QA preflight/inspect/editorial); Phase 6: agent-as-skill migration. Refs: HyperAgents Golchian 2026, DGM Sakana 2025, Anthropic orchestrator-workers Dec 2024. S190 |
+| 18 | process | S | KBP-18 dispatch sem prompting skill | Add Format C+ pointer → `feedback_agent_delegation §Pre-dispatch ritual`. 5 root causes: no pre-dispatch ritual, name-matching bias, momentum after correction, complexity-as-ceremony, cognitive vs hook layer. Hook enforcement proposal separado (L4 move, warn-level primeiro). S157 |
+| 23 | tooling | M | Edit/Write permission glob Windows broken | Edit(.claude/skills/**) não faz match com paths absolutos Windows. Workaround S189: Edit/Write sem args. Investigar `:*` syntax vs path absoluto. Root cause: prefix match vs glob. Relacionado #12 |
+| 33 | process | S | Research persistence inter-sessão | Output template obrigatório + plan archive como persistence layer + HANDOFF pointer discipline para pesquisas. Pattern: resultados em `.claude/plans/archive/` com tabela de edits + fontes + verificacao. S197 |
+| 1 | research | M | Pernas pendentes research | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
+| 4 | infra | L | Pipeline DAG end-to-end | external inbox → NLM → wiki (ADR-0002) |
+| 5 | content | M | medicina-clinica 4 stubs | Aguardar external harvest via `$OLMO_INBOX` (ADR-0002). 4 concepts stub/low |
+
+---
+
+## P2 — nice-to-have (sem urgência) <a id="p2"></a>
+
+### Research/theory (foundational patterns to adopt)
+
+| # | Cat | Effort | Item | Detalhe |
+|---|-----|--------|------|---------|
+| 24 | research | L | Voyager-style skill auto-extraction | Wang 2023 arXiv:2305.16291. Prereq: infra de verificação (test cases per skill). S190 |
+| 25 | research | M | Kaizen test generation skills/agents | Gerar test cases, executar, analisar falhas, propor fix. Long-term memory testes falhados. Kaizen-agent github. S190 |
+| 26 | research | M | Strategy archive (DGM-inspired) | Sakana AI Darwin Godel Machine arXiv:2505.22954. Variantes avaliadas empírico. S190 |
+| 27 | research | M | Metaprompt optimization | OpenAI Self-Evolving Agents Cookbook 2025. Meta-prompt fix SKILL.md quando underperform. S190 |
+| 28 | research | S | Reflexion pattern em workflows | Shinn 2023 arXiv:2303.11366. Self-critique antes retry. Previne KBP-18. Implementar em anti-drift.md. S190 |
+| 19 | process | S | Symmetric vs adversarial triangulation doctrine | §6.4 synthesis. Future multi-leg = 1 symmetric + 1 adversarial pair, não N symmetric. Add em `patterns_adversarial_review.md` pós /dream. S158 |
+
+### Content/aulas (slides + medical content)
+
+| # | Cat | Effort | Item | Detalhe |
+|---|-----|--------|------|---------|
+| 14 | content | S | metanalise s-objetivos customAnim | stagger não wired — após QA visual |
+| 21 | content | S | Backward nav restore beat state (não beat 0) | UX: backward retorna ao último beat visitado. Persistir `revealed` fora factory closure (Map no dispatcher ou data-attr DOM). Baixa prioridade — beat 0 funciona, professor re-clica. S167 |
+| 30 | content | L | Prompt hardening propagation cirrose+grade | 7 hardening measures do metanálise (Call A/B/C): S2 mechanical-only, WHAT/WHY/PROPOSAL/GUARANTEE, 24px threshold, KNOWN DESIGN DECISIONS, IGNORE_LIST, few-shot, anti-quota. Bug: grade refs "metanalise.css" (l.72+l.96). 6 files (3 calls × 2 aulas). Plano git log S178 |
+
+### Infra/tooling (system/permission/hooks)
+
+| # | Cat | Effort | Item | Detalhe |
+|---|-----|--------|------|---------|
+| 2 | infra | S | Adversarial deferred M-01/M-10 | Policy decisions (Bash granularity, Canva MCP wildcard) |
+| 7 | tooling | M | P006 plan pre-flight tool availability | Re-design: Step 1.5 em research/SKILL.md ou static allowlist |
+| 11 | tooling | M | S155 Group G hooks lazy load | Complexity-as-ceremony per backlog gate |
+| 16 | tooling | S | Zombie refs audit post-archival | 3 históricos restantes: `docs/aulas/AGENT-AUDIT-S79.md` + `research-gaps-report.md` + `evidence-harvest-S112.md` (renomeado S226 ADR-0002). Baixo risco. S154/S157 |
+
+### Process/governance
+
+| # | Cat | Effort | Item | Detalhe |
+|---|-----|--------|------|---------|
+| 6 | process | M | Skill de slides consolidada | Usar skill-creator para criar skill nova |
+| 8 | process | S | Postmortem dead JSON+py pipeline | Lucas: "para registrar". S156+ |
+| 9 | process | M | S155 Group E slide-patterns vs slide-rules drift | 5 findings em `.claude/tmp/c1-result.md` (C1 #6-#10). Defer slide-focused session (CSS/runtime + Lucas working area) |
+| 17 | process | L | Context reduction — qualitative findings S157 | Adversarial review S158 descartou números (bytes/4 não tokenizado), P11/P12, §6 meta-proposals, KBP-17 conflict. **Trigo preservado:** (a) P5 ground truth = 8 files auto-loaded; (b) Codex R6/R7 demoted; (c) procedural gates (R1/R2/R3/R5 caveats); (d) KBP-18 renumerado (item 18). **Pre-exec obrigatório:** tokenizer real + red team verdadeiro. Synthesis: `.claude/workers/reducao-context/synthesis-2026-04-11-1631.md` |
+| 31 | process | M | Sentinel audit quality — melhoria contínua | S196: sentinel errou 1 claim + orchestration truncou (50 tool calls sem report). Melhorias: (1) verificação cruzada antes de claim, (2) report estruturado, (3) scope 1 dir/concern, (4) maturity tier. Aplicar proven-wins.md ao audit |
+
+---
+
+## Frozen — deferred indefinitely <a id="frozen"></a>
+
+> Items sem prazo, não atacar sem re-triagem explícita. Candidatos a deletion se 5+ sessões sem revival.
+
+| # | Item | Origin |
+|---|------|--------|
+| 38 | [FROZEN] Obsidian plugins setup | Templater, Dataview, Spaced Rep, obsidian-git. Migrado HANDOFF §Carryover → S227 docs-diet |
+| 39 | [FROZEN] Wallace CSS 29 raw px audit | Legacy CSS audit indefinido. Migrado HANDOFF §Carryover → S227 docs-diet |
+| 40 | [FROZEN] Slides s-absoluto legacy | Legacy slides frozen aula priority. Migrado HANDOFF §Carryover → S227 docs-diet |
+
+---
+
+## Resolved (historical) <a id="resolved"></a>
+
+> Preservados para rastreabilidade. Overflow rule: >20 items = mover os mais antigos para `CHANGELOG.md §Resolved archive`.
+
+| # | Item | Resolution |
+|---|------|------------|
+| 3 [RESOLVED S196] | Hook/config system review | Fase 1 (S193): node→jq, `if` fields, dead code. Fase 2 (S194-S196): 34→29 hooks, 0 node spawns. Audit sentinel S196 |
+| 10 [RESOLVED S156] | settings.local.json wildcard collapse | 68→26 entries. MCP wildcards (pubmed/biomcp/crossref). Commit 2 |
+| 12 [RESOLVED S158] | settings.local.json reflection S157 | Removeu `"Edit"` e `"Write"` do allow. Default=ask. Manual Lucas (guard A6 bloqueou agent) |
+| 15 [RESOLVED S196] | Hooks reduction audit | Fase 1 (S193) 38→37, Fase 2 (S194-S196) 34→29, 5 steps. S196: 2 CRITICAL (glob counter, mypy FP) + 2 WARN (hygiene dedup, Armed noise) fixed |
+| 20 [RESOLVED S193] | guard-bash-write.sh python bypass | Pattern 7 expandido: python -c, python script.py, python3, py. Whitelist: --version/--help/-m pip. 5 testes passam |
+| 22 [RESOLVED S193] | /dream multi-fire | `stop-should-dream.sh`: shebang posição 0 + jq fromdateiso8601 fallback |
+| 32 [RESOLVED S198] | Node→jq migration restante — 4 scripts | guard-lint-before-build + guard-research-queries + lint-on-edit + model-fallback-advisory. 0 `node -e` em .claude/hooks/ |
+| 35 [RESOLVED S225] | BACKLOG merge 3→1 (S214 LT-7) | BACKLOG-S220-codex-adversarial-report.md → plans/archive/S220. Canonical único: este arquivo |
+
+---
+
+## Setup & Infra (workstream separado) <a id="setup"></a>
+
+> Migrado de PENDENCIAS.md (S214). Workstream separado do backlog tiered — infra/custo/aulas planning.
 
 ### MCPs (11 conectados)
 
@@ -73,7 +136,7 @@
 ### Custo Mensal
 
 | Item | Custo/mes |
-|------|----------|
+|------|-----------|
 | Claude Max + Perplexity Max + Google One Ultra | incluso nos planos |
 | Scite + Consensus | ~$20-30 |
 | **TOTAL** | **~$20-30** (budget $100) |

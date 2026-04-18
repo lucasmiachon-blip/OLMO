@@ -1,35 +1,8 @@
 # HANDOFF - Proxima Sessao
 
-> **S226 ENCERRADA** 2026-04-17 | 8 commits | Purga arquitetural Cowork-refs + ADR-0002 + KBP-24
-> Sessao 226 `purga-cowork` | ADR-0001 enforcement + producer-agnostic infrastructure
+> **S226 CLOSED** 2026-04-17 | **S227 active** (melhoria1.1.2 CLOSEOUT + docs-diet) | ADR-0001/0002 in force
 
 **S227 HYDRATION:** Read `.claude/plans/ACTIVE-S225-SHIP-roadmap.md` (multi-session, sync S226 post-close) + `.claude/plans/archive/S226-purga-cowork-plan.md` (histórico S226) + optional `.claude/plans/ACTIVE-S227-memory-to-living-html.md` (target #4) + este HANDOFF. Then `/plan` e "vamos começar."
-
-## VERDICT S226
-
-Purga arquitetural Cowork-refs em OLMO completa + ADR-0002 formaliza lado consumer:
-
-- **41 ACTIVE cowork refs → 0 drift.** 8 commits atômicos (A-E + F + G).
-- **ADR-0002 created:** `docs/adr/0002-external-inbox-integration.md`. Contrato simétrico lado OLMO. Env var `OLMO_INBOX`, producer-agnostic. Ref cruzada a ADR-0001.
-- **KBP-24 preventivo:** pointer-only para ADR-0002 §Decisão. Impede regressão futura grepable.
-- **Rename preservado:** `evidence-harvest-S112.md` (ex-cowork-evidence-harvest) mantém conteúdo médico intacto + header bridge origin.
-- **Separation of roles:** skill-creator.md (6 upstream α) não alterada — Lucas: "skills independentes".
-
-**Commits S226 (8):** e1f0f03 A → abaf61a B → ce5ce85 C → b0e0a28 D.1 → 40ca357 D.2 → 47359aa F → 6fcc960 G → [E close commit].
-
-Residual grep "cowork" -i = 93 hits, TODOS legítimos:
-- 10 IMMUTABLE (archive 4 + CHANGELOG 6)
-- 75 plan file (→ archive post-close)
-- 6 upstream α (skill-creator Anthropic tokens)
-- 2 producer-refs documentados (evidence-harvest header + ADR-0002 §Ref cruzada)
-
-## VERDICT S225 (histórico)
-
-SHIP Phase 1 — Codex debt near-zero + infra durável + memory consolidation. 12 commits.
-- Codex Batch 1: 9/10 addressed (7 FIX + 2 null-action). Issue #3 momentum-brake DEFERRED.
-- MSYS2 toolchain installed (winget + pacman): flock, yq, sqlite3, rsync nativos.
-- Memory: evidence-researcher 8→6, global 20→19 (/dream unblocked).
-- BACKLOG LT-7 closed, canonical único.
 
 ## S227 START HERE
 
@@ -56,21 +29,7 @@ SHIP Phase 1 — Codex debt near-zero + infra durável + memory consolidation. 1
 - **Toolchain**: MSYS2 full (unchanged).
 - **Plans active**: 2 (`ACTIVE-S225-SHIP-roadmap`, `ACTIVE-S227-memory-to-living-html`). Archived S226: `S226-purga-cowork-plan` + `S204-snoopy-jingling-aurora` (synced post-close) + `S226-post-close-sync-plan` (this sync).
 - **Memory**: 6 evidence-researcher + MEMORY.md; global 19/20.
-- **BACKLOG**: 36 items (Cowork Skills Infra row removed).
-
-## APRENDIZADOS S226
-
-- **Scope pivot mid-session válido** quando ADR novo justifica. Melhorias1.1 → Purga-cowork substituiu ruído por estrutura.
-- **Separation of roles (Lucas)**: skill-creator upstream permanece independent — purga mecânica introduziria false-positives em Anthropic tokens.
-- **Pointer-only KBP (KBP-16) + ADR externo** = single source of truth + grepable policy. ADR carrega prose, KBP o ponteiro.
-- **Producer-agnostic future-proof**: ADR-0002 permite troca de producer sem re-engenharia OLMO.
-- **Parallel instance coordination zero-overlap funcional** — paths disjuntos (OLMO vs OLMO_COWORK) preveniram race.
-
-## Carryover (sem prazo)
-
-- Obsidian plugins (Templater, Dataview, Spaced Rep, obsidian-git)
-- Wallace CSS 29 raw px (FROZEN)
-- Slides s-absoluto etc (FROZEN)
+- **BACKLOG**: 37 items.
 
 ---
-Coautoria: Lucas + Opus 4.7 | S226 purga-cowork CLOSED | 2026-04-17
+Coautoria: Lucas + Opus 4.7 | S227 melhoria1.1.2 + docs-diet | 2026-04-18

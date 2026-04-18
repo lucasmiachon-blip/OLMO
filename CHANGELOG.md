@@ -25,7 +25,7 @@
 - 6fcc960 Phase G: KBP-24 em `.claude/rules/known-bad-patterns.md` (pointer-only per KBP-16) → ADR-0002 §Decisão. Header Next: KBP-25.
 
 ### ADR-0001 + ADR-0002 = sistema bidirecional
-- ADR-0001 (OLMO_COWORK-side): producer nunca escreve em OLMO\
+- ADR-0001 (OLMO_COWORK-side): producer nunca escreve em `OLMO/`
 - ADR-0002 (OLMO-side): consumer lê `$OLMO_INBOX`, opaque quanto ao producer
 - Juntos: substituibilidade do producer, git OLMO limpo, pull-based
 
@@ -34,19 +34,9 @@
 - Plan file criado pré-pivot descartado; novo plan `S226-purga-cowork` aprovado com Phases A→B→C→D→F→G→E.
 - Propose-before-pour rule aplicado (plan approval + iteração F+G+budget antes de código).
 
-### Aprendizados S226
-- Scope pivot mid-session válido quando ADR novo justifica (Melhorias1.1 → purga-cowork substituiu ruído por estrutura)
-- Separation of roles (Lucas): skill-creator upstream permanece independent (non-drift) — mechanical purge criaria false-positives em Anthropic product tokens
-- Pointer-only KBP + ADR externo: single source of truth + grepable policy (ADR carries prose, KBP carries pointer)
-- Producer-agnostic future-proof: troca de producer sem re-engenharia OLMO
-- Parallel instance coordination: zero-overlap via paths disjuntos funcionou (eu OLMO, Cowork instance OLMO_COWORK)
-
-### Residual verificado
-- Total grep `cowork` -i: 93 hits, **0 ACTIVE drift**
-- 10 IMMUTABLE (archive 4 + CHANGELOG 6 pre-S226)
-- 75 plan file (→ archive post-close)
-- 6 UPSTREAM α (skill-creator Anthropic tokens, documented exception)
-- 2 producer-refs (evidence-harvest header + ADR-0002 §Ref cruzada, documented in ADR)
+### Aprendizados + residual (consolidado)
+- Scope pivot mid-session válido com ADR novo; separation-of-roles skill-creator upstream; pointer-only KBP + ADR externo = SSoT grepable; producer-agnostic future-proof; zero-overlap parallel instances funcional
+- Residual grep `cowork` -i = 93 hits, **0 ACTIVE drift** (10 IMMUTABLE archive+CHANGELOG, 75 plan file, 6 upstream α, 2 producer-refs documentados em ADR)
 
 ## Sessao 225 — 2026-04-17 (consolidacao — SHIP era Phase 1)
 
