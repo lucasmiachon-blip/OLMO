@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Sessao 227 — 2026-04-18 (melhoria1.1.2 CLOSEOUT)
+
+### Versioning patch — discipline-rules track resolved
+- CLOSEOUT: Melhorias1.1 track (origem: commit `48c038c`, S225 post-close, 4 items)
+  - #2 first-turn discipline → `anti-drift.md` §First-turn discipline (KBP-23) [S225+S226]
+  - #3 propose-before-pour → `anti-drift.md` §Propose-before-pour [S226]
+  - #4 budget gate → `anti-drift.md` §Budget gate em scope extensions [S226]
+  - #1 cp Pattern 8 bypass → carryover `BACKLOG #34` (P0, track separado)
+- HANDOFF §S227 item #5: "retomar ou descartar" → CLOSEOUT explícito com mapping origem→destino
+- Sem novos rules, hooks, KBPs. Versioning patch only (release notes do track discipline-rules).
+
 ## Sessao 226 — 2026-04-17 (purga-cowork — ADR-0002 enforcement)
 
 ### Purga arquitetural (41 ACTIVE cowork refs → 0 drift, 8 commits)

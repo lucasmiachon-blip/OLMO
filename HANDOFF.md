@@ -40,7 +40,13 @@ SHIP Phase 1 — Codex debt near-zero + infra durável + memory consolidation. 1
 2. **Track A semantic memory**: ByteRover CLI vs MemSearch vs Smart Connections.
 3. **DE Fase 2**: rule `design-excellence.md` + skill `polish/SKILL.md`.
 4. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S227-memory-to-living-html.md`.
-5. **Melhorias1.1 discipline rules**: rejected pivot S226 — retomar ou descartar S227.
+5. **Melhorias1.1.2 CLOSEOUT (2026-04-18)**: discipline-rules track resolved.
+   - Origem: commit 48c038c (S225 post-close, 4 gaps)
+   - #1 cp Pattern 8 bypass → track separado via BACKLOG #34 (P0, ver item 0 acima)
+   - #2 first-turn discipline → `anti-drift.md` §First-turn discipline (KBP-23) [S225+S226]
+   - #3 propose-before-pour → `anti-drift.md` §Propose-before-pour [S226]
+   - #4 budget gate → `anti-drift.md` §Budget gate em scope extensions [S226]
+   Status: CLOSED. Sem 1.1.3 planejado.
 
 ## ESTADO POS-S226
 
