@@ -132,12 +132,12 @@ nlm notebook query hepato "Quais as indicacoes de TIPS na ascite refrataria?"
 ### Knowledge Pipeline DAG (S113)
 
 ```
-cowork harvest ──→ NLM study ──→ wiki pages ──→ Obsidian graph
+external harvest (via $OLMO_INBOX) ──→ NLM study ──→ wiki pages ──→ Obsidian graph
 raw sources ────────────────────→ wiki pages ──→ Obsidian graph
 ```
 
-**Cowork → NLM path**: After a cowork evidence harvest session:
-1. Collect PMIDs from `cowork-evidence-harvest-S*.md`
+**External harvest → NLM path**: After an external evidence harvest session (producer-agnostic per ADR-0002):
+1. Collect PMIDs from `evidence-harvest-S*.md`
 2. Batch-add to NLM notebook: `nlm source add <nb> --url "https://pubmed.ncbi.nlm.nih.gov/{PMID}/" --wait`
 3. Generate deep dive: `nlm audio create <nb> --format deep_dive --confirm`
 4. Study insights from NLM → Dream consolidates into wiki topic files

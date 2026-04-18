@@ -8,8 +8,8 @@
 | 1 | Pernas pendentes (research) | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
 | 2 | Adversarial deferred M-01/M-10 | Policy decisions (Bash granularity, Canva MCP wildcard) |
 | 3 | [RESOLVED S196] Hook/config system review | Fase 1 (S193): node→jq, `if` fields, dead code. Fase 2 (S194-S196): 34→29 hooks, 0 node spawns. Audit sentinel S196. |
-| 4 | Pipeline DAG end-to-end | cowork→NLM→wiki |
-| 5 | medicina-clinica stubs | 4 concepts stub/low aguardam Cowork harvest |
+| 4 | Pipeline DAG end-to-end | external inbox→NLM→wiki (ADR-0002) |
+| 5 | medicina-clinica stubs | 4 concepts stub/low aguardam external harvest via $OLMO_INBOX (ADR-0002) |
 | 6 | Skill de slides consolidada | Usar skill-creator para criar skill nova |
 | 7 | P006: plan pre-flight tool availability | Re-design: Step 1.5 em research/SKILL.md ou static allowlist |
 | 8 | Postmortem dead JSON+py pipeline | Lucas pediu "para registrar". S156+ |
@@ -20,7 +20,7 @@
 | 13 | g3-result memory findings audit | 15 findings Gemini sobre memory duplication/drift (S156 INFRA_3 `.claude/tmp/g3-result.md` foi capturado). Memory ja no cap 20/20 — audit antes de next /dream |
 | 14 | content/aulas metanalise: s-objetivos customAnim | stagger nao wired — apos QA visual |
 | 15 | [RESOLVED S196] Hooks reduction audit | Fase 1 (S193): 38→37, 8 node spawns, 4 `if` fields. Fase 2 (S194-S196): 34→29, 5 steps. S196 audit: 2 CRITICAL fixed (glob counter, mypy FP), 2 WARN fixed (hygiene dedup, Armed noise). |
-| 16 | Zombie refs audit post-archival | S154 arquivou `lint-narrative-sync.js` + `s-checkpoint-1` mas deixou dangling refs. S157 fixou 4 active (done-gate, AGENTS.md, content/aulas/CLAUDE.md, quality-gate). Ainda: docs/aulas/AGENT-AUDIT-S79.md + research-gaps-report.md + cowork-evidence-harvest-S112.md (historicos, baixo risco). |
+| 16 | Zombie refs audit post-archival | S154 arquivou `lint-narrative-sync.js` + `s-checkpoint-1` mas deixou dangling refs. S157 fixou 4 active (done-gate, AGENTS.md, content/aulas/CLAUDE.md, quality-gate). Ainda: docs/aulas/AGENT-AUDIT-S79.md + research-gaps-report.md + evidence-harvest-S112.md (historicos, baixo risco; renomeado S226 per ADR-0002). |
 | 17 | Context reduction — qualitative findings S157 | Adversarial review S158 descartou numeros (bytes/4, nao tokenizado), P11/P12 (dispatch failure), §6 meta-proposals (scope creep), KBP-17 conflict. **Trigo preservado:** (a) P5 ground truth = 8 files auto-loaded (nao 15); (b) Codex R6/R7 demoted (files nao auto-loaded); (c) preservar procedural gates que nao existem em pointer target (R1/R2/R3/R5 caveats); (d) KBP renumerado para KBP-18 (abaixo, item 18). **Pre-exec obrigatorio:** tokenizer real (nao bytes/4), red team verdadeiro (nao auto-validacao). Synthesis consumido+superseded em `.claude/workers/reducao-context/synthesis-2026-04-11-1631.md`. |
 | 18 | KBP-18 — dispatch sem prompting skill | Ex-"KBP-17 candidate" do worker S157 (conflito de numero — KBP-17 ja ocupado por Gratuitous Agent Spawning). 5 root causes: no pre-dispatch ritual, name-matching bias, momentum after correction, complexity-as-ceremony inversion, cognitive vs hook layer. Add como Format C+ pointer → `feedback_agent_delegation §Pre-dispatch ritual`. Hook enforcement proposal separado (L4 move, warn-level primeiro). |
 | 19 | Symmetric vs adversarial triangulation doctrine | §6.4 synthesis: agreement entre modelos similares (mesma training distro) pode ser coherence bias compartilhada, nao validacao independente. Future multi-leg = 1 symmetric + 1 adversarial pair, nao N symmetric legs. Value density de red team genuino > N-esima perna simetrica. Add como decision doctrine em `patterns_adversarial_review.md` apos proximo /dream. |
@@ -65,7 +65,6 @@
 - [ ] BudgetTracker (SQLite)
 - [ ] claude-task-master (MCP GTD)
 - [ ] n8n self-hosted (automacao 24/7)
-- [ ] Cowork Skills: UpToDate, DynaMed, BMJ Best Practice
 - [ ] Database Notion "Teaching Log"
 - [ ] Pipeline email → Notion → Obsidian
 - [ ] Obsidian CLI + vault sync com Notion DBs
