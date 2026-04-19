@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=1 | P1=10 | P2=24 | Frozen=3 | Resolved=8 | Setup=separate. Next #=46.
+> Counts: P0=1 | P1=11 | P2=24 | Frozen=3 | Resolved=8 | Setup=separate. Next #=47.
 
 ## TOC
 
@@ -20,6 +20,7 @@
 
 | # | Cat | Effort | Item | Next action |
 |---|-----|--------|------|-------------|
+| 46 | research | L | Knowledge integration architecture (OLMO ↔ COWORK) | S229: OLMO removeu producer-side knowledge mgmt (Notion+Obsidian+Zotero sync). Pendente ADR descrevendo como consumer (OLMO) le knowledge produzido por COWORK sem reintroduzir sync code. Candidatos: filesystem cross-mount, MCP read-only, periodic snapshot import. Ref plan `.claude/plans/fluffy-pondering-puddle.md` |
 | 34 | infra | M | [S227 partial] cp Pattern 8 — CC 2.1.113 ask bypass | Investigation Opus+Codex done: `permissions.ask` fundamentally bypassed (cp/rm/Write all empirical). Applied: 34 destructive deny patterns. Manual via `/clear` + observe popup behavior in new session. Residual gap: redirects + script-file writes ungateable (KBP-26). Next: verify deny stability post-/clear, then close |
 | 36 | content | L | Memory → Living-HTML migration (S227) | Run plan `.claude/plans/ACTIVE-S227-memory-to-living-html.md` steps 1-6. 6 medical .md → `content/aulas/cirrose/evidence/*.html` |
 | 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Write→tmp→cp (guard bloqueia Edit hooks/*.sh). Consequência: cache `backlog-top.txt` stale entre sessões. Descoberto S226 pós-close |

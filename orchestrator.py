@@ -20,11 +20,8 @@ from rich.tree import Tree
 from agents.automation.automation_agent import AutomationAgent
 from agents.core.log import setup_logging
 from agents.core.orchestrator import Orchestrator
-from agents.organization.organization_agent import OrganizationAgent
 from config.loader import load_config, load_workflows
 from subagents.processors.data_pipeline import DataPipelineSubagent
-from subagents.processors.knowledge_organizer import KnowledgeOrganizerSubagent
-from subagents.processors.notion_cleaner import NotionCleanerSubagent
 
 console = Console()
 setup_logging()
@@ -42,14 +39,11 @@ def build_ecosystem() -> Orchestrator:
     # Criar agentes principais
     agents = [
         AutomationAgent(),
-        OrganizationAgent(),
     ]
 
     # Criar subagentes
     subagents = [
         DataPipelineSubagent(),
-        KnowledgeOrganizerSubagent(),
-        NotionCleanerSubagent(),
     ]
 
     # Aplicar config do YAML e registrar agentes
@@ -63,8 +57,6 @@ def build_ecosystem() -> Orchestrator:
     subagents_config = config.get("subagents", {})
     subagent_to_parent = {
         "data_pipeline": "automacao",
-        "knowledge_organizer": "organizacao",
-        "notion_cleaner": "organizacao",
     }
     for subagent in subagents:
         if subagent.name in subagents_config:

@@ -25,33 +25,14 @@ agents:
     retry_reads: 3
     retry_writes: 0  # Writes NUNCA retry (mcp_safety.md)
 
-  organizacao:
-    enabled: true
-    model: "claude-sonnet-4-6"
-    description: "Organizacao pessoal e gestao de tarefas"
-    subagents: ["knowledge_organizer"]
-    methodology: "GTD"  # Getting Things Done
-    daily_task_limit: 5
-    review_schedule: "weekly"
-
 # Subagentes
 subagents:
   data_pipeline:
     enabled: true
     model: "claude-haiku-4-5"
     parent: "automacao"
-  knowledge_organizer:
-    enabled: true
-    model: "claude-sonnet-4-6"
-    parent: "organizacao"
-    description: "Integra Notion + Obsidian + Zotero para knowledge management"
-  notion_cleaner:
-    enabled: true
-    model: "claude-sonnet-4-6"
-    parent: "organizacao"
-    description: "Limpa e organiza Notion com seguranca (modelo harsh)"
 
-# Skills (.claude/skills/ — 12 ativas)
+# Skills (.claude/skills/ — 9 ativas)
 skills:
   # Pesquisa e ciencia
   mbe-evidence:
