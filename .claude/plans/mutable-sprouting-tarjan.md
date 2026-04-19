@@ -50,8 +50,11 @@ Pós-Phase F (doc sweep), Lucas perguntou "como sabemos que estamos melhorando?"
 
 ## ESTADO ATUAL EXATO (snapshot 2026-04-19 ~13:15)
 
-### Commits desta sessão S230 (8 total)
+### Commits desta sessão S230 (12 total — atualizado 2026-04-19 ~15:15)
 ```
+a8a87be S230 Phase G.9b: doc fix — canonical deploy pattern obsoleto por KBP-26
+44f8751 S230 Phase G.9: banner.sh lib — 6 niveis semanticos
+4446ee8 S230 Phase G PAUSE: hipergranular plan + HANDOFF resume entrypoint
 479a5ef S230 Phase F: full doc sweep — refresh Estado markers + tests count
 8ba190b S230 close: bubbly-forging-cat — 4 batches complete (5+6 deferred)
 378499f S230 Batch 3c: delete ModelRouter teatro (BACKLOG #42 RESOLVED)
@@ -76,17 +79,17 @@ fcd4bdc S230 Batch 4: plans audit (S225 archive + S227 header refresh)
 | Phase G.7 KBP-23 hook enforcement | APPROVED | 27 violations em 11d evidência clara |
 | Phase G.8 anti-meta-loop banner | APPROVED | 5 sessões sem aulas/ = R3 risk |
 | Phase G.9 banner system 6 níveis | APPROVED | Sistema unificado para todos eventos importantes |
-| Banner sizes | uniforme 4-5 li, verde=1 li | Lucas explicit |
+| Banner sizes | 3-4 li (Lucas S230 revised de 4-5), verde=1 li | Lucas explicit |
 | /insights periodicity | bi-diária (a cada 2d) | Lucas: semanal "fica muita coisa" |
-| Edit hooks/ pattern | Write→temp→cp com aprovação Lucas | guard-write-unified.sh:120-124 BLOCK |
+| Edit hooks/ pattern | Write→temp→`cat source > dest` (cp em deny S227 KBP-26) | guard-write-unified.sh:120-124 BLOCK + settings.json deny Bash(cp *) |
 
 ### Tasks tracking (manual — TaskList resets per session)
 
 | ID | Phase | Status | Files modified |
 |----|-------|--------|----|
 | 7 | G.1 /insights run | ✅ DONE 2634c0c | latest-report.md, failure-registry.json |
-| 15 | G.9 banner lib | ⏳ NEXT | hooks/lib/banner.sh (NEW) |
-| 13 | G.7 KBP-23 enforce | ⏳ pending | hooks/post-tool-use-failure.sh |
+| 15 | G.9 banner lib | ✅ DONE 44f8751 + a8a87be (doc fix) | hooks/lib/banner.sh (NEW, 74 li) |
+| 13 | G.7 KBP-23 enforce | ⏳ NEXT | hooks/post-tool-use-failure.sh |
 | 14 | G.8 anti-meta banner | ⏳ pending | hooks/session-start.sh |
 | 11 | G.5 /insights ritual | ⏳ pending (revisado bi-diário) | hooks/session-start.sh |
 | 8 | G.2 metrics regex fix | ⏳ pending (blocked por guard antes pause) | hooks/stop-metrics.sh |
