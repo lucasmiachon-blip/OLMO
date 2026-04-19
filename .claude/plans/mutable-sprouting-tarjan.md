@@ -89,8 +89,8 @@ fcd4bdc S230 Batch 4: plans audit (S225 archive + S227 header refresh)
 |----|-------|--------|----|
 | 7 | G.1 /insights run | ✅ DONE 2634c0c | latest-report.md, failure-registry.json |
 | 15 | G.9 banner lib | ✅ DONE 44f8751 + a8a87be (doc fix) | hooks/lib/banner.sh (NEW, 74 li) |
-| 13 | G.7 KBP-23 enforce | ⏳ NEXT | hooks/post-tool-use-failure.sh |
-| 14 | G.8 anti-meta banner | ⏳ pending | hooks/session-start.sh |
+| 13 | G.7 KBP-23 enforce | ✅ DONE (pending SHA) | hooks/post-tool-use-failure.sh (36→42 li, +6) |
+| 14 | G.8 anti-meta banner | ⏳ NEXT (combined G.5) | hooks/session-start.sh |
 | 11 | G.5 /insights ritual | ⏳ pending (revisado bi-diário) | hooks/session-start.sh |
 | 8 | G.2 metrics regex fix | ⏳ pending (blocked por guard antes pause) | hooks/stop-metrics.sh |
 | 9 | G.3 slim VANITY | ⏳ pending | .claude/hooks/post-global-handler.sh |

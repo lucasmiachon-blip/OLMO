@@ -4,6 +4,7 @@ set -euo pipefail
 # Logs tool failures to hook-log.jsonl + injects corrective guidance as systemMessage.
 # Evento: PostToolUseFailure | Timeout: 5s | Exit: sempre 0
 # S225 Issue #7: defensive cat fallback — prevents hook abort on broken stdin pipe.
+# S230 G.7: KBP-23 enforcement — banner_warn quando Read falha com "exceeds maximum tokens".
 
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
@@ -25,6 +26,11 @@ fi
 
 # Log to structured JSONL
 hook_log "PostToolUseFailure" "post-tool-use-failure" "tool-error" "$TOOL_NAME" "warn" "$ERROR_MSG"
+
+# S230 Phase G.7: KBP-23 enforcement (Read sem limit)
+if [[ "$TOOL_NAME" == "Read" ]] && [[ "$ERROR_MSG" == *"exceeds maximum allowed tokens"* ]]; then
+  { . "$PROJECT_ROOT/hooks/lib/banner.sh" && banner_warn "KBP-23 Read sem limit" "Use 'limit: 50' primeiro" "Depois Grep targeted" >&2; } || true
+fi
 
 # Inject corrective guidance as systemMessage
 SAFE_ERROR=$(echo "$ERROR_MSG" | sed 's/"/\\"/g' | head -c 200)
