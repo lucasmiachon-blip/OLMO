@@ -93,7 +93,7 @@ echo "[SCORECARD] Commits: $COMMITS | Tool calls: $CALLS | Custo: $COST"
 # Detect session number
 SESSION_NUM=""
 LATEST_COMMIT_MSG=$(git -C "$PROJECT_ROOT" log --oneline -1 --format='%s' 2>/dev/null || echo "")
-if [[ "$LATEST_COMMIT_MSG" =~ ^S([0-9]+): ]]; then
+if [[ "$LATEST_COMMIT_MSG" =~ ^S([0-9]+)([[:space:]]|:) ]]; then
   SESSION_NUM="S${BASH_REMATCH[1]}"
 fi
 if [ -z "$SESSION_NUM" ] && [[ "$SESSION_NAME" =~ S([0-9]+) ]]; then
