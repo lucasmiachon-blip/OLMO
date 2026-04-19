@@ -63,7 +63,7 @@ def fetch_pubmed(
                     "retmax": max_results,
                     "retmode": "json",
                     "sort": "date" if sort_by_date else "relevance",
-                    "tool": "organizacao",
+                    "tool": "OLMO",
                     "email": "user@example.com",
                 },
             )
@@ -83,7 +83,7 @@ def fetch_pubmed(
                     "id": ",".join(id_list),
                     "retmode": "xml",
                     "rettype": "abstract",
-                    "tool": "organizacao",
+                    "tool": "OLMO",
                     "email": "user@example.com",
                 },
             )

@@ -1,4 +1,4 @@
-"""Permite executar o ecossistema como: python -m organizacao"""
+"""Permite executar o ecossistema como: python -m orchestrator (ou equivalente)."""
 
 from orchestrator import main
 

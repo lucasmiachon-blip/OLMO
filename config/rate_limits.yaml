@@ -33,7 +33,7 @@ priority_tiers:
 
   medium:
     description: "Batcha com outras tarefas"
-    examples: ["resumos", "organizacao diaria", "digest"]
+    examples: ["resumos", "digest"]
     max_cost_per_call: 0.10
 
   low:
@@ -68,7 +68,7 @@ model_routing:
     model: "claude-sonnet-4-6"   # Custo: ~$0.01/call
     alternatives: ["chatgpt-5.4"]
     use_for: ["sumarizacao", "codigo simples", "analise basica",
-              "morning review", "organizacao diaria"]
+              "morning review"]
 
   deep:
     model: "claude-opus-4-6"     # Custo: ~$0.05-0.10/call
@@ -98,7 +98,6 @@ batching:
   batch_keys:
     - "morning_digest"        # Combina news + trends + planning
     - "research_batch"        # Combina multiplas buscas
-    - "organization_batch"    # Combina tarefas de organizacao
 
 # Fallback entre provedores (inspirado em Portkey AI Gateway)
 # IMPORTANTE: Writes NUNCA usam fallback (mcp_safety.md: erro em write = PARAR)

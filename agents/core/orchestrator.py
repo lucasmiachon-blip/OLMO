@@ -67,8 +67,6 @@ class Orchestrator(BaseAgent):
         # Roteamento automatico baseado no tipo
         routing_map: dict[str, str] = {
             "automate": "automacao",
-            "organize": "organizacao",
-            "schedule": "organizacao",
             "monitor": "automacao",
         }
 
@@ -106,12 +104,13 @@ class Orchestrator(BaseAgent):
                 self.status = AgentStatus.IDLE
 
     async def plan(self, objective: str) -> list[dict[str, Any]]:
-        """Cria um plano multi-agente para atingir o objetivo."""
+        """Cria um plano para atingir o objetivo.
+
+        Pos-S229 slim: runtime Python tem 1 agente (automacao).
+        Orquestracao multi-agente migrou para OLMO_COWORK (ADR-0002).
+        """
         return [
-            {"step": 1, "action": "analyze", "agent": "cientifico", "input": objective},
-            {"step": 2, "action": "plan", "agent": "organizacao", "input": objective},
-            {"step": 3, "action": "execute", "agent": "automacao", "input": objective},
-            {"step": 4, "action": "report", "agent": "cientifico", "input": objective},
+            {"step": 1, "action": "execute", "agent": "automacao", "input": objective},
         ]
 
     async def run_workflow(self, workflow_name: str, initial_data: Any = None) -> list[TaskResult]:
