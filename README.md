@@ -32,12 +32,12 @@ Full architecture with Mermaid DAGs: `docs/ARCHITECTURE.md`.
 make lint        # ruff check
 make format      # ruff format
 make type-check  # mypy
-make test        # pytest (53 tests)
+make test        # pytest (40 tests)
 ```
 
 ## Stack
 
-- Python 3.11+, uv, ruff, mypy, pytest (53 tests)
+- Python 3.11+, uv, ruff, mypy, pytest (40 tests)
 - Multiple MCP servers (PubMed, SCite, Consensus, Semantic Scholar, Zotero, Notion, NotebookLM, Gemini, Perplexity...)
 - Claude Code — 1 Python runtime agent + 9 CC subagents + 31 hooks
 - OTel + Langfuse V3 observability (Docker Compose)

@@ -2,7 +2,7 @@
 
 > AI agent ecosystem for medical education and exam prep (consumer-only).
 > **Consumer side** (producer em OLMO_COWORK — ver ADR-0002).
-> Estado: S229 | 2026-04-18 (slim round 3: daily exodus)
+> Estado: S230 | 2026-04-19 (bubbly-forging-cat — adversarial audit + simplification)
 
 ## Runtime Python DAG (dispatcher + 1 agent)
 
@@ -22,7 +22,7 @@ Notion audit/add_content: **crosstalk pattern** (seção abaixo).
 
 **Regra** (canônica em `.claude/rules/anti-drift.md` §Propose-before-pour): Lucas decide, agente executa.
 
-**Nota histórica (S228-S229):** Foram deletados `Cientifico`+`AtualizacaoAI` (S228) + `Organizacao`+`KnowledgeOrganizer`+`NotionCleaner` (S229). Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Daily org + Notion writes migrados para OLMO_COWORK ou substituídos por crosstalk pattern. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` + `.claude/plans/archive/S229-slim-round-3-daily-exodus.md`.
+**Nota histórica (S228-S230):** Foram deletados `Cientifico`+`AtualizacaoAI` (S228) + `Organizacao`+`KnowledgeOrganizer`+`NotionCleaner` (S229) + `SmartScheduler`+`LocalFirstSkill`+`ModelRouter` (S230 bubbly-forging-cat — teatro arquitetural). Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Daily org + Notion writes migrados para OLMO_COWORK ou substituídos por crosstalk pattern. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` + `.claude/plans/archive/S229-slim-round-3-daily-exodus.md` + `.claude/plans/archive/S230-bubbly-forging-cat.md`.
 
 ## Claude Code Subagents (9)
 

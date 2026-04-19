@@ -1,6 +1,6 @@
 # TREE.md — Mapa do Projeto
 
-> Atualizado: Sessao 229 | 2026-04-18 (slim round 3: daily exodus)
+> Atualizado: Sessao 230 | 2026-04-19 (bubbly-forging-cat — adversarial audit + simplification)
 
 ## Raiz (operacional)
 
@@ -204,7 +204,7 @@ wiki/
 ## Other directories
 
 ```
-tests/               # pytest test suite (53 tests PASS)
+tests/               # pytest test suite (40 tests PASS — S230 -13 test_model_router)
 scripts/             # Standalone Python scripts (atualizar_tema, fetch_medical)
 skills/              # Python skill implementations
 templates/           # Prompt templates
