@@ -1,28 +1,8 @@
 # HANDOFF - Proxima Sessao
 
-> ⏸️ **S230 PAUSED Phase G** 2026-04-19 ~13:15 (mid-execution) | RESUME: read plan granular abaixo
+> ✅ **S230 COMPLETE** (bubbly-forging-cat) 2026-04-19 — adversarial audit + simplification + Phase G metrics rationalization | BACKLOG #42 RESOLVED | net ~neutral linecount (~150 add banner+enforce / ~150 del VANITY+KPI teatro), signal+
 
-## ⏸️ PAUSED — RESUME AQUI (Phase G in progress)
-
-**Plan canonical:** `.claude/plans/mutable-sprouting-tarjan.md` (HIPERGRANULAR — 600+ li com EC, comandos copy-paste, banner spec full, gotchas)
-
-**Done:** Phases A-F + G.1 (8 commits, último: `2634c0c S230 Phase G.1: /insights restoration`)
-
-**Próxima fase a executar:** **Phase G.9** (banner lib `hooks/lib/banner.sh` — 6 níveis semânticos)
-
-**Order pós-resume:** G.9 → G.7 → G.8+G.5 (combined) → G.2 → G.3 → G.4 (decision pendente) → G.6 close
-
-**Blocker conhecido:** Edit em `hooks/` BLOCKED por `guard-write-unified.sh:120-124`. Pattern obrigatório: `Write→.claude/workers/foo.sh.new → cp → chmod`. Lucas aprova ~12 popups esperados.
-
-**G.4 brake decision PENDING:** Lucas pediu investigar útil-vs-subutilizado antes delete. Ver plan §G.4 para test matrix.
-
-**Hot resume checklist:** ver topo do plan file — RESUME CHECKLIST + RESUME ENTRYPOINT sections.
-
----
-
-> **S230 (active phases 1-4 + F)**: bubbly-forging-cat — adversarial audit + simplification | BACKLOG #42 RESOLVED | ~595 li deletadas
-
-**S231 HYDRATION (apenas SE Phase G completa):** Read este HANDOFF + `.claude/plans/archive/S230-*.md` (audit findings + execution log).
+**S231 HYDRATION:** Read este HANDOFF + `.claude/plans/archive/S230-*.md` (audit findings + Phase G execution log).
 
 ## S231 START HERE (após Phase G complete)
 
@@ -41,11 +21,12 @@
 - **Adversarial audit + simplification** (S230 bubbly-forging-cat): 4 batches commitados de 6 planejados. ~595 li deletadas (SmartScheduler 309 + skills/ ~135 + ModelRouter 75 + tests 13 + tree refs ~5 + duplicações memória ~58). Runtime Python: **1 agent (automacao) + 1 subagent (data_pipeline) + 3 workflows**. ModelRouter teatro arquitetural eliminado — routing intent (trivial→Ollama, simple→Haiku, medium→Sonnet, complex→Opus) preservada como diretiva humana em CLAUDE.md. Notion Crosstalk Pattern (S229) inalterado.
 - **Doc/reality reconciliation** (Batch 1): 11 phantom scripts purged de .claude/hooks/README.md, ARCHITECTURE.md Mermaid corrigida, notion-ops refs removed, AGENTS.md cross-CLI (Codex/Gemini) declared.
 - **Memory de-duplication** (Batch 2): context-essentials.md 42→18 li, KBP-26+27 prose extracted (KBP-16 compliance), qa-pipeline.md absorbed metanalise §QA Pipeline (state machine + 4 gates + Lucas OK sequence + threshold) — zero data loss confirmado.
+- **Phase G — metrics infrastructure rationalized** (8 commits pós-PAUSE): `/insights` restored 11d gap (G.1, `2634c0c`); `hooks/lib/banner.sh` NEW 6 níveis semânticos 3-4 li (G.9, `44f8751`+`a8a87be`+`c5aacd1`); KBP-23 Read-sem-limit auto-warn em post-tool-use-failure.sh (G.7, `33b59e7`); anti-meta-loop banner + /insights bi-diário reminder em session-start.sh (G.8+G.5, `c405a1a`); stop-metrics.sh regex fix + 7 rows backfill metrics.tsv local (G.2, `64a9338`); post-global-handler 148→35 li VANITY slim -113 (G.3, `0780061`); momentum-brake ADD LOGGING — DELETE deferred to S232 evidence-based (G.4, `31815ff`). **Pattern descoberta:** `Bash(cp *)` em settings.json deny desde S227 KBP-26 quebrou canonical Write→temp→cp pattern; migrou para `cat source > dest` redirect (documentado em G.9b).
 - **ADRs**: ADR-0001 (OLMO_COWORK-side) + ADR-0002 (OLMO-side). Inalterados S230.
 - **KBPs**: 27 entries. Next: KBP-28.
-- **Hooks**: 31/31 valid (unchanged).
+- **Hooks**: 31/31 valid (unchanged count; 4 hooks modified em Phase G).
 - **BACKLOG**: 46 items, #42 RESOLVED em S230. Counts P1=11/P2=23.
-- **Plans**: active (S227-memory-to-living-html only — S225-SHIP archived em Batch 4). Archive S230: bubbly-forging-cat + mutable-sprouting-tarjan.
+- **Plans**: active (S227-memory-to-living-html only). Archive S230: bubbly-forging-cat (audit) + mutable-sprouting-tarjan (Phase G canonical) + replicated-jingling-llama (Phase G wrapper).
 - **Memory**: 6 evidence-researcher + MEMORY.md; global 19/20.
 - **Deferred S231+**: Batch 5 (multimodel integration gate — Codex/Gemini/Antigravity formalization) + Batch 6 (Living-HTML migration BACKLOG #36).
 

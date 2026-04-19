@@ -10,6 +10,17 @@
 - Batch 3b (100b85f): SmartScheduler (309 li) + skills/ orphan cascade (~135 li) deleted — LocalFirstSkill era consumer único de SmartScheduler
 - Batch 3c (378499f): ModelRouter teatro deleted (~75 li + 13 testes test_model_router); BACKLOG #42 RESOLVED; routing intent (4-tier complexity) preservada como diretiva humana em CLAUDE.md — desacoplamento honesto
 
+### Phase G — metrics infrastructure rationalized (8 commits post-PAUSE)
+- G.1 (2634c0c): `/insights` restored após 11d gap — 6 propostas P001-P006 identificando metrics teatro + avoidance signals
+- G.9 (44f8751): `hooks/lib/banner.sh` NEW — 6 funções banner_success/info/warn/attn/critical/decision (ANSI 256-color, 3-4 li uniforme, verde 1 li exceção)
+- G.9b (a8a87be): `mutable-sprouting-tarjan.md §PADRÃO` atualizado — `Bash(cp *)` em `.claude/settings.json` deny desde S227 KBP-26 quebrou canonical Write→temp→cp; documentado uso de `cat source > dest` redirect (ask via guard-bash-write Pattern 1)
+- G.9c (c5aacd1): plan retrospective refresh (Tasks tracking sync)
+- G.7 (33b59e7): `hooks/post-tool-use-failure.sh` +6 li — KBP-23 Read-sem-limit auto-warn (27 violations/11d evidence P002); banner em stderr, `|| true` safety pós `set -euo pipefail`
+- G.8+G.5 (c405a1a): `hooks/session-start.sh` +31 li — G.8 anti-meta-loop (META_STREAK=total-aulas last 5; ≥5 OR R3<100d→CRITICAL, ≥3→ATTN) + G.5 /insights bi-diário reminder (gap≥2d→INFO)
+- G.2 (64a9338): `hooks/stop-metrics.sh:96` regex `^S([0-9]+):` → `^S([0-9]+)([[:space:]]|:)` + metrics.tsv +7 rows backfill S224-S230 (file gitignored, local)
+- G.3 (0780061): `.claude/hooks/post-global-handler.sh` 148→35 li (-113) — deleted KPI Reflection Loop (~100 li zero firings) + Cost BLOCK arm (~7 li zero firings) + BLOCK_THRESHOLD + COST_BRAKE_DIR vars + misleading "(limite: %d)" printf
+- G.4 (31815ff): `.claude/hooks/momentum-brake-enforce.sh` 53→60 li — ADD LOGGING (hook_log antes printf ask); investigation revelou brake funciona mecanicamente, "zero firings" = artefato de auto-mode-silencia-asks + enforce-não-logava; DELETE deferred S232 evidence-based
+
 ### Aprendizados + residual
 - Cascata de delete: A único consumer de B → ambos órfãos (mapear grafo de imports antes de delete individual)
 - Código teatro pode ser deletado preservando intenção em doc — deslocamento honesto vs deletar lógica + intenção
