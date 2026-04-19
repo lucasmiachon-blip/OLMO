@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 229 — 2026-04-18 (slim-round-3-daily-exodus — ADR-0002 round 3)
+
+### Slim migration round 3 — daily org + Notion writes purge (6 commits)
+- Phase A+B (54353e2): BACKLOG #46 added. Delete agent `organizacao` + subagents `knowledge_organizer`+`notion_cleaner`+`notion/` pkg. orchestrator.py + ecosystem.yaml stripped. -1836 li
+- Phase C (5daa02f): delete workflows `full_organization`, `notion_cleanup`, `local_status_check`. Migration note updated. -96 li
+- Phase D (51c0367): delete skills `organization`+`notion-publisher`+`notion-spec-to-impl`. knowledge-ingest:169 dangling ref fixed. -296 li
+- Phase E fix (0c763f2): dead refs post-slim — `agents/core/orchestrator.py` routing + plan method, __main__ docstring, fetch_medical tool label, rate_limits examples. pytest 53/53, ruff clean
+- Phase F (68c6324): CLAUDE/ARCHITECTURE/TREE/README/HANDOFF — arch 2 agents→1, new §Notion Crosstalk Pattern documentando substituto do batch Python
+- Phase F.5 audit completo (b565e84): purge gmail + google-calendar (servers.json + ecosystem.yaml), delete daily-briefing zombie + templates/ dir, fix stale examples em automation skill + wiki + GETTING_STARTED + test_model_router. -263 li
+
+### Crosstalk pattern estabelecido (descoberta S229)
+- Notion audit + add_content inline via Claude Code + MCP Notion direct substitui batch async Python (faster + human-in-loop + rollback real-time). Documentado em `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`. KBP-27.
+
+### Aprendizados + residual
+- ADR-0002 enforced bidirectionally: S228 Phase A-H + S229 round 3. OLMO consumer-only cristalizado. Runtime: 1 agent + 1 subagent + 3 workflows.
+- Grep negativo como audit layer: tests verdes compilam refs mortas sem detectar dispatch broken. Phase E achou 4 active-code files com refs quebrados.
+- Crosstalk > batch pipeline quando human-in-loop agrega velocidade + controle. Pattern reusable.
+- Residual: .env.example stale (guard-read-secrets bloqueia Read/Edit). Manual cleanup S230.
+- Commits: 6 phased.
+
 ## Sessao 228 — 2026-04-18 (melhoria_continua — adversarial audit + slim migration)
 
 ### Auditoria adversarial Opus (Bloco 1/2/3 + Anti-sycophancy)
