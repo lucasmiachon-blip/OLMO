@@ -8,25 +8,6 @@
 
 workflows:
   # ============================================================
-  # DAILY WORKFLOWS
-  # ============================================================
-
-  # Quick Status - 0 API calls (100% local)
-  local_status_check:
-    name: "Status Check Local"
-    description: "Verifica status sem usar API"
-    trigger: "manual"
-    api_calls: 0
-    strategy: "local_only"
-    steps:
-      - skill: "local_first"
-        action: "list_files"
-        params: {directory: "data/", pattern: "*.json"}
-      - agent: "organizacao"
-        action: "status_report"
-        note: "Usa dados locais, sem API"
-
-  # ============================================================
   # WEEKLY WORKFLOWS
   # ============================================================
 
@@ -99,78 +80,6 @@ workflows:
         content_type: "report"
         description: "Gerar relatorio"
 
-  # Organizacao Completa
-  full_organization:
-    name: "Organizacao Completa"
-    description: "Reorganizacao completa de tarefas e projetos"
-    trigger: "manual"
-    budget_tracking: true
-    model_tier: "medium"
-    steps:
-      - agent: "organizacao"
-        action: "inbox_process"
-        description: "Processar inbox"
-      - agent: "organizacao"
-        action: "prioritize"
-        description: "Priorizar tarefas (Eisenhower)"
-      - agent: "organizacao"
-        action: "status_report"
-        description: "Gerar relatorio de status"
-      - agent: "organizacao"
-        action: "plan_week"
-        description: "Criar plano semanal"
-
-  # Limpeza Notion (seguro, com aprovacao humana)
-  notion_cleanup:
-    name: "Limpeza Notion"
-    description: "Varre Notion pagina por pagina, organiza, remove duplicatas"
-    trigger: "manual"
-    model_tier: "medium"
-    background: false
-    requires_human_approval: true
-    mcp_safety: "strict"  # Referencia: .claude/rules/mcp_safety.md
-    steps:
-      # FASE 1: AUDIT (READ-ONLY)
-      - agent: "organizacao"
-        action: "notion_audit"
-        mode: "read_only"
-        description: "Varrer todas as paginas e classificar (READ-ONLY)"
-      - agent: "organizacao"
-        action: "identify_duplicates"
-        mode: "read_only"
-        description: "Identificar duplicatas (READ-ONLY, sem resolver)"
-      # CHECKPOINT: Apresentar relatorio ao humano
-      - action: "human_review"
-        description: "Apresentar achados ao usuario para aprovacao antes de writes"
-      # FASE 2: EXECUTE (token read-write, UMA operacao por vez)
-      - agent: "organizacao"
-        action: "deduplicate_approved"
-        mode: "write_one_at_a_time"
-        cross_validation: true
-        description: "Resolver duplicatas aprovadas (1 por vez, com verificacao)"
-      - agent: "organizacao"
-        action: "safe_relocate"
-        mode: "write_one_at_a_time"
-        cross_validation: true
-        description: "Relocar via workaround: create → copy → verify → archive original"
-      - agent: "organizacao"
-        action: "fill_tags"
-        mode: "write_one_at_a_time"
-        description: "Preencher tags e propriedades faltantes (1 por vez)"
-      - agent: "organizacao"
-        action: "archive_obsolete"
-        mode: "write_one_at_a_time"
-        cross_validation: true
-        description: "Arquivar conteudo obsoleto (NUNCA deletar, apenas archive)"
-      # FASE 3: VERIFICACAO
-      - agent: "organizacao"
-        action: "verify_all_writes"
-        mode: "read_only"
-        description: "Re-ler todas as paginas modificadas e confirmar resultado"
-      - agent: "organizacao"
-        action: "generate_report"
-        description: "Gerar relatorio final (executado + pendente + flags)"
-
 # ============================================================
 # BUDGET MENSAL ESTIMADO (Consolidado)
 # ============================================================
@@ -186,10 +95,13 @@ workflows:
 # ------------------------------|-----------|--------
 # TOTAL REAL MENSAL             |           | ~$6-37
 # MAX ABSOLUTO                  |           | $100/mes
-# NOTA: workflows producer migrados para OLMO_COWORK em S228 (ADR-0002):
-#       - batch_morning_digest, gmail_to_notion, weekly_medical_digest,
-#         weekly_ai_update, ai_monitoring (Phase A)
-#       - paper_to_notion, quick_note_to_evidence, research_sprint,
-#         research_pipeline (Phase E)
+# NOTA: workflows producer migrados para OLMO_COWORK em ADR-0002:
+#       S228 Phase A: batch_morning_digest, gmail_to_notion, weekly_medical_digest,
+#         weekly_ai_update, ai_monitoring
+#       S228 Phase E: paper_to_notion, quick_note_to_evidence, research_sprint,
+#         research_pipeline
+#       S229 round 3: full_organization (GTD), notion_cleanup (Notion writes),
+#         local_status_check (usava agent organizacao)
 #       Meta-analise live tool: .claude/agents/evidence-researcher (6 MCPs)
 #       + .claude/skills/mbe-evidence. Nao reviver stubs Python.
+#       Notion crosstalk pattern: Claude Code + MCP Notion direct (ver ARCHITECTURE.md).
