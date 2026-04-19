@@ -69,7 +69,6 @@ agents/
 ├── core/
 │   ├── base_agent.py        # BaseAgent ABC
 │   ├── orchestrator.py      # Dispatcher (single-agent post-S229)
-│   ├── model_router.py      # Cost-based routing (WARN: _resolved_model unused — see S228 audit)
 │   ├── database.py          # SQLite persistence
 │   ├── mcp_safety.py        # MCP safety checks
 │   ├── exceptions.py        # Custom exceptions
@@ -79,6 +78,7 @@ agents/
 # REMOVED S228: ai_update/ + scientific/ (producer → OLMO_COWORK per ADR-0002)
 # REMOVED S229: organization/ (daily GTD → OLMO_COWORK per ADR-0002)
 # REMOVED S230: smart_scheduler.py + skills/ root (orphan cascade — bubbly-forging-cat Batch 3b)
+# REMOVED S230: model_router.py (teatro arquitetural; routing intent preservada como diretiva humana em CLAUDE.md — bubbly-forging-cat Batch 3c, BACKLOG #42 RESOLVED)
 ```
 
 ## subagents/ (processor implementations)

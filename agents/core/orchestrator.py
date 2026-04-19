@@ -8,7 +8,6 @@ from typing import Any
 from agents.core.base_agent import AgentContext, AgentStatus, BaseAgent, TaskResult
 from agents.core.exceptions import AgentError
 from agents.core.mcp_safety import OperationMode, SafetyDecision, validate_operation
-from agents.core.model_router import ModelRouter
 
 logger = logging.getLogger("orchestrator")
 
@@ -23,7 +22,7 @@ class Orchestrator(BaseAgent):
     - Manter o contexto global
     """
 
-    def __init__(self, agents_config: dict[str, Any] | None = None) -> None:
+    def __init__(self) -> None:
         super().__init__(
             name="orchestrator",
             description="Agente principal que coordena todo o ecossistema de agentes AI",
@@ -31,7 +30,6 @@ class Orchestrator(BaseAgent):
         self.agents: dict[str, BaseAgent] = {}
         self.workflows: dict[str, list[dict[str, Any]]] = {}
         self.context: AgentContext = AgentContext()
-        self.model_router = ModelRouter(agents_config)
 
     def register_agent(self, agent: BaseAgent) -> None:
         """Registra um agente no ecossistema."""
@@ -72,11 +70,7 @@ class Orchestrator(BaseAgent):
 
         agent_name = routing_map.get(task_type)
         if agent_name and agent_name in self.agents:
-            agent = self.agents[agent_name]
-            resolved_model = self.model_router.resolve(agent_name, task)
-            # Pass resolved model via task dict to avoid shared mutation race
-            task_with_model = {**task, "_resolved_model": resolved_model}
-            return await agent.execute(task_with_model)
+            return await self.agents[agent_name].execute(task)
 
         return TaskResult(
             success=False,

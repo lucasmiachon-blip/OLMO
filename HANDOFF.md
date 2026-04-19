@@ -14,7 +14,7 @@
 3. **Track A semantic memory**: ByteRover CLI vs MemSearch vs Smart Connections.
 4. **DE Fase 2**: rule `design-excellence.md` + skill `polish/SKILL.md`.
 5. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S227-memory-to-living-html.md`.
-6. **BACKLOG #42-45** (S228 audit findings): ModelRouter unused, MCP gate dormant, CLI viability, 7-layer claim unaudited. Todos P2 — triagem quando houver bandwidth.
+6. **BACKLOG #43-45** (S228 audit findings restantes): MCP gate dormant, CLI viability, 7-layer claim unaudited. Todos P2 — triagem quando houver bandwidth. (#42 ModelRouter RESOLVED em S230 Batch 3c.)
 
 ## ESTADO POS-S229
 

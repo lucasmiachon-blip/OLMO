@@ -82,7 +82,7 @@ OLMO/
 ├── HANDOFF.md                # Continuidade entre sessoes
 ├── orchestrator.py           # Entry point Python
 ├── agents/                   # Runtime Python (slim pos-S229 — consumer-only)
-│   ├── core/                 # Base, Orchestrator, ModelRouter, MCP Safety
+│   ├── core/                 # Base, Orchestrator, MCP Safety
 │   └── automation/           # Automacao (unico agent)
 ├── subagents/                # Subagentes
 │   └── processors/           # DataPipeline (unico subagent)

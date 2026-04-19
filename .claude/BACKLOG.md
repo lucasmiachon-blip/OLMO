@@ -65,7 +65,7 @@
 | 7 | tooling | M | P006 plan pre-flight tool availability | Re-design: Step 1.5 em research/SKILL.md ou static allowlist |
 | 11 | tooling | M | S155 Group G hooks lazy load | Complexity-as-ceremony per backlog gate |
 | 16 | tooling | S | Zombie refs audit post-archival | 3 históricos restantes: `docs/aulas/AGENT-AUDIT-S79.md` + `research-gaps-report.md` + `evidence-harvest-S112.md` (renomeado S226 ADR-0002). Baixo risco. S154/S157 |
-| 42 | infra | S | ModelRouter unused (`_resolved_model` escrito nunca lido) | S228 audit bonus finding: `orchestrator.py:83` escreve `_resolved_model`, nenhum agente lê. Router é log-only theater. Decisão: (a) wire consumers (agents consomem `task["_resolved_model"]` em execute) OR (b) delete `model_router.py` + `ModelRouter` refs. Ver plan `archive/S228-groovy-launching-steele.md` §Mudanca-1/3 |
+| ~~42~~ | RESOLVED | - | ~~ModelRouter unused~~ | ✅ S230 Batch 3c (commit pendente): `model_router.py` + `test_model_router.py` deletados; orchestrator simplificado; routing intent (trivial→Ollama, simple→Haiku, medium→Sonnet, complex→Opus) preservada como diretiva humana em `CLAUDE.md`. Decisão B (delete) escolhida — teatro arquitetural removido. |
 | 43 | infra | S | MCP safety gate dormant (`mcp_operation` key unset by callers) | S228 audit finding: `agents/core/orchestrator.py:45-48` gate só dispara com `task["mcp_operation"]`. `grep` confirma que nenhum workflow/test/caller seta essa key — workflows usam `type: "mcp"`. Decisão: (a) fire em `type:"mcp"` OR `mcp_operation` OR (b) delete gate Python (enforcement real está em `.claude/hooks/guard-mcp-queries.sh`). Ver §Mudanca-4 |
 
 ### Process/governance
