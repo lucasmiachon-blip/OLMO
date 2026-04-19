@@ -5,6 +5,7 @@ set -euo pipefail
 # Evento: SessionStart | Timeout: 5s | Exit: sempre 0
 # S225 Issue #10: reset inter-session /tmp counters (nudge-checkpoint state)
 # S225 Issue #4: namespace /tmp/cc-session-id file per repo (was shared across repos)
+# S230 G.8+G.5: anti-meta-loop banner + /insights bi-diario reminder
 
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
@@ -70,6 +71,36 @@ DREAM_PENDING="$HOME/.claude/.dream-pending"
 if [ -f "$DREAM_PENDING" ]; then
   echo ""
   echo "(Dream disponivel — rode /dream quando quiser)"
+fi
+
+# S230 Phase G.8 + G.5: anti-meta-loop banner + /insights bi-diario reminder
+if . "$PROJECT_ROOT/hooks/lib/banner.sh" 2>/dev/null; then
+  # G.8: anti-meta-loop (commits content/aulas/ vs total last 5)
+  AULAS_COMMITS_LAST_5=$(git -C "$PROJECT_ROOT" log -5 --pretty=format:"%H" -- content/aulas/ 2>/dev/null | wc -l | tr -d ' ' || echo "0")
+  TOTAL_LAST_5=$(git -C "$PROJECT_ROOT" log -5 --pretty=format:"%H" 2>/dev/null | wc -l | tr -d ' ' || echo "0")
+  META_STREAK=$((TOTAL_LAST_5 - AULAS_COMMITS_LAST_5))
+
+  R3_DAYS="?"
+  if [ -f "$PROJECT_ROOT/.claude/apl/deadline-days.txt" ]; then
+    R3_DAYS=$(cat "$PROJECT_ROOT/.claude/apl/deadline-days.txt" 2>/dev/null || echo "?")
+  fi
+
+  if [ "$META_STREAK" -ge 5 ] || { [ "$R3_DAYS" != "?" ] && [ "$R3_DAYS" -lt 100 ] 2>/dev/null; }; then
+    banner_critical "$META_STREAK SESSOES SEM PRODUTO" "R3 Clinica Medica: ${R3_DAYS} dias" "ACAO: voltar para content/aulas/"
+  elif [ "$META_STREAK" -ge 3 ]; then
+    banner_attn "$META_STREAK sessoes sem aulas/" "R3 Clinica Medica: ${R3_DAYS} dias" "Considere voltar a slides hoje"
+  fi
+
+  # G.5: /insights bi-diario reminder
+  LAST_INS_FILE="$PROJECT_ROOT/.claude/.last-insights"
+  if [ -f "$LAST_INS_FILE" ]; then
+    LAST_INS=$(cat "$LAST_INS_FILE" 2>/dev/null || echo 0)
+    NOW=$(date +%s)
+    GAP_DAYS=$(( (NOW - LAST_INS) / 86400 ))
+    if [ "$GAP_DAYS" -ge 2 ]; then
+      banner_info "/insights pendente" "Ultimo run: ${GAP_DAYS}d atras" "Periodicidade alvo: bi-diaria"
+    fi
+  fi
 fi
 
 exit 0
