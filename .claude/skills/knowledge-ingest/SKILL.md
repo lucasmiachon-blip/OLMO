@@ -166,7 +166,6 @@ Mostrar ao usuário:
 
 - Para editar slides da aula (usar slide-authoring)
 - Para rodar o QA pipeline (usar qa-pipeline)
-- Para publicar no Notion (usar notion-publisher)
 - Para busca profunda multi-perna (usar /research)
 
 Esta skill é o **primeiro passo** — ingerir conhecimento. O que vem depois (slides, QA, publicação) são skills diferentes.

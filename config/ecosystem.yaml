@@ -38,16 +38,6 @@ skills:
   mbe-evidence:
     path: ".claude/skills/mbe-evidence"
     description: "MBE rigorosa: GRADE, CONSORT, STROBE, PRISMA, PubMed, PICO (absorveu medical-research)"
-  # Notion e organizacao
-  notion-publisher:
-    path: ".claude/skills/notion-publisher"
-    description: "Templates Notion com estetica profissional"
-  notion-spec-to-impl:
-    path: ".claude/skills/notion-spec-to-impl"
-    description: "Specs → tasks no Notion Tasks DB"
-  organization:
-    path: ".claude/skills/organization"
-    description: "GTD, Eisenhower, memory, task management"
 
   # Ensino e concurso
   teaching:
