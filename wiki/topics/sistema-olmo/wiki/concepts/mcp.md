@@ -22,7 +22,7 @@ MCPs sao servidores que conectam Claude Code a sistemas externos via protocolo p
 |-----------|------|-----------|
 | Medico | PubMed, SCite, Consensus, Scholar Gateway | evidence-researcher, /research |
 | Estudo | NotebookLM (BioMCP) | /nlm-skill, /knowledge-ingest |
-| Produtividade | Notion | notion-ops, crosstalk pattern (S229) |
+| Produtividade | Notion | crosstalk pattern (S229 — MCP Notion direct, Claude Code inline) |
 | Visual | Excalidraw, Canva | diagramas, design |
 | Dev | Playwright, Context7 | qa-engineer, docs lookup |
 

@@ -26,8 +26,8 @@ Subagentes sao especialistas lancados pelo orquestrador (Opus 4.6) para tarefas 
 | quality-gate | Haiku | 10 | — | Lint, type-check, tests |
 | researcher | Haiku | 15 | — | Exploracao de codebase |
 | repo-janitor | Haiku | 12 | — | Orphan files, dead links |
-| notion-ops | Haiku | 10 | — | Notion CRUD com MCP safety |
 | sentinel | Sonnet | 25 | — | Read-only self-improvement, anti-patterns |
+| systematic-debugger | — | — | — | 4-phase structured debugging |
 
 ## Model Routing
 

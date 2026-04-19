@@ -22,7 +22,7 @@ Orchestrator (dispatch)
 
 Claude Code subagents (`.claude/agents/*.md` — research + QA + infra):
 `evidence-researcher`, `qa-engineer`, `mbe-evaluator`, `reference-checker`,
-`quality-gate`, `researcher`, `repo-janitor`, `notion-ops`.
+`quality-gate`, `researcher`, `repo-janitor`, `sentinel`, `systematic-debugger`.
 
 Full architecture with Mermaid DAGs: `docs/ARCHITECTURE.md`.
 
@@ -39,6 +39,6 @@ make test        # pytest (53 tests)
 
 - Python 3.11+, uv, ruff, mypy, pytest (53 tests)
 - Multiple MCP servers (PubMed, SCite, Consensus, Semantic Scholar, Zotero, Notion, NotebookLM, Gemini, Perplexity...)
-- Claude Code — 1 Python runtime agent + 8 CC subagents + 31 hooks
+- Claude Code — 1 Python runtime agent + 9 CC subagents + 31 hooks
 - OTel + Langfuse V3 observability (Docker Compose)
 - 7-layer antifragile stack (Taleb L1-L7 — ver `docs/ARCHITECTURE.md`)

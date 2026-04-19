@@ -24,7 +24,7 @@ Notion audit/add_content: **crosstalk pattern** (seção abaixo).
 
 **Nota histórica (S228-S229):** Foram deletados `Cientifico`+`AtualizacaoAI` (S228) + `Organizacao`+`KnowledgeOrganizer`+`NotionCleaner` (S229). Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Daily org + Notion writes migrados para OLMO_COWORK ou substituídos por crosstalk pattern. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` + `.claude/plans/archive/S229-slim-round-3-daily-exodus.md`.
 
-## Claude Code Subagents (8)
+## Claude Code Subagents (9)
 
 > Separado do runtime Python acima — estes são `.claude/agents/*.md` invocados via Task tool dentro do Claude Code, com MCPs + maxTurns próprios.
 
@@ -37,7 +37,8 @@ Notion audit/add_content: **crosstalk pattern** (seção abaixo).
 | quality-gate | Haiku | 10 | — | Lint, type-check, tests |
 | researcher | Haiku | 15 | — | Codebase exploration |
 | repo-janitor | Haiku | 12 | — | Orphan files, dead links |
-| notion-ops | Haiku | 10 | — | Notion CRUD with MCP safety |
+| sentinel | Sonnet | — | — | Read-only self-improvement, anti-pattern detection |
+| systematic-debugger | — | — | — | 4-phase structured debugging |
 
 ## Hook Pipeline
 
@@ -47,9 +48,9 @@ graph LR
 
     UPS --- ups1[ambient-pulse.sh<br>APL: 5-slot rotation]
     SS --- ss1[session-start.sh<br>session-compact.sh<br>apl-cache-refresh.sh]
-    PT --- pt1[8 guards:<br>secrets · pause · generated<br>product-files · plan-exit<br>bash-secrets · bash-write · lint-before-build]
-    PO --- po1[chaos-inject L6<br>model-fallback L2<br>build-monitor<br>lint-on-edit L5<br>cost-breaker L3]
-    S --- s1[crossref-check<br>detect-issues L5<br>chaos-report L6<br>hygiene · scorecard<br>notify]
+    PT --- pt1[9 guards:<br>read-secrets · write-unified<br>plan-exit · bash-secrets<br>bash-write · lint-before-build<br>research-queries · mcp-queries<br>momentum-brake-enforce]
+    PO --- po1[post-bash-handler<br>lint-on-edit L5<br>nudge-checkpoint<br>coupling-proactive<br>chaos-inject-post L6<br>model-fallback L2<br>post-global-handler]
+    S --- s1[prompt: silent-exec guard<br>agent: hygiene check<br>stop-quality (merged)<br>stop-metrics (merged)<br>stop-notify · integrity]
 
     style UPS fill:#e67e22,color:#fff
     style SS fill:#4a9eff,color:#fff
@@ -59,9 +60,9 @@ graph LR
     style S fill:#9b59b6,color:#fff
 ```
 
-**31 hooks total** (HANDOFF S227: 31/31 valid — Claude Code + PreCompact + git pre-commit).
+**31 scripts · 33 hook registrations em `settings.json`** (10 eventos: SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · PostToolUseFailure · SessionEnd + 2 inline Stop hooks).
 APL (Ambient Productivity Layer): 3 hooks — pulse per prompt, cache at start, scorecard at stop.
-Config: `.claude/settings.local.json`. Reference: `.claude/hooks/README.md`.
+Config: `.claude/settings.json` (overrides locais em `.claude/settings.local.json`). Reference: `.claude/hooks/README.md`.
 
 ## Antifragile Stack (Taleb L1-L7)
 
@@ -87,10 +88,10 @@ graph BT
 |-------|-----------|-----------|
 | L1 | DONE | `.claude/hooks/lib/retry-utils.sh` |
 | L2 | DONE | `.claude/hooks/model-fallback-advisory.sh` |
-| L3 | DONE | `.claude/hooks/cost-circuit-breaker.sh` |
+| L3 | NOT IMPLEMENTED | cost-circuit-breaker.sh removed — behavior unlinked (S230 audit) |
 | L4 | DONE | `context:fork` in skills |
 | L5 | DONE | `lint-on-edit.sh`, `stop-detect-issues.sh` |
-| L6 | BASIC | `chaos-inject.sh`, `chaos-inject-post.sh`, `stop-chaos-report.sh` |
+| L6 | BASIC | `chaos-inject-post.sh` + `lib/chaos-inject.sh` (stop-chaos-report absorvido/removido — reporting gap) |
 | L7 | DONE | `failure-registry.json`, memory TTL, `/dream`, `/insights` |
 
 Design doc: `docs/research/chaos-engineering-L6.md`
@@ -130,7 +131,7 @@ content/aulas/
 |----------|------|---------|
 | Medical (evidence) | PubMed, SCite, Consensus, Scholar Gateway, Semantic Scholar, CrossRef, BioMCP | evidence-researcher (6 braços MBE) |
 | Study | NotebookLM, Zotero | reference management |
-| Productivity | Notion, Google Calendar | notion-ops, crosstalk pattern |
+| Productivity | Notion | crosstalk pattern (S229 — MCP direct inline) |
 | Visual | Excalidraw, Canva | diagrams, design |
 
 Gemini: CLI OAuth ($0) + API key (scripts QA). Perplexity: API direta (not MCP).
@@ -206,16 +207,17 @@ OLMO/
 ├── CHANGELOG.md             # Session history (append-only)
 ├── .claude/BACKLOG.md       # Prioritized work items + setup checklist
 ├── .claude/
-│   ├── settings.local.json  # Hook registration + env vars
-│   ├── rules/ (10)          # Anti-drift, KBPs, QA pipeline, session hygiene
-│   ├── skills/ (20)         # Progressive disclosure (loaded on demand)
-│   ├── agents/ (8)          # Subagent definitions with model routing
-│   ├── hooks/ (11)          # Guards + antifragile hooks
+│   ├── settings.json        # Hook registrations + permissions + env vars
+│   ├── settings.local.json  # Local overrides (permissions only)
+│   ├── rules/ (5)           # Anti-drift, KBPs, QA pipeline, slide/design rules
+│   ├── skills/ (18)         # Progressive disclosure (loaded on demand)
+│   ├── agents/ (9)          # Subagent definitions with model routing
+│   ├── hooks/ (17 + lib/)   # Guards + antifragile hooks
 │   │   └── lib/             # retry-utils.sh, chaos-inject.sh
 │   ├── apl/                 # Ambient Productivity Layer cache (gitignored)
 │   ├── insights/            # failure-registry.json, reports
 │   └── plans/               # Session plans
-├── hooks/ (12)              # Lifecycle + APL: session-start, stop-*, ambient-pulse, apl-cache
+├── hooks/ (13)              # Lifecycle + APL: session-start, stop-*, ambient-pulse, apl-cache, nudge-commit, post-compact-reread, session-end
 ├── config/
 │   ├── ecosystem.yaml       # Agent routing + skills
 │   └── mcp/servers.json     # MCP server configs (pinned versions)

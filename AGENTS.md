@@ -1,12 +1,14 @@
 # AGENTS.md - OLMO Project (Codex CLI + Gemini CLI)
 
+> ⚠️ **Claude Code NÃO lê este arquivo.** Consumer: Codex CLI + Gemini CLI (convenção própria dos CLIs externos). Claude Code governa-se por `CLAUDE.md` + `.claude/rules/` apenas. Este arquivo orienta cross-CLI strategy.
+
 ## ROLE: VALIDAR (Codex) | PESQUISAR (Gemini)
 
 - **Claude Code (Opus 4.6)** = FAZER (build, code, orchestrate)
 - **Gemini CLI (Gemini 3.1)** = PESQUISAR (multimodal, deep research, vision)
 - **Codex CLI (GPT-5.4)** = VALIDAR (review, audit, adversarial)
 
-Both are READ-ONLY. Report findings. Do NOT implement fixes or edit files.
+Codex + Gemini são READ-ONLY (Claude Code não é vinculado por esta restrição). Report findings. Do NOT implement fixes or edit files.
 
 ## Quick Commands
 
@@ -62,7 +64,7 @@ Lucas is a beginner developer who accepts model decisions passively. Catch what 
 
 ### Behavioral Heuristics (complement to scope above)
 
-- **Confirmation inertia**: Is the model just agreeing with Lucas? Check for 3+ consecutive agreements without a single objection or risk raised. (See: `memory/patterns_adversarial_review.md`)
+- **Confirmation inertia**: Is the model just agreeing with Lucas? Check for 3+ consecutive agreements without a single objection or risk raised.
 - **Context drift**: Do new rules/changes contradict `CLAUDE.md`, `GEMINI.md`, or existing `.claude/rules/`? Cross-file diff required. (See: `anti-drift.md`)
 - **Evidence integrity**: Cross-validate PMIDs against living HTML (canonical) and PubMed. LLM-generated PMIDs have ~56% error rate. (See: `reference-checker.md`)
 

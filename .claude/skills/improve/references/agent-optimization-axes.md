@@ -11,13 +11,12 @@
 | Subagent parallelism | QA gates em paralelo (preflight+inspect+editorial simultaneo) | PENDING | Anthropic orchestrator-workers |
 | Agent-as-skill migration | Agents sem isolamento real → skills context:fork (mais lean) | PENDING | "skills for knowledge, agents for isolation" |
 
-## Current Agents (10)
+## Current Agents (9)
 
 | Agent | Model | Tools | maxTurns | Candidate for |
 |-------|-------|-------|----------|---------------|
 | evidence-researcher | (default) | Read,Grep,Glob,WebFetch,Bash,MCPs | - | Tool audit |
 | mbe-evaluator | (default) | Read,Grep,Glob | - | Haiku? (read-only) |
-| notion-ops | (default) | Read,Grep,Glob | - | Skill migration? |
 | qa-engineer | (default) | Read,Write,Edit,Bash | - | Parallelism |
 | quality-gate | (default) | Read,Grep,Glob,Bash | - | Haiku? (lint only) |
 | reference-checker | (default) | Read,Grep,Glob,WebSearch,MCPs,Write,Edit | - | Tool audit (Write needed?) |

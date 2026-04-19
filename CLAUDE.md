@@ -58,7 +58,7 @@ Mapa completo: `docs/TREE.md`. Entry points:
 - YAML para config, JSON para dados
 - Conteudo medico: referenciamento impecavel (PMID, DOI)
 - **Coautoria AI explicita:** `Coautoria: Lucas + [modelos]` em todo conteudo compartilhado. Commits: `Co-authored-by:`.
-- Hooks em `hooks/` + `.claude/hooks/` (config em `.claude/settings.local.json`)
+- Hooks em `hooks/` + `.claude/hooks/` (config em `.claude/settings.json`; overrides locais em `.claude/settings.local.json`)
 
 ## Propagation Map
 
