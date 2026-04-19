@@ -66,10 +66,8 @@ class Orchestrator(BaseAgent):
 
         # Roteamento automatico baseado no tipo
         routing_map: dict[str, str] = {
-            "research": "cientifico",
             "automate": "automacao",
             "organize": "organizacao",
-            "analyze": "cientifico",
             "schedule": "organizacao",
             "monitor": "automacao",
         }

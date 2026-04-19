@@ -16,27 +16,6 @@ agents:
     description: "Coordena todos os agentes do ecossistema"
     budget_tracker: true
 
-  cientifico:
-    enabled: true
-    model: "claude-sonnet-4-6"
-    description: "Pesquisa e analise cientifica"
-    subagents: ["trend_analyzer"]
-    research_areas:
-      - medicina_baseada_em_evidencias
-      - gastroenterologia_hepatologia
-      - clinica_medica
-      - artificial_intelligence
-      - machine_learning
-      - devops_mlops_aiops
-      - systems_engineering
-    sources:
-      - pubmed
-      - scite
-      - consensus
-      - scholar_gateway
-      - arxiv
-      - semantic_scholar
-
   automacao:
     enabled: true
     model: "claude-haiku-4-5"
@@ -61,10 +40,6 @@ subagents:
     enabled: true
     model: "claude-haiku-4-5"
     parent: "automacao"
-  trend_analyzer:
-    enabled: true
-    model: "claude-haiku-4-5"
-    parent: "cientifico"
   knowledge_organizer:
     enabled: true
     model: "claude-sonnet-4-6"
@@ -76,7 +51,7 @@ subagents:
     parent: "organizacao"
     description: "Limpa e organiza Notion com seguranca (modelo harsh)"
 
-# Skills (.claude/skills/ — 13 ativas)
+# Skills (.claude/skills/ — 12 ativas)
 skills:
   # Pesquisa e ciencia
   mbe-evidence:

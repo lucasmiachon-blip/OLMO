@@ -1,39 +1,32 @@
 # Arquitetura do Ecossistema OLMO
 
-> AI agent ecosystem for medical education, research, and exam prep.
-> Estado: S94 | 2026-04-06
+> AI agent ecosystem for medical education, organization, and exam prep.
+> **Consumer side** (producer em OLMO_COWORK — ver ADR-0002).
+> Estado: S228 | 2026-04-18 (slim migration)
 
-## Orchestrator DAG
+## Runtime Python DAG (dispatcher + 2 agents)
 
 ```mermaid
 graph TD
-    U[Lucas] -->|request| O[Orchestrator<br>Opus 4.6]
-
-    O -->|complex research| SCI[Cientifico<br>Sonnet]
+    U[Lucas] -->|request| O[Orchestrator<br>dispatcher]
     O -->|pipelines, rules| AUT[Automacao<br>Haiku]
-    O -->|GTD, projects| ORG[Organizacao<br>Sonnet]
-    O -->|models, tools| UPD[Atualizacao AI<br>Sonnet]
-
-    SCI -->|papers| MCP_MED[PubMed · SCite · Consensus<br>Scholar GW · Zotero]
-    SCI -->|grounding| GEM[Gemini CLI]
-    SCI -->|deep search| PERP[Perplexity API]
-    AUT -->|publish| MCP_PROD[Notion · Gmail · Calendar]
-    ORG -->|publish| MCP_PROD
-    UPD -->|monitor| WEB[WebSearch · WebFetch]
-
-    MCP_MED -->|evidence| LH[Living HTML<br>per slide]
-    MCP_PROD -->|pages| NOT[Notion DBs]
+    O -->|GTD, Notion cleanup| ORG[Organizacao<br>Sonnet]
+    ORG -->|publish| NOT[Notion DBs]
 
     style O fill:#f5a623,color:#000
-    style SCI fill:#7b68ee,color:#fff
     style AUT fill:#20b2aa,color:#fff
     style ORG fill:#7b68ee,color:#fff
-    style UPD fill:#7b68ee,color:#fff
 ```
+
+Pesquisa científica + QA + research-pull rodam via **Claude Code subagents** (próxima seção) — não pelo orchestrator Python.
 
 **Regra**: Lucas decide, agente executa. Sem OK explicito = nao fazer.
 
-## Agents (8)
+**Nota S228:** `Cientifico` e `AtualizacaoAI` agents Python foram deletados. Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Monitoramento AI/news + publicação de digests migrados para OLMO_COWORK. Ver `.claude/plans/groovy-launching-steele.md` para auditoria adversarial.
+
+## Claude Code Subagents (8)
+
+> Separado do runtime Python acima — estes são `.claude/agents/*.md` invocados via Task tool dentro do Claude Code, com MCPs + maxTurns próprios.
 
 | Agent | Model | maxTurns | Memory | Role |
 |-------|-------|----------|--------|------|
@@ -66,7 +59,7 @@ graph LR
     style S fill:#9b59b6,color:#fff
 ```
 
-**25 hooks total** (23 Claude Code + 1 PreCompact + 1 git pre-commit).
+**31 hooks total** (HANDOFF S227: 31/31 valid — Claude Code + PreCompact + git pre-commit).
 APL (Ambient Productivity Layer): 3 hooks — pulse per prompt, cache at start, scorecard at stop.
 Config: `.claude/settings.local.json`. Reference: `.claude/hooks/README.md`.
 
@@ -131,16 +124,18 @@ content/aulas/
 
 **Patterns:** assertion-evidence (`<h2>` = claim, visual = evidence), declarative animation (`data-animate`), OKLCH design tokens, 1280x720 viewport.
 
-## MCP Connections (11)
+## MCP Connections
 
 | Category | MCPs | Used by |
 |----------|------|---------|
-| Medical | PubMed, SCite, Consensus, Scholar Gateway | evidence-researcher, /research |
-| Study | NotebookLM, Zotero | /nlm-skill, reference management |
-| Productivity | Notion, Gmail, Google Calendar | notion-ops, /daily-briefing |
+| Medical (evidence) | PubMed, SCite, Consensus, Scholar Gateway, Semantic Scholar, CrossRef, BioMCP | evidence-researcher (6 braços MBE) |
+| Study | NotebookLM, Zotero | reference management |
+| Productivity | Notion, Google Calendar | notion-ops, organizacao |
 | Visual | Excalidraw, Canva | diagrams, design |
 
-Gemini: CLI OAuth ($0) + API key (scripts). Perplexity: API direta (not MCP).
+Gemini: CLI OAuth ($0) + API key (scripts QA). Perplexity: API direta (not MCP).
+
+**Migrated S228 → OLMO_COWORK (ADR-0002):** Gmail (producer — email scan/classify/publish).
 
 ## Model Routing
 
@@ -173,7 +168,7 @@ graph TD
 2. **Pick focus** — from HANDOFF proximos passos (P0 first, then P1)
 3. **Work** — propose/OK/execute cycle. Max 2 subagents. Commit early.
 4. **Wrap** — update HANDOFF (future-only) + CHANGELOG (append-only)
-5. **Email** — `/daily-briefing` for Gmail triage + Notion digest (optional)
+5. **Inbox pull** — `/digest-pull` or `/research-pull` reads artifacts from `$OLMO_INBOX` (producer = OLMO_COWORK)
 
 ### Weekly
 
@@ -242,4 +237,4 @@ OLMO/
 
 ---
 
-Coautoria: Lucas + Opus 4.6 | S94
+Coautoria: Lucas + Opus 4.7 | S228 (slim consumer migration)

@@ -21,9 +21,7 @@ from agents.automation.automation_agent import AutomationAgent
 from agents.core.log import setup_logging
 from agents.core.orchestrator import Orchestrator
 from agents.organization.organization_agent import OrganizationAgent
-from agents.scientific.scientific_agent import ScientificAgent
 from config.loader import load_config, load_workflows
-from subagents.analyzers.trend_analyzer import TrendAnalyzerSubagent
 from subagents.processors.data_pipeline import DataPipelineSubagent
 from subagents.processors.knowledge_organizer import KnowledgeOrganizerSubagent
 from subagents.processors.notion_cleaner import NotionCleanerSubagent
@@ -43,7 +41,6 @@ def build_ecosystem() -> Orchestrator:
 
     # Criar agentes principais
     agents = [
-        ScientificAgent(),
         AutomationAgent(),
         OrganizationAgent(),
     ]
@@ -51,7 +48,6 @@ def build_ecosystem() -> Orchestrator:
     # Criar subagentes
     subagents = [
         DataPipelineSubagent(),
-        TrendAnalyzerSubagent(),
         KnowledgeOrganizerSubagent(),
         NotionCleanerSubagent(),
     ]
@@ -67,7 +63,6 @@ def build_ecosystem() -> Orchestrator:
     subagents_config = config.get("subagents", {})
     subagent_to_parent = {
         "data_pipeline": "automacao",
-        "trend_analyzer": "cientifico",
         "knowledge_organizer": "organizacao",
         "notion_cleaner": "organizacao",
     }

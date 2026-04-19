@@ -8,22 +8,23 @@
 4. **Curiosidade obrigatoria.** Explicar o porque antes de executar. Ensinar durante, nao depois.
 
 Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica dez/2026 (120 questoes).
-Pesquisa MBE, ensino, organizacao, monitoramento AI. Maximo valor, minimo custo.
+Consumer MBE (via `$OLMO_INBOX`), ensino, organizacao. Producer em OLMO_COWORK (ADR-0002). Maximo valor, minimo custo.
 
 ## Values (decision gates)
 
 - **Antifragile**: esta decisao torna o sistema mais forte com falhas futuras? Warn vs block → block se FP baixo.
 - **Curiosidade**: esta interacao ensina algo? Conexoes reais, nunca infantilizar.
 
-## Architecture
+## Architecture (S228 slim — consumer only)
 
+Runtime Python:
 ```
-Orchestrator (Opus 4.6) ─── rota, planeja, decide
-├── Cientifico (Sonnet) ─── papers, PubMed, hipoteses
+Orchestrator (dispatch) ─── por agent-name ou type-keyword
 ├── Automacao (Haiku) ─── regras, pipelines, cron
-├── Organizacao (Sonnet) ─── GTD, Eisenhower, Notion
-└── AtualizacaoAI (Sonnet) ─── modelos, tools, benchmarks
+└── Organizacao (Sonnet) ─── GTD, Eisenhower, Notion cleanup
 ```
+
+Pesquisa MBE + QA + inbox-pull: Claude Code subagents (`.claude/agents/*.md`), não pelo orchestrator Python. Ver `docs/ARCHITECTURE.md`.
 
 ## Objectives
 
@@ -65,7 +66,7 @@ Aulas: ver `content/aulas/CLAUDE.md`.
 | Se mudou... | Deve atualizar... |
 |-------------|-------------------|
 | `.claude/agents/*.md` | HANDOFF.md tabela de agentes |
-| `config/ecosystem.yaml` | `docs/ARCHITECTURE.md` |
+| `config/ecosystem.yaml` | `docs/ARCHITECTURE.md` + `README.md` + `CLAUDE.md` (architecture blocks) |
 
 ## Self-Improvement
 

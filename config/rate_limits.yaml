@@ -56,7 +56,7 @@ model_routing:
   simple:
     model: "claude-haiku-4-5"    # Custo: ~$0.003/call
     use_for: ["classificacao rapida", "filtragem", "subagentes auxiliares",
-              "trend_analyzer", "data_pipeline", "web_monitor"]
+              "data_pipeline"]
 
   triage:
     model: "claude-sonnet-4-6"   # Custo: ~$0.01/call

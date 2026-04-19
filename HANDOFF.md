@@ -1,35 +1,31 @@
 # HANDOFF - Proxima Sessao
 
-> **S226 CLOSED** 2026-04-17 | **S227 active** (melhoria1.1.2 + docs-diet + #34 partial) | ADR-0001/0002 + KBP-26
+> **S227 CLOSED** 2026-04-18 | **S228 CLOSED** 2026-04-18 (melhoria_continua — adversarial audit + slim migration) | ADR-0001/0002 + KBP-26 + BACKLOG #41
 
-**S227 HYDRATION:** Read `.claude/plans/ACTIVE-S225-SHIP-roadmap.md` (multi-session, sync S226 post-close) + `.claude/plans/archive/S226-purga-cowork-plan.md` (histórico S226) + optional `.claude/plans/ACTIVE-S227-memory-to-living-html.md` (target #4) + este HANDOFF. Then `/plan` e "vamos começar."
+**S229 HYDRATION:** Read `.claude/plans/groovy-launching-steele.md` (S228 adversarial audit — contexto do slim migration + open findings) + este HANDOFF. Then `/plan` e "vamos começar."
 
-## S227 START HERE
+## S229 START HERE
 
-**Priority carryover S225→S226→S227:**
+**Priority carryover (reordenado S228):**
 
-0. **[P1 S227 partial] BACKLOG #34** — CC 2.1.113 `permissions.ask` empirically broken (cp/rm/Write all tested). Applied: 34 destructive deny patterns. Manual follow-up próxima sessão: `/clear` + observe popup stability + close. Ver KBP-26. Residual: redirects + script-file writes ungateable.
-1. **Phase 2.1 momentum-brake** (Codex #3): bash exemption blanket → granular. 45min HIGH risk. Specs em `plans/archive/S225-consolidacao-plan.md` §Phase 2.1.
-2. **Track A semantic memory**: ByteRover CLI vs MemSearch vs Smart Connections.
-3. **DE Fase 2**: rule `design-excellence.md` + skill `polish/SKILL.md`.
-4. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S227-memory-to-living-html.md`.
-5. **Melhorias1.1.2 CLOSEOUT (2026-04-18)**: discipline-rules track resolved.
-   - Origem: commit 48c038c (S225 post-close, 4 gaps)
-   - #1 cp Pattern 8 bypass → BACKLOG #34 RESOLVED-PARTIAL S227 (ver item 0)
-   - #2 first-turn discipline → `anti-drift.md` §First-turn discipline (KBP-23) [S225+S226]
-   - #3 propose-before-pour → `anti-drift.md` §Propose-before-pour [S226]
-   - #4 budget gate → `anti-drift.md` §Budget gate em scope extensions [S226]
-   Status: CLOSED. Sem 1.1.3 planejado.
+0. **[P1 S227 partial] BACKLOG #34** — CC 2.1.113 `permissions.ask` empiricamente broken. Applied: 34 destructive deny patterns. Manual follow-up: `/clear` + observe popup stability + close. Ver KBP-26. Residual: redirects + script-file writes ungateable.
+1. **Confirmar "6 braços" meta-analysis tool identity** (S228 followup): Lucas mencionou "agent skill ou script com 6 braços" que roda metanálise viva. Candidatos: `.claude/agents/evidence-researcher` (PubMed+Scite+Consensus+Semantic Scholar+CrossRef+BioMCP) + `.claude/skills/mbe-evidence`. Documentar identidade em ARCHITECTURE.md §MCP Connections. ~15min.
+2. **docs/TREE.md audit** (S228 followup): pode referenciar arquivos removidos (`agents/ai_update/`, `agents/scientific/`, `subagents/monitors/`, `subagents/analyzers/`). Grep + clean. ~10min.
+3. **Phase 2.1 momentum-brake** (Codex #3): bash exemption blanket → granular. 45min HIGH risk. Specs em `plans/archive/S225-consolidacao-plan.md` §Phase 2.1.
+4. **Track A semantic memory**: ByteRover CLI vs MemSearch vs Smart Connections.
+5. **DE Fase 2**: rule `design-excellence.md` + skill `polish/SKILL.md`.
+6. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S227-memory-to-living-html.md`.
 
-## ESTADO POS-S226
+## ESTADO POS-S228
 
-- **ADRs**: ADR-0001 (OLMO_COWORK-side) + ADR-0002 (OLMO-side). Sistema bidirecionalmente consistente.
+- **Slim migration** (S228 melhoria_continua): OLMO = consumer-only honesto. Runtime Python: 2 agents (automacao, organizacao) + 3 subagents + 6 workflows. Deletados: agent `atualizacao_ai`, agent `cientifico`, subagents `web_monitor`+`trend_analyzer`, 4 Python dirs, 9 producer workflows, skill `daily-briefing`, gmail mcp_routing. Todos migrados conceitualmente para OLMO_COWORK (ADR-0002).
+- **Auditoria adversarial Opus** (S228): 8 findings em `.claude/plans/groovy-launching-steele.md`. Descoberta bonus: `_resolved_model` escrito nunca lido → `ModelRouter` era teatro log-only. Acusação NÃO endereçada em S228 (requer decisão futura: wire consumers OR delete router). Ver plan Bloco 3 "Não fazer agora".
+- **ADRs**: ADR-0001 (OLMO_COWORK-side) + ADR-0002 (OLMO-side). Sistema bidirecionalmente consistente. S228 exerce ADR-0002 concretamente no código.
 - **KBPs**: 26 entries. Next: KBP-27.
-- **Hooks**: 31/31 valid (unchanged from S225).
-- **Toolchain**: MSYS2 full (unchanged).
-- **Plans active**: 2 (`ACTIVE-S225-SHIP-roadmap`, `ACTIVE-S227-memory-to-living-html`). Archived S226: `S226-purga-cowork-plan` + `S204-snoopy-jingling-aurora` (synced post-close) + `S226-post-close-sync-plan` (this sync).
+- **Hooks**: 31/31 valid (unchanged).
+- **BACKLOG**: 38 items (novo #41: "research orchestrator future, fresh design"). Counts P1=10/P2=20.
+- **Plans**: active 2 (S225-SHIP, S227-memory-to-living-html). Novo: `groovy-launching-steele.md` (S228 adversarial audit + slim migration plan).
 - **Memory**: 6 evidence-researcher + MEMORY.md; global 19/20.
-- **BACKLOG**: 37 items.
 
 ---
-Coautoria: Lucas + Opus 4.7 | S227 melhoria1.1.2 + docs-diet | 2026-04-18
+Coautoria: Lucas + Opus 4.7 | S228 melhoria_continua (adversarial audit + slim migration) | 2026-04-18

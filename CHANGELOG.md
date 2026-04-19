@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Sessao 228 — 2026-04-18 (melhoria_continua — adversarial audit + slim migration)
+
+### Auditoria adversarial Opus (Bloco 1/2/3 + Anti-sycophancy)
+- Input: prompt adversarial 5-hipoteses (orchestrator.py:44, route_task asymmetry, workflows.yaml drift, scientific_agent placeholders, README drift)
+- Output: `.claude/plans/groovy-launching-steele.md` — 8 findings, 7 reflexões disciplinadas, Hard Call (fazer/não-fazer/suspender)
+- **Descoberta bonus** não antecipada: `_resolved_model` é escrito em `orchestrator.py:83` mas **nunca lido** por nenhum agente. `ModelRouter` = teatro log-only. Subverte fix proposto no prompt original (wire `agents_config`)
+
+### Slim migration (Phase A-E) — OLMO = consumer honesto (ADR-0002 enforcement)
+- Phase A: remove 5 producer workflows (batch_morning_digest, gmail_to_notion, weekly_medical_digest, weekly_ai_update, ai_monitoring)
+- Phase B: remove agent `atualizacao_ai`, subagent `web_monitor`, skill `daily-briefing`, mcp_routing gmail:*
+- Phase C: `git rm` agents/ai_update/ + subagents/monitors/
+- Phase D: orchestrator.py + agents/core/orchestrator.py imports/lists/mappings cleanup
+- Phase E: remove 4 research workflows (paper_to_notion, quick_note_to_evidence, research_sprint, research_pipeline) + `git rm` agents/scientific/ + subagents/analyzers/ + remove agent `cientifico` + subagent `trend_analyzer` + rate_limits.yaml cleanup
+- Phase F: docs sync (README, ARCHITECTURE.md, CLAUDE.md) — slim architecture reflected. Live meta-analysis: `.claude/agents/evidence-researcher` 6 braços MCP
+- Phase G: 53 tests pass, `python -m orchestrator status` clean (2 agents, 3 subagents, 6 workflows)
+- BACKLOG #41 (P2 research): "research orchestrator (future, fresh design)" — preserva intent sem dívida
+
+### Aprendizados + residual
+- Aspiracional vs runtime: 4/5 hipoteses adversariais TRUE + 1 PARCIAL. Padrão recorrente: feature documentada sem consumer → dívida.
+- `_resolved_model` unused: ModelRouter fix adiado (precede decisão "wire consumers OR delete router").
+- Lucas constraint preservada: `.claude/skills/mbe-evidence` + Gemini/Perplexity/NotebookLM MCP routing intactos.
+- Commits: 2 (75d75db Phase A-D + este atomic Phase E-H).
+
 ## Sessao 227 — 2026-04-18 (#34 investigation + deny architecture)
 
 ### BACKLOG #34 cp Pattern 8 bypass — architecture patch (partial)

@@ -66,163 +66,6 @@ workflows:
   # ON-DEMAND WORKFLOWS
   # ============================================================
 
-  # Paper → Analise MBE → Notion
-  paper_to_notion:
-    name: "Paper → Analise MBE → Notion"
-    description: |
-      Recebe uma nota, paper ou topico medico.
-      Dispara buscas em PubMed/Scite/Consensus/Elicit.
-      Analisa criticamente com MBE profissional.
-      Popula pagina Notion com estetica e qualidade.
-    trigger: "manual"
-    budget_tracking: true
-    orchestrator: "claude-opus-4-6"
-    estimated_calls: 3-5
-    steps:
-      - name: "parse_input"
-        type: "local"
-        action: |
-          Receber input do usuario (nota, paper, topico)
-          Extrair: topico principal, subtopicos, pergunta clinica
-          Formular PICO se possivel
-          Identificar especialidade medica
-        cost: "$0.00"
-      - name: "pubmed_search"
-        type: "mcp"
-        servers: ["healthcare-mcp", "pubmed-mcp", "biomcp"]
-        action: |
-          Buscar em PubMed por MeSH terms relevantes
-          Filtrar: ultimos 5 anos, humanos, idioma
-          Priorizar: RCTs, meta-analises, guidelines (tier 1)
-          Buscar ClinicalTrials.gov para trials ativos
-        max_results: 20
-        cost: "$0.00 (MCP)"
-      - name: "consensus_scite_triage"
-        type: "mcp"
-        servers: ["consensus", "scite"]
-        when: "MCPs configurados e assinatura ativa"
-        action: |
-          Consensus: filtrar por Meta-Analysis + Systematic Review, obter % consenso
-          Scite: supporting vs contrasting citations por paper
-          Entregar output estruturado para o step Opus
-        cost: "Assinatura Scite/Consensus"
-      - name: "opus_classify_and_critique"
-        type: "api_call"
-        model: "claude-opus-4-6"
-        agent: "cientifico"
-        action: |
-          RECEBE: respostas do Scite e Consensus (consenso %, supporting/contrasting)
-
-          Opus atua como especialista MBE senior:
-          1. FILTRAR evidencia a partir dos dados Scite/Consensus (priorizar papers com consenso alto, menos contrasting)
-          2. CLASSIFICAR nivel de evidencia (Oxford CEBM) e grau de recomendacao (A-D)
-          3. COLOCAR as criticas mais importantes: vieses, limitacoes, contradicoes (Scite contrasting), incerteza (Consensus baixo)
-          4. Sintetizar em formato estruturado para Notion (PICO, tabela estudos, conclusao, criticas em destaque)
-        cost: "~$0.05-0.10"
-      - name: "cross_validation"
-        type: "api_call"
-        model: "chatgpt-5.4"
-        optional: true
-        when: "evidencia ambigua ou decisao critica"
-        action: |
-          Segunda opiniao sobre a analise MBE:
-          - Concordancia com grau de recomendacao?
-          - Algum estudo importante esquecido?
-          - Vieses nao identificados?
-        cost: "~$0.02-0.05"
-      - name: "publish_to_notion"
-        type: "mcp"
-        server: "notion"
-        action: |
-          Criar pagina no Notion usando template MBE:
-          - Titulo com emoji medico
-          - PICO em tabela
-          - Conclusao principal em callout
-          - Tabela comparativa dos estudos
-          - Analise critica com checkmarks
-          - Referencias com PMID
-          - Tag de nivel de evidencia
-        template: "resumo_evidencias_medicas"
-        database: "Knowledge Base Medica"
-        cost: "$0.00 (MCP)"
-      - name: "publish_to_obsidian"
-        type: "local"
-        action: |
-          Criar nota em resources/ com:
-          - Frontmatter: tags (topico, mbe, evidence_level), last_review, references
-          - Conteudo: definicao, pontos-chave, referencias PMID
-          - Links bidirecionais [[topicos relacionados]]
-          Usar atualizar_tema.py ou script equivalente
-        output: "resources/<tema>.md"
-        cost: "$0.00"
-
-  # Nota Rapida → Evidencia → Notion
-  quick_note_to_evidence:
-    name: "Nota Rapida → Evidencia → Notion"
-    description: |
-      Voce anota algo rapido (ex: "metformina e cancer?")
-      O sistema busca, analisa e publica no Notion
-    trigger: "manual"
-    budget_tracking: true
-    estimated_calls: 2
-    steps:
-      - name: "parse_note"
-        type: "local"
-        action: "Extrair topico e formular pergunta PICO"
-        cost: "$0.00"
-      - name: "search_evidence"
-        type: "mcp"
-        servers: ["pubmed-mcp", "healthcare-mcp"]
-        action: "Buscar evidencias no PubMed"
-        cost: "$0.00"
-      - name: "analyze_and_publish"
-        type: "api_call"
-        model: "claude-opus-4-6"
-        action: |
-          Analisar evidencias encontradas:
-          - Nivel de evidencia
-          - Numeros concretos (NNT, RR, IC)
-          - Conclusao pratica
-          Formatar como Quick Reference e publicar no Notion
-        cost: "~$0.05-0.10"
-      - name: "publish_notion"
-        type: "mcp"
-        server: "notion"
-        template: "nota_clinica_rapida"
-        cost: "$0.00"
-
-  # Research Sprint
-  research_sprint:
-    name: "Sprint de Pesquisa"
-    description: "Pesquisa profunda sobre 1 topico usando budget com sabedoria"
-    trigger: "manual"
-    budget_tracking: true
-    api_calls: 3
-    steps:
-      - action: "api_query"
-        prompt: |
-          Mapeie o estado da arte de: {topic}
-          - Top 5 papers mais citados
-          - Top 3 frameworks/tools
-          - Principais autores/labs
-          - Gaps de pesquisa
-        cache_ttl_hours: 72
-      - action: "api_query"
-        prompt: |
-          Analise criticamente os achados sobre {topic}:
-          - Metodologias dominantes e suas limitacoes
-          - Tendencias emergentes
-          - Oportunidades de contribuicao
-        cache_ttl_hours: 72
-      - action: "api_query"
-        prompt: |
-          Sintetize a pesquisa sobre {topic} em:
-          1. Resumo executivo (3 paragrafos)
-          2. Tabela comparativa dos approaches
-          3. Recomendacao de proximos passos
-          4. Lista de leitura priorizada (top 5)
-        cache_ttl_hours: 168
-
   # Smart Query (cache-first)
   smart_query:
     name: "Query Inteligente"
@@ -328,30 +171,6 @@ workflows:
         action: "generate_report"
         description: "Gerar relatorio final (executado + pendente + flags)"
 
-  # Pesquisa Cientifica Pipeline
-  research_pipeline:
-    name: "Pipeline de Pesquisa"
-    description: "Pesquisa cientifica completa sobre um topico"
-    trigger: "manual"
-    budget_tracking: true
-    steps:
-      - agent: "cientifico"
-        action: "search"
-        model_tier: "triage"
-        description: "Buscar papers"
-      - subagent: "trend_analyzer"
-        action: "analyze"
-        model_tier: "simple"
-        description: "Analisar tendencias nos resultados"
-      - agent: "cientifico"
-        action: "literature_review"
-        model_tier: "deep"
-        description: "Criar revisao de literatura"
-      - agent: "cientifico"
-        action: "generate_hypothesis"
-        model_tier: "deep"
-        description: "Gerar hipoteses"
-
 # ============================================================
 # BUDGET MENSAL ESTIMADO (Consolidado)
 # ============================================================
@@ -359,17 +178,18 @@ workflows:
 # Workflow                      | Calls/mes | Custo
 # ------------------------------|-----------|--------
 # Weekly Deep Review (4x)       | 12        | ~$0.60
-# Paper-to-Notion (~4x)         | 12-20     | ~$0.60-1.00
-# Quick Notes (~8x)             | 16        | ~$0.80
 # Smart Queries (~20x)          | 0-20      | ~$0.00-1.00
-# Research Sprint (on-demand)   | 3         | ~$0.15
 # ------------------------------|-----------|--------
-# TOTAL API                     | ~43-71    | ~$2.15-3.55
+# TOTAL API                     | ~12-32    | ~$0.60-1.60
 # + MCPs (PubMed, Notion, etc)  |           | $0.00
 # + Overhead, spikes, testes    |           | ~$5-35
 # ------------------------------|-----------|--------
-# TOTAL REAL MENSAL             |           | ~$7-40
+# TOTAL REAL MENSAL             |           | ~$6-37
 # MAX ABSOLUTO                  |           | $100/mes
-# NOTA: workflows producer (batch_morning_digest, gmail_to_notion,
-#       weekly_medical_digest, weekly_ai_update, ai_monitoring)
-#       migrados para OLMO_COWORK em S228 (ver ADR-0002).
+# NOTA: workflows producer migrados para OLMO_COWORK em S228 (ADR-0002):
+#       - batch_morning_digest, gmail_to_notion, weekly_medical_digest,
+#         weekly_ai_update, ai_monitoring (Phase A)
+#       - paper_to_notion, quick_note_to_evidence, research_sprint,
+#         research_pipeline (Phase E)
+#       Meta-analise live tool: .claude/agents/evidence-researcher (6 MCPs)
+#       + .claude/skills/mbe-evidence. Nao reviver stubs Python.
