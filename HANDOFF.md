@@ -1,20 +1,23 @@
 # HANDOFF - Proxima Sessao
 
-> **S227 CLOSED** 2026-04-18 | **S228 CLOSED** 2026-04-18 (melhoria_continua — adversarial audit + slim migration) | ADR-0001/0002 + KBP-26 + BACKLOG #41
+> **S228 CLOSED** 2026-04-18 (melhoria_continua — adversarial audit + slim migration rounds 1-2) | ADR-0001/0002 + KBP-26 + BACKLOG #41-45
 
-**S229 HYDRATION:** Read `.claude/plans/archive/S228-groovy-launching-steele.md` (S228 adversarial audit — contexto do slim migration + open findings) + este HANDOFF. Then `/plan` e "vamos começar."
+**S229 HYDRATION:** Read `.claude/plans/archive/S228-groovy-launching-steele.md` (S228 adversarial audit — padrão "feature aspiracional sem consumer" que norteia slim migrations) + este HANDOFF. Then `/plan` e "vamos começar."
 
 ## S229 START HERE
 
-**Priority carryover (reordenado S228):**
+**Foco S229:** round 3 slim migration — organizacao diaria + Notion tasks → OLMO_COWORK. `knowledge_organizer` fica redundante pós-cowork.
 
-0. **[P1 S227 partial] BACKLOG #34** — CC 2.1.113 `permissions.ask` empiricamente broken. Applied: 34 destructive deny patterns. Manual follow-up: `/clear` + observe popup stability + close. Ver KBP-26. Residual: redirects + script-file writes ungateable.
-1. **Confirmar "6 braços" meta-analysis tool identity** (S228 followup): Lucas mencionou "agent skill ou script com 6 braços" que roda metanálise viva. Candidatos: `.claude/agents/evidence-researcher` (PubMed+Scite+Consensus+Semantic Scholar+CrossRef+BioMCP) + `.claude/skills/mbe-evidence`. Documentar identidade em ARCHITECTURE.md §MCP Connections. ~15min.
-2. **docs/TREE.md audit** (S228 followup): pode referenciar arquivos removidos (`agents/ai_update/`, `agents/scientific/`, `subagents/monitors/`, `subagents/analyzers/`). Grep + clean. ~10min.
+**Priority list:**
+
+0. **[P1 S229 main] Round 3 slim migration** — remover producer-side daily organization. Candidatos: `agents/organization/`, `subagents/processors/knowledge_organizer.py`, config entries, `workflows.yaml:full_organization`, `.claude/skills/organization/`, `.claude/skills/notion-spec-to-impl/`. Ambiguous: `notion_cleaner` + `notion-publisher` skill (maintenance vs producer — decidir). PRESERVAR: `.claude/agents/evidence-researcher` (6 braços MCP live metanálise) + Gemini/Perplexity/NotebookLM MCP routing + `mbe-evidence` skill + content/aulas/. **Propose-before-pour obrigatório.**
+1. **[P1 S227 partial] BACKLOG #34** — CC 2.1.113 `permissions.ask` empiricamente broken. Applied: 34 destructive deny patterns. Manual follow-up: `/clear` + observe popup stability + close. Ver KBP-26. Residual: redirects + script-file writes ungateable.
+2. **Confirmar "6 braços" meta-analysis tool identity** (S228 followup): candidatos `.claude/agents/evidence-researcher` (PubMed+Scite+Consensus+Semantic Scholar+CrossRef+BioMCP) + `.claude/skills/mbe-evidence`. Documentar identidade em ARCHITECTURE.md §MCP Connections. ~15min.
 3. **Phase 2.1 momentum-brake** (Codex #3): bash exemption blanket → granular. 45min HIGH risk. Specs em `plans/archive/S225-consolidacao-plan.md` §Phase 2.1.
 4. **Track A semantic memory**: ByteRover CLI vs MemSearch vs Smart Connections.
 5. **DE Fase 2**: rule `design-excellence.md` + skill `polish/SKILL.md`.
 6. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S227-memory-to-living-html.md`.
+7. **BACKLOG #42-45** (S228 audit findings): ModelRouter unused, MCP gate dormant, CLI viability, 7-layer claim unaudited. Todos P2 — triagem quando houver bandwidth.
 
 ## ESTADO POS-S228
 
