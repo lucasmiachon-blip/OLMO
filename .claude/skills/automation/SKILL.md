@@ -18,8 +18,8 @@ Especialista em automacao de workflows.
 
 ### Cron (agendamento temporal)
 ```yaml
-schedule: "0 8 * * *"
-command: "claude --skill daily-briefing"
+schedule: "0 9 * * 1"
+command: "claude --skill mbe-evidence"
 ```
 
 ### Hooks (Claude Code lifecycle)
@@ -34,11 +34,11 @@ command: "claude --skill daily-briefing"
 
 ### Pipeline (cadeia de transformacoes)
 ```python
-async def daily_pipeline():
-    emails = await gmail_fetch()
-    classified = classify(emails)
-    await notion_write(classified)
-    await notify(summary(classified))
+async def evidence_pipeline(pmid: str):
+    metadata = await pubmed_fetch(pmid)
+    graded = grade_evidence(metadata)
+    await write_living_html(graded)
+    return summary(graded)
 ```
 
 ### Scheduled Agents (Claude Code /schedule)

@@ -22,7 +22,7 @@ Skills sao prompts especializados carregados sob demanda pelo harness. O OLMO te
 | Pesquisa | 2 | /research (6 pernas), /evidence |
 | Ensino | 1 | /teaching |
 | Concurso | 2 | /concurso, /exam-generator |
-| Organizacao | 3 | /organization, /daily-briefing, /notion-publisher |
+| Organizacao | 0 | (purged S229 — crosstalk pattern substitui) |
 | Infra | 5 | /insights, /review, /janitor, /dream, /wiki-lint |
 | Dev | 3 | /automation, /skill-creator, /systematic-debugging |
 | Estudo | 2 | /knowledge-ingest, /nlm-skill, /continuous-learning |

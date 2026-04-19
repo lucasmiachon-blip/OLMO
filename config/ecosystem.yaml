@@ -122,7 +122,6 @@ mcp_routing:
     - "pubmed:search_triage"
     - "excalidraw:create"
     - "canva:generate"
-    - "google-calendar:read"
 
   local_ollama:  # $0.00 — parsing, file ops
     - "file_ops:all"

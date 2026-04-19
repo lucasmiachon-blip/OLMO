@@ -25,11 +25,11 @@ class TestModelRouterInit:
 
     def test_loads_agent_models(self) -> None:
         config = {
-            "cientifico": {"model": "claude-sonnet-4-6", "enabled": True},
+            "sonnet_agent": {"model": "claude-sonnet-4-6", "enabled": True},
             "automacao": {"model": "claude-haiku-4-5"},
         }
         router = ModelRouter(agents_config=config)
-        assert router.agent_models["cientifico"] == "claude-sonnet-4-6"
+        assert router.agent_models["sonnet_agent"] == "claude-sonnet-4-6"
         assert router.agent_models["automacao"] == "claude-haiku-4-5"
 
     def test_skips_entries_without_model(self) -> None:

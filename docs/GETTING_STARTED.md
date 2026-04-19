@@ -31,9 +31,9 @@ cp .env.example .env
 
 ## MCPs Configurados (ver `config/mcp/servers.json`)
 
-**Conectados (11)** — maioria via claude.ai (OAuth, $0):
+**Conectados (9)** — maioria via claude.ai (OAuth, $0):
 - **Medicos**: PubMed, SCite, Consensus, Scholar Gateway
-- **Produtividade**: Notion, Gmail, Google Calendar, Canva, Excalidraw
+- **Produtividade**: Notion, Canva, Excalidraw (Gmail+Calendar purged S229)
 - **Pesquisa**: NotebookLM, Zotero
 
 Perplexity: API direta (nao MCP). Gemini: CLI OAuth + API key (scripts).
@@ -50,14 +50,13 @@ claude mcp add --transport http notion https://mcp.notion.com/mcp
 # Ver status do ecossistema
 python orchestrator.py status
 
-# Executar workflow medico
-python orchestrator.py workflow paper_to_notion
-python orchestrator.py workflow weekly_medical_digest
-python orchestrator.py workflow quick_note_to_evidence
+# Executar workflows disponiveis (pos-slim S228+S229)
+python orchestrator.py workflow weekly_deep_review
+python orchestrator.py workflow smart_query
+python orchestrator.py workflow code_review
 
-# Workflows operacionais
-python orchestrator.py workflow morning_review
-python orchestrator.py workflow weekly_review
+# Producer workflows (paper_to_notion, weekly_medical_digest, etc.) migrados para OLMO_COWORK (ADR-0002).
+# Daily org/matriz (full_organization, notion_cleanup) migrados em S229.
 ```
 
 ## Uso com Claude Code
@@ -66,11 +65,11 @@ python orchestrator.py workflow weekly_review
 # Pesquisa medica rapida
 claude "busque no PubMed sobre metformina e cancer coloretal"
 
-# Analise MBE completa
-claude "analise este paper com GRADE e publique no Notion: [PMID]"
+# Analise MBE completa (consumer — gera living HTML local)
+claude "analise este paper com GRADE e gere living HTML: [PMID]"
 
-# Digest semanal
-claude "gere o digest medico semanal e publique no Notion"
+# Notion audit/add (crosstalk pattern — interativo)
+claude "audite minha pagina Notion X e adicione secao Y"
 ```
 
 ## Estrutura do Projeto
@@ -82,16 +81,11 @@ OLMO/
 ├── .claude/BACKLOG.md        # Backlog + setup checklist
 ├── HANDOFF.md                # Continuidade entre sessoes
 ├── orchestrator.py           # Entry point Python
-├── agents/                   # Agentes Python (~30% implementados)
+├── agents/                   # Runtime Python (slim pos-S229 — consumer-only)
 │   ├── core/                 # Base, Orchestrator, ModelRouter, MCP Safety, Scheduler
-│   ├── scientific/           # Cientifico (MBE, AI/ML, DevOps/MLOps)
-│   ├── automation/           # Automacao
-│   ├── organization/         # Organizacao (GTD)
-│   └── ai_update/            # Atualizacao AI
-├── subagents/                # Subagentes especializados
-│   ├── processors/           # KnowledgeOrganizer, NotionCleaner, DataPipeline
-│   ├── monitors/             # WebMonitor
-│   └── analyzers/            # TrendAnalyzer
+│   └── automation/           # Automacao (unico agent)
+├── subagents/                # Subagentes
+│   └── processors/           # DataPipeline (unico subagent)
 ├── skills/                   # Skills Python reutilizaveis
 │   └── efficiency/           # local_first (custo zero)
 ├── content/aulas/            # Subsistema Node.js (deck.js + GSAP)
@@ -102,7 +96,7 @@ OLMO/
 │   └── STRATEGY.md           # Roadmap tecnico
 ├── assets/                   # Concurso R3 (provas + SAPs, gitignored)
 ├── .claude/
-│   ├── skills/ (20)          # Sob demanda (progressive disclosure)
+│   ├── skills/ (~17)         # Sob demanda (progressive disclosure; 3 purged S229)
 │   ├── rules/ (10)           # Sempre carregadas (path-scoped)
 │   ├── agents/ (8)           # researcher, qa-engineer, evidence-researcher, etc.
 │   └── hooks/ (11)           # Guards + antifragile hooks
@@ -117,7 +111,7 @@ OLMO/
 ## Ordem de Setup Recomendada
 
 1. API keys no `.env` (ver `docs/keys_setup.md`)
-2. MCPs nativos claude.ai: ja conectados via OAuth (PubMed, Notion, Gmail, etc.)
+2. MCPs nativos claude.ai: ja conectados via OAuth (PubMed, Notion, etc.)
 3. MCPs locais: Perplexity (`PERPLEXITY_API_KEY`), Zotero, NotebookLM
 4. Gemini: CLI OAuth (`gemini auth login`) + API key for scripts (`GEMINI_API_KEY`)
 5. Aulas: `cd content/aulas && npm install && npm run dev`

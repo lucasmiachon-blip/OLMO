@@ -14,7 +14,7 @@ sources:
 
 # MCP Servers
 
-MCPs sao servidores que conectam Claude Code a sistemas externos via protocolo padronizado. O OLMO usa 12 MCPs + Gemini API + Perplexity API (estes dois nao sao MCPs).
+MCPs sao servidores que conectam Claude Code a sistemas externos via protocolo padronizado. O OLMO usa 10 MCPs + Gemini API + Perplexity API (estes dois nao sao MCPs). Gmail+Google Calendar purged em S229.
 
 ## Inventario (12)
 
@@ -22,7 +22,7 @@ MCPs sao servidores que conectam Claude Code a sistemas externos via protocolo p
 |-----------|------|-----------|
 | Medico | PubMed, SCite, Consensus, Scholar Gateway | evidence-researcher, /research |
 | Estudo | NotebookLM (BioMCP) | /nlm-skill, /knowledge-ingest |
-| Produtividade | Notion, Gmail, Google Calendar | notion-ops, /daily-briefing |
+| Produtividade | Notion | notion-ops, crosstalk pattern (S229) |
 | Visual | Excalidraw, Canva | diagramas, design |
 | Dev | Playwright, Context7 | qa-engineer, docs lookup |
 
@@ -39,7 +39,7 @@ MCPs sao servidores que conectam Claude Code a sistemas externos via protocolo p
 | MCP | Auth | Custo |
 |-----|------|-------|
 | PubMed/SCite/Consensus | API key gratuita | $0 |
-| Notion/Gmail/Calendar | OAuth (claude.ai) | $0 |
+| Notion | OAuth (claude.ai) | $0 |
 | Gemini API | GEMINI_API_KEY | pay-per-use |
 | Playwright | Local | $0 |
 | Context7 | Nenhuma | $0 |

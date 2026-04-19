@@ -140,26 +140,6 @@
 
     "_comment_needs_auth": "=== PRECISAM AUTENTICACAO ===",
 
-    "gmail": {
-      "type": "http",
-      "url": "https://gmail.mcp.claude.com/mcp",
-      "status": "connected",
-      "description": "Gmail nativo claude.ai. Emails medicos, newsletters, alertas.",
-      "priority": "critical",
-      "auth": "OAuth Google",
-      "cost": "$0"
-    },
-
-    "google-calendar": {
-      "type": "http",
-      "url": "https://gcal.mcp.claude.com/mcp",
-      "status": "connected",
-      "description": "Google Calendar nativo claude.ai.",
-      "priority": "high",
-      "auth": "OAuth Google",
-      "cost": "$0"
-    },
-
     "canva": {
       "type": "http",
       "url": "https://mcp.canva.com/mcp",
