@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "initialized": "2026-04-19",
+  "sessions": [
+    {
+      "id": "S230",
+      "date": "2026-04-19",
+      "metrics": {
+        "sessions_in_sample": 163,
+        "user_corrections_total": "qualitative",
+        "user_corrections_per_session": null,
+        "kbp_violations": {
+          "KBP-01_scope_creep": 0,
+          "KBP-23_context_explosion": 27,
+          "KBP-26_permissions_ask_broken": 4
+        },
+        "kbp_total": 31,
+        "kbp_per_session": null,
+        "tool_errors": 80,
+        "retries": null
+      },
+      "insights_run": true,
+      "new_kbps_added": 0,
+      "proposals_accepted": 0,
+      "proposals_rejected": 0,
+      "proposals_pending": 6,
+      "report": ".claude/skills/insights/references/latest-report.md"
+    }
+  ],
+  "trend": {
+    "first_run": true,
+    "direction": "baseline",
+    "corrections_per_session_5avg": null,
+    "kbp_violations_per_session_5avg": null
+  }
+}
