@@ -1,10 +1,30 @@
 # HANDOFF - Proxima Sessao
 
-> **S230 CLOSED** 2026-04-19 (bubbly-forging-cat — adversarial audit + simplification) | BACKLOG #42 RESOLVED | ~595 li deletadas
+> ⏸️ **S230 PAUSED Phase G** 2026-04-19 ~13:15 (mid-execution) | RESUME: read plan granular abaixo
 
-**S231 HYDRATION:** Read este HANDOFF + `.claude/plans/archive/S230-bubbly-forging-cat.md` (audit findings + 6 batches plan; 4 done, 5+6 deferred).
+## ⏸️ PAUSED — RESUME AQUI (Phase G in progress)
 
-## S231 START HERE
+**Plan canonical:** `.claude/plans/mutable-sprouting-tarjan.md` (HIPERGRANULAR — 600+ li com EC, comandos copy-paste, banner spec full, gotchas)
+
+**Done:** Phases A-F + G.1 (8 commits, último: `2634c0c S230 Phase G.1: /insights restoration`)
+
+**Próxima fase a executar:** **Phase G.9** (banner lib `hooks/lib/banner.sh` — 6 níveis semânticos)
+
+**Order pós-resume:** G.9 → G.7 → G.8+G.5 (combined) → G.2 → G.3 → G.4 (decision pendente) → G.6 close
+
+**Blocker conhecido:** Edit em `hooks/` BLOCKED por `guard-write-unified.sh:120-124`. Pattern obrigatório: `Write→.claude/workers/foo.sh.new → cp → chmod`. Lucas aprova ~12 popups esperados.
+
+**G.4 brake decision PENDING:** Lucas pediu investigar útil-vs-subutilizado antes delete. Ver plan §G.4 para test matrix.
+
+**Hot resume checklist:** ver topo do plan file — RESUME CHECKLIST + RESUME ENTRYPOINT sections.
+
+---
+
+> **S230 (active phases 1-4 + F)**: bubbly-forging-cat — adversarial audit + simplification | BACKLOG #42 RESOLVED | ~595 li deletadas
+
+**S231 HYDRATION (apenas SE Phase G completa):** Read este HANDOFF + `.claude/plans/archive/S230-*.md` (audit findings + execution log).
+
+## S231 START HERE (após Phase G complete)
 
 **Priority list:**
 
