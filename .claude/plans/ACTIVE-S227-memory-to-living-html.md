@@ -1,6 +1,6 @@
-# S226 — Migrar Medical Evidence Memory → Living-HTML (SSoT)
+# S227+ — Migrar Medical Evidence Memory → Living-HTML (SSoT)
 
-> Status: DESIGN (proposto S225 iter 3, reprogramado S227 non-P0 per HANDOFF target #4 / BACKLOG #36)
+> Status: DESIGN (proposto S225 iter 3, reprogramado S227; não executado S227-S229; ainda ACTIVE per HANDOFF / BACKLOG #36)
 > Origin: Lucas durante S225 Phase 4 — "que tal usar o benchmark da aula de metanalise para fazermos em cirrose, paginas em html, source of truth tirarmos isso da memoria do sistema para ocupar com outras coisas?"
 
 ---
