@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 230 — 2026-04-19 (bubbly-forging-cat — adversarial audit + simplification)
+
+### 6 commits batched (Batches 1-4 done, 5+6 deferred)
+- Batch 1 (46ae0ce): doc/reality reconciliation — 11 phantom scripts purged from .claude/hooks/README.md, ARCHITECTURE.md Mermaid corrected, notion-ops refs removed (15 sessions stale), AGENTS.md cross-CLI declared
+- Batch 2 (104cdbd): memory de-duplication + canonical owners — context-essentials.md 42→18 li, KBP-26+27 prose extracted, qa-pipeline.md absorbed metanalise §QA Pipeline (state machine + 4 gates + Lucas OK + threshold), ARCHITECTURE.md→anti-drift pointer
+- Batch 4 (fcd4bdc): plans audit — ACTIVE-S225-SHIP-roadmap → archive (S229 executou daily-exodus, não roadmap original); ACTIVE-S227 header S226→S227+ + status refresh
+- Batch 3a (0d432c6): ecosystem.yaml scope clarified ("9 declaradas Python-runtime visible" vs 18 fs CC-only); settings.local.json slim 5→1 entry (gitignored, local apenas)
+- Batch 3b (100b85f): SmartScheduler (309 li) + skills/ orphan cascade (~135 li) deleted — LocalFirstSkill era consumer único de SmartScheduler
+- Batch 3c (378499f): ModelRouter teatro deleted (~75 li + 13 testes test_model_router); BACKLOG #42 RESOLVED; routing intent (4-tier complexity) preservada como diretiva humana em CLAUDE.md — desacoplamento honesto
+
+### Aprendizados + residual
+- Cascata de delete: A único consumer de B → ambos órfãos (mapear grafo de imports antes de delete individual)
+- Código teatro pode ser deletado preservando intenção em doc — deslocamento honesto vs deletar lógica + intenção
+- "Remova o ruído" diretiva (Lucas S230): toda operação estrutural inclui cleanup de refs órfãs em TREE.md, GETTING_STARTED.md, BACKLOG.md, HANDOFF.md
+- DEMOTE-TO-RULE pattern: §QA path-scoped CLAUDE.md → rule global com `paths:` frontmatter — single source of truth com routing por glob
+- Residual S231: Batches 5 (multimodel gate Codex/Gemini formalization) + 6 (Living-HTML BACKLOG #36) deferred — pré-requisito de topologia limpa cumprido
+
 ## Sessao 229 — 2026-04-18 (slim-round-3-daily-exodus — ADR-0002 round 3)
 
 ### Slim migration round 3 — daily org + Notion writes purge (6 commits)
