@@ -32,7 +32,12 @@ subagents:
     model: "claude-haiku-4-5"
     parent: "automacao"
 
-# Skills (.claude/skills/ — 9 ativas)
+# Skills (Python-runtime visible — 9 declaradas)
+# Nota: .claude/skills/ filesystem tem 18 skills total. As 9 declaradas aqui sao
+# as expostas ao runtime Python (orchestrator + agentes). CC-only skills
+# (sentinel, systematic-debugger, brainstorming, evidence-audit, improve,
+# insights, knowledge-ingest, nlm-skill, backlog) vivem por filesystem
+# convention e nao precisam declaracao explicita aqui.
 skills:
   # Pesquisa e ciencia
   mbe-evidence:
