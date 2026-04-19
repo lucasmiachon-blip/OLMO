@@ -82,12 +82,10 @@ OLMO/
 ├── HANDOFF.md                # Continuidade entre sessoes
 ├── orchestrator.py           # Entry point Python
 ├── agents/                   # Runtime Python (slim pos-S229 — consumer-only)
-│   ├── core/                 # Base, Orchestrator, ModelRouter, MCP Safety, Scheduler
+│   ├── core/                 # Base, Orchestrator, ModelRouter, MCP Safety
 │   └── automation/           # Automacao (unico agent)
 ├── subagents/                # Subagentes
 │   └── processors/           # DataPipeline (unico subagent)
-├── skills/                   # Skills Python reutilizaveis
-│   └── efficiency/           # local_first (custo zero)
 ├── content/aulas/            # Subsistema Node.js (deck.js + GSAP)
 │   ├── shared/               # Design system (CSS OKLCH, deck.js, engine.js, fonts)
 │   ├── cirrose/              # 11 slides ativos + 35 archived

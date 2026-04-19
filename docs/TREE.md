@@ -72,13 +72,13 @@ agents/
 │   ├── model_router.py      # Cost-based routing (WARN: _resolved_model unused — see S228 audit)
 │   ├── database.py          # SQLite persistence
 │   ├── mcp_safety.py        # MCP safety checks
-│   ├── smart_scheduler.py   # Schedule management
 │   ├── exceptions.py        # Custom exceptions
 │   └── log.py               # Logging config
 └── automation/              # Automation agent (unico runtime Python pos-S229)
 
 # REMOVED S228: ai_update/ + scientific/ (producer → OLMO_COWORK per ADR-0002)
 # REMOVED S229: organization/ (daily GTD → OLMO_COWORK per ADR-0002)
+# REMOVED S230: smart_scheduler.py + skills/ root (orphan cascade — bubbly-forging-cat Batch 3b)
 ```
 
 ## subagents/ (processor implementations)
