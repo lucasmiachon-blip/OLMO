@@ -23,7 +23,7 @@
 - **ADRs**: ADR-0001 (OLMO_COWORK-side) + ADR-0002 (OLMO-side). Sistema bidirecionalmente consistente. S228 exerce ADR-0002 concretamente no código.
 - **KBPs**: 26 entries. Next: KBP-27.
 - **Hooks**: 31/31 valid (unchanged).
-- **BACKLOG**: 38 items (novo #41: "research orchestrator future, fresh design"). Counts P1=10/P2=20.
+- **BACKLOG**: 42 items (+5 em S228: #41 research-orchestrator-future, #42 ModelRouter-unused, #43 MCP-gate-dormant, #44 CLI-viability, #45 7-layer-claim-unaudited — todos P2). Counts P1=10/P2=24.
 - **Plans**: active 2 (S225-SHIP, S227-memory-to-living-html). Archived S228: `archive/S228-groovy-launching-steele.md` (adversarial audit — reference para entender _resolved_model unused + decisões futuras).
 - **Memory**: 6 evidence-researcher + MEMORY.md; global 19/20.
 

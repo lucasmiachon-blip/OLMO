@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=1 | P1=10 | P2=20 | Frozen=3 | Resolved=8 | Setup=separate. Next #=42.
+> Counts: P0=1 | P1=10 | P2=24 | Frozen=3 | Resolved=8 | Setup=separate. Next #=46.
 
 ## TOC
 
@@ -64,6 +64,8 @@
 | 7 | tooling | M | P006 plan pre-flight tool availability | Re-design: Step 1.5 em research/SKILL.md ou static allowlist |
 | 11 | tooling | M | S155 Group G hooks lazy load | Complexity-as-ceremony per backlog gate |
 | 16 | tooling | S | Zombie refs audit post-archival | 3 históricos restantes: `docs/aulas/AGENT-AUDIT-S79.md` + `research-gaps-report.md` + `evidence-harvest-S112.md` (renomeado S226 ADR-0002). Baixo risco. S154/S157 |
+| 42 | infra | S | ModelRouter unused (`_resolved_model` escrito nunca lido) | S228 audit bonus finding: `orchestrator.py:83` escreve `_resolved_model`, nenhum agente lê. Router é log-only theater. Decisão: (a) wire consumers (agents consomem `task["_resolved_model"]` em execute) OR (b) delete `model_router.py` + `ModelRouter` refs. Ver plan `archive/S228-groovy-launching-steele.md` §Mudanca-1/3 |
+| 43 | infra | S | MCP safety gate dormant (`mcp_operation` key unset by callers) | S228 audit finding: `agents/core/orchestrator.py:45-48` gate só dispara com `task["mcp_operation"]`. `grep` confirma que nenhum workflow/test/caller seta essa key — workflows usam `type: "mcp"`. Decisão: (a) fire em `type:"mcp"` OR `mcp_operation` OR (b) delete gate Python (enforcement real está em `.claude/hooks/guard-mcp-queries.sh`). Ver §Mudanca-4 |
 
 ### Process/governance
 
@@ -74,6 +76,8 @@
 | 9 | process | M | S155 Group E slide-patterns vs slide-rules drift | 5 findings em `.claude/tmp/c1-result.md` (C1 #6-#10). Defer slide-focused session (CSS/runtime + Lucas working area) |
 | 17 | process | L | Context reduction — qualitative findings S157 | Adversarial review S158 descartou números (bytes/4 não tokenizado), P11/P12, §6 meta-proposals, KBP-17 conflict. **Trigo preservado:** (a) P5 ground truth = 8 files auto-loaded; (b) Codex R6/R7 demoted; (c) procedural gates (R1/R2/R3/R5 caveats); (d) KBP-18 renumerado (item 18). **Pre-exec obrigatório:** tokenizer real + red team verdadeiro. Synthesis: `.claude/workers/reducao-context/synthesis-2026-04-11-1631.md` |
 | 31 | process | M | Sentinel audit quality — melhoria contínua | S196: sentinel errou 1 claim + orchestration truncou (50 tool calls sem report). Melhorias: (1) verificação cruzada antes de claim, (2) report estruturado, (3) scope 1 dir/concern, (4) maturity tier. Aplicar proven-wins.md ao audit |
+| 44 | process | S | CLI Python viability decision (`python -m orchestrator run`) | S228 audit finding: após slim migration, `run` subcommand = apenas display_status (demo workflow removido). Decisão: (a) delete `run` subcommand OR (b) documentar intenção como "start + wait" OR (c) implementar dispatchers `mcp/api_call/local/skill` em route_task. Depende de se CLI é target vivo ou legacy. Ver §Mudanca-3 |
+| 45 | process | M | "7-layer antifragile stack" claim unaudited | S228 audit Bloco-3 Suspender-narrativa: README claima L1-L7 antifragile stack mas padrão do projeto é "aspiracional > runtime". Executar audit próprio de cada layer (L1 retry, L2 model fallback, L3 cost breaker, L4 graceful degradation, L5 self-healing, L6 chaos, L7 continuous learning) antes de continuar usando claim em docs externos |
 
 ---
 
