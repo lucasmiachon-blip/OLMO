@@ -22,7 +22,7 @@ Notion audit/add_content: **crosstalk pattern** (seção abaixo).
 
 **Regra**: Lucas decide, agente executa. Sem OK explicito = nao fazer.
 
-**Nota histórica (S228-S229):** Foram deletados `Cientifico`+`AtualizacaoAI` (S228) + `Organizacao`+`KnowledgeOrganizer`+`NotionCleaner` (S229). Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Daily org + Notion writes migrados para OLMO_COWORK ou substituídos por crosstalk pattern. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` + `.claude/plans/fluffy-pondering-puddle.md`.
+**Nota histórica (S228-S229):** Foram deletados `Cientifico`+`AtualizacaoAI` (S228) + `Organizacao`+`KnowledgeOrganizer`+`NotionCleaner` (S229). Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Daily org + Notion writes migrados para OLMO_COWORK ou substituídos por crosstalk pattern. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` + `.claude/plans/archive/S229-slim-round-3-daily-exodus.md`.
 
 ## Claude Code Subagents (8)
 
