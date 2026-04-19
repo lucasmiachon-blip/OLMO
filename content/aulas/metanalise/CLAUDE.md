@@ -48,11 +48,8 @@ GSAP plugins: SplitText + Flip + ScrambleTextPlugin.
 
 ## QA
 
-Script unico: `scripts/gemini-qa3.mjs` (Preflight + Inspect + Editorial).
-1 slide por ciclo QA completo. NUNCA batch.
-
-Gates: Preflight (dims objetivas $0) → [Lucas OK] → Inspect (Gemini Flash) → [Lucas OK] → Editorial (Gemini Pro).
-Threshold: score < 7 → checkpoint Lucas antes de continuar.
+Canônico: `.claude/rules/qa-pipeline.md` (state machine + 4 gates + sequência Lucas OK + threshold).
+Per-slide tracking: `HANDOFF.md` deste projeto.
 
 ## Hard constraints
 
@@ -62,20 +59,6 @@ Threshold: score < 7 → checkpoint Lucas antes de continuar.
 4. GRADE como linguagem clínica, não burocracia
 5. Forest plot: cropado de artigo real quando disponível
 6. Uma MA não é melhor que os RCTs que a alimentam — isso permeia a aula
-
-## QA Pipeline (máquina de estados)
-
-```
-BACKLOG → DRAFT → CONTENT → SYNCED → LINT-PASS → QA → DONE
-```
-
-Gates:
-- **Gate 1 (CONTENT→SYNCED):** h2 é asserção + notes com timing/fontes
-- **Gate 2 (SYNCED→LINT-PASS):** `npm run lint:slides` PASS
-- **Gate 3 (LINT-PASS→QA):** Build PASS + sem orphans
-- **Gate 4 (QA→DONE):** `gemini-qa3.mjs` (Preflight + Inspect + Editorial) + Lucas approved
-
-Detalhes QA por slide: `HANDOFF.md`.
 
 ## Status
 

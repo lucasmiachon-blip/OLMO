@@ -13,35 +13,22 @@ Codex + Gemini são READ-ONLY (Claude Code não é vinculado por esta restriçã
 ## Quick Commands
 
 ```bash
-# Audit config consistency
+# Base audit
 ruff check . && mypy agents/ && pytest tests/
 
-# Lint slides (2 gates — enforced by guard-lint-before-build.sh)
-node content/aulas/scripts/lint-slides.js cirrose
-node content/aulas/scripts/lint-case-sync.js cirrose
-# lint-narrative-sync ARCHIVED S144 — narrative.md deprecated in favor of evidence HTML
+# Slide lint (enforced by guard-lint-before-build.sh)
+node content/aulas/scripts/lint-slides.js {aula}
+node content/aulas/scripts/lint-case-sync.js {aula}
 
-# Find stale references
+# Orphan/stale check
+git ls-files --others --exclude-standard
 grep -rn "CANDIDATE" content/aulas/
 
-# Check for credential exposure
+# Secrets audit (pre-commit)
 grep -rn "API_KEY\|SECRET\|TOKEN\|password" --include="*.{js,mjs,py,json}" . | grep -v node_modules | grep -v ".env"
-
-# Verify PMID integrity
-grep -rn "PMID:" content/aulas/ | head -20
-
-# List orphan files
-git ls-files --others --exclude-standard
-
-# Check hook enforcement
-ls -la .claude/hooks/ hooks/
-
-# Validate CSS import order
-bash content/aulas/scripts/validate-css.sh
-
-# Definition of Done (per-aula)
-node content/aulas/scripts/done-gate.js cirrose
 ```
+
+Detalhe por domínio via skills Claude Code: `janitor` (orphans), `docs-audit` (markdown), `review` (code security), `evidence-audit` (PMIDs), `done-gate` (per-aula DONE).
 
 ## Codex: Adversarial Review Standards
 

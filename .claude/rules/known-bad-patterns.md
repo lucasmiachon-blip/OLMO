@@ -85,7 +85,7 @@ globs: "**/*"
 → anti-drift.md §Edit discipline
 
 ## KBP-26 CC permissions.ask broken in 2.1.113
-→ `.claude/BACKLOG.md #34` + `.claude/plans/archive/S227-backlog-34-architecture.md`: `permissions.ask` bypassed para TODOS patterns testados (Bash(cp *), Bash(rm *), Write tool-level) em CC 2.1.113 auto+default modes. `permissions.deny` works reliably. Arquitetura final S227: deny-only for destructive ops (34 patterns), no sanctioned ask channel possible pré CC upgrade. Residual gap: shell redirects (> >>) + script-file writes (python script.py, node script.js) structurally ungateable via pattern matching.
+→ `.claude/BACKLOG.md #34` + `.claude/plans/archive/S227-backlog-34-architecture.md`
 
 ## KBP-27 Pipeline Python redundante quando crosstalk AI+humano supera
-→ `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`: para operacoes pontuais com human-in-loop, Claude Code + MCP direct supera Python batch async em velocidade, controle, rollback real-time. Descoberto S229 via notion_cleaner analysis (Lucas): "ele eh muito mais lento, vc pode acrescentar conteudo e auditar, crosstalking pode ser mais rapido que o claude cowork". Regra: antes de criar/manter pipeline Python autonomo, perguntar "crosstalk resolve melhor?".
+→ `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`
