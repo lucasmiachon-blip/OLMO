@@ -17,6 +17,9 @@ set -euo pipefail
 #   Write, Edit, Agent, MCP tools, etc.
 #   Write/Edit get double-ask with guard-pause.sh — accepted (defense-in-depth, B5-05 S100).
 # Exit 0 with JSON = ask. Exit 0 without JSON = allow.
+# S230 G.4: added hook_log on brake fires — visibility for /insights P001 follow-up.
+#   NOTE: COST_LOCK check (linha 32-36) is dead code pós-G.3 (Cost BLOCK arm deleted
+#   em post-global-handler.sh). Preservado por ora; remover em S231+ se confirmado unused.
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 
@@ -47,6 +50,10 @@ case "$TOOL_NAME" in
     exit 0
     ;;
 esac
+
+# S230 G.4: log brake firings (/insights P001 follow-up — measure real fires)
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
+{ . "$PROJECT_ROOT/hooks/lib/hook-log.sh" && hook_log "PreToolUse" "momentum-brake-enforce" "brake-fired" "$TOOL_NAME" "info" "armed=$ARMED"; } 2>/dev/null || true
 
 # All other tools while brake is armed: require user approval
 printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"%s"}}\n' "$REASON"

@@ -94,8 +94,8 @@ fcd4bdc S230 Batch 4: plans audit (S225 archive + S227 header refresh)
 | 11 | G.5 /insights ritual | ✅ DONE (combined G.8) | hooks/session-start.sh |
 | 8 | G.2 metrics regex fix | ✅ DONE (regex + 7 rows backfill S224-S230) | hooks/stop-metrics.sh + .claude/apl/metrics.tsv |
 | 9 | G.3 slim VANITY | ✅ DONE (148→35 li, -113) | .claude/hooks/post-global-handler.sh |
-| 10 | G.4 brake decision | ⏳ NEXT (investigation phase) | depends on G.4 outcome |
-| 12 | G.6 session close | ⏳ last | HANDOFF.md, CHANGELOG.md, plan archive |
+| 10 | G.4 brake decision | ✅ DONE (ADD LOGGING — defer DELETE to S232 evidence) | .claude/hooks/momentum-brake-enforce.sh (53→60 li, +7) |
+| 12 | G.6 session close | ⏳ NEXT | HANDOFF.md, CHANGELOG.md, plan archive |
 
 ---
 
