@@ -1,28 +1,28 @@
 # Arquitetura do Ecossistema OLMO
 
-> AI agent ecosystem for medical education, organization, and exam prep.
+> AI agent ecosystem for medical education and exam prep (consumer-only).
 > **Consumer side** (producer em OLMO_COWORK — ver ADR-0002).
-> Estado: S228 | 2026-04-18 (slim migration)
+> Estado: S229 | 2026-04-18 (slim round 3: daily exodus)
 
-## Runtime Python DAG (dispatcher + 2 agents)
+## Runtime Python DAG (dispatcher + 1 agent)
 
 ```mermaid
 graph TD
     U[Lucas] -->|request| O[Orchestrator<br>dispatcher]
-    O -->|pipelines, rules| AUT[Automacao<br>Haiku]
-    O -->|GTD, Notion cleanup| ORG[Organizacao<br>Sonnet]
-    ORG -->|publish| NOT[Notion DBs]
+    O -->|pipelines, rules, cron| AUT[Automacao<br>Haiku]
+    AUT -->|subagent| DP[data_pipeline]
 
     style O fill:#f5a623,color:#000
     style AUT fill:#20b2aa,color:#fff
-    style ORG fill:#7b68ee,color:#fff
+    style DP fill:#95a5a6,color:#fff
 ```
 
 Pesquisa científica + QA + research-pull rodam via **Claude Code subagents** (próxima seção) — não pelo orchestrator Python.
+Notion audit/add_content: **crosstalk pattern** (seção abaixo).
 
 **Regra**: Lucas decide, agente executa. Sem OK explicito = nao fazer.
 
-**Nota S228:** `Cientifico` e `AtualizacaoAI` agents Python foram deletados. Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Monitoramento AI/news + publicação de digests migrados para OLMO_COWORK. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` para auditoria adversarial.
+**Nota histórica (S228-S229):** Foram deletados `Cientifico`+`AtualizacaoAI` (S228) + `Organizacao`+`KnowledgeOrganizer`+`NotionCleaner` (S229). Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Daily org + Notion writes migrados para OLMO_COWORK ou substituídos por crosstalk pattern. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` + `.claude/plans/fluffy-pondering-puddle.md`.
 
 ## Claude Code Subagents (8)
 
@@ -130,12 +130,23 @@ content/aulas/
 |----------|------|---------|
 | Medical (evidence) | PubMed, SCite, Consensus, Scholar Gateway, Semantic Scholar, CrossRef, BioMCP | evidence-researcher (6 braços MBE) |
 | Study | NotebookLM, Zotero | reference management |
-| Productivity | Notion, Google Calendar | notion-ops, organizacao |
+| Productivity | Notion, Google Calendar | notion-ops, crosstalk pattern |
 | Visual | Excalidraw, Canva | diagrams, design |
 
 Gemini: CLI OAuth ($0) + API key (scripts QA). Perplexity: API direta (not MCP).
 
-**Migrated S228 → OLMO_COWORK (ADR-0002):** Gmail (producer — email scan/classify/publish).
+**Migrated S228-S229 → OLMO_COWORK (ADR-0002):** Gmail (S228, email scan/classify/publish); daily org agents + Notion write subagents (S229).
+
+## Notion Crosstalk Pattern (S229)
+
+Notion audit + add_content opera via **Claude Code (OLMO) + MCP Notion direct** em sessão interativa Lucas+Claude. NÃO existe Python subagent ou workflow batch.
+
+**Rationale:** Python pipeline async era mais lento que crosstalk síncrono. Claude Code pode classificar, auditar, adicionar conteúdo e confirmar inline — Lucas aprova em tempo real, rollback imediato disponível. Para operações pontuais (1-N páginas), crosstalk supera COWORK handoff assíncrono.
+
+**Quando usar crosstalk (OLMO):** audit pontual, add_content interativo, dedupe com decisão humana.
+**Quando usar OLMO_COWORK:** producer pipeline (harvest → classify → publish em lote), sem humano no loop.
+
+Infra: MCP Notion configurado em `config/mcp/servers.json`. Capacidade preservada, código Python batch não.
 
 ## Model Routing
 

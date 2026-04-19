@@ -8,23 +8,24 @@
 4. **Curiosidade obrigatoria.** Explicar o porque antes de executar. Ensinar durante, nao depois.
 
 Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica dez/2026 (120 questoes).
-Consumer MBE (via `$OLMO_INBOX`), ensino, organizacao. Producer em OLMO_COWORK (ADR-0002). Maximo valor, minimo custo.
+Consumer: MBE (via `$OLMO_INBOX`), ensino, concurso R3. Producer (daily org, Notion writes) em OLMO_COWORK (ADR-0002). Maximo valor, minimo custo.
 
 ## Values (decision gates)
 
 - **Antifragile**: esta decisao torna o sistema mais forte com falhas futuras? Warn vs block → block se FP baixo.
 - **Curiosidade**: esta interacao ensina algo? Conexoes reais, nunca infantilizar.
 
-## Architecture (S228 slim — consumer only)
+## Architecture (S229 slim — consumer only)
 
-Runtime Python:
+Runtime Python (minimo honesto):
 ```
-Orchestrator (dispatch) ─── por agent-name ou type-keyword
-├── Automacao (Haiku) ─── regras, pipelines, cron
-└── Organizacao (Sonnet) ─── GTD, Eisenhower, Notion cleanup
+Orchestrator (dispatch)
+└── Automacao (Haiku) ─── regras, pipelines, cron
+    └── data_pipeline (subagent)
 ```
 
-Pesquisa MBE + QA + inbox-pull: Claude Code subagents (`.claude/agents/*.md`), não pelo orchestrator Python. Ver `docs/ARCHITECTURE.md`.
+Pesquisa MBE + QA + inbox-pull: Claude Code subagents (`.claude/agents/*.md`), não pelo orchestrator Python.
+Notion audit + add_content: crosstalk pattern (Claude Code + MCP Notion direct inline) — ver `docs/ARCHITECTURE.md`.
 
 ## Objectives
 

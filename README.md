@@ -15,9 +15,9 @@ make check             # lint + type-check + test
 Runtime Python (orchestrator CLI — slim, consumer-only):
 
 ```
-Orchestrator (dispatch por agent-name ou type-keyword)
-├── Automacao (Haiku) --- regras, pipelines, cron
-└── Organizacao (Sonnet) --- GTD, Eisenhower, Notion cleanup
+Orchestrator (dispatch)
+└── Automacao (Haiku) --- regras, pipelines, cron
+    └── data_pipeline (subagent)
 ```
 
 Claude Code subagents (`.claude/agents/*.md` — research + QA + infra):
@@ -39,6 +39,6 @@ make test        # pytest (53 tests)
 
 - Python 3.11+, uv, ruff, mypy, pytest (53 tests)
 - Multiple MCP servers (PubMed, SCite, Consensus, Semantic Scholar, Zotero, Notion, NotebookLM, Gemini, Perplexity...)
-- Claude Code — 2 Python runtime agents + 8 CC subagents + 31 hooks
+- Claude Code — 1 Python runtime agent + 8 CC subagents + 31 hooks
 - OTel + Langfuse V3 observability (Docker Compose)
 - 7-layer antifragile stack (Taleb L1-L7 — ver `docs/ARCHITECTURE.md`)

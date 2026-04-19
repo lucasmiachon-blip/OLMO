@@ -1,6 +1,6 @@
 # TREE.md — Mapa do Projeto
 
-> Atualizado: Sessao 228 | 2026-04-18 (slim migration)
+> Atualizado: Sessao 229 | 2026-04-18 (slim round 3: daily exodus)
 
 ## Raiz (operacional)
 
@@ -54,7 +54,7 @@ docker-compose.yml   # Stack observabilidade
 ├── skills/              # 22 skill directories
 ├── settings.local.json  # Hooks, permissions, env config
 ├── statusline.sh        # Status line renderer
-├── BACKLOG.md           # 33 items (7 resolved)
+├── BACKLOG.md           # 46 items (8 resolved)
 ├── hook-log.jsonl       # Hook event log
 ├── hook-stats.jsonl     # Hook performance stats
 ├── success-log.jsonl    # Success tracking
@@ -68,17 +68,17 @@ docker-compose.yml   # Stack observabilidade
 agents/
 ├── core/
 │   ├── base_agent.py        # BaseAgent ABC
-│   ├── orchestrator.py      # Multi-agent orchestrator
+│   ├── orchestrator.py      # Dispatcher (single-agent post-S229)
 │   ├── model_router.py      # Cost-based routing (WARN: _resolved_model unused — see S228 audit)
 │   ├── database.py          # SQLite persistence
 │   ├── mcp_safety.py        # MCP safety checks
 │   ├── smart_scheduler.py   # Schedule management
 │   ├── exceptions.py        # Custom exceptions
 │   └── log.py               # Logging config
-├── automation/              # Automation agent
-└── organization/            # Organization (GTD) agent
+└── automation/              # Automation agent (unico runtime Python pos-S229)
 
-# REMOVED S228: ai_update/ + scientific/ (producer-side → OLMO_COWORK per ADR-0002)
+# REMOVED S228: ai_update/ + scientific/ (producer → OLMO_COWORK per ADR-0002)
+# REMOVED S229: organization/ (daily GTD → OLMO_COWORK per ADR-0002)
 ```
 
 ## subagents/ (processor implementations)
@@ -86,12 +86,10 @@ agents/
 ```
 subagents/
 └── processors/
-    ├── data_pipeline.py
-    ├── knowledge_organizer.py
-    ├── notion_cleaner.py
-    └── notion/
+    └── data_pipeline.py
 
 # REMOVED S228: analyzers/trend_analyzer.py + monitors/web_monitor.py (→ OLMO_COWORK)
+# REMOVED S229: knowledge_organizer.py + notion_cleaner.py + notion/ (Notion writes → OLMO_COWORK + crosstalk pattern)
 ```
 
 ## tools/ (standalone utilities)

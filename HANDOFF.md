@@ -1,34 +1,33 @@
 # HANDOFF - Proxima Sessao
 
-> **S228 CLOSED** 2026-04-18 (melhoria_continua — adversarial audit + slim migration rounds 1-2) | ADR-0001/0002 + KBP-26 + BACKLOG #41-45
+> **S229 CLOSED** 2026-04-18 (slim-round-3-daily-exodus) | ADR-0002 reinforced | BACKLOG #46 | KBP-27
 
-**S229 HYDRATION:** Read `.claude/plans/archive/S228-groovy-launching-steele.md` (S228 adversarial audit — padrão "feature aspiracional sem consumer" que norteia slim migrations) + este HANDOFF. Then `/plan` e "vamos começar."
+**S230 HYDRATION:** Read este HANDOFF + `.claude/plans/fluffy-pondering-puddle.md` (S229 plan com crosstalk pattern rationale).
 
-## S229 START HERE
-
-**Foco S229:** round 3 slim migration — organizacao diaria + Notion tasks → OLMO_COWORK. `knowledge_organizer` fica redundante pós-cowork.
+## S230 START HERE
 
 **Priority list:**
 
-0. **[P1 S229 main] Round 3 slim migration** — remover producer-side daily organization. Candidatos: `agents/organization/`, `subagents/processors/knowledge_organizer.py`, config entries, `workflows.yaml:full_organization`, `.claude/skills/organization/`, `.claude/skills/notion-spec-to-impl/`. Ambiguous: `notion_cleaner` + `notion-publisher` skill (maintenance vs producer — decidir). PRESERVAR: `.claude/agents/evidence-researcher` (6 braços MCP live metanálise) + Gemini/Perplexity/NotebookLM MCP routing + `mbe-evidence` skill + content/aulas/. **Propose-before-pour obrigatório.**
-1. **[P1 S227 partial] BACKLOG #34** — CC 2.1.113 `permissions.ask` empiricamente broken. Applied: 34 destructive deny patterns. Manual follow-up: `/clear` + observe popup stability + close. Ver KBP-26. Residual: redirects + script-file writes ungateable.
-2. **Confirmar "6 braços" meta-analysis tool identity** (S228 followup): candidatos `.claude/agents/evidence-researcher` (PubMed+Scite+Consensus+Semantic Scholar+CrossRef+BioMCP) + `.claude/skills/mbe-evidence`. Documentar identidade em ARCHITECTURE.md §MCP Connections. ~15min.
-3. **Phase 2.1 momentum-brake** (Codex #3): bash exemption blanket → granular. 45min HIGH risk. Specs em `plans/archive/S225-consolidacao-plan.md` §Phase 2.1.
-4. **Track A semantic memory**: ByteRover CLI vs MemSearch vs Smart Connections.
-5. **DE Fase 2**: rule `design-excellence.md` + skill `polish/SKILL.md`.
-6. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S227-memory-to-living-html.md`.
-7. **BACKLOG #42-45** (S228 audit findings): ModelRouter unused, MCP gate dormant, CLI viability, 7-layer claim unaudited. Todos P2 — triagem quando houver bandwidth.
+0. **[P1 BACKLOG #46] Knowledge integration architecture (OLMO ↔ COWORK)** — debt nascido em S229 round 3. Pendente ADR descrevendo como OLMO consumer le knowledge produzido por COWORK sem reintroduzir sync code. Candidatos: filesystem cross-mount, MCP read-only, periodic snapshot import. Ver plan `.claude/plans/fluffy-pondering-puddle.md`.
+1. **[P1 S227 partial] BACKLOG #34** — CC 2.1.113 `permissions.ask` empiricamente broken. Applied: 34 destructive deny patterns. Manual follow-up: `/clear` + observe popup stability + close. Ver KBP-26.
+2. **Phase 2.1 momentum-brake** (Codex #3): bash exemption blanket → granular. 45min HIGH risk.
+3. **Track A semantic memory**: ByteRover CLI vs MemSearch vs Smart Connections.
+4. **DE Fase 2**: rule `design-excellence.md` + skill `polish/SKILL.md`.
+5. **BACKLOG #36 HTML migration** (Memory→Living-HTML): plan `ACTIVE-S227-memory-to-living-html.md`.
+6. **BACKLOG #42-45** (S228 audit findings): ModelRouter unused, MCP gate dormant, CLI viability, 7-layer claim unaudited. Todos P2 — triagem quando houver bandwidth.
 
-## ESTADO POS-S228
+## ESTADO POS-S229
 
-- **Slim migration** (S228 melhoria_continua): OLMO = consumer-only honesto. Runtime Python: 2 agents (automacao, organizacao) + 3 subagents + 6 workflows. Deletados: agent `atualizacao_ai`, agent `cientifico`, subagents `web_monitor`+`trend_analyzer`, 4 Python dirs, 9 producer workflows, skill `daily-briefing`, gmail mcp_routing. Todos migrados conceitualmente para OLMO_COWORK (ADR-0002).
-- **Auditoria adversarial Opus** (S228): 8 findings em `.claude/plans/archive/S228-groovy-launching-steele.md`. Descoberta bonus: `_resolved_model` escrito nunca lido → `ModelRouter` era teatro log-only. Acusação NÃO endereçada em S228 (requer decisão futura: wire consumers OR delete router). Ver plan Bloco 3 "Não fazer agora".
-- **ADRs**: ADR-0001 (OLMO_COWORK-side) + ADR-0002 (OLMO-side). Sistema bidirecionalmente consistente. S228 exerce ADR-0002 concretamente no código.
-- **KBPs**: 26 entries. Next: KBP-27.
+- **Slim migration round 3** (S229): OLMO consumer-only cristalizado. Runtime Python: **1 agent (automacao) + 1 subagent (data_pipeline) + 3 workflows**. Deletados S229: agent `organizacao`, subagents `knowledge_organizer`+`notion_cleaner`+`notion/`, 3 workflows, 3 skills, dead refs fixed. Net S229: ~2240 li. Heranca S228: agent `atualizacao_ai`+`cientifico`, web_monitor+trend_analyzer, 9 producer workflows, skill daily-briefing, gmail. Tudo migrado para OLMO_COWORK (ADR-0002).
+- **Crosstalk pattern** (S229): Notion audit + add_content inline via Claude Code + MCP Notion direct (substitui batch async). Documentado em `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`. Auditoria adversarial S228 ainda reference: `.claude/plans/archive/S228-groovy-launching-steele.md` (ModelRouter teatro log-only, decisao futura).
+- **ADRs**: ADR-0001 (OLMO_COWORK-side) + ADR-0002 (OLMO-side). S228 Phase A-H + S229 round 3 exercem ADR-0002 bidirecionalmente consistente.
+- **KBPs**: 27 entries. Next: KBP-28.
 - **Hooks**: 31/31 valid (unchanged).
-- **BACKLOG**: 42 items (+5 em S228: #41 research-orchestrator-future, #42 ModelRouter-unused, #43 MCP-gate-dormant, #44 CLI-viability, #45 7-layer-claim-unaudited — todos P2). Counts P1=10/P2=24.
-- **Plans**: active 2 (S225-SHIP, S227-memory-to-living-html). Archived S228: `archive/S228-groovy-launching-steele.md` (adversarial audit — reference para entender _resolved_model unused + decisões futuras).
+- **BACKLOG**: 46 items (+1 em S229: #46 knowledge-integration-architecture P1). Counts P1=11/P2=24.
+- **Plans**: active (S225-SHIP, S227-memory-to-living-html) + S229 `.claude/plans/fluffy-pondering-puddle.md` pending archive em S230 start.
 - **Memory**: 6 evidence-researcher + MEMORY.md; global 19/20.
 
 ---
-Coautoria: Lucas + Opus 4.7 | S228 melhoria_continua (adversarial audit + slim migration) | 2026-04-18
+Coautoria: Lucas + Opus 4.7 | S229 slim-round-3-daily-exodus (daily org exodus + crosstalk pattern) | 2026-04-18
+
+(Dream disponivel — rode /dream quando quiser)
