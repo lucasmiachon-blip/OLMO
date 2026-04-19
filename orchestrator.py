@@ -17,7 +17,6 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.tree import Tree
 
-from agents.ai_update.ai_update_agent import AIUpdateAgent
 from agents.automation.automation_agent import AutomationAgent
 from agents.core.log import setup_logging
 from agents.core.orchestrator import Orchestrator
@@ -25,7 +24,6 @@ from agents.organization.organization_agent import OrganizationAgent
 from agents.scientific.scientific_agent import ScientificAgent
 from config.loader import load_config, load_workflows
 from subagents.analyzers.trend_analyzer import TrendAnalyzerSubagent
-from subagents.monitors.web_monitor import WebMonitorSubagent
 from subagents.processors.data_pipeline import DataPipelineSubagent
 from subagents.processors.knowledge_organizer import KnowledgeOrganizerSubagent
 from subagents.processors.notion_cleaner import NotionCleanerSubagent
@@ -48,12 +46,10 @@ def build_ecosystem() -> Orchestrator:
         ScientificAgent(),
         AutomationAgent(),
         OrganizationAgent(),
-        AIUpdateAgent(),
     ]
 
     # Criar subagentes
     subagents = [
-        WebMonitorSubagent(),
         DataPipelineSubagent(),
         TrendAnalyzerSubagent(),
         KnowledgeOrganizerSubagent(),
@@ -70,7 +66,6 @@ def build_ecosystem() -> Orchestrator:
     # Aplicar config do YAML aos subagentes e adicionar aos pais
     subagents_config = config.get("subagents", {})
     subagent_to_parent = {
-        "web_monitor": "atualizacao_ai",
         "data_pipeline": "automacao",
         "trend_analyzer": "cientifico",
         "knowledge_organizer": "organizacao",
@@ -136,18 +131,15 @@ def display_status(orch: Orchestrator) -> None:
 
 
 async def run_ecosystem(orch: Orchestrator) -> None:
-    """Executa o ecossistema em modo interativo."""
+    """Exibe status do ecossistema.
+
+    Use `python -m orchestrator workflow <name>` para executar workflows especificos.
+    """
     display_status(orch)
-
-    console.print("\n[bold green]Ecossistema iniciado![/bold green]")
-    console.print("[dim]Pressione Ctrl+C para sair[/dim]\n")
-
-    # Executa workflow de revisao matinal como demonstracao
-    console.print("[yellow]Executando revisao matinal...[/yellow]")
-    results = await orch.run_workflow("batch_morning_digest")
-    for i, result in enumerate(results):
-        status_icon = "[green]OK[/green]" if result.success else "[red]FAIL[/red]"
-        console.print(f"  Step {i + 1}: {status_icon}")
+    console.print("\n[bold green]Ecossistema iniciado[/bold green]")
+    console.print(
+        "[dim]Use 'python -m orchestrator workflow <name>' para executar workflows.[/dim]"
+    )
 
 
 async def run_workflow(orch: Orchestrator, workflow_name: str) -> None:

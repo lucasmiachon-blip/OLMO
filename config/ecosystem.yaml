@@ -55,39 +55,8 @@ agents:
     daily_task_limit: 5
     review_schedule: "weekly"
 
-  atualizacao_ai:
-    enabled: true
-    model: "claude-sonnet-4-6"
-    description: "Monitoramento do ecossistema AI"
-    subagents: ["web_monitor"]
-    check_interval_hours: 6
-    monitored_sources:
-      - name: "Anthropic Blog"
-        url: "https://www.anthropic.com/news"
-        type: "blog"
-      - name: "OpenAI Blog"
-        url: "https://openai.com/blog"
-        type: "blog"
-      - name: "Google AI Blog"
-        url: "https://blog.google/technology/ai/"
-        type: "blog"
-      - name: "Hugging Face"
-        url: "https://huggingface.co"
-        type: "hub"
-      - name: "Papers With Code"
-        url: "https://paperswithcode.com"
-        type: "papers"
-      - name: "GitHub Trending"
-        url: "https://github.com/trending"
-        type: "code"
-
 # Subagentes
 subagents:
-  web_monitor:
-    enabled: true
-    model: "claude-haiku-4-5"
-    parent: "atualizacao_ai"
-    check_interval_minutes: 60
   data_pipeline:
     enabled: true
     model: "claude-haiku-4-5"
@@ -146,11 +115,6 @@ skills:
     path: ".claude/skills/review"
     description: "Code review multi-agente + OWASP LLM Top 10"
 
-  # Diario
-  daily-briefing:
-    path: ".claude/skills/daily-briefing"
-    description: "Gmail → classificar → Notion Emails Digest DB"
-
   # Meta-skills
   skill-creator:
     path: ".claude/skills/skill-creator"
@@ -198,7 +162,6 @@ mcp_routing:
     - "notion:all"             # Ler, classificar, escrever, organizar
     - "pubmed:systematic_review"
     - "scite:analyze_evidence"
-    - "gmail:compose"
 
   claude_sonnet:  # Medio — sumarizacao, queries
     - "pubmed:summarize_abstract"
@@ -207,12 +170,10 @@ mcp_routing:
     - "perplexity:research"
     - "gemini:analyze"
     - "notebooklm:query"
-    - "gmail:summarize"
     - "zotero:search"
 
   claude_haiku:  # Simples — triagem, classificacao
     - "pubmed:search_triage"
-    - "gmail:read_classify"
     - "excalidraw:create"
     - "canva:generate"
     - "google-calendar:read"

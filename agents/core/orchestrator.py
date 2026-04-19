@@ -69,7 +69,6 @@ class Orchestrator(BaseAgent):
             "research": "cientifico",
             "automate": "automacao",
             "organize": "organizacao",
-            "update": "atualizacao_ai",
             "analyze": "cientifico",
             "schedule": "organizacao",
             "monitor": "automacao",

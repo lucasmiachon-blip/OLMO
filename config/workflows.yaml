@@ -11,30 +11,6 @@ workflows:
   # DAILY WORKFLOWS
   # ============================================================
 
-  # Batch Morning Digest - 1 UNICA chamada para tudo
-  batch_morning_digest:
-    name: "Digest Matinal Batched"
-    description: "News + Trends + Planning em 1 unica API call"
-    trigger: "cron"
-    schedule: "0 7 * * *"
-    budget_tracking: true
-    api_calls: 1
-    strategy: "batch"
-    batch_prompt: |
-      Responda os 3 topicos abaixo de forma concisa:
-
-      1. NOTICIAS AI: Quais as 3 novidades mais importantes de AI
-         das ultimas 24h? (fontes: Anthropic, OpenAI, Google, HuggingFace)
-
-      2. TENDENCIAS: Qual tendencia de AI esta ganhando forca esta semana?
-
-      3. PLANO DO DIA: Baseado nos meus projetos ativos, sugira as
-         3 tarefas mais importantes para hoje usando Eisenhower Matrix.
-    steps:
-      - action: "batch_query"
-        topics: ["ai_news", "trends", "daily_plan"]
-        cache_ttl_hours: 12
-
   # Quick Status - 0 API calls (100% local)
   local_status_check:
     name: "Status Check Local"
@@ -49,48 +25,6 @@ workflows:
       - agent: "organizacao"
         action: "status_report"
         note: "Usa dados locais, sem API"
-
-  # Gmail → Notion (diario)
-  gmail_to_notion:
-    name: "Gmail → Analise → Notion"
-    description: |
-      Monitora Gmail para newsletters medicas e papers.
-      Processa automaticamente e publica no Notion.
-    trigger: "cron"
-    schedule: "0 12 * * *"
-    budget_tracking: true
-    estimated_calls: 1
-    steps:
-      - name: "scan_gmail"
-        type: "mcp"
-        server: "gmail"
-        action: |
-          Buscar emails das ultimas 24h com labels:
-          - "Medical/Newsletters"
-          - "Medical/Papers"
-          - "Medical/Alerts"
-          Extrair: assunto, remetente, corpo, links, PDFs
-        cost: "$0.00"
-      - name: "triage_and_analyze"
-        type: "api_call"
-        model: "claude-sonnet-4-6"
-        action: |
-          Para cada email medico:
-          1. Classificar relevancia (alta/media/baixa)
-          2. Extrair papers/links citados
-          3. Resumir em 1-2 frases
-          4. Se alta relevancia: disparar paper_to_notion
-        cost: "~$0.01"
-      - name: "publish_email_digest"
-        type: "mcp"
-        server: "notion"
-        action: |
-          Adicionar ao database "Inbox Medico" no Notion:
-          - Fonte do email
-          - Resumo
-          - Links para papers
-          - Status: "Para Revisar" / "Arquivado"
-        cost: "$0.00"
 
   # ============================================================
   # WEEKLY WORKFLOWS
@@ -126,77 +60,6 @@ workflows:
         prompt: |
           Quais os 5 papers mais relevantes publicados esta semana?
           Inclua: titulo, autores, 1 frase de resumo, link arXiv/PubMed
-        cache_ttl_hours: 168
-
-  # Digest Medico Semanal
-  weekly_medical_digest:
-    name: "Digest Medico Semanal Tier 1"
-    description: |
-      1 vez por semana: busca as melhores evidencias novas
-      da sua especialidade e publica no Notion
-    trigger: "cron"
-    schedule: "0 8 * * 1"  # Segunda 8h
-    budget_tracking: true
-    orchestrator: "claude-opus-4-6"
-    estimated_calls: 2
-    steps:
-      - name: "search_new_evidence"
-        type: "mcp"
-        servers: ["pubmed-mcp", "healthcare-mcp"]
-        action: |
-          Buscar papers publicados na ultima semana:
-          - Filtro: sua especialidade + subtopicos
-          - Tipo: RCTs, meta-analises, guidelines
-          - Ordenar por relevancia e impacto
-        cost: "$0.00"
-      - name: "analyze_and_rank"
-        type: "api_call"
-        model: "claude-opus-4-6"
-        action: |
-          Analisar os 20 papers encontrados:
-          1. Classificar nivel de evidencia
-          2. Avaliar relevancia pratica (1-10)
-          3. Selecionar TOP 3 mais impactantes
-          4. Resumir cada um em 2 frases + numeros
-          5. Verificar guidelines atualizadas
-          6. Listar trials clinicos novos relevantes
-        cost: "~$0.05-0.10"
-      - name: "publish_digest"
-        type: "mcp"
-        server: "notion"
-        action: |
-          Criar pagina de digest semanal no Notion:
-          - Template: Digest Medico Semanal
-          - Top 3 evidencias com detalhes
-          - Guidelines atualizadas
-          - Trials em andamento
-          - Leitura recomendada
-        template: "digest_semanal_medico"
-        cost: "$0.00"
-
-  # Update Semanal AI
-  weekly_ai_update:
-    name: "Update Semanal AI"
-    description: "1 chamada semanal para atualizar conhecimento de AI"
-    trigger: "cron"
-    schedule: "0 10 * * 1"  # Segunda 10h
-    budget_tracking: true
-    api_calls: 1
-    steps:
-      - action: "batch_query"
-        batch_prompt: |
-          Atualizacao semanal do ecossistema AI:
-
-          1. NOVOS MODELOS: Algum modelo novo lancado esta semana?
-             (Anthropic, OpenAI, Google, Meta, Mistral, open-source)
-
-          2. TOOLS: Novas ferramentas/frameworks relevantes?
-
-          3. BENCHMARKS: Mudancas nos rankings de performance?
-
-          4. PRECOS: Mudancas de precos nos provedores de API?
-
-          5. PAPERS DESTAQUE: 1 paper que todo dev deveria ler?
         cache_ttl_hours: 168
 
   # ============================================================
@@ -465,32 +328,6 @@ workflows:
         action: "generate_report"
         description: "Gerar relatorio final (executado + pendente + flags)"
 
-  # AI Monitoring (a cada 6h)
-  ai_monitoring:
-    name: "Monitoramento AI"
-    description: "Monitoramento continuo do ecossistema AI"
-    trigger: "cron"
-    schedule: "0 */6 * * *"
-    budget_tracking: true
-    estimated_cost_per_run: 0.05
-    steps:
-      - subagent: "web_monitor"
-        action: "check_all"
-        model_tier: "simple"
-        description: "Verificar todas as fontes"
-      - agent: "atualizacao_ai"
-        action: "check_updates"
-        model_tier: "medium"
-        description: "Processar atualizacoes"
-      - agent: "atualizacao_ai"
-        action: "compare_models"
-        model_tier: "medium"
-        description: "Comparar novos modelos"
-      - subagent: "trend_analyzer"
-        action: "analyze"
-        model_tier: "simple"
-        description: "Analisar tendencias"
-
   # Pesquisa Cientifica Pipeline
   research_pipeline:
     name: "Pipeline de Pesquisa"
@@ -521,20 +358,18 @@ workflows:
 #
 # Workflow                      | Calls/mes | Custo
 # ------------------------------|-----------|--------
-# Batch Morning Digest (30x)    | 30        | ~$1.50
 # Weekly Deep Review (4x)       | 12        | ~$0.60
-# Weekly Medical Digest (4x)    | 8         | ~$0.40
-# Weekly AI Update (4x)         | 4         | ~$0.20
-# Gmail-to-Notion (30x)         | 30        | ~$0.30
 # Paper-to-Notion (~4x)         | 12-20     | ~$0.60-1.00
 # Quick Notes (~8x)             | 16        | ~$0.80
-# AI Monitoring (120x)          | 120       | ~$0.50
 # Smart Queries (~20x)          | 0-20      | ~$0.00-1.00
 # Research Sprint (on-demand)   | 3         | ~$0.15
 # ------------------------------|-----------|--------
-# TOTAL API                     | ~235-290  | ~$5.05-6.45
+# TOTAL API                     | ~43-71    | ~$2.15-3.55
 # + MCPs (PubMed, Notion, etc)  |           | $0.00
 # + Overhead, spikes, testes    |           | ~$5-35
 # ------------------------------|-----------|--------
-# TOTAL REAL MENSAL             |           | ~$10-40
+# TOTAL REAL MENSAL             |           | ~$7-40
 # MAX ABSOLUTO                  |           | $100/mes
+# NOTA: workflows producer (batch_morning_digest, gmail_to_notion,
+#       weekly_medical_digest, weekly_ai_update, ai_monitoring)
+#       migrados para OLMO_COWORK em S228 (ver ADR-0002).
