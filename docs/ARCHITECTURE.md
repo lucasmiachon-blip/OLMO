@@ -60,7 +60,7 @@ graph LR
     style S fill:#9b59b6,color:#fff
 ```
 
-**31 scripts · 33 hook registrations em `settings.json`** (10 eventos: SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · PostToolUseFailure · SessionEnd + 2 inline Stop hooks).
+**30 scripts · 32 hook registrations em `settings.json`** (10 eventos: SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · PostToolUseFailure · SessionEnd + 2 inline Stop hooks).
 APL (Ambient Productivity Layer): 3 hooks — pulse per prompt, cache at start, scorecard at stop.
 Config: `.claude/settings.json` (overrides locais em `.claude/settings.local.json`). Reference: `.claude/hooks/README.md`.
 
@@ -151,9 +151,12 @@ Infra: MCP Notion configurado em `config/mcp/servers.json`. Capacidade preservad
 
 ## Model Routing
 
+**Intra-Claude** (complexity-based, CLAUDE.md §Efficiency):
 ```
 trivial → Ollama ($0)  │  simple → Haiku  │  medium → Sonnet  │  complex → Opus
 ```
+
+**Cross-model orchestration** — ver [`docs/adr/0003-multimodel-orchestration.md`](adr/0003-multimodel-orchestration.md) para framework 5-critérios (objetivo/trigger/artefato/custo/risco) + invocation gates Claude Code ↔ Codex ↔ Gemini ↔ Ollama + deferral rationale (Antigravity, ChatGPT deflate).
 
 **Cost**: $0 tier — Claude Code Max + Gemini CLI OAuth + Codex ChatGPT. API keys only for QA scripts.
 

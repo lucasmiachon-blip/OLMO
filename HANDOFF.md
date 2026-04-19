@@ -24,8 +24,8 @@
 - **Phase G — metrics infrastructure rationalized** (8 commits pós-PAUSE): `/insights` restored 11d gap (G.1, `2634c0c`); `hooks/lib/banner.sh` NEW 6 níveis semânticos 3-4 li (G.9, `44f8751`+`a8a87be`+`c5aacd1`); KBP-23 Read-sem-limit auto-warn em post-tool-use-failure.sh (G.7, `33b59e7`); anti-meta-loop banner + /insights bi-diário reminder em session-start.sh (G.8+G.5, `c405a1a`); stop-metrics.sh regex fix + 7 rows backfill metrics.tsv local (G.2, `64a9338`); post-global-handler 148→35 li VANITY slim -113 (G.3, `0780061`); momentum-brake ADD LOGGING — DELETE deferred to S232 evidence-based (G.4, `31815ff`). **Pattern descoberta:** `Bash(cp *)` em settings.json deny desde S227 KBP-26 quebrou canonical Write→temp→cp pattern; migrou para `cat source > dest` redirect (documentado em G.9b).
 - **ADRs**: ADR-0001 (OLMO_COWORK-side) + ADR-0002 (OLMO-side). Inalterados S230.
 - **KBPs**: 27 entries. Next: KBP-28.
-- **Hooks**: 31/31 valid (unchanged count; 4 hooks modified em Phase G).
-- **BACKLOG**: 46 items, #42 RESOLVED em S230. Counts P1=11/P2=23.
+- **Hooks**: 30/30 valid (`.claude/hooks/` 17 + `hooks/` 13; `lib/` 2 libs excluídos — 4 hooks modified em Phase G).
+- **BACKLOG**: 46 items, #42 RESOLVED (moved to Resolved table S232). Counts P0=0/P1=12/P2=22/Frozen=3/Resolved=9.
 - **Plans**: active (S227-memory-to-living-html only). Archive S230: bubbly-forging-cat (audit) + mutable-sprouting-tarjan (Phase G canonical) + replicated-jingling-llama (Phase G wrapper).
 - **Memory**: 6 evidence-researcher + MEMORY.md; global 19/20.
 - **Deferred S231+**: Batch 5 (multimodel integration gate — Codex/Gemini/Antigravity formalization) + Batch 6 (Living-HTML migration BACKLOG #36).

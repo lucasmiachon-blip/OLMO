@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=1 | P1=11 | P2=24 | Frozen=3 | Resolved=8 | Setup=separate. Next #=47.
+> Counts: P0=0 | P1=12 | P2=22 | Frozen=3 | Resolved=9 | Setup=separate. Next #=47. (S232 reconcile)
 
 ## TOC
 
@@ -108,6 +108,7 @@
 | 22 [RESOLVED S193] | /dream multi-fire | `stop-should-dream.sh`: shebang posição 0 + jq fromdateiso8601 fallback |
 | 32 [RESOLVED S198] | Node→jq migration restante — 4 scripts | guard-lint-before-build + guard-research-queries + lint-on-edit + model-fallback-advisory. 0 `node -e` em .claude/hooks/ |
 | 35 [RESOLVED S225] | BACKLOG merge 3→1 (S214 LT-7) | BACKLOG-S220-codex-adversarial-report.md → plans/archive/S220. Canonical único: este arquivo |
+| 42 [RESOLVED S230] | ModelRouter unused — teatro arquitetural | `model_router.py` + `test_model_router.py` deletados (Batch 3c). Routing intent (trivial→Ollama, simple→Haiku, medium→Sonnet, complex→Opus) preservada como diretiva humana em `CLAUDE.md` §Efficiency |
 
 ---
 
