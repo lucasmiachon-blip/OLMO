@@ -1,6 +1,6 @@
 # TREE.md — Mapa do Projeto
 
-> Atualizado: Sessao 216 | 2026-04-16
+> Atualizado: Sessao 228 | 2026-04-18 (slim migration)
 
 ## Raiz (operacional)
 
@@ -69,31 +69,29 @@ agents/
 ├── core/
 │   ├── base_agent.py        # BaseAgent ABC
 │   ├── orchestrator.py      # Multi-agent orchestrator
-│   ├── model_router.py      # Cost-based routing
+│   ├── model_router.py      # Cost-based routing (WARN: _resolved_model unused — see S228 audit)
 │   ├── database.py          # SQLite persistence
 │   ├── mcp_safety.py        # MCP safety checks
 │   ├── smart_scheduler.py   # Schedule management
 │   ├── exceptions.py        # Custom exceptions
 │   └── log.py               # Logging config
-├── ai_update/               # AI update tracker agent
 ├── automation/              # Automation agent
-├── organization/            # Organization (GTD) agent
-└── scientific/              # Scientific research agent
+└── organization/            # Organization (GTD) agent
+
+# REMOVED S228: ai_update/ + scientific/ (producer-side → OLMO_COWORK per ADR-0002)
 ```
 
 ## subagents/ (processor implementations)
 
 ```
 subagents/
-├── analyzers/
-│   └── trend_analyzer.py
-├── monitors/
-│   └── web_monitor.py
 └── processors/
     ├── data_pipeline.py
     ├── knowledge_organizer.py
     ├── notion_cleaner.py
     └── notion/
+
+# REMOVED S228: analyzers/trend_analyzer.py + monitors/web_monitor.py (→ OLMO_COWORK)
 ```
 
 ## tools/ (standalone utilities)

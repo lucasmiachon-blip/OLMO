@@ -46,7 +46,7 @@
 | 27 | research | M | Metaprompt optimization | OpenAI Self-Evolving Agents Cookbook 2025. Meta-prompt fix SKILL.md quando underperform. S190 |
 | 28 | research | S | Reflexion pattern em workflows | Shinn 2023 arXiv:2303.11366. Self-critique antes retry. Previne KBP-18. Implementar em anti-drift.md. S190 |
 | 19 | process | S | Symmetric vs adversarial triangulation doctrine | §6.4 synthesis. Future multi-leg = 1 symmetric + 1 adversarial pair, não N symmetric. Add em `patterns_adversarial_review.md` pós /dream. S158 |
-| 41 | research | L | Research orchestrator (future, fresh design) | OLMO teve stub Python (`agents/scientific/`, `subagents/analyzers/`) deletado S228 após auditoria adversarial (aspiracional sem consumer). Live tool hoje: `.claude/agents/evidence-researcher` (6 braços MCP: PubMed/Scite/Consensus/Semantic Scholar/CrossRef/BioMCP) + `.claude/skills/mbe-evidence`. Quando demanda emergir: **design fresh**, não ressuscitar stub. Taleb/anti-drift: feature sem demanda = dívida. Ref plan `.claude/plans/groovy-launching-steele.md`. S228 |
+| 41 | research | L | Research orchestrator (future, fresh design) | OLMO teve stub Python (`agents/scientific/`, `subagents/analyzers/`) deletado S228 após auditoria adversarial (aspiracional sem consumer). Live tool hoje: `.claude/agents/evidence-researcher` (6 braços MCP: PubMed/Scite/Consensus/Semantic Scholar/CrossRef/BioMCP) + `.claude/skills/mbe-evidence`. Quando demanda emergir: **design fresh**, não ressuscitar stub. Taleb/anti-drift: feature sem demanda = dívida. Ref plan `.claude/plans/archive/S228-groovy-launching-steele.md`. S228 |
 
 ### Content/aulas (slides + medical content)
 

@@ -4,7 +4,7 @@
 
 ### Auditoria adversarial Opus (Bloco 1/2/3 + Anti-sycophancy)
 - Input: prompt adversarial 5-hipoteses (orchestrator.py:44, route_task asymmetry, workflows.yaml drift, scientific_agent placeholders, README drift)
-- Output: `.claude/plans/groovy-launching-steele.md` — 8 findings, 7 reflexões disciplinadas, Hard Call (fazer/não-fazer/suspender)
+- Output: `.claude/plans/archive/S228-groovy-launching-steele.md` — 8 findings, 7 reflexões disciplinadas, Hard Call (fazer/não-fazer/suspender)
 - **Descoberta bonus** não antecipada: `_resolved_model` é escrito em `orchestrator.py:83` mas **nunca lido** por nenhum agente. `ModelRouter` = teatro log-only. Subverte fix proposto no prompt original (wire `agents_config`)
 
 ### Slim migration (Phase A-E) — OLMO = consumer honesto (ADR-0002 enforcement)

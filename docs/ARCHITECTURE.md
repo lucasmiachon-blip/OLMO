@@ -22,7 +22,7 @@ Pesquisa científica + QA + research-pull rodam via **Claude Code subagents** (p
 
 **Regra**: Lucas decide, agente executa. Sem OK explicito = nao fazer.
 
-**Nota S228:** `Cientifico` e `AtualizacaoAI` agents Python foram deletados. Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Monitoramento AI/news + publicação de digests migrados para OLMO_COWORK. Ver `.claude/plans/groovy-launching-steele.md` para auditoria adversarial.
+**Nota S228:** `Cientifico` e `AtualizacaoAI` agents Python foram deletados. Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Monitoramento AI/news + publicação de digests migrados para OLMO_COWORK. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` para auditoria adversarial.
 
 ## Claude Code Subagents (8)
 
