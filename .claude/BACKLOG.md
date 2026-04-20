@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=0 | P1=16 | P2=22 | Frozen=3 | Resolved=9 | Setup=separate. Next #=51. (S232 close: +4 evolution items B/A/C/D; #36 Living-HTML continues per Lucas)
+> Counts: P0=1 | P1=15 | P2=22 | Frozen=3 | Resolved=9 | Setup=separate. Next #=52. (S232 close: +5 items; #51 Python stack P0 elevation per Lucas "vestigial/falido/nunca usado"; #49 subsumed into #51; #36 Living-HTML SCHEDULED S237)
 
 ## TOC
 
@@ -12,7 +12,9 @@
 
 ## P0 — blocking próxima sessão <a id="p0"></a>
 
-*(empty — no active blockers)*
+| # | Cat | Effort | Item | Next action |
+|---|-----|--------|------|-------------|
+| 51 | infra | L | **DELETE OR MIGRATE Python orchestrator stack** (vestigial/falido/nunca usado) | **[S234 P0]** Lucas S232 close assessment + empirical grep confirm: 0 hook invocations, 0 external consumers, apenas manual `make run`/`make status`. Stack sobreviveu S228-S232 purges sem justificar. **Execução:** (1) consumer audit exhaustivo 30min; (2) ADR-0004 decisão DELETE/MIGRATE/STATUS QUO; (3) execute decisão same-session se DELETE. Escopo candidato: `orchestrator.py`, `__main__.py`, `agents/`, `subagents/`, parcial `tests/`, Makefile targets, pyproject deps. Preservar: `config/mcp/servers.json`; `config/loader.py` se Claude Code o usa. Assunção brutal: veredicto DELETE TOTAL. Supersedes #49 (Managed Agents eval agora é branch desta decisão). |
 
 ---
 
@@ -34,7 +36,7 @@
 | 5 | content | M | medicina-clinica 4 stubs | Aguardar external harvest via `$OLMO_INBOX` (ADR-0002). 4 concepts stub/low |
 | 47 | process | S | **[S234 P0] Research skill E2E verification** | S232 criou `.claude/scripts/{gemini,perplexity}-research.mjs` unblock KBP-26 mas nunca testados contra API real. Rodar 1 topic real, verificar cada script (path + API + output format); documentar baseline tempo/custo/qualidade em `.claude/scripts/README.md`. Deliverable: empirical proof vs theoretical claim. ~1-2h. |
 | 48 | tooling | M | **[S235] PMID batch verification automation** | Script `.claude/scripts/pmid-batch-verify.mjs` — input lista CANDIDATE PMIDs, output VERIFIED/INVALID inline via PubMed MCP esummary batch. Update evidence-researcher SKILL.md post-output step. Consumer: ~100 slides/ano × 5-10min manual = 8-16h/ano saved + zero PMID errado publicado. Não-YAGNI: Lucas faz manualmente toda research session. |
-| 49 | infra | L | **[S237] Migration viability audit — orchestrator.py → Claude Managed Agents** | **Tese brutal:** orchestrator.py é quase vestigial pós-S232 (1 agent + 1 subagent + CLI status; workflows deletados Batch 4). Orquestração real acontece em Claude Code, não Python. Managed Agents (Anthropic April 8) potencialmente resolve: KBP-26 permissions hell, 30 hooks custom tracing duplicando Anthropic-hosted, dual stack maintenance. Deliverable: `docs/adr/0004-orchestrator-migration-audit.md` — inventory do que Python faz + map Managed Agents + custos migração + **veredicto explícito MIGRATE / DELETE PYTHON + KEEP HOOKS / STATUS QUO**. Assunção de trabalho: provável veredicto é MIGRATE OR DELETE. ~2-3h. |
+| ~~49~~ | SUBSUMED BY #51 | - | ~~Managed Agents evaluation~~ | Absorvido em #51 — Managed Agents é uma das 2 branches da decisão DELETE vs MIGRATE, não escopo separado. |
 | 50 | tooling | M | **[S238] QA gate parallelism (ADR + pilot)** | Atual: Preflight → Lucas OK → Inspect → Lucas OK → Editorial sequential ~30-40min/slide. Proposta: 3 gates PARALELO para MESMO slide (KBP-05 preserved: 1 slide); Lucas decide 1× em vez de 3×. Requer ADR-0005 (KBP-05 semantics + human-in-loop) antes de implement. Pilot em 1 slide opt-in flag `--parallel` em qa-engineer. Ganho: ~50% QA time cut = ~47h/ano salvos. |
 
 ---
