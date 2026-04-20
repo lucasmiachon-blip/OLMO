@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=0 | P1=12 | P2=22 | Frozen=3 | Resolved=9 | Setup=separate. Next #=47. (S232 reconcile)
+> Counts: P0=0 | P1=16 | P2=22 | Frozen=3 | Resolved=9 | Setup=separate. Next #=51. (S232 close: +4 evolution items B/A/C/D; #36 Living-HTML continues per Lucas)
 
 ## TOC
 
@@ -22,7 +22,7 @@
 |---|-----|--------|------|-------------|
 | 46 | research | L | Knowledge integration architecture (OLMO ↔ COWORK) | S229: OLMO removeu producer-side knowledge mgmt (Notion+Obsidian+Zotero sync). Pendente ADR descrevendo como consumer (OLMO) le knowledge produzido por COWORK sem reintroduzir sync code. Candidatos: filesystem cross-mount, MCP read-only, periodic snapshot import. Ref plan `.claude/plans/archive/S229-slim-round-3-daily-exodus.md` |
 | 34 | infra | M | [S227 partial] cp Pattern 8 — CC 2.1.113 ask bypass | Investigation Opus+Codex done: `permissions.ask` fundamentally bypassed (cp/rm/Write all empirical). Applied: 34 destructive deny patterns. Manual via `/clear` + observe popup behavior in new session. Residual gap: redirects + script-file writes ungateable (KBP-26). Next: verify deny stability post-/clear, then close |
-| 36 | content | L | Memory → Living-HTML migration (S227) | Run plan `.claude/plans/ACTIVE-S227-memory-to-living-html.md` steps 1-6. 6 medical .md → `content/aulas/cirrose/evidence/*.html` |
+| 36 | content | L | Memory → Living-HTML migration (S227) — **ACTIVE per Lucas S232 close; SCHEDULED S236 partial** | Plan canonical em `.claude/plans/archive/S227-memory-to-living-html.md` (archived S232 post-close mas intent vivo). S236: partial 2-3 high-value cirrose files (csph-nsbb, meld-na, te-accuracy) com PMIDs verified via #48. S239+: remaining 4 files. |
 | 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Write→tmp→cp (guard bloqueia Edit hooks/*.sh). Consequência: cache `backlog-top.txt` stale entre sessões. Descoberto S226 pós-close |
 | 13 | process | M | g3-result memory findings audit | Revisar 15 findings `.claude/tmp/g3-result.md` antes do próximo /dream. Memory no cap 20/20. S156 |
 | 29 | tooling | L | Agent/subagent optimization audit (10 agents) | Phase 1: tool restrictions; Phase 2: model routing (Sonnet/Haiku para repo-janitor/quality-gate); Phase 3: maxTurns calibration; Phase 4: HyperAgents/DGM patterns; Phase 5: parallelism (QA preflight/inspect/editorial); Phase 6: agent-as-skill migration. Refs: HyperAgents Golchian 2026, DGM Sakana 2025, Anthropic orchestrator-workers Dec 2024. S190 |
@@ -32,6 +32,10 @@
 | 1 | research | M | Pernas pendentes research | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
 | 4 | infra | L | Pipeline DAG end-to-end | external inbox → NLM → wiki (ADR-0002) |
 | 5 | content | M | medicina-clinica 4 stubs | Aguardar external harvest via `$OLMO_INBOX` (ADR-0002). 4 concepts stub/low |
+| 47 | process | S | **[S234 P0] Research skill E2E verification** | S232 criou `.claude/scripts/{gemini,perplexity}-research.mjs` unblock KBP-26 mas nunca testados contra API real. Rodar 1 topic real, verificar cada script (path + API + output format); documentar baseline tempo/custo/qualidade em `.claude/scripts/README.md`. Deliverable: empirical proof vs theoretical claim. ~1-2h. |
+| 48 | tooling | M | **[S235] PMID batch verification automation** | Script `.claude/scripts/pmid-batch-verify.mjs` — input lista CANDIDATE PMIDs, output VERIFIED/INVALID inline via PubMed MCP esummary batch. Update evidence-researcher SKILL.md post-output step. Consumer: ~100 slides/ano × 5-10min manual = 8-16h/ano saved + zero PMID errado publicado. Não-YAGNI: Lucas faz manualmente toda research session. |
+| 49 | infra | L | **[S237] Claude Managed Agents evaluation (spec-only)** | Anthropic lançou April 8 — hosted agent infra (sandboxing, scoped perms, long sessions, tracing). Potencial replace orchestrator.py + resolve KBP-26 permissions pain. Deliverable: ADR-0004 spec-audit dos pains resolvidos + custos migração + veredicto (migrate S239+ / NOT migrate / partial adopt). **Spec-only, não migrate ainda.** ~2-3h read Anthropic docs + map to OLMO pain points. |
+| 50 | tooling | M | **[S238] QA gate parallelism (ADR + pilot)** | Atual: Preflight → Lucas OK → Inspect → Lucas OK → Editorial sequential ~30-40min/slide. Proposta: 3 gates PARALELO para MESMO slide (KBP-05 preserved: 1 slide); Lucas decide 1× em vez de 3×. Requer ADR-0005 (KBP-05 semantics + human-in-loop) antes de implement. Pilot em 1 slide opt-in flag `--parallel` em qa-engineer. Ganho: ~50% QA time cut = ~47h/ano salvos. |
 
 ---
 

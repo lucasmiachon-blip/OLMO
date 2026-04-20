@@ -43,6 +43,8 @@ Historical audit trail. Never delete; historical value > storage cost. Reference
 
 **Triage rule:** plan dormant ≥ 3 sessões sem update → reclassificar (ACTIVE → DEFERRED → ARCHIVED). Decaimento de certeza > apego histórico.
 
+**Exceção explícita (human override):** Lucas pode manter item como "ACTIVE commitment" mesmo com plan file archived, via BACKLOG pointer. Ex: #36 Living-HTML — archived S232 post-close mas scheduled S236 por decisão humana. Taxonomia taxativa não substitui intent declarado.
+
 ## Histórico recente
 
 | Plan | Session | Status |
@@ -50,7 +52,7 @@ Historical audit trail. Never delete; historical value > storage cost. Reference
 | `archive/S232-v6-adversarial-consolidation.md` | S232 | HISTORICAL — executed, 8 commits |
 | `archive/S232-readiness-multimodel-agents-memory.md` | S232 iter 1 | SUPERSEDED by v6 |
 | `archive/S230-*.md` (4 files) | S230 | HISTORICAL — executed |
-| `archive/S227-memory-to-living-html.md` | S227-S232 dormant | DEFERRED (archived S232 post-close); intent preservado em BACKLOG #36 |
+| `archive/S227-memory-to-living-html.md` | S227-S232 dormant | **ACTIVE COMMITMENT** (per Lucas S232 close) — plan file archived mas scheduled S236 partial execution (BACKLOG #36 canonical ref) |
 | `archive/S229-slim-round-3-daily-exodus.md` | S229 | HISTORICAL — executed (ADR-0002 round 3) |
 
 ## Quando criar novo plan file
