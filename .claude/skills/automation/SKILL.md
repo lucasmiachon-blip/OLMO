@@ -19,7 +19,7 @@ Especialista em automacao de workflows.
 ### Cron (agendamento temporal)
 ```yaml
 schedule: "0 9 * * 1"
-command: "claude --skill mbe-evidence"
+command: "claude --skill research"
 ```
 
 ### Hooks (Claude Code lifecycle)

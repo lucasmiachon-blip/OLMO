@@ -56,7 +56,7 @@ Todo output deve ter referenciamento impecavel.
 - **Fontes**: Malcolm Knowles (The Adult Learner), David Kolb (Experiential Learning)
 
 ### Pesquisa e Publicacao
-- **Bioestatistica**: dominar para publicar E para ensinar (ver skill mbe-evidence)
+- **Bioestatistica**: dominar para publicar E para ensinar
 - **Checklists**: CONSORT, STROBE, PRISMA conforme tipo de estudo
 - **Mentoria**: orientar alunos em TCC/IC com as mesmas ferramentas
 

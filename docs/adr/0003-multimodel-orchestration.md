@@ -9,6 +9,8 @@
 
 OLMO usa múltiplos AI execution tools (Claude Code, Codex, Gemini, Ollama) mas invocation gates são informais. HANDOFF S231 residual: "Batch 5 multimodel integration gate — Codex/Gemini/Antigravity formalization" — deferred em S230 pendente "topologia limpa" (cumprida).
 
+**Nota (S232 v6 audit):** Antigravity é **historical/deferred candidate** (mentioned em CHANGELOG S226 como feature-shopping candidate; S230 audit recomendou "NÃO incorporar agora"). Este ADR foca em tools com consumer runtime real (Claude Code, Codex, Gemini, Ollama). Referências à Antigravity são históricas, não runtime claims.
+
 **Sintoma recorrente:** feature-shopping sem use case concreto (S230 §Batch 5 Antigravity recomendação). Padrão "setup pendente" (CHANGELOG entry antigo: Gemini+Antigravity intensificação) vira dívida sem enforcement.
 
 **Distinção importante:**

@@ -39,11 +39,6 @@ subagents:
 # insights, knowledge-ingest, nlm-skill, backlog) vivem por filesystem
 # convention e nao precisam declaracao explicita aqui.
 skills:
-  # Pesquisa e ciencia
-  mbe-evidence:
-    path: ".claude/skills/mbe-evidence"
-    description: "MBE rigorosa: GRADE, CONSORT, STROBE, PRISMA, PubMed, PICO (absorveu medical-research)"
-
   # Ensino e concurso
   teaching:
     path: ".claude/skills/teaching"

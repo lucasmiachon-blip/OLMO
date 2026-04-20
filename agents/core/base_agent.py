@@ -24,7 +24,6 @@ class AgentContext:
 
     session_id: str = ""
     user_preferences: dict[str, Any] = field(default_factory=dict)
-    shared_memory: dict[str, Any] = field(default_factory=dict)
     history: list[dict[str, Any]] = field(default_factory=list)
 
     def add_to_history(self, agent_name: str, action: str, result: Any) -> None:
