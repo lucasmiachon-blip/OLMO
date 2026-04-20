@@ -114,31 +114,10 @@ Adaptar colunas ao tipo de pesquisa: declarar `Type` primeiro, depois preencher 
 
 Execucao (orchestrador via Bash):
 ```bash
-node -e "
-const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:generateContent?key=' + process.env.GEMINI_API_KEY, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    contents: [{ parts: [{ text: '<OPEN_PROMPT>' }] }],
-    tools: [{ google_search: {} }],
-    // NOTA: Gemini conta thinking tokens DENTRO de maxOutputTokens.
-    // Com thinkingBudget: 16384, sobram ~16384 para texto.
-    // Bug S145: 8192 total − thinking = 0 texto output.
-    generationConfig: {
-      temperature: 1,
-      maxOutputTokens: 32768,
-      thinkingConfig: { thinkingBudget: 16384 }
-    }
-  })
-});
-const data = await res.json();
-const finish = data.candidates?.[0]?.finishReason;
-if (finish === 'MAX_TOKENS') console.error('WARNING: Truncated (MAX_TOKENS).');
-const parts = data.candidates?.[0]?.content?.parts || [];
-if (!parts.some(p => p.text)) console.error('ERROR: 0 text — thinking consumed all tokens.');
-parts.forEach(p => p.text && console.log(p.text));
-" 2>&1
+node .claude/scripts/gemini-research.mjs "<OPEN_PROMPT_COM_SCHEMA_SUFFIX>"
 ```
+
+Script canonical em `.claude/scripts/gemini-research.mjs` (S232 v6 Batch 4 — substitui inline `node -e` bloqueado por settings.json deny list desde S227 KBP-26). Contém generationConfig (temperature 1, maxOutputTokens 32768, thinkingBudget 16384), google_search tool, error handling MAX_TOKENS + grounding sources surface.
 
 **Perna 2 — Evidence Researcher:** MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite, BioMCP). Verificacao de PMIDs via PubMed MCP. Foco: dados estruturados, trials, guidelines.
 
@@ -146,29 +125,11 @@ parts.forEach(p => p.text && console.log(p.text));
 
 Execucao (orchestrador via Bash):
 ```bash
-node -e "
-const res = await fetch('https://api.perplexity.ai/chat/completions', {
-  method: 'POST',
-  headers: { 'Authorization': 'Bearer ' + process.env.PERPLEXITY_API_KEY, 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    model: 'sonar-deep-research',
-    messages: [
-      { role: 'system', content: 'Return findings as markdown tables ONLY. No prose paragraphs. Every finding = 1 column in a table with rows: Author+Year, Title, Journal, PMID, DOI, Population, Intervention, Comparator, Outcome, Effect size, CI 95%, I², N studies, N patients, Clinical significance (1-2 sentences). Mark all PMIDs as CANDIDATE. Only Tier 1 sources (NEJM, Lancet, JAMA, BMJ, Ann Intern Med, Cochrane). NO introductions, NO conclusions — ONLY the table.' },
-      { role: 'user', content: '<OPEN_PROMPT>' }
-    ],
-    temperature: 0.8, max_tokens: 8000, return_citations: true, search_context_size: 'high'
-  })
-});
-const data = await res.json();
-const content = data.choices?.[0]?.message?.content || 'NO CONTENT';
-const citations = data.citations || [];
-console.log(content);
-if (citations.length) {
-  console.log('\\n=== CITATIONS ===');
-  citations.forEach((c, i) => console.log((i+1) + '. ' + c));
-}
-"
+node .claude/scripts/perplexity-research.mjs "<OPEN_PROMPT>"
 ```
+
+Script canonical em `.claude/scripts/perplexity-research.mjs` (S232 v6 Batch 4). Modelo `sonar-deep-research`, temperature 0.8, max_tokens 8000, return_citations + search_context_size high. SYSTEM prompt embutido (Tier 1 sources NEJM/Lancet/JAMA/BMJ/Ann Intern Med/Cochrane; markdown table only; PMIDs CANDIDATE).
+
 Regras: topico ABERTO ("What has changed in...", "What would surprise..."). Formato FECHADO (schema suffix no final do user prompt). Output parseavel.
 
 **Perna 6 — NotebookLM:** 3-4 queries progressivas ao notebook da aula via `nlm notebook query`. Q1 Foundation, Q2 Convergence, Q3 Deep content, Q4 Discovery (slides novos).

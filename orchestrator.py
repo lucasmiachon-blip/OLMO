@@ -3,7 +3,6 @@
 Usage:
     python -m orchestrator run          # Inicia o ecossistema
     python -m orchestrator status       # Mostra status dos agentes
-    python -m orchestrator workflow <n> # Executa um workflow
 """
 
 from __future__ import annotations
@@ -20,7 +19,7 @@ from rich.tree import Tree
 from agents.automation.automation_agent import AutomationAgent
 from agents.core.log import setup_logging
 from agents.core.orchestrator import Orchestrator
-from config.loader import load_config, load_workflows
+from config.loader import load_config
 from subagents.processors.data_pipeline import DataPipelineSubagent
 
 console = Console()
@@ -31,7 +30,6 @@ logger = logging.getLogger("orchestrator")
 def build_ecosystem() -> Orchestrator:
     """Constroi e configura o ecossistema completo de agentes."""
     config = load_config()
-    workflows_config = load_workflows()
 
     # Criar orquestrador
     orch = Orchestrator()
@@ -66,10 +64,6 @@ def build_ecosystem() -> Orchestrator:
             orch.agents[parent_name].add_subagent(subagent)
         else:
             logger.warning(f"Parent '{parent_name}' not found for subagent '{subagent.name}'")
-
-    # Registrar workflows
-    for wf_name, wf_config in workflows_config.get("workflows", {}).items():
-        orch.register_workflow(wf_name, wf_config.get("steps", []))
 
     return orch
 

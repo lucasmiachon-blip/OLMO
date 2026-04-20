@@ -135,10 +135,11 @@ content/aulas/
 config/
 ├── ecosystem.yaml       # Agent ecosystem config
 ├── rate_limits.yaml     # API rate limits
-├── workflows.yaml       # Workflow definitions
 ├── loader.py            # Config loader
 ├── mcp/servers.json     # MCP server config
 └── otel/                # OpenTelemetry collector config
+
+# REMOVED S232 v6 Batch 4: workflows.yaml (aspirational — 0 runtime reachability; comment acknowledged "Nao reviver stubs")
 ```
 
 ## docs/ (documentation)
