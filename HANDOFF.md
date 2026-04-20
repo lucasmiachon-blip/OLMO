@@ -77,19 +77,30 @@
 
 ---
 
-### P2 — S237: **Claude Managed Agents evaluation (C)** — spec-only audit
+### P2 — S237: **Migration viability audit — orchestrator.py → Claude Managed Agents (C)**
 
-**Consumer (potencial):** OLMO `orchestrator.py` + permissions system + tracing infra.
+**Tese brutal:** `orchestrator.py` é **quase vestigial pós-S232**. Runtime Python resume-se a 1 agent (automacao) + 1 subagent (data_pipeline) + CLI `status` command. Workflows system foi deletado Batch 4 (aspirational, nunca rodou). A orquestração real do OLMO acontece em **Claude Code** (hooks + skills + subagents), não em Python. Python stack sobreviveu S228-S230 purges sem justificar existência. Não está quebrado, mas não justifica manutenção.
 
-**Pain concreto:** (1) KBP-26 deny list bloqueia canonical tools (`node -e`, `cp`, `rmdir`, etc.); S232 gastou tempo contornando. (2) Custom tracing via 30 hooks ~500 li — Anthropic agora hospeda alternative.
+**Consumer atual (minimal):** `python -m orchestrator status` (raramente invocado); `agents/automation/` (Haiku dispatcher); `subagents/processors/data_pipeline.py` (stub).
 
-**Por quê S237 (pós-wins concretos):** informed decision depende de ver B/A/Living-HTML funcionando primeiro — entende onde pain está antes de decidir migrate.
+**Pains concretos que Managed Agents (Anthropic hospedado, lançado April 8) potencialmente resolve:**
+1. **KBP-26 permissions hell** — deny list bloqueia `node -e`, `cp`, `rmdir`, etc.; S232 gastou tempo contornando. Managed Agents tem "scoped permissions" nativas.
+2. **30 hooks ~500 li custom tracing** — duplica o que Managed Agents hospeda (tracing, sandboxing, sessions).
+3. **Dual stack manutenção** — Python orchestrator + Claude Code subagents = 2 places to maintain. Managed Agents colapsa em 1.
 
-**Deliverable:** `docs/adr/0004-claude-managed-agents-evaluation.md` — spec dos pains resolvidos + custos migração + veredicto (migrate S239+, NOT migrate, ou partial adopt).
+**Por quê S237 (pós-wins concretos):** antes de migrar, B/A/Living-HTML mostram onde pain real está. Migration sem evidence = cargo cult.
 
-**Escopo:** 2-3h audit. Read Anthropic docs + map to OLMO pain points. NÃO migrate ainda.
+**Deliverable:** `docs/adr/0004-orchestrator-migration-audit.md` — decision document honesto:
+- Lista do que orchestrator.py + hooks + agents Python fazem hoje (concreto)
+- Map para equivalent em Managed Agents (ou ausência)
+- Custos migração (dev time, dependency lock-in Anthropic, learning curve)
+- **Veredicto explícito:** MIGRATE / DELETE PYTHON + KEEP HOOKS / STATUS QUO — com rationale
 
-**Rejeito explícito:** adotar sem avaliação — mudança arquitetural grande merece ADR.
+**Escopo:** 2-3h audit. Read Anthropic Managed Agents docs + OLMO inventory. NÃO migrate em S237.
+
+**Assunção de trabalho (brutal):** provável veredicto é **MIGRATE OR DELETE PYTHON** — atual stack é holdover de ambição inicial que não materializou. ADR existe para provar/refutar com evidence.
+
+**Rejeito explícito:** (a) adotar sem avaliação; (b) manter Python indefinidamente por apego; (c) chamar "evolução" o que é "manutenção de código morto".
 
 ---
 
@@ -135,12 +146,13 @@ Com wins acumulados (research verified + PMID auto + Living-HTML partial + possi
 ## ESTADO POS-S232 (snapshot factual)
 
 - **Infra limpa pré-evolução:** workflows.yaml deleted, chatgpt-5.4 → gpt-4.1-mini, mbe-evidence phantoms eliminated, shared_memory dead field, producer scripts purged.
+- **Python orchestrator status (honesto):** `orchestrator.py` + `agents/automation/` + `subagents/processors/` = **quase vestigial**. 1 agent + 1 subagent + CLI status command. Não quebrado (37 tests pass) mas não justifica existência pós-S232. Orquestração real = Claude Code (hooks + skills + subagents). **S237 audit decidirá MIGRATE OR DELETE.**
 - **Research skill:** scripts criados em `.claude/scripts/`, NÃO testados empiricamente (S234 P0 resolve).
 - **Control plane:** settings.json canonical; .local.json user overrides ONLY.
 - **Memory governance:** per-agent only; §Memory em ARCHITECTURE.md.
 - **Plans:** 0 active. Historical archive intact.
 - **BACKLOG:** 46+4 items post-S232 (new entries A/B/C/D).
-- **Hooks:** 30/30 valid. Tests: 37/37 pass.
+- **Hooks:** 30/30 valid (mas questão aberta S237: quanto duplica Managed Agents). Tests: 37/37 pass.
 - **Triangulation pattern confirmado:** Codex + Gemini + research agent + Explore agents = reusable audit layer (Gemini fabrica citations, fact-check required).
 
 ## Deferreds S240+ (explicit non-action)
