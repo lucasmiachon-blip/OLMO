@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## Sessao 232 — 2026-04-19 (generic-snuggling-cloud — v6 adversarial consolidation)
+
+### 8 commits — audit-first cleanup + research skill repair + naming conflations
+- 2509b2b Stage 0+1: substrate counts reconciled + ADR-0003 multimodel orchestration
+- 0c1cbed Stage 2.1 + v6 Batch 1 partial: agent hygiene (evidence-researcher Bash tool removed) + producer-scripts purged (atualizar_tema.py + workflow_cirrose_ascite.py git rm per ADR-0002)
+- 3f81f1d v6 Batch 1: mbe-evidence phantoms (ecosystem.yaml L43-44 + automation + teaching SKILL.md) + shared_memory dead field (base_agent.py) + Antigravity rephrased historical + settings.local.json stale chmod/rm purge
+- 66f0980 v6 Batches 2+3: control plane canonical (sentinel + systematic-debugger audit settings.json not .local.json) + ARCHITECTURE §Control Plane + §Memory sections
+- 0c00749 v6 Batch 4: delete workflows.yaml + loader.py load_workflows() + orchestrator.py register_workflow loop; research skill repair via `.claude/scripts/{gemini,perplexity}-research.mjs` (script primacy unblocks Pernas 1+5 denied since S227 KBP-26)
+- de825e7 v6 Batch 5: chatgpt-5.4 → gpt-4.1-mini real API ID (ecosystem.yaml + rate_limits.yaml) + CLAUDE.md ChatGPT=VALIDAR → Codex=VALIDAR + ADR-0003 footnote¹ distinction (ChatGPT ≠ Codex ≠ OpenAI API ≠ GPT-N.M)
+- 8606394 Post-close cleanup: archive ACTIVE-S227 (dormant 5 sessões; drop ACTIVE- prefix) + git rm wiki/workflow-mbe-opus-classificacao.md (ADR-0002 producer violation) + HANDOFF S233 rewrite
+- 222f98b Verification fix: tests/conftest.py + test_loader.py purge load_workflows refs post-Batch 4 delete (37 tests pass)
+
+### Adversarial review triangulation (3 external reviewers)
+- Codex GPT-5.4 (P1/0.96 storage-first pivot + P1/0.92 orchestration gates + P1/0.88 SOA framing stale; 0 hallucinations)
+- Gemini 3.1 Pro v3+v4 (confirmed Codex + escalated MCP/NativeSO; 1 hallucination "CGAgentX" caught by research agent)
+- Research agent 2026-04-19 (Anthropic 3-Agent Harness March 24 + Claude Managed Agents April 8 + adversarial angle on v4 "rearranging deck chairs")
+- 3 Explore agents (8-hypothesis audit — all confirmed)
+
+### Plans aprendizados + residual
+- Plan oscilação v1→v6: cada pivot overcorrected. v1 SOA cosplay → v2 Codex storage-first → v3 Gemini aggressive → v4 org-only yak-shaving → v5 org + harness pilot (still adds) → v6 audit-first adversarial. Lição: quando human indica "não está pensando", parar + triangulate externally, não iterate next-turn.
+- v6 rule: "no net-new artifacts unless required to repair canonical broken path". Scripts/ exception honored: 2 scripts criados APENAS para unblock research skill blocked since S227.
+- Classificação explícita post-close: ACTIVE-S227 (DEFERRED 5 sessões → ARCHIVED); wiki/workflow-mbe (ADR-0002 violation → DELETED); stop-quality.sh finding #17 (FALSE POSITIVE → removed).
+- Plans active count: 0 pós-S232 archival (this session's plan archived as S232-v6-adversarial-consolidation.md).
+
+### Budget
+- 5 v6 Batches + Stage 2.1 catchup + post-close cleanup + verification fix
+- ~8 commits, ~570 li net removed, 2 repair scripts (40 li each)
+- 37/37 tests pass; orchestrator.py status works
+
 ## Sessao 230 — 2026-04-19 (bubbly-forging-cat — adversarial audit + simplification)
 
 ### 6 commits batched (Batches 1-4 done, 5+6 deferred)
