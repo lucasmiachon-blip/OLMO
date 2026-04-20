@@ -40,6 +40,16 @@ Notion audit/add_content: **crosstalk pattern** (seção abaixo).
 | sentinel | Sonnet | 25 | project | Read-only self-improvement, anti-pattern detection |
 | systematic-debugger | Sonnet | 25 | project | 4-phase structured debugging |
 
+## Memory (canonical layout)
+
+**Per-agent memory** = `.claude/agent-memory/{agent-name}/` — only agent with material memory currently is `evidence-researcher` (6 topic files + MEMORY.md index). Agents create subdir on first write; empty subdirs (qa-engineer, sentinel, reference-checker) are tolerated as placeholder but NOT canonical state.
+
+**User-global memory** = `~/.claude/memory/` — Lucas-wide cross-project (outside OLMO repo scope; managed via `/dream` + `/wiki-lint` plugin skills).
+
+**NOT IN USE** (S232 v6 cleanup):
+- `AgentContext.shared_memory` — dead field deleted from `agents/core/base_agent.py`
+- Project-level global memory layer — intentionally absent; per-agent isolation is canonical
+
 ## Hook Pipeline
 
 ```mermaid
@@ -62,7 +72,7 @@ graph LR
 
 **30 scripts · 32 hook registrations em `settings.json`** (10 eventos: SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · PostToolUseFailure · SessionEnd + 2 inline Stop hooks).
 APL (Ambient Productivity Layer): 3 hooks — pulse per prompt, cache at start, scorecard at stop.
-Config: `.claude/settings.json` (overrides locais em `.claude/settings.local.json`). Reference: `.claude/hooks/README.md`.
+**Control plane (canonical):** `.claude/settings.json` = hooks array + permissions (deny/allow). `.claude/settings.local.json` = user-specific overrides ONLY (permissions.allow for per-user tool auth; NOT hook registrations). Agents auditing hook health must check `settings.json:hooks[]`, never `.local.json`. Reference: `.claude/hooks/README.md`.
 
 ## Antifragile Stack (Taleb L1-L7)
 

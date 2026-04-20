@@ -35,7 +35,7 @@ git log --oneline -5
 2. **Hardcoded values**: magic numbers, inline URLs, credentials patterns
 3. **TODO/FIXME without issue**: grep for TODO/FIXME/HACK/XXX — flag if no issue link
 4. **Stale references**: paths in docs/rules that point to moved/deleted files
-5. **Hook registration gaps**: scripts in hooks/ not registered in settings.local.json
+5. **Hook registration gaps**: scripts in hooks/ not registered in settings.json (canonical hooks array; settings.local.json = user permission overrides only)
 6. **Agent-script divergence**: agent definitions reimplementing script logic (KBP-03)
 
 ### Output format

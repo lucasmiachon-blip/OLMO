@@ -89,7 +89,7 @@ Nao sugerir "proximo passo". Nao encadear acao.
 
 - Erro nao reproduzivel: documentar condicoes, sugerir logging temporario
 - Multiplos erros simultaneos: isolar cada um, reportar separadamente
-- Erro em hook/guard: verificar settings.local.json + script + event trigger
+- Erro em hook/guard: verificar settings.json (canonical hooks array; settings.local.json apenas permission overrides) + script + event trigger
 - Erro intermitente: coletar N ocorrencias antes de hipotizar
 - Sem mensagem de erro: verificar stdout, stderr, exit codes, logs
 
