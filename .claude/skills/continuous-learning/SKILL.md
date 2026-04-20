@@ -195,4 +195,4 @@ Anthropic, OpenAI, Google, Meta, Mistral, HuggingFace, Papers With Code, GitHub 
 - AI monitoring: 1 call/semana batched, cache por 7 dias
 - Registrar progresso em memory (tipo: user, tracking de nivel)
 - Registrar custo no BudgetTracker
-- Notion: seguir `.claude/rules/mcp_safety.md`
+- Notion: seguir `docs/mcp_safety_reference.md`

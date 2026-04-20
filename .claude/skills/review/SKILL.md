@@ -23,7 +23,6 @@ performance e conformidade com o ecossistema.
 - Complexidade desnecessaria (over-engineering)
 - Duplicacao de codigo
 - Type hints (obrigatorio por convencao)
-- Conformidade com `.claude/rules/quality.md`
 
 ### 3. Seguranca (OWASP LLM Top 10 2025)
 - Prompt Injection (LLM01)
@@ -32,14 +31,14 @@ performance e conformidade com o ecossistema.
 - Injection classica (SQL, command, XSS)
 - Exposicao de credenciais/tokens
 - Configuracao insegura de MCP
-- Conformidade com `.claude/rules/mcp_safety.md`
+- Conformidade com `docs/mcp_safety_reference.md`
 
 ### 4. Performance
 - Complexidade algoritmica
 - Queries N+1
 - Memory leaks
 - Caching oportunidades
-- Uso excessivo de API (rules/efficiency.md)
+- Uso excessivo de API
 
 ### 5. Testes
 - Cobertura adequada para logica de negocio
@@ -47,9 +46,7 @@ performance e conformidade com o ecossistema.
 - Testes de integracao (sem mocks desnecessarios)
 
 ### 6. Conformidade Ecossistema
-- Coautoria explicitada? (rules/coauthorship.md)
-- Notion writes seguem protocolo? (rules/mcp_safety.md)
-- Budget respeitado? (config/rate_limits.yaml)
+- Coautoria explicitada? (`docs/coauthorship_reference.md`)
 
 ## Severity Levels
 

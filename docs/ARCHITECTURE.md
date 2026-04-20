@@ -6,13 +6,13 @@
 
 ## Runtime (post-S232 v6)
 
-**Não há runtime Python.** S232 post-close deletou `orchestrator.py`, `__main__.py`, `agents/`, `subagents/`, `tests/` (Python), `config/loader.py`, `config/ecosystem.yaml`, `config/rate_limits.yaml` — stack era vestigial/falido/nunca usado (0 hook invocations, 0 external consumers; manual `make run`/`status` raramente).
+**Não há runtime Python agent.** S232 removeu do repo versionado: `orchestrator.py`, `__main__.py`, `agents/`, `subagents/`, `tests/` (Python), `config/loader.py`, `config/ecosystem.yaml`, `config/rate_limits.yaml` — stack era vestigial/falido/nunca usado (0 hook invocations, 0 external consumers; manual `make run`/`status` raramente). `git ls-files agents/ subagents/ tests/` confirmam vazio. Resíduo filesystem local (`__pycache__` gitignored) pode persistir em clones e não afeta o repo.
 
 **Orquestração real acontece em Claude Code:**
 - 9 subagents em `.claude/agents/*.md` (Task tool, MCPs próprios, maxTurns)
 - 18 skills em `.claude/skills/*/SKILL.md` (invocadas via Skill tool ou triggers)
 - 30 hooks em `.claude/hooks/` + `hooks/` (event-driven: PreToolUse, PostToolUse, Stop, etc.)
-- MCP connections via `config/mcp/servers.json` (única config YAML/JSON preservada)
+- MCP connections: shared inventory em `config/mcp/servers.json`; agent-scoped MCPs inline em `.claude/agents/*.md` (ver §MCP Connections abaixo); policy runtime em `.claude/settings.json`
 
 **Regra** (canônica em `.claude/rules/anti-drift.md` §Propose-before-pour): Lucas decide, agente executa.
 
@@ -134,29 +134,43 @@ content/aulas/
 
 **Patterns:** assertion-evidence (`<h2>` = claim, visual = evidence), declarative animation (`data-animate`), OKLCH design tokens, 1280x720 viewport.
 
-## MCP Connections
+## MCP Connections (3 camadas)
 
-| Category | MCPs | Used by |
-|----------|------|---------|
-| Medical (evidence) | PubMed, SCite, Consensus, Scholar Gateway, Semantic Scholar, CrossRef, BioMCP | evidence-researcher (6 braços MBE) |
-| Study | NotebookLM, Zotero | reference management |
-| Productivity | Notion | crosstalk pattern (S229 — MCP direct inline) |
-| Visual | Excalidraw, Canva | diagrams, design |
+**Shared inventory** (`config/mcp/servers.json`) — declarações compartilhadas com lifecycle tags:
 
-Gemini: CLI OAuth ($0) + API key (scripts QA). Perplexity: API direta (not MCP).
+| MCP | Category | Lifecycle |
+|-----|----------|-----------|
+| PubMed, SCite, Consensus | Medical | connected |
+| Scholar Gateway | Medical | connected (**frozen** per evidence-researcher S128) |
+| NotebookLM, Zotero | Study | connected |
+| Notion | Productivity | connected |
+| Canva, Excalidraw | Visual | connected |
+
+**Agent-scoped** (`.claude/agents/*.md` `mcpServers:` block, **fora** do shared inventory):
+- `evidence-researcher`: pubmed, crossref, **semantic-scholar**, scite, biomcp (5 agent-scoped MCPs + claude.ai PubMed fallback)
+- `reference-checker`: pubmed
+
+**Policy gate** (`.claude/settings.json`) — governa callable em runtime:
+- `pre-approved` (allow): `mcp__pubmed__*`, `mcp__biomcp__*`, `mcp__crossref__*`, `mcp__claude_ai_{PubMed,Consensus,SCite}__*`
+- `blocked by deny`: `mcp__claude_ai_{Notion,Canva,Excalidraw,Scholar_Gateway,Gmail,Google_Calendar}__*`, `mcp__zotero__*`
+- `not pre-approved by current policy` (unlisted): demais (ex: NotebookLM, semantic-scholar)
+
+**Inventoriado ≠ callable.** Cruzar shared inventory × policy gate antes de afirmar runtime status. Scholar Gateway ≠ Semantic Scholar (primeiro = shared inventory frozen; segundo = agent-scoped).
+
+Gemini: CLI OAuth ($0) + API key (scripts QA) — **não MCP**. Perplexity: API direta — **não MCP**.
 
 **Migrated S228-S229 → OLMO_COWORK (ADR-0002):** Gmail (S228, email scan/classify/publish); daily org agents + Notion write subagents (S229).
 
-## Notion Crosstalk Pattern (S229)
+## Notion Crosstalk Pattern (S229 — historical pattern, currently blocked)
 
-Notion audit + add_content opera via **Claude Code (OLMO) + MCP Notion direct** em sessão interativa Lucas+Claude. NÃO existe Python subagent ou workflow batch.
+Pattern documentado S229: Notion audit + add_content operava via **Claude Code (OLMO) + MCP Notion direct** em sessão interativa Lucas+Claude. **Runtime atual: `mcp__claude_ai_Notion__*` está blocked by deny em `.claude/settings.json`. Uso exige reativação manual da policy (mover deny→allow).** NÃO existe Python subagent ou workflow batch.
 
 **Rationale:** Python pipeline async era mais lento que crosstalk síncrono. Claude Code pode classificar, auditar, adicionar conteúdo e confirmar inline — Lucas aprova em tempo real, rollback imediato disponível. Para operações pontuais (1-N páginas), crosstalk supera COWORK handoff assíncrono.
 
 **Quando usar crosstalk (OLMO):** audit pontual, add_content interativo, dedupe com decisão humana.
 **Quando usar OLMO_COWORK:** producer pipeline (harvest → classify → publish em lote), sem humano no loop.
 
-Infra: MCP Notion configurado em `config/mcp/servers.json`. Capacidade preservada, código Python batch não.
+Infra: MCP Notion **inventariado** em `config/mcp/servers.json`; runtime atual = **blocked by deny** em `.claude/settings.json`. Ativação requer mover deny→allow manualmente. Código Python batch não preservado (S229).
 
 ## Model Routing
 
@@ -231,10 +245,8 @@ OLMO/
 │   └── plans/               # Session plans
 ├── hooks/ (13)              # Lifecycle + APL: session-start, stop-*, ambient-pulse, apl-cache, nudge-commit, post-compact-reread, session-end
 ├── config/
-│   ├── ecosystem.yaml       # Agent routing + skills
 │   └── mcp/servers.json     # MCP server configs (pinned versions)
 ├── content/aulas/           # Node.js subsystem (deck.js + GSAP + Vite)
-├── tests/ (53)              # pytest suite
 ├── docs/                    # Architecture, workflows, research
 │   └── research/            # Implementation plans, chaos design doc
 └── docker-compose.yml       # OTel Collector + Langfuse + Postgres + ClickHouse
@@ -254,8 +266,6 @@ OLMO/
 
 - `docs/research/implementation-plan-S82.md` — Master roadmap (antifragile, self-improvement)
 - `docs/research/chaos-engineering-L6.md` — L6 design doc
-- `docs/WORKFLOW_MBE.md` — MBE research workflow
-- `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` — Research pipeline details
 - `content/aulas/STRATEGY.md` — Slide tech roadmap (CSS @layer, D3, Lottie)
 - `docs/coauthorship_reference.md` — AI coauthorship policy
 - `docs/mcp_safety_reference.md` — MCP security protocol

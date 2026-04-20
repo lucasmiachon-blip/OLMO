@@ -85,7 +85,7 @@ Para o slide/tema especificado, buscar em TODAS as MCPs disponiveis:
 
 **Guidelines:** PubMed `practice guideline[pt]` + WebFetch em fontes Tier 1 oficiais
 **RCTs:** PubMed `randomized controlled trial[pt]` + Consensus + BioMCP (ClinicalTrials.gov)
-**Meta-analises:** PubMed `meta-analysis[pt]` + Scholar Gateway + Consensus
+**Meta-analises:** PubMed `meta-analysis[pt]` + Consensus
 **Autoridades:** Semantic Scholar (top authors) + WebSearch (textbooks, UpToDate)
 
 ### Fase 3 — Verificacao

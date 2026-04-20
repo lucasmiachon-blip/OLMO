@@ -8,10 +8,10 @@
 
 ## Test plan
 
-- [ ] `make check` passes (lint + types + tests)
+- [ ] `make lint && make type-check` pass (Python scripts remanescentes)
 - [ ] Manual verification: ...
 
 ## Coautoria
 
-<!-- Quem participou (regra coauthorship.md) -->
+<!-- Quem participou (docs/coauthorship_reference.md) -->
 Coautoria: Lucas + ...

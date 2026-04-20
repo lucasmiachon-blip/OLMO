@@ -41,7 +41,7 @@ Quando: novo PMID verificado em living HTML (`evidence/s-*.html`)
 2. Atualizar living HTML (status: VERIFICADO)
 3. Atualizar `must-read-trials.md` se trial e must-read
 4. No Notion References DB: criar/atualizar entrada, setar `Verified = true`
-5. Seguir protocolo `.claude/rules/mcp_safety.md` (1 write por vez, verificar resultado)
+5. Seguir protocolo `docs/mcp_safety_reference.md` (1 write por vez, verificar resultado)
 
 ### Notion → Repo (pull)
 
@@ -62,8 +62,7 @@ Quando: Lucas marca PDF como encontrado no Notion
 
 ## Seguranca
 
-- Notion MCP: protocolo em `.claude/rules/mcp_safety.md`
-- Cross-validation para batch > 5: `.claude/rules/notion-cross-validation.md`
+- Notion MCP: protocolo em `docs/mcp_safety_reference.md`
 - Operacoes seguras: `notion-search`, `notion-fetch`
 - Operacoes arriscadas: `notion-update-page`, `notion-create-pages`
 - Regra de ouro: 1 write por vez, verificar resultado, erro = PARAR

@@ -1,6 +1,6 @@
 # Plans — Índice e Convenção
 
-> Single source of truth para o estado dos plans OLMO. Atualizado: 2026-04-19 (pós-S232 close).
+> Single source of truth para o estado dos plans OLMO. Atualizado: 2026-04-20 (pós-S233 substrate-truth-cleanup).
 
 ## Active plans (0)
 
@@ -49,6 +49,7 @@ Historical audit trail. Never delete; historical value > storage cost. Reference
 
 | Plan | Session | Status |
 |------|---------|--------|
+| (no plan file) | S233 | HISTORICAL — substrate-truth-cleanup executed in-conversation; details in `CHANGELOG §Sessao 233` |
 | `archive/S232-v6-adversarial-consolidation.md` | S232 | HISTORICAL — executed, 8 commits |
 | `archive/S232-readiness-multimodel-agents-memory.md` | S232 iter 1 | SUPERSEDED by v6 |
 | `archive/S230-*.md` (4 files) | S230 | HISTORICAL — executed |

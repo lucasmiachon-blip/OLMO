@@ -23,9 +23,9 @@ Orquestração = **Claude Code nativo:**
 - 9 subagents em `.claude/agents/*.md` (Task tool + MCPs)
 - 18 skills em `.claude/skills/*/SKILL.md`
 - 30 hooks em `.claude/hooks/` + `hooks/`
-- MCP servers via `config/mcp/servers.json`
+- MCP servers: shared inventory em `config/mcp/servers.json`; agent-scoped inline em `.claude/agents/*.md`; policy runtime em `.claude/settings.json`
 
-Pesquisa MBE + QA + inbox-pull: via subagents + skills (evidence-researcher, qa-engineer, research skill com scripts/*.mjs). Notion: crosstalk pattern (Claude Code + MCP Notion direct inline) — ver `docs/ARCHITECTURE.md`.
+Pesquisa MBE + QA + inbox-pull: via subagents + skills (evidence-researcher, qa-engineer, research skill com scripts/*.mjs). Notion: crosstalk pattern documentado — runtime atual blocked by deny; ver `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`.
 
 ## Objectives
 
@@ -68,7 +68,7 @@ Aulas: ver `content/aulas/CLAUDE.md`.
 | Se mudou... | Deve atualizar... |
 |-------------|-------------------|
 | `.claude/agents/*.md` | HANDOFF.md tabela de agentes |
-| `config/ecosystem.yaml` | `docs/ARCHITECTURE.md` + `README.md` + `CLAUDE.md` (architecture blocks) |
+| `config/mcp/servers.json` | `docs/ARCHITECTURE.md` §MCP Connections + `README.md` stack |
 
 ## Self-Improvement
 

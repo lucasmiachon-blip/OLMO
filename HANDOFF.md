@@ -1,14 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> ✅ **S232 COMPLETE** (generic-snuggling-cloud — v6 adversarial consolidation + Python stack purge) 2026-04-19 — audit-first cleanup; 13 commits; net **~1500+ li removed** (v6 570 + Python stack 900+). Evolução arquitetural real desta sessão: **Python orchestrator vestigial DELETED** (Lucas assessment + empirical grep audit). Infra agora = Claude Code nativo puro (0 runtime Python).
->
-> **S233 SKIPPED** — verification + Python purge done inline durante S232 close.
+> **S233 CLOSED** (substrate-truth-cleanup) 2026-04-20 — correcao adversarial de canonicos falsos pos-S232. Detalhes e arquivos tocados em `CHANGELOG §Sessao 233`. Fase B destrutiva (ghost dirs filesystem local `agents/`, `subagents/`, `tests/` gitignored) NAO executada — aguarda OK separado.
 
 **S234 HYDRATION (ordem obrigatória):**
 1. Read este HANDOFF completo
 2. Check `.claude/plans/README.md` (convenção + taxonomia)
-3. Se dúvida S232 execution: `.claude/plans/archive/S232-v6-adversarial-consolidation.md`
-4. CHANGELOG §Sessao 232 para decisões históricas
+3. `CHANGELOG §Sessao 233` para edits do cleanup + `§Sessao 232` para decisões históricas
+4. Se dúvida S232 execução profunda: `.claude/plans/archive/S232-v6-adversarial-consolidation.md`
 
 ---
 
@@ -85,34 +83,14 @@ Com wins acumulados:
 
 ---
 
-## BACKLOG post-S232 close (triage final)
+## Estado factual para S234
 
-| # | Status | Razão |
-|---|--------|-------|
-| #51 Python stack DELETE | **RESOLVED S232 post-close** (commit `46489c0`) | Executed same-session via DELETE TOTAL; 26 files + 2 YAMLs removed |
-| #49 Managed Agents eval | **RESOLVED** (subsumed by #51 DELETE) | Sem orchestrator.py para migrar; reabrir apenas se novo use case materializar |
-| #36 Living-HTML | ACTIVE SCHEDULED S236 | Per Lucas S232 close |
-| #47 Research verify | P0 S234 (promoted from P1) | Python RESOLVED libera slot P0 |
-| #48 PMID auto | P1 S235 | Shifted -1 slot |
-| #50 QA parallelism | P2 S237 | Shifted -1 slot |
-
-**BACKLOG counts atualizados:** P0=0 | P1=15 | P2=22 | Resolved=**11** (era 9; +#49, +#51) | Next #=52.
-
----
-
-## ESTADO POS-S232 FINAL (snapshot factual)
-
-- **Infra limpa pré-evolução:** workflows.yaml deleted (Batch 4), chatgpt-5.4 → gpt-4.1-mini, mbe-evidence phantoms eliminated, shared_memory dead field, producer scripts purged.
-- **Python stack DELETED (post-close):** `orchestrator.py`, `agents/`, `subagents/`, `tests/` (Python), `config/loader.py`, `ecosystem.yaml`, `rate_limits.yaml`. Remaining Python: `scripts/fetch_medical.py` (standalone, httpx-only).
-- **pyproject.toml pruned:** name "olmo", v0.3.0, deps 11→1 (httpx), dev ruff/mypy/pre-commit.
-- **Research skill:** scripts `.claude/scripts/{gemini,perplexity}-research.mjs` criados; NÃO testados empiricamente (S234 P0 resolve).
-- **Control plane:** settings.json canonical; .local.json user overrides ONLY.
-- **Memory governance:** per-agent only; §Memory em ARCHITECTURE.md.
-- **Plans:** 0 active. Historical archive intact (78 files).
-- **BACKLOG:** P0=0, P1=15, P2=22, Resolved=11 (#51 + #49 + existing 9). Next #=52.
-- **Hooks:** 30/30 valid.
-- **Tests:** 0 remaining (Python tests deleted; Node tests via content/aulas/scripts/).
-- **Infra runtime:** **Claude Code nativo puro** — 9 agents + 18 skills + 30 hooks + MCP servers. Zero Python runtime.
+- **Python runtime:** ausente. Repo versionado purgado S232; resíduo pycache gitignored local não viaja em clone. Remaining: `scripts/fetch_medical.py` standalone.
+- **Research scripts (S232):** `.claude/scripts/{gemini,perplexity}-research.mjs` criados mas nunca testados contra API real — baseline empírica = S234 P0.
+- **Infra runtime:** Claude Code nativo (9 subagents + 18 skills + hooks + MCPs). Detalhes em `docs/ARCHITECTURE.md`.
+- **Plans:** 0 active. Archive em `.claude/plans/archive/`.
+- **BACKLOG:** contagens em `.claude/BACKLOG.md` §header.
+- **Control plane:** `.claude/settings.json` canonical; `.local.json` user overrides only.
 
 ## Deferreds S239+ (explicit non-action)
 
@@ -133,6 +111,6 @@ Com wins acumulados:
 - `docs/adr/{N}-{name}.md`: architectural decisions numbered
 
 ---
-Coautoria: Lucas + Opus 4.7 + Codex + Gemini + research agent + 3 Explore agents | S232 generic-snuggling-cloud v6 + post-close Python stack DELETE TOTAL | 2026-04-19
+Coautoria: Lucas + Opus 4.7 | S233 substrate-truth-cleanup (pós-S232) | 2026-04-20
 
-(R3 Clínica Médica: 225 dias)
+(R3 Clínica Médica: 224 dias)

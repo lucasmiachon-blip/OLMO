@@ -56,7 +56,7 @@ Cada arquivo tem secao "See also" linkando para os siblings relevantes.
 | Teaching Log (planejado) | — | — | Feedback de aulas |
 
 Protocolo completo: `docs/SYNC-NOTION-REPO.md`
-Seguranca Notion: `.claude/rules/mcp_safety.md`
+Seguranca Notion: `docs/mcp_safety_reference.md`
 
 ## Migracao Planejada
 

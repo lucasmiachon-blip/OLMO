@@ -94,4 +94,4 @@ Todo output deve ter referenciamento impecavel.
 
 ## Eficiencia
 - Registrar custo no BudgetTracker
-- Para operacoes Notion: seguir `.claude/rules/mcp_safety.md`
+- Para operacoes Notion: seguir `docs/mcp_safety_reference.md`

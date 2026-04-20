@@ -1,6 +1,6 @@
 # S232 — Readiness + Multimodel Orchestration + Agent/Memory Optimization
 
-> Status: ACTIVE (criado 2026-04-19) | Pipeline: 2 sessões (S232+S233) | Retomada de slides: S234
+> Status: SUPERSEDED by S232-v6-adversarial-consolidation.md (criado 2026-04-19 como v1; rejected em oscilação v1→v6 — ver v6 §Oscilação postmortem)
 > Session name: `S232-readiness-multimodel-agents-memory` (plan name = session name — convenção S232+)
 > Priority: Execução de research já feita (S224 SOA docs + BACKLOG #29 6-phase plan desde S190)
 

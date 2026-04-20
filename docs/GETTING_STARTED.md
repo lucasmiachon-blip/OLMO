@@ -1,7 +1,7 @@
 # Guia de Inicio Rapido
 
 > Perfil: Medico + Professor + Pesquisador + Developer AI
-> Checklist completo: `.claude/BACKLOG.md` §Setup & Infra | Seguranca Notion: `.claude/rules/mcp_safety.md`
+> Checklist completo: `.claude/BACKLOG.md` §Setup & Infra | Seguranca Notion: `docs/mcp_safety_reference.md`
 
 ## Pre-requisitos
 
@@ -29,35 +29,29 @@ cp .env.example .env
 # Edite .env com suas API keys (ver .claude/BACKLOG.md §Setup & Infra)
 ```
 
-## MCPs Configurados (ver `config/mcp/servers.json`)
+## MCPs — 3 camadas
 
-**Conectados (9)** — maioria via claude.ai (OAuth, $0):
-- **Medicos**: PubMed, SCite, Consensus, Scholar Gateway
-- **Produtividade**: Notion, Canva, Excalidraw (Gmail+Calendar purged S229)
-- **Pesquisa**: NotebookLM, Zotero
+**Shared inventory** (`config/mcp/servers.json`) — `status:connected`: PubMed, SCite, Consensus, Scholar Gateway (frozen per evidence-researcher), NotebookLM, Zotero, Notion, Canva, Excalidraw. `status:removed`: Perplexity (→ API direta), Gemini (→ CLI OAuth).
 
-Perplexity: API direta (nao MCP). Gemini: CLI OAuth + API key (scripts).
+**Policy/runtime** (`.claude/settings.json`) — o que é callable sem prompt:
+- `pre-approved` (allow): PubMed, SCite, Consensus (via claude.ai) + pubmed/biomcp/crossref (local)
+- `blocked by deny`: Notion, Canva, Excalidraw, Scholar Gateway, Zotero, Gmail, Google Calendar
+- `not pre-approved by current policy` (unlisted): demais (ex: NotebookLM)
+
+**Agent-scoped** (`.claude/agents/*.md` `mcpServers:` block, **fora** do shared inventory): ex. `evidence-researcher` declara `semantic-scholar` escopado (não em `servers.json`).
+
+**Inventoriado ≠ callable.** Detalhes em `docs/ARCHITECTURE.md §MCP Connections`. Para ativar MCP hoje `blocked by deny`, mover manualmente deny→allow em `.claude/settings.json`.
 
 ```bash
-# Notion MCP (publicacao de conteudo)
-# IMPORTANTE: ler .claude/rules/mcp_safety.md ANTES de usar (bugs conhecidos)
+# Notion MCP — setup de shared inventory
+# IMPORTANTE: ler docs/mcp_safety_reference.md ANTES de usar (bugs conhecidos)
+# Nota: runtime atual = blocked by deny em .claude/settings.json; requer reativação manual
 claude mcp add --transport http notion https://mcp.notion.com/mcp
 ```
 
 ## Uso Basico
 
-```bash
-# Ver status do ecossistema
-python orchestrator.py status
-
-# Executar workflows disponiveis (pos-slim S228+S229)
-python orchestrator.py workflow weekly_deep_review
-python orchestrator.py workflow smart_query
-python orchestrator.py workflow code_review
-
-# Producer workflows (paper_to_notion, weekly_medical_digest, etc.) migrados para OLMO_COWORK (ADR-0002).
-# Daily org/matriz (full_organization, notion_cleanup) migrados em S229.
-```
+Stack Python runtime (orchestrator.py + workflows YAML) foi retirado do repo em S232 — era vestigial/falido/nunca usado. Orquestração real acontece via Claude Code (subagents + skills + MCPs). Producer workflows migrados para OLMO_COWORK (ADR-0002). Python remanescente no repo: `scripts/fetch_medical.py` (standalone, httpx-only).
 
 ## Uso com Claude Code
 
@@ -69,6 +63,7 @@ claude "busque no PubMed sobre metformina e cancer coloretal"
 claude "analise este paper com GRADE e gere living HTML: [PMID]"
 
 # Notion audit/add (crosstalk pattern — interativo)
+# Requer runtime ativo: mcp__claude_ai_Notion__* está blocked by deny em .claude/settings.json — ativar antes
 claude "audite minha pagina Notion X e adicione secao Y"
 ```
 
@@ -80,12 +75,7 @@ OLMO/
 ├── CHANGELOG.md              # Historico (ultimas 3 sessoes; arquivo em docs/)
 ├── .claude/BACKLOG.md        # Backlog + setup checklist
 ├── HANDOFF.md                # Continuidade entre sessoes
-├── orchestrator.py           # Entry point Python
-├── agents/                   # Runtime Python (slim pos-S229 — consumer-only)
-│   ├── core/                 # Base, Orchestrator, MCP Safety
-│   └── automation/           # Automacao (unico agent)
-├── subagents/                # Subagentes
-│   └── processors/           # DataPipeline (unico subagent)
+# (stack Python runtime retirado S232: orchestrator.py, agents/, subagents/ removidos do repo)
 ├── content/aulas/            # Subsistema Node.js (deck.js + GSAP)
 │   ├── shared/               # Design system (CSS OKLCH, deck.js, engine.js, fonts)
 │   ├── cirrose/              # 11 slides ativos + 35 archived
@@ -94,26 +84,24 @@ OLMO/
 │   └── STRATEGY.md           # Roadmap tecnico
 ├── assets/                   # Concurso R3 (provas + SAPs, gitignored)
 ├── .claude/
-│   ├── skills/ (~17)         # Sob demanda (progressive disclosure; 3 purged S229)
-│   ├── rules/ (10)           # Sempre carregadas (path-scoped)
-│   ├── agents/ (8)           # researcher, qa-engineer, evidence-researcher, etc.
-│   └── hooks/ (11)           # Guards + antifragile hooks
-├── hooks/ (11)               # Session lifecycle + stop hooks + chaos report
+│   ├── skills/               # Sob demanda (progressive disclosure)
+│   ├── rules/                # Sempre carregadas (path-scoped)
+│   ├── agents/               # Claude Code subagent definitions
+│   └── hooks/                # Guards + antifragile hooks
+├── hooks/                    # Session lifecycle + stop hooks
 ├── config/
-│   ├── ecosystem.yaml        # Agentes + model routing + skills
-│   ├── mcp/servers.json      # MCP server configs
-│   └── rate_limits.yaml      # Budget
+│   └── mcp/servers.json      # MCP server configs
 └── docs/                     # Documentacao tecnica
 ```
 
 ## Ordem de Setup Recomendada
 
 1. API keys no `.env` (ver `docs/keys_setup.md`)
-2. MCPs nativos claude.ai: ja conectados via OAuth (PubMed, Notion, etc.)
-3. MCPs locais: Perplexity (`PERPLEXITY_API_KEY`), Zotero, NotebookLM
+2. MCPs nativos claude.ai: `pre-approved` no runtime atual = PubMed, Consensus, SCite. Demais inventariados (ex: Notion, Canva, Scholar Gateway) estão `blocked by deny` — ativar manualmente em `.claude/settings.json` se necessário.
+3. Perplexity (API direta via `PERPLEXITY_API_KEY`, **não MCP**); Zotero (inventariado em servers.json, **blocked by deny** no runtime atual); NotebookLM (inventariado, **not pre-approved by current policy**)
 4. Gemini: CLI OAuth (`gemini auth login`) + API key for scripts (`GEMINI_API_KEY`)
 5. Aulas: `cd content/aulas && npm install && npm run dev`
-6. Python: `make check` (lint + mypy + pytest)
+6. Python (scripts standalone): `make lint` + `make type-check` (pytest removido com stack S232)
 7. Docker: `docker compose up -d` (OTel + Langfuse observability)
 
 Full architecture: `docs/ARCHITECTURE.md`

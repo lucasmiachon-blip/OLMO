@@ -1,5 +1,54 @@
 # CHANGELOG
 
+## Sessao 233 — 2026-04-20 (substrate-truth-cleanup)
+
+### Correcao adversarial de canonicos falsos pos-S232
+- S232 removeu stack Python do repo versionado (git log confirma), mas canonicos vivos continuavam ensinando comandos/arquivos mortos. S233 ataca substrate antes de cleanup ambicioso. 14 arquivos, 0 commits no close (commit aguarda OK). Fase B destrutiva (ghost dirs filesystem local `agents/`, `subagents/`, `tests/` — gitignored) NAO executada.
+
+### Refs mortas corrigidas em canonicos vivos
+- `.claude/rules/mcp_safety.md` (ausente) → `docs/mcp_safety_reference.md` em `docs/GETTING_STARTED.md`, `docs/SYNC-NOTION-REPO.md`, `content/aulas/cirrose/README.md`, 3 SKILLs (`teaching`, `continuous-learning`, `review`)
+- `docs/WORKFLOW_MBE.md` + `docs/PIPELINE_MBE_NOTION_OBSIDIAN.md` (ausentes): refs removidas de `docs/ARCHITECTURE.md`
+- `config/ecosystem.yaml` (purgado S232): `CLAUDE.md` propagation map → `config/mcp/servers.json`; `docs/ARCHITECTURE.md` arvore → removido; `docs/adr/0003-multimodel-orchestration.md:39` reescrito (declaracao honesta de ausencia local + pointer `platform.openai.com/docs/models`)
+- `config/rate_limits.yaml` (purgado): linha "Budget respeitado?" removida de `review/SKILL.md`
+- `.claude/rules/{quality,efficiency,coauthorship,notion-cross-validation}.md` (ausentes): refs removidas/substituidas em `review/SKILL.md` + `docs/SYNC-NOTION-REPO.md`
+
+### Claims falsos corrigidos
+- `README.md`: removido "pytest (40 tests)" + "1 Python runtime agent"; "7-layer antifragile" rebaixado para "nao auditado → BACKLOG #45"
+- `docs/GETTING_STARTED.md`: bloco `python orchestrator.py status/workflow` substituido; arvore com arquivos mortos corrigida; contagens fracas `(~17)/(10)/(8)/(11)` removidas; step 6 `make check` → `make lint && make type-check`
+- `docs/TREE.md`: "Active plans (3)" → "0 active"; "22 skill directories" → "18"; contagem fragil "46 items" removida
+- `docs/ARCHITECTURE.md`: purga L9 qualificada ("repo versionado"); linha `tests/ (53)` + `config/ecosystem.yaml` removidas da arvore
+- `.claude/BACKLOG.md` #41: skill `.claude/skills/mbe-evidence` marcada "phantom, nao ressuscitar" (nao existe no filesystem)
+- `.github/pull_request_template.md`: `make check passes (lint + types + tests)` → `make lint && make type-check pass`; comentario coautoria → `docs/coauthorship_reference.md`
+
+### HANDOFF refatorado
+- Snapshot "POS-S233" distingue verdade git (`git ls-files agents/ subagents/` vazio) vs verdade filesystem local (pycache gitignored)
+- Header "S233 IN PROGRESS" trocado por pointer para este CHANGELOG
+
+### Plans classification (1 edit surgical)
+- `.claude/plans/archive/S232-readiness-multimodel-agents-memory.md:3` header `Status: ACTIVE (criado 2026-04-19)` → `Status: SUPERSEDED by S232-v6-adversarial-consolidation.md`. Outlier empirico unico (v1 nunca executou; v6 rejeitou per postmortem interno). Demais archive files mantidos — decisao canonica: status mora no header, nao no filename (ACTIVE- prefix ja deprecated; prefixos STALE-/PARTIAL- historicos preservados sem rename).
+
+### Control plane MCP truth (6 arquivos, topologia 3 camadas formalizada)
+- Descoberta: `config/mcp/servers.json` (shared inventory) ≠ `.claude/settings.json` (policy runtime) ≠ `.claude/agents/*.md mcpServers:` (agent-scoped). Canonicos vivos colapsavam camadas, ensinando "conectado" para MCPs `blocked by deny` (Notion, Canva, Excalidraw, Scholar Gateway, Zotero, Gmail, Google Calendar) e omitindo Semantic Scholar (agent-scoped em evidence-researcher, fora do shared inventory).
+- Correcoes em: `CLAUDE.md`, `README.md`, `docs/ARCHITECTURE.md` (§MCP Connections reescrita em 3 camadas), `docs/GETTING_STARTED.md`, `.claude/BACKLOG.md` §Setup, `.claude/agents/evidence-researcher.md:88` (auto-conflito Scholar Gateway frozen L69 × usado L88 resolvido por remocao da instrucao operacional).
+- Vocabulario formalizado sem colapsar semantica: `blocked by deny`, `pre-approved`, `not pre-approved by current policy`, `inventoried in shared config`, `agent-scoped`, `removed`, `frozen/historical`. Scholar Gateway ≠ Semantic Scholar (primeiro = shared inventory frozen; segundo = agent-scoped).
+
+### Notion crosstalk qualification (4 arquivos)
+- Pattern §Notion Crosstalk Pattern (S229) afirmava capacidade operacional em presente apesar de `mcp__claude_ai_Notion__*` = deny em `.claude/settings.json:62`. Todos canonicos vivos agora marcam "pattern documentado; runtime atual blocked by deny; ativacao requer reativacao manual (mover deny→allow)".
+- `.claude/BACKLOG.md` item #41 "6 bracos MCP" contagem frouxa removida → pointer para SSoT `.claude/agents/evidence-researcher.md` (MCPs agent-scoped declarados no proprio arquivo).
+
+### Deferred
+- Fase B destrutiva (rm ghost dirs local) — aguarda OK
+- Wiki (6 refs mortas em `wiki/topics/sistema-olmo/*`) — fora de escopo declarado
+- Plans archive audit (78+ files, rename STALE/DONE) — batch futuro
+- Agent-scoped MCP × permission gate runtime behavior — nao provado empiricamente; fora de escopo (exigiria teste runtime)
+
+### Budget
+- 6 passagens corretivas em 1 sessao (~18 arquivos tocados). Zero novos arquivos/hooks/agentes/configs. 1 commit de fechamento.
+
+Coautoria: Lucas + Opus 4.7 | S233 substrate-truth-cleanup | 2026-04-20
+
+---
+
 ## Sessao 232 — 2026-04-19 (generic-snuggling-cloud — v6 adversarial consolidation)
 
 ### 8 commits — audit-first cleanup + research skill repair + naming conflations

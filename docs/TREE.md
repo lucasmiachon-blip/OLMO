@@ -50,12 +50,12 @@ docker-compose.yml   # Stack observabilidade (OTel, opcional)
 │   ├── lint-on-edit.sh
 │   ├── allow-plan-exit.sh
 │   └── lib/hook-log.sh
-├── plans/               # Active plans (3) + archive/
+├── plans/               # archive/ + README (0 active)
 ├── rules/               # 5 rule files (anti-drift, KBP, QA, slides, design)
-├── skills/              # 22 skill directories
+├── skills/              # 18 skill directories
 ├── settings.local.json  # Hooks, permissions, env config
 ├── statusline.sh        # Status line renderer
-├── BACKLOG.md           # 46 items (8 resolved)
+├── BACKLOG.md           # Persistent backlog (ver próprio arquivo §header para contagem)
 ├── hook-log.jsonl       # Hook event log
 ├── hook-stats.jsonl     # Hook performance stats
 ├── success-log.jsonl    # Success tracking

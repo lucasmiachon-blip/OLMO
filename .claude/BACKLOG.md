@@ -51,7 +51,7 @@
 | 27 | research | M | Metaprompt optimization | OpenAI Self-Evolving Agents Cookbook 2025. Meta-prompt fix SKILL.md quando underperform. S190 |
 | 28 | research | S | Reflexion pattern em workflows | Shinn 2023 arXiv:2303.11366. Self-critique antes retry. Previne KBP-18. Implementar em anti-drift.md. S190 |
 | 19 | process | S | Symmetric vs adversarial triangulation doctrine | §6.4 synthesis. Future multi-leg = 1 symmetric + 1 adversarial pair, não N symmetric. Add em `patterns_adversarial_review.md` pós /dream. S158 |
-| 41 | research | L | Research orchestrator (future, fresh design) | OLMO teve stub Python (`agents/scientific/`, `subagents/analyzers/`) deletado S228 após auditoria adversarial (aspiracional sem consumer). Live tool hoje: `.claude/agents/evidence-researcher` (6 braços MCP: PubMed/Scite/Consensus/Semantic Scholar/CrossRef/BioMCP) + `.claude/skills/mbe-evidence`. Quando demanda emergir: **design fresh**, não ressuscitar stub. Taleb/anti-drift: feature sem demanda = dívida. Ref plan `.claude/plans/archive/S228-groovy-launching-steele.md`. S228 |
+| 41 | research | L | Research orchestrator (future, fresh design) | OLMO teve stub Python (`agents/scientific/`, `subagents/analyzers/`) deletado S228 após auditoria adversarial (aspiracional sem consumer). Live tool hoje: `.claude/agents/evidence-researcher` — MCPs agent-scoped declarados no próprio arquivo (SSoT). Skill `.claude/skills/mbe-evidence` citada em plans S229/S232 NÃO existe no filesystem atual — phantom, não ressuscitar. Quando demanda emergir: **design fresh**, não ressuscitar stub. Taleb/anti-drift: feature sem demanda = dívida. Ref plan `.claude/plans/archive/S228-groovy-launching-steele.md`. S228 |
 
 ### Content/aulas (slides + medical content)
 
@@ -122,10 +122,23 @@
 
 > Migrado de PENDENCIAS.md (S214). Workstream separado do backlog tiered — infra/custo/aulas planning.
 
-### MCPs (11 conectados)
+### MCPs
 
-- [x] Notion, PubMed, SCite, Consensus, Scholar Gateway, NotebookLM, Zotero, Excalidraw, Gmail, Google Calendar, Canva
-- ~~Perplexity~~ — migrado para API direta S87. ~~Gemini~~ — descartado S71.
+**Shared inventory** (`config/mcp/servers.json`, `status:connected`):
+- [x] PubMed, SCite, Consensus, Scholar Gateway, NotebookLM, Zotero, Excalidraw, Canva, Notion
+
+**Policy-blocked no runtime atual** (`.claude/settings.json` deny): Notion, Canva, Excalidraw, Scholar Gateway, Zotero, Gmail, Google Calendar. Inventoried ≠ callable — ativar manualmente (mover deny→allow) se necessário.
+
+**Agent-scoped** (`.claude/agents/*.md` `mcpServers:`, fora do shared inventory):
+- `evidence-researcher`: pubmed, crossref, semantic-scholar, scite, biomcp
+- `reference-checker`: pubmed
+
+**Removed/migrated:**
+- ~~Perplexity~~ → API direta (S87); ~~Gemini~~ → CLI OAuth (S71)
+- Gmail, Google Calendar → migrados para OLMO_COWORK (S228-S229)
+- Scholar Gateway: `status:connected` mas **frozen** per evidence-researcher S128
+
+**Planned (not installed):**
 - [ ] Google Drive — `@piotr-agier/google-drive-mcp` (requer Google Cloud Console OAuth)
 - [ ] Anki MCP — `@ankimcp/anki-mcp-server` (requer Anki Desktop + AnkiConnect)
 
