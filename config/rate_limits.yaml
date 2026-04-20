@@ -47,7 +47,7 @@ priority_tiers:
     max_cost_per_call: 0.00  # Deve ser gratis (local)
 
 # Estrategia de modelos por complexidade
-# Sonnet/ChatGPT 5.4 = triagem rapida | Opus = trabalho pesado
+# Sonnet/gpt-4.1-mini = triagem rapida | Opus = trabalho pesado
 model_routing:
   trivial:
     model: "local-ollama"        # Custo: $0.00
@@ -60,13 +60,13 @@ model_routing:
 
   triage:
     model: "claude-sonnet-4-6"   # Custo: ~$0.01/call
-    alternatives: ["chatgpt-5.4"]
+    alternatives: ["gpt-4.1-mini"]  # was "chatgpt-5.4" — invalid ID (S232 v6 fix)
     use_for: ["triagem de papers", "classificacao complexa", "filtragem de resultados",
               "extracao de dados", "respostas curtas", "roteamento"]
 
   medium:
     model: "claude-sonnet-4-6"   # Custo: ~$0.01/call
-    alternatives: ["chatgpt-5.4"]
+    alternatives: ["gpt-4.1-mini"]  # was "chatgpt-5.4" — invalid ID (S232 v6 fix)
     use_for: ["sumarizacao", "codigo simples", "analise basica",
               "morning review"]
 

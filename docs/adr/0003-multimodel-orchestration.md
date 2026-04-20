@@ -34,7 +34,9 @@ Cada AI execution tool que queira entrar no pipeline OLMO deve passar pelo **Fra
 | Tool | Objetivo | Trigger | Artefato | Custo | Risco | Status |
 |------|----------|---------|----------|-------|-------|--------|
 | **Claude Code** (Opus/Sonnet/Haiku) | Default orchestrator + execução | session work | commits, edits, plans | Max subscription (incluso) | HIGH — shared state, writes | **ACTIVE** |
-| **Codex** (GPT-5.4) | 2nd opinion / rescue de root-cause diagnosis | `/codex:rescue` skill OR stuck >3 attempts mesmo erro OR review gate pre-large-merge | investigation report em `.claude/plans/` | ChatGPT Plus (incluso) | MEDIUM — read-only review | **ACTIVE** (plugin integrado) |
+| **Codex** (GPT-5.4¹) | 2nd opinion / rescue de root-cause diagnosis | `/codex:rescue` skill OR stuck >3 attempts mesmo erro OR review gate pre-large-merge | investigation report em `.claude/plans/` | ChatGPT Plus (incluso) | MEDIUM — read-only review | **ACTIVE** (plugin integrado) |
+
+¹ **Caveat (S232 v6):** "GPT-5.4" é Codex plugin marketing label, NÃO OpenAI API model identifier. Para API calls programáticos, ver `config/ecosystem.yaml` (real model IDs like `gpt-4.1-mini`, `gpt-4o`). Distinction: **ChatGPT** (consumer product) ≠ **Codex** (plugin via ChatGPT Plus) ≠ **OpenAI API** (programmatic) ≠ **GPT-N.M** (model ID — may be marketing vs official API).
 | **Gemini** | Research conversacional + QA visual multimodal | MCP call explícita OR `npm run qa` | findings, QA screenshots, `gemini-qa3.mjs` output | OAuth $0 + API key (QA scripts apenas) | LOW — read-only | **ACTIVE** (passes gate) |
 | **Ollama** | Trivial tasks routing ($0 tier) | task marked `trivial` (regex, cache lookup, simple classification) | local responses | $0 local | LOW — no cloud | **OPT-IN** (não cabling atual) |
 | **Antigravity** | (candidato) artifacts + async multi-superfície | **REACTIVATION:** 3+ artifacts grandes/semana exigindo sandboxing ou reprodutibilidade multi-modal | — | unknown | HIGH se adoção prematura | **DEFERRED** (S230 rec preservada) |

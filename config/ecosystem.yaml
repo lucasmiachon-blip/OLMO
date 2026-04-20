@@ -86,9 +86,10 @@ ai_models:
     model: "claude-haiku-4-5"
     max_tokens: 4096
     role: "Tarefas simples, automacao, pipelines, subagentes"
+  # ASPIRATIONAL — sem consumer runtime atualmente; kept para routing intent futuro
   triage:
     provider: "openai"
-    model: "chatgpt-5.4"
+    model: "gpt-4.1-mini"  # real OpenAI API model ID (era "chatgpt-5.4" — invalid ID conflated com Codex plugin UX label; S232 v6 fix)
     max_tokens: 4096
     role: "Triagem rapida, classificacao, filtragem"
   local:
