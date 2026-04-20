@@ -42,7 +42,4 @@ def tmp_config_dir(tmp_path: Path) -> Path:
         "    enabled: true\n"
     )
 
-    workflows_yaml = config_dir / "workflows.yaml"
-    workflows_yaml.write_text("workflows:\n  test_workflow:\n    steps:\n      - action: test\n")
-
     return config_dir

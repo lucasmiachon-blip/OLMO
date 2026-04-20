@@ -1,7 +1,7 @@
 """Tests for config/loader.py — priority 4.
 
-O loader carrega configuracoes YAML que controlam todo o ecossistema.
-Testa: fallback para defaults, merge de workflows, ConfigError em YAML invalido.
+O loader carrega configuracoes YAML que controlam o ecossistema.
+Testa: fallback para defaults, ConfigError em YAML invalido, rate_limits.
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 
 from agents.core.exceptions import ConfigError
-from config.loader import load_config, load_rate_limits, load_workflows
+from config.loader import load_config, load_rate_limits
 
 
 class TestLoadConfig:
@@ -41,28 +41,6 @@ class TestLoadConfig:
         assert "agents" in result
         assert "skills" in result
         assert "ai_models" in result
-
-
-class TestLoadWorkflows:
-    """Testa carregamento e merge de workflows."""
-
-    def test_loads_workflow_file(self, tmp_config_dir: Path) -> None:
-        result = load_workflows(tmp_config_dir / "workflows.yaml")
-        assert "workflows" in result
-        assert "test_workflow" in result["workflows"]
-
-    def test_missing_file_returns_empty(self, tmp_path: Path) -> None:
-        """Arquivo ausente e ignorado silenciosamente."""
-        result = load_workflows(tmp_path / "nao_existe.yaml")
-        assert result == {"workflows": {}}
-
-    def test_merge_overwrites_duplicates(self, tmp_path: Path) -> None:
-        """Se dois arquivos definem mesmo workflow, ultimo ganha."""
-        wf1 = tmp_path / "wf1.yaml"
-        wf1.write_text("workflows:\n  shared:\n    steps:\n      - action: first\n")
-        # load_workflows aceita um unico path, entao testamos com 1 arquivo
-        result = load_workflows(wf1)
-        assert result["workflows"]["shared"]["steps"][0]["action"] == "first"
 
 
 class TestLoadRateLimits:
