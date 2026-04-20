@@ -1,33 +1,21 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help lint format type-check test test-cov check run status clean
+.PHONY: help lint format type-check clean aulas-install aulas-dev aulas-build-cirrose
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
-lint: ## Run ruff linter
-	uv run ruff check .
+# --- Python scripts (remaining after S232 v6 Python orchestrator purge) ---
 
-format: ## Format code with ruff
-	uv run ruff format .
-	uv run ruff check --fix .
+lint: ## Run ruff linter on remaining Python
+	uv run ruff check scripts/
 
-type-check: ## Run mypy type checker
-	uv run mypy agents/ subagents/ config/ orchestrator.py
+format: ## Format remaining Python with ruff
+	uv run ruff format scripts/
+	uv run ruff check --fix scripts/
 
-test: ## Run pytest
-	uv run pytest
-
-test-cov: ## Run pytest with coverage report
-	uv run pytest --cov --cov-report=term-missing --cov-report=html
-
-check: lint type-check test ## Run lint + type-check + test
-
-run: ## Run orchestrator
-	uv run python -m orchestrator run
-
-status: ## Show agent tree
-	uv run python -m orchestrator status
+type-check: ## Run mypy type checker on remaining Python
+	uv run mypy scripts/
 
 clean: ## Remove caches and build artifacts
 	rm -rf __pycache__ .mypy_cache .ruff_cache .pytest_cache htmlcov .coverage

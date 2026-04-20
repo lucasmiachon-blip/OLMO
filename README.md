@@ -6,33 +6,30 @@ Producer (scan externo + publish) vive em **OLMO_COWORK** (ver `docs/adr/0002-ex
 ## Quick Start
 
 ```bash
-uv sync --extra dev    # install dependencies
-make check             # lint + type-check + test
+uv sync --extra dev    # install dev dependencies (ruff, mypy, pre-commit)
+cd content/aulas && npm install  # install aulas Node stack
 ```
 
 ## Architecture
 
-Runtime Python (orchestrator CLI — slim, consumer-only):
+**Sem runtime Python** (post-S232 v6: stack vestigial purgado). Orquestração = **Claude Code nativo**:
 
-```
-Orchestrator (dispatch)
-└── Automacao (Haiku) --- regras, pipelines, cron
-    └── data_pipeline (subagent)
-```
+- 9 subagents em `.claude/agents/*.md` (research, QA, infra):
+  `evidence-researcher`, `qa-engineer`, `mbe-evaluator`, `reference-checker`,
+  `quality-gate`, `researcher`, `repo-janitor`, `sentinel`, `systematic-debugger`.
+- 18 skills em `.claude/skills/*/SKILL.md` (progressive disclosure).
+- 30 hooks em `.claude/hooks/` + `hooks/` (event-driven lifecycle).
+- MCP servers via `config/mcp/servers.json`.
 
-Claude Code subagents (`.claude/agents/*.md` — research + QA + infra):
-`evidence-researcher`, `qa-engineer`, `mbe-evaluator`, `reference-checker`,
-`quality-gate`, `researcher`, `repo-janitor`, `sentinel`, `systematic-debugger`.
-
-Full architecture with Mermaid DAGs: `docs/ARCHITECTURE.md`.
+Full architecture: `docs/ARCHITECTURE.md`.
 
 ## Development
 
 ```bash
-make lint        # ruff check
-make format      # ruff format
-make type-check  # mypy
-make test        # pytest (40 tests)
+make lint        # ruff check scripts/
+make format      # ruff format scripts/
+make type-check  # mypy scripts/
+make aulas-dev   # Vite dev server for slides
 ```
 
 ## Stack

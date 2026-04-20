@@ -1,32 +1,31 @@
-# Arquitetura do Ecossistema OLMO
+# Arquitetura do OLMO
 
-> AI agent ecosystem for medical education and exam prep (consumer-only).
+> Claude Code agent system for medical education and exam prep (consumer-only).
 > **Consumer side** (producer em OLMO_COWORK — ver ADR-0002).
-> Estado: S230 | 2026-04-19 (bubbly-forging-cat — adversarial audit + simplification)
+> Estado: S232 | 2026-04-19 (generic-snuggling-cloud v6 — adversarial consolidation + Python stack purge).
 
-## Runtime Python DAG (dispatcher + 1 agent)
+## Runtime (post-S232 v6)
 
-```mermaid
-graph TD
-    U[Lucas] -->|request| O[Orchestrator<br>dispatcher]
-    O -->|pipelines, rules, cron| AUT[Automacao<br>Haiku]
-    AUT -->|subagent| DP[data_pipeline]
+**Não há runtime Python.** S232 post-close deletou `orchestrator.py`, `__main__.py`, `agents/`, `subagents/`, `tests/` (Python), `config/loader.py`, `config/ecosystem.yaml`, `config/rate_limits.yaml` — stack era vestigial/falido/nunca usado (0 hook invocations, 0 external consumers; manual `make run`/`status` raramente).
 
-    style O fill:#f5a623,color:#000
-    style AUT fill:#20b2aa,color:#fff
-    style DP fill:#95a5a6,color:#fff
-```
-
-Pesquisa científica + QA + research-pull rodam via **Claude Code subagents** (próxima seção) — não pelo orchestrator Python.
-Notion audit/add_content: **crosstalk pattern** (seção abaixo).
+**Orquestração real acontece em Claude Code:**
+- 9 subagents em `.claude/agents/*.md` (Task tool, MCPs próprios, maxTurns)
+- 18 skills em `.claude/skills/*/SKILL.md` (invocadas via Skill tool ou triggers)
+- 30 hooks em `.claude/hooks/` + `hooks/` (event-driven: PreToolUse, PostToolUse, Stop, etc.)
+- MCP connections via `config/mcp/servers.json` (única config YAML/JSON preservada)
 
 **Regra** (canônica em `.claude/rules/anti-drift.md` §Propose-before-pour): Lucas decide, agente executa.
 
-**Nota histórica (S228-S230):** Foram deletados `Cientifico`+`AtualizacaoAI` (S228) + `Organizacao`+`KnowledgeOrganizer`+`NotionCleaner` (S229) + `SmartScheduler`+`LocalFirstSkill`+`ModelRouter` (S230 bubbly-forging-cat — teatro arquitetural). Pesquisa MBE real roda via `.claude/agents/evidence-researcher` (6 braços MCP) + `.claude/skills/mbe-evidence`. Daily org + Notion writes migrados para OLMO_COWORK ou substituídos por crosstalk pattern. Ver `.claude/plans/archive/S228-groovy-launching-steele.md` + `.claude/plans/archive/S229-slim-round-3-daily-exodus.md` + `.claude/plans/archive/S230-bubbly-forging-cat.md`.
+**Nota histórica deleções sequenciais** (Python purge 4 sessões):
+- S228: `Cientifico` + `AtualizacaoAI` + analyzers/monitors (producer-side → OLMO_COWORK)
+- S229: `Organizacao` + `KnowledgeOrganizer` + `NotionCleaner` + `notion/` pkg
+- S230: `SmartScheduler` + `LocalFirstSkill` + `ModelRouter` (teatro arquitetural)
+- S232 v6: `workflows.yaml` + `load_workflows()` (aspirational, 0 runtime)
+- S232 post-close: **Python stack total** — `orchestrator.py`, `agents/`, `subagents/`, `tests/`, `config/loader.py`, `ecosystem.yaml`, `rate_limits.yaml`
 
 ## Claude Code Subagents (9)
 
-> Separado do runtime Python acima — estes são `.claude/agents/*.md` invocados via Task tool dentro do Claude Code, com MCPs + maxTurns próprios.
+> `.claude/agents/*.md` invocados via Task tool dentro do Claude Code, com MCPs + maxTurns próprios.
 
 | Agent | Model | maxTurns | Memory | Role |
 |-------|-------|----------|--------|------|

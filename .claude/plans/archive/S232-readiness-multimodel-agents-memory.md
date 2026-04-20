@@ -88,19 +88,19 @@ Dois dias passaram desde S224 (2026-04-17). Verificar se algo mudou:
 
 **Output:** tabela comparativa before/after + commits atomic per agent.
 
-### 2.2 BACKLOG #29 Phase 2 — Model routing (~30min)
+### 2.2 BACKLOG #29 Phase 2 — Model routing (~30min) ✅ DONE 2026-04-19
 
-Audit da tabela ARCHITECTURE.md §Claude Code Subagents:
-- repo-janitor (Haiku 12) — correto?
-- quality-gate (Haiku 10) — correto?
-- reference-checker (Haiku 15) — correto?
-- researcher (Haiku 15) — correto?
-- mbe-evaluator (Sonnet 15) — FROZEN justifica Sonnet?
-- qa-engineer (Sonnet 12) — Sonnet necessário ou Haiku serve?
+**Audit finding (9 agents):** 7 routings justified, 2 candidatos Haiku flagged para S233.
 
-Critério: task complexity vs modelo. Evidência: transcripts de uso recente.
+| Decisão | Agents | Rationale |
+|---------|--------|-----------|
+| **Manter** (7) | evidence-researcher (Sonnet/35), mbe-evaluator (Sonnet/15), systematic-debugger (Sonnet/25), repo-janitor (Haiku/12), quality-gate (Haiku/10), reference-checker (Haiku/15), researcher (Haiku/15) | Complexity matches model tier |
+| **Flag S233** (2) | qa-engineer (Sonnet/12→Haiku?), sentinel (Sonnet/25→Haiku?) | Orchestration/pattern-scan = low reasoning depth |
 
-**Output:** routing table atualizada + justificativa escrita.
+**S233 trigger de reavaliação:** após 1 semana de uso pós-slides, se qa-engineer+sentinel continuarem produzindo output útil, downgrade candidato. Critério empírico > intuição (padrão S230 G.4).
+
+**Pre-slides decisão:** 0 model changes. Behavior stability > optimization pré-demanda.
+
 
 ### 2.3 PROP-1 S224 — `/dream` conflict detection (~45min)
 

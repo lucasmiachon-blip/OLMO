@@ -11,12 +11,13 @@ CHANGELOG.md         # Historico sessao-a-sessao (append-only)
 HANDOFF.md           # Pendencias para proxima sessao
 AGENTS.md            # Agentes do ecossistema
 GEMINI.md            # Instrucoes Gemini CLI
-Makefile             # Atalhos dev
-orchestrator.py      # Orchestrator principal (Python)
-pyproject.toml       # Config Python (deps, ruff, mypy, pytest)
+Makefile             # Atalhos dev (lint, format, aulas-*)
+pyproject.toml       # Config Python minimal (httpx único runtime dep; ruff/mypy dev)
 uv.lock              # Lock file uv
 package.json         # Node deps (raiz — apca-w3, colorjs.io)
-docker-compose.yml   # Stack observabilidade
+docker-compose.yml   # Stack observabilidade (OTel, opcional)
+
+# REMOVED S232 post-close: orchestrator.py (Python stack purged — vestigial/falido/nunca usado)
 ```
 
 ## .claude/ (AI agent infrastructure)
@@ -62,35 +63,14 @@ docker-compose.yml   # Stack observabilidade
 └── tmp/                 # Temp files (deploy staging)
 ```
 
-## agents/ (Python agent implementations)
-
-```
-agents/
-├── core/
-│   ├── base_agent.py        # BaseAgent ABC
-│   ├── orchestrator.py      # Dispatcher (single-agent post-S229)
-│   ├── database.py          # SQLite persistence
-│   ├── mcp_safety.py        # MCP safety checks
-│   ├── exceptions.py        # Custom exceptions
-│   └── log.py               # Logging config
-└── automation/              # Automation agent (unico runtime Python pos-S229)
-
-# REMOVED S228: ai_update/ + scientific/ (producer → OLMO_COWORK per ADR-0002)
-# REMOVED S229: organization/ (daily GTD → OLMO_COWORK per ADR-0002)
-# REMOVED S230: smart_scheduler.py + skills/ root (orphan cascade — bubbly-forging-cat Batch 3b)
-# REMOVED S230: model_router.py (teatro arquitetural; routing intent preservada como diretiva humana em CLAUDE.md — bubbly-forging-cat Batch 3c, BACKLOG #42 RESOLVED)
-```
-
-## subagents/ (processor implementations)
-
-```
-subagents/
-└── processors/
-    └── data_pipeline.py
-
-# REMOVED S228: analyzers/trend_analyzer.py + monitors/web_monitor.py (→ OLMO_COWORK)
-# REMOVED S229: knowledge_organizer.py + notion_cleaner.py + notion/ (Notion writes → OLMO_COWORK + crosstalk pattern)
-```
+# REMOVED S232 v6 post-close: Python orchestrator stack completo — vestigial/falido/nunca usado.
+# Deletado: agents/ (automation + core), subagents/, tests/ Python, orchestrator.py, __main__.py,
+# config/loader.py, config/ecosystem.yaml, config/rate_limits.yaml.
+# Historical deletions sequenciais: S228 (Cientifico + AtualizacaoAI), S229 (Organizacao +
+# KnowledgeOrganizer + NotionCleaner), S230 (SmartScheduler + LocalFirstSkill + ModelRouter),
+# S232 v6 Batch 4 (workflows.yaml), S232 post-close (stack total).
+# Orquestração real = Claude Code (9 agents em .claude/agents/, 18 skills em .claude/skills/,
+# 30 hooks em .claude/hooks/ + hooks/). Ver docs/ARCHITECTURE.md §Runtime (post-S232 v6).
 
 ## tools/ (standalone utilities)
 
@@ -133,13 +113,11 @@ content/aulas/
 
 ```
 config/
-├── ecosystem.yaml       # Agent ecosystem config
-├── rate_limits.yaml     # API rate limits
-├── loader.py            # Config loader
-├── mcp/servers.json     # MCP server config
-└── otel/                # OpenTelemetry collector config
+├── mcp/servers.json     # MCP server config (usado por Claude Code)
+└── otel/                # OpenTelemetry collector config (docker-compose)
 
-# REMOVED S232 v6 Batch 4: workflows.yaml (aspirational — 0 runtime reachability; comment acknowledged "Nao reviver stubs")
+# REMOVED S232 v6 Batch 4: workflows.yaml (aspirational; 0 runtime reachability)
+# REMOVED S232 post-close: ecosystem.yaml, rate_limits.yaml, loader.py (Python-only consumers, purged with stack)
 ```
 
 ## docs/ (documentation)
@@ -205,11 +183,13 @@ wiki/
 ## Other directories
 
 ```
-tests/               # pytest test suite (40 tests PASS — S230 -13 test_model_router)
-scripts/             # Standalone Python scripts (atualizar_tema, fetch_medical)
-skills/              # Python skill implementations
+scripts/             # Standalone Python scripts (fetch_medical.py — PubMed/Zotero read)
 templates/           # Prompt templates
 resources/           # Static resources (provas, SAP)
 assets/              # Exam assets
 .github/             # CI/CD (dependabot, PR template, ci.yml)
+
+# REMOVED S232 post-close:
+# - tests/ Python (pytest suite) — testava Python stack vestigial
+# - skills/ Python — stack gone; .claude/skills/ (Claude Code skills) permanece
 ```

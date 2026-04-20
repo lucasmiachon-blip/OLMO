@@ -15,17 +15,17 @@ Consumer: MBE (via `$OLMO_INBOX`), ensino, concurso R3. Producer (daily org, Not
 - **Antifragile**: esta decisao torna o sistema mais forte com falhas futuras? Warn vs block → block se FP baixo.
 - **Curiosidade**: esta interacao ensina algo? Conexoes reais, nunca infantilizar.
 
-## Architecture (S229 slim — consumer only)
+## Architecture (S232 post-close — Claude Code only, consumer)
 
-Runtime Python (minimo honesto):
-```
-Orchestrator (dispatch)
-└── Automacao (Haiku) ─── regras, pipelines, cron
-    └── data_pipeline (subagent)
-```
+**Sem runtime Python.** S232 post-close deletou stack Python inteiro (orchestrator.py + agents/ + subagents/ + tests/) por ser vestigial/falido/nunca usado.
 
-Pesquisa MBE + QA + inbox-pull: Claude Code subagents (`.claude/agents/*.md`), não pelo orchestrator Python.
-Notion audit + add_content: crosstalk pattern (Claude Code + MCP Notion direct inline) — ver `docs/ARCHITECTURE.md`.
+Orquestração = **Claude Code nativo:**
+- 9 subagents em `.claude/agents/*.md` (Task tool + MCPs)
+- 18 skills em `.claude/skills/*/SKILL.md`
+- 30 hooks em `.claude/hooks/` + `hooks/`
+- MCP servers via `config/mcp/servers.json`
+
+Pesquisa MBE + QA + inbox-pull: via subagents + skills (evidence-researcher, qa-engineer, research skill com scripts/*.mjs). Notion: crosstalk pattern (Claude Code + MCP Notion direct inline) — ver `docs/ARCHITECTURE.md`.
 
 ## Objectives
 
@@ -47,9 +47,10 @@ Model routing: trivial→Ollama($0) | simple→Haiku | medium→Sonnet | complex
 ## Key Files
 
 Mapa completo: `docs/TREE.md`. Entry points:
-- Python: `orchestrator.py` | `config/ecosystem.yaml` | `pytest tests/` | `ruff check .` | `mypy agents/`
+- Python (minimal): `scripts/fetch_medical.py` (standalone) | `make lint/format/type-check` (scripts only)
 - Aulas: `content/aulas/CLAUDE.md` (regras, build, QA, slides)
 - Concurso: `/concurso` + `/exam-generator`
+- Claude Code agents: `.claude/agents/*.md` | skills: `.claude/skills/*/SKILL.md` | hooks: `.claude/settings.json`
 - Meta: `HANDOFF.md` | `docs/ARCHITECTURE.md`
 
 ## Conventions
