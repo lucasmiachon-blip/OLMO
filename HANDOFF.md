@@ -1,8 +1,8 @@
 # HANDOFF - Proxima Sessao
 
-> ✅ **S232 COMPLETE** (generic-snuggling-cloud — v6 adversarial consolidation) 2026-04-19 — audit-first cleanup; 11 commits; net ~570 li removed. Infra limpa, capability inalterada (evolução = 0).
+> ✅ **S232 COMPLETE** (generic-snuggling-cloud — v6 adversarial consolidation + Python stack purge) 2026-04-19 — audit-first cleanup; 13 commits; net **~1500+ li removed** (v6 570 + Python stack 900+). Evolução arquitetural real desta sessão: **Python orchestrator vestigial DELETED** (Lucas assessment + empirical grep audit). Infra agora = Claude Code nativo puro (0 runtime Python).
 >
-> **S233 SKIPPED** — verification done inline durante S232 close.
+> **S233 SKIPPED** — verification + Python purge done inline durante S232 close.
 
 **S234 HYDRATION (ordem obrigatória):**
 1. Read este HANDOFF completo
@@ -12,101 +12,56 @@
 
 ---
 
-## PRIORIDADES S234-S239 — ordem definida + racional brutal
+## PRIORIDADES S234-S238 — ordem definida + racional brutal
 
-**Tese:** S232 pagou débito declarado. S234 ataca débito UNDECLARED descoberto no close: **Python orchestrator stack é vestigial/falido/nunca usado** (Lucas S232 close). Via Negativa antes de qualquer evolução capability.
+**Tese pós-S232 final:** Python stack deletado. Remaining evolution = **verificar repairs + adicionar capabilities concretas**. Ordem shift -1 slot (antigo S234 P0 Python agora RESOLVED; wins secundários promovidos).
 
-### P0 — S234: **DELETE OR MIGRATE Python orchestrator stack**
-
-**Tese brutal Lucas (S232 close):** "nunca foi utilizado, está vestigial e falido".
-
-**Evidência empírica (grep S232 close):**
-- Invocação runtime: APENAS `make run` + `make status` (manual; raramente invocado por Lucas)
-- **ZERO hooks** invocam orchestrator.py / AutomationAgent / data_pipeline
-- **ZERO external consumer code**
-- `make test` roda pytest mas testa loader + base class, NÃO invoca runtime orchestrator
-- Stack sobreviveu S228-S230 purges (5+ deleções relacionadas) mas nunca materializou justificativa
-- S232 Batch 4 deletou workflows.yaml (último stub aspiracional); restante é esqueleto sem uso
-
-**Escopo Python stack (candidato à deleção):**
-- `orchestrator.py` (root CLI)
-- `__main__.py`
-- `agents/automation/` (automation_agent.py + __init__.py)
-- `subagents/processors/data_pipeline.py`
-- `agents/core/{base_agent.py, orchestrator.py, log.py, exceptions.py, mcp_safety.py, database.py}` (question: any reuse fora do stack acima?)
-- `tests/test_config/`, `tests/conftest.py` (partial — Python stack tests)
-- Makefile targets `run`, `status`
-- pyproject.toml deps (se só Python stack usa)
-
-**Preservar (ambiguous — audit clarifies):**
-- `config/loader.py` + `config/ecosystem.yaml` + `config/rate_limits.yaml` — se forem usados por Claude Code subagents/skills (não só por Python orchestrator), preservar
-- `config/mcp/servers.json` — MCP config, preservar
-
-**Execução S234 (ordem rígida):**
-
-1. **Consumer audit completo (~30min)**
-   - Grep exhaustivo: quem importa `agents.core.*`, `agents.automation.*`, `subagents.processors.*`
-   - Grep: quem invoca `orchestrator` em Makefile, hooks, scripts, docs
-   - Verificar: `config/loader.py` é usado fora do Python stack? (Claude Code subagents leem YAML direto, não via Python loader)
-
-2. **Decision ADR-0004 (~30min)**
-   - `docs/adr/0004-python-orchestrator-disposition.md`
-   - Inventory findings
-   - 3 outcomes concretos:
-     - **DELETE TOTAL:** `git rm -r agents/ subagents/ orchestrator.py __main__.py tests/test_config/ tests/conftest.py`; update Makefile/docs/configs; ~800-1500 li removed
-     - **MIGRATE:** replace com Claude Managed Agents (April 8 hosted); new ADR + migration sessions S235+
-     - **STATUS QUO + JUSTIFY:** se audit revelar consumer real, documentar
-
-3. **Executar decisão (~60-90min)**
-   - Se DELETE: executar + update docs + commit
-   - Se MIGRATE: ADR complete + schedule migration + abort other S234 work
-   - Se STATUS QUO: justificativa explícita no ADR + volta a P1 items
-
-**Deliverable S234:** ADR-0004 committed + execução da decisão (se DELETE, execução nesta sessão; se MIGRATE, apenas ADR).
-
-**Assunção de trabalho (brutal):** provável veredicto é **DELETE TOTAL**. Evidence: 5+ deleções progressivas S228-S232 de peças deste stack sem sequer notar perda funcional. Managed Agents seria substituto só se demanda nova materializar.
-
-**Rejeito explícito:** manter Python stack "por apego histórico" ou "pode ser útil no futuro" — v6 lição é que aspiracional ≠ runtime.
-
----
-
-### P1 — S235: **Research skill E2E verification + fix (B)**
+### P0 — S234: **Research skill E2E verification + fix (B)** — BACKLOG #47
 
 **Consumer:** toda research session (Perna 1 Gemini + Perna 5 Perplexity).
 
-**Pain concreto:** S232 criou `.claude/scripts/{gemini,perplexity}-research.mjs` unblock KBP-26 mas scripts **nunca invocados contra API real**. HANDOFF claim "unblocked" é teórico.
+**Pain concreto:** S232 criou `.claude/scripts/{gemini,perplexity}-research.mjs` unblock KBP-26. Scripts rodam syntax-wise mas **nunca invocados contra API real**. HANDOFF S232 claim "unblocked" é teórico.
 
-**Execução:** 1 topic real, invocar cada script, verificar (path + API + output); se break, diagnose + fix; document baseline em `.claude/scripts/README.md`.
+**Por quê P0:** baseline honesto antes de adicionar nada; verifica claim S232; unlock confidence para A/Living-HTML.
 
-**~1-2h.** Close S235.
+**Execução:**
+1. Escolher 1 topic real (ex: "MELD-Na 2024-2026 updates")
+2. Invocar `node .claude/scripts/gemini-research.mjs "<prompt>"` — verify (a) path loads; (b) API call returns; (c) output format
+3. Mesmo para Perplexity
+4. Se break: diagnose + fix same-session
+5. Document baseline em `.claude/scripts/README.md`
+
+**Deliverable:** evidência empírica. ~1-2h. Close S234.
 
 ---
 
-### P1 — S236: **PMID batch verification automation (A)**
+### P1 — S235: **PMID batch verification automation (A)** — BACKLOG #48
 
 **Consumer:** ~100 slides/ano.
 
-**Pain concreto:** research output PMIDs CANDIDATE; verificação manual 5-10min/slide.
+**Pain concreto:** research skill marca PMIDs CANDIDATE; verificação manual 5-10min/slide.
 
-**Solução:** `.claude/scripts/pmid-batch-verify.mjs` — input CANDIDATE list, output VERIFIED/INVALID via PubMed MCP esummary batch.
+**Solução:** script `.claude/scripts/pmid-batch-verify.mjs` — input CANDIDATE list, output VERIFIED/INVALID via PubMed MCP esummary batch.
+
+**Deliverable:** 1 script + evidence-researcher SKILL.md update.
 
 **Ganho:** 8-16h/ano + zero PMID errado publicado.
 
 ---
 
-### P1 — S237: **Living-HTML migration partial (BACKLOG #36)**
+### P1 — S236: **Living-HTML migration partial (BACKLOG #36)**
 
-**Status:** ACTIVE COMMITMENT per Lucas (preservado S232 close; plan canonical archived `.claude/plans/archive/S227-memory-to-living-html.md`).
+**Status:** ACTIVE COMMITMENT per Lucas S232 close. Plan canonical archived `.claude/plans/archive/S227-memory-to-living-html.md`.
 
 **Consumer:** evidence-researcher agent + aulas cirrose/metanalise.
 
-**Execução S237:** 2-3 high-value files (csph-nsbb, meld-na, te-accuracy) migrate para `content/aulas/cirrose/evidence/*.html`; use #48 (PMID batch verify) para VERIFIED PMIDs; update MEMORY.md redirect; git rm migrated .md.
+**Execução:** 2-3 high-value files (csph-nsbb, meld-na, te-accuracy) migrate para `content/aulas/cirrose/evidence/*.html`; use #48 (PMID batch verify) para VERIFIED PMIDs; update MEMORY.md redirect; git rm migrated .md.
 
-**Full migration (4 remaining):** S240+.
+**Full migration (remaining 3 files):** S239+.
 
 ---
 
-### P2 — S238: **QA gate parallelism ADR + pilot (D)**
+### P2 — S237: **QA gate parallelism (D)** — BACKLOG #50 — ADR + pilot
 
 **Consumer:** toda QA session.
 
@@ -118,48 +73,54 @@
 
 ---
 
-### P3 — S239+: **Slides production em escala**
+### P3 — S238+: **Slides production em escala**
 
 Com wins acumulados:
-- Python stack deleted (complexidade arquitetural reduzida) OR Managed Agents migrated
-- Research skill verified + PMID auto
-- Living-HTML partial (S237) → full (S240+)
-- Possivelmente QA parallel
+- Python stack deleted (complexidade -900li) ✅ S232
+- Research skill verified ✅ S234
+- PMID auto ✅ S235
+- Living-HTML partial ✅ S236
+- Possivelmente QA parallel ✅ S237
 - Concurso R3 225d pressure continues
 
 ---
 
-## BACKLOG triage (S232 close)
+## BACKLOG post-S232 close (triage final)
 
-| # | Change | Razão |
+| # | Status | Razão |
 |---|--------|-------|
-| **NEW #51** | DELETE OR MIGRATE Python orchestrator — **P0 S234** | Vestigial/falido/nunca usado (Lucas + empirical grep audit) |
-| #49 | Merged into #51 (Managed Agents é branch da decisão, não escopo separado) | Eliminar duplicação |
-| #36 Living-HTML | ACTIVE continues; SCHEDULED S237 (era S236) | Downshift 1 slot devido elevação de #51 a P0 |
-| #47 (research verify) | P1 S235 (era S234 P0) | Downshift devido #51 P0 |
-| #48 (PMID auto) | P1 S236 (era S235) | Downshift |
-| #50 (QA parallelism) | P2 S238 (era S238) | Unchanged |
+| #51 Python stack DELETE | **RESOLVED S232 post-close** (commit `46489c0`) | Executed same-session via DELETE TOTAL; 26 files + 2 YAMLs removed |
+| #49 Managed Agents eval | **RESOLVED** (subsumed by #51 DELETE) | Sem orchestrator.py para migrar; reabrir apenas se novo use case materializar |
+| #36 Living-HTML | ACTIVE SCHEDULED S236 | Per Lucas S232 close |
+| #47 Research verify | P0 S234 (promoted from P1) | Python RESOLVED libera slot P0 |
+| #48 PMID auto | P1 S235 | Shifted -1 slot |
+| #50 QA parallelism | P2 S237 | Shifted -1 slot |
+
+**BACKLOG counts atualizados:** P0=0 | P1=15 | P2=22 | Resolved=**11** (era 9; +#49, +#51) | Next #=52.
 
 ---
 
-## ESTADO POS-S232 (snapshot factual)
+## ESTADO POS-S232 FINAL (snapshot factual)
 
-- **Infra limpa pré-evolução:** workflows.yaml deleted, chatgpt-5.4 → gpt-4.1-mini, mbe-evidence phantoms eliminated, shared_memory dead field, producer scripts purged.
-- **Python orchestrator status (honesto explícito):** **vestigial/falido/nunca usado**. Empirical grep audit confirmou: 0 hook invocations, 0 external consumers, apenas `make run`/`make status` manual. Stack sobreviveu 5+ purges S228-S230 sem justificar existência. **S234 P0 decidirá DELETE vs MIGRATE vs (improvável) STATUS QUO.**
-- **Research skill:** scripts criados em `.claude/scripts/`, NÃO testados empiricamente (S235 P1 resolve).
+- **Infra limpa pré-evolução:** workflows.yaml deleted (Batch 4), chatgpt-5.4 → gpt-4.1-mini, mbe-evidence phantoms eliminated, shared_memory dead field, producer scripts purged.
+- **Python stack DELETED (post-close):** `orchestrator.py`, `agents/`, `subagents/`, `tests/` (Python), `config/loader.py`, `ecosystem.yaml`, `rate_limits.yaml`. Remaining Python: `scripts/fetch_medical.py` (standalone, httpx-only).
+- **pyproject.toml pruned:** name "olmo", v0.3.0, deps 11→1 (httpx), dev ruff/mypy/pre-commit.
+- **Research skill:** scripts `.claude/scripts/{gemini,perplexity}-research.mjs` criados; NÃO testados empiricamente (S234 P0 resolve).
 - **Control plane:** settings.json canonical; .local.json user overrides ONLY.
 - **Memory governance:** per-agent only; §Memory em ARCHITECTURE.md.
 - **Plans:** 0 active. Historical archive intact (78 files).
-- **BACKLOG:** 17 P1 items post-S232 close (12 old + #47 + #48 + #50 + #36 promoted + #51 new P0). #49 subsumed by #51.
-- **Hooks:** 30/30 valid (questão: quanto duplica se Managed Agents for rota — S234 ADR resolve).
-- **Tests:** 37/37 pass (mas ~12-15 são do Python stack candidato à deleção — recount pós-S234 P0).
+- **BACKLOG:** P0=0, P1=15, P2=22, Resolved=11 (#51 + #49 + existing 9). Next #=52.
+- **Hooks:** 30/30 valid.
+- **Tests:** 0 remaining (Python tests deleted; Node tests via content/aulas/scripts/).
+- **Infra runtime:** **Claude Code nativo puro** — 9 agents + 18 skills + 30 hooks + MCP servers. Zero Python runtime.
 
-## Deferreds S240+ (explicit non-action)
+## Deferreds S239+ (explicit non-action)
 
-- MemSearch / ByteRover semantic retrieval — YAGNI para 6 files
+- MemSearch / ByteRover semantic retrieval — YAGNI para 6 memory files
 - Reflexion retry-with-reward — requires test infra
-- HyperAgents hierarchical / Voyager skill extraction / DGM — architectural revolution
-- Native Structured Outputs agent-level — defer até S234 P0 decide arquitetura
+- HyperAgents hierarchical / Voyager skill extraction / DGM — no current pain
+- Claude Managed Agents — sem consumer (orchestrator deletado); reabrir apenas se novo use case
+- Native Structured Outputs agent-level — defer
 
 ## Naming convention
 
@@ -167,11 +128,11 @@ Com wins acumulados:
 - `CHANGELOG.md`: append-only session history
 - `.claude/BACKLOG.md`: tiered P0/P1/P2 persistent
 - `.claude/plans/README.md`: índex + taxonomia
-- `.claude/plans/S{N}-{slug}.md`: active (auto-generated em plan mode OK; rename at archival)
+- `.claude/plans/S{N}-{slug}.md`: active (auto-generated OK em plan mode; rename at archival)
 - `.claude/plans/archive/S{N}-{slug}.md`: historical
 - `docs/adr/{N}-{name}.md`: architectural decisions numbered
 
 ---
-Coautoria: Lucas + Opus 4.7 + Codex + Gemini + research agent + 3 Explore agents | S232 generic-snuggling-cloud v6 + post-close Python stack P0 elevation | 2026-04-19
+Coautoria: Lucas + Opus 4.7 + Codex + Gemini + research agent + 3 Explore agents | S232 generic-snuggling-cloud v6 + post-close Python stack DELETE TOTAL | 2026-04-19
 
 (R3 Clínica Médica: 225 dias)

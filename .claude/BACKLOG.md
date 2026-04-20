@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=1 | P1=15 | P2=22 | Frozen=3 | Resolved=9 | Setup=separate. Next #=52. (S232 close: +5 items; #51 Python stack P0 elevation per Lucas "vestigial/falido/nunca usado"; #49 subsumed into #51; #36 Living-HTML SCHEDULED S237)
+> Counts: P0=0 | P1=15 | P2=22 | Frozen=3 | Resolved=11 | Setup=separate. Next #=52. (S232 post-close FINAL: #51 Python stack RESOLVED same-session — all vestiges deleted; #49 SUBSUMED-THEN-RESOLVED por path #51=DELETE; Living-HTML SCHEDULED S236 post-close reorder)
 
 ## TOC
 
@@ -12,9 +12,7 @@
 
 ## P0 — blocking próxima sessão <a id="p0"></a>
 
-| # | Cat | Effort | Item | Next action |
-|---|-----|--------|------|-------------|
-| 51 | infra | L | **DELETE OR MIGRATE Python orchestrator stack** (vestigial/falido/nunca usado) | **[S234 P0]** Lucas S232 close assessment + empirical grep confirm: 0 hook invocations, 0 external consumers, apenas manual `make run`/`make status`. Stack sobreviveu S228-S232 purges sem justificar. **Execução:** (1) consumer audit exhaustivo 30min; (2) ADR-0004 decisão DELETE/MIGRATE/STATUS QUO; (3) execute decisão same-session se DELETE. Escopo candidato: `orchestrator.py`, `__main__.py`, `agents/`, `subagents/`, parcial `tests/`, Makefile targets, pyproject deps. Preservar: `config/mcp/servers.json`; `config/loader.py` se Claude Code o usa. Assunção brutal: veredicto DELETE TOTAL. Supersedes #49 (Managed Agents eval agora é branch desta decisão). |
+*(empty — #51 resolved same-session via DELETE TOTAL; ver §Resolved)*
 
 ---
 
@@ -36,7 +34,7 @@
 | 5 | content | M | medicina-clinica 4 stubs | Aguardar external harvest via `$OLMO_INBOX` (ADR-0002). 4 concepts stub/low |
 | 47 | process | S | **[S234 P0] Research skill E2E verification** | S232 criou `.claude/scripts/{gemini,perplexity}-research.mjs` unblock KBP-26 mas nunca testados contra API real. Rodar 1 topic real, verificar cada script (path + API + output format); documentar baseline tempo/custo/qualidade em `.claude/scripts/README.md`. Deliverable: empirical proof vs theoretical claim. ~1-2h. |
 | 48 | tooling | M | **[S235] PMID batch verification automation** | Script `.claude/scripts/pmid-batch-verify.mjs` — input lista CANDIDATE PMIDs, output VERIFIED/INVALID inline via PubMed MCP esummary batch. Update evidence-researcher SKILL.md post-output step. Consumer: ~100 slides/ano × 5-10min manual = 8-16h/ano saved + zero PMID errado publicado. Não-YAGNI: Lucas faz manualmente toda research session. |
-| ~~49~~ | SUBSUMED BY #51 | - | ~~Managed Agents evaluation~~ | Absorvido em #51 — Managed Agents é uma das 2 branches da decisão DELETE vs MIGRATE, não escopo separado. |
+| ~~49~~ | RESOLVED S232 post-close (via #51 DELETE path) | - | ~~Managed Agents evaluation~~ | Subsumed em #51; quando #51 resolveu como DELETE TOTAL (não MIGRATE), #49 também fechou — não há orchestrator.py para migrar. Se MA for avaliado futuramente, será para novo use case, não replacement. |
 | 50 | tooling | M | **[S238] QA gate parallelism (ADR + pilot)** | Atual: Preflight → Lucas OK → Inspect → Lucas OK → Editorial sequential ~30-40min/slide. Proposta: 3 gates PARALELO para MESMO slide (KBP-05 preserved: 1 slide); Lucas decide 1× em vez de 3×. Requer ADR-0005 (KBP-05 semantics + human-in-loop) antes de implement. Pilot em 1 slide opt-in flag `--parallel` em qa-engineer. Ganho: ~50% QA time cut = ~47h/ano salvos. |
 
 ---
@@ -115,6 +113,8 @@
 | 32 [RESOLVED S198] | Node→jq migration restante — 4 scripts | guard-lint-before-build + guard-research-queries + lint-on-edit + model-fallback-advisory. 0 `node -e` em .claude/hooks/ |
 | 35 [RESOLVED S225] | BACKLOG merge 3→1 (S214 LT-7) | BACKLOG-S220-codex-adversarial-report.md → plans/archive/S220. Canonical único: este arquivo |
 | 42 [RESOLVED S230] | ModelRouter unused — teatro arquitetural | `model_router.py` + `test_model_router.py` deletados (Batch 3c). Routing intent (trivial→Ollama, simple→Haiku, medium→Sonnet, complex→Opus) preservada como diretiva humana em `CLAUDE.md` §Efficiency |
+| 49 [RESOLVED S232 post-close] | Managed Agents evaluation (via #51 DELETE path) | Subsumed em #51; quando #51 DELETE executou, MA eval tornou-se moot (não há orchestrator.py para migrar). Reabrir apenas se novo use case materializar (hosted tracing for new needs). |
+| 51 [RESOLVED S232 post-close] | Python orchestrator stack DELETE TOTAL | Lucas: "vestigial/falido/nunca usado". Empirical grep audit confirmou: 0 hook invocations, 0 external consumers. Deletado: `orchestrator.py` + `__main__.py` + `agents/` (automation + core) + `subagents/` + `tests/` (Python) + `config/loader.py` + `config/ecosystem.yaml` + `config/rate_limits.yaml`. Updated: pyproject.toml (deps 11→1), Makefile (targets purged), ARCHITECTURE.md + TREE.md + CLAUDE.md + README.md (Python refs removed). Commit `46489c0`. Remaining Python: `scripts/fetch_medical.py` (standalone, httpx-only). |
 
 ---
 
