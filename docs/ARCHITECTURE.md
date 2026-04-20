@@ -30,15 +30,15 @@ Notion audit/add_content: **crosstalk pattern** (seção abaixo).
 
 | Agent | Model | maxTurns | Memory | Role |
 |-------|-------|----------|--------|------|
-| evidence-researcher | Sonnet | — | project | Multi-MCP research, living HTML |
+| evidence-researcher | Sonnet | 35 | project | Multi-MCP research, living HTML |
 | qa-engineer | Sonnet | 12 | project | 1 slide, 1 gate, 1 invocation |
 | mbe-evaluator | Sonnet | 15 | — | GRADE/CONSORT/STROBE (FROZEN) |
 | reference-checker | Haiku | 15 | project | PMID cross-ref, stale data |
 | quality-gate | Haiku | 10 | — | Lint, type-check, tests |
 | researcher | Haiku | 15 | — | Codebase exploration |
 | repo-janitor | Haiku | 12 | — | Orphan files, dead links |
-| sentinel | Sonnet | — | — | Read-only self-improvement, anti-pattern detection |
-| systematic-debugger | — | — | — | 4-phase structured debugging |
+| sentinel | Sonnet | 25 | project | Read-only self-improvement, anti-pattern detection |
+| systematic-debugger | Sonnet | 25 | project | 4-phase structured debugging |
 
 ## Hook Pipeline
 

@@ -6,7 +6,6 @@ tools:
   - Grep
   - Glob
   - WebFetch
-  - Bash
   - mcp:pubmed
   - mcp:crossref
   - mcp:semantic-scholar
