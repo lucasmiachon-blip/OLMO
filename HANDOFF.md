@@ -1,116 +1,65 @@
 # HANDOFF - Proxima Sessao
 
-> **S234 BATCH 1 CLOSED** (adversarial-audit doc-hygiene) 2026-04-20 — 2 rodadas audit adversarial + 5 canonical edits pós-S233 (ARCH mbe-evaluator FROZEN conflict, research/SKILL.md tabela `node -e` drift, pyproject.toml phantom packages agents/subagents/skills/config, servers.json chatgpt conflation ADR-0003+ADR-0002 disavowed, CLAUDE.md Tool Assignment deflation). Net -32 li, 5 arquivos. Detalhes em `CHANGELOG §Sessao 234`. **S234 P0 (scripts .mjs E2E verification, BACKLOG #47) permanece próximo — não executado neste batch.** Fase B destrutiva (ghost dirs local gitignored) segue aguardando OK separado.
+> **CONTENT MORATORIUM ACTIVE** (S234 Batch 2 → até §Condições de saída) — meta-work congelado. Foco absoluto = produção.
 
-**S234 HYDRATION (continua — ordem obrigatória):**
-1. Read este HANDOFF completo
-2. `CHANGELOG §Sessao 234` para audit findings + 5 edits (+ §Sessao 233 para substrate cleanup histórico)
-3. Check `.claude/plans/README.md` (convenção + taxonomia)
-4. Se dúvida S232 execução profunda: `.claude/plans/archive/S232-v6-adversarial-consolidation.md`
+## HYDRATION (obrigatória, 3 passos)
 
----
-
-## PRIORIDADES S234-S238 — ordem definida + racional brutal
-
-**Tese pós-S232 final:** Python stack deletado. Remaining evolution = **verificar repairs + adicionar capabilities concretas**. Ordem shift -1 slot (antigo S234 P0 Python agora RESOLVED; wins secundários promovidos).
-
-### P0 — S234: **Research skill E2E verification + fix (B)** — BACKLOG #47
-
-**Consumer:** toda research session (Perna 1 Gemini + Perna 5 Perplexity).
-
-**Pain concreto:** S232 criou `.claude/scripts/{gemini,perplexity}-research.mjs` unblock KBP-26. Scripts rodam syntax-wise mas **nunca invocados contra API real**. HANDOFF S232 claim "unblocked" é teórico.
-
-**Por quê P0:** baseline honesto antes de adicionar nada; verifica claim S232; unlock confidence para A/Living-HTML.
-
-**Execução:**
-1. Escolher 1 topic real (ex: "MELD-Na 2024-2026 updates")
-2. Invocar `node .claude/scripts/gemini-research.mjs "<prompt>"` — verify (a) path loads; (b) API call returns; (c) output format
-3. Mesmo para Perplexity
-4. Se break: diagnose + fix same-session
-5. Document baseline em `.claude/scripts/README.md`
-
-**Deliverable:** evidência empírica. ~1-2h. Close S234.
+1. Ler este HANDOFF completo (bloco MORATORIUM abaixo).
+2. Check APL banner: `QA: N/19 editorial | Proximo: <slide>`.
+3. Escolher **UM foco** para a sessão: **(P0)** nova aula de grade, **(P0.5)** QA metanalise, **(P1)** R3 infra.
 
 ---
 
-### P1 — S235: **PMID batch verification automation (A)** — BACKLOG #48
+## P0 — Nova aula de grade (totalmente nova)
 
-**Consumer:** ~100 slides/ano.
+**Status:** P0 ABSOLUTO pós-pivot S234 Batch 2. **NÃO relacionada** ao legacy `content/aulas/grade/` (58 slides).
 
-**Pain concreto:** research skill marca PMIDs CANDIDATE; verificação manual 5-10min/slide.
+- **Brainstorm:** claude.ai (web, ChatGPT-style). Lucas dirige.
+- **Implementation:** Claude Code (slides HTML + evidence HTML + QA pipeline).
+- **Path livre em `content/aulas/`** (sugestão: `grade-v2/` ou similar). **NÃO editar** `content/aulas/grade/` legacy — referência apenas.
+- **Pattern:** seguir `content/aulas/metanalise/` como referência (deck.js + GSAP + OKLCH tokens + manifest + scripts QA em `content/aulas/scripts/`).
+- **Start:** criar `content/aulas/<slug>/` + `CLAUDE.md` da aula + estrutura mínima (slides/, evidence/, `_manifest.js`, CSS).
 
-**Solução:** script `.claude/scripts/pmid-batch-verify.mjs` — input CANDIDATE list, output VERIFIED/INVALID via PubMed MCP esummary batch.
+## P0.5 — QA editorial metanalise (paralelo)
 
-**Deliverable:** 1 script + evidence-researcher SKILL.md update.
+16 slides pendentes (s-absoluto → próximos per APL). Scripts: `content/aulas/scripts/gemini-qa3.mjs`. ~½-1 sessão por slide.
 
-**Ganho:** 8-16h/ano + zero PMID errado publicado.
+## P1 sub — R3 infra + Anki
 
----
-
-### P1 — S236: **Living-HTML migration partial (BACKLOG #36)**
-
-**Status:** ACTIVE COMMITMENT per Lucas S232 close. Plan canonical archived `.claude/plans/archive/S227-memory-to-living-html.md`.
-
-**Consumer:** evidence-researcher agent + aulas cirrose/metanalise.
-
-**Execução:** 2-3 high-value files (csph-nsbb, meld-na, te-accuracy) migrate para `content/aulas/cirrose/evidence/*.html`; use #48 (PMID batch verify) para VERIFIED PMIDs; update MEMORY.md redirect; git rm migrated .md.
-
-**Full migration (remaining 3 files):** S239+.
+AnkiConnect addon (Anki Desktop > Tools > Add-ons > 2055492159) → Anki MCP (`npx -y @ankimcp/anki-mcp-server --stdio`) → 2 provas reais em `assets/provas/` + 1 SAP em `assets/sap/` → Anki cards reais (erro log + temas semana).
 
 ---
 
-### P2 — S237: **QA gate parallelism (D)** — BACKLOG #50 — ADR + pilot
+## REGRA DURA — Commits só tocam
 
-**Consumer:** toda QA session.
+- `content/aulas/**`, `assets/provas/`, `assets/sap/`, Anki files.
+- `HANDOFF.md` + `CHANGELOG.md` + `.claude/BACKLOG.md` (wrap obrigatório).
 
-**Pain concreto:** 30-40min/slide sequential × 19 slides × 10 aulas = ~95h/ano.
+## NÃO TOCAR (durante moratorium)
 
-**Solução:** 3 gates paralelo MESMO slide (KBP-05 preservado); ADR-0005 + opt-in flag `--parallel` + pilot reversível.
+`.claude/agents/`, `.claude/skills/`, `.claude/hooks/`, `.claude/rules/`, `config/`, `docs/`, `pyproject.toml`, `CLAUDE.md`, `README.md`.
 
-**Ganho:** ~50% QA time cut = ~47h/ano.
+Drift canonical detectado durante content work → anotar 1 linha em `.claude/BACKLOG.md §MORATORIUM-DEFERRED`; **NÃO corrigir**.
 
----
+## Condições de saída do moratorium (UMA basta)
 
-### P3 — S238+: **Slides production em escala**
+- (a) QA editorial metanalise = 19/19 (zerou).
+- (b) R3 infra ativo: AnkiConnect + Anki MCP + 2 provas classificadas + ≥10 Anki cards rodando spaced rep real.
+- (c) Lucas declara fim com rationale de bloqueio real (não "seria legal corrigir").
 
-Com wins acumulados:
-- Python stack deleted (complexidade -900li) ✅ S232
-- Research skill verified ✅ S234
-- PMID auto ✅ S235
-- Living-HTML partial ✅ S236
-- Possivelmente QA parallel ✅ S237
-- Concurso R3 225d pressure continues
+## Âncoras de leitura (read-only se dúvida)
 
----
-
-## Estado factual para S234
-
-- **Python runtime:** ausente. Repo versionado purgado S232; resíduo pycache gitignored local não viaja em clone. Remaining: `scripts/fetch_medical.py` standalone.
-- **Research scripts (S232):** `.claude/scripts/{gemini,perplexity}-research.mjs` criados mas nunca testados contra API real — baseline empírica = S234 P0.
-- **Infra runtime:** Claude Code nativo (9 subagents + 18 skills + hooks + MCPs). Detalhes em `docs/ARCHITECTURE.md`.
-- **Plans:** 0 active. Archive em `.claude/plans/archive/`.
-- **BACKLOG:** contagens em `.claude/BACKLOG.md` §header.
-- **Control plane:** `.claude/settings.json` canonical; `.local.json` user overrides only.
-
-## Deferreds S239+ (explicit non-action)
-
-- MemSearch / ByteRover semantic retrieval — YAGNI para 6 memory files
-- Reflexion retry-with-reward — requires test infra
-- HyperAgents hierarchical / Voyager skill extraction / DGM — no current pain
-- Claude Managed Agents — sem consumer (orchestrator deletado); reabrir apenas se novo use case
-- Native Structured Outputs agent-level — defer
-
-## Naming convention
-
-- `HANDOFF.md`: future-only priority-ordered, max 120 li
-- `CHANGELOG.md`: append-only session history
-- `.claude/BACKLOG.md`: tiered P0/P1/P2 persistent
-- `.claude/plans/README.md`: índex + taxonomia
-- `.claude/plans/S{N}-{slug}.md`: active (auto-generated OK em plan mode; rename at archival)
-- `.claude/plans/archive/S{N}-{slug}.md`: historical
-- `docs/adr/{N}-{name}.md`: architectural decisions numbered
+- **Plano âncora:** `.claude/plans/S234-content-moratorium-active.md`
+- **BACKLOG:** `.claude/BACKLOG.md` §P0 + §MORATORIUM-DEFERRED
+- **CHANGELOG recente:** `CHANGELOG.md §Sessao 234` + `§Sessao 233`
+- **Aula pattern reference:** `content/aulas/metanalise/` + `content/aulas/CLAUDE.md`
 
 ---
-Coautoria: Lucas + Opus 4.7 | S233 substrate-truth-cleanup (pós-S232) | 2026-04-20
 
-(R3 Clínica Médica: 224 dias)
+## Estado factual
+
+- **Git:** last commit `beab5f6` (S234 batch 1 doc-hygiene). Batch 2 = moratorium kickoff (próximo commit desta sessão).
+- **Aulas:** metanalise 19 slides (3 editorial done), cirrose 11, grade 58 (legacy, NÃO editar).
+- **R3 Clínica Médica:** 224 dias (Dez/2026). Setup infra ainda em 0.
+
+Coautoria: Lucas + Opus 4.7 | S234 Batch 2 moratorium kickoff | 2026-04-20

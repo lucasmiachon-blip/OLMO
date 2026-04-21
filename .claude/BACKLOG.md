@@ -2,40 +2,70 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=0 | P1=15 | P2=22 | Frozen=3 | Resolved=11 | Setup=separate. Next #=52. (S232 post-close FINAL: #51 Python stack RESOLVED same-session — all vestiges deleted; #49 SUBSUMED-THEN-RESOLVED por path #51=DELETE; Living-HTML SCHEDULED S236 post-close reorder)
+> Counts: P0=1 (MORATORIUM) | P1=5 slim | MORATORIUM-DEFERRED=10 | P2=22 | Frozen=3 | Resolved=11 | Setup=separate. Next #=52. (S234 Batch 2: content moratorium active — 10 P1 items deferred até §P0 condições de saída satisfeitas)
 
 ## TOC
 
-- [P0 — blocking próxima sessão](#p0) · [P1 — 2-3 sessões](#p1) · [P2 — sem urgência](#p2) · [Frozen](#frozen) · [Resolved — historical](#resolved) · [Setup & Infra](#setup)
+- [P0 — MORATORIUM ATIVO](#p0) · [P1 — 2-3 sessões (slim)](#p1) · [MORATORIUM-DEFERRED](#moratorium-deferred) · [P2 — sem urgência](#p2) · [Frozen](#frozen) · [Resolved — historical](#resolved) · [Setup & Infra](#setup)
 
 ---
 
 ## P0 — blocking próxima sessão <a id="p0"></a>
 
-*(empty — #51 resolved same-session via DELETE TOTAL; ver §Resolved)*
+> **CONTENT MORATORIUM ACTIVE** (S234 → até condições) — meta-work congelado.
+>
+> **Commits tocam APENAS:** `content/aulas/**`, `assets/provas/`, `assets/sap/`, Anki files, HANDOFF/CHANGELOG/BACKLOG de wrap.
+>
+> **NÃO tocar:** `.claude/agents/`, `.claude/skills/`, `.claude/hooks/`, `.claude/rules/`, `config/`, `docs/`, `pyproject.toml`, `CLAUDE.md`, `README.md`.
+>
+> **Drift canonical detectado durante content work:** anotar 1 linha em §MORATORIUM-DEFERRED; **NÃO corrigir**.
+>
+> **Condições de saída (UMA basta):** (a) QA editorial metanalise 19/19; (b) R3 infra ativo (AnkiConnect + Anki MCP + 2 provas classificadas em `assets/provas/` + ≥10 Anki cards rodando spaced rep); (c) Lucas declara fim com rationale de bloqueio real (não "seria legal").
+>
+> **Plano âncora:** `.claude/plans/S234-content-moratorium-active.md` — ler ao hydrate se dúvida.
+
+**Foco (ordem explícita):**
+
+1. **P0 — Nova aula de grade (totalmente nova, NÃO relacionada ao legacy)** — conteúdo brainstormed com **claude.ai (web, ChatGPT-style)**; implementação (slides HTML + evidence HTML + QA pipeline) via **Claude Code**. Path livre em `content/aulas/` (sugestão: `grade-v2/` ou similar). **NÃO editar `content/aulas/grade/` legacy (58 slides) — tratar como referência apenas**. Segue padrão existente (deck.js + GSAP + OKLCH tokens + manifest + scripts QA).
+2. **P0.5 — QA editorial metanalise** — 16 slides pendentes (s-absoluto → próximos per APL). ~½-1 sessão por slide. Destravar em paralelo ao P0 quando bandwidth permitir.
+3. **P1 sub — R3 infra setup** — AnkiConnect addon (Anki Desktop > Tools > Add-ons > 2055492159), Anki MCP (`npx -y @ankimcp/anki-mcp-server --stdio`), 2 provas reais em `assets/provas/`, 1 SAP em `assets/sap/`. Detalhes em §Setup & Infra.
+4. **P1 sub — Anki cards reais** — conteúdo de erro log + temas semana. Só depois de R3 infra ativo.
 
 ---
 
-## P1 — importante 2-3 sessões <a id="p1"></a>
+## P1 — importante 2-3 sessões (slim durante moratorium) <a id="p1"></a>
+
+> Slim: 10 items movidos para §MORATORIUM-DEFERRED. Aqui ficam apenas content-adjacent + trivial + historical.
 
 | # | Cat | Effort | Item | Next action |
 |---|-----|--------|------|-------------|
-| 46 | research | L | Knowledge integration architecture (OLMO ↔ COWORK) | S229: OLMO removeu producer-side knowledge mgmt (Notion+Obsidian+Zotero sync). Pendente ADR descrevendo como consumer (OLMO) le knowledge produzido por COWORK sem reintroduzir sync code. Candidatos: filesystem cross-mount, MCP read-only, periodic snapshot import. Ref plan `.claude/plans/archive/S229-slim-round-3-daily-exodus.md` |
-| 34 | infra | M | [S227 partial] cp Pattern 8 — CC 2.1.113 ask bypass | Investigation Opus+Codex done: `permissions.ask` fundamentally bypassed (cp/rm/Write all empirical). Applied: 34 destructive deny patterns. Manual via `/clear` + observe popup behavior in new session. Residual gap: redirects + script-file writes ungateable (KBP-26). Next: verify deny stability post-/clear, then close |
-| 36 | content | L | Memory → Living-HTML migration (S227) — **ACTIVE per Lucas S232 close; SCHEDULED S236 partial** | Plan canonical em `.claude/plans/archive/S227-memory-to-living-html.md` (archived S232 post-close mas intent vivo). S236: partial 2-3 high-value cirrose files (csph-nsbb, meld-na, te-accuracy) com PMIDs verified via #48. S239+: remaining 4 files. |
-| 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Write→tmp→cp (guard bloqueia Edit hooks/*.sh). Consequência: cache `backlog-top.txt` stale entre sessões. Descoberto S226 pós-close |
-| 13 | process | M | g3-result memory findings audit | Revisar 15 findings `.claude/tmp/g3-result.md` antes do próximo /dream. Memory no cap 20/20. S156 |
-| 29 | tooling | L | Agent/subagent optimization audit (10 agents) | Phase 1: tool restrictions; Phase 2: model routing (Sonnet/Haiku para repo-janitor/quality-gate); Phase 3: maxTurns calibration; Phase 4: HyperAgents/DGM patterns; Phase 5: parallelism (QA preflight/inspect/editorial); Phase 6: agent-as-skill migration. Refs: HyperAgents Golchian 2026, DGM Sakana 2025, Anthropic orchestrator-workers Dec 2024. S190 |
-| 18 | process | S | KBP-18 dispatch sem prompting skill | Add Format C+ pointer → `feedback_agent_delegation §Pre-dispatch ritual`. 5 root causes: no pre-dispatch ritual, name-matching bias, momentum after correction, complexity-as-ceremony, cognitive vs hook layer. Hook enforcement proposal separado (L4 move, warn-level primeiro). S157 |
-| 23 | tooling | M | Edit/Write permission glob Windows broken | Edit(.claude/skills/**) não faz match com paths absolutos Windows. Workaround S189: Edit/Write sem args. Investigar `:*` syntax vs path absoluto. Root cause: prefix match vs glob. Relacionado #12 |
-| 33 | process | S | Research persistence inter-sessão | Output template obrigatório + plan archive como persistence layer + HANDOFF pointer discipline para pesquisas. Pattern: resultados em `.claude/plans/archive/` com tabela de edits + fontes + verificacao. S197 |
-| 1 | research | M | Pernas pendentes research | Perna 2 (evidence-researcher), Perna 6 (NLM: requer login) |
-| 4 | infra | L | Pipeline DAG end-to-end | external inbox → NLM → wiki (ADR-0002) |
-| 5 | content | M | medicina-clinica 4 stubs | Aguardar external harvest via `$OLMO_INBOX` (ADR-0002). 4 concepts stub/low |
-| 47 | process | S | **[S234 P0] Research skill E2E verification** | S232 criou `.claude/scripts/{gemini,perplexity}-research.mjs` unblock KBP-26 mas nunca testados contra API real. Rodar 1 topic real, verificar cada script (path + API + output format); documentar baseline tempo/custo/qualidade em `.claude/scripts/README.md`. Deliverable: empirical proof vs theoretical claim. ~1-2h. |
-| 48 | tooling | M | **[S235] PMID batch verification automation** | Script `.claude/scripts/pmid-batch-verify.mjs` — input lista CANDIDATE PMIDs, output VERIFIED/INVALID inline via PubMed MCP esummary batch. Update evidence-researcher SKILL.md post-output step. Consumer: ~100 slides/ano × 5-10min manual = 8-16h/ano saved + zero PMID errado publicado. Não-YAGNI: Lucas faz manualmente toda research session. |
-| ~~49~~ | RESOLVED S232 post-close (via #51 DELETE path) | - | ~~Managed Agents evaluation~~ | Subsumed em #51; quando #51 resolveu como DELETE TOTAL (não MIGRATE), #49 também fechou — não há orchestrator.py para migrar. Se MA for avaliado futuramente, será para novo use case, não replacement. |
-| 50 | tooling | M | **[S238] QA gate parallelism (ADR + pilot)** | Atual: Preflight → Lucas OK → Inspect → Lucas OK → Editorial sequential ~30-40min/slide. Proposta: 3 gates PARALELO para MESMO slide (KBP-05 preserved: 1 slide); Lucas decide 1× em vez de 3×. Requer ADR-0005 (KBP-05 semantics + human-in-loop) antes de implement. Pilot em 1 slide opt-in flag `--parallel` em qa-engineer. Ganho: ~50% QA time cut = ~47h/ano salvos. |
+| 36 | content | L | Memory → Living-HTML migration (aulas cirrose/metanalise) | Plan canonical em `.claude/plans/archive/S227-memory-to-living-html.md`. Content-adjacent (prep para uso em slides). **DEFER durante moratorium** — só destravar se slides solicitarem explicitamente. |
+| 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Cache stale entre sessões. **DEFER — fora do escopo moratorium (`.claude/hooks/`).** |
+| 34 | infra | M | [S227 partial] cp Pattern 8 — CC 2.1.113 ask bypass | Investigation done; applied 34 deny patterns (KBP-26). Manual monitoring ongoing. **STATUS: essentially historical; close quando Lucas confirmar estabilidade post-/clear**. |
+| 47 | process | S | [DEFERRED] Research skill E2E verification (ex-S234 P0) | Scripts `.claude/scripts/{gemini,perplexity}-research.mjs` nunca testados contra API real (BACKLOG #47 original). **DEFER durante moratorium** — reativar só se research para slide concreto quebrar. |
+| 48 | tooling | M | [DEFERRED] PMID batch verification automation (ex-S235) | Script `.claude/scripts/pmid-batch-verify.mjs` para batch PMID via PubMed MCP esummary. **DEFER durante moratorium** — reativar só se volume research justificar. |
+| ~~49~~ | RESOLVED S232 post-close (via #51 DELETE path) | - | ~~Managed Agents evaluation~~ | Historical marker. |
+
+---
+
+## MORATORIUM-DEFERRED <a id="moratorium-deferred"></a>
+
+> Items movidos de P1 no início do content moratorium (S234 Batch 2). Reavaliar apenas quando moratorium fechar (ver §P0 condições de saída). Não é "frozen permanent" — é "fora de consideração até produção ganhar tração". Histórico de cada item preservado no git log.
+
+| # | Ex-tier | Item | Razão do defer |
+|---|---------|------|----------------|
+| 13 | P1 | g3-result memory findings audit | 78 sessões dormente; auto-viola governance L4 ("Dormant >10 sessões"); zero content impact |
+| 18 | P1 | KBP-18 dispatch sem prompting skill | Meta process; sem content consumer |
+| 29 | P1 | Agent/subagent optimization audit (10 agents) | Puro meta-tooling (HyperAgents/DGM/Voyager research); zero content unblock |
+| 33 | P1 | Research persistence inter-sessão | Meta process template; content pode ir ad-hoc |
+| 46 | P1 | Knowledge integration architecture (OLMO ↔ COWORK) | Research arquitetural; sem pain imediato |
+| 50 | P1 | QA gate parallelism (ADR + pilot) | Luxo infra; QA sequential ainda funciona |
+| 23 | P1 | Edit/Write permission glob Windows broken | Workaround S189 existente; meta-tooling |
+| 1 | P1 | Pernas pendentes research (Perna 2 + 6) | Research infra; content pode usar pernas atuais |
+| 4 | P1 | Pipeline DAG end-to-end (inbox → NLM → wiki) | Arquitetural; sem consumer ativo |
+| 5 | P1 | medicina-clinica 4 stubs | Aguarda external harvest COWORK (ADR-0002); sem ação OLMO possível |
+
+**Contagem:** 10 items. Próximo # ainda 52. Reativar apenas se §P0 condições de saída satisfeitas.
 
 ---
 

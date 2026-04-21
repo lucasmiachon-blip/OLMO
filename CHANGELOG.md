@@ -11,10 +11,18 @@
 - Install path uv×pip, `fetch_medical.py` sem consumer, Tool Assignment deflate completa (decisão arquitetural), BACKLOG #13 dormência 78 sessões, momentum-brake-enforce zero-firings — fora deste batch.
 - Fase B ghost dirs filesystem local (aguarda OK separado).
 
-### Aprendizados + residual (max 5 li)
-- Rodada 1 audit subestimou: pyproject.toml phantom packages (P1), servers.json chatgpt conflation (P1), Tool Assignment (P1) — todos minimizados ou pulados. Rodada 2 adversarial captou. Padrão: S232 deletou CÓDIGO Python mas não METADATA Python (pyproject, __init__.py); compressão real exige cleanup em ambos substratos. Próximo audit deve cobrir metadata/build config, não só code/docs.
+### Aprendizados Batch 1 (max 5 li)
+- Rodada 1 audit subestimou: pyproject.toml phantom packages (P1), servers.json chatgpt conflation (P1), Tool Assignment (P1) — todos minimizados ou pulados. Rodada 2 adversarial captou. Padrão: S232 deletou CÓDIGO Python mas não METADATA Python (pyproject, __init__.py); compressão real exige cleanup em ambos substratos.
 
-Coautoria: Lucas + Opus 4.7 | S234 adversarial-audit | 2026-04-20
+### Batch 2 — Content moratorium kickoff
+- Rationale: assessment pós-commit `beab5f6` revelou meta/consumer ratio invertido (86% commits últimos 30d = meta; 0 slide HTML novo S208→S234, 27 sessões). Lucas aprovou moratorium com ressalva: tirar ruído documental + BACKLOG/plans arrumado + durable anchor para não-drift próxima sessão.
+- **Pivot pós-input Lucas:** P0 passou de QA metanalise → **Nova aula de grade (totalmente nova)** com claude.ai brainstorm + Claude Code implementation. QA metanalise rebaixada P0.5. R3 infra P1 sub. NÃO editar `content/aulas/grade/` legacy (58 slides) — referência apenas.
+- Edits aplicados: `.claude/BACKLOG.md` §P0 recebeu bloco MORATORIUM ATIVO (regras + condições saída + 4-item foco); §P1 slim 15→5 (kept #36 #37 #34 #47 #48); novo §MORATORIUM-DEFERRED com 10 items ex-P1 (#13 #18 #29 #33 #46 #50 #23 #1 #4 #5); counts header atualizados. `HANDOFF.md` rewrite completo como moratorium-anchored (3-step hydration + P0/P0.5/P1 blocks + regras duras + condições saída + âncoras). Plan file `transient-hugging-lark.md` → `.claude/plans/S234-content-moratorium-active.md` via `git mv`.
+
+### Aprendizados Batch 2 (max 5 li)
+- Meta-work absorveu janela de consumer por 27 sessões. Moratorium = auto-brake com condições objetivas. Durable doc = HANDOFF moratorium-anchored + BACKLOG P0 block + plan file nome explícito (S234-content-moratorium-active.md). Pivot do user (grade aula P0) reforça: moratorium não é "só QA existing", é "produção no sentido amplo". Condições de saída explícitas previnem drift tácito.
+
+Coautoria: Lucas + Opus 4.7 | S234 adversarial-audit + moratorium kickoff | 2026-04-20
 
 ---
 
