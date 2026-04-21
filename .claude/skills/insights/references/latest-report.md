@@ -1,124 +1,160 @@
-# /insights S230 — 2026-04-19 (Phase G.1)
+# /insights S236 — 2026-04-21 (dream+insights combined run)
 
-> Scope: S220-S230 (11 days, ~163 substantive sessions, 24 commits S227-S230 analyzed in detail)
-> Phases: SCAN → AUDIT → DIAGNOSE → PRESCRIBE → QUESTION
-> Verdict: **STABLE com regressão localizada em KBP-23 (Read sem limit)**
-> Trigger: Phase G of bubbly-forging-cat — pre-decision evidence for momentum-brake fate
+> Scope: S231-S235b (5 sessions, Apr 19-20) + dream consolidation signal
+> Previous: S230 report (6 proposals P001-P006, pending review)
+> Phases: SCAN → AUDIT → DIAGNOSE → PRESCRIBE → QUESTION → REGISTRY
+> Verdict: **Security-hygiene ciclo produziu 3 novos KBPs (26/27/28) + rules anti-drift ampliadas. Enforcement reative ainda pendente. KPI collection infra DEGRADED (metrics.tsv S224-S235 backfill/ausente).**
 
 ---
 
 ## Phase 1 — SCAN
 
-### Signal sources
+### Hook-log window 2026-04-16 → 2026-04-21 (722 entries pre-rotation)
+| pattern | cat | count | sev | status |
+|---------|-----|-------|-----|--------|
+| brake-fired:Edit | info | 160 | info | OK (hook working) |
+| brake-fired:Skill | info | 54 | info | OK |
+| brake-fired:Write | info | 26 | info | OK |
+| lifecycle:session-closed | info | 17 | info | OK |
+| tool-error:Bash | warn | 7 | warn | KNOWN (KBP-07) — persists but contextually benign (CRLF warnings) |
+| cross-ref:agent-without-handoff | warn | 7 | warn | **CANDIDATE** — no KBP match, count≥3 |
+| brake-fired:Agent | info | 6 | info | OK |
+| tool-error:WebFetch | warn | 5 | warn | (sub-threshold by cause — need breakdown) |
+| tool-error:Read | warn | 4 | warn | Possibly KBP-23 trigger (Read without limit) |
 
-| Source | Count | Notes |
-|---|---|---|
-| Sessions analyzed | 163 substantive (>50KB) in 11d | Last full /insights: Apr 8 (S193) |
-| Success-log entries | 226 total; 24 in S227-S230 | Clean commits per session: S227=4, S228=5, S229=9, S230=6 |
-| Hook-stats firings | 247 total | nudge-commit 131x, nudge-checkpoint 79x, model-fallback 37x |
-| Hook-log warnings | 80 PostToolUseFailures | 47 Bash, 27 Read, 4 WebFetch, 1 TestTool |
-| Tool errors S230 | 6 in current session | git add gitignored, rm Directory not empty, git add deleted file, etc |
+**Rotation executed this session:** 222 oldest → `hook-log-archive/hook-log-2026-04-21.jsonl` (active = 500 newest).
 
-### Key patterns
+### Proactive hook calibration (hook-stats.jsonl)
+| hook | firings | calibration signal |
+|------|---------|--------------------|
+| nudge-commit | 145 | HIGH — user committed 11x S232-S235b (~13% action rate). Consider threshold raise |
+| nudge-checkpoint | 80 | HIGH — unknown action rate |
+| model-fallback | 45 | MODERATE — warns on potential model switch |
 
-- **5 sessões consecutivas de meta-trabalho** (S226 purga → S227 docs → S228 audit → S229 slim → S230 audit). Zero sessões de slide work em 11 dias. R3 a 225 dias.
-- **Phase F+G de S230 são user-driven extensions** (Lucas pediu explicit), NÃO scope drift do agente.
-- **27 Read errors** (~2.5/day) — KBP-23 First-Turn Context Explosion existe mas é violado regularmente. Mais comum: Read sem limit em arquivo >25k tokens.
-- **47 Bash errors** — predominantemente cleanup pós-delete (git rm + rm pasta vazia) e git operations em gitignored files.
+### Success-log highlights (successful clean commits)
+- S232 v6: 8 commits clean
+- S233 substrate: 1 commit clean
+- S234: 2 commits clean
+- S235/S235b: 4 commits clean (session field empty — telemetry bug)
 
-### Hook calibration
+### KPI metrics.tsv state (CRITICAL)
+Real data rows: 7 (S217-S223). Backfill rows: 24 (S190-S216, S224-S230). **S231-S235 entirely absent.**
+- Backlog_open frozen at 26, backlog_resolved frozen at 7 across 7 sessions (S217-S223) — velocity stagnant at 21%.
+- Handoff_pendentes: 52→17→14→14→18→18→11 (improving trend).
+- Rework_files: 5,2,3,0,1,11,1 (S222 anomaly spike).
 
-- `nudge-commit` 131 firings/11d ≈ 12/day. Frequency consistent com batched session pattern. **OK**.
-- `nudge-checkpoint` 79 firings/11d ≈ 7/day. **OK**.
-- `model-fallback` 37 firings/11d. L2 antifragile fallback working. Verify rate vs. actual model unavailability separately.
+### Transcripts / CHANGELOG signal (S226-S235b)
+- 3 new KBPs added: KBP-26/27/28 (all documented in CHANGELOG narratives)
+- anti-drift.md grew +72 li (First-turn, Propose-before-pour, Budget gate, Edit discipline, Adversarial review, Plan execution)
+- Python runtime stack deleted S232 (ADR-0002 enforcement end-to-end)
+- Content moratorium S234 → encerrado S235 (grade-v2 nova aula pivotada)
 
 ---
 
-## Phase 2 — AUDIT
+## Phase 2 — AUDIT (rule compliance matrix)
 
-| Rule | Status | Evidence |
-|---|---|---|
-| anti-drift §Momentum brake (KBP-01) | **FOLLOWED** S227-S230 | Zero scope drift events em 24 commits analisados |
-| anti-drift §First-turn discipline (KBP-23) | **VIOLATED** ~27x em 11d | hook-log 27 Read pattern errors (file >25k tokens) |
-| anti-drift §EC loop (KBP-22) | **PARTIAL** | EC pre-action visível em S230 phases; falha em outros plays |
-| anti-drift §Edit discipline (KBP-25) | **FOLLOWED** | Pre-Edit Read full em S230; zero whitespace mismatches |
-| anti-drift §State files | **FOLLOWED** | HANDOFF + CHANGELOG via Edit (não Write); preservation OK |
-| anti-drift §Plan execution (≥4 phases = TaskCreate batch) | **FOLLOWED** S230 | 5+1 tasks created upfront, marked in_progress/completed in real time |
-| anti-drift §Failure response (KBP-07) | **FOLLOWED** | S230 Bash blocked → asked Lucas (rmdir, python -c, pytest, rm -rf) |
-| anti-drift §Verification (KBP-13) | **FOLLOWED** | pytest + ruff + sanity check entre cada commit S230 |
-| anti-drift §Delegation gate (KBP-17) | **FOLLOWED** | S230 zero gratuitous Agent spawns — direct Read/Grep |
-| qa-pipeline.md (S230 absorbed) | **NEW canonical** | metanalise §QA → qa-pipeline.md; zero data loss verified |
-| KBP-26 (CC permissions.ask broken) | **CONFIRMED in S230** | 4 popups bloqueados (rmdir, python -c, pytest, rm -rf) — pattern reaffirmed |
-| KBP-27 (Crosstalk pattern) | **APPLIED S229+** | Notion via Claude Code + MCP direct funcionando |
+| rule | followed | violated | evidence |
+|------|----------|----------|----------|
+| anti-drift §Momentum brake | Mixed | S226 velocity mode | Aceitou +15min sem gate explícito (documented em §Budget gate) |
+| anti-drift §First-turn discipline (KBP-23) | Partial | S226 Phase A | 3 Reads integrais com APL já HIGH — violação no próprio rule |
+| anti-drift §Edit discipline (KBP-25) | Weak | S226 Phase A | 3 Edits falhados por whitespace; rule criada *post-hoc* |
+| anti-drift §Propose-before-pour | New (S226) | — | No post-rule evidence yet |
+| anti-drift §Budget gate | New (S226) | — | No post-rule evidence yet |
+| anti-drift §Plan execution (TaskCreate) | THIS SESSION ✓ | S226 8 phases | Dream+insights com 9 tasks no approval; S226 8 phases sem tracking |
+| anti-drift §Adversarial review (KBP-28) | New (S235b) | — | S227 era violador original; rule criada em resposta S235b |
+| anti-drift §Script primacy | OK S232 | — | Scripts `.claude/scripts/{gemini,perplexity}-research.mjs` criados pela regra |
+| anti-drift §State files (HANDOFF/CHANGELOG) | OK | — | S234-S235b all Edit not Write |
+| anti-drift §Delegation gate (KBP-17) | OK this session | — | 0 agent spawns in dream+insights (Grep/Read direto) |
 
 ---
 
 ## Phase 3 — DIAGNOSE
 
-| Finding | Category | Frequency | Priority |
-|---|---|---|---|
-| Read sem `limit` em arquivos >25k tokens | RULE_VIOLATION (KBP-23 recurrence) | 27/11d | **HIGH** |
-| Cleanup pós git rm não automático (pasta vazia + __pycache__) | RULE_GAP | 1/S230 | MEDIUM |
-| Momentum brake teatro (Bash blanket exempt) | PATTERN_REPEAT (zero firings real) | 0/11d | **HIGH** (delete candidate) |
-| KPI Reflection Loop (200-call interval) | PATTERN_REPEAT (zero firings) | 0/11d | **HIGH** (delete candidate) |
-| Cost BLOCK threshold (400 calls) | PATTERN_REPEAT (zero firings) | 0/11d | **HIGH** (delete candidate) |
-| metrics.tsv stale (regex bug) | RULE_VIOLATION (data hygiene) | 7 sessões missing | MEDIUM (Phase G.2 fix) |
-| 5 sessões consecutivas meta-work | PATTERN_REPEAT (avoidance) | 5/5 | **HIGH** (R3 prep blocked) |
-| /insights ritual broken | SKILL_UNDERTRIGGER | 1 run / 30+ sessões | MEDIUM (Phase G.5 fix) |
+| # | Finding | Category | Priority | Freq |
+|---|---------|----------|----------|------|
+| F1 | KPI collection infra degraded (metrics.tsv gaps S224-S235) | HOOK_GAP | high | PATTERN_REPEAT |
+| F2 | Hook-log auto-rotation not automated (dream does it manually) | HOOK_GAP | medium | 1 |
+| F3 | `cross-ref:agent-without-handoff` 7x warn — no KBP | SKILL_GAP / HOOK_GAP | medium | PATTERN_REPEAT |
+| F4 | nudge-commit fires 145x with low action rate | SKILL_UNDERTRIGGER | low | calibration |
+| F5 | `.dream-pending` flag can't be removed (rm policy deny) | HOOK_GAP | low | 1 |
+| F6 | S226 rule violations added rules but enforcement mechanical ≠ landed | RULE_GAP | medium | PATTERN_REPEAT |
+| F7 | Success-log session field empty for S235b commits | RULE_STALE | low | 1 |
+| F8 | MEMORY.md infra counts required manual Glob audit | RULE_GAP | low | — |
 
 ---
 
 ## Phase 4 — PRESCRIBE
 
-### [PATTERN_REPEAT] Momentum brake é teatro confirmed
+### [HOOK_GAP] F1 — KPI collection degraded
 
-**Evidence:** 24 commits S227-S230 analisados — **zero scope drift events agente-driven**. Phase F+G de S230 são user-driven (Lucas pediu explicit). Bash blanket exempt em `momentum-brake-enforce.sh:46` faz brake nunca disparar para escritas via bash. KBP-01 status: **FOLLOWED**.
+**Evidence:** metrics.tsv tem `-` em leading indicators S224-S230 (backfill), S231-S235 ausentes. Real data parou em S223 (2026-04-17).
 
-**Root cause:** brake desenhado para era pré-S229 (ecosystem mais ativo, mais Edit/Write per session). Slim atual = Bash-dominado = exempt → zero firings.
-
-**Proposed fix:**
-- **Target:** `.claude/hooks/momentum-brake-{clear,enforce}.sh` + `.claude/hooks/post-global-handler.sh:42-43` + `.claude/settings.json` registrations
-- **Change:** **DELETE** brake infrastructure inteira
-- **Justification:** Phase D pattern (ModelRouter teatro) aplicável — código que não é consumed = honest delete > pretend it works
-
-### [RULE_VIOLATION] KBP-23 violations recorrentes (27/11d)
-
-**Evidence:** hook-log 27 Read pattern errors `File content (N tokens) exceeds maximum allowed tokens (25000)`. Padrão: agente faz Read sem `limit` em arquivos médios-grandes; CC tool retorna error; agente retry com `offset/limit`.
-
-**Root cause:** KBP-23 pointer existe em `anti-drift.md §First-turn discipline` mas é qualitativa ("APL=HIGH strict"). Não há enforcement automático.
+**Root cause:** `stop-metrics.sh` regex corrigida S230 para `[[:space:]]|:`, mas a partir de S231 o sistema APL session-name mudou — sessões rodam sem o banner no formato esperado. Provavelmente `.claude/.session-name` está presente mas não sendo lido pelo stop-metrics.
 
 **Proposed fix:**
-- **Target:** `hooks/post-tool-use-failure.sh` (já existe, captura PostToolUseFailure)
-- **Change:** quando pattern=Read AND error contains "exceeds maximum allowed tokens", inject systemMessage: "[KBP-23] Read sem limit em arquivo grande — sempre passe `limit:50` primeiro, depois Grep targeted."
-- **Draft:** linha após `category:tool-error` no `post-tool-use-failure.sh`:
-```bash
-if [[ "$PATTERN" == "Read" ]] && [[ "$DETAIL" =~ "exceeds maximum allowed tokens" ]]; then
-  inject_message "[KBP-23] Read sem limit. Use 'limit: 50' primeiro, depois Grep targeted."
+- **Target:** `hooks/stop-metrics.sh`
+- **Change:** Fallback via `.claude/.session-name` file + `git rev-list --count` proxy.
+- **Priority:** high — "funciona sem metrica = achismo" (S214) violado pelo próprio sistema.
+
+### [HOOK_GAP] F2 — Hook-log auto-rotation
+
+**Evidence:** hook-log.jsonl chegou a 722 li antes de rotação manual desta sessão.
+
+**Proposed fix:**
+- **Target:** `hooks/session-start.sh`
+- **Draft:**
+```sh
+HOOKLOG="$CLAUDE_PROJECT_DIR/.claude/hook-log.jsonl"
+if [ -f "$HOOKLOG" ] && [ "$(wc -l < "$HOOKLOG")" -gt 500 ]; then
+  mkdir -p "$CLAUDE_PROJECT_DIR/.claude/hook-log-archive"
+  excess=$(($(wc -l < "$HOOKLOG") - 500))
+  head -"$excess" "$HOOKLOG" > "$CLAUDE_PROJECT_DIR/.claude/hook-log-archive/hook-log-$(date -I).jsonl"
+  tail -500 "$HOOKLOG" > "$HOOKLOG.tmp" && cat "$HOOKLOG.tmp" > "$HOOKLOG" && rm -f "$HOOKLOG.tmp"
 fi
 ```
+- **Priority:** medium.
 
-### [PATTERN_REPEAT] 5 sessões consecutivas meta-work — R3 prep avoidance
+### [CANDIDATE KBP-29] F3 — `cross-ref:agent-without-handoff`
 
-**Evidence:** S226 purga → S227 docs → S228 audit → S229 slim → S230 audit. Zero commits em `content/aulas/` em 11 dias. R3 Clinica Medica está a 225 dias.
-
-**Root cause:** infraestrutura confortável; produto difícil. Sistema sem signal explícito de "tempo até R3 vs trabalho de produto".
+**Evidence:** 7 warn events em 5 dias. Hook detectou ausência HANDOFF update após agent spawn.
 
 **Proposed fix:**
-- **Target:** `hooks/session-start.sh` (já tem APL `R3 Clinica Medica: 225 dias`)
-- **Change:** detectar 3+ sessões consecutivas sem commits em `content/aulas/` → output banner amarelo "ATENÇÃO: 3 sessões sem produto. R3 a 225 dias."
-- **Draft:** ~10 linhas em session-start.sh comparando `git log --since="last 3 sessions" -- content/aulas/` vs total commits
+- **Target:** `.claude/rules/known-bad-patterns.md`
+- **Draft (append):**
+```markdown
+## KBP-29 Agent Spawn Without HANDOFF/Plan Persistence
+→ anti-drift.md §Delegation gate
+```
+- **Priority:** medium — hook catches; KBP-16 pointer-only respected.
 
-### [PATTERN_REPEAT] KPI Reflection Loop + Cost BLOCK = teatro
+### [SKILL_UNDERTRIGGER] F4 — nudge-commit calibration
 
-**Evidence:** zero firings em hook-log 11d. 200-call interval = sessões curtas nunca atingem. 400-call BLOCK threshold idem. Phase G.3 plan já cobre delete.
+**Proposed fix:**
+- **Target:** `hooks/nudge-commit.sh`
+- **Change:** Raise threshold. Fire only when >=3 modified files AND >=30min uncommitted.
+- **Priority:** low.
 
-**Proposed fix:** **EXECUTE Phase G.3** (delete `post-global-handler.sh:26-32, 45-146`).
+### [HOOK_GAP] F5 — `.dream-pending` removal
 
-### [SKILL_UNDERTRIGGER] /insights ritual broken
+**Proposed fix:**
+- **Target:** `.claude/settings.json` ou `~/.claude/skills/dream/should-dream.sh`
+- **Change:** Mover flag para `$CLAUDE_PROJECT_DIR/.claude/.dream-pending` (scope projeto, allowed path) em vez de `~/.claude/.dream-pending`.
+- **Priority:** low.
 
-**Evidence:** Apenas 4 reports nos archives (S193 + 3 anteriores). 11d gap entre runs S193→S230. Skill funciona perfeitamente quando invocada (este report = proof).
+### [RULE_GAP] F6 — S226 rule mechanical enforcement
 
-**Proposed fix:** **EXECUTE Phase G.5** (SessionStart reminder se sexta + last_insights >7d).
+**Proposed fix:** Existing P002 from S230 covers Read-without-limit auto-warn (already in `post-tool-use-failure.sh:+6 li` S230 G.7 per CHANGELOG). Accept P002.
+
+### [RULE_STALE] F7 — success-log session empty
+
+**Proposed fix:**
+- **Target:** Hook writing to success-log (Grep `success-log.jsonl`)
+- **Priority:** low (telemetry cosmetic).
+
+### [RULE_GAP] F8 — Memory count audit
+
+**Proposed fix:** Dream skill Phase 1 enhancement — auto-Glob counts at ORIENT time.
+- **Priority:** low — this dream caught it.
 
 ---
 
@@ -126,159 +162,136 @@ fi
 
 | KBP/Rule | Verdict | Evidence | Action |
 |----------|---------|----------|--------|
-| KBP-01 Scope Creep → momentum-brake | **DEPRECATE the brake, KEEP KBP** | Zero scope drift events em 24 commits; brake exempt = teatro | Delete brake hooks; KBP-01 stays as concept (anti-drift rule) |
-| KBP-23 First-Turn Context Explosion | **STRENGTHEN** | 27 violations em 11d; rule qualitativa demais | Add hook enforcement (proposed above) |
-| KBP-26 CC permissions.ask broken | **CONFIRMED** | 4 popups bloqueados em S230 (rmdir, python -c, pytest, rm -rf) | KEEP, mas acelerar BACKLOG #34 manual follow-up |
-| KBP-27 Crosstalk Pattern | **VALIDATED** | S229 Notion writes via crosstalk worked perfectly | KEEP |
-| `.claude/rules/qa-pipeline.md` | **EXPANDED CORRECTLY S230 Batch 2** | metanalise §QA absorbed sem perda; no more duplication | KEEP |
-| `.claude/rules/anti-drift.md` | **HEAVY USE S230** | EC loop, State files, Plan execution todos exercidos | KEEP |
-| `.claude/rules/known-bad-patterns.md` | **POINTER FORMAT VIOLATED then FIXED Batch 2** | KBP-26+27 prose extracted | KEEP, monitor for new violations |
-| `.claude/rules/design-reference.md` + `slide-rules.md` | **NO DATA — zero slide work 11d** | Não exercidas | KEEP (defer overlap audit per Batch 2 item 6 parking) |
-| `.claude/skills/insights/SKILL.md` | **WORKS WHEN RUN** | This report proof | Add ritual reminder (Phase G.5) |
+| KBP-01 Scope Creep | KEEP | 0 observations | No action |
+| KBP-02 Context Overflow | KEEP | 1 observation S226 (rule-level fix landed) | No action |
+| KBP-17 Gratuitous Agent Spawning | KEEP | This dream 0 spawns — rule working | No action |
+| KBP-22 Silent Execution Chains | KEEP | Stop[0] hook enforcement S219 | No action |
+| KBP-23 First-Turn Context | RECURRING | S226 violation; this session used Grep frontmatter ✓ | P002 enforcement landed S230 G.7 |
+| KBP-26 permissions.ask broken | KEEP | Fundamental CC bug; deny workaround | No action |
+| KBP-28 Adversarial frame-bound | KEEP (NEW) | Created S235 | No action |
 
-**No KBPs to deprecate.** Concepts remain valid; only some implementations (brake) are theater.
+Rule-referenced paths check:
+- `anti-drift.md §Momentum brake` → exists ✓
+- `anti-drift.md §Adversarial review` → exists ✓ (S235b)
+- `anti-drift.md §Edit discipline` → exists ✓ (S226 KBP-25)
+- `anti-drift.md §First-turn discipline` → exists ✓ (S225 KBP-23)
+- `docs/ARCHITECTURE.md §Notion Crosstalk Pattern` → not verified this session (KBP-27 pointer)
+- `docs/adr/0002-external-inbox-integration.md` → exists (KBP-24 pointer)
 
 ---
 
-## Phase 5 — Failure Registry Update
+## Evolution vs Previous Report (S230)
 
-`.claude/insights/failure-registry.json` does not exist. **Initialize with this S230 entry:**
+- **S230 findings:** 6 proposals P001-P006 pending acceptance.
+- **S230 → S236 delta:**
+  - KBPs 21→28 (+3: KBP-26/27/28)
+  - Rules 198→271 li (+72 anti-drift expansion)
+  - Memory stable 19/20
+  - Metrics collection DEGRADED (was "real data epoch" S217; now gap S224-S235)
+  - Plans 6/36 → 2/79 (heavy archival)
+
+- **Pattern resolved:** None of S230's P001-P006 appear implemented — 11-day gap.
+- **Pattern new:** KBP-26/27/28 added organically via session narrative. Healthy sign — system learning without formal /insights gates when events demand it.
+
+---
+
+## Recommendations (Lucas decide)
+
+1. **Accept or reject S230 P001-P006** (currently blocking failure-registry trend computation).
+2. **Implement F1 (metrics.tsv fallback)** — high priority; principle violated by own system.
+3. **Implement F2 (hook-log auto-rotation)** — 10-line change.
+4. **Accept F3 as KBP-29** — mechanical codification.
+5. **Defer F4/F5/F7/F8** — cosmetic/low-impact.
+
+---
+
+Coautoria: Lucas + Opus 4.7 | S236 dream+insights combined | 2026-04-21
+
+---
+
+## JSON Structured Output
 
 ```json
 {
-  "version": 1,
-  "sessions": [
-    {
-      "id": "S230",
-      "date": "2026-04-19",
-      "metrics": {
-        "sessions_in_sample": 163,
-        "user_corrections_total": "qualitative — see report",
-        "user_corrections_per_session": "n/a",
-        "kbp_violations": {
-          "KBP-01_scope_creep": 0,
-          "KBP-23_context_explosion": 27,
-          "KBP-26_permissions_ask_broken": 4
-        },
-        "kbp_total": 31,
-        "kbp_per_session": "n/a (sessões mistas)",
-        "tool_errors": 80,
-        "retries": "n/a"
-      },
-      "insights_run": true,
-      "new_kbps_added": 0,
-      "proposals_accepted": 0,
-      "proposals_rejected": 0
-    }
-  ],
-  "trend": {
-    "first_run": true,
-    "direction": "baseline"
-  }
-}
-```
-
-**Trend:** First entry — no comparison possible. Future runs compare 5-session rolling avg.
-
-**Constrained optimization:** N/A first run.
-
----
-
-## Evolution Metrics
-
-Compared to previous report (S193, Apr 14):
-- Categories of error PERSISTED: KBP-23 (Read sem limit) — both runs flagged
-- Categories of error NEW: KBP-26 (permissions.ask broken) — discovered S227, persists S230
-- Categories of error RESOLVED: nudge-commit calibration (S193 flagged 79 firings/3d; current 131/11d ≈ 12/day = stable, no longer anomaly)
-- New rules added since S193: anti-drift §Edit discipline (KBP-25), §State files, §Plan execution, §EC loop §Propose-before-pour, §Budget gate em scope extensions
-
----
-
-## Save metadata
-
-- Report saved to: `.claude/skills/insights/references/latest-report.md`
-- Previous report: `references/previous-report.md` (S193 — kept as historical)
-- `.last-insights` updated to current epoch (Phase G.1 commit)
-- Coautoria: Lucas + Opus 4.7 | S230 Phase G.1 (insights restoration)
-
----
-
-## Structured JSON output
-
-```json
-{
-  "insights_run": "2026-04-19",
-  "sessions_analyzed": 163,
+  "insights_run": "2026-04-21",
+  "sessions_analyzed": 5,
   "proposals": [
     {
-      "id": "P001",
-      "category": "PATTERN_REPEAT",
-      "title": "DELETE momentum-brake teatro",
-      "target_file": ".claude/hooks/momentum-brake-{clear,enforce}.sh + .claude/hooks/post-global-handler.sh:42-43 + .claude/settings.json",
-      "priority": "high",
-      "frequency": 0,
-      "draft": "rm .claude/hooks/momentum-brake-clear.sh .claude/hooks/post-global-handler.sh:42-43 (LOCK_DIR block) + remove 2 hook registrations from settings.json (lines 123 UserPromptSubmit + 248 PreToolUse)"
-    },
-    {
-      "id": "P002",
-      "category": "RULE_VIOLATION",
-      "title": "Add KBP-23 hook enforcement for Read sem limit",
-      "target_file": "hooks/post-tool-use-failure.sh",
-      "priority": "high",
-      "frequency": 27,
-      "draft": "if [[ \"$PATTERN\" == \"Read\" ]] && [[ \"$DETAIL\" =~ \"exceeds maximum allowed tokens\" ]]; then inject_message '[KBP-23] Read sem limit em arquivo grande. Use limit:50 primeiro, depois Grep targeted.'; fi"
-    },
-    {
-      "id": "P003",
-      "category": "PATTERN_REPEAT",
-      "title": "DELETE KPI Reflection Loop + Cost BLOCK",
-      "target_file": ".claude/hooks/post-global-handler.sh:26-32,45-146",
-      "priority": "high",
-      "frequency": 0,
-      "draft": "Delete linhas 26-32 (Cost BLOCK arm) + linhas 45-146 (KPI Reflection Loop). Manter apenas Cost WARN + momentum-arm (mas se P001 aprovado, momentum-arm também sai)."
-    },
-    {
-      "id": "P004",
-      "category": "RULE_VIOLATION",
-      "title": "Fix metrics.tsv SESSION_NUM regex",
-      "target_file": "hooks/stop-metrics.sh:96",
-      "priority": "medium",
-      "frequency": 7,
-      "draft": "if [[ \"$LATEST_COMMIT_MSG\" =~ ^S([0-9]+)([[:space:]]|:) ]]; then"
-    },
-    {
-      "id": "P005",
-      "category": "PATTERN_REPEAT",
-      "title": "Anti-meta-loop banner: 3+ sessões sem produto",
-      "target_file": "hooks/session-start.sh",
+      "id": "P007",
+      "category": "HOOK_GAP",
+      "title": "metrics.tsv session detection fallback",
+      "target_file": "hooks/stop-metrics.sh",
       "priority": "high",
       "frequency": 5,
-      "draft": "Append: 'AULAS_COMMITS=$(git log -3 --pretty=format:%H -- content/aulas/ | wc -l); if [ $AULAS_COMMITS -lt 1 ]; then echo \"⚠️ 3+ sessões sem produto (aulas/). R3 a $(cat .claude/apl/deadline-days.txt)d.\"; fi'"
+      "draft": "Add fallback: if APL banner parse fails, read session name from $CLAUDE_PROJECT_DIR/.claude/.session-name and use git rev-list --count HEAD as commit proxy. Restores data collection for S231+ sessions."
     },
     {
-      "id": "P006",
-      "category": "SKILL_UNDERTRIGGER",
-      "title": "/insights ritual reminder Friday",
+      "id": "P008",
+      "category": "HOOK_GAP",
+      "title": "hook-log auto-rotation at session-start",
       "target_file": "hooks/session-start.sh",
       "priority": "medium",
       "frequency": 1,
-      "draft": "Append: 'DOW=$(date +%u); LAST_INS=$(stat -c %Y .claude/.last-insights 2>/dev/null || echo 0); GAP=$(( ($(date +%s) - LAST_INS) / 86400 )); if [ \"$DOW\" -eq 5 ] && [ \"$GAP\" -gt 7 ]; then echo \"🔬 sexta + ${GAP}d sem /insights. Considere rodar.\"; fi'"
+      "draft": "HOOKLOG=\"$CLAUDE_PROJECT_DIR/.claude/hook-log.jsonl\"\nif [ -f \"$HOOKLOG\" ] && [ \"$(wc -l < \"$HOOKLOG\")\" -gt 500 ]; then\n  mkdir -p \"$CLAUDE_PROJECT_DIR/.claude/hook-log-archive\"\n  excess=$(($(wc -l < \"$HOOKLOG\") - 500))\n  head -\"$excess\" \"$HOOKLOG\" > \"$CLAUDE_PROJECT_DIR/.claude/hook-log-archive/hook-log-$(date -I).jsonl\"\n  tail -500 \"$HOOKLOG\" > \"$HOOKLOG.tmp\" && cat \"$HOOKLOG.tmp\" > \"$HOOKLOG\" && rm -f \"$HOOKLOG.tmp\"\nfi"
+    },
+    {
+      "id": "P009",
+      "category": "RULE_GAP",
+      "title": "KBP-29 Agent Spawn Without HANDOFF Persistence",
+      "target_file": ".claude/rules/known-bad-patterns.md",
+      "priority": "medium",
+      "frequency": 7,
+      "draft": "## KBP-29 Agent Spawn Without HANDOFF/Plan Persistence\n→ anti-drift.md §Delegation gate\n"
+    },
+    {
+      "id": "P010",
+      "category": "SKILL_UNDERTRIGGER",
+      "title": "nudge-commit threshold calibration",
+      "target_file": "hooks/nudge-commit.sh",
+      "priority": "low",
+      "frequency": 145,
+      "draft": "Gate: fire only when (modified >= 3 OR duration_since_commit >= 30min). Current 13% action rate indicates over-fire."
+    },
+    {
+      "id": "P011",
+      "category": "HOOK_GAP",
+      "title": "Move .dream-pending from HOME to project scope",
+      "target_file": "~/.claude/skills/dream/should-dream.sh",
+      "priority": "low",
+      "frequency": 1,
+      "draft": "Change path from $HOME/.claude/.dream-pending to $CLAUDE_PROJECT_DIR/.claude/.dream-pending (HOME rm blocked by deny policy; project scope allowed)."
     }
   ],
-  "kbps_to_add": [],
+  "kbps_to_add": [
+    {
+      "pattern": "Agent Spawn Without HANDOFF/Plan Persistence",
+      "trigger": "Agent produces research/findings but HANDOFF.md or plan file not updated in same commit window",
+      "fix": "anti-drift.md §Delegation gate already covers: 'Agent produces research → result written to plan file BEFORE reporting to user'. KBP-29 codifies detection for hook cross-ref:agent-without-handoff (7x warn in 5 days)."
+    }
+  ],
   "pending_fixes_to_add": [
     {
-      "item": "BACKLOG #34 manual follow-up: /clear + observe popup stability + close",
+      "item": "stop-metrics.sh session detection fallback — restore KPI collection S231+",
+      "priority": "P0",
+      "target": "hooks/stop-metrics.sh"
+    },
+    {
+      "item": "hook-log auto-rotation — prevent unbounded growth between dream runs",
       "priority": "P1",
-      "target": ".claude/BACKLOG.md (#34 already exists, status check)"
+      "target": "hooks/session-start.sh"
+    },
+    {
+      "item": "Review and accept/reject S230 P001-P006 (blocking failure-registry trend)",
+      "priority": "P1",
+      "target": ".claude/insights/failure-registry.json"
     }
   ],
   "metrics": {
-    "rule_violations": 31,
-    "user_corrections": "see PATTERN_REPEAT 5 sessões meta-work",
-    "retries": 80,
-    "patterns_resolved_since_last": 1,
-    "patterns_new": 2
+    "rule_violations": 4,
+    "user_corrections": 0,
+    "retries": 0,
+    "patterns_resolved_since_last": 0,
+    "patterns_new": 3
   }
 }
 ```

@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 236 — 2026-04-21 (dream+insights combined + P007/P008/P009 execution)
+
+### Commit 6a8ea3a — insights S236 + S230 registry reconciliation
+- **/dream + /insights combined** (epoch 1776791929): 7 memory topic files updated + MEMORY.md reindexed (S225→S236, counts corrigidos KBPs 21→28, agents 10→9, skills 22→18, rules 199→271li, slides 17→19, plans 6/36→2/79). Hook-log rotated 722→500 (archived 222 oldest).
+- **S230 registry reconciled**: P002-P006 implemented via commits G.2/G.3/G.5/G.7/G.8 (accepted 0→5). P001 rejected evidence-flipped: 246 brake-fired events/5d invalidate "teatro" claim; popup absence was KBP-26 artifact (permissions.ask bug), não brake ineffectiveness.
+- **P007 stop-metrics.sh** (+12 li net): 3rd CHANGELOG fallback para session-num + `parse_handoff_pendentes` explicit `return 0` (HANDOFF perdeu seção PENDENTES S234 pivot, pipefail abortava persist) + flock→mkdir only (MSYS FD-redirect bug em `flock -x -w 9>file.lock`). Primeira real-data row desde S223: S235 appended rework=0, backlog 40/11, pendentes=0.
+- **P008 session-start.sh** (+13 li): hook-log auto-rotate aligned com /dream threshold 500, previne gap entre dream runs.
+- **P009 known-bad-patterns.md** (+3 li -1): KBP-29 Agent Spawn Without HANDOFF pointer (canonical home = anti-drift.md §Delegation gate). Header bump Next: KBP-30.
+- **Momentum-brake comment refresh**: `.claude/hooks/momentum-brake-enforce.sh` 3-line fossil comment updated com S236 Chesterton's Fence rationale.
+
+### Aprendizados (max 5 li)
+- KBP-20 generaliza para infra hooks: "bash -n OK" ≠ "hook delivers promised KPI". Verificação empírica end-to-end descobriu 2 bugs pré-existentes (HANDOFF parse + flock MSYS) que syntax-only teria escondido. Chesterton's Fence em P001: G.4 LOGGING (não delete) preservou option value para 246-fire evidence surfacing — decisão mais cara-eficiente de S230. Deploy canônico Write→temp→cat custa 3-5 tool calls por edit em `.claude/hooks/*.sh` (custo real ao modificar infra). Plan execution §TaskCreate batch respeitado: 9 tasks dream+insights + 6 tasks plan = 15 tasks ao longo da sessão. Metrics.tsv voltou a coletar dados — self-improvement loop reativado após 13-sessão gap.
+
+Coautoria: Lucas + Opus 4.7 | S236 dream+insights + plan execution | 2026-04-21
+
+---
+
 ## Sessao 235b — 2026-04-20 (security fix + docs coherence)
 
 ### Commit 9ef3b78 — security: close shell-within-shell gap

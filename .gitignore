@@ -1,5 +1,6 @@
 # Runtime logs (hook self-improvement loop)
 .claude/hook-log.jsonl
+.claude/hook-log-archive/
 
 # Variáveis de ambiente e segredos
 .env
