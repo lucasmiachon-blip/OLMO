@@ -1,19 +1,28 @@
 # CHANGELOG
 
-## Sessao 237 — 2026-04-21 (grade-v2 kickoff + state docs refresh)
+## Sessao 237 — 2026-04-21 (grade-v2 kickoff: shared-v2 greenfield + ADRs)
 
-### Commit <este> — S237 C1: state docs refresh (P0 re-scope)
-- `HANDOFF.md`: §P0 rewrite de 1 item genérico ("Nova aula de grade") para 3 sub-items explícitos (P0a grade-v2 `content/aulas/grade-v2/` + P0b shared-v2 greenfield `content/aulas/shared-v2/` + P0c qa-pipeline v2 escalonado `content/aulas/scripts/qa-pipeline/`). §P0.5 metanalise QA atualizada com migration-to-v2 note. §Estado factual atualizado (HEAD `2e04cae`, cirrose intocada em `shared/`, grade-v1 será archived em C2, deadline grade-v2 30/abr T-9d). Header quote + footer update.
-- `.claude/BACKLOG.md`: L5 counts atualizados (P0=1→3, Next #=52→55). §P0 prose 4 items → tabela 3 items (#52 grade-v2 + #53 shared-v2 + #54 qa-pipeline v2) + §Dependencies inline (#53 bloqueia #52; #54 paralelo após Gate 0+1). P0.5 metanalise como bullet abaixo. R3 infra + Anki removidos de §P0 (cross-ref para §P1 #34).
-- `CHANGELOG.md`: prepend §Sessao 237 (este).
+### Commits
 
-### Rationale
-HANDOFF HEAD pós-S236 tinha P0 genérico ("nova aula de grade") que não refletia decisões arquiteturais D2-D8 consolidadas em conversa claude.ai madrugada 21/abr (shared-v2 greenfield + qa-pipeline v2 escalonado + grade-v2 sobre shared-v2). Commit registra escopo real no repo antes de execução física (C2+ = grade-v1 archive e depois). Deadline grade-v2: 30/abr/2026 (T-9d).
+- **C1 `e361520` state docs refresh** — HANDOFF §P0 + BACKLOG §P0 + CHANGELOG §S237 atualizados para refletir shared-v2 + qa-pipeline v2 + grade-v2 como P0. Reconciliação com decisões D2-D8 consolidadas em sessão Claude.ai madrugada 21/abr.
+- **C2 `939c847` grade-v1 archive** — branch `legacy/grade-v1` + tag `grade-v1-final` em `ccbaefe` (S178 last touch) + 70 tracked files removed + tar externo 22 orphans gitignored em `C:\Dev\Projetos\OLMO_primo\grade-v1-qa-snapshot-2026-04-21.tar.gz`. `.claudeignore` entry + `content/aulas/CLAUDE.md §Legacy Archives`.
+- **C3 `8e8eb28` ADRs 0004 + 0005** — ADR-0004 grade-v1 archived (3-2-1 backup strategy como "applied here", não pattern canônico — promoção pós-N=2+). ADR-0005 shared-v2 greenfield (rationale: scaleDeck bug + stack aging + presenter-safe gap; phases C4 Day 1 + C5 Day 2).
+- **C4 `a95a18d` shared-v2 Day 1** — `content/aulas/shared-v2/` greenfield com 7 arquivos novos (README + type/scale.css + layout/slide.css + layout/primitives.css + css/index.css + _mocks/hero + _mocks/evidence) + 4 fonts copy + 4 Edits (system.css +3 --font-* tokens; components.css +4 --slide-caption-* tokens; ADR-0005 §Browser Targets + §A11y; package.json dev:shared-v2 porta 4103). Tokens (reference + system + components) pre-calibrados por Lucas em sessão Claude.ai separada (governança Stripe-style + valores Radix-inspired: warning L=82% com on-solid dark explícito, info hue 210° para separação do accent blue-violet 265°, danger hue 22° editorial). Type scale fluid via clamp+cqi com fórmula Utopia-adaptada (tabela de derivação no header de scale.css: N_cqi = (size_max-size_min)/13.2, floor_px = size_min - N×6). Layout primitives every-layout.dev (stack/cols/cluster/grid-auto-fit) zero media queries. 7 greps adversariais pós-Write clean.
+- **chore `ae1c53a` archive plan** — `.claude/plans/foamy-wiggling-hartmanis.md` → `.claude/plans/archive/`.
+- **docs `<este>` refresh pós-C4** — HANDOFF.md overwrite (estado S237 mid-execution) + CHANGELOG §S237 expansion (este) + BACKLOG §P0 refresh.
+
+### Deferred para C5+
+
+- motion/tokens.css + motion/transitions.css — requer JS coupling para validação.
+- js/motion.js + js/deck.js + js/presenter-safe.js + js/reveal.js — Day 2.
+- _mocks/dialog.html — C6 com conteúdo grade-v2 real.
+- Ensaio HDMI residencial — C5 obrigatório antes de commit.
 
 ### Aprendizados (max 5 li)
-- Project knowledge claude.ai web ≠ filesystem Claude Code: `HANDOFF-S235-complete.md` inacessível localmente (Glob zero); resolução via write-from-scratch baseado em princípios D2-D8 — mais rápido que round-trip (A) colar §6. BACKLOG ID counter é sequencial global (não tier-scoped); estimativa #55 mas próximo real era #52. P0 re-scope preserva legacy grade como read-only ref — archive fica para C2 (scope-per-commit §anti-drift). "Seguir metanalise como referência" no HANDOFF S236 era shorthand obsoleto pós-D2-D8; shared-v2 greenfield invalida pattern-mirror (cirrose/metanalise migram para shared-v2 pós-30/abr, não inverso). Ultraplan/Opus 4.6 cloud não auto-load rules OLMO-specific (anti-drift/KBPs/EC loop) — Lucas cancelou para preservar fidelidade via Opus 4.7 local (1M context + auto-load completo).
 
-Coautoria: Lucas + Opus 4.7 | S237 C1 state docs refresh | 2026-04-21
+- Revisão Opus-sobre-Opus tem correlação de blind spots: Claude.ai Opus revisor e Claude Code Opus autor pensam parecido, alguns tipos de erro passam (literais hardcoded em reemit, fórmula dimensionalmente inconsistente, clamp invertido onde min > floor). Mitigação: greps adversariais explícitos + camada externa de revisão (Codex CLI sessão separada pós-commit). Iteração em examples tem ponto de retorno decrescente — após 2 rodadas com erros novos introduzidos a cada reemit, encerra e fornece prompt prescritivo com fórmula + tabela + escopo reduzido. Governança Stripe-style (1 token por função) supera Radix (múltiplas opções por categoria) em projetos com ≤5 aulas por risco de drift entre aulas; reverta se ≥10 aulas emergirem. Tokens pré-calibrados em sessão separada (Claude.ai com output files) entregues como filesystem pre-existing ao Claude Code economizam 2-3 rodadas de calibração in-band. Stop hook + Windows path escape (KBP candidate) emergiu como pattern — backslash interpretation em bash-within-bash produz paths truncados (`C:\Dev\Projetos\OLMO` → `C:DevProjetosOLMO`); non-blocking mas silent failure esconde regressão; próximo /insights audit candidate.
+
+Coautoria: Lucas + Opus 4.7 (Claude Code + Claude.ai) | S237 grade-v2 kickoff | 2026-04-21
 
 ---
 

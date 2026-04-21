@@ -12,19 +12,22 @@
 
 ## P0 — blocking próxima sessão <a id="p0"></a>
 
-**Foco:** grade-v2 sobre shared-v2 + qa-pipeline v2 escalonado. Decisões D2-D8 consolidadas claude.ai madrugada 21/abr. Deadline grade-v2: **30/abr/2026 (T-9d)**.
+**Foco (ordem explícita):**
 
-| # | Cat | Effort | Item | Next action |
-|---|-----|--------|------|-------------|
-| 52 | content | L | **grade-v2** — nova aula 15–18 slides, 30–40 min | Path `content/aulas/grade-v2/` greenfield. Depende de #53 Day 1+2. Scaffold C6; slides ~2/dia a partir de C8. Legacy `grade/` 58 slides = read-only ref até C2 archive. |
-| 53 | infra | L | **shared-v2 greenfield** — tokens 3-camadas + fluid type cqi + CQ + motion WAAPI + View Transitions + presenter-safe.js | Path `content/aulas/shared-v2/`; `shared/` atual intocada (cirrose/metanalise migram pós-30/abr). Day 1 C4; Day 2 C5. **Bloqueia #52.** |
-| 54 | tooling | M | **qa-pipeline v2 escalonado** — Gate 0 + Gate 1 Flash obrigatórios; Gate 2 Pro + Gate 3 Designer skippable | Path `content/aulas/scripts/qa-pipeline/`. Entrega C7 (Gate 0+1); Gate 2+3 skeleton opt-in via `--skip-gate2/--skip-gate3`. **Paralelo a #52 após Gate 0+1 validados.** |
+1. **P0a — shared-v2 Day 2 (C5) — #53** — `motion/tokens.css` + `motion/transitions.css` + `js/motion.js` + `js/deck.js` + `js/presenter-safe.js` + `js/reveal.js` + `css/presenter-safe.css` + `_mocks/dialog.html`. **Ensaio HDMI residencial obrigatório** antes de commit.
+2. **P0b — grade-v2 scaffold (C6) — #52** — `content/aulas/grade-v2/` com slides/ + evidence/ + exports/ + qa-rounds/ + variants/ + CLAUDE.md + _manifest.js 18 slots.
+3. **P0c — qa-pipeline v2 Gate 0+1 (C7) — #54** — `content/aulas/scripts/qa-pipeline/` com gate0-local + gate1-flash + shared utilities + prompts.
+4. **P0.5 — QA editorial metanalise** — 16 slides pendentes (3/19 done), paralelo quando bandwidth permitir + qa-pipeline v2 operacional.
+5. **P1 sub** — R3 infra + Anki cards (deferred pós-30/abr; tracked em §P1 #34 + §Setup & Infra).
 
-**Dependências:** #53 bloqueia #52 (grade-v2 consome shared-v2). #54 roda paralelo após Gate 0+1 operacional.
+**Deadline grade-v2:** 30/abr/2026 quinta-feira. Hoje T-9d.
 
-**P0.5 — QA editorial metanalise:** 16 slides pendentes (s-absoluto → próximos per APL). Scripts `content/aulas/scripts/gemini-qa3.mjs` (v1); migra para qa-pipeline v2 quando Gate 0+1 ready. ~½-1 sessão por slide. Destravar paralelo ao P0 quando bandwidth permitir.
+**Bloqueadores cruzados:**
+- P0a (C5) bloqueia validação completa de shared-v2 (scaleDeck bug elimination via presenter-safe.js + ensaio HDMI).
+- P0b (C6) consome shared-v2 (precisa Day 2 done).
+- P0c (C7) pode rodar paralelo a P0b após Gate 0+1 validados.
 
-**R3 infra + Anki (ex-P1 sub inline):** AnkiConnect + Anki MCP + provas + SAPs. Tracked em §P1 #34 [S227 partial] e §Setup & Infra. Execução pós-grade-v2 close.
+**Estado pós-C4 (2026-04-21):** #53 parcialmente Done — Day 1 tokens + type + layout + entry + mocks committed em `a95a18d`. Day 2 pendente C5.
 
 ---
 
