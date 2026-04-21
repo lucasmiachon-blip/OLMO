@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=3 | P1=5 | Deferred=10 | P2=22 | Frozen=3 | Resolved=11 | Setup=separate. Next #=55.
+> Counts: P0=3 | P1=5 | Deferred=10 | P2=24 | Frozen=3 | Resolved=11 | Setup=separate. Next #=57.
 
 ## TOC
 
@@ -99,6 +99,7 @@
 | 16 | tooling | S | Zombie refs audit post-archival | 3 históricos restantes: `docs/aulas/AGENT-AUDIT-S79.md` + `research-gaps-report.md` + `evidence-harvest-S112.md` (renomeado S226 ADR-0002). Baixo risco. S154/S157 |
 | ~~42~~ | RESOLVED | - | ~~ModelRouter unused~~ | ✅ S230 Batch 3c (commit pendente): `model_router.py` + `test_model_router.py` deletados; orchestrator simplificado; routing intent (trivial→Ollama, simple→Haiku, medium→Sonnet, complex→Opus) preservada como diretiva humana em `CLAUDE.md`. Decisão B (delete) escolhida — teatro arquitetural removido. |
 | 43 | infra | S | MCP safety gate dormant (`mcp_operation` key unset by callers) | S228 audit finding: `agents/core/orchestrator.py:45-48` gate só dispara com `task["mcp_operation"]`. `grep` confirma que nenhum workflow/test/caller seta essa key — workflows usam `type: "mcp"`. Decisão: (a) fire em `type:"mcp"` OR `mcp_operation` OR (b) delete gate Python (enforcement real está em `.claude/hooks/guard-mcp-queries.sh`). Ver §Mudanca-4 |
+| 56 | infra | S | Stop hook "No stderr output" silent failure (Windows path escape) | S237 C1 commit `e361520` disparou 9 stop hooks; 1 failed non-blocking sem stderr output. Suspect: Windows path escape em bash-within-bash MSYS (`C:\Dev\Projetos\OLMO` → `C:DevProjetosOLMO`). Evidência: `.claude/hook-log.jsonl` entry 2026-04-21T19:10:56Z com `cd: C:DevProjetosOLMO: No such file or directory`. Non-blocking mas silent = esconde regressão. Fix candidate: (a) identificar qual dos 6 Stop hooks falhou via `set -x` debug em wrapper, (b) add stderr redirect com context, (c) novo KBP "Windows path escape in hook wrappers" se root cause confirmado. Ref audit: `.claude/plans/archive/S237-EC-audit.md §Stop hook silent failure`. S237 |
 
 ### Process/governance
 
@@ -111,6 +112,7 @@
 | 31 | process | M | Sentinel audit quality — melhoria contínua | S196: sentinel errou 1 claim + orchestration truncou (50 tool calls sem report). Melhorias: (1) verificação cruzada antes de claim, (2) report estruturado, (3) scope 1 dir/concern, (4) maturity tier. Aplicar proven-wins.md ao audit |
 | 44 | process | S | CLI Python viability decision (`python -m orchestrator run`) | S228 audit finding: após slim migration, `run` subcommand = apenas display_status (demo workflow removido). Decisão: (a) delete `run` subcommand OR (b) documentar intenção como "start + wait" OR (c) implementar dispatchers `mcp/api_call/local/skill` em route_task. Depende de se CLI é target vivo ou legacy. Ver §Mudanca-3 |
 | 45 | process | M | "7-layer antifragile stack" claim unaudited | S228 audit Bloco-3 Suspender-narrativa: README claima L1-L7 antifragile stack mas padrão do projeto é "aspiracional > runtime". Executar audit próprio de cada layer (L1 retry, L2 model fallback, L3 cost breaker, L4 graceful degradation, L5 self-healing, L6 chaos, L7 continuous learning) antes de continuar usando claim em docs externos |
+| 55 | process | S | EC audit consolidation — S237 ~25 blocks review | Review `.claude/plans/archive/S237-EC-audit.md` para padrões: Elite section ritualismo (phrases recorrentes "engineer elite would automate/extract/BDD"), Write vs Edit EC template differentiation, compressed format rule adoption mid-session. Output candidato: rule em anti-drift §EC loop se pattern emergir OU KBP novo se anti-pattern. Trigger: quando novo ciclo de EC-heavy commits for observado (C5 Day 2 shared-v2 com JS layer = likely candidate; ~30+ ECs esperados). S237 |
 
 ---
 
