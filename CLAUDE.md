@@ -80,3 +80,13 @@ Aulas: ver `content/aulas/CLAUDE.md`.
 - Self-healing: `hooks/stop-quality.sh` → `.claude/pending-fixes.md` → session-start surfacea
 - Via Negativa: `known-bad-patterns.md` acumula anti-patterns
 - `/insights` semanal. Roadmap: `docs/research/implementation-plan-S82.md`
+
+## CC schema gotchas (abril/2026)
+
+> Armadilhas operacionais do Claude Code runtime documentadas após descoberta empírica. Não são bugs a reportar — são facts do sistema que precisam influenciar config reviews futuros.
+
+- **timeout em hook type "command"/"http":** milissegundos.
+- **timeout em hook type "prompt"/"agent":** segundos.
+  Evidência: stop_hook_summary real com `timeout: 30` + `durationMs: 3025` sem `hookErrors` — se fosse ms teria estourado em 30ms. Não mude timeouts desses tipos sem testar.
+- **permissions.ask tem bug em CC >=2.1.113** (KBP-26) — pode degradar silenciosamente para allow. Arquitetura de permissions precisa assumir esse failure mode.
+- **bash -c / sh -c / $() / `` bypassam deny-list de named patterns.** Deny cobre `python -c`, `node -e`, etc; não cobre shell-within-shell e command substitution. Requer pattern explícito.

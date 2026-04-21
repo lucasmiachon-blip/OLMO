@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-28.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-29.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -89,3 +89,8 @@ globs: "**/*"
 
 ## KBP-27 Pipeline Python redundante quando crosstalk AI+humano supera
 → `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`
+
+## KBP-28 Adversarial testing frame-bound
+→ CLAUDE.md §CC schema gotchas
+
+Análise adversarial cobre apenas hipóteses formuladas. Codex validou S227 deny-list dentro do frame "Bash(*) é o problema?" — não simulou shell-within-shell. Fuzzing por tipo de comando (bash -c, sh -c, $(), ``, eval, exec, source) é barato pré-decisão, caro pós-incidente. Antes de fechar audit de security: rodar checklist {bash -c, sh -c, $(), ``, eval, exec, source, . /}.
