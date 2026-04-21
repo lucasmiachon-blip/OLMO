@@ -81,3 +81,15 @@ Cada aula segue a mesma estrutura:
 | dados numericos | evidence HTML |
 | click-reveals | `_manifest.js` clickReveals + `slide-registry.js` |
 | modelo Gemini | `scripts/gemini-qa3.mjs` + `skills/research/SKILL.md` + `docs/prompts/*.md` |
+
+## Legacy Archives
+
+### grade-v1 — archived S237 C2 (2026-04-21)
+
+- **Conteúdo:** 58 slides originais (60 HTML, 91 files, 2.8MB) era S107-S178, pre-slideologia + pré-shared-v2 tokens
+- **Branch:** `legacy/grade-v1` (HEAD pré-deleção, contém tracked files recuperáveis)
+- **Tag:** `grade-v1-final` (commit `ccbaefe` S178, último touch semântico)
+- **Recovery single-line:** `git checkout legacy/grade-v1 -- content/aulas/grade/`
+- **Scope clarification:** `content/aulas/grade-v2/` = aula **nova greenfield** sobre shared-v2; **NÃO relacionada** a grade-v1
+
+Archive rationale: evitar contaminação Grep/Read durante construção grade-v2. `.claudeignore` bloqueia indexing futuro.

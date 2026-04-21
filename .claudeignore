@@ -15,3 +15,6 @@ daily-digest/
 
 # Wiki raw topics (wiki-query skill handles via index-first)
 wiki/topics/
+
+# Legacy grade-v1 — archived S237 C2 (branch: legacy/grade-v1, tag: grade-v1-final)
+content/aulas/grade/
