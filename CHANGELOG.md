@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 234 — 2026-04-20 (adversarial-audit)
+
+### 2 rodadas audit adversarial + batch doc-hygiene (5 edits, 5 arquivos, net -32 li)
+- Rodada 1+2 identificaram drifts P1/P2: `docs/ARCHITECTURE.md:33` mbe-evaluator "(FROZEN)" × `.claude/skills/research/SKILL.md:66` uso ATIVO; `research/SKILL.md:64,68` tabela Step 2 `node -e` × L120 mesma file explicando migração; `pyproject.toml` L35/44/49/56-57/63-64 declarava `agents/subagents/skills/config` como pacotes Python (3 de 4 inexistentes em git pós-S232); `config/mcp/servers.json:176-184` entry `chatgpt` preservava "ChatGPT 5.4 via MCP" + "Notion writes" que ADR-0003:39 + ADR-0002 disavowed; `CLAUDE.md:37-40` §Tool Assignment vendia 7 de 11 slots aspiracionais como callable.
+- Batch aplicado: ARCH FROZEN removido + cost claim atualizado (QA + research scripts); research/SKILL.md tabela Step 2 L1+L5 apontam `node .claude/scripts/{gemini,perplexity}-research.mjs`; pyproject.toml purgou isort+mypy.overrides+pytest+coverage×2+hatch sections (preservou [tool.mypy] + [build-system]); servers.json chatgpt entry deletada + trailing comma google-drive corrigida; CLAUDE.md Tool Assignment reescrita como narrative-only + ponteiros operacionais + role-only heuristic.
+
+### Deferred
+- S234 P0 scripts `.mjs` E2E verification (BACKLOG #47) — próximo.
+- Install path uv×pip, `fetch_medical.py` sem consumer, Tool Assignment deflate completa (decisão arquitetural), BACKLOG #13 dormência 78 sessões, momentum-brake-enforce zero-firings — fora deste batch.
+- Fase B ghost dirs filesystem local (aguarda OK separado).
+
+### Aprendizados + residual (max 5 li)
+- Rodada 1 audit subestimou: pyproject.toml phantom packages (P1), servers.json chatgpt conflation (P1), Tool Assignment (P1) — todos minimizados ou pulados. Rodada 2 adversarial captou. Padrão: S232 deletou CÓDIGO Python mas não METADATA Python (pyproject, __init__.py); compressão real exige cleanup em ambos substratos. Próximo audit deve cobrir metadata/build config, não só code/docs.
+
+Coautoria: Lucas + Opus 4.7 | S234 adversarial-audit | 2026-04-20
+
+---
+
 ## Sessao 233 — 2026-04-20 (substrate-truth-cleanup)
 
 ### Correcao adversarial de canonicos falsos pos-S232

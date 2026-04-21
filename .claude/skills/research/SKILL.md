@@ -61,11 +61,11 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 
 | # | Ferramenta/Executor | Modelo | Quando | Input | Output |
 |---|---------------------|--------|--------|-------|--------|
-| 1 | Gemini API — Bash `node -e` (**Orquestrador**) | gemini-3.1-pro-preview | Sempre | topic | inline (console) |
+| 1 | Gemini API — Bash `node .claude/scripts/gemini-research.mjs` (**Orquestrador**) | gemini-3.1-pro-preview | Sempre | topic | inline (console) |
 | 2 | `evidence-researcher` (**Subagent**) | Sonnet | Sempre | topic + slide context + queries MCP | retorno ao orquestrador |
 | 3 | `mbe-evaluator` (**Subagent**) | Sonnet | Slide existe | slide HTML + evidence HTML | retorno ao orquestrador |
 | 4 | `reference-checker` (**Subagent**) | Haiku | Slide existe | slide-id + aula path | retorno ao orquestrador |
-| 5 | Perplexity API — Bash `node -e` (**Orquestrador**) | sonar-deep-research | Sempre | topic (prompt aberto) | inline (console) |
+| 5 | Perplexity API — Bash `node .claude/scripts/perplexity-research.mjs` (**Orquestrador**) | sonar-deep-research | Sempre | topic (prompt aberto) | inline (console) |
 | 6 | NLM CLI `nlm notebook query` (**Orquestrador**, OAuth) | — | Notebook mapeado | topic + adjacent context | inline (console) |
 
 Todas as pernas aplicaveis rodam. Perna indisponivel (key ausente, tool quebrada) = reportar e pular.

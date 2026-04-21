@@ -1,11 +1,11 @@
 # HANDOFF - Proxima Sessao
 
-> **S233 CLOSED** (substrate-truth-cleanup) 2026-04-20 — correcao adversarial de canonicos falsos pos-S232. Detalhes e arquivos tocados em `CHANGELOG §Sessao 233`. Fase B destrutiva (ghost dirs filesystem local `agents/`, `subagents/`, `tests/` gitignored) NAO executada — aguarda OK separado.
+> **S234 BATCH 1 CLOSED** (adversarial-audit doc-hygiene) 2026-04-20 — 2 rodadas audit adversarial + 5 canonical edits pós-S233 (ARCH mbe-evaluator FROZEN conflict, research/SKILL.md tabela `node -e` drift, pyproject.toml phantom packages agents/subagents/skills/config, servers.json chatgpt conflation ADR-0003+ADR-0002 disavowed, CLAUDE.md Tool Assignment deflation). Net -32 li, 5 arquivos. Detalhes em `CHANGELOG §Sessao 234`. **S234 P0 (scripts .mjs E2E verification, BACKLOG #47) permanece próximo — não executado neste batch.** Fase B destrutiva (ghost dirs local gitignored) segue aguardando OK separado.
 
-**S234 HYDRATION (ordem obrigatória):**
+**S234 HYDRATION (continua — ordem obrigatória):**
 1. Read este HANDOFF completo
-2. Check `.claude/plans/README.md` (convenção + taxonomia)
-3. `CHANGELOG §Sessao 233` para edits do cleanup + `§Sessao 232` para decisões históricas
+2. `CHANGELOG §Sessao 234` para audit findings + 5 edits (+ §Sessao 233 para substrate cleanup histórico)
+3. Check `.claude/plans/README.md` (convenção + taxonomia)
 4. Se dúvida S232 execução profunda: `.claude/plans/archive/S232-v6-adversarial-consolidation.md`
 
 ---

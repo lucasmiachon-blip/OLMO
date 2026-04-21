@@ -33,12 +33,16 @@ MBE, ensino (slideologia), concurso R3 dez/2026, dev AI. Detalhes: `docs/ARCHITE
 
 ## Tool Assignment
 
-```
-Claude Code=FAZER  Claude.ai=PENSAR  Cursor=EDITAR  Gemini=PESQUISAR
-Perplexity=BUSCAR  NotebookLM=ESTUDAR Codex=VALIDAR Canva=DESIGN
-Notion=PUBLICAR    Obsidian=CONECTAR  Zotero=REFERENCIAR
-```
-Tabela = funcao, NAO autonomia. "Espere OK" sempre prevalece.
+Narrative routing only — NOT source of truth for runtime/callable capability.
+
+Operational truth:
+- Cross-model routing: `docs/adr/0003-multimodel-orchestration.md`
+- MCP inventory/lifecycle: `config/mcp/servers.json`
+- Runtime policy gate: `.claude/settings.json`
+- Agent-scoped MCPs: `.claude/agents/*.md`
+
+Current role-only heuristic:
+Slots like Claude.ai, Cursor, Canva, Notion, NotebookLM, Obsidian, and Zotero do NOT imply callable runtime in OLMO.
 
 ## Efficiency: Local-First → Cache → Batch
 

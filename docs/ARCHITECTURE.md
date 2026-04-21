@@ -31,7 +31,7 @@
 |-------|-------|----------|--------|------|
 | evidence-researcher | Sonnet | 35 | project | Multi-MCP research, living HTML |
 | qa-engineer | Sonnet | 12 | project | 1 slide, 1 gate, 1 invocation |
-| mbe-evaluator | Sonnet | 15 | — | GRADE/CONSORT/STROBE (FROZEN) |
+| mbe-evaluator | Sonnet | 15 | — | GRADE/CONSORT/STROBE |
 | reference-checker | Haiku | 15 | project | PMID cross-ref, stale data |
 | quality-gate | Haiku | 10 | — | Lint, type-check, tests |
 | researcher | Haiku | 15 | — | Codebase exploration |
@@ -181,7 +181,7 @@ trivial → Ollama ($0)  │  simple → Haiku  │  medium → Sonnet  │  com
 
 **Cross-model orchestration** — ver [`docs/adr/0003-multimodel-orchestration.md`](adr/0003-multimodel-orchestration.md) para framework 5-critérios (objetivo/trigger/artefato/custo/risco) + invocation gates Claude Code ↔ Codex ↔ Gemini ↔ Ollama + deferral rationale (Antigravity, ChatGPT deflate).
 
-**Cost**: $0 tier — Claude Code Max + Gemini CLI OAuth + Codex ChatGPT. API keys only for QA scripts.
+**Cost**: $0 tier — Claude Code Max + Gemini CLI OAuth + Codex via ChatGPT Plus. API keys are used by QA (`content/aulas/scripts/gemini-qa3.mjs`) and research (`.claude/scripts/{gemini,perplexity}-research.mjs`) scripts.
 
 ## Daily/Weekly Workflow
 

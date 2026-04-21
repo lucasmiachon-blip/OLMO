@@ -171,16 +171,6 @@
       "auth": "OAuth Google (Google Cloud Console credentials + browser flow)",
       "cost": "$0",
       "setup": "Requer: Google Cloud Console project com Drive API, OAuth 2.0 credentials (credentials.json)"
-    },
-
-    "chatgpt": {
-      "type": "http",
-      "url": "${CHATGPT_MCP_URL}",
-      "status": "planned",
-      "description": "ChatGPT 5.4 via MCP. Cross-validator para Notion writes.",
-      "priority": "high",
-      "auth": "OAuth ChatGPT",
-      "cost": "$0 (incluso no plano ChatGPT)"
     }
   },
 

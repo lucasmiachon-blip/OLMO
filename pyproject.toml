@@ -31,37 +31,11 @@ ignore = ["S112", "S314", "ASYNC240"]
 "tests/**" = ["S101"]
 "scripts/**" = ["T20"]
 
-[tool.ruff.lint.isort]
-known-first-party = ["agents", "subagents", "skills", "config"]
-
 [tool.mypy]
 python_version = "3.11"
 strict = false
 warn_return_any = true
 warn_unused_configs = true
-
-[[tool.mypy.overrides]]
-module = "agents.core.*"
-disallow_untyped_defs = true
-
-[tool.pytest.ini_options]
-asyncio_mode = "auto"
-testpaths = ["tests"]
-markers = [
-    "slow: long running tests",
-    "integration: requires external services",
-]
-addopts = "-q --tb=short"
-
-[tool.coverage.run]
-source = ["agents", "subagents", "skills", "config"]
-
-[tool.coverage.report]
-fail_under = 0
-show_missing = true
-
-[tool.hatch.build.targets.wheel]
-packages = ["agents", "subagents", "skills", "config"]
 
 [build-system]
 requires = ["hatchling"]
