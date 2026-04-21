@@ -18,8 +18,9 @@ set -euo pipefail
 #   Write/Edit get double-ask with guard-pause.sh — accepted (defense-in-depth, B5-05 S100).
 # Exit 0 with JSON = ask. Exit 0 without JSON = allow.
 # S230 G.4: added hook_log on brake fires — visibility for /insights P001 follow-up.
-#   NOTE: COST_LOCK check (linha 32-36) is dead code pós-G.3 (Cost BLOCK arm deleted
-#   em post-global-handler.sh). Preservado por ora; remover em S231+ se confirmado unused.
+# S236: P001 resolved KEEP (evidence-flipped: 246 brake-fired events in 5d; popup
+#   absence was KBP-26 permissions.ask artifact, not brake ineffectiveness).
+#   COST_LOCK check kept as defense-in-depth — cost brake may be revived.
 
 INPUT=$(cat 2>/dev/null || echo '{}')
 

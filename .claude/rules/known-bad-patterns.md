@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-29.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-30.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -92,3 +92,6 @@ globs: "**/*"
 
 ## KBP-28 Adversarial testing frame-bound
 → anti-drift.md §Adversarial review
+
+## KBP-29 Agent Spawn Without HANDOFF/Plan Persistence
+→ anti-drift.md §Delegation gate

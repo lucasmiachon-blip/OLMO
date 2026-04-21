@@ -30,6 +30,7 @@ parse_handoff_pendentes() {
     [[ "$line" =~ ^##\  ]] && [ "$in_section" -eq 1 ] && break
     [ "$in_section" -eq 1 ] && [[ "$line" =~ ^-\  ]] && echo "${line#- }"
   done < "$file"
+  return 0  # S236: explicit — HANDOFF may lack PENDENTES section (S234 pivot → P0/P0.5/P1 format)
 }
 
 # ===== SCORECARD =====
@@ -98,6 +99,13 @@ if [[ "$LATEST_COMMIT_MSG" =~ ^S([0-9]+)([[:space:]]|:) ]]; then
 fi
 if [ -z "$SESSION_NUM" ] && [[ "$SESSION_NAME" =~ S([0-9]+) ]]; then
   SESSION_NUM="S${BASH_REMATCH[1]}"
+fi
+
+# S236 P007: 3rd fallback — infer from CHANGELOG.md max Sessao entry
+# (Commits Conventional Commits style nao tem "S###:" prefix; session names semanticos)
+if [ -z "$SESSION_NUM" ] && [ -f "$PROJECT_ROOT/CHANGELOG.md" ]; then
+  CL_LATEST=$(grep -o '^## Sessao [0-9]*' "$PROJECT_ROOT/CHANGELOG.md" 2>/dev/null | grep -o '[0-9]*' | sort -n | tail -1)
+  [ -n "$CL_LATEST" ] && SESSION_NUM="S${CL_LATEST}"
 fi
 
 # --- Rework Rate (DORA 5th metric adapted) ---
@@ -172,14 +180,12 @@ if [ -n "$SESSION_NUM" ] && [ -f "$METRICS_FILE" ]; then
       echo "[METRICS] Persisted to metrics.tsv"
     fi
   }
-  if command -v flock >/dev/null 2>&1; then
-    ( flock -x -w 2 9 || exit 0; _persist_metrics ) 9>"${METRICS_FILE}.lock"
-  else
-    LOCK_DIR="${METRICS_FILE}.lock.d"
-    if mkdir "$LOCK_DIR" 2>/dev/null; then
-      _persist_metrics
-      rmdir "$LOCK_DIR" 2>/dev/null
-    fi
+  # S236: mkdir lock only — flock -x -w 9>file.lock fails in MSYS (FD redirect bug).
+  # mkdir is atomic across POSIX-ish envs and sufficient for single-session cadence.
+  LOCK_DIR="${METRICS_FILE}.lock.d"
+  if mkdir "$LOCK_DIR" 2>/dev/null; then
+    _persist_metrics
+    rmdir "$LOCK_DIR" 2>/dev/null
   fi
 fi
 

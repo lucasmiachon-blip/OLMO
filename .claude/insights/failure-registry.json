@@ -21,16 +21,59 @@
       },
       "insights_run": true,
       "new_kbps_added": 0,
+      "proposals_accepted": 5,
+      "proposals_rejected": 1,
+      "proposals_pending": 0,
+      "proposals_implemented_commits": {
+        "P002_KBP-23_enforcement": "33b59e7",
+        "P003_KPI_CostBLOCK_delete": "0780061",
+        "P004_metrics_regex_fix": "64a9338",
+        "P005_anti_meta_loop_banner": "c405a1a",
+        "P006_insights_reminder": "c405a1a"
+      },
+      "P001_resolution": {
+        "status": "rejected_evidence_flipped",
+        "date": "2026-04-21",
+        "rationale": "S230 G.4 added hook_log to momentum-brake-enforce.sh:54-56. 5-day evidence (2026-04-16 → 2026-04-21, 722 hook-log entries) shows 246 brake-fired events (160 Edit, 54 Skill, 26 Write, 6 Agent). S230 'zero firings' was measuring popup presence — auto-bypassed by KBP-26 (permissions.ask broken in CC 2.1.113). Mechanism works; effect masked by unrelated CC bug. Chesterton's Fence: keep.",
+        "reconciled_by": "S236 /insights"
+      },
+      "reconciled_by": "S236",
+      "report": ".claude/skills/insights/references/previous-report.md"
+    },
+    {
+      "id": "S236",
+      "date": "2026-04-21",
+      "metrics": {
+        "sessions_in_sample": 5,
+        "user_corrections_total": 0,
+        "user_corrections_per_session": 0,
+        "kbp_violations": {
+          "KBP-23_context_explosion": 0,
+          "KBP-26_permissions_ask_broken": 0,
+          "KBP-28_adversarial_frame_bound": 0,
+          "rule_violations_documented_s226_in_anti_drift": 4
+        },
+        "kbp_total": 4,
+        "kbp_per_session": 0.8,
+        "tool_errors": 16,
+        "retries": 0
+      },
+      "insights_run": true,
+      "new_kbps_added": 1,
       "proposals_accepted": 0,
       "proposals_rejected": 0,
-      "proposals_pending": 6,
-      "report": ".claude/skills/insights/references/latest-report.md"
+      "proposals_pending": 5,
+      "report": ".claude/skills/insights/references/latest-report.md",
+      "notes": "Dream+insights combined run. 3 new KBPs (26/27/28) added organically via session narratives before this run. Proposals: P007 (metrics fallback), P008 (hook-log auto-rotation), P009 (KBP-29), P010 (nudge-commit calibration), P011 (.dream-pending path). Trend: baseline (need 5 entries for rolling avg; currently 2)."
     }
   ],
   "trend": {
-    "first_run": true,
-    "direction": "baseline",
+    "first_run": false,
+    "direction": "baseline_insufficient_data",
+    "entries_in_registry": 2,
+    "entries_needed_for_5avg": 5,
     "corrections_per_session_5avg": null,
-    "kbp_violations_per_session_5avg": null
+    "kbp_violations_per_session_5avg": null,
+    "note": "S230 used qualitative aggregation across 163 sessions; S236 used quantitative 5-session window. Methodology inconsistent — future runs should pick one approach for comparability."
   }
 }

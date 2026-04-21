@@ -34,6 +34,19 @@ rm -f /tmp/olmo-subagent-count /tmp/olmo-checkpoint-nudged
 # S225 Issue #4 migration cleanup: remove legacy shared session-id file (pre-S225) if exists
 rm -f /tmp/cc-session-id.txt
 
+# S236 P008: auto-rotate hook-log.jsonl (aligned com /dream Phase 2 threshold 500)
+HOOKLOG="$PROJECT_ROOT/.claude/hook-log.jsonl"
+if [ -f "$HOOKLOG" ]; then
+  LOG_LINES=$(wc -l < "$HOOKLOG" 2>/dev/null | tr -d ' ' || echo 0)
+  if [ "$LOG_LINES" -gt 500 ]; then
+    mkdir -p "$PROJECT_ROOT/.claude/hook-log-archive"
+    EXCESS=$((LOG_LINES - 500))
+    head -n "$EXCESS" "$HOOKLOG" > "$PROJECT_ROOT/.claude/hook-log-archive/hook-log-$(date -I).jsonl"
+    tail -n 500 "$HOOKLOG" > "$HOOKLOG.tmp" && cat "$HOOKLOG.tmp" > "$HOOKLOG" && rm -f "$HOOKLOG.tmp"
+    echo "[HOOK-ROTATE] Archived ${EXCESS} oldest lines to hook-log-archive/" >&2
+  fi
+fi
+
 cat <<EOF
 Projeto: $PROJECT_NAME | Data: $TODAY | Sessao provavel: $NEXT_SESSION
 
