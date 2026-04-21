@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## Sessao 235 — 2026-04-20 (security-hygiene + moratorium encerrado)
+
+### Descobertas adversariais + 2 commits doc
+- Audit em curso revelou: (1) inconsistência de unidade `timeout` entre hook types CC (command/http=ms; prompt/agent=segundos), (2) gap de segurança — `bash -c` / `sh -c` / `$()` / backticks bypassam deny-list de `.claude/settings.json` (cobre só named patterns python -c/node -e/etc).
+- Evidência (1) empírica: `stop_hook_summary` transcript `225a58e2.jsonl:54` com `timeout: 30` + `durationMs: 3025` sem `hookErrors` — se fosse ms teria estourado em 30ms. Teste sintético em /tmp descartado (redundante).
+- Evidência (2): S227 adversarial review ("Bash(*) ruled out + deny-list comprehensive") não simulou shell-within-shell — ponto cego metodológico confirmado. Diagnóstico sem fix aplicado; documentação persistente privilegiada.
+
+### Commit cb434e6 — docs: KBP-28 + CC schema gotchas
+- `.claude/rules/known-bad-patterns.md`: header `Next: KBP-28.` → `Next: KBP-29.` + novo KBP-28 "Adversarial testing frame-bound" (pointer → CLAUDE.md §CC schema gotchas)
+- `CLAUDE.md`: append §CC schema gotchas (abril/2026) — 4 bullets (timeout ms vs s, permissions.ask bug KBP-26, bash -c/sh -c/$()/`` bypass)
+
+### Commit <este> — docs: state docs update + moratorium encerrado
+- `HANDOFF.md`: remove moratorium warning + REGRA DURA/NÃO TOCAR/Condições de saída sections; anchors + estado + footer para S235
+- `CHANGELOG.md`: prepend S235 entry (este)
+- `.claude/BACKLOG.md`: remove §P0 moratorium blockquote (10 linhas); rename §MORATORIUM-DEFERRED → §Deferred (no consumer / low urgency); counts header + TOC + prose dos items #36/#37/#47/#48 scrubbed
+- `.claude/plans/`: archive `S234-content-moratorium-active.md` → `archive/`; rm `virtual-floating-perlis.md` (session artifact redundante)
+
+### Aprendizados (max 5 li)
+- Fuzzing adversarial por tipo de comando é barato pré-decisão; análise cobre só hipóteses formuladas (KBP-28). Evidência indireta empírica real (transcript runtime) pode superar teste sintético planejado. Docs de runtime gotchas vivem em CLAUDE.md (single consumer CC) não AGENTS.md (cross-CLI Codex/Gemini — AGENTS.md literal L3 "Claude Code NÃO lê este arquivo"). Moratorium encerrado voluntariamente — ciclo security-hygiene priorizado sobre produção imediata por descoberta substantiva.
+
+Coautoria: Lucas + Opus 4.7 | S235 security-hygiene + moratorium encerrado | 2026-04-20
+
+---
+
 ## Sessao 234 — 2026-04-20 (adversarial-audit)
 
 ### 2 rodadas audit adversarial + batch doc-hygiene (5 edits, 5 arquivos, net -32 li)

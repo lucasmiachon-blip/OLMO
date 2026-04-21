@@ -2,27 +2,15 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=1 (MORATORIUM) | P1=5 slim | MORATORIUM-DEFERRED=10 | P2=22 | Frozen=3 | Resolved=11 | Setup=separate. Next #=52. (S234 Batch 2: content moratorium active — 10 P1 items deferred até §P0 condições de saída satisfeitas)
+> Counts: P0=1 | P1=5 | Deferred=10 | P2=22 | Frozen=3 | Resolved=11 | Setup=separate. Next #=52.
 
 ## TOC
 
-- [P0 — MORATORIUM ATIVO](#p0) · [P1 — 2-3 sessões (slim)](#p1) · [MORATORIUM-DEFERRED](#moratorium-deferred) · [P2 — sem urgência](#p2) · [Frozen](#frozen) · [Resolved — historical](#resolved) · [Setup & Infra](#setup)
+- [P0](#p0) · [P1 — 2-3 sessões](#p1) · [Deferred — no consumer / low urgency](#deferred) · [P2 — sem urgência](#p2) · [Frozen](#frozen) · [Resolved — historical](#resolved) · [Setup & Infra](#setup)
 
 ---
 
 ## P0 — blocking próxima sessão <a id="p0"></a>
-
-> **CONTENT MORATORIUM ACTIVE** (S234 → até condições) — meta-work congelado.
->
-> **Commits tocam APENAS:** `content/aulas/**`, `assets/provas/`, `assets/sap/`, Anki files, HANDOFF/CHANGELOG/BACKLOG de wrap.
->
-> **NÃO tocar:** `.claude/agents/`, `.claude/skills/`, `.claude/hooks/`, `.claude/rules/`, `config/`, `docs/`, `pyproject.toml`, `CLAUDE.md`, `README.md`.
->
-> **Drift canonical detectado durante content work:** anotar 1 linha em §MORATORIUM-DEFERRED; **NÃO corrigir**.
->
-> **Condições de saída (UMA basta):** (a) QA editorial metanalise 19/19; (b) R3 infra ativo (AnkiConnect + Anki MCP + 2 provas classificadas em `assets/provas/` + ≥10 Anki cards rodando spaced rep); (c) Lucas declara fim com rationale de bloqueio real (não "seria legal").
->
-> **Plano âncora:** `.claude/plans/S234-content-moratorium-active.md` — ler ao hydrate se dúvida.
 
 **Foco (ordem explícita):**
 
@@ -33,24 +21,24 @@
 
 ---
 
-## P1 — importante 2-3 sessões (slim durante moratorium) <a id="p1"></a>
+## P1 — importante 2-3 sessões <a id="p1"></a>
 
-> Slim: 10 items movidos para §MORATORIUM-DEFERRED. Aqui ficam apenas content-adjacent + trivial + historical.
+> 10 items em §Deferred (no consumer / low urgency). Aqui ficam apenas content-adjacent + trivial + historical.
 
 | # | Cat | Effort | Item | Next action |
 |---|-----|--------|------|-------------|
-| 36 | content | L | Memory → Living-HTML migration (aulas cirrose/metanalise) | Plan canonical em `.claude/plans/archive/S227-memory-to-living-html.md`. Content-adjacent (prep para uso em slides). **DEFER durante moratorium** — só destravar se slides solicitarem explicitamente. |
-| 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Cache stale entre sessões. **DEFER — fora do escopo moratorium (`.claude/hooks/`).** |
+| 36 | content | L | Memory → Living-HTML migration (aulas cirrose/metanalise) | Plan canonical em `.claude/plans/archive/S227-memory-to-living-html.md`. Content-adjacent (prep para uso em slides). Destravar só se slides solicitarem explicitamente. |
+| 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Cache stale entre sessões. |
 | 34 | infra | M | [S227 partial] cp Pattern 8 — CC 2.1.113 ask bypass | Investigation done; applied 34 deny patterns (KBP-26). Manual monitoring ongoing. **STATUS: essentially historical; close quando Lucas confirmar estabilidade post-/clear**. |
-| 47 | process | S | [DEFERRED] Research skill E2E verification (ex-S234 P0) | Scripts `.claude/scripts/{gemini,perplexity}-research.mjs` nunca testados contra API real (BACKLOG #47 original). **DEFER durante moratorium** — reativar só se research para slide concreto quebrar. |
-| 48 | tooling | M | [DEFERRED] PMID batch verification automation (ex-S235) | Script `.claude/scripts/pmid-batch-verify.mjs` para batch PMID via PubMed MCP esummary. **DEFER durante moratorium** — reativar só se volume research justificar. |
+| 47 | process | S | [DEFERRED] Research skill E2E verification (ex-S234 P0) | Scripts `.claude/scripts/{gemini,perplexity}-research.mjs` nunca testados contra API real. Reativar só se research para slide concreto quebrar. |
+| 48 | tooling | M | [DEFERRED] PMID batch verification automation (ex-S235) | Script `.claude/scripts/pmid-batch-verify.mjs` para batch PMID via PubMed MCP esummary. Reativar só se volume research justificar. |
 | ~~49~~ | RESOLVED S232 post-close (via #51 DELETE path) | - | ~~Managed Agents evaluation~~ | Historical marker. |
 
 ---
 
-## MORATORIUM-DEFERRED <a id="moratorium-deferred"></a>
+## Deferred — no consumer / low urgency <a id="deferred"></a>
 
-> Items movidos de P1 no início do content moratorium (S234 Batch 2). Reavaliar apenas quando moratorium fechar (ver §P0 condições de saída). Não é "frozen permanent" — é "fora de consideração até produção ganhar tração". Histórico de cada item preservado no git log.
+> Items com razão substantiva de defer (sem consumer ativo, meta-tooling sem pain, research arquitetural). Não é "frozen permanent" — é "fora de consideração até demanda emergir". Histórico no git log.
 
 | # | Ex-tier | Item | Razão do defer |
 |---|---------|------|----------------|
@@ -65,7 +53,7 @@
 | 4 | P1 | Pipeline DAG end-to-end (inbox → NLM → wiki) | Arquitetural; sem consumer ativo |
 | 5 | P1 | medicina-clinica 4 stubs | Aguarda external harvest COWORK (ADR-0002); sem ação OLMO possível |
 
-**Contagem:** 10 items. Próximo # ainda 52. Reativar apenas se §P0 condições de saída satisfeitas.
+**Contagem:** 10 items. Próximo # ainda 52.
 
 ---
 
