@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Sessao 237 — 2026-04-21 (grade-v2 kickoff + state docs refresh)
+
+### Commit <este> — S237 C1: state docs refresh (P0 re-scope)
+- `HANDOFF.md`: §P0 rewrite de 1 item genérico ("Nova aula de grade") para 3 sub-items explícitos (P0a grade-v2 `content/aulas/grade-v2/` + P0b shared-v2 greenfield `content/aulas/shared-v2/` + P0c qa-pipeline v2 escalonado `content/aulas/scripts/qa-pipeline/`). §P0.5 metanalise QA atualizada com migration-to-v2 note. §Estado factual atualizado (HEAD `2e04cae`, cirrose intocada em `shared/`, grade-v1 será archived em C2, deadline grade-v2 30/abr T-9d). Header quote + footer update.
+- `.claude/BACKLOG.md`: L5 counts atualizados (P0=1→3, Next #=52→55). §P0 prose 4 items → tabela 3 items (#52 grade-v2 + #53 shared-v2 + #54 qa-pipeline v2) + §Dependencies inline (#53 bloqueia #52; #54 paralelo após Gate 0+1). P0.5 metanalise como bullet abaixo. R3 infra + Anki removidos de §P0 (cross-ref para §P1 #34).
+- `CHANGELOG.md`: prepend §Sessao 237 (este).
+
+### Rationale
+HANDOFF HEAD pós-S236 tinha P0 genérico ("nova aula de grade") que não refletia decisões arquiteturais D2-D8 consolidadas em conversa claude.ai madrugada 21/abr (shared-v2 greenfield + qa-pipeline v2 escalonado + grade-v2 sobre shared-v2). Commit registra escopo real no repo antes de execução física (C2+ = grade-v1 archive e depois). Deadline grade-v2: 30/abr/2026 (T-9d).
+
+### Aprendizados (max 5 li)
+- Project knowledge claude.ai web ≠ filesystem Claude Code: `HANDOFF-S235-complete.md` inacessível localmente (Glob zero); resolução via write-from-scratch baseado em princípios D2-D8 — mais rápido que round-trip (A) colar §6. BACKLOG ID counter é sequencial global (não tier-scoped); estimativa #55 mas próximo real era #52. P0 re-scope preserva legacy grade como read-only ref — archive fica para C2 (scope-per-commit §anti-drift). "Seguir metanalise como referência" no HANDOFF S236 era shorthand obsoleto pós-D2-D8; shared-v2 greenfield invalida pattern-mirror (cirrose/metanalise migram para shared-v2 pós-30/abr, não inverso). Ultraplan/Opus 4.6 cloud não auto-load rules OLMO-specific (anti-drift/KBPs/EC loop) — Lucas cancelou para preservar fidelidade via Opus 4.7 local (1M context + auto-load completo).
+
+Coautoria: Lucas + Opus 4.7 | S237 C1 state docs refresh | 2026-04-21
+
+---
+
 ## Sessao 236 — 2026-04-21 (dream+insights combined + P007/P008/P009 execution)
 
 ### Commit 6a8ea3a — insights S236 + S230 registry reconciliation

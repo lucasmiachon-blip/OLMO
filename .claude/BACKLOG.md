@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=1 | P1=5 | Deferred=10 | P2=22 | Frozen=3 | Resolved=11 | Setup=separate. Next #=52.
+> Counts: P0=3 | P1=5 | Deferred=10 | P2=22 | Frozen=3 | Resolved=11 | Setup=separate. Next #=55.
 
 ## TOC
 
@@ -12,12 +12,19 @@
 
 ## P0 — blocking próxima sessão <a id="p0"></a>
 
-**Foco (ordem explícita):**
+**Foco:** grade-v2 sobre shared-v2 + qa-pipeline v2 escalonado. Decisões D2-D8 consolidadas claude.ai madrugada 21/abr. Deadline grade-v2: **30/abr/2026 (T-9d)**.
 
-1. **P0 — Nova aula de grade (totalmente nova, NÃO relacionada ao legacy)** — conteúdo brainstormed com **claude.ai (web, ChatGPT-style)**; implementação (slides HTML + evidence HTML + QA pipeline) via **Claude Code**. Path livre em `content/aulas/` (sugestão: `grade-v2/` ou similar). **NÃO editar `content/aulas/grade/` legacy (58 slides) — tratar como referência apenas**. Segue padrão existente (deck.js + GSAP + OKLCH tokens + manifest + scripts QA).
-2. **P0.5 — QA editorial metanalise** — 16 slides pendentes (s-absoluto → próximos per APL). ~½-1 sessão por slide. Destravar em paralelo ao P0 quando bandwidth permitir.
-3. **P1 sub — R3 infra setup** — AnkiConnect addon (Anki Desktop > Tools > Add-ons > 2055492159), Anki MCP (`npx -y @ankimcp/anki-mcp-server --stdio`), 2 provas reais em `assets/provas/`, 1 SAP em `assets/sap/`. Detalhes em §Setup & Infra.
-4. **P1 sub — Anki cards reais** — conteúdo de erro log + temas semana. Só depois de R3 infra ativo.
+| # | Cat | Effort | Item | Next action |
+|---|-----|--------|------|-------------|
+| 52 | content | L | **grade-v2** — nova aula 15–18 slides, 30–40 min | Path `content/aulas/grade-v2/` greenfield. Depende de #53 Day 1+2. Scaffold C6; slides ~2/dia a partir de C8. Legacy `grade/` 58 slides = read-only ref até C2 archive. |
+| 53 | infra | L | **shared-v2 greenfield** — tokens 3-camadas + fluid type cqi + CQ + motion WAAPI + View Transitions + presenter-safe.js | Path `content/aulas/shared-v2/`; `shared/` atual intocada (cirrose/metanalise migram pós-30/abr). Day 1 C4; Day 2 C5. **Bloqueia #52.** |
+| 54 | tooling | M | **qa-pipeline v2 escalonado** — Gate 0 + Gate 1 Flash obrigatórios; Gate 2 Pro + Gate 3 Designer skippable | Path `content/aulas/scripts/qa-pipeline/`. Entrega C7 (Gate 0+1); Gate 2+3 skeleton opt-in via `--skip-gate2/--skip-gate3`. **Paralelo a #52 após Gate 0+1 validados.** |
+
+**Dependências:** #53 bloqueia #52 (grade-v2 consome shared-v2). #54 roda paralelo após Gate 0+1 operacional.
+
+**P0.5 — QA editorial metanalise:** 16 slides pendentes (s-absoluto → próximos per APL). Scripts `content/aulas/scripts/gemini-qa3.mjs` (v1); migra para qa-pipeline v2 quando Gate 0+1 ready. ~½-1 sessão por slide. Destravar paralelo ao P0 quando bandwidth permitir.
+
+**R3 infra + Anki (ex-P1 sub inline):** AnkiConnect + Anki MCP + provas + SAPs. Tracked em §P1 #34 [S227 partial] e §Setup & Infra. Execução pós-grade-v2 close.
 
 ---
 
