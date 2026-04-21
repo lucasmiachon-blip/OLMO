@@ -91,6 +91,4 @@ globs: "**/*"
 → `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`
 
 ## KBP-28 Adversarial testing frame-bound
-→ CLAUDE.md §CC schema gotchas
-
-Análise adversarial cobre apenas hipóteses formuladas. Codex validou S227 deny-list dentro do frame "Bash(*) é o problema?" — não simulou shell-within-shell. Fuzzing por tipo de comando (bash -c, sh -c, $(), ``, eval, exec, source) é barato pré-decisão, caro pós-incidente. Antes de fechar audit de security: rodar checklist {bash -c, sh -c, $(), ``, eval, exec, source, . /}.
+→ anti-drift.md §Adversarial review

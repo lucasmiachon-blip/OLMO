@@ -58,6 +58,9 @@ Violação S226 Phase A: 3 Edits falhados por whitespace mismatch (`│   ├─
 File not found → Glob. Error → read actual message. Claim about code → read the file.
 Claim about state → read source-of-truth file. Claim about history → `git log -S` / `git blame`.
 
+## Adversarial review (KBP-28)
+Adversarial validation é frame-bound — cobre apenas hipóteses formuladas. S227 validou deny-list dentro do frame "Bash(*) é o problema?", não simulou shell-within-shell. Antes de fechar audit de security: rodar checklist por tipo de comando — `bash -c`, `sh -c`, `zsh -c`, `$()`, backticks, `eval`, `exec`, `source`, `. /`.
+
 ## State files (HANDOFF, CHANGELOG, BACKLOG)
 - NEVER rewrite with Write. Use Edit to add/modify specific sections.
 - Write overwrites silently — forgotten sections vanish without warning.

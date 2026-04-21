@@ -40,8 +40,8 @@ AnkiConnect addon (Anki Desktop > Tools > Add-ons > 2055492159) → Anki MCP (`n
 
 ## Estado factual
 
-- **Git:** last commit S235 = state docs update (moratorium encerrado). Prev commit `cb434e6` = KBP-28 + CC schema gotchas doc.
+- **Git:** S235b commits `9ef3b78` (security fix shell-within-shell) + docs coherence. S235: `49d9070` (state docs) + `cb434e6` (KBP-28 + CC schema gotchas).
 - **Aulas:** metanalise 19 slides (3 editorial done), cirrose 11, grade 58 (legacy, NÃO editar).
 - **R3 Clínica Médica:** 224 dias (Dez/2026). Setup infra ainda em 0.
 
-Coautoria: Lucas + Opus 4.7 | S235 security-hygiene + moratorium encerrado | 2026-04-20
+Coautoria: Lucas + Opus 4.7 | S235b security fix + docs coherence | 2026-04-20

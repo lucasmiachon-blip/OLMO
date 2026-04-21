@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 235b — 2026-04-20 (security fix + docs coherence)
+
+### Commit 9ef3b78 — security: close shell-within-shell gap
+- `.claude/settings.json` permissions.deny: +7 patterns (`bash -c`, `sh -c`, `zsh -c`, `eval`, `exec`, `source /*`, `. /*`). Fecha 5 de 7 vetores KBP-28 checklist. `$()` + backticks + pipelines permanecem abertos (requerem hook-level guard, não pattern match).
+
+### Commit <este> — docs: coherence pós-9ef3b78
+- `.claude/rules/anti-drift.md`: +§Adversarial review (3 li) — home metodológico natural para KBP-28.
+- `.claude/rules/known-bad-patterns.md`: KBP-28 → pointer-only (prose migrada; governance L10 pointer-only respeitada). Pointer: `CLAUDE.md §CC schema gotchas` → `anti-drift.md §Adversarial review`.
+- `CLAUDE.md §CC schema gotchas`: bullet 4 comprimido (2 li) — cita 9ef3b78 + delimita gap restante. Zero bullet novo (metodologia ≠ schema runtime).
+- `HANDOFF.md` + `CHANGELOG.md`: refletem S235b.
+
+### Aprendizado (1 li)
+- Prose em KBP viola governance pointer-only; home natural de metodologia = `anti-drift.md` (pointer target canonical de KBP-07/17/23/25/etc), não CLAUDE.md §gotchas (reservado para schema facts do runtime). Decisão evita infra documental verbosa em CLAUDE.md auto-loaded.
+
+Coautoria: Lucas + Opus 4.7 | S235b | 2026-04-20
+
+---
+
 ## Sessao 235 — 2026-04-20 (security-hygiene + moratorium encerrado)
 
 ### Descobertas adversariais + 2 commits doc

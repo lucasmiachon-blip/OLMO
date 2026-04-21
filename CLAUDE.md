@@ -89,4 +89,4 @@ Aulas: ver `content/aulas/CLAUDE.md`.
 - **timeout em hook type "prompt"/"agent":** segundos.
   Evidência: stop_hook_summary real com `timeout: 30` + `durationMs: 3025` sem `hookErrors` — se fosse ms teria estourado em 30ms. Não mude timeouts desses tipos sem testar.
 - **permissions.ask tem bug em CC >=2.1.113** (KBP-26) — pode degradar silenciosamente para allow. Arquitetura de permissions precisa assumir esse failure mode.
-- **bash -c / sh -c / $() / `` bypassam deny-list de named patterns.** Deny cobre `python -c`, `node -e`, etc; não cobre shell-within-shell e command substitution. Requer pattern explícito.
+- **deny-list é prefix-match.** Commit 9ef3b78 (S235b) adicionou 7 patterns shell-within-shell (`bash -c`, `sh -c`, `zsh -c`, `eval`, `exec`, `source /*`, `. /*`). `$()`, backticks e pipelines (`Bash(X && bash -c Y)`) requerem hook-level guard — fora do pattern match.
