@@ -69,3 +69,27 @@ Criar `content/aulas/shared-v2/` **greenfield**, paralelo a `shared/` atual (nã
 - Novos aulas (pós-grade-v2) usam **shared-v2 exclusivamente**.
 - Aulas existentes (cirrose, metanalise) migrate incremental; migration commit requer **§Migration section** no CLAUDE.md da aula especificando breaking changes + rollback path.
 - Se C5 ensaio HDMI residencial falhar, shared-v2 é rejeitada e grade-v2 faz fallback para `shared/` (rollback point).
+
+## Browser Targets
+
+Baseline: evergreen 2024+ (Chromium/WebKit/Gecko). Chrome 121+ target efetivo para stack completo. `@supports` gates cobrem ausência de features:
+
+- View Transitions API (Chrome 111+) → fallback cut instantâneo entre slides
+- `@starting-style` (Chrome 117+) → fallback snap reveal inicial
+- Container queries + cqi (Chrome 105+) → baseline estável, sem fallback necessário
+- WAAPI `Element.animate()` (universal desde Chrome 36+) → baseline
+
+Browser muito antigo ou totalmente incompatível = fallback via PDF (L3 build export) ou PPTX (L4 export). `done-gate.js` enforça exports frescos <24h per HANDOFF §D6. Validação prática no ensaio HDMI residencial (C5 Day 2): laptop HC-FMUSP institucional é unknown version; ensaio proxy define se shared-v2 é viável ou se grade-v2 faz fallback para `shared/` legacy.
+
+## A11y
+
+`prefers-reduced-motion: reduce` **obrigatório e não-negociável**:
+
+- Neutralização em `tokens/system.css` via `@media (prefers-reduced-motion: reduce)` block: todas durations `--motion-*-dur` colapsam para `--dur-instant`.
+- JS layer (C5) consulta `window.matchMedia('(prefers-reduced-motion: reduce)').matches` antes de qualquer `element.animate()`.
+
+Fundamento: 60 residentes no auditório ⇒ estatisticamente presentes pessoas com vestibular disorders / ansiedade / epilepsia fotossensível. Omitir reduction em código novo 2026 = WCAG 2.2 AA violation + falha grosseira editorial.
+
+APCA contrast:
+- Body text sobre `--surface-canvas`: Lc ≥ 75 (validated via semantic hierarchy neutral-7 → neutral-1).
+- On-solid text sobre state solids: Lc ≥ 60 via `--warning-on-solid` explícito (P1 fix S237 C4).

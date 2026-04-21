@@ -1,0 +1,204 @@
+/* ============================================================================
+ * content/aulas/shared-v2/tokens/components.css
+ * Layer 3 of 3 — blocos prontos, slide-specific.
+ *
+ * Regras desta camada:
+ *   (1) Referencia APENAS var() de system.css. Zero toque em reference.
+ *   (2) Nomes por BLOCO + PROPRIEDADE (--slide-h2-size, --claim-border,
+ *       --grade-certainty-high). Nunca por aparência crua.
+ *   (3) Aqui vivem tokens específicos de slides clínicos e GRADE.
+ *   (4) Se um bloco novo emergir (ex: --forest-plot-*) e for usado em ≥2
+ *       aulas, promove para components.css. Se só 1 aula usa, fica no
+ *       {aula}.css local.
+ *
+ * GRADE certainty tokens são o consumidor principal desta camada.
+ * ==========================================================================*/
+
+:root {
+  /* ==========================================================================
+   * SLIDE STRUCTURE (layout chrome)
+   * =======================================================================*/
+  --slide-bg:                   var(--surface-paper);
+  --slide-padding-x:            var(--space-xl);
+  --slide-padding-y:            var(--space-lg);
+  --slide-max-width:            75ch;
+
+  /* ==========================================================================
+   * SLIDE TYPOGRAPHY (tipografia contextualizada ao slide)
+   * Fluid scaling aplicado em type/scale.css; aqui só semântica.
+   * =======================================================================*/
+  --slide-h1-size:              var(--type-size-6);
+  --slide-h1-weight:            var(--type-weight-regular);
+  --slide-h1-leading:            var(--type-leading-tight);
+  --slide-h1-tracking:          var(--type-tracking-tight);
+  --slide-h1-color:             var(--text-display);
+
+  --slide-h2-size:              var(--type-size-5);
+  --slide-h2-weight:            var(--type-weight-medium);
+  --slide-h2-leading:           var(--type-leading-tight);
+  --slide-h2-tracking:          var(--type-tracking-tight);
+  --slide-h2-color:             var(--text-heading);
+
+  --slide-body-size:            var(--type-size-3);
+  --slide-body-weight:          var(--type-weight-regular);
+  --slide-body-leading:         var(--type-leading-base);
+  --slide-body-color:           var(--text-body);
+
+  --slide-eyebrow-size:         var(--type-size-1);
+  --slide-eyebrow-weight:       var(--type-weight-semibold);
+  --slide-eyebrow-tracking:     var(--type-tracking-wider);
+  --slide-eyebrow-color:        var(--accent-solid);
+  --slide-eyebrow-transform:    uppercase;
+
+  --slide-footer-size:          var(--type-size-1);
+  --slide-footer-color:         var(--text-muted);
+  --slide-footer-tracking:      var(--type-tracking-wide);
+
+  /* ==========================================================================
+   * SLIDE CAPTION (legenda contextual, distinto de --slide-footer global)
+   * footer = rodapé persistente (slide number, aula context, tracking wide)
+   * caption = legenda contextual (figure/table caption, citation micro-text)
+   * =======================================================================*/
+  --slide-caption-size:         var(--type-size-1);
+  --slide-caption-color:        var(--text-muted);
+  --slide-caption-leading:      var(--type-leading-base);
+  --slide-caption-tracking:     var(--type-tracking-normal);
+
+  /* ==========================================================================
+   * CLAIM (frase central assertiva; 1 por slide)
+   * =======================================================================*/
+  --claim-size:                 var(--type-size-5);
+  --claim-weight:               var(--type-weight-medium);
+  --claim-color:                var(--text-display);
+  --claim-emph-color:           var(--accent-text-strong);
+  --claim-border-accent:        var(--accent-solid);
+
+  /* ==========================================================================
+   * EVIDENCE CALLOUT (citação, dado, evidência externa)
+   * =======================================================================*/
+  --evidence-bg:                var(--accent-bg);
+  --evidence-border:            var(--accent-border);
+  --evidence-border-width:      var(--border-thick);
+  --evidence-radius:            var(--radius-md);
+  --evidence-padding:           var(--space-md) var(--space-lg);
+  --evidence-text:              var(--text-body);
+  --evidence-citation-color:    var(--text-muted);
+  --evidence-citation-size:     var(--type-size-1);
+
+  /* ==========================================================================
+   * DATA HIGHLIGHT (número grande, estatística central)
+   * =======================================================================*/
+  --data-size:                  var(--type-size-6);
+  --data-weight:                var(--type-weight-semibold);
+  --data-color:                 var(--text-display);
+  --data-tracking:              var(--type-tracking-tight);
+  --data-unit-color:            var(--text-muted);
+  --data-unit-size:             var(--type-size-3);
+
+  /* ==========================================================================
+   * CHIP / BADGE (inline categórico)
+   * =======================================================================*/
+  --chip-radius:                var(--radius-full);
+  --chip-padding:               0.25rem 0.65rem;
+  --chip-size:                  var(--type-size-1);
+  --chip-weight:                var(--type-weight-semibold);
+  --chip-dot-size:              6px;
+  --chip-gap:                   var(--space-2xs);
+
+  /* ==========================================================================
+   * BUTTON (quando há — uso raro em slides)
+   * =======================================================================*/
+  --btn-primary-bg:             var(--accent-solid);
+  --btn-primary-bg-hover:       var(--accent-solid-hover);
+  --btn-primary-bg-pressed:     var(--accent-solid-pressed);
+  --btn-primary-text:           var(--text-on-accent);
+  --btn-primary-radius:         var(--radius-md);
+  --btn-primary-padding:        var(--space-sm) var(--space-lg);
+  --btn-primary-weight:         var(--type-weight-medium);
+
+  /* ==========================================================================
+   * GRADE CERTAINTY TOKENS (⭐ consumidor principal desta camada)
+   * Derivados de functional states (system.css):
+   *   High     → success (verde, evidência robusta, confiança alta)
+   *   Moderate → warning (amarelo, atenção à imprecisão)
+   *   Low      → intermediate (laranja, heterogeneidade/viés)
+   *   Very Low → danger (vermelho, evidência indireta/grave viés)
+   *
+   * Cada nível tem 4 variantes: -bg, -border, -solid, -text.
+   * Uso em chips, callouts, dots, celulas de tabela.
+   * =======================================================================*/
+
+  /* GRADE High */
+  --grade-certainty-high-bg:        var(--success-bg);
+  --grade-certainty-high-border:    var(--success-border);
+  --grade-certainty-high-solid:     var(--success-solid);
+  --grade-certainty-high-text:      var(--success-text);
+
+  /* GRADE Moderate */
+  --grade-certainty-mod-bg:         var(--warning-bg);
+  --grade-certainty-mod-border:     var(--warning-border);
+  --grade-certainty-mod-solid:      var(--warning-solid);
+  --grade-certainty-mod-text:       var(--warning-text);
+
+  /* GRADE Low */
+  --grade-certainty-low-bg:         var(--intermediate-bg);
+  --grade-certainty-low-border:     var(--intermediate-border);
+  --grade-certainty-low-solid:      var(--intermediate-solid);
+  --grade-certainty-low-text:       var(--intermediate-text);
+
+  /* GRADE Very Low */
+  --grade-certainty-vlow-bg:        var(--danger-bg);
+  --grade-certainty-vlow-border:    var(--danger-border);
+  --grade-certainty-vlow-solid:     var(--danger-solid);
+  --grade-certainty-vlow-text:      var(--danger-text);
+
+  /* ==========================================================================
+   * GRADE RECOMMENDATION TOKENS
+   * 4 variações: strong-for, conditional-for, conditional-against, strong-against
+   * Derivados de functional states + accent:
+   *   strong-for         → success (verde, recomendação forte favorável)
+   *   conditional-for    → accent (blue-violet, condicional favorável — tom mais editorial, menos dogmático)
+   *   conditional-against → warning (amarelo, condicional desfavorável)
+   *   strong-against     → danger (vermelho, recomendação forte desfavorável)
+   * =======================================================================*/
+
+  --grade-rec-strong-for-bg:        var(--success-bg);
+  --grade-rec-strong-for-solid:     var(--success-solid);
+  --grade-rec-strong-for-text:      var(--success-text);
+
+  --grade-rec-conditional-for-bg:   var(--accent-bg);
+  --grade-rec-conditional-for-solid: var(--accent-solid);
+  --grade-rec-conditional-for-text: var(--accent-text);
+
+  --grade-rec-conditional-against-bg:    var(--warning-bg);
+  --grade-rec-conditional-against-solid: var(--warning-solid);
+  --grade-rec-conditional-against-text:  var(--warning-text);
+
+  --grade-rec-strong-against-bg:    var(--danger-bg);
+  --grade-rec-strong-against-solid: var(--danger-solid);
+  --grade-rec-strong-against-text:  var(--danger-text);
+
+  /* ==========================================================================
+   * GRADE DOWNGRADE FACTORS (risco de viés, inconsistência, indireção,
+   * imprecisão, viés de publicação) — fatores que rebaixam certeza
+   * Não tem própria cor; usam danger-text para indicar "subtração".
+   * =======================================================================*/
+  --grade-downgrade-text:           var(--danger-text);
+  --grade-downgrade-icon:           var(--danger-solid);
+
+  /* GRADE UPGRADE FACTORS (efeito grande, dose-resposta, confundidor plausível) */
+  --grade-upgrade-text:             var(--success-text);
+  --grade-upgrade-icon:             var(--success-solid);
+
+  /* ==========================================================================
+   * CASE PANEL (herda de shared/ original quando aula clínica usa)
+   * GRADE v2 não é aula clínica — estes tokens ficam latentes até migração.
+   * Documentados aqui para que cirrose/metanalise possam migrar depois
+   * sem redefinir.
+   * =======================================================================*/
+  --case-panel-bg:                  var(--surface-panel);
+  --case-panel-border:              var(--border-subtle);
+  --case-panel-heading-color:       var(--text-heading);
+  --case-panel-body-color:          var(--text-body);
+  --case-panel-radius:              var(--radius-lg);
+}

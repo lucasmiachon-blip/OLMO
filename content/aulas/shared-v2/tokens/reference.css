@@ -1,0 +1,205 @@
+/* ============================================================================
+ * content/aulas/shared-v2/tokens/reference.css
+ * Layer 1 of 3 — primitivos puros.
+ *
+ * Regras desta camada:
+ *   (1) ZERO semântica. Sem --heading-*, sem --slide-*, sem --success aqui.
+ *   (2) Só valores: escalas numéricas abstratas + paleta OKLCH bruta.
+ *   (3) Downstream: system.css lê daqui; components.css lê de system.css.
+ *       Skip-chain (components → reference direto) é violação da doutrina.
+ *
+ * Calibração híbrida (ADR-0005):
+ *   - Filosofia governança: Stripe Sail (1 token por função, zero múltiplas opções).
+ *   - Valores funcionais: base Stripe com 2 ajustes Radix-inspired
+ *       (warning L=72% em vez de L=82%; info em hue 210° para separação do accent).
+ *   - Accent principal: blue-violet 265° / chroma 0.22 (Stripe-inspired, shifted
+ *     para não ser assinatura-reconhecível e ter melhor APCA em projeção).
+ *
+ * Conformidade design-reference.md:
+ *   - OKLCH em todos os valores.
+ *   - Hue do danger 22° (editorial red — precedent Lancet/NEJM/JAMA/NYT hue 15-25°).
+ *     design-reference.md §Color atual limita ≤10°; inconsistência pendente ADR futuro.
+ *   - APCA Lc ≥75 garantido nos pares críticos via semantic.css.
+ * ==========================================================================*/
+
+:root {
+  /* ==========================================================================
+   * TYPE SCALE (abstrata, 6 steps, razão 1.25 "major third")
+   * Semântica (h1, h2, body) fica em system.css.
+   * Fluid via cqi aplicado em type/scale.css, não aqui.
+   * =======================================================================*/
+  --type-size-1: 0.8rem;       /* step down, captions/labels */
+  --type-size-2: 1rem;         /* baseline — body reference */
+  --type-size-3: 1.25rem;      /* lead body, chips grandes */
+  --type-size-4: 1.5625rem;    /* subheadings */
+  --type-size-5: 1.953rem;     /* h2 padrão */
+  --type-size-6: 2.441rem;     /* h1, hero headlines */
+
+  /* Type weights — só valores válidos em DM Sans Variable */
+  --type-weight-regular: 400;
+  --type-weight-medium: 500;
+  --type-weight-semibold: 600;
+  --type-weight-bold: 700;
+
+  /* Type line-heights abstratos */
+  --type-leading-tight: 1.15;     /* headlines */
+  --type-leading-snug: 1.3;       /* subheadings */
+  --type-leading-base: 1.5;       /* body */
+  --type-leading-relaxed: 1.625;  /* long-form prose */
+
+  /* Type tracking (letter-spacing) */
+  --type-tracking-tight: -0.022em;  /* display */
+  --type-tracking-normal: -0.01em;  /* body */
+  --type-tracking-wide: 0.08em;     /* eyebrows, labels uppercase */
+  --type-tracking-wider: 0.12em;    /* micro-caps */
+
+  /* ==========================================================================
+   * SPACE SCALE (T-shirt + fluid via clamp+cqi)
+   * Baseline 1rem. Fluid = responde ao container-inline-size.
+   * =======================================================================*/
+  --space-3xs: clamp(0.125rem, 0.25cqi, 0.25rem);
+  --space-2xs: clamp(0.25rem, 0.5cqi,  0.375rem);
+  --space-xs:  clamp(0.375rem, 0.75cqi, 0.5rem);
+  --space-sm:  clamp(0.5rem, 1cqi,     0.75rem);
+  --space-md:  clamp(0.75rem, 1.5cqi,  1rem);
+  --space-lg:  clamp(1rem, 2cqi,       1.5rem);
+  --space-xl:  clamp(1.5rem, 3cqi,     2.5rem);
+  --space-2xl: clamp(2rem, 4cqi,       3.5rem);
+  --space-3xl: clamp(3rem, 6cqi,       5rem);
+
+  /* ==========================================================================
+   * RADIUS (borda de cantos; discreto — nunca bolha)
+   * =======================================================================*/
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-full: 999px;
+
+  /* ==========================================================================
+   * BORDER WIDTHS
+   * =======================================================================*/
+  --border-thin: 1px;
+  --border-base: 2px;
+  --border-thick: 3px;
+
+  /* ==========================================================================
+   * PALETA OKLCH — brutos, nomeados por posição cromática
+   * Nenhum nome aqui é "funcional" (--success, --warning etc).
+   * Semântica funcional é aplicada em system.css.
+   * =======================================================================*/
+
+  /* Neutros — warm tilt para harmonizar com accent blue-violet
+     Hue 262° (Stripe-inspired, "warm cool" levíssimo). */
+  --oklch-neutral-0:   oklch(100% 0      0);          /* pure white (emergências) */
+  --oklch-neutral-1:   oklch(99%  0.002  265);         /* canvas */
+  --oklch-neutral-2:   oklch(98%  0.004  270);         /* paper (slide bg padrão) */
+  --oklch-neutral-3:   oklch(95%  0.006  265);         /* panel tint */
+  --oklch-neutral-4:   oklch(91%  0.008  265);         /* rule/divider */
+  --oklch-neutral-5:   oklch(82%  0.010  262);         /* mute */
+  --oklch-neutral-6:   oklch(72%  0.012  262);         /* disabled text */
+  --oklch-neutral-7:   oklch(52%  0.015  262);         /* body text */
+  --oklch-neutral-8:   oklch(38%  0.018  260);         /* emphasis text */
+  --oklch-neutral-9:   oklch(22%  0.020  260);         /* heading text */
+  --oklch-neutral-10:  oklch(15%  0.020  260);         /* display / ink */
+
+  /* Accent — blue-violet editorial (Stripe-inspired, shifted 270→265, chroma 0.24→0.22)
+     Uso: eyebrows, links, primary emphasis, GRADE recommendation strong. */
+  --oklch-accent-1:   oklch(98% 0.012 265);   /* bg tint ultra-soft */
+  --oklch-accent-2:   oklch(95% 0.030 265);   /* callout bg */
+  --oklch-accent-3:   oklch(88% 0.065 265);   /* border subtle */
+  --oklch-accent-4:   oklch(78% 0.125 265);   /* border strong / border chip */
+  --oklch-accent-5:   oklch(68% 0.180 265);   /* interactive secondary */
+  --oklch-accent-6:   oklch(58% 0.220 265);   /* SOLID BRAND ★ — eyebrows, primary btn */
+  --oklch-accent-7:   oklch(48% 0.210 265);   /* solid hover */
+  --oklch-accent-8:   oklch(38% 0.180 265);   /* solid pressed */
+  --oklch-accent-9:   oklch(28% 0.140 265);   /* text sobre bg tintado */
+  --oklch-accent-10:  oklch(20% 0.100 265);   /* text contrast máximo */
+
+  /* Success — verde Stripe-inspired (hue 155°, L=58%) */
+  --oklch-success-1: oklch(97% 0.015 155);
+  --oklch-success-2: oklch(92% 0.045 155);
+  --oklch-success-3: oklch(82% 0.100 155);
+  --oklch-success-4: oklch(68% 0.150 155);
+  --oklch-success-5: oklch(58% 0.160 155);   /* solid ★ */
+  --oklch-success-6: oklch(45% 0.140 155);
+  --oklch-success-7: oklch(32% 0.120 155);   /* text sobre bg-1 */
+  --oklch-success-8: oklch(22% 0.090 155);
+
+  /* Warning — amarelo warm. L=82% bright caution (road sign / browser warning
+     affordance). Força on-solid escuro EXPLÍCITO em system.css — trade-off
+     consciente vs L=72% que ficava em zona morta APCA (Lc ~54 ambos). */
+  --oklch-warning-1: oklch(97% 0.030 75);
+  --oklch-warning-2: oklch(93% 0.080 75);
+  --oklch-warning-3: oklch(85% 0.140 75);
+  --oklch-warning-4: oklch(78% 0.170 75);
+  --oklch-warning-5: oklch(82% 0.170 75);    /* solid ★ (bright, on-solid dark em system.css) */
+  --oklch-warning-6: oklch(55% 0.150 65);
+  --oklch-warning-7: oklch(38% 0.140 55);    /* text sobre bg-1 */
+  --oklch-warning-8: oklch(28% 0.120 55);
+
+  /* Danger — vermelho signal editorial (hue 22°, dentro de range Lancet/FT/NYT) */
+  --oklch-danger-1: oklch(97% 0.015 22);
+  --oklch-danger-2: oklch(93% 0.040 22);
+  --oklch-danger-3: oklch(82% 0.100 22);
+  --oklch-danger-4: oklch(68% 0.170 22);
+  --oklch-danger-5: oklch(55% 0.220 22);     /* solid ★ */
+  --oklch-danger-6: oklch(42% 0.200 22);
+  --oklch-danger-7: oklch(32% 0.180 22);     /* text sobre bg-1 */
+  --oklch-danger-8: oklch(22% 0.130 22);
+
+  /* Info — ciano-azul (hue 210°) para garantir ≥55° de separação do accent 265°.
+     Radix-inspired: Blue puro hue 245 ficaria só 20° do accent = ambiguidade. */
+  --oklch-info-1: oklch(97% 0.018 210);
+  --oklch-info-2: oklch(92% 0.055 210);
+  --oklch-info-3: oklch(82% 0.115 210);
+  --oklch-info-4: oklch(72% 0.155 210);
+  --oklch-info-5: oklch(62% 0.160 210);      /* solid ★ */
+  --oklch-info-6: oklch(48% 0.145 210);
+  --oklch-info-7: oklch(35% 0.130 210);      /* text sobre bg-1 */
+  --oklch-info-8: oklch(25% 0.100 210);
+
+  /* Hues intermediários para GRADE (low está entre warning 75° e danger 22°) */
+  --oklch-intermediate-5: oklch(60% 0.180 45);   /* solid — "orange" para GRADE low */
+  --oklch-intermediate-2: oklch(93% 0.080 45);   /* bg tint */
+  --oklch-intermediate-4: oklch(72% 0.155 45);   /* border (scale consistency com outros -4) */
+  --oklch-intermediate-7: oklch(34% 0.160 45);   /* text */
+
+  /* ==========================================================================
+   * MOTION PRIMITIVES (durations + easings abstratos)
+   * Semântica (--slide-reveal-dur etc) em motion/tokens.css.
+   * =======================================================================*/
+  --dur-instant: 0ms;
+  --dur-fast:    150ms;
+  --dur-base:    250ms;
+  --dur-slow:    400ms;
+  --dur-slower:  600ms;
+
+  /* Easings nomeados por curva, não por uso */
+  --ease-linear:       linear;
+  --ease-standard:     cubic-bezier(0.2, 0, 0, 1);        /* Material-inspired */
+  --ease-emphasized:   cubic-bezier(0.3, 0, 0, 1);        /* Material emphasized */
+  --ease-out-expo:     cubic-bezier(0.16, 1, 0.3, 1);     /* Linear-inspired */
+  --ease-spring:       cubic-bezier(0.5, 1.6, 0.4, 0.7);  /* bounce leve */
+  --ease-in-out-sine:  cubic-bezier(0.37, 0, 0.63, 1);
+
+  /* ==========================================================================
+   * SHADOWS (discretos — não glow)
+   * =======================================================================*/
+  --shadow-sm:    0 1px 2px oklch(0% 0 0 / 0.05);
+  --shadow-base:  0 1px 3px oklch(0% 0 0 / 0.08), 0 1px 2px oklch(0% 0 0 / 0.04);
+  --shadow-md:    0 4px 6px oklch(0% 0 0 / 0.07), 0 2px 4px oklch(0% 0 0 / 0.04);
+  --shadow-lg:    0 10px 15px oklch(0% 0 0 / 0.08), 0 4px 6px oklch(0% 0 0 / 0.04);
+  --shadow-inset: inset 0 0 0 1px oklch(0% 0 0 / 0.04);
+
+  /* ==========================================================================
+   * Z-INDEX (escala rara, mas central)
+   * =======================================================================*/
+  --z-base:        0;
+  --z-raised:      10;
+  --z-nav:         100;
+  --z-overlay:     500;
+  --z-modal:       1000;
+  --z-tooltip:     1500;
+  --z-presenter:   9999;  /* presenter-safe letterbox cover */
+}

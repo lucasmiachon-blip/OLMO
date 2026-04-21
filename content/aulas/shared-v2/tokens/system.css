@@ -1,0 +1,157 @@
+/* ============================================================================
+ * content/aulas/shared-v2/tokens/system.css
+ * Layer 2 of 3 — semântica role-based.
+ *
+ * Regras desta camada:
+ *   (1) Referencia APENAS var() de reference.css. Zero valores literais.
+ *   (2) Nomes por FUNÇÃO (--text-body, --success, --surface-elevated),
+ *       não por aparência (--blue-medium, --gray-dark).
+ *   (3) Governança Stripe-style: 1 token por função. Múltiplas variantes
+ *       vivem em components.css (ex: --btn-primary-bg deriva de --accent-solid).
+ *   (4) Downstream: components.css lê daqui. Nunca skip-chain para reference.
+ *
+ * Mudança de um valor (ex: acento muda de azul-violeta para verde) =
+ * editar apenas este arquivo. Zero toque em reference ou components.
+ * ==========================================================================*/
+
+:root {
+  /* ==========================================================================
+   * SURFACE (backgrounds, por hierarquia de elevação)
+   * =======================================================================*/
+  --surface-canvas:        var(--oklch-neutral-1);    /* página/slide principal */
+  --surface-paper:         var(--oklch-neutral-2);    /* alternativa warm */
+  --surface-panel:         var(--oklch-neutral-3);    /* cards, callouts */
+  --surface-raised:        var(--oklch-neutral-0);    /* modal, popover */
+  --surface-muted:         var(--oklch-neutral-4);    /* disabled containers */
+  --surface-inverse:       var(--oklch-neutral-9);    /* slide dark mode, footer */
+
+  /* ==========================================================================
+   * TEXT (ink hierarchy)
+   * APCA target: body ≥ Lc 75, emphasis ≥ Lc 80, display ≥ Lc 85 em --surface-canvas.
+   * =======================================================================*/
+  --text-display:          var(--oklch-neutral-10);   /* h1, hero */
+  --text-heading:          var(--oklch-neutral-9);    /* h2, h3 */
+  --text-emphasis:         var(--oklch-neutral-8);    /* strong, highlight */
+  --text-body:             var(--oklch-neutral-7);    /* prose padrão */
+  --text-muted:            var(--oklch-neutral-6);    /* secondary, captions */
+  --text-disabled:         var(--oklch-neutral-5);
+  --text-inverse:          var(--oklch-neutral-1);    /* sobre surface-inverse */
+  --text-on-accent:        var(--oklch-neutral-0);    /* sobre --accent-solid */
+
+  /* ==========================================================================
+   * FONT FAMILIES (semantic alias com fallback stack)
+   * Self-hosted WOFF2 via css/index.css @font-face; fallbacks system-ui para
+   * FOUT graceful enquanto fonts carregam.
+   * =======================================================================*/
+  --font-sans:  "DM Sans Variable", system-ui, -apple-system, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-mono:  "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", monospace;
+
+  /* ==========================================================================
+   * BORDERS / RULES
+   * =======================================================================*/
+  --border-subtle:         var(--oklch-neutral-4);    /* rule padrão */
+  --border-default:        var(--oklch-neutral-5);
+  --border-strong:         var(--oklch-neutral-7);
+  --border-accent:         var(--oklch-accent-4);     /* focus ring, active */
+
+  /* ==========================================================================
+   * ACCENT (primary brand — blue-violet editorial)
+   * Uso: eyebrows, links, primary CTA, emphasis narrativo.
+   * Regra: parcimônia. Máximo 1 elemento accent-solid por slide.
+   * =======================================================================*/
+  --accent-bg:             var(--oklch-accent-1);     /* callout bg ultra-soft */
+  --accent-tint:           var(--oklch-accent-2);     /* chip bg */
+  --accent-border:         var(--oklch-accent-4);
+  --accent-solid:          var(--oklch-accent-6);     /* botão primary, eyebrow, dot */
+  --accent-solid-hover:    var(--oklch-accent-7);
+  --accent-solid-pressed:  var(--oklch-accent-8);
+  --accent-text:           var(--oklch-accent-9);     /* text sobre accent-tint */
+  --accent-text-strong:    var(--oklch-accent-10);    /* headings com accent color */
+
+  /* ==========================================================================
+   * STATES FUNCIONAIS (Stripe-style: 1 token por função)
+   * Cada estado tem 4 variantes operacionais:
+   *   -bg     → background tintado sutil (callouts)
+   *   -border → borda/rule
+   *   -solid  → fill sólido (dots, badges solid, chips com destaque)
+   *   -text   → texto sobre -bg ou sobre superfícies claras
+   * =======================================================================*/
+
+  /* Success — tratamento eficaz, resposta confirmada, recomendação favorável */
+  --success-bg:            var(--oklch-success-2);
+  --success-border:        var(--oklch-success-4);
+  --success-solid:         var(--oklch-success-5);
+  --success-text:          var(--oklch-success-7);
+
+  /* Warning — atenção, monitorar, incerteza não-crítica */
+  --warning-bg:            var(--oklch-warning-2);
+  --warning-border:        var(--oklch-warning-4);
+  --warning-solid:         var(--oklch-warning-5);
+  --warning-text:          var(--oklch-warning-7);
+  --warning-on-solid:      var(--oklch-neutral-10);  /* text ON --warning-solid (L=82% requer ink dark) */
+
+  /* Danger — contraindicação, risco grave, recomendação desfavorável */
+  --danger-bg:             var(--oklch-danger-2);
+  --danger-border:         var(--oklch-danger-4);
+  --danger-solid:          var(--oklch-danger-5);
+  --danger-text:           var(--oklch-danger-7);
+
+  /* Info — nota metodológica, observação neutra, aside contextual */
+  --info-bg:               var(--oklch-info-2);
+  --info-border:           var(--oklch-info-4);
+  --info-solid:            var(--oklch-info-5);
+  --info-text:             var(--oklch-info-7);
+
+  /* Intermediate — usado APENAS por GRADE low certainty (entre warning e danger) */
+  --intermediate-bg:       var(--oklch-intermediate-2);
+  --intermediate-border:   var(--oklch-intermediate-4);
+  --intermediate-solid:    var(--oklch-intermediate-5);
+  --intermediate-text:     var(--oklch-intermediate-7);
+
+  /* ==========================================================================
+   * INTERACTION STATES (foco, seleção, link)
+   * =======================================================================*/
+  --focus-ring:            var(--accent-solid);
+  --focus-ring-offset:     2px;
+  --link:                  var(--accent-solid);
+  --link-hover:            var(--accent-solid-hover);
+  --link-visited:          var(--oklch-accent-8);
+  --selection-bg:          var(--oklch-accent-3);
+  --selection-text:        var(--oklch-accent-10);
+
+  /* ==========================================================================
+   * MOTION (semântica role-based)
+   * =======================================================================*/
+  --motion-reveal-dur:     var(--dur-base);          /* reveal padrão 250ms */
+  --motion-reveal-ease:    var(--ease-out-expo);
+  --motion-transition-dur: var(--dur-fast);          /* slide→slide 150ms */
+  --motion-transition-ease: var(--ease-standard);
+  --motion-emphasis-dur:   var(--dur-slow);          /* highlight change 400ms */
+  --motion-emphasis-ease:  var(--ease-emphasized);
+  --motion-spring-dur:     var(--dur-slower);        /* counterUp, number morph */
+  --motion-spring-ease:    var(--ease-spring);
+
+  /* ==========================================================================
+   * ELEVATION (shadow por hierarquia)
+   * =======================================================================*/
+  --elevation-flat:        none;
+  --elevation-raised:      var(--shadow-sm);
+  --elevation-floating:    var(--shadow-base);
+  --elevation-overlay:     var(--shadow-md);
+  --elevation-modal:       var(--shadow-lg);
+}
+
+/* ============================================================================
+ * REDUCED MOTION — neutraliza durations quando usuário preferir
+ * Hard override: zero animação visível para vestibular disorders, ansiedade,
+ * epilepsia fotossensível. ADR-0005 §A11y.
+ * ==========================================================================*/
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-reveal-dur:     var(--dur-instant);
+    --motion-transition-dur: var(--dur-instant);
+    --motion-emphasis-dur:   var(--dur-instant);
+    --motion-spring-dur:     var(--dur-instant);
+  }
+}

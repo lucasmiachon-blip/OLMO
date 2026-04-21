@@ -1,0 +1,113 @@
+/* ============================================================================
+ * content/aulas/shared-v2/css/index.css
+ * Entry point — @layer cascade + @font-face + @imports + reset + utilities.
+ * Consumidores (aulas ou mocks) importam apenas este arquivo.
+ * ==========================================================================*/
+
+@layer reset, tokens, type, layout, components, utilities, slide-local;
+
+/* ============================================================================
+ * @FONT-FACE — self-hosted WOFF2 (zero CDN, offline-first)
+ * Fonts copiadas de shared/assets/fonts/ em S237 C4.
+ * ==========================================================================*/
+@font-face {
+  font-family: "DM Sans Variable";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("../assets/fonts/DMSans-Variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/InstrumentSerif-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono Variable";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../assets/fonts/JetBrainsMono-Variable.woff2") format("woff2");
+}
+
+/* ============================================================================
+ * @IMPORT chain — ordem importa (tokens → type → layout)
+ * ==========================================================================*/
+@import url("../tokens/reference.css") layer(tokens);
+@import url("../tokens/system.css") layer(tokens);
+@import url("../tokens/components.css") layer(tokens);
+@import url("../type/scale.css") layer(type);
+@import url("../layout/slide.css") layer(layout);
+@import url("../layout/primitives.css") layer(layout);
+
+/* ============================================================================
+ * MINIMAL RESET — Vite + modern browsers cobrem essencial
+ * ==========================================================================*/
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    color: var(--text-body);
+    background: var(--surface-canvas);
+    font-family: var(--font-sans);
+  }
+}
+
+/* ============================================================================
+ * UTILITIES — classes que consomem tokens existentes, sem novos primitivos
+ * DECIDE: colocado em index.css (@layer utilities) em vez de arquivo dedicado
+ *         pois todos consomem tokens existentes em components.css e não há
+ *         motivo para 8º arquivo (C4 cap = 7 files + fonts + edits).
+ * ==========================================================================*/
+@layer utilities {
+  /* DECIDE: .slide-eyebrow consumes --slide-eyebrow-* (já em components.css).
+   * Invariante — sem fluid clamp, tamanho base é --type-size-1 que funciona
+   * em toda faixa de container. */
+  .slide-eyebrow {
+    font-size: var(--slide-eyebrow-size);
+    font-weight: var(--slide-eyebrow-weight);
+    letter-spacing: var(--slide-eyebrow-tracking);
+    color: var(--slide-eyebrow-color);
+    text-transform: var(--slide-eyebrow-transform);
+  }
+
+  /* DECIDE: .evidence callout block consumes --evidence-* (já em components.css).
+   * Promoção para arquivo dedicado (components/evidence.css) candidata a C5+
+   * se evoluir além de 1 variante. */
+  .evidence {
+    background: var(--evidence-bg);
+    border-left: var(--border-thick) solid var(--evidence-border);
+    padding: var(--evidence-padding);
+    border-radius: var(--evidence-radius);
+    color: var(--evidence-text);
+  }
+
+  /* DECIDE: .chip base + GRADE certainty variants consumem --chip-* + --grade-certainty-*.
+   * Mock evidence testa 4 níveis GRADE; chips são visual primitive comum em slides clínicos. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--chip-gap);
+    font-size: var(--chip-size);
+    font-weight: var(--chip-weight);
+    padding: var(--chip-padding);
+    border-radius: var(--chip-radius);
+  }
+  .chip-high { background: var(--grade-certainty-high-bg); color: var(--grade-certainty-high-text); }
+  .chip-mod  { background: var(--grade-certainty-mod-bg);  color: var(--grade-certainty-mod-text); }
+  .chip-low  { background: var(--grade-certainty-low-bg);  color: var(--grade-certainty-low-text); }
+  .chip-vlow { background: var(--grade-certainty-vlow-bg); color: var(--grade-certainty-vlow-text); }
+}

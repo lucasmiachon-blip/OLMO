@@ -1,0 +1,35 @@
+/* ============================================================================
+ * content/aulas/shared-v2/layout/slide.css
+ * Slide shell: section[data-slide] com container-type + aspect-ratio canônico 16:9.
+ * Consumes: components.css (--slide-bg, --slide-padding-*, --slide-max-width)
+ *           system.css (--text-body, --font-sans)
+ *           reference.css (--space-lg)
+ *
+ * aspect-ratio: 16/9 preserva proporção canônica em dev e prod (scaleDeck C5 aplica
+ * transform sobre esse contract). Evita min-height:100vh que amarra à viewport em vez
+ * do container lógico do slide.
+ * ==========================================================================*/
+
+section[data-slide] {
+  container-type: inline-size;
+  container-name: slide;
+  /* Consumers @container slide (...) chegam em C5+ com motion responsive e layouts
+   * condicionais. Aqui declaramos o container para estabelecer o escopo. */
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-content: center;
+  justify-items: start;
+  gap: var(--space-lg);
+  padding: var(--slide-padding-y) var(--slide-padding-x);
+  background: var(--slide-bg);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  font-feature-settings: 'kern' 1;
+}
+
+/* Optional inner wrapper para conteúdo max-width constrained (75ch em components.css).
+ * Não obrigatório — .stack/.cols gerenciam layout interno direto. */
+section[data-slide] > .slide-inner {
+  max-inline-size: var(--slide-max-width);
+  inline-size: 100%;
+}

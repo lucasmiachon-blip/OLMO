@@ -1,0 +1,70 @@
+/* ============================================================================
+ * content/aulas/shared-v2/type/scale.css
+ * Fluid type application às classes slide-semantic.
+ * Consumes: reference.css (--type-size-*, --type-leading-*, --type-tracking-*, --type-weight-*)
+ *           components.css (--slide-h1-*, --slide-h2-*, --slide-body-*, --slide-caption-*)
+ *
+ * Fluid formula (Utopia-adaptada para container queries):
+ *   clamp(size_min_token, calc(floor_px + N_cqi × 1cqi), size_max_token)
+ *
+ *   N_cqi    = (size_max_px − size_min_px) / 13.2
+ *   floor_px = size_min_px − N_cqi × (cq_min / 100)
+ *   13.2     = (cq_max_px − cq_min_px) / 100 = (1920 − 600) / 100
+ *
+ * Containers target: cq_min = 600px (preview mínimo); cq_max = 1920px (projeção grande).
+ * Em cq=600px  (6cqi):    expression = floor + N×6    = size_min (clamp min ativa por equality)
+ * Em cq=1920px (19.2cqi): expression = floor + N×19.2 ≈ size_max (clamp max ativa por equality)
+ * Entre 600 e 1920: linear growth de size_min até size_max.
+ *
+ * Tabela de derivação (obrigatória per S237 C4 regras):
+ *   CLASS            size_min (token)         size_max (token)         N_cqi    floor_px
+ *   .slide-headline  --type-size-4 (25.00px)  --type-size-6 (39.06px)  1.07     18.58px
+ *   .slide-claim     --type-size-3 (20.00px)  --type-size-5 (31.25px)  0.85     14.90px
+ *   .slide-body      --type-size-2 (16.00px)  --type-size-3 (20.00px)  0.30     14.18px
+ *   .slide-caption   invariante --type-size-1 (12.8px), sem clamp
+ *
+ * Literais em calc() (18.58px, 1.07cqi, 14.90px, 0.85cqi, 14.18px, 0.30cqi) são
+ * DERIVADOS da tabela acima — não hardcoded livremente. Fórmula garante:
+ *   min ≤ (expression em 6cqi) ≤ (expression em 19.2cqi) ≤ max
+ * ==========================================================================*/
+
+.slide-headline {
+  font-size: clamp(
+    var(--type-size-4),                  /* min clamp = size_min (25.00px) */
+    calc(18.58px + 1.07cqi),             /* derivação: floor_px + N_cqi × 1cqi */
+    var(--type-size-6)                   /* max clamp = size_max (39.06px) */
+  );
+  line-height: var(--slide-h1-leading);
+  letter-spacing: var(--slide-h1-tracking);
+  font-weight: var(--slide-h1-weight);
+  color: var(--slide-h1-color);
+}
+
+.slide-claim {
+  font-size: clamp(
+    var(--type-size-3),                  /* min clamp = size_min (20.00px) */
+    calc(14.90px + 0.85cqi),             /* derivação: floor_px + N_cqi × 1cqi */
+    var(--type-size-5)                   /* max clamp = size_max (31.25px) */
+  );
+  line-height: var(--slide-h2-leading);
+  letter-spacing: var(--slide-h2-tracking);
+  font-weight: var(--slide-h2-weight);
+  color: var(--slide-h2-color);
+}
+
+.slide-body {
+  font-size: clamp(
+    var(--type-size-2),                  /* min clamp = size_min (16.00px) */
+    calc(14.18px + 0.30cqi),             /* derivação: floor_px + N_cqi × 1cqi */
+    var(--type-size-3)                   /* max clamp = size_max (20.00px) */
+  );
+  line-height: var(--slide-body-leading);
+  color: var(--slide-body-color);
+}
+
+.slide-caption {
+  font-size: var(--slide-caption-size);
+  line-height: var(--slide-caption-leading);
+  letter-spacing: var(--slide-caption-tracking);
+  color: var(--slide-caption-color);
+}

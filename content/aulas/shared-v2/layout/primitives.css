@@ -1,0 +1,52 @@
+/* ============================================================================
+ * content/aulas/shared-v2/layout/primitives.css
+ * every-layout.dev primitives (Pickering & Bell, 2019):
+ *   .stack         — rhythm vertical via margin-block (default vertical)
+ *   .cols          — switcher horizontal via flex intrinsic sizing
+ *                    (substitui .split, evita colisão nominal com GSAP SplitText)
+ *   .cluster       — inline wrap de itens pequenos (chips, tags, dots)
+ *   .grid-auto-fit — responsive grid via auto-fit + minmax
+ * ZERO media queries, ZERO @container queries em primitives.
+ * Slides têm container fixo 16:9; primitives devem funcionar sem branching.
+ * Consumes: reference.css (--space-*) direto (primitives são pre-semantic).
+ * ==========================================================================*/
+
+/* STACK — vertical rhythm, gap configurable via --stack-gap */
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.stack > * + * {
+  margin-block-start: var(--stack-gap, var(--space-md));
+}
+
+/* COLS — switcher horizontal (Pickering/Bell "switcher" pattern).
+ * Math trick: (threshold - 100%) * 999 = grande negativo quando container >= threshold
+ * (flex-basis vai a 0, items compartilham via flex-grow) ou grande positivo quando
+ * container < threshold (flex-basis > width, items wrap para stack). Colapso natural
+ * sem @container. */
+.cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cols-gap, var(--space-lg));
+}
+.cols > * {
+  flex-basis: calc((var(--cols-threshold, 30rem) - 100%) * 999);
+  flex-grow: 1;
+}
+
+/* CLUSTER — inline wrap (chips, tags, botões, GRADE dots) */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+/* GRID-AUTO-FIT — responsive grid via CSS grid native auto-fit.
+ * Default --grid-min 12ch permite 4+ items sem forçar 2×2 em GRADE tiles. */
+.grid-auto-fit {
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min, 12ch), 100%), 1fr));
+}
