@@ -102,7 +102,14 @@
       "Bash(node -e *)",
       "Bash(node --eval *)",
       "Bash(ruby -e *)",
-      "Bash(perl -e *)"
+      "Bash(perl -e *)",
+      "Bash(bash -c*)",
+      "Bash(sh -c*)",
+      "Bash(zsh -c*)",
+      "Bash(eval *)",
+      "Bash(exec *)",
+      "Bash(source /*)",
+      "Bash(. /*)"
     ]
   },
   "hooks": {
