@@ -108,6 +108,11 @@ htmlcov/
 .claude/integrity-report.md
 .claude/workers/
 .claude/.worker-mode
+
+# Transient compute (ver CLAUDE.md §Transient compute)
+.claude-tmp/*
+!.claude-tmp/.gitkeep
+
 .archive/
 
 # Cursor (abandonado S215)
