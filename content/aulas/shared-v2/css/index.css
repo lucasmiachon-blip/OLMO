@@ -7,8 +7,21 @@
 @layer reset, tokens, type, layout, components, utilities, slide-local;
 
 /* ============================================================================
- * @FONT-FACE — self-hosted WOFF2 (zero CDN, offline-first)
- * Fonts copiadas de shared/assets/fonts/ em S237 C4.
+ * @IMPORT chain — DEVE vir antes de @font-face e outras at-rules
+ * (CSS Cascade §6.1: @import após qualquer regra que não seja @charset
+ * ou @layer-statement é silenciosamente inválido). Ordem: tokens → type → layout.
+ * ==========================================================================*/
+@import url("../tokens/reference.css") layer(tokens);
+@import url("../tokens/system.css") layer(tokens);
+@import url("../tokens/components.css") layer(tokens);
+@import url("../type/scale.css") layer(type);
+@import url("../layout/slide.css") layer(layout);
+@import url("../layout/primitives.css") layer(layout);
+
+/* ============================================================================
+ * @FONT-FACE — self-hosted WOFF2 (zero CDN, offline-first).
+ * Vem APÓS @imports por CSS Cascade §6.1 — @font-face antes invalida
+ * TODOS os @imports acima silenciosamente.
  * ==========================================================================*/
 @font-face {
   font-family: "DM Sans Variable";
@@ -38,16 +51,6 @@
   font-display: swap;
   src: url("../assets/fonts/JetBrainsMono-Variable.woff2") format("woff2");
 }
-
-/* ============================================================================
- * @IMPORT chain — ordem importa (tokens → type → layout)
- * ==========================================================================*/
-@import url("../tokens/reference.css") layer(tokens);
-@import url("../tokens/system.css") layer(tokens);
-@import url("../tokens/components.css") layer(tokens);
-@import url("../type/scale.css") layer(type);
-@import url("../layout/slide.css") layer(layout);
-@import url("../layout/primitives.css") layer(layout);
 
 /* ============================================================================
  * MINIMAL RESET — Vite + modern browsers cobrem essencial
