@@ -1,0 +1,57 @@
+/* ============================================================================
+ * content/aulas/shared-v2/motion/transitions.css
+ * Layer: utilities — reveal entry + View Transitions API gate.
+ * Consumes: system.css (--motion-reveal-*, --motion-transition-*),
+ *           motion/tokens.css (--motion-distance-md).
+ *
+ * Scope C5 (Q2 brief — mínimo):
+ *   (1) [data-reveal] declarative entry: opacity + translateY. JS (reveal.js)
+ *       adiciona .revealed ao elemento quando scheduled (intersection, click,
+ *       keybinding). CSS transition é authoritative; JS só toggla classe.
+ *   (2) @starting-style gate — cobre dynamic DOM insertion: elemento inserido
+ *       já com .revealed anima from starting state. Browsers sem @starting-style
+ *       (Chrome <117) ignoram silently — fallback: snap reveal.
+ *   (3) View Transitions API via @supports — cross-fade default em
+ *       ::view-transition-group(root) para slide→slide. Zero named transitions
+ *       nesta iteração (scope C5 mínimo); Chrome <111 fallback: cut instantâneo.
+ *
+ * Reduced motion não tratado aqui — tokens consumidos (--motion-reveal-dur,
+ * --motion-distance-md) já colapsam via @media em system.css + motion/tokens.css.
+ * ==========================================================================*/
+
+/* ============================================================================
+ * [data-reveal] — reveal declarativo (consumido por js/reveal.js)
+ * ==========================================================================*/
+[data-reveal] {
+  opacity: 0;
+  translate: 0 var(--motion-distance-md);
+  transition:
+    opacity var(--motion-reveal-dur) var(--motion-reveal-ease),
+    translate var(--motion-reveal-dur) var(--motion-reveal-ease);
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* @starting-style — cobre dynamic insertion (Chrome 117+; degrades silently).
+ * Se elemento é inserido no DOM já com classe .revealed, anima from starting. */
+@starting-style {
+  [data-reveal].revealed {
+    opacity: 0;
+    translate: 0 var(--motion-distance-md);
+  }
+}
+
+/* ============================================================================
+ * VIEW TRANSITIONS API — cross-fade slide→slide (Chrome 111+; gated)
+ * ==========================================================================*/
+@supports (view-transition-name: auto) {
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--motion-transition-dur);
+    animation-timing-function: var(--motion-transition-ease);
+  }
+}

@@ -1,0 +1,47 @@
+/* ============================================================================
+ * content/aulas/shared-v2/motion/tokens.css
+ * Layer: tokens — distance scale + stagger scale específicos de motion.
+ *
+ * Scope C5 (mínimo por Q1 brief):
+ *   (1) --motion-distance-{xs,sm,md,lg,xl}: 5-step scale para transform offsets
+ *       (translateY/X em reveals). Progressão geométrica 4/8/16/24/40.
+ *   (2) --motion-stagger-{fast,base,slow}: intervalo entre items em cascades.
+ *
+ * Durações (--dur-*) e easings (--ease-*) JÁ em reference.css §MOTION
+ * PRIMITIVES. Semantic motion (--motion-reveal-dur etc) JÁ em system.css.
+ * Este arquivo adiciona apenas as 2 dimensões não cobertas.
+ *
+ * Reduced motion: distance + stagger → 0 via @media abaixo, defesa redundante
+ * ao guard JS em motion.js (Q3). Garante que CSS transitions direto (sem
+ * animate()) também respeita accessibility.
+ * ==========================================================================*/
+
+:root {
+  /* Distance scale — transform offsets para reveals (translateY/X) */
+  --motion-distance-xs:    4px;
+  --motion-distance-sm:    8px;
+  --motion-distance-md:   16px;
+  --motion-distance-lg:   24px;
+  --motion-distance-xl:   40px;
+
+  /* Stagger scale — intervalo entre items em cascades (ms) */
+  --motion-stagger-fast:   50ms;
+  --motion-stagger-base:  100ms;
+  --motion-stagger-slow:  200ms;
+}
+
+/* ============================================================================
+ * REDUCED MOTION — neutraliza distance + stagger (ADR-0005 §A11y)
+ * ==========================================================================*/
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-distance-xs: 0;
+    --motion-distance-sm: 0;
+    --motion-distance-md: 0;
+    --motion-distance-lg: 0;
+    --motion-distance-xl: 0;
+    --motion-stagger-fast: 0ms;
+    --motion-stagger-base: 0ms;
+    --motion-stagger-slow: 0ms;
+  }
+}

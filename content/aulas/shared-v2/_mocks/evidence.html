@@ -9,12 +9,12 @@
 <body>
   <section data-slide="mock-evidence">
     <div class="stack">
-      <h2 class="slide-claim">Meta-análise IPD de 7 RCTs demonstra redução relativa de 18% no MACE com clopidogrel vs aspirina em terapia antiplaquetária prolongada pós-SCA</h2>
-      <aside class="evidence">
+      <h2 class="slide-claim" data-reveal data-reveal-stagger="base">Meta-análise IPD de 7 RCTs demonstra redução relativa de 18% no MACE com clopidogrel vs aspirina em terapia antiplaquetária prolongada pós-SCA</h2>
+      <aside class="evidence" data-reveal data-reveal-stagger="base">
         <p class="slide-body">Hazard Ratio agregado 0.82 (IC 95% 0.71–0.94), heterogeneidade I² = 34% (baixa-moderada). n = 28.982 pacientes, follow-up mediano 365 dias.</p>
         <p class="slide-caption">Valgimigli M et al. Lancet 2025 · PMID 40902613</p>
       </aside>
-      <div class="cluster">
+      <div class="cluster" data-reveal data-reveal-stagger="base">
         <span class="chip chip-high">Certainty: High</span>
         <span class="chip chip-mod">Moderate</span>
         <span class="chip chip-low">Low</span>
@@ -22,5 +22,9 @@
       </div>
     </div>
   </section>
+  <script type="module">
+    import { setupReveal } from "../js/reveal.js";
+    setupReveal();
+  </script>
 </body>
 </html>

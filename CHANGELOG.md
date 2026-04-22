@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 239 — 2026-04-22 (C4.6 audit close + C5 Day 2 partial)
+
+### Commits
+
+- **C4.6 `9da4f30` fix(shared-v2) close audit Items 2+3+10 — gamut sRGB + APCA + ADR re-scope** — 30/57 tokens OKLCH recalibrados via chroma-only bisection em OKLCH (40 iter + margem 1-tick anti-rounding 4-dec) preservando L/H literalmente (dL=0, dH=0 em 30/30). Por família: warning 8/8, accent 5/10, success 4/8, danger 5/8, info 5/8, intermediate 3/4, neutral 0/11. APCA 4 FAILs resolvidos via 4 edits cirúrgicos: (a) `--oklch-neutral-6` L 72%→60% (C/H preservados, text-muted Lc 46.8→65.1); (b) `components.css:84 --evidence-text: text-body→text-emphasis` (Lc 73.3→88.9); (c) `components.css:45 --slide-body-color: text-body→text-emphasis` (Lc 73.4→89.0); (d) `components.css:202 --case-panel-body-color: text-body→text-emphasis` (Lc 67.5→83.0). `--oklch-neutral-7` preservado. Coverage audit Item 3 expandida de 11 para 28 pares (17 descobertos); 28/28 PASS. Dev deps culori + apca-w3. ADR-0005 §Phases C4/C5 re-scope (motion + dialog mock adiados para C5).
+- **C5 partial `<hash>` shared-v2 Day 2 Grupo A + Grupo B parcial + docs** — `motion/tokens.css` (5 distance 4/8/16/24/40 + 3 stagger fast/base/slow + @media reduced-motion neutralize) + `motion/transitions.css` (`[data-reveal]` baseline + `.revealed` + `@starting-style` + `@supports (view-transition-name: auto)` gate para `::view-transition-group(root)`) + `css/index.css` (`@layer motion` entre components/utilities + 2 @imports novos em layers tokens/motion) + `js/motion.js` (hybrid named+default export; animate/transition/prefersReducedMotion; matchMedia cached; duck-mock VT fallback com 3 Promises resolvidas; finalState cobrindo ambos formatos WAAPI) + `js/reveal.js` (IntersectionObserver threshold=0.1 rootMargin=-10% bottom unobserve one-shot; setupReveal/revealAll/resetReveal; stagger auto-cumulative via `:scope >` sibling index) + `_mocks/{hero,evidence}.html` edits (data-reveal + stagger="base" em 3 elements cada + script module inline importando setupReveal) + HANDOFF/CHANGELOG + plan file `.claude/plans/S239-C5-continuation.md` para hydration pós-/clear.
+
+### Audit adversarial 13-item — encerrado
+
+- Items 1 (S238), 2+3+10 (S239 C4.6) fechados; Items 4-9 + 11-13 PASS ambas auditorias; Item 6 (`--chip-padding` literal) deferido confidence 0.8.
+- Coverage S239 expandiu Item 3 de 11 para 28 pares; 2 FAILs materiais adicionais (slide-body/canvas-paper + case-panel-body/surface-panel) fixed via semantic switch.
+
+### Aprendizados (max 5 li)
+
+- `culori.toGamut('rgb')` default (CSS Color 4 Gamut Mapping) **NÃO preserva L/H** — drifta ambos (até dH=-11° em warning-8 observado); para preservar L/H literal, usar chroma-only bisection em OKLCH manual (40 iter + margem 1-tick anti-rounding 4-decimal). Coverage de audit é frame-bound — 11-pair list original missou 17 pares texto/bg (60%); expansão revelou 2 FAILs materiais em pares body-prose/non-canvas backgrounds (slide-body/paper, case-panel/panel-tint). Semantic switch em components.css (`--text-body` → `--text-emphasis`) é fix cirúrgico superior a primitive mutation (`neutral-7` L) quando discovery é cross-cutting — preserva body canvas + fixa 3 consumidores de text-body em bg escuro com 1 commit. `@starting-style` é purpose-built para entry transitions — interopera nativo com `transition-property` sem boilerplate `animation-fill-mode` de `@keyframes`; browsers <Chrome 117 degradam silently (Caso A: cut instantâneo em DOM insertion com `.revealed`; Caso B comum: JS toggla classe pós-load anima normal via cascade transition). Layer `motion` nomeada entre `components` e `utilities` separa behavior page-level (VT pseudo-elements são root-scoped) de element utilities — evita `utilities` virar catch-all heterogêneo; edição +1 palavra no @layer statement é trivial.
+
+Coautoria: Lucas + Opus 4.7 (Claude Code) + Codex CLI (audit external) | S239 C4.6 + C5 partial | 2026-04-22
+
+---
+
 ## Sessao 238 — 2026-04-21 (correcao_rota: hotfix C4.5 + transient compute override)
 
 ### Commits
