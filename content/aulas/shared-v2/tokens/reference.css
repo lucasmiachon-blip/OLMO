@@ -97,7 +97,7 @@
   --oklch-neutral-3:   oklch(95%  0.006  265);         /* panel tint */
   --oklch-neutral-4:   oklch(91%  0.008  265);         /* rule/divider */
   --oklch-neutral-5:   oklch(82%  0.010  262);         /* mute */
-  --oklch-neutral-6:   oklch(72%  0.012  262);         /* disabled text */
+  --oklch-neutral-6:   oklch(60%  0.012  262);         /* disabled text → muted (APCA Lc≥60) */
   --oklch-neutral-7:   oklch(52%  0.015  262);         /* body text */
   --oklch-neutral-8:   oklch(38%  0.018  260);         /* emphasis text */
   --oklch-neutral-9:   oklch(22%  0.020  260);         /* heading text */
@@ -105,11 +105,11 @@
 
   /* Accent — blue-violet editorial (Stripe-inspired, shifted 270→265, chroma 0.24→0.22)
      Uso: eyebrows, links, primary emphasis, GRADE recommendation strong. */
-  --oklch-accent-1:   oklch(98% 0.012 265);   /* bg tint ultra-soft */
-  --oklch-accent-2:   oklch(95% 0.030 265);   /* callout bg */
-  --oklch-accent-3:   oklch(88% 0.065 265);   /* border subtle */
-  --oklch-accent-4:   oklch(78% 0.125 265);   /* border strong / border chip */
-  --oklch-accent-5:   oklch(68% 0.180 265);   /* interactive secondary */
+  --oklch-accent-1:   oklch(98% 0.0093 265);   /* bg tint ultra-soft */
+  --oklch-accent-2:   oklch(95% 0.0236 265);   /* callout bg */
+  --oklch-accent-3:   oklch(88% 0.0582 265);   /* border subtle */
+  --oklch-accent-4:   oklch(78% 0.1110 265);   /* border strong / border chip */
+  --oklch-accent-5:   oklch(68% 0.1680 265);   /* interactive secondary */
   --oklch-accent-6:   oklch(58% 0.220 265);   /* SOLID BRAND ★ — eyebrows, primary btn */
   --oklch-accent-7:   oklch(48% 0.210 265);   /* solid hover */
   --oklch-accent-8:   oklch(38% 0.180 265);   /* solid pressed */
@@ -121,49 +121,49 @@
   --oklch-success-2: oklch(92% 0.045 155);
   --oklch-success-3: oklch(82% 0.100 155);
   --oklch-success-4: oklch(68% 0.150 155);
-  --oklch-success-5: oklch(58% 0.160 155);   /* solid ★ */
-  --oklch-success-6: oklch(45% 0.140 155);
-  --oklch-success-7: oklch(32% 0.120 155);   /* text sobre bg-1 */
-  --oklch-success-8: oklch(22% 0.090 155);
+  --oklch-success-5: oklch(58% 0.1433 155);   /* solid ★ */
+  --oklch-success-6: oklch(45% 0.1112 155);
+  --oklch-success-7: oklch(32% 0.0791 155);   /* text sobre bg-1 */
+  --oklch-success-8: oklch(22% 0.0543 155);
 
   /* Warning — amarelo warm. L=82% bright caution (road sign / browser warning
      affordance). Força on-solid escuro EXPLÍCITO em system.css — trade-off
      consciente vs L=72% que ficava em zona morta APCA (Lc ~54 ambos). */
-  --oklch-warning-1: oklch(97% 0.030 75);
-  --oklch-warning-2: oklch(93% 0.080 75);
-  --oklch-warning-3: oklch(85% 0.140 75);
-  --oklch-warning-4: oklch(78% 0.170 75);
-  --oklch-warning-5: oklch(82% 0.170 75);    /* solid ★ (bright, on-solid dark em system.css) */
-  --oklch-warning-6: oklch(55% 0.150 65);
-  --oklch-warning-7: oklch(38% 0.140 55);    /* text sobre bg-1 */
-  --oklch-warning-8: oklch(28% 0.120 55);
+  --oklch-warning-1: oklch(97% 0.0240 75);
+  --oklch-warning-2: oklch(93% 0.0573 75);
+  --oklch-warning-3: oklch(85% 0.1291 75);
+  --oklch-warning-4: oklch(78% 0.1645 75);
+  --oklch-warning-5: oklch(82% 0.1580 75);    /* solid ★ (bright, on-solid dark em system.css) */
+  --oklch-warning-6: oklch(55% 0.1233 65);
+  --oklch-warning-7: oklch(38% 0.0940 55);    /* text sobre bg-1 */
+  --oklch-warning-8: oklch(28% 0.0693 55);
 
   /* Danger — vermelho signal editorial (hue 22°, dentro de range Lancet/FT/NYT) */
-  --oklch-danger-1: oklch(97% 0.015 22);
-  --oklch-danger-2: oklch(93% 0.040 22);
+  --oklch-danger-1: oklch(97% 0.0146 22);
+  --oklch-danger-2: oklch(93% 0.0353 22);
   --oklch-danger-3: oklch(82% 0.100 22);
   --oklch-danger-4: oklch(68% 0.170 22);
   --oklch-danger-5: oklch(55% 0.220 22);     /* solid ★ */
-  --oklch-danger-6: oklch(42% 0.200 22);
-  --oklch-danger-7: oklch(32% 0.180 22);     /* text sobre bg-1 */
-  --oklch-danger-8: oklch(22% 0.130 22);
+  --oklch-danger-6: oklch(42% 0.1691 22);
+  --oklch-danger-7: oklch(32% 0.1289 22);     /* text sobre bg-1 */
+  --oklch-danger-8: oklch(22% 0.0886 22);
 
   /* Info — ciano-azul (hue 210°) para garantir ≥55° de separação do accent 265°.
      Radix-inspired: Blue puro hue 245 ficaria só 20° do accent = ambiguidade. */
   --oklch-info-1: oklch(97% 0.018 210);
   --oklch-info-2: oklch(92% 0.055 210);
   --oklch-info-3: oklch(82% 0.115 210);
-  --oklch-info-4: oklch(72% 0.155 210);
-  --oklch-info-5: oklch(62% 0.160 210);      /* solid ★ */
-  --oklch-info-6: oklch(48% 0.145 210);
-  --oklch-info-7: oklch(35% 0.130 210);      /* text sobre bg-1 */
-  --oklch-info-8: oklch(25% 0.100 210);
+  --oklch-info-4: oklch(72% 0.1245 210);
+  --oklch-info-5: oklch(62% 0.1072 210);      /* solid ★ */
+  --oklch-info-6: oklch(48% 0.0830 210);
+  --oklch-info-7: oklch(35% 0.0605 210);      /* text sobre bg-1 */
+  --oklch-info-8: oklch(25% 0.0432 210);
 
   /* Hues intermediários para GRADE (low está entre warning 75° e danger 22°) */
-  --oklch-intermediate-5: oklch(60% 0.180 45);   /* solid — "orange" para GRADE low */
-  --oklch-intermediate-2: oklch(93% 0.080 45);   /* bg tint */
+  --oklch-intermediate-5: oklch(60% 0.1715 45);   /* solid — "orange" para GRADE low */
+  --oklch-intermediate-2: oklch(93% 0.0381 45);   /* bg tint */
   --oklch-intermediate-4: oklch(72% 0.155 45);   /* border (scale consistency com outros -4) */
-  --oklch-intermediate-7: oklch(34% 0.160 45);   /* text */
+  --oklch-intermediate-7: oklch(34% 0.0972 45);   /* text */
 
   /* ==========================================================================
    * MOTION PRIMITIVES (durations + easings abstratos)

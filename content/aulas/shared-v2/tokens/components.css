@@ -42,7 +42,7 @@
   --slide-body-size:            var(--type-size-3);
   --slide-body-weight:          var(--type-weight-regular);
   --slide-body-leading:         var(--type-leading-base);
-  --slide-body-color:           var(--text-body);
+  --slide-body-color:           var(--text-emphasis);
 
   --slide-eyebrow-size:         var(--type-size-1);
   --slide-eyebrow-weight:       var(--type-weight-semibold);
@@ -81,7 +81,7 @@
   --evidence-border-width:      var(--border-thick);
   --evidence-radius:            var(--radius-md);
   --evidence-padding:           var(--space-md) var(--space-lg);
-  --evidence-text:              var(--text-body);
+  --evidence-text:              var(--text-emphasis);
   --evidence-citation-color:    var(--text-muted);
   --evidence-citation-size:     var(--type-size-1);
 
@@ -199,6 +199,6 @@
   --case-panel-bg:                  var(--surface-panel);
   --case-panel-border:              var(--border-subtle);
   --case-panel-heading-color:       var(--text-heading);
-  --case-panel-body-color:          var(--text-body);
+  --case-panel-body-color:          var(--text-emphasis);
   --case-panel-radius:              var(--radius-lg);
 }

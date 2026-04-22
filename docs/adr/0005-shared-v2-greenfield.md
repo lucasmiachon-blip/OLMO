@@ -30,8 +30,8 @@ Criar `content/aulas/shared-v2/` **greenfield**, paralelo a `shared/` atual (nã
 
 | Commit | Scope |
 |---|---|
-| **C4** | shared-v2 Day 1 — tokens 3-camadas + fluid type scale cqi + layout primitives container queries + motion scaffold (WAAPI + View Transitions stubs) + 3 mock slides consumindo shared-v2 |
-| **C5** | shared-v2 Day 2 — deck-v2.js (substitui deck.js sem scaleDeck bug) + presenter-safe.js (clipboard/notes isolation) + reveal-v2.js (WAAPI-based reveal primitives) + ensaio HDMI residencial com mocks |
+| **C4** | shared-v2 Day 1 — tokens 3-camadas + fluid type scale cqi + layout primitives container queries + 2 mocks (hero, evidence); motion + dialog mock adiados para C5 (requer JS coupling) |
+| **C5** | shared-v2 Day 2 — motion/tokens.css + motion/transitions.css + js/motion.js + dialog.html mock (originalmente planejado C4, re-scoped por coupling com JS layer) + deck-v2.js (substitui deck.js sem scaleDeck bug) + presenter-safe.js (clipboard/notes isolation) + reveal-v2.js (WAAPI-based reveal primitives) + ensaio HDMI residencial com mocks |
 
 ## Consequências
 
