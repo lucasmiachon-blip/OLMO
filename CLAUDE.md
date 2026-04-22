@@ -90,19 +90,3 @@ Aulas: ver `content/aulas/CLAUDE.md`.
   Evidência: stop_hook_summary real com `timeout: 30` + `durationMs: 3025` sem `hookErrors` — se fosse ms teria estourado em 30ms. Não mude timeouts desses tipos sem testar.
 - **permissions.ask tem bug em CC >=2.1.113** (KBP-26) — pode degradar silenciosamente para allow. Arquitetura de permissions precisa assumir esse failure mode.
 - **deny-list é prefix-match.** Commit 9ef3b78 (S235b) adicionou 7 patterns shell-within-shell (`bash -c`, `sh -c`, `zsh -c`, `eval`, `exec`, `source /*`, `. /*`). `$()`, backticks e pipelines (`Bash(X && bash -c Y)`) requerem hook-level guard — fora do pattern match.
-
-## Transient compute (Windows / MSYS override)
-
-Claude Code v2.1.81+ carrega regra "Scratchpad directory" no system prompt apontando para `%TEMP%\claude\{hash}\{session}\scratchpad\`. Em inspeção empírica (S238), esse path expõe apenas `tasks/` (TaskCreate outputs) — não há subdir utilizável para código transiente escrito pelo agent. Combinado com cygpath quebrado em Git Bash (issues anthropics/claude-code #3923, #9883, #18197, #21640, #24738), resulta em retry-loop sempre que agent precisa executar script one-shot.
-
-Convenção OLMO:
-- Transient compute (validação numérica, conversão de cor, audit one-shot, probes exploratórios) vai em `./.claude-tmp/` (repo-relative, gitignored).
-- NÃO usar `/tmp` (ambíguo em MSYS: Claude Write resolve diferente de Git Bash node).
-- NÃO chamar `cygpath`.
-- Path absoluto: `$CLAUDE_PROJECT_DIR/.claude-tmp/{purpose}-{YYYY-MM-DD}.mjs`
-- Execução: `node .claude-tmp/{arquivo}.mjs` — passa pelo `Bash(*)` allow, não bate em `Bash(node -e *)` deny.
-- Cleanup: manual por ora. TTL automático via Stop hook é candidato futuro (deferido — requer edit em settings.json).
-
-Autorização explícita: o system prompt do CC permite desvio com "Only use /tmp if the user explicitly requests it" — este override estende essa cláusula para `./.claude-tmp/` como padrão persistente do projeto.
-
-Descoberta paralela (S238): A deny-list cobre `node -e` e `node --eval` mas não `node -p`. Risco equivalente. Para validação de expressão única sem I/O, `node -p` é funcional hoje; candidato a fechamento futuro (requer edit em settings.json — self-mod, deferido).
