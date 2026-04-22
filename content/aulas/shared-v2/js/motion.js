@@ -80,12 +80,16 @@ export function animate(el, keyframes, options = {}) {
  */
 export function transition(callback) {
   if (prefersReducedMotion() || typeof document.startViewTransition !== 'function') {
-    const result = callback();
-    const resolved = Promise.resolve(result);
+    let updateCallbackDone;
+    try {
+      updateCallbackDone = Promise.resolve(callback());
+    } catch (err) {
+      updateCallbackDone = Promise.reject(err);
+    }
     return {
-      finished: resolved,
-      ready: resolved,
-      updateCallbackDone: resolved,
+      updateCallbackDone,
+      ready: updateCallbackDone,
+      finished: updateCallbackDone,
     };
   }
   return document.startViewTransition(callback);

@@ -1,6 +1,6 @@
 /* ============================================================================
  * content/aulas/shared-v2/motion/transitions.css
- * Layer: utilities — reveal entry + View Transitions API gate.
+ * Layer: motion — reveal entry + View Transitions API gate.
  * Consumes: system.css (--motion-reveal-*, --motion-transition-*),
  *           motion/tokens.css (--motion-distance-md).
  *
