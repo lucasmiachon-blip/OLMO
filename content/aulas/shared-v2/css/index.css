@@ -4,12 +4,12 @@
  * Consumidores (aulas ou mocks) importam apenas este arquivo.
  * ==========================================================================*/
 
-@layer reset, tokens, type, layout, components, motion, utilities, slide-local;
+@layer reset, tokens, type, layout, components, motion, utilities, presenter, slide-local;
 
 /* ============================================================================
  * @IMPORT chain — DEVE vir antes de @font-face e outras at-rules
  * (CSS Cascade §6.1: @import após qualquer regra que não seja @charset
- * ou @layer-statement é silenciosamente inválido). Ordem: tokens → type → layout → motion.
+ * ou @layer-statement é silenciosamente inválido). Ordem: tokens → type → layout → motion → presenter.
  * ==========================================================================*/
 @import url("../tokens/reference.css") layer(tokens);
 @import url("../tokens/system.css") layer(tokens);
@@ -19,6 +19,7 @@
 @import url("../layout/slide.css") layer(layout);
 @import url("../layout/primitives.css") layer(layout);
 @import url("../motion/transitions.css") layer(motion);
+@import url("presenter-safe.css") layer(presenter);
 
 /* ============================================================================
  * @FONT-FACE — self-hosted WOFF2 (zero CDN, offline-first).

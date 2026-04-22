@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Mock Dialog — shared-v2</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+  <section data-slide="mock-dialog">
+    <div class="stack">
+      <h2 class="slide-claim" data-reveal data-reveal-stagger="base">Clopidogrel vs aspirina em terapia antiplaquetária prolongada pós-SCA: comparação de perfis de eficácia e segurança</h2>
+      <div class="cols" data-reveal data-reveal-stagger="base">
+        <aside class="evidence">
+          <p class="slide-body">Clopidogrel — inibição P2Y12 preservada após descontinuação de DAPT reduz eventos isquêmicos (IAM não-fatal, AVC) no período de transição precoce.</p>
+          <p class="slide-caption">Análise per-protocol, subgrupo 30d</p>
+        </aside>
+        <aside class="evidence">
+          <p class="slide-body">Aspirina — comparador clássico de monoterapia prolongada; benefício antiplaquetário via COX-1, perfil de sangramento bem caracterizado em populações idosas.</p>
+          <p class="slide-caption">Análise intention-to-treat, referência histórica</p>
+        </aside>
+      </div>
+      <div class="cluster" data-reveal data-reveal-stagger="base">
+        <span class="chip chip-high">MACE: Certainty High</span>
+        <span class="chip chip-mod">Bleeding: Moderate</span>
+      </div>
+      <p class="slide-caption">Valgimigli M et al. Lancet 2025 · PMID 40902613 · IPD-MA de 7 RCTs</p>
+    </div>
+  </section>
+  <script type="module">
+    import "../js/presenter-safe.js";
+    import { setupDeck } from "../js/deck.js";
+    import { setupReveal } from "../js/reveal.js";
+    setupDeck();
+    setupReveal();
+  </script>
+</body>
+</html>

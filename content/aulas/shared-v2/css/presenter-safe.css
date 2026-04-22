@@ -1,0 +1,59 @@
+/* ============================================================================
+ * content/aulas/shared-v2/css/presenter-safe.css
+ * Layer: presenter — letterbox wrapper + blackout overlay + help overlay.
+ *
+ * Scope: ativado via html[data-presenter-mode="locked"] (JS: presenter-safe.js).
+ * Consome: --deck-scale (runtime, JS), --z-presenter, --z-modal (tokens/reference.css),
+ *          --surface-canvas, --space-lg, --radius-md, --type-size-2, --type-leading-base.
+ *
+ * Letterbox via box-shadow 100vmax aplicado no wrapper (não body): garante
+ * tela inteira preta fora do 1280×720, mantendo body responsivo a dev tools.
+ * ==========================================================================*/
+
+html[data-presenter-mode="locked"] #deck-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  inline-size: 1280px;
+  block-size: 720px;
+  translate: -50% -50%;
+  transform: scale(var(--deck-scale, 1));
+  transform-origin: center center;
+  box-shadow: 0 0 0 100vmax oklch(0% 0 0);
+  z-index: var(--z-presenter);
+  overflow: hidden;
+  background: var(--surface-canvas);
+}
+
+/* Blackout: visibility: hidden nos filhos preserva box-shadow externo;
+ * wrapper background muda para preto sólido. B key toggla. */
+html[data-blackout="true"] #deck-wrapper {
+  background: oklch(0% 0 0);
+}
+html[data-blackout="true"] #deck-wrapper > * {
+  visibility: hidden;
+}
+
+/* Help overlay: lazy-criado pelo JS ao primeiro ? press. Display none default;
+ * .visible classe toggla. Centro fixed. z-index deve ficar ACIMA do letterbox
+ * box-shadow (--z-presenter=9999), senão overlay renderiza sob a sombra preta
+ * em lock mode — invisível. calc(+1) evita novo token em reference.css. */
+#presenter-keybindings {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  max-inline-size: 48ch;
+  padding: var(--space-lg);
+  background: oklch(20% 0 0 / 0.95);
+  color: oklch(95% 0 0);
+  border-radius: var(--radius-md);
+  font-size: var(--type-size-2);
+  line-height: var(--type-leading-base);
+  text-align: center;
+  z-index: calc(var(--z-presenter) + 1);
+}
+#presenter-keybindings.visible {
+  display: block;
+}
