@@ -1,12 +1,12 @@
 # HANDOFF - Proxima Sessao
 
-> S237 mid-execution: C1-C4 committed. shared-v2 Day 1 (tokens + type + layout + mocks) operacional em porta 4103. Próximo: C5 Day 2 (motion CSS + JS layer + dialog mock + ensaio HDMI residencial). Deadline 30/abr/2026 (T-9d).
+> S238 closed: hotfix C4.5 (@import order) + transient compute override. shared-v2 Day 1 agora spec-compliant. Audit adversarial Item 1/13 fechado; Items 2-13 pendentes. Próximo: C5 Day 2 (motion + JS + ensaio HDMI) OU continuação audit Items 2-13 (via `.claude-tmp/`). Deadline 30/abr/2026 (T-9d).
 
 ## HYDRATION (obrigatória, 3 passos)
 
 1. Ler este HANDOFF completo.
-2. `git log --oneline -10` — confirma últimos commits S237 (C1 state refresh, C2 grade-v1 archive, C3 ADRs 0004+0005, C4 shared-v2 Day 1, chore archive plan, docs refresh).
-3. Escolher: **(a)** C5 Day 2 (motion + JS + ensaio HDMI), **(b)** C6 grade-v2 scaffold, **(c)** C7 qa-pipeline v2. Ordem canônica: a→b→c.
+2. `git log --oneline -10` — confirma últimos commits (S238: B `4b9b80c` hotfix @import, A `815f6f1` CLAUDE.md override, docs S238; S237: C1-C4 + archive + refresh).
+3. Escolher: **(a)** C5 Day 2 (motion + JS + ensaio HDMI), **(b)** continuação audit shared-v2 Items 2-13 (OKLCH gamut + APCA + fluid type + skip-chain + etc — usa `.claude-tmp/`), **(c)** C6 grade-v2 scaffold, **(d)** C7 qa-pipeline v2. Ordem canônica: a→b→c→d.
 
 ---
 
@@ -63,12 +63,21 @@ Deferred pós-30/abr.
 
 ---
 
+## S238 residual (auditoria adversarial 13-item)
+
+- **Item 1** at-rules order: FAIL crítico → fechado via commit B `4b9b80c`.
+- **Items 2-13** pendentes (deferidos por escopo em S238): OKLCH gamut sRGB, APCA contrast, fluid type clamp math, skip-chain violations, hardcoded literals, seletores genéricos, branching em primitives, reduced-motion compliance, ADR vs realidade C4, colisão `.cols`, mocks compliance, git hygiene. Candidatos a retomada em S239+ via `.claude-tmp/` (scratchpad convencionado).
+- **Slide-rule E22** (@import order lint): deferido para ciclo separado pós-push.
+- **TTL auto `.claude-tmp/` via Stop hook:** deferido (requer edit settings.json, self-mod).
+- **Fechamento deny-list `node -p`:** deferido (equivalente a -e, self-mod).
+
 ## Estado factual
 
-- **Git HEAD:** `<hash pós-commit docs>` (preencher após commit docs — será [hash3] na sequência S237).
+- **Git HEAD:** será preenchido com hash do commit docs S238 (sequência após `815f6f1`).
 - **Aulas:** cirrose 11 slides produção + shared/; metanalise 19 slides QA 3/19; grade-v2 scaffold pendente (C6); grade-v1 archived (branch `legacy/grade-v1` + tag `grade-v1-final` em `ccbaefe` + tar externo `C:\Dev\Projetos\OLMO_primo\grade-v1-qa-snapshot-2026-04-21.tar.gz`).
-- **shared-v2:** tokens + type + layout + entry + mocks hero/evidence DONE. Motion + JS + dialog mock pendentes C5.
-- **R3 Clínica Médica:** 223 dias (Dez/2026). Setup infra em 0.
+- **shared-v2:** tokens + type + layout + entry + mocks hero/evidence DONE, `@import` order fixed (S238 B). Motion + JS + dialog mock pendentes C5.
+- **`.claude-tmp/`:** scratchpad dir operacional para transient compute (gitignored, ver CLAUDE.md §Transient compute).
+- **R3 Clínica Médica:** 222 dias (Dez/2026). Setup infra em 0.
 - **Deadline GRADE v2:** 30/abr/2026 quinta-feira. T-9d.
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) + Opus 4.7 (Claude.ai adversarial review) | S237 mid-execution | 2026-04-21
+Coautoria: Lucas + Opus 4.7 (Claude Code) + Opus 4.7 (Claude.ai adversarial review) | S238 correcao_rota | 2026-04-21
