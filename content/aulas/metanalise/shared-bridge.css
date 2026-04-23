@@ -1,0 +1,52 @@
+/* ============================================================================
+ * content/aulas/metanalise/shared-bridge.css
+ *
+ * Bridge shared-v2 → metanalise (gradual Loop C — ADR-0005).
+ * Opt-in per slide via namespace --v2-* + :where() scope.
+ *
+ * Princípios:
+ *   (1) Valores literais OKLCH copiados de shared-v2/tokens/reference.css.
+ *       Copy-paste com comentário de origem — skip-chain direto para v2 seria
+ *       violação (dep cross-tree); redeclaração local é o bridge seguro.
+ *   (2) Namespace --v2-* previne colisão com tokens v1 (shared/css/base.css).
+ *   (3) Scope :where() mantém especificidade 0 → slides podem override trivial.
+ *   (4) @layer metanalise-modern é organizacional (custom properties seguem
+ *       source-order cascade normal). Namespace é a proteção real.
+ *
+ * Ativo em 3 slides-laboratório:
+ *   - section#s-etd (F3 — tradução absoluta, tabela ETD + caveat NNT)
+ *   - section#s-aplicabilidade (F3 — EtD/contexto, CYP2C19 + NICE gap)
+ *   - section#s-heterogeneity (F2 — narrativeCritical, I² dois cenários)
+ *
+ * Expandir subset = adicionar token aqui + documentar uso downstream.
+ * NUNCA editar shared/css/base.css (v1) nem shared-v2/** (Loop C rule).
+ *
+ * Coautoria: Lucas + Opus 4.7 (Claude Code) | S240 metanalise-SOTA-loop | 2026-04-23
+ * ========================================================================= */
+
+@layer metanalise-modern {
+  :where(
+    section#s-etd,
+    section#s-aplicabilidade,
+    section#s-heterogeneity
+  ) {
+    /* === Text hierarchy ===
+       Derivados de --oklch-neutral-6/7/8 (reference.css L100-L102).
+       S239 C4.6 recalibrou neutral-6 L=72%→60% para APCA Lc≥65 em text-muted. */
+    --v2-text-emphasis:  oklch(38% 0.018 260);   /* ← v2 --oklch-neutral-8 */
+    --v2-text-body:      oklch(52% 0.015 262);   /* ← v2 --oklch-neutral-7 */
+    --v2-text-muted:     oklch(60% 0.012 262);   /* ← v2 --oklch-neutral-6 (S239) */
+
+    /* === Surface & border ===
+       neutral-3 = panel tint, neutral-4 = rule/divider. */
+    --v2-surface-panel:  oklch(95% 0.006 265);   /* ← v2 --oklch-neutral-3 */
+    --v2-border-hair:    oklch(91% 0.008 265);   /* ← v2 --oklch-neutral-4 */
+
+    /* === Semantic on-dark ===
+       L lifted para fundo #162032 (oklch ~25%) — APCA Lc target ≥70.
+       Hues: success 155°, warning 75°, danger 22° (reference.css). */
+    --v2-safe-on-dark:   oklch(75% 0.13  155);   /* ← derivado --oklch-success hue */
+    --v2-warn-on-dark:   oklch(85% 0.14  75);    /* ← derivado --oklch-warning hue */
+    --v2-danger-on-dark: oklch(75% 0.14  22);    /* ← derivado --oklch-danger hue */
+  }
+}

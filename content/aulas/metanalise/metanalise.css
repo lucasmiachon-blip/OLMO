@@ -1,7 +1,11 @@
 /* ============================================
    META-ANÁLISE — Lecture-specific components
    Depends: ../../shared/css/base.css (tokens)
+            ./shared-bridge.css        (v2 tokens — opt-in nos 3 slides-laboratório)
    ============================================ */
+
+/* @import ANTES de qualquer regra (CSS Cascade §6.1 — bug projetor S238) */
+@import './shared-bridge.css';
 
 /* --- Page reset ---
    deck.js handles viewport scaling via transform: scale() on #deck.
