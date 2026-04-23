@@ -17,6 +17,7 @@ from __future__ import annotations
 import os
 import time
 from dataclasses import dataclass, field
+from typing import Any
 
 import httpx
 
@@ -182,9 +183,9 @@ def fetch_zotero(query: str, max_results: int = 5) -> list[RefItem]:
     if not api_key or not library_id:
         return items
     try:
-        from pyzotero.zotero import Zotero
+        from pyzotero.zotero import Zotero as ZoteroClient  # type: ignore[import-not-found]
 
-        zot = Zotero(library_id, "user", api_key)
+        zot: Any = ZoteroClient(library_id, "user", api_key)
         results = zot.items(q=query, limit=max_results)
         for item in results:
             data = item.get("data", {})

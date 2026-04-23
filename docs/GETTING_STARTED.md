@@ -6,27 +6,27 @@
 ## Pre-requisitos
 
 - Python 3.11+
+- `uv` (recomendado para instalar deps Python do workspace)
 - Node.js 20+ (para MCPs via npx e aulas)
 - Claude Code CLI instalado
+- Docker Desktop (opcional, so se for usar Langfuse/OTel local)
 
 ## Instalacao
 
 ```bash
 # Clone o repositorio
-git clone <repo-url>
-cd OLMO
+git clone <repo-url> OLMO_ROADMAP
+cd OLMO_ROADMAP
 
-# Python
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
+# Python (workspace root)
+uv sync --extra dev
 
 # Aulas (Node.js)
 cd content/aulas && npm install && cd ../..
 
 # Variaveis de ambiente
-cp .env.example .env
-# Edite .env com suas API keys (ver .claude/BACKLOG.md §Setup & Infra)
+cp .env.example .env   # PowerShell: Copy-Item .env.example .env
+# Edite .env apenas com as variaveis que voce realmente usa
 ```
 
 ## MCPs — 3 camadas
@@ -70,7 +70,7 @@ claude "audite minha pagina Notion X e adicione secao Y"
 ## Estrutura do Projeto
 
 ```
-OLMO/
+OLMO_ROADMAP/
 ├── CLAUDE.md                 # Instrucoes root
 ├── CHANGELOG.md              # Historico (ultimas 3 sessoes; arquivo em docs/)
 ├── .claude/BACKLOG.md        # Backlog + setup checklist
@@ -96,12 +96,12 @@ OLMO/
 
 ## Ordem de Setup Recomendada
 
-1. API keys no `.env` (ver `docs/keys_setup.md`)
+1. Copiar `.env.example` para `.env` e preencher so o necessario (ver `docs/keys_setup.md`)
 2. MCPs nativos claude.ai: `pre-approved` no runtime atual = PubMed, Consensus, SCite. Demais inventariados (ex: Notion, Canva, Scholar Gateway) estão `blocked by deny` — ativar manualmente em `.claude/settings.json` se necessário.
 3. Perplexity (API direta via `PERPLEXITY_API_KEY`, **não MCP**); Zotero (inventariado em servers.json, **blocked by deny** no runtime atual); NotebookLM (inventariado, **not pre-approved by current policy**)
 4. Gemini: CLI OAuth (`gemini auth login`) + API key for scripts (`GEMINI_API_KEY`)
 5. Aulas: `cd content/aulas && npm install && npm run dev`
-6. Python (scripts standalone): `make lint` + `make type-check` (pytest removido com stack S232)
+6. Python (scripts standalone): `uv run ruff check scripts/` + `uv run mypy scripts/` (ou `make lint` + `make type-check` se voce usar `make`)
 7. Docker: `docker compose up -d` (OTel + Langfuse observability)
 
 Full architecture: `docs/ARCHITECTURE.md`
