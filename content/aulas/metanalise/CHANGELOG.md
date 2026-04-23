@@ -6,6 +6,30 @@
 
 ---
 
+## 2026-04-23 — S240 metanalise-SOTA-loop (shared-v2 bridge + s-etd modernização)
+
+### Infra (C1 `2a17744`)
+- `shared-bridge.css` novo — 8 tokens v2 opt-in scoped :where(section#s-etd, s-aplicabilidade, s-heterogeneity) via @layer metanalise-modern. Namespace --v2-* evita colisão v1.
+- Tokens: 3 text (emphasis/body/muted — oklch-neutral-8/7/6 S239 C4.6 recalibrados), 2 surface/border (panel/hair), 3 semantic on-dark (safe/warn/danger).
+- `@import './shared-bridge.css'` em metanalise.css entre header comment e primeira regra (CSS Cascade §6.1 — prevenção bug projetor S238).
+
+### Modernização s-etd (C2 — commit pendente)
+- metanalise.css:2015-2060 substituído por @layer metanalise-modern: subgrid + :has(.etd-badge--imp) + logical props.
+- Fix H1 border-left asymmetric hdr/rows (uniforme via border-inline-start 6px).
+- Fix H2 drift coluna 1fr (subgrid herda template-columns do parent .etd-table).
+- Hero row IAM via :has(.etd-badge--imp) — sem hardcode [data-endpoint="iam"].
+- QA screenshot: `qa-screenshots/s-etd/s-etd_2026-04-23_1416_S2.png` confirma alinhamento.
+
+### Próximo (S240 continuação)
+- C3: split s-etd — novo slide `s-aplicabilidade` (file `15-aplicabilidade.html`) cobrindo CYP2C19 + NICE gap + GRADE implícito. h2 TODO Lucas.
+- C4: evidence/s-aplicabilidade.html com refs Altman 1999 + Ludwig 2020 + CYP2C19 editorial ACC.
+- C5: s-heterogeneity CSS moderno (só layout, conteúdo intacto).
+
+### Aprendizados (max 5 li)
+- CSS subgrid + gap no parent é a solução canônica para header/rows table-like — elimina duplicação de `grid-template-columns` (fonte do H2 drift) + resolve border-left asymmetry via border uniforme. `:has()` desacopla marker visual (hero) de atributo de dado (endpoint) — refactor-safe. @layer metanalise-modern é organizacional; tokens seguem cascade normal — namespace --v2-* é a proteção real. qa-capture.mjs + `__deckGoTo(index)` é o caminho pro para screenshot; evaluate_script manual setando `slide-active` foi workaround descartado. Build ANTES de QA é enforcement CLAUDE.md — pulei a etapa e Lucas corrigiu; lint + build passaram após rerun.
+
+---
+
 ## 2026-03-22 — Hardening evidence-db governance + MCP pruning
 
 ### Infra

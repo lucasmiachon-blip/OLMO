@@ -2016,32 +2016,58 @@ section#s-fixed-random .fr-caveat {
 /* Section background eliminates light bands at viewport edges */
 section#s-etd { background-color: #162032; }
 
-/* Table container — compact, centered */
-section#s-etd .etd-table {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-  max-width: 1080px;
-  margin: 0 auto;
-  opacity: 0;
+/* === S240 C2: modernização layout s-etd ===
+   Subgrid + :has() + logical props em @layer metanalise-modern.
+   Fixa: (a) border-left asymmetric hdr/rows → 6px uniforme;
+         (b) coluna 1fr empurrando HR/badge para longe → subgrid herda colunas;
+         (c) hero hardcode [data-endpoint="iam"] → :has(.etd-badge--imp) semântico. */
+@layer metanalise-modern {
+  section#s-etd .etd-table {
+    display: grid;
+    grid-template-columns:
+      [name]  minmax(12ch, max-content)
+      [asa]   minmax(5ch, auto)
+      [clopi] minmax(5ch, auto)
+      [diff]  minmax(16ch, 1fr)
+      [hr]    minmax(14ch, auto)
+      [badge] max-content;
+    max-width: 1080px;
+    margin-inline: auto;
+    opacity: 0;  /* GSAP fade-in gate (beat 1) */
+  }
+
+  /* Header + rows compartilham subgrid do parent — alinhamento vertical perfeito */
+  section#s-etd .etd-hdr,
+  section#s-etd .etd-row {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
+    align-items: center;
+    column-gap: var(--space-md);
+    padding-block: var(--space-md);
+    padding-inline: var(--space-sm);
+    border-inline-start: 6px solid transparent;  /* uniforme hdr+rows — fix H1 */
+  }
+
+  section#s-etd .etd-hdr {
+    border-block-end: 2px solid var(--border-navy);
+    padding-block-end: var(--space-xs);
+  }
+
+  section#s-etd .etd-row {
+    border-block-end: 1px solid oklch(30% 0.015 258 / 0.5);
+    opacity: 0;  /* GSAP stagger (beat 1) */
+  }
+
+  /* Hero row — :has() detecta badge "Importante" sem hardcode de endpoint.
+     --v2-safe-on-dark do shared-bridge.css (v2 tokens opt-in). */
+  section#s-etd .etd-row:has(.etd-badge--imp) {
+    border-inline-start-color: var(--v2-safe-on-dark);
+    background: color-mix(in oklch, var(--v2-safe-on-dark) 16%, transparent);
+  }
 }
 
-/* Shared grid — header and data rows align via same template */
-section#s-etd .etd-hdr,
-section#s-etd .etd-row {
-  display: grid;
-  grid-template-columns: 140px 56px 56px minmax(100px, 1fr) auto auto;
-  align-items: center;
-  gap: 0 var(--space-md);
-  padding: var(--space-md) var(--space-sm);
-}
-
-/* Header */
-section#s-etd .etd-hdr {
-  border-bottom: 2px solid var(--border-navy);
-  padding-bottom: var(--space-xs);
-}
+/* Header span typography — mantido unlayered (não afeta layout, só rendering) */
 section#s-etd .etd-hdr span {
   font-size: var(--text-caption);
   color: var(--text-muted);
@@ -2049,19 +2075,6 @@ section#s-etd .etd-hdr span {
   letter-spacing: 0.04em;
 }
 section#s-etd .etd-hdr--r { text-align: right; }
-
-/* Data rows — opacity:0 for GSAP stagger */
-section#s-etd .etd-row {
-  border-bottom: 1px solid oklch(30% 0.015 258 / 0.5);
-  border-left: 6px solid transparent;
-  opacity: 0;
-}
-
-/* IAM hero — permanent visual anchor (data encoding, not animation) */
-section#s-etd .etd-row[data-endpoint="iam"] {
-  border-left-color: var(--safe-on-dark);
-  background: oklch(24% 0.02 258 / 0.35);
-}
 
 /* Endpoint name */
 section#s-etd .etd-name {

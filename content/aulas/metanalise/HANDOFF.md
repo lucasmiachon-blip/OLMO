@@ -17,6 +17,8 @@
 
 > **S162:** s-benefit-harm removido. Evidence enrichido (sintese critica full-text, meta-research redundancia, overlap matrix). Pendente S163: overlap completo 15 MAs × 14 RCTs + icone Cochrane clicavel no s-forest2 + conteudo visual slides.
 
+> **S240 em progresso:** Retomo QA + shared-v2 gradual. C1 `2a17744` shared-bridge.css (8 tokens v2 opt-in). C2 s-etd modernizado (subgrid + :has() + logical props — fix H1 border-left asymmetry + H2 1fr drift). Pendente: C3 split s-etd → novo slide s-aplicabilidade (CYP2C19 + NICE gap), C4 evidence/s-aplicabilidade.html, C5 s-heterogeneity CSS moderno. Manifest real = 17 slides (S207) — HANDOFF abaixo desatualizado desde S162.
+
 ## Ordem do deck (atualizada S157)
 
 ```
