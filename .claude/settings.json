@@ -375,7 +375,8 @@
           {
             "type": "prompt",
             "prompt": "LOOP GUARD: If the conversation already contains 'Stop hook feedback' messages with the SAME 'Skipped:' reason you are about to give, respond {\"ok\":true} immediately — do NOT repeat the same feedback. Only flag an issue ONCE per conversation. Also: if the assistant has acknowledged an error and is waiting for user direction, that is correct behavior — respond {\"ok\":true}.\n\nReview the assistant's final response. Did it complete ALL tasks the user explicitly requested, or did it rationalize skipping something? Rationalization patterns: 'I decided not to', 'this wasn't necessary', 'I skipped X because', 'instead of doing X', 'beyond scope' when user DID request it, or silently omitting a requested deliverable. IMPORTANT CONTEXT: This project follows a 'Proponha, espere OK, execute' workflow — the assistant MUST discuss design decisions with the user before implementing. If the assistant is presenting options, asking for approval, or waiting for user input on design choices, that is CORRECT behavior, not skipping. Only flag as skipped if the assistant unilaterally decided to skip work without the user's direction, or silently omitted a deliverable. If the assistant is mid-conversation discussing how to implement, respond with JSON: {\"ok\":true}. If the assistant skipped explicitly requested work without the user's approval to skip, respond with JSON: {\"ok\":false,\"reason\":\"Skipped: <what was skipped>\"}.\n\nSECOND CHECK — Silent execution: Count the action tool calls (Edit, Write, Bash with side effects, Agent) in the assistant's response. If there are 3+ action tool calls without user-facing text explaining WHAT is being done and WHY before those calls, that is silent execution. Research tools (Read, Grep, Glob, ToolSearch) do NOT count. If silent execution detected, respond with JSON: {\"ok\":false,\"reason\":\"Silent execution: N action tool calls sem explicar ao usuario o que e por que\"}. Both checks must pass — if either fails, respond ok:false. $ARGUMENTS",
-            "timeout": 30
+            "timeout": 30,
+            "statusMessage": "Stop[0]: verificando skipped tasks + silent execution..."
           }
         ]
       },
@@ -384,7 +385,8 @@
           {
             "type": "agent",
             "prompt": "Check session artifact hygiene. You have access to Bash, Read, Grep, and Glob tools. Run these checks:\n\n1. Run: git diff --name-only HEAD -- HANDOFF.md CHANGELOG.md\n2. Run: git log --oneline -1 -- HANDOFF.md CHANGELOG.md\n3. Run: git diff --cached --name-only -- HANDOFF.md CHANGELOG.md\n\nIf NONE of these commands show modifications to HANDOFF.md or CHANGELOG.md, respond with JSON:\n{\"ok\": false, \"reason\": \"Session ended without updating HANDOFF.md or CHANGELOG.md\"}\n\nIf at least one file appears in any of the outputs, respond with JSON:\n{\"ok\": true}",
-            "timeout": 60
+            "timeout": 60,
+            "statusMessage": "Stop[1]: verificando HANDOFF.md/CHANGELOG.md hygiene..."
           }
         ]
       },
