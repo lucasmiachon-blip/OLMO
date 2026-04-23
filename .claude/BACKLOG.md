@@ -199,3 +199,25 @@
 ### Aulas — Migracoes Pendentes
 
 - Osteoporose — 70 slides, Reveal.js (frozen), em `legacy/aulas-magnas`. Decidir formato.
+
+### S241 DEFERRED — Infra (matriz consolidada em `.claude/plans/infra-plataforma-sota-research.md`)
+
+**Top priority (low cost, high value):**
+- [ ] `@starting-style` em shared-v2 components — substitui `gsap.from({opacity:0})` em ~30% dos casos simples
+- [ ] Logical properties (`margin-inline`, `padding-block`) em novos componentes shared-v2 (Widely 2022+, safe)
+- [ ] `context: fork` em skill `/dream` ou `/research` — piloto isolação de contexto (1 skill por vez)
+- [ ] Hook `SubagentStart`/`SubagentStop` — instrumentation de dispatch (~30 li script)
+- [ ] Hook `PermissionRequest` — audita allow-list growth (mitigação KBP-26)
+
+**Medium priority (high value, requer investigação):**
+- [ ] `@scope` migration — substituir padrão `section#s-{id}` (testar slides-lab; FF 146 muito recente)
+- [ ] `@container` size queries em panels/cards — safe Chrome/FF/Safari (Widely ago/2025)
+- [ ] View Transitions same-doc — substituir duck-mock de `motion.js` por API nativa
+- [ ] `permissions.sandbox:` block — verificar Windows 11 disponibilidade; resolveria KBP-28 sistemicamente
+- [ ] A2A Protocol MCP wrapper — federação cross-vendor (Salesforce, ServiceNow, Google ADK)
+- [ ] Observability MCP server (Langfuse self-hosted) — tracing estruturado
+- [ ] Redis state MCP — padroniza session state (equivalente OpenAI Redis sessions)
+
+**Lower priority:**
+- [ ] Array by copy methods (`toSorted`, `toReversed`) em JS scripts — safe jan/2026
+- [ ] Expansão `@property` para tokens OKLCH remanescentes (além dos 6 solid★ PoC em S241)

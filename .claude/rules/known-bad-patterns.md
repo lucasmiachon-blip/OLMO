@@ -101,3 +101,6 @@ globs: "**/*"
 
 ## KBP-31 Aprendizados KBP-Candidate Without Commit
 → anti-drift.md §Session docs ("KBP candidate" ou "lint rule candidate" em Aprendizados = schedule commit antes de session close)
+
+## KBP-32 Agent AUSENTE claim without spot-check
+→ anti-drift.md §Delegation gate ("Spot-check AUSENTE claims" — S241 obs: 33% taxa de erro em claims "AUSENTE" de agents SOTA research; Phase 1 Grep/Read spot-check antes de Edit é não-opcional)

@@ -35,6 +35,9 @@ Before ANY Agent spawn, 3 questions:
 3. Agent brings concrete gain (parallelism + massive context + exclusive tool)? No named reason → SKIP
 4. Agent produces research → result written to plan file BEFORE reporting to user. Context is volatile, plan file persists.
 
+### Spot-check AUSENTE claims (KBP-32)
+Agents SOTA research (Anthropic/Competitors/Frontend externos) often mark features "AUSENTE" sem confirmar no repo real. S241 obs: Agent 1 reportou `paths:` frontmatter ausente em rules — eram ALREADY em 3 files (slide-rules, design-reference, qa-pipeline). Taxa 33% erro (1/3 amostras). Antes de Edit baseado em claim AUSENTE: **Phase 1 Grep/Read spot-check obrigatório** (3-5 greps paralelos, ~5 min). Não é over-engineering — é prevenção de commit errado. Regra: todo claim "X is AUSENTE" em agent report exige 1 Grep/Read de confirmação antes de virar Edit.
+
 ## First-turn discipline (KBP-23)
 First response after /clear already loads ~25KB auto-content (CLAUDE.md + rules + skills list + HANDOFF + MCP instructions). Additional tool use compounds. Discipline:
 1. **Read with `limit`:** files >100 lines → `limit: 50` first. Expand only after targeted Grep locates the relevant range. **APL=HIGH strict:** memory/hooks/rules/skills `.md` files require Grep targeted a seção específica; full Read proibido a menos que targeted falhe (violação S226: 3 Reads integrais com APL já HIGH).
