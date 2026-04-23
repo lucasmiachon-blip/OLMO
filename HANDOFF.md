@@ -1,18 +1,34 @@
 # HANDOFF - Proxima Sessao
 
-> S239 partial: C4.6 hotfix closed audit Items 2+3+10 (`9da4f30` — gamut sRGB + APCA + ADR re-scope) + C5 Day 2 Grupo A complete + Grupo B parcial (motion.js + reveal.js + mock edits) em progresso. Pendente C5: deck.js + presenter-safe.js + presenter-safe.css + dialog.html + **ensaio HDMI residencial obrigatório**. Deadline 30/abr/2026 (T-8d).
+> **S240 metanalise-SOTA-loop:** pivot de C5 shared-v2 (pausado) para metanalise QA + shared-v2 gradual via bridge. C1 `2a17744` shared-bridge.css (8 tokens v2 opt-in em 3 slides-laboratório) + C2 `a7141ab` s-etd modernizado (subgrid + :has() + logical props — fix alinhamento grosseiro). Lucas aprovou visual. Próximo: C3-C5 (split s-etd → s-aplicabilidade, evidence, s-heterogeneity CSS moderno). Plano completo: `.claude/plans/lovely-sparking-rossum.md`.
 
 ## HYDRATION (obrigatória, 3 passos)
 
-1. Ler este HANDOFF completo.
-2. `git log --oneline -10` — confirma últimos commits (S239: C4.6 `9da4f30` + C5 partial `<hash>`; S238: `4b9b80c`/`815f6f1`/`161703e`; S237: C4 `a95a18d`).
-3. Prosseguir C5 completion em ordem: deck.js → presenter-safe.js → presenter-safe.css → dialog.html → ensaio HDMI. Se ensaio falha = HALT antes de commit final C5.
+1. Ler este HANDOFF completo + `.claude/plans/lovely-sparking-rossum.md` (plan S240 com 3 loops + primeiro micro-ciclo).
+2. `git log --oneline -10` — confirma últimos commits S240 (`a7141ab` C2 s-etd + `2a17744` C1 bridge) e S239 (`a804d06` C5 Grupo C + `d25d2b0` deck.js + `3dc67ac` motion uniformity + `9da4f30` C4.6).
+3. Prosseguir C3 split s-etd: criar `content/aulas/metanalise/slides/15-aplicabilidade.html` + manifest entry + CSS placeholder + evidence. Lucas escolhe h2 (é trabalho dele — NUNCA auto-rewrite).
 
 ---
 
-## P0 — shared-v2 + grade-v2 + qa-pipeline v2 (deadline 30/abr/2026)
+## P0a — metanalise QA retomo + shared-v2 gradual (S240 foco ativo)
 
-### P0a C5 — shared-v2 Day 2 (PARCIAL — em progresso)
+**DONE S240:**
+- C1 `2a17744` `content/aulas/metanalise/shared-bridge.css` — 8 tokens v2 (3 text + 2 surface/border + 3 semantic on-dark) namespace `--v2-*` scoped `:where(section#s-etd, s-aplicabilidade, s-heterogeneity)` via `@layer metanalise-modern`. OKLCH copy-paste literal de `shared-v2/tokens/reference.css` com comentário de origem — bridge auditável sem dep cross-tree.
+- C2 `a7141ab` `metanalise.css:2013-2070` — s-etd refatorado em @layer metanalise-modern: `grid-template-columns: subgrid` + `:has(.etd-badge--imp)` + logical props. Fix H1 border-left asymmetric hdr/rows + H2 coluna 1fr drift. Hero row IAM desacoplada de hardcode `[data-endpoint="iam"]`. Screenshot em `qa-screenshots/s-etd/s-etd_2026-04-23_1416_S2.png`.
+
+**PENDENTE S240+ (3 loops do plan lovely-sparking-rossum):**
+- **C3** split s-etd — criar slide novo `s-aplicabilidade` (file `15-aplicabilidade.html` + manifest entry entre s-etd e s-contrato-final + CSS placeholder section#s-aplicabilidade). Conteúdo: CYP2C19 pré-especificado + NICE TA210 gap + GRADE implícito.
+- **C4** `evidence/s-aplicabilidade.html` — refs Altman 1999 + Ludwig 2020 (PMIDs a verificar via pubmed MCP) + editorial ACC CYP2C19 + NICE gap.
+- **C5** s-heterogeneity CSS moderno (só layout, conteúdo intacto — Lucas decidiu). Usar bridge tokens + subgrid onde aplicável.
+- **Loop A (QA slide-a-slide):** Lucas escolhe próximo slide após C5. Pipeline gemini-qa3.mjs (Preflight $0 → Lucas OK → Inspect Flash → Lucas OK → Editorial Pro).
+- **Loop B (tooling):** anti-SOTA guard ≤30% budget. Próxima oportunidade: rubric refinement em qa-engineer.md se R11 score falhar.
+- **Loop C (bridge v2):** expandir tokens conforme slides novos pedirem. NUNCA tocar `shared/` v1 ou `shared-v2/**`.
+
+## P0b — shared-v2 C5 (PAUSADO S240)
+
+Grupo B/C parciais pushed S239 (a804d06 presenter-safe + dialog mock; d25d2b0 deck.js; 3dc67ac motion uniformity). Pendente: **ensaio HDMI residencial obrigatório** antes do fechamento C5. Não bloqueia metanalise — pode retomar após C3-C5 se budget permitir. Deadline 30/abr/2026 continua para grade-v2 produção, não para metanalise.
+
+### P0c C5 — shared-v2 Day 2 (PAUSADO — specs retidos em anexo)
 
 **DONE (Grupo A + Grupo B parcial, commit S239 partial):**
 - `motion/tokens.css` + `motion/transitions.css` (5 distance + 3 stagger + @starting-style + VT gate)
@@ -36,9 +52,9 @@
 
 `content/aulas/scripts/qa-pipeline/` com index.mjs + gate0-local.mjs + gate1-flash.mjs + shared/utilities + prompts/. Gate 2 Pro + Gate 3 Designer adiados (skippable via flag).
 
-### P0.5 — QA editorial metanalise (paralelo)
+### P0.5 — qa-pipeline v2 substituído por Loop B (S240)
 
-16 slides pendentes (3/19 done). Usa qa-pipeline v2 quando Gate 0+1 operacional.
+Decisão S240: não construir qa-pipeline v2 greenfield (C7) — iterar `scripts/gemini-qa3.mjs` + agents conforme slides expõem gaps. Loop B do plan lovely-sparking-rossum rege. Anti-SOTA guard ≤30% budget/sessão.
 
 ### P1 — R3 infra + Anki
 
@@ -64,9 +80,12 @@ Deferred pós-30/abr.
 - `docs/adr/0005-shared-v2-greenfield.md` — arquitetura shared-v2 + §Browser Targets + §A11y
 - `content/aulas/shared-v2/README.md` — doutrina de consumo da biblioteca
 - `content/aulas/shared-v2/tokens/` — 3 arquivos calibrados pelo Lucas + re-gamut S239 C4.6
-- `.claude/plans/S239-C5-continuation.md` — **specs completos C5 pendente (deck.js + presenter-safe + dialog + ensaio HDMI) — ler primeiro pós-/clear**
+- `.claude/plans/lovely-sparking-rossum.md` — **S240 plan (3 loops metanalise + bridge) — ler PRIMEIRO pós-/clear**
+- `.claude/plans/S239-C5-continuation.md` — specs C5 shared-v2 pausado (retomar pós-metanalise se budget)
 - `.claude/plans/snoopy-bubbling-moore.md` — audit S239 evidence (retained)
 - `.claude/plans/archive/foamy-wiggling-hartmanis.md` — S237 C4 close plan (histórico)
+- `content/aulas/metanalise/shared-bridge.css` — 8 tokens v2 opt-in (C1 S240)
+- `content/aulas/metanalise/qa-screenshots/s-etd/s-etd_2026-04-23_1416_S2.png` — baseline visual pós-C2
 
 ---
 
@@ -83,11 +102,12 @@ Deferred pós-30/abr.
 
 ## Estado factual
 
-- **Git HEAD:** será preenchido com hash do commit C5 partial S239 (sequência após `9da4f30`).
-- **Aulas:** cirrose 11 slides produção + shared/; metanalise 19 slides QA 3/19; grade-v2 scaffold pendente (C6); grade-v1 archived.
-- **shared-v2:** Day 1 DONE + C4.6 audit fixes DONE; Day 2 Grupo A + Grupo B parcial (motion.js + reveal.js + mocks data-reveal) DONE; deck.js + presenter-safe.js + presenter-safe.css + dialog.html + ensaio HDMI pendentes.
-- **`.claude-tmp/`:** scratchpad convencionado (gitignored); audit S239 manteve evidence em `.claude/plans/snoopy-bubbling-moore.md` (plan file retained).
-- **R3 Clínica Médica:** 222 dias (Dez/2026). Setup infra em 0.
-- **Deadline GRADE v2:** 30/abr/2026 quinta-feira. T-8d.
+- **Git HEAD:** `a7141ab` (S240 C2 s-etd subgrid). Ancestrais imediatos: `2a17744` S240 C1 bridge, `a804d06` S239 C5 Grupo C, `d25d2b0` S239 deck.js, `3dc67ac` S239 motion uniformity, `9da4f30` S239 C4.6.
+- **Aulas:** cirrose 11 slides produção + shared/; metanalise 17 slides (manifest real — S207) + shared-bridge.css novo (8 tokens v2) + s-etd modernizado; grade-v2 scaffold pendente (C6 pausado); grade-v1 archived.
+- **shared-v2:** Day 1 DONE + C4.6 audit fixes DONE + C5 Grupo B/C parciais DONE (S239 a804d06/d25d2b0/3dc67ac). C5 pausado S240 — ensaio HDMI pendente, não bloqueia metanalise.
+- **metanalise:** aula "apresentável" (Lucas). s-etd alinhamento grosseiro FIXADO S240. 10 slides sem QA iniciado, 5 com R11 < threshold 7 (s-objetivos 2.8, s-importancia 5.2, s-forest1 5.6, s-contrato 5.7 [DONE inconsistente — downgrade pendente], s-rob2 6.5), 2 com editorial em curso (s-pico 7.3, s-forest2 7.4).
+- **`.claude-tmp/`:** scratchpad convencionado (gitignored). S240: `s-etd-c2-preview.png` (screenshot pre-qa-capture).
+- **R3 Clínica Médica:** 221 dias (Dez/2026). Setup infra em 0.
+- **Deadline GRADE v2:** 30/abr/2026 quinta-feira. T-7d. Metanalise independente desta deadline — aula tem data própria (Lucas).
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) + Codex CLI (audit external) | S239 C4.6 + C5 partial | 2026-04-22
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S240 metanalise-SOTA-loop | 2026-04-23

@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## Sessao 240 — 2026-04-23 (metanalise-SOTA-loop — pivot de C5 para metanalise QA + shared-v2 gradual)
+
+### Commits
+
+- **C1 `2a17744` feat(metanalise): shared-bridge.css — 8 tokens v2 opt-in em 3 slides-lab** — `content/aulas/metanalise/shared-bridge.css` novo; namespace `--v2-*` scoped `:where(section#s-etd, s-aplicabilidade, s-heterogeneity)` via `@layer metanalise-modern`. 8 tokens copy-paste literal de `shared-v2/tokens/reference.css` com comentário de origem: 3 text hierarchy (emphasis/body/muted derivados oklch-neutral-8/7/6 com S239 C4.6 calibration preservada), 2 surface/border (panel/hair), 3 semantic on-dark (safe/warn/danger L-lifted para fundo #162032). `@import './shared-bridge.css'` em metanalise.css entre header comment e primeira regra — posição correta CSS Cascade §6.1 (prevenção explícita do bug projetor S238). Zero efeito visual isolado.
+- **C2 `a7141ab` feat(metanalise): C2 s-etd modernização — subgrid + :has() + logical props** — `metanalise.css:2013-2070` refatorado em `@layer metanalise-modern`: table = grid com 6 cols nomeadas (name/asa/clopi/diff/hr/badge, minmax-sized) + header/rows = `grid-template-columns: subgrid` herdando do parent + hero via `:has(.etd-badge--imp)` + logical props (padding-inline/block, border-inline-start). Fix H1 (border-left asymmetric hdr/rows) + H2 (coluna 1fr drift) + desacopla hero de `[data-endpoint="iam"]` hardcode. Preserved unlayered: `.etd-bar` widths (data encoding 80/59/32/13), `.etd-diff` sub-grid (90px auto deltas vertical-align), rate/delta/hr/badge/caveat typography, failsafes no-js/stage-bad/data-qa/print. Verified via `qa-capture.mjs --aula metanalise --slide s-etd --port 4112` — screenshot `qa-screenshots/s-etd/s-etd_2026-04-23_1416_S2.png` confirma alinhamento uniforme + IAM hero verde. Lint + build pass. Lucas aprovado visual.
+
+### Decisão de escopo (propose-before-pour aprovado)
+
+- **Split s-etd em 2** aprovado: manter id `s-etd` (evita cascade rename ~50 seletores) + novo slide `s-aplicabilidade` entre s-etd e s-contrato-final. Reverte parcialmente compressão S207 sem voltar aos 4 originais da meta-narrativa.
+- **shared-v2 gradual** via bridge namespace `--v2-*` em 3 slides-lab (s-etd, s-aplicabilidade, s-heterogeneity). NUNCA tocar `shared/` v1 nem `shared-v2/**` (Loop C regra).
+- **qa-pipeline v2 greenfield (C7) descartado** — substituído por Loop B iterativo sobre scripts existentes. Anti-SOTA guard ≤30% budget/sessão.
+- **s-heterogeneity redesign = só CSS/layout**, conteúdo intacto (Lucas decidiu).
+
+### Próximos (commits pendentes S240+)
+
+- C3 split s-etd → criar `slides/15-aplicabilidade.html` + manifest entry + `section#s-aplicabilidade` CSS placeholder. h2 = trabalho Lucas.
+- C4 `evidence/s-aplicabilidade.html` — CYP2C19 editorial ACC + NICE TA210 gap + Altman 1999 + Ludwig 2020 (PMIDs a verificar via PubMed MCP).
+- C5 s-heterogeneity CSS moderno (subgrid onde aplicável + --v2-* tokens opt-in).
+
+### Aprendizados (max 5 li)
+
+- CSS subgrid + gap no parent é a solução canônica para alinhamento header/rows em tabelas de dados — elimina duplicação de `grid-template-columns` (fonte do 1fr drift H2) e border-left asymmetry (H1) via border uniforme em ambos. `:has(.etd-badge--imp)` desacopla marker visual de atributo de dado — 1 endpoint a mais classificado "Importante" se torna hero automaticamente, zero CSS change. @layer metanalise-modern é organizacional; tokens seguem cascade normal — o namespace `--v2-*` é a proteção real contra colisão com base.css v1. `qa-capture.mjs` + `__deckGoTo(index)` é o caminho profissional para screenshot de slide específico em estado S2 (beats finais); evaluate_script manual injetando `slide-active` foi workaround descartado por Lucas — "sem workaround, arruma, não pule etapas" (build ANTES de QA). Vite `--host 127.0.0.1 --port 4112` permite preview paralelo sem conflict com dev server principal do Lucas em outra porta — útil para QA agentic quando porta canônica 4102 está em uso.
+
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S240 metanalise-SOTA-loop | 2026-04-23
+
+---
+
 ## Sessao 239 — 2026-04-22 (C4.6 audit close + C5 Day 2 partial)
 
 ### Commits
