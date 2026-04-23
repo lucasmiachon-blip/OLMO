@@ -1,4 +1,4 @@
-# /insights S230 — 2026-04-19 (Phase G.1)
+# [archived — see latest-report.md for S240] /insights S230 — 2026-04-19 (Phase G.1)
 
 > Scope: S220-S230 (11 days, ~163 substantive sessions, 24 commits S227-S230 analyzed in detail)
 > Phases: SCAN → AUDIT → DIAGNOSE → PRESCRIBE → QUESTION
