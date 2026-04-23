@@ -1,8 +1,9 @@
 # HANDOFF - Proxima Sessao
 
-> **S241 infra-docs-sync DONE:** retrofit CHANGELOG S240 com 2 commits chore órfãos (`9d038b2` /insights+/dream outputs + `9531076` P012-P016 rules) + HANDOFF drift fix + settings allow-list (+`Bash(git diff*)` + `Bash(git log*)`).
-> **S240 metanalise-SOTA-loop DONE:** pivot de C5 shared-v2 (pausado) para metanalise QA + shared-v2 gradual via bridge. C1 `2a17744` shared-bridge.css + C2 `a7141ab` s-etd modernizado (subgrid + :has() + logical props). Lucas aprovou visual.
-> **Próximo S242:** **C5 s-heterogeneity CSS moderno + evidence rewrite** (Lucas S241 decidiu — dificuldade pedagógica em transmitir I²/PI/τ² na aula requer evidence mais didático). C3 (split s-etd) + C4 (evidence s-aplicabilidade) despriorizados, não cancelados. Plano: `.claude/plans/lovely-sparking-rossum.md`.
+> **S241 infra-plataforma DONE:** 7 commits totais. (1) `5402fbb` retrofit CHANGELOG S240 + $schema allow-list; (2) `533d648` **$schema** em settings.json; (3) `e5cf330` **@property** OKLCH tokens solid★ PoC (6 tokens); (4) `7edf5d9` **statusMessage** em Stop[0]/Stop[1]; (5) `36feffe` **refactor deny-list HIGH-RISK only** (remove 9 patterns benignos: cp/mv/install/rsync/tee/truncate/touch/sed-i/patch → guard ask); (6) `7e205a3` **StopFailure hook skeleton** (cobre API-error blind spot); (7) `<este>` SOTA research plan file + docs close.
+> **SOTA research S241:** 3 agents paralelos (Anthropic/Competitors/Frontend) — 135k tokens total, 15-329s cada. Matriz consolidada em `.claude/plans/infra-plataforma-sota-research.md`. OLMO ahead em OKLCH+APCA+@layer+offline+scaleDeck; atrás em grafo explícito, state nativo, observability, presenter mode.
+> **S240 metanalise-SOTA-loop DONE:** pivot C5 shared-v2 para metanalise QA + shared-v2 gradual via bridge. C1 `2a17744` + C2 `a7141ab` s-etd modernizado.
+> **Próximo S242:** pivot **C5 s-heterogeneity CSS moderno + evidence rewrite** (Lucas S241 razão didática). OU DEFERRED infra (top priority: @starting-style + logical props em shared-v2; context:fork em /dream; SubagentStart/Stop hooks; sandbox Windows eval). Lucas escolhe. Planos: `.claude/plans/lovely-sparking-rossum.md` (metanalise) + `.claude/plans/infra-plataforma-sota-research.md` (infra).
 
 ## HYDRATION (obrigatória, 3 passos)
 
@@ -104,7 +105,7 @@ Deferred pós-30/abr.
 
 ## Estado factual
 
-- **Git HEAD:** `9531076` (S240 chore P012-P016 rules) + S241 infra docs-sync commit pendente push (este). Ancestrais imediatos: `9d038b2` S240 chore /insights+/dream outputs, `25f5b8f` S240 docs HANDOFF+CHANGELOG+plan, `a7141ab` S240 C2 s-etd subgrid, `2a17744` S240 C1 bridge, `a804d06` S239 C5 Grupo C.
+- **Git HEAD:** `7e205a3` (S241 StopFailure hook) + S241 docs close pendente push (este). Ancestrais S241: `36feffe` deny-list refactor, `7edf5d9` statusMessage, `e5cf330` @property PoC, `533d648` $schema, `5402fbb` docs sync. Ancestrais S240: `9531076` P012-P016, `9d038b2` /insights+/dream, `25f5b8f` docs, `a7141ab` C2 s-etd, `2a17744` C1 bridge.
 - **Aulas:** cirrose 11 slides produção + shared/; metanalise 17 slides (manifest real — S207) + shared-bridge.css novo (8 tokens v2) + s-etd modernizado; grade-v2 scaffold pendente (C6 pausado); grade-v1 archived.
 - **shared-v2:** Day 1 DONE + C4.6 audit fixes DONE + C5 Grupo B/C parciais DONE (S239 a804d06/d25d2b0/3dc67ac). C5 pausado S240 — ensaio HDMI pendente, não bloqueia metanalise.
 - **metanalise:** aula "apresentável" (Lucas). s-etd alinhamento grosseiro FIXADO S240. 10 slides sem QA iniciado, 5 com R11 < threshold 7 (s-objetivos 2.8, s-importancia 5.2, s-forest1 5.6, s-contrato 5.7 [DONE inconsistente — downgrade pendente], s-rob2 6.5), 2 com editorial em curso (s-pico 7.3, s-forest2 7.4).
@@ -112,4 +113,4 @@ Deferred pós-30/abr.
 - **R3 Clínica Médica:** 221 dias (Dez/2026). Setup infra em 0.
 - **Deadline GRADE v2:** 30/abr/2026 quinta-feira. T-7d. Metanalise independente desta deadline — aula tem data própria (Lucas).
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) | S241 infra-docs-sync | 2026-04-23
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S241 infra-plataforma | 2026-04-23

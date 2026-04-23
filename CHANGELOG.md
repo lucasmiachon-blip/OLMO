@@ -1,25 +1,37 @@
 # CHANGELOG
 
-## Sessao 241 — 2026-04-23 (infra-docs-sync — HANDOFF drift fix + CHANGELOG retrofit S240 + settings allow-list)
+## Sessao 241 — 2026-04-23 (infra-plataforma — SOTA research + 5 ADOPTs + deny-list refactor)
 
 ### Commits
 
-- **`<este>` docs(S241): infra doc sync + settings allow-list** — (a) `HANDOFF.md`: Git HEAD `a7141ab` → `9531076` (3 commits S240 pós-docs não refletidos: `25f5b8f` docs, `9d038b2` /insights+/dream, `9531076` P012-P016); TL;DR adiciona S241 infra DONE + pivot próximo S242 = C5 s-heterogeneity com **evidence rewrite**; bullet C5 linha 22: "só layout, conteúdo intacto" → "CSS moderno + evidence rewrite (razão didática — Lucas S241)"; footer coautoria S240 → S241. (b) `CHANGELOG.md`: retrofit §S240 com 2 commits chore órfãos appended (C3 `9d038b2` /insights+/dream outputs; C4 `9531076` P012-P016 rules) + §S241 nova seção (esta). (c) `.claude/settings.json`: allow-list +2 (`Bash(git diff*)`, `Bash(git log*)`) — refinamento benigno, auto-cresceu via prompts aprovados em sessões anteriores.
+- **`5402fbb` docs(S241): infra doc sync + settings allow-list** — retrofit §S240 com 2 chore órfãos (`9d038b2`, `9531076`); HANDOFF Git HEAD `a7141ab`→`9531076`; allow-list +2 (`Bash(git diff*)`, `Bash(git log*)`).
+- **`533d648` chore(settings): adiciona $schema para validação IDE** — 1 linha top-level, URL schemastore convenção. Habilita autocomplete em edições futuras. SOTA adaptado (Agent 1 Anthropic research).
+- **`e5cf330` feat(shared-v2): @property OKLCH tokens solid-star (PoC)** — registra 6 tokens "solid ★" (neutral-9 + accent/success/warning/danger/info-5/6) via `@property` com `syntax:"<color>"` + `inherits:true` + `initial-value` espelhado do `:root`. Habilita animação nativa de cores OKLCH via CSS transition/WAAPI, elimina dep GSAP para fades/pulses. Baseline Widely jul/2024. Expandir sob demanda.
+- **`7edf5d9` chore(hooks): statusMessage em Stop[0] e Stop[1] longos** — Stop[0] prompt type 30s ganha statusMessage "verificando skipped tasks + silent execution"; Stop[1] agent type 60s ganha "verificando HANDOFF.md/CHANGELOG.md hygiene". Reduz opacidade UX em session close.
+- **`36feffe` refactor(settings): deny-list focada em HIGH-RISK only** — remove 9 patterns benignos-mas-sensíveis do deny (cp, mv, install, rsync, tee, truncate, touch, sed -i, patch) → passam para guard-bash-write.sh ask. Critério formal: DENY = irrecuperável OU código arbitrário OU fetch não-verificado. Mantém: rm -rf/-r/-f, rmdir, shred, wipe, dd, sponge, find -delete, git destrutivo, tar/unzip/7z extraction, curl/wget/robocopy/xcopy downloads, python/node/ruby/perl -c/-e code-eval, bash/sh/zsh -c + eval/exec/source (KBP-28). Resolve problema S235b-era ("esse problema eh antigo que nao arrumou uma solucao"). Trade-off conhecido: KBP-26 pode degradar ask→allow silent — mitigação via hook_log auditoria post-hoc (sentinel).
+- **`7e205a3` feat(hooks): StopFailure hook skeleton** — `hooks/stop-failure-log.sh` (25 li bash, padrão post-tool-use-failure.sh, reusa hook_log lib) + settings.json entry entre Stop e PostToolUseFailure (timeout 3000ms). Cobre blind spot: subagents pesados (research, qa-engineer, evidence-researcher) morriam em API errors sem traço. Deploy via Write→`.claude-tmp/`→cp após refactor deny (sem refactor era bloqueado).
+- **`<este>` docs(S241): SOTA research plan file + session close** — plan file `.claude/plans/infra-plataforma-sota-research.md` commitado com 3 relatórios agent integrais (135k tokens) + matriz consolidada 7×3 + plano fase 3 (DONE/DEFERRED/EVAL/IGNORE); HANDOFF TL;DR expandido S241 infra-plataforma + Git HEAD atualizado.
 
-### Decisão de escopo
+### Decisão de escopo — expansão S241
 
-- **S241 = intercala infraestrutural deliberada** (Lucas: "faca atualizacao documental primeiro completa commit e push, uma sessao de infra intercala"). Slide work (s-heterogeneity) promovida para S242 após sync estar limpo.
-- **Roadmap pivot:** Lucas decidiu **evidence rewrite** em s-heterogeneity além de CSS moderno. Motivação: "tive dificuldade em transmitir a ideia durante a aula" (I²/PI/τ² complexos). Regra "h2/conteúdo do slide intacto" sobrevive — evidence é material de apoio pedagógico, não conteúdo de palco.
-- **C3 (split s-etd) + C4 (evidence s-aplicabilidade) despriorizados, não cancelados.** Serão reavaliados após C5 (s-heterogeneity) fechado.
+- **Intercala infra pivotou para SOTA research ampla** após Lucas clarificar escopo ("infra por enquanto e css e js, hooks agentes, subagentes, scripts nao sliade especifico").
+- **3 agents de pesquisa SOTA paralelos disparados** (Anthropic ecosystem / Competitors OpenAI+Google+GH frameworks / Frontend CSS+JS+slideware). Total 135k tokens, 287/139/329s wall clock. Matriz consolidada em plan file.
+- **Top 5 ADOPT priorizados por valor/custo** executados em commits atômicos + 1 refactor bonus (deny-list) desbloqueado no meio do caminho.
+- **Falso-positivo Agent 1 detectado e save em Phase 1 spot-check:** `paths:` frontmatter em rules → **ALREADY** em 3 files (slide-rules, design-reference, qa-pipeline). Validation spot-check economizou commit errado. Taxa de erro de 1/3 em claims "AUSENTE" de agents = spot-check é não-opcional.
+- **Deny-list refactor bonus:** problema crônico (cp em deny bloqueando Write→temp→cp deploys) resolvido com 9 deletions. Primeira solução permanente para "esse problema eh antigo".
+- **Lucas pediu "prompt frame adversarial":** produzido no final S241 para copy-paste em S242 — estrutura 5 seções (frame interrogation / alternativas / failure modes / regras / veredito) para qualquer task futura.
+- **ADOPT 5 (StopFailure) exigiu 2 negações de cp + refactor deny-list estrutural antes de deploy.** Documentado como KBP candidate "policy gate vs legitimate deploy" se padrão repetir.
+- **Roadmap pivot metanalise preservado:** S242 pode escolher C5 s-heterogeneity (CSS + evidence rewrite) OU continuar infra DEFERRED.
 
-### Aprendizados (max 5 li)
+### Aprendizados (max 5)
 
-- Drift documental tem 3 tipos ortogonais: factos desatualizados (Git HEAD), commits órfãos (executados mas não documentados), roadmap estagnado (pivots não refletidos). Cada exige fix distinto — substituir, retrofit-append, reescrita de escopo.
-- Ordem `docs → chore` em mesma sessão cria sempre órfãos pós-docs — `/insights` + `/dream` rodados depois do doc commit não entram no CHANGELOG sem retrofit. Alternativa (docs por último) tem race condition se chore ficar pendente. Retrofit em sessão seguinte é o padrão operacional.
-- `git check-ignore -v <path>` antes de assumir staging necessário economiza 1 ciclo de deliberação por untracked. `.claude-tmp/`, `content/aulas/.claude/`, `.claude/.session-name` são deliberadamente ignorados.
-- `settings.json` allow-list auto-cresce via prompts aprovados (S241: `git diff*` + `git log*`). Manter auditável: bump deve ser commitado com docs session para saber QUANDO cada regra entrou — não amontoar silenciosamente.
+- **Spot-check Phase 1 antes de Edit é barato e essencial.** 3 grep/read em paralelo revelou 1 falso-positivo em 3 amostras (agent #1 reportou `paths:` AUSENTE → ALREADY em 3 rules). Sem validation, commit errado garantido. Taxa 33% erro em agent claims "AUSENTE" justifica spot-check como regra.
+- **Deny-list OLMO tinha 9 patterns benignos-mas-sensíveis** (cp/mv/install/rsync/tee/truncate/touch/sed-i/patch) que S235b adicionou como blast-radius safety mas criaram fricção crônica em Write→temp→cp deploys legítimos. Refactor com critério claro ("irrecuperável OU código arbitrário OU fetch não-verificado") remove 9 mantendo 23 HIGH-RISK. Resolve categoria inteira de "problemas antigos".
+- **KBP-26 (permissions.ask broken ≥2.1.113) tem comportamento ambíguo em OLMO.** cp após refactor passou sem prompt ask visível — pode ter sido (a) ask degradou para allow silent (KBP-26 ativo), (b) guard não firou, (c) allow em settings sobrepôs. Hook_log deve detectar anomalias post-hoc. Mitigação > prevenção neste contexto.
+- **`@property` com `syntax:"<color>"` + `initial-value` espelhando `:root` cria invariante de sync** — se Lucas alterar `:root` sem atualizar `initial-value`, fallback em browsers sem suporte (raro) fica inconsistente. Candidato lint rule futuro: "grep @property initial-value deve casar :root declaration do mesmo token".
+- **Background agents retornam markdown rico (30-60KB cada) mas context do orquestrador fica em ~5-8KB/relatório após consolidação no plan file.** Padrão: agents retornam via tool result → orquestrador escreve no plan file (persiste entre /clear) → matriz destilada fica no HANDOFF (hidratação rápida). Regra anti-drift §Delegation gate Item 4 ("result written to plan file BEFORE reporting to user") provou-se essencial para esse fluxo.
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) | S241 infra-docs-sync | 2026-04-23
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S241 infra-plataforma | 2026-04-23
 
 ---
 
