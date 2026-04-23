@@ -1,6 +1,8 @@
 # HANDOFF - Proxima Sessao
 
-> **S240 metanalise-SOTA-loop:** pivot de C5 shared-v2 (pausado) para metanalise QA + shared-v2 gradual via bridge. C1 `2a17744` shared-bridge.css (8 tokens v2 opt-in em 3 slides-laboratório) + C2 `a7141ab` s-etd modernizado (subgrid + :has() + logical props — fix alinhamento grosseiro). Lucas aprovou visual. Próximo: C3-C5 (split s-etd → s-aplicabilidade, evidence, s-heterogeneity CSS moderno). Plano completo: `.claude/plans/lovely-sparking-rossum.md`.
+> **S241 infra-docs-sync DONE:** retrofit CHANGELOG S240 com 2 commits chore órfãos (`9d038b2` /insights+/dream outputs + `9531076` P012-P016 rules) + HANDOFF drift fix + settings allow-list (+`Bash(git diff*)` + `Bash(git log*)`).
+> **S240 metanalise-SOTA-loop DONE:** pivot de C5 shared-v2 (pausado) para metanalise QA + shared-v2 gradual via bridge. C1 `2a17744` shared-bridge.css + C2 `a7141ab` s-etd modernizado (subgrid + :has() + logical props). Lucas aprovou visual.
+> **Próximo S242:** **C5 s-heterogeneity CSS moderno + evidence rewrite** (Lucas S241 decidiu — dificuldade pedagógica em transmitir I²/PI/τ² na aula requer evidence mais didático). C3 (split s-etd) + C4 (evidence s-aplicabilidade) despriorizados, não cancelados. Plano: `.claude/plans/lovely-sparking-rossum.md`.
 
 ## HYDRATION (obrigatória, 3 passos)
 
@@ -19,7 +21,7 @@
 **PENDENTE S240+ (3 loops do plan lovely-sparking-rossum):**
 - **C3** split s-etd — criar slide novo `s-aplicabilidade` (file `15-aplicabilidade.html` + manifest entry entre s-etd e s-contrato-final + CSS placeholder section#s-aplicabilidade). Conteúdo: CYP2C19 pré-especificado + NICE TA210 gap + GRADE implícito.
 - **C4** `evidence/s-aplicabilidade.html` — refs Altman 1999 + Ludwig 2020 (PMIDs a verificar via pubmed MCP) + editorial ACC CYP2C19 + NICE gap.
-- **C5** s-heterogeneity CSS moderno (só layout, conteúdo intacto — Lucas decidiu). Usar bridge tokens + subgrid onde aplicável.
+- **C5** s-heterogeneity CSS moderno **+ evidence rewrite** (S241 pivot — Lucas: "tive dificuldade em transmitir a ideia durante a aula"). Só layout do slide (h2/conteúdo intactos); evidence reescrito para melhor didática I²/PI/τ². Usar bridge tokens + subgrid onde aplicável.
 - **Loop A (QA slide-a-slide):** Lucas escolhe próximo slide após C5. Pipeline gemini-qa3.mjs (Preflight $0 → Lucas OK → Inspect Flash → Lucas OK → Editorial Pro).
 - **Loop B (tooling):** anti-SOTA guard ≤30% budget. Próxima oportunidade: rubric refinement em qa-engineer.md se R11 score falhar.
 - **Loop C (bridge v2):** expandir tokens conforme slides novos pedirem. NUNCA tocar `shared/` v1 ou `shared-v2/**`.
@@ -102,7 +104,7 @@ Deferred pós-30/abr.
 
 ## Estado factual
 
-- **Git HEAD:** `a7141ab` (S240 C2 s-etd subgrid). Ancestrais imediatos: `2a17744` S240 C1 bridge, `a804d06` S239 C5 Grupo C, `d25d2b0` S239 deck.js, `3dc67ac` S239 motion uniformity, `9da4f30` S239 C4.6.
+- **Git HEAD:** `9531076` (S240 chore P012-P016 rules) + S241 infra docs-sync commit pendente push (este). Ancestrais imediatos: `9d038b2` S240 chore /insights+/dream outputs, `25f5b8f` S240 docs HANDOFF+CHANGELOG+plan, `a7141ab` S240 C2 s-etd subgrid, `2a17744` S240 C1 bridge, `a804d06` S239 C5 Grupo C.
 - **Aulas:** cirrose 11 slides produção + shared/; metanalise 17 slides (manifest real — S207) + shared-bridge.css novo (8 tokens v2) + s-etd modernizado; grade-v2 scaffold pendente (C6 pausado); grade-v1 archived.
 - **shared-v2:** Day 1 DONE + C4.6 audit fixes DONE + C5 Grupo B/C parciais DONE (S239 a804d06/d25d2b0/3dc67ac). C5 pausado S240 — ensaio HDMI pendente, não bloqueia metanalise.
 - **metanalise:** aula "apresentável" (Lucas). s-etd alinhamento grosseiro FIXADO S240. 10 slides sem QA iniciado, 5 com R11 < threshold 7 (s-objetivos 2.8, s-importancia 5.2, s-forest1 5.6, s-contrato 5.7 [DONE inconsistente — downgrade pendente], s-rob2 6.5), 2 com editorial em curso (s-pico 7.3, s-forest2 7.4).
@@ -110,4 +112,4 @@ Deferred pós-30/abr.
 - **R3 Clínica Médica:** 221 dias (Dez/2026). Setup infra em 0.
 - **Deadline GRADE v2:** 30/abr/2026 quinta-feira. T-7d. Metanalise independente desta deadline — aula tem data própria (Lucas).
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) | S240 metanalise-SOTA-loop | 2026-04-23
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S241 infra-docs-sync | 2026-04-23

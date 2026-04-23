@@ -1,11 +1,36 @@
 # CHANGELOG
 
+## Sessao 241 — 2026-04-23 (infra-docs-sync — HANDOFF drift fix + CHANGELOG retrofit S240 + settings allow-list)
+
+### Commits
+
+- **`<este>` docs(S241): infra doc sync + settings allow-list** — (a) `HANDOFF.md`: Git HEAD `a7141ab` → `9531076` (3 commits S240 pós-docs não refletidos: `25f5b8f` docs, `9d038b2` /insights+/dream, `9531076` P012-P016); TL;DR adiciona S241 infra DONE + pivot próximo S242 = C5 s-heterogeneity com **evidence rewrite**; bullet C5 linha 22: "só layout, conteúdo intacto" → "CSS moderno + evidence rewrite (razão didática — Lucas S241)"; footer coautoria S240 → S241. (b) `CHANGELOG.md`: retrofit §S240 com 2 commits chore órfãos appended (C3 `9d038b2` /insights+/dream outputs; C4 `9531076` P012-P016 rules) + §S241 nova seção (esta). (c) `.claude/settings.json`: allow-list +2 (`Bash(git diff*)`, `Bash(git log*)`) — refinamento benigno, auto-cresceu via prompts aprovados em sessões anteriores.
+
+### Decisão de escopo
+
+- **S241 = intercala infraestrutural deliberada** (Lucas: "faca atualizacao documental primeiro completa commit e push, uma sessao de infra intercala"). Slide work (s-heterogeneity) promovida para S242 após sync estar limpo.
+- **Roadmap pivot:** Lucas decidiu **evidence rewrite** em s-heterogeneity além de CSS moderno. Motivação: "tive dificuldade em transmitir a ideia durante a aula" (I²/PI/τ² complexos). Regra "h2/conteúdo do slide intacto" sobrevive — evidence é material de apoio pedagógico, não conteúdo de palco.
+- **C3 (split s-etd) + C4 (evidence s-aplicabilidade) despriorizados, não cancelados.** Serão reavaliados após C5 (s-heterogeneity) fechado.
+
+### Aprendizados (max 5 li)
+
+- Drift documental tem 3 tipos ortogonais: factos desatualizados (Git HEAD), commits órfãos (executados mas não documentados), roadmap estagnado (pivots não refletidos). Cada exige fix distinto — substituir, retrofit-append, reescrita de escopo.
+- Ordem `docs → chore` em mesma sessão cria sempre órfãos pós-docs — `/insights` + `/dream` rodados depois do doc commit não entram no CHANGELOG sem retrofit. Alternativa (docs por último) tem race condition se chore ficar pendente. Retrofit em sessão seguinte é o padrão operacional.
+- `git check-ignore -v <path>` antes de assumir staging necessário economiza 1 ciclo de deliberação por untracked. `.claude-tmp/`, `content/aulas/.claude/`, `.claude/.session-name` são deliberadamente ignorados.
+- `settings.json` allow-list auto-cresce via prompts aprovados (S241: `git diff*` + `git log*`). Manter auditável: bump deve ser commitado com docs session para saber QUANDO cada regra entrou — não amontoar silenciosamente.
+
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S241 infra-docs-sync | 2026-04-23
+
+---
+
 ## Sessao 240 — 2026-04-23 (metanalise-SOTA-loop — pivot de C5 para metanalise QA + shared-v2 gradual)
 
 ### Commits
 
 - **C1 `2a17744` feat(metanalise): shared-bridge.css — 8 tokens v2 opt-in em 3 slides-lab** — `content/aulas/metanalise/shared-bridge.css` novo; namespace `--v2-*` scoped `:where(section#s-etd, s-aplicabilidade, s-heterogeneity)` via `@layer metanalise-modern`. 8 tokens copy-paste literal de `shared-v2/tokens/reference.css` com comentário de origem: 3 text hierarchy (emphasis/body/muted derivados oklch-neutral-8/7/6 com S239 C4.6 calibration preservada), 2 surface/border (panel/hair), 3 semantic on-dark (safe/warn/danger L-lifted para fundo #162032). `@import './shared-bridge.css'` em metanalise.css entre header comment e primeira regra — posição correta CSS Cascade §6.1 (prevenção explícita do bug projetor S238). Zero efeito visual isolado.
 - **C2 `a7141ab` feat(metanalise): C2 s-etd modernização — subgrid + :has() + logical props** — `metanalise.css:2013-2070` refatorado em `@layer metanalise-modern`: table = grid com 6 cols nomeadas (name/asa/clopi/diff/hr/badge, minmax-sized) + header/rows = `grid-template-columns: subgrid` herdando do parent + hero via `:has(.etd-badge--imp)` + logical props (padding-inline/block, border-inline-start). Fix H1 (border-left asymmetric hdr/rows) + H2 (coluna 1fr drift) + desacopla hero de `[data-endpoint="iam"]` hardcode. Preserved unlayered: `.etd-bar` widths (data encoding 80/59/32/13), `.etd-diff` sub-grid (90px auto deltas vertical-align), rate/delta/hr/badge/caveat typography, failsafes no-js/stage-bad/data-qa/print. Verified via `qa-capture.mjs --aula metanalise --slide s-etd --port 4112` — screenshot `qa-screenshots/s-etd/s-etd_2026-04-23_1416_S2.png` confirma alinhamento uniforme + IAM hero verde. Lint + build pass. Lucas aprovado visual.
+- **C3 `9d038b2` chore(S240): /insights + /dream + /repo-janitor outputs** — `.claude/insights/failure-registry.json` expansion (+31 linhas) + `.claude/skills/insights/references/latest-report.md` (547 linhas) + `previous-report.md` rotation. Retrofit órfão S240 pós-docs commit (`25f5b8f`): `/insights` rodou após HANDOFF/CHANGELOG serem commitados, criando gap documental inerente à ordem `docs → chore`.
+- **C4 `9531076` chore(rules): aplica P012-P016 do /insights S240** — 5 files: `failure-registry.json` (+10/-3) + `anti-drift.md` (+1) + `known-bad-patterns.md` (+7/-1) + `slide-rules.md` (+1) + `content/aulas/CLAUDE.md` (+3/-2). Aplicação mecânica das 5 propostas P012-P016 geradas pelo /insights S240. Retrofit órfão idêntico ao C3.
 
 ### Decisão de escopo (propose-before-pour aprovado)
 
