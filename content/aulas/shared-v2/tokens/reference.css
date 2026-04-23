@@ -22,6 +22,49 @@
  *   - APCA Lc ≥75 garantido nos pares críticos via semantic.css.
  * ==========================================================================*/
 
+/* ============================================================================
+ * @property registrations — Baseline Widely Available (jul/2024)
+ *
+ * Habilita animação nativa de cores OKLCH via transition/WAAPI (sem GSAP).
+ * Escopo inicial: tokens "solid ★" de cada família (maior uso em CTAs, alerts,
+ * elementos animáveis). Expandir sob demanda — cada @property é ~5 linhas.
+ *
+ * Sync: `initial-value` deve espelhar o valor canônico do :root abaixo.
+ * Divergência silenciosa causa fallback inconsistente em browsers sem suporte.
+ *
+ * Source: SOTA research S241 (Frontend Agent — web.dev/baseline).
+ * ==========================================================================*/
+@property --oklch-neutral-9 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(22% 0.020 260);
+}
+@property --oklch-accent-6 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(58% 0.220 265);
+}
+@property --oklch-success-5 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(58% 0.1433 155);
+}
+@property --oklch-warning-5 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(82% 0.1580 75);
+}
+@property --oklch-danger-5 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(55% 0.220 22);
+}
+@property --oklch-info-5 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(62% 0.1072 210);
+}
+
 :root {
   /* ==========================================================================
    * TYPE SCALE (abstrata, 6 steps, razão 1.25 "major third")
