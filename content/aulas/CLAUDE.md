@@ -5,7 +5,7 @@
 
 ## ENFORCEMENT (aulas)
 
-1. **Build ANTES de QA.** `npm run build:{aula}` → depois QA. Sempre.
+1. **Build ANTES de QA.** `npm run build:{aula}` → depois QA. Sempre. **ENFORCE:** antes de `qa-capture.mjs` ou MCP screenshot, confirmar que `npm run build:{aula}` rodou nessa sessão. Sem build = sem QA (S240 violou, Lucas corrigiu "nao pule etapas").
 2. **QA via `gemini-qa3.mjs`** (unico script QA). Gates: Preflight (dims objetivas $0) → Inspect (Gemini Flash) → Editorial (Gemini Pro).
 3. **1 slide, 1 gate, 1 invocacao.** Batch = violacao. Segundo slide = parar.
 4. **Living HTML per slide = source of truth.** evidence-db.md deprecated.
@@ -36,7 +36,7 @@
 | `lint-slides.js` | Lint HTML/CSS (errors bloqueiam build) |
 | `lint-case-sync.js` | Verifica sincronia case panels |
 | ~~`lint-narrative-sync.js`~~ | ~~Verifica sincronia narrativa~~ — **ARCHIVED S144.** narrative.md → evidence HTML. Ver `scripts/_archived/` |
-| `qa-capture.mjs` | Captura screenshots + video (utilitario, nao QA) |
+| `qa-capture.mjs` | Captura screenshots + video. **Caminho canônico para navegação de slides em QA** (usa `window.__deckGoTo(idx)` internamente). NUNCA usar `evaluate_script` direto para navegar slides (KBP-03+KBP-07, S240). |
 | `gemini-qa3.mjs` | QA unico script — Preflight + Inspect + Editorial |
 | ~~`content-research.mjs`~~ | ~~Pesquisa de conteudo~~ — **REMOVIDO S106.** Substituido por `/research` skill (6 pernas) |
 | `done-gate.js` | Verifica estado DONE |
@@ -75,6 +75,7 @@ Cada aula segue a mesma estrutura:
 | Se mudou... | Deve atualizar... |
 |-------------|-------------------|
 | `slides/{file}.html` | `_manifest.js` + `index.html` (run build) |
+| `slides/*.html` add/remove | `_manifest.js` + `{aula}/HANDOFF.md §Estado` (slide count) + `index.html` (run build) |
 | `evidence/s-{id}.html` | slide correspondente (citation block) |
 | `_manifest.js` | `index.html` (run build) |
 | `h2` no slide HTML | `_manifest.js` headline |

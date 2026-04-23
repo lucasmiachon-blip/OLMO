@@ -85,11 +85,18 @@
       },
       "insights_run": true,
       "new_kbps_added": 2,
-      "proposals_accepted": 0,
+      "proposals_accepted": 5,
       "proposals_rejected": 0,
-      "proposals_pending": 5,
+      "proposals_pending": 0,
+      "proposals_applied_commits": {
+        "P012_enforce_build_before_qa": "pending",
+        "P013_qa_capture_canonical": "pending",
+        "P014_kbp_30_handoff_slide_count": "pending",
+        "P015_e22_import_font_face": "pending",
+        "P016_kbp_31_aprendizados_candidate": "pending"
+      },
       "report": ".claude/skills/insights/references/latest-report.md",
-      "notes": "Proposals P012-P016. KBP-30 (HANDOFF slide-count stale) + KBP-31 (Aprendizados candidate without commit). Trend: kbp_per_session 0.80→0.75 (improving). Tool errors up 16→26 (adversarial audit sessions inflate count)."
+      "notes": "Proposals P012-P016 all accepted + applied in same session (2026-04-23). KBP-30 + KBP-31 added to known-bad-patterns.md (next index: KBP-32). E22 added to slide-rules.md §Errors. content/aulas/CLAUDE.md §ENFORCEMENT + §Scripts + §Cross-Ref propagation row all updated. anti-drift.md §Session docs KBP candidate commit gate added. Trend: kbp_per_session 0.80→0.75 (improving)."
     }
   ],
   "trend": {

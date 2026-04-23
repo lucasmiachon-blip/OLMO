@@ -83,6 +83,7 @@ Touching a CSS section: audit ENTIRE section (raw px, off-palette, redundant tok
 - **CHANGELOG.md:** append-only, 1 line per change. Aprendizados + residual verification combinado: max 5 linhas per session. Violação S226: 7 bullets aprendizados + 5 residual breakdown.
 - Update both every session with commits/state changes.
 - P0 items in HANDOFF: surface to Lucas at session start before feature work.
+- **KBP candidate commit gate (KBP-31):** se Aprendizados do CHANGELOG contém "KBP candidate" ou "lint rule candidate", schedule commit em `known-bad-patterns.md` OU `slide-rules.md` antes de session close. Candidate sem commit = lost (casos S237 Windows-path-escape + S238 E22 ambos perdidos).
 
 ## Plan execution
 Plan approved com ≥4 phases: TaskCreate batch mandatory no approval (1 task per phase). TaskUpdate in_progress ao start de cada phase, completed ao commit. Violação S226: 8 phases sem task tracking, UX Lucas prejudicada (só commits visíveis, sem progress real-time).

@@ -19,6 +19,7 @@ paths:
 - E07: NEVER `display` inline on `<section>`
 - E20: "Just adjust X" = scope ONLY X
 - E21: Tier 1 font mandatory for numerical data
+- E22: `@import` MUST precede `@font-face` (CSS Cascade §6.1). Violation = silent import failure (bug projetor S238).
 - E26: NEVER `flex:1` equal on unequal containers
 - E32: NEVER `::before/::after { flex: 1 }` in shared base containers
 - E38: Click handlers: `stopPropagation()`

@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-30.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-32.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -95,3 +95,9 @@ globs: "**/*"
 
 ## KBP-29 Agent Spawn Without HANDOFF/Plan Persistence
 → anti-drift.md §Delegation gate
+
+## KBP-30 Per-Aula HANDOFF Slide Count Stale
+→ content/aulas/CLAUDE.md §Cross-Ref (`_manifest.js` add/remove → `{aula}/HANDOFF.md §Estado` slide count)
+
+## KBP-31 Aprendizados KBP-Candidate Without Commit
+→ anti-drift.md §Session docs ("KBP candidate" ou "lint rule candidate" em Aprendizados = schedule commit antes de session close)
