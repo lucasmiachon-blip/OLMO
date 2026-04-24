@@ -43,8 +43,9 @@
 
 ## Âncoras essenciais
 
-- **Plans:** `.claude/plans/glimmering-coalescing-ullman.md` (S242 digest · 32 findings) · `.claude/plans/tingly-chasing-breeze.md` (S243 plan · DONE) · `S239-C5-continuation.md` · `lovely-sparking-rossum.md`.
-- **Audit outputs (`.claude-tmp/`, untracked):** `adversarial-{claude-ai,gemini}-output.md` · `codex-audit-batch-c.md` · `audit-batch-{a,b}-v2.md` · `guard-bash-write.sh.new` · `stop-failure-log.sh.new` (temp deploy artifacts).
+- **Plans ativos:** `S239-C5-continuation.md` (C5 PAUSADO) · `lovely-sparking-rossum.md` (metanalise C5 QA).
+- **Plans archive recente:** `archive/S242-glimmering-coalescing-ullman.md` (32 findings digest) · `archive/S243-tingly-chasing-breeze.md` (S243 execution) · `archive/S241-infra-plataforma-sota-research.md` · `archive/S238-snoopy-bubbling-moore.md` · `archive/S236-parallel-popping-book.md`.
+- **Audit outputs (`.claude-tmp/`, untracked):** `adversarial-{claude-ai,gemini}-output.md` · `codex-audit-batch-c.md` · `audit-batch-{a,b}-v2.md` · `s-etd-c2-preview.png` (research artifacts preservados).
 - **ADRs:** `0005-shared-v2-greenfield.md` · `0006-olmo-deny-list-classification.md` (**addendum S243 DONE**) · `0007-shared-v2-migration-posture.md` (**S243 DONE**).
 - **Primacy:** `CLAUDE.md §ENFORCEMENT` · `.claude/rules/anti-drift.md` · `known-bad-patterns.md` (**KBP-33 DONE**; next: KBP-34).
 
