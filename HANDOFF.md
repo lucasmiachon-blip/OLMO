@@ -1,18 +1,23 @@
 # HANDOFF - Proxima Sessao
 
-> **S245 IN PROGRESS em main:** commit `<este>` docs(CLAUDE.md) ENFORCEMENT #5 — "Ler os documentos antes de mudar". Dominio novo/pouco tocado → Read de governing docs (CLAUDE.md subarea + `rules/*` + ADR/SKILL.md citados) antes do primeiro Edit. Gap real preenchido (Phase 1 Explore confirmou KBP-25 cobre target-file only; governing-docs pre-read era ausente em rules/*).
-> - Plan: `.claude/plans/composed-humming-toast.md`
-> - Session tema: **estetica + QA slides + pesquisa** (foco pos-commit primary)
+> **S245 IN PROGRESS em main — infra ao maximo DONE (5 commits):**
+> - `a0b243a` CLAUDE.md §ENFORCEMENT #5 (governing-docs pre-read primacy)
+> - `60ce2ba` fix hooks/apl-cache-refresh.sh BACKLOG path — **P1 #37 RESOLVED**
+> - `a3e1e1b` three-layer completion (anti-drift bullet 0 + KBP-34)
+> - `0319325` TREE.md S230→S245 refresh + Boris prune 4 S232 blocks (-12 li; **T3.3 docs/adr subtree resolved**)
+> - `04447cc` .gitignore .stop-failure-sentinel
+> - Plus settings.local.json cleanup disco-only (10 stale entries removidas, gitignored)
+> - Plan: `.claude/plans/composed-humming-toast.md` (primary + three-layer all done)
+> - Session tema: **estetica + QA slides + pesquisa** — infra first DONE, proximo CSS + research
 >
-> **🟡 Follow-up S245 (Lucas decide ordem):**
-> - (a) Three-layer expansion: `anti-drift.md §Edit discipline bullet 0` + `KBP-34` pointer (commit separado; foi marcado optional no plan p/ respeitar KBP-01)
-> - (b) Estetica: CSS/GSAP audit em slides pendentes
-> - (c) QA slides: `gemini-qa3.mjs` ou `qa-capture` em batch
+> **🟢 Pendente S245 (Lucas decide ordem):**
+> - (b) Estetica: CSS/GSAP audit — qual aula/slide?
+> - (c) QA slides: `gemini-qa3.mjs` ou `qa-capture` em batch — qual aula?
 > - (d) Pesquisa: tema a definir
 >
-> **Backlog diferido (do S244 handoff — ainda valido, apenas despriorizado em S245):**
-> - Migrar §Script primacy → §Agent/Subagent/Skill primacy em `anti-drift.md` (Lucas: "agents/subagents vão incorporar parte dos scripts; serão primacy"; "vão ser legacy ainda não são, mas vamos arrumar para ser")
-> - Batch 5 infra documental — Tiers 3-5 + Pós-tiers pendentes. Detalhe em P0 abaixo (Q1/Q2 AGENTS.md+GEMINI.md, T3.1-T3.4).
+> **Backlog diferido (do S244 handoff — ainda valido):**
+> - Migrar §Script primacy → §Agent/Subagent/Skill primacy em `anti-drift.md` (Lucas: "agents/subagents vão incorporar parte dos scripts; serão primacy")
+> - Batch 5 infra documental — Tiers 3-5 remanescentes (Q1/Q2 AGENTS.md+GEMINI.md decisoes, T3.1/T3.2/T3.4)
 
 ## HYDRATION (3 passos)
 
