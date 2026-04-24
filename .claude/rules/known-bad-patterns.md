@@ -64,7 +64,7 @@ globs: "**/*"
 → anti-drift.md §Verification
 
 ## KBP-19 Bash Indirection for Protected Files
-→ guard-write-unified.sh + guard-bash-write.sh (merged S194, original guard-product-files.sh removed)
+→ guard-write-unified.sh + guard-bash-write.sh
 
 ## KBP-20 Visual Change Without Browser Verification
 → anti-drift.md §EC loop
@@ -73,7 +73,7 @@ globs: "**/*"
 → anti-drift.md §EC loop
 
 ## KBP-22 Silent Execution Chains
-→ anti-drift.md §EC loop + Stop[0] prompt silent execution check (S219: enforcement mecanico)
+→ anti-drift.md §EC loop + Stop[0] silent execution check
 
 ## KBP-23 First-Turn Context Explosion
 → anti-drift.md §First-turn discipline
@@ -103,7 +103,7 @@ globs: "**/*"
 → anti-drift.md §Session docs ("KBP candidate" ou "lint rule candidate" em Aprendizados = schedule commit antes de session close)
 
 ## KBP-32 Agent AUSENTE claim without spot-check
-→ anti-drift.md §Delegation gate ("Spot-check AUSENTE claims" — S241 obs: 33% taxa de erro em claims "AUSENTE" de agents SOTA research; Phase 1 Grep/Read spot-check antes de Edit é não-opcional)
+→ anti-drift.md §Delegation gate ("Spot-check AUSENTE claims" — agent SOTA research claims AUSENTE têm taxa erro ~33%; Grep/Read confirm obrigatório antes de Edit)
 
 ## KBP-33 Prefix-glob deny insuficiente
-→ docs/adr/0006-olmo-deny-list-classification.md §Addendum S243 (7 bypasses empíricos Codex A v2 — `/bin/bash`, `xargs bash`, `find -exec`, `env bash`, `pwsh`, `cmd.exe`, `python -Ic`; guard tokenization é defesa primária, deny é camada 1)
+→ docs/adr/0006-olmo-deny-list-classification.md (7 bypasses empíricos — `/bin/bash`, `xargs bash`, `find -exec`, `env bash`, `pwsh`, `cmd.exe`, `python -Ic`; guard tokenization é defesa primária, deny é camada 1)
