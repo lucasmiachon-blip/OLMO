@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=3 | P1=5 | Deferred=10 | P2=24 | Frozen=3 | Resolved=11 | Setup=separate. Next #=57.
+> Counts: P0=3 | P1=4 | Deferred=10 | P2=24 | Frozen=3 | Resolved=12 | Setup=separate. Next #=57.
 
 ## TOC
 
@@ -38,7 +38,7 @@
 | # | Cat | Effort | Item | Next action |
 |---|-----|--------|------|-------------|
 | 36 | content | L | Memory → Living-HTML migration (aulas cirrose/metanalise) | Plan canonical em `.claude/plans/archive/S227-memory-to-living-html.md`. Content-adjacent (prep para uso em slides). Destravar só se slides solicitarem explicitamente. |
-| 37 | infra | S | apl-cache-refresh.sh wrong BACKLOG path | L23 fix: `$PROJECT_ROOT/.claude/BACKLOG.md`. Cache stale entre sessões. |
+| ~~37~~ | RESOLVED S245 (fix em `a0b243a+1`) | - | ~~apl-cache-refresh.sh wrong BACKLOG path~~ | L23 `$PROJECT_ROOT/BACKLOG.md` → `$PROJECT_ROOT/.claude/BACKLOG.md`. Hook agora cacheia top-3 items corretamente. |
 | 34 | infra | M | [S227 partial] cp Pattern 8 — CC 2.1.113 ask bypass | Investigation done; applied 34 deny patterns (KBP-26). Manual monitoring ongoing. **STATUS: essentially historical; close quando Lucas confirmar estabilidade post-/clear**. |
 | 47 | process | S | [DEFERRED] Research skill E2E verification (ex-S234 P0) | Scripts `.claude/scripts/{gemini,perplexity}-research.mjs` nunca testados contra API real. Reativar só se research para slide concreto quebrar. |
 | 48 | tooling | M | [DEFERRED] PMID batch verification automation (ex-S235) | Script `.claude/scripts/pmid-batch-verify.mjs` para batch PMID via PubMed MCP esummary. Reativar só se volume research justificar. |

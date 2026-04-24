@@ -20,7 +20,7 @@ mkdir -p "$APL_DIR"
 date +%s > "$APL_DIR/session-ts.txt"
 
 # Cache top 3 unchecked BACKLOG items
-BACKLOG="$PROJECT_ROOT/BACKLOG.md"
+BACKLOG="$PROJECT_ROOT/.claude/BACKLOG.md"
 if [ -f "$BACKLOG" ]; then
   { grep -m 3 '^\- \[ \]' "$BACKLOG" | sed 's/^- \[ \] //' || true; } > "$APL_DIR/backlog-top.txt"
 fi
