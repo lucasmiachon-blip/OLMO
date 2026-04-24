@@ -65,6 +65,25 @@
   initial-value: oklch(62% 0.1072 210);
 }
 
+/* ============================================================================
+ * SYNC INVARIANT (:root ⇄ @property above)
+ *
+ * Ao editar qualquer token OKLCH abaixo marcado com "SOLID ★":
+ *   1. Atualizar valor em :root (abaixo)
+ *   2. Atualizar `initial-value` correspondente em @property (L37-66 acima)
+ *
+ * Divergência silent = fallback inconsistente em browsers sem @property
+ * support (pre-Chrome 85, Firefox <128). Token animável (transition/WAAPI)
+ * usa :root mas interpola a partir de initial-value em cold-start.
+ *
+ * Tokens sob sync invariant (6):
+ *   --oklch-neutral-9, --oklch-accent-6, --oklch-success-5,
+ *   --oklch-warning-5, --oklch-danger-5, --oklch-info-5
+ *
+ * Lint candidato (BACKLOG): regex diff @property initial-value vs :root value
+ * → warn se divergente. Baseline S243 finding F15.
+ * ==========================================================================*/
+
 :root {
   /* ==========================================================================
    * TYPE SCALE (abstrata, 6 steps, razão 1.25 "major third")
