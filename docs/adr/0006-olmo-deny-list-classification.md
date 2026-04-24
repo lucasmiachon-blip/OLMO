@@ -94,6 +94,72 @@ Read-only sem side effects:
 - **Sentinel flag** (futuro): lint rule detecta deny-list growth sem ADR reference em commit message.
 - **Lint candidato**: diff de `settings.json permissions.deny` contra ADR history — pattern novo sem classificação = warn.
 
+## Addendum S243 (2026-04-23) — Taxonomia expandida pós-adversarial round
+
+S242 3-prong adversarial review (Claude.ai Opus externo + Gemini 3.1 + 3 Codex batches) descobriu 7 bypasses HIGH não cobertos pelas 4 categorias originais. Evidência empírica em `.claude/plans/glimmering-coalescing-ullman.md §Executive Digest` (F01, F02, F17, F19-F23). Addendum classifica novos patterns sem alterar critério base DENY-1..DENY-4.
+
+### DENY-5 Env manipulation
+
+Variáveis de ambiente inline que alteram comportamento de interpretadores ANTES do comando:
+
+- `Bash(*PYTHONPATH=*)` — injeta módulos Python de path arbitrário
+- `Bash(*PATH=*)` — sequestra resolução de binário (`PATH=. cmd` → `./cmd` shadow)
+- `Bash(*NODE_OPTIONS=*)` — carrega módulos Node pre-run (`--require`)
+
+Critério: atribuição de variável crítica antes de comando → efeito equivalente a código arbitrário (DENY-2) via reconfiguração de runtime. Prefix-match `Bash(*VAR=*)` cobre tanto `PATH=. cmd` quanto `cmd VAR=x` (escopo local).
+
+### DENY-6 Rede raw
+
+Dispositivos especiais bash abrem sockets sem curl/wget:
+
+- `Bash(*/dev/tcp/*)` — `cat < /dev/tcp/host/port` abre TCP socket
+- `Bash(*/dev/udp/*)` — análogo UDP
+
+Critério: exfil/C2 channel sem dependência externa. Não coberto por DENY-4 (fetch) porque não usa curl/wget/tar. Em OLMO: zero uso legítimo (audit S243).
+
+### DENY-7 Windows shells
+
+Específico dev env Windows 11:
+
+- `Bash(pwsh*-c*)` — PowerShell Core com -Command
+- `Bash(cmd.exe *)` — Windows cmd.exe
+
+Spot-check S243 (Phase 2): zero matches em `.claude/agents`, `.claude/hooks`, `scripts/`, `hooks/`. Autorizado deny direto sem refactor de call sites. Se futuro call site legítimo aparecer: refactor via guard ou in-line exception documentada.
+
+### Alargamento DENY-2 (código arbitrário)
+
+Vetores adicionais descobertos em Codex A v2:
+
+- `Bash(xargs *)` — xargs bash -c é bypass clássico (`echo cmd | xargs bash -c`)
+- `Bash(find * -exec *)` — -exec executa comando arbitrário por match
+- `Bash(env bash*)` / `Bash(env sh*)` — env launcher bypassa `bash -c*` prefix
+- `Bash(/bin/bash*)` / `Bash(/bin/sh*)` — absolute path bypassa `bash -c*` prefix (caminho diferente da string de pattern-match)
+- `patch *` — patch aceita diff malicioso que cria/move arquivos (tratado via guard ASK, não DENY, porque patches legítimos são comuns)
+
+Critério: comando que aceita string/diff como "código" a executar = DENY-2 mesmo que não seja interpreter clássico.
+
+### Alargamento DENY-3 (indirection)
+
+Absolute path shells (`/bin/bash`, `/bin/sh`) já cobertos em DENY-2 alargamento (linha acima). Symlink TOCTOU tratado em `guard-bash-write.sh Pattern 14` via `realpath` validation (ASK se target benigno, BLOCK se protected dir). Não entra em deny-list porque `ln -s` tem uso legítimo frequente.
+
+### Nota DENY-1 fork bomb
+
+Fork bombs (`:(){:|:&};:` e variantes) **não são pattern-matchable** por prefix-glob — sintaxe recursiva sem prefix estável. Defesa operacional:
+
+1. Hook timeout limita execução (3s default)
+2. Shell `ulimit -u` (user process limit) se configurado
+3. Runtime CC kill após timeout
+
+Não entra em deny-list. Aceita-se cobertura imperfeita — attack vector realista em OLMO é baixo (dev env local, não multi-user server).
+
+### Governance update
+
+Nova rubrica de classificação: pattern proposto deve mapear em DENY-1..DENY-7 **ou** ASK-via-guard. Commit 3 S243 aplica 13 patterns novos seguindo este critério.
+
+### KBP derivado
+
+KBP-33 (`.claude/rules/known-bad-patterns.md`): "Prefix-glob deny insuficiente — guard tokenization é defesa primária, 7 bypasses empíricos validam camada 2 necessária".
+
 ## Ligações
 
 - **KBP-10**: Destructive commands without approval (origem da deny-list)
