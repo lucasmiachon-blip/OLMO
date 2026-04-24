@@ -37,7 +37,7 @@ docker-compose.yml   # Stack observabilidade (OTel, opcional)
 ├── commands/            # Custom slash commands
 │   └── evidence.md
 ├── hooks/               # PreToolUse/PostToolUse guard scripts (17 .sh)
-│   ├── guard-*.sh       # Security guards (6: write, bash, secrets, lint, mcp, research)
+│   ├── guard-*.sh       # Security guards
 │   ├── momentum-*.sh    # Momentum brake (2: enforce, clear)
 │   ├── coupling-proactive.sh
 │   ├── chaos-inject-post.sh

@@ -23,7 +23,7 @@ Consumer: MBE (via `$OLMO_INBOX`), ensino, concurso R3. Producer (daily org, Not
 Orquestração = **Claude Code nativo:**
 - 9 subagents em `.claude/agents/*.md` (Task tool + MCPs)
 - 18 skills em `.claude/skills/*/SKILL.md`
-- 30 hooks em `.claude/hooks/` + `hooks/`
+- Hooks em `.claude/hooks/` + `hooks/`
 - MCP servers: shared inventory em `config/mcp/servers.json`; agent-scoped inline em `.claude/agents/*.md`; policy runtime em `.claude/settings.json`
 
 Pesquisa MBE + QA + inbox-pull: via subagents + skills (evidence-researcher, qa-engineer, research skill com scripts/*.mjs). Notion: crosstalk pattern documentado — runtime atual blocked by deny; ver `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`.
