@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## Sessao 242 — 2026-04-23 (adversarial-round — audit externa S241 ADOPTs + deny-list + ADR-0006)
+
+### Commits
+
+- **`<este>` docs(S242): adversarial round findings consolidated** — plan file `.claude/plans/glimmering-coalescing-ullman.md` commitado com §Executive Digest: 32 findings (0 CRITICAL · 11 HIGH · 10 MED · 4 LOW · 4 INFO · 1 refinement) de 5 retornos adversariais (Claude.ai Opus externo + Gemini 3.1 + 3 Codex batches — 2 via general-purpose v2 pós-codex:codex-rescue dispatch-and-exit fail). Patches agrupados por 7 alvos: settings.json deny +13 patterns, guard-bash-write.sh (realpath/patch/python-Ic), stop-failure-log.sh refactor 10 bugs, ADR-0006 addendum DENY-5/6 + alargamentos, KBP-33 prefix-glob insuficiente, reference.css sync comment, ADR-0007 shared-v2 migration posture. HANDOFF TL;DR reescrito S242 + scope choice minimalista/médio/completo. Audit outputs preservados em `.claude-tmp/` (untracked).
+
+### Decisão de escopo — S242 adversarial round consolidation
+
+- **3-prong adversarial attack:** Claude.ai Opus externo (frame KBP-28 auto-adversário sem Read local), Gemini 3.1 (read-only trade-off map ADK/Material 3/A2A), 3 Codex batches (A security / B hook / C frontend) via codex:codex-rescue subagent.
+- **Failure mode codex:codex-rescue:** agents A/B originais dispatch-and-exit em 36-42s sem escrever file; C rodou síncrono 19min corretamente. Lesson: `general-purpose` agent para audit síncrono; codex:codex-rescue tem opaque background dispatch inapropriado. A/B v2 via general-purpose em 7.9-8.6min com conteúdo concreto.
+- **Spot-check KBP-32 aplicado 4x — 4/4 passed:** Guard expansion 8/9 confirmed; F01 CRITICAL → HIGH downgrade por Codex A v2 independente (`Bash(exec *)` cobre exec redirect); F02 LD_PRELOAD filtered Linux-only (irrelevante Windows); F05 set-euo paradox CONFIRMED linha-por-linha em Codex B v2.
+- **Opus externo 2 erros epistêmicos:** (1) F01 classificou CRITICAL sem Grep-verify que `Bash(exec *)` já cobria; (2) LD_PRELOAD misturou plataformas. Valor real entregue: set-euo paradox analysis + sentinel file solution + critério meta absorver-vs-fragmentar taxonomia.
+- **Codex A v2 overdelivered:** 7 bypasses HIGH estruturais além de Opus externo (find -exec / xargs / env / /bin/bash absolute path / pwsh / cmd.exe / python -Ic combined). Valida F08 prefix-glob insuficiente empiricamente.
+- **Codex B v2 overdelivered:** 8 bugs linha-por-linha stop-failure-log.sh + verdict "NÃO production-ready" + F31 (StopFailure sem statusMessage) + F32 refinement (sentinel >> append, não >).
+- **F08 upgraded LOW-MED → HIGH:** 7 bypasses empíricos confirmam prefix-glob estruturalmente insuficiente. Path forward = guard tokenization, não expansion ad hoc.
+- **32 findings vs ~10-15 projetados pré-audit:** severity inflou 3x. Validação empírica do valor da rodada adversarial.
+- **Scope de aplicação deferido para S243:** Lucas escolhe minimalista (~2h, 3 HIGH críticos) / médio (~4h, config patches ad hoc) / completo (~8h+, guard tokenization + ADR-0007 + KBP-33).
+
+### Aprendizados (max 5)
+
+- codex:codex-rescue dispatch-and-exit unsuitable para audit síncrono; general-purpose agent com Read/Grep/Write explícitos é o caminho robusto. KBP candidate "Agent subtype: codex-rescue para implementação, general-purpose para audit". Failure silencioso — mesma classe do observability paradox do StopFailure sendo auditado.
+- Opus externo em contexto fresco produziu 1 CRITICAL falso-positivo (F01) corrigido por Codex A v2 spot-check independente; convergência 2 vendors distintos em correção confirma KBP-32 mitigável via multi-vendor attack.
+- Prefix-glob como security gate tem teto empírico: 7 bypasses HIGH estruturais em Codex A v2 validam F08 insuficiente. Guard tokenization único path escalável; deny-list ad hoc é dívida crescente. KBP-33 candidate.
+- Observability paradox em hooks é arquitetural: autor copiou idiom build-script (fail-fast set -e) para hook de observability (fail-complete). Classificar hooks por semântica antes de copy idiom — Codex B v2 provou com 8 bugs linha-por-linha.
+- Spot-check obrigatório em agent severity claims: S241 validou em AUSENTE claims, S242 em CRITICAL/HIGH classifications. Custo ~5min, previne finding falso propagar para ADR/code change.
+
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S242 adversarial-round | 2026-04-23
+
+---
+
 ## Sessao 241 — 2026-04-23 (infra-plataforma — SOTA research + 5 ADOPTs + deny-list refactor)
 
 ### Commits
