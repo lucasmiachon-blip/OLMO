@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-32.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-34.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -104,3 +104,6 @@ globs: "**/*"
 
 ## KBP-32 Agent AUSENTE claim without spot-check
 → anti-drift.md §Delegation gate ("Spot-check AUSENTE claims" — S241 obs: 33% taxa de erro em claims "AUSENTE" de agents SOTA research; Phase 1 Grep/Read spot-check antes de Edit é não-opcional)
+
+## KBP-33 Prefix-glob deny insuficiente
+→ docs/adr/0006-olmo-deny-list-classification.md §Addendum S243 (7 bypasses empíricos Codex A v2 — `/bin/bash`, `xargs bash`, `find -exec`, `env bash`, `pwsh`, `cmd.exe`, `python -Ic`; guard tokenization é defesa primária, deny é camada 1)
