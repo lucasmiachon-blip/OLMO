@@ -1,22 +1,18 @@
 # HANDOFF - Proxima Sessao
 
-> **S244 DONE em main:** 5 commits detox instruction files (CLAUDE.md raiz + `.claude/rules/*`). SOTA Boris/Anthropic/HumanLayer aplicado (prune test, pointer pattern, path-scoped rules). 18+ linhas de session-history S-refs zerado; 0 regras operacionais perdidas.
-> - Commits: `cff80e1` CLAUDE.md §Architecture · `4112316` CC gotchas → `cc-gotchas.md` path-scoped · `4e0c011` anti-drift 9 violações removidas · `a9b8a4a` KBP pointer trims · [este] state files.
-> - Plan: `.claude/plans/gleaming-painting-volcano.md`
+> **S245 IN PROGRESS em main:** commit `<este>` docs(CLAUDE.md) ENFORCEMENT #5 — "Ler os documentos antes de mudar". Dominio novo/pouco tocado → Read de governing docs (CLAUDE.md subarea + `rules/*` + ADR/SKILL.md citados) antes do primeiro Edit. Gap real preenchido (Phase 1 Explore confirmou KBP-25 cobre target-file only; governing-docs pre-read era ausente em rules/*).
+> - Plan: `.claude/plans/composed-humming-toast.md`
+> - Session tema: **estetica + QA slides + pesquisa** (foco pos-commit primary)
 >
-> **🔴 TOP PRIORITY S245 — Migrar §Script primacy → §Agent/Subagent/Skill primacy em `.claude/rules/anti-drift.md`.**
-> Lucas (S244): *"agents e subagents vão incorporar parte dos scripts; agents, subagents e skills serão primacy"* + *"vão ser legacy ainda não são, mas vamos arrumar para ser"*.
+> **🟡 Follow-up S245 (Lucas decide ordem):**
+> - (a) Three-layer expansion: `anti-drift.md §Edit discipline bullet 0` + `KBP-34` pointer (commit separado; foi marcado optional no plan p/ respeitar KBP-01)
+> - (b) Estetica: CSS/GSAP audit em slides pendentes
+> - (c) QA slides: `gemini-qa3.mjs` ou `qa-capture` em batch
+> - (d) Pesquisa: tema a definir
 >
-> **Strategic direction:** scripts em `content/aulas/scripts/` deixam de ser canonicals exclusivos — agents (`.claude/agents/*.md`) e skills (`.claude/skills/*/SKILL.md`) incorporam parte dos scripts e viram source-of-truth. Regra anti-drift deve refletir essa inversão.
->
-> **Sub-tasks S245:**
-> - Auditar scripts em `content/aulas/scripts/` — quais já têm cobertura em agent/skill? Quais migrar? Quais ficam standalone?
-> - Reescrever §Script primacy → §Agent/Subagent/Skill primacy (linguagem refletindo nova arquitetura)
-> - Possível ajuste `CLAUDE.md §Architecture` para mencionar agents/skills como primacy operacional
-> - Pass similar: outras seções anti-drift — aplicar Boris prune test ("Would removing cause mistakes?"). §Plan execution, §Adversarial review, §Budget auditar.
-> - Deliverable: commit `docs(rules): anti-drift primacy-migration`.
->
-> **Depois da priority acima: continuar "Batch 5 infra documental"** — Tier 1+Tier 2 feitos. **Tiers 3-5 + Pós-tiers pendentes** — cada um exige decisões Lucas marcadas ⚠️ abaixo.
+> **Backlog diferido (do S244 handoff — ainda valido, apenas despriorizado em S245):**
+> - Migrar §Script primacy → §Agent/Subagent/Skill primacy em `anti-drift.md` (Lucas: "agents/subagents vão incorporar parte dos scripts; serão primacy"; "vão ser legacy ainda não são, mas vamos arrumar para ser")
+> - Batch 5 infra documental — Tiers 3-5 + Pós-tiers pendentes. Detalhe em P0 abaixo (Q1/Q2 AGENTS.md+GEMINI.md, T3.1-T3.4).
 
 ## HYDRATION (3 passos)
 

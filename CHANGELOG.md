@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## Sessao 245 — 2026-04-24 (CLAUDE.md ENFORCEMENT #5 — ler documentos antes de mudar)
+
+### Commits (1+ em curso, main)
+
+- **`<este>` docs(CLAUDE.md): ENFORCEMENT #5** — adicionada regra primacy "Ler os documentos antes de mudar": dominio novo/pouco tocado → Read de CLAUDE.md subarea + `rules/*` + ADR/SKILL.md citados antes do primeiro Edit. Gap real confirmado Phase 1 Explore: KBP-25 (§Edit discipline) cobre whitespace-precision do target file; governing-docs pre-read era AUSENTE em todos rules/*.
+
+### Plan + Phase 1 Explore
+
+- Plan: `.claude/plans/composed-humming-toast.md` (primary single-layer; three-layer optional Lucas-decide)
+- 1 Explore agent verificou gap real + formatacao CRLF/em-dash/bullet precision; recomendou three-layer (CLAUDE.md + anti-drift bullet 0 + KBP-34); Lucas escopo explicito = CLAUDE.md only (KBP-01 respeitado)
+
+### Session tema
+
+estetica + QA slides + pesquisa (foco pos-commit primary)
+
+### Aprendizados (max 5)
+
+- **Primacy-anchor gap real e nao-duplicativo:** 4 itens ENFORCEMENT + KBP-25 + §Verification nao cobriam "Read governing docs antes de Edit em dominio novo". Item 5 preenche: KBP-25 = whitespace precision do target; §Verification = reativa; novo item 5 = pre-action proativa governing layer.
+- **`→` (U+2192) > `—` (U+2014) em rules novos:** arrow ja presente no repo (L3 header + L15 Antifragile); em-dash em old_string de Edits futuros cria KBP-25 trap silencioso (match falha em mechanical passes). Convencao adotada: novos items rules/CLAUDE.md preferem `→`.
+
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S245 claude-md-enforcement-5 | 2026-04-24
+
+---
+
 ## Sessao 244 — 2026-04-24 (claude-md-detox — SOTA instruction cleanup)
 
 ### Commits (5 atomic, main)
