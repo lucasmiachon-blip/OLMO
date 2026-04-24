@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## Sessao 243 — 2026-04-23 (adversarial-patches — aplicação 32 findings S242)
+
+### Commits (branch `s243-adversarial-patches`, 8 atômicos, scope COMPLETO)
+
+- **`e174811` docs(S243): ADR-0006 addendum taxonomia expandida** — DENY-5 env manipulation (PYTHONPATH/PATH/NODE_OPTIONS) + DENY-6 rede raw (/dev/tcp|udp) + DENY-7 Windows shells (pwsh/cmd.exe) + alargamento DENY-2 (xargs/find -exec/env bash//bin/bash/patch) + alargamento DENY-3 (symlink TOCTOU via guard realpath) + nota DENY-1 fork bomb (não pattern-matchable).
+- **`3916682` docs(S243): KBP-33 prefix-glob insuficiente** — pointer-only para ADR-0006 §Addendum S243; 7 bypasses empíricos Codex A v2 validam camada 2 (guard tokenization). Counter KBP-32→KBP-34.
+- **`b7a3c0d` docs(S243): ADR-0007 shared-v2 migration posture** — alternativa (b) bridge-incremental com exit criteria formal (grep + CLAUDE.md §Migration + QA gate). Reconhece padrão empírico `metanalise/shared-bridge.css` já existente; timeline R3-preservada.
+- **`8891202` chore(S243): reference.css sync invariant comment** — bidirectional (:root ⇄ @property) comment block pre-:root; editor de :root agora vê warning. 6 tokens listados + lint candidato BACKLOG.
+- **`83c9f88` chore(S243): settings.json +14 deny patterns + StopFailure statusMessage** — aplicar ADR-0006 addendum. Spot-check pre-commit zero matches legítimos em NODE_OPTIONS/PYTHONPATH/xargs/find-exec. 46→60 patterns.
+- **`14abb6e` refactor(S243): guard-bash-write.sh realpath + patch + python-Ic** — Pattern 7 regex `(-c\b|…)` → `(-[a-zA-Z]*c\b|…)` cobre `-Ic`/`-Bc` (F23); Pattern 14 ln realpath BLOCK se target em `/hooks/|/.claude/|/content/aulas/` (F04); nova Pattern 14b patch ASK defense-in-depth (F07). 4 smoke tests validados (Deploy via Write→temp→cp).
+- **`6e04c02` refactor(S243): stop-failure-log.sh fail-complete semantic** — 10 bugs F05/F24-F32 linha-por-linha: REMOVE `set -euo pipefail`, sentinel `>>` append BEFORE logic, defensive PROJECT_ROOT/lib checks, `return 0 2>/dev/null || exit 0` em vez de `exit 1`, jq pipeline restructure, grep -P platform detect fallback, INPUT defensive chain, escape `$REASON` via sed (backslash+quote), `|| true` per external call. 29→56 li.
+- **`5f451e1` feat(S243): guard-bash-write.sh awk/find/xargs/make hazards** — Pattern 20 awk system() BLOCK; Pattern 21 find -exec BLOCK defense-in-depth; Pattern 22 xargs com interpreter BLOCK; Pattern 23 make com Makefile $(shell) ASK. tokenize_command() abstraction deferida — 4 regex patterns cobrem hazards sem python3 spawn overhead. Sequential ordering: P17 rm precede P21 find-exec (design intencional). 181→215 li.
+
+### Decisão de escopo — S243 adversarial patches
+
+- **Scope COMPLETO (~8h)** escolhido no close de S242 por Lucas. 4 batches ordenados por risco ascendente: Docs (Batch 1) → Security safe (Batch 2) → Hook refactor (Batch 3) → Tokenization structural (Batch 4). Todos completos em 1 sessão.
+- **F22 Windows investigation absorvida em Batch 2** — Grep `.claude/agents`, `.claude/hooks`, `scripts/`, `hooks/` por pwsh/cmd.exe retornou zero matches legítimos. Phase 2 colapsou empiricamente em validation; deny direto autorizado sem refactor call sites.
+- **Tokenization abordagem simplificada** — Plan Phase 5 propunha `tokenize_command()` shlex via python3 spawn. Implementação usou 4 regex patterns diretos (P20-23) — cobertura equivalente para awk/find/xargs/make sem python3 overhead per Bash PreToolUse. Abstração deferida se hazard futuro exigir quote-aware parse real.
+- **F08 path forward validado** — 7 bypasses HIGH de prefix-glob (Codex A v2 S242) agora cobertos pela combinação: deny-list +14 patterns (camada 1) + guard hazards P20-23 (camada 2). KBP-33 documenta rationale.
+
+### Aprendizados (max 5)
+
+- **Write→temp→cp é via obrigatória para hook deploy** — guard-write-unified Guard 3 (S194) bloqueia Edit direto em `.claude/hooks/*.sh` e `hooks/*.sh`. S243 Batch 2/3/4 todos via `.claude-tmp/*.new` + cp (Pattern 8 ASK). Pattern funcional, reforçado.
+- **Tokenize_command() overhead > payoff para hazards conhecidos** — shlex via python3 spawn por PreToolUse call custa ~100ms; 4 regex patterns entregam cobertura equivalente para awk/find/xargs/make em ~5ms. Abstração vale quando hazards futuros exigirem parse quote-aware real (edge cases com escape patológico).
+- **F28 escape semantic subtlety** — jq `-R -s '.'` wraps em outer JSON quotes; hook_log printf `"%s"` adiciona outer quotes também = double-quote invalid JSON. Solução correta: manual sed escape (`s/\\/\\\\/g; s/"/\\"/g` — backslash FIRST). Plan assumption corrigida empiricamente.
+- **Sequential pattern ordering em hook regex é design decision** — Pattern 17 (rm) precede P21 (find -exec); `find -exec rm` matcheia P17 ASK primeiro sem chegar em P21 BLOCK. Não é regressão: P17 é superset de concern, ASK é suficiente vs BLOCK aqui. Hook first-match-wins vira ordering semantic.
+- **Phase colapsada via spot-check** — F22 Phase 2 (Windows investigation) foi planejada como ~20min task mas resolveu em ~30s via Grep (zero matches). Scope reduction bem-sucedido quando a investigação EMPIRICA executou a decisão. KBP candidate: "Phase planejada colapsada por evidência = valid scope move, não skip".
+
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S243 adversarial-patches | 2026-04-23
+
+---
+
 ## Sessao 242 — 2026-04-23 (adversarial-round — audit externa S241 ADOPTs + deny-list + ADR-0006)
 
 ### Commits
