@@ -1,87 +1,86 @@
-# S245 — CLAUDE.md ENFORCEMENT #5: "Ler os documentos antes de mudar"
+# S245 post-sweep — BACKLOG #13 archive (via dormancy)
 
 ## Context
 
-Lucas pediu: "coloque em claude md ler os documentos antes de mudanca". Sessao S245 foca em **estetica + QA slides + pesquisa** — dominios que tocam areas pouco frequentes (CSS/GSAP, gemini-qa3.mjs, research/SKILL.md), onde reler governing docs antes de mudar evita retrabalho e violacao de convencoes estabelecidas.
+S245 infra sweep resolveu P1 #37 (apl-cache path) e adicionou monitoring note em P1 #34 (CC ask bypass). Restou 1 meta item acionavel pre-/clear:
 
-**Gap confirmado (Phase 1 Explore):**
-- Zero regras em `.claude/rules/*.md` cobrem "ler governing docs antes de Edit em novo dominio" em primacy level
-- KBP-25 (§Edit discipline) cobre apenas Read do arquivo-alvo (±20 li) para precisao de whitespace — **nao cobre governing layer**
-- §Verification (anti-drift) e reativa ("Claim about X → read source"), nao proativa
-- Governing-docs pattern (ler CLAUDE.md-subarea / ADR / SKILL.md antes de domain work) e **AUSENTE em todos os rules files**
-- `Propagation Map` em CLAUDE.md diz **o que atualizar depois**, nao **o que ler antes**
+**Deferred #13 — "g3-result memory findings audit"** (L55 `.claude/BACKLOG.md`):
+- 78 sessoes dormente (governance L4 marca "Dormant >10 sessões = audit candidate")
+- Zero content impact (nao bloqueia nenhum slide/aula/exame)
+- Classificacao atual Deferred ("sem consumer / low urgency")
+- Self-violando propria governance rule
 
-S244 detox deixou ENFORCEMENT com 4 itens. Proxima vaga #5 alinhada com primacy anchor — high visibility por session load.
+**Precedent para closure:** commit `ddcaba1` desta sessao usou strikethrough-in-place pattern para #37; pre-existente em P1 tier. Plus #49 (Managed Agents evaluation) tambem strikethrough-in-place com "RESOLVED S232 post-close (via #51 DELETE path)" — semantica RESOLVED aceita "abandoned via reframe/dormancy", nao so "done via action".
 
-## Change (primary — escopo Lucas)
+**Outcome intended:** #13 marcado archived via strikethrough in-place (Deferred section); counts BACKLOG header + Contagem Deferred atualizados; git log preserva history total. Apos commit, Deferred section fica 9 items cada um com razao substantiva; BACKLOG um pouco mais limpo pre-/clear.
 
-**File:** `C:\Dev\Projetos\OLMO\CLAUDE.md` (linhas 3-9, §ENFORCEMENT)
+## Change (escopo minimo)
 
-Add item 5 apos item 4, antes da linha em branco L9:
+**File:** `C:\Dev\Projetos\OLMO\.claude\BACKLOG.md`
 
+3 Edits cirurgicos:
+
+### Edit 1: Strikethrough #13 row em Deferred section
+
+**Old (L55):**
 ```
-5. **Ler os documentos antes de mudar.** Dominio novo ou pouco tocado → ler CLAUDE.md da subarea + `rules/*` + ADR/SKILL.md citados antes do primeiro Edit. "Pareceu obvio" nao dispensa.
-```
-
-### Formatting precision (KBP-25 — Edit discipline)
-
-- **CRLF line endings** preservados (repo pattern)
-- **Bullet at column 0** (pure `5.`, igual items 1-4 — sem indentacao)
-- **Unicode chars usados:** arrow `→` (U+2192, ja presente no repo p.ex. item 3 pattern)
-- **NAO usar em-dash** `—` (U+2014) neste item — evita risco Edit futuro
-- **Keep blank line L9** separator para prose paragraph seguinte
-- **Sem trailing whitespace**
-
-### Exact Edit specs
-
-```
-old_string:
-4. **Curiosidade obrigatoria.** Explicar o porque antes de executar. Ensinar durante, nao depois.
-
-new_string:
-4. **Curiosidade obrigatoria.** Explicar o porque antes de executar. Ensinar durante, nao depois.
-5. **Ler os documentos antes de mudar.** Dominio novo ou pouco tocado → ler CLAUDE.md da subarea + `rules/*` + ADR/SKILL.md citados antes do primeiro Edit. "Pareceu obvio" nao dispensa.
+| 13 | P1 | g3-result memory findings audit | 78 sessões dormente; auto-viola governance L4 ("Dormant >10 sessões"); zero content impact |
 ```
 
-## Optional secondary (Lucas decide — NAO incluir neste commit)
+**New:**
+```
+| ~~13~~ | RESOLVED S245 (via dormancy) | ~~g3-result memory findings audit~~ | ARCHIVED S245 — 78 sessoes dormente, auto-viola governance L4; zero content impact. Precedent: #49 pattern (RESOLVED via reframe). Historia no git log. |
+```
 
-Explore agent recomendou three-layer approach. Duas adicoes opcionais:
+### Edit 2: Update Deferred contagem (L66)
 
-1. **anti-drift.md §Edit discipline — novo bullet 0** antes de "Read full file OU range":
-   ```
-   0. Se dominio novo ou pouco tocado: ler governing docs (CLAUDE.md da subarea, ADR relevante, SKILL.md referenciado) antes do primeiro Edit. Precede qualquer Read de precisao.
-   ```
+**Old:**
+```
+**Contagem:** 10 items. Próximo # ainda 52.
+```
 
-2. **KBP-34 novo** em `known-bad-patterns.md`:
-   ```
-   ## KBP-34 Edit em dominio novo sem ler governing docs
-   → anti-drift.md §Edit discipline bullet 0
-   ```
+**New:**
+```
+**Contagem:** 9 items (10 total, 1 archived S245). Próximo # ainda 52.
+```
 
-**Recomendacao defensiva:** fazer **apenas primary** neste commit. Lucas pediu "claude md" explicito. Three-layer = scope creep (KBP-01). Se Lucas quiser, faz-se commit separado depois.
+### Edit 3: Update header Counts (L5)
+
+**Old:**
+```
+> Counts: P0=3 | P1=4 | Deferred=10 | P2=24 | Frozen=3 | Resolved=12 | Setup=separate. Next #=57.
+```
+
+**New:**
+```
+> Counts: P0=3 | P1=4 | Deferred=9 | P2=24 | Frozen=3 | Resolved=13 | Setup=separate. Next #=57.
+```
+
+Rationale: Deferred 10→9 (item archived); Resolved 12→13 (conceptualmente "closed", match semantica #49). Next # unchanged (nao criamos item novo).
 
 ## Files modified
 
-- `C:\Dev\Projetos\OLMO\CLAUDE.md` — 1 linha adicionada (item 5 ENFORCEMENT)
+- `.claude/BACKLOG.md` — 3 Edits (1 row + 2 counters)
+
+## NOT included (out of scope)
+
+- **#34 demotion P1→Deferred:** monitoring note ja commitada em `ddcaba1`; demotion adiciona cognitive overhead marginal. Lucas decide em commit separado se quiser.
+- **Governance rule addition ("Dormant >10 sessoes sem revival = archive automatico"):** interessante mas structural change em governance — separate PR se Lucas quiser formalizar o pattern.
+- **Physical move #13 Deferred→Resolved section:** matches 3-col format mas exige 2 Edits adicionais + possivel restructure. Strikethrough in-place (precedent #37/#49) e minimo e consistente.
 
 ## Verification
 
-1. **Read CLAUDE.md pos-Edit** — confirmar 5 itens ENFORCEMENT, formatacao CRLF preservada, blank line L9 intacta
-2. **Grep** `5\. \*\*Ler os documentos antes de mudar` em CLAUDE.md — retorna exatly 1 hit
-3. **Visual check** — bullet `5.` aparece no mesmo indent-level dos items 1-4
-4. **No trailing whitespace, no duplicate blank lines**
-5. **Git diff** — confirma +1 linha em CLAUDE.md, nada mais tocado
-6. **Commit:** `docs(CLAUDE.md): ENFORCEMENT #5 — ler documentos antes de mudar`
+1. **Read BACKLOG.md header (L1-10) + Deferred section (L49-67) pos-Edit** — confirmar:
+   - Header Counts: Deferred=9, Resolved=13
+   - L55 strikethrough + ARCHIVED tag
+   - L66 Contagem 10→9
+2. **Grep** `~~13~~` em `.claude/BACKLOG.md` — exact 1 hit
+3. **Git diff** — confirma 3 line changes em 1 file, nothing else touched
+4. **Commit message:** `chore(backlog): archive #13 g3-result memory findings (78 sessoes dormente)`
 
-## Session metadata
+## Post-commit state (hidratacao S246)
 
-- `.claude/.session-name` ja gravado: `estetica + QA slides + pesquisa`
-- CHANGELOG S245 + HANDOFF update apos commit (per anti-drift §Session docs)
-
-## Session follow-up (escopo S245 pos-Edit)
-
-Apos primary commit, Lucas escolhe:
-- (a) Three-layer expansion (anti-drift bullet 0 + KBP-34)
-- (b) Iniciar estetica (CSS/GSAP audit)
-- (c) Iniciar QA slides (gemini-qa3 run)
-- (d) Iniciar pesquisa (tema a definir)
+- 8 commits S245 total em main
+- BACKLOG Deferred list = 9 items, cada um com razao viva
+- HANDOFF top-block inalterado (S245 tema pendente: estetica/QA/pesquisa)
+- Ready for /clear

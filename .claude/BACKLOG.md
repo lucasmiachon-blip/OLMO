@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=3 | P1=4 | Deferred=10 | P2=24 | Frozen=3 | Resolved=12 | Setup=separate. Next #=57.
+> Counts: P0=3 | P1=4 | Deferred=9 | P2=24 | Frozen=3 | Resolved=13 | Setup=separate. Next #=57.
 
 ## TOC
 
@@ -52,7 +52,7 @@
 
 | # | Ex-tier | Item | Razão do defer |
 |---|---------|------|----------------|
-| 13 | P1 | g3-result memory findings audit | 78 sessões dormente; auto-viola governance L4 ("Dormant >10 sessões"); zero content impact |
+| ~~13~~ | RESOLVED S245 (via dormancy) | ~~g3-result memory findings audit~~ | ARCHIVED S245 — 78 sessoes dormente, auto-viola governance L4; zero content impact. Precedent: #49 pattern (RESOLVED via reframe). Historia no git log. |
 | 18 | P1 | KBP-18 dispatch sem prompting skill | Meta process; sem content consumer |
 | 29 | P1 | Agent/subagent optimization audit (10 agents) | Puro meta-tooling (HyperAgents/DGM/Voyager research); zero content unblock |
 | 33 | P1 | Research persistence inter-sessão | Meta process template; content pode ir ad-hoc |
@@ -63,7 +63,7 @@
 | 4 | P1 | Pipeline DAG end-to-end (inbox → NLM → wiki) | Arquitetural; sem consumer ativo |
 | 5 | P1 | medicina-clinica 4 stubs | Aguarda external harvest COWORK (ADR-0002); sem ação OLMO possível |
 
-**Contagem:** 10 items. Próximo # ainda 52.
+**Contagem:** 9 items (10 total, 1 archived S245). Próximo # ainda 52.
 
 ---
 
