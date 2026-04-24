@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## Sessao 244 — 2026-04-24 (claude-md-detox — SOTA instruction cleanup)
+
+### Commits (5 atomic, main)
+
+- **`cff80e1` docs(CLAUDE.md): §Architecture detox** — remove S232 post-close history inline; regra "Sem runtime Python" opera sem arqueologia de orchestrator.py/agents/subagents/tests. 92→82 li. Git log preserva history.
+- **`4112316` docs(rules): CC schema gotchas → path-scoped rule** — criar `.claude/rules/cc-gotchas.md` com `paths: [settings.json, hooks/**]`; remove section CLAUDE.md L83-92. Resolve Anthropic "exclude column" (info que muda frequentemente) + Boris anti-pattern "static memory" #2.
+- **`4e0c011` docs(rules): anti-drift 9 violação-Sxxx removidas** — prune test Boris falha unanimemente; regras intactas, history vai pra git/CHANGELOG. 98→96 li. L39 foi gap do audit inicial (Grep content mode truncou via `[Omitted long matching line]`).
+- **`a9b8a4a` docs(rules): KBP pointer trims** — 4 pointers adjacent-prose limpos (KBP-19 S194, KBP-22 S219, KBP-32 S241, KBP-33 §Addendum S243). Lista bypasses KBP-33 preservada (operacional — Claude precisa para raciocinar sobre deny). KBP-26 S227 pointer preservado (plan archive link ativo).
+- **`<este>` docs(state): HANDOFF+CHANGELOG S244** — top priority S245: reavaliar §Script primacy + similares legacy-candidate em anti-drift.md.
+
+### SOTA Research (Agent general-purpose, URLs-chave)
+
+- [Anthropic Best Practices](https://code.claude.com/docs/en/best-practices) — include/exclude column, prune test
+- [Anthropic Memory docs](https://code.claude.com/docs/en/memory) — path-scoped rules, CLAUDE.md vs MEMORY.md
+- [HumanLayer blog](https://www.humanlayer.dev/blog/writing-a-good-claude-md) — 150-200 instrução ceiling, pointer>inline
+- [howborisusesclaudecode.com](https://howborisusesclaudecode.com/) — 2.5k token budget, 7 anti-patterns
+
+### Decisões aprovadas (Q1-Q4 — todas recommended selecionadas)
+
+- Q1: CC gotchas → path-scoped rule (not inline compress, not status quo)
+- Q2: Remove TODAS violação-Sxxx (8 previstas + 1 gap L39 = 9 total)
+- Q3: KBP-33 compress mantendo lista bypasses (não pure-pointer)
+- Q4: CLAUDE.md §Architecture header limpo + L20 compress
+
+### Aprendizados (max 5)
+
+- **Prune test de Boris aplica-se unanimemente a session-history inline** — 18+ linhas "violação Sxxx" em auto-loaded instruction falham o teste. Anthropic "exclude column" + Boris static-memory anti-pattern reforçam. Git/CHANGELOG é a memória apropriada, não o modelo.
+- **Grep content-mode trunca linhas longas via `[Omitted long matching line]`** — missed L39 anti-drift no audit inicial. KBP candidate: "Audit com Grep content-mode requer pass secundário (files_with_matches + Read targeted) para linhas longas; senão risco de skip silencioso." Schedule KBP commit antes close.
+- **Path-scoped rules resolvem "info que muda frequentemente" sem perder visibility** — CC gotchas tinham valor real mas always-on violava SOTA; frontmatter `paths:` carrega só quando relevante. Padrão replicável pra similars futuros.
+- **Literal-plan vs plan-spírito**: L20 aprovado literalmente era "Sem runtime Python. Orquestração: Claude Code nativo (subagents + skills + hooks + MCPs)." mas L22+ já detalhava isso; seguir literal = redundância. Ajuste "L20 = Sem runtime Python." respeitou o OUTCOME aprovado (reduce bloat), não o string. Auto mode permite esse judgment.
+- **Lucas frame strategic: "agents/subagents vão incorporar parte dos scripts; agents, subagents e skills serão primacy" + "vão ser legacy ainda não são, mas vamos arrumar para ser"** — S245 direction: migrar §Script primacy → §Agent/Subagent/Skill primacy. Scripts em content/aulas/scripts/ deixam de ser canonicals exclusivos; agents/skills incorporam parte e viram source-of-truth operacional.
+
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S244 claude-md-detox | 2026-04-24
+
+---
+
 ## Sessao 243 — 2026-04-23 (adversarial-patches — aplicação 32 findings S242)
 
 ### Commits (branch `s243-adversarial-patches`, 8 atômicos, scope COMPLETO)

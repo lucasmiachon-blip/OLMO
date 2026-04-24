@@ -1,10 +1,22 @@
 # HANDOFF - Proxima Sessao
 
-> **S243 DONE em main:** 12 commits totais publicados em origin/main.
-> - **Infra adversarial (9 commits):** 8 batch commits aplicando 32 findings S242 + 1 session close (CHANGELOG+HANDOFF). Fast-forward merged, branch deletada.
-> - **Cleanup pós-merge (3 commits):** `83e0f17` archive plans S243/S238 · `1f2bbc5` deadline relaxation · `547207c` Tier 1 plans + `7ddfb60` Tier 2 docs reorg.
+> **S244 DONE em main:** 5 commits detox instruction files (CLAUDE.md raiz + `.claude/rules/*`). SOTA Boris/Anthropic/HumanLayer aplicado (prune test, pointer pattern, path-scoped rules). 18+ linhas de session-history S-refs zerado; 0 regras operacionais perdidas.
+> - Commits: `cff80e1` CLAUDE.md §Architecture · `4112316` CC gotchas → `cc-gotchas.md` path-scoped · `4e0c011` anti-drift 9 violações removidas · `a9b8a4a` KBP pointer trims · [este] state files.
+> - Plan: `.claude/plans/gleaming-painting-volcano.md`
 >
-> **Próxima sessão: continuar "Batch 5 infra documental"** (escopo proposto por Lucas 2026-04-23). Tier 1 + Tier 2 feitos. **Tiers 3-5 + Pós-tiers pendentes** — cada um exige decisões Lucas marcadas ⚠️ abaixo.
+> **🔴 TOP PRIORITY S245 — Migrar §Script primacy → §Agent/Subagent/Skill primacy em `.claude/rules/anti-drift.md`.**
+> Lucas (S244): *"agents e subagents vão incorporar parte dos scripts; agents, subagents e skills serão primacy"* + *"vão ser legacy ainda não são, mas vamos arrumar para ser"*.
+>
+> **Strategic direction:** scripts em `content/aulas/scripts/` deixam de ser canonicals exclusivos — agents (`.claude/agents/*.md`) e skills (`.claude/skills/*/SKILL.md`) incorporam parte dos scripts e viram source-of-truth. Regra anti-drift deve refletir essa inversão.
+>
+> **Sub-tasks S245:**
+> - Auditar scripts em `content/aulas/scripts/` — quais já têm cobertura em agent/skill? Quais migrar? Quais ficam standalone?
+> - Reescrever §Script primacy → §Agent/Subagent/Skill primacy (linguagem refletindo nova arquitetura)
+> - Possível ajuste `CLAUDE.md §Architecture` para mencionar agents/skills como primacy operacional
+> - Pass similar: outras seções anti-drift — aplicar Boris prune test ("Would removing cause mistakes?"). §Plan execution, §Adversarial review, §Budget auditar.
+> - Deliverable: commit `docs(rules): anti-drift primacy-migration`.
+>
+> **Depois da priority acima: continuar "Batch 5 infra documental"** — Tier 1+Tier 2 feitos. **Tiers 3-5 + Pós-tiers pendentes** — cada um exige decisões Lucas marcadas ⚠️ abaixo.
 
 ## HYDRATION (3 passos)
 
