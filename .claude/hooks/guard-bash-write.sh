@@ -68,11 +68,12 @@ if echo "$CMD" | grep -qE 'wget\b.*(-O\b|--output-document\b)'; then
   exit 0
 fi
 
-# Pattern 7: Python execution (inline -c AND script files — S193 fix backlog #20)
-# Catches: python -c, python script.py, python ./file.py, python3, py
+# Pattern 7: Python execution (inline -c/-Ic AND script files — S193 backlog #20, S243 F23)
+# Catches: python -c, python -Ic, python -Bc, python script.py, python ./file.py, python3, py
 # Allows: python --version, python --help, python -m pip
 # \b prevents matching suffixes like mypy, scipy (S196 audit fix)
-if echo "$CMD" | grep -qE '\b(python3?|py)\b\s+(-c\b|[^-][^-])'; then
+# S243 F23: -[a-zA-Z]*c cobre combinacoes -Ic/-Bc (antes so -c bare)
+if echo "$CMD" | grep -qE '\b(python3?|py)\b\s+(-[a-zA-Z]*c\b|[^-][^-])'; then
   if ! echo "$CMD" | grep -qE '\b(python3?|py)\b\s+--(version|help)' && \
      ! echo "$CMD" | grep -qE '\b(python3?|py)\b\s+-m\s+pip'; then
     printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"Python execution detectado — confirme se intencional"}}\n'
@@ -116,9 +117,26 @@ if echo "$CMD" | grep -qE '\bmkdir\b'; then
   exit 0
 fi
 
-# Pattern 14: ln — symlink/hardlink creation
+# Pattern 14: ln — symlink/hardlink creation (S243 F04 realpath validation)
+# Block if ln -s target resolves to protected dir; else ASK
+if echo "$CMD" | grep -qE '\bln\s+-s\b'; then
+  LN_TARGET=$(echo "$CMD" | grep -oE 'ln\s+-s\s+\S+' | awk '{print $3}')
+  if [[ -n "$LN_TARGET" ]]; then
+    REAL_TARGET=$(realpath "$LN_TARGET" 2>/dev/null)
+    if [[ -n "$REAL_TARGET" ]] && echo "$REAL_TARGET" | grep -qE '(/hooks/|/\.claude/|/content/aulas/)'; then
+      printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"ln -s target em area protegida (realpath) — BLOCK"}}\n'
+      exit 2
+    fi
+  fi
+fi
 if echo "$CMD" | grep -qE '\bln\b'; then
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"ln detectado — confirme se intencional"}}\n'
+  exit 0
+fi
+
+# Pattern 14b: patch — diff application (S243 F07, defense-in-depth vs deny)
+if echo "$CMD" | grep -qE '\bpatch\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"patch detectado — confirme se diff e confiavel"}}\n'
   exit 0
 fi
 
