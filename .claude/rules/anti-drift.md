@@ -47,6 +47,7 @@ First response after /clear already loads ~25KB auto-content (CLAUDE.md + rules 
 
 ## Edit discipline (KBP-25)
 Edit tool match é literal — whitespace, indentação, Unicode chars (tree `│   ├──` vs ASCII `|   +-`) quebram old_string. Antes de Edit:
+0. Dominio novo ou pouco tocado: ler governing docs (CLAUDE.md da subarea, ADR relevante, SKILL.md referenciado) antes do primeiro Edit. Governing context precede precisao de whitespace. Ver CLAUDE.md §ENFORCEMENT #5.
 1. Read full file OU range cobrindo old_string ± 20 li. Grep context não suficiente (não mostra tabs vs spaces, box-drawing chars)
 2. Copy old_string direto do Read output — não reconstruir mental
 3. Same-file Edits múltiplos: old_strings em linhas distintas non-overlapping (race-safe)

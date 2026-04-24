@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-34.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-35.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -107,3 +107,6 @@ globs: "**/*"
 
 ## KBP-33 Prefix-glob deny insuficiente
 → docs/adr/0006-olmo-deny-list-classification.md (7 bypasses empíricos — `/bin/bash`, `xargs bash`, `find -exec`, `env bash`, `pwsh`, `cmd.exe`, `python -Ic`; guard tokenization é defesa primária, deny é camada 1)
+
+## KBP-34 Edit em dominio novo sem ler governing docs
+→ anti-drift.md §Edit discipline bullet 0 (CLAUDE.md §ENFORCEMENT #5 primacy + anti-drift operational detail: ler CLAUDE.md da subarea + rules/* + ADR/SKILL.md citados antes do primeiro Edit em dominio pouco tocado)
