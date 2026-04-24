@@ -132,14 +132,15 @@ docs/
 ├── coauthorship_reference.md
 ├── mcp_safety_reference.md
 ├── keys_setup.md
-├── evidence-html-audit-S150.md
-├── pmid-verification-S151.md
+├── archive/                 # Session-dated audits (historical)
+│   ├── S079-agent-audit.md
+│   ├── S150-evidence-html-audit.md
+│   └── S151-pmid-verification.md
 ├── aulas/                   # Slide-specific docs
 │   ├── design-principles.md
 │   ├── slide-pedagogy.md
 │   ├── slide-advanced-reference.md
-│   ├── css-error-codes.md
-│   └── AGENT-AUDIT-S79.md
+│   └── css-error-codes.md
 └── research/
     ├── implementation-plan-S82.md
     └── chaos-engineering-L6.md
