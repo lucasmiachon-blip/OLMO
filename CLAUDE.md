@@ -15,9 +15,9 @@ Consumer: MBE (via `$OLMO_INBOX`), ensino, concurso R3. Producer (daily org, Not
 - **Antifragile**: esta decisao torna o sistema mais forte com falhas futuras? Warn vs block → block se FP baixo.
 - **Curiosidade**: esta interacao ensina algo? Conexoes reais, nunca infantilizar.
 
-## Architecture (S232 post-close — Claude Code only, consumer)
+## Architecture
 
-**Sem runtime Python.** S232 post-close deletou stack Python inteiro (orchestrator.py + agents/ + subagents/ + tests/) por ser vestigial/falido/nunca usado.
+**Sem runtime Python.**
 
 Orquestração = **Claude Code nativo:**
 - 9 subagents em `.claude/agents/*.md` (Task tool + MCPs)
