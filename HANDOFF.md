@@ -15,18 +15,19 @@
 
 ## P0 — Próximas escolhas (Lucas decide)
 
-### Scope de aplicação S243 (1 dos 3)
-- **Minimalista ~2h:** ADR-0006 addendum (DENY-5 env + DENY-6 rede raw + DENY-2 alargar) + settings.json +5 patterns HIGH críticos (F01/F02) + stop-failure-log.sh refactor (F05+F06).
-- **Médio ~4h:** + settings.json +13 patterns totais (F17-F23 ad hoc) + guard ajustes small (realpath ln + patch + python -Ic regex).
-- **Completo ~8h+:** + guard tokenization (F03/F08 estrutural) + KBP-33 + ADR-0007 shared-v2 migration (F16).
+### Scope DECIDIDO: COMPLETO (~8h+) — Lucas 2026-04-23 close S242
 
-### F08 strategic path
-- (a) expand deny +13 patterns ad hoc — inviável a longo prazo
-- (b) guard tokenization real — estruturalmente correto
-- (c) aguardar Anthropic `permissions.sandbox` runtime
+Execução detalhada em `.claude/plans/glimmering-coalescing-ullman.md §S243 Execution Plan` — 6 phases, 8-9 commits atômicos, branch sugerida `s243-adversarial-patches`.
 
-### F22 Windows shells investigação
-Antes de deny `Bash(pwsh*)`/`Bash(cmd.exe*)`: Grep `.claude/agents/` + `.claude/hooks/` + `scripts/` por uso legítimo. Se zero → deny safe.
+**Phase order recap:**
+1. Docs (~1h): ADR-0006 addendum + KBP-33
+2. F22 Win investigação (~20min): Grep uso legítimo pwsh/cmd.exe antes de deny
+3. Security safe patches (~1.5h): settings.json +13 patterns + StopFailure statusMessage + guard small ajustes
+4. Hook refactor (~1.5h): stop-failure-log.sh 10 bugs (fail-complete semantic)
+5. Tokenization structural (~2.5h HIGH value+risk): guard tokenize_command() + awk/find/xargs hazards
+6. ADR-0007 + cosmetics (~1.5h): shared-v2 migration posture + reference.css sync comment
+
+**F08 strategic path elegido:** (b) guard tokenization real — estruturalmente correto. Phases 3+5 executam combinados.
 
 ### Secundário (PAUSADO)
 - shared-v2 C5 Grupo B/C + ensaio HDMI (`.claude/plans/S239-C5-continuation.md`)

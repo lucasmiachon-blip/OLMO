@@ -637,4 +637,104 @@ Claude.ai alegou "guard foi expandido" sem Read access → spot-check obrigatór
 - @property expansion para tokens não solid★ (separado — EVAL-next da matriz SOTA)
 - Trilha A (metanalise C5) + Trilha B (infra DEFERRED) — paused até adversarial close
 
+---
+
+## §S243 Execution Plan (COMPLETO scope — Lucas decidiu 2026-04-23 close S242)
+
+### Phases (ordem de segurança ascending, ~8h total)
+
+**Phase 1 — Docs first (~1h, paralelizável):**
+- ADR-0006 addendum: DENY-5 env manipulation + DENY-6 rede raw (/dev/tcp) + DENY-2 alargamento semântico "código arbitrário como argumento" (awk/find-exec/xargs/make/git filter-*) + DENY-3 alargamento "indirection" (symlink TOCTOU + absolute path shells) + DENY-7 nova Windows shells (pwsh/cmd.exe) + DENY-1 nota fork bomb
+- KBP-33 em `.claude/rules/known-bad-patterns.md`: "Prefix-glob insuficiente — guard tokenization é defesa primária, validado empiricamente por 7 bypasses em Codex A v2"
+
+**Phase 2 — F22 Windows investigação (~20min, blocker de Phase 3 pwsh/cmd.exe deny):**
+- Grep `.claude/agents/`, `.claude/hooks/`, `scripts/` por uso legítimo de `pwsh -c`, `pwsh.exe`, `cmd.exe /c`, `cmd /c`
+- Se zero matches → autorizado deny `Bash(pwsh*-c*)`, `Bash(cmd.exe *)`
+- Se matches existem → refatorar call sites OR ASK via guard antes de deny
+
+**Phase 3 — Security patches safe (~1.5h):**
+- `.claude/settings.json` permissions.deny: +13 patterns
+  - 2 rede raw: `Bash(*/dev/tcp/*)`, `Bash(*/dev/udp/*)` (F01)
+  - 3 env: `Bash(*PYTHONPATH=*)`, `Bash(*PATH=*)`, `Bash(*NODE_OPTIONS=*)` (F02)
+  - 1 patch: `Bash(patch *)` (F07)
+  - 2 absolute shells: `Bash(/bin/bash*)`, `Bash(/bin/sh*)` (F17)
+  - 2 Windows shells: `Bash(pwsh*-c*)`, `Bash(cmd.exe *)` (F22, pós Phase 2)
+  - 3 interpreters: `Bash(xargs *)`, `Bash(find * -exec *)`, `Bash(env bash*)`/`Bash(env sh*)` (F19/F20/F21)
+- `.claude/settings.json` StopFailure block: add `"statusMessage": "StopFailure: registrando erro de API..."` (F31)
+- `.claude/hooks/guard-bash-write.sh` ajustes small (~30min):
+  - Pattern 14 (ln): adicionar realpath validation pré-ASK (F04)
+  - Novo pattern: `Bash(patch *)` ASK com reason "patch detectado — confirme se diff é confiável" (F07)
+  - Pattern 7 (python -c): ajustar regex pra casar `-Ic`/`-ic`/`-c` combinados, não apenas `-c` com espaço (F23)
+
+**Phase 4 — Hook refactor fail-complete (~1.5h, independente):**
+- `hooks/stop-failure-log.sh` refactor 10 bugs:
+  - L2: REMOVE `set -euo pipefail` (idiom build-script inapropriado pra observability fail-complete)
+  - L1→L3: ADD sentinel touch `>>` append antes de qualquer lógica: `{ date -u +%Y-%m-%dT%H:%M:%SZ >> "$SENTINEL"; } 2>/dev/null || true` (F32 refinement >> não >)
+  - L10: ADD `[[ -d "$PROJECT_ROOT" ]] || PROJECT_ROOT="$(pwd)"` defensive check (F24)
+  - L12: ADD `[[ -f "$PROJECT_ROOT/hooks/lib/hook-log.sh" ]] || exit 0` pré-source (F25)
+  - L11: REPLACE `exit 1` guard-against-claude por `return 0 2>/dev/null || exit 0` (F27)
+  - L20-22: RESTRUCTURE jq pipeline (remover pipefail dependency; capture explicit) (F26)
+  - L22: ADD platform detect `if echo|grep -P '' 2>/dev/null` antes de usar -P; fallback plain grep (F30)
+  - L15: CHANGE `INPUT=$(cat 2>/dev/null || echo '{}')` → `INPUT="${INPUT:-$(cat 2>/dev/null)}"; INPUT="${INPUT:-{}}"` (F29)
+  - L26: CHANGE `hook_log ... "$REASON"` → escape `$REASON` via `jq -R -s '.'` antes de passar (F28)
+  - L26: `|| true` per chamada externa para não abort mid-lifecycle (F05)
+
+**Phase 5 — Tokenization structural (~2.5h, HIGH value + risk, deps Phase 3):**
+- `.claude/hooks/guard-bash-write.sh`:
+  - ADD função `tokenize_command()`: parse $CMD em tokens respeitando quotes/escapes (usar read -a ou shell-parse library se disponível)
+  - ADD hazard detection para (F03, F08):
+    - awk com `system()` substring em args
+    - find com `-exec *` args
+    - xargs com interpreter arg (bash/sh/zsh/pwsh)
+    - make com target que dispara Makefile
+  - Emit ASK permissionDecision com reason específica por hazard
+
+**Phase 6 — ADR-0007 + cosmetics (~1.5h, independente):**
+- Novo: `docs/adr/0007-shared-v2-migration-posture.md` — decidir entre 3 alternativas: (a) migração agressiva (remove v1 base.css); (b) bridge indefinido (manter `shared-bridge.css` até shared-v2 cobrir 100%); (c) freeze (shared-v2 como namespace separado, sem migração). Analisar trade-offs vs metanalise C5 shared-bridge + grade-v2 scaffold pendentes. (F16)
+- `content/aulas/shared-v2/tokens/reference.css`: adicionar comentário header sobre sync invariant com `:root` (F15)
+
+### Dependencies
+
+- Phase 1 ⟂ Phase 2 ⟂ Phase 6 (paralelizáveis entre si, sem conflito)
+- Phase 4 ⟂ Phase 3 (arquivos diferentes)
+- Phase 5 **DEPENDE** de Phase 3 (edits no mesmo `guard-bash-write.sh`)
+- Phase 2 é **blocker** para patterns pwsh/cmd.exe em Phase 3
+
+### Branch strategy
+
+```bash
+git checkout -b s243-adversarial-patches
+# executar phases
+# merge final em main via PR ou fast-forward
+```
+
+Permite rollback atômico se tokenization (Phase 5) der problema.
+
+### Commits atômicos previstos (8-9)
+
+1. `docs(S243): ADR-0006 addendum taxonomia expandida (DENY-5/6/7 + alargamentos)`
+2. `docs(S243): KBP-33 prefix-glob insuficiente (7 bypasses empíricos)`
+3. `chore(S243): settings.json permissions.deny +13 patterns + StopFailure statusMessage`
+4. `refactor(S243): guard-bash-write.sh realpath + patch + python-Ic (F04/F07/F23)`
+5. `refactor(S243): stop-failure-log.sh fail-complete semantic (10 bugs F05/F06/F24-F30/F32)`
+6. `feat(S243): guard-bash-write.sh tokenize_command() + awk/find/xargs hazards (F03/F08)`
+7. `docs(S243): ADR-0007 shared-v2 migration posture (F16)`
+8. `chore(S243): reference.css sync invariant comment (F15)`
+(opcional 9: merge branch commit ou hotfix intermediário)
+
+### Hydration S243
+
+1. `git log --oneline -10` confirmar chain S242 (commit `63dc2e2`)
+2. Ler `§Executive Digest` (32 findings + patches agrupados) + este `§S243 Execution Plan`
+3. `git checkout -b s243-adversarial-patches` começar Phase 1
+4. Executar phases em ordem com commit atômico por fase/arquivo
+
+### Out-of-scope S243 (preservar de scope creep)
+
+- Metanalise C5 s-heterogeneity (plan `lovely-sparking-rossum.md`)
+- grade-v2 scaffold C6 (deadline 30/abr/2026 — metanalise independente)
+- shared-v2 Day 2/3 continuation (plan `S239-C5-continuation.md`)
+- @property token expansion (F14 HOLD per Codex C recommendation)
+- Sessão R3 Clínica Médica prep (221 dias, trilha paralela)
+
 Coautoria: Lucas + Opus 4.7 (Claude Code) | S242 adversarial-round | 2026-04-23
