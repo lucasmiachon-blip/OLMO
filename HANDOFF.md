@@ -22,7 +22,7 @@
 
 ### Próximas sessões (escolher APÓS merge S243)
 
-1. **grade-v2 scaffold C6** — **prioridade alta**, deadline 30/abr/2026 (T-7d). ADR-0007 posture ativa.
+1. **grade-v2 scaffold C6** — deadline 31/mai/2026 (T-38d, relaxed per Lucas 2026-04-23). ADR-0007 posture ativa. Iniciar quando Lucas autorizar (infra primeiro).
 2. **shared-v2 Day 2/3 continuation** (`.claude/plans/S239-C5-continuation.md` PAUSADO) — C5 Grupo B/C + ensaio HDMI residencial.
 3. **metanalise C5 s-heterogeneity** (`.claude/plans/lovely-sparking-rossum.md`) — 10 slides sem QA; 5 R11<7; 2 editorial curso.
 4. **R3 Clínica Médica prep** — 221 dias, trilha paralela (não bloqueia grade-v2).
@@ -35,7 +35,7 @@
 - **Aulas:** cirrose 11 prod / metanalise 17 (s-etd modernizado) / grade-v2 scaffold pendente / grade-v1 archived.
 - **shared-v2:** Day 1 + C4.6 + C5 Grupo B/C parciais; PAUSADO. **ADR-0007 formaliza migration posture (bridge-incremental)**.
 - **metanalise QA:** 10 sem QA; 5 R11<7; 2 editorial em curso.
-- **R3 Clínica Médica:** 221 dias · **Deadline grade-v2:** 30/abr/2026 (T-7d).
+- **R3 Clínica Médica:** 221 dias · **Deadline grade-v2:** 31/mai/2026 (T-38d, relaxed).
 - **Deny-list:** 46→60 patterns (S243 +14 aplicando ADR-0006 addendum).
 - **Hooks:** `guard-bash-write.sh` 181→215 li (P20-23 hazards); `stop-failure-log.sh` 29→56 li (fail-complete semantic).
 
