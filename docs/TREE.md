@@ -1,6 +1,6 @@
 # TREE.md — Mapa do Projeto
 
-> Atualizado: Sessao 230 | 2026-04-19 (bubbly-forging-cat — adversarial audit + simplification)
+> Atualizado: Sessao 245 | 2026-04-24
 
 ## Raiz (operacional)
 
@@ -16,8 +16,6 @@ pyproject.toml       # Config Python minimal (httpx único runtime dep; ruff/myp
 uv.lock              # Lock file uv
 package.json         # Node deps (raiz — apca-w3, colorjs.io)
 docker-compose.yml   # Stack observabilidade (OTel, opcional)
-
-# REMOVED S232 post-close: orchestrator.py (Python stack purged — vestigial/falido/nunca usado)
 ```
 
 ## .claude/ (AI agent infrastructure)
@@ -50,10 +48,11 @@ docker-compose.yml   # Stack observabilidade (OTel, opcional)
 │   ├── lint-on-edit.sh
 │   ├── allow-plan-exit.sh
 │   └── lib/hook-log.sh
-├── plans/               # archive/ + README (0 active)
-├── rules/               # 5 rule files (anti-drift, KBP, QA, slides, design)
+├── plans/               # Active plans (named *.md) + archive/ + README
+├── rules/               # 6 rule files (anti-drift, KBP, QA, slides, design, cc-gotchas path-scoped)
 ├── skills/              # 18 skill directories
-├── settings.local.json  # Hooks, permissions, env config
+├── settings.json        # Primary config (hooks, permissions, env, statusLine)
+├── settings.local.json  # Local permission overrides
 ├── statusline.sh        # Status line renderer
 ├── BACKLOG.md           # Persistent backlog (ver próprio arquivo §header para contagem)
 ├── hook-log.jsonl       # Hook event log
@@ -63,14 +62,7 @@ docker-compose.yml   # Stack observabilidade (OTel, opcional)
 └── tmp/                 # Temp files (deploy staging)
 ```
 
-# REMOVED S232 v6 post-close: Python orchestrator stack completo — vestigial/falido/nunca usado.
-# Deletado: agents/ (automation + core), subagents/, tests/ Python, orchestrator.py, __main__.py,
-# config/loader.py, config/ecosystem.yaml, config/rate_limits.yaml.
-# Historical deletions sequenciais: S228 (Cientifico + AtualizacaoAI), S229 (Organizacao +
-# KnowledgeOrganizer + NotionCleaner), S230 (SmartScheduler + LocalFirstSkill + ModelRouter),
-# S232 v6 Batch 4 (workflows.yaml), S232 post-close (stack total).
-# Orquestração real = Claude Code (9 agents em .claude/agents/, 18 skills em .claude/skills/,
-# 30 hooks em .claude/hooks/ + hooks/). Ver docs/ARCHITECTURE.md §Runtime (post-S232 v6).
+> Orquestracao real = Claude Code nativo. Ver `docs/ARCHITECTURE.md §Runtime`.
 
 ## tools/ (standalone utilities)
 
@@ -113,11 +105,8 @@ content/aulas/
 
 ```
 config/
-├── mcp/servers.json     # MCP server config (usado por Claude Code)
+├── mcp/servers.json     # MCP server inventory (shared; usado por Claude Code)
 └── otel/                # OpenTelemetry collector config (docker-compose)
-
-# REMOVED S232 v6 Batch 4: workflows.yaml (aspirational; 0 runtime reachability)
-# REMOVED S232 post-close: ecosystem.yaml, rate_limits.yaml, loader.py (Python-only consumers, purged with stack)
 ```
 
 ## docs/ (documentation)
@@ -133,9 +122,13 @@ docs/
 ├── mcp_safety_reference.md
 ├── keys_setup.md
 ├── archive/                 # Session-dated audits (historical)
-│   ├── S079-agent-audit.md
-│   ├── S150-evidence-html-audit.md
-│   └── S151-pmid-verification.md
+├── adr/                     # Architecture Decision Records
+│   ├── 0002-external-inbox-integration.md
+│   ├── 0003-multimodel-orchestration.md
+│   ├── 0004-grade-v1-archived.md
+│   ├── 0005-shared-v2-greenfield.md
+│   ├── 0006-olmo-deny-list-classification.md
+│   └── 0007-shared-v2-migration-posture.md
 ├── aulas/                   # Slide-specific docs
 │   ├── design-principles.md
 │   ├── slide-pedagogy.md
@@ -189,8 +182,4 @@ templates/           # Prompt templates
 resources/           # Static resources (provas, SAP)
 assets/              # Exam assets
 .github/             # CI/CD (dependabot, PR template, ci.yml)
-
-# REMOVED S232 post-close:
-# - tests/ Python (pytest suite) — testava Python stack vestigial
-# - skills/ Python — stack gone; .claude/skills/ (Claude Code skills) permanece
 ```
