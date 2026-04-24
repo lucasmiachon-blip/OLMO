@@ -177,5 +177,39 @@ if echo "$CMD" | grep -qE '\btruncate\b'; then
   exit 0
 fi
 
+# ═══════════════════════════════════════════════════════════════════════════
+# S243 Batch 4 (F03/F08) — Interpreter hazards (defense-in-depth vs deny-list)
+# ═══════════════════════════════════════════════════════════════════════════
+# Rationale: deny-list prefix-match é camada 1 (KBP-33). Hook-level regex
+# captura variants não-prefixable: awk system(), find -exec, xargs bash,
+# make com $(shell) em Makefile. BLOCK quando hazard tem zero uso legítimo
+# conhecido em OLMO; ASK quando pode ser legítimo (Makefile trust).
+
+# Pattern 20: awk com system() — código arbitrário via awk (F03)
+if echo "$CMD" | grep -qE '\bawk\b.*system\s*\('; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"awk com system() — codigo arbitrario via awk (S243 F03) BLOCK"}}\n'
+  exit 2
+fi
+
+# Pattern 21: find -exec — defense-in-depth vs Bash(find * -exec *) deny bypass
+if echo "$CMD" | grep -qE '\bfind\b.*\s-exec\s'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"find -exec — codigo arbitrario por match (S243 F08) BLOCK"}}\n'
+  exit 2
+fi
+
+# Pattern 22: xargs com interpreter arg — shell-within-shell (F08)
+if echo "$CMD" | grep -qE '\bxargs\b[^|]*\s(bash|sh|zsh|pwsh|python3?|py|node|ruby|perl)\b'; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"xargs com interpreter — shell-within-shell (S243 F08) BLOCK"}}\n'
+  exit 2
+fi
+
+# Pattern 23: make com Makefile $(shell ...) — código arbitrário via target
+if echo "$CMD" | grep -qE '\bmake\b'; then
+  if [[ -f "Makefile" ]] && grep -qE '\$\(shell' Makefile 2>/dev/null; then
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"make com $(shell) em Makefile cwd — confirme trust do Makefile (S243 F03)"}}\n'
+    exit 0
+  fi
+fi
+
 # No write pattern — allow silently
 exit 0
