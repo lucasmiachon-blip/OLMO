@@ -103,7 +103,21 @@
       "Bash(eval *)",
       "Bash(exec *)",
       "Bash(source /*)",
-      "Bash(. /*)"
+      "Bash(. /*)",
+      "Bash(*/dev/tcp/*)",
+      "Bash(*/dev/udp/*)",
+      "Bash(*PYTHONPATH=*)",
+      "Bash(*PATH=*)",
+      "Bash(*NODE_OPTIONS=*)",
+      "Bash(patch *)",
+      "Bash(xargs *)",
+      "Bash(find * -exec *)",
+      "Bash(env bash*)",
+      "Bash(env sh*)",
+      "Bash(/bin/bash*)",
+      "Bash(/bin/sh*)",
+      "Bash(pwsh*-c*)",
+      "Bash(cmd.exe *)"
     ]
   },
   "hooks": {
@@ -427,7 +441,8 @@
           {
             "type": "command",
             "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-failure-log.sh",
-            "timeout": 3000
+            "timeout": 3000,
+            "statusMessage": "StopFailure: registrando erro de API..."
           }
         ]
       }
