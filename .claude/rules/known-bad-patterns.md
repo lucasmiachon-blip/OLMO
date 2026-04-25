@@ -103,16 +103,16 @@ globs: "**/*"
 → anti-drift.md §Session docs ("KBP candidate" ou "lint rule candidate" em Aprendizados = schedule commit antes de session close)
 
 ## KBP-32 Agent AUSENTE claim without spot-check
-→ anti-drift.md §Delegation gate ("Spot-check AUSENTE claims" — agent SOTA research claims AUSENTE têm taxa erro ~33%; Grep/Read confirm obrigatório antes de Edit)
+→ anti-drift.md §Delegation gate
 
 ## KBP-33 Prefix-glob deny insuficiente
-→ docs/adr/0006-olmo-deny-list-classification.md (7 bypasses empíricos — `/bin/bash`, `xargs bash`, `find -exec`, `env bash`, `pwsh`, `cmd.exe`, `python -Ic`; guard tokenization é defesa primária, deny é camada 1)
+→ docs/adr/0006-olmo-deny-list-classification.md
 
 ## KBP-34 Edit em dominio novo sem ler governing docs
-→ anti-drift.md §Edit discipline bullet 0 (CLAUDE.md §ENFORCEMENT #5 primacy + anti-drift operational detail: ler CLAUDE.md da subarea + rules/* + ADR/SKILL.md citados antes do primeiro Edit em dominio pouco tocado)
+→ CLAUDE.md §ENFORCEMENT #5 + anti-drift.md §Edit discipline
 
 ## KBP-35 Plugin bug local-patch trap (workaround entulho)
-→ cc-gotchas.md §Upstream plugin bugs (tracking) — bug em plugin de terceiro NUNCA é patchado localmente (manifest cache sobrescrito em update; wrapper local depende de internals frágeis). Registro vai em cc-gotchas + comentário upstream na issue oficial. Estado OLMO documenta noise residual aceito até fix upstream merge. Caso-índice: codex@openai-codex Stop hook stdin block (#191).
+→ cc-gotchas.md §Upstream plugin bugs
 
 ## KBP-36 Claim sem evidência citada (research + decisões + recommendations)
-→ CLAUDE.md §ENFORCEMENT #6 — toda claim factual exige fonte verificável (URL + data acesso, arXiv ID + data, file:line, commit SHA). Training data memory NAO conta como evidence. "Eu lembro que framework X faz Y" sem URL = fabricar. Pesquisas externas exigem WebFetch/WebSearch real, não inferência. Confidence high|medium|low explícito por claim.
+→ CLAUDE.md §ENFORCEMENT #6
