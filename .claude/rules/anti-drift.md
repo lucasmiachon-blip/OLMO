@@ -80,6 +80,14 @@ Before EACH Edit/Write, answer visibly:
 CSS/GSAP changes: verification includes screenshot via `qa-capture.mjs`.
 Touching a CSS section: audit ENTIRE section (raw px, off-palette, redundant tokens — KBP-21).
 
+### Elite faria diferente — must be actionable (KBP-37)
+"Elite faria diferente: X" tem 3 destinos válidos:
+1. **Doing now** — X passa cheap + high-value + evidence-supported. Aplicar nesta phase, não defer.
+2. **Deferred (gate-justified)** — defer só com gate explícito citado: D13 calibrate-before-harden, KBP-21 calibrate-before-block, KBP-32 spot-check pendente, ou similar. Sem gate = não defer.
+3. **Cut** — sem cost/value claro = aspiracional. Não listar — vira ruído.
+
+Listar X sem (1), (2) ou (3) = pseudo-confessional (sinaliza awareness sem ação) = KBP-22 silent-execution-chain disfarçado. Antidoto: **ações > sinalizações de awareness**. EC loop é audit trail de decisões executáveis, não confessário de aspirações.
+
 ## Session docs
 - **HANDOFF.md:** pendencias only, max ~50 lines. No history — only future.
 - **CHANGELOG.md:** append-only, 1 line per change. Aprendizados + residual verification combinado: max 5 linhas per session.
