@@ -95,18 +95,46 @@
         "P015_e22_import_font_face": "pending",
         "P016_kbp_31_aprendizados_candidate": "pending"
       },
-      "report": ".claude/skills/insights/references/latest-report.md",
+      "report": ".claude/skills/insights/references/previous-report.md",
       "notes": "Proposals P012-P016 all accepted + applied in same session (2026-04-23). KBP-30 + KBP-31 added to known-bad-patterns.md (next index: KBP-32). E22 added to slide-rules.md §Errors. content/aulas/CLAUDE.md §ENFORCEMENT + §Scripts + §Cross-Ref propagation row all updated. anti-drift.md §Session docs KBP candidate commit gate added. Trend: kbp_per_session 0.80→0.75 (improving)."
+    },
+    {
+      "id": "S246",
+      "date": "2026-04-25",
+      "metrics": {
+        "sessions_in_sample": 1,
+        "user_corrections_total": 1,
+        "user_corrections_per_session": 1.0,
+        "kbp_violations": {
+          "KBP-26_permissions_ask_broken": 1,
+          "KBP-28_adversarial_frame_bound_extension": 1
+        },
+        "kbp_total": 2,
+        "kbp_per_session": 2.0,
+        "tool_errors": 1,
+        "retries": 1
+      },
+      "insights_run": true,
+      "new_kbps_added": 2,
+      "proposals_accepted": 2,
+      "proposals_rejected": 0,
+      "proposals_pending": 3,
+      "proposals_applied_commits": {
+        "P246-001_dual_write_last_dream": "in-session_A1_skill_md",
+        "P246_lock_convention_documented": "in-session_B1_patterns_defensive_md"
+      },
+      "report": ".claude/skills/insights/references/latest-report.md",
+      "notes": "S246 'infrinha' single-session run chained with /dream. A1+B1 applied in-session (skill SKILL.md dual-write + patterns_defensive lock convention). 2 KBP candidates surfaced: dual-source-of-truth desync + PowerShell-via-Bash deny gap. 4 background SOTA research agents launched (paperclip 58.8k, crewai 49.9k, top memory repos, top multi-agent orch) — surfaced 3 schema-level adoptions pending decision (P246-001 fact_valid_until, P246-002 state.yaml, P246-003 transition conditions). Lucas asked YES/NO on hook-level command tokenization — agent recommended NO (build cost vs threat model). KPI metrics S241-S245: rework declining, backlog still stagnant 11 sessions. Trend: kbp_per_session 0.75→2.0 (2 KBP candidates this session) — but small sample (1 session), surface-level signal."
     }
   ],
   "trend": {
     "first_run": false,
-    "direction": "improving",
-    "entries_in_registry": 3,
+    "direction": "stable",
+    "entries_in_registry": 4,
     "entries_needed_for_5avg": 5,
     "corrections_per_session_5avg": null,
     "kbp_violations_per_session_5avg": null,
-    "kbp_per_session_last_two": [0.8, 0.75],
-    "note": "S236→S240: kbp_per_session 0.80→0.75 (marginal improvement). Tool errors 16→26 driven by adversarial audit sessions (S239 13-item audit). Need S241+S242 for 5-avg. Direction improving pending more data."
+    "kbp_per_session_last_two": [0.75, 2.0],
+    "note": "S240→S246: kbp_per_session 0.75→2.0 driven by 2 NEW candidates surfaced (dual-source-of-truth + PowerShell deny gap). Single-session sample distorts trend; needs 5+ entries for rolling avg. Direction='stable' because new candidates are surface (documentation-track), not regressions of existing rules. Tool errors 26→1 (this session focused on dream+insights, not adversarial audit)."
   }
 }

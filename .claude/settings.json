@@ -399,7 +399,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-quality.sh",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-quality.sh 2>>$CLAUDE_PROJECT_DIR/.claude/stop-stderr.log",
             "timeout": 5000
           }
         ]
@@ -408,7 +408,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-metrics.sh",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-metrics.sh 2>>$CLAUDE_PROJECT_DIR/.claude/stop-stderr.log",
             "timeout": 5000,
             "async": true
           }
@@ -418,7 +418,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-notify.sh",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-notify.sh 2>>$CLAUDE_PROJECT_DIR/.claude/stop-stderr.log",
             "timeout": 10000,
             "async": true
           }

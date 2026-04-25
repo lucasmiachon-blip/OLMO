@@ -107,6 +107,8 @@ htmlcov/
 .claude/pending-fixes*.md
 .claude/integrity-report.md
 .claude/.stop-failure-sentinel
+.claude/stop-stderr.log
+.claude-tmp/
 .claude/workers/
 .claude/.worker-mode
 .archive/

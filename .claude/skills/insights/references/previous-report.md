@@ -1,283 +1,445 @@
-# [archived — see latest-report.md for S240] /insights S230 — 2026-04-19 (Phase G.1)
+# /insights S240 — 2026-04-23
 
-> Scope: S220-S230 (11 days, ~163 substantive sessions, 24 commits S227-S230 analyzed in detail)
-> Phases: SCAN → AUDIT → DIAGNOSE → PRESCRIBE → QUESTION
-> Verdict: **STABLE com regressão localizada em KBP-23 (Read sem limit)**
-> Trigger: Phase G of bubbly-forging-cat — pre-decision evidence for momentum-brake fate
+> Scope: S237-S240 (4 sessions, Apr 21-23, post-S236-insights window)
+> Previous: S236 report (5 proposals pending, P007/P008/P009 executed)
+> Sessions analyzed: S237 (Beggining_GRADE_V2, Apr 21), S238 (correcao_rota, Apr 22),
+>   S239 (pwsh-update C4.6 + 239-INFRA, Apr 22), S240 (metanalise-SOTA-loop, Apr 23)
+> Phases: SCAN → AUDIT → DIAGNOSE → PRESCRIBE → QUESTION → REGISTRY
 
 ---
 
 ## Phase 1 — SCAN
 
-### Signal sources
+### Hook-log window 2026-04-21 → 2026-04-23 (559 active entries)
 
-| Source | Count | Notes |
-|---|---|---|
-| Sessions analyzed | 163 substantive (>50KB) in 11d | Last full /insights: Apr 8 (S193) |
-| Success-log entries | 226 total; 24 in S227-S230 | Clean commits per session: S227=4, S228=5, S229=9, S230=6 |
-| Hook-stats firings | 247 total | nudge-commit 131x, nudge-checkpoint 79x, model-fallback 37x |
-| Hook-log warnings | 80 PostToolUseFailures | 47 Bash, 27 Read, 4 WebFetch, 1 TestTool |
-| Tool errors S230 | 6 in current session | git add gitignored, rm Directory not empty, git add deleted file, etc |
+| pattern | cat | count | sev | status |
+|---------|-----|-------|-----|--------|
+| brake-fired:Edit | info | high | info | OK — hook working |
+| brake-fired:Write | info | moderate | info | OK |
+| brake-fired:Agent | info | 4 | info | OK |
+| brake-fired:mcp_chrome-devtools_evaluate_script | info | seen | info | NEW — MCP tools now in brake scope |
+| brake-fired:mcp_chrome-devtools_navigate_page | info | seen | info | NEW |
+| brake-fired:mcp_chrome-devtools_take_screenshot | info | seen | info | NEW |
+| tool-error:Bash | warn | 18 | warn | PERSISTENT — up from 7 in S236 window (CRLF + deny-list) |
+| tool-error:Read | warn | 5 | warn | KBP-23 candidate — Read without limit |
+| tool-error:mcp_chrome-devtools_take_screenshot | warn | 1 | warn | MCP tool error (S239 adversarial audit) |
+| tool-error:WebFetch | warn | 1 | warn | Single, not pattern |
+| tool-error:Glob | warn | 1 | warn | Single |
 
-### Key patterns
+**Notable:** `brake-fired:mcp_chrome-devtools_*` entries confirm momentum-brake now catches MCP tool chains — a new healthy pattern since S236. tool-error:Bash count increased from 7→18 (3x) over similar window — warrants investigation.
 
-- **5 sessões consecutivas de meta-trabalho** (S226 purga → S227 docs → S228 audit → S229 slim → S230 audit). Zero sessões de slide work em 11 dias. R3 a 225 dias.
-- **Phase F+G de S230 são user-driven extensions** (Lucas pediu explicit), NÃO scope drift do agente.
-- **27 Read errors** (~2.5/day) — KBP-23 First-Turn Context Explosion existe mas é violado regularmente. Mais comum: Read sem limit em arquivo >25k tokens.
-- **47 Bash errors** — predominantemente cleanup pós-delete (git rm + rm pasta vazia) e git operations em gitignored files.
+### Success-log highlights (S237-S240 clean commits)
+- S237: 5 commits clean (state refresh, grade-v1 archive, ADR-0004/0005, shared-v2 Day 1)
+- S238: 3 commits clean (font-face fix, transient compute, revert)
+- S239: 2 commits clean (C4.6 OKLCH gamut + APCA, C5 partial, revert)
+- S240: 3 commits clean (metanalise C1 shared-bridge, C2 s-etd modernization, docs)
+Total: 13 clean commits across 4 sessions — healthy velocity.
 
-### Hook calibration
+### User corrections identified
 
-- `nudge-commit` 131 firings/11d ≈ 12/day. Frequency consistent com batched session pattern. **OK**.
-- `nudge-checkpoint` 79 firings/11d ≈ 7/day. **OK**.
-- `model-fallback` 37 firings/11d. L2 antifragile fallback working. Verify rate vs. actual model unavailability separately.
+**C1 — Build-before-QA skip (S240, HIGH)**
+Source: CHANGELOG.md §S240 Aprendizados + S240 JSONL grep
+Quote: "sem workaround, arruma, não pule etapas" (build ANTES de QA)
+Evidence: Agent ran `qa-capture.mjs` before running `npm run build:metanalise`. Lucas corrected
+explicitly. Rule exists in `content/aulas/CLAUDE.md §ENFORCEMENT item 1`.
+
+**C2 — evaluate_script workaround instead of canonical tool (S240, HIGH)**
+Source: CHANGELOG.md §S240 Aprendizados
+Quote: "evaluate_script manual injetando `slide-active` foi workaround descartado por Lucas"
+Evidence: Agent used raw MCP `evaluate_script` to inject class `slide-active` directly instead
+of calling `__deckGoTo(index)` from deck.js. Lucas corrected: "sem workaround arrume e deixe
+profissional, tem script mcp". Canonical path is `qa-capture.mjs --slide <id> --port <N>` which
+internally calls `window.__deckGoTo(idx)`.
+
+**C3 — HANDOFF stale detection gap (S240, MEDIUM)**
+Source: CHANGELOG.md §S240 + metanalise/HANDOFF.md reading
+Evidence: `metanalise/HANDOFF.md` showed "16/16 slides" as of S162 (last update). Actual manifest
+has 17 slides since S207 — a 13-session drift. The note in HANDOFF (current HEAD) acknowledges:
+"Manifest real = 17 slides (S207) — HANDOFF abaixo desatualizado desde S162." No automatic
+detection mechanism caught this; Lucas caught it manually. Slides dir confirms 20 items (19 slides
++ _archive folder currently).
+
+### Additional observations from CHANGELOG scan
+
+- S237: "Revisão Opus-sobre-Opus tem correlação de blind spots" — workaround mitigation via
+  external Codex CLI review added. Pattern-of-note, not an error.
+- S238: CSS `@font-face before @import` was a silent bug since initial commit (projetor failure
+  root cause). Caught by adversarial audit. Rule E22 proposed but not yet added to slide-rules.md.
+- S238 Aprendizados: "`node -p` bypassa deny-list" — KBP candidate, currently unrecorded.
+- S239: 13-item adversarial audit showed `culori` missing as dependency → Items 2+3 PARCIAL.
+  Resolution came next session. Gap between "tool needed" and "tool available" is recurrent.
 
 ---
 
-## Phase 2 — AUDIT
+## Phase 2 — AUDIT (Compliance Matrix)
 
-| Rule | Status | Evidence |
-|---|---|---|
-| anti-drift §Momentum brake (KBP-01) | **FOLLOWED** S227-S230 | Zero scope drift events em 24 commits analisados |
-| anti-drift §First-turn discipline (KBP-23) | **VIOLATED** ~27x em 11d | hook-log 27 Read pattern errors (file >25k tokens) |
-| anti-drift §EC loop (KBP-22) | **PARTIAL** | EC pre-action visível em S230 phases; falha em outros plays |
-| anti-drift §Edit discipline (KBP-25) | **FOLLOWED** | Pre-Edit Read full em S230; zero whitespace mismatches |
-| anti-drift §State files | **FOLLOWED** | HANDOFF + CHANGELOG via Edit (não Write); preservation OK |
-| anti-drift §Plan execution (≥4 phases = TaskCreate batch) | **FOLLOWED** S230 | 5+1 tasks created upfront, marked in_progress/completed in real time |
-| anti-drift §Failure response (KBP-07) | **FOLLOWED** | S230 Bash blocked → asked Lucas (rmdir, python -c, pytest, rm -rf) |
-| anti-drift §Verification (KBP-13) | **FOLLOWED** | pytest + ruff + sanity check entre cada commit S230 |
-| anti-drift §Delegation gate (KBP-17) | **FOLLOWED** | S230 zero gratuitous Agent spawns — direct Read/Grep |
-| qa-pipeline.md (S230 absorbed) | **NEW canonical** | metanalise §QA → qa-pipeline.md; zero data loss verified |
-| KBP-26 (CC permissions.ask broken) | **CONFIRMED in S230** | 4 popups bloqueados (rmdir, python -c, pytest, rm -rf) — pattern reaffirmed |
-| KBP-27 (Crosstalk pattern) | **APPLIED S229+** | Notion via Claude Code + MCP direct funcionando |
+### Rules checked
+
+**`content/aulas/CLAUDE.md §ENFORCEMENT item 1`** — "Build ANTES de QA. Sempre."
+- Status: **VIOLATED** (C1, S240)
+- Coverage: Rule IS explicit. Failure mode is agent forgetting under time/task pressure.
+- Hook coverage: `guard-lint-before-build.sh` blocks lint skip, but no hook enforces
+  build-before-QA for `qa-capture.mjs` invocations.
+
+**`content/aulas/CLAUDE.md §Scripts` — Script Primacy**
+- Status: **VIOLATED** (C2, S240)
+- Rule states: "Script primacy: estes scripts sao canonicos. Agentes referenciam, nunca reimplementam."
+- `qa-capture.mjs` IS listed as canonical. Using raw `evaluate_script` to replicate its slide
+  navigation is reimplementation-by-proxy.
+
+**`content/aulas/CLAUDE.md §Convencoes por Aula` — HANDOFF.md per-aula**
+- Status: **GAP** (C3, S240)
+- No rule mandates cross-referencing `HANDOFF.md` slide count against `_manifest.js` at session
+  start. The propagation table (`§Cross-Ref`) covers manifest→index.html but not HANDOFF sync.
+
+**`anti-drift.md §Script primacy`** — identical to CLAUDE.md script primacy
+- Status: FOLLOWED in S237-S239, **VIOLATED** once in S240 (evaluate_script workaround).
+
+**`anti-drift.md §EC loop`** — pre-action gate with verification claim
+- Status: Generally FOLLOWED across S237-S240 (CHANGELOG shows EC blocks present).
+
+**`anti-drift.md §Propose-before-pour`** — S240 Aprendizados explicitly acknowledges it was followed.
+- Status: **FOLLOWED** — "Split s-etd em 2 aprovado: propose-before-pour aprovado."
+
+**`known-bad-patterns.md §KBP-03 Agent-Script Redundancy`**
+- Status: **VIOLATED** (C2) — evaluate_script reimplements qa-capture.mjs slide navigation.
+  KBP-03 points to "anti-drift.md §Script Primacy" — rule coverage exists, enforcement absent.
+
+**`slide-rules.md` — E22 (@import order lint)**
+- Status: **STALE/GAP** — E22 was proposed in S238 Aprendizados as "Lint rule candidate" but was
+  never added to slide-rules.md. Error that caused the projetor bug is unguarded in new slides.
+
+**`known-bad-patterns.md §KBP-07 Workaround Without Diagnosis`**
+- Status: C2 is also a KBP-07 instance — agent reached for workaround (`evaluate_script` class
+  injection) without diagnosing "why isn't the canonical script working?" first.
 
 ---
 
 ## Phase 3 — DIAGNOSE
 
-| Finding | Category | Frequency | Priority |
-|---|---|---|---|
-| Read sem `limit` em arquivos >25k tokens | RULE_VIOLATION (KBP-23 recurrence) | 27/11d | **HIGH** |
-| Cleanup pós git rm não automático (pasta vazia + __pycache__) | RULE_GAP | 1/S230 | MEDIUM |
-| Momentum brake teatro (Bash blanket exempt) | PATTERN_REPEAT (zero firings real) | 0/11d | **HIGH** (delete candidate) |
-| KPI Reflection Loop (200-call interval) | PATTERN_REPEAT (zero firings) | 0/11d | **HIGH** (delete candidate) |
-| Cost BLOCK threshold (400 calls) | PATTERN_REPEAT (zero firings) | 0/11d | **HIGH** (delete candidate) |
-| metrics.tsv stale (regex bug) | RULE_VIOLATION (data hygiene) | 7 sessões missing | MEDIUM (Phase G.2 fix) |
-| 5 sessões consecutivas meta-work | PATTERN_REPEAT (avoidance) | 5/5 | **HIGH** (R3 prep blocked) |
-| /insights ritual broken | SKILL_UNDERTRIGGER | 1 run / 30+ sessões | MEDIUM (Phase G.5 fix) |
+### Prioritized findings
+
+**F1 — RULE_VIOLATION: Build-skip before qa-capture.mjs [HIGH, frequency=1+, impact=HIGH]**
+Category: RULE_VIOLATION
+The rule "Build ANTES de QA" is explicit and unambiguous. Agent skipped it under implicit
+pressure to progress quickly through QA iteration. No hook enforces the prerequisite. The
+correction pattern ("sem workaround, nao pule etapas") is identical to previous corrections
+about workarounds — same failure mode, different surface.
+Fix target: hook-level enforcement + reinforce qa-pipeline.md.
+
+**F2 — RULE_VIOLATION + KBP-03: Script-API workaround via raw MCP [HIGH, frequency=2 across window]**
+Category: RULE_VIOLATION (KBP-03)
+Canonical path `qa-capture.mjs --slide X --port N` uses `__deckGoTo(idx)` internally. Agent
+used raw `mcp__chrome-devtools__evaluate_script` to inject `slide-active` class directly,
+bypassing the canonical script. Two corrections in window ("sem workaround arrume, tem script mcp"
+and "sem workaround arruma nao pule etapas"). Both point to same meta-pattern: agent reaches for
+direct MCP tool use when a canonical script should be the interface.
+Fix target: qa-pipeline.md + content/aulas/CLAUDE.md — explicit "prefer qa-capture.mjs over
+raw evaluate_script for slide navigation."
+
+**F3 — RULE_GAP: HANDOFF/manifest slide count drift undetected 13 sessions [MEDIUM, systemic]**
+Category: RULE_GAP
+No cross-reference check between per-aula HANDOFF.md slide count claim and `_manifest.js`
+actual slide count. S162 HANDOFF said "16 slides," S207 added slide 17 — gap persisted until
+S240 when Lucas caught it manually. session-start hook loads HANDOFF but does not validate it
+against manifest.
+Fix target: session-start.sh or content/aulas/CLAUDE.md — add manifest-count assertion at
+session open for aula contexts.
+
+**F4 — RULE_GAP: E22 (@import order) never added to slide-rules.md [MEDIUM, frequency=1 concrete bug]**
+Category: RULE_GAP
+S238 discovered that `@font-face before @import` silently invalidated 6 CSS imports (projetor
+bug root cause). Aprendizados flagged "Lint rule candidate (E22)" but no write happened.
+`guard-lint-before-build.sh` does not check at-rule order. If a new aula repeats this pattern,
+same silent projetor failure will occur.
+Fix target: slide-rules.md §Errors — add E22. Optionally guard-lint-before-build.sh.
+
+**F5 — TOOL_ERROR regression: Bash errors 7→18 (3x increase) [MEDIUM, frequency=18]**
+Category: PATTERN_REPEAT
+Bash tool errors went from 7 in the S231-S236 window to 18 in the S237-S240 window. Mix of
+deny-list hits and CRLF warnings. CRLF warnings are noise; deny-list hits represent unresolved
+tension between Windows/MSYS tooling and deny-list policies. S238 introduced `.claude-tmp/`
+convention to partially address this. Elevated count post-fix suggests the convention is not
+resolving all friction points.
+Fix target: investigate Bash error breakdown more specifically in next window; low priority now.
 
 ---
 
 ## Phase 4 — PRESCRIBE
 
-### [PATTERN_REPEAT] Momentum brake é teatro confirmed
+### [RULE_VIOLATION] P012 — Hook to enforce build-before-QA-capture
 
-**Evidence:** 24 commits S227-S230 analisados — **zero scope drift events agente-driven**. Phase F+G de S230 são user-driven (Lucas pediu explicit). Bash blanket exempt em `momentum-brake-enforce.sh:46` faz brake nunca disparar para escritas via bash. KBP-01 status: **FOLLOWED**.
-
-**Root cause:** brake desenhado para era pré-S229 (ecosystem mais ativo, mais Edit/Write per session). Slim atual = Bash-dominado = exempt → zero firings.
-
-**Proposed fix:**
-- **Target:** `.claude/hooks/momentum-brake-{clear,enforce}.sh` + `.claude/hooks/post-global-handler.sh:42-43` + `.claude/settings.json` registrations
-- **Change:** **DELETE** brake infrastructure inteira
-- **Justification:** Phase D pattern (ModelRouter teatro) aplicável — código que não é consumed = honest delete > pretend it works
-
-### [RULE_VIOLATION] KBP-23 violations recorrentes (27/11d)
-
-**Evidence:** hook-log 27 Read pattern errors `File content (N tokens) exceeds maximum allowed tokens (25000)`. Padrão: agente faz Read sem `limit` em arquivos médios-grandes; CC tool retorna error; agente retry com `offset/limit`.
-
-**Root cause:** KBP-23 pointer existe em `anti-drift.md §First-turn discipline` mas é qualitativa ("APL=HIGH strict"). Não há enforcement automático.
+**Evidence:** S240 — agent ran `qa-capture.mjs` without running `npm run build:metanalise` first.
+Lucas corrected with "sem workaround arruma nao pule etapas."
+**Root cause:** No pre-tool hook intercepts `qa-capture.mjs` invocations to assert build freshness.
+The rule lives in CLAUDE.md but has no mechanical enforcement.
 
 **Proposed fix:**
-- **Target:** `hooks/post-tool-use-failure.sh` (já existe, captura PostToolUseFailure)
-- **Change:** quando pattern=Read AND error contains "exceeds maximum allowed tokens", inject systemMessage: "[KBP-23] Read sem limit em arquivo grande — sempre passe `limit:50` primeiro, depois Grep targeted."
-- **Draft:** linha após `category:tool-error` no `post-tool-use-failure.sh`:
-```bash
-if [[ "$PATTERN" == "Read" ]] && [[ "$DETAIL" =~ "exceeds maximum allowed tokens" ]]; then
-  inject_message "[KBP-23] Read sem limit. Use 'limit: 50' primeiro, depois Grep targeted."
-fi
-```
+- **Target:** `content/aulas/CLAUDE.md §ENFORCEMENT`
+- **Change:** Add note that the rule is enforced at session-reminder level (no hook today), and
+  add explicit phrasing for MCP context.
+- **Draft addition after "Build ANTES de QA. Sempre.":**
+  ```
+  ENFORCE: Antes de qualquer invocação de `qa-capture.mjs` ou MCP screenshot,
+  confirmar que `npm run build:{aula}` rodou nessa sessão. Sem build = sem QA.
+  ```
+- **Optional hook (future):** PreToolUse hook matching `qa-capture.mjs` invocation that checks
+  `index.html` mtime vs `slides/*.html` mtime. Low complexity, medium value.
 
-### [PATTERN_REPEAT] 5 sessões consecutivas meta-work — R3 prep avoidance
+**Lucas approval required.** Rule text change only (no hook today unless Lucas approves both).
 
-**Evidence:** S226 purga → S227 docs → S228 audit → S229 slim → S230 audit. Zero commits em `content/aulas/` em 11 dias. R3 Clinica Medica está a 225 dias.
+---
 
-**Root cause:** infraestrutura confortável; produto difícil. Sistema sem signal explícito de "tempo até R3 vs trabalho de produto".
+### [RULE_VIOLATION + KBP-03] P013 — Canonical path for slide navigation: qa-capture.mjs over raw evaluate_script
+
+**Evidence:** S240 — agent used `mcp__chrome-devtools__evaluate_script` to inject `slide-active`
+class directly. Lucas corrected twice: "sem workaround arrume e deixe profissional, tem script mcp."
+**Root cause:** `content/aulas/CLAUDE.md §Scripts` table lists `qa-capture.mjs` as "captura
+screenshots" but does not explicitly state that it is the ONLY sanctioned path for slide navigation
+in QA context. Agent correctly understands the script exists but incorrectly judges raw MCP use
+as equivalent.
 
 **Proposed fix:**
-- **Target:** `hooks/session-start.sh` (já tem APL `R3 Clinica Medica: 225 dias`)
-- **Change:** detectar 3+ sessões consecutivas sem commits em `content/aulas/` → output banner amarelo "ATENÇÃO: 3 sessões sem produto. R3 a 225 dias."
-- **Draft:** ~10 linhas em session-start.sh comparando `git log --since="last 3 sessions" -- content/aulas/` vs total commits
+- **Target:** `content/aulas/CLAUDE.md §Scripts`
+- **Change:** Extend qa-capture.mjs description to flag canonical navigation.
+- **Draft — replace existing row:**
+  ```
+  | `qa-capture.mjs` | Captura screenshots + video. **Caminho canônico para navegação de slides em QA** (`__deckGoTo(idx)`). NUNCA usar `evaluate_script` direto para navegação de slides. |
+  ```
 
-### [PATTERN_REPEAT] KPI Reflection Loop + Cost BLOCK = teatro
+**Lucas approval required.**
 
-**Evidence:** zero firings em hook-log 11d. 200-call interval = sessões curtas nunca atingem. 400-call BLOCK threshold idem. Phase G.3 plan já cobre delete.
+---
 
-**Proposed fix:** **EXECUTE Phase G.3** (delete `post-global-handler.sh:26-32, 45-146`).
+### [RULE_GAP] P014 — KBP-30: Slide-count drift in per-aula HANDOFF vs manifest
 
-### [SKILL_UNDERTRIGGER] /insights ritual broken
+**Evidence:** S240 — metanalise HANDOFF.md showed "16 slides" from S162, manifest has 17 since
+S207 (13-session gap, caught manually by Lucas).
+**Root cause:** No rule or check requires agents to validate HANDOFF slide count against
+`_manifest.js` when opening an aula context. `content/aulas/CLAUDE.md §Cross-Ref` propagation
+table covers `slides/*.html → _manifest.js → index.html` but stops there — HANDOFF is not
+downstream.
 
-**Evidence:** Apenas 4 reports nos archives (S193 + 3 anteriores). 11d gap entre runs S193→S230. Skill funciona perfeitamente quando invocada (este report = proof).
+**Proposed KBP-30:**
+- **Target:** `.claude/rules/known-bad-patterns.md` — append KBP-30
+- **Draft:**
+  ```
+  ## KBP-30 Per-Aula HANDOFF Slide Count Stale
+  → content/aulas/CLAUDE.md §Cross-Ref (add: _manifest.js → HANDOFF.md slide count)
+  ```
+- **Target rule fix:** `content/aulas/CLAUDE.md §Cross-Ref propagation table`
+- **Draft row to add:**
+  ```
+  | `slides/*.html` (add/remove) | `_manifest.js` + `HANDOFF.md §Estado atual` (slides count) + `index.html` (run build) |
+  ```
 
-**Proposed fix:** **EXECUTE Phase G.5** (SessionStart reminder se sexta + last_insights >7d).
+**Lucas approval required for both KBP-30 and propagation table row.**
+
+---
+
+### [RULE_GAP] P015 — Add E22 (@import order) to slide-rules.md §Errors
+
+**Evidence:** S238 discovered `@font-face before @import` silently invalidated 6 CSS imports,
+causing the projetor slide-invisible bug. Aprendizados flagged "E22 — lint rule candidate" but
+write never happened.
+**Root cause:** Insights findings that don't produce a commit are lost. S238 Aprendizados is
+ephemeral; the rule file is persistent. No mechanism to carry "candidate" flags forward.
+
+**Proposed fix:**
+- **Target:** `.claude/rules/slide-rules.md §Errors`
+- **Change:** Add E22 line.
+- **Draft — add after existing errors list:**
+  ```
+  - E22: CSS at-rule order — `@import` MUST precede `@font-face` and all other rules (CSS Cascade §6.1). Violation = silent import failure (projetor bug S238).
+  ```
+
+**Lucas approval required.**
+
+---
+
+### [RULE_GAP] P016 — KBP-31: Aprendizados "candidates" lost without commit
+
+**Evidence:** S237 Aprendizados: "Windows path escape (KBP candidate) emergiu como pattern — non-blocking
+but silent failure." S238 Aprendizados: "E22 lint rule candidate." Neither produced a KBP or rule
+commit. The candidate signal is documented but ephemeral.
+**Root cause:** CHANGELOG Aprendizados is append-only but read-only after session close. No workflow
+routes "KBP candidate" → actual KBP file write.
+
+**Proposed KBP-31:**
+- **Target:** `.claude/rules/known-bad-patterns.md` — append KBP-31
+- **Draft:**
+  ```
+  ## KBP-31 Aprendizados KBP-Candidate Without Commit
+  → anti-drift.md §Session docs (add: "KBP candidate in Aprendizados = schedule commit before session close")
+  ```
+- **Target rule fix:** `anti-drift.md §Session docs`
+- **Draft addition:**
+  ```
+  KBP candidates in Aprendizados: if Aprendizados contains "KBP candidate" or "lint rule candidate",
+  schedule a known-bad-patterns.md commit before session close. Candidate without commit = lost.
+  ```
+
+**Lucas approval required for both KBP-31 and anti-drift rule addition.**
 
 ---
 
 ## Phase 4.5 — QUESTION (Double-Loop Audit)
 
+### Double-Loop Audit
+
 | KBP/Rule | Verdict | Evidence | Action |
 |----------|---------|----------|--------|
-| KBP-01 Scope Creep → momentum-brake | **DEPRECATE the brake, KEEP KBP** | Zero scope drift events em 24 commits; brake exempt = teatro | Delete brake hooks; KBP-01 stays as concept (anti-drift rule) |
-| KBP-23 First-Turn Context Explosion | **STRENGTHEN** | 27 violations em 11d; rule qualitativa demais | Add hook enforcement (proposed above) |
-| KBP-26 CC permissions.ask broken | **CONFIRMED** | 4 popups bloqueados em S230 (rmdir, python -c, pytest, rm -rf) | KEEP, mas acelerar BACKLOG #34 manual follow-up |
-| KBP-27 Crosstalk Pattern | **VALIDATED** | S229 Notion writes via crosstalk worked perfectly | KEEP |
-| `.claude/rules/qa-pipeline.md` | **EXPANDED CORRECTLY S230 Batch 2** | metanalise §QA absorbed sem perda; no more duplication | KEEP |
-| `.claude/rules/anti-drift.md` | **HEAVY USE S230** | EC loop, State files, Plan execution todos exercidos | KEEP |
-| `.claude/rules/known-bad-patterns.md` | **POINTER FORMAT VIOLATED then FIXED Batch 2** | KBP-26+27 prose extracted | KEEP, monitor for new violations |
-| `.claude/rules/design-reference.md` + `slide-rules.md` | **NO DATA — zero slide work 11d** | Não exercidas | KEEP (defer overlap audit per Batch 2 item 6 parking) |
-| `.claude/skills/insights/SKILL.md` | **WORKS WHEN RUN** | This report proof | Add ritual reminder (Phase G.5) |
+| KBP-03 Agent-Script Redundancy | **ACTIVE** — violated S240 (evaluate_script) | C2 above | KEEP |
+| KBP-07 Workaround Without Diagnosis | **ACTIVE** — violated S240 (class injection) | C2 above | KEEP |
+| KBP-17 Gratuitous Agent Spawning | No data in S237-S240 | — | KEEP |
+| KBP-23 First-Turn Context Explosion | Followed in S237-S240 (no violations noted) | — | KEEP |
+| KBP-25 Edit Without Full Read | No violations in window | — | KEEP |
+| KBP-29 Agent Spawn Without HANDOFF | No agent spawns without plan in window | — | KEEP |
+| E22 in slide-rules.md | **MISSING** — proposed S238, never committed | P015 | ADD |
+| anti-drift §Script Primacy | Covered; no redundancy | — | KEEP |
+| qa-pipeline.md §1 Build ANTES | Rule exists; violated once | P012 | REINFORCE |
 
-**No KBPs to deprecate.** Concepts remain valid; only some implementations (brake) are theater.
+**Previous proposals status:**
+- P007 (metrics fallback): EXECUTED S236
+- P008 (hook-log rotation): EXECUTED S236
+- P009 (KBP-29): EXECUTED S236
+- P010 (nudge-commit threshold): Status unknown — not applied in window (calibration still HIGH)
+- P011 (.dream-pending path): Status unknown — no evidence in window
 
 ---
 
 ## Phase 5 — Failure Registry Update
 
-`.claude/insights/failure-registry.json` does not exist. **Initialize with this S230 entry:**
-
+**New entry for S240:**
 ```json
 {
-  "version": 1,
-  "sessions": [
-    {
-      "id": "S230",
-      "date": "2026-04-19",
-      "metrics": {
-        "sessions_in_sample": 163,
-        "user_corrections_total": "qualitative — see report",
-        "user_corrections_per_session": "n/a",
-        "kbp_violations": {
-          "KBP-01_scope_creep": 0,
-          "KBP-23_context_explosion": 27,
-          "KBP-26_permissions_ask_broken": 4
-        },
-        "kbp_total": 31,
-        "kbp_per_session": "n/a (sessões mistas)",
-        "tool_errors": 80,
-        "retries": "n/a"
-      },
-      "insights_run": true,
-      "new_kbps_added": 0,
-      "proposals_accepted": 0,
-      "proposals_rejected": 0
-    }
-  ],
-  "trend": {
-    "first_run": true,
-    "direction": "baseline"
-  }
+  "id": "S240",
+  "date": "2026-04-23",
+  "metrics": {
+    "sessions_in_sample": 4,
+    "user_corrections_total": 3,
+    "user_corrections_per_session": 0.75,
+    "kbp_violations": {
+      "KBP-03_agent_script_redundancy": 1,
+      "KBP-07_workaround_without_diagnosis": 1,
+      "rule_build_before_qa": 1
+    },
+    "kbp_total": 3,
+    "kbp_per_session": 0.75,
+    "tool_errors": 26,
+    "retries": 0
+  },
+  "insights_run": true,
+  "new_kbps_added": 2,
+  "proposals_accepted": 0,
+  "proposals_rejected": 0
 }
 ```
 
-**Trend:** First entry — no comparison possible. Future runs compare 5-session rolling avg.
+**Trend (3 entries, need 5 for rolling avg):**
+- S230: kbp_total=31 (qualitative, 163 sessions)
+- S236: kbp_per_session=0.8 (5 sessions)
+- S240: kbp_per_session=0.75 (4 sessions)
 
-**Constrained optimization:** N/A first run.
+Direction: IMPROVING (0.80 → 0.75 kbp/session). Insufficient data for 5-avg (need S241+S242).
+Tool errors increased (16→26) — watch but not alarming given larger window and adversarial audit activity.
 
----
-
-## Evolution Metrics
-
-Compared to previous report (S193, Apr 14):
-- Categories of error PERSISTED: KBP-23 (Read sem limit) — both runs flagged
-- Categories of error NEW: KBP-26 (permissions.ask broken) — discovered S227, persists S230
-- Categories of error RESOLVED: nudge-commit calibration (S193 flagged 79 firings/3d; current 131/11d ≈ 12/day = stable, no longer anomaly)
-- New rules added since S193: anti-drift §Edit discipline (KBP-25), §State files, §Plan execution, §EC loop §Propose-before-pour, §Budget gate em scope extensions
+OK: Trend stable/improving on kbp_per_session.
 
 ---
 
-## Save metadata
-
-- Report saved to: `.claude/skills/insights/references/latest-report.md`
-- Previous report: `references/previous-report.md` (S193 — kept as historical)
-- `.last-insights` updated to current epoch (Phase G.1 commit)
-- Coautoria: Lucas + Opus 4.7 | S230 Phase G.1 (insights restoration)
-
----
-
-## Structured JSON output
+## Structured JSON Output
 
 ```json
 {
-  "insights_run": "2026-04-19",
-  "sessions_analyzed": 163,
+  "insights_run": "2026-04-23",
+  "sessions_analyzed": 4,
   "proposals": [
     {
-      "id": "P001",
-      "category": "PATTERN_REPEAT",
-      "title": "DELETE momentum-brake teatro",
-      "target_file": ".claude/hooks/momentum-brake-{clear,enforce}.sh + .claude/hooks/post-global-handler.sh:42-43 + .claude/settings.json",
-      "priority": "high",
-      "frequency": 0,
-      "draft": "rm .claude/hooks/momentum-brake-clear.sh .claude/hooks/post-global-handler.sh:42-43 (LOCK_DIR block) + remove 2 hook registrations from settings.json (lines 123 UserPromptSubmit + 248 PreToolUse)"
-    },
-    {
-      "id": "P002",
+      "id": "P012",
       "category": "RULE_VIOLATION",
-      "title": "Add KBP-23 hook enforcement for Read sem limit",
-      "target_file": "hooks/post-tool-use-failure.sh",
+      "title": "Enforce build-before-QA at rule + optional hook level",
+      "target_file": "content/aulas/CLAUDE.md",
       "priority": "high",
-      "frequency": 27,
-      "draft": "if [[ \"$PATTERN\" == \"Read\" ]] && [[ \"$DETAIL\" =~ \"exceeds maximum allowed tokens\" ]]; then inject_message '[KBP-23] Read sem limit em arquivo grande. Use limit:50 primeiro, depois Grep targeted.'; fi"
+      "frequency": 1,
+      "draft": "Após '1. Build ANTES de QA. npm run build:{aula} → depois QA. Sempre.' adicionar: 'ENFORCE: Antes de qualquer invocação de qa-capture.mjs ou MCP screenshot, confirmar que npm run build:{aula} rodou nessa sessão. Sem build = sem QA.'"
     },
     {
-      "id": "P003",
-      "category": "PATTERN_REPEAT",
-      "title": "DELETE KPI Reflection Loop + Cost BLOCK",
-      "target_file": ".claude/hooks/post-global-handler.sh:26-32,45-146",
-      "priority": "high",
-      "frequency": 0,
-      "draft": "Delete linhas 26-32 (Cost BLOCK arm) + linhas 45-146 (KPI Reflection Loop). Manter apenas Cost WARN + momentum-arm (mas se P001 aprovado, momentum-arm também sai)."
-    },
-    {
-      "id": "P004",
+      "id": "P013",
       "category": "RULE_VIOLATION",
-      "title": "Fix metrics.tsv SESSION_NUM regex",
-      "target_file": "hooks/stop-metrics.sh:96",
-      "priority": "medium",
-      "frequency": 7,
-      "draft": "if [[ \"$LATEST_COMMIT_MSG\" =~ ^S([0-9]+)([[:space:]]|:) ]]; then"
-    },
-    {
-      "id": "P005",
-      "category": "PATTERN_REPEAT",
-      "title": "Anti-meta-loop banner: 3+ sessões sem produto",
-      "target_file": "hooks/session-start.sh",
+      "title": "qa-capture.mjs = canonical slide navigation — banir evaluate_script direto",
+      "target_file": "content/aulas/CLAUDE.md",
       "priority": "high",
-      "frequency": 5,
-      "draft": "Append: 'AULAS_COMMITS=$(git log -3 --pretty=format:%H -- content/aulas/ | wc -l); if [ $AULAS_COMMITS -lt 1 ]; then echo \"⚠️ 3+ sessões sem produto (aulas/). R3 a $(cat .claude/apl/deadline-days.txt)d.\"; fi'"
+      "frequency": 2,
+      "draft": "Na tabela de Scripts, substituir linha qa-capture.mjs por: '| `qa-capture.mjs` | Captura screenshots + video. **Caminho canônico para navegação de slides em QA** (`__deckGoTo(idx)`). NUNCA usar `evaluate_script` direto para navegação de slides. |'"
     },
     {
-      "id": "P006",
-      "category": "SKILL_UNDERTRIGGER",
-      "title": "/insights ritual reminder Friday",
-      "target_file": "hooks/session-start.sh",
+      "id": "P014",
+      "category": "RULE_GAP",
+      "title": "KBP-30: HANDOFF slide count stale vs manifest",
+      "target_file": ".claude/rules/known-bad-patterns.md",
       "priority": "medium",
       "frequency": 1,
-      "draft": "Append: 'DOW=$(date +%u); LAST_INS=$(stat -c %Y .claude/.last-insights 2>/dev/null || echo 0); GAP=$(( ($(date +%s) - LAST_INS) / 86400 )); if [ \"$DOW\" -eq 5 ] && [ \"$GAP\" -gt 7 ]; then echo \"🔬 sexta + ${GAP}d sem /insights. Considere rodar.\"; fi'"
+      "draft": "## KBP-30 Per-Aula HANDOFF Slide Count Stale\n→ content/aulas/CLAUDE.md §Cross-Ref (add: _manifest.js → HANDOFF.md slide count)"
+    },
+    {
+      "id": "P015",
+      "category": "RULE_GAP",
+      "title": "Add E22 (@import order) to slide-rules.md §Errors",
+      "target_file": ".claude/rules/slide-rules.md",
+      "priority": "medium",
+      "frequency": 1,
+      "draft": "- E22: CSS at-rule order — `@import` MUST precede `@font-face` and all other rules (CSS Cascade §6.1). Violation = silent import failure (projetor bug S238)."
+    },
+    {
+      "id": "P016",
+      "category": "RULE_GAP",
+      "title": "KBP-31: Aprendizados KBP-candidate without commit = lost",
+      "target_file": ".claude/rules/known-bad-patterns.md",
+      "priority": "medium",
+      "frequency": 2,
+      "draft": "## KBP-31 Aprendizados KBP-Candidate Without Commit\n→ anti-drift.md §Session docs (add: KBP candidate in Aprendizados = schedule commit before session close)"
     }
   ],
-  "kbps_to_add": [],
+  "kbps_to_add": [
+    {
+      "pattern": "KBP-30: Per-aula HANDOFF.md slide count not cross-referenced against _manifest.js",
+      "trigger": "When opening aula context or adding/removing slides from manifest",
+      "fix": "After any manifest slide add/remove: update HANDOFF.md §Estado slide count in same commit. At session open for aula: compare HANDOFF count vs manifest count."
+    },
+    {
+      "pattern": "KBP-31: Aprendizados entry flagged as 'KBP candidate' or 'lint rule candidate' with no follow-up commit",
+      "trigger": "Session closes with candidate in Aprendizados but no commit to known-bad-patterns.md or slide-rules.md",
+      "fix": "Before session close: grep Aprendizados for 'candidate'. If found, create commit adding the KBP/rule OR explicitly defer with BACKLOG item."
+    }
+  ],
   "pending_fixes_to_add": [
     {
-      "item": "BACKLOG #34 manual follow-up: /clear + observe popup stability + close",
+      "item": "Add E22 to slide-rules.md §Errors (CSS @import before @font-face, projetor S238 bug)",
       "priority": "P1",
-      "target": ".claude/BACKLOG.md (#34 already exists, status check)"
+      "target": ".claude/rules/slide-rules.md"
+    },
+    {
+      "item": "Update content/aulas/CLAUDE.md: qa-capture.mjs canonical nav + build-before-QA enforce note",
+      "priority": "P1",
+      "target": "content/aulas/CLAUDE.md"
+    },
+    {
+      "item": "Add KBP-30 + KBP-31 to known-bad-patterns.md after Lucas approval",
+      "priority": "P1",
+      "target": ".claude/rules/known-bad-patterns.md"
+    },
+    {
+      "item": "Update content/aulas/CLAUDE.md §Cross-Ref: add manifest→HANDOFF slide count propagation row",
+      "priority": "P2",
+      "target": "content/aulas/CLAUDE.md"
     }
   ],
   "metrics": {
-    "rule_violations": 31,
-    "user_corrections": "see PATTERN_REPEAT 5 sessões meta-work",
-    "retries": 80,
-    "patterns_resolved_since_last": 1,
+    "rule_violations": 2,
+    "user_corrections": 3,
+    "retries": 0,
+    "patterns_resolved_since_last": 0,
     "patterns_new": 2
   }
 }

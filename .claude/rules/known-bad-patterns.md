@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-35.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-36.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -110,3 +110,6 @@ globs: "**/*"
 
 ## KBP-34 Edit em dominio novo sem ler governing docs
 → anti-drift.md §Edit discipline bullet 0 (CLAUDE.md §ENFORCEMENT #5 primacy + anti-drift operational detail: ler CLAUDE.md da subarea + rules/* + ADR/SKILL.md citados antes do primeiro Edit em dominio pouco tocado)
+
+## KBP-35 Plugin bug local-patch trap (workaround entulho)
+→ cc-gotchas.md §Upstream plugin bugs (tracking) — bug em plugin de terceiro NUNCA é patchado localmente (manifest cache sobrescrito em update; wrapper local depende de internals frágeis). Registro vai em cc-gotchas + comentário upstream na issue oficial. Estado OLMO documenta noise residual aceito até fix upstream merge. Caso-índice: codex@openai-codex Stop hook stdin block (#191).

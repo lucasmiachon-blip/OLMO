@@ -1,23 +1,26 @@
 # HANDOFF - Proxima Sessao
 
-> **S245 IN PROGRESS em main — infra ao maximo DONE (5 commits):**
-> - `a0b243a` CLAUDE.md §ENFORCEMENT #5 (governing-docs pre-read primacy)
-> - `60ce2ba` fix hooks/apl-cache-refresh.sh BACKLOG path — **P1 #37 RESOLVED**
-> - `a3e1e1b` three-layer completion (anti-drift bullet 0 + KBP-34)
-> - `0319325` TREE.md S230→S245 refresh + Boris prune 4 S232 blocks (-12 li; **T3.3 docs/adr subtree resolved**)
-> - `04447cc` .gitignore .stop-failure-sentinel
-> - Plus settings.local.json cleanup disco-only (10 stale entries removidas, gitignored)
-> - Plan: `.claude/plans/composed-humming-toast.md` (primary + three-layer all done)
-> - Session tema: **estetica + QA slides + pesquisa** — infra first DONE, proximo CSS + research
+> **S247 "termino-infrinha-hooks" — codex Stop hook root cause + KBP-35 + debug team Phase 1 (COMMITTED):**
+> - **Diagnose #191** confirmado: stdin block on Windows Git Bash (`fs.readFileSync(0)` antes do check stopReviewGate). Decisao: **no local patch** (KBP-35 — workaround entulho); tracking via `.claude/rules/cc-gotchas.md §Upstream plugin bugs` + +1 comment upstream pendente.
+> - **Phase 1 done:** `.claude/agents/debug-symptom-collector.md` (Sonnet, READ-ONLY, schema-first JSON 12 fields + confidence per field + example completo do caso #191). Spec validado manualmente. **Phases 2-5 pending** (BACKLOG #60).
+> - **3 schema bugs hookSpecificOutput em hooks OLMO** descobertos (BACKLOG #57-59 P1).
+> - **Comentario upstream #191** draft em `.claude-tmp/upstream-comment-191.md` (Lucas posta com `gh issue comment 191 -R openai/codex-plugin-cc -F .claude-tmp/upstream-comment-191.md`).
+> - Carryover S246 incluso no commit: insights/* (latest+previous+failure-registry), settings.json, .gitignore, CHANGELOG S246, HANDOFF S246.
 >
-> **🟢 Pendente S245 (Lucas decide ordem):**
-> - (b) Estetica: CSS/GSAP audit — qual aula/slide?
-> - (c) QA slides: `gemini-qa3.mjs` ou `qa-capture` em batch — qual aula?
-> - (d) Pesquisa: tema a definir
+> **🔴 Pendente S247 → S248 (Lucas decide ordem):**
+> - (1) **Time de debugger phases 2-5** (BACKLOG #60): Archaeologist (Gemini 3.1 Pro API paga) → Adversarial (Codex $0 nativo) → Patch Architect (Opus) + Editor (Codex, Aider-style) + Validator → `/debug-team` orchestrator skill (Opus 4.7 supervisor). ~3h trabalho, validavel apos restart.
+> - (2) **3 schema bugs hook fixes** (BACKLOG #57-59): `hooks/post-tool-use-failure.sh:38-40` (PostToolUseFailure schema → `additionalContext` top-level), `hooks/post-compact-reread.sh:17` (PostCompact → `systemMessage` top-level), `.claude/hooks/guard-write-unified.sh:31,42,122` (PreToolUse fail-closed → `hookSpecificOutput.permissionDecision:"block"`). Fix 3 lines, ~30min, requer Write→temp→cp deploy pattern (KBP-19 workflow). Causa noise "No stderr output" recorrente.
+> - (3) **Postar comentario upstream #191** — Lucas valida `.claude-tmp/upstream-comment-191.md` e posta. Issue OPEN ha 3 semanas, 0 comments maintainer.
+> - (4) **Carryover S246:** P246-001/002/003 schema-level adoptions (`fact_valid_until:` frontmatter + `state.yaml` typed state + `## Transition conditions` em plans, $0 infra). Backlog triage P1 (41+ open items, 11 sessions sem resolution velocity S235-S246).
 >
-> **Backlog diferido (do S244 handoff — ainda valido):**
-> - Migrar §Script primacy → §Agent/Subagent/Skill primacy em `anti-drift.md` (Lucas: "agents/subagents vão incorporar parte dos scripts; serão primacy")
-> - Batch 5 infra documental — Tiers 3-5 remanescentes (Q1/Q2 AGENTS.md+GEMINI.md decisoes, T3.1/T3.2/T3.4)
+> **HIDRATACAO S248 (3 passos pos-/clear):**
+> 1. `git log --oneline -5` — confirma cadeia S247 commit em main.
+> 2. Read `.claude/rules/cc-gotchas.md §Upstream plugin bugs` + KBP-35 + este HANDOFF.
+> 3. Verificar `.claude/agents/debug-symptom-collector.md` aparece em agents list (CC nao hot-reload — restart necessario para registry pegar novo agent).
+>
+> **Backlog diferido (carryover S244-S246):**
+> - Migrar §Script primacy → §Agent/Subagent/Skill primacy em `anti-drift.md`
+> - Batch 5 infra documental — Tiers 3-5 (Q1/Q2 AGENTS.md+GEMINI.md decisoes, T3.1/T3.2/T3.4)
 
 ## HYDRATION (3 passos)
 
