@@ -8,17 +8,17 @@ tools:
   - WebSearch
   - mcp:pubmed
 mcpServers:
-  pubmed:
-    type: stdio
-    command: npx
-    args: ["-y", "@cyanheads/pubmed-mcp-server"]
-    env:
-      NCBI_API_KEY: "${NCBI_API_KEY}"
+  - pubmed:
+      type: stdio
+      command: npx
+      args: ["-y", "@cyanheads/pubmed-mcp-server"]
+      env:
+        NCBI_API_KEY: "${NCBI_API_KEY}"
 model: haiku
 maxTurns: 15
 memory: project
 effort: max
-color: magenta
+color: purple
 ---
 
 # Reference Checker — Consistency Audit
