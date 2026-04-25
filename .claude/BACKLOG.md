@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=3 | P1=6 | Deferred=9 | P2=24 | Frozen=3 | Resolved=16 | Setup=separate. Next #=62.
+> Counts: P0=3 | P1=7 | Deferred=9 | P2=24 | Frozen=3 | Resolved=17 | Setup=separate. Next #=63.
 
 ## TOC
 
@@ -47,7 +47,8 @@
 | ~~58~~ | RESOLVED S248 (commit `2a350d6`) | - | ~~`hooks/post-compact-reread.sh:17` schema bug~~ | `systemMessage` top-level emitido (era `hookSpecificOutput.message` ignorado por PostCompact). |
 | ~~59~~ | RESOLVED S248 (commit `2a350d6`) | - | ~~`.claude/hooks/guard-write-unified.sh:31,42,122` schema bug~~ | 3 linhas convertidas para `{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"..."}}`. KBP-19 deploy. |
 | 61 | process | S | [S248] External benchmark execution gate | Plano canonico em `docs/research/external-benchmark-execution-plan-S248.md`. Antes de expandir #60, fechar B1-B3: CI truth, hook schema containment e content pipeline truth. Benchmarks: Anthropic Claude Code, Google/DORA, GitHub, Microsoft SDL, OWASP SAMM, OpenSSF, Google SRE, CMMI. |
-| 60 | infra | L | [S248 partial] Time de debugger Phase B + SOTA pivot | **Phase 1 + Phase B agents (6 novos) DONE S248** (commits `d710a65`/`fce085d`/`d866a73`/`ce6a0d3`): `debug-{strategist,archaeologist,adversarial,architect,patch-editor,validator}.md` + collector update complexity_score. **Pending S249:** Phase C `hooks/loop-guard.sh` (D9 mechanical gate), Phase D `.claude/skills/debug-team/SKILL.md` (Opus 4.7 supervisor + triage routing). Plan archive: `.claude/plans/archive/S248-scalable-splashing-bentley.md`. Topology REVISADA SOTA-aligned (Aider Architect/Editor + conditional MAS — D7/D8 SOTA-D). |
+| ~~60~~ | RESOLVED S249 (commits `0ae043e` + `11e44f0`) | - | ~~[S248 partial] Time de debugger Phase B + SOTA pivot~~ | Phase B agents shipped S248 (6 novos + collector update). **Phase C `hooks/loop-guard.sh` D9 advisory-mode** (commit `0ae043e` S249) + **Phase D `.claude/skills/debug-team/SKILL.md` 11-step orchestrator** (commit `11e44f0` S249). Plan: `.claude/plans/archive/S249-partitioned-jumping-summit.md`. **Phase 4 e2e validation deferred S250** — Agent tool in-session registry needs daemon-restart. |
+| 62 | process | L | [S249 Lucas-request] Audit + merge agents/skills/subagents/hooks pós-SOTA | Lucas: "muitos podem ser merged, muitos longe do SOTA até hoje". Multi-session refactor. Identifica redundancy + gaps vs estado-da-arte. Pre-req: SOTA pesquisa dedicada (similar a S248 4-perna 60 fontes). Targets candidatos: 16 project agents (overlap research/evidence-researcher? sentinel/repo-janitor? quality-gate/qa-engineer?), 18 skills, hooks. Output esperado: ADOPT/MERGE/CUT/EVAL matrix por componente. |
 
 ---
 

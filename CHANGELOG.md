@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## Sessao 249 — 2026-04-25 (infra3 + agents + e2e — orchestrator + KBP-37)
+
+### Commits (3 atomic, main)
+
+- **`0ae043e` feat(S249): infra3 — loop-guard.sh hook (D9 advisory-mode) + settings.json** — PostToolUse advisory hook (matcher Bash|Edit|Write, timeout 3000ms), self-disable via `.claude-tmp/.debug-team-active` flag, thresholds 4 Bash / 5 file edit / 3 validator-iter fire em == crossing (sem spam). Synthetic 13 cases pass. Idiom from `hooks/post-tool-use-failure.sh`.
+- **`11e44f0` feat(S249): agents — debug-team SKILL.md orchestrator (D5/D7/D10)** — 485 li, 11-step skill (collector → routing D8 → architect markdown → D10 Lucas confirm → editor → validator + loop max 3). user-only invocation. State contract single-writer-per-field.
+- **`8a906ae` docs(rules): KBP-37 Elite-faria-diferente must be actionable** — EC loop hardening: 3 destinos (doing-now/deferred-with-gate/cut). Anti pseudo-confessional pattern. Mid-session codification do antidoto Lucas-instructed.
+
+### Phase 4 e2e BLOCKED — Agent registry registry vs CLI mismatch
+
+`claude agents` CLI confirms 21 active inc 7 debug-*. /agents UI scrollable showed só 9 (Lucas screenshot scrolled past `d`). Agent tool in-session registry SEM debug-* mesmo após Lucas window-restart. Smoke test via `general-purpose` proxy collector stopped mid-flow — Lucas observou "agente nao ficou com cor" = visual confirm não-real e2e. Daemon-level restart (Ctrl+Q + reopen) needed; window-close insuficiente.
+
+### Diagnosis sequence (3-perna sob Lucas request)
+
+(1) claude-code-guide H1 em-dash em description → FALSIFIED (debug-validator 0 em-dashes não show; reference-checker 1 em-dash show). (2) Gemini API deep-think 4 hypotheses (gitignore, debug-prefix exclusion, schema strictness, Windows path) → H1 falsified via `git check-ignore`. (3) Codex CLI broken (gpt-5.5 needs upgrade; gpt-5 not on ChatGPT account). Resolution: `claude agents` CLI canonical truth — registry está OK, problema é UI display + Agent tool in-session.
+
+### Background investigation: memory: project gap
+
+4 agents (mbe-evaluator, quality-gate, repo-janitor, researcher) sem `memory: project`. Background general-purpose agent investigou git history → S84 + S121 commits são DELIBERATE (cita commit messages explícitos). Defer-by-evidence — não batch fix sem failure case observado.
+
+### Aprendizados (5 max)
+
+- **`claude agents` CLI canonical primeiro, agent tool depois.** 5s diagnostic vs 10min spawn agentes pra inferência. KBP candidate.
+- **Window restart ≠ daemon restart pra Agent tool registry.** /agents UI ≠ Agent tool runtime ≠ `claude agents` CLI. KBP-38 candidate.
+- **SOTA hypothesis ≠ dato local** (KBP-32 reinforced). claude-code-guide H1 em-dash falsificado por dados; Gemini H1 gitignore falsificado por `git check-ignore`. Hypothesis-from-SOTA-source needs Grep/CLI verification.
+- **KBP-37 codified mid-session.** "Elite faria diferente" sem ação ou gate explícito = pseudo-confessional KBP-22 disfarçado. Antidoto formalizado em anti-drift §EC loop.
+- **Codex CLI 0.118.0 model gap.** gpt-5.5 needs upgrade, gpt-5 ChatGPT-incompat. Workaround Gemini API + node script (research SKILL pattern reproduzível).
+
 ## Sessao 248 — 2026-04-25 (infra3 + agents — SOTA-aligned debug team B + benchmark gate B2)
 
 ### Commits (8 atomic, main)
