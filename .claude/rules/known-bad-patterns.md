@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-38.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-39.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -119,3 +119,6 @@ globs: "**/*"
 
 ## KBP-37 "Elite faria diferente" sem ação ou gate explícito
 → anti-drift.md §EC loop §Elite faria diferente — must be actionable
+
+## KBP-38 Window-restart ≠ daemon-restart pra Agent tool registry
+→ cc-gotchas.md §Agent tool registry refresh

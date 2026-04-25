@@ -1,5 +1,50 @@
 # CHANGELOG
 
+## Sessao 250 — 2026-04-25 (todos-em-batches — e2e + 3-model audit + KBP-38)
+
+### Commits (5 atomic, main)
+
+- **`e3404dd` fix(S250): B1.2 ci.yml mypy paths align repo real (purged agents/subagents/) + drop pytest** — L32 mypy `agents/ subagents/ config/` (purged S232) → `scripts/ config/`. L34-35 drop pytest step (no tests/ tracked).
+- **`e1ceb32` fix(S250): B3 package.json dead research scripts -> echo-redirect /research skill (S144 pattern)** — research:cirrose|metanalise apontavam content-research.mjs (removido S106). Echo-redirect preserva muscle-memory.
+- **`7d68d64` fix(S250): B Phase 4 e2e /debug-team -> ci-hatch-build-broken (verdict pass)** — Bug discovered Batch A.1: `pyproject.toml` faltava `[tool.hatch.build.targets.wheel]`. Fix 3-line. /debug-team e2e dry-run verdict **pass first try** (single_agent path complexity_score=85, validator_loop_iter=0). uv.lock self-heal stale ai-agent-ecosystem→olmo (1241 li dropped). BACKLOG #60 fully RESOLVED.
+- **`ae82f67` feat(S250): C Batch — 3-model audit research (Opus+Gemini+ChatGPT-5.5) -> decision matrix S251** — Phase 1 BACKLOG #62: 3 voices schema-strict (Opus 10/3 + Gemini 9/3 + ChatGPT-xhigh 11/7). Decision matrix em `.claude/plans/audit-merge-S251.md`. ADOPT-NEXT (S251 ~6h): H4+X1+X3. KBP-32 caught 4+ FPs.
+- **`<HEAD+1>` docs(S250): Batch E close — HANDOFF/CHANGELOG/BACKLOG + KBP-38 commit + plan archive** — Batch E session close.
+
+### Batch D — #191 upstream codex stop-hook posted
+
+External action (no commit): `gh issue comment 191 -R openai/codex-plugin-cc -F .claude-tmp/upstream-comment-191.md` posted at https://github.com/openai/codex-plugin-cc/issues/191#issuecomment-4320811444 (Lucas explicit literal text approval per permission gate).
+
+### KBP-38 codified
+
+`cc-gotchas.md §Agent tool registry refresh` — Window-restart ≠ daemon-restart pra Agent tool in-session registry. `claude agents` CLI = canonical truth (5s diagnóstico) > /agents UI (display scrollable) > Agent tool registry (refresh apenas Ctrl+Q full-quit). Origem: S249 Phase 4 e2e blocked.
+
+### 3-model audit methodology (Batch C deep-dive)
+
+3 voices independentes via mesmo prompt + JSON schema strict. Convergence rules: 3/3 high → ADOPT-NOW; 2/3 → DEFER spot-check; 1/3 high + spot-check → ADOPT-NEXT; 1/3 sem spot-check → flag FP.
+
+Spot-checks performed mid-synthesis: janitor SKILL.md vs repo-janitor.md (X1 confirmed), chaos-inject-post.sh L7 ordering comment (X3 confirmed), .claude/settings.json hook registration (Gemini "32 orphans" REFUTED — 32/32 active, 69 cmd-instances), research/SKILL.md L65-67 (Opus initial gap REFUTED — orchestrator already exists), automation/improve/continuous-learning grep description (Gemini MERGE REFUTED — 3 distinct domains).
+
+ChatGPT 5.5 xhigh ~22min vs Opus internal ~3min vs Gemini 60s — earned its time via 2 high-confidence concrete merges (janitor, chaos-hook ordering) + 7 SOTA gaps com sources externos (Anthropic docs, LangGraph durable-execution, Aider chat). xhigh ROI quando false-negative cost > waiting cost.
+
+### Aprendizados (max 5)
+
+- **3-model + spot-check methodology validated empiricamente.** No single voice solo would have produced this matrix. Convergence > average. KBP-32 (~33% AUSENTE error rate) é cross-validation core.
+- **Codex CLI proper flag > prompt-level workaround** (KBP-07 reinforced via Lucas mid-session). `--output-schema` enforces structured response; `--output-last-message <FILE>` captures final assistant message (stdout has events JSONL). NO "DO NOT use tools" prompt instruction.
+- **xhigh reasoning ROI calibrate-by-task.** ~22min é bem investido para audit decisions; ~5min seria ideal para well-scoped scope. Override CLI `-c model_reasoning_effort=medium` para tasks bem-definidos.
+- **Permission gate fires content-aware em external posts.** AskUserQuestion answer não conta como direct text confirmation pra public GitHub comments — gate exige user typing literal direct text (ou `!command` prefix terminal direct).
+- **/debug-team e2e single_agent path validates SOTA D8 routing.** complexity_score=85 → strategist solo → verdict pass first try (validator_loop_iter=0) confirms SWE-Effi β̂=-0.408 single>MAS above baseline.
+
+### KBP candidates pendentes commit (KBP-31 sweep, S246-S249 backlog histórico)
+
+- L139 dual-source-of-truth desync (Conway's Law)
+- L219 Grep content-mode trunca linhas longas (audit pass secundário needed)
+- L254 Phase colapsada via spot-check (valid scope move)
+- L280 Agent subtype dispatch-and-exit unsuitable
+- L310 policy gate vs legitimate deploy
+- L423 Stop hook Windows path escape (backslash interpretation)
+
+Total ~6 candidates predam S250 — perda histórica per KBP-31 governance. Decisão: não retroatively-commit; doravante commit imediato per KBP-31.
+
 ## Sessao 249 — 2026-04-25 (infra3 + agents + e2e — orchestrator + KBP-37)
 
 ### Commits (3 atomic, main)

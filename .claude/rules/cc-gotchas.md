@@ -17,6 +17,14 @@ paths:
 - **permissions.ask tem bug em CC >=2.1.113** (KBP-26) — pode degradar silenciosamente para allow. Arquitetura de permissions precisa assumir esse failure mode.
 - **deny-list é prefix-match.** Deny inclui 7 patterns shell-within-shell (`bash -c`, `sh -c`, `zsh -c`, `eval`, `exec`, `source /*`, `. /*`). `$()`, backticks e pipelines (`Bash(X && bash -c Y)`) requerem hook-level guard — fora do pattern match.
 
+## Agent tool registry refresh
+
+`claude agents` CLI = canonical truth (5s diagnóstico). `/agents` UI = display scrollable (verifica Up arrow se >9 agents listados — alfabético, debug-* before evidence-researcher pode passar despercebido). **Agent tool in-session = registry separado**, refresh apenas em **daemon-level Ctrl+Q + reopen** (window close-and-reopen NÃO basta).
+
+Diagnóstico fluxo: `claude agents` CLI primeiro, ANTES de qualquer hypothesis "silently dropped" ou "agent type not found" (KBP-32 spot-check 5s > 10min spawn-and-pray).
+
+Origem: S249 Phase 4 e2e blocked (Lucas window-restart insuficiente; Agent tool registry stale apesar de filesystem `.claude/agents/` correto). S250 hidratação pós-full-quit confirmou registry pegou 21 active inc 7 debug-*. KBP-38 codified.
+
 ## Upstream plugin bugs (tracking, no local patch)
 
 Bugs em plugins de terceiros que afetam OLMO. Não patcham localmente (workaround → entulho); registramos para rastrear, comentar upstream e re-validar após plugin update.
