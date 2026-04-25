@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=3 | P1=8 | Deferred=9 | P2=24 | Frozen=3 | Resolved=13 | Setup=separate. Next #=61.
+> Counts: P0=3 | P1=9 | Deferred=9 | P2=24 | Frozen=3 | Resolved=13 | Setup=separate. Next #=62.
 
 ## TOC
 
@@ -33,7 +33,7 @@
 
 ## P1 — importante 2-3 sessões <a id="p1"></a>
 
-> 10 items em §Deferred (no consumer / low urgency). Aqui ficam apenas content-adjacent + trivial + historical.
+> 9 items em §Deferred (no consumer / low urgency). Aqui ficam apenas content-adjacent + trivial + historical.
 
 | # | Cat | Effort | Item | Next action |
 |---|-----|--------|------|-------------|
@@ -46,6 +46,7 @@
 | 57 | infra | S | [S247] `hooks/post-tool-use-failure.sh:38-40` schema bug | Usa `hookSpecificOutput.systemMessage` mas PostToolUseFailure schema requer top-level `additionalContext` (ou `decision`+`reason`). Causa "No stderr output" em tool failures. Fix: trocar `{"hookSpecificOutput":{"systemMessage":"..."}}` por `{"additionalContext":"..."}`. Deploy via Write→temp→cp (KBP-19). |
 | 58 | infra | S | [S247] `hooks/post-compact-reread.sh:17` schema bug | Usa `hookSpecificOutput.message` mas PostCompact aceita apenas top-level (`systemMessage`/`continue`/`stopReason`/`suppressOutput`). Fix: `jq -cn --arg msg "$MSG" '{systemMessage:$msg}'`. Deploy via Write→temp→cp. |
 | 59 | infra | S | [S247] `.claude/hooks/guard-write-unified.sh:31,42,122` schema bug | 3 linhas usam `{"error":"..."}` mas PreToolUse fail-closed deve retornar `{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"..."}}`. Outros 30+ PreToolUse hooks no projeto corretos — so estes 3 patterns errados. Deploy via Write→temp→cp. |
+| 61 | process | S | [S248] External benchmark execution gate | Plano canonico em `docs/research/external-benchmark-execution-plan-S248.md`. Antes de expandir #60, fechar B1-B3: CI truth, hook schema containment e content pipeline truth. Benchmarks: Anthropic Claude Code, Google/DORA, GitHub, Microsoft SDL, OWASP SAMM, OpenSSF, Google SRE, CMMI. |
 | 60 | infra | L | [S247] Time de debugger phases 2-5 (continuation) | Phase 1 done (`debug-symptom-collector.md`). Pending: (2) `debug-archaeologist.md` Gemini 3.1 Pro API paga; (3) `debug-adversarial.md` Codex $0; (4) `debug-patch-architect.md` Opus + `debug-patch-editor.md` Codex (Aider-style) + `debug-validator.md` Sonnet; (5) `.claude/skills/debug-team/SKILL.md` orchestrator Opus 4.7 (Anthropic supervisor pattern). ~3h trabalho. Validavel apos restart (CC nao hot-reload agents). |
 
 ---
@@ -67,7 +68,7 @@
 | 4 | P1 | Pipeline DAG end-to-end (inbox → NLM → wiki) | Arquitetural; sem consumer ativo |
 | 5 | P1 | medicina-clinica 4 stubs | Aguarda external harvest COWORK (ADR-0002); sem ação OLMO possível |
 
-**Contagem:** 9 items (10 total, 1 archived S245). Próximo # ainda 52.
+**Contagem:** 9 items (10 total, 1 archived S245). Próximo #=62.
 
 ---
 

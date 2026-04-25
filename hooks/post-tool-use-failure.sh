@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 # Claude Code hook: PostToolUseFailure
-# Logs tool failures to hook-log.jsonl + injects corrective guidance as systemMessage.
+# Logs tool failures to hook-log.jsonl + injects corrective guidance as additionalContext.
 # Evento: PostToolUseFailure | Timeout: 5s | Exit: sempre 0
 # S225 Issue #7: defensive cat fallback — prevents hook abort on broken stdin pipe.
 # S230 G.7: KBP-23 enforcement — banner_warn quando Read falha com "exceeds maximum tokens".
+# S248 #57: schema fix — additionalContext top-level (era hookSpecificOutput.systemMessage, inválido).
 
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
@@ -32,11 +33,11 @@ if [[ "$TOOL_NAME" == "Read" ]] && [[ "$ERROR_MSG" == *"exceeds maximum allowed 
   { . "$PROJECT_ROOT/hooks/lib/banner.sh" && banner_warn "KBP-23 Read sem limit" "Use 'limit: 50' primeiro" "Depois Grep targeted" >&2; } || true
 fi
 
-# Inject corrective guidance as systemMessage
+# Inject corrective guidance as additionalContext (top-level — schema PostToolUseFailure)
 SAFE_ERROR=$(echo "$ERROR_MSG" | sed 's/"/\\"/g' | head -c 200)
 
 cat <<EOF
-{"hookSpecificOutput":{"systemMessage":"Tool '$TOOL_NAME' failed: $SAFE_ERROR. Read the complete error, diagnose root cause before retrying. Do not retry the same command blindly."}}
+{"additionalContext":"Tool '$TOOL_NAME' failed: $SAFE_ERROR. Read the complete error, diagnose root cause before retrying. Do not retry the same command blindly."}
 EOF
 
 exit 0

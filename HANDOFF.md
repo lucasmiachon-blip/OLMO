@@ -1,5 +1,11 @@
 # HANDOFF - Proxima Sessao
 
+> **S248 Codex external benchmark merge (2026-04-25):**
+> - Plano canonico criado: `docs/research/external-benchmark-execution-plan-S248.md`.
+> - Backlog #61 adicionado como gate de execucao: antes de expandir debug team #60, fechar B1-B3 (CI truth, hook containment, content pipeline truth).
+> - Benchmarks incorporados: Anthropic Claude Code hooks/subagents, Google Engineering Practices, DORA CI/trunk-based, GitHub Actions/protected branches, Microsoft SDL, OWASP SAMM, OpenSSF Scorecard, Google SRE postmortems, CMMI levels.
+> - Decisao operacional: aproveitar o que o OLMO ja tem (settings.json, BACKLOG, agentes/skills versionados, pre-commit, hook logs), mas congelar novas camadas ate os checks representarem a realidade do repo.
+>
 > **S247 "termino-infrinha-hooks" — codex Stop hook root cause + KBP-35 + debug team Phase 1 (COMMITTED):**
 > - **Diagnose #191** confirmado: stdin block on Windows Git Bash (`fs.readFileSync(0)` antes do check stopReviewGate). Decisao: **no local patch** (KBP-35 — workaround entulho); tracking via `.claude/rules/cc-gotchas.md §Upstream plugin bugs` + +1 comment upstream pendente.
 > - **Phase 1 done:** `.claude/agents/debug-symptom-collector.md` (Sonnet, READ-ONLY, schema-first JSON 12 fields + confidence per field + example completo do caso #191). Spec validado manualmente. **Phases 2-5 pending** (BACKLOG #60).

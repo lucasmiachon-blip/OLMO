@@ -28,7 +28,7 @@ TOOL_NAME=$(printf '%s' "$PARSED" | cut -f2)
 
 # Fail-closed: can't parse but input has tool_input → block
 if [ -z "$FILE_PATH" ] && echo "$INPUT" | grep -q '"tool_input"'; then
-  printf '{"error": "BLOQUEADO: guard-write-unified falhou ao parsear input (fail-closed)"}\n'
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"BLOQUEADO: guard-write-unified falhou ao parsear input (fail-closed)"}}\n'
   exit 2
 fi
 
@@ -39,7 +39,7 @@ FILE_PATH=$(printf '%s' "$FILE_PATH" | sed -E 's|//|/|g; s|[^/]+/\.\./||g; s|^\.
 
 # ═══ Guard 1: Generated files (index.html built by npm run build) ═══
 if [[ "$FILE_PATH" == *"content/aulas/"*"/index.html" ]]; then
-  printf '{"error": "BLOQUEADO: index.html e gerado por npm run build:{aula}. Editar slides/*.html ou index.template.html, depois rodar build."}\n'
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"BLOQUEADO: index.html e gerado por npm run build:{aula}. Editar slides/*.html ou index.template.html, depois rodar build."}}\n'
   exit 2
 fi
 
@@ -119,7 +119,7 @@ fi
 # Hook scripts: BLOCK Edit/Write (deploy via Write→temp→cp, guard-bash-write asks)
 if echo "$FILE_PATH" | grep -qE '(^|/)(\.claude/hooks|hooks)/.*\.sh$'; then
   BASENAME=$(basename "$FILE_PATH")
-  printf '{"error": "BLOQUEADO: %s e hook de seguranca. Deploy via Write→temp→cp (guard-bash-write pede aprovacao)."}\n' "$BASENAME"
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"BLOQUEADO: %s e hook de seguranca. Deploy via Write→temp→cp (guard-bash-write pede aprovacao)."}}\n' "$BASENAME"
   exit 2
 fi
 

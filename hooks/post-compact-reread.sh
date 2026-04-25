@@ -14,5 +14,5 @@ SESSION_NAME=$(cat "$PROJECT_ROOT/.claude/.session-name" 2>/dev/null || echo "(s
 
 MSG="[POST-COMPACT] Contexto compactado. OBRIGATORIO: re-ler HANDOFF.md e CLAUDE.md agora. Sessao: $SESSION_NAME. NAO confiar em memoria pre-compaction — verificar decisoes ativas."
 
-jq -cn --arg msg "$MSG" '{hookSpecificOutput:{message:$msg}}'
+jq -cn --arg msg "$MSG" '{systemMessage:$msg}'
 exit 0
