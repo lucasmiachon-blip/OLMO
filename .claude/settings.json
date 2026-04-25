@@ -330,6 +330,16 @@
         ]
       },
       {
+        "matcher": "Bash|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/hooks/loop-guard.sh",
+            "timeout": 3000
+          }
+        ]
+      },
+      {
         "matcher": ".*",
         "hooks": [
           {
