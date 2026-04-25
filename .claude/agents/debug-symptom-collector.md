@@ -53,6 +53,16 @@ Toda execucao retorna UM bloco JSON com este shape exato:
     "external_dependencies": ["string (ex: 'codex@openai-codex 1.0.3', 'Node 20')"],
     "confidence": "high|medium|low"
   },
+  "complexity_score": {
+    "value": "integer 0-100",
+    "components": {
+      "error_clarity": "integer 0-25 (error_signature.confidence: high=25, medium=15, low=5)",
+      "repro_determinism": "integer 0-25 (deterministic=25, false=10, unknown=5)",
+      "scope_clarity": "integer 0-25 (narrowest_subsystem named=25, partial=15, unknown=5)",
+      "cause_familiarity": "integer 0-25 (recent_changes_relevant=25/15/5)"
+    },
+    "routing_decision": "single_agent (>75) | mas (<=75) — D8 SOTA-D threshold per S8 SOTA-C evidence"
+  },
   "evidence_artifacts": [
     {"type": "log|stack|test_output|hook_log|sentinel", "path": "string", "excerpt": "string ≤500 chars"}
   ],
@@ -82,7 +92,13 @@ Output intermediario: `"Ingested N artifacts. Verbatim error: '<message>'. Proxi
 1. Mapear input para o schema canonical campo a campo
 2. Para cada campo: marcar `confidence` honestamente (high = evidencia direta no input; medium = inferencia razoavel de 1-2 contextos; low = chute educado)
 3. Listar gaps explicitos: o que falta para confidence "high" em cada campo de baixa confianca
-4. Compor `downstream_hints` apontando para o que cada agent downstream precisa investigar
+4. **Compute `complexity_score`** somando 4 componentes (cada 0-25):
+   - error_clarity: derive de error_signature.confidence (high=25, medium=15, low=5)
+   - repro_determinism: derive de reproduction.deterministic (true=25, false=10, unknown=5)
+   - scope_clarity: derive de suspected_scope.narrowest_subsystem (named subsystem=25, partial=15, unknown=5)
+   - cause_familiarity: derive de suspected_scope.recent_changes_relevant (true=25, false=15, unknown=5)
+   - **routing_decision**: value > 75 → "single_agent" path (Phase 2 só strategist); value ≤ 75 → "mas" path (3 paralelos archaeologist + adversarial + strategist). Threshold conservador per D8 SOTA-D — calibragem real após 3 bugs medidos.
+5. Compor `downstream_hints` apontando para o que cada agent downstream precisa investigar
 
 PROIBIDO nesta fase:
 - Propor root cause (e da archaeologist+adversarial)
@@ -159,6 +175,16 @@ Gaps: 2
     "recent_changes_relevant": "false",
     "external_dependencies": ["codex@openai-codex 1.0.3", "Node 20.x", "Git Bash on Windows 11"],
     "confidence": "high"
+  },
+  "complexity_score": {
+    "value": 75,
+    "components": {
+      "error_clarity": 25,
+      "repro_determinism": 10,
+      "scope_clarity": 25,
+      "cause_familiarity": 15
+    },
+    "routing_decision": "mas"
   },
   "evidence_artifacts": [
     {"type": "stack", "path": "(harness emit)", "excerpt": "Stop hook error: Failed with non-blocking status code: No stderr output"},
