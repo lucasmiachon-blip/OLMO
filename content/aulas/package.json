@@ -26,8 +26,8 @@
     "qa:screenshots:metanalise": "node scripts/qa-capture.mjs --aula metanalise",
     "qa:gate0:metanalise": "node scripts/gemini-qa3.mjs --aula metanalise --inspect",
     "qa:gate4:metanalise": "node scripts/gemini-qa3.mjs --aula metanalise --editorial",
-    "research:cirrose": "node scripts/content-research.mjs --aula cirrose",
-    "research:metanalise": "node scripts/content-research.mjs --aula metanalise"
+    "research:cirrose": "echo 'REMOVED S106 — use /research skill (6 pernas)'",
+    "research:metanalise": "echo 'REMOVED S106 — use /research skill (6 pernas)'"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
