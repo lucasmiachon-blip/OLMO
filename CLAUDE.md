@@ -7,6 +7,7 @@
 3. **Erro recorrente = rule/hook, nao "vou lembrar".** Consultar `known-bad-patterns.md` antes de agir.
 4. **Curiosidade obrigatoria.** Explicar o porque antes de executar. Ensinar durante, nao depois.
 5. **Ler os documentos antes de mudar.** Dominio novo ou pouco tocado → ler CLAUDE.md da subarea + `rules/*` + ADR/SKILL.md citados antes do primeiro Edit. "Pareceu obvio" nao dispensa.
+6. **Evidence-based em tudo.** Toda claim factual (research SOTA, recommendation arquitetural, decisao, comparativo, "framework X faz Y") cita fonte verificavel: URL + data acesso, paper + arXiv ID, file:line, commit SHA. **Training data memory NAO conta como evidence** — "eu lembro que X" sem fonte = fabricar (KBP-36). Pesquisas externas exigem WebFetch/WebSearch real, nao inferencia. Confidence per claim: high (fonte explicita) | medium (inferencia razoavel) | low (chute educado, flag explicito).
 
 Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica dez/2026 (120 questoes).
 Consumer: MBE (via `$OLMO_INBOX`), ensino, concurso R3. Producer (daily org, Notion writes) em OLMO_COWORK (ADR-0002). Maximo valor, minimo custo.

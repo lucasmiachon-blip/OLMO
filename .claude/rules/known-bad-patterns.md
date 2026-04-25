@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-36.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-37.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -113,3 +113,6 @@ globs: "**/*"
 
 ## KBP-35 Plugin bug local-patch trap (workaround entulho)
 → cc-gotchas.md §Upstream plugin bugs (tracking) — bug em plugin de terceiro NUNCA é patchado localmente (manifest cache sobrescrito em update; wrapper local depende de internals frágeis). Registro vai em cc-gotchas + comentário upstream na issue oficial. Estado OLMO documenta noise residual aceito até fix upstream merge. Caso-índice: codex@openai-codex Stop hook stdin block (#191).
+
+## KBP-36 Claim sem evidência citada (research + decisões + recommendations)
+→ CLAUDE.md §ENFORCEMENT #6 — toda claim factual exige fonte verificável (URL + data acesso, arXiv ID + data, file:line, commit SHA). Training data memory NAO conta como evidence. "Eu lembro que framework X faz Y" sem URL = fabricar. Pesquisas externas exigem WebFetch/WebSearch real, não inferência. Confidence high|medium|low explícito por claim.
