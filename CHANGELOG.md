@@ -1,5 +1,44 @@
 # CHANGELOG
 
+## Sessao 248 — 2026-04-25 (infra3 + agents — SOTA-aligned debug team B + benchmark gate B2)
+
+### Commits (8 atomic, main)
+
+- **`2a350d6` fix(S248): hook schema bugs #57-59 (B2) + benchmark gate B0-B6 setup** — 3 hook schema fixes (PostToolUseFailure additionalContext top, PostCompact systemMessage top, PreToolUse fail-closed permissionDecision:"block") + plan inicial + `docs/research/external-benchmark-execution-plan-S248.md` + BACKLOG #61.
+- **`b273181` docs(rules): S248 ENFORCEMENT #6 evidence-based + KBP-36** — Lucas-instructed primacy bullet "evidence-based em tudo" (URL/arXiv ID/file:line/SHA obrigatorios; training data memory NAO conta) + KBP-36 governance pointer.
+- **`e38c161` docs(rules): KBP-32/33/34/35/36 trim prose-in-pointer drift** — sweep dos 5 KBPs recentes que violavam KBP-16 (verbosity drift). Now strict pointer-only per file format rule.
+- **`45acff0` fix(S248): reference-checker.md schema (color + mcpServers) + 4 SOTA reports** — Phase A fixes (color magenta→purple per Anthropic spec; mcpServers dict→list canonical) + 4 SOTA reports persistidos em `docs/research/sota-S248-{A,B,C,D}-*.md`.
+- **`d710a65` feat(S248): debug team B.0 collector + B.1 strategist + plan SOTA refactor** — collector +complexity_score field (D8 routing 0-100, threshold 75 single/mas), strategist NOVO (Opus first-principles, allow-list tools).
+- **`fce085d` feat(S248): debug team B.2 archaeologist (Gemini) + B.3 adversarial (Codex)** — wrapper pattern siblings (sonnet + Bash external CLI). Archaeologist 1M ctx historical mining; Adversarial frame analysis KBP-28 checklist.
+- **`d866a73` feat(S248): debug team B.4 architect (Aider Architect role — markdown text)** — KEY agent per D7 SOTA-D. Per S27 evidence (Aider 2024-09): "LLMs write worse code if asked to return code wrapped in JSON via tool function call." Architect emits markdown text plan, editor parsea.
+- **`ce6a0d3` feat(S248): debug team B.5 patch-editor (Aider Editor) + B.6 validator** — único writer (drift = KBP-01) + mechanical validator (verdict pass|partial|fail; loop-back to architect se fail max 3 iter).
+
+### SOTA research (3 background agents paralelos, 60 fontes verificadas)
+
+A Anthropic (claude-code-guide, 8 URLs) — `code.claude.com/docs/en/sub-agents` + Anthropic engineering blog 2025-2026. B Industry (general-purpose, 22 URLs) — OpenAI Agents SDK + Google ADK + Microsoft Agent Framework + CrewAI + LangGraph + Mastra + Letta + Smolagents + PydanticAI. C Empirical (general-purpose, 30 papers/postmortems) — SWE-Bench/BFCL/AgentBench + Aider/Devin/Anthropic case studies + arXiv 2024-2026. D synthesis manual (Opus 4.7) consolidando ADOPT/EVAL/IGNORE/ALREADY matrix + 6 novas decisoes D7-D12.
+
+### Pivot Frente 2 (tribunal-3 → Aider Architect/Editor)
+
+Plano original "tribunal Gemini+Codex+Opus paralelos + Opus juiz JSON output" REVISADO para topology efficacy-first conforme SOTA-D: collector → triage routing (complexity_score >75 single OR ≤75 MAS) → architect (markdown text NAO JSON, D7) → editor (Codex Aider) → validator → loop-back se fail (Anthropic taxonomy nivel 6 Evaluator-Optimizer com humano D10). Custo descartado (Lucas solo dev) — eficacia é critério único.
+
+### KBP-36 contamination case (real)
+
+SOTA-A reportou "spot-check via Grep confirmou 7/10 agents sem `model:` explícito" — claim FABRICATED. Grep local imediato mostrou 10/10 declaram model. Outras 2 claims SOTA-A (color magenta + mcpServers dict) confirmadas validas via Read local. Taxa erro AUSENTE confirmada ~33%. CLAUDE.md §ENFORCEMENT #6 + KBP-36 anchorou principio formal mid-session — applied retroativamente, capturou contamination ANTES de virar Edit errado.
+
+### Aprendizados (max 5)
+
+- Aider Architect/Editor pattern (S27 SOTA-C, 85% vs 75% solo): reasoning sem constraint format > JSON com tool calls. Adopted D7 — debug-architect markdown text, editor parsea.
+- Single-agent > MAS above baseline 45% (S8 SOTA-C, β̂=-0.408 p<0.001): conditional MAS via complexity_score; threshold 75 conservador para medical-grade.
+- Failures cost 3-4x tokens (S6 SWE-Effi): mechanical gates (step counter D9) fora do model são empíricos. Phase C deferred mas confirmed ADOPT.
+- KBP-36 evidence-based primacy validated: 1/3 SOTA agent claims fabricated. Grep/Read local antes de Edit é gate não-negociável.
+- State files external revert mid-session real (ci.yml lost, HANDOFF/BACKLOG/plan revertidos por background process). Resposta: incremental commits ship-able a cada phase.
+
+### Phase C+D + outstanding S249
+
+Phase C (loop-guard hook D9) + Phase D (/debug-team SKILL Opus 4.7 supervisor) deferred S249 — restart valida 6 agents B antes anyway. Plus B1.2 ci.yml recovery, B3 package.json dead scripts, #191 upstream comment posting (Lucas owns).
+
+---
+
 ## Sessao 247 — 2026-04-25 (termino-infrinha-hooks — codex Stop hook root cause + KBP-35 + debug team Phase 1)
 
 ### Mudancas (this commit)

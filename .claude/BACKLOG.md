@@ -2,7 +2,7 @@
 
 > Canonical SSoT per S225 LT-7 merge. Schema: tier (P0/P1/P2/Frozen/Resolved) + cat (infra/tooling/process/research/content) + effort (S/M/L).
 > Governance: items surgem via backlog gate (S155). Attack top-down within tier. Movement: P0 → in-progress via HANDOFF. Done → Resolved. Dormant >10 sessões = audit candidate.
-> Counts: P0=3 | P1=9 | Deferred=9 | P2=24 | Frozen=3 | Resolved=13 | Setup=separate. Next #=62.
+> Counts: P0=3 | P1=6 | Deferred=9 | P2=24 | Frozen=3 | Resolved=16 | Setup=separate. Next #=62.
 
 ## TOC
 
@@ -43,11 +43,11 @@
 | 47 | process | S | [DEFERRED] Research skill E2E verification (ex-S234 P0) | Scripts `.claude/scripts/{gemini,perplexity}-research.mjs` nunca testados contra API real. Reativar só se research para slide concreto quebrar. |
 | 48 | tooling | M | [DEFERRED] PMID batch verification automation (ex-S235) | Script `.claude/scripts/pmid-batch-verify.mjs` para batch PMID via PubMed MCP esummary. Reativar só se volume research justificar. |
 | ~~49~~ | RESOLVED S232 post-close (via #51 DELETE path) | - | ~~Managed Agents evaluation~~ | Historical marker. |
-| 57 | infra | S | [S247] `hooks/post-tool-use-failure.sh:38-40` schema bug | Usa `hookSpecificOutput.systemMessage` mas PostToolUseFailure schema requer top-level `additionalContext` (ou `decision`+`reason`). Causa "No stderr output" em tool failures. Fix: trocar `{"hookSpecificOutput":{"systemMessage":"..."}}` por `{"additionalContext":"..."}`. Deploy via Write→temp→cp (KBP-19). |
-| 58 | infra | S | [S247] `hooks/post-compact-reread.sh:17` schema bug | Usa `hookSpecificOutput.message` mas PostCompact aceita apenas top-level (`systemMessage`/`continue`/`stopReason`/`suppressOutput`). Fix: `jq -cn --arg msg "$MSG" '{systemMessage:$msg}'`. Deploy via Write→temp→cp. |
-| 59 | infra | S | [S247] `.claude/hooks/guard-write-unified.sh:31,42,122` schema bug | 3 linhas usam `{"error":"..."}` mas PreToolUse fail-closed deve retornar `{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"..."}}`. Outros 30+ PreToolUse hooks no projeto corretos — so estes 3 patterns errados. Deploy via Write→temp→cp. |
+| ~~57~~ | RESOLVED S248 (commit `2a350d6`) | - | ~~`hooks/post-tool-use-failure.sh:38-40` schema bug~~ | `additionalContext` top-level emitido (era `hookSpecificOutput.systemMessage` ignorado por PostToolUseFailure). |
+| ~~58~~ | RESOLVED S248 (commit `2a350d6`) | - | ~~`hooks/post-compact-reread.sh:17` schema bug~~ | `systemMessage` top-level emitido (era `hookSpecificOutput.message` ignorado por PostCompact). |
+| ~~59~~ | RESOLVED S248 (commit `2a350d6`) | - | ~~`.claude/hooks/guard-write-unified.sh:31,42,122` schema bug~~ | 3 linhas convertidas para `{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"..."}}`. KBP-19 deploy. |
 | 61 | process | S | [S248] External benchmark execution gate | Plano canonico em `docs/research/external-benchmark-execution-plan-S248.md`. Antes de expandir #60, fechar B1-B3: CI truth, hook schema containment e content pipeline truth. Benchmarks: Anthropic Claude Code, Google/DORA, GitHub, Microsoft SDL, OWASP SAMM, OpenSSF, Google SRE, CMMI. |
-| 60 | infra | L | [S247] Time de debugger phases 2-5 (continuation) | Phase 1 done (`debug-symptom-collector.md`). Pending: (2) `debug-archaeologist.md` Gemini 3.1 Pro API paga; (3) `debug-adversarial.md` Codex $0; (4) `debug-patch-architect.md` Opus + `debug-patch-editor.md` Codex (Aider-style) + `debug-validator.md` Sonnet; (5) `.claude/skills/debug-team/SKILL.md` orchestrator Opus 4.7 (Anthropic supervisor pattern). ~3h trabalho. Validavel apos restart (CC nao hot-reload agents). |
+| 60 | infra | L | [S248 partial] Time de debugger Phase B + SOTA pivot | **Phase 1 + Phase B agents (6 novos) DONE S248** (commits `d710a65`/`fce085d`/`d866a73`/`ce6a0d3`): `debug-{strategist,archaeologist,adversarial,architect,patch-editor,validator}.md` + collector update complexity_score. **Pending S249:** Phase C `hooks/loop-guard.sh` (D9 mechanical gate), Phase D `.claude/skills/debug-team/SKILL.md` (Opus 4.7 supervisor + triage routing). Plan archive: `.claude/plans/archive/S248-scalable-splashing-bentley.md`. Topology REVISADA SOTA-aligned (Aider Architect/Editor + conditional MAS — D7/D8 SOTA-D). |
 
 ---
 
