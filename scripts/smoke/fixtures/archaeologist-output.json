@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-25T18:34:00Z",
+  "input_collector_complexity_score": 75,
+  "external_brain_used": "gemini-3-1-pro",
+  "git_blame_relevant_commits": [],
+  "historical_pattern_matches": [
+    {
+      "pattern": "Hook stdin handling differs between Linux/macOS and Windows Git Bash",
+      "occurrences": 1,
+      "first_seen": "2026-04-09T00:00:00Z",
+      "last_seen": "2026-04-25T00:00:00Z",
+      "evidence_paths": [".claude/rules/cc-gotchas.md:#Upstream plugin bugs"],
+      "kbp_or_doc_reference": "KBP-35",
+      "confidence": "high"
+    }
+  ],
+  "prior_fixes_attempted": [
+    {
+      "context": "S247 codex Stop hook silent timeout",
+      "approach": "no local patch (KBP-35 policy); track upstream issue #191; document in cc-gotchas",
+      "outcome": "partial",
+      "reference": "S247 commit cb86724",
+      "confidence": "high"
+    }
+  ],
+  "related_issues_external": [
+    {
+      "source": "github_issue",
+      "url": "https://github.com/openai/codex-plugin-cc/issues/191",
+      "title": "Stop hook fs.readFileSync(0) blocks on Windows Git Bash",
+      "summary": "Open since 2026-04-09, no maintainer comment yet",
+      "confidence": "high"
+    }
+  ],
+  "architectural_context": "OLMO uses codex@openai-codex plugin (v1.0.3) for Stop hook gating. Hook lives in plugin cache, not OLMO repo. Manifest hooks.json has Stop with timeout 900ms. Bug-relevant subsystem is plugin's stop-review-gate-hook.mjs which OLMO does not own — KBP-35 mandates upstream tracking, not local patch.",
+  "confidence_overall": "medium",
+  "gaps": [
+    "Could not git blame plugin source (out of repo)",
+    "Did not check codex-plugin-cc PR history for related fixes — Gemini did not enumerate"
+  ]
+}
