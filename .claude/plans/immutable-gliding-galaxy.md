@@ -292,6 +292,128 @@ OLMO acumulou 16 agents + 19 skills + 32 hooks + 6 ADRs sem mapa unificado por d
 
 ---
 
+## 11b. Mermaid DAG — Architecture (rendered)
+
+```mermaid
+flowchart TB
+    Lucas([Lucas — user/decider])
+    CC[Claude Code<br/>orchestrator default]
+    Lucas --> CC
+
+    subgraph Cognitive ["Cognitive (input-bound)"]
+        MEM[MEMORY<br/>HANDOFF · agent-memory · dream]
+        KNOW[KNOWLEDGE<br/>docs · ADRs · content/aulas]
+        RES[RESEARCH<br/>evidence-researcher · 6-pernas]
+    end
+
+    subgraph Output ["Output (artifact-bound)"]
+        FE[FRONTEND<br/>slides · chrome-devtools]
+        CONT[CONTENT<br/>teaching · exam-generator · QA]
+        CUST[CUSTOM<br/>concurso R3 · reumato · humanidades]
+    end
+
+    subgraph Support ["Support (process-bound)"]
+        DBG[DEBUG<br/>debug-team 7 agents]
+        BE[BACKEND<br/>scripts · ruff · mypy]
+        PROD[PRODUCTIVITY<br/>backlog · insights · APL]
+    end
+
+    subgraph MetaLoops ["Meta-loops (system-bound)"]
+        SE[SELF_EVOLVING<br/>ANTIFRAGILE<br/>sentinel · KBPs · improve]
+        TOOL[TOOLING<br/>ECOSYSTEM<br/>MCPs · plugins · settings]
+    end
+
+    subgraph CrossModel ["Cross-model"]
+        ORQ[ORQUESTRACAO_<br/>MULTI_MODEL<br/>ADR-0003]
+        COUNCIL[COUNCIL P3<br/>3-model methodology<br/>Karpathy 5-voice high-stakes]
+    end
+
+    CC --> Cognitive
+    CC --> Output
+    CC --> Support
+    CC --> MetaLoops
+    CC --> CrossModel
+
+    AUTO[AUTOMATION_LEAN_LAYER<br/>32 hooks · schedule cron · APL · daily-SOTA P2]
+    Cognitive --> AUTO
+    Output --> AUTO
+    Support --> AUTO
+    MetaLoops --> AUTO
+    CrossModel --> AUTO
+
+    KPI[(KPI/OKR persistence<br/>.claude/metrics/baseline+snapshot<br/>anti-vanish daily commit)]
+    AUTO --> KPI
+
+    KPI -.feedback.-> SE
+    KPI -.calibrate.-> Lucas
+
+    style Lucas fill:#f9c74f,color:#000
+    style CC fill:#90e0ef,color:#000
+    style AUTO fill:#a8dadc,color:#000
+    style KPI fill:#e63946,color:#fff
+    style COUNCIL fill:#b5179e,color:#fff
+    style SE fill:#06d6a0,color:#000
+```
+
+---
+
+## 11c. Mermaid DAG — Phasing P0→P4 (KPI gates)
+
+```mermaid
+flowchart LR
+    P0["P0 Audit + Baseline + Harvest<br/>~6-8h<br/><b>S251 status: 3/4 done</b><br/>(a) baseline ✓ · (b) snapshot ✓<br/>(c) Notion ⏸ · (d) audit 30%"]
+    P1["P1 Resolve redundâncias<br/>+ wire daily snapshot cron<br/>~6h"]
+    P2["P2 Daily SOTA + cross-model docs<br/>+ smoke tests<br/>~8-10h"]
+    P3["P3 Council unification<br/>+ agent-memory expansion<br/>~10h"]
+    P4["P4 Notion offboarding<br/>+ humanidades skill<br/>~6h"]
+
+    P0 -->|"KPI gate:<br/>baseline + 12 KPIs valued<br/>harvest log committed<br/>audit 67/67 ✗ (defer aggregate)"| P1
+    P1 -->|"kpi-snapshot-uptime ≥3d<br/>S250 ADOPT-NEXT done<br/>(X1+H4+X3 resolved)"| P2
+    P2 -->|"digest-published-daily ≥5/7<br/>smoke-test-coverage ≥40%<br/>CODEX.md created"| P3
+    P3 -->|"agent-memory-coverage ≥40%<br/>council-decision-trace ≥1 demo"| P4
+    P4 --> Done(["Conductor 2026<br/>operational"])
+
+    style P0 fill:#f4a261,color:#000
+    style P1 fill:#e9c46a,color:#000
+    style P2 fill:#2a9d8f,color:#fff
+    style P3 fill:#264653,color:#fff
+    style P4 fill:#e76f51,color:#fff
+    style Done fill:#06d6a0,color:#000
+```
+
+---
+
+## 11d. Mermaid DAG — Council pattern (multi-model decision routing)
+
+```mermaid
+flowchart TB
+    Decision{Decision class?}
+
+    Decision -->|complexity ≤75<br/>bug| DEBUG[debug-team MAS<br/>strategist + archaeologist + adversarial<br/>parallel voices]
+    Decision -->|architecture<br/>adoption| AUDIT[3-model methodology<br/>Opus + Gemini + Codex<br/>convergence rules 3/3 · 2/3 · 1/3]
+    Decision -->|literature claim| RESEARCH[research 6-pernas<br/>Gemini + Perplexity + evidence-researcher<br/>+ NLM + SCite + Consensus]
+    Decision -->|high-stakes<br/>irreversible| HIGH[Karpathy 5-voice<br/>Opus + Gemini + Codex + Ollama-devil + sentinel<br/>independent · pre-registered · adversarial]
+
+    DEBUG --> Synth[Synthesis<br/>debug-architect markdown plan]
+    AUDIT --> Synth2[Synthesis<br/>decision matrix file]
+    RESEARCH --> Synth3[Synthesis<br/>living HTML evidence]
+    HIGH --> Synth4[Synthesis<br/>quorum + Lucas confirm gate D10]
+
+    Synth --> Action[Action<br/>editor + validator]
+    Synth2 --> Action2[Action<br/>plan approval + phasing]
+    Synth3 --> Action3[Action<br/>slide write + reference-checker]
+    Synth4 --> Action4[Action<br/>Lucas final decision]
+
+    style Decision fill:#f9c74f,color:#000
+    style HIGH fill:#b5179e,color:#fff
+    style Action fill:#06d6a0,color:#000
+    style Action2 fill:#06d6a0,color:#000
+    style Action3 fill:#06d6a0,color:#000
+    style Action4 fill:#06d6a0,color:#000
+```
+
+---
+
 ## 12. Phasing P0 → P4 (executable, KPI-gated)
 
 | Phase | Goal | Deliverables | KPI gate to advance | Estimated |
