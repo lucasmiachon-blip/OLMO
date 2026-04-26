@@ -1,6 +1,6 @@
 # Audit P5 (anti-teatro) + P6 (E2E + WHY-first) — Conductor 2026 P0 (d)
 
-> **Status:** v1.2 — S251 P0 in-progress (20/67 components audited; 47 pending — P0 continues S252+)
+> **Status:** v1.3 — S251 P0 in-progress (24/67 components audited; 43 pending — P0 continues S252+)
 > **Plan ref:** `.claude/plans/immutable-gliding-galaxy.md` §2 P5/P6 + §12 P0(4)
 > **Methodology:** read frontmatter + first 50 li of each component, score against 7 criteria
 > **Cadence:** ~6-10 components per session; full P0 audit completes in ~7-10 sessions
@@ -29,7 +29,7 @@
 
 ---
 
-## AUDITED (20/67) — batches A + B + C
+## AUDITED (24/67) — batches A + B + C + D
 
 | # | Component | Type | 5a | 5b | 5c | P5 | 6a | 6b | 6c | 6d | P6 | Action |
 |---|-----------|------|----|----|----|----|----|----|----|----|----|--------|
@@ -53,6 +53,14 @@
 | 18 | `guard-bash-write.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓§ | ✓ | ✗ | **PART 3/4** | add VERIFY |
 | 19 | `evidence-audit` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
 | 20 | `automation` | skill | ~ | ✓ | ? | **PART** | ✓ | ✗ | ~ | ✗ | **FAIL 1-2/4** | full refactor (trigger + consumer + WHY + HOW + VERIFY) |
+| 21 | `debug-adversarial` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓¶ | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 22 | `researcher` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 23 | `teaching` | skill | ~ | ✓ | ✓ | **PART** | ✓ | ✓# | ✓ | ✗ | **PART 3/4** | clarify trigger + VERIFY |
+| 24 | `stop-quality.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓** | ✓ | ✗ | **PART 3/4** | add VERIFY |
+
+¶ debug-adversarial 6b: Codex max + KBP-28 explicit ("atacando o frame que collector estabeleceu")
+\# teaching 6b: cita Kawasaki 10-20-30 + Michael Alley assertion-evidence + Reynolds (Presentation Zen) + Duarte (Resonate) + Tufte (T1-T2 multi-source)
+\*\* stop-quality 6b: "S213 self-improvement loop step 1" + merge history (crossref-check + detect-issues + hygiene Fase 2)
 
 \* repo-janitor 5c: ambíguo (`--fix` Lucas-approve OK; default REPORT unclear)
 \*\* debug-architect 6b: Aider 2024-09 study T1 "85% vs 75% solo" — exemplary
@@ -63,35 +71,37 @@
 ‡ lint-on-edit 6b: cita "Antifragile L5" + "L1 retry S89: jitter"
 § guard-bash-write 6b: cita "Codex audit S57" + "jq 10x faster than node S193" — concrete benchmarks
 
-### Observed pattern (confidence: high — n=20)
+### Observed pattern (confidence: high — n=24)
 
-**P5 (anti-teatro):** 18/20 PASS (90%), 2/20 PARTIAL (repo-janitor consumer; automation trigger+consumer+HOW). Sem teatro flagrante mas `automation` é early warning — frontmatter description tão vague que nem trigger objetivo emerge.
+**P5 (anti-teatro):** 21/24 PASS (87.5%), 3/24 PARTIAL — repo-janitor (consumer), automation (trigger + consumer + HOW), teaching (trigger). **NEW pattern emerging:** trigger-vague frontmatter é segundo modo de falha P5 (3/24 = 12.5%).
 
-**P6 (WHY-first + VERIFY):** 0/20 PASS. Stratification:
-- **9/20 com P6 3/4** (close — só falta VERIFY 6d): debug-architect, debug-validator, debug-strategist, debug-team, knowledge-ingest, guard-write-unified, debug-archaeologist, lint-on-edit, guard-bash-write
-- **9/20 com P6 2/4** (WHY+VERIFY ausentes): sentinel, repo-janitor, qa-engineer, research, improve, insights, ambient-pulse, debug-symptom-collector, evidence-audit
-- **2/20 com P6 ≤1.5/4 FAIL**: evidence-researcher, automation
+**P6 (WHY-first + VERIFY):** 0/24 PASS. Stratification atualizada:
+- **12/24 com P6 3/4** (50%, close — só falta VERIFY): debug-architect, debug-validator, debug-strategist, debug-team, knowledge-ingest, guard-write-unified, debug-archaeologist, lint-on-edit, guard-bash-write, debug-adversarial, teaching, stop-quality
+- **10/24 com P6 2/4** (42%, WHY+VERIFY ausentes): sentinel, repo-janitor, qa-engineer, research, improve, insights, ambient-pulse, debug-symptom-collector, evidence-audit, researcher
+- **2/24 com P6 ≤1.5/4 FAIL** (8%): evidence-researcher, automation
 
-**Insight reforçado:** **dois clusters distintos** —
-- **High-quality** (S194+ + debug-team subgraph): citam sessions/papers/benchmarks concretos — **simplesmente falta smoke test (VERIFY)**
-- **Legacy** (pré-S248 agents/skills brief): WHAT-only frontmatter; **precisam refactor doc completo** (WHY+VERIFY)
+**Insights consolidados (n=24):**
+- **Two failure modes P5:** consumer ambíguo (1) + trigger vague (3). Trigger-vague é mais comum — frontmatter description deve SEMPRE incluir trigger explícito.
+- **Doc-quality temporal pattern persiste:** debug-team subgraph + componentes S194+ (guards/lint/stop-quality) + skills com referências authoritativas (teaching cita Kawasaki/Alley/Reynolds/Duarte/Tufte) → P6 3/4. Componentes brief frontmatter pré-S248 → P6 2/4.
 
-**Implicação P1+:** 9 componentes alta-qualidade só precisam template `VERIFY: scripts/smoke/{name}.sh` adicionado — trabalho mecânico. 9-11 legacy precisam full WHY refactor (~10-15 min cada). Priority order já clara.
+**Implicação P1+ refinada:**
+- 12 mecânicos (template VERIFY only): ~5min cada = ~1h total
+- 10 doc-only (WHY+VERIFY): ~10-15min cada = ~2h total
+- 2 structural FAIL: ~30min cada = ~1h total (full WHY+HOW+trigger refactor)
+- 3 trigger-clarify (subset of partials): ~5min cada = ~15min
 
 ---
 
 ## PENDING audit (61/67)
 
-### Agents (7 pending of 16; 9 audited)
+### Agents (5 pending of 16; 11 audited)
 - [ ] `mbe-evaluator`
 - [ ] `quality-gate`
-- [ ] `researcher`
 - [ ] `systematic-debugger`
 - [ ] `reference-checker`
-- [ ] `debug-adversarial`
 - [ ] `debug-patch-editor`
 
-### Skills (12 pending of 19; 7 audited)
+### Skills (11 pending of 19; 8 audited)
 - [ ] `docs-audit`
 - [ ] `brainstorming`
 - [ ] `concurso`
@@ -100,7 +110,6 @@
 - [ ] `janitor` (likely delete post-X1 merge)
 - [ ] `skill-creator`
 - [ ] `nlm-skill`
-- [ ] `teaching`
 - [ ] `continuous-learning`
 - [ ] `review`
 - [ ] (1 reserve slot — may add)
@@ -123,13 +132,12 @@
 - [ ] `post-global-handler.sh`
 - [ ] `momentum-brake-enforce.sh`
 
-`hooks/` (14 pending; 1 audited):
+`hooks/` (13 pending; 2 audited):
 - [ ] `notify.sh`
 - [ ] `stop-notify.sh`
 - [ ] `nudge-commit.sh`
 - [ ] `session-compact.sh`
 - [ ] `session-end.sh`
-- [ ] `stop-quality.sh`
 - [ ] `pre-compact-checkpoint.sh`
 - [ ] `session-start.sh`
 - [ ] `stop-metrics.sh`
@@ -145,17 +153,15 @@
 
 | Metric | Current | After full P0 |
 |--------|---------|----------------|
-| Components audited | 20/67 (29.9%) | 67/67 (100%) |
-| P5 PASS rate | 18/20 (90%) | TBD |
-| P6 PASS rate | 0/20 (0%) | TBD |
-| P6 PARTIAL 3/4 (close — só VERIFY) | 9/20 (45%) | TBD |
-| P6 PARTIAL 2/4 | 9/20 (45%) | TBD |
-| P6 FAIL ≤1/4 | 2/20 (10%) | TBD |
+| Components audited | 24/67 (35.8%) | 67/67 (100%) |
+| P5 PASS rate | 21/24 (87.5%) | TBD |
+| P5 PARTIAL (trigger/consumer ambíguo) | 3/24 (12.5%) | TBD |
+| P6 PASS rate | 0/24 (0%) | TBD |
+| P6 PARTIAL 3/4 (close — só VERIFY) | 12/24 (50%) | TBD |
+| P6 PARTIAL 2/4 | 10/24 (42%) | TBD |
+| P6 FAIL ≤1.5/4 | 2/24 (8%) | TBD |
 
-**Hypothesis refinada (confidence: high — n=20):** Dois clusters distintos confirmed —
-- **Alta-qualidade (45%)**: cite evidence T1/T2 — só falta VERIFY mecânico
-- **Legacy/brief (45%)**: WHAT-only — precisam WHY+VERIFY refactor
-- **Falha estrutural (10%)**: frontmatter tão vague que comprometem trigger/consumer/HOW também
+**Hypothesis n=24:** Dois failure modes P5 + três clusters P6 estáveis. Total time-to-completion P1+ estimado ~4h (mecânico+doc+structural+trigger-clarify).
 
 ---
 
