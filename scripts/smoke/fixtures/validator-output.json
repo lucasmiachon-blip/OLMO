@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-25T18:40:00Z",
+  "edit_log_source": "scripts/smoke/fixtures/patch-editor-output.json",
+  "reproduction_steps": [],
+  "regression_checks": [
+    {
+      "related_file": "C:/Dev/Projetos/OLMO/.claude/rules/cc-gotchas.md",
+      "check_type": "grep_pattern_preserved",
+      "executed_command": "grep -c 'codex#191' .claude/rules/cc-gotchas.md",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "related_file": "(working tree)",
+      "check_type": "syntax",
+      "executed_command": "git status --short",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "lint_status": {
+    "ran": false,
+    "tool": "none",
+    "exit_code": null,
+    "issues_count": null
+  },
+  "test_status": {
+    "ran": false,
+    "tool": "none",
+    "exit_code": null,
+    "passed_count": null,
+    "failed_count": null,
+    "failed_test_names": []
+  },
+  "verdict": "pass",
+  "verdict_rationale": "Architect plan prescribed KBP-35 upstream-only resolution. Editor correctly applied zero changes. Validator confirmed: (1) cc-gotchas.md entry tracking #191 exists (S247 commit cb86724), (2) git working tree shows zero modifications (negative test passes — editor honored zero-edit promise), (3) no related-file regressions possible since no patch applied. Bug #191 noise persists externamente as residual aceito per KBP-35 documentation. Verdict pass.",
+  "loop_back_recommended": false,
+  "loop_back_input_to_architect": null,
+  "summary": "Bug #191 KBP-35 case: validator confirms zero local changes correctly applied. cc-gotchas.md tracking persisted from S247. No regression possible (no patch). Verdict pass."
+}
