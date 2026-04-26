@@ -1,0 +1,14 @@
+date	slug	value	threshold	pass	source_command	confidence
+2026-04-26	agent-memory-coverage	6.25	40	false	count .claude/agent-memory/*/<*.md> ÷ 16 × 100	high
+2026-04-26	smoke-test-coverage	0	80	false	count scripts/smoke/*.sh ÷ 18 × 100	high
+2026-04-26	cross-model-invocations-week	6	3	true	git log --since=7d --grep gemini|codex|ollama (sum)	medium
+2026-04-26	kpi-baseline-defined-per-arm	13	12	true	count KPIs in this file (drift detector vs baseline.md)	high
+2026-04-26	apl-metrics-committed-daily	0	1	false	test -f .claude/metrics/snapshots/{yesterday}.tsv	high
+2026-04-26	knowledge-base-coverage	stub	80	stub	NOT_YET_IMPL — P2 grep evidence/.*living + PMID count	low
+2026-04-26	research-tier1-ratio	stub	90	stub	NOT_YET_IMPL — per-artifact PMID/DOI/arXiv ratio	low
+2026-04-26	debug-team-pass-first-try	stub	70	stub	NOT_YET_IMPL — needs n≥5 runs (S250 baseline n=1 insufficient)	low
+2026-04-26	slides-qa-pass-ratio	stub	95	stub	NOT_YET_IMPL — qa-rounds JSON parse	low
+2026-04-26	aulas-tier1-evidence-complete	stub	80	stub	NOT_YET_IMPL — ref-checker JSON output	low
+2026-04-26	kbp-resolved-per-session	stub	1	stub	NOT_YET_IMPL — CHANGELOG.md session-scoped grep RESOLVED	low
+2026-04-26	mcp-health-uptime	stub	99	stub	NOT_YET_IMPL — needs scripts/smoke/mcp-health.sh (P2)	low
+2026-04-26	r3-questoes-acertadas-simulado	stub	75	stub	NOT_YET_IMPL — manual entry content/concurso/error-log.md	low
