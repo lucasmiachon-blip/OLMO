@@ -84,6 +84,10 @@ grep -l "anti-drift\|fabricat\|should have\|deveria\|forgot\|esquec" <files>
 
 **Known false positives:** Skill invocations (via Skill tool) inject the SKILL.md content as user messages. Grep hits on these are noise — filter out messages starting with "Base directory for this skill:" or containing SKILL.md header patterns (e.g., "# SkillName —").
 
+**Same-session noise filter (P253-005, originally P246-004):** when current /insights run is the analysis session, agent-self-spawned events appear in hook-log inflating Agent/Skill/brake-fired counts. For cross-session aggregate counts, exclude entries from current_session: predicate `event.session != $CURRENT_SESSION`. Particularly relevant when this run includes 3+ background agent dispatches in same turn.
+
+**Branch-aware analysis (P253 NEW):** before analyzing, check `git branch --show-current` + `git log main..HEAD --oneline`. Findings differ if running on feat branch vs main. Read `success-log.jsonl` for cross-branch commit timestamps (more real-time than `git log` per branch). The SessionStart `gitStatus` snapshot is stale by mid-session — re-check.
+
 #### Step 3: Extract context around matches
 
 For each match, read only the surrounding 5-10 lines. Parse the JSONL line as JSON to get the message content. Focus on `"type":"user"` and `"type":"assistant"` messages.

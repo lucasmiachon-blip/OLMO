@@ -1,46 +1,46 @@
 # HANDOFF - Proxima Sessao
 
-> **S252 "infra2" — P0 finish + P1 first PASSes + KBP-39:**
+> **S253 "INFRA_ROBUSTO" — organize a casa: unify under Conductor 2026:**
 >
-> 4 commits main: `cb4c863` → `e1e0761` → `d4d23e7` (+ close commit) sobre `042c6fc` S251-close.
+> 3 commits main: `dc78ff5` (Group A) → `8fdc4a5` (Group B) → `<Group D close>` sobre `2fd9b00` S252-tail.
 >
-> **🟢 Entregas S252 (mechanical-only scope, plano `fancy-imagining-crab.md`):**
-> - **P0 c — KPI calibration done** (commit `cb4c863`): baseline.md §Calibration log preenchido 12/12 confirmed (3 low-conf flagged); Open Q#1 RESOLVED.
-> - **P0 d — Audit batch F** (commit `cb4c863`): +8 components (3 agents + 3 .claude/hooks + 2 hooks/) → **38/66 (58%) audited**. Agents milestone: 16/16 = 100% complete. Pattern n=38 stable (P5 92% PASS).
-> - **P1 — First 6 P6 PASSes** (commit `e1e0761`): debug-team subgraph + mbe-evaluator received `## VERIFY` H2 + `scripts/smoke/{name}.sh` path canonical + 1-2 sentence semantic anchor. Conversion 6/8 = 75% (debug-validator + debug-strategist ficaram PART 3.5/4 — WHY-body weak).
-> - **P6 PASS rate progression:** 0/30 (S251) → 6/38 (S252) — **first PASSes do projeto** (16%).
-> - **KBP-39 codified** (commit `d4d23e7`): audit-merge convergence rules followed loosely (S250 X1 lesson). Pointer-only KBP-16 enforced. Counter advanced KBP-39→KBP-40.
+> **🟢 Entregas S253:**
+> - **/dream consolidated** — 3 topic files updated (tooling-pipeline 9→16 agents, self-improvement KBPs 28→39, MEMORY.md reindex S246→S253). Hook-log rotated 504→500. Dual-write timestamps.
+> - **/insights weekly retrospective** — 6 proposals P253-001 a P253-006. Trend 5avg available (5 entries S230/S236/S240/S246/S253). corrections 1.0→0.71 ✓ improving; kbp 2.0→1.43 ✓ improving; backlog STAGNANT 18 sessions ⚠ HIGH PRIORITY.
+> - **Group A** (commit `dc78ff5`): archive 4 plans (composed-humming-toast S245, debug-ci-hatch-build-broken S250, gleaming-painting-volcano S244, S239-C5-continuation) + delete 1 stub (debug-hooks-nao-disparam) + cleanup `.claude-tmp/` 24→3 files.
+> - **Group B** (commit `8fdc4a5`): fold 3 sub-plans into Conductor 2026 single source of truth: §6 expanded with concrete decision matrix (KBP-39 anchor moved); §10+§12 Notion P0→P2 per Lucas; §16 NEW Active execution backlog; §17 NEW Per-arm component audit matrix template + DEBUG worked example; §18 NEW Audit P5/P6 detailed progress (38/66 full table). 3 plans archived (S253-audit-p5-p6, S253-fancy-imagining-crab, S253-audit-merge-S251).
+> - **Lucas durable rules consolidated S253:** (1) max 3 plans active · (2) Notion → P2 (não P0) · (3) main aqui é deliberado; "branch sempre" aplica a feature track work · (4) ChatGPT 5.5 adicionado ao research+review team · (5) quality target 9-9.5 (was 8-9 baseline).
 >
-> **🔴 Pendente S252 → S253 (priority order):**
-> 1. **S253.A — Notion harvest (P0 c BLOCKED)** — Lucas exporta workspace markdown pra `.claude-tmp/notion-export/`. Sem harvest = decisão prematura (Chesterton's Fence T1).
-> 2. **S253.B — Audit batch G+H continuation** — 28 pendentes (8 skills + 20 hooks); ~3 sessões mecânicas. Agents COMPLETE.
-> 3. **S253.C — VERIFY mechanical batch G** — 12 components ainda PART 3/4 (close-to-PASS, só falta VERIFY) + 2 PART 3.5/4 (strengthen WHY-body). ~1.5h.
-> 4. **S253.D — H4 systematic-debugging→debug-team merge** (~1.5h destrutivo, propose-before-pour explícito; KBP-39 anchor).
-> 5. **S253.E — X3 chaos-inject hook ordering** (~1h destrutivo, .claude/settings.json hooks array).
-> 6. **S253.F — G1 disallowedTools→tools allowlist** (6 agents, ~2h mechanical).
-> 7. **S253.G — G3 debug-team metrics instrumentation** (~1h, depende de D done).
-> 8. **S253.H — Smoke test creation** (8 declared paths × ~30min = 4h dedicated session — implementa scripts/smoke/{name}.sh files).
+> **🎯 PROXIMA SESSÃO S254 — Lucas tomorrow priorities (per Conductor §16):**
+> 1. **Build/arrange 2-3 slides** (likely metanálise; lovely-sparking-rossum.md reference reduzido — deadline 30/abr removida).
+> 2. **Migrate 3 existing JS scripts → agents/subagents/skills com benchmark** + add chatgpt-research.mjs NEW (4th model team):
+>    - `gemini-research.mjs` · `gemini-review.mjs` · `perplexity-research.mjs` · **`chatgpt-research.mjs` NEW (Codex CLI gpt-5.5)**
+>    - Sequence: (a) audit model names/params (semana teve muitas updates) → (b) benchmark 4 scripts × N runs latency+token+quality → (c) launch research real (Lucas query)
+>    - Quality bar: 9-9.5 (vs 8-9 baseline)
+>    - Decision pendente: agent vs subagent vs skill per script
 >
-> **HIDRATACAO S253 (5 passos):**
-> 1. `git log --oneline -15` — confirma cadeia 4 commits S252 sobre `042c6fc` S251-close
-> 2. Read `VALUES.md` — frame (8 core values + enterprise distinction)
-> 3. Read `.claude/plans/immutable-gliding-galaxy.md` — Conductor 2026 plan
-> 4. Read `.claude/plans/audit-p5-p6-violations.md` — state 38/66 + 6 first PASSes + 5 tier P6 stratification
-> 5. Read `.claude/metrics/baseline.md` — KPI definitions calibrated S252 (12/12 confirmed)
+> **DEFER S255+ (não bloquear S254):**
+> - P0(d) audit batch G+H (28 pendentes); H4/X3 destrutivos (propose-before-pour); KPI snapshot wiring; P2 sota-intake skill; per-arm matrix §17.1-§17.12 amanhã (DEBUG worked example feito S253).
 >
-> **Cautions S253:**
-> - **Notion offboard NÃO antes de harvest** — Chesterton's Fence (T1) persistente.
-> - **D/E destrutivos exigem propose-before-pour separado** — Lucas explicit OK requerido (anti-drift §Propose-before-pour).
-> - **KBP-39 anchor pra D**: H4 merge enfrentar mesma classification ambiguity de X1 — strict 3/3 vs scope-complementarity audit. Lucas review obrigatório.
-> - **VERIFY gap reduziu mas persiste**: 6/38 PASS, 32/38 ainda pendentes (12 close-to-PASS + 2 PART 3.5 + 16 PART 2/4 + 2 FAIL).
-> - **Smoke test creation NÃO done S252** — só paths declared. S253.H scope dedicado.
+> **HIDRATACAO S254 (3 passos — single source of truth):**
+> 1. `git log --oneline -10` — confirm S253 chain (3 commits `dc78ff5`→`8fdc4a5`→close)
+> 2. Read `.claude/plans/immutable-gliding-galaxy.md` (Conductor 2026 unified — META + §6 council + §16 S254 backlog + §17 per-arm + §18 audit)
+> 3. Read `.claude/scripts/{gemini,perplexity}-research.mjs` + `.claude/scripts/gemini-review.mjs` (existing JS to migrate; works well, só improve)
 >
-> **Backlog deferido (S243-S252, ativo):**
-> - **grade-v2 scaffold C6 (URGENT — deadline 30/abr T-5d)** — atrasou
-> - shared-v2 Day 2/3 (`.claude/plans/S239-C5-continuation.md` PAUSADO)
-> - metanalise C5 s-heterogeneity (`.claude/plans/lovely-sparking-rossum.md`)
-> - Tier 3-5 documental (Q3 research-S82 / Q4 CHANGELOG threshold) — Q1 AGENTS.md + Q2 GEMINI.md já existem
-> - QA editorial metanalise (3/19 done)
-> - R3 Clínica Médica prep — 218 dias
+> **Cautions S254:**
+> - **Mellow-scribbling-mitten Track A P5 in-flight** em outra window/branch (anti-drift.md + CLAUDE.md modified). NÃO TOCAR — Lucas owns aquela track + cherry-pick later. Plan persiste em `.claude/plans/` apenas no branch feat (not main).
+> - **`.claude/scripts/*-research.mjs` funcionam bem** — Lucas explicit "só podem ser melhorados". Não rewrite from scratch; wrap + improve.
+> - **Branch awareness:** SessionStart `gitStatus` snapshot fica stale. Always `git branch --show-current` antes de commit (KBP candidate /insights P253-NEW).
+>
+> **Plans active (3, post-organize-a-casa):**
+> - `immutable-gliding-galaxy.md` — Conductor 2026 single source of truth (META + audit + execution + per-arm matrix)
+> - `lovely-sparking-rossum.md` — metanálise QA (deadline removida; reference para 2-3 slides amanhã, escopo reduzido)
+> - `floating-growing-lightning.md` — THIS plan (will archive em Group D)
+>
+> **Backlog deferido (post-S253):**
+> - /insights P253-001 backlog triage (P0 BACKLOG.md 41 items STAGNANT 18 sessions) — defer until P0(d) audit complete
+> - KBP-40 codify (WebFetch URL lifecycle 7 fires) — defer until P2 sota-intake skill exists
+> - QA editorial metanalise (3/19 done) — connects with S254 slide work
+> - R3 Clínica Médica prep — 218 dias (long-running)
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) | S252 infra2 P0 finish + P1 first PASSes + KBP-39 | 2026-04-25
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S253 INFRA_ROBUSTO organize a casa | 2026-04-26

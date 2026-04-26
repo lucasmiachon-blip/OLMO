@@ -1,5 +1,127 @@
 # CHANGELOG
 
+## Sessao 253 — 2026-04-26 (INFRA_ROBUSTO — organize a casa: unify under Conductor 2026)
+
+> Lucas frame: "se perdeu totalmente do intuito inicial · unifique tudo em um plano max 3 · arquive tudo · Notion fica para P2 · agora é unificar documentos não criar mais · um plano com gestão ordem verificação · não perca nada do nosso planejamento de hj, granularidade total, amanhã hidratação sem perda"
+
+### Commits (3 atomic, main — Lucas explicit "main aqui é deliberado pra esta session")
+
+- **`dc78ff5` chore(S253): organize a casa A** — archive 4 plans (composed-humming-toast S245 BACKLOG #13, debug-ci-hatch-build-broken S250 e2e PASS, gleaming-painting-volcano S244 CLAUDE.md detox, S239-C5-continuation Lucas pivotou) + delete 1 stub (debug-hooks-nao-disparam Lucas "esqueces") + cleanup `.claude-tmp/` 24→3 files (removed S250 audit raw outputs + S250 adversarial outputs + S250 prompts/schema/batch + S249 debug-team state + S249 diagnose runs + 3 hook .sh.new drafts + HANDOFF.md.new; KEPT: s-etd-c2-preview.png + upstream-comment-191.md + whatsapp-infra/).
+- **`8fdc4a5` feat(S253): organize a casa B** — fold 3 sub-plans into Conductor 2026 single source of truth + Notion P0→P2:
+  - §6 expanded: §6.1 Convergence rules (KBP-39 anchor MOVED here; pointer updated em known-bad-patterns.md L127) + §6.2 Lucas-flagged 7 hypotheses concrete (H1-H7) + §6.3 ChatGPT-discovered (X1 done commit 3082c39, X2/X3 pending, X4 confirmed) + §6.4 Refuted hypotheses (3 Gemini FPs) + §6.5 SOTA gaps G1-G8 with sources + §6.6 Methodology lessons (3-model validated; xhigh ROI; KBP-32) + §6.7 Phase 2+ execution map.
+  - §10 Notion repositioned: "Phase P2 (post-baseline) — HARVEST + categorize" (was P0 mandatory blocker per Chesterton's Fence).
+  - §12 phasing: P0 row removed Notion deliverable + renamed "P0 — Audit + Baseline"; P2 row added Notion harvest deliverable + KPI; current state S253 annotation added (4/18 PASS · 2 PARTIAL · 12 FAIL per phase).
+  - §16 NEW: Active execution backlog (S253-S254 — folded fancy-imagining-crab) — S253 Groups A/B/C/D status; S254 tomorrow scope; S255+ defer.
+  - §17 NEW: Per-arm component audit matrix (TEMPLATE para amanhã) — skeleton para 11 arms restantes + §17.4 DEBUG worked example (12 components: 6 DONE · 4 mechanical pending · 1 destrutivo H4 · 1 audit pending).
+  - §18 NEW: Audit P5/P6 detailed progress (folded audit-p5-p6-violations) — §18.1 methodology (7 criteria) + §18.2 AUDITED 38/66 full table + §18.3 PENDING 28/66 + §18.4 Aggregate (P5 92% PASS, P6 6/38 = 16% with 5-tier stratification) + §18.5 Time-to-completion ~5.5h.
+  - 3 plans archived (folded): audit-p5-p6-violations.md → archive/S253-* · fancy-imagining-crab.md → archive/S253-* · audit-merge-S251.md → archive/S253-*.
+- **`<close commit>` docs(S253): organize a casa D close** — HANDOFF rewritten (single source truth → Conductor §16) + CHANGELOG comprehensive S253 entry + floating-growing-lightning.md → archive/S253-*.
+
+### /dream consolidated (chained session start, 7-session window S247-S253)
+
+- **3 topic files updated** em `~/.claude/projects/C--Dev-Projetos-OLMO/memory/`:
+  - `project_tooling_pipeline.md` — agents 9→16 (debug-team subgraph 7 NEW S247-S250 + X1 absorved janitor S251) + hooks 30→32 + skills 18 (X1 -janitor +debug-team SKILL S247) + Conductor 2026 + VALUES.md root + .claude/metrics/ canonical references.
+  - `project_self_improvement.md` — KBPs 28→39 with descriptions (KBP-32/33/34/35/36/37/38/39 added) + KPI snapshot S246-S252 (REWORK SPIKE S252=9 anomaly · BACKLOG STAGNANT 18 sessions S235-S252 · ctx_pct_max declining 44→29 good) + Hook log analysis 504→500 rotated.
+  - `MEMORY.md` — header S246→S253 + Quick Reference fully refreshed (counts updated) + S247-S250 debug-team subgraph + S251 Conductor 2026/VALUES + S252 mechanical KBP-39 sessions + Lucas durable rules consolidated (5 explicit).
+- **Hook-log rotated** 504→500 (4 archived em hook-log-archive/hook-log-2026-04-25-dream-S253.jsonl).
+- **6 changelog entries** appended em memory/changelog.md.
+- **Timestamps dual-write** per S246 fix (.last-dream global + per-project).
+- **0 KBP additions** unilateral (governance: Lucas approve via /insights workflow).
+
+### /insights weekly retrospective (chained, 6 proposals)
+
+- **P253-001 [P0 ESCALATION]** Backlog STAGNANT 18 sessões (was P246-005 P1; zero progress 7+ sessões; 41 items unchanged S235-S252).
+- **P253-002 [med]** Hook backlog-stagnant alert mecânico — `hooks/stop-quality.sh` +check ≥10 sessões consecutivas.
+- **P253-003 [med]** KBP-40 candidate: WebFetch URL lifecycle (7 fires 404/403; research artifacts decay).
+- **P253-004 [med]** P6 6b standard calibration — strict body markdown vs permissive frontmatter (Lucas decision pending).
+- **P253-005 [low]** /insights filter same-session noise (carryover P246-004; agent-self-spawn inflation; **APPLIED** em SKILL.md S253 + branch-aware addition).
+- **P253-006 [low]** REWORK SPIKE S252=9 monitor (informational; high-touch mechanical phase suspected).
+- **5avg trend now available** (5 entries S230/S236/S240/S246/S253):
+  - corrections_per_session 1.0→0.71 ✓ improving
+  - kbp_per_session 2.0→1.43 ✓ improving (4 NEW KBPs codified Lucas mid-session = high engagement signal)
+  - tool_errors 1→28 ⚠ regressing (qualifier: partly self-spawn S248 background research)
+  - backlog_velocity 0% sustained 18 sessions ⚠ HIGH PRIORITY
+- **Files modified by /insights** (não commitados — Lucas decide): latest-report.md NEW · previous-report.md (renamed-from S246) · failure-registry.json (S253 entry) · .last-insights timestamp.
+
+### organize-a-casa execution (Lucas frame: gestão + ordem + verificação)
+
+- **Plans inventory verified Explore agent S253:** 11 active + 91 archived (pre-cleanup); 4 truly active + 2 paused + 4 should-archive + 1 abandoned + 1 floating.
+- **Conductor 2026 progress vs §12 phasing (Explore agent honest assessment):** 4/18 PASS · 2 PARTIAL · 12 FAIL.
+  - P0: 3/5 (KPI infra ✓ · audit 58% PARTIAL · Notion FAIL)
+  - P1: 1/5 (X1 ✓ · H4 FAIL · X3 FAIL · cron PARTIAL · digests FAIL)
+  - P2-P4: 0/8 (sota-intake, CODEX, PROJECT, smoke, council, agent-memory, humanidades, reumato — todos não-iniciados)
+- **Branch context discovered mid-session via /insights Phase 1 SCAN:** success-log.jsonl revealed parallel session "shell-sota-migration" executing mellow-scribbling-mitten Track A P0-P4 commits (9673693→5c164da) on branch feat/shell-sota-migration; P5 in-flight uncommitted (anti-drift.md + CLAUDE.md modified). Lucas confirmed S253: "Aqui eh main sem trabalhar em branch" — main IS deliberate for this organize session; "branch sempre" rule applies to feature track work em outras windows.
+
+### Lucas durable rules consolidated S253 (5 explicit)
+
+1. **"unifique tudo em um plano max 3"** — single canonical plan target; archive everything else.
+2. **"Notion fica para P2"** — moved from P0(c) blocker to P2 deliverable (knowledge ingestion infra alinhado com sota-intake).
+3. **"Aqui é main sem trabalhar em branch"** — clarification to "branch sempre" rule: feature track work goes on branches; meta/infra/organize sessions can run on main deliberately.
+4. **"vamos adicionar o chat gpt 5.5 nesse time"** — ChatGPT 5.5 (via Codex CLI gpt-5.5) joins research+review team alongside Gemini + Perplexity (4 voices total).
+5. **"estava nota 8-9, vamos deixar 9-9.5"** — quality target raised: improvement bar 9-9.5 vs current 8-9 baseline; applies to S254 migration work + future research.
+
+### S254 tomorrow scope (per Conductor §16, full granularity preserved)
+
+- **Build/arrange 2-3 slides** (likely metanálise area; lovely-sparking-rossum.md persists as reference, escopo reduzido).
+- **Migrate 3 existing JS scripts → agents/subagents/skills com benchmark** + add chatgpt-research.mjs NEW:
+  - `gemini-research.mjs` (existing, works well; só improve)
+  - `gemini-review.mjs` (existing, works well)
+  - `perplexity-research.mjs` (existing, works well)
+  - **`chatgpt-research.mjs` NEW** (Codex CLI gpt-5.5; 4th voice to research team)
+- **Sequence S254:**
+  1. **Pre-migration audit:** model names + parameters review (semana teve muitas updates — Gemini canonical `gemini-3.1-pro-preview`, ChatGPT gpt-5.5 via Codex CLI, Perplexity model TBD). Sync to canonical.
+  2. **Benchmark:** mesma query × N runs nos 4 scripts → latency + token + quality metrics.
+  3. **Launch research:** usar team atualizado para query real (Lucas pick).
+- **Decision pendente Lucas open S254:** agent vs subagent vs skill per script (depends on invocation pattern one-shot vs orchestrated vs user-triggered).
+- **Quality target:** 9-9.5 (vs 8-9 baseline).
+- **Defer S255+:** KPI snapshot wiring (was originally S254, deslocado pelas tomorrow priorities) + DAG state update + audit batch G+H + H4/X3 destrutivos + P2-P4 deliverables.
+
+### Aprendizados (max 5)
+
+- **Plan org meta-loop catches drift early** — Lucas catch "se perdeu totalmente do intuito inicial" S253 mid-session triggered organize-a-casa pivot. Antes: 11 plans paralelos + Conductor abstrato. Depois: 1 canonical + 2 Lucas-pending + this transient = 4 max. Drift detection > drift prevention quando structured.
+- **Branch detection mid-session ressignificou /insights findings** — SessionStart `gitStatus` snapshot stale; success-log.jsonl é mais real-time pra cross-branch commits porque captura timestamps independente de checkout. KBP candidate.
+- **CHANGELOG > JSONL grep para signal harvest** — /dream Phase 2 used CHANGELOG curado (denser than raw JSONL; Lucas+agent decided "isto importa"). Tradeoff: perdemos surprise signal não-curado, ganhamos density. Para 7-session window, density wins.
+- **Folding sub-plans → unified Conductor preserves granularity sem fragmentation** — §6.1-§6.7 + §16 + §17 + §18 NEW absorveu 822 li de 3 sub-plans + adicionou 260 li novos. Total Conductor 507→767 li. Single doc canônico + reverse-recoverable via git history dos archives.
+- **5avg /insights trend milestone** — Pela primeira vez 5 entries (S230/S236/S240/S246/S253) → meaningful rolling avg. Direção mixed_improving (corrections + kbp ↓ ✓; tool_errors + backlog regressing ⚠).
+
+### KBP candidates pendentes (KBP-31 sweep)
+
+- **NEW S253**: Branch-awareness mid-session — SessionStart gitStatus stale; verify `git branch --show-current` before commit defensive default. Cross-window branch state propagation via filesystem (one CWD).
+- **NEW S253 from /insights**: WebFetch URL lifecycle (7 fires 404/403) — research artifacts hardcode URLs that decay. Mitigation: cite + archive (Internet Archive snapshot OR commit-SHA OR DOI canonical). KBP-40 candidate; **defer commit until P2 sota-intake skill exists** (sem section pra apontar pointer-only KBP-16).
+- **NEW S253 from /insights**: P6 6b standard heterogeneity — citation em frontmatter description ≠ body markdown. Auto-loaders parse body. Decision strict (body required) vs permissive (frontmatter ok) pendente Lucas.
+- L139 dual-source-of-truth desync (Conway's Law) — historical
+- L219 Grep content-mode trunca linhas longas — historical
+- doc-quality temporal — "componente sem WHY+VERIFY = legacy refactor backlog" (S251)
+- signal-density discipline — "tabelas + sources > prose narrativa" (S251) (already in V6 VALUES.md as core value)
+- enterprise≠overeng heurística — already in VALUES.md root §Enterprise distinction
+- P6 6b standard calibration — see above NEW
+- KBP pointer-only vigilance — "easy-to-violate; revisar pointer entries por inline prose" (S252)
+
+### Files modified by /insights (não commitados — Lucas decide cleanup later)
+
+- `.claude/skills/insights/references/latest-report.md` (NEW — S253 report)
+- `.claude/skills/insights/references/previous-report.md` (renamed-from S246 report)
+- `.claude/insights/failure-registry.json` (S253 entry appended; trend computed)
+- `.claude/skills/insights/SKILL.md` (P253-005 same-session filter + branch-aware addition APPLIED)
+- `~/.claude/projects/.../.last-insights` (timestamp 1777172500)
+
+### Decisions log S253 (granularity total)
+
+| Decision | Lucas frame | Outcome |
+|----------|-------------|---------|
+| Plans count target | "max 3 active" | Conductor + lovely + this organize = 3 (this archives Group D); end state ≤3 ✓ |
+| Notion phase placement | "Notion fica para P2" | §10 + §12 P2 deliverable; §12 P0 removed |
+| Branch policy clarification | "Aqui é main sem trabalhar em branch" | main OK for organize-a-casa; "branch sempre" applies to feature track |
+| Track A P5 (mellow-scribbling-mitten) handling | "depois fazemos cherry-pick do que gerou no feat" | C1b — não toco P5 nesta session; Lucas owns + cherry-pick later |
+| Lovely-sparking-rossum (metanálise QA) | "nao existe mais essa deadline... amanha 2-3 slides" | C2b — defer hard, escopo reduzido; persists como reference |
+| ChatGPT 5.5 add to team | "vamos adicionar o chat gpt 5.5 nesse time" | §16 S254 migration adds chatgpt-research.mjs NEW (4th model voice) |
+| Quality target | "estava nota 8-9, vamos deixar 9-9.5" | §16 S254 explicit quality bar |
+| Tomorrow sequence | "ajustar nome dos modelos parametros... amanha fazer benchmark e lancar pesquisa" | §16 S254 3-step: model audit → benchmark → launch |
+| Granularity preservation | "nao perca nada do nosso planejamento de hj, granularidade total" | This CHANGELOG entry + Conductor §6/§16/§17/§18 + HANDOFF priority list = no loss |
+| Hidratação amanhã | "amanha hidratacao sem perda" | HANDOFF 3-step hidratação simplificado (Conductor é single source of truth) |
+
+---
+
 ## Sessao 252 — 2026-04-25 (infra2 — P0 finish + P1 first PASSes + KBP-39)
 
 ### Commits (4 atomic, main)

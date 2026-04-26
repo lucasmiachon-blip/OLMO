@@ -125,16 +125,51 @@
       },
       "report": ".claude/skills/insights/references/latest-report.md",
       "notes": "S246 'infrinha' single-session run chained with /dream. A1+B1 applied in-session (skill SKILL.md dual-write + patterns_defensive lock convention). 2 KBP candidates surfaced: dual-source-of-truth desync + PowerShell-via-Bash deny gap. 4 background SOTA research agents launched (paperclip 58.8k, crewai 49.9k, top memory repos, top multi-agent orch) — surfaced 3 schema-level adoptions pending decision (P246-001 fact_valid_until, P246-002 state.yaml, P246-003 transition conditions). Lucas asked YES/NO on hook-level command tokenization — agent recommended NO (build cost vs threat model). KPI metrics S241-S245: rework declining, backlog still stagnant 11 sessions. Trend: kbp_per_session 0.75→2.0 (2 KBP candidates this session) — but small sample (1 session), surface-level signal."
+    },
+    {
+      "id": "S253",
+      "date": "2026-04-26",
+      "session_name": "INFRA_ROBUSTO",
+      "branch": "feat/shell-sota-migration",
+      "metrics": {
+        "sessions_in_sample": 7,
+        "session_window": "S247-S253",
+        "user_corrections_total": 5,
+        "user_corrections_per_session": 0.71,
+        "kbp_violations": {
+          "KBP-13_read_without_glob": 5,
+          "KBP-16_verbosity_pointer": 1,
+          "KBP-32_spot_check_ausente": 1,
+          "KBP-36_evidence_based": 1,
+          "KBP-38_daemon_restart": 2
+        },
+        "kbp_total": 10,
+        "kbp_per_session": 1.43,
+        "tool_errors": 28,
+        "retries": 1,
+        "ctx_pct_max_trend": "declining 44->29 (KBP-23 working)",
+        "rework_files_anomaly": "S252=9 (was 0 S251) — high-touch mechanical phase suspected, monitor"
+      },
+      "insights_run": true,
+      "new_kbps_added": 4,
+      "new_kbps_added_list": ["KBP-36 evidence-based primacy (S248)", "KBP-37 elite-actionable (S249)", "KBP-38 daemon-restart (S250)", "KBP-39 audit-merge convergence (S252)"],
+      "proposals_accepted": 0,
+      "proposals_rejected": 0,
+      "proposals_pending": 6,
+      "report": ".claude/skills/insights/references/latest-report.md",
+      "notes": "S253 'INFRA_ROBUSTO' running on branch feat/shell-sota-migration (parallel to other window's shell-sota-migration session executing mellow-scribbling-mitten plan P0-P4 done; P5 in-flight uncommitted in anti-drift.md + CLAUDE.md). Window: 7 sessions S247-S253. Major findings: (1) Backlog STAGNANT 18 sessions (was 11 in S246 report) — escalating P246-005 to P0; (2) 4 NEW KBPs codified mid-session by Lucas (KBP-36/37/38/39) — high engagement signal; (3) Lucas durable rule 'branch sempre' formalized in mellow-scribbling-mitten plan, P5 commit pending; (4) Read-without-Glob recurring (KBP-13) 5 fires; (5) WebFetch URL lifecycle emerging 7 fires (KBP-40 candidate). 6 proposals (P253-001 to P253-006). Trend computation: 5avg now possible (5 entries S230,S236,S240,S246,S253). corrections improving 1.0→0.71; kbp_per_session improving 2.0→1.43; tool_errors regressing 1→28 (qualifier: partly self-spawn from S248 background SOTA research)."
     }
   ],
   "trend": {
     "first_run": false,
-    "direction": "stable",
-    "entries_in_registry": 4,
+    "direction": "mixed_improving",
+    "entries_in_registry": 5,
     "entries_needed_for_5avg": 5,
-    "corrections_per_session_5avg": null,
-    "kbp_violations_per_session_5avg": null,
-    "kbp_per_session_last_two": [0.75, 2.0],
-    "note": "S240→S246: kbp_per_session 0.75→2.0 driven by 2 NEW candidates surfaced (dual-source-of-truth + PowerShell deny gap). Single-session sample distorts trend; needs 5+ entries for rolling avg. Direction='stable' because new candidates are surface (documentation-track), not regressions of existing rules. Tool errors 26→1 (this session focused on dream+insights, not adversarial audit)."
+    "corrections_per_session_5avg": "needs S230 baseline numeric (was qualitative)",
+    "kbp_violations_per_session_5avg": "S236=0.8, S240=0.75, S246=2.0, S253=1.43; 4-entry avg=1.245 (S230 had null per_session); S246→S253 direction = improving (2.0→1.43)",
+    "kbp_per_session_last_two": [2.0, 1.43],
+    "tool_errors_trend": "S240=26, S246=1, S253=28 — non-monotonic; S246 was single-session focused (dream+insights only), not representative",
+    "backlog_resolved_velocity_trend": "0% sustained 18 sessions S235-S252 — escalating regression",
+    "note": "S246→S253: kbp_per_session 2.0→1.43 = improving (despite 4 NEW KBPs codified, /session avg dropped because 7-session window vs 1-session). corrections_per_session 1.0→0.71 improving similarly. tool_errors regressing 1→28 but non-comparable (S246 sample=1, S253 sample=7; per-session 1→4 is real but skewed by S248 background research agents). Backlog resolved velocity 0% for 18 consecutive sessions = HIGH PRIORITY systemic issue. P253-001 escalated to P0. Constrained optimization: WARNING tool_errors regression flagged but mostly explainable by sample size + transient research surge — monitor S254-S256."
   }
 }

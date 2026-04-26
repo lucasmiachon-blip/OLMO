@@ -607,14 +607,44 @@ Cada deliverable de phase tem smoke test committed. Examples:
 | **organize-a-casa** | Group C Lucas decisions (mellow/lovely floating) | decision | 5min Lucas | pending |
 | **organize-a-casa** | Group D HANDOFF + CHANGELOG single source truth | doc | 15min | pending |
 
-### S254 (next session — KPI infra + Mermaid DAG state)
+### S254 (next session — slides + script-to-agent migration, per Lucas S253)
 
-| Phase | Task | Type | Time | Decisions |
-|-------|------|------|------|-----------|
-| **P1.4** | `scripts/kpi-snapshot.mjs` measuring 12 KPIs (TSV output per baseline.md spec) | build | 1h | Option B confirmed — hook `stop-kpi-snapshot.sh` (sem cron daemon dep) |
-| **P1.4** | `hooks/stop-kpi-snapshot.sh` — Stop event handler, 24h gate | build | 30min | register em `.claude/settings.json` Stop array |
-| **P1.4** | First snapshot S254 — commit `.claude/metrics/snapshots/2026-04-XX.tsv` | data | 5min | — |
-| **DAG** | Update §11c Phasing DAG (state P0 3/4 → 4/4 Notion-defer + audit 58%) | doc | 15min | Lean update — §5b §5c defer S255+ |
+**Lucas tomorrow priorities (confirmed S253):**
+
+| Phase | Task | Type | Time | Notes |
+|-------|------|------|------|-------|
+| **content** | Build/arrange 2-3 slides (likely metanálise area) | content | ~1-2h | Lovely-sparking-rossum reduced scope reference; Lucas picks slides at session start |
+| **P3 / arms RESEARCH+ORQUEST** | Migrate 3 working JS research scripts → agents/subagents/skills com benchmark | refactor | ~2-3h | Aproveitar `gemini-research.mjs`, `gemini-review.mjs`, `perplexity-research.mjs` (já funcionam bem; só improve+wrap como agents/skills). Same logic + benchmark. Cross-model (Gemini+Perplexity). |
+| **P1.4 (defer S255)** | KPI snapshot wiring (script + hook + first snapshot) | build | 2h | Pushed para S255+ — não cabe em S254 com slides + migration |
+| **DAG (defer S255)** | Update §11c Phasing DAG state | doc | 15min | Defer junto com KPI infra |
+
+**Total S254 estimate:** ~3-5h (slides + script migration). KPI infra defer to S255 (was originally S254, deslocado per Lucas tomorrow priority).
+
+**Migration sub-plan (~3-4h refactor, 3 existing scripts + 1 NEW ChatGPT 5.5 wrapper, 4 total):**
+
+> **Lucas S253:** "vamos adicionar o chat gpt 5.5 nesse time" — adds ChatGPT 5.5 (via Codex CLI) como 4th model alongside Gemini + Perplexity research + Gemini review. **Quality target:** "estava nota 8-9, vamos deixar 9-9.5" — improvement bar set 9-9.5 vs current 8-9 baseline.
+
+| Script | Current location | Migrate to | Type | Benchmark vs |
+|--------|------------------|------------|------|--------------|
+| `gemini-research.mjs` | `.claude/scripts/` | agent OR skill (Lucas decide) | wrapper | direct API call (current) |
+| `gemini-review.mjs` | `.claude/scripts/` | agent OR skill | wrapper | current direct invoke |
+| `perplexity-research.mjs` | `.claude/scripts/` | agent OR skill | wrapper | current direct invoke |
+| **`chatgpt-research.mjs` (NEW)** | `.claude/scripts/` (will create) | agent OR skill | NEW wrapper using Codex CLI gpt-5.5 | adds 4th voice to research team (audit-merge-S251 §6.1 3-model methodology already includes ChatGPT 5.5; add to research/SKILL.md 6 pernas → 7 pernas) |
+
+**Method per script (~45min each):**
+1. Read script + understand JS logic (works well — só improve)
+2. Decide agent vs subagent vs skill (per Conductor §4 RESEARCH arm)
+3. Wrap as `.claude/agents/*.md` OR `.claude/skills/*/SKILL.md` preserving JS as backend
+4. Benchmark: same query × N runs (current vs new) → measure latency + token cost + output quality
+5. Document migration delta em arm RESEARCH section §17.3 (per-arm matrix amanhã)
+
+**S254 execution sequence (Lucas confirmed S253):**
+
+1. **Pre-migration audit:** model names + parameters review nos 3 scripts existentes — última semana teve muitas updates (Gemini canonical = `gemini-3.1-pro-preview` per project_tooling_pipeline; ChatGPT = gpt-5.5 via Codex CLI; Perplexity model TBD). Sync to current canonical antes de benchmarkear.
+2. **Benchmark:** rodar mesma query × N runs nos 4 scripts (3 existentes + chatgpt-research NEW) → latency + token + quality metrics. Quality target: 9-9.5 (vs 8-9 baseline).
+3. **Launch research:** usar team atualizado para query real (Lucas pick — likely metanálise-related slide research).
+
+**Decision pendente Lucas (open at S254 start):** agent vs subagent vs skill per script — depends on invocation pattern (one-shot vs orchestrated vs user-triggered).
 
 ### S255+ (defer destrutivos + heavy doc work)
 
