@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> **S255 "debug-team-hooks" closed** — 3 commits main: `20e1e9a` → `fd77bbc` → `9d91c8b` (4 hook teatros fixed: A1 stdin drain + A2 post-global-handler S225 path + A3 5736 orfaos purge + A6 banner.sh idempotent guard). Detalhes/aprendizados: `CHANGELOG.md §S255`. Local 5 commits ahead origin.
+> **S255 "debug-team-hooks" closed** — 4 commits main: `20e1e9a` → `fd77bbc` → `9d91c8b` → `7218c01` (4 hook teatros fixed: A1 stdin drain + A2 post-global-handler S225 path + A3 5736 orfaos purge + A6 banner.sh idempotent guard + docs close). Detalhes/aprendizados: `CHANGELOG.md §S255`. Local 4 commits ahead origin (verified `git rev-list --count`).
 
 ## 🔥 P0 — S256 core (Lucas pick: A ou B)
 
