@@ -1,6 +1,6 @@
 # Audit P5 (anti-teatro) + P6 (E2E + WHY-first) — Conductor 2026 P0 (d)
 
-> **Status:** v1.4 — S251 P0 in-progress (30/66 = 45% audited; 36 pending — janitor removed S251 X1 merge → total 67→66)
+> **Status:** v1.5 — S252 P0 in-progress (38/66 = 58% audited; 28 pending; batch F added 8 — 3 agents + 3 .claude/hooks + 2 hooks/)
 > **Plan ref:** `.claude/plans/immutable-gliding-galaxy.md` §2 P5/P6 + §12 P0(4)
 > **Methodology:** read frontmatter + first 50 li of each component, score against 7 criteria
 > **Cadence:** ~6-10 components per session; full P0 audit completes in ~7-10 sessions
@@ -29,7 +29,7 @@
 
 ---
 
-## AUDITED (30/66) — batches A + B + C + D + E
+## AUDITED (38/66) — batches A + B + C + D + E + F
 
 | # | Component | Type | 5a | 5b | 5c | P5 | 6a | 6b | 6c | 6d | P6 | Action |
 |---|-----------|------|----|----|----|----|----|----|----|----|----|--------|
@@ -63,6 +63,14 @@
 | 28 | `exam-generator` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓✦ | ✓ | ✗ | **PART 3/4** | add VERIFY (best evidence citation seen) |
 | 29 | `post-bash-handler.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓§§ | ✓ | ✗ | **PART 3/4** | add VERIFY |
 | 30 | `post-tool-use-failure.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓¶¶ | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 31 | `quality-gate` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 32 | `systematic-debugger` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓⁋ | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 33 | `reference-checker` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 34 | `guard-secrets.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓‖ | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 35 | `guard-mcp-queries.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 36 | `nudge-checkpoint.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 37 | `session-compact.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 38 | `session-start.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓※ | ✓ | ✗ | **PART 3/4** | add VERIFY |
 
 ¶ debug-adversarial 6b: Codex max + KBP-28 explicit ("atacando o frame que collector estabeleceu")
 \# teaching 6b: cita Kawasaki 10-20-30 + Michael Alley assertion-evidence + Reynolds (Presentation Zen) + Duarte (Resonate) + Tufte (T1-T2 multi-source)
@@ -81,36 +89,39 @@
 † debug-archaeologist 6b: cita "Gemini 3.1 Pro 1M ctx" rationale + D8 MAS path
 ‡ lint-on-edit 6b: cita "Antifragile L5" + "L1 retry S89: jitter"
 § guard-bash-write 6b: cita "Codex audit S57" + "jq 10x faster than node S193" — concrete benchmarks
+⁋ systematic-debugger 6b: cita KBP-07 explícito (anti-workaround taxonomy) + "3 FAILS STOP" rule (architectural signal heuristic)
+‖ guard-secrets 6b: S51 (scan staged blobs) + S194 (node→jq migration Fase 2) — multi-fix history T2 OLMO commit refs
+※ session-start 6b: extensive S-history (S225 #4/#10 namespace + reset + S230 G.5/G.8 + S236 P008 hook-log rotate + S102 B7-06 cost brake + Codex S60 O10 sort-numeric) — best-of-batch P6 reference density
 
-### Observed pattern (confidence: high — n=30)
+### Observed pattern (confidence: high — n=38)
 
-**P5 (anti-teatro):** 27/30 PASS (90%) — recovered ratio post-batch E. 3/30 PARTIAL (repo-janitor consumer¹, automation trigger+consumer+HOW, teaching trigger).
+**P5 (anti-teatro):** 35/38 PASS (92%) — batch F all 8 PASS (zero novo PARTIAL). 3/38 PARTIAL (repo-janitor consumer¹, automation trigger+consumer+HOW, teaching trigger).
 
 ¹ Note: repo-janitor was expanded S251 X1 merge — `--mode generic` clarifies consumer; future re-audit may upgrade to PASS.
 
-**P6 (WHY-first + VERIFY):** 0/30 PASS still. Stratification:
-- **17/30 com P6 3/4** (57%, close — só falta VERIFY): batch E heavily contributed — debug-team subgraph + post-* hooks + mbe-evaluator + exam-generator. exam-generator é **gold standard** (8 cientific citations T1).
-- **11/30 com P6 2/4** (37%, WHY+VERIFY ausentes)
-- **2/30 com P6 ≤1.5/4 FAIL** (7%): evidence-researcher, automation
+**P6 (WHY-first + VERIFY):** 0/38 PASS ainda — universal VERIFY gap persiste. Stratification:
+- **20/38 com P6 3/4** (53%, close — só falta VERIFY): batch F adicionou 3 (systematic-debugger KBP-07, guard-secrets S51+S194, session-start S225+S230+S236 multi-history)
+- **16/38 com P6 2/4** (42%, WHY+VERIFY ausentes): batch F adicionou 5 (quality-gate, reference-checker, guard-mcp-queries, nudge-checkpoint, session-compact)
+- **2/38 com P6 ≤1.5/4 FAIL** (5%): evidence-researcher, automation
 
-**Insight reinforced n=30:**
-Doc-quality cluster stratification estável. Batch E confirmou **57% high-quality** rate — high-quality cluster é dominante. Implicação: P1+ work é majoritariamente **add VERIFY mecânico** (~5min × 17 = ~1.5h), not heavy WHY refactor.
+**Insight reinforced n=38:**
+Doc-quality cluster stratification estável. Batch F caiu cluster 3/4 de 57% → 53% (5 novos PART 2/4 vs 3 PART 3/4). Range mantém-se dentro de margin n=8-batch — pattern domina majority high-quality. Implicação: P1+ work mecânico **add VERIFY** continua majority path (~5min × 20 = ~1.7h), heavy WHY refactor cresceu marginal (5 novos componentes precisam WHY+VERIFY).
 
-**Time-to-completion P1+ refinado:**
-- 17 mecânicos (VERIFY only): ~1.5h
-- 11 doc-only (WHY+VERIFY): ~2-2.5h
+**Time-to-completion P1+ refinado n=38:**
+- 20 mecânicos (VERIFY only): ~1.7h
+- 16 doc-only (WHY+VERIFY): ~3-4h
 - 2 structural FAIL: ~1h
 - 3 trigger-clarify: ~15min
-- **Total: ~5h** spread (provavelmente 2-3 sessões dedicated work)
+- **Total: ~6h** spread (provavelmente 3 sessões dedicated mechanical work)
 
 ---
 
-## PENDING audit (61/67)
+## PENDING audit (28/66)
 
-### Agents (3 pending of 16; 13 audited)
-- [ ] `quality-gate`
-- [ ] `systematic-debugger`
-- [ ] `reference-checker`
+### Agents (0 pending of 16; 16 audited — **COMPLETE**)
+- ~~quality-gate~~ (audited #31, batch F)
+- ~~systematic-debugger~~ (audited #32, batch F)
+- ~~reference-checker~~ (audited #33, batch F)
 
 ### Skills (8 pending of 18; 10 audited; janitor REMOVED S251 X1)
 - [ ] `brainstorming`
@@ -122,31 +133,31 @@ Doc-quality cluster stratification estável. Batch E confirmou **57% high-qualit
 - [ ] `review`
 - [ ] (1 reserve slot — may add)
 
-### Hooks (32 pending of 32)
+### Hooks (20 pending of 32; 12 audited)
 
-`.claude/hooks/` (13 pending; 4 audited):
-- [ ] `guard-secrets.sh`
+`.claude/hooks/` (10 pending; 7 audited):
+- ~~guard-secrets.sh~~ (audited #34, batch F)
 - [ ] `allow-plan-exit.sh`
 - [ ] `chaos-inject-post.sh` (likely refactor post-X3)
 - [ ] `coupling-proactive.sh`
-- [ ] `guard-mcp-queries.sh`
+- ~~guard-mcp-queries.sh~~ (audited #35, batch F)
 - [ ] `guard-read-secrets.sh`
 - [ ] `guard-research-queries.sh`
 - [ ] `model-fallback-advisory.sh` (likely refactor post-X3)
 - [ ] `momentum-brake-clear.sh`
-- [ ] `nudge-checkpoint.sh`
+- ~~nudge-checkpoint.sh~~ (audited #36, batch F)
 - [ ] `guard-lint-before-build.sh`
 - [ ] `post-global-handler.sh`
 - [ ] `momentum-brake-enforce.sh`
 
-`hooks/` (12 pending; 3 audited):
+`hooks/` (10 pending; 5 audited):
 - [ ] `notify.sh`
 - [ ] `stop-notify.sh`
 - [ ] `nudge-commit.sh`
-- [ ] `session-compact.sh`
+- ~~session-compact.sh~~ (audited #37, batch F)
 - [ ] `session-end.sh`
 - [ ] `pre-compact-checkpoint.sh`
-- [ ] `session-start.sh`
+- ~~session-start.sh~~ (audited #38, batch F)
 - [ ] `stop-metrics.sh`
 - [ ] `stop-failure-log.sh`
 - [ ] `apl-cache-refresh.sh`
@@ -159,15 +170,17 @@ Doc-quality cluster stratification estável. Batch E confirmou **57% high-qualit
 
 | Metric | Current | After full P0 |
 |--------|---------|----------------|
-| Components audited | 30/66 (45.5%) | 66/66 (100%) |
-| P5 PASS rate | 27/30 (90%) | TBD |
-| P5 PARTIAL (trigger/consumer ambíguo) | 3/30 (10%) | TBD |
-| P6 PASS rate | 0/30 (0%) | TBD |
-| P6 PARTIAL 3/4 (close — só VERIFY) | 17/30 (57%) | TBD |
-| P6 PARTIAL 2/4 | 11/30 (37%) | TBD |
-| P6 FAIL ≤1.5/4 | 2/30 (7%) | TBD |
+| Components audited | 38/66 (57.6%) | 66/66 (100%) |
+| P5 PASS rate | 35/38 (92%) | TBD |
+| P5 PARTIAL (trigger/consumer ambíguo) | 3/38 (8%) | TBD |
+| P6 PASS rate | 0/38 (0%) | TBD |
+| P6 PARTIAL 3/4 (close — só VERIFY) | 20/38 (53%) | TBD |
+| P6 PARTIAL 2/4 | 16/38 (42%) | TBD |
+| P6 FAIL ≤1.5/4 | 2/38 (5%) | TBD |
 
-**Hypothesis n=30:** P6 3/4 cluster cresce relativamente (50% → 57%) com batch E. High-quality cluster é dominante (debug-team subgraph + post-* hooks + mbe-evaluator + exam-generator). Total P1+ estimated ~5h (1.5h mecânico + 2-2.5h doc + 1h structural + 15min trigger).
+**Hypothesis n=38:** Pattern estável n=30→38. P5 PASS marginal up (90→92%, n=8 batch all PASS). P6 close-to-PASS cluster marginal down (57→53%, batch F skewed toward 2/4 cluster — 5 vs 3). Total P1+ estimated ~6h (1.7h mecânico VERIFY + 3-4h doc WHY+VERIFY + 1h structural + 15min trigger).
+
+**Agents milestone (S252 batch F):** 16/16 agents audited — 100% complete. Pendentes restantes: 8 skills + 20 hooks (28 components total).
 
 **Janitor X1 merge (S251):** total 67→66. janitor SKILL absorved into repo-janitor agent (commit 3082c39). Audit baseline adjusted accordingly.
 
@@ -176,10 +189,16 @@ Doc-quality cluster stratification estável. Batch E confirmou **57% high-qualit
 ## Next session continuation prompt
 
 ```
-Continue audit-p5-p6-violations.md — audit next 6-10 components from PENDING list.
-Priority order: (1) high-usage agents (debug-* family + evidence-researcher);
-(2) hooks core path (guard-write-unified, guard-bash-write, lint-on-edit, ambient-pulse);
-(3) skills high-impact (debug-team, knowledge-ingest, evidence-audit, automation).
+Continue audit-p5-p6-violations.md — audit next 6-10 components from PENDING list (28 remaining).
+Agents COMPLETE (16/16). Priority shifts to:
+(1) skills pending (8): brainstorming, concurso, systematic-debugging (likely fold post-H4),
+    skill-creator, nlm-skill, continuous-learning, review;
+(2) hooks .claude/hooks/ pending (10): allow-plan-exit, chaos-inject-post (refactor post-X3),
+    coupling-proactive, guard-read-secrets, guard-research-queries, model-fallback-advisory,
+    momentum-brake-clear, guard-lint-before-build, post-global-handler, momentum-brake-enforce;
+(3) hooks hooks/ pending (10): notify, stop-notify, nudge-commit, session-end,
+    pre-compact-checkpoint, stop-metrics, stop-failure-log, apl-cache-refresh,
+    post-compact-reread, loop-guard.
 Update Aggregate table after each batch.
 ```
 

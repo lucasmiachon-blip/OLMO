@@ -74,15 +74,28 @@ date	slug	value	threshold	pass	source_command	confidence
 
 | KPI | Proposed threshold | Lucas confirms? | Lucas edited to | Date |
 |-----|--------------------|-----------------|-----------------|------|
-| (todos os 12 active) | (per tabela acima) | TBD | — | — |
+| `agent-memory-coverage` | ≥40% (P3) | ✓ confirmed | — | 2026-04-25 |
+| `knowledge-base-coverage` | ≥80% | ✓ confirmed | — | 2026-04-25 |
+| `research-tier1-ratio` | ≥90% per artifact | ✓ confirmed | — | 2026-04-25 |
+| `debug-team-pass-first-try` | ≥70% | ✓ confirmed (low conf — re-eval c/ n≥5 runs S257) | — | 2026-04-25 |
+| `smoke-test-coverage` | ≥80% (P3) | ✓ confirmed | — | 2026-04-25 |
+| `slides-qa-pass-ratio` | ≥95% per aula | ✓ confirmed | — | 2026-04-25 |
+| `aulas-tier1-evidence-complete` | ≥80% | ✓ confirmed | — | 2026-04-25 |
+| `apl-metrics-committed-daily` | true (≥27/30 days/month) | ✓ confirmed | — | 2026-04-25 |
+| `kbp-resolved-per-session` | ≥1 avg/5 sessions | ✓ confirmed | — | 2026-04-25 |
+| `mcp-health-uptime` | ≥99% weekly | ✓ confirmed (low conf — measurement P2 enables) | — | 2026-04-25 |
+| `cross-model-invocations-week` | ≥3/week | ✓ confirmed | — | 2026-04-25 |
+| `r3-questoes-acertadas-simulado` | ≥75% | ✓ confirmed (low conf — Lucas manual annota) | — | 2026-04-25 |
 
-**Action:** Lucas reviewa coluna "Threshold" da tabela ACTIVE e marca confirm OU edita. Default em P0 = use proposed (snapshot pode rodar).
+**Status:** 12/12 confirmed S252 (Lucas AskUserQuestion 2026-04-25). 3 KPIs flagged low-confidence persistem com threshold proposed; future re-calibration trigger = baseline data accumulate (n≥5 runs).
+
+**Action histórica:** Lucas confirmou tabela ACTIVE como-está em S252 P0 calibration phase. Snapshots daily (`scripts/kpi-snapshot.mjs`) podem rodar against thresholds confirmed.
 
 ---
 
 ## Open questions (referenced from plan §14)
 
-1. **Threshold calibration:** Lucas confirma thresholds proposed acima ou edita? Esta tabela §Calibration log fica vazia até Lucas decisão.
+1. ~~**Threshold calibration:** Lucas confirma thresholds proposed acima ou edita?~~ **RESOLVED S252** — Lucas confirmou todos 12 defaults (AskUserQuestion 2026-04-25). §Calibration log preenchido.
 2. **R3 simulado entry mechanism:** manual em `content/concurso/error-log.md` OU skill dedicada `simulado-tracker`?
 3. **debug-team baseline n=1:** spawn 4+ runs sintéticos pra significância OU aguardar runs orgânicas (estimativa S252-S255)?
 
