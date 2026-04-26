@@ -16,6 +16,33 @@ OLMO = AI agent system para **medicina solo de elite + LLMOps research**. Single
 
 ---
 
+## Enterprise-level discipline ≠ over-engineering (operational distinction)
+
+OLMO opera com **enterprise-level discipline** em TODO componente — governance + evidence + KPIs + reproducibility + accountability + cross-model + signal>noise.
+
+NÃO confundir com **over-engineering** — abstrações prematuras, frameworks pra requirements hipotéticos, complexidade sem use-case.
+
+| Pattern | Enterprise (sim) | Over-eng (não) |
+|---------|------------------|----------------|
+| **Documentação** | WHY+VERIFY header em cada agent/.md citando evidence T1/T2 | Class hierarchy abstrata pra "AgentDocFormat" |
+| **Testing** | Smoke test reprodutível por componente crítico | Full BDD framework (Cucumber/Gherkin) pra solo project |
+| **Métricas** | KPI snapshot daily TSV committed | Grafana + Prometheus exporter |
+| **Governance** | VALUES.md 8 valores + evidence + ADR per arch decision | ISO-9001 quality manual + ARB 5 membros |
+| **Visualização** | Mermaid DAG por phase + architecture | UML class diagrams + sequence diagrams todos |
+| **Decisões** | Council 3-model methodology em high-stakes | Council 12-voice em qualquer escolha trivial |
+| **Code structure** | Dedicated agents (16) + skills (19) por domain | "AgenticBaseFactory" abstract class hierarchies |
+
+### Heurística de decisão
+
+> **Enterprise:** serve **solo + evidence + reproducibility + lock-in**
+> **Over-eng:** serve **"hypothetical scale" sem use-case real**
+
+Antes de adicionar pattern/abstração/file: questione **"qual use-case concreto resolve HOJE?"**. Sem resposta evidence-backed → over-eng. Com resposta + 6 princípios canonical satisfeitos → enterprise.
+
+**Right-sized > maximum.** Maturity ≠ verbosity.
+
+---
+
 ## Core values (8 — decision gates)
 
 | # | Valor | Source/evidence | Aplicação operacional |
