@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## Sessao 251 — 2026-04-25→26 (infra — Conductor 2026 design + P0 baseline + audit P5/P6 30%)
+
+### Commits (3 atomic, main)
+
+- **`ff2cb34` feat(S251): P0 a/b/d — Conductor 2026 plan approved + KPI baseline + first snapshot + P5/P6 audit 6/67** — 5 files (822 insertions): plan immutable-gliding-galaxy.md (12 braços + automation_lean + 6 princípios canonical) + baseline.md (12 active + 12 deferred KPIs) + kpi-snapshot.mjs (Node cross-platform) + first snapshot 2026-04-26.tsv + audit doc.
+- **`7189a4b` docs(S251): P0 d batch B — audit P5/P6 14/67 (was 6/67)** — 8 components: 4 debug-* agents + evidence-researcher + guard-write-unified + ambient-pulse + debug-team SKILL + knowledge-ingest.
+- **`6e295b3` docs(S251): P0 d batch C — audit P5/P6 20/67 (was 14/67)** — 6 components: debug-symptom-collector + debug-archaeologist + lint-on-edit + guard-bash-write + evidence-audit + automation.
+
+### Plan approved Conductor 2026
+
+`.claude/plans/immutable-gliding-galaxy.md` — 12 braços MECE + AUTOMATION_LEAN_LAYER transversal. 6 princípios canonical: P1 humildade · P2 evidence-tier T1/T2/T3 · P3 anti-sycophancy (Sharma 2023 arXiv:2310.13548 T1) · P4 profissionalismo KBP-37 · P5 anti-teatro · P6 E2E+WHY-first. Phasing P0-P4 KPI-gated, não-destrutivo P0-P1. Inspiração tier-3 chase.h.ai conductor + speedy_devv self-evolving + Karpathy LLM council.
+
+### KPI baseline anti-vanish
+
+`.claude/metrics/` (committed, NOT gitignored — vs `.claude/apl/*` gitignored = vanish). 12 active arm KPIs + 12 deferred transversais. First snapshot 2026-04-26.tsv: 5 measurable (agent-memory-coverage 6.25%, smoke-test-coverage 0%, cross-model-invocations-week=6, kpi-baseline-defined=13, apl-yesterday=0) + 8 stubs. 2 pass / 3 fail / 8 stub.
+
+### Audit P5/P6 — pattern n=20 (3 clusters)
+
+P5 anti-teatro 90% PASS (18/20). 3 clusters P6:
+- 45% high-quality (P6 3/4): cite evidence T1/T2 — Aider 2024-09 study (debug-architect 85% vs 75%), Anthropic taxonomy nível 6 (debug-team), S57/S89/S193/S194/S248 sessions (guards/lint), Gemini 1M ctx (debug-archaeologist), "jq 10x faster than node" (guard-bash-write benchmark)
+- 45% legacy (P6 2/4): WHAT-only frontmatter — sentinel/repo-janitor/qa-engineer/research/improve/insights/ambient-pulse/debug-symptom-collector/evidence-audit
+- 10% FAIL (P6 ≤1.5/4): evidence-researcher (only 6a) + automation (vague trigger comprometido)
+
+Implicação P1+: 9 mecânicos (VERIFY only) + 9 doc-only (WHY+VERIFY) + 2 structural full refactor.
+
+### Aprendizados (max 5)
+
+- **Signal > noise (Lucas mid-session)**: tabelas + sources cited, prose redundante eliminada. KBP-16 reforced.
+- **Plan mode formal pra design taxonômico** — não overhead, é discipline. ExitPlanMode + write plan file > inline narrative.
+- **6 princípios canonical lens pra TODA decisão futura**: humildade · evidence-tier · anti-sycophancy · profissionalismo · anti-teatro · E2E/WHY-first.
+- **Doc-quality temporal pattern (n=20)**: componentes S248+ citam evidence; legacy pré-S248 WHAT-only. Refactor priority por cluster claro.
+- **Anti-vanish gate via `.claude/metrics/` committed**: snapshot daily idempotent. KBP candidate "métricas operacionais committed > gitignored APL".
+
+### KBP candidates pendentes (KBP-31 sweep)
+
+- L139 dual-source-of-truth desync (Conway's Law)
+- L219 Grep content-mode trunca linhas longas
+- **NEW S251**: doc-quality temporal — "componente sem WHY+VERIFY = legacy refactor backlog" (audit pattern n=20)
+- **NEW S251**: signal-density discipline — "tabelas + sources > prose narrativa" (Lucas mid-session principle)
+
+---
+
 ## Sessao 250 — 2026-04-25 (todos-em-batches — e2e + 3-model audit + KBP-38)
 
 ### Commits (5 atomic, main)
