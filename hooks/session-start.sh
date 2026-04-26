@@ -79,11 +79,15 @@ if [ -f "$PENDING" ] && [ -s "$PENDING" ]; then
   > "$PENDING"
 fi
 
-# Surface dream-pending flag (informational only — user decides when to run)
-DREAM_PENDING="$HOME/.claude/.dream-pending"
-if [ -f "$DREAM_PENDING" ]; then
-  echo ""
-  echo "(Dream disponivel — rode /dream quando quiser)"
+# DISABLED S254 — recurring false positives 4-5x, debug sistematico pending (BACKLOG #63)
+# Re-enable: change `if false` to `if true` after fix verified.
+if false; then
+  # Surface dream-pending flag (informational only — user decides when to run)
+  DREAM_PENDING="$HOME/.claude/.dream-pending"
+  if [ -f "$DREAM_PENDING" ]; then
+    echo ""
+    echo "(Dream disponivel — rode /dream quando quiser)"
+  fi
 fi
 
 # S230 Phase G.8 + G.5: anti-meta-loop banner + /insights bi-diario reminder
@@ -104,14 +108,17 @@ if . "$PROJECT_ROOT/hooks/lib/banner.sh" 2>/dev/null; then
     banner_attn "$META_STREAK sessoes sem aulas/" "R3 Clinica Medica: ${R3_DAYS} dias" "Considere voltar a slides hoje"
   fi
 
-  # G.5: /insights bi-diario reminder
-  LAST_INS_FILE="$PROJECT_ROOT/.claude/.last-insights"
-  if [ -f "$LAST_INS_FILE" ]; then
-    LAST_INS=$(cat "$LAST_INS_FILE" 2>/dev/null || echo 0)
-    NOW=$(date +%s)
-    GAP_DAYS=$(( (NOW - LAST_INS) / 86400 ))
-    if [ "$GAP_DAYS" -ge 2 ]; then
-      banner_info "/insights pendente" "Ultimo run: ${GAP_DAYS}d atras" "Periodicidade alvo: bi-diaria"
+  # G.5: /insights bi-diario reminder — DISABLED S254 (BACKLOG #63, recurring false positives, debug sistematico pending)
+  # Re-enable: change `if false` to `if true` after `.last-insights` write-on-close fix verified.
+  if false; then
+    LAST_INS_FILE="$PROJECT_ROOT/.claude/.last-insights"
+    if [ -f "$LAST_INS_FILE" ]; then
+      LAST_INS=$(cat "$LAST_INS_FILE" 2>/dev/null || echo 0)
+      NOW=$(date +%s)
+      GAP_DAYS=$(( (NOW - LAST_INS) / 86400 ))
+      if [ "$GAP_DAYS" -ge 2 ]; then
+        banner_info "/insights pendente" "Ultimo run: ${GAP_DAYS}d atras" "Periodicidade alvo: bi-diaria"
+      fi
     fi
   fi
 fi
