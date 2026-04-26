@@ -1,22 +1,50 @@
 # CHANGELOG
 
-## Sessao 255 — 2026-04-26 (debug-team-hooks — audit + fix 4 teatros confirmados)
+## Sessao 255 — 2026-04-26 (debug-team-hooks — 3 phases: fix → audit → plan-execute)
 
-> Lucas frame: "ajustar nossos times de debugger para ver se arrumamos os hooks os importantes sao teatro · pode fazer · lembre sempre plano com justificativa porque recomenda o caminho"
+> Lucas frame: "ajustar nossos times de debugger... os importantes sao teatro" → "lance 3 modelos contra hooks, ver funcionando/merge/e2e" → "vamos resolver sem deixar backlog" → "entre em plan reflita sem sincofancia"
 
-### Commits (3 atomic, main)
+### Phase 1 — Mechanical hooks teatro fixes (6 commits)
 
-- **`20e1e9a` fix(S255): drain stdin em session-start + session-compact (hook teatro A1)** `[+7/-0, 2 files]` — Bug #3+#4: hooks SessionStart sem `cat >/dev/null 2>&1` apos shebang+set causavam "Failed with non-blocking, no stderr" porque pipe nao consumido. Padrao canonical em 7+ hooks (stop-metrics:14, ambient-pulse:9, etc) — replicado nos 2 SessionStart pendentes. Audit Explore agent confirmou classe TEATRO-SILENT severidade ALTO.
-- **`fd77bbc` fix(S255): post-global-handler le path S225 session-id (hook teatro A2)** `[+6/-1, 1 file]` — Bug #1+#2: post-global-handler:16 lia `/tmp/cc-session-id.txt` (deletado por session-start S225 cross-repo fix). Fallback `date '+%Y%m%d_%H%M%S'` gerou (a) 5736 arquivos orfaos `/tmp/cc-calls-*.txt` Apr 18→26 (1 por tool call vs 1 por sessao), (b) format mismatch com glob esperado em ambient-pulse:25 + stop-metrics:72 → CALLS=0 em todo APL scorecard ha ~30 sessoes. Fix: read S225 path repo-scoped `cc-session-id-${REPO_SLUG}.txt`. Glob match validado via test integration.
-- **`9d91c8b` fix(S255): banner.sh idempotent include guard (hook teatro A6)** `[+6/-0, 1 file]` — Bug #5: 9 readonly vars sem guard re-source emitia "_RESET: readonly variable" → exit 1 absorvido por `if . file 2>/dev/null` em session-start:94 → banner_critical/banner_attn skipped silently (META_STREAK warnings invisible). Fix: `[[ -n LOADED ]] && return 0` pattern canonical lib include guard. Audit das outras 3 libs: nenhuma usa readonly (guard nao necessario). Body documenta A3 cleanup adjacente: 5736 orfaos purgados via find-regex + while-read-rm (filesystem-only, sem repo change).
+- **`20e1e9a` fix(S255): A1 stdin drain em session-start + session-compact** `[+7/-0, 2 files]` — SessionStart "Failed with non-blocking, no stderr" porque pipe não consumido. Padrão canonical em 7+ hooks replicado.
+- **`fd77bbc` fix(S255): A2 post-global-handler lê path S225 session-id** `[+6/-1, 1 file]` — Bug raiz path legacy `/tmp/cc-session-id.txt` deletado por session-start S225. Fallback gerou 5736 órfãos + glob mismatch → CALLS=0 ~30 sessões.
+- **`9d91c8b` fix(S255): A6 banner.sh idempotent include guard** `[+6/-0, 1 file]` — readonly re-source error absorvido silently. Fix `[[ -n LOADED ]] && return 0`. Body documenta A3 cleanup (5736 órfãos purge via find-regex).
+- **`7218c01` docs(S255): HANDOFF + CHANGELOG Phase 1 close** `[+48/-23, 2 files]` — S256 P0 options A/B framing.
+- **`7e42a29` + `66a2c7c` docs(S255): HANDOFF off-by-one + recursion claim removal** `[+2/-2, 1 file]` — KBP-40 corollary descoberto: claims sobre git state em files versionados são auto-stale (commit do fix gera novo claim stale).
+
+### Phase 2 — 3-model audit hooks (5 voices independent + synthesis)
+
+- **`28355ff` docs(S255): HANDOFF reabre Phase 2** `[+3/-1, 1 file]` — 3-model audit launching.
+- **5 voices spawned:** Gemini (historical/architectural) + 3 Opus uniformes (same prompt, same model — anti-sycophancy independent) + Codex max (adversarial cross-architecture). Per Conductor §6 council pattern.
+- **Synthesis §6.1 STRICT recalibration (orchestrator role Lucas):**
+  - Original 3/3 → ADOPT-NOW. Com 5 voices, threshold honesto: **4+/5 = ADOPT-NOW STRICT, 3/5 = ADOPT-NEXT, 1-2/5 + Codex cross-arch high = ADOPT-NEXT-Codex-unique**
+  - **ADOPT-NOW STRICT (4+/5):** A2 chaos no-op, A3 integrity silent
+  - **ADOPT-NEXT (3/5):** A1 dream-pending broken, A4 banner envelope, A5 Stop[1] redundancy, A6 notify+stop-notify
+  - **NOTE Codex-unique:** B1 secret bypass Grep/Glob, B2 hook-log JSON escape, B3 guard-bash dead branches, B4 pre-compact timing, B5 fallback orphans
+  - **4 false positives filtered** via KBP-32 spot-check: integrity not found (Gemini procurou path errado), ambient-pulse glob FP, Stop[1] staged FN (Voice 1 self-corrected mid-output), counter variance natural
+
+### Phase 3 — Plan-execute Block A mechanical (plan `.claude/plans/dreamy-yawning-kite.md`, 5/8 commits)
+
+- **`8ab18fd` docs(S255): A.1 doc drift fixes — README + chaos comment** `[+11/-4, 2 files]` — README 33→35 hooks + StopFailure event added. chaos-inject-post.sh:7 comment settings.local.json→settings.json.
+- **`ded0bc8` refactor(S255): A.2 parse_handoff_pendentes lib extract** `[+29/-19, 3 files]` — DRY 8-line function copy-pasted em stop-metrics + apl-cache-refresh → `hooks/lib/handoff-utils.sh` com idempotent guard + `return 0` defense (S236).
+- **`2828d3c` refactor(S255): A.3 notify+stop-notify lib extract (toast.sh)** `[+45/-23, 3 files]` — PowerShell NotifyIcon byte-near-identical → `hooks/lib/toast.sh` com `show_toast(title, text, ms)`.
+- **`8c49471` fix(S255): A.4 banner.sh source envelope captures stderr** `[+18/-1, 1 file]` — A6 Phase 1 fix idempotent guard resolveu readonly recursion; A.4 captura outros source failures via tempfile + hook_log warn entry.
+- **`a5b5c6e` feat(S255): A.5 surface integrity violations in session-start** `[+12/-0, 1 file]` — tools/integrity.sh Stop[5] async + `>/dev/null` invisível → grep `[FAIL]` + cat 10 lines em session-start após pending-fixes.
+
+### Block A remaining + Blocks B/C/D → S256 (per plan dreamy-yawning-kite.md)
+
+- **Block A remaining (3 commits, ~50min):** A.6 post-global-handler fallback fix + TTL · A.7 pre-compact-checkpoint timing fix · A.8 hook-log.sh JSON escape via jq
+- **Block B (4 decisions D1-D4 + execute, ~1h):** D1 chaos resolve · D2 Stop[1] redundancy · D3 secret protection Grep/Glob · D4 guard-bash-write settings filter
+- **Block C (BACKLOG #63 systematic dream-pending, ~1.5-2h):** audit /insights + /dream skills lifecycle · fix .last-insights write-on-close · re-enable session-start blocks
+- **Block D (7 smoke tests debug-team T4, ~1.5-2.5h):** scripts/smoke/debug-{symptom-collector,strategist,archaeologist,adversarial,architect,patch-editor,validator}.sh
 
 ### Aprendizados S255
 
-- **Producer fix > consumer compensation:** A2 inicialmente pareceu 3 fixes (post-global-handler + ambient-pulse + stop-metrics). Analise mais profunda: glob consumers ja eram corretos pra format S225 — bug era no producer (path legacy). 1 file edit em vez de 3 = blast radius minimo. **Shotgun surgery (Fowler) = sintoma de conceito mal-encapsulado; fix the producer once.**
-- **Hook teatro tem 6 categorias detectaveis (T1-T6):** path inexistente, async sem consumer, short-circuit feature flag silently disabled, VERIFY prometido + nunca criado, redundancia como diversidade, silent SessionStart errors. Detecao sistematica via Explore agent worked — pattern repetir periodicamente. T4 confirmado em todos 7 debug-* (smoke tests `scripts/smoke/debug-*.sh` AUSENTES).
-- **5736 orfaos = evidencia forense de teatro silencioso ha ~30 sessoes.** Bug introduzido S225, teatro acumulou ate S255 detection. **Lição:** instrumentacao que escreve mas nunca le e teatro detectavel APENAS por inspecao forense pos-fato. Antidoto candidate: stop-quality.sh ou sentinel checar "files written but never read" como invariant pre-commit (KBP candidate?).
-- **Lib refactor candidates emergentes:** `drain_stdin()` (7+ hooks copy-paste) + `compute_session_id_path()` REPO_SLUG calc (3 hooks copy-paste). Surface HANDOFF P2 radar consolidados — KBP-41 cut calibration honored: cost ≥5min + escopo expandido + regressao risk = Deferred (gate-justified), nao Cut.
-- **Cleanup filesystem nao merece commit proprio** — sem repo state change. Documentar em commit body adjacent por proximidade temporal e mesmo dominio (A3 dentro de A6 body). Anti-pattern evitado: empty commit ou `--allow-empty`.
+- **Council pattern §6.1 recalibração honesta (5 voices ≠ 3 voices):** original threshold 3/3 → ADOPT-NOW. Com 5 voices, recalibrar para 4+/5 (80%) é STRICT. 3/5 (60%) era permissivo — passa a ADOPT-NEXT pendente Lucas spot-check. Anti-sycophancy: same-frame independent voices (Opus×3 mesmo prompt) testam capability vs frame; cross-arch (Codex) testa LLM-Anthropic blindspots. **Codex shifted 2 borderline para ADOPT-NOW + descobriu 5 NEW high-impact não vistos por 4 Opus voices.**
+- **Producer-fix > consumer-compensation pattern (Phase 1 + Codex Phase 2 corroboração):** A2 e B5 (mesmo hook post-global-handler) provam: 1 producer feeds N consumers. Fix producer once = N consumers OK. Shotgun surgery anti-pattern (Fowler) = sintoma de conceito mal-encapsulado.
+- **Plan-execute discipline sustenta pace (Phase 3 mecânica):** TaskCreate batch + EC loop per item + KBP-32 spot-check = 5 commits A.1-A.5 em ~1h sem regressão. Cada commit isolado, blast radius mínimo, rollback simples. Compounds: A.2+A.3 lib extracts reusam pattern A6 idempotent guard (Phase 1) — value compounds entre phases.
+- **"No backlog" mandate honesto exige multi-session realista:** scope total 6-8h não cabe 1 sessão (~3h restante). Plano dreamy-yawning-kite.md split S255+S256 disciplinado (Block A 5/8 done S255 close; A.6/A.7/A.8 + B/C/D → S256). Inflated 1-session promise = falha de calibração + KBP-22 silent skip risk depois.
+- **KBP-40 corollary "auto-stale claims":** claims sobre git state em files versionados (HANDOFF "ahead origin", CHANGELOG "current state") sofrem recursão — commit do claim gera novo claim stale. Solução estrutural: separar mutable runtime state (git status) de versioned plan signal. Análogo 12-factor app "config in env, not in code".
 
 ## Sessao 254 — 2026-04-26 (Infra-rapido — quick wins backlog: KBP-40 codify + close)
 

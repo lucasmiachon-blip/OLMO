@@ -1,57 +1,61 @@
 # HANDOFF - Proxima Sessao
 
-> **S255 "debug-team-hooks" — Phase 1 closed (4 hook teatros fixed); Phase 2 in-progress (3-model audit hooks: functional + merge candidates + E2E)**. Phase 1 commits: `20e1e9a` → `fd77bbc` → `9d91c8b` → `7218c01` + docs close. Detalhes/aprendizados Phase 1: `CHANGELOG.md §S255`. Push state: `git status` (KBP-40 corollary: claims sobre git state em files versionados sao auto-stale).
->
-> **Phase 2 scope (current):** lançar Opus + Gemini + Codex contra inventário de 35 hooks. Outputs: (a) functional verification por hook trigger real, (b) merge candidates ranked via §6.1 convergence rules (3/3=ADOPT-NOW, 2/3=DEFER, 1/3+spot-check=ADOPT-NEXT), (c) E2E pipeline coherence (UserPromptSubmit → Pre/PostToolUse → Stop chain).
+> **S255 "debug-team-hooks" — 3 phases parcialmente closed.** Phase 1 (4 fixes mecânicos) ✓ · Phase 2 (5 voices council audit + synthesis §6.1 strict) ✓ · Phase 3 Block A 5/8 ✓ · Block A 3 remaining + Block B/C/D pendentes S256. Detalhes/aprendizados: `CHANGELOG.md §S255`. Plan canonical: `.claude/plans/dreamy-yawning-kite.md` (8 sections, S255 close + S256 dedicated).
 
-## 🔥 P0 — S256 core (Lucas pick: A ou B)
+## 🔥 P0 — S256 finish hooks (sequência locked: hooks complete → E2E → advance)
 
-**Opção A — Continuar debug-team-hooks domain:**
-1. **Debug-team smoke tests** (T4 teatro fix) — criar `scripts/smoke/debug-{symptom-collector,strategist,archaeologist,adversarial,architect,patch-editor,validator}.sh`. Cada agent .md tem secao VERIFY com spec do que validar. Atualmente TODOS 7 ausentes — VERIFY claim performativo. Estimate: 2-3h (~20min cada). Convert teatro T4 → ATIVO.
-2. **A4 chaos-inject decision** (CHAOS_MODE off por design ou bug?) + X3 ordering race resolution.
-3. **A5 post-compact-reread.sh schema verify** (probe via 1 trigger compact + read additionalContext trail).
+**Block A remaining (~50min, 3 commits) — finish mechanical:**
+1. **A.6 post-global-handler fallback fix + TTL** — fallback `unknown_${REPO_SLUG}_$(date)` recognizable + session-start TTL one-liner
+2. **A.7 pre-compact-checkpoint timing fix** — capturar OLD_MTIME antes truncate, find -newermt @$OLD_MTIME
+3. **A.8 hook-log.sh JSON escape via jq** — replace printf interpolation por `jq -cn --arg`
 
-**Opção B — Voltar P0 original (S254/S255 deferred):**
-1. **Build/arrange 2-3 slides** (likely metanálise; reference `lovely-sparking-rossum.md`).
-2. **Migrate 3 JS scripts → agents/skills + benchmark + `chatgpt-research.mjs` NEW** (gemini-research, gemini-review, perplexity-research + new). Sequence: audit → benchmark → launch real.
+**Block B (~30min decisões + ~30-90min exec, 4 commits) — Lucas decides D1-D4 batch antes execute:**
+- **D1 chaos:** (a) CHAOS_MODE=1 always-on | (b) document opt-in | (c) remove hooks + Conductor §4.9 revert
+- **D2 Stop[1]:** (a) remove inline agent | (b) restrict prompt | (c) keep status quo
+- **D3 secret bypass Grep/Glob:** (a) PreToolUse matchers | (b) permissions.deny | (c) both (recomendo)
+- **D4 guard-bash-write filter:** (a) broaden settings if | (b) remove filter | (c) keep + remove dead detectors
 
-## 🟡 P1 — Não bloquear core, surface natural
+**Block C BACKLOG #63 systematic-debug (~1.5-2h, 3-5 commits) — dream-pending end-to-end:**
+- Audit /insights + /dream skills lifecycle (.last-insights write-on-close, .dream-pending delete)
+- Fix lifecycle bug (likely write-on-OPEN inverted)
+- Re-enable session-start.sh `if false` blocks (linhas 88-95 dream + 117-127 insights)
 
-3. **Testar skills + agents funcionando** (S254-tail) — smoke-test 1 invocation real per item → ✓/✗ aggregate. Skills: `/insights`, `/dream`, `/research`, `/debug-team`. Agents: 16 catalogued em `/dream` tooling-pipeline. **Note S255:** Bug A1 fix deve eliminar SessionStart hook errors observados — re-confirm /insights + /dream lifecycle agora que stdin drain está OK.
+## 🟡 P1 — S256 E2E tests (Block D smoke tests debug-team T4 fix)
 
-## 🟢 P2 — Defer S257+ (radar)
+**Block D 7 smoke tests (~1.5-2.5h, 7 commits):** scripts/smoke/debug-{symptom-collector,strategist,archaeologist,adversarial,architect,patch-editor,validator}.sh — cada agent .md tem secao VERIFY com spec do que validar. Atualmente TODOS 7 ausentes — VERIFY claim performativo (T4 teatro). Convert teatro → ATIVO.
 
-- **Lib refactor consolidado (S255 emergent):** extract `drain_stdin()` + `compute_session_id_path()` (REPO_SLUG calc) em `hooks/lib/protocol.sh` ou similar. DRY de 7+ hooks (drain) + 3 hooks (REPO_SLUG). KBP-41 (c) Deferred (gate-justified): cost ≥5min, escopo expandido, regressao risk em multiple hooks ja passing. Acumular outras DRY candidates antes de session dedicada lib refactor.
-- **H4/X2 redundancias debug-team** (Conductor §6.2 audit 3-model): MERGE `systematic-debugging` skill into `debug-team`; X2 `systematic-debugger` agent vs 7 debug-* (DEFER measurement post-H4). Destrutivos requerem Lucas explicit OK.
-- **"Files written but never read" invariant** (S255 KBP candidate?) — Bug A2 acumulou 5736 orfaos por ~30 sessoes silenciosas. Antidoto: stop-quality.sh ou sentinel agent checa producers sem consumers como pre-commit invariant. Codify se padrão repetir.
-- **BACKLOG #63** SessionStart flags `/insights`+`/dream` systematic-debugging (passos a-e) — surface natural via P1 #3 test
-- **Conductor §6.5 G9** Maturity layers (SDL/SAMM/OpenSSF/CMMI) SOTA radar — spec em `docs/research/external-benchmark-execution-plan-S248.md §B5`, non-operational
-- **KBP-42 codify** (WebFetch URL lifecycle 7 fires) — defer until P2 sota-intake skill exists
-- **/insights P253-001** backlog triage (P0 `BACKLOG.md` 41 items STAGNANT 19 sessions) — defer until P0(d) audit complete
-- **P0(d) audit batch G+H** (28 pendentes) + H4/X3 destrutivos + KPI snapshot wiring + per-arm matrix §17.1-§17.12
-- **Retroactive `git add --renormalize .`** (post `.gitattributes` S254-tail) — defer sessão dedicada
-- **Conductor §16 sync com S254/S255 state** — execution backlog atualizar com S254+S255 closed + new P0/P1/P2 stamped
-- **QA editorial metanalise** (3/19 done) — connects Opção B P0#1 slide work
-- **R3 Clínica Médica prep** — 217 dias (long-running)
+## 🟢 P2 — Defer post-hooks-complete (advance)
+
+- **Slides metanálise + scripts migration** (P0 original S254/S255 deferred): 2-3 slides via `lovely-sparking-rossum.md` + 4 JS scripts → agents/skills + chatgpt-research.mjs NEW
+- **Lib refactor consolidado** (drain_stdin 7+ hooks + REPO_SLUG calc 3 hooks + safe_source pattern): session dedicada lib audit
+- **H4/X2/X3 redundâncias debug-team** (Conductor §6.2-6.3 destrutivos): MERGE systematic-debugging into debug-team (3/3 audit), X2/X3 measurement post-H4
+- **"Files written but never read" KBP candidate** (S255 emergent): producer-without-consumer = teatro detectable apenas forensic. Codify se padrão repete
+- **Conductor §6.5 G9 Maturity layers** (SDL/SAMM/OpenSSF/CMMI) SOTA radar
+- **KBP-42 codify** (WebFetch URL lifecycle 7 fires) — defer P2 sota-intake skill
+- **/insights P253-001** backlog triage (41 items STAGNANT 19 sessões) — defer post-Block C
+- **Conductor §16 sync com S254/S255 state** + per-arm matrix §17.1-§17.12
+- **R3 Clínica Médica prep** — 217 dias
 
 ## Hidratação S256 (3 passos)
 
-1. `git log --oneline -10` — confirm S253→S254→S255 chain (9 commits)
-2. Read `.claude/plans/immutable-gliding-galaxy.md` §6.5 G1-G8 SOTA gaps + §17.4 DEBUG arm worked example (12 components, 6 DONE, 4 mechanical pending, 1 destrutivo H4, 1 audit pending)
-3. Se Opção A: read 7 `.claude/agents/debug-*.md` secao VERIFY (spec dos smoke tests pendentes). Se Opção B: read `.claude/scripts/{gemini,perplexity}-research.mjs` + `gemini-review.mjs` (works well, só improve).
+1. `git log --oneline -15` — confirm S253→S254→S255 chain (~17 commits)
+2. **Read `.claude/plans/dreamy-yawning-kite.md` integral** (canonical Phase 3 plan — 8 sections, Block A/B/C/D specs + critical files map + verification approach + KBP candidates)
+3. `git status` para push state real (KBP-40 corollary: claims sobre git state em files versionados são auto-stale)
 
 ## Cautions ativas
 
 - **Mellow-scribbling-mitten Track A P5 in-flight** outra window/branch — NÃO TOCAR (Lucas owns; cherry-pick later)
-- **`.claude/scripts/*-research.mjs` funcionam bem** — não rewrite, só improve (Lucas explicit S254)
-- **KBP-40 branch awareness:** `git branch --show-current` antes de commit (SessionStart `gitStatus` snapshot decai)
-- **Flag disable é KBP-07 escape válido** — re-enable sem systematic-debugging primeiro = regressão garantida; passos a-e em BACKLOG #63. **S255 update:** Bug A1 fix (stdin drain) elimina classe de hook error — pode liberar re-enable se test confirmar /insights + /dream lifecycle agora OK.
-- **KBP-41 cut calibration (S254-tail):** decision tree em `anti-drift.md §EC loop §Cut calibration` — antes de marcar Cut, perguntar a/b/c/d. Bias indicator: 2+ Cuts/sessão = recalibrar. **S255 honored:** lib refactor candidates marcados Deferred (gate-justified), não Cut.
-- **APL CALLS counter agora ativo (S255 A2 fix)** — desde S225 reportava 0 sempre (teatro); proxima sessao deve ver valores reais "[APL] Ultimo commit: Xmin atras - N tool calls" (N>0).
+- **KBP-40 branch awareness:** `git branch --show-current` antes de commit (SessionStart gitStatus snapshot decai)
+- **APL CALLS counter ATIVO desde S255 A2 fix** — desde S225 reportava 0 (teatro). Counter atual visível em "[APL] Ultimo commit: Xmin atras - N tool calls" (N>0)
+- **integrity-report.md surface ativo desde S255 A.5** — INV violations agora visible em SessionStart automaticamente
+- **Lib pattern A6+A.2+A.3:** 3 libs com idempotent guard (`[[ -n LOADED ]] && return 0`) — banner.sh + handoff-utils.sh + toast.sh. Próximas libs (drain_stdin, REPO_SLUG, safe_source) seguir mesmo pattern
+- **Block A 5/8 done:** A.6+A.7+A.8 NÃO foram pulados — só não couberam S255 budget. Plan dreamy-yawning-kite.md §3 specs intactos para S256 retomar
+- **Block B 4 decisions D1-D4 require Lucas pick BEFORE Edit** — não decidir autonomamente
 
-## Plans active (2, stamped por prioridade)
+## Plans active (3, stamped por prioridade hooks-first)
 
-- **[P0]** `immutable-gliding-galaxy.md` — Conductor 2026 single source of truth (DEBUG arm §4.4 + §17.4 + §6 council + §16 backlog cobrem dominio S255)
-- **[P1]** `lovely-sparking-rossum.md` — metanálise QA reference (relevante se Opção B escolhida)
+- **[P0 ACTIVE]** `dreamy-yawning-kite.md` — Phase 3 hooks plan (S255 close + S256 dedicated, sections 1-12)
+- **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` — Conductor 2026 single source of truth (DEBUG arm §4.4 + §6 council + §16 backlog reference)
+- **[P2 PAUSED]** `lovely-sparking-rossum.md` — metanálise QA reference (resume post-hooks-complete via P2 advance)
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) | S255 debug-team-hooks | 2026-04-26
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S255 debug-team-hooks Phase 1+2+3-partial | 2026-04-26
