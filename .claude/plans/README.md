@@ -8,7 +8,7 @@
 
 **Regra:** no máximo 2 plans active simultaneamente (1 sessão corrente + 1 roadmap cross-sessão explicitamente flagged). Mais que isso = archival overdue. Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close (S256 close pattern).
 
-## Archive (`.claude/plans/archive/` = 103 files)
+## Archive (`.claude/plans/archive/` = 104 files)
 
 Historical audit trail. Never delete; historical value > storage cost. Reference por grep quando necessário.
 
@@ -58,6 +58,7 @@ Historical audit trail. Never delete; historical value > storage cost. Reference
 | `archive/S240-DEFERRED-lovely-sparking-rossum.md` | S240 | DEFERRED — 16 sessões dormant; archived S256 Phase 0 hygiene; resume signal via BACKLOG #64 |
 | `archive/S255-S256-debug-team-hooks.md` | S255-S256 | HISTORICAL — debug-team-hooks Phase 3 cross-session (S255 Block A 5/8 + Phase 2 council audit; S256 Block A finish + B + C). Phase 4 smoke tests defer S257. Renamed from `dreamy-yawning-kite.md` pre-archive. |
 | `archive/S256-hooks-execute-and-close.md` | S256 | HISTORICAL — current session execution plan (Phase 0+1+2+3 closed, Phase 5 close partial). Renamed from `snazzy-brewing-pearl.md` pre-archive. |
+| `archive/S258-hookscont.md` | S258 | HISTORICAL — Phase A 8 commits (KBP-32 VERIFY add to symptom-collector + 7 smoke tests Tier 1 ATIVO contract+fixture) + Phase B close (HANDOFF/CHANGELOG sync + plan archived). G2 finding: `claude agents call` pseudocode stale; real `claude -p --agent`; subprocess hooks bypass infra defer S259 Tier 2. Renamed from `async-moseying-pebble.md` pre-archive. |
 
 ## Quando criar novo plan file
 
