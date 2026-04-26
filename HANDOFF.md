@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> **S255 "debug-team-hooks" closed** — 4 commits main: `20e1e9a` → `fd77bbc` → `9d91c8b` → `7218c01` (4 hook teatros fixed: A1 stdin drain + A2 post-global-handler S225 path + A3 5736 orfaos purge + A6 banner.sh idempotent guard + docs close). Detalhes/aprendizados: `CHANGELOG.md §S255`. Local 4 commits ahead origin (verified `git rev-list --count`).
+> **S255 "debug-team-hooks" closed** — 4 hook teatros fixed: A1 stdin drain (session-start + session-compact) + A2 post-global-handler S225 path + A3 5736 orfaos purge + A6 banner.sh idempotent guard. Commits chain: `20e1e9a` → `fd77bbc` → `9d91c8b` → `7218c01` + docs close. Detalhes/aprendizados: `CHANGELOG.md §S255`. Push state: confirme via `git status` (claim "ahead origin" sofre recursao quando incluida no proprio HANDOFF — KBP-40 corollary).
 
 ## 🔥 P0 — S256 core (Lucas pick: A ou B)
 
