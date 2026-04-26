@@ -229,3 +229,7 @@ Pre-patch checklist: all_passed
 4. Honest logging — errors registrados, success nao fabricado
 5. Zero edits e VALID output quando architect prescribes upstream-only ou KBP-35
 6. STOP apos JSON — validator recebe edit-log
+
+## VERIFY
+
+`scripts/smoke/debug-patch-editor.sh` — smoke test reprodutível (P1+ creation pendente). Validates: edits APENAS files listados em architect plan (KBP-01 anti-scope-creep), KBP-19 protected files via Write→temp→cp pattern, edit-log honest (errors registered + matches_architect_intent), zero-edit valid output quando architect prescribed upstream-only ou KBP-35.

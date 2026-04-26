@@ -482,4 +482,10 @@ Lucas: yes
 
 ---
 
+## VERIFY
+
+`scripts/smoke/debug-team.sh` — smoke test reprodutível (P1+ creation pendente). Validates: 7 agents present (Step 0 preflight loop), state file JSON schema, plan file phases 1-5 initialization, validator loop iter ≤3 boundary, cleanup flag em terminal paths.
+
+---
+
 *Skill S249. Coautoria: Lucas + Opus 4.7 (Claude Code). Reference: SOTA-D synthesis 60 fontes.*

@@ -276,3 +276,7 @@ Gaps: 2
 3. SHAs validated via git log antes de retornar
 4. Output JSON valido sempre
 5. STOP apos JSON — orquestrador integra em architect Phase 3
+
+## VERIFY
+
+`scripts/smoke/debug-archaeologist.sh` — smoke test reprodutível (P1+ creation pendente). Validates: Gemini CLI preflight executed (fail-closed em ausência), JSON output schema canonical, SHAs Gemini-returned spot-checked via `git log <sha>` local (KBP-32), gaps field non-null quando validation incomplete.

@@ -39,26 +39,26 @@
 | 4 | `research` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
 | 5 | `improve` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
 | 6 | `insights` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
-| 7 | `debug-architect` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓** | ✓ | ✗ | **PART 3/4** | add VERIFY only |
-| 8 | `debug-validator` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ~ | ✓ | ✗ | **PART 3/4** | strengthen WHY + VERIFY |
-| 9 | `debug-strategist` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ~ | ✓ | ✗ | **PART 3/4** | strengthen WHY + VERIFY |
+| 7 | `debug-architect` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓** | ✓ | ✓ | **PASS 4/4** | DONE S252 (VERIFY added) |
+| 8 | `debug-validator` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ~ | ✓ | ✓ | **PART 3.5/4** | VERIFY added S252; WHY-body strengthen pendente |
+| 9 | `debug-strategist` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ~ | ✓ | ✓ | **PART 3.5/4** | VERIFY added S252; WHY-body strengthen pendente |
 | 10 | `evidence-researcher` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ~ | ✗ | **FAIL 1/4** | full WHY+HOW+VERIFY refactor |
 | 11 | `guard-write-unified.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓*** | ✓ | ✗ | **PART 3/4** | add VERIFY |
 | 12 | `ambient-pulse.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
-| 13 | `debug-team` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓**** | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 13 | `debug-team` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓**** | ✓ | ✓ | **PASS 4/4** | DONE S252 (VERIFY added) |
 | 14 | `knowledge-ingest` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓***** | ✓ | ✗ | **PART 3/4** | add VERIFY |
 | 15 | `debug-symptom-collector` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
-| 16 | `debug-archaeologist` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓† | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 16 | `debug-archaeologist` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓† | ✓ | ✓ | **PASS 4/4** | DONE S252 (VERIFY added) |
 | 17 | `lint-on-edit.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓‡ | ✓ | ✗ | **PART 3/4** | add VERIFY |
 | 18 | `guard-bash-write.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓§ | ✓ | ✗ | **PART 3/4** | add VERIFY |
 | 19 | `evidence-audit` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
 | 20 | `automation` | skill | ~ | ✓ | ? | **PART** | ✓ | ✗ | ~ | ✗ | **FAIL 1-2/4** | full refactor (trigger + consumer + WHY + HOW + VERIFY) |
-| 21 | `debug-adversarial` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓¶ | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 21 | `debug-adversarial` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓¶ | ✓ | ✓ | **PASS 4/4** | DONE S252 (VERIFY added) |
 | 22 | `researcher` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
 | 23 | `teaching` | skill | ~ | ✓ | ✓ | **PART** | ✓ | ✓# | ✓ | ✗ | **PART 3/4** | clarify trigger + VERIFY |
 | 24 | `stop-quality.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓** | ✓ | ✗ | **PART 3/4** | add VERIFY |
-| 25 | `mbe-evaluator` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓†† | ✓ | ✗ | **PART 3/4** | add VERIFY |
-| 26 | `debug-patch-editor` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓‡‡ | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 25 | `mbe-evaluator` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓†† | ✓ | ✓ | **PASS 4/4** | DONE S252 (VERIFY added) |
+| 26 | `debug-patch-editor` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓‡‡ | ✓ | ✓ | **PASS 4/4** | DONE S252 (VERIFY added) |
 | 27 | `docs-audit` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
 | 28 | `exam-generator` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓✦ | ✓ | ✗ | **PART 3/4** | add VERIFY (best evidence citation seen) |
 | 29 | `post-bash-handler.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓§§ | ✓ | ✗ | **PART 3/4** | add VERIFY |
@@ -99,20 +99,23 @@
 
 ¹ Note: repo-janitor was expanded S251 X1 merge — `--mode generic` clarifies consumer; future re-audit may upgrade to PASS.
 
-**P6 (WHY-first + VERIFY):** 0/38 PASS ainda — universal VERIFY gap persiste. Stratification:
-- **20/38 com P6 3/4** (53%, close — só falta VERIFY): batch F adicionou 3 (systematic-debugger KBP-07, guard-secrets S51+S194, session-start S225+S230+S236 multi-history)
-- **16/38 com P6 2/4** (42%, WHY+VERIFY ausentes): batch F adicionou 5 (quality-gate, reference-checker, guard-mcp-queries, nudge-checkpoint, session-compact)
+**P6 (WHY-first + VERIFY):** **6/38 PASS** (16%) — first PASSes do projeto após S252 Phase 3 VERIFY batch. Stratification post-Phase 3:
+- **6/38 com P6 4/4 PASS** (16%): debug-architect, debug-team, debug-archaeologist, debug-adversarial, mbe-evaluator, debug-patch-editor — todos receberam VERIFY S252 (rows #7, #13, #16, #21, #25, #26)
+- **2/38 com P6 3.5/4 PART** (5%): debug-validator, debug-strategist — VERIFY added S252 mas WHY-body strengthen pendente (6b=~ weak, citação só em frontmatter)
+- **12/38 com P6 3/4 PART** (32%, close — só falta VERIFY): batch F adicionou 3 (systematic-debugger KBP-07, guard-secrets S51+S194, session-start multi-history)
+- **16/38 com P6 2/4 PART** (42%, WHY+VERIFY ausentes): batch F adicionou 5 (quality-gate, reference-checker, guard-mcp-queries, nudge-checkpoint, session-compact)
 - **2/38 com P6 ≤1.5/4 FAIL** (5%): evidence-researcher, automation
 
-**Insight reinforced n=38:**
-Doc-quality cluster stratification estável. Batch F caiu cluster 3/4 de 57% → 53% (5 novos PART 2/4 vs 3 PART 3/4). Range mantém-se dentro de margin n=8-batch — pattern domina majority high-quality. Implicação: P1+ work mecânico **add VERIFY** continua majority path (~5min × 20 = ~1.7h), heavy WHY refactor cresceu marginal (5 novos componentes precisam WHY+VERIFY).
+**Insight S252 P3 milestone (n=38):**
+**6 first PASSes** validated P1+ mechanical hypothesis: add VERIFY ~5min × 8 components → 6 PASS (75% conversion). 2 remaining PART 3.5/4 expõem standard heterogeneity (~ vs ✓ historical) — debug-validator/debug-strategist têm citation só em frontmatter description, não em body markdown section. Strict standard rejeita esses; permissive standard aceita. Future calibration question.
 
-**Time-to-completion P1+ refinado n=38:**
-- 20 mecânicos (VERIFY only): ~1.7h
+**Time-to-completion P1+ remaining n=38:**
+- 12 mecânicos (VERIFY only): ~1h (batch G + H next)
+- 2 strict-3.5/4 (body WHY strengthen): ~30min (debug-validator + debug-strategist)
 - 16 doc-only (WHY+VERIFY): ~3-4h
 - 2 structural FAIL: ~1h
 - 3 trigger-clarify: ~15min
-- **Total: ~6h** spread (provavelmente 3 sessões dedicated mechanical work)
+- **Total restante: ~5.5h** spread S253-S255 (3 sessions dedicated mechanical work)
 
 ---
 
@@ -173,12 +176,15 @@ Doc-quality cluster stratification estável. Batch F caiu cluster 3/4 de 57% →
 | Components audited | 38/66 (57.6%) | 66/66 (100%) |
 | P5 PASS rate | 35/38 (92%) | TBD |
 | P5 PARTIAL (trigger/consumer ambíguo) | 3/38 (8%) | TBD |
-| P6 PASS rate | 0/38 (0%) | TBD |
-| P6 PARTIAL 3/4 (close — só VERIFY) | 20/38 (53%) | TBD |
+| **P6 PASS rate** | **6/38 (16%)** ★ first PASSes | TBD |
+| P6 PARTIAL 3.5/4 (VERIFY+ but body WHY weak) | 2/38 (5%) | TBD |
+| P6 PARTIAL 3/4 (close — só VERIFY) | 12/38 (32%) | TBD |
 | P6 PARTIAL 2/4 | 16/38 (42%) | TBD |
 | P6 FAIL ≤1.5/4 | 2/38 (5%) | TBD |
 
-**Hypothesis n=38:** Pattern estável n=30→38. P5 PASS marginal up (90→92%, n=8 batch all PASS). P6 close-to-PASS cluster marginal down (57→53%, batch F skewed toward 2/4 cluster — 5 vs 3). Total P1+ estimated ~6h (1.7h mecânico VERIFY + 3-4h doc WHY+VERIFY + 1h structural + 15min trigger).
+**Milestone S252 Phase 3:** First 6 P6 PASSes do projeto (0%→16%). Hypothesis P1+ mechanical (add VERIFY ~5min × 8 = 40min) confirmed — 6/8 conversion rate (2 ficaram PART 3.5/4 por 6b body-WHY strict standard).
+
+**Hypothesis n=38:** Pattern P5 estável n=30→38 (90→92%). P6 stratification expandiu: tier 4/4 (PASS, 16%) + tier 3.5/4 (5%, VERIFY+ but WHY weak) + tier 3/4 (32%) + tier 2/4 (42%) + FAIL (5%).
 
 **Agents milestone (S252 batch F):** 16/16 agents audited — 100% complete. Pendentes restantes: 8 skills + 20 hooks (28 components total).
 

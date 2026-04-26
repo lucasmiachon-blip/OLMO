@@ -209,3 +209,7 @@ Note como strategist captura insight ARCHITECTURAL (gate-before-side-effect patt
 3. Confidence honesto + reasoning chain explicito + what_would_disprove
 4. Architectural lens com design_flaw|bug claim + boundary + alternative_design
 5. STOP apos JSON — orquestrador integra com archaeologist + adversarial em architect Phase 3
+
+## VERIFY
+
+`scripts/smoke/debug-strategist.sh` — smoke test reprodutível (P1+ creation pendente). Validates: first-principles JSON output (no git history calls, no adversarial reframing, no patch suggestions), confidence_overall present, ≥1 hypothesis with what_would_disprove field, architectural_lens_view inclui design_flaw|bug claim + boundary + alternative_design.

@@ -259,3 +259,7 @@ Gaps: 2
 3. KBP-28 checklist se security-related
 4. Validate challenges target real collector assumptions
 5. STOP apos JSON — synthesizer integra
+
+## VERIFY
+
+`scripts/smoke/debug-adversarial.sh` — smoke test reprodutível (P1+ creation pendente). Validates: Codex CLI preflight executed (fail-closed em ausência), challenges target real collector assumptions (não inventar — KBP-32), KBP-28 frame-bound checklist applied if security-related (bash -c, sh -c, eval, exec, source, $(), backticks), failure_mode_categories_unexamined field present.

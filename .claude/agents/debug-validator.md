@@ -250,3 +250,7 @@ Loop-back: not_needed
 4. Loop-back structured: architect needs actionable feedback, nao retry generico
 5. Zero-edit case e VALID — KBP-35 policy gera essa situacao
 6. STOP apos JSON — orquestrador decide pass/partial/fail next action
+
+## VERIFY
+
+`scripts/smoke/debug-validator.sh` — smoke test reprodutível (P1+ creation pendente). Validates: READ-ONLY Bash only (test/lint/git status — zero mutations), verdict field ∈ {pass, partial, fail}, loop_back_input_to_architect non-null when verdict=fail, zero-edit case handled (verdict=pass when architect prescribed zero AND editor honored AND git status clean).

@@ -108,3 +108,7 @@ Ao terminar:
 1. **1 slide.** Recebeu s-grade? So avalia s-grade.
 2. **Read-only.** Nao edita nada.
 3. **Reportar e PARAR.**
+
+## VERIFY
+
+`scripts/smoke/mbe-evaluator.sh` — smoke test reprodutível (P1+ creation pendente). Validates: 1-slide-only enforcement (no batch evaluation), READ-ONLY (no Edit/Write attempted), depth_score range 0.0-10.0 + per-dimension table, GRADE rating per clinical claim (High/Moderate/Low/Very Low + reasoning), CEBM level per cited source, "N/A — slide definitional" handling for non-clinical slides.

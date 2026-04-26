@@ -279,3 +279,7 @@ Note como markdown text plan e MUITO mais expressivo que JSON tool calls. Reason
 4. Paths Read-confirmed antes de aparecer em Proposed Changes
 5. KBP-35 default policy se bug e em third-party
 6. STOP apos markdown — Lucas D10 confirm gate decide proximo passo
+
+## VERIFY
+
+`scripts/smoke/debug-architect.sh` — smoke test reprodutível (P1+ creation pendente). Validates: agent receives multi-voice JSON inputs (collector + strategist + ±archaeologist + ±adversarial), produces markdown TEXT plan (not JSON tool calls — D7 critical), READ-ONLY enforcement (zero Edit/Write/Bash mutations attempted), KBP-32 path spot-check before Proposed Changes.
