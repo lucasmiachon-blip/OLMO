@@ -1,6 +1,6 @@
 # Audit P5 (anti-teatro) + P6 (E2E + WHY-first) — Conductor 2026 P0 (d)
 
-> **Status:** v1.0 — S251 P0 in-progress (6/67 components audited; 61 pending — P0 continues S252+)
+> **Status:** v1.1 — S251 P0 in-progress (14/67 components audited; 53 pending — P0 continues S252+)
 > **Plan ref:** `.claude/plans/immutable-gliding-galaxy.md` §2 P5/P6 + §12 P0(4)
 > **Methodology:** read frontmatter + first 50 li of each component, score against 7 criteria
 > **Cadence:** ~6-10 components per session; full P0 audit completes in ~7-10 sessions
@@ -29,47 +29,60 @@
 
 ---
 
-## AUDITED (6/67) — first batch
+## AUDITED (14/67) — batches A + B
 
 | # | Component | Type | 5a | 5b | 5c | P5 | 6a | 6b | 6c | 6d | P6 | Action |
 |---|-----------|------|----|----|----|----|----|----|----|----|----|--------|
-| 1 | `sentinel` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PARTIAL 2/4** | add WHY + VERIFY |
-| 2 | `repo-janitor` | agent | ✓ | ✓ | ?* | **PARTIAL** | ✓ | ✗ | ✓ | ✗ | **PARTIAL 2/4** | clarify consumer + add WHY/VERIFY |
-| 3 | `qa-engineer` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PARTIAL 2/4** | add WHY + VERIFY |
-| 4 | `research` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PARTIAL 2/4** | add WHY + VERIFY |
-| 5 | `improve` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PARTIAL 2/4** | add WHY + VERIFY |
-| 6 | `insights` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PARTIAL 2/4** | add WHY + VERIFY |
+| 1 | `sentinel` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 2 | `repo-janitor` | agent | ✓ | ✓ | ?* | **PART** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | clarify consumer + WHY + VERIFY |
+| 3 | `qa-engineer` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 4 | `research` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 5 | `improve` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 6 | `insights` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 7 | `debug-architect` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓** | ✓ | ✗ | **PART 3/4** | add VERIFY only |
+| 8 | `debug-validator` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ~ | ✓ | ✗ | **PART 3/4** | strengthen WHY + VERIFY |
+| 9 | `debug-strategist` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ~ | ✓ | ✗ | **PART 3/4** | strengthen WHY + VERIFY |
+| 10 | `evidence-researcher` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ~ | ✗ | **FAIL 1/4** | full WHY+HOW+VERIFY refactor |
+| 11 | `guard-write-unified.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓*** | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 12 | `ambient-pulse.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 13 | `debug-team` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓**** | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 14 | `knowledge-ingest` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓***** | ✓ | ✗ | **PART 3/4** | add VERIFY |
 
-*repo-janitor 5c: consumer ambíguo (orchestrator ou Lucas direto? `--fix` mode mentions Lucas approve mas default REPORT mode unclear consumption)
+\* repo-janitor 5c: ambíguo (`--fix` Lucas-approve OK; default REPORT mode unclear consumption)
+\*\* debug-architect 6b: cita Aider 2024-09 study (T1) "Architect+Editor 85% vs 75% solo" — exemplary
+\*\*\* guard-write-unified 6b: comment cita "S194 Fase 2 merge — 0 node spawns (was 4)" — concrete benchmark
+\*\*\*\* debug-team 6b: cita "Anthropic taxonomy nível 6" + S248 archive + sota-synthesis 60 fontes (T1+T2)
+\*\*\*\*\* knowledge-ingest 6b: §"Por que isso importa" section explícita (Lucas roles + R3 + knowledge base)
 
-### Observed pattern (confidence: high — n=6)
+### Observed pattern (confidence: high — n=14)
 
-**P5 (anti-teatro):** 5/6 PASS, 1/6 PARTIAL. OLMO components ARE functionally sound — triggers + artifacts + consumers existem. Não há "teatro flagrante" em camada agent/skill alta-frequência.
+**P5 (anti-teatro):** 13/14 PASS (93%), 1/14 PARTIAL. OLMO components ARE functionally sound — triggers + artifacts + consumers existem. Não há teatro flagrante.
 
-**P6 (WHY-first + VERIFY) cross-cutting violation:** 6/6 PARTIAL — todos têm WHAT + HOW; ZERO têm WHY com evidence T1/T2 cited; ZERO têm smoke test. Confirma Lucas diagnose "explicar SEMPRE" gap. Não é "teatro" mas é débito documental sistemático.
+**P6 (WHY-first + VERIFY):** 0/14 PASS, 14/14 PARTIAL/FAIL. **Stratification:**
+- **5/14 com P6 3/4** (close to PASS — apenas 6d VERIFY missing): debug-architect, debug-validator, debug-strategist, debug-team, knowledge-ingest, guard-write-unified
+- **8/14 com P6 2/4** (WHY + VERIFY missing): sentinel, repo-janitor, qa-engineer, research, improve, insights, ambient-pulse, debug-validator/strategist (weak WHY)
+- **1/14 com P6 1/4** (FAIL): evidence-researcher (only 6a)
 
-**Implicação:** P0 audit não justifica purge — justifica REFACTOR doc headers. P1+ priority: template `WHY:` + `VERIFY:` em CADA agent/.md, skill/SKILL.md, hook/.sh.
+**Insight refinado:** debug-team subgraph + skills com history claim (knowledge-ingest, guard-write-unified) já citam evidence T1/T2 (Aider study, Anthropic taxonomy, S194/S248 sessions). Agents legados (sentinel, repo-janitor, qa-engineer, evidence-researcher) carecem de WHY. **Padrão:** componentes recentes (S248+) têm doc-quality maior; legados precisam refactor.
+
+**Implicação P1+:** template universal `WHY:` (1-line problem + 1-line evidence T1/T2) + `VERIFY:` (smoke test path) em todos os 67. Refactor não-destrutivo. Priority: 9 com P6 ≤2/4 primeiro.
 
 ---
 
 ## PENDING audit (61/67)
 
-### Agents (13 pending of 16)
+### Agents (9 pending of 16; 7 audited)
 - [ ] `mbe-evaluator`
 - [ ] `quality-gate`
 - [ ] `researcher`
 - [ ] `systematic-debugger`
-- [ ] `evidence-researcher`
 - [ ] `reference-checker`
 - [ ] `debug-symptom-collector`
-- [ ] `debug-strategist`
 - [ ] `debug-archaeologist`
 - [ ] `debug-adversarial`
-- [ ] `debug-architect`
 - [ ] `debug-patch-editor`
-- [ ] `debug-validator`
 
-### Skills (16 pending of 19)
+### Skills (14 pending of 19; 5 audited)
 - [ ] `docs-audit`
 - [ ] `brainstorming`
 - [ ] `concurso`
@@ -79,17 +92,15 @@
 - [ ] `skill-creator`
 - [ ] `evidence-audit`
 - [ ] `nlm-skill`
-- [ ] `knowledge-ingest`
 - [ ] `automation`
 - [ ] `teaching`
 - [ ] `continuous-learning`
 - [ ] `review`
-- [ ] `debug-team`
 - [ ] (1 reserve slot — may add)
 
 ### Hooks (32 pending of 32)
 
-`.claude/hooks/` (17):
+`.claude/hooks/` (16 pending; 1 audited):
 - [ ] `guard-secrets.sh`
 - [ ] `allow-plan-exit.sh`
 - [ ] `chaos-inject-post.sh` (likely refactor post-X3)
@@ -106,12 +117,10 @@
 - [ ] `post-global-handler.sh`
 - [ ] `momentum-brake-enforce.sh`
 - [ ] `guard-bash-write.sh`
-- [ ] `guard-write-unified.sh`
 
-`hooks/` (15):
+`hooks/` (14 pending; 1 audited):
 - [ ] `notify.sh`
 - [ ] `stop-notify.sh`
-- [ ] `ambient-pulse.sh`
 - [ ] `nudge-commit.sh`
 - [ ] `session-compact.sh`
 - [ ] `session-end.sh`
@@ -131,13 +140,14 @@
 
 | Metric | Current | After full P0 |
 |--------|---------|----------------|
-| Components audited | 6/67 (8.9%) | 67/67 (100%) |
-| P5 PASS rate | 5/6 (83%) | TBD |
-| P6 PASS rate | 0/6 (0%) | TBD |
-| P6 PARTIAL (≥1 criterion) | 6/6 (100%) | TBD |
-| P6 FAIL (≤1 criterion) | 0/6 (0%) | TBD |
+| Components audited | 14/67 (20.9%) | 67/67 (100%) |
+| P5 PASS rate | 13/14 (93%) | TBD |
+| P6 PASS rate | 0/14 (0%) | TBD |
+| P6 PARTIAL 3/4 (close to PASS) | 6/14 (43%) | TBD |
+| P6 PARTIAL 2/4 | 7/14 (50%) | TBD |
+| P6 FAIL ≤1/4 | 1/14 (7%) | TBD |
 
-**Hypothesis (confidence: medium):** P6 PARTIAL ratio holds at ≥80% across full 67. WHY-first headers + VERIFY smoke tests are systematic gap, not isolated.
+**Hypothesis refinada (confidence: high — n=14):** P6 gap concentrado em (a) ZERO smoke tests (6d FAIL universal), (b) WHY-first ausente em agents legados pré-S248. Componentes recentes (debug-team subgraph S248+, knowledge-ingest, guard-write-unified S194) já citam evidence — pattern de qualidade temporal: doc-quality melhora com data.
 
 ---
 
