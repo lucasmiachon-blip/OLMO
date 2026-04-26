@@ -1,6 +1,8 @@
 # HANDOFF - Proxima Sessao
 
-> **S255 "debug-team-hooks" closed** — 4 hook teatros fixed: A1 stdin drain (session-start + session-compact) + A2 post-global-handler S225 path + A3 5736 orfaos purge + A6 banner.sh idempotent guard. Commits chain: `20e1e9a` → `fd77bbc` → `9d91c8b` → `7218c01` + docs close. Detalhes/aprendizados: `CHANGELOG.md §S255`. Push state: confirme via `git status` (claim "ahead origin" sofre recursao quando incluida no proprio HANDOFF — KBP-40 corollary).
+> **S255 "debug-team-hooks" — Phase 1 closed (4 hook teatros fixed); Phase 2 in-progress (3-model audit hooks: functional + merge candidates + E2E)**. Phase 1 commits: `20e1e9a` → `fd77bbc` → `9d91c8b` → `7218c01` + docs close. Detalhes/aprendizados Phase 1: `CHANGELOG.md §S255`. Push state: `git status` (KBP-40 corollary: claims sobre git state em files versionados sao auto-stale).
+>
+> **Phase 2 scope (current):** lançar Opus + Gemini + Codex contra inventário de 35 hooks. Outputs: (a) functional verification por hook trigger real, (b) merge candidates ranked via §6.1 convergence rules (3/3=ADOPT-NOW, 2/3=DEFER, 1/3+spot-check=ADOPT-NEXT), (c) E2E pipeline coherence (UserPromptSubmit → Pre/PostToolUse → Stop chain).
 
 ## 🔥 P0 — S256 core (Lucas pick: A ou B)
 
