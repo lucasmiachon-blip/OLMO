@@ -13,7 +13,12 @@ PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "$0")/../.." && pwd)}"
 # ═══ 1. Cost circuit breaker WARN (S230 G.3: BLOCK arm deleted — zero firings em 11d) ═══
 WARN_THRESHOLD="${CC_COST_WARN_CALLS:-100}"
 
-SESSION_ID=$(cat /tmp/cc-session-id.txt 2>/dev/null || date '+%Y%m%d_%H%M%S')
+# S255 fix: read S225 repo-scoped session-id path (was reading deleted legacy
+# /tmp/cc-session-id.txt → fallback created 5708 orphans + glob mismatch in
+# ambient-pulse/stop-metrics consumers → CALLS=0 always since S225)
+REPO_SLUG=$(printf '%s' "$PROJECT_ROOT" | sha256sum 2>/dev/null | cut -c1-8)
+[ -z "$REPO_SLUG" ] && REPO_SLUG="default"
+SESSION_ID=$(cat "/tmp/cc-session-id-${REPO_SLUG}.txt" 2>/dev/null || date '+%Y%m%d_%H%M%S')
 COUNTER_FILE="/tmp/cc-calls-${SESSION_ID}.txt"
 
 COUNT=$(cat "$COUNTER_FILE" 2>/dev/null || echo 0)
