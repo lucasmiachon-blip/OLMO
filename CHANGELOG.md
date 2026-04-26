@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 255 — 2026-04-26 (debug-team-hooks — audit + fix 4 teatros confirmados)
+
+> Lucas frame: "ajustar nossos times de debugger para ver se arrumamos os hooks os importantes sao teatro · pode fazer · lembre sempre plano com justificativa porque recomenda o caminho"
+
+### Commits (3 atomic, main)
+
+- **`20e1e9a` fix(S255): drain stdin em session-start + session-compact (hook teatro A1)** `[+7/-0, 2 files]` — Bug #3+#4: hooks SessionStart sem `cat >/dev/null 2>&1` apos shebang+set causavam "Failed with non-blocking, no stderr" porque pipe nao consumido. Padrao canonical em 7+ hooks (stop-metrics:14, ambient-pulse:9, etc) — replicado nos 2 SessionStart pendentes. Audit Explore agent confirmou classe TEATRO-SILENT severidade ALTO.
+- **`fd77bbc` fix(S255): post-global-handler le path S225 session-id (hook teatro A2)** `[+6/-1, 1 file]` — Bug #1+#2: post-global-handler:16 lia `/tmp/cc-session-id.txt` (deletado por session-start S225 cross-repo fix). Fallback `date '+%Y%m%d_%H%M%S'` gerou (a) 5736 arquivos orfaos `/tmp/cc-calls-*.txt` Apr 18→26 (1 por tool call vs 1 por sessao), (b) format mismatch com glob esperado em ambient-pulse:25 + stop-metrics:72 → CALLS=0 em todo APL scorecard ha ~30 sessoes. Fix: read S225 path repo-scoped `cc-session-id-${REPO_SLUG}.txt`. Glob match validado via test integration.
+- **`9d91c8b` fix(S255): banner.sh idempotent include guard (hook teatro A6)** `[+6/-0, 1 file]` — Bug #5: 9 readonly vars sem guard re-source emitia "_RESET: readonly variable" → exit 1 absorvido por `if . file 2>/dev/null` em session-start:94 → banner_critical/banner_attn skipped silently (META_STREAK warnings invisible). Fix: `[[ -n LOADED ]] && return 0` pattern canonical lib include guard. Audit das outras 3 libs: nenhuma usa readonly (guard nao necessario). Body documenta A3 cleanup adjacente: 5736 orfaos purgados via find-regex + while-read-rm (filesystem-only, sem repo change).
+
+### Aprendizados S255
+
+- **Producer fix > consumer compensation:** A2 inicialmente pareceu 3 fixes (post-global-handler + ambient-pulse + stop-metrics). Analise mais profunda: glob consumers ja eram corretos pra format S225 — bug era no producer (path legacy). 1 file edit em vez de 3 = blast radius minimo. **Shotgun surgery (Fowler) = sintoma de conceito mal-encapsulado; fix the producer once.**
+- **Hook teatro tem 6 categorias detectaveis (T1-T6):** path inexistente, async sem consumer, short-circuit feature flag silently disabled, VERIFY prometido + nunca criado, redundancia como diversidade, silent SessionStart errors. Detecao sistematica via Explore agent worked — pattern repetir periodicamente. T4 confirmado em todos 7 debug-* (smoke tests `scripts/smoke/debug-*.sh` AUSENTES).
+- **5736 orfaos = evidencia forense de teatro silencioso ha ~30 sessoes.** Bug introduzido S225, teatro acumulou ate S255 detection. **Lição:** instrumentacao que escreve mas nunca le e teatro detectavel APENAS por inspecao forense pos-fato. Antidoto candidate: stop-quality.sh ou sentinel checar "files written but never read" como invariant pre-commit (KBP candidate?).
+- **Lib refactor candidates emergentes:** `drain_stdin()` (7+ hooks copy-paste) + `compute_session_id_path()` REPO_SLUG calc (3 hooks copy-paste). Surface HANDOFF P2 radar consolidados — KBP-41 cut calibration honored: cost ≥5min + escopo expandido + regressao risk = Deferred (gate-justified), nao Cut.
+- **Cleanup filesystem nao merece commit proprio** — sem repo state change. Documentar em commit body adjacent por proximidade temporal e mesmo dominio (A3 dentro de A6 body). Anti-pattern evitado: empty commit ou `--allow-empty`.
+
 ## Sessao 254 — 2026-04-26 (Infra-rapido — quick wins backlog: KBP-40 codify + close)
 
 > Lucas frame: "entre em plan uma mudança rápida para hj 1-3 min do backlog ou plano · Sessao Infra-rapido, tirar coisas do backlog · tirar 2-3 coisas do backlog e fechar · pode atualizar os documentos com isso amanha alem do core vamos testar de skill e agents · usaremos LOC delta e maturity layers · gitattributes pode entrar tb · handoff/changelog organizado com prioridades, planos estampados, o que ja foi feito sair · não pressuponha que nada é profissional"
