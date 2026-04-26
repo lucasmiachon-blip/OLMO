@@ -117,7 +117,27 @@
       "Bash(/bin/bash*)",
       "Bash(/bin/sh*)",
       "Bash(pwsh*-c*)",
-      "Bash(cmd.exe *)"
+      "Bash(cmd.exe *)",
+      "Glob(**/.env)",
+      "Glob(**/.env.*)",
+      "Glob(**/*.pem)",
+      "Glob(**/*.key)",
+      "Glob(**/*.p12)",
+      "Glob(**/*.pfx)",
+      "Glob(**/*.jks)",
+      "Glob(**/credentials*.json)",
+      "Glob(**/service-account*.json)",
+      "Glob(**/*_secret*.json)",
+      "Glob(**/id_rsa*)",
+      "Glob(**/id_ed25519*)",
+      "Glob(**/id_ecdsa*)",
+      "Grep(*BEGIN RSA*)",
+      "Grep(*BEGIN PRIVATE KEY*)",
+      "Grep(*BEGIN OPENSSH*)",
+      "Grep(AWS_SECRET*)",
+      "Grep(AWS_ACCESS_KEY*)",
+      "Grep(GHCR_PAT*)",
+      "Grep(GITHUB_TOKEN*)"
     ]
   },
   "hooks": {
@@ -182,7 +202,7 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Read",
+        "matcher": "Read|Grep|Glob",
         "hooks": [
           {
             "type": "command",
