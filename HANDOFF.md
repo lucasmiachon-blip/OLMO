@@ -50,6 +50,27 @@ Lucas explicit "agents ficam pra proxima". 9 non-debug agents sem runtime test (
 2. **Read `.claude/plans/archive/S240-DEFERRED-lovely-sparking-rossum.md`** Loop A QA pipeline + per-slide state em `content/aulas/metanalise/HANDOFF.md`
 3. `git status` (KBP-40 corollary: gitStatus snapshot decai)
 
+## Dual-front working protocol (S259+ — Lucas reinforced S258 close)
+
+**S258 + Mellow-scribbling-mitten Track A em paralelo. Cuidado redobrado:**
+
+1. **Pre-Edit obrigatório:** `git fetch && git status && git diff HEAD origin/main` antes QUALQUER edit
+2. **Read full file** (não Grep partial) antes Edit em state files (HANDOFF/CHANGELOG/BACKLOG/README) — KBP-25
+3. **Branch check:** `git branch --show-current` antes commit — KBP-40
+4. **NÃO TOCAR** `jazzy-sniffing-rabbit.md` em `.claude/plans/` (Mellow-scribbling-mitten Track A — Lucas owns outra window)
+5. **Conflict-prone files:** HANDOFF/CHANGELOG/BACKLOG — Edit minimal sections (não rewrite), aceitar merge se sync issue
+6. **Cherry-pick later** workflow: cada commit isolado + reversível
+
+## S259 first-action decision (G0)
+
+Lucas pickar entre P0 alternativas:
+- **(A) Metanálise QA** (BACKLOG #64 commitment) — 12 slides LINT-PASS, Loop A pipeline gemini-qa3.mjs, 1 slide = 1 commit
+- **(B) Content delivery deadline** (30/abr T-3d) — #52 grade-v2 + #53 shared-v2 Day 2 + #54 qa-pipeline-v2 — exige plan dedicado (não há atualmente)
+- **(C) rm bypass investigation** (~1-2h, Phase C audit finding) — root cause settings filter precedence; defense surface menor que README claim
+- **(D) Agents runtime invoke + non-redundancy live** (~1.5-2h) — 9 non-debug agents sem proof; 3 paralelos same-task
+
+Recommend **(A) metanálise** — Lucas commitment + plan canonical existe + bounded per-slide. (B) deadline-driven mas plan ausente; (C)/(D) são P1 emergent S258, não bloqueadoras.
+
 ## Cautions ativas
 
 - **Mellow-scribbling-mitten Track A P5 in-flight** outra window/branch — NÃO TOCAR
