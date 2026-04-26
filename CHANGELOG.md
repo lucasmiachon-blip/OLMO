@@ -1,5 +1,45 @@
 # CHANGELOG
 
+## Sessao 256 — 2026-04-26 (hooks — Phase 0+1+2+3 closed; Phase 4 smoke tests defer S257)
+
+> Lucas frame: "entre em plan leia o handoff e planos ativos e proponha proximos passos que incluam ircorpoar os planos e mover os antigos para o arquivo classificados para nao poluir seu cotexto" → "vc eh o profissional me propoe o recomendado e pq a decisao eh minha com base sua recomendacao pq sim ou nao"
+
+### Phase 0 — Plans hygiene (1 commit)
+
+- **`c4c1563` chore(S256): Phase 0 plans hygiene** `[+13/-7, 3 files | rename]` — README sync (active 0→2 + 1 transient), archive 78→101 files; BACKLOG header counts P1=7→8, Next #=63→65; #64 metanálise QA editorial resume Lucas commitment (lovely-sparking-rossum archived); git mv lovely-sparking-rossum.md → archive/S240-DEFERRED-lovely-sparking-rossum.md (16 sessões dormant >> README threshold ≥3).
+
+### Phase 1 — Block A finish mecânico (3 commits)
+
+- **`16339a3` fix(S256): A.6 post-global-handler fallback recognizable + TTL** `[+9/-1, 2 files]` — fallback prefixed `unknown_${REPO_SLUG}_$(date)` (was raw date orphan-untraceable) + session-start TTL one-liner `find /tmp -maxdepth 1 -name 'cc-calls-unknown_*.txt' -mtime +1 -delete`.
+- **`9e8ca95` fix(S256): A.7 pre-compact-checkpoint timing** `[+9/-1, 1 file]` — `OLD_MTIME=$(stat -c %Y "$CHECKPOINT")` antes do `{...} > $CHECKPOINT` truncate, `find -newermt "@$OLD_MTIME"`. Empirical pre-fix: 0 results "Recent Plan Files"; pós-fix: 4 entries (dreamy + immutable + README + snazzy).
+- **`b242bd1` fix(S256): A.8 hook-log + post-tool-use-failure JSON via jq escape** `[+30/-6, 2 files]` — hook-log.sh L20-22 printf raw → jq -cn --arg per field; post-tool-use-failure.sh L36-40 sed escape incomplete → jq -cn --arg msg. Fallback printf graceful se jq missing. Empirical: detail com `"quotes" \backslash \nnewline` parses valid pós-fix.
+
+### Phase 2 — Block B Lucas decisions D1-D4 + exec (4 commits)
+
+Pattern aplicado: AskUserQuestion batch 4 questions paralelas (D1+D2+D3+D4). Lucas D1=document opt-in confirmado direto; D2/D3/D4 Lucas pediu "vc eh o profissional, propoe pq sim ou nao" → recommendation + justificativa SIM/NÃO; Lucas confirmou todas 3 recomendações.
+
+- **`a1e848e` fix(S256): B.1 D1 chaos opt-in document** `[+11/-2, 2 files]` — Lucas D1 (b) document opt-in (vs always-on or remove). chaos-inject-post.sh expand activation comment com 3 usage examples + README L87 stamp "Opt-in by default". Antifragile L6 capability preserved zero-overhead default.
+- **`f9f560e` fix(S256): B.2 D2 remove Stop[1] inline agent** `[+7/-14, 3 files]` — Lucas D2 (a) remove. settings.json Stop array 6→5 entries (removed agent type 60s timeout). stop-quality.sh:82-100 já cobre HANDOFF/CHANGELOG hygiene via bash. ~$0.10-0.50/mês economia. session-start.sh L91 + .claude/hooks/README.md index references updated (Stop[5]→[4]; 35→34 registrations).
+- **`ef4c520` fix(S256): B.3 D3 secret bypass BOTH layers (hook + permissions.deny)** `[+49/-5, 2 files]` — Lucas D3 (c) BOTH (defense-in-depth GENUÍNO, não redundante: layers diferentes — hook procedural + permissions declarativo, KBP-26 prova permissions falha silently). guard-read-secrets.sh detect tool_name (Read|Glob|Grep) + Grep pattern keyword check (BEGIN RSA, AWS_*, GHCR_PAT, GITHUB_TOKEN). Settings matcher Read → Read|Grep|Glob. permissions.deny +20 patterns (13 Glob credential paths + 7 Grep keywords). Empirical 4-case PASS: Glob '**/.env' BLOCKED, Grep AWS_SECRET_KEY=abc BLOCKED, Read /foo/.env BLOCKED, Glob 'src/**/*.ts' ALLOWED.
+- **`9ea1606` fix(S256): B.4 D4 guard-bash-write keep+clean dead detectors** `[+23/-155, 1 file]` — Lucas D4 (c) keep settings filter + remove dead detectors. Script 215→83 li (-61%, -132 li). LIVE 5: Pattern 1 (>), 8 (cp/mv only), 17 (rm/rmdir), 18 (chmod only), workers/ block. REMOVED 19 dead patterns + sub-patterns (sed -i, tee, writeFile, curl -o, wget -O, python, dd, perl/ruby, Node fs, touch, mkdir, ln+realpath, patch, tar/unzip, git apply/am, truncate, awk system, find -exec, xargs interpreter, make, install/rsync sub, chown sub). Empirical 7-case PASS: LIVE patterns ASK, DEAD removed silent allow, workers BLOCK preserved.
+
+### Phase 3 — Block C BACKLOG #63 systematic-debug (2 commits)
+
+- **`8cd0131` fix(S256): C BACKLOG #63 RESOLVED — /insights path mismatch + re-enable both blocks** `[+24/-10, 2 files]` — Root cause audit: `.claude/.last-insights` (TRACKED stale frozen S225-era April 19 = 1776615003) vs `~/.claude/projects/.../.last-insights` (canonical /insights write today April 26 00:01 = 1777172500). Path MISMATCH → GAP_DAYS sempre ≥7 → recurring FP banner "/insights pendente Xd atras". Fix: session-start.sh read MAX(repo, global) para automatic robustness contra future drift + /insights SKILL.md L234 dual-write pattern (per /dream pattern L499-503). /dream lifecycle audit confirmou skill SKILL.md L499-504 já correto (dual-write .last-dream + rm .dream-pending) — nada para mudar /dream side. Both `if false` blocks re-enabled. Empirical pre-commit: GAP_DAYS=0 (was 7).
+- **`f78e389` docs(S256): C BACKLOG #63 RESOLVED counters updated** `[+2/-2, 1 file]` — Strikethrough #63 + RESOLVED marker pointing commit `8cd0131`; header P1=8→7, Resolved=17→18. 3 sessões dormant S254→S256 closed.
+
+### Phase 5 — Close S256 partial (this commit)
+
+- **`<close>` docs(S256): close partial — Phase 4 smoke tests defer S257** `[+~80/-~70, ~5 files | rename×2]` — HANDOFF restructure (S257 P0 = Block D smoke tests 7 tests; P1 = lovely-sparking-rossum resume #64; P2 various deferred items + 2 KBP candidates emergent), CHANGELOG §S256 append, archive plans (dreamy-yawning-kite → S255-S256-debug-team-hooks; snazzy-brewing-pearl → S256-hooks-execute-and-close), README counts post-archive.
+
+### Aprendizados S256
+
+- **Path mismatch como root cause classe (BACKLOG #63):** /insights skill writes A; session-start reads B. Two systems, two paths, zero validation = recurring FP por 3+ sessões. Fix MAX(A,B) é robust against future drift; dual-write é defensive. **KBP candidate "Producer-consumer path contracts"**: any file written por component X read por component Y must validate path equality OR both update co-evolved. Detectable via grep `LAST_INS_FILE` em hooks vs `.last-insights` em skills — não-overlap = bug.
+- **"Dead detectors" como teatro sutil (B.4):** guard-bash-write 23 patterns mas 19 nunca executam (settings filter doesn't invoke hook for matching commands). Pior que ausência: dá ilusão de proteção. -132 li delete = honest defense surface (5 LIVE). Lucas correção S254-tail "não pressuponha que nada é profissional" se aplica direto: 23 patterns parecia profissional, era teatro de proteção. KBP-21 "calibrate before block" similar spirit.
+- **Defense-in-depth genuíno ≠ redundância (B.3 vs D2 contraste):** D3 secret protection BOTH genuíno = hook procedural + permissions declarativo (KBP-26 prova permissions falha silently → hook backup essential). D2 Stop[1] BOTH = bash check + Sonnet check IDÊNTICOS (stop-quality.sh:82-100 + agent prompt) = pure duplication. Layers DIFERENTES (hook vs permission) ≠ checks duplicados. Distinction critical for cost/value calibration. Lucas escolheu correto em ambas.
+- **Recommendation framing Lucas-style ("propoe pq sim ou nao"):** Apresentar opção recomendada + justificativa SIM ("aceitar X porque Y") + justificativa NÃO ("rejeitar se você valoriza Z; alternativa Z2"). Lucas confirma com signal. Reduz roundtrip + respeita autonomia decisória. Padrão emergent S256 — formalize se padrão repete S257+.
+- **Plans hygiene como prerequisite execution (Phase 0):** README "Active plans (0)" stale (3 reais) + lovely-sparking-rossum 16 sessões dormant pollute context inicial KBP-23. 20min hygiene = clean foundation antes de hook fixes. **KBP candidate "State files staleness recursive"**: README/HANDOFF/BACKLOG claims about counts/paths require lint sync — auto-stale durante session. Análogo KBP-40 (gitStatus snapshot) but para README counts vs Glob real.
+
 ## Sessao 255 — 2026-04-26 (debug-team-hooks — 3 phases: fix → audit → plan-execute)
 
 > Lucas frame: "ajustar nossos times de debugger... os importantes sao teatro" → "lance 3 modelos contra hooks, ver funcionando/merge/e2e" → "vamos resolver sem deixar backlog" → "entre em plan reflita sem sincofancia"
