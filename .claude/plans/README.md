@@ -1,14 +1,16 @@
 # Plans — Índice e Convenção
 
-> Single source of truth para o estado dos plans OLMO. Atualizado: 2026-04-20 (pós-S233 substrate-truth-cleanup).
+> Single source of truth para o estado dos plans OLMO. Atualizado: 2026-04-26 (S256 hooks).
 
-## Active plans (0)
+## Active plans (2 + 1 transient session-bound)
 
-**Status:** vazio pós-S232. Quando houver plan ativo, aparecerá como `.claude/plans/*.md` (sem subdiretório).
+- **[P0 ACTIVE]** `dreamy-yawning-kite.md` (S255-S256 debug-team-hooks Phase 3) — finishing S256; pre-archival rename para `S255-S256-debug-team-hooks.md` no Phase 5 close
+- **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` (Conductor 2026 single source of truth) — reference doc cross-session (12-arms taxonomy + KPIs + §16 backlog ref)
+- **[transient]** `snazzy-brewing-pearl.md` (S256 plan file auto-gen) — current session execution plan
 
-**Regra:** no máximo 2 plans active simultaneamente (1 sessão corrente + 1 roadmap cross-sessão explicitamente flagged). Mais que isso = archival overdue.
+**Regra:** no máximo 2 plans active simultaneamente (1 sessão corrente + 1 roadmap cross-sessão explicitamente flagged). Mais que isso = archival overdue. Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close.
 
-## Archive (`.claude/plans/archive/` = 78 files)
+## Archive (`.claude/plans/archive/` = 101 files)
 
 Historical audit trail. Never delete; historical value > storage cost. Reference por grep quando necessário.
 
@@ -55,6 +57,9 @@ Historical audit trail. Never delete; historical value > storage cost. Reference
 | `archive/S230-*.md` (4 files) | S230 | HISTORICAL — executed |
 | `archive/S227-memory-to-living-html.md` | S227-S232 dormant | **ACTIVE COMMITMENT** (per Lucas S232 close) — plan file archived mas scheduled S236 partial execution (BACKLOG #36 canonical ref) |
 | `archive/S229-slim-round-3-daily-exodus.md` | S229 | HISTORICAL — executed (ADR-0002 round 3) |
+| `archive/S240-DEFERRED-lovely-sparking-rossum.md` | S240 | DEFERRED — 16 sessões dormant; archived S256 Phase 0 hygiene; resume signal via BACKLOG #64 |
+| `dreamy-yawning-kite.md` (active) | S255-S256 | ACTIVE — debug-team-hooks Phase 3 (S255 Block A 5/8 + Phase 2 council audit done; S256 Block A finish + B + C + D pending) |
+| `snazzy-brewing-pearl.md` (transient) | S256 | TRANSIENT — current session execution plan |
 
 ## Quando criar novo plan file
 
