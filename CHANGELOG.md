@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## Sessao 258 — 2026-04-26 (hookscont — Phase A Block D smoke tests Tier 1: T4 teatro → ATIVO 7/7)
+## Sessao 258 — 2026-04-26 (hookscont — Phase A debug-team smoke 7/7 + Phase C/D hooks runtime audit + improvements ~13 commits)
 
-> Lucas frame: "entre em plan leia o handoff e outros planos por ele referenciado crie um plano que inclua os outros plano e depois os mover para nao acular ruido" → "vai pelo profissional que recomendar com justificativa"
+> Lucas frame inicial: "entre em plan leia o handoff e outros planos por ele referenciado crie um plano que inclua os outros plano e depois os mover para nao acular ruido" → "vai pelo profissional que recomendar com justificativa"
+> Lucas frame Phase C/D: "preciso ver que os agentes e os hooks estao funcionando e nao estao redundantes" → "so teatro nao vi nada" → "me mostre com numeros que estao funcionando" → "hooks silenciosos se estao alimentando algo tudo bem, senao temos que repensar" → "arrumar hooks nessa, agents ficam pra proxima" → "Qual mais profissional, justifique alinha-se com nosso SOTA?"
 
 ### Phase A — Block D smoke tests Tier 1 (8 commits, +860 LOC, 14 NEW + 1 modified)
 
@@ -19,17 +20,38 @@
 
 - **Plan §6.1 pseudocode `claude agents call <agent>` é aspiracional** — real CLI: `claude --print --agent <name>`. Trial run em A.1 revelou subprocess inherits SessionStart hook que injeta "OBRIGATORIO ask session name" → subagent prompt hijacked (responde a pergunta do hook em vez de processar input). Pivot: Tier 1 (static + fixture) > Tier 2 (live invocation, defer S259 com hooks bypass infra investigation). Lucas approved professional pivot with justification.
 
-### Phase B — Close (~2 commits após este §S258)
+### Phase B — Close (2 commits)
 
-- HANDOFF restructure (P0 metanálise promoted, 2 P1 emergent: Tier 2 + spec drift archaeologist), CHANGELOG §S258 (este), plan archived `archive/S258-hookscont.md`, README counts.
+- **`c2982f1` docs(S258): close — Phase A 7/7 smoke ATIVO + KBP-32 VERIFY add + sync** `[+70/-36, 2 files]` — HANDOFF restructure (P0 metanálise promoted, 2 P1 emergent: Tier 2 + spec drift archaeologist), CHANGELOG §S258 init.
+- **`07fb99e` chore(S258): plan archived as S258-hookscont.md — README sync** `[+274/-1, 2 files]` — git mv plan to archive (untracked → archive); README archive count 103→104, histórico recente row.
 
-### Aprendizados S258
+### Phase C — Hooks runtime audit + producer-consumer trace (0 commits, conversation evidence)
+
+Audit motivado por Lucas critique "só teatro, nao vi nada":
+- **`bash scripts/smoke/hooks-health.sh` built (uncommitted)** — 9 PASS Tier 1 mock test (T1-T8 disk/exec/INV-2/log/APL/settings + T6 guard-read-secrets BLOCK Glob '**/.env' real fire + T7 guard-bash-write ASK on `>` real fire).
+- **Producer-consumer audit** per silent hook (`grep` writes → reverse `grep -rln` readers): 0/32 hooks teatro. Aggregate 14 direct + 5 indirect + 12 stand-by + 1 chaos OFF + 0 broken + 0 teatro. Visible evidence: `[APL] N tool calls` em statusline (post-global-handler→ambient-pulse), `metrics.tsv` 10 sessões (stop-metrics→APL), `success-log.jsonl` 74KB consumido por `/insights` SKILL (post-bash-handler→insights), `pending-fixes.md` (stop-quality→next session-start).
+- **F.1 finding:** `rm <single-file>` bypassa friction (Pattern 17 conceitual match mas runtime allow). Defer S259+ (root cause: settings filter precedence vs Bash(*) allow).
+
+### Phase D — Hooks improvements professional (3 commits)
+
+- **`e0f3df2` feat(S258): D.1 hooks-health.sh +5 mock tests — confidence 50%→75% (14/14 PASS)** `[+165/-0, 1 NEW]` — Commit hooks-health.sh + extend T9-T13: T9 guard-write-unified BLOCK .claude/hooks/* (exit=2 real), T10 guard-secrets handles git commit (allow path, no .env), T11 guard-mcp-queries ASK on mcp__pubmed__search, T12 guard-research-queries ASK on Skill(research), T13 guard-lint-before-build handles npm build cmd. T10+T13 honest "ran-not-crashed" naming.
+- **D.2 DEFERRED (KBP-41 Cut calibration documented, 0 commits)** — `hooks/lib/drain-stdin.sh` lib evaluated → 1-line pattern não justifica lib (12×1 inline → 12×3 com lib = net complexity ↑). Lib uncommitted deletado. Gate explícito S259+: revisit se pattern cresce ou hook_log-style envelope evolui. Real DRY candidates emergentes: PROJECT_ROOT define (3 variants), REPO_SLUG sha256sum (3 hooks). Lucas approved professional choice via SOTA-aligned analysis (anti-drift §Scope + KBP-41 + KBP-37 actionable).
+- **`09611e7` docs(S258): D.3 hooks runtime audit doc + KBP-42 codify (producer-consumer)** `[+156/-1, 2 files]` — NEW `docs/audit/hooks-runtime-S258.md` 152 li (32 hooks matriz + 4 findings + 6 S259+ items). KBP-42 "Hook silent without consumer = teatro candidate" entered + governance counter 42→43.
+
+### Phase D.4 — Close (this commit)
+
+- HANDOFF restructure: header refresh A+B+C+D, P1 +rm bypass investigation +agents runtime invoke deferred (Lucas explicit "agents pra proxima"), Cautions +hooks-health 14/14 +KBP-42, footer A+B+C+D archived. CHANGELOG §S258 (este), plans archived (Phase A+B + Phase C+D 2 archives), README counts.
+
+### Aprendizados S258 (extended Phase A+B+C+D)
 
 - **Static + fixture validation captures structural drift mecanicamente:** 7/7 testes catch agent .md regression (VERIFY removed, schema field renamed, disallowedTools weakened, KBP refs broken) sem live agent invocation (cost/complexity). Fixture como spec-as-test-data forces agent-fixture co-evolution. Substantive T4 teatro fix at static layer; live runtime layer defer Tier 2 S259.
 - **Spec drift descoberta mecanicamente (D.3 archaeologist):** schema enum vs example divergem em agent .md. Smoke catch this class — anti-drift entre declared spec e descriptive prose. Defer agent fix S259 (KBP-01 anti-scope-creep). Padrão potencial para outros agents — Tier 2 quando viver permitirá cross-validation runtime + spec.
 - **Cross-fixture coherence pattern:** complexity_score=75 mirrored across collector→strategist→archaeologist→adversarial; edit_log_source references patch-editor; etc. Pipeline narrative legível como trace coerente, não casos isolados. Catches integration-level break onde individual fixtures pass mas pipeline broken.
 - **Hooks subprocess injection (G2 finding):** `claude -p --agent X` em subprocess inherits parent SessionStart hook injection. Subagent first turn hijacked. Tier 2 live requer `--bare` (API key) ou `--setting-sources user` (loses agent discovery) — investigation S259+. Plus: design implication para futuras CLIs invocando Claude programmatically (similar AIDER, custom orchestration).
 - **KBP candidate codify "Pseudocode em plans envelhece com CLI changes":** S256 §6.1 escreveu `claude agents call` baseado em CLI shape stale; S258 trial revelou shape mudou. Padrão: pseudocode técnico em plans archived é validation-required when consumed em sessões posteriores. Detectable via `claude --help | grep <cmd>` antes de scaffold. Defer codify S260+ se padrão repete.
+- **Producer-consumer audit como anti-teatro empírico (Phase C):** "hook silent ≠ broken" só se houver consumer real. 32 hooks audited, 0 teatro — todos alimentam algo (statusline/skill/file/Lucas-visual/CC-harness). KBP-42 codified com detection method + FP guards. Pattern é generalizável: aplicar a agents/skills/scripts em S259+ audits.
+- **DRY discipline tem teto (Phase D.2 Cut calibration):** lib refactor para 1-line pattern = net complexity AUMENTA per hook. KBP-41 Defer com gate "revisit se pattern cresce" é professional > forçar refactor por compliance. Real DRY candidates emergem com pattern ≥3 li OR cross-hook coupling (PROJECT_ROOT, REPO_SLUG identificados S259+).
+- **Mock-test confidence escalation (Phase D.1):** Tier 1 mock JSON input → bash hook script → exit + output regex catches structural drift mecanicamente. 9/9 → 14/14 PASS (50%→75% direct mock coverage). T10+T13 honest naming "ran-not-crashed" quando full BLOCK exige state setup destrutivo. Tier 2 live invocation defer S259 (hooks bypass infra investigation).
 
 ## Sessao 256 — 2026-04-26 (hooks — Phase 0+1+2+3 closed; Phase 4 smoke tests defer S257)
 

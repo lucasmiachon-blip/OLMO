@@ -1,6 +1,6 @@
 # HANDOFF - Proxima Sessao
 
-> **S258 "hookscont" — Phase A Block D smoke tests 7/7 ATIVO + KBP-32 fix (8 commits + 2 close).** debug-team T4 teatro convertido em Tier 1 (static + fixture validation). G2 finding: plan §6.1 pseudocode `claude agents call` é stale; real CLI `claude -p --agent`; subprocess inherit hooks bloqueiam live → Tier 2 defer S259. Detalhes/aprendizados: `CHANGELOG.md §S258`.
+> **S258 "hookscont" — Phase A debug-team smoke 7/7 + Phase C hooks runtime audit + Phase D hooks improvements (~13 commits).** debug-team Tier 1 contract+fixture (A); 32 hooks producer-consumer audited 0 teatro + KBP-42 codified (C+D); hooks-health Tier 1 14/14 PASS + drain_stdin DRY DEFERRED gate-justified (D). G2 finding S258: subprocess hooks bypass infra defer Tier 2 S259. Detalhes/aprendizados: `CHANGELOG.md §S258`.
 
 ## 🔥 P0 — S259 metanálise QA editorial resume [PROMOTED from P1] (BACKLOG #64)
 
@@ -23,12 +23,20 @@ Hooks bypass para subprocess `claude -p --agent X`. Investigação opções: `--
 
 `debug-archaeologist.md` line 59 schema declares outcome enum `{success,partial,reverted,unknown}` mas example line 240 uses `"tracking"`. Smoke usa "partial" para conformar spec. Fix: ou expand enum (add "tracking") ou rename example "tracking"→"partial". 5min fix. Smoke recompila se enum changed.
 
+## 🟡 P1 — `rm <single-file>` bypass investigation (S258 Phase C/D audit)
+
+Observed: `rm /tmp/file` ran sem ASK or BLOCK durante runtime test. Root cause hypothesis: `Bash(*)` allow precedes hook ASK output OR settings filter `*rm *` glob não match leading `rm <path>`. Investigation: settings filter precedence + Bash(*) interaction + guard-bash-write Pattern 17 invocation analysis. Estimate 1-2h. Defense surface menor que `.claude/hooks/README.md` claim post-fix. Detalhe: `docs/audit/hooks-runtime-S258.md §F.1`.
+
+## 🟡 P1 — Agents runtime invoke + non-redundancy live (Phase C.2/C.3 deferred)
+
+Lucas explicit "agents ficam pra proxima". 9 non-debug agents sem runtime test (researcher/sentinel/repo-janitor/reference-checker/qa-engineer/quality-gate/evidence-researcher/mbe-evaluator/systematic-debugger). Loop: invoke 5 agents via Task tool com bounded tasks (~$0.30) + non-redundancy 3 paralelos same-task (researcher vs Explore, sentinel vs repo-janitor, reference-checker vs evidence-researcher). Codex 5.5 xhigh + Gemini 3.1 Pro Preview cross-validation se REVIEW cases mantêm uncertainty (~$0.50). Estimate 1.5-2h.
+
 ## 🟢 P2 — Defer (radar S260+)
 
 - **Lib refactor consolidado** (drain_stdin 7+ hooks + REPO_SLUG calc 3 hooks + safe_source pattern): session dedicada lib audit
 - **H4/X2/X3 redundâncias debug-team** (Conductor §6.2-6.3): MERGE systematic-debugging into debug-team
 - **Conductor §6.5 G9 Maturity layers** (SDL/SAMM/OpenSSF/CMMI) SOTA radar
-- **KBP-42 codify** (WebFetch URL lifecycle 7 fires) — sota-intake skill
+- **KBP candidate codify (S256)** WebFetch URL lifecycle 7 fires — sota-intake skill (KBP-42 já usado S258 D.3 hooks-consumer; este vira KBP-43 candidate)
 - **/insights P253-001 backlog triage** (41 items STAGNANT 19+ sessões)
 - **Conductor §16 sync com S254/S255/S256/S258 state** + per-arm matrix
 - **R3 Clínica Médica prep** — 218 dias
@@ -51,12 +59,14 @@ Hooks bypass para subprocess `claude -p --agent X`. Investigação opções: `--
 - **dream + /insights surface ATIVO desde S256 Block C fix**
 - **Stop array shifted S256 B.2:** Stop[5]→Stop[4] (5 entries)
 - **Recommendation framing Lucas-style:** "propoe pq sim ou nao" — pattern emergent S256 reaffirmed S258 ("vai pelo profissional que recomendar com justificativa")
-- **Smoke tests Tier 1 ATIVO S258:** `bash scripts/smoke/debug-<agent>.sh` 7/7 exit 0; CI hook candidate post-S259 Tier 2
+- **Smoke tests Tier 1 ATIVO S258:** debug-team `bash scripts/smoke/debug-<agent>.sh` 7/7 + hooks `bash scripts/smoke/hooks-health.sh` 14/14 — CI hook candidate post-S259 Tier 2 live invocation
+- **drain_stdin DRY DEFERRED S258 D.2** (KBP-41 gate-justified): cost > value @ 1-line pattern; revisit signal pattern adds 3+ usages OR hook_log-style envelope evolui. Real DRY candidates S259+: PROJECT_ROOT define + REPO_SLUG sha256sum.
+- **KBP-42 codified S258 D.3:** "Hook silent without consumer = teatro candidate" — detection method em `docs/audit/hooks-runtime-S258.md §5`
 
 ## Plans active (1 background)
 
 - **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` — Conductor 2026 single source of truth (12-arms taxonomy + KPIs + §16 backlog reference)
 
-S258 plan archived: `archive/S258-hookscont.md` (Phase A 8 commits + Phase B close).
+S258 plans archived: `archive/S258-hookscont.md` (Phase A 8 commits + Phase B close) + `archive/S258-hookscont-phase-D.md` (Phase C audit + Phase D 3 commits hooks improvements + KBP-42 + audit doc).
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) | S258 hookscont Phase A+B closed | 2026-04-26
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S258 hookscont Phase A+B+C+D closed | 2026-04-26
