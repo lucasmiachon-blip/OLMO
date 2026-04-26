@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-40.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-41.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -125,3 +125,6 @@ globs: "**/*"
 
 ## KBP-39 Audit-merge convergence rules followed loosely (1/3 + spot-check ≠ DEFER)
 → `.claude/plans/immutable-gliding-galaxy.md` §6.1 Convergence rules (folded from audit-merge-S251.md S253)
+
+## KBP-40 SessionStart gitStatus snapshot stale
+→ anti-drift.md §Verification (branch claim)

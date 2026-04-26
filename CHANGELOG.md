@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 254 — 2026-04-26 (Infra-rapido — quick wins backlog: KBP-40 codify + close)
+
+> Lucas frame: "entre em plan uma mudança rápida para hj 1-3 min do backlog ou plano · Sessao Infra-rapido, tirar coisas do backlog · tirar 2-3 coisas do backlog e fechar"
+
+### Commits (1 atomic, main)
+
+- **`<close>` chore(S254): codify KBP-40 branch-awareness + session close** — `anti-drift.md §Verification` append inline "Claim about branch → `git branch --show-current` (SessionStart `gitStatus` snapshot decai durante sessão)" + `known-bad-patterns.md` KBP-40 entry pointer + header bump `Next:KBP-40`→`Next:KBP-41` + HANDOFF rewrite S253→S254 close + plan archive `cozy-coalescing-bengio.md` → `archive/S254-*`.
+
+### Aprendizados S254
+
+- **HANDOFF reservation ≠ source of truth**: HANDOFF S253 reservou "KBP-40 = WebFetch URL lifecycle" (defer'd) mas `known-bad-patterns.md` header `Next: KBP-40` ditou ordem real. Branch-awareness ocupou KBP-40 (WebFetch quando codify vira KBP-41). Lição: file headers governam numbering, não promises em HANDOFF/plan files.
+- **Rapid scope com disciplina ≠ velocidade comprometida**: plan mode + EC loop + verify em "1-3 min" task = ~12 min real. EC catch evitou off-by-one (KBP-41→KBP-40) que teria criado hole permanent no source of truth.
+- **KBP-31 enforcement worked**: HANDOFF "KBP candidate /insights P253-NEW" → codified S254 antes de perder. Anti-pattern (candidate sem commit = perdido) bloqueado pela regra.
+
 ## Sessao 253 — 2026-04-26 (INFRA_ROBUSTO — organize a casa: unify under Conductor 2026)
 
 > Lucas frame: "se perdeu totalmente do intuito inicial · unifique tudo em um plano max 3 · arquive tudo · Notion fica para P2 · agora é unificar documentos não criar mais · um plano com gestão ordem verificação · não perca nada do nosso planejamento de hj, granularidade total, amanhã hidratação sem perda"

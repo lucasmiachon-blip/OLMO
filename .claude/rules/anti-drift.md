@@ -58,7 +58,7 @@ Edit tool match é literal — whitespace, indentação, Unicode chars (tree `�
 3. Confirm output matches your claim. Only then assert.
 
 File not found → Glob. Error → read actual message. Claim about code → read the file.
-Claim about state → read source-of-truth file. Claim about history → `git log -S` / `git blame`.
+Claim about state → read source-of-truth file. Claim about history → `git log -S` / `git blame`. Claim about branch → `git branch --show-current` (SessionStart `gitStatus` snapshot decai durante sessão).
 
 ## Adversarial review (KBP-28)
 Adversarial validation é frame-bound — cobre apenas hipóteses formuladas. Antes de fechar audit de security: rodar checklist por tipo de comando — `bash -c`, `sh -c`, `zsh -c`, `$()`, backticks, `eval`, `exec`, `source`, `. /`.
