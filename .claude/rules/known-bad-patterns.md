@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-39.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-40.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -122,3 +122,6 @@ globs: "**/*"
 
 ## KBP-38 Window-restart ≠ daemon-restart pra Agent tool registry
 → cc-gotchas.md §Agent tool registry refresh
+
+## KBP-39 Audit-merge convergence rules followed loosely (1/3 + spot-check ≠ DEFER)
+→ `.claude/plans/audit-merge-S251.md` §Convergence rules + S250 X1 pattern
