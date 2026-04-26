@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "ingested_at": "2026-04-25T18:30:00Z",
+  "error_signature": {
+    "type": "Hook silent timeout",
+    "verbatim_message": "Stop hook error: Failed with non-blocking status code: No stderr output",
+    "confidence": "high"
+  },
+  "affected_surface": {
+    "files": ["~/.claude/plugins/cache/openai-codex/codex/1.0.3/scripts/stop-review-gate-hook.mjs:line 22 (readHookInput → fs.readFileSync(0))"],
+    "components": ["codex@openai-codex Stop hook"],
+    "platform": "Windows 11 + Git Bash",
+    "confidence": "high"
+  },
+  "reproduction": {
+    "steps": [
+      "End any Claude Code turn in OLMO project",
+      "Stop hook chain executes",
+      "Codex Stop hook hangs until 900ms timeout",
+      "Harness emits 'Failed with non-blocking, no stderr'"
+    ],
+    "deterministic": "false",
+    "frequency": "intermittent",
+    "confidence": "medium"
+  },
+  "suspected_scope": {
+    "narrowest_subsystem": "stop-review-gate-hook.mjs readHookInput()",
+    "recent_changes_relevant": "false",
+    "external_dependencies": ["codex@openai-codex 1.0.3", "Node 20.x", "Git Bash on Windows 11"],
+    "confidence": "high"
+  },
+  "complexity_score": {
+    "value": 75,
+    "components": {
+      "error_clarity": 25,
+      "repro_determinism": 10,
+      "scope_clarity": 25,
+      "cause_familiarity": 15
+    },
+    "routing_decision": "mas"
+  },
+  "evidence_artifacts": [
+    {"type": "stack", "path": "(harness emit)", "excerpt": "Stop hook error: Failed with non-blocking status code: No stderr output"},
+    {"type": "log", "path": ".claude/.stop-failure-sentinel", "excerpt": "5 timestamps Apr 24 02:04-02:05 UTC"}
+  ],
+  "gaps": [
+    "Frequencia exata nao medida — 'intermittent' baseado em 5 sentinel entries em 2 dias",
+    "Comportamento em Linux/macOS nao testado (issue upstream sugere Windows-specific)"
+  ],
+  "downstream_hints": {
+    "archaeologist": "Buscar PRs/commits recentes em openai/codex-plugin-cc tocando readHookInput ou stdin handling. Issue #191 ja aberta sem comments.",
+    "adversarial": "Tentar refutar: e realmente stdin block, ou pode ser timeout do manifest (900ms) ser apertado por outras razoes (Node cold start, antivirus)?"
+  }
+}
