@@ -4,8 +4,9 @@ set -euo pipefail
 # Fires on Agent|Bash tool responses. When CHAOS_MODE=1, randomly injects
 # fake failures into /tmp state files that L2/L3 defense hooks read.
 #
-# Must be registered BEFORE model-fallback-advisory.sh in settings.local.json
+# Must be registered BEFORE model-fallback-advisory.sh in settings.json
 # so injected state is visible to defense hooks on the same cycle.
+# (S255 Phase 3 A.1 fix: was "settings.local.json" — drift, real registration in settings.json)
 #
 # Activation: CHAOS_MODE=1 (default: off)
 # Probability: CHAOS_PROBABILITY=5 (default: 5%)

@@ -1,12 +1,12 @@
 # Hooks — Reference
 
-> 31 script files + 2 inline Stop hooks = 33 hook registrations across 10 events in `.claude/settings.json`.
-> Scripts live in 2 dirs: `.claude/hooks/` (17 — tool guards + antifragile) and `hooks/` (13 — lifecycle + APL).
+> 33 script files + 2 inline Stop hooks = 35 hook registrations across 11 events in `.claude/settings.json` (verified S255 Phase 3 A.1 audit Codex voice).
+> Scripts live in 2 dirs: `.claude/hooks/` (17 — tool guards + antifragile) and `hooks/` (15 — lifecycle + APL + loop-guard) plus `tools/integrity.sh`.
 > Config: `.claude/settings.json`. Local overrides (permissions only): `.claude/settings.local.json`.
 
 ## Events Covered
 
-SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · PostToolUseFailure · SessionEnd
+SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · StopFailure · PostToolUseFailure · SessionEnd
 
 ---
 
@@ -146,6 +146,12 @@ SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification ·
 | `stop-metrics.sh` | METRICS | **Merged** `stop-scorecard` + `stop-chaos-report`. APL 2-line session summary. Async |
 | `stop-notify.sh` | NOTIFY | Windows 11 toast "Pronto" (visual only). Async |
 | `tools/integrity.sh` | VERIFY | Repo integrity check (cross-refs). Async |
+
+### StopFailure
+
+| Script | What it does |
+|--------|--------------|
+| `stop-failure-log.sh` | Logs Stop hook failures + API errors to `hook-log.jsonl` + sentinel `.stop-failure-sentinel` (KBP-26 monitoring) |
 
 ### PostToolUseFailure
 
