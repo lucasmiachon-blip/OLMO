@@ -47,15 +47,8 @@ done
 DAYS_R3=$(node -e "console.log(Math.floor((new Date('2026-12-01')-new Date())/86400000))" 2>/dev/null)
 [ -n "$DAYS_R3" ] && echo "$DAYS_R3" > "$APL_DIR/deadline-days.txt"
 
-# --- Section-aware HANDOFF parsing (S218: only PENDENTES section) ---
-parse_handoff_pendentes() {
-  local file="$1" in_section=0
-  while IFS= read -r line; do
-    [[ "$line" =~ ^##\ PENDENTES ]] && in_section=1 && continue
-    [[ "$line" =~ ^##\  ]] && [ "$in_section" -eq 1 ] && break
-    [ "$in_section" -eq 1 ] && [[ "$line" =~ ^-\  ]] && echo "${line#- }"
-  done < "$file"
-}
+# --- HANDOFF parsing (S255 Phase 3 A.2: extracted to hooks/lib/handoff-utils.sh) ---
+. "$PROJECT_ROOT/hooks/lib/handoff-utils.sh"
 
 # --- Stuck-item detection (MemR3-inspired) ---
 SNAPSHOT_PREV="$APL_DIR/handoff-prev.txt"

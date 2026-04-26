@@ -22,16 +22,8 @@ REPO_SLUG=$(printf '%s' "$PROJECT_ROOT" | sha256sum 2>/dev/null | cut -c1-8)
 [ -z "$REPO_SLUG" ] && REPO_SLUG="default"
 SESSION_ID_FILE="/tmp/cc-session-id-${REPO_SLUG}.txt"
 
-# --- Section-aware HANDOFF parsing (S218: only PENDENTES section) ---
-parse_handoff_pendentes() {
-  local file="$1" in_section=0
-  while IFS= read -r line; do
-    [[ "$line" =~ ^##\ PENDENTES ]] && in_section=1 && continue
-    [[ "$line" =~ ^##\  ]] && [ "$in_section" -eq 1 ] && break
-    [ "$in_section" -eq 1 ] && [[ "$line" =~ ^-\  ]] && echo "${line#- }"
-  done < "$file"
-  return 0  # S236: explicit — HANDOFF may lack PENDENTES section (S234 pivot → P0/P0.5/P1 format)
-}
+# --- HANDOFF parsing (S255 Phase 3 A.2: extracted to hooks/lib/handoff-utils.sh) ---
+. "$PROJECT_ROOT/hooks/lib/handoff-utils.sh"
 
 # ===== SCORECARD =====
 
