@@ -101,9 +101,12 @@ if [ -f "$INTEGRITY_REPORT" ] && grep -q '\[FAIL\]' "$INTEGRITY_REPORT" 2>/dev/n
   echo "→ Inspect full report: .claude/integrity-report.md"
 fi
 
-# DISABLED S254 — recurring false positives 4-5x, debug sistematico pending (BACKLOG #63)
-# Re-enable: change `if false` to `if true` after fix verified.
-if false; then
+# S256 Block C BACKLOG #63 RESOLVED: re-enabled após audit confirmou /dream skill
+# lifecycle correto (~/.claude/skills/dream/SKILL.md L499-504 dual-writes .last-dream
+# + rm .dream-pending). S254 disabling era proteção temporária; root cause analysis
+# revelou que dream lifecycle estava OK — false positives perception era mismatch
+# /insights path (fixed below).
+if true; then
   # Surface dream-pending flag (informational only — user decides when to run)
   DREAM_PENDING="$HOME/.claude/.dream-pending"
   if [ -f "$DREAM_PENDING" ]; then
@@ -147,12 +150,17 @@ if [ "$_BANNER_EC" -eq 0 ]; then
     banner_attn "$META_STREAK sessoes sem aulas/" "R3 Clinica Medica: ${R3_DAYS} dias" "Considere voltar a slides hoje"
   fi
 
-  # G.5: /insights bi-diario reminder — DISABLED S254 (BACKLOG #63, recurring false positives, debug sistematico pending)
-  # Re-enable: change `if false` to `if true` after `.last-insights` write-on-close fix verified.
-  if false; then
-    LAST_INS_FILE="$PROJECT_ROOT/.claude/.last-insights"
-    if [ -f "$LAST_INS_FILE" ]; then
-      LAST_INS=$(cat "$LAST_INS_FILE" 2>/dev/null || echo 0)
+  # G.5: /insights bi-diario reminder — S256 Block C BACKLOG #63 RESOLVED.
+  # Bug pré-S256: session-start lia $PROJECT_ROOT/.claude/.last-insights (tracked,
+  # frozen S225-era) enquanto /insights skill escrevia ~/.claude/projects/.../.last-insights
+  # → GAP_DAYS sempre 7+ → recurring FP. Fix: read MAX of both paths (repo-local
+  # legacy + global canonical) para automatic robustness. /insights SKILL.md L234
+  # também atualizado para dual-write (defensive).
+  if true; then
+    LAST_INS_REPO=$(cat "$PROJECT_ROOT/.claude/.last-insights" 2>/dev/null || echo 0)
+    LAST_INS_GLOBAL=$(cat "$HOME/.claude/projects/C--Dev-Projetos-OLMO/.last-insights" 2>/dev/null || echo 0)
+    LAST_INS=$(printf '%s\n%s\n' "$LAST_INS_REPO" "$LAST_INS_GLOBAL" | sort -n | tail -1)
+    if [ "$LAST_INS" -gt 0 ]; then
       NOW=$(date +%s)
       GAP_DAYS=$(( (NOW - LAST_INS) / 86400 ))
       if [ "$GAP_DAYS" -ge 2 ]; then

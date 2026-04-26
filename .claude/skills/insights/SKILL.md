@@ -231,7 +231,13 @@ If a previous `/insights` report exists (check `references/previous-report.md`):
 Write the full report to `.claude/skills/insights/references/latest-report.md` and update the timestamp:
 
 ```bash
-date +%s > ~/.claude/projects/C--Dev-Projetos-OLMO/.last-insights
+# S256 Block C BACKLOG #63 fix: dual-write to BOTH paths.
+# Project-level SessionStart hook reads .claude/.last-insights (repo-local) for
+# git visibility cross-machine; skill canonical write also persists globally.
+# Without dual-write, repo-local frozen → recurring FP "/insights pendente" banner.
+NOW=$(date +%s)
+echo -n "$NOW" > ~/.claude/projects/C--Dev-Projetos-OLMO/.last-insights  # global (canonical)
+echo -n "$NOW" > "$CLAUDE_PROJECT_DIR/.claude/.last-insights"            # repo-local (hooks)
 ```
 
 If a previous report exists, move it to `references/previous-report.md` before overwriting.
