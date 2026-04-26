@@ -223,6 +223,7 @@ OLMO acumulou 16 agents + 19 skills + 32 hooks + 6 ADRs sem mapa unificado por d
 | G6 | systematic-debugging skill modern fields | Lacks `disable-model-invocation`, `context: fork`, `agent` | P2 high | code.claude.com/docs/en/skills |
 | G7 | Hooks unit/golden test harness | 32 hooks + zero tests = regression risk | P2 low | (not independently verified) |
 | G8 | Hooks self-disable gates (S249 loop-guard pattern) | Zero overhead in non-relevant sessions | P2 low | (measurement needed) |
+| G9 | Maturity layers (SDL/SAMM/OpenSSF/CMMI) | "Eram para estar funcionando" (Lucas S254-tail) — spec documented mas non-operational; sem instrumentation, scoring, ou gate. SOTA radar, não active work. | P2 radar | `docs/research/external-benchmark-execution-plan-S248.md §B5 Security and maturity lite` |
 
 ### §6.6 — Methodology lessons (S250 retrospective)
 

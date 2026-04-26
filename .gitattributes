@@ -1,0 +1,8 @@
+# Normalize line endings to LF (prevent CRLF artifacts inflating diffs)
+# Lesson source: CHANGELOG S254 Aprendizado #4-5 (settings.json + BACKLOG diff inflados por CRLF
+# Windows tooling re-saves) + .claude/plans/immutable-gliding-galaxy.md §6.5 G9 maturity radar.
+# `text=auto` lets git detect binary vs text; `eol=lf` enforces LF in repo + working tree.
+# Retroactive renormalize (`git add --renormalize .`) NÃO aplicado neste commit — defer
+# para sessão dedicada (touches many files, separate review needed).
+
+* text=auto eol=lf
