@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-25T18:38:00Z",
+  "architect_plan_source": "scripts/smoke/fixtures/architect-output.md",
+  "edits_applied": [],
+  "drift_detected": [],
+  "codex_assist_used": false,
+  "validation_pre_apply_passed": [
+    "Lucas confirma KBP-35 policy aplica",
+    "Lucas valida que upstream comment em #191 esta postado",
+    "Lucas confirma que noise no .stop-failure-sentinel e aceitavel ate upstream merge"
+  ],
+  "summary": "Bug #191 resolution per KBP-35 policy: NO local file changes. cc-gotchas.md entry already exists from S247 commit cb86724. Architect plan correctly identified upstream-only resolution. Editor verified zero local changes needed and zero applied.",
+  "next_phase_input": "validator should confirm zero modifications via git status"
+}
