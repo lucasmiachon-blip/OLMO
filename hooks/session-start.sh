@@ -95,7 +95,24 @@ if false; then
 fi
 
 # S230 Phase G.8 + G.5: anti-meta-loop banner + /insights bi-diario reminder
-if . "$PROJECT_ROOT/hooks/lib/banner.sh" 2>/dev/null; then
+# S255 Phase 3 A.4: capture banner.sh source stderr (was silently absorbed by `2>/dev/null` pre-A.4).
+# A6 Phase 1 fix idempotent guard resolveu readonly recursion; este captura outros source failures.
+. "$PROJECT_ROOT/hooks/lib/hook-log.sh" 2>/dev/null || true  # graceful — for hook_log function
+_BANNER_STDERR_FILE=$(mktemp 2>/dev/null || echo "/tmp/banner-stderr-$$")
+_BANNER_EC=0
+. "$PROJECT_ROOT/hooks/lib/banner.sh" 2>"$_BANNER_STDERR_FILE" || _BANNER_EC=$?
+_BANNER_STDERR=$(cat "$_BANNER_STDERR_FILE" 2>/dev/null || echo "")
+rm -f "$_BANNER_STDERR_FILE"
+
+# Log if source emitted stderr OR non-zero exit (envelope blindspot — Voice 1+2+3 convergence S255 Phase 2)
+if [ -n "$_BANNER_STDERR" ] || [ "$_BANNER_EC" -ne 0 ]; then
+  if command -v hook_log >/dev/null 2>&1; then
+    hook_log "SessionStart" "session-start" "lib-source" "banner.sh" "warn" "rc=$_BANNER_EC stderr=${_BANNER_STDERR:-empty}"
+  fi
+fi
+
+# Banner functions only available if source succeeded — gate G.8 + G.5
+if [ "$_BANNER_EC" -eq 0 ]; then
   # G.8: anti-meta-loop (commits content/aulas/ vs total last 5)
   AULAS_COMMITS_LAST_5=$(git -C "$PROJECT_ROOT" log -5 --pretty=format:"%H" -- content/aulas/ 2>/dev/null | wc -l | tr -d ' ' || echo "0")
   TOTAL_LAST_5=$(git -C "$PROJECT_ROOT" log -5 --pretty=format:"%H" 2>/dev/null | wc -l | tr -d ' ' || echo "0")
