@@ -5,6 +5,9 @@ set -euo pipefail
 # Without this, compaction drops behavioral rules and agent drifts.
 # Evento: SessionStart (compact) | Timeout: 5s | Exit: sempre 0
 
+# S255 fix: drain stdin (hook protocol — prevent harness stall)
+cat >/dev/null 2>&1 || true
+
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 

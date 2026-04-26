@@ -2,6 +2,10 @@
 set -euo pipefail
 # Claude Code hook: SessionStart
 # Hidrata sessao nova: projeto, data, sessao, HANDOFF completo.
+
+# S255 fix: drain stdin (hook protocol — prevent harness stall causing
+# "SessionStart:startup hook error / Failed with non-blocking, no stderr")
+cat >/dev/null 2>&1 || true
 # Evento: SessionStart | Timeout: 5s | Exit: sempre 0
 # S225 Issue #10: reset inter-session /tmp counters (nudge-checkpoint state)
 # S225 Issue #4: namespace /tmp/cc-session-id file per repo (was shared across repos)
