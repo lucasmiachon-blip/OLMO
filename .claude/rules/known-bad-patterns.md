@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-42.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-43.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -131,3 +131,6 @@ globs: "**/*"
 
 ## KBP-41 Cut bias — Deferred items mislabeled as Cut
 → anti-drift.md §EC loop §Cut calibration
+
+## KBP-42 Hook silent without consumer = teatro candidate
+→ docs/audit/hooks-runtime-S258.md §5 (producer-consumer matrix template + detection method + FP guards)
