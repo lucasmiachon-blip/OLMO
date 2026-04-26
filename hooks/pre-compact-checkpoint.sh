@@ -14,6 +14,12 @@ PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null 
 [[ "$(basename "$PROJECT_ROOT")" == ".claude" ]] && { echo "ERROR: PROJECT_ROOT resolved to .claude -- hook aborted" >&2; exit 1; }
 CHECKPOINT="$PROJECT_ROOT/.claude/.last-checkpoint"
 
+# S256 A.7 fix: capture pre-truncate mtime for `find -newermt` reference.
+# Bug pré-fix: `{...} > $CHECKPOINT` truncate atualiza checkpoint mtime ao open
+# do subshell; subsequent `find -newer "$CHECKPOINT"` (L52) sempre 0 results
+# pq mtime já é "now". Capturar BEFORE { resolve.
+OLD_MTIME=$(stat -c %Y "$CHECKPOINT" 2>/dev/null || echo 0)
+
 {
   echo "=== Checkpoint $(date '+%Y-%m-%d %H:%M:%S') ==="
   echo ""
@@ -46,7 +52,9 @@ CHECKPOINT="$PROJECT_ROOT/.claude/.last-checkpoint"
   echo ""
 
   echo "## Recent Plan Files (agent research)"
-  find "$PROJECT_ROOT/.claude/plans" -maxdepth 1 -name "*.md" -newer "$CHECKPOINT" 2>/dev/null \
+  # S256 A.7: -newermt @$OLD_MTIME (pre-truncate reference) — was -newer $CHECKPOINT
+  # which broke após truncate atualizar checkpoint mtime ao subshell open.
+  find "$PROJECT_ROOT/.claude/plans" -maxdepth 1 -name "*.md" -newermt "@$OLD_MTIME" 2>/dev/null \
     | head -5 || \
   find "$PROJECT_ROOT/.claude/plans" -maxdepth 1 -name "*.md" -mmin -30 2>/dev/null \
     | head -5
