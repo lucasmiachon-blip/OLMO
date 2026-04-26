@@ -84,7 +84,7 @@ SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification ·
 
 | Script | Behavior | What it does |
 |--------|----------|--------------|
-| `chaos-inject-post.sh` | **INJECT** | L6 chaos: injects fake failures into `/tmp` state files. Opt-in via `CHAOS_MODE=1`. Async |
+| `chaos-inject-post.sh` | **INJECT** | L6 chaos: injects fake failures into `/tmp` state files. **Opt-in by default** — activate via `CHAOS_MODE=1 claude code` (session-scoped). Zero overhead when off (S256 B.1 D1 confirmed Lucas). Async |
 | `model-fallback-advisory.sh` | **WARN** | L2 fallback: detects model errors, suggests downgrade. Circuit breaker (2 fails/5min). Async |
 
 ### PostToolUse (.*)

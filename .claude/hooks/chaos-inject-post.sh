@@ -8,8 +8,17 @@ set -euo pipefail
 # so injected state is visible to defense hooks on the same cycle.
 # (S255 Phase 3 A.1 fix: was "settings.local.json" — drift, real registration in settings.json)
 #
-# Activation: CHAOS_MODE=1 (default: off)
+# Activation: CHAOS_MODE=1 (default: off — opt-in by design preserves capability w/ zero overhead).
+# S256 B.1 D1 Lucas decision: opt-in document (vs always-on or remove). Antifragile L6
+# capability available but not auto-activated em produção (zero noise default).
+#
+# Usage examples:
+#   CHAOS_MODE=1 claude code                       # session-scoped opt-in (recommended)
+#   CHAOS_MODE=1 CHAOS_PROBABILITY=10 claude code  # higher chaos rate (testing)
+#   export CHAOS_MODE=1                            # shell-scoped (rare; persists env)
+#
 # Probability: CHAOS_PROBABILITY=5 (default: 5%)
+# Vectors: see .claude/hooks/lib/chaos-inject.sh
 
 # Consume stdin (required by hook protocol, even if unused)
 cat > /dev/null 2>&1
