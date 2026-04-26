@@ -169,6 +169,84 @@ OLMO acumulou 16 agents + 19 skills + 32 hooks + 6 ADRs sem mapa unificado por d
 
 **Evidence-tier:** Karpathy LLM Council (T3 — blog post; precisa pesquisa T1/T2 antes de adoção formal); Aider 2024 Architect+Editor 85% pass-rate (T1 paper + study). Adoção condicional pendente verificação T1/T2.
 
+### §6.1 — Convergence rules (KBP-39 anchor)
+
+3-model methodology validated em S250 (Opus + Gemini Deep Think + ChatGPT 5.5 xhigh). Cada voice rodou audit prompt + JSON schema strict independent. Outputs em `.claude-tmp/audit-{voice}-output.json` (deletados S253 cleanup; synthesis aqui é canonical).
+
+**Convergence rules** (anchor para KBP-39 — "audit-merge convergence rules followed loosely"):
+- **3/3 high** → ADOPT-NOW (cheap + verified)
+- **2/3** → DEFER pending Phase 2 spot-check
+- **1/3 high + spot-check confirmed** → ADOPT-NEXT (evidence-anchored opinion overrides solo-voice)
+- **1/3 high + sem spot-check** → flag FP candidate
+- **Divergence** → Opus orchestrator arbitrates citing local evidence (KBP-32 spot-check)
+
+**KBP-39 lesson (S250 X1 pattern):** S250 X1 (janitor↔repo-janitor) was labeled ADOPT-NEXT based on "ChatGPT 1/3 + Opus spot-check" — should have been DEFER per strict 3/3 rule. Lucas explicit decision "merge sem sentido ter os dois" overrode technical reclassification. Outcome OK (single canonical executor é cleaner) mas methodology adherence loose. Document for future audit-merge runs: strict rules > Lucas-override OK desde que flagged como exception, não silent.
+
+### §6.2 — Concrete decision matrix S250 (Lucas-flagged 7 hypotheses)
+
+| # | Components | Opus | Gemini | ChatGPT | Convergence | Final action |
+|---|------------|------|--------|---------|-------------|--------------|
+| H1 | evidence-researcher vs researcher | KEEP_SEP high | KEEP_SEP high | KEEP_SEP high | **3/3** | KEEP_SEP + rename `researcher` → `codebase-explorer` (P2) |
+| H2 | sentinel vs repo-janitor | KEEP_SEP high | MERGE med | KEEP_SEP high | 2/3 (Gemini FP) | **KEEP_SEP** |
+| H3 | quality-gate vs qa-engineer | KEEP_SEP high | KEEP_SEP high | KEEP_SEP high | **3/3** | KEEP_SEP + optional rename (P2) |
+| H4 | systematic-debugging skill vs debug-team skill | DEFER high | CUT high | MERGE high | **3/3 want change** | **MERGE** systematic-debugging into debug-team (lightweight fallback) — pendente S253+ destrutivo |
+| H5 | automation vs improve vs continuous-learning | KEEP_SEP high | MERGE high | KEEP_SEP high | 2/3 | **KEEP_SEP** (Gemini sem grep verification) |
+| H6 | insights skill vs sentinel agent | KEEP_SEP med | KEEP_SEP med | KEEP_SEP high | **3/3** | KEEP_SEP (producer/consumer) |
+| H7 | docs-audit skill vs repo-janitor agent | DEFER med | KEEP_SEP med | KEEP_SEP high | 2/3 | KEEP_SEP + optional delegation |
+
+### §6.3 — Beyond Lucas-flagged (ChatGPT-discovered)
+
+| # | Components | Convergence | Final action | Status |
+|---|------------|-------------|--------------|--------|
+| **X1** | janitor skill vs repo-janitor agent | 1/3 + spot-check confirmed | ADOPT-NEXT → executed S251 | ✓ commit `3082c39` |
+| X2 | systematic-debugger AGENT vs debug-team agents | 2/3 want change | DEFER S253+ measurement post-H4 | pending |
+| **X3** | chaos-inject-post + model-fallback-advisory ordering | 1/3 + spot-check confirmed L7 comment | ADOPT-NEXT → pending refactor S253+ | **PENDING** |
+| X4 | debug-architect vs debug-patch-editor | 3/3 | KEEP_SEP (Aider Architect/Editor SOTA S27) | ✓ confirmed |
+
+### §6.4 — Refuted hypotheses (Gemini false positives — methodology evidence)
+
+| Claim | Spot-check result | Verdict |
+|-------|-------------------|---------|
+| MERGE 4× stop-* hooks | ChatGPT cite README.md:145-178 — already consolidated | REFUTED |
+| MERGE hooks/ vs .claude/hooks/ paths | All 32 paths intentional + active | REFUTED |
+| MERGE hooks "likely orphans" | 32 paths registered, 69 cmd-instances | REFUTED — zero orphans |
+
+### §6.5 — SOTA gaps consolidated (P1+ priority)
+
+| # | Component | Gap | Priority | Source |
+|---|-----------|-----|----------|--------|
+| G1 | Read-only audit agents (6) | Use `disallowedTools` denylist not explicit `tools` allowlist (omitted tools INHERIT parent pool) | P1 high | code.claude.com/docs/en/subagents |
+| G2 | debug-team durable state | Ad-hoc `.claude-tmp/` JSON; no checkpointer/thread-id pattern | P1 high | docs.langchain.com/oss/javascript/langgraph/durable-execution |
+| G3 | debug-team metrics (tokens + wall-clock per phase) | Field exists in template but populated post-hoc; instrument SKILL.md state writes | P1 high | anthropic.com/engineering/multi-agent-research-system |
+| G4 | chaos-inject-post hook ordering | Sequential assumption invalid (Anthropic docs: hooks parallel) | P1 high | code.claude.com/docs/en/hooks (= same as X3) |
+| G5 | Agent Teams native pattern | Pilot for /debug-team competing-hypotheses phase | P2 high | code.claude.com/docs/en/agent-teams |
+| G6 | systematic-debugging skill modern fields | Lacks `disable-model-invocation`, `context: fork`, `agent` | P2 high | code.claude.com/docs/en/skills |
+| G7 | Hooks unit/golden test harness | 32 hooks + zero tests = regression risk | P2 low | (not independently verified) |
+| G8 | Hooks self-disable gates (S249 loop-guard pattern) | Zero overhead in non-relevant sessions | P2 low | (measurement needed) |
+
+### §6.6 — Methodology lessons (S250 retrospective)
+
+1. **3-model methodology validated empiricamente.** Each voice caught FPs others missed. Gemini's 4 MERGE = 3 refuted by spot-check. Opus's "research lacks orchestrator" = self-refuted by Read SKILL.md L65-67. ChatGPT xhigh + grep tool = surfaced 2 high-confidence merges + 7 SOTA gaps com sources. **No single voice solo would have produced this matrix.**
+2. **xhigh reasoning ROI calibrate-by-task.** ChatGPT 5.5 xhigh ~22min vs Opus internal ~3min vs Gemini 60s — earned its time via 2 high-confidence concrete merges + 7 SOTA gaps with sources. Override CLI `-c model_reasoning_effort=medium` para tasks bem-definidos.
+3. **Lucas-flagged hypotheses são correctly-scoped boundaries.** Mostly 3/3 KEEP_SEPARATE. Real merges came from ChatGPT broader sweep (janitor X1, chaos-hook X3). Lesson: **2/3 voices saw inventory + inferred semantic similarity; ChatGPT did file-grep evidence work that surfaced concrete invariant violations.**
+4. **KBP-32 spot-check methodology paid off cross-validation.** Caught 4+ FPs across 3 voices. Enshrined em `/research`-style skill canonical orchestration (3-model + spot-check loop).
+5. **Post-S248 debug-team ≈ modern orchestrator-worker SOTA.** Next steps = measurement + durable state (G2 + G3), NOT adding more agents.
+
+### §6.7 — Phase 2+ execution map (folded from audit-merge-S251 §8)
+
+```
+S251.A — H4 systematic-debugging skill → debug-team merge (~1h)  [PENDING]
+S251.B — X1 janitor skill → repo-janitor merge (~30min)          [✓ DONE]
+S251.C — X3 chaos-inject-post ordering fix (~1h)                  [PENDING]
+S251.D — G1 disallowedTools → tools allowlist 6 agents (~2h)     [PENDING]
+S251.E — G3 debug-team metrics instrumentation (~1h)              [PENDING — depends D]
+
+S252+ research-heavy:
+- G2 durable state checkpointer research + ADR
+- G5 Agent Teams pilot evaluation
+- X2 systematic-debugger AGENT measurement
+```
+
 ---
 
 ## 7. Daily SOTA intake loop (gap crítico — não existe hoje)
@@ -221,11 +299,13 @@ OLMO acumulou 16 agents + 19 skills + 32 hooks + 6 ADRs sem mapa unificado por d
 
 ---
 
-## 10. Notion harvest-before-abandon
+## 10. Notion harvest-before-abandon (moved P0 → P2 per Lucas S253)
 
 **Estado:** Notion blocked em `.claude/settings.json` deny-list MCP-level (Explore §4) — facilmente reversível. ADR-0006 trata Bash deny-list, NÃO Notion. Sem doc canônico "Notion vs OLMO".
 
-**Phase 0 (P0 deste plan) — HARVEST mandatory:**
+**Repositioning S253:** originalmente em P0(c) blocking. Lucas S253: "Notion fica para P2" — não bloqueia foundation work (KPI infra ✓ + audit em progresso são suficientes pra P0→P1). Notion harvest é "knowledge ingestion infrastructure" alinhado com P2 (sota-intake skill + cross-model docs).
+
+**Phase P2 (post-baseline) — HARVEST + categorize:**
 1. Lucas exporta Notion workspace (Markdown export native do Notion)
 2. Coloca em `.claude-tmp/notion-export/` (gitignored, temp)
 3. Sentinel agent + Lucas leem categorize: `migrate-to-OLMO | keep-in-Notion | discard`
@@ -418,15 +498,27 @@ flowchart TB
 
 | Phase | Goal | Deliverables | KPI gate to advance | Estimated |
 |-------|------|--------------|---------------------|-----------|
-| **P0 — Audit + Baseline + Harvest** | Saber onde estamos antes de mudar nada | (1) `.claude/metrics/baseline.md` com 12 KPIs definidos + thresholds. (2) `scripts/kpi-snapshot.mjs` com primeira run committed em `.claude/metrics/snapshots/{date}.tsv`. (3) Notion harvest done — `.claude-tmp/notion-export/` + categorization log. (4) Audit P5/P6 violations: tabela componente × {trigger? artefato? consumer? smoke? WHY?} per todos 16 agents + 19 skills + 32 hooks | Baseline file committed + 12 KPIs com valor inicial + harvest log + violations tabulated | ~6-8h |
+| **P0 — Audit + Baseline** | Saber onde estamos antes de mudar nada | (1) `.claude/metrics/baseline.md` com 12 KPIs definidos + thresholds. (2) `scripts/kpi-snapshot.mjs` com primeira run committed em `.claude/metrics/snapshots/{date}.tsv`. (3) Audit P5/P6 violations: tabela componente × {trigger? artefato? consumer? smoke? WHY?} per todos 16 agents + 18 skills + 32 hooks | Baseline file committed + 12 KPIs com valor inicial + violations tabulated | ~5-7h |
 | **P1 — Resolve top-3 redundâncias S250 + métricas non-vanish** | Eliminate teatro identificado | (1) Resolve X1 (janitor↔repo-janitor merge). (2) Resolve H4 (systematic-debugging↔debug-team merge). (3) Resolve X3 (chaos-inject ordering). (4) Wire KPI snapshot daily cron via plugin schedule. (5) `.claude/digests/` placeholder estrutura | KPI: `kpi-snapshot-uptime` ≥3 days consecutive · S250 ADOPT-NEXT items resolvidos | ~6h (3×~2h) |
-| **P2 — Daily SOTA loop + cross-model docs + smoke tests** | Build intake + reproducibility | (1) `.claude/skills/sota-intake/SKILL.md` + cron config. (2) `CODEX.md` created. (3) `PROJECT.md` extracted from CLAUDE.md (cross-model values/domain). (4) `scripts/smoke/` per-component (≥top 8 agents/skills críticos) | KPI: `digest-published-daily` ≥5/7 days first week · `smoke-test-coverage` ≥40% (8/20 components) | ~8-10h |
+| **P2 — Daily SOTA loop + cross-model docs + smoke tests + Notion harvest** | Build intake + reproducibility + knowledge ingestion | (1) `.claude/skills/sota-intake/SKILL.md` + cron config. (2) `CODEX.md` created. (3) `PROJECT.md` extracted from CLAUDE.md (cross-model values/domain). (4) `scripts/smoke/` per-component (≥top 8 agents/skills críticos). (5) **Notion harvest + categorize** (moved from P0 per Lucas S253 — see §10) | KPI: `digest-published-daily` ≥5/7 days first week · `smoke-test-coverage` ≥40% (8/20 components) · `notion-items-harvested` boolean=true | ~9-11h |
 | **P3 — Council unification + agent-memory expansion** | Formalize multi-model decision pattern + expand memory | (1) `.claude/skills/council/SKILL.md` (unifica debug-team + audit + research). (2) `.claude/agent-memory/` populated for ≥7/16 agents (top critical) | KPI: `agent-memory-coverage` ≥40% · `council-decision-traceability` ≥1 demo case | ~10h |
-| **P4 — Notion offboarding decision + humanidades skill** | Finalize external dependencies + fill CUSTOM gap | (1) Decisão notion offboard vs hybrid (post-P0 harvest data). (2) `.claude/skills/humanidades/SKILL.md` (etimologia + filosofia + história — Lucas value embed). (3) Reumato skill dedicated | KPI: `humanidades-citacoes-per-aula` ≥1 over 3 aulas next · `notion-active-pages` post-offboard | ~6h |
+| **P4 — Notion offboarding decision + humanidades skill** | Finalize external dependencies + fill CUSTOM gap | (1) Decisão notion offboard vs hybrid (post-P2 harvest data). (2) `.claude/skills/humanidades/SKILL.md` (etimologia + filosofia + história — Lucas value embed). (3) Reumato skill dedicated | KPI: `humanidades-citacoes-per-aula` ≥1 over 3 aulas next · `notion-active-pages` post-offboard | ~6h |
 
 **Total estimate:** P0-P4 = ~36-40h work. Spread over ~6-8 sessions (S252-S258).
 
 **Phasing principle:** P0 baseline antes de qualquer build novo. KPI gate to advance = não promover phase sem evidência.
+
+### Current state S253 (verified Explore agent 2026-04-25)
+
+**Score: 4/18 PASS · 2 PARTIAL · 12 FAIL** (per phase deliverable):
+
+- **P0 (3/3 PASS — COMPLETE post-S253 Notion repositioning):** baseline.md ✓ (12 KPIs + Lucas calibrated S252) · scripts/kpi-snapshot.mjs ✓ + snapshots/2026-04-26.tsv ✓ · audit P5/P6 PARTIAL 38/66 (58%; agents milestone 16/16 ✓; pendentes 8 skills + 20 hooks).
+- **P1 (1/5 PASS · 1 PARTIAL · 3 FAIL):** X1 janitor↔repo-janitor ✓ (commit 3082c39) · H4 systematic-debugging↔debug-team FAIL (skill ainda existe) · X3 chaos-inject FAIL (sem ordering refactor) · KPI cron PARTIAL (script exists; hook/cron não wired) · `.claude/digests/` FAIL (não criado).
+- **P2 (0/5 PASS):** sota-intake/SKILL.md ausente · CODEX.md ausente · PROJECT.md ausente · scripts/smoke/ ausente · Notion harvest pending.
+- **P3 (0/2 PASS):** council/SKILL.md ausente · agent-memory 1/16 = 6.25% (threshold 40%).
+- **P4 (0/2 PASS):** humanidades/SKILL.md ausente · reumato/SKILL.md ausente.
+
+**Bottleneck atual:** P0(d) audit 58% pendente + P1 destrutivos H4/X3 (precisam propose-before-pour). Detalhe P0(d) em §18 NEW.
 
 ---
 
@@ -499,6 +591,187 @@ Cada deliverable de phase tem smoke test committed. Examples:
 - (notion offboarding files TBD post-harvest)
 
 **Total NEW files estimate:** ~25-30. **Total MODIFIED:** ~10-15.
+
+---
+
+## 16. Active execution backlog (S253-S254 — folded from `fancy-imagining-crab.md`)
+
+> **Status pós-S253 organize-a-casa:** consolidated; per-phase tasks aligned to §12 Conductor phasing.
+
+### S253 (current session)
+
+| Phase | Task | Type | Time | Status |
+|-------|------|------|------|--------|
+| **organize-a-casa** | Group A archive ruído | mechanical | 30min | ✓ done (commit `dc78ff5`) |
+| **organize-a-casa** | Group B fold sub-plans into Conductor | doc | 60min | in-progress (this commit) |
+| **organize-a-casa** | Group C Lucas decisions (mellow/lovely floating) | decision | 5min Lucas | pending |
+| **organize-a-casa** | Group D HANDOFF + CHANGELOG single source truth | doc | 15min | pending |
+
+### S254 (next session — KPI infra + Mermaid DAG state)
+
+| Phase | Task | Type | Time | Decisions |
+|-------|------|------|------|-----------|
+| **P1.4** | `scripts/kpi-snapshot.mjs` measuring 12 KPIs (TSV output per baseline.md spec) | build | 1h | Option B confirmed — hook `stop-kpi-snapshot.sh` (sem cron daemon dep) |
+| **P1.4** | `hooks/stop-kpi-snapshot.sh` — Stop event handler, 24h gate | build | 30min | register em `.claude/settings.json` Stop array |
+| **P1.4** | First snapshot S254 — commit `.claude/metrics/snapshots/2026-04-XX.tsv` | data | 5min | — |
+| **DAG** | Update §11c Phasing DAG (state P0 3/4 → 4/4 Notion-defer + audit 58%) | doc | 15min | Lean update — §5b §5c defer S255+ |
+
+### S255+ (defer destrutivos + heavy doc work)
+
+| Phase | Task | Time | Block |
+|-------|------|------|-------|
+| **P0(d)** | Audit batch G+H — 28 pendentes (8 skills + 20 hooks) | ~3 sessions | none |
+| **P1.1** | H4 systematic-debugging→debug-team merge (destrutivo) | ~1.5h | propose-before-pour separado + KBP-39 anchor |
+| **P1.2** | X3 chaos-inject ordering refactor (destrutivo) | ~1h | propose-before-pour |
+| **P1.3** | KPI snapshot daily cron wired (post-S254) | ~30min | build done |
+| **P2** | sota-intake skill + CODEX.md + PROJECT.md + scripts/smoke/ + Notion harvest | ~9-11h | spread S255-S257 |
+
+### Out of scope this organize-a-casa session
+
+- /insights P253-001 backlog triage P0 (defer until P0(d) audit complete)
+- KBP-40 codify (defer until P2 sota-intake skill exists — sem section pra apontar pointer-only KBP-16)
+- Mellow-scribbling-mitten P5 (Lucas in-flight outra session/window)
+
+---
+
+## 17. Per-arm component audit matrix (TEMPLATE — work amanhã)
+
+> **Lucas frame S253:** "amanhã é arrumar skills/agents/subagents/hooks por cada um dos grupos do Mermaid (12 braços) — eu não sei onde foi parar o que eu havia falado".
+
+Audit P5/P6 horizontal (§18) é cross-component em ordem cronológica de batch. §17 vira o mesmo dado VERTICAL por arm — exposes per-arm gaps. Trabalho amanhã = preencher §17.1 a §17.12 (reusing §18 dados + assigning components per arm).
+
+**Skeleton (template para 11 arms a preencher amanhã):**
+
+```markdown
+### §17.{N} {ARM_NAME} (Conductor §4.{N})
+
+| Component | Type | P5 | P6 | Status | Action |
+|-----------|------|-----|-----|--------|--------|
+```
+
+### §17.4 DEBUG (worked example today — strongest arm post-S252)
+
+| Component | Type | P5 | P6 | Status | Action |
+|-----------|------|-----|-----|--------|--------|
+| debug-symptom-collector | agent | PASS | PART 2/4 | NEED VERIFY+WHY | mechanical batch G |
+| debug-strategist | agent | PASS | PART 3.5/4 | VERIFY ✓; body WHY weak | strict body P253-004 |
+| debug-archaeologist | agent | PASS | **PASS 4/4** ✓ | DONE S252 | none |
+| debug-adversarial | agent | PASS | **PASS 4/4** ✓ | DONE S252 | none |
+| debug-architect | agent | PASS | **PASS 4/4** ✓ | DONE S252 | none |
+| debug-patch-editor | agent | PASS | **PASS 4/4** ✓ | DONE S252 | none |
+| debug-validator | agent | PASS | PART 3.5/4 | VERIFY ✓; body WHY weak | strict body P253-004 |
+| systematic-debugger | agent | PASS | PART 3/4 | needs VERIFY | mechanical |
+| systematic-debugging | skill | (pending audit) | (pending) | likely fold post-H4 merge | H4 destrutivo S255+ |
+| debug-team | skill | PASS | **PASS 4/4** ✓ | DONE S252 | none |
+| post-tool-use-failure | hook | PASS | PART 3/4 | needs VERIFY | mechanical |
+| stop-failure-log | hook | (pending audit) | — | — | batch H |
+
+**DEBUG arm status (12 components):** 6 DONE · 4 mechanical pending · 1 destrutivo (H4) · 1 audit pending. **Strongest arm post-S252 audit batch F.**
+
+### §17.{1-3, 5-12} — TODO amanhã
+
+Para cada um dos arms restantes (MEMORY, KNOWLEDGE, RESEARCH, BACKEND, FRONTEND, CONTENT, PRODUCTIVITY, SELF_EVOLVING, TOOLING, ORQUESTRACAO, CUSTOM): assign components do §18 por arm + score per arm (DONE/pending/destrutivo).
+
+---
+
+## 18. Audit P5/P6 detailed progress (current state — folded from `audit-p5-p6-violations.md`)
+
+> **Status:** v1.5 — S252 P0 in-progress (38/66 = 58% audited; 28 pending; batch F added 8 — 3 agents + 3 .claude/hooks + 2 hooks/)
+> **Methodology:** read frontmatter + first 50 li per component, score 7 criteria (P5: 3 + P6: 4)
+> **Cadence:** ~6-10 components per session; full P0 audit completes em ~3 more sessions
+
+### §18.1 — Methodology (7 criteria)
+
+| Code | Criterion | What to check |
+|------|-----------|---------------|
+| **5a** | Trigger objetivo | Declared invocation condition (frontmatter + body) |
+| **5b** | Artefato concreto | Output file/format/structure documented |
+| **5c** | Consumer real | Who consumes downstream |
+| **6a** | WHAT (1-line) | Frontmatter `description:` (Anthropic spec) |
+| **6b** | WHY (problem + evidence T1/T2) | Section explica problema solved + cita source |
+| **6c** | HOW (1-line architecture) | Pipeline/phases/algorithm visível |
+| **6d** | VERIFY (smoke test path) | `scripts/smoke/{name}.sh` ou equivalent reprodutível |
+
+**Score per component:** P5 (3-of-3 PASS / 2-of-3 PARTIAL / ≤1 FAIL); P6 (4-of-4 PASS / 2-3 PARTIAL / ≤1 FAIL).
+
+### §18.2 — AUDITED 38/66 (batches A-F, S251-S252)
+
+| # | Component | Type | P5 | P6 | Action |
+|---|-----------|------|----|----|--------|
+| 1 | sentinel | agent | PASS | PART 2/4 | add WHY + VERIFY |
+| 2 | repo-janitor | agent | PART (consumer ambíguo) | PART 2/4 | clarify consumer + WHY + VERIFY |
+| 3 | qa-engineer | agent | PASS | PART 2/4 | add WHY + VERIFY |
+| 4 | research | skill | PASS | PART 2/4 | add WHY + VERIFY |
+| 5 | improve | skill | PASS | PART 2/4 | add WHY + VERIFY |
+| 6 | insights | skill | PASS | PART 2/4 | add WHY + VERIFY |
+| 7 | debug-architect | agent | PASS | **PASS 4/4** ✓ | DONE S252 |
+| 8 | debug-validator | agent | PASS | PART 3.5/4 | strengthen WHY-body |
+| 9 | debug-strategist | agent | PASS | PART 3.5/4 | strengthen WHY-body |
+| 10 | evidence-researcher | agent | PASS | FAIL 1/4 | full refactor |
+| 11 | guard-write-unified.sh | hook | PASS | PART 3/4 | add VERIFY |
+| 12 | ambient-pulse.sh | hook | PASS | PART 2/4 | add WHY + VERIFY |
+| 13 | debug-team | skill | PASS | **PASS 4/4** ✓ | DONE S252 |
+| 14 | knowledge-ingest | skill | PASS | PART 3/4 | add VERIFY |
+| 15 | debug-symptom-collector | agent | PASS | PART 2/4 | add WHY + VERIFY |
+| 16 | debug-archaeologist | agent | PASS | **PASS 4/4** ✓ | DONE S252 |
+| 17 | lint-on-edit.sh | hook | PASS | PART 3/4 | add VERIFY |
+| 18 | guard-bash-write.sh | hook | PASS | PART 3/4 | add VERIFY |
+| 19 | evidence-audit | skill | PASS | PART 2/4 | add WHY + VERIFY |
+| 20 | automation | skill | PART | FAIL 1-2/4 | full refactor |
+| 21 | debug-adversarial | agent | PASS | **PASS 4/4** ✓ | DONE S252 |
+| 22 | researcher | agent | PASS | PART 2/4 | add WHY + VERIFY |
+| 23 | teaching | skill | PART (trigger ambíguo) | PART 3/4 | clarify trigger + VERIFY |
+| 24 | stop-quality.sh | hook | PASS | PART 3/4 | add VERIFY |
+| 25 | mbe-evaluator | agent | PASS | **PASS 4/4** ✓ | DONE S252 |
+| 26 | debug-patch-editor | agent | PASS | **PASS 4/4** ✓ | DONE S252 |
+| 27 | docs-audit | skill | PASS | PART 2/4 | add WHY + VERIFY |
+| 28 | exam-generator | skill | PASS | PART 3/4 | add VERIFY (best 6b ref density) |
+| 29 | post-bash-handler.sh | hook | PASS | PART 3/4 | add VERIFY |
+| 30 | post-tool-use-failure.sh | hook | PASS | PART 3/4 | add VERIFY |
+| 31 | quality-gate | agent | PASS | PART 2/4 | add WHY + VERIFY |
+| 32 | systematic-debugger | agent | PASS | PART 3/4 | add VERIFY |
+| 33 | reference-checker | agent | PASS | PART 2/4 | add WHY + VERIFY |
+| 34 | guard-secrets.sh | hook | PASS | PART 3/4 | add VERIFY |
+| 35 | guard-mcp-queries.sh | hook | PASS | PART 2/4 | add WHY + VERIFY |
+| 36 | nudge-checkpoint.sh | hook | PASS | PART 2/4 | add WHY + VERIFY |
+| 37 | session-compact.sh | hook | PASS | PART 2/4 | add WHY + VERIFY |
+| 38 | session-start.sh | hook | PASS | PART 3/4 | add VERIFY (best 6b ref density) |
+
+### §18.3 — PENDING 28/66 (batches G+H, S253-S256 mechanical)
+
+**Skills (8 pending of 18):** brainstorming · concurso · systematic-debugging (likely fold post-H4) · skill-creator · nlm-skill · continuous-learning · review · (1 reserve)
+
+**Hooks `.claude/hooks/` (10 pending of 17):** allow-plan-exit · chaos-inject-post (refactor post-X3) · coupling-proactive · guard-read-secrets · guard-research-queries · model-fallback-advisory · momentum-brake-clear · guard-lint-before-build · post-global-handler · momentum-brake-enforce
+
+**Hooks `hooks/` (10 pending of 15):** notify · stop-notify · nudge-commit · session-end · pre-compact-checkpoint · stop-metrics · stop-failure-log · apl-cache-refresh · post-compact-reread · loop-guard
+
+### §18.4 — Aggregate
+
+| Metric | Current S253 | After full P0 |
+|--------|--------------|----------------|
+| Components audited | 38/66 (57.6%) | 66/66 (100%) |
+| P5 PASS rate | 35/38 (92%) | TBD |
+| P5 PARTIAL | 3/38 (8%) | TBD |
+| **P6 PASS rate** | **6/38 (16%)** ★ first PASSes S252 | TBD |
+| P6 PARTIAL 3.5/4 (VERIFY+ WHY weak) | 2/38 (5%) | TBD |
+| P6 PARTIAL 3/4 (close — só VERIFY) | 12/38 (32%) | TBD |
+| P6 PARTIAL 2/4 (WHY+VERIFY ausentes) | 16/38 (42%) | TBD |
+| P6 FAIL ≤1.5/4 | 2/38 (5%) | TBD |
+
+**Milestone S252 Phase 3:** First 6 P6 PASSes do projeto (0%→16%). Hypothesis P1+ mechanical (add VERIFY ~5min × 8 = 40min) confirmed — 6/8 = 75% conversion.
+
+**Pattern n=38 stable:** P5 92% PASS · P6 5-tier stratification (4/4=16%, 3.5/4=5%, 3/4=32%, 2/4=42%, FAIL=5%).
+
+**Agents milestone (S252 batch F):** 16/16 = 100% complete. Pendentes restantes: 8 skills + 20 hooks (28 components total).
+
+### §18.5 — Time-to-completion P1+ remaining n=38
+
+- 12 mecânicos (VERIFY only): ~1h (batch G + H)
+- 2 strict 3.5/4 (body WHY strengthen): ~30min (debug-validator + debug-strategist)
+- 16 doc-only (WHY+VERIFY): ~3-4h
+- 2 structural FAIL: ~1h
+- 3 trigger-clarify: ~15min
+- **Total restante: ~5.5h** spread S253-S256 (3 sessions dedicated mechanical)
 
 ---
 

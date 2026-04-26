@@ -124,4 +124,4 @@ globs: "**/*"
 → cc-gotchas.md §Agent tool registry refresh
 
 ## KBP-39 Audit-merge convergence rules followed loosely (1/3 + spot-check ≠ DEFER)
-→ `.claude/plans/audit-merge-S251.md` §Convergence rules + S250 X1 pattern
+→ `.claude/plans/immutable-gliding-galaxy.md` §6.1 Convergence rules (folded from audit-merge-S251.md S253)
