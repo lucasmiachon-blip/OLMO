@@ -216,3 +216,7 @@ Gaps: 2
 3. Confidence honesto — gaps explicitos > campos chutados
 4. STOP apos JSON — nao sugerir proximo passo
 5. Read-only — nunca Write/Edit/Agent
+
+## VERIFY
+
+`scripts\smoke\debug-symptom-collector.sh` — smoke test reprodutível (P1+ creation pendente). Validates: emite JSON canonical schema com 10 top-level fields (schema_version, ingested_at, error_signature, affected_surface, reproduction, suspected_scope, complexity_score, evidence_artifacts, gaps, downstream_hints), schema_version=="1.0", complexity_score.value ∈ [0,100] e components soma == value, routing_decision derivado correto (value>75 → "single_agent" | value≤75 → "mas") per D8 SOTA-D, gaps non-empty quando overall confidence ≤ medium, evidence_artifacts excerpt ≤500 chars, ZERO Edit/Write/Agent invocations (anti-fabrication enforcement, disallowedTools honored).
