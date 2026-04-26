@@ -4,6 +4,12 @@
 # Usage: banner_warn "Title" "Line 2" "Line 3"
 # Created: S230 Phase G.9 (bubbly-forging-cat)
 
+# S255 fix: idempotent include guard. Without this, re-source emits
+# "readonly variable" errors → exit 1 → callers' `if . file 2>/dev/null`
+# absorbs silently → banner block skipped without warning.
+[[ -n "${_BANNER_LIB_LOADED:-}" ]] && return 0
+readonly _BANNER_LIB_LOADED=1
+
 # ANSI codes
 readonly _RESET="\033[0m"
 readonly _BOLD="\033[1m"
