@@ -1,6 +1,6 @@
 # Audit P5 (anti-teatro) + P6 (E2E + WHY-first) — Conductor 2026 P0 (d)
 
-> **Status:** v1.3 — S251 P0 in-progress (24/67 components audited; 43 pending — P0 continues S252+)
+> **Status:** v1.4 — S251 P0 in-progress (30/66 = 45% audited; 36 pending — janitor removed S251 X1 merge → total 67→66)
 > **Plan ref:** `.claude/plans/immutable-gliding-galaxy.md` §2 P5/P6 + §12 P0(4)
 > **Methodology:** read frontmatter + first 50 li of each component, score against 7 criteria
 > **Cadence:** ~6-10 components per session; full P0 audit completes in ~7-10 sessions
@@ -29,7 +29,7 @@
 
 ---
 
-## AUDITED (24/67) — batches A + B + C + D
+## AUDITED (30/66) — batches A + B + C + D + E
 
 | # | Component | Type | 5a | 5b | 5c | P5 | 6a | 6b | 6c | 6d | P6 | Action |
 |---|-----------|------|----|----|----|----|----|----|----|----|----|--------|
@@ -57,10 +57,21 @@
 | 22 | `researcher` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
 | 23 | `teaching` | skill | ~ | ✓ | ✓ | **PART** | ✓ | ✓# | ✓ | ✗ | **PART 3/4** | clarify trigger + VERIFY |
 | 24 | `stop-quality.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓** | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 25 | `mbe-evaluator` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓†† | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 26 | `debug-patch-editor` | agent | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓‡‡ | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 27 | `docs-audit` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✗ | ✓ | ✗ | **PART 2/4** | add WHY + VERIFY |
+| 28 | `exam-generator` | skill | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓✦ | ✓ | ✗ | **PART 3/4** | add VERIFY (best evidence citation seen) |
+| 29 | `post-bash-handler.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓§§ | ✓ | ✗ | **PART 3/4** | add VERIFY |
+| 30 | `post-tool-use-failure.sh` | hook | ✓ | ✓ | ✓ | **PASS** | ✓ | ✓¶¶ | ✓ | ✗ | **PART 3/4** | add VERIFY |
 
 ¶ debug-adversarial 6b: Codex max + KBP-28 explicit ("atacando o frame que collector estabeleceu")
 \# teaching 6b: cita Kawasaki 10-20-30 + Michael Alley assertion-evidence + Reynolds (Presentation Zen) + Duarte (Resonate) + Tufte (T1-T2 multi-source)
 \*\* stop-quality 6b: "S213 self-improvement loop step 1" + merge history (crossref-check + detect-issues + hygiene Fase 2)
+†† mbe-evaluator 6b: GRADE + Oxford CEBM + CONSORT/STROBE/PRISMA (multi-framework T1)
+‡‡ debug-patch-editor 6b: "Aider Editor role" + KBP-01 violation enforcement + "ÚNICO agent in /debug-team que escreve"
+✦ exam-generator 6b: **exemplary** — 8 citations T1 cientificas (49% LLM item-writing flaws, 22% factual errors, 39% free-response gap, etc) + Position bias [6] + Cognitive bias [7] + correctness signal [8]
+§§ post-bash-handler 6b: "Replaces build-monitor + success-capture + hook-calibration. S195 Fase 2 step 4. 0 node spawns, 1 jq parse" (concrete merge + perf benchmark)
+¶¶ post-tool-use-failure 6b: 3 sessions referenced — S225 Issue #7 defensive cat fallback, S230 G.7 KBP-23 enforcement, S248 #57 schema fix additionalContext (exemplary version history)
 
 \* repo-janitor 5c: ambíguo (`--fix` Lucas-approve OK; default REPORT unclear)
 \*\* debug-architect 6b: Aider 2024-09 study T1 "85% vs 75% solo" — exemplary
@@ -71,43 +82,40 @@
 ‡ lint-on-edit 6b: cita "Antifragile L5" + "L1 retry S89: jitter"
 § guard-bash-write 6b: cita "Codex audit S57" + "jq 10x faster than node S193" — concrete benchmarks
 
-### Observed pattern (confidence: high — n=24)
+### Observed pattern (confidence: high — n=30)
 
-**P5 (anti-teatro):** 21/24 PASS (87.5%), 3/24 PARTIAL — repo-janitor (consumer), automation (trigger + consumer + HOW), teaching (trigger). **NEW pattern emerging:** trigger-vague frontmatter é segundo modo de falha P5 (3/24 = 12.5%).
+**P5 (anti-teatro):** 27/30 PASS (90%) — recovered ratio post-batch E. 3/30 PARTIAL (repo-janitor consumer¹, automation trigger+consumer+HOW, teaching trigger).
 
-**P6 (WHY-first + VERIFY):** 0/24 PASS. Stratification atualizada:
-- **12/24 com P6 3/4** (50%, close — só falta VERIFY): debug-architect, debug-validator, debug-strategist, debug-team, knowledge-ingest, guard-write-unified, debug-archaeologist, lint-on-edit, guard-bash-write, debug-adversarial, teaching, stop-quality
-- **10/24 com P6 2/4** (42%, WHY+VERIFY ausentes): sentinel, repo-janitor, qa-engineer, research, improve, insights, ambient-pulse, debug-symptom-collector, evidence-audit, researcher
-- **2/24 com P6 ≤1.5/4 FAIL** (8%): evidence-researcher, automation
+¹ Note: repo-janitor was expanded S251 X1 merge — `--mode generic` clarifies consumer; future re-audit may upgrade to PASS.
 
-**Insights consolidados (n=24):**
-- **Two failure modes P5:** consumer ambíguo (1) + trigger vague (3). Trigger-vague é mais comum — frontmatter description deve SEMPRE incluir trigger explícito.
-- **Doc-quality temporal pattern persiste:** debug-team subgraph + componentes S194+ (guards/lint/stop-quality) + skills com referências authoritativas (teaching cita Kawasaki/Alley/Reynolds/Duarte/Tufte) → P6 3/4. Componentes brief frontmatter pré-S248 → P6 2/4.
+**P6 (WHY-first + VERIFY):** 0/30 PASS still. Stratification:
+- **17/30 com P6 3/4** (57%, close — só falta VERIFY): batch E heavily contributed — debug-team subgraph + post-* hooks + mbe-evaluator + exam-generator. exam-generator é **gold standard** (8 cientific citations T1).
+- **11/30 com P6 2/4** (37%, WHY+VERIFY ausentes)
+- **2/30 com P6 ≤1.5/4 FAIL** (7%): evidence-researcher, automation
 
-**Implicação P1+ refinada:**
-- 12 mecânicos (template VERIFY only): ~5min cada = ~1h total
-- 10 doc-only (WHY+VERIFY): ~10-15min cada = ~2h total
-- 2 structural FAIL: ~30min cada = ~1h total (full WHY+HOW+trigger refactor)
-- 3 trigger-clarify (subset of partials): ~5min cada = ~15min
+**Insight reinforced n=30:**
+Doc-quality cluster stratification estável. Batch E confirmou **57% high-quality** rate — high-quality cluster é dominante. Implicação: P1+ work é majoritariamente **add VERIFY mecânico** (~5min × 17 = ~1.5h), not heavy WHY refactor.
+
+**Time-to-completion P1+ refinado:**
+- 17 mecânicos (VERIFY only): ~1.5h
+- 11 doc-only (WHY+VERIFY): ~2-2.5h
+- 2 structural FAIL: ~1h
+- 3 trigger-clarify: ~15min
+- **Total: ~5h** spread (provavelmente 2-3 sessões dedicated work)
 
 ---
 
 ## PENDING audit (61/67)
 
-### Agents (5 pending of 16; 11 audited)
-- [ ] `mbe-evaluator`
+### Agents (3 pending of 16; 13 audited)
 - [ ] `quality-gate`
 - [ ] `systematic-debugger`
 - [ ] `reference-checker`
-- [ ] `debug-patch-editor`
 
-### Skills (11 pending of 19; 8 audited)
-- [ ] `docs-audit`
+### Skills (8 pending of 18; 10 audited; janitor REMOVED S251 X1)
 - [ ] `brainstorming`
 - [ ] `concurso`
 - [ ] `systematic-debugging` (likely fold post-H4 merge)
-- [ ] `exam-generator`
-- [ ] `janitor` (likely delete post-X1 merge)
 - [ ] `skill-creator`
 - [ ] `nlm-skill`
 - [ ] `continuous-learning`
@@ -116,7 +124,7 @@
 
 ### Hooks (32 pending of 32)
 
-`.claude/hooks/` (14 pending; 3 audited):
+`.claude/hooks/` (13 pending; 4 audited):
 - [ ] `guard-secrets.sh`
 - [ ] `allow-plan-exit.sh`
 - [ ] `chaos-inject-post.sh` (likely refactor post-X3)
@@ -127,12 +135,11 @@
 - [ ] `model-fallback-advisory.sh` (likely refactor post-X3)
 - [ ] `momentum-brake-clear.sh`
 - [ ] `nudge-checkpoint.sh`
-- [ ] `post-bash-handler.sh`
 - [ ] `guard-lint-before-build.sh`
 - [ ] `post-global-handler.sh`
 - [ ] `momentum-brake-enforce.sh`
 
-`hooks/` (13 pending; 2 audited):
+`hooks/` (12 pending; 3 audited):
 - [ ] `notify.sh`
 - [ ] `stop-notify.sh`
 - [ ] `nudge-commit.sh`
@@ -144,7 +151,6 @@
 - [ ] `stop-failure-log.sh`
 - [ ] `apl-cache-refresh.sh`
 - [ ] `post-compact-reread.sh`
-- [ ] `post-tool-use-failure.sh`
 - [ ] `loop-guard.sh`
 
 ---
@@ -153,15 +159,17 @@
 
 | Metric | Current | After full P0 |
 |--------|---------|----------------|
-| Components audited | 24/67 (35.8%) | 67/67 (100%) |
-| P5 PASS rate | 21/24 (87.5%) | TBD |
-| P5 PARTIAL (trigger/consumer ambíguo) | 3/24 (12.5%) | TBD |
-| P6 PASS rate | 0/24 (0%) | TBD |
-| P6 PARTIAL 3/4 (close — só VERIFY) | 12/24 (50%) | TBD |
-| P6 PARTIAL 2/4 | 10/24 (42%) | TBD |
-| P6 FAIL ≤1.5/4 | 2/24 (8%) | TBD |
+| Components audited | 30/66 (45.5%) | 66/66 (100%) |
+| P5 PASS rate | 27/30 (90%) | TBD |
+| P5 PARTIAL (trigger/consumer ambíguo) | 3/30 (10%) | TBD |
+| P6 PASS rate | 0/30 (0%) | TBD |
+| P6 PARTIAL 3/4 (close — só VERIFY) | 17/30 (57%) | TBD |
+| P6 PARTIAL 2/4 | 11/30 (37%) | TBD |
+| P6 FAIL ≤1.5/4 | 2/30 (7%) | TBD |
 
-**Hypothesis n=24:** Dois failure modes P5 + três clusters P6 estáveis. Total time-to-completion P1+ estimado ~4h (mecânico+doc+structural+trigger-clarify).
+**Hypothesis n=30:** P6 3/4 cluster cresce relativamente (50% → 57%) com batch E. High-quality cluster é dominante (debug-team subgraph + post-* hooks + mbe-evaluator + exam-generator). Total P1+ estimated ~5h (1.5h mecânico + 2-2.5h doc + 1h structural + 15min trigger).
+
+**Janitor X1 merge (S251):** total 67→66. janitor SKILL absorved into repo-janitor agent (commit 3082c39). Audit baseline adjusted accordingly.
 
 ---
 
