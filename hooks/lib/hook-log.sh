@@ -16,8 +16,24 @@ hook_log() {
   local ts
   ts=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
 
-  # Use printf for safe JSON — no eval, no injection (KBP-07)
-  printf '{"ts":"%s","event":"%s","hook":"%s","category":"%s","pattern":"%s","severity":"%s","detail":"%s"}\n' \
-    "$ts" "$event" "$hook" "$category" "$pattern" "$severity" "$detail" \
-    >> "$HOOK_LOG_FILE" 2>/dev/null || true
+  # S256 A.8: jq -cn --arg for safe JSON construction (defends quotes/newlines/
+  # backslashes em $detail/$pattern que corrompiam JSONL pre-fix com printf raw
+  # interpolação). Fallback printf se jq missing — best-effort, tail readers
+  # parse line-by-line tolerant.
+  if command -v jq >/dev/null 2>&1; then
+    jq -cn \
+      --arg ts "$ts" \
+      --arg event "$event" \
+      --arg hook "$hook" \
+      --arg category "$category" \
+      --arg pattern "$pattern" \
+      --arg severity "$severity" \
+      --arg detail "$detail" \
+      '{ts:$ts,event:$event,hook:$hook,category:$category,pattern:$pattern,severity:$severity,detail:$detail}' \
+      >> "$HOOK_LOG_FILE" 2>/dev/null || true
+  else
+    printf '{"ts":"%s","event":"%s","hook":"%s","category":"%s","pattern":"%s","severity":"%s","detail":"%s"}\n' \
+      "$ts" "$event" "$hook" "$category" "$pattern" "$severity" "$detail" \
+      >> "$HOOK_LOG_FILE" 2>/dev/null || true
+  fi
 }

@@ -34,10 +34,18 @@ if [[ "$TOOL_NAME" == "Read" ]] && [[ "$ERROR_MSG" == *"exceeds maximum allowed 
 fi
 
 # Inject corrective guidance as additionalContext (top-level — schema PostToolUseFailure)
-SAFE_ERROR=$(echo "$ERROR_MSG" | sed 's/"/\\"/g' | head -c 200)
+# S256 A.8: jq -cn --arg for safe JSON (defends ERROR_MSG quotes/newlines that
+# broke pre-fix sed escape — subset incompleto, falhava em \n + \\).
+TRUNCATED_ERROR=$(printf '%s' "$ERROR_MSG" | head -c 200)
+GUIDANCE_MSG="Tool '$TOOL_NAME' failed: $TRUNCATED_ERROR. Read the complete error, diagnose root cause before retrying. Do not retry the same command blindly."
 
-cat <<EOF
+if command -v jq >/dev/null 2>&1; then
+  jq -cn --arg msg "$GUIDANCE_MSG" '{additionalContext:$msg}'
+else
+  SAFE_ERROR=$(printf '%s' "$TRUNCATED_ERROR" | sed 's/"/\\"/g')
+  cat <<EOF
 {"additionalContext":"Tool '$TOOL_NAME' failed: $SAFE_ERROR. Read the complete error, diagnose root cause before retrying. Do not retry the same command blindly."}
 EOF
+fi
 
 exit 0
