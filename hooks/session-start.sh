@@ -38,6 +38,11 @@ rm -f /tmp/olmo-subagent-count /tmp/olmo-checkpoint-nudged
 # S225 Issue #4 migration cleanup: remove legacy shared session-id file (pre-S225) if exists
 rm -f /tmp/cc-session-id.txt
 
+# S256 A.6 TTL cleanup: remove orphan counter files from post-global-handler fallback
+# (mtime >1d). Pairs with `unknown_${REPO_SLUG}_` prefix em post-global-handler.sh:24
+# — recognizable orphans, auto-purge stale.
+find /tmp -maxdepth 1 -name 'cc-calls-unknown_*.txt' -mtime +1 -delete 2>/dev/null || true
+
 # S236 P008: auto-rotate hook-log.jsonl (aligned com /dream Phase 2 threshold 500)
 HOOKLOG="$PROJECT_ROOT/.claude/hook-log.jsonl"
 if [ -f "$HOOKLOG" ]; then
