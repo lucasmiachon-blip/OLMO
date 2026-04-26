@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-41.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-42.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -128,3 +128,6 @@ globs: "**/*"
 
 ## KBP-40 SessionStart gitStatus snapshot stale
 → anti-drift.md §Verification (branch claim)
+
+## KBP-41 Cut bias — Deferred items mislabeled as Cut
+→ anti-drift.md §EC loop §Cut calibration

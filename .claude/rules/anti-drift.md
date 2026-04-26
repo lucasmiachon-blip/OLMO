@@ -88,6 +88,14 @@ Touching a CSS section: audit ENTIRE section (raw px, off-palette, redundant tok
 
 Listar X sem (1), (2) ou (3) = pseudo-confessional (sinaliza awareness sem ação) = KBP-22 silent-execution-chain disfarçado. Antidoto: **ações > sinalizações de awareness**. EC loop é audit trail de decisões executáveis, não confessário de aspirações.
 
+### Cut calibration (KBP-41)
+"Cut" reservar EXCLUSIVAMENTE para items sem cost/value claro = aspiracional. Antes de marcar Cut, decision tree:
+(a) Lucas pediu este escopo já (explicit ou implícito por sequência)? → **Doing now**.
+(b) Cost <5min + value docs/persistent + zero risk? → **Doing now**.
+(c) Cost ≥5min OU escopo expandido OU bench/research needed OU touches files fora do plan atual? → **Deferred (gate-justified com razão explícita)**.
+(d) Aspiracional sem cost/value claro? → **Cut**.
+**Indicador de bias:** marca Cut 2+ vezes na mesma sessão = recalibrar threshold. "Não pressuponha que nada é profissional" (Lucas S254-tail). Cut é último recurso, não primeiro. Categoria-error (Cut quando devia ser Deferred) = perda de signal — Lucas later confirma os items como entrada futura, mostrando que Cut decisão foi viés conservador, não calibração honesta.
+
 ## Session docs
 - **HANDOFF.md:** pendencias only, max ~50 lines. No history — only future.
 - **CHANGELOG.md:** append-only, 1 line per change. Aprendizados + residual verification combinado: max 5 linhas per session.

@@ -18,7 +18,7 @@
 
 - **BACKLOG #63** SessionStart flags `/insights`+`/dream` systematic-debugging (passos a-e) — surface natural via P1 #3 test
 - **Conductor §6.5 G9** Maturity layers (SDL/SAMM/OpenSSF/CMMI) SOTA radar — spec em `docs/research/external-benchmark-execution-plan-S248.md §B5`, non-operational
-- **KBP-41 codify** (WebFetch URL lifecycle 7 fires) — defer until P2 sota-intake skill exists
+- **KBP-42 codify** (WebFetch URL lifecycle 7 fires) — defer until P2 sota-intake skill exists (number bumped from KBP-41 reservation; cut-bias took KBP-41 S254-tail)
 - **/insights P253-001** backlog triage (P0 `BACKLOG.md` 41 items STAGNANT 19 sessions) — defer until P0(d) audit complete
 - **P0(d) audit batch G+H** (28 pendentes) + H4/X3 destrutivos + KPI snapshot wiring + per-arm matrix §17.1-§17.12
 - **Retroactive `git add --renormalize .`** (post `.gitattributes` S254-tail) — defer sessão dedicada
@@ -38,6 +38,7 @@
 - **`.claude/scripts/*-research.mjs` funcionam bem** — não rewrite, só improve (Lucas explicit)
 - **KBP-40 branch awareness:** `git branch --show-current` antes de commit (SessionStart `gitStatus` snapshot decai)
 - **Flag disable é KBP-07 escape válido** — re-enable sem systematic-debugging primeiro = regressão garantida; passos a-e em BACKLOG #63
+- **KBP-41 cut calibration (S254-tail):** decision tree em `anti-drift.md §EC loop §Cut calibration` — antes de marcar Cut, perguntar a/b/c/d (Lucas pediu? cost <5min? cost ≥5min ou escopo expandido? aspiracional?). Bias indicator: 2+ Cuts/sessão = recalibrar
 
 ## Plans active (2, stamped por prioridade)
 
