@@ -1,5 +1,54 @@
 # CHANGELOG
 
+## Sessao 252 — 2026-04-25 (infra2 — P0 finish + P1 first PASSes + KBP-39)
+
+### Commits (4 atomic, main)
+
+- **`cb4c863` feat(S252): P0 c/d** — KPI calibration 12/12 Lucas-confirmed (baseline.md §Calibration log filled; Open Q#1 RESOLVED) + audit batch F 8 components (3 agents + 3 .claude/hooks + 2 hooks/) → 38/66 (58%) audited. Agents milestone 16/16 = 100% complete. Pattern n=38 stable (P5 92%).
+- **`e1e0761` feat(S252): P1 first PASSes** — 8 components touched (debug-team SKILL + 6 debug-* agents + mbe-evaluator). `## VERIFY` H2 + scripts/smoke/{name}.sh canonical path + 1-2 sentence semantic anchor. **6 first P6 PASSes do projeto** (0%→16%). Conversion 6/8 = 75% (debug-validator + debug-strategist ficaram PART 3.5/4; new tier emerged exposing standard heterogeneity ~ vs ✓).
+- **`d4d23e7` docs(S252): KBP-39** — audit-merge convergence rules followed loosely (S250 X1 lesson). Pointer-only KBP-16 enforced. Counter Next: KBP-40.
+- **`<close commit>` docs(S252): close** — HANDOFF rotated S253 priorities + CHANGELOG S252 append.
+
+### Plan + execution
+
+`.claude/plans/fancy-imagining-crab.md` (Lucas-approved AskUserQuestion: mechanical-only scope; defer Notion S253+). 5 phases sequential dependency-light: (1) KPI calibrate Lucas-paced, (2) audit batch F 8 components, (3) VERIFY headers 8 components, (4) KBP-39 codify, (5) session close. Total ~3.5h estimated, executed within window.
+
+### KPI calibration (P0 c done)
+
+12/12 ACTIVE thresholds Lucas-confirmed (AskUserQuestion S252-open). 3 KPIs flagged low-confidence persistem com proposed (debug-team-pass-first-try ≥70%, mcp-health-uptime ≥99%, r3-questoes ≥75%); future re-calibration trigger = baseline n≥5 runs accumulate. Open question #1 ("Threshold calibration") RESOLVED.
+
+### Audit batch F (P0 d — agents milestone)
+
++8 components: quality-gate, systematic-debugger, reference-checker (agents); guard-secrets, guard-mcp-queries, nudge-checkpoint (.claude/hooks/); session-compact, session-start (hooks/). Pattern n=38: P5 92% PASS (35/38) · P6 stratification expandiu pra 5 tiers (4/4, 3.5/4, 3/4, 2/4, FAIL). Agents 16/16 = 100% complete; pendentes restantes: 8 skills + 20 hooks (28 components total). Best-of-batch 6b ref density: session-start (S225 #4/#10 + S230 G.5/G.8 + S236 P008 + S102 B7-06 + Codex S60 O10).
+
+### VERIFY headers batch (P1 first PASSes)
+
+`## VERIFY` H2 added at canonical position (after ENFORCEMENT recency anchor; debug-team SKILL antes do signature line). Each cita scripts/smoke/{name}.sh path + 1-2 sentence semantic description (not just path) — anchor pra future smoke implementation. **Smoke test creation deferred S253.H** (~30min × 8 = 4h dedicated). 6 first PASSes (debug-architect, debug-team, debug-archaeologist, debug-adversarial, mbe-evaluator, debug-patch-editor); 2 ficaram PART 3.5/4 expondo standard heterogeneity (debug-validator + debug-strategist têm citation só em frontmatter description, não em body markdown section).
+
+### KBP-39 codified (P4)
+
+Per KBP-31 enforcement (Aprendizados → committed before close). Format pointer-only (KBP-16 enforce — Lucas mid-session correction "cuidado com prose in pointer"). Aponta `.claude/plans/audit-merge-S251.md §Convergence rules + S250 X1 pattern`. Counter Next: KBP-39 → KBP-40.
+
+### Aprendizados (max 5)
+
+- **Mechanical phase pattern works** — 5 phases sequential dep-light (calibrate + audit + VERIFY + KBP + close) entrega progresso bounded sem destrutivo + sem propose-before-pour overhead. Adopt como pattern S253 mechanical-only sessions.
+- **VERIFY mecânico tem high-conversion** — 75% (6/8) PART 3/4 → PASS 4/4. Confirma audit-p5-p6 hypothesis. Replicate S253 (12 PART 3/4 candidatos).
+- **Standard heterogeneity exposed** (debug-validator + debug-strategist 6b=~) — citation em frontmatter description ≠ body section. Future calibration: strict (body required) vs permissive (frontmatter ok). Decisão Lucas pendente.
+- **KBP-16 vigilance constant** — Lucas catch "prose in pointer" mid-Edit. Pointer-only format easy-to-violate. Adopt habit: revisar KBP entries apenas pointer + section reference.
+- **Plan file mode (fancy-imagining-crab.md) > inline plan** — bounded scope explicit + per-phase verification + AskUserQuestion early decision = sessão executou exato 5 phases sem drift.
+
+### KBP candidates pendentes (KBP-31 sweep)
+
+- L139 dual-source-of-truth desync (Conway's Law) — historical
+- L219 Grep content-mode trunca linhas longas — historical
+- doc-quality temporal — "componente sem WHY+VERIFY = legacy refactor backlog" (S251)
+- signal-density discipline — "tabelas + sources > prose narrativa" (S251)
+- enterprise≠overeng heurística — "serve solo+evidence = enterprise; serve hypothetical scale = overeng" (S251)
+- **NEW S252**: P6 6b standard calibration — "citation frontmatter description ≠ body section; strict vs permissive standard precisa decisão"
+- **NEW S252**: KBP pointer-only vigilance — "easy-to-violate; revisar pointer entries por inline prose"
+
+---
+
 ## Sessao 251 — 2026-04-25→26 (infra — Conductor 2026 + P0 baseline + audit 45% + X1 merge + enterprise)
 
 ### Commits (10 atomic, main)
