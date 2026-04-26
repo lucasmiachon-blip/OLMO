@@ -398,16 +398,6 @@
       {
         "hooks": [
           {
-            "type": "agent",
-            "prompt": "Check session artifact hygiene. You have access to Bash, Read, Grep, and Glob tools. Run these checks:\n\n1. Run: git diff --name-only HEAD -- HANDOFF.md CHANGELOG.md\n2. Run: git log --oneline -1 -- HANDOFF.md CHANGELOG.md\n3. Run: git diff --cached --name-only -- HANDOFF.md CHANGELOG.md\n\nIf NONE of these commands show modifications to HANDOFF.md or CHANGELOG.md, respond with JSON:\n{\"ok\": false, \"reason\": \"Session ended without updating HANDOFF.md or CHANGELOG.md\"}\n\nIf at least one file appears in any of the outputs, respond with JSON:\n{\"ok\": true}",
-            "timeout": 60,
-            "statusMessage": "Stop[1]: verificando HANDOFF.md/CHANGELOG.md hygiene..."
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
             "type": "command",
             "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-quality.sh 2>>$CLAUDE_PROJECT_DIR/.claude/stop-stderr.log",
             "timeout": 5000

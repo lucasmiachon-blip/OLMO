@@ -1,6 +1,6 @@
 # Hooks — Reference
 
-> 33 script files + 2 inline Stop hooks = 35 hook registrations across 11 events in `.claude/settings.json` (verified S255 Phase 3 A.1 audit Codex voice).
+> 33 script files + 1 inline Stop hook = 34 hook registrations across 11 events in `.claude/settings.json` (verified S256 B.2 — Stop[1] inline agent removed Lucas D2 decision).
 > Scripts live in 2 dirs: `.claude/hooks/` (17 — tool guards + antifragile) and `hooks/` (15 — lifecycle + APL + loop-guard) plus `tools/integrity.sh`.
 > Config: `.claude/settings.json`. Local overrides (permissions only): `.claude/settings.local.json`.
 
@@ -136,7 +136,9 @@ SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification ·
 |--------|--------------|
 | `post-compact-reread.sh` | Re-reads essential context after compaction completes |
 
-### Stop (6 registrations: 2 inline + 4 scripts)
+### Stop (5 registrations: 1 inline + 4 scripts)
+
+> **S256 B.2:** Removido Stop[1] inline agent (HANDOFF/CHANGELOG hygiene check via Sonnet) — era redundante com `stop-quality.sh:82-100` que faz mesma verificação via bash. Lucas decision D2 (a) remove. ~$0.10-0.50/mês economia. Stop array indices shifted: Stop[4] era integrity (was Stop[5]).
 
 | Hook | Type | What it does |
 |------|------|--------------|

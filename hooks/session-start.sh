@@ -88,9 +88,10 @@ if [ -f "$PENDING" ] && [ -s "$PENDING" ]; then
   > "$PENDING"
 fi
 
-# S255 Phase 3 A.5: Surface integrity violations from previous Stop[5] integrity check.
-# tools/integrity.sh runs async + redirects stdout to /dev/null em settings.json:441 — invisível
+# S255 Phase 3 A.5: Surface integrity violations from previous Stop[4] integrity check.
+# tools/integrity.sh runs async + redirects stdout to /dev/null em settings.json — invisível
 # sem este surface. Voice 1+2+3+Codex (4/5) convergence em S255 Phase 2 confirmou silent firing.
+# S256 B.2: Stop[5]→Stop[4] após Lucas decision D2 remove inline agent (era Stop[1] redundant).
 INTEGRITY_REPORT="$PROJECT_ROOT/.claude/integrity-report.md"
 if [ -f "$INTEGRITY_REPORT" ] && grep -q '\[FAIL\]' "$INTEGRITY_REPORT" 2>/dev/null; then
   echo ""
