@@ -1,44 +1,63 @@
 # CHANGELOG
 
-## Sessao 251 — 2026-04-25→26 (infra — Conductor 2026 design + P0 baseline + audit P5/P6 30%)
+## Sessao 251 — 2026-04-25→26 (infra — Conductor 2026 + P0 baseline + audit 45% + X1 merge + enterprise)
 
-### Commits (3 atomic, main)
+### Commits (10 atomic, main)
 
-- **`ff2cb34` feat(S251): P0 a/b/d — Conductor 2026 plan approved + KPI baseline + first snapshot + P5/P6 audit 6/67** — 5 files (822 insertions): plan immutable-gliding-galaxy.md (12 braços + automation_lean + 6 princípios canonical) + baseline.md (12 active + 12 deferred KPIs) + kpi-snapshot.mjs (Node cross-platform) + first snapshot 2026-04-26.tsv + audit doc.
-- **`7189a4b` docs(S251): P0 d batch B — audit P5/P6 14/67 (was 6/67)** — 8 components: 4 debug-* agents + evidence-researcher + guard-write-unified + ambient-pulse + debug-team SKILL + knowledge-ingest.
-- **`6e295b3` docs(S251): P0 d batch C — audit P5/P6 20/67 (was 14/67)** — 6 components: debug-symptom-collector + debug-archaeologist + lint-on-edit + guard-bash-write + evidence-audit + automation.
+- **`ff2cb34` feat(S251): P0 a/b/d batch A** — plan + baseline + first snapshot + audit 6/67 (5 files, 822 insertions)
+- **`7189a4b` docs(S251): P0 d batch B** — audit 14/67 (8 components debug-* + evidence-researcher + guards + skills)
+- **`6e295b3` docs(S251): P0 d batch C** — audit 20/67 (6 components incl `automation` FAIL)
+- **`64863ac` docs(S251): close (early)** — HANDOFF/CHANGELOG initial
+- **`700e277` feat(S251): enterprise patterns** — VALUES.md root + 3 Mermaid DAGs (architecture · phasing · council)
+- **`693ae32` docs(VALUES): enterprise≠overeng** — operational distinction codified (7-row tabela)
+- **`e0a265c` docs(S251): P0 d batch D** — audit 24/67 (4 components, 2 P5 failure modes)
+- **`3082c39` feat(S251): X1 merge** — janitor skill absorved into repo-janitor agent (dual-mode aula+generic)
+- **`26b8456` docs(S251): P0 d batch E** — audit 30/66 (6 high-quality cluster, exam-generator gold standard 8 cientific T1)
+- **`<close commit>` docs(S251): close — HANDOFF/CHANGELOG comprehensive update**
 
-### Plan approved Conductor 2026
+### Plan Conductor 2026 + Mermaid DAGs
 
-`.claude/plans/immutable-gliding-galaxy.md` — 12 braços MECE + AUTOMATION_LEAN_LAYER transversal. 6 princípios canonical: P1 humildade · P2 evidence-tier T1/T2/T3 · P3 anti-sycophancy (Sharma 2023 arXiv:2310.13548 T1) · P4 profissionalismo KBP-37 · P5 anti-teatro · P6 E2E+WHY-first. Phasing P0-P4 KPI-gated, não-destrutivo P0-P1. Inspiração tier-3 chase.h.ai conductor + speedy_devv self-evolving + Karpathy LLM council.
+`.claude/plans/immutable-gliding-galaxy.md` — 12 braços MECE + AUTOMATION_LEAN_LAYER + 6 princípios canonical (humildade · evidence-tier T1/T2/T3 · anti-sycophancy Sharma 2023 arXiv:2310.13548 · KBP-37 · anti-teatro · E2E+WHY-first) + phasing P0-P4 KPI-gated. 3 Mermaid DAGs: architecture (12 braços agrupados Cognitive/Output/Support/MetaLoops/CrossModel + KPI feedback) · phasing (P0→P4 com KPI gates explícitos) · council (4 decision classes routing — debug MAS, audit 3-model, research 6-pernas, high-stakes 5-voice Karpathy).
+
+### VALUES.md (NEW root, cross-model)
+
+8 core values com source/evidence T1 cited (Taleb antifragile, Sharma 2023 anti-sycophancy arXiv:2310.13548, KBP catalog) + domain values Lucas-specific (medicina EBM, reumato, R3, AI/ML/LLMOps, humanidades) + 10 anti-values + ratchet effect lock-in + versioning protocol. **Enterprise-level discipline ≠ over-engineering** distinction codified — 7-row tabela contrasting (documentação, testing, métricas, governance, visualização, decisões, code). Heurística: "serve solo+evidence+reproducibility = enterprise; serve hypothetical scale = overeng". Right-sized > maximum.
 
 ### KPI baseline anti-vanish
 
-`.claude/metrics/` (committed, NOT gitignored — vs `.claude/apl/*` gitignored = vanish). 12 active arm KPIs + 12 deferred transversais. First snapshot 2026-04-26.tsv: 5 measurable (agent-memory-coverage 6.25%, smoke-test-coverage 0%, cross-model-invocations-week=6, kpi-baseline-defined=13, apl-yesterday=0) + 8 stubs. 2 pass / 3 fail / 8 stub.
+`.claude/metrics/` committed (vs `.claude/apl/*` gitignored = vanish). 12 active arm KPIs + 12 deferred. Snapshot 2026-04-26.tsv: 5 measurable (agent-memory 6.25%, smoke-coverage 0%, cross-model-invocations-week=6, kpi-baseline-defined=13, apl-yesterday=0) + 8 stubs. 2 pass / 3 fail / 8 stub.
 
-### Audit P5/P6 — pattern n=20 (3 clusters)
+### Audit P5/P6 — pattern n=30 (3 clusters)
 
-P5 anti-teatro 90% PASS (18/20). 3 clusters P6:
-- 45% high-quality (P6 3/4): cite evidence T1/T2 — Aider 2024-09 study (debug-architect 85% vs 75%), Anthropic taxonomy nível 6 (debug-team), S57/S89/S193/S194/S248 sessions (guards/lint), Gemini 1M ctx (debug-archaeologist), "jq 10x faster than node" (guard-bash-write benchmark)
-- 45% legacy (P6 2/4): WHAT-only frontmatter — sentinel/repo-janitor/qa-engineer/research/improve/insights/ambient-pulse/debug-symptom-collector/evidence-audit
-- 10% FAIL (P6 ≤1.5/4): evidence-researcher (only 6a) + automation (vague trigger comprometido)
+P5 anti-teatro 90% PASS (27/30). 3 clusters P6:
+- **57% high-quality (P6 3/4)**: cite evidence T1/T2 — Aider 2024-09 (debug-architect 85% vs 75%), Anthropic nível 6 (debug-team), S57/S89/S193/S194/S195/S213/S225/S230/S248 sessions, GRADE/CEBM/CONSORT (mbe-evaluator), 8 cientific citations (exam-generator gold standard)
+- **37% PARTIAL (P6 2/4)**: WHAT-only — sentinel/repo-janitor/qa-engineer/research/improve/insights/ambient-pulse/debug-symptom-collector/evidence-audit/researcher/docs-audit
+- **7% FAIL (≤1.5/4)**: evidence-researcher + automation
 
-Implicação P1+: 9 mecânicos (VERIFY only) + 9 doc-only (WHY+VERIFY) + 2 structural full refactor.
+Implicação P1+: 17 mecânicos (VERIFY only ~5min cada = 1.5h) + 11 doc-only (WHY+VERIFY ~10-15min cada = 2-2.5h) + 2 structural (~1h) + 3 trigger-clarify (~15min). Total ~5h spread.
+
+### S251 X1 merge (early — was S252.E)
+
+`janitor` SKILL absorved into `repo-janitor` agent. Dual-mode: aula (existing 5 phases) + generic (5 ops absorved: code/docs separation, structure, legacy removal, diagnostic scripts, docs sprawl). Safety protocol unified. Protections explicit (CLAUDE.md, HANDOFF, CHANGELOG, VALUES, AGENTS, GEMINI, .claude/, docs/adr/). repo-janitor agent é primeiro componente com WHY+VERIFY headers (P6 compliance template).
+
+**Anti-sycophancy correction:** S250 X1 was labeled ADOPT-NEXT based on "ChatGPT 1/3 + Opus spot-check" (not 3/3 convergence — should have been DEFER per audit-merge-S251 §convergence rules). S251 audit content analysis revealed scopes were complementary. Lucas explicit decision "merge sem sentido ter os dois" overrode technical reclassification — single canonical executor é cleaner. KBP candidate flagged.
 
 ### Aprendizados (max 5)
 
-- **Signal > noise (Lucas mid-session)**: tabelas + sources cited, prose redundante eliminada. KBP-16 reforced.
-- **Plan mode formal pra design taxonômico** — não overhead, é discipline. ExitPlanMode + write plan file > inline narrative.
-- **6 princípios canonical lens pra TODA decisão futura**: humildade · evidence-tier · anti-sycophancy · profissionalismo · anti-teatro · E2E/WHY-first.
-- **Doc-quality temporal pattern (n=20)**: componentes S248+ citam evidence; legacy pré-S248 WHAT-only. Refactor priority por cluster claro.
-- **Anti-vanish gate via `.claude/metrics/` committed**: snapshot daily idempotent. KBP candidate "métricas operacionais committed > gitignored APL".
+- **Signal > noise (Lucas mid-session)**: tabelas + sources cited, prose redundante eliminada.
+- **Plan mode formal pra design taxonômico** + Mermaid DAGs > ASCII pra enterprise visual.
+- **6 princípios canonical lens pra TODA decisão**: humildade · evidence-tier · anti-sycophancy · profissionalismo · anti-teatro · E2E/WHY-first.
+- **Enterprise ≠ over-engineering** (Lucas mid-session): right-sized > maximum. Maturity ≠ verbosity.
+- **Hybrid path > puro audit OR puro SOTA** — Lucas adversarial challenge corrigiu sunk-cost em audit-only path; SOTA query right-sized prompt ~3-5min, não 22min.
 
 ### KBP candidates pendentes (KBP-31 sweep)
 
 - L139 dual-source-of-truth desync (Conway's Law)
 - L219 Grep content-mode trunca linhas longas
-- **NEW S251**: doc-quality temporal — "componente sem WHY+VERIFY = legacy refactor backlog" (audit pattern n=20)
-- **NEW S251**: signal-density discipline — "tabelas + sources > prose narrativa" (Lucas mid-session principle)
+- **NEW S251**: doc-quality temporal — "componente sem WHY+VERIFY = legacy refactor backlog"
+- **NEW S251**: signal-density discipline — "tabelas + sources > prose narrativa"
+- **NEW S251**: enterprise≠overeng heurística — "serve solo+evidence = enterprise; serve hypothetical scale = overeng"
+- **NEW S251**: audit-merge convergence rules — "S250 X1 ADOPT-NEXT was 1/3 should be DEFER per rules; ad-hoc Lucas-override OK but flag drift"
 
 ---
 
