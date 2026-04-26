@@ -1,59 +1,62 @@
 # HANDOFF - Proxima Sessao
 
-> **S256 "hooks" — Phase 0+1+2+3 closed (11 commits), Phase 4 (smoke tests Block D) defer S257.** Phase 0 plans hygiene · Phase 1 Block A finish (A.6/A.7/A.8) · Phase 2 Block B exec (D1-D4 Lucas decisions) · Phase 3 Block C BACKLOG #63 RESOLVED (path mismatch + re-enable). Detalhes/aprendizados: `CHANGELOG.md §S256`. Plan canonical (archived): `.claude/plans/archive/S256-hooks-execute-and-close.md`.
+> **S258 "hookscont" — Phase A Block D smoke tests 7/7 ATIVO + KBP-32 fix (8 commits + 2 close).** debug-team T4 teatro convertido em Tier 1 (static + fixture validation). G2 finding: plan §6.1 pseudocode `claude agents call` é stale; real CLI `claude -p --agent`; subprocess inherit hooks bloqueiam live → Tier 2 defer S259. Detalhes/aprendizados: `CHANGELOG.md §S258`.
 
-## 🔥 P0 — S257 Phase 4 smoke tests debug-team (~1.5-2.5h, 7 commits)
+## 🔥 P0 — S259 metanálise QA editorial resume [PROMOTED from P1] (BACKLOG #64)
 
-**Block D — convert T4 teatro → ATIVO.** scripts/smoke/debug-{symptom-collector,strategist,archaeologist,adversarial,architect,patch-editor,validator}.sh. Cada agent .md tem secao VERIFY com spec do que validar. Atualmente TODOS 7 ausentes — VERIFY claim performativo.
+**Lucas commitment, dormant 16+ sessões pré-S256.** Plan canonical: `.claude/plans/archive/S240-DEFERRED-lovely-sparking-rossum.md`. State real (`content/aulas/metanalise/HANDOFF.md`):
+- 16 slides no deck (S240 plan diz 17 — stale)
+- 3 DONE (s-title, s-hook, s-contrato)
+- 1 QA in-progress (s-objetivos preflight pendente)
+- 12 LINT-PASS pendentes
+- Inconsistência s-contrato R11=5.7 marcado DONE — REOPEN ou ACCEPT? (Lucas decide)
 
-Common pattern:
-```bash
-INPUT_FIXTURE="scripts/smoke/fixtures/<agent>-input.json"
-OUTPUT="$(claude agents call <agent> < $INPUT_FIXTURE)"
-echo "$OUTPUT" | jq -e '<required field>' || { echo "FAIL"; exit 1; }
-echo "PASS"
-```
+Loop A pipeline canonical (qa-pipeline.md §1, gemini-qa3.mjs): Preflight → [Lucas OK] → Inspect → [Lucas OK] → Editorial → patch + commit. 1 slide = 1 commit. Anti-SOTA guard ≤30% session em meta-work.
 
-Spec D.1-D.7 detalhado em `.claude/plans/archive/S256-hooks-execute-and-close.md §6` ou `archive/S255-S256-debug-team-hooks.md §6`.
+**OR alternativa P0 (Lucas decides G0):** BACKLOG content delivery deadline 30/abr T-4d (#52 grade-v2 scaffold + #53 shared-v2 Day 2 + #54 qa-pipeline-v2). Stale vs metanálise — Lucas pivotou em S240 "metanálise é o produto P0 real" mas BACKLOG não atualizou.
 
-## 🟡 P1 — S257 metanálise QA editorial resume (BACKLOG #64)
+## 🟡 P1 — Tier 2 smoke tests live invocation infra (S258 emergent)
 
-**Lucas commitment.** Plan persisted em `.claude/plans/archive/S240-DEFERRED-lovely-sparking-rossum.md` (16 sessões dormant pré-S256, archived Phase 0 hygiene). 14 slides pendentes QA editorial (3/19 done). 5 slides com R11 abaixo threshold 7. Inconsistência s-contrato (R11=5.7 marcado DONE) requer reabertura ou aceite.
+Hooks bypass para subprocess `claude -p --agent X`. Investigação opções: `--bare` (API key requirement Lucas Max OAuth), `--setting-sources user` (loses agent discovery em `.claude/agents/`?), inline `--agents <json>` (verbose). Goal: SMOKE_LIVE=1 opt-in real agent invocation per smoke test (~$0.10 total). Plus: SMOKE_STUB=1 pattern já preparado para Codex/Gemini deps. Estimate 1-2h investigação + 7 sub-commits.
 
-## 🟢 P2 — Defer (radar S258+)
+## 🟡 P1 — Agent .md spec drift fix archaeologist (S258 KBP-32 finding)
+
+`debug-archaeologist.md` line 59 schema declares outcome enum `{success,partial,reverted,unknown}` mas example line 240 uses `"tracking"`. Smoke usa "partial" para conformar spec. Fix: ou expand enum (add "tracking") ou rename example "tracking"→"partial". 5min fix. Smoke recompila se enum changed.
+
+## 🟢 P2 — Defer (radar S260+)
 
 - **Lib refactor consolidado** (drain_stdin 7+ hooks + REPO_SLUG calc 3 hooks + safe_source pattern): session dedicada lib audit
-- **H4/X2/X3 redundâncias debug-team** (Conductor §6.2-6.3 destrutivos): MERGE systematic-debugging into debug-team (3/3 audit), X2/X3 measurement post-H4
+- **H4/X2/X3 redundâncias debug-team** (Conductor §6.2-6.3): MERGE systematic-debugging into debug-team
 - **Conductor §6.5 G9 Maturity layers** (SDL/SAMM/OpenSSF/CMMI) SOTA radar
-- **KBP-42 codify** (WebFetch URL lifecycle 7 fires) — defer P2 sota-intake skill
-- **/insights P253-001 backlog triage** (41 items STAGNANT 19+ sessões) — defer
-- **Conductor §16 sync com S254/S255/S256 state** + per-arm matrix §17.1-§17.12
-- **R3 Clínica Médica prep** — 216 dias
-- **KBP candidate codify (S256 emergent):** "Producer-consumer path contracts" — file written por component X read por component Y must validate path equality OR co-evolve. Detectable via grep variable names cross-files.
-- **KBP candidate codify (S256 emergent):** "State files staleness recursive" — README/HANDOFF/BACKLOG counts/paths require lint sync vs Glob real. Análogo KBP-40 mas para state files.
-- **`.claude/.last-insights` repo-local cleanup**: tracked file frozen S225-era; redundant pós dual-write fix S256 — Lucas pode rm + commit ou aguardar próxima /insights run sync.
-- **"Files written but never read" KBP candidate** (S255 emergent): producer-without-consumer = teatro detectable apenas forensic.
+- **KBP-42 codify** (WebFetch URL lifecycle 7 fires) — sota-intake skill
+- **/insights P253-001 backlog triage** (41 items STAGNANT 19+ sessões)
+- **Conductor §16 sync com S254/S255/S256/S258 state** + per-arm matrix
+- **R3 Clínica Médica prep** — 218 dias
+- **KBP candidate codify (S258 emergent):** "Pseudocode em plans envelhece com CLI changes" — `claude agents call` em S256 §6.1 → real `claude --print --agent` S258. Detectable via `claude --help | grep <cmd>` antes de scaffold. Defer S260+ se padrão repete.
+- **KBP candidates S256 emergent (reaffirm S258):** "Producer-consumer path contracts" + "State files staleness recursive"
+- **`.claude/.last-insights` repo-local cleanup** — tracked file frozen S225-era; redundant pós dual-write fix S256
 
-## Hidratação S257 (3 passos)
+## Hidratação S259 (3 passos)
 
-1. `git log --oneline -15` — confirm S253→S254→S255→S256 chain (~28 commits)
-2. **Read `.claude/plans/archive/S255-S256-debug-team-hooks.md` §6** (ou `archive/S256-hooks-execute-and-close.md §6`) — Block D smoke tests specs D.1-D.7 + agent .md VERIFY references
-3. `git status` para push state real (KBP-40 corollary: claims sobre git state em files versionados são auto-stale)
+1. `git log --oneline -15` — confirm S253→S256→S258 chain (~36 commits)
+2. **Read `.claude/plans/archive/S240-DEFERRED-lovely-sparking-rossum.md`** Loop A QA pipeline + per-slide state em `content/aulas/metanalise/HANDOFF.md`
+3. `git status` (KBP-40 corollary: gitStatus snapshot decai)
 
 ## Cautions ativas
 
-- **Mellow-scribbling-mitten Track A P5 in-flight** outra window/branch — NÃO TOCAR (Lucas owns; cherry-pick later)
-- **KBP-40 branch awareness:** `git branch --show-current` antes de commit (SessionStart gitStatus snapshot decai)
-- **APL CALLS counter ATIVO desde S255 A2 fix** — counter visível em "[APL] Ultimo commit: Xmin atras - N tool calls"
-- **integrity-report.md surface ATIVO desde S255 A.5** — INV violations visible em SessionStart automaticamente
-- **dream + /insights surface ATIVO desde S256 Block C fix** — re-enabled após audit + path mismatch fix (MAX of repo/global)
-- **Stop array shifted S256 B.2:** Stop[5]→Stop[4] integrity (Stop[1] inline agent removed). 5 entries total (was 6).
-- **Recommendation framing Lucas-style:** "propoe pq sim ou nao" — apresentar recommendation + justificativa SIM/NÃO; Lucas confirma. Padrão emergent S256.
+- **Mellow-scribbling-mitten Track A P5 in-flight** outra window/branch — NÃO TOCAR
+- **KBP-40 branch awareness:** `git branch --show-current` antes de commit
+- **APL CALLS counter ATIVO desde S255 A2 fix**
+- **integrity-report.md surface ATIVO desde S255 A.5**
+- **dream + /insights surface ATIVO desde S256 Block C fix**
+- **Stop array shifted S256 B.2:** Stop[5]→Stop[4] (5 entries)
+- **Recommendation framing Lucas-style:** "propoe pq sim ou nao" — pattern emergent S256 reaffirmed S258 ("vai pelo profissional que recomendar com justificativa")
+- **Smoke tests Tier 1 ATIVO S258:** `bash scripts/smoke/debug-<agent>.sh` 7/7 exit 0; CI hook candidate post-S259 Tier 2
 
 ## Plans active (1 background)
 
 - **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` — Conductor 2026 single source of truth (12-arms taxonomy + KPIs + §16 backlog reference)
 
-S256 transient plans archived: `archive/S255-S256-debug-team-hooks.md` (canonical Phase 3 cross-session) + `archive/S256-hooks-execute-and-close.md` (this session execution plan).
+S258 plan archived: `archive/S258-hookscont.md` (Phase A 8 commits + Phase B close).
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) | S256 hooks Phase 0+1+2+3 closed | 2026-04-26
+Coautoria: Lucas + Opus 4.7 (Claude Code) | S258 hookscont Phase A+B closed | 2026-04-26

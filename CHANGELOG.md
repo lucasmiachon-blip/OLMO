@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## Sessao 258 — 2026-04-26 (hookscont — Phase A Block D smoke tests Tier 1: T4 teatro → ATIVO 7/7)
+
+> Lucas frame: "entre em plan leia o handoff e outros planos por ele referenciado crie um plano que inclua os outros plano e depois os mover para nao acular ruido" → "vai pelo profissional que recomendar com justificativa"
+
+### Phase A — Block D smoke tests Tier 1 (8 commits, +860 LOC, 14 NEW + 1 modified)
+
+- **`a4af758` feat(S258): A.0 add ## VERIFY to debug-symptom-collector** `[+4/-0, 1 file]` — KBP-32 spot-check upfront revelou 6/7 agents tinham VERIFY (symptom-collector ausente). HANDOFF afirmação "Cada agent .md tem secao VERIFY" stale corrigida. Critérios canonical (10 schema fields, complexity_score range, routing_decision logic D8 SOTA-D, gaps invariant, anti-fabrication enforcement). 7/7 agents agora consistentes.
+- **`c333ec2` A.1 D.1 symptom-collector smoke** `[+117/-0, 2 files]` — 8 grep + 10 fields + 7 invariants. Trial run que descobriu G2 finding (CLI shape pivot).
+- **`83d278e` A.2 D.2 strategist smoke** `[+133/-0, 2 files]` — 5 grep + tools allowlist + 9 invariants + cross-fixture coherence (input_collector_complexity_score=75 mirror).
+- **`16a6c8f` A.3 D.3 archaeologist smoke** `[+134/-0, 2 files]` — 7 grep + Bash allowlist + Gemini preflight pattern + KBP-32 SHA spot-check via git log. Drift flagged: schema enum line 59 `{success,partial,reverted,unknown}` vs example line 240 `"tracking"` — fixture conformou spec, defer agent .md fix S259.
+- **`ec5edfc` A.4 D.4 adversarial smoke** `[+159/-0, 2 files]` — 8 grep + Codex preflight + KBP-28 frame-bound + shell command checklist tokens. Phantom assumption heuristic (KBP-32 — challenges devem targetar real collector fields).
+- **`3d7baa5` A.5 D.5 architect smoke** `[+167/-0, 2 files]` — Markdown fixture (NOT JSON — D7 Aider 85%/75% reasoning-as-format). 12 sections + KBP refs cross-validated against known-bad-patterns.md. Tools mais restritivo (Read+Grep+Glob, no Bash).
+- **`10ae56a` A.6 D.6 patch-editor smoke** `[+112/-0, 2 files]` — Único writer (KBP-01 single-writer). Zero-edit pass case (KBP-35) — empty edits_applied requires summary citing policy. Operation enum {Edit,Write,cp_protected (KBP-19)}.
+- **`ed38df0` A.7 D.7 validator smoke (7/7 done)** `[+139/-0, 2 files]` — verdict ∈ {pass,partial,fail} + Evaluator-Optimizer pattern enforced (verdict=fail → loop_back_input_to_architect non-null com {what_failed, evidence, suggested_re_examination}).
+
+### G2 finding (CLI shape pivot — methodology insight)
+
+- **Plan §6.1 pseudocode `claude agents call <agent>` é aspiracional** — real CLI: `claude --print --agent <name>`. Trial run em A.1 revelou subprocess inherits SessionStart hook que injeta "OBRIGATORIO ask session name" → subagent prompt hijacked (responde a pergunta do hook em vez de processar input). Pivot: Tier 1 (static + fixture) > Tier 2 (live invocation, defer S259 com hooks bypass infra investigation). Lucas approved professional pivot with justification.
+
+### Phase B — Close (~2 commits após este §S258)
+
+- HANDOFF restructure (P0 metanálise promoted, 2 P1 emergent: Tier 2 + spec drift archaeologist), CHANGELOG §S258 (este), plan archived `archive/S258-hookscont.md`, README counts.
+
+### Aprendizados S258
+
+- **Static + fixture validation captures structural drift mecanicamente:** 7/7 testes catch agent .md regression (VERIFY removed, schema field renamed, disallowedTools weakened, KBP refs broken) sem live agent invocation (cost/complexity). Fixture como spec-as-test-data forces agent-fixture co-evolution. Substantive T4 teatro fix at static layer; live runtime layer defer Tier 2 S259.
+- **Spec drift descoberta mecanicamente (D.3 archaeologist):** schema enum vs example divergem em agent .md. Smoke catch this class — anti-drift entre declared spec e descriptive prose. Defer agent fix S259 (KBP-01 anti-scope-creep). Padrão potencial para outros agents — Tier 2 quando viver permitirá cross-validation runtime + spec.
+- **Cross-fixture coherence pattern:** complexity_score=75 mirrored across collector→strategist→archaeologist→adversarial; edit_log_source references patch-editor; etc. Pipeline narrative legível como trace coerente, não casos isolados. Catches integration-level break onde individual fixtures pass mas pipeline broken.
+- **Hooks subprocess injection (G2 finding):** `claude -p --agent X` em subprocess inherits parent SessionStart hook injection. Subagent first turn hijacked. Tier 2 live requer `--bare` (API key) ou `--setting-sources user` (loses agent discovery) — investigation S259+. Plus: design implication para futuras CLIs invocando Claude programmatically (similar AIDER, custom orchestration).
+- **KBP candidate codify "Pseudocode em plans envelhece com CLI changes":** S256 §6.1 escreveu `claude agents call` baseado em CLI shape stale; S258 trial revelou shape mudou. Padrão: pseudocode técnico em plans archived é validation-required when consumed em sessões posteriores. Detectable via `claude --help | grep <cmd>` antes de scaffold. Defer codify S260+ se padrão repete.
+
 ## Sessao 256 — 2026-04-26 (hooks — Phase 0+1+2+3 closed; Phase 4 smoke tests defer S257)
 
 > Lucas frame: "entre em plan leia o handoff e planos ativos e proponha proximos passos que incluam ircorpoar os planos e mover os antigos para o arquivo classificados para nao poluir seu cotexto" → "vc eh o profissional me propoe o recomendado e pq a decisao eh minha com base sua recomendacao pq sim ou nao"
