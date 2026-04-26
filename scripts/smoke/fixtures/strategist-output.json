@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-25T18:32:00Z",
+  "input_collector_complexity_score": 75,
+  "first_principles_decomposition": {
+    "atomic_claims": [
+      "Stop hook executa fs.readFileSync(0) (synchronous stdin read)",
+      "Stop hook tem feature flag stopReviewGate (default false)",
+      "fs.readFileSync(0) e chamado ANTES do check da feature flag",
+      "No Windows Git Bash, parent process nao fecha stdin do child"
+    ],
+    "implicit_assumptions_in_symptom": [
+      "Symptom assume que erro e timing-only — pode ser tambem ordering"
+    ],
+    "failure_locus": "stop-review-gate-hook.mjs readHookInput entry — I/O syscall posicionado pre-flag-check"
+  },
+  "proposed_root_cause_hypotheses": [
+    {
+      "rank": 1,
+      "hypothesis": "fs.readFileSync(0) bloqueia indefinidamente quando stdin nao e closed pelo parent; Windows Git Bash nao fecha stdin como Linux/macOS o fariam",
+      "reasoning_chain": [
+        "fs.readFileSync(0) e blocking syscall ate EOF",
+        "EOF em stdin so vem quando parent fecha pipe (close fd)",
+        "CC harness em Windows Git Bash provavelmente nao fecha (issue conhecida com pipe handles em MSYS)",
+        "Manifest timeout 900ms termina silently antes de produzir erro stderr"
+      ],
+      "what_would_disprove": "Reproduzir o issue em Linux com stdin /dev/null forcado — se ainda travar, hipotese stdin-handling Windows-specific e errada",
+      "confidence": "high"
+    },
+    {
+      "rank": 2,
+      "hypothesis": "Race condition entre stdin read e feature flag check (ambos no mesmo turn de event loop)",
+      "reasoning_chain": [
+        "Se readHookInput e async e flag check tambem, podem race",
+        "Mas readFileSync e SYNC — entao race nao se aplica"
+      ],
+      "what_would_disprove": "Codigo mostra readFileSync (sync) — hipotese descartavel via leitura do source",
+      "confidence": "low"
+    }
+  ],
+  "architectural_lens_view": {
+    "is_design_flaw_or_bug": "design_flaw",
+    "boundary_violated": "I/O layer atravessou config layer — feature flag deveria gate I/O, nao pos-I/O. Ordem de leitura: 1) read manifest config, 2) check flag, 3) IF flag → read stdin. Atual: 1) read stdin (blocks), 2) check flag.",
+    "alternative_design_that_would_prevent": "Pattern 'gate-before-side-effect': qualquer I/O bloqueante deve estar dentro de branch condicional que valida config primeiro. Implementavel como: try { config = readConfig(); if (config.stopReviewGate) { input = readHookInput(); } } catch ..."
+  },
+  "confidence_overall": "high",
+  "gaps": [
+    "Nao verifiquei o source de stop-review-gate-hook.mjs diretamente — archaeologist deve confirmar a ordem real do codigo"
+  ]
+}
