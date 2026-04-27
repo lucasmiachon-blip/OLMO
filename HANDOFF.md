@@ -52,6 +52,8 @@ Substrate em `.claude/.parallel-runs/2026-04-27-ma-types/`: path-a/ 13 outputs +
 
 QA editorial S265 (quality): **s-quality DONE** — Phase A architectural fix `.term-content-block` wrapper + quick wins contraste (chips 30%, label emphasis, borders 80%). Pendente s-forest1 + s-forest2 (Phases B-G plan `.claude/plans/curious-enchanting-tarjan.md`). s-contrato R11=5.9 segue REOPEN (CSS failsafe + subgrid) — DEFERRED. KBP-05 anti-batch. Bench Phase 6-8 integra com este P0.
 
+**Direção S266 (Lucas pre-/clear):** continuar QA dos slides metanalise (re-QA s-quality pós-Phase A + LINT-PASS pendentes — Lucas escolhe slide), depois possível criar slide novo (s-ma-types per bench Phases 6-8). **Um passo de cada vez** — não batch. Phases B-E architectural (calibration + tokens + glass + motion) deslocáveis pós-QA conforme Lucas decisão por slide.
+
 ## 🟡 P1 — carryover
 
 - **Specialty cleanup remaining** (S261 turn 7): `immutable-gliding-galaxy.md` 8 lines (L25/134/137/316/393/506/520/591) — remove cardio/gastro/hepato/reumato. VALUES.md done.
