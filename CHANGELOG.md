@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## Sessao 264.c — 2026-04-27 (bench · Path A complete + Path B partial + Codex peer-review)
+
+> Lucas frame: "rodas a pesquisa via agents skills subagents vs script ver qual performa melhora" → "comparacao so vai ser justa quando tudo funcionar" → "tem que ajustar os agentes" → "outro modelo trabalhando em outro terminal" → "deixe tudo, arrume ate ter outputs adequados pra comparacao justa" → "reflita... tem citacoes tier 1, o que deu certo, deu errado e por que" → "apresente o plano ao codex" → "entre em plan e proponha".
+
+- **`1ff1f63` feat(bench/S264): Path A complete + Path B partial + agent fixes + Codex peer-review** `[+4539/-10, 60 files]` — bench `splendid-munching-swing.md` Phase 1.3 (smoke ✅ post-KBP-38 daemon refresh) + Phase 2 Path A 13/13 ✅ (gemini.mjs/perplexity.mjs/nlm/codex × 3 + evidence-researcher × 1) + Phase 3 Path B 1/6 emit ✅ (gemini-deep Q3 4 findings, 7/7 PMIDs NCBI-verified) + 5 raws preserved em path-b/. Agent fixes (S264.a): perplexity-sonar maxTurns 15→25, evidence-researcher drop biomcp + §Fase 1.5 Bench Mode (slide novo synthetic_context). Codex CLI peer-review (S264.c) corrigiu §S264.b: F1 count "14"→13, F2 Gemini Q2 HTTP 429 = orchestration confound meu (3 simultaneous contra plan §170 sequencial), F3 chattiness "principal hipótese pendente transcript proof". Outcome: **KEEP-SEPARATE provisional + D-lite refactor track S265+**.
+- **`b6e8f7c` docs(GEMINI.md): v3.6 → v3.7 — QA Visual & Automação + scoped READ-ONLY** `[+10/-4, 1 file]` — concurrent session work outro agente Gemini CLI (loosened READ-ONLY pra `scratch/`, added §QA Visual com Playwright/Puppeteer/subagents browser ferramentas ativas).
+
+### Aprendizados (max 5 li)
+
+- **Codex bracket = thin-agent canonical robusto**: 0% PMID fab across 14 PMIDs sampled (NCBI-verified inline), 100% schema-strict. Body 1-phase (CLI subprocess produz JSON nativo) > 6-phase chatty wraps que natural-stop pré-emit Phase 6 (gemini-deep + perplexity-sonar pattern empírico).
+- **Peer-review entre modelos = cheap quality gate**: Codex peer-review ($0 + ~5min Lucas paste) corrigiu 3 erros materiais (F1/F2/F3) + 4 blind spots (maxTurns docs, SubagentStop hooks alternative, KBP-48 over-strong, Perplexity system_prompt bug ortogonal). Pattern reusable.
+- **Evidence-researcher §Fase 1.5 fix EMPIRICALLY validated**: hipótese "Phase 1 file-not-found stall em slide novo" confirmed via Q1 retest (9 sources MCP-verified, 0 CANDIDATE, ROBINS-I bonus PMID 27733354 emergiu como tool preferred over Newcastle-Ottawa).
+- **Bash cwd persiste cross-tool-call (KBP-Candidate-A)**: absolute paths obrigatórios em dispatches sequenciais. Q2 batch-1 falhou exit 1 — cd `.claude/.parallel-runs/.../path-a` a partir de cwd já em path-a tentou path-a/path-a inexistente.
+- **KBP-Candidate-D/E pendentes evidence**: chattiness root cause precisa transcript+stop_reason proof per Codex F3; SubagentStop hooks alternative lever vs maxTurns — defer S265 D-lite refactor + re-bench.
+
 ## Sessao 265 — 2026-04-27 (quality · s-quality Phase A architectural + quick wins contraste)
 
 > Lucas frame: "quality" → "s quality bom defeitos pequenos principalmente contraste, analise sobre esse ponto ou eh esteticamente belo" → "considere s quality como done e vamos para os proximos".

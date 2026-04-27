@@ -1,18 +1,16 @@
-# HANDOFF - Proxima Sessao (S264)
+# HANDOFF - Proxima Sessao (S266)
 
-> S263 partial close: Phase 0+1 committed (`c353f53` rules KBP-47+48 + 2 agents wrap-canonical + plan). Phase 2-8 bench BLOCKED on **KBP-38 daemon Ctrl+Q + reopen** (window-restart insuficiente).
+> S264.c bench CLOSED commit `1ff1f63` + Codex peer-review `b6e8f7c` GEMINI.md v3.7. S265 s-quality DONE outro agente `474f879`. Estado clean — Lucas fechando concurrent windows.
 
-## 🔥 P0 — Bench script×agent post-restart (splendid-munching-swing.md Phase 1.3-8)
+## 🔥 P0 — D-lite refactor track (bench Phase 9 — gated em decision.md signoff)
 
-Estimate ~60-90min S264 dedicada. **Pre-bench checklist (5min):**
+S264.c outcome (KBP-39): **KEEP-SEPARATE provisional**. `.mjs` canonical Gemini/Perplexity hot path (9/9 ✅), `codex-xhigh-researcher` canonical thin-agent (0% fab consistent across 14 PMIDs), `evidence-researcher` canonical post §Fase 1.5, `gemini-deep-research` + `perplexity-sonar-research` **EXPERIMENTAL** até D-lite refactor + re-bench. Lucas signoff slot pending em `.claude/.parallel-runs/2026-04-27-ma-types/decision.md`.
 
-1. `claude agents | grep -E "gemini-deep-research|perplexity-sonar-research"` — registry refresh confirmation (KBP-38)
-2. `echo "GEMINI:${GEMINI_API_KEY:0:4} | PERPLEXITY:${PERPLEXITY_API_KEY:0:4} | CODEX:$(codex --version)"`
-3. `nlm whoami` — TTL ~20min, relogin se expirou
+D-lite spec (~30-60min per Codex peer-review — corpo dos agents já tem comandos, custo real é validação não rewrite): refactor gemini-deep + perplexity-sonar bodies para single-Bash deterministic (mirror codex-xhigh-researcher: API call → save raw → extract JSON → print final). Smoke + re-bench Phase 1.3 + Phase 3 single-Q. Lock MERGE (sunset .mjs) ou MERGE-BACK pos-evidence.
 
-Sequência (orchestrator-driven, Lucas só age em OAuth/UI): smoke test (~5min) → Phase 2 Path A (manual dispatch das 7 pernas: Bash `.mjs` P1+P5, Bash `nlm` P6, Agent tool P2+P7) → Phase 3 Path B (Agent tool dispatch P1'+P5'+P2+P7 paralelos) → Phase 4 `comparison.tsv` + spot-checks → Phase 5 decision matrix MERGE/KEEP/MERGE-BACK.
+KBP-Candidate-D ("agent chattiness") + KBP-Candidate-E (SubagentStop hooks alternative architectural lever) formalize APENAS pos transcript+stop_reason proof OR D-lite re-bench (per Codex F3 + blind spot 1). KBP-48 reformulation defer S266+ ("APIs externas: contrato determinístico/auditável; if wrapped, agent thin + verifiable").
 
-**Lucas-only actions (S264 directive S263 turn final):** Ctrl+Q + reopen (UI), `nlm login` se TTL expirou (OAuth). Resto orchestrator-driven incluindo `/research` substituído por manual dispatch (skill é `disable-model-invocation`).
+Substrate em `.claude/.parallel-runs/2026-04-27-ma-types/`: path-a/ 13 outputs + path-b/ 1 validated JSON + 14 raws + smoke/ + bench-log.md + agent-adjustments.md + codex-peer-review.md + comparison.tsv + decision.md.
 
 ## 🔥 P0 — Metanálise QA editorial pipeline (carryover S260+)
 
@@ -50,11 +48,14 @@ QA editorial S265 (quality): **s-quality DONE** — Phase A architectural fix `.
 - **KBP-42/43/44/45/46** previous (hook silent, literal colors, PMID-em-slide, wholesale migrate, subgrid contextual)
 - **Tone default = terse** (anti-drift.md §Tone — global)
 - **Codex agent `--model` flag REMOVED** — config.toml default applies
-- **Pernas ativas pos-S263:** Codex xhigh (P7) + gemini-deep-research + perplexity-sonar-research (S263 new) + evidence-researcher (P2) + .mjs legacy P1+P5 (Path A baseline para bench)
+- **Pernas pos-S264.c (KEEP-SEPARATE provisional):** Codex xhigh (P7) ✅ + evidence-researcher (P2) ✅ post §Fase 1.5 + .mjs canonical hot-path (P1+P5 9/9 emit) ✅ + gemini-deep + perplexity-sonar EXPERIMENTAL até D-lite refactor + re-bench
+- **KBP-Candidate-D (chattiness) + E (SubagentStop hooks):** PENDENTE evidence, formalize só post-D-lite re-bench OR transcript proof
 
 ## Plans active
 
-- `[S264 P0]` `.claude/plans/splendid-munching-swing.md` — bench Phase 1.3-8 post-restart
+- `[S266 P0]` `.claude/plans/sleepy-wandering-firefly.md` — S264.c bench close + D-lite track S266+ carryover (Phase 9 D-lite refactor + re-bench)
+- `[S266 P0 metanalise]` `.claude/plans/curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 (s-quality DONE S265)
+- `[CLOSED]` `.claude/plans/splendid-munching-swing.md` — bench Phase 0-8 done (Phase 9 D-lite movido pra sleepy-wandering-firefly.md)
 - `[S262 methodology source]` `.claude/plans/S262-research-mjs-additive-migration.md` — splendid concretizou
 - `[BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` — Conductor 2026
 
