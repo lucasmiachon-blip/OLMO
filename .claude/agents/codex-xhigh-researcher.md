@@ -90,7 +90,6 @@ Comando padrão (single-shot research, ephemeral, sandbox read-only, **schema-en
 ```bash
 mkdir -p .claude/.research-tmp
 codex exec \
-  --model gpt-5.5 \
   -c reasoning.effort=xhigh \
   --ephemeral \
   --skip-git-repo-check \
@@ -101,7 +100,7 @@ codex exec \
 ```
 
 **Opções relevantes (todas MANDATÓRIAS — zero workarounds, S261 Lucas directive):**
-- `--model gpt-5.5`: modelo SOTA OpenAI (April 2026)
+- Modelo: NÃO pass `--model` flag explicitly — `~/.codex/config.toml` default = `gpt-5.5` (S261 POC mostrou que `--model gpt-5.5` falha com ChatGPT account type; deixar config aplicar)
 - `-c reasoning.effort=xhigh`: maximum reasoning level (research-grade)
 - `--ephemeral`: no session persistence (research é descartável)
 - `--skip-git-repo-check`: research isolado, não precisa de git context
@@ -200,6 +199,19 @@ Este agent é POC para migration full do `/evidence` pipeline (.mjs → agents/s
 - Output divergence severa de outras pernas (Codex disse X, todas as outras 5 disseram Y) → investigate root cause antes de declarar POC pass
 - Cost prohibitive (>$0.30 per research question) → reduce reasoning para `high` (não xhigh) e re-test
 - PMID fabrication rate >10% → degrade confidence, treat outputs as candidate-only
+
+## Future capability (S262+, Lucas directive S261 turn 6)
+
+**Verification + Triangulation + Living HTML output:**
+
+Este agent é uma das N pernas research que produz JSON schema-validated. O sistema completo (S262+) tem capability adicional via NEW component (`research-triangulator` agent OR `/research-synthesize` skill — design TBD em S262):
+
+1. **Verification layer:** consome `candidate_pmids_unverified[]` de TODAS pernas + cross-check via NCBI E-utilities + CrossRef MCPs. Triangulação cross-source.
+2. **Triangulation matrix:** convergence/divergence per claim across pernas (atualmente conceitual em /research SKILL.md §3.b; S262+ explicit em JSON estruturado)
+3. **Resolution:** /research §3.c hierarquia aplicada programaticamente
+4. **Living HTML output:** gera `content/aulas/{aula}/evidence/{slide-id}.html` per spec /research SKILL.md Step 4 §11 sections (canônico: `content/aulas/metanalise/evidence/pre-reading-heterogeneidade.html`)
+
+Este agent (`codex-xhigh-researcher`) NÃO implementa essa capability — ele é UMA perna upstream. Reference: `.claude/plans/S262-research-mjs-additive-migration.md §NEW capability`.
 
 ## Coautoria
 

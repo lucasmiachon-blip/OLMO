@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-44.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-46.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -137,3 +137,9 @@ globs: "**/*"
 
 ## KBP-43 Cores literais inventados quando design tokens published existem
 → design-reference.md §Color + shared/css/base.css:79-91 (Paul Tol Bright/High-contrast tokens — color-blind safe scientific viz standard)
+
+## KBP-44 Source-tags em slides com PMID — PMID exclusivo do evidence HTML
+→ CHANGELOG.md §S260 Aprendizados
+
+## KBP-45 Wholesale migrate código frágil arrasta bugs silenciosos pra arquitetura nova
+→ .claude/plans/concurrent-nibbling-teacup.md §Reframe SOTA-driven

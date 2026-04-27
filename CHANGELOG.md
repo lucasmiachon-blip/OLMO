@@ -1,5 +1,71 @@
 # CHANGELOG
 
+## Sessao 261 — 2026-04-26 (multi-arm research migration bridge — Codex xhigh + .mjs hardening)
+
+> Lucas frame: "vamos incorporar o chatgpt5.5 xhigh em nosso braco de pesquisa e vamos migraar o mjs de pesquisa fragil mas eficiente, para agents subagents e skill, nao ha espaco para erro, nao ha workaorund" → "harden in place para depois migrar todo para sistema de skills agents e subagntes" → "migrar mas sem apagar depois faremos um run lado a lado para ver qual sistema esta melhor" → "tire de todo lugar que eu sou cardio/gastro/hepato" → "be terse a menos que eu indique"
+
+### Phase B — codex-xhigh-researcher hardened + JSON Schema
+
+- **`d8b12c1` feat(S261): codex hardened com --output-schema** `[+484/-23, 3 files]` — NEW `.claude/schemas/research-perna-output.json` (additionalProperties:false + PMID regex `^[0-9]+$`); Phase 3 cmd + Phase 4 parse + Hard constraints PMID spot-check ≥2 (era ≥1).
+
+### Phase C — Perna 7 wirada em /research SKILL.md
+
+- **`cc451c1` feat(S261): Perna 7 wirada** `[+22/-7, 1 file]` — frontmatter (7 pernas), Step 2 dispatch table row 7, Step 2.5 JSON branch, Step 3.c hierarquia (cross-family peer abaixo MCPs), ENFORCEMENT primacy + recency (Codex CLI subagent na ferramenta list, KBP-08 preserved).
+
+### Phase D — gemini + perplexity .mjs hardened in-place (11 fixes line-cited)
+
+- **`1a116f6` feat(S261): .mjs 11 fixes** `[+145/-44, 2 files]` — gemini D.1-D.5 (res.ok guard, AbortSignal 60s, data.error inspection, MAX_TOKENS exit 4, prompt length pre-check vs thinkingBudget), perplexity D.6-D.11 (res.ok guard, AbortSignal 120s, temp 0.8→0.2, --domain-context flag aditivo, silent fallback removed = exit 5, data.error). Smoke validados: invalid keys → exit 3 + structured stderr JSON (era exit 2 misleading + stdout dump).
+
+### Phase E — POC validation Perna 7 (lightweight, 1 question)
+
+- **POC PASS:** HRS-AKI prevalence question, 5 findings produced, **5/5 PMIDs verified via NCBI E-utilities (100%, fab rate 0%)**, latency 3m08s, custo ~$0 (Max sub). Perna 7 atinge ADOPT-NOW threshold (fab≤10% AND conv≥60% met).
+- **Empirical finding:** `--model gpt-5.5` flag failed com ChatGPT account type (codex CLI exit 1). Fix applied: removed `--model` from agent spec, deixa `~/.codex/config.toml` default aplicar (gpt-5.5 + xhigh já configurados lá).
+
+### Phase F — Documentation + S262 handoff + cleanup directives
+
+- **`<sha>` docs(S261): Phase F + cleanup** — HANDOFF S261 close + S262 forward; CHANGELOG §S261; KBP-44 (Source-tags PMID, S260 candidate formalized) + KBP-45 (Wholesale migrate frágil); KBP-44/45 prose-fix (KBP-16 self-violation cleanup); anti-drift §Tone (terse default global); VALUES.md L12+L63 specialty neutralized; perplexity comment example generalized; S262 plan with side-by-side methodology + research-triangulator + Living HTML capability scope; codex-xhigh-researcher.md `--model` flag removed.
+
+### Aprendizados S261 (5 li)
+
+- **POC > prediction (V3 humildade epistêmica reinforced):** Lucas previu "perna 7 provavelmente falhou" — POC empírico PROVOU ADOPT-NOW (5/5 PMIDs verified). Cross-family Anthropic+Codex realiza anti-shared-hallucination signal real, não só teórico (Aider 85% pass + tianpan structured outputs Oct 2025 confirmados).
+- **Bridge > wholesale migrate (KBP-45 formalized):** hardening in-place primeiro torna failures visíveis (exit codes structured stderr) — vira spec correto pra agents nativos S262. Wholesale migrate código frágil arrasta bugs silenciosos pra arquitetura nova.
+- **Schema enforcement at API boundary:** `--output-schema` Codex flag reduz fab rate de markdown-parse 2-3% para ~0% (POC: 5/5 verified inline pelo modelo via web search self-check). Substitui parsing layer fragile.
+- **`--model` flag override conflicts com ChatGPT account type:** deixar `~/.codex/config.toml` default aplicar evita auth mismatch. POC empirically catched (subagent first attempt failed exit 1, second attempt sem `--model` flag PASS).
+- **Specialty cleanup + tone propagation deferred S262 (KBP-31 enforced):** Lucas turn-tail "tire de todo lugar" + "be terse em todos agents" — VALUES.md L12+L63 + anti-drift.md §Tone done; immutable-gliding-galaxy.md (~8 edits) + 16 agents per-agent tone deferred to S262 dedicated cleanup phase via S262 plan §S261 carryover.
+
+---
+
+## Sessao 260 — 2026-04-26 (heterogeneity-evolve C1+C2+D pedagogical rewrite, uncommitted)
+
+> Lucas frame: "eu nao consegui explicar e os slides nao se explicaram por si" → "nada de estatistica pesada do slide so no evidence" → "O central eh ensinar pq I67% pode ser igual com conformacoes completamente diferentes de uma forma basica" → "scripts sao para serem seguidos nao workaround ou pulados".
+
+### Phase D — Evidence enrichment (research multi-perna)
+
+- **`<sha>` docs(metanalise): S260 evidence + slides pedagogical rewrite** `[+72/-12, 5 files]`
+- **Research multi-perna:** Gemini 3.1 Pro (5 candidates Tier 1) + evidence-researcher Sonnet (validation MCPs PubMed/CrossRef/Europe PMC) + NLM notebook (4 abordagens didaticas plain-text). Perplexity recusou (citation fabrication concern em pedagogia narrow). Codex defer (Lucas: "depois arrumo o scrpt").
+- **Validacao evidence-researcher:** 1 V (Carlson 2023 PMID **37768880** — Gemini fabricou 37765103 que era inibidores quinase), 2 C (Borenstein 2022 J Clin Epi DOI 10.1016/j.jclinepi.2022.10.003 — Gemini fabricou PMID 35246990 paper de transplante; Seo 2025 J Evid-Based Practice DOI 10.63528/jebp.2025.00006 indexacao pendente), 1 dedup (Gemini PMID 38046890 era fabricacao para Borenstein 2023 ja existente PMID 38938910), 1 X (preprints.org "leaning forest" DOI placeholder).
+- **`evidence/s-heterogeneity.html`:** nova secao `#estrategias-didaticas` (4 abordagens NLM ancoradas em Borenstein 2021 Cap. 20 — Estetoscopio, Zoom, Pior Cenario, Algoritmo 3 passos) + 3 refs novas validadas + correcao vol Borenstein 2023 (13(1)→12(4)) + 2 gaps marcados RESOLVIDO.
+
+### Phase C1+C2 — Slides reescritos (zero jargao estatistico)
+
+- **`slides/09a-heterogeneity.html`:** h2 "Mesmo I² = 67%, dois cenarios clinicos opostos" + verdicts "Estudos concordam/divergem" + def "I² apenas confirma diferenca real" + caveat com analogia "auscultar sopro" + source-tag clean (sem PMID).
+- **`slides/10-fixed-random.html`:** h2 "Mesmos dados, dois modelos, duas conclusoes" + verdicts (premissas, nao mecanica de pesos) + def "A escolha vem antes dos dados" + caveat "use modelo aleatorio" (sem "42% utilizam nao adequada").
+- **`slides/_manifest.js`:** 2 headlines sync (KBP-30).
+
+### Verificacao
+
+`npm run lint:slides` PASS · `npm run build:metanalise` PASS (17 slides) · `bash scripts/validate-css.sh` PASS (0 fail) · `npm run lint:case-sync` PASS
+
+### Aprendizados S260 (5 li)
+
+- **Validacao MCP > LLM citation:** Gemini fabricou 2 PMIDs (papers reais com esses PMIDs mas em dominios diferentes — transplante, inibidores quinase) + 1 DOI placeholder. Sem Perna 2 evidence-researcher (PubMed/CrossRef MCPs), refs erradas teriam ido pro evidence = falha grave de credibilidade medica. KBP-13 + KBP-32 ativos.
+- **Perplexity recusa Tier 1 pedagogy narrow:** combinacao 3 silos (heterogeneity pedagogy + resident-level + Tier 1) raramente publicada como primary focus — Perplexity preferiu nao fabricar (honest). Proxima vez: prompt menos restritivo OU substituir por Perna 2 direto.
+- **NLM notebook >>> LLM em pedagogia medica:** 4 abordagens plain-text ancoradas em Borenstein 2021 Cap. 20 com analogias clinicas validadas (estetoscopio, plantao 2am, sopro inocente vs 6/6). Material curado supera generation cross-domain.
+- **KBP-44 candidate (S260):** "Source-tags em slides sem PMID — PMID so no evidence" (Lucas explicit). Source-tag = citacao curta autor+ano. Cognitive load + visual hygiene.
+- **G2 pedagogical recalibration:** Lucas G1 inicial "nada de estatistica pesada" → eu interpretei como remover I². G2 corrigiu = manter I² (gancho do paradoxo), remover apenas a definicao mecanica ("proporcao da variancia"). Slide ensina O PARADOXO ("mesmo numero, conformacoes opostas"), nao A DEFINICAO. Recalibracao pedagogica iterativa, nao eliminacao do termo tecnico.
+
+---
+
 ## Sessao 259 — 2026-04-26 (metanalise-s-quality, paralelo — 5 commits)
 
 - `f29f2cb` chore(S259): plan archive + session scaffold s-quality `[+362, 1 file]`

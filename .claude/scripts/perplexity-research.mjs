@@ -2,7 +2,7 @@
 // perplexity-research.mjs — Perplexity Sonar deep-research with Tier 1 citations
 // Uso (Perna 5 do research skill):
 //   node .claude/scripts/perplexity-research.mjs "<prompt>"
-//   node .claude/scripts/perplexity-research.mjs --domain-context "hepatology" "<prompt>"
+//   node .claude/scripts/perplexity-research.mjs --domain-context "<medical-domain>" "<prompt>"
 //   echo "<prompt>" | node .claude/scripts/perplexity-research.mjs
 //
 // Requer: PERPLEXITY_API_KEY.
