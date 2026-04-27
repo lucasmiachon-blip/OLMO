@@ -2,13 +2,28 @@
 
 > ⚠️ **Claude Code NÃO lê este arquivo.** Consumer: Codex CLI + Gemini CLI (convenção própria dos CLIs externos). Claude Code governa-se por `CLAUDE.md` + `.claude/rules/` apenas. Este arquivo orienta cross-CLI strategy.
 
-## ROLE: VALIDAR (Codex) | PESQUISAR (Gemini)
+## ROLE: VALIDAR (Codex) | PESQUISAR (Gemini) | Codex S259+ also RESEARCH perna #6
 
-- **Claude Code (Opus 4.6)** = FAZER (build, code, orchestrate)
+- **Claude Code (Opus 4.7)** = FAZER (build, code, orchestrate)
 - **Gemini CLI (Gemini 3.1)** = PESQUISAR (multimodal, deep research, vision)
-- **Codex CLI (GPT-5.4)** = VALIDAR (review, audit, adversarial)
+- **Codex CLI (GPT-5.5 + `reasoning.effort=xhigh`)** = VALIDAR (review, audit, adversarial) + **RESEARCH S259 POC** (research perna #6 em /evidence pipeline; agent: `.claude/agents/codex-xhigh-researcher.md`)
 
 Codex + Gemini são READ-ONLY (Claude Code não é vinculado por esta restrição). Report findings. Do NOT implement fixes or edit files.
+
+## S259 architectural POC: Codex as research perna
+
+Lucas signaled (S259) intent to migrate research orchestration de `.mjs` scripts (`content/aulas/scripts/*.mjs` — fragility reportada) → **agents/skill pattern** (SOTA Anthropic Claude Code 2026: subagents declarativos com tool isolation + skill markdown > imperative scripts).
+
+POC vehicle: **`codex-xhigh-researcher`** subagent — invocation pattern:
+```bash
+codex exec --model gpt-5.5 -c reasoning.effort=xhigh --ephemeral -s read-only "<prompt>"
+```
+
+Cross-family validation (OpenAI vs Anthropic vs Google ecosystems) é defesa contra hallucination compartilhada entre modelos da mesma família.
+
+Full `.mjs` migration deferred S260+ gated by POC outcome (≥3 of 5 R-questions convergem com outras 5 pernas + cost ≤ $0.30 per question + PMID fabrication ≤ 10%).
+
+**Migration architecture reference (S260+):** `.claude/plans/immutable-gliding-galaxy.md` (Conductor 2026 — Arquitetura OLMO em 12 braços) §11b Mermaid DAG Architecture + §11c Phasing P0→P4 + §11d Council pattern multi-model. Braços relevantes: 4.3 RESEARCH + 4.10 TOOLING/ECOSYSTEM + 4.11 ORQUESTRACAO_MULTI_MODEL. S260+ migration plan deve consultar este DAG antes de touch additional `.mjs`.
 
 ## Quick Commands
 
@@ -89,5 +104,5 @@ Do NOT: implement fixes, research literature (Codex), access Notion, make archit
 
 ## Coauthorship
 
-Codex: `Coautoria: Lucas + GPT-5.4 (Codex)`
+Codex: `Coautoria: Lucas + GPT-5.5 (Codex xhigh)`
 Gemini: `Coautoria: Lucas + Gemini 3.1`
