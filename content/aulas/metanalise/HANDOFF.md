@@ -56,7 +56,7 @@ Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia 
 | # | Slide | Estado | Notas |
 |---|-------|--------|-------|
 | 5 | s-rs-vs-ma | LINT-PASS | QA pendente. |
-| 6 | s-quality | DONE | **S262 visual + content evolution.** 3 cards isomórficos com chips animados (PROSPERO/A priori/PRISMA/Transparência · RoB 1/2/ROBUST-RCT/ROBINS · GRADE · AMSTAR-2/ROBIS). Glassmorphism shared-v2. 5-beat reveal. |
+| 6 | s-quality | DONE | **S262 evolution → S265 Phase A architectural fix.** Wrapper `.term-content-block` (grid `1fr auto`) encapsula term-grid + fixa dissoc no rodapé (overflow vertical resolved). Quick wins contraste: chip bg 18%→30%, label `--v2-text-body`→`--v2-text-emphasis` (S262→S265 iteração inline), borders 60%→80%. lint+build PASS. |
 | 7 | s-contrato | DONE | Evidence HTML S143. Click-reveal 2 cards. QA R11 PASS. |
 | 8 | s-pico | LINT-PASS | Evidence refatorado S144 (benchmark). h2 com RS. QA pendente. |
 | 9 | s-forest1 | LINT-PASS | Refactor architectural + QA pendentes (S264 pós-clear). Tokens + glassmorphism + motion stagger. Plan: `.claude/plans/curious-enchanting-tarjan.md` Phases C.1+D. |

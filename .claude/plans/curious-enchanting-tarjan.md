@@ -1,6 +1,6 @@
 # Plan: Refactor architectural s-quality + s-forest1 + s-forest2 (S264 — execução pós-clear)
 
-> **Status (2026-04-27):** Phase 1 dead-code cleanup committed `ac65ba6`. Refactor architectural (Phases A-G abaixo) **deferred para próxima sessão pós-clear**. Esta sessão: docs updates profissionais (HANDOFF/CHANGELOG) pra hand-off sem ambiguidade.
+> **Status (2026-04-27 S265):** Phase 1 dead-code cleanup committed `ac65ba6` (S264). **Phase A done S265** (uncommitted): wrapper `.term-content-block` resolve overflow vertical s-quality + quick wins contraste (chips 30%, label emphasis, borders 80%). **Phases B-G remain** (s-forest1/s-forest2). lint+build PASS. Lucas validou visualmente.
 
 ---
 

@@ -6,6 +6,23 @@
 
 ---
 
+## 2026-04-27 — S265 (quality · s-quality Phase A architectural + quick wins contraste)
+
+> Frame: "quality" → "s quality bom defeitos pequenos principalmente contraste, analise sobre esse ponto ou eh esteticamente belo" → "considere s quality como done e vamos para os proximos".
+
+- **Phase A — s-quality `.term-dissociation` overflow fix** (uncommitted): wrapper `.term-content-block` (grid `1fr auto`) encapsula `.term-grid` + `.term-dissociation`. `.slide-inner` 4-row → 3-row. Defensive `min-height: 0` + `overflow: hidden` em `.term-grid`. Files: `slides/05-quality.html` (re-indent +2 spaces L5-65) + `metanalise.css` §s-quality L347-358 + L362-367.
+- **Quick wins contraste** (uncommitted): chip bg `color-mix 18% → 30%` (design-reference.md severity bg range mid). Label color `--v2-text-body → --v2-text-emphasis` (S262→S265 iteração inline documentada — mono+caps+letter-spacing differentiate semantic mesmo color como term-content). Card borders `60% → 80%`.
+- **Verification:** lint:slides + build:metanalise PASS. Lucas validou visualmente.
+- **Pendente:** Phases B-G plan `.claude/plans/curious-enchanting-tarjan.md` (s-forest1/s-forest2).
+
+### Aprendizados (max 5 li)
+
+- **Iteração S262→S265 inline:** Quando regra anterior é deliberada (S262 comment "sem competir com term-content"), atualizar comment com new iteration history (S265: "bumped to emphasis, mono+caps differentiate") preserva decisão exata in-line vs CHANGELOG long-tail buried. KBP-31 satisfeito.
+- **APCA defer (gate KBP-32):** Quick wins via parameter sweeps (18%→30%, 60%→80%) operam dentro do design-reference.md severity range declarado. APCA measurement (~30min × 9 chips/borders) defer — Lucas owns visual validation iterativa.
+- **Re-indent +2 inside wrapper > cosmetic indent off:** Re-indent durable (review clarity), diff one-time cost. Trade-off favorável quando file <100 li.
+
+---
+
 ## 2026-04-27 — S264 (Phase 1 done · refactor architectural deferred pós-clear)
 
 > Frame: "vamos so trabalhar nos slides forest" → "atualize os documentos de forma profissional".
