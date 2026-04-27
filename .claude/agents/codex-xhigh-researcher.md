@@ -85,58 +85,99 @@ Se preflight falha: retorne JSON com `external_brain_used: null` + `confidence_o
 
 ## Phase 3 — Codex invocation
 
-Comando padrão (single-shot research, ephemeral, sandbox read-only):
+Comando padrão (single-shot research, ephemeral, sandbox read-only, **schema-enforced**):
 
 ```bash
+mkdir -p .claude/.research-tmp
 codex exec \
   --model gpt-5.5 \
   -c reasoning.effort=xhigh \
   --ephemeral \
   --skip-git-repo-check \
   -s read-only \
+  --output-schema ".claude/schemas/research-perna-output.json" \
+  --output-last-message ".claude/.research-tmp/codex-${RESEARCH_QUESTION_ID}.json" \
   "<RESEARCH PROMPT>"
 ```
 
-**Opções relevantes:**
+**Opções relevantes (todas MANDATÓRIAS — zero workarounds, S261 Lucas directive):**
 - `--model gpt-5.5`: modelo SOTA OpenAI (April 2026)
 - `-c reasoning.effort=xhigh`: maximum reasoning level (research-grade)
 - `--ephemeral`: no session persistence (research é descartável)
 - `--skip-git-repo-check`: research isolado, não precisa de git context
 - `-s read-only`: sandbox impede modificações
-- `--output-schema FILE`: opcional — JSON Schema para resposta estruturada
-- `--json`: opcional — output formato máquina
+- `--output-schema ".claude/schemas/research-perna-output.json"`: schema enforcement at API boundary. Reduz fab rate de markdown-parse 2-3% para ~0% (tianpan.co Oct 2025). Sem este flag = workaround proibido.
+- `--output-last-message <path>`: final assistant message escrito em arquivo para Phase 4 ler + validar. Substitui stdout markdown parsing fragile.
 
-**Prompt template (research question):**
+**Prompt template (research question — JSON schema-strict):**
 
 ```
-You are a research assistant for a clinical EBM pipeline. Answer this research question with PMID-grade evidence.
+You are a research assistant for a clinical EBM (medicina baseada em evidência) pipeline. Answer this research question with PMID-grade evidence.
 
 QUESTION: <verbatim research question>
-
+QUESTION_ID: <RNN ou topic-slug>
 CONTEXT (existing evidence excerpt):
 <1-2 paragraphs from evidence HTML>
 
-REQUIREMENTS:
-- Cite PMIDs in format "PMID NNNNNNNN" when claiming empirical findings
-- Mark candidates "[CANDIDATE — to verify]" if uncertain (do NOT fabricate PMIDs)
-- Distinguish established framing in literature (cite paper) vs your own paraphrase (flag explicitly)
-- Acknowledge gaps explicitly — "I don't know" beats fabrication
-- Output as structured markdown: ## Findings / ## Citations / ## Gaps / ## Confidence
+REQUIREMENTS (zero-tolerance):
+- Cite PMIDs (numeric only, e.g., 12345678) quando claiming empirical findings
+- List UNVERIFIED PMIDs em `candidate_pmids_unverified` array — do NOT fabricate; "I don't know" beats fabrication (KBP-36)
+- Distinguish established literature framing (cite paper, confidence: high) vs your paraphrase (confidence: medium)
+- Acknowledge gaps explicitly via `gaps` array
+- Output ONLY JSON matching the schema below — NO preamble, NO postamble, NO markdown wrapper
 
-Answer concisely (~500 words). Quality over quantity.
+REQUIRED OUTPUT (JSON, schema-strict, additionalProperties:false enforced):
+{
+  "schema_version": "1.0",
+  "produced_at": "<ISO-8601 now>",
+  "research_question_id": "<QUESTION_ID>",
+  "research_question": "<verbatim QUESTION>",
+  "external_brain_used": "codex-cli + gpt-5.5 + xhigh",
+  "codex_cli_version": "<from preflight, e.g., 0.125.0>",
+  "findings": [
+    {
+      "claim": "<factual claim em 1-2 sentences>",
+      "supporting_sources": [
+        {"type": "pmid|doi|url|verbatim", "value": "<id>", "verified": false}
+      ],
+      "confidence": "high|medium|low",
+      "convergence_signal": "<alignment | divergence | novel>"
+    }
+  ],
+  "candidate_pmids_unverified": ["12345678", "..."],
+  "convergence_flags": [
+    {"type": "alignment|divergence|gap", "description": "<short reason>"}
+  ],
+  "confidence_overall": "high|medium|low",
+  "gaps": ["<what you could not answer>"]
+}
+
+Quality over quantity (~3-5 findings max). Schema validation enforced server-side — extra fields rejected.
 ```
 
-## Phase 4 — Parse + validate output
+## Phase 4 — Parse + validate output (schema-first, S261)
 
-1. Capture Codex stdout (markdown response)
-2. Extract structured sections (Findings / Citations / Gaps / Confidence)
-3. List PMIDs cited
-4. **Spot-check 1-2 PMIDs via NCBI E-utilities:**
+1. Read JSON from `.claude/.research-tmp/codex-${RESEARCH_QUESTION_ID}.json` (escrito por `--output-last-message`)
+2. **Schema validation (mandatório, zero workaround):**
+   - `JSON.parse` (via `node -e` ou `jq -e`) → fail = `schema_drift` flag, retry codex 1× com parse error injetado como context
+   - Validate against `.claude/schemas/research-perna-output.json` (via `npx ajv-cli validate -s schema.json -d data.json` ou jq spot-check campos críticos) → fail = retry 1× com validation errors
+   - 2 falhas total = return graceful JSON gap: `{schema_version: "1.0", ..., findings: [], confidence_overall: "low", gaps: ["schema_drift after 2 retries: <error>"], convergence_flags: [{type: "gap", description: "schema enforcement failed"}]}`
+3. Extract `candidate_pmids_unverified` array from validated JSON
+4. **Empty PMIDs path:** se array vazia → skip steps 5-6 (research questions sobre frameworks/definitions podem não citar PMIDs). Note `convergence_flags: [{type: "gap", description: "no PMIDs in response — verification N/A"}]`. Proceed to step 7.
+5. **Spot-check ≥2 PMIDs via NCBI E-utilities (POC enforcement, KBP-36, S261 hardened):**
    ```bash
-   curl -sf "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id={PMID}&retmode=json" | grep -q '"title"' && echo "VERIFIED" || echo "FABRICATED"
+   PMIDS=$(jq -r '.candidate_pmids_unverified[0:2][]' < .claude/.research-tmp/codex-${RESEARCH_QUESTION_ID}.json)
+   for pmid in $PMIDS; do
+     resp=$(curl -sf "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${pmid}&retmode=json")
+     if echo "$resp" | grep -q '"title"'; then
+       echo "VERIFIED: ${pmid}"
+     else
+       echo "FABRICATED: ${pmid}"
+     fi
+   done
    ```
-5. Se algum PMID é fabricado (returns no record): downgrade overall confidence + flag em `candidate_pmids_unverified`
-6. Build output JSON per schema (Phase 0)
+6. **Update verified=true** em `findings[].supporting_sources[]` para PMIDs confirmados (jq merge); para fabricated → append `convergence_flags` entry type=divergence + downgrade `confidence_overall` (high→medium ou medium→low se fab rate >0)
+7. Output validated+verified JSON to stdout (orchestrator ingests para convergence layer)
 
 ## Phase 5 — Output to orchestrator
 
@@ -148,7 +189,7 @@ Return JSON via stdout. Orchestrator (main Claude ou /evidence skill) ingests + 
 - **Read-only:** NUNCA Write, Edit, Agent. Bash apenas para codex/curl/git read-only.
 - **Cost gate:** each Codex xhigh call ~$0.05-0.20. Smoke test antes de batch invocations.
 - **Auth assumption:** Codex CLI já logged in via `codex login` (Lucas Max OAuth). Se 401: report blocked + flag gap, NÃO tente fixar auth.
-- **PMID verification mandatory:** spot-check ≥1 PMID per execution (KBP-36 enforcement).
+- **PMID verification mandatory:** spot-check ≥**2** PMIDs per execution durante POC phase (S261). Baseline S187 Perplexity 0/8 PMIDs corretos — xhigh untested, double-down até ≥6 datapoints coletados. KBP-36 enforcement.
 
 ## Migration intent (S260+ deferred)
 

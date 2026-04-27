@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lucas-miachon/OLMO/.claude/schemas/research-perna-output.json",
+  "title": "Research Perna Output",
+  "description": "Schema-strict output for research perna agents (codex-xhigh-researcher and future migrated pernas). Mirrors codex-xhigh-researcher.md Phase 0 spec. Versioned: bump schema_version on breaking change. Evidence anchor: KBP-36.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "produced_at",
+    "research_question_id",
+    "research_question",
+    "external_brain_used",
+    "codex_cli_version",
+    "findings",
+    "candidate_pmids_unverified",
+    "convergence_flags",
+    "confidence_overall",
+    "gaps"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version pin. Bump on breaking change. Consumers SHOULD validate this matches expected."
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp of perna execution"
+    },
+    "research_question_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier (e.g., R1, R2, R11, or topic-slug)"
+    },
+    "research_question": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Verbatim research question text"
+    },
+    "external_brain_used": {
+      "type": ["string", "null"],
+      "description": "External brain identifier (e.g., 'codex-cli + gpt-5.5 + xhigh'). Null if preflight failed."
+    },
+    "codex_cli_version": {
+      "type": ["string", "null"],
+      "description": "Codex CLI version string (e.g., '0.125.0'). Null if preflight failed."
+    },
+    "findings": {
+      "type": "array",
+      "description": "Factual claims derived from external brain output. Empty array allowed if confidence_overall='low' + gap explicit.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "supporting_sources", "confidence", "convergence_signal"],
+        "properties": {
+          "claim": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Factual claim derived from external brain output"
+          },
+          "supporting_sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type", "value", "verified"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["pmid", "doi", "url", "verbatim"]
+                },
+                "value": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "verified": {
+                  "type": "boolean",
+                  "description": "True = verified externally (e.g., NCBI esummary returned record). False = perna claim only."
+                }
+              }
+            }
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          },
+          "convergence_signal": {
+            "type": "string",
+            "description": "Alignment with expected literature, divergence flag, or novel finding indicator"
+          }
+        }
+      }
+    },
+    "candidate_pmids_unverified": {
+      "type": "array",
+      "description": "PMIDs claimed by external brain but NOT yet verified via NCBI E-utilities. POC enforcement: spot-check ≥2 minimum.",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]+$",
+        "description": "Numeric PMID. Pattern catches fabricated alphanumeric values."
+      }
+    },
+    "convergence_flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "description"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["alignment", "divergence", "gap"],
+            "description": "alignment=converges with other pernas | divergence=disagrees | gap=missing answer"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "confidence_overall": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "Aggregate confidence. Low if preflight failed OR fabrication rate >10%."
+    },
+    "gaps": {
+      "type": "array",
+      "description": "What the external brain could NOT answer. Empty array allowed only if all queries answered.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}
