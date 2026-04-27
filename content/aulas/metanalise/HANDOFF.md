@@ -12,7 +12,7 @@
 - **Slides:** 16/16 no deck. Lint PASS. Build PASS. Orphans: 0.
 - **Ancora:** Valgimigli 2025 Lancet (PMID 40902613) — IPD-MA, 7 RCTs, 28.982 pts
 - **GSAP plugins:** SplitText + Flip + ScrambleTextPlugin
-- **Dark-bg:** 4 slides (s-checkpoint-2, s-heterogeneity, s-ancora, s-absoluto)
+- **Dark-bg:** 3 slides (s-checkpoint-2, s-heterogeneity, s-ancora)
 - **HEX navy:** #162032
 
 > **S162:** s-benefit-harm removido. Evidence enrichido (sintese critica full-text, meta-research redundancia, overlap matrix). Pendente S163: overlap completo 15 MAs × 14 RCTs + icone Cochrane clicavel no s-forest2 + conteudo visual slides.
@@ -33,7 +33,7 @@
 F1: s-title -> s-objetivos -> s-hook -> s-importancia
 F2: s-rs-vs-ma -> s-contrato -> s-pico -> s-forest1 -> s-forest2 -> s-heterogeneity -> s-fixed-random
 I2: s-checkpoint-2
-F3: s-ancora -> s-aplicabilidade -> s-absoluto -> s-takehome
+F3: s-ancora -> s-aplicabilidade -> s-takehome
 ```
 
 Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia outros slides), s-aplicacao (claim incorreta).
@@ -76,7 +76,6 @@ Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia 
 |---|-------|--------|-------|
 | 13 | s-ancora | LINT-PASS | Dark-bg. |
 | 14 | s-aplicabilidade | LINT-PASS | |
-| 15 | s-absoluto | LINT-PASS | Dark-bg. |
 | 16 | s-takehome | LINT-PASS | |
 
 ### Resumo

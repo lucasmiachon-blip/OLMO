@@ -51,7 +51,7 @@ Coautoria: Lucas + Opus 4.6
 | 11 | **s-ancora** | F3 | HIGH | Valgimigli 2025 Lancet anchor |
 | 12 | **s-aplicacao** | F3 | HIGH | Application of Valgimigli findings |
 | 13 | **s-aplicabilidade** | F3 | HIGH | External validity, CYP2C19 |
-| 14 | **s-absoluto** | F3 | HIGH | NNT vs RR, absolute effects |
+| ~~14~~ | ~~s-absoluto~~ | ~~F3~~ | ~~HIGH~~ | Removed S186 (commit 20489a2) |
 
 ---
 
@@ -211,14 +211,7 @@ Already extensively covered in evidence/s-checkpoint-1.html. Key sources:
 
 ---
 
-### s-absoluto — NNT vs RR, absolute effects
-
-| # | Citation | PMID | Status | Key finding |
-|---|----------|------|--------|-------------|
-| 1 | Nuovo J, Melnikow J, Chang D. Reporting NNT and ARR in RCTs. JAMA 2002;287(21):2813-4 | 12038920 | WEB-VERIFIED | Only 8/359 RCTs reported NNT; 18/359 reported ARR |
-| 2 | Newcombe RG, Bender R. Implementing GRADE: calculating risk difference. Evid Based Med 2014;19(1):6-8 | 23970740 | WEB-VERIFIED | Method: RD from baseline risk + RR |
-| 3 | Cochrane Handbook v6.5, Ch.15 — Interpreting results | 31643080 | WEB-VERIFIED | Absolute effects, baseline risk, applicability |
-| 4 | Guyatt GH et al. Core GRADE 1. BMJ 2025;389:e081903 | 40262844 | WEB-VERIFIED | Updated approach to absolute vs relative effects |
+<!-- s-absoluto removed S186 (commit 20489a2) — PMIDs preserved in Summary Table below -->
 
 ---
 
@@ -283,7 +276,7 @@ Already extensively covered in evidence/s-checkpoint-1.html. Key sources:
 | Rank | Slide | Rationale |
 |------|-------|-----------|
 | 6 | **s-hook** | Data in evidence-db but needs HTML consolidation |
-| 7 | **s-absoluto** | NNT teaching — critical for clinical translation |
+| ~~7~~ | ~~s-absoluto~~ | ~~NNT teaching — slide removed S186~~ |
 | 8 | **s-fixed-random** | Model choice affects interpretation |
 | 9 | **s-contrato** | Frames the entire aula; Oxman 1994 is anchor |
 | 10 | **s-aplicabilidade** | CYP2C19 makes the point vivid |

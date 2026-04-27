@@ -16,7 +16,7 @@ Sequência (orchestrator-driven, Lucas só age em OAuth/UI): smoke test (~5min) 
 
 ## 🔥 P0 — Metanálise QA editorial pipeline (carryover S260+)
 
-Próximo APL: **s-absoluto** (3/19 editorial) · 11 LINT-PASS pendentes · s-contrato R11=5.7 (REOPEN/ACCEPT). Pipeline: gemini-qa3.mjs preflight→inspect→editorial. KBP-05 anti-batch. Bench Phase 6-8 (Living HTML + slide `s-ma-types` + QA) integra com este P0.
+QA editorial em curso (S264): s-forest1 + s-forest2 (LINT-PASS, preflight pendente). s-contrato R11=5.9 (REOPEN: CSS failsafe unscoped + subgrid ausente). 12 LINT-PASS pendentes. Pipeline: gemini-qa3.mjs preflight→inspect→editorial. KBP-05 anti-batch. Bench Phase 6-8 (Living HTML + slide `s-ma-types` + QA) integra com este P0.
 
 ## 🟡 P1 — carryover
 

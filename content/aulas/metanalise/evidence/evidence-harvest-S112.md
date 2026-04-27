@@ -48,7 +48,7 @@ Slide sobre anatomia do forest plot.
 
 Papers da busca PubMed (PMIDs 37573151, 35851070, 41940896) são MAs que USAM forest plots mas não ENSINAM sobre eles. Para este slide, os papers de Borenstein (37940120, 38938910) são mais úteis pois explicam como interpretar forest plots no contexto de heterogeneidade.
 
-### s-ancora + s-aplicacao + s-aplicabilidade + s-absoluto (ALTA PRIORIDADE)
+### s-ancora + s-aplicacao + s-aplicabilidade (ALTA PRIORIDADE)
 Papers F3 — aplicação do Valgimigli 2025.
 
 | # | Autores | Título | PMID | DOI | Ano | Status |
@@ -86,7 +86,6 @@ Papers relevantes encontrados via PubMed (PMIDs 34128998, 29046404). O paper de 
 - **s-contrato:** Framework das 3 perguntas para ler MA — precisa de fonte original
 - **s-checkpoint-1:** ACCORD trial trap + Ray 2009 MA — PMIDs conhecidos, verificar
 - **s-checkpoint-2:** Cenário construído — não precisa de evidence HTML per se
-- **s-absoluto:** NNT/ARR/efeitos absolutos — GRADE guidance 35 cobre parcialmente; buscar Guyatt summary of findings table
 
 ## URLs para NotebookLM (PubMed)
 
