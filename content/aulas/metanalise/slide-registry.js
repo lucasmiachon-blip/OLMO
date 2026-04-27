@@ -100,25 +100,42 @@ export const slideRegistry = {
   },
 
   's-quality': (slide, gsap) => {
-    const levels = slide.querySelectorAll('.quality-level');
-    const example = slide.querySelector('.quality-example');
+    // S259 rebuild: 4 beats CLT-driven (each click = 1 schema operation)
+    // Beat 0 (auto): h2 + 3 card headers fade-up paralelo
+    // Beat 1 (click): PERGUNTA rows em 3 cols (paralelo, stagger 0.1s)
+    // Beat 2 (click): CONFUSÃO rows (schema rupture moment)
+    // Beat 3 (click): FERRAMENTA rows + dissociation panel (synthesis empírica)
+    const cards = slide.querySelectorAll('.term-card');
+    const rows = {
+      pergunta: slide.querySelectorAll('.term-row--pergunta'),
+      confusao: slide.querySelectorAll('.term-row--confusao'),
+      ferramenta: slide.querySelectorAll('.term-row--ferramenta'),
+    };
+    const dissociation = slide.querySelector('.term-dissociation');
     const MAX = 3;
     let revealed = 0;
+
+    // Beat 0 (auto): card headers fade-up paralelo, stagger 0.1s preserva paralelidade
+    gsap.fromTo(cards,
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
+    );
 
     const advance = () => {
       if (revealed >= MAX) return false;
       revealed++;
-
-      const level = levels[revealed - 1];
-      gsap.fromTo(level,
-        { opacity: 0, x: -12 },
-        { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' }
+      const targets = revealed === 1 ? rows.pergunta
+                    : revealed === 2 ? rows.confusao
+                    : rows.ferramenta;
+      gsap.fromTo(targets,
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.45, stagger: 0.1, ease: 'power3.out' }
       );
-
-      if (revealed === 3 && example) {
-        gsap.fromTo(example,
-          { opacity: 0, y: 8 },
-          { opacity: 1, y: 0, duration: 0.45, delay: 0.25, ease: 'power2.out' }
+      if (revealed === 3 && dissociation) {
+        // Dramatic pause antes do dissociation panel (delay 0.35s)
+        gsap.fromTo(dissociation,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.55, delay: 0.35, ease: 'power3.out' }
         );
       }
       return true;
@@ -126,12 +143,13 @@ export const slideRegistry = {
 
     const retreat = () => {
       if (revealed <= 0) return false;
-      if (revealed === 3 && example) {
-        gsap.to(example, { opacity: 0, y: 8, duration: 0.25, ease: 'power2.in' });
+      const targets = revealed === 1 ? rows.pergunta
+                    : revealed === 2 ? rows.confusao
+                    : rows.ferramenta;
+      if (revealed === 3 && dissociation) {
+        gsap.to(dissociation, { opacity: 0, y: 12, duration: 0.25, ease: 'power2.in' });
       }
-      gsap.to(levels[revealed - 1],
-        { opacity: 0, x: -12, duration: 0.3, ease: 'power2.in' }
-      );
+      gsap.to(targets, { opacity: 0, y: 8, duration: 0.3, ease: 'power2.in' });
       revealed--;
       return true;
     };

@@ -1,46 +1,65 @@
 <section id="s-quality" data-timing="90">
   <div class="slide-inner">
-    <h2>A qualidade metodológica de uma MA não garante a certeza da evidência</h2>
+    <h2>Qualidade, Risco de Viés e Certeza: três perguntas distintas, não hierarquia</h2>
 
-    <div class="quality-levels">
-      <div class="quality-level" data-reveal="1">
-        <span class="quality-num quality-num--study">1</span>
-        <div class="quality-content">
-          <h3>Esse estudo individual é confiável?</h3>
-          <p>Viés no desenho e condução — por estudo, por desfecho</p>
+    <div class="term-grid">
+      <div class="term-card term-card--quality">
+        <h3 class="term-name">Qualidade</h3>
+        <div class="term-row term-row--pergunta" data-reveal="1">
+          <span class="term-label">Pergunta</span>
+          <p class="term-content">Como a RS foi conduzida?</p>
         </div>
-        <span class="quality-tool">RoB 2</span>
+        <div class="term-row term-row--confusao" data-reveal="2">
+          <span class="term-label">Confusão</span>
+          <p class="term-content">Tratada como sinônimo de RoB ou Certeza</p>
+        </div>
+        <div class="term-row term-row--ferramenta" data-reveal="3">
+          <span class="term-label">Ferramenta</span>
+          <p class="term-content">AMSTAR-2 · ROBIS</p>
+        </div>
       </div>
 
-      <div class="quality-level" data-reveal="2">
-        <span class="quality-num quality-num--process">2</span>
-        <div class="quality-content">
-          <h3>A revisão foi bem conduzida?</h3>
-          <p>Busca abrangente · avaliação de viés · métodos adequados</p>
+      <div class="term-card term-card--rob">
+        <h3 class="term-name">Risco de Viés</h3>
+        <div class="term-row term-row--pergunta" data-reveal="1">
+          <span class="term-label">Pergunta</span>
+          <p class="term-content">Vieses no estudo individual?</p>
         </div>
-        <span class="quality-tool">AMSTAR-2</span>
+        <div class="term-row term-row--confusao" data-reveal="2">
+          <span class="term-label">Confusão</span>
+          <p class="term-content">"RoB" reduzido a só Cochrane RoB tool</p>
+        </div>
+        <div class="term-row term-row--ferramenta" data-reveal="3">
+          <span class="term-label">Ferramenta</span>
+          <p class="term-content">RoB 2 (RCT) · ROBINS-I</p>
+        </div>
       </div>
 
-      <div class="quality-level" data-reveal="3">
-        <span class="quality-num quality-num--evidence">3</span>
-        <div class="quality-content">
-          <h3>Quanta certeza no resultado combinado?</h3>
-          <p>Avalia o corpo agregado de evidência — viés é apenas 1 de 5 domínios</p>
+      <div class="term-card term-card--certainty">
+        <h3 class="term-name">Certeza</h3>
+        <div class="term-row term-row--pergunta" data-reveal="1">
+          <span class="term-label">Pergunta</span>
+          <p class="term-content">Confiança no corpo combinado?</p>
         </div>
-        <span class="quality-tool">GRADE</span>
+        <div class="term-row term-row--confusao" data-reveal="2">
+          <span class="term-label">Confusão</span>
+          <p class="term-content">Subusada vs os outros 2 termos</p>
+        </div>
+        <div class="term-row term-row--ferramenta" data-reveal="3">
+          <span class="term-label">Ferramenta</span>
+          <p class="term-content">GRADE</p>
+        </div>
       </div>
     </div>
 
-    <div class="quality-example" data-reveal="3">
-      <div class="quality-scenario">
-        <span class="quality-ex quality-ex--pass">Processo ✓ Alta</span>
-        <span class="quality-ex-sep">+</span>
-        <span class="quality-ex quality-ex--pass">Estudos ✓ Baixo risco</span>
-        <span class="quality-ex-sep">→</span>
-        <span class="quality-ex quality-ex--fail">Certeza ✕ Muito baixa</span>
+    <div class="term-dissociation" data-reveal="3">
+      <span class="term-stat">52%</span>
+      <div class="term-dissociation-text">
+        <p class="term-stat-claim">das MAs com AMSTAR-2 "Alta" têm outcomes em GRADE "Muito baixa"</p>
+        <p class="term-stat-source">Alvarenga-Brant 2024 · PMID 39003480 · BMC Oral Health</p>
       </div>
     </div>
 
-    <p class="source-tag">Shea 2017 (AMSTAR-2) · GRADE WG 2004 · Sterne 2019 (RoB 2)</p>
+    <p class="source-tag">Strawbridge 2025 (paper-fonte) · Shea 2017 (AMSTAR-2) · GRADE WG 2004 · Sterne 2019 (RoB 2)</p>
   </div>
 </section>

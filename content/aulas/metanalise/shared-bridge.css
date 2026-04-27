@@ -28,7 +28,8 @@
   :where(
     section#s-etd,
     section#s-aplicabilidade,
-    section#s-heterogeneity
+    section#s-heterogeneity,
+    section#s-quality
   ) {
     /* === Text hierarchy ===
        Derivados de --oklch-neutral-6/7/8 (reference.css L100-L102).

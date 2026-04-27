@@ -327,151 +327,145 @@ aside.notes { display: none; }
   flex: 1;
 }
 
-/* --- s-quality: 3 levels of "quality" in MA ---
-   Merge: Gemini (projection-safe values) + Opus (cascade arch) + Codex (synthesis).
-   Hand-crafted OKLCH: L=91% C=0.06 bg (visible at 10m), system accent tokens.
-   10px left border + 64px numbers + solid pills = auditorium hierarchy. */
+/* --- s-quality (S259 rebuild): 3 cards isomorphic + dissociation panel ---
+   Frame: "3 perguntas distintas, não hierarquia" — Strawbridge 2025 paper-fonte (PMID 41186074).
+   3 hues distintas (success 155° / warning 75° / accent 265°) marcam constructos diferentes.
+   shared-v2 bridge tokens via --v2-* (calibrados APCA Lc≥75, S239 C4.6).
+   Pedagogy: parallel structure visual = parallel schema mental (Mayer Spatial Contiguity). */
 section#s-quality {
-  /* Accents — violet family (hue 248-258), converged to deck palette.
-     Differentiation by lightness+chroma, not hue. L≤48%: white text ≈ 5:1 (AA). */
-  --q-study:    oklch(48% 0.16 258);
-  --q-process:  oklch(45% 0.13 253);
-  --q-evidence: oklch(42% 0.14 248);
+  /* Anchor colors — 3 hues distintas derivadas de shared-v2 reference.css */
+  --term-quality:   oklch(45% 0.13 155);   /* success-derived "processo da revisão" */
+  --term-rob:       oklch(48% 0.16 75);    /* warning-derived "atenção a vieses" */
+  --term-certainty: oklch(45% 0.18 265);   /* accent-derived "certeza editorial" */
 
-  /* Backgrounds — paper tints, same hue family.
-     L=92%, C≤0.03: soft separation from bg-surface (95%). */
-  --q-bg-study:    oklch(92% 0.03 258);
-  --q-bg-process:  oklch(92% 0.025 253);
-  --q-bg-evidence: oklch(92% 0.025 248);
-
-  /* Badges — use system semantic tokens (safe/danger).
-     Pass: outlined safe. Fail: solid danger = punchline. */
+  /* Tints sutis para card surface (subtle separation from canvas) */
+  --term-quality-tint:   oklch(96% 0.025 155);
+  --term-rob-tint:       oklch(96% 0.030 75);
+  --term-certainty-tint: oklch(96% 0.025 265);
 }
 
-section#s-quality .quality-levels {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-  gap: var(--space-md);
-}
-
-/* Row — 10px border anchors the eye, box-shadow lifts from canvas */
-section#s-quality .quality-level {
+/* Grid — 3 cards isomorphic, equal width */
+section#s-quality .term-grid {
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr) auto;
-  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
-  padding: calc(var(--space-md) + var(--space-xs)) var(--space-md);
-  border-left: 10px solid var(--q-accent);
+  flex: 1;
+  align-content: stretch;
+}
+
+/* Card — top border accent encodes constructo, --v2-surface for subtle elevation */
+section#s-quality .term-card {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-top: 4px solid var(--term-accent);
+  background: var(--v2-surface-panel, var(--bg-card));
   border-radius: var(--radius-md);
-  background: var(--q-bg);
   box-shadow: 0 1px 3px var(--shadow-subtle);
-  opacity: 0;
 }
-section#s-quality .quality-level[data-reveal="1"] { --q-accent: var(--q-study);    --q-bg: var(--q-bg-study); }
-section#s-quality .quality-level[data-reveal="2"] { --q-accent: var(--q-process);  --q-bg: var(--q-bg-process); }
-section#s-quality .quality-level[data-reveal="3"] { --q-accent: var(--q-evidence); --q-bg: var(--q-bg-evidence); }
 
-.no-js section#s-quality .quality-level,
-[data-qa] section#s-quality .quality-level,
-.stage-bad section#s-quality .quality-level { opacity: 1; }
-@media print { section#s-quality .quality-level { opacity: 1; } }
+section#s-quality .term-card--quality   { --term-accent: var(--term-quality); }
+section#s-quality .term-card--rob        { --term-accent: var(--term-rob); }
+section#s-quality .term-card--certainty  { --term-accent: var(--term-certainty); }
 
-/* Number — 64px serif, projection anchor */
-section#s-quality .quality-num {
+/* Term name — display serif, term-color anchor (visual anchor at top) */
+section#s-quality .term-name {
   font-family: var(--font-display);
-  font-size: var(--text-h1);
-  font-weight: 400;
-  line-height: 1;
-  text-align: center;
-  font-variant-numeric: lining-nums tabular-nums;
-  color: var(--q-accent);
-}
-
-/* Prevent text overflow in middle column */
-section#s-quality .quality-content { min-width: 0; }
-
-/* Question — primary */
-section#s-quality .quality-content h3 {
-  font-family: var(--font-body);
   font-size: var(--text-h3);
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--term-accent);
   margin: 0;
-  color: var(--text-primary);
   text-wrap: balance;
 }
-section#s-quality .quality-content p {
-  width: 100%;
-  max-width: none;
-  margin: var(--space-xs) 0 0;
-  font-size: var(--text-caption);
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--text-secondary);
-  text-wrap: pretty;
+
+/* Row inside card — label + content stack, staged via data-reveal */
+section#s-quality .term-row {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: var(--space-3xs);
+  opacity: 0;
 }
 
-/* Tool pill — solid fill for 10m readability, deck 100px pattern */
-section#s-quality .quality-tool {
+.no-js section#s-quality .term-row,
+[data-qa] section#s-quality .term-row,
+.stage-bad section#s-quality .term-row { opacity: 1; }
+@media print { section#s-quality .term-row { opacity: 1; } }
+
+/* Label — uppercase mono, muted (Pergunta / Confusão / Ferramenta) */
+section#s-quality .term-label {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--bg-elevated);
-  background: var(--q-accent);
-  border: 0;
-  padding: var(--space-xs) var(--space-md);
-  border-radius: 100px;
-  white-space: nowrap;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--v2-text-muted, var(--text-secondary));
 }
 
-/* Example — dissociation punchline */
-section#s-quality .quality-example {
-  margin-top: var(--space-lg);
+/* Content — body text, primary color */
+section#s-quality .term-content {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--v2-text-emphasis, var(--text-primary));
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* Dissociation panel — 52% empirical anchor, certainty-tinted */
+section#s-quality .term-dissociation {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-md);
+  align-items: center;
+  margin-top: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-left: 4px solid var(--term-certainty);
+  border-radius: var(--radius-md);
+  background: var(--term-certainty-tint);
   opacity: 0;
 }
-section#s-quality .quality-scenario {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
+
+.no-js section#s-quality .term-dissociation,
+[data-qa] section#s-quality .term-dissociation,
+.stage-bad section#s-quality .term-dissociation { opacity: 1; }
+@media print { section#s-quality .term-dissociation { opacity: 1; } }
+
+/* Stat number — 80px display serif, projection anchor */
+section#s-quality .term-stat {
+  font-family: var(--font-display);
+  font-size: 80px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--term-certainty);
+  font-variant-numeric: tabular-nums lining-nums;
 }
-section#s-quality .quality-ex {
+
+section#s-quality .term-dissociation-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+section#s-quality .term-stat-claim {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--v2-text-emphasis, var(--text-primary));
+  margin: 0;
+  text-wrap: pretty;
+}
+
+section#s-quality .term-stat-source {
   font-family: var(--font-body);
   font-size: var(--text-caption);
-  font-weight: 600;
-  line-height: 1.2;
-  padding: var(--space-xs) var(--space-md);
-  border: 2px solid transparent;
-  border-radius: 100px;
-  white-space: nowrap;
-}
-section#s-quality .quality-ex--pass {
-  color: var(--safe);
-  background: var(--safe-light);
-  border-color: var(--safe);
-}
-section#s-quality .quality-ex--fail {
-  font-size: var(--text-body);
-  font-weight: 700;
-  color: var(--bg-elevated);
-  background: var(--danger);
-  border-color: var(--danger);
-  padding: var(--space-xs) calc(var(--space-md) + var(--space-xs));
-}
-section#s-quality .quality-ex-sep {
-  font-size: var(--text-h3);
   font-weight: 400;
-  line-height: 1;
-  color: var(--text-secondary);
+  color: var(--v2-text-muted, var(--text-secondary));
+  margin: 0;
 }
-.no-js section#s-quality .quality-example,
-[data-qa] section#s-quality .quality-example,
-.stage-bad section#s-quality .quality-example { opacity: 1; }
-@media print { section#s-quality .quality-example { opacity: 1; } }
 
 
 /* --- PICO grid (2×2 mismatch layout) --- */
