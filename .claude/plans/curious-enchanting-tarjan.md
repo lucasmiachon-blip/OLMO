@@ -10,7 +10,7 @@
 2. **Confirm vite up** (Lucas owns): `npm --prefix content/aulas run dev:metanalise` (port 4102 strictPort) — outra janela pode tê-lo
 3. **Start Phase A** (s-quality layout fix). Sequência sequencial: A → B → C → D → E → F → G. KBP-05 anti-batch entre slides na Phase F.
 
-**Cross-window:** janela paralela = bench S264 P0 (`splendid-munching-swing.md` + `sleepy-wandering-firefly.md` + `jazzy-sniffing-rabbit.md`). Confirmado no-conflict: `jazzy-sniffing-rabbit.md:31-32` declara "s-forest1/2: Não tocar". s-quality não mencionado em planos da outra janela. Refactor seguro.
+**Cross-window:** janela paralela = bench S264 P0 (`splendid-munching-swing.md` + `sleepy-wandering-firefly.md` + `archive/S259-jazzy-sniffing-rabbit.md` archived S265). Confirmado no-conflict: jazzy L31-32 declarou "s-forest1/2: Não tocar". s-quality não mencionado em planos da outra janela. Refactor seguro.
 
 **Branch atual:** `main` · **Last commit:** `ac65ba6 feat(metanalise/S264): Phase 1 — dead-code cleanup s-absoluto + KBP-44`
 

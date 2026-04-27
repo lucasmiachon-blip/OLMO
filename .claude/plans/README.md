@@ -1,12 +1,26 @@
 # Plans — Índice e Convenção
 
-> Single source of truth para o estado dos plans OLMO. Atualizado: 2026-04-26 (S256 hooks).
+> Single source of truth para o estado dos plans OLMO. Atualizado: 2026-04-27 (S265 close).
 
-## Active plans (1)
+## Active plans (3)
 
 - **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` (Conductor 2026 single source of truth) — reference doc cross-session (12-arms taxonomy + KPIs + §16 backlog ref)
+- **[S266 P0 metanalise]** `curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 architectural refactor (Phase A done S265 commit `184fed9`)
+- **[S266 P0 D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track (Phase 9 gated em `decision.md` signoff, retomada ~2 dias)
 
-**Regra:** no máximo 2 plans active simultaneamente (1 sessão corrente + 1 roadmap cross-sessão explicitamente flagged). Mais que isso = archival overdue. Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close (S256 close pattern).
+## Recently archived (S265)
+
+- `archive/S259-jazzy-sniffing-rabbit.md` — heterogeneity-evolve (S259 worker; superseded S260 commit `cc04bbd`)
+- `archive/S259-warm-snacking-hinton.md` — s-quality v2 (S259 orquestrador; superseded S262 commit `6fed511` + S265 Phase A `184fed9`)
+
+## Pending archive (cross-ref update needed — S266+)
+
+- `concurrent-nibbling-teacup.md` — KBP-45 anchor reference; mover requer KBP file ref update
+- `wobbly-foraging-pelican.md` — S262 Slides_build (committed `6fed511`); mover requer grep-pass ref check
+- `S262-research-mjs-additive-migration.md` — methodology source (splendid concretizou); mover requer SKILL.md/HANDOFF ref check
+- `splendid-munching-swing.md` — bench Phase 0-8 closed; bench janela domain (defer 2 dias per Lucas)
+
+**Regra:** max 2 active sessões correntes + 1 BACKGROUND (immutable-gliding-galaxy = exception explicit-flagged). Cross-window concurrency permite até 3 active simultâneo se janelas paralelas cooperam (S264-265 pattern). Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close (S256 close pattern).
 
 ## Archive (`.claude/plans/archive/` = 105 files)
 
