@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-27T18:31:13-03:00",
+  "research_question_id": "Q2-ipd-vs-aggregate-pathA",
+  "research_question": "IPD-MA (Individual Patient Data) vs aggregate-level pooled MA: quando IPD é necessário (forças vs fraquezas), custo/tempo/governança, exemplos práticos comparativos onde a conclusão diferiu entre as duas abordagens.",
+  "external_brain_used": "codex-cli + gpt-5.5 + xhigh",
+  "codex_cli_version": "0.125.0",
+  "findings": [
+    {
+      "claim": "Established framing: IPD-MA is most defensible when the question requires participant-level treatment-effect modifiers, harmonised outcome definitions, updated follow-up, direct time-to-event modelling, missing-data checks, or consistent adjustment across studies. Practical paraphrase: if the aggregate MA can answer the clinical question without these features, IPD is not automatically necessary.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "20139215",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "26196287",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "25919529",
+          "verified": true
+        }
+      ],
+      "confidence": "medium",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Empirical comparison does not support a blanket rule that IPD always changes conclusions: a Cochrane methodology review found agreement in statistical significance in 152/190 comparisons and disagreement in 38/190. The same review recommended doing AD-MA first, then escalating to IPD when AD limitations threaten the answer.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "27595791",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "IPD becomes important for subgroup and effect-modifier questions because aggregate meta-regression can mix within-trial and across-trial information and is vulnerable to ecological bias. A meta-epidemiological study of aggregate meta-regressions found at least one major pitfall in 57/81 analyses, including ecological fallacy risk in 53/81.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "11813224",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "34130658",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "The main weakness of IPD-MA is operational rather than statistical: data retrieval, author contact, governance, data checking, harmonisation, secure storage, and collaboration create major time and resource costs. In one survey, only 22/500 sampled meta-analyses included IPD and 256/360 surveyed authors had not sought IPD; common barriers were perceived difficulty, time/resources, non-response, refusal, and inaccessible data.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "22981246",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "26975720",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "25919529",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Practical divergence examples: in cisplatin-based ovarian cancer trials, the literature MA was statistically significant and estimated a 7.5% absolute effect, whereas IPD-MA was not significant and estimated 2.5%; in head and neck cancer survival, IPD time-to-event analysis and literature-based fixed-time mortality analyses gave substantially different effect estimates because follow-up time changed the apparent survival difference.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "8094183",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "11578787",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "divergence"
+    }
+  ],
+  "candidate_pmids_unverified": [],
+  "convergence_flags": [
+    {
+      "type": "alignment",
+      "description": "The existing excerpt aligns with guidance that IPD improves harmonisation, subgroup assessment, and time-to-event analyses but costs more."
+    },
+    {
+      "type": "divergence",
+      "description": "The evidence does not support IPD as mandatory for every MA; AD-MA-first is a defensible triage strategy when adequate."
+    },
+    {
+      "type": "gap",
+      "description": "No reliable universal pre-analysis rule predicts which AD-MA and IPD-MA pairs will yield different conclusions."
+    },
+    {
+      "type": "alignment",
+      "description": "NCBI spot-check 6/6 PMIDs confirmed (27595791, 8094183, 11813224, 25919529, 11578787, 22981246) — zero fabrication detected"
+    }
+  ],
+  "confidence_overall": "high",
+  "gaps": [
+    "No precise generalisable dollar cost or calendar-time estimate was identified; resource burden varies by number of trials, data age, governance, and harmonisation complexity.",
+    "I did not verify every historical comparative example in the Cochrane review; examples reported here are limited to PMIDs directly verified in this pass.",
+    "Evidence is strongest for RCT intervention reviews; diagnostic, prognostic, and observational IPD-MA may require additional domain-specific appraisal."
+  ]
+}

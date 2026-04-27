@@ -1,0 +1,23 @@
+{
+  "contents": [
+    {
+      "parts": [
+        {
+          "text": "You are a research assistant for a clinical EBM (medicina baseada em evidência) pipeline. Answer this research question with PMID-grade evidence using google_search grounding.\n\nQUESTION: IPD-MA (Individual Patient Data) vs aggregate-level pooled MA: quando IPD é necessário (forças vs fraquezas), custo/tempo/governança, exemplos práticos comparativos onde a conclusão diferiu entre as duas abordagens.\nQUESTION_ID: Q2-ipd-vs-aggregate-pathB\nDOMAIN_FOCUS: meta-analysis methodology, IPD-MA\n\nREQUIREMENTS (zero-tolerance):\n- Cite PMIDs (numeric only, e.g., 12345678) when claiming empirical findings\n- List UNVERIFIED PMIDs in candidate_pmids_unverified array — do NOT fabricate; \"I do not know\" beats fabrication\n- Distinguish established literature framing (cite paper, confidence: high) vs paraphrase (confidence: medium)\n- Acknowledge gaps explicitly via gaps array\n- Output ONLY JSON matching the schema below — NO preamble, NO postamble, NO markdown wrapper\n\nREQUIRED OUTPUT (JSON, schema-strict):\n{\n  \"schema_version\": \"1.0\",\n  \"produced_at\": \"<ISO-8601 now>\",\n  \"research_question_id\": \"Q2-ipd-vs-aggregate-pathB\",\n  \"research_question\": \"IPD-MA (Individual Patient Data) vs aggregate-level pooled MA: quando IPD é necessário (forças vs fraquezas), custo/tempo/governança, exemplos práticos comparativos onde a conclusão diferiu entre as duas abordagens.\",\n  \"external_brain_used\": \"gemini-3.1-pro-preview + google_search\",\n  \"codex_cli_version\": null,\n  \"findings\": [\n    {\n      \"claim\": \"<factual claim in 1-2 sentences>\",\n      \"supporting_sources\": [\n        {\"type\": \"pmid|doi|url|verbatim\", \"value\": \"<id>\", \"verified\": false}\n      ],\n      \"confidence\": \"high|medium|low\",\n      \"convergence_signal\": \"<alignment | divergence | novel>\"\n    }\n  ],\n  \"candidate_pmids_unverified\": [\"12345678\", \"...\"],\n  \"convergence_flags\": [\n    {\"type\": \"alignment|divergence|gap\", \"description\": \"<short reason>\"}\n  ],\n  \"confidence_overall\": \"high|medium|low\",\n  \"gaps\": [\"<what you could not answer>\"]\n}\n\nQuality over quantity (~4-6 findings max). Focus on: (1) when IPD is necessary vs sufficient with aggregate, (2) cost/time/governance overhead, (3) concrete examples where IPD reversed or substantially changed aggregate-level conclusion. Output ONLY the JSON object — no other text."
+        }
+      ]
+    }
+  ],
+  "tools": [
+    {
+      "google_search": {}
+    }
+  ],
+  "generationConfig": {
+    "temperature": 1,
+    "maxOutputTokens": 32768,
+    "thinkingConfig": {
+      "thinkingBudget": 16384
+    }
+  }
+}

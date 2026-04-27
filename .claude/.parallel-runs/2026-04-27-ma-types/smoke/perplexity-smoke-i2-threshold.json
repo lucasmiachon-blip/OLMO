@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-27T19:23:27Z",
+  "research_question_id": "smoke-i2-threshold",
+  "research_question": "What is heterogeneity I² threshold for substantial in meta-analysis interpretation? Cite Higgins/Thompson 2003 + Cochrane Handbook current thresholds (low/moderate/substantial/considerable).",
+  "external_brain_used": "perplexity-sonar-deep-research",
+  "codex_cli_version": "sonar-deep-research",
+  "findings": [
+    {
+      "claim": "Higgins and Thompson (2003, BMJ) proposed tentative I² threshold classifications: ~25% = low heterogeneity, ~50% = moderate, ~75% = high heterogeneity. These were explicitly framed as tentative guidelines specific to Cochrane RCT meta-analyses, not absolute rules.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "12958120",
+          "verified": false
+        },
+        {
+          "type": "url",
+          "value": "https://pubmed.ncbi.nlm.nih.gov/12958120/",
+          "verified": false
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "The Cochrane Handbook distinguishes four I² levels: low, moderate, substantial, and considerable heterogeneity. However, current Cochrane guidance explicitly warns against mechanical application of threshold cutpoints and recommends integrating I² with confidence intervals, prediction intervals, forest plot inspection, and investigation of heterogeneity sources.",
+      "supporting_sources": [
+        {
+          "type": "url",
+          "value": "https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-10",
+          "verified": false
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "I² estimates are unstable when a meta-analysis includes fewer than ~500 events or fewer than 15 trials; no major fluctuations are observed after 500 events and 14 trials. Cochrane recommends always reporting I² with its 95% confidence interval rather than the point estimate alone.",
+      "supporting_sources": [
+        {
+          "type": "url",
+          "value": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3405079/",
+          "verified": false
+        },
+        {
+          "type": "pmid",
+          "value": "22516953",
+          "verified": false
+        }
+      ],
+      "confidence": "medium",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "A fundamental limitation of I² threshold classification is that I² measures the proportion of variability attributable to heterogeneity, not the absolute magnitude of between-study effect variation. Two meta-analyses with identical I² = 50% may have RR ranges of 0.95–1.05 vs. 0.70–1.40, reflecting very different clinical situations. I² >85% also shows little further increase even as between-studies variance grows substantially.",
+      "supporting_sources": [
+        {
+          "type": "url",
+          "value": "https://introduction-to-meta-analysis.com/download/c20.pdf",
+          "verified": false
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "The original Higgins/Thompson 2003 paper also introduced the H and R statistics alongside I². H = sqrt(Q/df); R = ratio of SE from random-effects to SE from fixed-effect meta-analysis. I² = 100% × (Q − df)/Q. The Q-statistic was the prior standard but suffers low power (few studies) and excessive power (many studies) compared to I².",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "12958120",
+          "verified": false
+        },
+        {
+          "type": "pmid",
+          "value": "12111919",
+          "verified": false
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    }
+  ],
+  "candidate_pmids_unverified": [
+    "12958120",
+    "12111919",
+    "22516953"
+  ],
+  "convergence_flags": [
+    {
+      "type": "alignment",
+      "description": "Higgins/Thompson 2003 thresholds (25/50/75%) consistently cited across Cochrane and methodological literature."
+    },
+    {
+      "type": "alignment",
+      "description": "Contemporary Cochrane guidance consistently deemphasizes threshold-based interpretation in favor of prediction intervals and integrated assessment."
+    },
+    {
+      "type": "gap",
+      "description": "Exact numerical I² cutpoints for 'substantial' and 'considerable' in the current Cochrane Handbook edition not confirmed numerically from chapter text; Cochrane avoids publishing fixed cutpoints in recent editions."
+    }
+  ],
+  "confidence_overall": "high",
+  "gaps": [
+    "Current Cochrane Handbook (6th ed.) deliberately avoids fixed numerical cutpoints for 'substantial' and 'considerable' I² categories; exact numbers not extractable from available text.",
+    "PMC3405079 PMID not confirmed (URL-referenced only; PMID 22516953 is a candidate).",
+    "Perplexity sonar-deep-research returned markdown prose instead of JSON; findings were manually extracted from prose. Schema was built by orchestrator (Claude Sonnet), not by Perplexity directly."
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: evidence-researcher
-description: "Pesquisa de evidencia via MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite, BioMCP) para 1 slide/tema."
+description: "Pesquisa de evidencia via MCPs academicos (PubMed, CrossRef, Semantic Scholar, Scite) para 1 slide/tema."
 tools:
   - Read
   - Grep
@@ -10,7 +10,6 @@ tools:
   - mcp:crossref
   - mcp:semantic-scholar
   - mcp:scite
-  - mcp:biomcp
   - Write
   - Edit
 mcpServers:
@@ -33,10 +32,6 @@ mcpServers:
   - scite:
       type: streamableHttp
       url: "https://api.scite.ai/mcp"
-  - biomcp:
-      type: stdio
-      command: uvx
-      args: ["--from", "biomcp-python", "biomcp", "run"]
 model: sonnet
 maxTurns: 35
 memory: project
@@ -56,7 +51,7 @@ color: red
 
 ## MCP Toolkit
 
-5 MCPs escopados (conectam automaticamente):
+4 MCPs escopados (conectam automaticamente):
 
 | MCP | Uso primario |
 |-----|-------------|
@@ -64,7 +59,6 @@ color: red
 | **crossref** | Verificacao DOI + citation metadata |
 | **semantic-scholar** | Busca semantica + author metrics |
 | **scite** | Analise de citacoes (supporting vs contradicting) |
-| **biomcp** | Clinical trials + farmacovigilancia |
 
 Fallback: claude.ai PubMed MCP (native). Scholar Gateway frozen S128. Consensus = marketing FLAG, usar com cautela.
 MCP down → reportar ao orchestrador e pular perna (KBP-08). NUNCA substituir por busca generica.
@@ -79,12 +73,23 @@ MCP down → reportar ao orchestrador e pular perna (KBP-08). NUNCA substituir p
 4. Ler design-reference.md §3 para regras de verificacao
 5. **Ficar dentro do escopo recebido.** Se recebeu "pesquise GRADE para s-grade", nao pesquisar heterogeneity.
 
+### Fase 1.5 — Bench mode (slide ainda nao existe)
+
+Trigger: orchestrator dispatch sem slide HTML pre-existente (S264 bench `splendid-munching-swing.md` Phase 2-3, slide `s-ma-types` em construcao).
+
+Adapt:
+1. SKIP Fase 1 file reads (slide HTML/evidence HTML/aula CLAUDE.md inexistentes — file-not-found cascade = stall observado S264.a).
+2. Receber `synthetic_context` inline do orchestrator prompt em vez de Read files.
+3. Single-Q only por dispatch (3-Q batch viola §ENFORCEMENT #2 "1 slide/tema por execucao"). 1 dispatch = 1 research question.
+4. Output path override: orchestrator especifica path em prompt; default `qa-screenshots/{slideId}/content-research.md` nao aplica (slide path inexistente).
+5. MCP cold-start: accept 30-60s primeiro spawn (npx install). Nao falhar watchdog antes desse budget.
+
 ### Fase 2 — Busca Multi-Fonte
 
 Para o slide/tema especificado, buscar em TODAS as MCPs disponiveis:
 
 **Guidelines:** PubMed `practice guideline[pt]` + WebFetch em fontes Tier 1 oficiais
-**RCTs:** PubMed `randomized controlled trial[pt]` + Consensus + BioMCP (ClinicalTrials.gov)
+**RCTs:** PubMed `randomized controlled trial[pt]` + Consensus
 **Meta-analises:** PubMed `meta-analysis[pt]` + Consensus
 **Autoridades:** Semantic Scholar (top authors) + WebSearch (textbooks, UpToDate)
 

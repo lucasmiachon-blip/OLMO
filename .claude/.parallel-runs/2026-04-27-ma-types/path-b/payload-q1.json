@@ -1,0 +1,15 @@
+{
+  "model": "sonar-deep-research",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a research assistant for a clinical EBM pipeline. Clinical domain focus: meta-analysis methodology, evidence-based medicine.\n\nREQUIREMENTS:\n- Use ONLY Tier 1 sources: NEJM, Lancet, JAMA, BMJ, Ann Intern Med, Cochrane\n- Cite PMIDs (numeric only, e.g., 12345678) for empirical findings\n- List ALL claimed PMIDs in candidate_pmids_unverified array\n- Output ONLY a JSON object with NO markdown wrapper, NO preamble\n\nSCHEMA:\n{\"schema_version\":\"1.0\",\"produced_at\":\"<ISO-8601>\",\"research_question_id\":\"Q1-design-primario-pathB\",\"research_question\":\"<verbatim>\",\"external_brain_used\":\"perplexity-sonar-deep-research\",\"codex_cli_version\":null,\"findings\":[{\"claim\":\"<1-2 sentences>\",\"supporting_sources\":[{\"type\":\"pmid\",\"value\":\"<PMID>\",\"verified\":false}],\"confidence\":\"high|medium|low\",\"convergence_signal\":\"alignment|divergence|novel\"}],\"candidate_pmids_unverified\":[\"<PMID>\"],\"convergence_flags\":[{\"type\":\"alignment|divergence|gap\",\"description\":\"<reason>\"}],\"confidence_overall\":\"high|medium|low\",\"gaps\":[\"<gap>\"]}"
+    },
+    {
+      "role": "user",
+      "content": "How do meta-analyses differ by primary study design: classic RCT vs cohort/observational vs diagnostic test accuracy (DTA)? Include statistical assumptions, design-specific RoB tools (RoB-2, Newcastle-Ottawa Scale, QUADAS-2), and seminal examples per category. Provide PMIDs from NEJM, Lancet, JAMA, BMJ, Ann Intern Med, or Cochrane only."
+    }
+  ],
+  "temperature": 0.2,
+  "max_tokens": 8000
+}

@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-27T21:50:00Z",
+  "research_question_id": "Q3-pairwise-vs-nma-pathB",
+  "research_question": "Pairwise MA vs Network MA (NMA): assumptions estat sticas (transitivity, consistency, similarity), framework CINeMA para confidence rating em NMA, exemplos cl nicos seminais onde NMA mudou recomenda  o vs pairwise, limita  es pr ticas (sparsity, intransitivity).",
+  "external_brain_used": "gemini-3.1-pro-preview + google_search",
+  "codex_cli_version": null,
+  "findings": [
+    {
+      "claim": "A NMA fundamenta-se em três premissas estatísticas essenciais que extrapolam a pairwise MA: similaridade (comparabilidade clínica e metodológica intra-estudos), transitividade (distribuição simétrica de modificadores de efeito entre comparações para validar vias indiretas) e consistência (concordância estatística entre estimativas diretas e indiretas em loops fechados).",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "34550592",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "23826681",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "O framework CINeMA (Confidence in Network Meta-Analysis) expande os preceitos do sistema GRADE para NMA, utilizando uma matriz de contribuição percentual para classificar a confiança das estimativas em seis domínios: viés intra-estudo, viés de publicação, indiretividade da evidência, imprecisão, heterogeneidade e incoerência.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "32243458",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "37131978",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Estudos empíricos (como avaliações de 'living NMAs') demonstram que NMAs alcançam significância estatística robusta para superioridade clínica substancialmente mais cedo do que MAs pairwise. Um exemplo seminal é a NMA de Cipriani avaliando a eficácia e aceitabilidade de 21 antidepressivos, que consolidou um ranking simultâneo influenciando as diretrizes práticas contemporâneas.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "29490922",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "29477251",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Praticamente, a NMA é limitada pela esparsidade das redes ('sparsity') — onde nós com conexões escassas geram credibilidade limitada e instabilidade no ranqueamento de intervenções —, e pela intransitividade, na qual desequilíbrios não observados em fatores modificadores de efeito distorcem as evidências indiretas.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "38234221",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "23826681",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    }
+  ],
+  "candidate_pmids_unverified": [
+    "23826681",
+    "29477251",
+    "29490922",
+    "32243458",
+    "34550592",
+    "37131978",
+    "38234221"
+  ],
+  "convergence_flags": [
+    {
+      "type": "alignment",
+      "description": "Forte consenso metodológico na literatura de EBM sobre as virtudes da NMA na antecipação de guidelines baseados em evidência vs pairwise, atrelado ao imperativo de mensurar os domínios de viés pelo CINeMA para atestar a validade dos 'indirect comparisons'."
+    },
+    {
+      "type": "alignment",
+      "description": "NCBI spot-check: all 7 PMIDs verified real (0 fabrications). Gemini output only listed 1 in candidate_pmids_unverified — enriched post-verification."
+    }
+  ],
+  "confidence_overall": "high",
+  "gaps": [
+    "A avaliação precisa e quantitativa da intransitividade sem dados individuais de pacientes (IPD) continua sendo o maior hiato metodológico, baseando-se muitas vezes na subjetividade clínica e na presunção não-testável do balanceamento dos modificadores de efeito."
+  ]
+}

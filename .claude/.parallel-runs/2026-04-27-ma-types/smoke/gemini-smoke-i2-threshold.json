@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-27T19:19:00Z",
+  "research_question_id": "smoke-i2-threshold",
+  "research_question": "What is heterogeneity I  threshold for substantial in meta-analysis interpretation? Cite Higgins/Thompson 2003 + Cochrane Handbook current thresholds (low/moderate/substantial/considerable).",
+  "external_brain_used": "gemini-3.1-pro-preview + google_search",
+  "codex_cli_version": null,
+  "findings": [
+    {
+      "claim": "The widely cited 2003 methodological paper by Higgins, Thompson, Deeks, and Altman introduced the I2 statistic and tentatively proposed thresholds of 25%, 50%, and 75% to characterize low, moderate, and high heterogeneity, respectively.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "12958120",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Modern EBM guidelines, including the current Cochrane Handbook for Systematic Reviews of Interventions, have transitioned to using overlapping ranges instead of strict cutoffs, officially defining 50% to 90% as the threshold that may represent 'substantial heterogeneity'.",
+      "supporting_sources": [
+        {
+          "type": "url",
+          "value": "https://training.cochrane.org/handbook/current/chapter-10",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "The current Cochrane Handbook maps the remaining I2 ranges as follows: 0% to 40% (might not be important), 30% to 60% (may represent moderate heterogeneity), and 75% to 100% (considerable heterogeneity), emphasizing that interpretations must consider the magnitude and direction of the intervention effects.",
+      "supporting_sources": [
+        {
+          "type": "url",
+          "value": "https://training.cochrane.org/handbook/current/chapter-10",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    }
+  ],
+  "candidate_pmids_unverified": [
+    "12958120"
+  ],
+  "convergence_flags": [
+    {
+      "type": "divergence",
+      "description": "While Higgins et al. (2003) originally proposed fixed, singular cutoffs (25/50/75), the Cochrane Handbook deliberately uses broad, overlapping ranges (e.g., 30-60% and 50-90%) to discourage rigid rule-of-thumb interpretations of I2."
+    },
+    {
+      "type": "alignment",
+      "description": "PMID 12958120 (Higgins/Thompson 2003) confirmed real via NCBI esummary: title=Measuring inconsistency in meta-analyses, PubDate=2003 Sep 6"
+    }
+  ],
+  "confidence_overall": "high",
+  "gaps": [
+    "Thresholds detailed are primarily for meta-analyses of standard clinical interventions; the evidence does not specify whether alternative thresholds are recommended for diagnostic test accuracy (DTA) or network meta-analyses."
+  ]
+}

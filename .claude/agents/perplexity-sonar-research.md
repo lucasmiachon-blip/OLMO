@@ -7,7 +7,7 @@ tools:
   - Grep
   - Glob
 model: sonnet
-maxTurns: 15
+maxTurns: 25
 effort: max
 color: purple
 memory: project

@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-27T18:30:50-03:00",
+  "research_question_id": "Q3-pairwise-vs-nma-pathA",
+  "research_question": "Pairwise MA vs Network MA (NMA): assumptions estatísticas (transitivity, consistency, similarity), framework CINeMA para confidence rating em NMA, exemplos clínicos seminais onde NMA mudou recomendação vs pairwise, limitações práticas (sparsity, intransitivity).",
+  "external_brain_used": "codex-cli + gpt-5.5 + xhigh",
+  "codex_cli_version": "0.125.0",
+  "findings": [
+    {
+      "claim": "Established framing: pairwise meta-analysis synthesizes direct evidence for one comparison, while NMA extends this to connected multi-intervention trial networks and estimates direct, indirect, and mixed comparisons. Its validity rests on transitivity/similarity of effect modifiers across comparisons and consistency/coherence between direct and indirect evidence.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "26062083",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "23826681",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "26062084",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "20213715",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Established framing: CINeMA operationalizes confidence rating for NMA estimates using six domains: within-study bias, reporting bias, indirectness, imprecision, heterogeneity, and incoherence, with contribution matrices used to judge which direct evidence informs each network estimate. Earlier GRADE-NMA work also stresses that confidence in a treatment ranking can differ from confidence in a specific pairwise effect estimate.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "32243458",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "37131978",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "24992266",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Paraphrase/synthesis: the clearest guideline-adjacent example is glaucoma, where cumulative NMA suggested prostaglandins could plausibly have been recommended as first-line earlier than the AAO guideline that later made this specific recommendation. A seminal antihypertensive NMA also concluded low-dose diuretics were the most effective first-line strategy and explicitly argued that clinical practice and guidelines should reflect this evidence.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "27088551",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "12759325",
+          "verified": true
+        }
+      ],
+      "confidence": "medium",
+      "convergence_signal": "novel"
+    },
+    {
+      "claim": "Paraphrase/synthesis: antidepressant and atrial fibrillation anticoagulant NMAs are strong examples of NMA changing the actionable evidence map by ranking multiple options and filling head-to-head gaps, but they are weaker examples of a formally proven guideline-change mechanism. In antidepressants, the 21-drug NMA ranked efficacy and acceptability across 522 trials; in AF, warfarin-controlled networks estimated comparative DOAC safety/efficacy where direct DOAC-vs-DOAC trials were absent.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "29477251",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "23734288",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "22912382",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "30896311",
+          "verified": true
+        }
+      ],
+      "confidence": "medium",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Established framing plus empirical limitation: sparse networks, few closed loops, and imbalanced effect modifiers limit NMA because inconsistency may be statistically untestable or underpowered even when transitivity is questionable. A 721-NMA survey found low conceptual attention to transitivity, and a glaucoma guideline case noted that estimates/rankings are unstable when comparisons are informed by few studies.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "24992266",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "38475826",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "27088551",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    }
+  ],
+  "candidate_pmids_unverified": [],
+  "convergence_flags": [
+    {
+      "type": "alignment",
+      "description": "Core assumptions and CINeMA domains align with the existing evidence excerpt."
+    },
+    {
+      "type": "gap",
+      "description": "Formal proof that NMA alone changed recommendations is stronger for guideline-adjacent cases such as glaucoma than for antidepressants or AF anticoagulants."
+    },
+    {
+      "type": "divergence",
+      "description": "The safer phrasing for antidepressants and AF is that NMA changed comparative ranking/actionability, not necessarily that it directly changed a guideline recommendation."
+    },
+    {
+      "type": "alignment",
+      "description": "NCBI spot-check 4/4 PMIDs verified: 26062083 (Salanti NMA methods), 32243458 (CINeMA), 12759325 (antihypertensive NMA Psaty), 29477251 (antidepressants 21-drug NMA Cipriani)"
+    }
+  ],
+  "confidence_overall": "medium",
+  "gaps": [
+    "Did not perform a full historical audit of guideline documents to prove causal recommendation changes attributable solely to NMA.",
+    "Could not quantify how often sparse networks or intransitivity change clinical decisions across all fields; available evidence supports this as a methodological risk rather than a single universal rate.",
+    "No NNTs were extracted because the question concerns comparative evidence-synthesis methodology and ranking assumptions, not a single intervention-outcome absolute effect."
+  ]
+}

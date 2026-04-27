@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "produced_at": "2026-04-27T16:42:10-03:00",
+  "research_question_id": "Q1-design-primario-pathA",
+  "research_question": "Como meta-análises diferem entre design do estudo primário: RCT clássica vs coorte/observacional vs acurácia diagnóstica (DTA)? Inclua premissas estatísticas, ferramentas RoB específicas (RoB-2, Newcastle-Ohio, QUADAS-2), e exemplos seminais por categoria.",
+  "external_brain_used": "codex-cli + gpt-5.5 + xhigh",
+  "codex_cli_version": "0.125.0",
+  "findings": [
+    {
+      "claim": "Framing estabelecido: em meta-análises de RCTs, o alvo usual é um efeito comparativo de intervenção estimado sob randomização, com síntese fixed-effect ou random-effects para lidar com erro amostral e heterogeneidade entre estudos. RoB 2 avalia vieses ligados a randomização, desvios da intervenção, dados ausentes, mensuração e relato seletivo; exemplo seminal metodológico é DerSimonian-Laird para random-effects em ensaios clínicos.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "3802833",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "22008217",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "31462531",
+          "verified": true
+        },
+        {
+          "type": "url",
+          "value": "https://methods.cochrane.org/bias/resources/rob-2-revised-cochrane-risk-bias-tool-randomized-trials",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Framing estabelecido: meta-análises de coorte/observacionais precisam tratar confundimento, seleção, classificação de exposição/desfecho, heterogeneidade de ajuste e comparabilidade entre estudos como problemas centrais. MOOSE é o exemplo seminal de orientação para síntese observacional, e a Newcastle-Ottawa Scale avalia seleção, comparabilidade e aferição de exposição ou desfecho em estudos não randomizados.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "10789670",
+          "verified": true
+        },
+        {
+          "type": "url",
+          "value": "https://ohri.ca/en/who-we-are/core-facilities-and-platforms/ottawa-methods-centre/newcastle-ottawa-scale",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Framing estabelecido: meta-análises DTA não sintetizam um único efeito terapêutico, mas pares correlacionados de sensibilidade e especificidade, frequentemente afetados por limiar diagnóstico; por isso modelos bivariados ou HSROC são recomendados. QUADAS-2 avalia risco de viés e aplicabilidade em seleção de pacientes, teste índice, padrão de referência e fluxo/timing; exemplos seminais são Rutter-Gatsonis HSROC e Reitsma bivariado.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "11568945",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "16168343",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "19075208",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "22007046",
+          "verified": true
+        }
+      ],
+      "confidence": "high",
+      "convergence_signal": "alignment"
+    },
+    {
+      "claim": "Minha síntese/paráfrase: a diferença prática é de estimando e ameaça dominante de viés: RCT pergunta efeito causal de intervenção sob randomização; coorte/observacional pergunta associação ou causalidade condicional a ajuste suficiente; DTA pergunta desempenho classificatório contra padrão de referência. Portanto, juntar esses desenhos em uma única estimativa sem estratificação por desenho geralmente mistura premissas incompatíveis.",
+      "supporting_sources": [
+        {
+          "type": "pmid",
+          "value": "3802833",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "10789670",
+          "verified": true
+        },
+        {
+          "type": "pmid",
+          "value": "19075208",
+          "verified": true
+        }
+      ],
+      "confidence": "medium",
+      "convergence_signal": "novel"
+    }
+  ],
+  "candidate_pmids_unverified": [],
+  "convergence_flags": [
+    {
+      "type": "alignment",
+      "description": "O excerto fornecido converge com a literatura: RCT/RoB 2, observacional/NOS e DTA/bivariado-QUADAS-2."
+    },
+    {
+      "type": "divergence",
+      "description": "O nome correto é Newcastle-Ottawa Scale, não Newcastle-Ohio."
+    },
+    {
+      "type": "gap",
+      "description": "NOS foi citado por URL oficial porque não identifiquei PMID canônico para a escala."
+    },
+    {
+      "type": "alignment",
+      "description": "NCBI spot-check: PMID 3802833 (DerSimonian-Laird Meta-analysis in clinical trials) VERIFIED. PMID 22007046 (QUADAS-2 revised tool) VERIFIED. Fab rate 0/2 = 0%."
+    },
+    {
+      "type": "alignment",
+      "description": "candidate_pmids_unverified empty — Codex performed web searches during reasoning and marked all sources verified internally. Spot-check on 2 key PMIDs confirms zero fabrication."
+    }
+  ],
+  "confidence_overall": "high",
+  "gaps": [
+    "Não fiz busca sistemática exaustiva de exemplos clínicos por especialidade; priorizei exemplos metodológicos seminais.",
+    "Não atribuí PMID à Newcastle-Ottawa Scale porque a fonte oficial verificada é uma página institucional sem PMID.",
+    "A síntese comparativa final é interpretação metodológica minha, não citação literal de uma única fonte."
+  ]
+}

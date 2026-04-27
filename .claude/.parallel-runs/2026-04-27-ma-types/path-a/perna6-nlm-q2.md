@@ -1,0 +1,121 @@
+{
+  "value": {
+    "answer": "Excelente pergunta para elevar o n\u00edvel da discuss\u00e3o com os residentes. A transi\u00e7\u00e3o da metan\u00e1lise tradicional (Aggregate Data - AD) para a **Metan\u00e1lise de Dados Individuais do Paciente (IPD-MA)** representa o \"padr\u00e3o-ouro\" da s\u00edntese de evid\u00eancias [1, 2]. \n\nEnquanto a metan\u00e1lise cl\u00e1ssica coleta o dado resumido j\u00e1 mastigado e publicado no artigo (as m\u00e9dias ou os riscos relativos globais), a IPD-MA vai direto \u00e0 fonte: os pesquisadores entram em contato com os autores originais e solicitam a **planilha de dados brutos, paciente por paciente**, de cada ensaio cl\u00ednico [1].\n\nAqui est\u00e1 como voc\u00ea pode estruturar essa diferen\u00e7a para os residentes, focando na utilidade cl\u00ednica e nos custos envolvidos:\n\n### 1. Quando o IPD \u00e9 estritamente necess\u00e1rio?\nA literatura define que a IPD-MA deixa de ser um \"luxo\" e passa a ser uma necessidade metodol\u00f3gica nos seguintes cen\u00e1rios:\n\n*   **Medicina de Precis\u00e3o (Modificadores de Efeito em Subgrupos):** Se voc\u00ea quer saber se um tratamento funciona melhor em mulheres do que em homens, ou em pacientes graves versus leves, a metan\u00e1lise agregada \u00e9 p\u00e9ssima, pois ela sofre do \"vi\u00e9s de agrega\u00e7\u00e3o\" (fal\u00e1cia ecol\u00f3gica) ao tentar cruzar m\u00e9dias do estudo com resultados [3, 4]. A IPD-MA permite testar intera\u00e7\u00f5es no n\u00edvel do indiv\u00edduo, revelando quem realmente se beneficia da interven\u00e7\u00e3o [5, 6].\n*   **Desfechos de Sobreviv\u00eancia (Time-to-Event):** Dados de tempo at\u00e9 o evento (como curvas de Kaplan-Meier) s\u00e3o notoriamente mal relatados ou relatados de formas incompat\u00edveis nos artigos originais [7]. Com o IPD, o revisor recalcula a sobreviv\u00eancia de todos os pacientes do zero, usando o mesmo modelo estat\u00edstico [8].\n*   **Padroniza\u00e7\u00e3o e Corre\u00e7\u00e3o de Vi\u00e9s (O Verdadeiro *Intention-to-Treat*):** Autores de estudos prim\u00e1rios frequentemente excluem pacientes da an\u00e1lise final ou usam defini\u00e7\u00f5es de desfecho diferentes [9, 10]. Com os dados brutos, o revisor pode incluir os pacientes ignorados, aplicar a mesma defini\u00e7\u00e3o de doen\u00e7a para todos os estudos (como foi feito na revis\u00e3o PARIS sobre pr\u00e9-ecl\u00e2mpsia) e rodar modelos ajustados id\u00eanticos para todos, o que \u00e9 vital principalmente ao combinar estudos observacionais [11-13].\n\n### 2. O Custo e os Desafios (O \"Pre\u00e7o\" do Padr\u00e3o-Ouro)\nSe a IPD-MA \u00e9 t\u00e3o superior, por que n\u00e3o fazemos isso sempre? A resposta \u00e9 o alt\u00edssimo custo em tempo, recursos e diplomacia:\n*   **A \"Via Cr\u00facis\" Burocr\u00e1tica:** Depende da boa vontade dos autores prim\u00e1rios em compartilhar seus dados (o que muitas vezes n\u00e3o ocorre porque os dados foram perdidos ou por quest\u00f5es de sigilo comercial/propriedade) [2]. Exige contratos formais de compartilhamento de dados e aprova\u00e7\u00f5es de comit\u00eas de \u00e9tica em v\u00e1rios pa\u00edses [14, 15].\n*   **Trabalho Bra\u00e7al e Tempo:** Limpar, checar erros e harmonizar planilhas codificadas de formas completamente diferentes por equipes diferentes ao redor do mundo \u00e9 exaustivo [15]. A literatura cita que, em um projeto espec\u00edfico de IPD, apenas a checagem, valida\u00e7\u00e3o e padroniza\u00e7\u00e3o dos dados brutos levou **quase dois anos de trabalho** cont\u00ednuo e custoso [16].\n\n### 3. Exemplos Pr\u00e1ticos: Quando o IPD mudou a conclus\u00e3o\nPara ilustrar aos residentes como depender apenas dos dados agregados publicados pode levar a condutas erradas, voc\u00ea pode citar estes exemplos da literatura:\n\n*   **O Caso do Fator Progn\u00f3stico no C\u00e2ncer de Pulm\u00e3o (Trivella et al.):** \n    *   *O Cen\u00e1rio Agregado:* Estudos individuais e metan\u00e1lises cl\u00e1ssicas (agregadas) haviam conclu\u00eddo que a densidade de microvasos era um fator progn\u00f3stico significativo para morte em pacientes com c\u00e2ncer de pulm\u00e3o de n\u00e3o-pequenas c\u00e9lulas [17]. \n    *   *O Resultado do IPD:* Esses estudos originais estavam enviesados porque os autores \"ca\u00e7avam\" pontos de corte \u00f3timos e escolhiam quais vari\u00e1veis de ajuste relatar. Quando a equipe de Trivella reuniu os dados individuais de 13 estudos (publicados e n\u00e3o publicados) e aplicou ajustes rigorosos e consistentes para todos, eles provaram que a densidade de microvasos **n\u00e3o era** um fator progn\u00f3stico adicional, mudando completamente a conclus\u00e3o e o consenso pr\u00e9vio [16, 17].\n*   **O Caso da Efic\u00e1cia Analg\u00e9sica Oculta/Inconsistente (Mayo-Wilson et al.):**\n    *   *O Cen\u00e1rio Agregado:* Pesquisadores demonstraram que, dependendo de qual fonte de dados agregados voc\u00ea usasse (artigos de revistas m\u00e9dicas x resumos de congressos), o resultado mudava [18].\n    *   *O Resultado do IPD:* Ao obter os dados individuais dos participantes e cruzar com os relat\u00f3rios regulat\u00f3rios, a conclus\u00e3o sobre a efic\u00e1cia de um agente para al\u00edvio da dor mudava drasticamente: ele parecia eficaz em alguns cen\u00e1rios (publicados) e ineficaz em outros (quando os dados reais completos foram revelados), evidenciando o impacto brutal do vi\u00e9s de relato seletivo [18].\n\n**Como fechar este ponto na aula:**\nDiga aos residentes: *\"Ler uma metan\u00e1lise cl\u00e1ssica \u00e9 confiar no resumo que os autores do estudo prim\u00e1rio decidiram publicar. Ler uma IPD-MA \u00e9 auditar as planilhas originais de todos eles. O IPD-MA n\u00e3o \u00e9 necess\u00e1rio para responder se a aspirina funciona em m\u00e9dia, mas \u00e9 a \u00fanica ferramenta confi\u00e1vel se voc\u00eas quiserem provar que a aspirina funciona melhor em diab\u00e9ticos graves do que em hipertensos leves.\"*",
+    "conversation_id": "6d9f928d-1bcf-449e-b980-4da6cccbc5e1",
+    "sources_used": [
+      "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc"
+    ],
+    "citations": {
+      "1": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "2": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "3": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "4": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "5": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "6": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "7": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "8": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "9": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "10": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "11": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "12": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "13": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "14": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "15": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "16": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "17": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+      "18": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc"
+    },
+    "references": [
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 1,
+        "cited_text": "Individual Participant Data Meta- Analysis Mark C. Simmonds and Lesley A. Stewart Most systematic reviews analyze summary data from published reports of primary studies, extracting effect estimates and combining them across studies. An alternative and increasingly used approach (Figure\u00a012.1) is to seek original datasets for each eli-gible study and base meta- analysis on the assembled individual participant data (IPD). IPD meta- analyses have been done in many health care fields, although reviews of oncology and cardiovascular medicine predominate\u00a0[1]. While most IPD analyses are of randomized trials, the approach is gaining popularity for meta- analyses of observa-tional evidence."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 2,
+        "cited_text": "For all the above reasons and more, an IPD meta- analysis is taken to be the gold standard for meta- analysis\u00a0[6, 7]. 12.1.5\u2003 Challenges\u2003in\u00a0Using\u2003Individual\u2003Participant\u2003Data Despite the advantages, using IPD in meta- analysis poses challenges. IPD meta- analysis is strongly dependent on the availability of data from the studies, which will usually require study investigators to share their data. IPD may not be available for all studies, either because authors do not share data or because the data are no longer available. Considerable effort is be needed to manage and prepare IPD for analysis. The quantity of data is often large, and data may be provided in very different formats. Statistical analysis of IPD is also generally more complex than a conventional meta- analysis."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 3,
+        "cited_text": "10.5.2\u2003 Aggregating\u2003Participant-\u2003Level\u2003Predictor\u2003Variables\u2003at\u2003 the\u00a0Study\u2003Level Subgroup analysis or meta- regression that uses averages of participant characteris-tics in each study (such as the average age of all the participants) can give misleading results. It is tempting to interpret the relationship between average age and effect size as if it applies to individual participants. This may, however, not be the case because of aggregation bias (sometimes called the \u201cecological fallacy\u201d)\u00a0[33]. Aggregation bias can"
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 4,
+        "cited_text": "Exploring Heterogeneity 199 arise when aggregate data for a group are used to make inferences about individuals. For example, suppose that all studies had the same average age. In that case, any age dependence of an intervention effect will be missed, yielding a coefficient of zero in the regression analysis and the impression that age might not be important. Evidence about the modifying effect of a participant- level characteristic is most robust when the characteristic varies substantially within studies, and the individual (within- study) data are available to the meta- analyst. Study characteristics that vary between studies only can be assessed at the study level and are more prone to con-founding by other study- level factors."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 5,
+        "cited_text": "12.1.4\u2003 Ability\u2003to\u00a0Examine\u2003Individual-\u2003Level\u2003Characteristics IPD datasets will generally contain demographic information such as age, sex, health condition, previous health care, and possibly socioeconomic variables for each partic-ipant. This allows investigation of how such participant- level covariates might affect the impact of the intervention, exposure, or test under investigation. This ability to answer research questions about individual- level effect modification in ways that are typically not possible from aggregate data is a key advantage of IPD meta- analysis, and is often the main scientific reason for seeking IPD."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 6,
+        "cited_text": "12.4\u2003 GOING\u2003BEYOND\u2003ESTIMATING\u2003THE\u00a0SUMMARY\u2003EFFECT The IPD meta- analysis methods described so far have estimated overall effects such as an overall odds ratio for the effect of treatment versus control on a particular outcome. Most IPD analyses aim to do more than this and investigate the situations in which treatment effects are larger or smaller. Further analyses may therefore investigate how characteristics such as participant age or drug dose modify the effectiveness of a treatment. Investigating whether particular types of people benefit more or less from an intervention is important in \u201cprecision medicine\u201d\u00a0[27]. IPD are particularly useful for this, because data on individual- level covariates are generally not available from publications. When investigating the effect of covariates, it is helpful to distinguish between two categories of covariate:"
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 7,
+        "cited_text": "Time- to- event outcome data cannot conveniently be summarized using simple statistics like counts or means from each group. Results may be presented in several ways, including Kaplan\u2013Meier curves, statistics from log- rank tests, and effect esti-mates from proportional hazards models. Although various methods are available for extracting consistent results and converting approximately between them, the results of such different analyses cannot be easily combined in a meta- analysis\u00a0[3\u20135]. Thus obtaining and analyzing IPD can be particularly useful for reviews with important time- to- event outcomes."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 8,
+        "cited_text": "12.3.3\u2003 Time-\u2003to-\u2003Event\u2003Analysis Many IPD meta- analyses have been performed on time- to- event outcomes using survival analysis techniques\u00a0 [21]. Survival analysis relies on knowing the timing of each event, not just how many events occurred in each group. As we have mentioned, the data required for these analyses are not generally available in publications, which means that there are considerable advantages of collecting IPD. Both two- stage and one- stage approaches to meta- analysis of survival data are possible. A commonly used two- stage approach is to perform a log- rank test within each study. Briefly, this consists of calculating the difference between the observed and expected numbers of events along with its variance at a set of times, usually each"
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 9,
+        "cited_text": "Benefits\u2003 of\u2003 collaborating\u2003 with\u2003 primary\u2003 investigators\u2003 in\u2003 the\u2003 conduct\u2003 of\u2003 the\u2003review Better identification of studies More balanced interpretation of the results of the review 222 Systematic Reviews in Health Research 12.1\u2003 ADVANTAGES\u2003AND\u00a0CHALLENGES\u2003OF\u00a0COLLECTING\u2003 INDIVIDUAL PARTICIPANT DATA 12.1.1\u2003 Access\u2003to\u00a0Additional\u2003Outcome\u2003Data A particular benefit of the IPD approach is that data not presented in publications can be collected and analyzed. This may include data from unpublished studies, unpub-lished long- term follow- up data, and outcomes or timepoints not reported in publi-cations, as well as data not reported in a suitable format for meta- analysis. It may also be possible to obtain data from participants who were excluded from the original study analyses. These additional data can help to reduce the impact of publication and reporting biases."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 10,
+        "cited_text": "12.1.2\u2003 Data\u2003in\u00a0a\u2003Consistent\u2003and\u00a0Usable\u2003Format An important obstacle to undertaking meta- analyses using published data is that results are often presented in different ways: one study might report a risk ratio, another only an odds ratio, and a third only that a comparison was not statistically significant. Access to the participant- level data would allow any of these results to be computed from each study. Similarly, if an outcome measure has been defined using different cutpoints across the studies, or by taking different components of a measurement scale, or by combining outcomes into different composite outcomes, then IPD may enable the original data to be re- coded to a common measurement scale."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 11,
+        "cited_text": "12.1.3\u2003 More\u2003Choice\u2003of\u00a0Analysis\u2003Options Provision of IPD enables standardization of data, and results may be combined across studies in ways they otherwise could not. IPD enable re- analysis of the data to include updated results, to perform intention- to- treat analysis, to analyze time- to- event data, and to correct flawed original study analyses. Access to IPD also permits much more flexible and powerful analyses than are possible using summary data, such as applica-tion of methods to account for missing outcome data (see also Chapter\u00a011)."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 12,
+        "cited_text": "12.3.1.1\u2003 Example:\u2003The\u00a0PARIS\u2003Review\u2003(Part\u20031) The Perinatal Antiplatelet Review of International Studies (PARIS) review was a collaborative systematic review and IPD meta- analysis of 31 randomized, placebo- controlled trials investigating the use of antiplatelets to prevent pre- eclampsia and associated outcomes in pregnancy\u00a0[15]. The use of IPD afforded a number of benefits, among them a consistent definition of pre- eclampsia across the IPD (in contrast to publications that had used a variety of definitions). IPD were included from unpub-lished trials and provided updated or more complete data from some of the trials. The IPD also contained results for more outcomes than had been reported in publications, and allowed a range of subgroup analyses to explore whether some women and their infants benefited more from antiplatelets than others."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 13,
+        "cited_text": "12.5\u2003 INDIVIDUAL\u2003PARTICIPANT\u2003DATA\u2003META-\u2003ANALYSIS\u2003 OF\u00a0OBSERVATIONAL\u2003STUDIES The examples cited so far in this chapter have all been analyses of randomized trials. The use of IPD is growing in importance in meta- analyses of observational studies in health care, such as cohort and case\u2013control studies. Because of the lack of ran-domization in observational data, adjustments for potentially confounding factors are usually important to avoid biased results. Unfortunately, publications may not present suitably adjusted results, or the choice of adjustments may vary across studies. We also may be interested in the effects of multiple covariates on an outcome, not just a single treatment, and details of such multivariate analyses are rarely presented in publica-tions. Obtaining the IPD can solve both these problems by allowing the reviewer to fit fully adjusted multivariate models (see also Chapters 17 and 18)."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 14,
+        "cited_text": "A series of additional preparatory steps is usually required for IPD meta- analysis projects. Although full ethics approval may not be required for the IPD review, this should be investigated and clarified. This is important, since confirmation of ethical clearance may be needed before study investigators can gain approval from local ethics committees, institutional review boards, or managers to release IPD. Data protection and security regulations should also be checked to ensure compliance. Formal data- sharing agreements are used increasingly and having these ready as part of negotiating collaboration and provision of data is advisable, as is having prepared a detailed data dictionary that sets out the participant- level data items that the review seeks to collect. Most IPD reviews will require dedicated funding and a research team with appropriate skills and experience will need to be in place\u00a0[9]."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 15,
+        "cited_text": "IPD may be medically or commercially sensitive, and this must be considered when obtaining and handling the data for the review. In general, data should be requested to be supplied without names or identifying numbers. A data- sharing agreement that sets out the details of safe data storage and ensures that the limited number of researchers with access to the data will refrain from any attempt to re- identify individuals may be helpful. 12.2.3\u2003 Checking\u2003and\u00a0Cleaning\u2003the\u00a0Data Once data are obtained they will generally need to be harmonized, since different studies will provide data in different formats and will have coded their data differ-ently. Although trial investigators are often willing to re- code data to a specified meta- analysis format, it is likely that considerable data manipulation and transformation will be needed to convert the data received into a consistent format across all studies ready for the meta- analysis. Discussion with the study authors is usually necessary to clarify any areas of uncertainty around what the data contain and how they are coded. Data should also be checked to identify any omissions and possible errors. This could include checking for simple coding errors, checking clinical plausibility of the data, and comparing data with publications."
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 16,
+        "cited_text": "is not an additional prognostic factor for death, a conclusion different from that of previous single studies and meta- analyses based on published aggregate data with adjustment for fewer factors, which were also likely biased by the use of optimal cut points. Researchers taking the IPD approach face many challenges\u00a0[77], such as greater costs and time required to obtain and clean IPD, unavailable IPD for some studies, dif-ferent sets of available prognostic (adjustment) factors in each study, and variability in study methods of measurement. For example, for the Trivella et\u00a0al. review, \u201cchecking, validation and standardization of all datasets took nearly two years\u201d and \u201cfor all but three centres some data corrections were necessary,\u201d making it altogether \u201ca long, expensive, and rather laborious process\u201d\u00a0[79]. Furthermore, obtaining IPD does not necessarily make the quality of the original studies any better: there still needs to be improvement in primary studies and harmonization across new research in terms of design, methods, and data collection. Ideally, a prospective approach to IPD meta- analysis of prognostic factor studies is required\u00a0[80]. More detailed discussion about IPD meta- analysis projects for prognosis and prediction research is provided by Riley et\u00a0al.\u00a0[8, 74]"
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 17,
+        "cited_text": "As described by Abo- Zaid et\u00a0 al.\u00a0 [77], IPD meta- analyses of prognosis studies are becoming increasingly common in the medical literature. The work of Trivella et\u00a0 al.\u00a0 [78] is notable in this context. They performed an IPD meta- analysis of 13 studies in non- small cell lung cancer, to examine the prognostic value of microves-sel density. By obtaining IPD from published and unpublished studies, with con-sistent adjustment factors in each study, the authors show that microvessel density Systematic Reviews of Prognostic Factor Studies 341"
+      },
+      {
+        "source_id": "96ca5d5f-f3f5-4d69-b3f9-63938684ffcc",
+        "citation_number": 18,
+        "cited_text": "Many studies have shown that including results from sources other than journal articles can influence the magnitude or precision of meta- analytic effects\u00a0[32\u201335]. For example, Mayo- Wilson et\u00a0 al. found that depending on whether the study data source was a journal article, conference abstract, regulatory document, or individual participant dataset, they were able to produce a meta- analytic result showing that an agent was effective for pain relief in some instances and ineffective in others\u00a0[36], which shows how valuable it can be to search beyond standard bib-liographic databases."
+      }
+    ]
+  }
+}
