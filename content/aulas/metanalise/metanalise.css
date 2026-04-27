@@ -344,16 +344,27 @@ section#s-quality {
   --term-certainty-tint: oklch(96% 0.025 265);
 }
 
-/* slide-inner scoped (S262 Lucas fix): 4-row grid mantém dissociação visível no rodapé.
-   h2 (auto) / term-grid (1fr — absorve residual) / dissoc (auto) / source-tag (auto).
-   min-block-size 100% garante grid preenche viewport mesmo com flex parent;
-   align-content: start empurra excesso pra baixo se conteúdo sobrar. */
+/* slide-inner scoped (S264 Phase A): 3-row grid (h2 / wrapper / source-tag).
+   Wrapper .term-content-block (1fr auto) clampa term-grid + fixa dissociation no rodapé,
+   resolvendo overflow vertical com cards GSAP-expandidos (Issue #1).
+   min-block-size 100% garante grid preenche viewport mesmo com flex parent. */
 section#s-quality .slide-inner {
   display: grid;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto 1fr auto;
   gap: var(--space-md);
   block-size: 100%;
   max-block-size: 100%;
+  overflow: hidden;
+}
+
+/* term-content-block (S264 Phase A): nested 2-row grid clampando term-grid (1fr) +
+   term-dissociation (auto). min-height: 0 + overflow: hidden permite que 1fr
+   shrinka até zero se necessário, prevenindo dissociation clipped. */
+section#s-quality .term-content-block {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: var(--space-md);
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -364,6 +375,8 @@ section#s-quality .term-grid {
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
   align-content: start;
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* Card — top border accent encodes constructo, shared-v2 surface tokens.
@@ -376,8 +389,8 @@ section#s-quality .term-card {
   gap: var(--space-sm);
   padding: var(--space-md);
   border-top: 4px solid var(--term-accent);
-  border-inline: 1px solid color-mix(in oklch, var(--v2-border-hair) 60%, transparent);
-  border-block-end: 1px solid color-mix(in oklch, var(--v2-border-hair) 60%, transparent);
+  border-inline: 1px solid color-mix(in oklch, var(--v2-border-hair) 80%, transparent);
+  border-block-end: 1px solid color-mix(in oklch, var(--v2-border-hair) 80%, transparent);
   background: color-mix(in oklch, var(--v2-surface-panel) 88%, transparent);
   backdrop-filter: blur(12px) saturate(120%);
   -webkit-backdrop-filter: blur(12px) saturate(120%);
@@ -426,15 +439,17 @@ section#s-quality .term-row {
 .stage-bad section#s-quality .term-row { opacity: 1; }
 @media print { section#s-quality .term-row { opacity: 1; } }
 
-/* Label — uppercase mono. Lucas S262: subido de --v2-text-muted (60%) para --v2-text-body (52%)
-   pra ganhar contraste em projetor 10m sem competir com term-content (--v2-text-emphasis). */
+/* Label — uppercase mono. Iteração S262→S264:
+   S262 subiu --v2-text-muted (60%) → --v2-text-body (52%) sem competir com term-content (--v2-text-emphasis).
+   S264 quick win pós-screenshot: subido novamente para --v2-text-emphasis (legibility projetor 10m).
+   Mono+caps+letter-spacing 0.08em já dão differentiation semantic vs term-content (mesmo color). */
 section#s-quality .term-label {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--v2-text-body);
+  color: var(--v2-text-emphasis);
 }
 
 /* Content — body text, primary color */
@@ -526,7 +541,7 @@ section#s-quality .term-chip {
   padding-block: 0.18rem;
   padding-inline: 0.6rem;
   border-radius: 999px;
-  background: color-mix(in oklch, var(--term-accent) 18%, transparent);
+  background: color-mix(in oklch, var(--term-accent) 30%, transparent);
   color: var(--term-accent);
   white-space: nowrap;
   height: fit-content;
