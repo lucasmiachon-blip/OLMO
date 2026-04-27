@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 259 — 2026-04-26 (heterogeneity-evolve — ROB2 restoration from OLMO_GENESIS, 1 commit)
+
+### Phase C0 — ROB2 regression fix
+
+- **`<sha>` fix(metanalise): restore ROB2 from OLMO_GENESIS — Tol palette + subgrid + :has() + white card** `[~150 li, 2 files]` — HTML: theme-dark + .rob2-bar-track wrappers + source-tag removed. CSS: bg #162032 + token text-* on-dark + Tol palette `var(--data-1/5/7/2)` para kappa (color-blind safe published) + white card .rob2-figure (replace mix-blend-mode multiply) + `:has()` edge bleed (replace MutationObserver) + subgrid em .rob2-bar (alinha siblings rows) + .kappa-stats max-content (fix ch-context bug). rgba()→oklch().
+
+### Aprendizados (S259, 5 li)
+
+- **OLMO_GENESIS fork** (`d8c37f9`) preserva high-water mark perdido em main — use como reference quando regrediu.
+- **`:has()` (Chrome 117+)** substitui MutationObserver per-slide para edge bleed em `theme-dark` slides.
+- **Subgrid** alinha sibling rows compartilhando colunas do parent — solução p/ column-mismatch entre grids independentes.
+- **Paul Tol palette** (`--data-*` em `shared/css/base.css:79-91`) é o standard published; literais oklch inventados = chuta cores. **KBP-43 candidate** "Chutar cores literais quando design tokens published existem".
+- **`ch` em CSS é relativo ao font-size do CONTAINER** — filho com font-size maior overflowa. Use `max-content` + `tabular-nums` em vez de `min-width: Nch`.
+
+---
+
 ## Sessao 258 — 2026-04-26 (hookscont — Phase A debug-team smoke 7/7 + Phase C/D hooks runtime audit + improvements ~13 commits)
 
 > Lucas frame inicial: "entre em plan leia o handoff e outros planos por ele referenciado crie um plano que inclua os outros plano e depois os mover para nao acular ruido" → "vai pelo profissional que recomendar com justificativa"

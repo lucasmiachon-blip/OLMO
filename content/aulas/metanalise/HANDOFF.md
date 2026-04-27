@@ -19,6 +19,8 @@
 
 > **S240 em progresso:** Retomo QA + shared-v2 gradual. C1 `2a17744` shared-bridge.css (8 tokens v2 opt-in). C2 s-etd modernizado (subgrid + :has() + logical props — fix H1 border-left asymmetry + H2 1fr drift). Pendente: C3 split s-etd → novo slide s-aplicabilidade (CYP2C19 + NICE gap), C4 evidence/s-aplicabilidade.html, C5 s-heterogeneity CSS moderno. Manifest real = 17 slides (S207) — HANDOFF abaixo desatualizado desde S162.
 
+> **S259 (heterogeneity-evolve):** Phase C0 ROB2 restoration from OLMO_GENESIS (regression fix). Restored: theme-dark + .rob2-bar-track wrapper + .rob2-figure white card. Modernizado: :has() edge bleed (replace MutationObserver), subgrid bars (alignment shared), .kappa-stats grid + tabular-nums (column-mismatch bug). Palette: oklch literais inventados → Paul Tol Bright tokens (--data-1/5/7/2 em shared/css/base.css:79-91, color-blind safe scientific viz standard). Files: `slides/08c-rob2.html` + `metanalise.css`. Pendente S260+: s-heterogeneity refactor (Phase C1) + s-fixed-random (Phase C2) + evidence expansion (Phase D).
+
 ## Ordem do deck (atualizada S157)
 
 ```

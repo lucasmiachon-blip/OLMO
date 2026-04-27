@@ -1336,11 +1336,34 @@ section#s-forest2 .forest-zone--rob .forest-label-tag {
    Grid: hero left (spans 3 rows) + stacked data rail right
    S182: restructured from 2×2 symmetric → hero-dominant asymmetric
    ═══════════════════════════════════════════════════════ */
+/* S259 modern edge-bleed fix — universal CSS-only via :has().
+   Replaces per-slide MutationObserver workaround (s-etd ainda usa; migração gradual).
+   Aplica a qualquer .theme-dark slide ativo dentro de stage-c (light bg padrão). */
+body.stage-c:has(section.theme-dark.slide-active) {
+  background-color: #162032;
+}
+
 section#s-rob2 {
-  --kappa-d1: oklch(0.45 0.06 255);
-  --kappa-d4: oklch(0.55 0.05 255);
-  --kappa-d3: oklch(0.62 0.04 255);
-  --kappa-d2: oklch(0.50 0.12 15);
+  /* S259 restored from GENESIS: background-color = edge bleed defense in fullscreen scaling.
+     Token overrides + semantic kappa (safe/warning/danger) for inter-rater concordance bars. */
+  background-color: #162032;
+
+  /* Dark-mode token overrides (slide-scoped) */
+  --text-primary: var(--text-inverse, #ffffff);
+  --text-secondary: oklch(0.85 0.02 258);
+  --text-muted: oklch(0.70 0.02 258);
+  --term: oklch(0.85 0.10 258);
+
+  /* Kappa concordance — Paul Tol Bright palette (TU Delft 2018, scientific viz standard).
+     Color-blind safe + contraste adequado em theme-dark. Tokens publicados em
+     shared/css/base.css:79-91 (precedente: cirrose.css:85-91 redeclara mesmos).
+     S259 — substitui mix com text-on-dark (lavou em navy bg, "chutado").
+     Mapping concordance: best→mid→weak via blue→light cyan→gray (fading interest);
+     worst destacado via warm red outlier — visual e color-blind distinguíveis. */
+  --kappa-d1: var(--data-1);  /* #4477AA blue — best κ=0,45 */
+  --kappa-d4: var(--data-5);  /* #66CCEE light cyan — mid κ=0,28 */
+  --kappa-d3: var(--data-7);  /* #BBBBBB gray — weak κ=0,22 */
+  --kappa-d2: var(--data-2);  /* #EE6677 warm red — worst κ=0,04 (outlier) */
 }
 
 section#s-rob2 .slide-inner {
@@ -1353,6 +1376,8 @@ section#s-rob2 .slide-inner {
     "footer  footer";
   grid-template-columns: 7fr 5fr;
   grid-template-rows: auto auto 1fr auto auto;
+  /* gap: 6px literal é tuning Lucas — 5-row grid + RoB table + kappa bars + alts + source
+     em canvas 1280x720 fixo. Aumentar para tokens (xl/2xl) causa overflow vertical (S259). */
   gap: 6px var(--space-md);
   height: 100%;
 }
@@ -1368,12 +1393,20 @@ section#s-rob2 .slide-headline {
   margin-bottom: var(--space-sm);
 }
 
-/* --- Hero: RoB 2 traffic-light crop --- */
+/* --- Hero: RoB 2 traffic-light crop ---
+   S259 white card (GENESIS pattern) — replaces mix-blend-mode multiply (frágil,
+   contexto-dependente). Card é portable, PDF-clean, blend-mode-independent.
+   rgba()→oklch() para aderência design-reference §Color. */
 section#s-rob2 .rob2-figure {
   grid-area: hero;
-  min-height: 0;
+  align-self: start;
   display: flex;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-surface, #ffffff);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: 0 4px 24px oklch(0 0 0 / 0.4);
   opacity: 0;
   will-change: opacity, transform;
 }
@@ -1384,7 +1417,6 @@ section#s-rob2 .rob2-figure img {
   max-height: 100%;
   object-fit: contain;
   object-position: center top;
-  mix-blend-mode: multiply;
 }
 
 /* --- Click 1: Domain table (D1-D5) --- */
@@ -1431,13 +1463,23 @@ section#s-rob2 .rob2-rule {
   opacity: 0;
 }
 
-/* --- Click 2: Kappa concordance bars --- */
+/* --- Click 2: Kappa concordance bars ---
+   S259 — align-self: start sobe o conteudo para o topo do grid cell.
+   display: grid + grid-template-columns: 3ch 1fr auto cria UMA fonte de verdade
+   para colunas; bars usam subgrid (linha ~1485) e header/note span via
+   grid-column: 1 / -1 (regra abaixo). Resolve column-mismatch bug entre rows. */
 section#s-rob2 .rob2-kappa {
   grid-area: kappa;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  justify-content: center;
+  align-self: start;
+  display: grid;
+  grid-template-columns: 3ch 1fr auto;
+  row-gap: 4px;
+  column-gap: var(--space-md);
+}
+
+section#s-rob2 .rob2-kappa-header,
+section#s-rob2 .rob2-kappa-note {
+  grid-column: 1 / -1;
 }
 
 section#s-rob2 .rob2-kappa-header {
@@ -1447,13 +1489,15 @@ section#s-rob2 .rob2-kappa-header {
   opacity: 0;
 }
 
+/* S259 — subgrid herda colunas do parent .rob2-kappa, garantindo todos
+   os 4 .rob2-bar siblings compartilham as mesmas column boundaries
+   (label X, track X, stats X). Pattern idêntico a s-etd .etd-row:1043. */
 section#s-rob2 .rob2-bar {
   display: grid;
-  grid-template-columns: 2.5ch minmax(10rem, 1fr) max-content;
-  align-items: baseline;
-  gap: var(--space-sm);
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  align-items: center;
   opacity: 0;
-
 }
 
 section#s-rob2 .rob2-bar-label {
@@ -1463,11 +1507,23 @@ section#s-rob2 .rob2-bar-label {
   color: var(--term);
 }
 
+/* S259 restored from GENESIS: track wrapper for recessed-depth pattern.
+   rgba()→oklch() aderência design-reference §Color (sem rgba/rgb). */
+section#s-rob2 .rob2-bar-track {
+  width: 100%;
+  height: 10px;
+  background-color: oklch(0 0 0 / 0.4);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px oklch(0 0 0 / 0.5);
+}
+
 section#s-rob2 .rob2-bar-fill {
   display: block;
-  height: 14px;
+  height: 100%;
   border-radius: 999px;
   transform-origin: left center;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Bar widths scaled to 0.50 reference = 100% of track */
@@ -1476,6 +1532,10 @@ section#s-rob2 .rob2-bar--d4 { width: 56%; background: var(--kappa-d4); }
 section#s-rob2 .rob2-bar--d3 { width: 44%; background: var(--kappa-d3); }
 section#s-rob2 .rob2-bar--d2 { width: 8%;  background: var(--kappa-d2); }
 
+/* S259 — display: grid com max-content max-content + tabular-nums:
+   max-content lê natural width sem o bug de ch-context (ch é relativo ao font-size
+   do CONTAINER, mas .kappa-val tem font-size próprio maior — overflow nasce daí).
+   tabular-nums + lining-nums em .kappa-val garante alinhamento entre rows. */
 section#s-rob2 .kappa-stats {
   font-family: var(--font-mono);
   font-size: var(--text-small);
@@ -1483,16 +1543,21 @@ section#s-rob2 .kappa-stats {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
   opacity: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content max-content;
   align-items: baseline;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
 }
 
 section#s-rob2 .kappa-val {
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--text-primary);
-  min-width: 4ch;
+  font-variant-numeric: tabular-nums lining-nums;
+  /* S259 — min-width: 4ch removido. ch é unit relativo ao font-size do container;
+     .kappa-val (1.4rem) overflowa col de .kappa-stats (--text-small ~14px),
+     causando colisao com label. max-content no grid parent + tabular-nums basta
+     para alinhamento entre rows. */
 }
 
 section#s-rob2 .kappa-stats--worst {

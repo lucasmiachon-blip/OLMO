@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-43.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-44.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -134,3 +134,6 @@ globs: "**/*"
 
 ## KBP-42 Hook silent without consumer = teatro candidate
 → docs/audit/hooks-runtime-S258.md §5 (producer-consumer matrix template + detection method + FP guards)
+
+## KBP-43 Cores literais inventados quando design tokens published existem
+→ design-reference.md §Color + shared/css/base.css:79-91 (Paul Tol Bright/High-contrast tokens — color-blind safe scientific viz standard)
