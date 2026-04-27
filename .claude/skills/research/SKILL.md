@@ -1,7 +1,7 @@
 ---
 name: research
 disable-model-invocation: true
-description: "Pipeline de pesquisa medica multi-perna (6 pernas) com sintese cruzada em living HTML."
+description: "Pipeline de pesquisa medica multi-perna (7 pernas com Codex xhigh cross-family) com sintese cruzada em living HTML."
 version: 2.0.0
 context: fork
 agent: general-purpose
@@ -13,13 +13,13 @@ argument-hint: "[topic OR slide-id] [--queries 'SCite: X, Consensus: Y'] [--afte
 
 ## ENFORCEMENT (primacy anchor)
 
-1. **Cada perna usa SUA ferramenta.** Gemini = Bash/Node.js HTTP com GEMINI_API_KEY. Perplexity = Bash/Node.js HTTP com PERPLEXITY_API_KEY. Evidence-researcher = subagent com MCPs academicos. NLM = CLI `nlm notebook query`.
+1. **Cada perna usa SUA ferramenta.** Gemini = Bash/Node.js HTTP com GEMINI_API_KEY. Perplexity = Bash/Node.js HTTP com PERPLEXITY_API_KEY. Evidence-researcher = subagent com MCPs academicos. NLM = CLI `nlm notebook query`. Codex xhigh = subagent `codex-xhigh-researcher` com Codex CLI subprocess (GPT-5.5 + reasoning.effort=xhigh + --output-schema enforcement).
 2. **NUNCA substituir uma perna por outra.** Se uma perna falha (API key ausente, timeout, erro): reportar ao usuario e pular. NAO improvisar com WebSearch, NAO lancar agente general-purpose como substituto. KBP-08.
 3. **Pre-flight obrigatorio.** Validar API keys ANTES de dispatch (Step 1.5). Key ausente = perna indisponivel, nao perna substituida.
 
 Pesquisa para: `$ARGUMENTS`
 
-6 pernas independentes em paralelo, cada uma com fontes e vieses diferentes. Convergencia entre pernas = alta confianca. Divergencia = flag para decisao humana.
+7 pernas independentes em paralelo (6 Anthropic-compatible + 1 cross-family Codex GPT-5.5 xhigh), cada uma com fontes e vieses diferentes. Convergencia entre pernas = alta confianca. Divergencia = flag para decisao humana.
 
 ## Step 1 — Parse
 
@@ -40,13 +40,15 @@ Antes de dispatch, validar via Bash:
 
 ```bash
 echo "GEMINI: $(echo $GEMINI_API_KEY | head -c4)... | PERPLEXITY: $(echo $PERPLEXITY_API_KEY | head -c4)..."
+command -v codex >/dev/null 2>&1 && codex --version 2>&1 | head -1 || echo "CODEX: indisponivel (CLI not in PATH ou auth pendente)"
 ```
 
 - Prefixo visivel = key configurada → perna disponivel
 - Vazio = key ausente → reportar: "Perna X indisponivel: API key nao configurada"
+- Codex version exibida = Perna 7 (codex-xhigh-researcher) disponivel; "indisponivel" = pular Perna 7, NÃO substituir
 - **NAO substituir por WebSearch.** NAO lancar agente general-purpose como substituto. Pular a perna.
 - Continuar com pernas restantes.
-- Se AMBAS keys ausentes: avisar usuario que pesquisa tera cobertura reduzida (so MCPs academicos).
+- Se AMBAS keys ausentes: avisar usuario que pesquisa tera cobertura reduzida (so MCPs academicos + Perna 7 cross-family se Codex disponivel).
 
 ### Worker Mode Override
 
@@ -67,6 +69,7 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 | 4 | `reference-checker` (**Subagent**) | Haiku | Slide existe | slide-id + aula path | retorno ao orquestrador |
 | 5 | Perplexity API — Bash `node .claude/scripts/perplexity-research.mjs` (**Orquestrador**) | sonar-deep-research | Sempre | topic (prompt aberto) | inline (console) |
 | 6 | NLM CLI `nlm notebook query` (**Orquestrador**, OAuth) | — | Notebook mapeado | topic + adjacent context | inline (console) |
+| 7 | `codex-xhigh-researcher` (**Subagent**) | GPT-5.5 + xhigh (Codex CLI) | Sempre (cross-family) | research_question + ID + context excerpt | JSON to orchestrator (schema-validated, `.claude/.research-tmp/codex-${ID}.json`) |
 
 Todas as pernas aplicaveis rodam. Perna indisponivel (key ausente, tool quebrada) = reportar e pular.
 
@@ -155,12 +158,23 @@ Auth: `nlm login` (sessao ~20min). Se expirar: `PYTHONIOENCODING=utf-8 nlm login
 Para CADA perna retornada, antes de prosseguir para Step 3:
 
 1. **Output existe?** Perna retornou texto/dados? Se vazio → diagnosticar (timeout? hook block? maxTurns esgotados? thinking consumed tokens?)
-2. **Schema check (mecanico):**
+2. **Schema check (mecanico) — variant por perna:**
+
+   **Pernas 1, 5, 6 (markdown table output):**
    - Output contem `|` (pipe) em >=3 linhas? (indica tabela markdown)
    - Output contem PMID ou DOI? (indica dados rastreaveis)
    - Output < 5000 chars? (indica concisao — se > 5000, provavelmente prosa)
    - finishReason != MAX_TOKENS? (indica completude)
    - Score: 4/4 = prosseguir | 2-3/4 = flag + prosseguir | 0-1/4 = re-prompt ou skip
+
+   **Perna 7 (JSON schema-strict — codex-xhigh-researcher):**
+   - JSON.parse OK? (parsing valido)
+   - Schema validate via `npx ajv-cli validate -s .claude/schemas/research-perna-output.json -d <output>` ou `jq` spot-check campos críticos (additionalProperties:false enforcement server-side)
+   - `findings.length >= 1` OR (`confidence_overall == "low"` AND `gaps.length >= 1`) — empty findings só aceitável com gap explícito
+   - `candidate_pmids_unverified` populated AND ≥2 spot-checked via NCBI E-utilities (KBP-36)
+   - Score: 4/4 prosseguir | 2-3/4 flag + prosseguir | 0-1/4 re-prompt 1× ou skip
+
+   **Pernas 2, 3, 4 (subagent retorno):** seguem schema do agent específico (já estruturado).
 3. **Coverage?** Output cobriu o escopo pedido? Se parcial (ex: 3/5 eixos) → flag com o que falta
 
 **Gates:**
@@ -199,12 +213,13 @@ Quando pernas divergem, resolver pela hierarquia abaixo (primeira regra que dese
 | 2 | **Verificacao PMID** | Dado com PMID verificado > dado com PMID candidato > dado sem fonte |
 | 3 | **Recencia** | Guideline 2024 > guideline 2018 (se mesmo nivel) |
 | 4 | **Consistencia interna** | Perna que concorda consigo mesma > perna com contradicoes internas |
-| 5 | **Numero de pernas concordantes** | 4/6 concordam > 2/6 (ultimo recurso, nao substitui hierarquia) |
+| 5 | **Numero de pernas concordantes** | 5/7 concordam > 2/7 (ultimo recurso, nao substitui hierarquia) |
 
 **Regras:**
 - NUNCA resolver por "maioria simples" sem verificar nivel de evidencia primeiro
 - Divergencia irresolvivel (mesmo nivel, mesma recencia) → flag para Lucas com ambas posicoes
 - Perna Gemini/Perplexity (web search) sempre abaixo de pernas MCP (dados estruturados) quando nivel de evidencia e igual
+- Perna 7 Codex xhigh (cross-family reasoning, sem grounding direto) = peer com Gemini/Perplexity (web-grounded), abaixo de MCPs estruturados quando nivel evidence igual. Cross-family value: independent training data Anthropic vs OpenAI = anti-shared-hallucination signal (S261 SOTA report)
 - Registrar a regra usada na sintese: "Resolvido por criterio X: [explicacao]"
 
 ## Step 4 — Output
@@ -251,6 +266,6 @@ Secoes do HTML (escrever direto no arquivo, seguindo a estrutura abaixo):
 
 ## ENFORCEMENT (recency anchor)
 
-1. **Cada perna usa SUA ferramenta.** Gemini = Bash/API. Perplexity = Bash/API. Evidence-researcher = MCPs. NLM = CLI.
+1. **Cada perna usa SUA ferramenta.** Gemini = Bash/API. Perplexity = Bash/API. Codex xhigh = Codex CLI subagent (schema-enforced). Evidence-researcher = MCPs. NLM = CLI.
 2. **NUNCA substituir perna por WebSearch ou general-purpose.** Falhou = reportar e pular. KBP-08.
 3. **Pre-flight obrigatorio.** Step 1.5 antes de dispatch.
