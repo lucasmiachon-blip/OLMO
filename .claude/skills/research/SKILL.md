@@ -16,6 +16,8 @@ argument-hint: "[topic OR slide-id] [--queries 'SCite: X, Consensus: Y'] [--afte
 1. **Cada perna usa SUA ferramenta.** Gemini = Bash/Node.js HTTP com GEMINI_API_KEY. Perplexity = Bash/Node.js HTTP com PERPLEXITY_API_KEY. Evidence-researcher = subagent com MCPs academicos. NLM = CLI `nlm notebook query`. Codex xhigh = subagent `codex-xhigh-researcher` com Codex CLI subprocess (GPT-5.5 + reasoning.effort=xhigh + --output-schema enforcement).
 2. **NUNCA substituir uma perna por outra.** Se uma perna falha (API key ausente, timeout, erro): reportar ao usuario e pular. NAO improvisar com WebSearch, NAO lancar agente general-purpose como substituto. KBP-08.
 3. **Pre-flight obrigatorio.** Validar API keys ANTES de dispatch (Step 1.5). Key ausente = perna indisponivel, nao perna substituida.
+4. **Ensemble obrigatorio (KBP-47).** Cada `/research` invocation dispatches ALL applicable pernas (subject to Step 1 mode + Step 1.5 pre-flight). Never subset, never "so Perna X". Subset = research subset trap; o valor da pipeline esta em convergencia/divergencia cross-fonte. Lucas S263 turn 3.
+5. **Wrap = sempre agente orquestrador (KBP-48).** External APIs/CLIs/MCPs sao wrappados como agentes (Anthropic subagent runtime), NUNCA como scripts `.mjs` solitarios. Scripts atuais (`gemini-research.mjs`, `perplexity-research.mjs`) sao legacy a migrar (S262 plan). Codex (`codex-xhigh-researcher`) e `evidence-researcher` ja seguem o padrao canonico. Bench script-vs-agent S263 (`splendid-munching-swing.md`) confirma empiricamente. Lucas S263 turn 5.
 
 Pesquisa para: `$ARGUMENTS`
 
