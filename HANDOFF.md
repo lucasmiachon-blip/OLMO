@@ -4,6 +4,8 @@
 
 ## 🔥 P0 — D-lite refactor track (bench Phase 9 — gated em decision.md signoff)
 
+> **Retomada planejada ~2 dias** (Lucas turn final S264.c: "isso aqui fica para daqui 2 dias"). Cooling-off period sobre decisão KEEP-SEPARATE provisional + cost-benefit reflection D-lite refactor.
+
 S264.c outcome (KBP-39): **KEEP-SEPARATE provisional**. `.mjs` canonical Gemini/Perplexity hot path (9/9 ✅), `codex-xhigh-researcher` canonical thin-agent (0% fab consistent across 14 PMIDs), `evidence-researcher` canonical post §Fase 1.5, `gemini-deep-research` + `perplexity-sonar-research` **EXPERIMENTAL** até D-lite refactor + re-bench. Lucas signoff slot pending em `.claude/.parallel-runs/2026-04-27-ma-types/decision.md`.
 
 D-lite spec (~30-60min per Codex peer-review — corpo dos agents já tem comandos, custo real é validação não rewrite): refactor gemini-deep + perplexity-sonar bodies para single-Bash deterministic (mirror codex-xhigh-researcher: API call → save raw → extract JSON → print final). Smoke + re-bench Phase 1.3 + Phase 3 single-Q. Lock MERGE (sunset .mjs) ou MERGE-BACK pos-evidence.
