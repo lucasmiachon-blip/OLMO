@@ -59,8 +59,8 @@ Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia 
 | 6 | s-quality | DONE | **S262 visual + content evolution.** 3 cards isomórficos com chips animados (PROSPERO/A priori/PRISMA/Transparência · RoB 1/2/ROBUST-RCT/ROBINS · GRADE · AMSTAR-2/ROBIS). Glassmorphism shared-v2. 5-beat reveal. |
 | 7 | s-contrato | DONE | Evidence HTML S143. Click-reveal 2 cards. QA R11 PASS. |
 | 8 | s-pico | LINT-PASS | Evidence refatorado S144 (benchmark). h2 com RS. QA pendente. |
-| 9 | s-forest1 | LINT-PASS | QA pendente. |
-| 10 | s-forest2 | LINT-PASS | QA pendente. |
+| 9 | s-forest1 | LINT-PASS | Refactor architectural + QA pendentes (S264 pós-clear). Tokens + glassmorphism + motion stagger. Plan: `.claude/plans/curious-enchanting-tarjan.md` Phases C.1+D. |
+| 10 | s-forest2 | LINT-PASS | Refactor architectural + QA pendentes (S264 pós-clear). Calibration + tokens + aspect-ratio + bottom-row + motion. Plan: `.claude/plans/curious-enchanting-tarjan.md` Phases B+C+D. |
 | 11 | s-heterogeneity | LINT-PASS | QA pendente. **S260 reformulado pedagogicamente** (zero jargão, analogia "auscultar sopro"). |
 | 12 | s-fixed-random | LINT-PASS | QA pendente. **S260 reformulado pedagogicamente** (decisão a priori, sem "42%"). |
 

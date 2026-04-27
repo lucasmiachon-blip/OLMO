@@ -6,6 +6,28 @@
 
 ---
 
+## 2026-04-27 — S264 (Phase 1 done · refactor architectural deferred pós-clear)
+
+> Frame: "vamos so trabalhar nos slides forest" → "atualize os documentos de forma profissional".
+
+- **Phase 1 dead-code cleanup s-absoluto** (commit `ac65ba6`): slide deletado S186 (`20489a2`) deixou 11 refs stale. Categorias A (state files: HANDOFF root + per-aula L15/36/79) + B (evidence broken pointers: meta-narrativa, s-contrato L87/103, s-ancora, s-objetivos, s-forest-plot-final L305, evidence-harvest-S112 L51/89, research-gaps-report 3 sections) + KBP-44 fix `08a-forest1.html:34` (PMID source-tag removed — s-forest2 já compliant). lint:slides + build:metanalise PASS.
+- **Phases A-G refactor architectural deferred pós-clear** — 6 issues numerados Lucas turn 7 (`.claude/plans/curious-enchanting-tarjan.md`):
+  - **A.** s-quality `.term-dissociation` overflow fix (encapsular `.term-grid` + `.term-dissociation` em wrapper grid `1fr auto`)
+  - **B.** s-forest2 calibration via `content/aulas/scratch/calibrate-boxes.mjs` (Playwright headless extrai percentagens bounding box reais)
+  - **C.** forest1+2 architectural: tokens (`--data-1..7` Tol Bright) substituem oklch hardcoded · `.forest-annotated` premium card glassmorphism (`var(--v2-surface-panel)` + `box-shadow 0 12px 32px var(--shadow-subtle)`) · aspect-ratio rígido `4501/1451` · rodapé seguro grid `1fr auto` (`.forest-bottom-row` wrapping ma-stat + cochrane-logo)
+  - **D.** Motion staggering 3 slides — `stagger: 0.1` + `ease: power2.out` + `y: 6` cascata em `slide-registry.js`
+  - **E.** Build + lint + visual verification (vite port 4102 Lucas owns)
+  - **F.** QA cycle 3 slides (preflight → inspect → editorial — KBP-05 anti-batch)
+  - **G.** Commit + close
+- **Out of scope:** s-contrato R11=5.9 REOPEN (CSS failsafe + subgrid) · `qa-screenshots/s-absoluto/` dir delete (Lucas direta — `rm -rf` hook denied) · Phase 2 reconcile geral metanalise/HANDOFF.md (s-checkpoint-2/s-aplicabilidade/s-ancora não-no-manifest) — DEFERRED.
+
+### Aprendizados (max 5 li)
+
+- **HANDOFF stale vs manifest source of truth:** HANDOFF root referenciou `s-absoluto` deletado há 41 commits. Detection via `_manifest.js` (S207, 17 slides) vs HANDOFF (16/16) divergence. KBP-40 generaliza para narrative state files.
+- **KBP-44 propagation paradox:** regra S260 ("PMID exclusivo evidence HTML") não auto-propaga — `s-forest1` ainda tinha PMID inline source-tag em S264. Lint candidate: `grep -rn "PMID:" content/aulas/metanalise/slides/`.
+- **Failsafe scoping pattern:** forest1/2 usam scoped failsafes per-slide (`.no-js section#s-forestN`) — anti-pattern oposto ao bug s-contrato R11 (regra final unscoped vazando opacity:0 globalmente).
+- **`calibrate-boxes.mjs` (port S262 OLMO_GENESIS) canon anti-chute:** Playwright headless extrai bounding box % reais. Default `--slide s-forest2`. Anti-padrão: agentes Claude "chutarem" coordenadas CSS.
+
 ## 2026-04-23 — S240 metanalise-SOTA-loop (shared-v2 bridge + s-etd modernização)
 
 ### Infra (C1 `2a17744`)
