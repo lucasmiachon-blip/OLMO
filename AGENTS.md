@@ -8,7 +8,7 @@
 - **Gemini CLI (Gemini 3.1)** = PESQUISAR (multimodal, deep research, vision)
 - **Codex CLI (GPT-5.5 + `reasoning.effort=xhigh`)** = VALIDAR (review, audit, adversarial) + **RESEARCH S259 POC** (research perna #6 em /evidence pipeline; agent: `.claude/agents/codex-xhigh-researcher.md`)
 
-Codex + Gemini são READ-ONLY (Claude Code não é vinculado por esta restrição). Report findings. Do NOT implement fixes or edit files.
+Codex + Gemini são READ-ONLY por default (Claude Code não é vinculado por esta restrição). Report findings. Só editar quando Lucas aprovar explicitamente o escopo no thread atual.
 
 ## S259 architectural POC: Codex as research perna
 
@@ -16,8 +16,10 @@ Lucas signaled (S259) intent to migrate research orchestration de `.mjs` scripts
 
 POC vehicle: **`codex-xhigh-researcher`** subagent — invocation pattern:
 ```bash
-codex exec --model gpt-5.5 -c reasoning.effort=xhigh --ephemeral -s read-only "<prompt>"
+codex exec -c reasoning.effort=xhigh --ephemeral -s read-only "<prompt>"
 ```
+
+S266 runtime note: do **not** pass `--model` from the Claude subagent path; `~/.codex/config.toml` default applies.
 
 Cross-family validation (OpenAI vs Anthropic vs Google ecosystems) é defesa contra hallucination compartilhada entre modelos da mesma família.
 
@@ -28,8 +30,9 @@ Full `.mjs` migration deferred S260+ gated by POC outcome (≥3 of 5 R-questions
 ## Quick Commands
 
 ```bash
-# Base audit
-ruff check . && mypy agents/ && pytest tests/
+# Base audit (post-S232 Python runtime purge)
+uv run ruff check .
+uv run mypy scripts/ config/
 
 # Slide lint (enforced by guard-lint-before-build.sh)
 node content/aulas/scripts/lint-slides.js {aula}
@@ -96,11 +99,11 @@ P0 = security/data integrity. P1 = correctness. P2 = quality.
 - Tier 1 only: guidelines, meta-analyses, RCTs, systematic reviews
 - Always PMID/DOI. Mark `[CANDIDATE]` if 2025/2026 source
 - NNT with 95% CI, follow-up time, significance
-- Full protocol in `GEMINI.md` (v3.6)
+- Full protocol in `GEMINI.md` (v3.7)
 
 ## Boundaries
 
-Do NOT: implement fixes, research literature (Codex), access Notion, make architecture decisions, edit code.
+Do NOT by default: implement fixes, access Notion, make architecture decisions, edit code. Exception: Lucas can explicitly approve a bounded edit scope in the current thread. Codex research is allowed only via the S259+ `codex-xhigh-researcher` POC / evidence pipeline.
 
 ## Coauthorship
 

@@ -12,7 +12,13 @@
 - Living HTML per slide = source of truth (`evidence-db.md` deprecated)
 - `plansDirectory: .claude/plans` — planos sobrevivem sessoes
 - NUNCA `taskkill //IM node.exe` — matar por PID especifico (Lucas roda dev server)
+- S266 research state: `.mjs` Gemini/Perplexity hot path canônico; wrappers `gemini-deep-research`/`perplexity-sonar-research` EXPERIMENTAL até D-lite re-bench.
+
+## Loop profissional (S266)
+- Rehydrate: `git status --short` + HANDOFF P0 + este arquivo; só abrir docs grandes por grep/range.
+- Antes de Edit: STOP → verificar evidência (`file:line`/comando/SHA) → propor mudança + porquê + risco + verificação → esperar OK Lucas.
+- Depois de Edit: rodar verificação combinada, reportar PASS/FAIL em até 3 bullets, pedir só o próximo ASK.
 
 ## Roadmap pointers
-- Next P1: `.claude/plans/ACTIVE-S227-memory-to-living-html.md` (agent-memory → living HTML)
-- Audit frame: `.claude/plans/bubbly-forging-cat.md` (S230 adversarial campaign)
+- P0 atual: `HANDOFF.md` define escolha entre QA metanálise e D-lite signoff.
+- Plans vivos: `.claude/plans/sleepy-wandering-firefly.md` + `.claude/plans/curious-enchanting-tarjan.md`.

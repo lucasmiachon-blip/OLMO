@@ -1,6 +1,6 @@
 # TREE.md — Mapa do Projeto
 
-> Atualizado: Sessao 245 | 2026-04-24
+> Atualizado: Sessao 266 | 2026-04-27
 
 ## Raiz (operacional)
 
@@ -22,8 +22,11 @@ docker-compose.yml   # Stack observabilidade (OTel, opcional)
 
 ```
 .claude/
-├── agents/              # 9 agent definitions (.md)
+├── agents/              # 19 agent definitions (.md)
 │   ├── evidence-researcher.md
+│   ├── codex-xhigh-researcher.md
+│   ├── gemini-deep-research.md
+│   ├── perplexity-sonar-research.md
 │   ├── mbe-evaluator.md
 │   ├── qa-engineer.md
 │   ├── quality-gate.md
@@ -31,7 +34,8 @@ docker-compose.yml   # Stack observabilidade (OTel, opcional)
 │   ├── repo-janitor.md
 │   ├── researcher.md
 │   ├── sentinel.md
-│   └── systematic-debugger.md
+│   ├── systematic-debugger.md
+│   └── debug-*.md          # 7-agent debug-team pipeline
 ├── agent-memory/        # Per-agent persistent memory
 ├── apl/                 # Ambient Pulse Loop (statusline data)
 ├── commands/            # Custom slash commands
@@ -148,10 +152,12 @@ hooks/
 ├── session-compact.sh       # Compact: context refresh
 ├── ambient-pulse.sh         # UserPromptSubmit: statusline data
 ├── apl-cache-refresh.sh     # SessionStart: APL cache
+├── loop-guard.sh            # PostToolUse: loop/repetition guard
 ├── nudge-commit.sh          # UserPromptSubmit: commit reminder
 ├── stop-quality.sh          # Stop: quality checks
 ├── stop-metrics.sh          # Stop: metrics snapshot (async)
 ├── stop-notify.sh           # Stop: notification (async)
+├── stop-failure-log.sh      # StopFailure: API/hook failure log
 ├── notify.sh                # Notification handler (async)
 ├── pre-compact-checkpoint.sh
 ├── post-compact-reread.sh

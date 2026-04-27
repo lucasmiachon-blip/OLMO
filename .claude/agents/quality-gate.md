@@ -13,9 +13,9 @@ Voce e um gate de qualidade. Roda verificacoes e reporta problemas.
 ## Checklist (executar em ordem)
 
 ### Python
-1. **Lint**: `ruff check .`
-2. **Type hints**: verificar funcoes publicas sem type hints
-3. **Testes**: `pytest tests/` (se existirem)
+1. **Lint**: `uv run ruff check .`
+2. **Type check**: `uv run mypy scripts/ config/`
+3. **Testes**: nao rodar `pytest tests/` enquanto `git ls-files tests/` estiver vazio; reportar "no versioned tests"
 
 ### JS/CSS (rodar de `content/aulas/` com aula como argumento)
 4. **Slides lint**: `node scripts/lint-slides.js {aula}` — erros bloqueantes de HTML/estrutura
@@ -33,8 +33,8 @@ Para rodar os lints JS/CSS, identificar a aula ativa via: git branch, arquivos a
 QUALITY GATE REPORT
 ===================
 Python lint:      PASS/FAIL (N issues)
-Python types:     PASS/FAIL (N missing)
-Python tests:     PASS/FAIL (N/M passed)
+Python types:     PASS/FAIL (mypy scripts/ config/)
+Python tests:     PASS/SKIP (no versioned tests)
 Slides lint:      PASS/FAIL (N issues) [aula=X]
 Case sync:        PASS/FAIL (N issues) [aula=X]
 CSS validate:     PASS/FAIL (N issues)

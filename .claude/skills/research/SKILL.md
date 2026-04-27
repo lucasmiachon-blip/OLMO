@@ -17,7 +17,7 @@ argument-hint: "[topic OR slide-id] [--queries 'SCite: X, Consensus: Y'] [--afte
 2. **NUNCA substituir uma perna por outra.** Se uma perna falha (API key ausente, timeout, erro): reportar ao usuario e pular. NAO improvisar com WebSearch, NAO lancar agente general-purpose como substituto. KBP-08.
 3. **Pre-flight obrigatorio.** Validar API keys ANTES de dispatch (Step 1.5). Key ausente = perna indisponivel, nao perna substituida.
 4. **Ensemble obrigatorio (KBP-47).** Cada `/research` invocation dispatches ALL applicable pernas (subject to Step 1 mode + Step 1.5 pre-flight). Never subset, never "so Perna X". Subset = research subset trap; o valor da pipeline esta em convergencia/divergencia cross-fonte. Lucas S263 turn 3.
-5. **Wrap = sempre agente orquestrador (KBP-48).** External APIs/CLIs/MCPs sao wrappados como agentes (Anthropic subagent runtime), NUNCA como scripts `.mjs` solitarios. Scripts atuais (`gemini-research.mjs`, `perplexity-research.mjs`) sao legacy a migrar (S262 plan). Codex (`codex-xhigh-researcher`) e `evidence-researcher` ja seguem o padrao canonico. Bench script-vs-agent S263 (`splendid-munching-swing.md`) confirma empiricamente. Lucas S263 turn 5.
+5. **External APIs precisam de contrato deterministico e auditavel (KBP-48 reformulado S266).** Estado atual: `.claude/scripts/gemini-research.mjs` e `.claude/scripts/perplexity-research.mjs` seguem como hot path canônico para Pernas 1/5 porque emitiram 9/9 no bench S264.c. `gemini-deep-research` e `perplexity-sonar-research` existem, mas ficam **EXPERIMENTAL** até D-lite refactor + re-bench lockar MERGE ou MERGE-BACK. Codex (`codex-xhigh-researcher`) e `evidence-researcher` ja seguem o padrao canonico.
 
 Pesquisa para: `$ARGUMENTS`
 
@@ -65,11 +65,11 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 
 | # | Ferramenta/Executor | Modelo | Quando | Input | Output |
 |---|---------------------|--------|--------|-------|--------|
-| 1 | Gemini API — Bash `node .claude/scripts/gemini-research.mjs` (**Orquestrador**) | gemini-3.1-pro-preview | Sempre | topic | inline (console) |
+| 1 | Gemini API — Bash `node .claude/scripts/gemini-research.mjs` (**Orquestrador canônico até D-lite lock**) | gemini-3.1-pro-preview | Sempre | topic | inline (console) |
 | 2 | `evidence-researcher` (**Subagent**) | Sonnet | Sempre | topic + slide context + queries MCP | retorno ao orquestrador |
 | 3 | `mbe-evaluator` (**Subagent**) | Sonnet | Slide existe | slide HTML + evidence HTML | retorno ao orquestrador |
 | 4 | `reference-checker` (**Subagent**) | Haiku | Slide existe | slide-id + aula path | retorno ao orquestrador |
-| 5 | Perplexity API — Bash `node .claude/scripts/perplexity-research.mjs` (**Orquestrador**) | sonar-deep-research | Sempre | topic (prompt aberto) | inline (console) |
+| 5 | Perplexity API — Bash `node .claude/scripts/perplexity-research.mjs` (**Orquestrador canônico até D-lite lock**) | sonar-deep-research | Sempre | topic (prompt aberto) | inline (console) |
 | 6 | NLM CLI `nlm notebook query` (**Orquestrador**, OAuth) | — | Notebook mapeado | topic + adjacent context | inline (console) |
 | 7 | `codex-xhigh-researcher` (**Subagent**) | GPT-5.5 + xhigh (Codex CLI) | Sempre (cross-family) | research_question + ID + context excerpt | JSON to orchestrator (schema-validated, `.claude/.research-tmp/codex-${ID}.json`) |
 

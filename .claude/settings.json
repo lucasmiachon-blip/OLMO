@@ -14,7 +14,6 @@
   "permissions": {
     "defaultMode": "auto",
     "allow": [
-      "Bash(*)",
       "Bash(git diff*)",
       "Bash(git log*)",
       "WebSearch(*)",
@@ -38,11 +37,6 @@
       "mcp__pubmed__*",
       "mcp__biomcp__*",
       "mcp__crossref__*",
-      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
-      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
-      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__press_key",
-      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__evaluate_script",
-      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__list_console_messages",
       "Skill(research)",
       "Skill(codex:rescue)",
       "Skill(codex:gpt-5-4-prompting)",

@@ -60,7 +60,7 @@ QA editorial S265 (quality): **s-quality DONE** — Phase A architectural fix `.
 - **Tone propagation per-agent** (S261 turn 8): 14 `.claude/agents/*.md` ainda (gemini-deep-research + perplexity-sonar-research já tone-aware nos specs S263). anti-drift.md §Tone global done.
 - **Tier 2 smoke tests live invocation** — hooks bypass para subprocess
 - **Agent .md spec drift archaeologist** — enum `{success,partial,reverted,unknown}` vs example `"tracking"` (5 min fix)
-- **`rm <file>` bypass investigation** — `Bash(*)` allow precedes hook ASK (~1-2h)
+- **RESOLVED S266:** `rm <file>` bypass — `Bash(*)` removed from global allow; `rm/rmdir` now BLOCK in `guard-bash-write.sh`; Chrome DevTools site-specific allows removed from global policy.
 - **Lib refactor consolidado** — PROJECT_ROOT define + REPO_SLUG sha256sum (3 hooks each)
 - **R3 Clínica Médica prep** — 217 dias
 

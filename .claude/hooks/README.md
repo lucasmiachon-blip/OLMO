@@ -1,7 +1,7 @@
 # Hooks — Reference
 
 > 33 script files + 1 inline Stop hook = 34 hook registrations across 11 events in `.claude/settings.json` (verified S256 B.2 — Stop[1] inline agent removed Lucas D2 decision).
-> Scripts live in 2 dirs: `.claude/hooks/` (17 — tool guards + antifragile) and `hooks/` (15 — lifecycle + APL + loop-guard) plus `tools/integrity.sh`.
+> Scripts live in 2 dirs: `.claude/hooks/` (17 — tool guards + antifragile) and `hooks/` (15 — lifecycle + APL + loop/failure hooks) plus `tools/integrity.sh`.
 > Config: `.claude/settings.json`. Local overrides (permissions only): `.claude/settings.local.json`.
 
 ## Events Covered
@@ -35,7 +35,7 @@ SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification ·
 | Script | Behavior | What it guards |
 |--------|----------|----------------|
 | `guard-secrets.sh` | **BLOCK** | `git commit/add` with staged files containing API keys, tokens, PATs |
-| `guard-bash-write.sh` | **ASK** | Shell write patterns (`>`, `>>`, `rm`, `mv`, `cp`, `chmod`, `kill`) |
+| `guard-bash-write.sh` | **ASK/BLOCK** | Shell write patterns. Redirect/cp/mv/chmod ask; `rm/rmdir` block while KBP-26 makes ask unreliable |
 | `guard-lint-before-build.sh` | **BLOCK** | Build commands without passing 3 linters first (timeout: 30s) |
 
 ### PreToolUse (Skill)
@@ -101,7 +101,7 @@ SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification ·
 
 ---
 
-## `hooks/` — Session Lifecycle + APL (13 scripts)
+## `hooks/` — Session Lifecycle + APL (15 scripts)
 
 ### UserPromptSubmit — APL + Nudges
 
@@ -136,6 +136,12 @@ SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification ·
 |--------|--------------|
 | `post-compact-reread.sh` | Re-reads essential context after compaction completes |
 
+### PostToolUse
+
+| Script | What it does |
+|--------|--------------|
+| `loop-guard.sh` | Detects repeated tool/action loops and surfaces corrective guidance |
+
 ### Stop (5 registrations: 1 inline + 4 scripts)
 
 > **S256 B.2:** Removido Stop[1] inline agent (HANDOFF/CHANGELOG hygiene check via Sonnet) — era redundante com `stop-quality.sh:82-100` que faz mesma verificação via bash. Lucas decision D2 (a) remove. ~$0.10-0.50/mês economia. Stop array indices shifted: Stop[4] era integrity (was Stop[5]).
@@ -143,7 +149,6 @@ SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification ·
 | Hook | Type | What it does |
 |------|------|--------------|
 | (inline `prompt`) | CHECK | Silent execution guard + KBP-22: flags 3+ action tool calls without user-facing explanation. Also skip-rationalization detector |
-| (inline `agent`) | CHECK | Session hygiene: verifies HANDOFF.md/CHANGELOG.md updated with uncommitted changes |
 | `stop-quality.sh` | CHECK | **Merged** `stop-crossref-check` + `stop-detect-issues` + `stop-hygiene`. Self-healing writes `.claude/pending-fixes.md` |
 | `stop-metrics.sh` | METRICS | **Merged** `stop-scorecard` + `stop-chaos-report`. APL 2-line session summary. Async |
 | `stop-notify.sh` | NOTIFY | Windows 11 toast "Pronto" (visual only). Async |

@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## Sessao 266 — 2026-04-27 (safety + truth-pass documental)
+
+> Lucas frame: "vamos em pequenos passos" → aprovar P0 safety → "atualize documental, commit e push" → priorizar documentos críticos antes de scripts/agents/subagents.
+
+- **P0 safety:** removido `Bash(*)` de `.claude/settings.json`; removidos allows globais específicos de Chrome DevTools; `guard-bash-write.sh` agora bloqueia `rm/rmdir` por padrão enquanto KBP-26 (`ask` pode degradar para allow silent) segue aberto. Smoke manual: `rm temp.txt` retorna `permissionDecision:block`.
+- **Gate Python:** `scripts/fetch_medical.py` trata `pyzotero` como import opcional para mypy (`type: ignore[import-not-found]`). `uv run mypy scripts/ config/` PASS; `uv run ruff check .` PASS.
+- **Truth-pass documental crítico:** sincronizados runtime counts e comandos em `AGENTS.md`, `GEMINI.md`, `CLAUDE.md`, `README.md`, `VALUES.md`, `docs/ARCHITECTURE.md`, `docs/TREE.md`, `.claude/hooks/README.md`, `quality-gate`, `systematic-debugging` e `research/SKILL.md`. Estado canônico: 19 agents, 18 skills, 34 hook registrations; `.mjs` research hot path permanece canônico até D-lite re-bench.
+- **Rehydration signal>noise:** `.claude/context-essentials.md` agora inclui loop profissional S266: rehydrate mínimo → verificar evidência → propor mudança/risco/verificação → esperar OK Lucas → editar → verificar → reportar curto.
+
+### Aprendizados (max 5 li)
+
+- **P0 pequeno > refactor amplo:** remover `Bash(*)` + bloquear `rm` fecha um risco real sem entrar na migração `.mjs`/agents.
+- **Docs críticos são runtime:** `quality-gate` e `research/SKILL.md` instruem agentes; drift neles vira execução errada, não só documentação ruim.
+- **KEEP-SEPARATE precisa aparecer no skill:** enquanto bench diz `.mjs` 9/9 e wrappers experimentais, proibir scripts no skill era contradição operacional.
+
 ## Sessao 264.c — 2026-04-27 (bench · Path A complete + Path B partial + Codex peer-review)
 
 > Lucas frame: "rodas a pesquisa via agents skills subagents vs script ver qual performa melhora" → "comparacao so vai ser justa quando tudo funcionar" → "tem que ajustar os agentes" → "outro modelo trabalhando em outro terminal" → "deixe tudo, arrume ate ter outputs adequados pra comparacao justa" → "reflita... tem citacoes tier 1, o que deu certo, deu errado e por que" → "apresente o plano ao codex" → "entre em plan e proponha".

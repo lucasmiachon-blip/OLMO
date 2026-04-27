@@ -22,12 +22,12 @@ Consumer: MBE (via `$OLMO_INBOX`), ensino, concurso R3. Producer (daily org, Not
 **Sem runtime Python.**
 
 Orquestração = **Claude Code nativo:**
-- 9 subagents em `.claude/agents/*.md` (Task tool + MCPs)
+- 19 subagents em `.claude/agents/*.md` (9 core + 7 debug-team + 3 research wrappers)
 - 18 skills em `.claude/skills/*/SKILL.md`
-- Hooks em `.claude/hooks/` + `hooks/`
+- Hooks em `.claude/hooks/` + `hooks/` (34 registrations: 33 command hooks + 1 inline prompt)
 - MCP servers: shared inventory em `config/mcp/servers.json`; agent-scoped inline em `.claude/agents/*.md`; policy runtime em `.claude/settings.json`
 
-Pesquisa MBE + QA + inbox-pull: via subagents + skills (evidence-researcher, qa-engineer, research skill com scripts/*.mjs). Notion: crosstalk pattern documentado — runtime atual blocked by deny; ver `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`.
+Pesquisa MBE + QA + inbox-pull: via subagents + skills. Research Pernas 1/5 seguem `.claude/scripts/{gemini,perplexity}-research.mjs` como hot path canônico até D-lite re-bench; `gemini-deep-research` e `perplexity-sonar-research` ficam experimentais. Notion: crosstalk pattern documentado — runtime atual blocked by deny; ver `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`.
 
 ## Objectives
 

@@ -64,7 +64,7 @@ description: "Structured 4-phase debugging methodology (root cause, pattern anal
 1. **Escreva o teste que falha** — reproduza o bug como teste automatizado (quando aplicavel).
 2. **Fix minimo** — corrija apenas a causa raiz. Nao aproveite para "melhorar" codigo adjacente.
 3. **Verifique** — rode o teste, rode o CI, confirme que funciona.
-4. **Cheque regressao** — o fix nao quebrou outra coisa? `pytest tests/` ou `npm run qa`.
+4. **Cheque regressao** — o fix nao quebrou outra coisa? `uv run mypy scripts/ config/`, `uv run ruff check .`, testes versionados se existirem, ou `npm run qa`.
 
 **Regra dos 3 fixes:** se 3+ tentativas de fix falharam, PARE. A arquitetura pode estar errada. Reporte ao usuario com as evidencias coletadas e peca direcao.
 
@@ -111,7 +111,7 @@ Ao debugar, estruture a comunicacao assim:
 
 ## Integracao com o Projeto
 
-- **Python:** `pytest tests/ -x` (para no primeiro erro para investigar)
+- **Python:** `uv run ruff check .` + `uv run mypy scripts/ config/`; só usar `pytest` se `git ls-files tests/` retornar testes versionados
 - **Aulas (CSS/JS):** `npm run qa:screenshots:*` + inspecionar no browser
 - **Linter:** `ruff check . --show-fixes` (mostra o que mudaria)
 - **CI:** ler output completo do CI antes de propor fix

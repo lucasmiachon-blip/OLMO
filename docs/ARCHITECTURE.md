@@ -2,16 +2,16 @@
 
 > Claude Code agent system for medical education and exam prep (consumer-only).
 > **Consumer side** (producer em OLMO_COWORK — ver ADR-0002).
-> Estado: S232 | 2026-04-19 (generic-snuggling-cloud v6 — adversarial consolidation + Python stack purge).
+> Estado: S266 | 2026-04-27 (truth-pass — runtime counts synced after S264/S265 research/debug additions).
 
 ## Runtime (post-S232 v6)
 
 **Não há runtime Python agent.** S232 removeu do repo versionado: `orchestrator.py`, `__main__.py`, `agents/`, `subagents/`, `tests/` (Python), `config/loader.py`, `config/ecosystem.yaml`, `config/rate_limits.yaml` — stack era vestigial/falido/nunca usado (0 hook invocations, 0 external consumers; manual `make run`/`status` raramente). `git ls-files agents/ subagents/ tests/` confirmam vazio. Resíduo filesystem local (`__pycache__` gitignored) pode persistir em clones e não afeta o repo.
 
 **Orquestração real acontece em Claude Code:**
-- 9 subagents em `.claude/agents/*.md` (Task tool, MCPs próprios, maxTurns)
+- 19 subagents em `.claude/agents/*.md` (9 core + 7 debug-team + 3 research wrappers)
 - 18 skills em `.claude/skills/*/SKILL.md` (invocadas via Skill tool ou triggers)
-- 30 hooks em `.claude/hooks/` + `hooks/` (event-driven: PreToolUse, PostToolUse, Stop, etc.)
+- 34 hook registrations em `.claude/settings.json` (33 command hooks + 1 inline Stop prompt)
 - MCP connections: shared inventory em `config/mcp/servers.json`; agent-scoped MCPs inline em `.claude/agents/*.md` (ver §MCP Connections abaixo); policy runtime em `.claude/settings.json`
 
 **Regra** (canônica em `.claude/rules/anti-drift.md` §Propose-before-pour): Lucas decide, agente executa.
@@ -23,7 +23,7 @@
 - S232 v6: `workflows.yaml` + `load_workflows()` (aspirational, 0 runtime)
 - S232 post-close: **Python stack total** — `orchestrator.py`, `agents/`, `subagents/`, `tests/`, `config/loader.py`, `ecosystem.yaml`, `rate_limits.yaml`
 
-## Claude Code Subagents (9)
+## Claude Code Subagents (19)
 
 > `.claude/agents/*.md` invocados via Task tool dentro do Claude Code, com MCPs + maxTurns próprios.
 
@@ -38,6 +38,16 @@
 | repo-janitor | Haiku | 12 | — | Orphan files, dead links |
 | sentinel | Sonnet | 25 | project | Read-only self-improvement, anti-pattern detection |
 | systematic-debugger | Sonnet | 25 | project | 4-phase structured debugging |
+| codex-xhigh-researcher | Sonnet | 20 | — | Codex GPT-5.5 xhigh research POC |
+| gemini-deep-research | Sonnet | 15 | — | EXPERIMENTAL Gemini API wrapper pending D-lite re-bench |
+| perplexity-sonar-research | Sonnet | 25 | — | EXPERIMENTAL Perplexity API wrapper pending D-lite re-bench |
+| debug-symptom-collector | Sonnet | 12 | — | Debug-team Phase 1 symptom JSON |
+| debug-strategist | Opus | 12 | — | Debug-team first-principles diagnosis |
+| debug-archaeologist | Sonnet | 15 | — | Debug-team historical/Gemini excavation |
+| debug-adversarial | Sonnet | 15 | — | Debug-team adversarial frame analysis |
+| debug-architect | Opus | 18 | — | Debug-team patch architecture plan |
+| debug-patch-editor | Sonnet | 20 | — | Debug-team bounded patch editor |
+| debug-validator | Sonnet | 15 | — | Debug-team mechanical validation |
 
 ## Memory (canonical layout)
 
@@ -59,7 +69,7 @@ graph LR
     SS --- ss1[session-start.sh<br>session-compact.sh<br>apl-cache-refresh.sh]
     PT --- pt1[9 guards:<br>read-secrets · write-unified<br>plan-exit · bash-secrets<br>bash-write · lint-before-build<br>research-queries · mcp-queries<br>momentum-brake-enforce]
     PO --- po1[post-bash-handler<br>lint-on-edit L5<br>nudge-checkpoint<br>coupling-proactive<br>chaos-inject-post L6<br>model-fallback L2<br>post-global-handler]
-    S --- s1[prompt: silent-exec guard<br>agent: hygiene check<br>stop-quality (merged)<br>stop-metrics (merged)<br>stop-notify · integrity]
+    S --- s1[prompt: silent-exec guard<br>stop-quality (merged)<br>stop-metrics (merged)<br>stop-notify · integrity]
 
     style UPS fill:#e67e22,color:#fff
     style SS fill:#4a9eff,color:#fff
@@ -69,7 +79,7 @@ graph LR
     style S fill:#9b59b6,color:#fff
 ```
 
-**30 scripts · 32 hook registrations em `settings.json`** (10 eventos: SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · PostToolUseFailure · SessionEnd + 2 inline Stop hooks).
+**33 command scripts + 1 inline prompt · 34 hook registrations em `settings.json`** (11 eventos: SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · StopFailure · PostToolUseFailure · SessionEnd).
 APL (Ambient Productivity Layer): 3 hooks — pulse per prompt, cache at start, scorecard at stop.
 **Control plane (canonical):** `.claude/settings.json` = hooks array + permissions (deny/allow). `.claude/settings.local.json` = user-specific overrides ONLY (permissions.allow for per-user tool auth; NOT hook registrations). Agents auditing hook health must check `settings.json:hooks[]`, never `.local.json`. Reference: `.claude/hooks/README.md`.
 
@@ -80,7 +90,7 @@ graph BT
     L1[L1 Retry + Jitter<br>retry-utils.sh] --> L2[L2 Model Fallback<br>Opus → Sonnet → Haiku<br>circuit breaker 2 fails/5min]
     L2 --> L3[L3 Cost Circuit Breaker<br>warn@100 block@400 calls/hr]
     L3 --> L4[L4 Graceful Degradation<br>context:fork in heavy skills]
-    L4 --> L5[L5 Self-Healing Loop<br>lint-on-edit → stop-detect<br>→ pending-fixes → session-start]
+    L4 --> L5[L5 Self-Healing Loop<br>lint-on-edit → stop-quality<br>→ pending-fixes → session-start]
     L5 --> L6[L6 Chaos Engineering<br>4 vectors, opt-in CHAOS_MODE=1<br>injects into L2/L3 state files]
     L6 --> L7[L7 Continuous Learning<br>failure-registry NeoSigma<br>memory TTL · /dream · /insights]
 
@@ -99,7 +109,7 @@ graph BT
 | L2 | DONE | `.claude/hooks/model-fallback-advisory.sh` |
 | L3 | NOT IMPLEMENTED | cost-circuit-breaker.sh removed — behavior unlinked (S230 audit) |
 | L4 | DONE | `context:fork` in skills |
-| L5 | DONE | `lint-on-edit.sh`, `stop-detect-issues.sh` |
+| L5 | DONE | `lint-on-edit.sh`, `hooks/stop-quality.sh` |
 | L6 | BASIC | `chaos-inject-post.sh` + `lib/chaos-inject.sh` (stop-chaos-report absorvido/removido — reporting gap) |
 | L7 | DONE | `failure-registry.json`, memory TTL, `/dream`, `/insights` |
 
@@ -181,7 +191,7 @@ trivial → Ollama ($0)  │  simple → Haiku  │  medium → Sonnet  │  com
 
 **Cross-model orchestration** — ver [`docs/adr/0003-multimodel-orchestration.md`](adr/0003-multimodel-orchestration.md) para framework 5-critérios (objetivo/trigger/artefato/custo/risco) + invocation gates Claude Code ↔ Codex ↔ Gemini ↔ Ollama + deferral rationale (Antigravity, ChatGPT deflate).
 
-**Cost**: $0 tier — Claude Code Max + Gemini CLI OAuth + Codex via ChatGPT Plus. API keys are used by QA (`content/aulas/scripts/gemini-qa3.mjs`) and research (`.claude/scripts/{gemini,perplexity}-research.mjs`) scripts.
+**Cost**: $0 tier — Claude Code Max + Gemini CLI OAuth + Codex via ChatGPT Plus. API keys are used by QA (`content/aulas/scripts/gemini-qa3.mjs`) and research (`.claude/scripts/{gemini,perplexity}-research.mjs`) scripts. Research wrappers `gemini-deep-research`/`perplexity-sonar-research` are experimental until the S266 D-lite re-bench locks MERGE or MERGE-BACK.
 
 ## Daily/Weekly Workflow
 
@@ -237,13 +247,13 @@ OLMO/
 │   ├── settings.local.json  # Local overrides (permissions only)
 │   ├── rules/ (5)           # Anti-drift, KBPs, QA pipeline, slide/design rules
 │   ├── skills/ (18)         # Progressive disclosure (loaded on demand)
-│   ├── agents/ (9)          # Subagent definitions with model routing
+│   ├── agents/ (19)         # Subagent definitions with model routing
 │   ├── hooks/ (17 + lib/)   # Guards + antifragile hooks
 │   │   └── lib/             # retry-utils.sh, chaos-inject.sh
 │   ├── apl/                 # Ambient Productivity Layer cache (gitignored)
 │   ├── insights/            # failure-registry.json, reports
 │   └── plans/               # Session plans
-├── hooks/ (13)              # Lifecycle + APL: session-start, stop-*, ambient-pulse, apl-cache, nudge-commit, post-compact-reread, session-end
+├── hooks/ (15)              # Lifecycle + APL: session-start, stop-*, ambient-pulse, apl-cache, loop-guard, failure hooks, session-end
 ├── config/
 │   └── mcp/servers.json     # MCP server configs (pinned versions)
 ├── content/aulas/           # Node.js subsystem (deck.js + GSAP + Vite)

@@ -60,16 +60,14 @@ if echo "$CMD" | grep -qE '\b(cp|mv)\b'; then
 fi
 
 # Pattern 17: rm/rmdir — file/directory deletion — filter `*rm *` LIVE
-# 17a: ASK before rm on .claude/workers/ (irreplaceable research data)
+# 17a: BLOCK rm/rmdir while permissions.ask is unreliable (KBP-26).
 # Whitelist: .worker-mode flag, .dream-pending flag
 if echo "$CMD" | grep -qE '\b(rm|rmdir)\b'; then
-  if echo "$CMD" | grep -qE '\.claude/workers/' && ! echo "$CMD" | grep -qE '\.(worker-mode|dream-pending)'; then
-    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"[SAFETY] rm em .claude/workers/ — workers contem pesquisa. Lucas aprova?"}}\n'
+  if echo "$CMD" | grep -qE '\.(worker-mode|dream-pending)'; then
     exit 0
   fi
-  # 17b: All other rm/rmdir — ask confirmation
-  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"rm/rmdir detectado — confirme se intencional"}}\n'
-  exit 0
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"rm/rmdir bloqueado por padrao — use aprovacao humana fora do fluxo automatico"}}\n'
+  exit 2
 fi
 
 # Pattern 18: chmod — permission changes — filter `*chmod*` LIVE
