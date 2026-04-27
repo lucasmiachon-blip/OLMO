@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Sessao 263 — 2026-04-27 (BUILD_METANALISES · wrap-canonical bench Phase 0+1)
+
+> Lucas frame: "rodas a pesquisa via agents skills subagents vs script ver qual performa melhora" → "todas as pernas sempre x todas as pernas sempre" → "wrap eh sempre um agente orquestrador".
+
+- **`c353f53` feat(S263): Phase 0+1 — wrap-canonical rules + 2 research agents** `[+972/-1, 5 files]` — KBP-47 ensemble + KBP-48 wrap-canonical em SKILL.md ENFORCEMENT 4-5 + KBP file (Next bumped 47→49). gemini-deep-research.md (~250li) + perplexity-sonar-research.md (~210li) JSON schema-strict alinhados com codex-xhigh-researcher template. Plan splendid-munching-swing.md (9 phases, ~7-9h total).
+
+### Aprendizados
+
+- **KBP-47 ensemble obrigatório:** /research dispatches ALL pernas, never subset (debt KBP-31 closed Lucas turn 3 — regra existia mas nunca registrada).
+- **KBP-48 wrap = sempre agente orquestrador:** scripts .mjs são legacy a migrar. Codex (xhigh) e evidence-researcher já canônicos; gemini/perplexity migrados S263 (Lucas turn 5).
+- **KBP-38 reinforced:** Phase 1.3 smoke test + Phase 2-8 bench BLOCKED até daemon Ctrl+Q + reopen. Window-restart insuficiente (S250 lesson re-aplicada).
+- Schema reuse `research-perna-output.json`: codex_cli_version nullable permite Gemini/Perplexity reaproveitarem schema sem fork — triangulator (S262+) consome 3 perna types via 1 schema.
+- Bench reframe pós-Lucas turn 5: CONFIRMATÓRIO (não exploratório) — vies esperado MERGE; bench documenta empiricamente a transição script→agent.
+
 ## Sessao 262 — 2026-04-27 (Slides_build · s-quality content + visual evolution + S260 commit)
 
 > Lucas frame: "Vamos fazer slides depois migramos tentamos migra o mjs" → "calma um slide por vez, comecar com conteudo e QA visual de slide quality" → "no bloco de qualidade como a revisao foi conduzida entram com animacoes (Prospero, PRISMA, a priori, transparencia)" → "segundo box vai ser RoB1, 2 ROBUST RCT ROBINS, ULTIMO carda GRADE" → "5 cliques agrupado" → "polimento profissional hiper-detalhado shared-v2".

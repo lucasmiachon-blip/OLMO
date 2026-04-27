@@ -1,64 +1,61 @@
-# HANDOFF - Proxima Sessao (S263)
+# HANDOFF - Proxima Sessao (S264)
 
-> S262 closed: Slides_build (s-quality DONE — visual + content evolution + S260 commit batch). **mjs migration deferred S263+** (Lucas: "depois migramos tentamos migra o mjs").
-> S261 closed bridge; S260 committed em S262 Phase 0 (cc04bbd).
+> S263 partial close: Phase 0+1 committed (`c353f53` rules KBP-47+48 + 2 agents wrap-canonical + plan). Phase 2-8 bench BLOCKED on **KBP-38 daemon Ctrl+Q + reopen** (window-restart insuficiente).
 
-## 🔥 P0 — S263 side-by-side test agents/skills vs .mjs (Lucas turn 5 S261, deferido S262)
+## 🔥 P0 — Bench script×agent post-restart (splendid-munching-swing.md Phase 1.3-8)
 
-Migration ADITIVA não-destrutiva. 4 targets + 1 NEW capability (research-triangulator + Living HTML). N≥10 parallel runs → decision matrix MERGE / KEEP-SEPARATE / MERGE-BACK per target. Plan: `.claude/plans/S262-research-mjs-additive-migration.md`. Estimate ~12-16h.
+Estimate ~60-90min S264 dedicada. **Pre-bench checklist (5min):**
+
+1. `claude agents | grep -E "gemini-deep-research|perplexity-sonar-research"` — registry refresh confirmation (KBP-38)
+2. `echo "GEMINI:${GEMINI_API_KEY:0:4} | PERPLEXITY:${PERPLEXITY_API_KEY:0:4} | CODEX:$(codex --version)"`
+3. `nlm whoami` — TTL ~20min, relogin se expirou
+
+Sequência (orchestrator-driven, Lucas só age em OAuth/UI): smoke test (~5min) → Phase 2 Path A (manual dispatch das 7 pernas: Bash `.mjs` P1+P5, Bash `nlm` P6, Agent tool P2+P7) → Phase 3 Path B (Agent tool dispatch P1'+P5'+P2+P7 paralelos) → Phase 4 `comparison.tsv` + spot-checks → Phase 5 decision matrix MERGE/KEEP/MERGE-BACK.
+
+**Lucas-only actions (S264 directive S263 turn final):** Ctrl+Q + reopen (UI), `nlm login` se TTL expirou (OAuth). Resto orchestrator-driven incluindo `/research` substituído por manual dispatch (skill é `disable-model-invocation`).
 
 ## 🔥 P0 — Metanálise QA editorial pipeline (carryover S260+)
 
-- s-heterogeneity + s-fixed-random ready preflight (S260 committed cc04bbd)
-- s-quality DONE em S262 (sem QA pipeline gemini-qa3 — Lucas approved direct via visual + content + animação)
-- Próximo APL: **s-absoluto** (3/19 editorial) · 11 LINT-PASS pendentes · s-contrato R11=5.7 (REOPEN/ACCEPT)
+Próximo APL: **s-absoluto** (3/19 editorial) · 11 LINT-PASS pendentes · s-contrato R11=5.7 (REOPEN/ACCEPT). Pipeline: gemini-qa3.mjs preflight→inspect→editorial. KBP-05 anti-batch. Bench Phase 6-8 (Living HTML + slide `s-ma-types` + QA) integra com este P0.
 
-Pipeline: `node scripts/gemini-qa3.mjs --aula metanalise --slide {id} --preflight` → [Lucas OK] → `--inspect` → [Lucas OK] → `--editorial`. KBP-05 anti-batch.
+## 🟡 P1 — carryover
 
-## 🟡 P1 — S261 cleanup carryover + radar
-
-- **Specialty cleanup remaining** (S261 Lucas turn 7): `immutable-gliding-galaxy.md` 8 lines (L25/134/137/316/393/506/520/591) — remove cardio/gastro/hepato/reumato. VALUES.md L12+L63 done.
-- **Tone propagation per-agent** (S261 Lucas turn 8): 16 `.claude/agents/*.md` need terse directive after frontmatter close. anti-drift.md §Tone done (global).
+- **Specialty cleanup remaining** (S261 turn 7): `immutable-gliding-galaxy.md` 8 lines (L25/134/137/316/393/506/520/591) — remove cardio/gastro/hepato/reumato. VALUES.md done.
+- **Tone propagation per-agent** (S261 turn 8): 14 `.claude/agents/*.md` ainda (gemini-deep-research + perplexity-sonar-research já tone-aware nos specs S263). anti-drift.md §Tone global done.
 - **Tier 2 smoke tests live invocation** — hooks bypass para subprocess
 - **Agent .md spec drift archaeologist** — enum `{success,partial,reverted,unknown}` vs example `"tracking"` (5 min fix)
 - **`rm <file>` bypass investigation** — `Bash(*)` allow precedes hook ASK (~1-2h)
-- **Agents runtime invoke + non-redundancy live** — 9 non-debug agents sem proof (~1.5-2h)
 - **Lib refactor consolidado** — PROJECT_ROOT define + REPO_SLUG sha256sum (3 hooks each)
 - **R3 Clínica Médica prep** — 217 dias
 
-## Hidratação S262 (3 passos)
+## Hidratação S264 (3 passos)
 
-1. `git log --oneline -10` — confirm S261 chain (4 commits Phase B/C/D/F)
-2. Read `.claude/plans/S262-research-mjs-additive-migration.md` (P0 main) + `concurrent-nibbling-teacup.md` (S261 reference)
-3. `git status` — KBP-40 staleness check
+1. `git log --oneline -5` — confirm S263 chain `c353f53`
+2. Read `.claude/plans/splendid-munching-swing.md` — 9 phases, Phase 0+1 done
+3. Pre-bench checklist (acima) ANTES de qualquer dispatch
 
-## Cross-window protocol (S259 reinforced)
+## Cross-window protocol (S259+ reinforced)
 
 - `git fetch && git status` antes de Edit em state files (KBP-25 + KBP-40)
 - `git branch --show-current` antes de commit
 - Conflict-prone files (HANDOFF/CHANGELOG/BACKLOG): Edit minimal sections, não rewrite
+- Daemon Ctrl+Q + reopen pra Agent registry refresh (KBP-38 reinforced S263)
 - "Liberdade depois escrutínio" (Lucas S259) — divergent search > converging too fast
-
-## Tooling adicionado S262
-
-- **`content/aulas/scratch/calibrate-boxes.mjs`** (Lucas commit `475d47d` — port OLMO_GENESIS): Playwright tool que abre slide específico, extrai bounding boxes (wrapper/zones) em coordenadas % relativas ao wrapper. Uso: `node scratch/calibrate-boxes.mjs --aula metanalise --slide s-forest2`. Goal: agentes de código (Claude) usarem dados precisos em vez de "chutar" coordenadas CSS — anti-chute pattern.
 
 ## Cautions ativas
 
-- **APL CALLS counter** + **Stop[5]→Stop[4] shift** (S256 B.2)
-- **Smoke tests Tier 1 ATIVO** — debug-team 7/7 + hooks 14/14 (S258)
-- **KBP-42** Hook silent (S258), **KBP-43** literal colors (S259), **KBP-44** PMID-em-slide (S260, formalized S261), **KBP-45** wholesale migrate frágil (S261)
-- **Tone default = terse** (S261 anti-drift.md §Tone — global; per-agent S262 propagation pendente)
-- **Codex agent `--model` flag REMOVED** — `~/.codex/config.toml` default applies (POC empirical S261)
-- **Perna 7 ATIVO** em /research SKILL.md — codex-xhigh-researcher (Codex GPT-5.5 xhigh, JSON schema-strict, ADOPT-NOW por POC)
+- **KBP-47** Pernas isolation = research subset trap (S263 formalized)
+- **KBP-48** Wrap não-agente = legacy pattern (S263 formalized)
+- **KBP-38** Agent registry refresh = daemon-level only (reinforced S263)
+- **KBP-42/43/44/45/46** previous (hook silent, literal colors, PMID-em-slide, wholesale migrate, subgrid contextual)
+- **Tone default = terse** (anti-drift.md §Tone — global)
+- **Codex agent `--model` flag REMOVED** — config.toml default applies
+- **Pernas ativas pos-S263:** Codex xhigh (P7) + gemini-deep-research + perplexity-sonar-research (S263 new) + evidence-researcher (P2) + .mjs legacy P1+P5 (Path A baseline para bench)
 
 ## Plans active
 
-- `[S262 P0]` `.claude/plans/S262-research-mjs-additive-migration.md` — main next session
-- `[S261 closed → archive after S262 starts]` `.claude/plans/concurrent-nibbling-teacup.md`
-- `[S260 pending commit]` `.claude/plans/jazzy-sniffing-rabbit.md` — heterogeneity-evolve uncommitted
-- `[BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` — Conductor 2026 (specialty cleanup pending S262)
+- `[S264 P0]` `.claude/plans/splendid-munching-swing.md` — bench Phase 1.3-8 post-restart
+- `[S262 methodology source]` `.claude/plans/S262-research-mjs-additive-migration.md` — splendid concretizou
+- `[BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` — Conductor 2026
 
-S259 plans archived: `archive/S259-metanalise-s-quality.md`.
-
-Coautoria: Lucas + Opus 4.7 + Codex GPT-5.5 xhigh + Gemini 3.1 Pro + evidence-researcher | S261 multi-arm research migration bridge | 2026-04-26
+Coautoria: Lucas + Opus 4.7 + Codex GPT-5.5 xhigh + Gemini 3.1 Pro + Perplexity sonar-deep-research + evidence-researcher | S263 wrap-canonical + 2 new pernas | 2026-04-27
