@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## Sessao 259 — 2026-04-26 (metanalise-s-quality, paralelo — s-quality v2 rebuild + 6a perna research POC, 5 commits)
+
+### Phase A — Setup (1 commit)
+
+- **`f29f2cb` chore(S259): plan archive + session scaffold s-quality** `[+362, 1 file]` — Plan auto-named `entre-em-plan-vamos-sunny-gosling.md` archived to canonical `S259-metanalise-s-quality.md`. Session name written to `.claude/.session-name`. 8-phase research-first flow approved via 5 Lucas iterations (PT translation + ortogonais → distintas + research-first synthesis + 6a perna Codex + .mjs migration POC).
+
+### Phase B — Codex CLI bring-up (1 commit)
+
+- **`70a0b5c` chore(S259): codex-xhigh-researcher POC + AGENTS.md SOTA sync** `[+184/-4, 2 files]` — Codex CLI 0.125.0 verified. WebSearch SOTA: Codex GPT-5.5 + reasoning.effort=xhigh confirmed; Anthropic subagents/skills SOTA pattern researched. New agent `.claude/agents/codex-xhigh-researcher.md` (cyan, sonnet, Bash-CLI wrapper mirror of debug-archaeologist). AGENTS.md updated: Codex GPT-5.4→5.5, Claude Code Opus 4.6→4.7, S259 architectural POC section, Conductor 2026 plan reference (`.claude/plans/immutable-gliding-galaxy.md` §11b/c/d).
+
+### Phase C+D — Research execution + evidence synthesis (1 commit)
+
+- **`e4b4d49` docs(S259): s-quality-grade-rob — research+synthesis ortogonalidade tese central** `[+108/-14, 1 file]` — 6 pernas research POC (Codex xhigh + WebSearch + WebFetch + NCBI E-utilities). R1 paper-fonte: Strawbridge R et al, BJPsych Open 2025;11(6):e266 (PMID 41186074, convergencia 3/3 pernas). R4 finding: "ortogonal" NÃO é termo EBM 2023-2025 (Codex extensive search) — papers usam "complementary, not interchangeable, distinct, domain". R2/R3 expansion: Lunny 2025 (PMID 41626887, 9% opposing AMSTAR-ROBIS), Schunemann 2018 (PMID 29432858, RoB = 1 of 5 GRADE domains nesting), Yang 2023 (PMID 36675377, 66.6% non-RoB downgrades), Karvinen 2025 (PMID 41379741), McKechnie 2023 (PMID 37013791), Igelstrom 2021 (PMID 34437948). 7/7 new PMIDs VERIFIED via NCBI esummary. Evidence HTML +160 lines: header h1 reframed, paper-source section, why-not-orthogonal section (3 razões + tabela constructo/pergunta/objeto/ferramenta + 3 callouts empíricos), sintese rewrite, lucas-narrative anchors (4 frases citáveis com source attribution), references S259 expansion, footer atribuição.
+
+### Phase E+F+G — Slide rebuild HTML+CSS+GSAP (1 commit)
+
+- **`80645da` feat(S259): s-quality v2 — 3 cards isomórficos + dissociation panel** `[+191/-159, 6 files]` — H2 changed from "ortogonais" → "três perguntas distintas, não hierarquia" (Lucas autorizou após R4). Slide layout 3 cards (Qualidade verde 155° / RoB âmbar 75° / Certeza violeta 265°) com 3 rows (PERGUNTA / CONFUSÃO / FERRAMENTA) + dissociation panel (52% Alvarenga, 80px display serif). 4 beats CLT-driven (each click = 1 schema operation): Beat 0 auto cards, Beat 1 perguntas, Beat 2 confusões (schema rupture), Beat 3 ferramentas + dissociation (synthesis empírica, delay 0.35s). shared-bridge.css: s-quality adicionado ao :where() (4º slide-laboratório). metanalise.css linhas 334-475 substituídas. slide-registry.js handler reescrito preservando contract __clickRevealNext/__hookRetreat/__hookCurrentBeat. _manifest.js headline sync. Build PASS, lint PASS.
+
+### Phase H — Verification + closure (this commit)
+
+- **`<sha>` chore(S259): s-quality build verification + APL closure** — HANDOFF.md (root + per-aula) atualizados; CHANGELOG entry. State final: s-quality LINT-PASS → ready Lucas QA preflight gate.
+
+### Aprendizados (S259 s-quality, 5 li)
+
+- **Lucas's "ortogonal" frame era pedagogicamente forte mas tecnicamente impreciso** — Codex xhigh extensive search confirmou termo não está em literatura EBM 2023-2025. Pivot para "três perguntas distintas" preserva schema mental (Mayer Spatial Contiguity) sem claim falso. KBP-13 honesty over rhetoric.
+- **Cross-family research convergence é defesa real contra hallucination** — Codex (OpenAI) + WebSearch + NCBI verification triangularam paper-fonte (Strawbridge 2025) onde minha hipótese inicial (BMJ-EBM/Cochrane Methods) era enviesada. 6ª perna não é overkill; é antifragility.
+- **"Liberdade depois escrutínio" (Lucas, S259):** divergent search > converging too fast. Inicial 2-perna convergence em R1 funcionou mas faltou para R2/R3. Após Lucas signal, expanded R2 (Igelström 124 SRs counter-intuitive: high-AMSTAR includes more critical RoB) + R3 (Yang 2023 66.6% non-RoB) — findings que mudaram totalmente narrative.
+- **POC subagent funcionou** — Codex xhigh via Bash CLI invocation pattern (mirror de debug-archaeologist Gemini wrapper) entregou 5+ research findings a custo ~$0.50 total. Validates `.mjs → agents/skill` migration direction (S260+ deferred per Lucas "test before migrate").
+- **HANDOFF cross-window awareness é vital** — esta sessão (s-quality) e outra (heterogeneity-evolve) rodaram paralelamente com escopos não-conflitantes. Lucas warning "cuidado com cross contamination sempre leia antes" → enforced KBP-25 fresh-read antes de cada Edit. Zero conflitos.
+
+---
+
 ## Sessao 259 — 2026-04-26 (heterogeneity-evolve — ROB2 restoration from OLMO_GENESIS, 1 commit)
 
 ### Phase C0 — ROB2 regression fix

@@ -21,6 +21,8 @@
 
 > **S259 (heterogeneity-evolve):** Phase C0 ROB2 restoration from OLMO_GENESIS (regression fix). Restored: theme-dark + .rob2-bar-track wrapper + .rob2-figure white card. Modernizado: :has() edge bleed (replace MutationObserver), subgrid bars (alignment shared), .kappa-stats grid + tabular-nums (column-mismatch bug). Palette: oklch literais inventados → Paul Tol Bright tokens (--data-1/5/7/2 em shared/css/base.css:79-91, color-blind safe scientific viz standard). Files: `slides/08c-rob2.html` + `metanalise.css`. Pendente S260+: s-heterogeneity refactor (Phase C1) + s-fixed-random (Phase C2) + evidence expansion (Phase D).
 
+> **S259 (metanalise-s-quality, paralelo):** s-quality v2 rebuild com carga germânica + 6ª perna research (Codex xhigh / GPT-5.5 POC). 8 phases, 5 commits. R1 paper-fonte identificado (Strawbridge 2025 BJPsych Open, PMID 41186074); R4 finding crítico: "ortogonal" NÃO é termo EBM estabelecido — heurística pedagógica. H2 mudou de "ortogonais" → "Qualidade, Risco de Viés e Certeza: três perguntas distintas, não hierarquia". Slide layout: 3 cards isomórficos (Qualidade/RoB/Certeza × Pergunta/Confusão/Ferramenta) + dissociation panel (52% Alvarenga 2024). Evidence HTML expandido +7 PMIDs verified (Strawbridge, Lunny, Schunemann, Yang, Karvinen, McKechnie, Igelstrom). Files: `slides/05-quality.html` + `metanalise.css` (lines 334-475 substituídos) + `shared-bridge.css` (s-quality opt-in 4º slide-laboratório) + `slide-registry.js` (4 beats CLT-driven) + `evidence/s-quality-grade-rob.html` (paper-source + why-not-orthogonal + lucas-narrative sections). State s-quality: LINT-PASS → ready Lucas QA preflight.
+
 ## Ordem do deck (atualizada S157)
 
 ```
