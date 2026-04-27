@@ -1,19 +1,37 @@
 # HANDOFF - Proxima Sessao
 
-> **S258 "hookscont" — Phase A debug-team smoke 7/7 + Phase C hooks runtime audit + Phase D hooks improvements (~13 commits).** debug-team Tier 1 contract+fixture (A); 32 hooks producer-consumer audited 0 teatro + KBP-42 codified (C+D); hooks-health Tier 1 14/14 PASS + drain_stdin DRY DEFERRED gate-justified (D). G2 finding S258: subprocess hooks bypass infra defer Tier 2 S259. Detalhes/aprendizados: `CHANGELOG.md §S258`.
+> **S259 "heterogeneity-evolve" worker — Phase C0 ROB2 restoration from OLMO_GENESIS (commit `56301bc`).** Tol palette (--data-1/5/7/2) + subgrid + :has() edge bleed + white card .rob2-figure + ch-context bug fix. KBP-43 codified ("cores literais inventados quando design tokens published"). Detalhes/aprendizados: `CHANGELOG.md §S259`.
+>
+> **S258 "hookscont" closed:** debug-team Tier 1 7/7 (A); 32 hooks producer-consumer 0 teatro + KBP-42 codified (C+D); hooks-health 14/14 PASS (D). G2 finding subprocess hooks bypass defer S259+. Detalhes: `CHANGELOG.md §S258`.
 
-## 🔥 P0 — S259 metanálise QA editorial resume [PROMOTED from P1] (BACKLOG #64)
+## 🔥 P0 — S259+ metanálise visual + carga cognitiva (heterogeneity-evolve continuation)
 
-**Lucas commitment, dormant 16+ sessões pré-S256.** Plan canonical: `.claude/plans/archive/S240-DEFERRED-lovely-sparking-rossum.md`. State real (`content/aulas/metanalise/HANDOFF.md`):
-- 16 slides no deck (S240 plan diz 17 — stale)
-- 3 DONE (s-title, s-hook, s-contrato)
-- 1 QA in-progress (s-objetivos preflight pendente)
-- 12 LINT-PASS pendentes
-- Inconsistência s-contrato R11=5.7 marcado DONE — REOPEN ou ACCEPT? (Lucas decide)
+**Lucas frame:** "melhorando estética + carga cognitiva + profissional sem chutes". Pattern canônico estabelecido em ROB2 + s-etd (S240).
 
-Loop A pipeline canonical (qa-pipeline.md §1, gemini-qa3.mjs): Preflight → [Lucas OK] → Inspect → [Lucas OK] → Editorial → patch + commit. 1 slide = 1 commit. Anti-SOTA guard ≤30% session em meta-work.
+State real (`content/aulas/metanalise/HANDOFF.md` + plan `.claude/plans/jazzy-sniffing-rabbit.md`):
+- ✅ **C0 ROB2** (08c-rob2.html): restored — Tol palette, subgrid, :has(), white card
+- ⏳ **C1 s-heterogeneity** (09a): refactor pendente — pattern ROB2 + storyboard B aprovado (insight reescrito sem matemática para iniciantes; PI fica no evidence)
+- ⏳ **C2 s-fixed-random** (10): refactor pendente — mesmo pattern; remove "42% utilizam não adequada" (complex p/ iniciante)
+- ⏳ **D evidence/s-heterogeneity.html**: PI deep dive + 5 gaps + pesquisa multi-model (ChatGPT 5.5 Xhigh + Gemini + Claude triangulation)
+- ⏳ **E HANDOFF + CHANGELOG final close**
 
-**OR alternativa P0 (Lucas decides G0):** BACKLOG content delivery deadline 30/abr T-4d (#52 grade-v2 scaffold + #53 shared-v2 Day 2 + #54 qa-pipeline-v2). Stale vs metanálise — Lucas pivotou em S240 "metanálise é o produto P0 real" mas BACKLOG não atualizou.
+**Cross-window S259 active:** outra janela em `s-quality` (slide 05) reform — plans `entre-em-plan-vamos-sunny-gosling.md` + `warm-snacking-hinton.md` (mesma scope, orquestrador+worker). **Escopos não conflitam** (rob2/heterogeneity vs quality). Não tocar files dessas sessões.
+
+**Hidratação S260+ (3 passos):**
+1. `git log --oneline -5` — confirm `56301bc` ROB2 + outros S259 commits
+2. Read `.claude/plans/jazzy-sniffing-rabbit.md` (storyboard C1/C2 + open questions + Tol palette mapping)
+3. Read `content/aulas/metanalise/HANDOFF.md` §S259 line
+
+## 🟢 P2 — QA editorial metanálise (opcional, se tiver tempo)
+
+**Lucas S259 close:** "ja esta apresentavel" — QA editorial não bloqueador, foco visual+carga cognitiva venceu.
+
+Backlog dormant 16+ sessões. Plan: `.claude/plans/archive/S240-DEFERRED-lovely-sparking-rossum.md`. State:
+- 12 LINT-PASS pendentes (Loop A pipeline `gemini-qa3.mjs`: Preflight → Inspect → Editorial)
+- s-contrato R11=5.7 inconsistência (REOPEN ou ACCEPT — Lucas decide)
+- s-objetivos QA preflight pendente
+
+Plus: BACKLOG #52/#53/#54 content delivery deadline (grade-v2 scaffold / shared-v2 Day 2 / qa-pipeline-v2). Stale.
 
 ## 🟡 P1 — Tier 2 smoke tests live invocation infra (S258 emergent)
 
@@ -44,11 +62,11 @@ Lucas explicit "agents ficam pra proxima". 9 non-debug agents sem runtime test (
 - **KBP candidates S256 emergent (reaffirm S258):** "Producer-consumer path contracts" + "State files staleness recursive"
 - **`.claude/.last-insights` repo-local cleanup** — tracked file frozen S225-era; redundant pós dual-write fix S256
 
-## Hidratação S259 (3 passos)
+## Hidratação S260+ (3 passos)
 
-1. `git log --oneline -15` — confirm S253→S256→S258 chain (~36 commits)
-2. **Read `.claude/plans/archive/S240-DEFERRED-lovely-sparking-rossum.md`** Loop A QA pipeline + per-slide state em `content/aulas/metanalise/HANDOFF.md`
-3. `git status` (KBP-40 corollary: gitStatus snapshot decai)
+1. `git log --oneline -15` — confirm S258→S259 chain (S259 ROB2 commit `56301bc` + outras S259 commits cross-window)
+2. **Read `.claude/plans/jazzy-sniffing-rabbit.md`** §Phase C1+ (storyboard heterogeneity + fixed-random) + `content/aulas/metanalise/HANDOFF.md` §S259 line
+3. `git status` (KBP-40: gitStatus snapshot decai; verificar plan files untracked não-meus para 2-window awareness)
 
 ## Dual-front working protocol (S259+ — Lucas reinforced S258 close)
 
@@ -84,10 +102,13 @@ Recommend **(A) metanálise** — Lucas commitment + plan canonical existe + bou
 - **drain_stdin DRY DEFERRED S258 D.2** (KBP-41 gate-justified): cost > value @ 1-line pattern; revisit signal pattern adds 3+ usages OR hook_log-style envelope evolui. Real DRY candidates S259+: PROJECT_ROOT define + REPO_SLUG sha256sum.
 - **KBP-42 codified S258 D.3:** "Hook silent without consumer = teatro candidate" — detection method em `docs/audit/hooks-runtime-S258.md §5`
 
-## Plans active (1 background)
+## Plans active (3 — S259 multi-window)
 
-- **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` — Conductor 2026 single source of truth (12-arms taxonomy + KPIs + §16 backlog reference)
+- **[S259 worker]** `jazzy-sniffing-rabbit.md` — heterogeneity-evolve (this session: ROB2 done; C1/C2/D pending)
+- **[S259 outra janela]** `entre-em-plan-vamos-sunny-gosling.md` — s-quality reform (Cognitive Load Theory)
+- **[S259 outra janela]** `warm-snacking-hinton.md` — s-quality orquestrador (paralelo à anterior)
+- **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` — Conductor 2026 single source of truth (12-arms taxonomy + KPIs)
 
-S258 plans archived: `archive/S258-hookscont.md` (Phase A 8 commits + Phase B close) + `archive/S258-hookscont-phase-D.md` (Phase C audit + Phase D 3 commits hooks improvements + KBP-42 + audit doc).
+S258 plans archived: `archive/S258-hookscont.md` + `archive/S258-hookscont-phase-D.md`.
 
-Coautoria: Lucas + Opus 4.7 (Claude Code) | S258 hookscont Phase A+B+C+D closed | 2026-04-26
+Coautoria: Lucas + Opus 4.7 (Claude Code) + OLMO_GENESIS visual reference | S259 ROB2 restoration shipped | 2026-04-26
