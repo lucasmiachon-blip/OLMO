@@ -200,6 +200,42 @@
   <p><strong>Conexao com F3 (aplicacao):</strong> Na ancora (Valgimigli 2025), o residente vera o I&sup2; real e o PI real daquela MA. A heterogeneidade sai da teoria e vira decisao clinica concreta.</p>
 </section>
 
+<!-- ===== ESTRATEGIAS DIDATICAS ===== -->
+<section id="estrategias-didaticas">
+  <h2>Estrategias didaticas para o paradoxo I&sup2;</h2>
+
+  <p>Quatro abordagens distintas para ensinar o mesmo conceito &mdash; escolher uma (ou combinar) depende do contexto pedagogico. Todas evitam formulas e jargao estatistico, ancorando o conceito em raciocinio clinico cotidiano. Origem: NLM notebook query (S260) consolidando Borenstein 2021 Cap. 20 + Borenstein 2022 J Clin Epidemiol + Carlson 2023 PLOS Comput Biol.</p>
+
+  <h3>1. Analogia clinica &mdash; "Estetoscopio e Ruido"</h3>
+  <div class="key-takeaway">
+    <p><strong>Como explicar:</strong> imagine auscultar um sopro cardiaco em dois cenarios. (A) Ambulatorio em absoluto silencio, paciente com sopro inocente quase inaudivel &mdash; voce ouve com 67% de clareza apesar do som ser trivial. (B) Emergencia lotada, paciente com sopro mitral 6/6 estridente &mdash; voce tambem ouve com 67% de clareza apesar do quadro ser grave. <strong>Mesmo I&sup2; = 67%, realidades clinicas opostas.</strong></p>
+    <p><strong>Licao:</strong> "I&sup2; so te diz que o som e real, nao imaginacao. E cego para a clinica."</p>
+  </div>
+
+  <h3>2. Visualizacao &mdash; "O paradoxo do zoom"</h3>
+  <div class="key-takeaway">
+    <p><strong>Como explicar:</strong> nao leia o numero, olhe os quadrados do forest plot. Artigo A: estudos enormes em que um diz reducao de mortalidade de 10% e outro 12% (diferenca clinica minima; I&sup2; alto porque o "zoom" do grafico esta muito focado). Artigo B: quadrados espalhados, um diz que a droga cura e outro que ela mata (divergencia clinica grave; mesmo I&sup2; alto).</p>
+    <p><strong>Licao:</strong> classificar I&sup2; como "alto" ou "baixo" sem olhar os quadrados e apostar contra o paciente.</p>
+  </div>
+
+  <h3>3. Decisao de cabeceira &mdash; "Regra do pior cenario"</h3>
+  <div class="key-takeaway">
+    <p><strong>Como explicar:</strong> sao 2h da manha, voce decide se prescreve um remedio com I&sup2; = 67%. Em vez de classificar o numero, faca a pergunta do pior cenario: <em>se meu paciente cair no PIOR lado dessa divergencia, o que acontece?</em> Se pior cenario = beneficio pequeno (e melhor cenario = beneficio enorme), prescreva tranquilo. Se pior cenario = dano ou risco de morte, pare &mdash; a evidencia media nao serve.</p>
+    <p><strong>Licao:</strong> antecipa o intervalo de predicao sem precisar do termo tecnico &mdash; residente decide com a logica correta.</p>
+  </div>
+
+  <h3>4. Algoritmo de leitura rapida &mdash; 3 passos em 10 segundos</h3>
+  <div class="key-takeaway">
+    <ol>
+      <li><strong>Reconhecimento:</strong> "diferenca real entre estudos existe, nao e so acaso."</li>
+      <li><strong>Recusa da classificacao:</strong> "nao trato porcentagens. 67% nao e 'moderado' nem 'alto'."</li>
+      <li><strong>Avaliacao visual:</strong> os quadrados estao todos no lado do beneficio, ou cruzam a linha do zero invadindo o lado do dano? <em>E isso que dita a conduta no plantao hoje.</em></li>
+    </ol>
+  </div>
+
+  <div class="caveat"><strong>Para o slide:</strong> a abordagem (1) Estetoscopio e a mais punchy clinicamente para residentes de clinica medica, traduzindo o paradoxo em uma pergunta familiar (auscultar). As outras tres servem como aprofundamento verbal durante a aula ou como speaker notes.</div>
+</section>
+
 <!-- ===== APROFUNDAMENTO ===== -->
 <section id="deep-dive">
   <h2>Aprofundamento</h2>
@@ -322,15 +358,18 @@
       <tr><td>Guyatt GH et al. 2011 J Clin Epidemiol</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21803546" target="_blank" rel="noopener noreferrer">PMID 21803546</a></td><td><span class="v">V</span></td><td>Pre-reading curated</td></tr>
       <tr><td>Higgins JPT et al. 2003 BMJ</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/12958120" target="_blank" rel="noopener noreferrer">PMID 12958120</a></td><td><span class="v">V</span></td><td>Perna 2: BioMCP author+title+journal MATCH</td></tr>
       <tr><td>Tatas Z et al. 2025 J Dent Res</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39962342" target="_blank" rel="noopener noreferrer">PMID 39962342</a></td><td><span class="v">V</span></td><td>Perna 2: BioMCP author+title+journal MATCH</td></tr>
+      <tr><td>Borenstein M 2022 J Clin Epidemiol</td><td>DOI 10.1016/j.jclinepi.2022.10.003</td><td><span class="c">C</span></td><td>Perna 2 (S260): CrossRef + Europe PMC. Gemini PMID claim 35246990 = fabricacao (paper de transplante). DOI claim 10.1016/j.jclinepi.2021.12.022 = paper diferente (Alam 2022).</td></tr>
+      <tr><td>Carlson RB et al. 2023 PLOS Comput Biol</td><td><a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37768880" target="_blank" rel="noopener noreferrer">PMID 37768880</a></td><td><span class="v">V</span></td><td>Perna 2 (S260): CrossRef + biomcp article_searcher. Gemini PMID claim 37765103 = paper diferente (Bhujbal 2023 inibidores quinase). PMID real validado.</td></tr>
+      <tr><td>Seo HJ 2025 J Evid-Based Practice</td><td>DOI 10.63528/jebp.2025.00006</td><td><span class="c">C</span></td><td>Perna 2 (S260): CrossRef getWorkByDOI. Korean Society of EBM, vol 1 issue 2 set/2025. Indexacao PubMed pendente.</td></tr>
     </table>
-    <p class="meta">12 PMID-VERIFIED (PubMed MCP search/BioMCP: author+title match). 2 DOI-only (too recent for PubMed indexing). 1 book. 2 guideline/guide. Total: 17 referencias.</p>
+    <p class="meta">13 PMID-VERIFIED (PubMed MCP search/BioMCP: author+title match). 4 DOI-only (too recent for PubMed indexing). 1 book. 2 guideline/guide. Total: 20 referencias.</p>
   </details>
 </section>
 
 <!-- ===== REFERENCIAS ===== -->
 <section id="referencias">
 <details open>
-  <summary><strong>Referencias (15)</strong></summary>
+  <summary><strong>Referencias (20)</strong></summary>
   <table>
     <tr><th scope="col">Referencia</th><th scope="col">Ano</th><th scope="col">Tipo</th></tr>
     <tr><td>Guyatt GH, Oxman AD, Kunz R, et al. GRADE guidelines: 7. Rating the quality of evidence &mdash; inconsistency. <em>J Clin Epidemiol</em> 64(12):1294-1302. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/21803546" target="_blank" rel="noopener noreferrer">PMID 21803546</a> <span class="v">V</span></td><td>2011</td><td>Guideline</td></tr>
@@ -339,13 +378,16 @@
     <tr><td>Langan D, Higgins JPT, Jackson D, et al. A comparison of heterogeneity variance estimators in simulated random-effects meta-analyses. <em>Res Synth Methods</em> 10(1):83-98. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/30067315" target="_blank" rel="noopener noreferrer">PMID 30067315</a> <span class="v">V</span></td><td>2019</td><td>Simulacao</td></tr>
     <tr><td>Borenstein M, Hedges LV, Higgins JPT, Rothstein HR. <em>Introduction to Meta-Analysis</em>, 2nd ed. Wiley. ISBN 978-1-119-55835-4. <span class="book">BOOK</span></td><td>2021</td><td>Livro-texto</td></tr>
     <tr><td>Migliavaca CB, Stein C, Colpani V, et al. Meta-analysis of prevalence: I&sup2; statistic and how to deal with heterogeneity. <em>Res Synth Methods</em> 13(3):363-367. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35088937" target="_blank" rel="noopener noreferrer">PMID 35088937</a> <span class="v">V</span></td><td>2022</td><td>Metodologia</td></tr>
+    <tr><td>Borenstein M. In a meta-analysis, the I-squared statistic does not tell us how much the effect size varies. <em>J Clin Epidemiol</em> 152:281-284. DOI: 10.1016/j.jclinepi.2022.10.003. <span class="c">C</span></td><td>2022</td><td>Educacao</td></tr>
     <tr><td>Ademola A, Babatunde O, Engel C, et al. The credibility of subgroup analyses reported in stroke trials is low: a systematic review. <em>Int J Stroke</em> 18(8):922-929. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/36988330" target="_blank" rel="noopener noreferrer">PMID 36988330</a> <span class="v">V</span></td><td>2023</td><td>Revisao sistematica</td></tr>
-    <tr><td>Borenstein M, Higgins JPT, Hedges LV, Rothstein HR. How to understand and report heterogeneity in a meta-analysis: The difference between I-squared and prediction intervals. <em>Integr Med Res</em> 13(1):101014. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38938910" target="_blank" rel="noopener noreferrer">PMID 38938910</a> <span class="v">V</span></td><td>2023</td><td>Educacao</td></tr>
+    <tr><td>Borenstein M, Higgins JPT, Hedges LV, Rothstein HR. How to understand and report heterogeneity in a meta-analysis: The difference between I-squared and prediction intervals. <em>Integr Med Res</em> 12(4):101014. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38938910" target="_blank" rel="noopener noreferrer">PMID 38938910</a> <span class="v">V</span></td><td>2023</td><td>Educacao</td></tr>
+    <tr><td>Carlson RB, Martin JR, Beckett RD. Ten simple rules for interpreting and evaluating a meta-analysis. <em>PLOS Comput Biol</em> 19(9):e1011461. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37768880" target="_blank" rel="noopener noreferrer">PMID 37768880</a> <span class="v">V</span></td><td>2023</td><td>Educacao</td></tr>
     <tr><td>Borenstein M, Higgins JPT, Hedges LV, Rothstein HR. Avoiding common mistakes in meta-analysis: Understanding the distinct roles of Q, I-squared, tau-squared, and the prediction interval in reporting heterogeneity. <em>Res Synth Methods</em> 15(1):136-151. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37940120" target="_blank" rel="noopener noreferrer">PMID 37940120</a> <span class="v">V</span></td><td>2024</td><td>Educacao</td></tr>
     <tr><td>Cochrane Handbook for Systematic Reviews of Interventions, Version 6.5. Chapter 10: Analysing data and undertaking meta-analyses. Higgins JPT, Thomas J, Chandler J, et al. (eds). <span class="book">GUIDE</span></td><td>2024</td><td>Guideline</td></tr>
     <tr><td>Mheissen S, Gomaa N, Autio-Gold J. Do statistical heterogeneity methods impact the results of meta-analyses? A meta epidemiological study. <em>PLoS One</em> 19(3):e0298526. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38502662" target="_blank" rel="noopener noreferrer">PMID 38502662</a> <span class="v">V</span></td><td>2024</td><td>Meta-epidemiologico</td></tr>
     <tr><td>Murad MH, Mustafa RA, Schunemann HJ, et al. Core GRADE: Assessing inconsistency of effects. <em>J Clin Epidemiol</em> 175:111514. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39322122" target="_blank" rel="noopener noreferrer">PMID 39322122</a> <span class="v">V</span></td><td>2024</td><td>Guideline</td></tr>
     <tr><td>Higgins JPT. Reflections on the I-squared index for measuring inconsistency in meta-analysis. <em>Res Synth Methods</em>. DOI: 10.1017/rsm.2025.10062. <span class="c">C</span></td><td>2025</td><td>Editorial</td></tr>
+    <tr><td>Seo HJ. Step-by-step guide to meta-analysis of clinical trials using RevMan web version. <em>J Evid-Based Practice</em> 1(2). DOI: 10.63528/jebp.2025.00006. <span class="c">C</span></td><td>2025</td><td>Tutorial</td></tr>
     <tr><td>Kanellopoulou A, Deng J, Engel L, et al. Common statistical errors in systematic reviews: a tutorial. <em>Cochrane Evid Synth Methods</em>. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40475918" target="_blank" rel="noopener noreferrer">PMID 40475918</a> <span class="v">V</span></td><td>2025</td><td>Tutorial</td></tr>
     <tr><td>Siemens T, Friede T, Engel M, Rueffer JU. Beyond prediction intervals in meta-analysis: reporting the expected proportion of comparable studies with clinically relevant benefit or harm. <em>BMC Med Res Methodol</em>. DOI: 10.1186/s12874-025-02733-9. <span class="c">C</span></td><td>2025</td><td>Metodologia</td></tr>
     <tr><td>Tatas Z, &Ccedil;olako&gbreve;lu C, Eroglu E, et al. Heterogeneity Reporting in Systematic Reviews: A Methodological Quality Assessment. <em>J Dent Res</em>. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39962342" target="_blank" rel="noopener noreferrer">PMID 39962342</a> <span class="v">V</span></td><td>2025</td><td>Meta-epidemiologico</td></tr>
@@ -363,16 +405,18 @@
     <tr><td>Siemens 2025 "Beyond PIs" &mdash; PMID nao indexado</td><td>Baixo &mdash; DOI disponivel</td><td>Monitorar indexacao PubMed</td></tr>
     <tr><td>Dados do audit (96% I&sup2;-only, 2% PI) &mdash; fonte primaria nao verificada via PubMed</td><td>Medio &mdash; numeros citados em multiplas pernas (Perplexity + Gemini) mas paper-fonte nao identificado com PMID</td><td>Possivelmente Mutz/Barbaric 2024 ou similar &mdash; verificar quando disponivel</td></tr>
     <tr><td>Exemplos clinicos do PI (GLP-1, clozapina) &mdash; extraidos de livro-texto NLM</td><td>Baixo &mdash; dados de livro-texto sao didaticos, nao necessariamente de um unico trial</td><td>Funcional para ensino. Se necessario, rastrear paper original.</td></tr>
-    <tr><td>GRADE "Core" Murad 2024 &mdash; verificar se artigo foi publicado ou apenas in press</td><td>Medio &mdash; PMID existe (39322122) mas titulo/journal podem diferir do final</td><td>Verificar via PubMed metadata quando MCP estavel</td></tr>
-    <tr><td>Imagem para slide &mdash; forest plot com PI vs sem PI</td><td>Alto &mdash; slide precisa de visual</td><td>Lucas decide fonte (Borenstein 2024 Fig. 2 ou Borenstein 2021 Fig. 24.4)</td></tr>
+    <tr><td>GRADE "Core" Murad 2024 &mdash; verificar publicacao final</td><td>Resolvido &mdash; PMID 39322122 verified em S260 (J Clin Epidemiol 175:111514)</td><td>RESOLVIDO (S260)</td></tr>
+    <tr><td>Imagem para slide &mdash; forest plot com PI vs sem PI</td><td>Alto &mdash; slide precisa de visual</td><td>Lucas decide fonte (Borenstein 2024 Fig. 2, Borenstein 2021 Fig. 24.4 ou Borenstein 2022 J Clin Epi figura)</td></tr>
+    <tr><td>Estrategias didaticas plain-text para residente iniciante</td><td>Alto &mdash; aula real reportou que slides nao se explicaram por si</td><td>RESOLVIDO (S260) &mdash; 4 abordagens (Estetoscopio / Zoom / Pior cenario / Algoritmo 3 passos) na secao #estrategias-didaticas; ancoradas em NLM notebook + Borenstein 2021 Cap. 20 + Carlson 2023</td></tr>
+    <tr><td>Refs pedagogicas novel 2022-2025 (Tier 1)</td><td>Medio &mdash; evidence base inicial focada em metodologia, nao pedagogia</td><td>RESOLVIDO (S260 Perna 2 evidence-researcher) &mdash; 3 refs adicionadas: Borenstein 2022 J Clin Epi (DOI 10.1016/j.jclinepi.2022.10.003), Carlson 2023 PLOS Comput Biol (PMID 37768880), Seo 2025 J Evid-Based Practice (DOI 10.63528/jebp.2025.00006). Gemini fabricou 2 PMIDs (35246990 e 37765103) e 1 DOI placeholder (preprints.org "leaning forest") &mdash; descartados.</td></tr>
   </table>
 </section>
 
 <footer>
   <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
-  <p>Pipeline: /evidence 6 pernas (S185) — Gemini API, Perplexity Sonar, NLM textbooks, PubMed MCP, pre-reading mining. Evidence-researcher (Perna 2) pending.</p>
-  <p>17 referencias: 12 PMID-VERIFIED + 2 DOI-CANDIDATE + 1 BOOK + 1 GUIDELINE + 1 SEMINAL (pre-PubMed era).</p>
-  <p>Coautoria: Lucas + Opus 4.6 | S185 2026-04-13</p>
+  <p>Pipeline: /evidence 6 pernas (S185 base) + S260 enriquecimento pedagogico (Perna 1 Gemini + Perna 2 evidence-researcher PubMed/CrossRef + Perna 6 NLM notebook). Perplexity recusou (citation fabrication concern em pedagogia narrow).</p>
+  <p>20 referencias: 13 PMID-VERIFIED + 4 DOI-CANDIDATE + 1 BOOK + 1 GUIDELINE + 1 SEMINAL (pre-PubMed era).</p>
+  <p>Coautoria: Lucas + Opus 4.6 (S185 2026-04-13) + Opus 4.7 (S260 2026-04-26 enrichment pedagogico)</p>
 </footer>
 
 </body>
