@@ -344,25 +344,58 @@ section#s-quality {
   --term-certainty-tint: oklch(96% 0.025 265);
 }
 
-/* Grid — 3 cards isomorphic, equal width */
+/* slide-inner scoped (S262 Lucas fix): 4-row grid mantém dissociação visível no rodapé.
+   h2 (auto) / term-grid (1fr — absorve residual) / dissoc (auto) / source-tag (auto).
+   min-block-size 100% garante grid preenche viewport mesmo com flex parent;
+   align-content: start empurra excesso pra baixo se conteúdo sobrar. */
+section#s-quality .slide-inner {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: var(--space-md);
+  block-size: 100%;
+  max-block-size: 100%;
+  overflow: hidden;
+}
+
+/* Grid — 3 cards isomorphic, equal width.
+   align-content: start empilha cards no topo; conteúdo curto não estica verticalmente. */
 section#s-quality .term-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-md);
-  flex: 1;
-  align-content: stretch;
+  align-content: start;
 }
 
-/* Card — top border accent encodes constructo, --v2-surface for subtle elevation */
+/* Card — top border accent encodes constructo, shared-v2 surface tokens.
+   3 rows: header + pergunta + ferramenta (Confusão removida S262).
+   Shadow stack premium (Lucas SOTA): hairline top + close definition + ambient depth.
+   Padrão do canon shared-v2 (base.css:330-338) — material design 2-layer + hairline. */
 section#s-quality .term-card {
   display: grid;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto auto;
   gap: var(--space-sm);
   padding: var(--space-md);
   border-top: 4px solid var(--term-accent);
-  background: var(--v2-surface-panel, var(--bg-card));
+  border-inline: 1px solid color-mix(in oklch, var(--v2-border-hair) 60%, transparent);
+  border-block-end: 1px solid color-mix(in oklch, var(--v2-border-hair) 60%, transparent);
+  background: color-mix(in oklch, var(--v2-surface-panel) 88%, transparent);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
   border-radius: var(--radius-md);
-  box-shadow: 0 1px 3px var(--shadow-subtle);
+  box-shadow:
+    0 0.5px 0 oklch(0% 0 0 / 0.06),
+    0 1px 2px var(--shadow-subtle),
+    0 6px 16px var(--shadow-subtle);
+  transition: box-shadow 240ms ease, transform 240ms ease;
+}
+
+/* :has() shared-v2 modern pattern — card lifta sutilmente quando algum chip já visível. */
+section#s-quality .term-card:has(.term-chip[style*="opacity: 1"]) {
+  box-shadow:
+    0 0.5px 0 oklch(0% 0 0 / 0.08),
+    0 2px 4px var(--shadow-subtle),
+    0 12px 28px var(--shadow-subtle);
+  transform: translateY(-1px);
 }
 
 section#s-quality .term-card--quality   { --term-accent: var(--term-quality); }
@@ -393,14 +426,15 @@ section#s-quality .term-row {
 .stage-bad section#s-quality .term-row { opacity: 1; }
 @media print { section#s-quality .term-row { opacity: 1; } }
 
-/* Label — uppercase mono, muted (Pergunta / Confusão / Ferramenta) */
+/* Label — uppercase mono. Lucas S262: subido de --v2-text-muted (60%) para --v2-text-body (52%)
+   pra ganhar contraste em projetor 10m sem competir com term-content (--v2-text-emphasis). */
 section#s-quality .term-label {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--v2-text-muted, var(--text-secondary));
+  color: var(--v2-text-body);
 }
 
 /* Content — body text, primary color */
@@ -466,6 +500,45 @@ section#s-quality .term-stat-source {
   color: var(--v2-text-muted, var(--text-secondary));
   margin: 0;
 }
+
+/* Chip checklist — itens animáveis dentro de uma row do card (S262 + Lucas fixes).
+   - align-self: start  → não estica verticalmente como grid item do term-row pai
+   - align-items/content: flex-start → chips topo da linha; sem stretch entre eles
+   - height: fit-content no chip → última camada defensiva contra deformação. */
+section#s-quality .term-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  align-self: start;
+  gap: var(--space-2xs);
+  margin-block-start: var(--space-3xs);
+  padding: 0;
+  list-style: none;
+  block-size: fit-content;
+}
+
+section#s-quality .term-chip {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding-block: 0.18rem;
+  padding-inline: 0.6rem;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--term-accent) 18%, transparent);
+  color: var(--term-accent);
+  white-space: nowrap;
+  height: fit-content;
+  block-size: fit-content;
+  opacity: 0;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.no-js section#s-quality .term-chip,
+[data-qa] section#s-quality .term-chip,
+.stage-bad section#s-quality .term-chip { opacity: 1; }
+@media print { section#s-quality .term-chip { opacity: 1; } }
 
 
 /* --- PICO grid (2×2 mismatch layout) --- */

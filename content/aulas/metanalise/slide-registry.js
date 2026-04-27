@@ -100,42 +100,75 @@ export const slideRegistry = {
   },
 
   's-quality': (slide, gsap) => {
-    // S259 rebuild: 4 beats CLT-driven (each click = 1 schema operation)
-    // Beat 0 (auto): h2 + 3 card headers fade-up paralelo
-    // Beat 1 (click): PERGUNTA rows em 3 cols (paralelo, stagger 0.1s)
-    // Beat 2 (click): CONFUSÃO rows (schema rupture moment)
-    // Beat 3 (click): FERRAMENTA rows + dissociation panel (synthesis empírica)
-    const cards = slide.querySelectorAll('.term-card');
-    const rows = {
-      pergunta: slide.querySelectorAll('.term-row--pergunta'),
-      confusao: slide.querySelectorAll('.term-row--confusao'),
-      ferramenta: slide.querySelectorAll('.term-row--ferramenta'),
-    };
+    // S262 v2: 5 beats agrupado (cards juntos em Beat 0, perguntas Beat 1, ferramentas por card 2/3/4).
+    // Beat 0 (auto): h2 + 3 cards aparecem juntos (apenas headers term-name; rows ainda invisíveis).
+    // Beat 1 (click): 3 perguntas (cross-cards) + chips PROSPERO/A priori/PRISMA/Transparência (card 1).
+    // Beat 2 (click): card 1 Ferramenta — chips AMSTAR-2 / ROBIS.
+    // Beat 3 (click): card 2 Ferramenta — chips RoB 1 / RoB 2 / ROBUST-RCT / ROBINS.
+    // Beat 4 (click): card 3 Ferramenta — chip GRADE.
+    // Beat 5 (click): dissociation panel (synthesis empírica 52% Alvarenga).
+    const cards = Array.from(slide.querySelectorAll('.term-card'));
+    const perguntaRows = Array.from(slide.querySelectorAll('.term-row--pergunta'));
+    const ferramentaRows = cards.map(c => c.querySelector('.term-row--ferramenta'));
     const dissociation = slide.querySelector('.term-dissociation');
-    const MAX = 3;
+    const MAX = 5;
     let revealed = 0;
 
-    // Beat 0 (auto): card headers fade-up paralelo, stagger 0.1s preserva paralelidade
+    // Beat 0 (auto): cards aparecem em cascata suave (power2.out + stagger 0.1 — Lucas S262).
     gsap.fromTo(cards,
       { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
     );
+
+    // revealRow — easing power2.out (suave, não-bouncy). Stagger nativo 0.1 nos chips.
+    const revealRow = (row, chipDelay = 0.2) => {
+      if (!row) return;
+      gsap.fromTo(row,
+        { opacity: 0, y: 6 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+      );
+      const chips = row.querySelectorAll('.term-chip');
+      if (chips.length) {
+        gsap.fromTo(chips,
+          { opacity: 0, y: 4, scale: 0.94 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.1, delay: chipDelay, ease: 'power2.out' }
+        );
+      }
+    };
+
+    const hideRow = (row) => {
+      if (!row) return;
+      const chips = row.querySelectorAll('.term-chip');
+      gsap.to(chips, { opacity: 0, y: 4, scale: 0.94, duration: 0.24, ease: 'power2.in' });
+      gsap.to(row, { opacity: 0, y: 6, duration: 0.28, delay: 0.05, ease: 'power2.in' });
+    };
 
     const advance = () => {
       if (revealed >= MAX) return false;
       revealed++;
-      const targets = revealed === 1 ? rows.pergunta
-                    : revealed === 2 ? rows.confusao
-                    : rows.ferramenta;
-      gsap.fromTo(targets,
-        { opacity: 0, y: 8 },
-        { opacity: 1, y: 0, duration: 0.45, stagger: 0.1, ease: 'power3.out' }
-      );
-      if (revealed === 3 && dissociation) {
-        // Dramatic pause antes do dissociation panel (delay 0.35s)
+      if (revealed === 1) {
+        // 3 perguntas cross-cards stagger nativo 0.1 + chips card 1 cascata
+        gsap.fromTo(perguntaRows,
+          { opacity: 0, y: 6 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
+        );
+        const chipsCard1 = perguntaRows[0]?.querySelectorAll('.term-chip') ?? [];
+        if (chipsCard1.length) {
+          gsap.fromTo(chipsCard1,
+            { opacity: 0, y: 4, scale: 0.94 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.1, delay: 0.45, ease: 'power2.out' }
+          );
+        }
+      } else if (revealed === 2) {
+        revealRow(ferramentaRows[0]);
+      } else if (revealed === 3) {
+        revealRow(ferramentaRows[1]);
+      } else if (revealed === 4) {
+        revealRow(ferramentaRows[2]);
+      } else if (revealed === 5 && dissociation) {
         gsap.fromTo(dissociation,
           { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.55, delay: 0.35, ease: 'power3.out' }
+          { opacity: 1, y: 0, duration: 0.6, delay: 0.1, ease: 'power2.out' }
         );
       }
       return true;
@@ -143,13 +176,17 @@ export const slideRegistry = {
 
     const retreat = () => {
       if (revealed <= 0) return false;
-      const targets = revealed === 1 ? rows.pergunta
-                    : revealed === 2 ? rows.confusao
-                    : rows.ferramenta;
-      if (revealed === 3 && dissociation) {
+      if (revealed === 5 && dissociation) {
         gsap.to(dissociation, { opacity: 0, y: 12, duration: 0.25, ease: 'power2.in' });
+      } else if (revealed === 4) {
+        hideRow(ferramentaRows[2]);
+      } else if (revealed === 3) {
+        hideRow(ferramentaRows[1]);
+      } else if (revealed === 2) {
+        hideRow(ferramentaRows[0]);
+      } else if (revealed === 1) {
+        perguntaRows.forEach(hideRow);
       }
-      gsap.to(targets, { opacity: 0, y: 8, duration: 0.3, ease: 'power2.in' });
       revealed--;
       return true;
     };

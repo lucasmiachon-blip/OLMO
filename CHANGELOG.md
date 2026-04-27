@@ -1,5 +1,55 @@
 # CHANGELOG
 
+## Sessao 262 — 2026-04-27 (Slides_build · s-quality content + visual evolution + S260 commit)
+
+> Lucas frame: "Vamos fazer slides depois migramos tentamos migra o mjs" → "calma um slide por vez, comecar com conteudo e QA visual de slide quality" → "no bloco de qualidade como a revisao foi conduzida entram com animacoes (Prospero, PRISMA, a priori, transparencia)" → "segundo box vai ser RoB1, 2 ROBUST RCT ROBINS, ULTIMO carda GRADE" → "5 cliques agrupado" → "polimento profissional hiper-detalhado shared-v2".
+
+### Phase 0 — S260 commit batch
+
+- **`cc04bbd` feat(metanalise/S260): heterogeneity-evolve C1+C2+D — slides reformulados pedagogicamente** `[+72/-26, 6 files]` — slides s-heterogeneity (09a) + s-fixed-random (10) + _manifest.js + evidence/s-heterogeneity.html (#estrategias-didaticas + 3 refs validadas) + .slide-integrity + HANDOFF metanalise.
+
+### Phase 2 — s-quality content evolution
+
+- Card Qualidade (Pergunta): chips animados PROSPERO · A priori · PRISMA · Transparência (princípios de qualidade da RS, Lucas direção concreta).
+- Card RoB (Ferramenta): chips RoB 1 · RoB 2 · ROBUST-RCT · ROBINS (substituiu texto plain).
+- Card Certeza (Ferramenta): chip GRADE (consistent com pattern).
+- Card Qualidade (Ferramenta): chips simétricos AMSTAR-2 · ROBIS (era texto plain — simetria entre os 3 cards).
+- Row Confusão removida dos 3 cards (alinhamento + clareza pedagógica).
+- HTML semantic: `<div role="list">` + `<span role="listitem">` (slide-rules.md proíbe `<ul>/<ol>` em slides projetados; ARIA preserva accessibility).
+
+### Phase 3 — Visual evolution shared-v2 SOTA
+
+- **Layout overflow fix:** `.slide-inner` scoped grid `auto 1fr auto auto` + `block-size: 100%` + `max-block-size: 100%` + `overflow: hidden`. `.term-grid` removido `flex: 1`, adicionado `align-content: start`. Dissoc 52% sempre visível no rodapé.
+- **Glassmorphism cards:** `.term-card` background `color-mix(in oklch, var(--v2-surface-panel) 88%, transparent)` + `backdrop-filter: blur(12px) saturate(120%)` (com `-webkit-`) + hairline `border-inline/block-end: 1px color-mix(--v2-border-hair 60%, transparent)` + 3-layer shadow stack (hairline + close + ambient).
+- **`:has()` reactive lift:** `.term-card:has(.term-chip[style*="opacity: 1"])` adiciona elevação +translateY -1px quando chip ativo (modern shared-v2 pattern, substitui MutationObserver pré-2022).
+- **Chip stretching fix:** `.term-checklist` `align-items/content/self: start` + `block-size: fit-content`. `.term-chip` `height: fit-content` + `block-size: fit-content`.
+- **Label contraste:** `.term-label` `var(--v2-text-muted)` (60%) → `var(--v2-text-body)` (52%) + font-weight 600 → 700 (legível em projetor 10m).
+- **Tipografia confirmada:** `.term-name`/`.term-stat` usam `var(--font-display)` (Instrument Serif via base.css:104); `.term-content`/`.term-stat-claim`/`.term-stat-source` usam `var(--font-body)` (DM Sans via base.css:105). Sem Edit necessário.
+
+### Phase 4 — Motion shared-v2
+
+- **`slide-registry.js`** s-quality function rewrite: 5-beat agrupado.
+  - Beat 0 (auto): h2 + 3 cards juntos (`stagger: 0.1`, `power2.out`, duration 0.6).
+  - Beat 1 (click): 3 perguntas cross-cards + chips card 1 (PROSPERO/A priori/PRISMA/Transparência) com `stagger: 0.1` nativo GSAP.
+  - Beats 2-4 (clicks): card 1 Ferramenta (AMSTAR-2/ROBIS) → card 2 (RoB 1/2/ROBUST/ROBINS) → card 3 (GRADE).
+  - Beat 5 (click): dissociation panel (52% Alvarenga).
+- **Easing `power3.out` → `power2.out`** em 6 lugares (cascata mais suave, menos bouncy).
+- **Stagger nativo GSAP** (substituiu manual `delay: idx * 0.07` em forEach).
+
+### Verificacao
+
+`npm run lint:slides` PASS · `npm run build:metanalise` PASS (17 slides) · `bash scripts/validate-css.sh` PASS.
+
+### Aprendizados (S262, 5 li)
+
+- **Glassmorphism real precisa 3 ingredientes simultâneos:** background semi-transparent (`color-mix 88%`) + `backdrop-filter blur+saturate` + hairline border `color-mix 60%`. Sem os 3 vira só "card branco com sombra". `-webkit-backdrop-filter` ainda necessário em 2026 (Safari iOS).
+- **Subgrid revertido (talvez prematuro):** S262 first attempt usou `grid-template-rows: subgrid` em term-card. Estado final prefere `auto auto auto` + `align-content: start` no parent. KBP candidate "subgrid quando rows variam (height tracking), auto-rows quando rows estáveis (content-sized)".
+- **Chip stretching = grid-row 1fr + flex item default stretch:** combinação faz chip parents esticarem verticalmente. Fix layered: `align-self: start` + `height: fit-content` + `align-content: flex-start` — defensive layers robust.
+- **Lucas direção iterativa:** turn 1 "5 dimensões" → turn N "calma um slide" → turn N+M "polimento hiper-detalhado". Anti-drift §Momentum brake honored em cada turn. Iteração rápida com vite hot reload + screenshots Lucas.
+- **CSS/JS moderno gradual (strangler fig) > big-bang:** subgrid → revertido; `:has()` → aceito; color-mix → adotado; backdrop-filter → adotado; logical properties → adotado. Pattern: introduce 1 modern feature por phase, validate visual, keep ou revert.
+
+---
+
 ## Sessao 261 — 2026-04-26 (multi-arm research migration bridge — Codex xhigh + .mjs hardening)
 
 > Lucas frame: "vamos incorporar o chatgpt5.5 xhigh em nosso braco de pesquisa e vamos migraar o mjs de pesquisa fragil mas eficiente, para agents subagents e skill, nao ha espaco para erro, nao ha workaorund" → "harden in place para depois migrar todo para sistema de skills agents e subagntes" → "migrar mas sem apagar depois faremos um run lado a lado para ver qual sistema esta melhor" → "tire de todo lugar que eu sou cardio/gastro/hepato" → "be terse a menos que eu indique"
