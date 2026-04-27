@@ -39,6 +39,10 @@ Pipeline: `node scripts/gemini-qa3.mjs --aula metanalise --slide {id} --prefligh
 - Conflict-prone files (HANDOFF/CHANGELOG/BACKLOG): Edit minimal sections, não rewrite
 - "Liberdade depois escrutínio" (Lucas S259) — divergent search > converging too fast
 
+## Tooling adicionado S262
+
+- **`content/aulas/scratch/calibrate-boxes.mjs`** (Lucas commit `475d47d` — port OLMO_GENESIS): Playwright tool que abre slide específico, extrai bounding boxes (wrapper/zones) em coordenadas % relativas ao wrapper. Uso: `node scratch/calibrate-boxes.mjs --aula metanalise --slide s-forest2`. Goal: agentes de código (Claude) usarem dados precisos em vez de "chutar" coordenadas CSS — anti-chute pattern.
+
 ## Cautions ativas
 
 - **APL CALLS counter** + **Stop[5]→Stop[4] shift** (S256 B.2)

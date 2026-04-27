@@ -8,6 +8,10 @@
 
 - **`cc04bbd` feat(metanalise/S260): heterogeneity-evolve C1+C2+D — slides reformulados pedagogicamente** `[+72/-26, 6 files]` — slides s-heterogeneity (09a) + s-fixed-random (10) + _manifest.js + evidence/s-heterogeneity.html (#estrategias-didaticas + 3 refs validadas) + .slide-integrity + HANDOFF metanalise.
 
+### Tooling adicionado (Lucas, paralelo)
+
+- **`475d47d` QA: calibrate-boxes.mjs port OLMO_GENESIS** `[+82, 1 file]` — Playwright tool que abre slide específico, extrai bounding boxes (wrapper/zones forest-zone/forest-zone--rob) em coordenadas % relativas ao wrapper. Anti-chute pattern: agentes Claude usam dados precisos em vez de "chutar" coordenadas CSS. Default `--slide s-forest2`.
+
 ### Phase 2 — s-quality content evolution
 
 - Card Qualidade (Pergunta): chips animados PROSPERO · A priori · PRISMA · Transparência (princípios de qualidade da RS, Lucas direção concreta).

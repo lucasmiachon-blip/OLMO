@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-46.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-47.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -143,3 +143,6 @@ globs: "**/*"
 
 ## KBP-45 Wholesale migrate código frágil arrasta bugs silenciosos pra arquitetura nova
 → .claude/plans/concurrent-nibbling-teacup.md §Reframe SOTA-driven
+
+## KBP-46 Subgrid escolha contextual — não default cego em layouts content-stable
+→ CHANGELOG.md §S262 Aprendizados (subgrid quando rows variam height-tracking cross-card; auto-rows + align-content quando rows estáveis content-sized; combinar com chip stretching layered fix `align-self: start` + `height: fit-content`)
