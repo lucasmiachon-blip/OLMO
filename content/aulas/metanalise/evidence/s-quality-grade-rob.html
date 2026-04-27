@@ -108,18 +108,20 @@
 <body>
 
 <header>
-  <h1>Qualidade da MA vs Certeza da Evidencia (GRADE) vs Risco de Vies</h1>
-  <p class="meta">Slide: s-quality-grade-rob (F2, posicao TBD &mdash; Lucas decide) | Timing: ~90s | Fase: Metodologia</p>
-  <p class="meta">Pesquisa: pipeline /evidence 5 pernas (S187) | Validade sugerida: outubro 2026</p>
+  <h1>Qualidade, Risco de Vies e Certeza: tres perguntas distintas, nao hierarquia</h1>
+  <p class="meta">Slide: s-quality (F2, posicao 6 no deck) | Timing: ~90s | Fase: Metodologia</p>
+  <p class="meta">Pesquisa: pipeline /evidence 5 pernas (S187) + S259 expansion 6a perna Codex xhigh / GPT-5.5 | Validade sugerida: outubro 2026</p>
+  <p class="meta">Paper-fonte da disambiguacao: Strawbridge et al, BJPsych Open 2025 (PMID 41186074)</p>
 
   <div class="objectives">
     <strong>Ao final desta leitura, voce vai conseguir:</strong>
     <ol>
       <li>Distinguir tres perguntas diferentes quando alguem diz "esta MA e de alta qualidade"</li>
-      <li>Explicar o que cada ferramenta avalia: AMSTAR-2 (processo), GRADE (certeza), RoB 2/ROBINS-I (vies)</li>
-      <li>Descrever como RoB alimenta o GRADE (dominio 1 de 5) &mdash; e por que os outros 4 dominios importam tanto quanto</li>
-      <li>Reconhecer que AMSTAR-2 e GRADE sao ortogonais: uma MA impecavel pode produzir certeza muito baixa</li>
-      <li>Identificar as 6 concepcoes erroneas mais comuns sobre qualidade de evidencia</li>
+      <li>Explicar o que cada ferramenta avalia: AMSTAR-2/ROBIS (processo da revisao), RoB 2/ROBINS-I (estudos individuais), GRADE (corpo de evidencia)</li>
+      <li>Reconhecer que &ldquo;ortogonal&rdquo; e heuristica pedagogica util — em rigor literatura: <em>complementary, not interchangeable</em> (Strawbridge 2025; Lunny 2025)</li>
+      <li>Descrever como RoB alimenta o GRADE (dominio 1 de 5) — relacao input-output, nao independencia</li>
+      <li>Demonstrar empiricamente que alta qualidade (AMSTAR-2 alta) NAO garante baixo RoB nem alta Certeza (Alvarenga 2024 52%; Yang 2023 66.6% dos downgrades sao non-RoB)</li>
+      <li>Identificar as concepcoes erroneas mais comuns sobre qualidade de evidencia</li>
     </ol>
   </div>
 </header>
@@ -136,6 +138,52 @@
   <p><strong>Risco de vies (de um estudo individual):</strong> Se refere a <em>quanto confiamos que o resultado de um estudo especifico nao foi distorcido por falhas no seu desenho ou conducao</em>. RoB 2 avalia RCTs em 5 dominios (randomizacao, desvios, dados faltantes, mensuracao, relato seletivo). ROBINS-I avalia estudos nao-randomizados em 7 dominios (adiciona confusao e selecao). O resultado e um julgamento por desfecho: Baixo / Alguma preocupacao / Alto (RoB 2) ou Baixo / Moderado / Serio / Critico (ROBINS-I).</p>
 
   <div class="key-takeaway"><strong>A distincao fundamental:</strong> RoB avalia <em>cada ingrediente</em>. GRADE avalia <em>o produto final</em>. AMSTAR-2 avalia <em>o processo de fabricacao</em>. Sao tres perguntas sobre tres objetos diferentes. Confundir os niveis leva a conclusoes clinicas erradas.</div>
+</section>
+
+<!-- ===== PAPER-FONTE DA DISAMBIGUACAO ===== -->
+<section id="paper-source">
+  <h2>Paper-fonte da disambiguacao</h2>
+  <p>O quadro 4-colunas mais util para residentes vem de <strong>Strawbridge R, Sharma D, Kisely S, Cristea IA, Young AH, Kaufman KR. &ldquo;Enhancing the quality of systematic reviews and meta-analyses&rdquo;. BJPsych Open 2025;11(6):e266</strong> (<a href="https://pubmed.ncbi.nlm.nih.gov/41186074/" class="ref-pmid" target="_blank" rel="noopener">PMID 41186074</a><span class="v">V</span>; DOI: 10.1192/bjo.2025.10876; PMC: PMC12641421, open access). A Tabela 1 do paper — &ldquo;Definitions of quality, risk of bias (RoB) and certainty as used in the current article&rdquo; — explicita que os tres termos sao frequentemente usados como sinonimos mas designam constructos distintos.</p>
+  <p>Strawbridge usa o adjetivo <strong>complementary</strong> (e <em>not interchangeable</em>) para descrever a relacao — nao &ldquo;orthogonal&rdquo;. Esta secao foi identificada via pipeline /evidence S259 (Codex xhigh + WebSearch + WebFetch convergencia 3/3 pernas).</p>
+  <div class="key-takeaway"><strong>Por que este paper:</strong> Strawbridge formaliza a separacao entre os tres conceitos sem prescrever uma teoria — apenas explicita o uso operacional. A tabela vira anchor pedagogico forte porque o residente carrega a confusao terminologica e o paper a desconstroi sem jargao adicional.</div>
+</section>
+
+<!-- ===== POR QUE NAO SAO EXATAMENTE ORTOGONAIS ===== -->
+<section id="why-not-orthogonal">
+  <h2>Por que nao sao &ldquo;ortogonais&rdquo; no sentido estrito — e ainda assim 3 perguntas distintas</h2>
+
+  <p>Este material e Lucas usam <strong>&ldquo;ortogonal&rdquo;</strong> como heuristica pedagogica (3 eixos cartesianos independentes — schema visual potente para residentes). A literatura EBM 2023-2025 nao estabeleceu esse framing. Pesquisa cross-familia S259 (Codex xhigh + WebSearch + WebFetch) sobre &ldquo;orthogonal + GRADE + risk of bias + AMSTAR/ROBIS&rdquo; nao retornou uso tecnico do termo: papers usam <em>complementary, not interchangeable, distinct, domain, criterion</em>.</p>
+
+  <h3>Tres razoes pelas quais NAO sao matematicamente ortogonais</h3>
+
+  <ol>
+    <li><strong>AMSTAR-2 e ROBIS overlap substancial.</strong> Lunny et al 2025 (<a href="https://pubmed.ncbi.nlm.nih.gov/41626887/" class="ref-pmid" target="_blank" rel="noopener">PMID 41626887</a><span class="v">V</span>; Res Synth Methods) avaliou 200 SRs com ambas as ferramentas: 39/200 receberam AMSTAR-2 alta; 162/200 ROBIS alto risco; apenas <strong>9% (18/200) tiveram ratings opostos</strong>. ~91% concordam — sao ferramentas <em>complementary, not interchangeable</em>. Medem o mesmo constructo (qualidade do processo SR) com lentes ligeiramente diferentes.</li>
+
+    <li><strong>RoB &rarr; GRADE: relacao input-output, nao independencia.</strong> Schunemann et al 2018 (<a href="https://pubmed.ncbi.nlm.nih.gov/29432858/" class="ref-pmid" target="_blank" rel="noopener">PMID 29432858</a><span class="v">V</span>; J Clin Epidemiol; <em>GRADE guidelines 18</em>) afirma explicitamente que ROBINS-I &ldquo;should be used as part of GRADE's certainty rating process&rdquo; e &ldquo;RoB is one domain&rdquo;. Balshem et al 2011 (<a href="https://pubmed.ncbi.nlm.nih.gov/21208779/" class="ref-pmid" target="_blank" rel="noopener">PMID 21208779</a><span class="v">V</span>) e GRADE Working Group 2004 (<a href="https://pubmed.ncbi.nlm.nih.gov/15205295/" class="ref-pmid" target="_blank" rel="noopener">PMID 15205295</a><span class="v">V</span>) estabelecem RoB como <strong>1 dos 5 dominios</strong> de rebaixamento da certeza. Ortogonalidade exigiria independencia; o que ha e <em>nesting</em> (RoB e parte de GRADE).</li>
+
+    <li><strong>O termo &ldquo;orthogonal&rdquo; nao aparece em literatura EBM 2023-2025.</strong> Pesquisa convergente cross-familia (Codex xhigh + WebSearch + NCBI verification) sobre &ldquo;orthogonal + GRADE + risk of bias + AMSTAR/ROBIS&rdquo; retorna apenas hits nao-relacionados (orthogonal plating em ortopedia, etc.). O frame existe como heuristica pedagogica em material educacional — nao como termo tecnico EBM.</li>
+  </ol>
+
+  <h3>Por que mesmo assim &ldquo;tres perguntas distintas&rdquo; e defensavel e pedagogicamente util</h3>
+
+  <p>Apesar de nao serem matematicamente ortogonais, os tres constructos respondem a <strong>perguntas diferentes sobre objetos diferentes</strong>:</p>
+
+  <table>
+    <tr><th scope="col">Constructo</th><th scope="col">Pergunta que responde</th><th scope="col">Objeto avaliado</th><th scope="col">Ferramenta principal</th></tr>
+    <tr><td class="glossary-term">Qualidade</td><td>Como a RS foi conduzida?</td><td>Processo da revisao sistematica</td><td>AMSTAR-2 / ROBIS</td></tr>
+    <tr><td class="glossary-term">Risco de Vies</td><td>Vieses sistematicos no estudo individual?</td><td>Estudos primarios incluidos</td><td>RoB 2 (RCT) / ROBINS-I (NRSI)</td></tr>
+    <tr><td class="glossary-term">Certeza</td><td>Confianca no efeito agregado para um desfecho?</td><td>Corpo de evidencia (outcome-level)</td><td>GRADE</td></tr>
+  </table>
+
+  <p>A <strong>independencia empirica das saidas</strong> — que justifica pedagogicamente o frame &ldquo;ortogonal&rdquo; — esta documentada em multiplos estudos:</p>
+
+  <div class="key-takeaway"><strong>Yang et al 2023 (<a href="https://pubmed.ncbi.nlm.nih.gov/36675377/" class="ref-pmid" target="_blank" rel="noopener">PMID 36675377</a><span class="v">V</span>; J Clin Med):</strong> em 67 SRs OB/GIN, 1.473 instancias de rebaixamento GRADE distribuidas como <strong>imprecisao 39.51%, RoB 33.40%, inconsistencia 13.65%, indirecao 8.28%, vies de publicacao 5.16%</strong>. <strong>Nao-RoB explica 66.6% dos rebaixamentos.</strong> Em RCT-only SRs, imprecisao (42.26%) <em>excede</em> RoB (32.52%). RoB &ldquo;baixo&rdquo; NAO garante Certeza alta — outros 4 dominios pesam mais coletivamente.</div>
+
+  <div class="key-takeaway"><strong>Karvinen et al 2025 (<a href="https://pubmed.ncbi.nlm.nih.gov/41379741/" class="ref-pmid" target="_blank" rel="noopener">PMID 41379741</a><span class="v">V</span>; Neonatology):</strong> em 54 Cochrane Neonatal reviews (467 outcomes) — Certeza very low <strong>35%</strong>, low <strong>43%</strong>, moderate <strong>20%</strong>, high apenas <strong>2%</strong>. Imprecisao e RoB foram drivers principais, com imprecisao mais frequente quando ICs incluiam o nulo. <em>Pattern Cochrane: a maioria da evidencia neonatal e classificada como muito baixa OU baixa certeza, mesmo apos avaliacao rigorosa por reviewers Cochrane.</em></div>
+
+  <div class="key-takeaway"><strong>McKechnie et al 2023 (<a href="https://pubmed.ncbi.nlm.nih.gov/37013791/" class="ref-pmid" target="_blank" rel="noopener">PMID 37013791</a><span class="v">V</span>; Surg Innov):</strong> exemplo limpo do padrao &ldquo;low RoB + downgrade por outros dominios&rdquo;. MA Ghost vs Loop Ileostomy — todos os outcomes meta-analisados tiveram RoB <em>without major concerns</em>, mas certeza GRADE foi rebaixada por <strong>indirecao + imprecisao</strong>. Demonstra que mesmo estudos individuais bem conduzidos podem produzir certeza baixa quando o corpo agregado tem ICs amplos ou populacoes nao-target.</div>
+
+  <div class="caveat"><strong>Sintese:</strong> &ldquo;Ortogonal&rdquo; no slide e <strong>metafora geometrica pedagogica util</strong> — sustenta o schema mental &ldquo;3 perguntas independentes em 3 eixos&rdquo; que residentes precisam internalizar. Em rigor literatura: <em>complementary, distinct, non-interchangeable</em>. A independencia <strong>empirica das saidas</strong> (alta AMSTAR &ne; baixa RoB &ne; alta GRADE) e forte e bem documentada, mesmo quando os constructos tem sobreposicao estrutural (AMSTAR-ROBIS overlap, RoB-GRADE nesting).</div>
 </section>
 
 <!-- ===== POR QUE IMPORTA ===== -->
@@ -157,13 +205,13 @@
 
 <!-- ===== SINTESE NARRATIVA ===== -->
 <section id="sintese">
-  <h2>Sintese: tres ferramentas, tres niveis</h2>
+  <h2>Sintese: tres perguntas distintas, nao hierarquia</h2>
 
-  <p>Tres ferramentas dominam a avaliacao de evidencia em MBE &mdash; e sao sistematicamente confundidas. AMSTAR-2 pergunta "esta revisao sistematica foi <em>bem conduzida</em>?", GRADE pergunta "quanta <em>confianca</em> temos no resultado?", e RoB 2/ROBINS-I pergunta "os <em>estudos individuais</em> tem vieses sistematicos?". Cada uma opera em um nivel diferente da hierarquia.</p>
+  <p>Tres ferramentas dominam a avaliacao de evidencia em MBE &mdash; e sao sistematicamente confundidas. <strong>AMSTAR-2/ROBIS</strong> perguntam &ldquo;esta revisao sistematica foi <em>bem conduzida</em>?&rdquo;, <strong>GRADE</strong> pergunta &ldquo;quanta <em>confianca</em> temos no resultado agregado por desfecho?&rdquo;, e <strong>RoB 2/ROBINS-I</strong> perguntam &ldquo;os <em>estudos individuais</em> tem vieses sistematicos?&rdquo;. Cada uma opera em um <em>nivel</em> diferente do mesmo problema, mas nao formam uma hierarquia ascendente — sao tres perguntas distintas que se intersectam parcialmente.</p>
 
-  <p>A relacao mais critica &mdash; e mais mal compreendida &mdash; e entre RoB e GRADE. O risco de vies nos estudos individuais alimenta <strong>um dos cinco dominios</strong> do GRADE (dominio "limitacoes do estudo"). Mas GRADE nao e apenas RoB: imprecisao, inconsistencia, evidencia indireta e vies de publicacao tambem rebaixam a certeza. Um grupo de RCTs com baixo risco de vies pode ainda ter certeza baixa se os intervalos de confianca forem amplos (imprecisao) ou se os estudos apontarem em direcoes opostas (inconsistencia).</p>
+  <p>A relacao mais critica &mdash; e mais mal compreendida &mdash; e entre RoB e GRADE. O risco de vies nos estudos individuais alimenta <strong>um dos cinco dominios</strong> do GRADE (dominio &ldquo;limitacoes do estudo&rdquo;). Mas GRADE nao e apenas RoB: imprecisao, inconsistencia, evidencia indireta e vies de publicacao tambem rebaixam a certeza. Yang 2023 quantificou: em 1.473 rebaixamentos, <strong>nao-RoB representa 66.6%</strong> (<a href="https://pubmed.ncbi.nlm.nih.gov/36675377/" class="ref-pmid" target="_blank" rel="noopener">PMID 36675377</a><span class="v">V</span>). Um grupo de RCTs com baixo risco de vies pode ainda ter certeza baixa se os intervalos de confianca forem amplos (imprecisao) ou se os estudos apontarem em direcoes opostas (inconsistencia).</p>
 
-  <p>AMSTAR-2, por outro lado, e <strong>ortogonal</strong> ao GRADE. AMSTAR-2 audita se os revisores fizeram busca abrangente, aplicaram ferramentas de RoB adequadamente, usaram metodos estatisticos corretos &mdash; mas nao avalia a certeza da evidencia. E completamente possivel (e <em>comum</em>) que uma MA impecavelmente conduzida (AMSTAR-2 alta) conclua com certeza muito baixa no GRADE.</p>
+  <p>AMSTAR-2 e GRADE sao <strong>complementares, nao intercambiaveis</strong> (Strawbridge 2025; Lunny 2025). AMSTAR-2 audita se os revisores fizeram busca abrangente, aplicaram ferramentas de RoB adequadamente, usaram metodos estatisticos corretos &mdash; mas nao avalia a certeza da evidencia. E completamente possivel (e <em>comum</em>) que uma MA impecavelmente conduzida (AMSTAR-2 alta) conclua com certeza muito baixa no GRADE — Alvarenga 2024 documentou <strong>52% nessa exata configuracao</strong> em odontologia pediatrica (<a href="https://pubmed.ncbi.nlm.nih.gov/39003480/" class="ref-pmid" target="_blank" rel="noopener">PMID 39003480</a><span class="v">V</span>).</p>
 </section>
 
 <!-- ===== FRAMEWORK VISUAL ===== -->
@@ -192,6 +240,38 @@
   </div>
 
   <div class="caveat"><strong>Ponto-chave:</strong> AMSTAR-2 e GRADE sao <strong>ortogonais</strong>. Uma RS pode ser metodologicamente rigorosa (AMSTAR-2 alta) enquanto sua evidencia e muito incerta (GRADE muito baixa) &mdash; por exemplo, uma RS perfeitamente conduzida de RCTs pequenos, heterogeneos e imprecisos. Inversamente, uma RS falha no processo pode acidentalmente conter RCTs excelentes.</div>
+</section>
+
+<!-- ===== LUCAS NARRATIVE ANCHORS (S259) ===== -->
+<section id="lucas-narrative">
+  <h2>Anchors narrativos para a aula (frases citaveis)</h2>
+  <p>Frases derivadas de findings R1-R5 (S259) &mdash; utilizar verbatim ou parafrasear durante apresentacao. Cada frase tem source attribution explicita; uso pedagogico autorizado. Hard rule: <strong>nenhuma frase e criacao livre</strong> &mdash; todas paraphraseiam ou citam findings publicados.</p>
+
+  <h3>Abertura (ativar prior knowledge)</h3>
+  <div class="key-takeaway">
+    <p>&ldquo;Tres termos que residentes usam como sinonimos &mdash; mas que significam coisas diferentes: <em>quality</em>, <em>risk of bias</em>, <em>certainty</em>. Strawbridge 2025 publicou exatamente uma tabela disambiguando os tres em BJPsych Open. A confusao e tao prevalente que precisou de paper dedicado.&rdquo;</p>
+    <p class="ref-inline">&mdash; anchor: <a href="https://pubmed.ncbi.nlm.nih.gov/41186074/" class="ref-pmid" target="_blank" rel="noopener">Strawbridge 2025 PMID 41186074</a>; concepts-intro deste documento.</p>
+  </div>
+
+  <h3>Definicao operacional (schema-building)</h3>
+  <div class="key-takeaway">
+    <p>&ldquo;Pensa em tres perguntas: <strong>(1) como a RS foi feita?</strong> &mdash; AMSTAR-2 ou ROBIS. <strong>(2) os estudos individuais sao confiaveis?</strong> &mdash; RoB 2 ou ROBINS-I. <strong>(3) quanta confianca temos no resultado agregado por desfecho?</strong> &mdash; GRADE. Tres perguntas, tres objetos diferentes: o processo da revisao, os ingredientes, o produto final.&rdquo;</p>
+    <p class="ref-inline">&mdash; anchor: analogia container/conteudo/ingredientes (<a href="https://pubmed.ncbi.nlm.nih.gov/37302044/" class="ref-pmid" target="_blank" rel="noopener">Kolaski 2023 PMID 37302044</a>); secao analogy deste documento.</p>
+  </div>
+
+  <h3>Schema rupture (confronto com misconception)</h3>
+  <div class="key-takeaway">
+    <p>&ldquo;Em 52% das meta-analises com AMSTAR-2 'alta', o GRADE saiu 'muito baixa'. Processo impecavel + evidencia muito fraca, no mesmo trabalho. E mais &mdash; Yang 2023 mostrou que so 33% dos rebaixamentos GRADE sao por risco de vies; <strong>67% sao por outras razoes</strong> (imprecisao, inconsistencia, indirecao, vies de publicacao). Saber AMSTAR alta NAO garante GRADE alta. Saber RoB baixo NAO garante GRADE alta.&rdquo;</p>
+    <p class="ref-inline">&mdash; anchors: <a href="https://pubmed.ncbi.nlm.nih.gov/39003480/" class="ref-pmid" target="_blank" rel="noopener">Alvarenga-Brant 2024 PMID 39003480</a> (52% AMSTAR-high &rarr; GRADE very low), <a href="https://pubmed.ncbi.nlm.nih.gov/36675377/" class="ref-pmid" target="_blank" rel="noopener">Yang 2023 PMID 36675377</a> (66.6% non-RoB downgrades).</p>
+  </div>
+
+  <h3>Sintese (regra pratica para o residente)</h3>
+  <div class="key-takeaway">
+    <p>&ldquo;Quando alguem disser 'essa MA e de alta qualidade', pergunta de volta: <em>alta em qual eixo?</em> Tres possiveis respostas, tres consequencias clinicas diferentes. AMSTAR alta? otimo, processo confiavel &mdash; mas verifica RoB e GRADE. RoB baixo nos estudos? bom, mas verifica os outros 4 dominios GRADE. GRADE alta? ai sim, posso confiar no efeito agregado para tomar decisao clinica.&rdquo;</p>
+    <p class="ref-inline">&mdash; sintese pedagogica derivada de <a href="https://pubmed.ncbi.nlm.nih.gov/29432858/" class="ref-pmid" target="_blank" rel="noopener">Schunemann 2018 PMID 29432858</a> + <a href="https://pubmed.ncbi.nlm.nih.gov/41186074/" class="ref-pmid" target="_blank" rel="noopener">Strawbridge 2025 PMID 41186074</a>.</p>
+  </div>
+
+  <div class="caveat"><strong>Hard rule (KBP-13):</strong> cada frase acima tem source attribution. Lucas pode adaptar tom ou inserir contexto local, mas a estrutura e os numeros sao backed por literatura verified via NCBI E-utilities. Frase nova durante aula &rarr; tem que ter cite ou ser flagged como heuristica pessoal.</div>
 </section>
 
 <!-- ===== DETALHAMENTO DAS 3 FERRAMENTAS ===== -->
@@ -493,13 +573,27 @@
     <li>Santos R et al. GRADE adoption in photobiomodulation systematic reviews. <em>Lasers Med Sci</em>. 2026. <a href="https://pubmed.ncbi.nlm.nih.gov/41508740/" class="ref-pmid" target="_blank" rel="noopener">PMID 41508740</a><span class="v">V</span></li>
     <li>Liu Y et al. Quality assessment of systematic reviews on acupuncture for post-stroke depression. <em>Front Psychiatry</em>. 2025. <a href="https://pubmed.ncbi.nlm.nih.gov/40766849/" class="ref-pmid" target="_blank" rel="noopener">PMID 40766849</a><span class="v">V</span></li>
   </ol>
+
+  <h3>S259 expansion: paper-fonte + why-not-orthogonal evidence (6a perna Codex xhigh, abril/2026)</h3>
+  <ol start="20">
+    <li>Strawbridge R et al. Enhancing the quality of systematic reviews and meta-analyses. <em>BJPsych Open</em>. 2025;11(6):e266. <a href="https://pubmed.ncbi.nlm.nih.gov/41186074/" class="ref-pmid" target="_blank" rel="noopener">PMID 41186074</a><span class="v">V</span>. DOI: 10.1192/bjo.2025.10876. <strong>Paper-fonte da disambiguacao</strong> (Tabela 1 &mdash; 4-col glossary).</li>
+    <li>Lunny C et al. Exploring the methodological quality and risk of bias in 200 systematic reviews: A comparative study of ROBIS and AMSTAR-2 tools. <em>Res Synth Methods</em>. 2026;17(1):63-92. <a href="https://pubmed.ncbi.nlm.nih.gov/41626887/" class="ref-pmid" target="_blank" rel="noopener">PMID 41626887</a><span class="v">V</span>. DOI: 10.1017/rsm.2025.10032. AMSTAR-2 e ROBIS sao <em>complementary, not interchangeable</em>; 9% opposing ratings em 200 SRs.</li>
+    <li>Schunemann HJ et al; GRADE Working Group. GRADE guidelines: 18. How ROBINS-I and other tools to assess risk of bias in nonrandomized studies should be used to rate the certainty of a body of evidence. <em>J Clin Epidemiol</em>. 2019;111:105-114. <a href="https://pubmed.ncbi.nlm.nih.gov/29432858/" class="ref-pmid" target="_blank" rel="noopener">PMID 29432858</a><span class="v">V</span>. DOI: 10.1016/j.jclinepi.2018.01.012. RoB e &ldquo;one domain&rdquo; do GRADE &mdash; relacao input-output, nao independente.</li>
+    <li>Yang HJ et al. GRADE Use in Evidence Syntheses Published in High-Impact-Factor Gynecology and Obstetrics Journals: A Methodological Survey. <em>J Clin Med</em>. 2023;12(2):446. <a href="https://pubmed.ncbi.nlm.nih.gov/36675377/" class="ref-pmid" target="_blank" rel="noopener">PMID 36675377</a><span class="v">V</span>. DOI: 10.3390/jcm12020446. 1.473 rebaixamentos GRADE: 66.6% por non-RoB.</li>
+    <li>Karvinen R et al. Why Is Neonatal Evidence Mainly of Very Low or Low Certainty: A Meta-Epidemiological Review of Cochrane Neonatal Reviews. <em>Neonatology</em>. 2025. <a href="https://pubmed.ncbi.nlm.nih.gov/41379741/" class="ref-pmid" target="_blank" rel="noopener">PMID 41379741</a><span class="v">V</span>. 467 outcomes em 54 Cochrane reviews &mdash; 35% very low + 43% low certeza; drivers imprecisao + RoB.</li>
+    <li>McKechnie T et al. Ghost Ileostomy Versus Loop Ileostomy Following Oncologic Resection for Rectal Cancer: A Systematic Review and Meta-Analysis. <em>Surg Innov</em>. 2023. <a href="https://pubmed.ncbi.nlm.nih.gov/37013791/" class="ref-pmid" target="_blank" rel="noopener">PMID 37013791</a><span class="v">V</span>. Exemplo limpo: low RoB + downgrade GRADE por indirecao + imprecisao.</li>
+    <li>Igelstrom E et al. Cochrane's risk of bias tool for non-randomized studies (ROBINS-I) is frequently misapplied: A methodological systematic review. <em>J Clin Epidemiol</em>. 2021;140:22-32. <a href="https://pubmed.ncbi.nlm.nih.gov/34437948/" class="ref-pmid" target="_blank" rel="noopener">PMID 34437948</a><span class="v">V</span>. DOI: 10.1016/j.jclinepi.2021.08.022. 124 SRs com ROBINS-I &mdash; aplicacao frequentemente problematica.</li>
+  </ol>
+
+  <p class="ref-inline" style="margin-top:1rem"><strong>Pipeline S259:</strong> 6 pernas (Gemini API + Perplexity Sonar + NLM CLI + evidence-researcher MCPs + NCBI orchestrator + <em>Codex xhigh / GPT-5.5 &mdash; NOVO S259 POC</em>). Cross-family validation (Anthropic vs Google vs OpenAI vs MCPs). R1 paper-fonte: convergencia 3/3 pernas testadas (Codex + WebSearch + WebFetch). R4 ortogonalidade framing: convergencia 2/2 (Codex + WebSearch &mdash; termo nao estabelecido em literatura). PMIDs verified via NCBI E-utilities.</p>
 </section>
 
 <footer>
-  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.6, Anthropic).</p>
-  <p>Pipeline: /evidence S187 (5 pernas: Gemini API, Perplexity Sonar, NLM CLI, evidence-researcher MCPs, orchestrador NCBI) + S204 evidence research (PubMed MCP) | 19 refs VERIFIED via PubMed/NCBI. Convergencia 4/4 nos achados centrais.</p>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistencia de Claude (Opus 4.7, Anthropic) + Codex xhigh / GPT-5.5 (S259 6a perna POC).</p>
+  <p>Pipeline original: /evidence S187 (5 pernas: Gemini API, Perplexity Sonar, NLM CLI, evidence-researcher MCPs, orchestrador NCBI) + S204 evidence research (PubMed MCP) | 19 refs VERIFIED via PubMed/NCBI. Convergencia 4/4 nos achados centrais.</p>
+  <p><strong>S259 expansion (abril/2026):</strong> +7 PMIDs novos (Strawbridge 2025 paper-fonte; Lunny 2025 AMSTAR-ROBIS overlap; Schunemann 2018 GRADE 18; Yang 2023 66.6% non-RoB; Karvinen 2025 Cochrane Neonatal; McKechnie 2023 low-RoB-downgrade-anyway; Igelstrom 2021 ROBINS-I misapplication). Promocao de &ldquo;ortogonalidade&rdquo; a tese pedagogica explicita (heuristica, nao termo tecnico EBM). 6a perna Codex xhigh validou paper-fonte (3/3 pernas concordantes) + ortogonal framing nao estabelecido em literatura (2/2 pernas concordantes). Coautoria: Lucas + Opus 4.7 + Codex xhigh.</p>
   <p>O conteudo deste guia e de responsabilidade exclusiva do autor. Referencias verificadas via PubMed (abril 2026).</p>
-  <p>Verificacao PMIDs: cross-ref 4 bracos. Gemini 5/5 corretos. Perplexity 0/8 PMIDs corretos (titulos corretos, PMIDs fabricados). Evidence-researcher 12/12 corretos.</p>
+  <p>Verificacao PMIDs S187: cross-ref 4 bracos &mdash; Gemini 5/5 corretos, Perplexity 0/8 PMIDs corretos (titulos corretos, PMIDs fabricados), Evidence-researcher 12/12 corretos. <strong>S259 PMIDs: 7/7 verificados via NCBI E-utilities</strong> (esummary endpoint).</p>
 </footer>
 
 </body>
