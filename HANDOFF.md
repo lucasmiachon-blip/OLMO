@@ -14,6 +14,40 @@ KBP-Candidate-D ("agent chattiness") + KBP-Candidate-E (SubagentStop hooks alter
 
 Substrate em `.claude/.parallel-runs/2026-04-27-ma-types/`: path-a/ 13 outputs + path-b/ 1 validated JSON + 14 raws + smoke/ + bench-log.md + agent-adjustments.md + codex-peer-review.md + comparison.tsv + decision.md.
 
+### 🔄 Retake Protocol (S266+ daqui 2 dias — fresh session)
+
+**5-step hidratação (~5min, ANTES de qualquer dispatch):**
+
+1. `git log --oneline -6` — confirm chain `19467d5 → 3eefa4e → b6e8f7c → 1ff1f63` (S264.c bench) + `474f879/184fed9` (S265 outro agente s-quality) + `ac65ba6` (S264 outro agente cleanup)
+2. Read `.claude/plans/sleepy-wandering-firefly.md` §S264.b (state briefing tables) + §S264.c (Codex recalibration + D-lite Phase 9 spec)
+3. Read `.claude/.parallel-runs/2026-04-27-ma-types/decision.md` — confirma Lucas signoff slot (KEEP-SEPARATE provisional) ou OVERRIDE recordado
+4. `claude agents | grep -E "gemini-deep-research|perplexity-sonar-research"` — registry confirm (KBP-38)
+5. `echo "GEMINI:${GEMINI_API_KEY:0:4} | PERPLEXITY:${PERPLEXITY_API_KEY:0:4} | CODEX:$(codex --version)"` — env keys + Codex CLI
+
+**Decision branch:**
+- **Se Lucas SIGNOFF KEEP-SEPARATE:** prossiga D-lite refactor (specs abaixo). Outcome esperado MERGE (Path B canonical) ou MERGE-BACK (sunset wraps).
+- **Se Lucas OVERRIDE:** re-plan per Lucas frame. Possíveis: opt-in Option A (re-dispatch maxTurns:50+), Option B (orchestrator-parse raws), opção custom.
+
+**D-lite refactor concrete targets** (per Codex peer-review: "corpo já tem comandos, custo real é validação"):
+
+| File | Mudança | LoC estimate |
+|---|---|---|
+| `.claude/agents/gemini-deep-research.md` | Body Phase 1-6 → collapse para 1 Bash invocation: curl Gemini API + jq extract findings + Write JSON path. Mantém preflight (Phase 1) + NCBI spot-check (Phase 2 optional). | ~40-60 li removidas |
+| `.claude/agents/perplexity-sonar-research.md` | Idem com Perplexity API + Tier 1 filter (Q1 já provou 4/4 PMIDs BMJ+Ann Intern Med). Avoid prose-then-extract pattern. | ~40-60 li removidas |
+| Pattern reference | `.claude/agents/codex-xhigh-researcher.md` body — thin wrapper canonical (S259 POC, 0% fab consistent) | model |
+
+**Validation gate (Phase 9 close):**
+1. Smoke ×1 each pos-edit (single Q "I² threshold for substantial") → verify clean emit + JSON schema valid + exit clean
+2. Re-bench Phase 3 single-Q (Q1 design primário ambos agents) → if 2/2 emit ✅ → **MERGE** (sunset .mjs); if ≤1/2 → **MERGE-BACK** (archive wraps)
+3. Decision lock em `decision.md` + KBP-Candidate-D/E formalize (pos-evidence) ou drop (se D-lite resolveu)
+4. Update SKILL.md KBP-48 reformulation ("APIs externas: contrato determinístico/auditável; if wrapped, agent thin + verifiable")
+5. Phases 6-8 master plan (`splendid-munching-swing.md`) unblock → Living HTML `s-ma-types.html` + slide 06-ma-types.html + QA (S267+)
+
+**Cross-window state outro agente (defer collisions):**
+- S265 s-quality DONE (`474f879`)
+- S266 P0 metanalise: Phases B-G `.claude/plans/curious-enchanting-tarjan.md` (s-forest1 + s-forest2 architectural refactor)
+- Escopos ortogonais: meu `.claude/agents/+parallel-runs/` ≠ outro agente `content/aulas/metanalise/`. Não conflita.
+
 ## 🔥 P0 — Metanálise QA editorial pipeline (carryover S260+)
 
 QA editorial S265 (quality): **s-quality DONE** — Phase A architectural fix `.term-content-block` wrapper + quick wins contraste (chips 30%, label emphasis, borders 80%). Pendente s-forest1 + s-forest2 (Phases B-G plan `.claude/plans/curious-enchanting-tarjan.md`). s-contrato R11=5.9 segue REOPEN (CSS failsafe + subgrid) — DEFERRED. KBP-05 anti-batch. Bench Phase 6-8 integra com este P0.
