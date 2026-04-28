@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-52.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-54.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -164,3 +164,6 @@ globs: "**/*"
 
 ## KBP-52 Pre-mortem / [budget] decay sem tier-based enforcement
 → `.claude/rules/anti-drift.md` §EC tiers + `settings.json` Stop[1] prompt hook (audit S270 §A3+§A4 confirmou 0 aplicações sem gate mecânico; reframe S271 com tier S/M/T + budget call-based)
+
+## KBP-53 OCR sem `--language` adequado = qualidade degradada
+→ `.claude/skills/document-conversion/SKILL.md` §Pipeline 5 (Tesseract default usa training inferior; flag explícito `eng`/`por`/`eng+por` amarra dataset correto; sem flag em livro PT-BR puro = OCR de baixa fidelidade caractere-a-caractere)

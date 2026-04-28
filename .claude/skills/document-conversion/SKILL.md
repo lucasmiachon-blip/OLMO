@@ -208,6 +208,57 @@ rm "<intermediate.html>"   # limpar temp
 
 ---
 
+## Pipeline 5 — PDF escaneado → PDF pesquisável (OCRmyPDF + Tesseract + Ghostscript)
+
+### Quando usar
+Livro/paper escaneado precisa Ctrl+F + texto copiável preservando imagens originais. **Sinais de scan no input:** Producer = nome de hardware (RICOH MP, Canon iR), `pdftotext` <10 bytes em páginas de conteúdo, page rotation 90° comum (book opened, scanned flat).
+
+### Tools adicionais
+
+| Tool | Path | Versão | Source |
+|---|---|---|---|
+| Tesseract | `C:/Program Files/Tesseract-OCR/tesseract.exe` | 5.5.0.20241111 | `winget install --id tesseract-ocr.tesseract` (NÃO `UB-Mannheim.TesseractOCR` — CDN 403 confirmado S272) |
+| Ghostscript | `C:/Users/lucas/AppData/Local/gs10070/bin/gswin64c.exe` | 10.07.0 | direct download `github.com/ArtifexSoftware/ghostpdl-downloads/releases/tag/gs10070` (não no winget catalog default — AGPL); install **em terminal Windows nativo** (cmd/PowerShell direto, NÃO via Bash MSYS — Permission denied 126): `"...\gs10070w64.exe" /S /D=C:\Users\lucas\AppData\Local\gs10070` |
+| OCRmyPDF | `C:/Users/lucas/.venvs/document-conversion/Scripts/ocrmypdf.exe` | 17.4.2 | `uv pip install ocrmypdf --python <venv>/Scripts/python.exe` |
+
+### Comando canônico
+
+```bash
+PATH="$PATH:/c/Program Files/Tesseract-OCR:/c/Users/lucas/AppData/Local/gs10070/bin" \
+"C:/Users/lucas/.venvs/document-conversion/Scripts/ocrmypdf.exe" \
+  --language eng \
+  --rotate-pages --rotate-pages-threshold 5 \
+  --deskew \
+  --jobs 4 \
+  --output-type pdf \
+  --optimize 1 \
+  "<input.pdf>" "<output-OCR.pdf>"
+```
+
+### Justificativa por flag
+- `--language eng|por|eng+por`: dataset Tesseract. **Sem flag = KBP-53** (default usa training inferior). Livro EN → `eng`; PT-BR → `por`; mixto → `eng+por`.
+- `--rotate-pages --rotate-pages-threshold 5`: auto-detect orientação (scans 2-up landscape vêm 90°). Threshold 5 conservador (default 14 mais agressivo, pode rotacionar páginas legítimas erradas).
+- `--deskew`: corrige inclinação de scanner.
+- `--jobs 4`: paralelismo CPU-bound (Tesseract single-thread per page).
+- `--output-type pdf`: PDF normal. PDF/A archival apenas se preservação 50-anos (custo: ~1.5-2x size, sem ganho pra estudo).
+- `--optimize 1`: lossless (default). `2` requer jbig2enc não-instalado; `3` lossy.
+
+### Sample-first gate (obrigatório livros >50pp)
+
+Antes de full run, validar params em 5 páginas via `--pages 1-5`:
+```bash
+ocrmypdf [...flags...] --pages 1-5 input.pdf sample-OCR.pdf
+pdftotext -f 1 -l 5 sample-OCR.pdf - | wc -c   # deve ser >> bytes pre-OCR
+```
+Bytes <500 ou texto ilegível → ajustar params antes do full run. CPU caro: 376pp ~3min com 4 jobs.
+
+### Caso real: Prognosis Research in Health Care 2019 (Riley et al)
+Ver [`examples/prognosis-research-2026-04-28.md`](./examples/prognosis-research-2026-04-28.md).
+
+Resumo: 70.5MB/376pp scan RICOH MP 6002 → 84MB pesquisável (+19% text-layer overhead), page rot 90°→0° auto-corrigida, ~3min CPU 4 jobs, `pdftotext` 9k-19k bytes/range pos vs 5-6 bytes pre.
+
+---
+
 ## Storage Convention
 
 | Tipo | Onde |
