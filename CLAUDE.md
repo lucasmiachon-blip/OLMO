@@ -8,7 +8,7 @@
 4. **Curiosidade obrigatoria.** Explicar o porque antes de executar. Ensinar durante, nao depois.
 5. **Ler os documentos antes de mudar.** Dominio novo ou pouco tocado → ler CLAUDE.md da subarea + `rules/*` + ADR/SKILL.md citados antes do primeiro Edit. "Pareceu obvio" nao dispensa.
 6. **Evidence-based em tudo.** Toda claim factual (research SOTA, recommendation arquitetural, decisao, comparativo, "framework X faz Y") cita fonte verificavel: URL + data acesso, paper + arXiv ID, file:line, commit SHA. **Training data memory NAO conta como evidence** — "eu lembro que X" sem fonte = fabricar (KBP-36). Pesquisas externas exigem WebFetch/WebSearch real, nao inferencia. Confidence per claim: high (fonte explicita) | medium (inferencia razoavel) | low (chute educado, flag explicito).
-7. **EC loop antes de side effects.** Antes de Edit/Write, Bash com escrita, commit/push, ou agent writer: seguir `.claude/rules/anti-drift.md §EC loop` (Verificacao → Evidencia → Gap A3 → Steelman obrigatorio → Mudanca proposta → Por que e mais profissional → Pre-mortem Gary Klein → Rollback/stop-loss → Verificacao pos-mudanca → Learning capture → Autorizacao). Sem OK explicito do Lucas no thread atual = STOP.
+7. **EC loop antes de side effects.** Antes de Edit/Write, Bash com escrita, commit/push, ou agent writer: seguir `.claude/rules/anti-drift.md §EC loop` (master). Sem OK explicito do Lucas no thread atual = STOP.
 
 Medico + Professor + Pesquisador + Dev AI. Concurso R3 Clinica Medica dez/2026 (120 questoes).
 Consumer: MBE (via `$OLMO_INBOX`), ensino, concurso R3. Producer (daily org, Notion writes) em OLMO_COWORK (ADR-0002). Maximo valor, minimo custo.

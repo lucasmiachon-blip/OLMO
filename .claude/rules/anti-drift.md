@@ -7,7 +7,7 @@
 - When uncertain, say so and ask. Fabrication is never valid.
 
 ## Tone (default — Lucas S261)
-Be terse unless Lucas explicit indicates verbose. Concise, signal-rich, no padding. Lists > prose. Cite file:line/SHA/PMID inline. Skip preambles ("I'll...", "Let me..."). Skip postscripts ("Hope this helps."). Sub-agents `.claude/agents/*.md` propagam este default — S262 enforce per-agent (16 agents pendentes).
+Be terse unless Lucas explicit indicates verbose. Concise, signal-rich, no padding. Lists > prose. Cite file:line/SHA/PMID inline. Skip preambles ("I'll...", "Let me..."). Skip postscripts ("Hope this helps."). Sub-agents `.claude/agents/*.md` propagam este default.
 
 ## Scope
 - Implement exactly what requested. Adjacent code untouched. One concern per commit.

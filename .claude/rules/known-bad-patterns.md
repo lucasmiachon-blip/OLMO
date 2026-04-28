@@ -25,7 +25,7 @@ globs: "**/*"
 → qa-pipeline.md §1
 
 ## KBP-06 Agent Delegation Without Verification
-→ feedback_agent_delegation.md (memory)
+→ anti-drift.md §Delegation gate #4 + KBP-32 (spot-check AUSENTE claims)
 
 ## KBP-07 Workaround Without Diagnosis
 → anti-drift.md §Failure response
@@ -52,7 +52,7 @@ globs: "**/*"
 → anti-drift.md §Transparency
 
 ## KBP-15 Write Race via External Script
-→ feedback_tool_permissions.md §Write race (memory)
+→ anti-drift.md §Concurrent agent commit safety + KBP-51
 
 ## KBP-16 Verbosity Drift in Auto-Loaded Docs
 → this file's own format (pointer-only, no inline prose)

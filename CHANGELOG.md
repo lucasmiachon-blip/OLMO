@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## Sessao 271 — 2026-04-28 (audit-fix: 5 findings mecanicos do S270)
+
+> Lucas frame: "continuar audit, comecar pelos criticos". Plan-mode aprovado com scope mecanico vs governance defer explicito.
+
+- **C1 [docs] Mermaid L3 honesty:** `docs/ARCHITECTURE.md:99` `fill:#2ecc71` → `#95a5a6` (cinza Wet Asphalt) + node label `<br>NOT IMPL` em :91. L3 visualmente distinto de L2/L4/L5/L7 (DONE verde) e L6 (BASIC laranja); tabela `:110` ja consistente.
+- **A1 [docs] Component count sync:** filesystem source-of-truth = `21 agents / 19 skills` (verificado `ls .claude/agents/*.md | wc -l`). Edits: `README.md:17,18,37` + `docs/ARCHITECTURE.md:5,12,13,26`. Breakdown atualizado: `9 core + 7 debug-team + 5 research wrappers` (S269 D-lite adicionou +2). Date refresh `S266 → S271`. CLAUDE.md ja correto, nao tocado.
+- **A2 [docs] EC loop master + pointers:** `anti-drift.md §EC loop` (linhas 84-107) declarado canonical. Conversoes para pointer: `CLAUDE.md` ENFORCEMENT #7 (lista de fases removida), `HANDOFF.md:23` (prosa-resumida → pointer + fork map), `.claude/context-essentials.md:25` (prosa-resumida → pointer). `AGENTS.md:13-29` mantida como cross-CLI fork (Codex/Gemini nao leem CLAUDE.md) + header blockquote declarando dependencia + obrigacao re-sync. Verificacao `grep -c "Fase 4 - Pre-mortem"`: master=1, fork=1, 3 pointers=0 cada (esperado).
+- **A5 [rules] KBP-06/15 broken refs eliminadas:** `~/.claude/memory/` confirmado inexistente (`Glob **/feedback_*.md` = 0). KBP-06 → `anti-drift.md §Delegation gate #4 + KBP-32`; KBP-15 → `§Concurrent agent commit safety + KBP-51`. Conteudo equivalente ja vivo nestas secoes; pointer integrity restaurada sem criar arquivos novos (KBP-15 self-application).
+- **B2 [rules] Tone propagation cleanup:** `anti-drift.md:10` `(16 agents pendentes)` removido — claim sem tracking file. Rule-base "Sub-agents propagam este default" preservada.
+
+### Aprendizados (max 5 li)
+
+- **Audit utility = trail decisional auditavel:** separar fix mecanico (C1+A1+A2+A5+B2, 30min) de decisao de governance (A3+A4+A6+A7) preserva commits limpos. Misturar = decisao honesta vira footnote do commit gordo.
+- **`~/.claude/memory/` declarado mas nunca existiu:** CLAUDE.md user-global §Memory Governance descreve sistema de topic files com cap=20 + MEMORY.md index, mas dir nao existe nesta maquina. KBP design depende de pointer integrity — broken refs KBP-06/15 viviam ha sessoes. Resolucao: redirecionar para conteudo equivalente ja em master (`anti-drift.md`), nao criar arquivos para preencher pointer.
+- **Component counts sem hook auto-validador continuam driftando:** Cenario 1 do pre-mortem S270 ("README perde credibilidade após 5 valores divergentes em 3 docs") foi prevenido com fix manual. Sem hook FS↔docs, repete em S280-90. Hook auto-validador esta no audit §7 como ALTO/30min — incluir em proxima sessao.
+- **Fork explicito > duplicacao implicita:** AGENTS.md mantida como fork porque Codex/Gemini nao leem CLAUDE.md/anti-drift.md. Header blockquote declara fonte + obrigacao re-sync — assim drift fica detectavel ao inves de invisivel. Nao tentar consolidar cross-CLI em arquivo unico (auditoria S270 §8).
+- **A3 Pre-mortem aplicado neste plano:** EC loop §Phase 4 do plan listou 3 triggers objetivos de abort (count mismatch, old_string mismatch, git status surpreso). Primeira aplicacao registrada do Pre-mortem em 10 sessoes — sinal que a regra funciona quando trazida visivelmente ao plano, nao ritual decoracional.
+
 ## Sessao 270 — 2026-04-28 (audit adversarial: 15 findings drift documental + ritual)
 
 > Lucas frame: "auditor adversarial senior" -> read-only plan-mode -> "commitado e algo para apontar amanha".

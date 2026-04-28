@@ -2,15 +2,15 @@
 
 > Claude Code agent system for medical education and exam prep (consumer-only).
 > **Consumer side** (producer em OLMO_COWORK — ver ADR-0002).
-> Estado: S266 | 2026-04-27 (truth-pass — runtime counts synced after S264/S265 research/debug additions).
+> Estado: S271 | 2026-04-28 (truth-pass — counts synced post S270 audit).
 
 ## Runtime (post-S232 v6)
 
 **Não há runtime Python agent.** S232 removeu do repo versionado: `orchestrator.py`, `__main__.py`, `agents/`, `subagents/`, `tests/` (Python), `config/loader.py`, `config/ecosystem.yaml`, `config/rate_limits.yaml` — stack era vestigial/falido/nunca usado (0 hook invocations, 0 external consumers; manual `make run`/`status` raramente). `git ls-files agents/ subagents/ tests/` confirmam vazio. Resíduo filesystem local (`__pycache__` gitignored) pode persistir em clones e não afeta o repo.
 
 **Orquestração real acontece em Claude Code:**
-- 19 subagents em `.claude/agents/*.md` (9 core + 7 debug-team + 3 research wrappers)
-- 18 skills em `.claude/skills/*/SKILL.md` (invocadas via Skill tool ou triggers)
+- 21 subagents em `.claude/agents/*.md` (9 core + 7 debug-team + 5 research wrappers)
+- 19 skills em `.claude/skills/*/SKILL.md` (invocadas via Skill tool ou triggers)
 - 34 hook registrations em `.claude/settings.json` (33 command hooks + 1 inline Stop prompt)
 - MCP connections: shared inventory em `config/mcp/servers.json`; agent-scoped MCPs inline em `.claude/agents/*.md` (ver §MCP Connections abaixo); policy runtime em `.claude/settings.json`
 
@@ -23,7 +23,7 @@
 - S232 v6: `workflows.yaml` + `load_workflows()` (aspirational, 0 runtime)
 - S232 post-close: **Python stack total** — `orchestrator.py`, `agents/`, `subagents/`, `tests/`, `config/loader.py`, `ecosystem.yaml`, `rate_limits.yaml`
 
-## Claude Code Subagents (19)
+## Claude Code Subagents (21)
 
 > `.claude/agents/*.md` invocados via Task tool dentro do Claude Code, com MCPs + maxTurns próprios.
 
@@ -88,7 +88,7 @@ APL (Ambient Productivity Layer): 3 hooks — pulse per prompt, cache at start, 
 ```mermaid
 graph BT
     L1[L1 Retry + Jitter<br>retry-utils.sh] --> L2[L2 Model Fallback<br>Opus → Sonnet → Haiku<br>circuit breaker 2 fails/5min]
-    L2 --> L3[L3 Cost Circuit Breaker<br>warn@100 block@400 calls/hr]
+    L2 --> L3[L3 Cost Circuit Breaker<br>warn@100 block@400 calls/hr<br>NOT IMPL]
     L3 --> L4[L4 Graceful Degradation<br>context:fork in heavy skills]
     L4 --> L5[L5 Self-Healing Loop<br>lint-on-edit → stop-quality<br>→ pending-fixes → session-start]
     L5 --> L6[L6 Chaos Engineering<br>4 vectors, opt-in CHAOS_MODE=1<br>injects into L2/L3 state files]
@@ -96,7 +96,7 @@ graph BT
 
     style L1 fill:#2ecc71,color:#fff
     style L2 fill:#2ecc71,color:#fff
-    style L3 fill:#2ecc71,color:#fff
+    style L3 fill:#95a5a6,color:#fff
     style L4 fill:#2ecc71,color:#fff
     style L5 fill:#2ecc71,color:#fff
     style L6 fill:#f39c12,color:#fff

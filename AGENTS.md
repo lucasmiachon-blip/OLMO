@@ -12,6 +12,8 @@ Codex + Gemini são READ-ONLY por default (Claude Code não é vinculado por est
 
 ## Codex/Gemini EC loop obrigatorio
 
+> **Fork de `.claude/rules/anti-drift.md §EC loop`** — re-sync ao mudar master. Codex/Gemini não leem CLAUDE.md, então o corpo está duplicado aqui propositalmente.
+
 Contexto e memoria de agente sao efemeros. Antes de qualquer edicao, comando com side effect, commit/push, ou mudanca operacional, Codex/Gemini devem tornar a decisao reproduzivel no thread atual:
 
 ```text
