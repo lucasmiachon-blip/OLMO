@@ -1,19 +1,19 @@
 # Plans — Índice e Convenção
 
-> Single source of truth para estado de plans. Atualizado para reidratação S273 (S272 audit-fix mecânico + 6 waves Tier-S close). Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
+> Single source of truth para estado de plans. Atualizado para reidratação S275 (S274 close — tipos-ma evidence HTML 3/7 emit + Phase 7 next session slide build). Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
 
 ## Active plans (3)
 
 - **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` (Conductor 2026 single source of truth) — reference doc cross-session (12-arms taxonomy + KPIs + §16 backlog ref)
-- **[Lane A metanalise]** `curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 architectural refactor (`s-quality` done S265; abrir so se Lucas escolher slides/metanalise)
-- **[Lane B D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track (`KEEP-SEPARATE provisional`; abrir so secoes `S264.c`/`S265 carryover` se Lucas escolher research)
+- **[Lane A metanalise · S275 PRIORITY]** `scalable-questing-crane.md` — S274 evidence HTML criado + Phase 7 handoff (slide build s-tipos-ma + 5 decisões Lucas). Phase 6 (this session) closed. Abrir §Phase 7 + §Out of scope na reidratação.
+- **[Lane B D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track. S274 D-lite live failed (400+Cloudflare); decisão re-bench post-fixes Lane C.
 
 ## Roadmap constante
 
 | Horizonte | Item | Source of truth |
 |---|---|---|
-| Now | Metanalise QA editorial: s-forest1/s-forest2 | `curious-enchanting-tarjan.md` |
-| Now | D-lite research wrappers: refactor + re-bench | `sleepy-wandering-firefly.md` |
+| Now | Metanalise S275: slide build s-tipos-ma + ajuste infra (Gemini timeout, Perplexity Cloudflare, D-lite 400, PubMed MCP) | `scalable-questing-crane.md §Phase 7` |
+| Now | D-lite research wrappers: refactor + re-bench (post-Lane C infra fixes) | `sleepy-wandering-firefly.md` |
 | Next | Infra audit residuals: done-gate strict/pre-push, integrity hooks, Windows npm gate | `docs/audit/codex-adversarial-audit-S267.md` |
 | Later | Conductor 2026 / 12-bracos architecture | `immutable-gliding-galaxy.md` |
 
@@ -48,6 +48,11 @@
 ## Archived S272 (audit adversarial + 6 fix mecânicos)
 
 - `archive/S272-audit-adversarial-fix.md` — auditoria adversarial S272 (14 findings: 0 CRITICO + 4 ALTO + 6 MEDIO + 4 BAIXO; ~2380 palavras inline relatório) + 6 waves fix Tier-S em auto-mode. Findings closed: A1 (INV-4 v2 prompt/cmd breakdown + 5 docs sync 35 reg), A2 (VALUES.md count), A3 (AGENTS.md fork re-sync), A4 (CHANGELOG cap=10 truncate), M1 (model precedence clarify), M6 (Stop[1] telemetry proxy). 8 commits `ae5bae7`→`cf1830f`. Renamed from `purring-purring-bubble.md` pre-archive S272 close. Defer S273+: M2/M3/M4/M5/B1/B2/B3/B4 (8 findings com decisão Lucas off-thread).
+
+## Archived S265+S273 (Lane A metanalise close)
+
+- `archive/S265-curious-enchanting-tarjan.md` — Phase A `s-quality` done S265 commit `184fed9`; Phases B+C+D `s-forest1/s-forest2` architectural refactor SUPERSEDED em S273 quando Lucas decidiu remover overlays (banner SUPERSEDED no plan). Renamed from `curious-enchanting-tarjan.md` pre-archive S274 close.
+- `archive/S273-swift-plotting-tome.md` — overlays s-forest1/s-forest2 removidos (decisão pedagógica Lucas) + bonus autor s-title `Paulo da Ponte` → `Lucas Takeshi`. 14 Edits / 7 files. lint+build PASS. Defer S275+: QA preflight pós-remoção forest1/2. Renamed from `swift-plotting-tome.md` pre-archive S274 close.
 
 **Regra:** max 2 active sessões correntes + 1 BACKGROUND (immutable-gliding-galaxy = exception explicit-flagged). Cross-window concurrency permite até 3 active simultâneo se janelas paralelas cooperam (S264-265 pattern). Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close (S256 close pattern).
 
