@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 272 — 2026-04-28 (AUDIT_HARD · adversarial S272 + 6 fix mecânicos pós-audit)
+
+> Lucas frame: "auditor adversarial senior socio minoritario" → relatório 2380 palavras → "entre em plano e proponha sequencia de acao" → 6 waves Tier-S em auto mode.
+
+- **Audit adversarial S272 (read-only, 14 findings):** 0 CRITICO + 4 ALTO (A1 hook breakdown drift recursivo + A2 VALUES.md count + A3 AGENTS.md fork + A4 CHANGELOG cap) + 6 MEDIO + 4 BAIXO. Relatório inline + plano `.claude/plans/purring-purring-bubble.md`. Padrão meta-recorrente: drift recursivo dentro do escopo do auto-validador (INV-4 v1) que motivou criação do validador em S271.
+- **Wave 1 (`ae5bae7`) A2 VALUES.md fix:** :33 `agents (19) + skills (18)` → `(21) + (19)`. Truth-pass S270 em CHANGELOG:126 falsamente declarava VALUES sincronizado.
+- **Wave 2 (`518718d`) A4 CHANGELOG truncate:** 13→10 sessions ativas. S261/S262/S263 (3 oldest) movidos para top de `docs/CHANGELOG-archive.md` (S263→S262→S261 reverse-chronological dentro do bloco). Plan literal dizia "S262/S263/S264" mas honest scan revelou S261 oldest. Footer "(7b–263)"; archive header sync.
+- **Wave 3 (`d8742b6`) A1 INV-4 v2 + 5 docs hook breakdown sync:** `tools/integrity.sh check_inv_4` estendido com `fs_total/fs_cmds/fs_prompts` via jq + `hook_docs[]` array (4 docs) + 3 grep patterns. jq empírico revelou audit detectou só metade: real é "35 registrations: 33 cmd + 2 prompts" (não "34: 33+1" como audit assumiu). Sync CLAUDE.md/README.md(2x)/docs/ARCHITECTURE.md(2x)/.claude/hooks/README.md. INV-4 v2 self-test: 6 violations detected → 0 pós-fix.
+- **Wave 4 (`6e86fca`) A3 AGENTS.md re-sync:** :17-19 Tier S/M/T qualifiers re-sync com `anti-drift.md:88-90` master. Tier M ganhou "novos agents/skills, deletes de hook/script versionado"; Tier T ganhou "em arquivo já owned"+"Edit não-canônica"+full Pre-mortem/Steelman elaboration. Self-aware fork comment :15 agora refletido em conteúdo.
+- **Wave 5 (`2752b03`) M1 model precedence:** `docs/ARCHITECTURE.md §Model Routing` ganhou 1 linha clarificando agent frontmatter `model:` overrides `CLAUDE_CODE_SUBAGENT_MODEL` env var. Marked HIPOTESE inline pending empirical confirmation.
+- **Wave 6 (`369eeb2`) M6 Stop[1] telemetry proxy:** `hooks/stop-quality.sh` ganhou bloco que captura Tier-S edit opportunities (uncommitted git diff + last 30min commits) em `.claude/stop1-telemetry.jsonl`. Pre-mortem confirmado: Stop[1] type:prompt output não vai pra stderr → captura direta inviável → PROXY signal pra cross-ref manual com Stop[1] feedback messages no turn-replay. Prerequisite a M2 regex calibration (deferred ≥3 sessions de dados).
+
+### Aprendizados (max 5 li)
+
+- **Drift recursivo é o cenário típico de validador novo:** S271 INV-4 nasceu pra catch count drift "19/18→21/19", mas mesma sessão adicionou Stop[1] prompt bumpando hooks 34→35 / prompts 1→2 — drift dentro do escopo do auditor recém-nascido. Lesson: ao adicionar validador, listar TODOS os contadores cobertos vs incobertos antes de fechar o ticket; INV-4 v2 cobre breakdown agora.
+- **Auto-validador não substitui re-medição empírica:** integrity-report PASS S271 deu false confidence — INV-4 v1 só validava 2 de ~6 contadores possíveis em settings.json+docs. jq empirical (`33 cmd + 2 prompts = 35 total`) revelou que audit S272 inicial subestimou drift (assumi 34 total mantido, real era 35). Lesson: auditor deve rodar fonte mecânica (jq, find, wc) ANTES de propor fix, não confiar em INV report PASS.
+- **Wave 2 plan literal vs honest scan:** plan dizia "S262/S263/S264" mas scan revelou S261 oldest. Aplicada correção dentro da aprovação (preserva intent "cap=10") + comunicada explícita. Lesson: plan approval cobre intent + scope, não cada literal — corrections ok se transparentes.
+- **Stop[1] type:prompt telemetry inviável direto:** prompt output vai pra harness, não pra stderr. Wave 6 entregou PROXY (Tier-S edit opportunities) que requer manual cross-ref. Honest scope-correction do plan original ("via stderr log") feita visível em commit message + Pre-mortem capturado upfront. Lesson: telemetry de hook prompt-type precisa de mecanismo upstream (CC harness exposure) que não existe hoje.
+- **6 waves × Tier-S em 1 sessão funcionou:** plan-mode + auto-mode + EC loop por wave + INV-4 PASS gate entre waves preservou momentum sem skipping safety. 6 commits one-concern, 0 violations final. KBP candidate: "audit-fix mecânico Tier-S em sequência ≤6 waves auto-mode é sustentável; >6 ou misturar decisão Lucas seria override do plan".
+
 ## Sessao 271 — 2026-04-28 (audit-fix: 5 findings mecanicos do S270)
 
 > Lucas frame: "continuar audit, comecar pelos criticos". Plan-mode aprovado com scope mecanico vs governance defer explicito.

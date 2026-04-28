@@ -25,8 +25,8 @@ Gate: `node scripts/smoke/research-dlite-contract.mjs`.
 
 ## 3. Lane C - Infra / auditoria
 
-Triggers: "auditoria", "hardening", "gate", "harness", "seguranca", "integrity". Relatório S267: `docs/audit/codex-adversarial-audit-S267.md`. Audit S270 fechado: `.claude/plans/archive/S270-audit-adversarial-15-findings.md` (15 findings: 10 closed S271 + 5 deferred M1+M2+M3+B1+B3).
-Estado: residual M1 pytest nominal (remover ou smoke mínimo); opcional `bash content/aulas/scripts/install-hooks.sh` para `.git/hooks/pre-push` local.
+Triggers: "auditoria", "hardening", "gate", "harness", "seguranca", "integrity". Audit S272 fechado: `.claude/plans/purring-purring-bubble.md` (14 findings: 6 closed mecanicamente + 8 deferred com gate). Audits prévios: S267 (`docs/audit/codex-adversarial-audit-S267.md`), S270 (`.claude/plans/archive/S270-audit-adversarial-15-findings.md`).
+Estado: S272 fechou A1+A2+A3+A4+M1+M6 (Wave 1-6). INV-4 v2 valida hook breakdown FS↔docs; M6 telemetry proxy ativa (.claude/stop1-telemetry.jsonl). Defer S273+: M2 (gate ≥3 sessions M6 data), M3/M4/M5/B1/B2/B3/B4 (decisão Lucas off-thread).
 
 ## 4. Roadmap constante
 
@@ -34,8 +34,9 @@ Now:
 - `[S267/S268 P0 metanalise]` `.claude/plans/curious-enchanting-tarjan.md` - s-forest1/s-forest2.
 - `[S269 P0 D-lite]` `docs/research/sota-S269-agents-subagents-contract.md` + `.claude/scripts/research-dlite-runner.mjs` - local smoke PASS; next = optional live smoke/re-bench.
 - `[P1 BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` - referencia, nao abrir no start.
-- `[S272+ soak test]` Stop[1] prompt hook validar tier-S Pre-mortem detection + scope-extension `[budget]` em uso real; calibrar prompt prose se false-positive recorrente.
+- `[S273+ soak test]` Stop[1] prompt hook + M6 telemetry: validar tier-S Pre-mortem detection + scope-extension `[budget]` em uso real; cross-ref `.claude/stop1-telemetry.jsonl` com Stop[1] feedback messages no turn-replay; calibrar regex M2 após ≥3 sessions de dados.
 - `[S275-280 catalog review]` `.claude/CATALOG.md` 6 `candidate-delete` skills decisão 1-a-1 com Lucas; bulk delete proibido (audit S270 §8).
+- `[S273+ audit S272 deferred]` 8 findings com decisão Lucas: M3 (systematic-debugger↔debugging keep/cut), M4 (.claude/.parallel-runs/ retention), M5 (nlm-skill+skill-creator partial cleanup), B1 (tools/docling), B2 (gemini-review.mjs orphan), B3 (115 plans archive policy), B4 (README "7-layer" rewrite). Plano: `.claude/plans/purring-purring-bubble.md §Out-of-scope`.
 
 Next:
 - Lane B: quando Gemini quota voltar, rodar re-bench cost-gated Gemini/Perplexity/Codex em >=6 emits; comparar contra `.mjs`; promover D-lite so se thresholds do contrato passarem.
