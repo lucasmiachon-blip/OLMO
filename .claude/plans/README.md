@@ -36,9 +36,13 @@
 - `archive/S262-research-mjs-additive-migration.md` — methodology source superseded by S264/S268 D-lite track; historical.
 - `archive/splendid-munching-swing.md` — bench Phase 0-8 closed; decision persisted in `.claude/.parallel-runs/2026-04-27-ma-types/decision.md`.
 
+## Archived S269 (Lane D close)
+
+- `archive/S269-document-conversion-uv-hardening.md` — skill document-conversion criado + Fletcher PDF + uv venv hardening + KBP-49/50/51; commit `67c2688` push'd. Renamed from `toasty-greeting-crown.md` pre-archive.
+
 **Regra:** max 2 active sessões correntes + 1 BACKGROUND (immutable-gliding-galaxy = exception explicit-flagged). Cross-window concurrency permite até 3 active simultâneo se janelas paralelas cooperam (S264-265 pattern). Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close (S256 close pattern).
 
-## Archive (`.claude/plans/archive/` = 112 files)
+## Archive (`.claude/plans/archive/` = 113 files)
 
 Historical audit trail. Never delete; historical value > storage cost. Reference por grep quando necessário.
 
