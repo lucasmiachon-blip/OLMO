@@ -116,6 +116,24 @@ if [ -n "$ISSUES" ]; then
   fi
 fi
 
+# --- M6 Stop[1] telemetry capture (audit S272 prerequisite a M2 regex calibration) ---
+# PROXY signal: registra Tier-S edit opportunities (uncommitted + last 30min commits).
+# NÃO captura Stop[1] firings diretamente (type:prompt output não vai pra stderr).
+# Cross-ref manual: comparar entries aqui com Stop[0]/Stop[1] feedback messages no turn-replay.
+# Tier S paths per anti-drift.md §EC tiers: .claude/rules/, settings.json, .claude/hooks/, hooks/, CLAUDE.md, AGENTS.md.
+TELEMETRY_FILE="$PROJECT_ROOT/.claude/stop1-telemetry.jsonl"
+TIER_S_REGEX='^(\.claude/rules/|\.claude/hooks/|hooks/|CLAUDE\.md$|AGENTS\.md$|\.claude/settings\.json$|\.claude/settings\.local\.json$)'
+TIER_S_DIRTY=$(echo "$ALL_CHANGED" | grep -E "$TIER_S_REGEX" || true)
+TIER_S_RECENT=$(git -C "$PROJECT_ROOT" log --since='30 minutes ago' --name-only --pretty=format: 2>/dev/null | grep -E "$TIER_S_REGEX" | sort -u || true)
+TIER_S_ALL=$(printf "%s\n%s" "$TIER_S_DIRTY" "$TIER_S_RECENT" | sort -u | grep -v '^$' || true)
+if [ -n "$TIER_S_ALL" ]; then
+  TS=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
+  if command -v jq >/dev/null 2>&1; then
+    PATHS_JSON=$(echo "$TIER_S_ALL" | jq -R . | jq -s -c .)
+    printf '{"ts":"%s","tier_s_paths":%s}\n' "$TS" "$PATHS_JSON" >> "$TELEMETRY_FILE" 2>/dev/null || true
+  fi
+fi
+
 # --- HANDOFF print for context recovery ---
 echo ""
 echo "=== HANDOFF.md ==="
