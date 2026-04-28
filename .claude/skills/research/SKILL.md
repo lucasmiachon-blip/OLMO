@@ -17,11 +17,11 @@ argument-hint: "[topic OR slide-id] [--queries 'SCite: X, Consensus: Y'] [--afte
 2. **NUNCA substituir uma perna por outra.** Se uma perna falha (API key ausente, timeout, erro): reportar ao usuario e pular. NAO improvisar com WebSearch, NAO lancar agente general-purpose como substituto. KBP-08.
 3. **Pre-flight obrigatorio.** Validar API keys ANTES de dispatch (Step 1.5). Key ausente = perna indisponivel, nao perna substituida.
 4. **Ensemble obrigatorio (KBP-47).** Cada `/research` invocation dispatches ALL applicable pernas (subject to Step 1 mode + Step 1.5 pre-flight). Never subset, never "so Perna X". Subset = research subset trap; o valor da pipeline esta em convergencia/divergencia cross-fonte. Lucas S263 turn 3.
-5. **External APIs precisam de contrato deterministico e auditavel (KBP-48 reformulado S266).** Estado atual: `.claude/scripts/gemini-research.mjs` e `.claude/scripts/perplexity-research.mjs` seguem como hot path canônico para Pernas 1/5 porque emitiram 9/9 no bench S264.c. `gemini-deep-research` e `perplexity-sonar-research` existem, mas ficam **EXPERIMENTAL** até D-lite refactor + re-bench lockar MERGE ou MERGE-BACK. Codex (`codex-xhigh-researcher`) e `evidence-researcher` ja seguem o padrao canonico.
+5. **External APIs precisam de contrato deterministico e auditavel (KBP-48 reformulado S269).** Estado atual: `.claude/scripts/gemini-research.mjs` e `.claude/scripts/perplexity-research.mjs` seguem como hot path canônico para Pernas 1/5 porque emitiram 9/9 no bench S264.c. `gemini-deep-research` e `perplexity-sonar-research` existem, mas ficam **EXPERIMENTAL**. S269 adicionou D-lite sem deletar legado: `.claude/scripts/research-dlite-runner.mjs` + `gemini-dlite-research` + `perplexity-dlite-research`, todos thin wrappers com smoke local. D-lite so vira canonico se re-bench passar. Codex (`codex-xhigh-researcher`) e `evidence-researcher` ja seguem o padrao canonico.
 
 Pesquisa para: `$ARGUMENTS`
 
-7 pernas independentes em paralelo (6 Anthropic-compatible + 1 cross-family Codex GPT-5.5 xhigh), cada uma com fontes e vieses diferentes. Convergencia entre pernas = alta confianca. Divergencia = flag para decisao humana.
+7 pernas independentes em paralelo (6 Anthropic-compatible + 1 cross-family Codex/ChatGPT-5.5 xhigh), cada uma com fontes e vieses diferentes. Convergencia entre pernas = alta confianca. Divergencia = flag para decisao humana. A perna Codex/ChatGPT-5.5 agrega tanto liberdade de raciocinio/captura quanto validacao critica cross-family; ela nao substitui Gemini/Perplexity/Google AI Studio, que seguem valiosos para recall grounded.
 
 ## Step 1 — Parse
 
@@ -74,6 +74,39 @@ Lancar pernas aplicaveis via Agent tool, TODAS em 1 mensagem:
 | 7 | `codex-xhigh-researcher` (**Subagent**) | GPT-5.5 + xhigh (Codex CLI) | Sempre (cross-family) | research_question + ID + context excerpt | JSON to orchestrator (schema-validated, `.claude/.research-tmp/codex-${ID}.json`) |
 
 Todas as pernas aplicaveis rodam. Perna indisponivel (key ausente, tool quebrada) = reportar e pular.
+
+**D-lite experimental S269 (NAO canonical ainda):** quando o objetivo for testar a migracao anti-overengineering, usar os agents novos `gemini-dlite-research` e `perplexity-dlite-research` como captura de candidatos, nao sintese final. Eles chamam uma unica vez:
+
+```bash
+node .claude/scripts/research-dlite-runner.mjs --provider gemini --output-kind candidates --question-id <ID> --question "<OPEN_PROMPT>" --out .claude/.research-tmp/gemini-dlite-<ID>.json
+node .claude/scripts/research-dlite-runner.mjs --provider perplexity --output-kind candidates --question-id <ID> --question "<OPEN_PROMPT>" --out .claude/.research-tmp/perplexity-dlite-<ID>.json
+```
+
+Smoke local sem API:
+
+```bash
+node scripts/smoke/research-dlite-contract.mjs
+```
+
+Validar saida existente de outra perna (ex.: Codex xhigh) pelo mesmo boundary:
+
+```bash
+node .claude/scripts/research-dlite-runner.mjs --validate-file .claude/.research-tmp/codex-<ID>.json --verify-pmids --out .claude/.research-tmp/codex-<ID>.verified.json
+```
+
+Se a saida Codex/ChatGPT-5.5 for captura ampla de candidatos, validar como candidate set:
+
+```bash
+node .claude/scripts/research-dlite-runner.mjs --output-kind candidates --validate-file .claude/.research-tmp/codex-candidates-<ID>.json --out .claude/.research-tmp/codex-candidates-<ID>.validated.json
+```
+
+Regra: D-lite nao substitui o hot path ate live re-bench mostrar que preserva recall/novelty dos scripts antigos, 6/6 emit + 6/6 JSON valid + PMID fab <=10% + custo <=$0.30/question ou aprovacao explicita Lucas.
+
+### Capture vs Triage vs Verification
+
+- **Capture:** Gemini/Perplexity/Google AI Studio + Codex/ChatGPT-5.5 xhigh podem retornar muitos candidatos Tier 1, livros de referencia, guidelines, landmark trials e SOTA ate a data atual. Falso positivo e aceitavel aqui se marcado `unverified`.
+- **Triage:** Opus/orquestrador organiza candidatos em keep/reject/defer, aponta documentos esperados ausentes e prioriza por hierarquia de evidencia.
+- **Verification:** evidence-researcher com PubMed/MCP, Scite, Consensus, CrossRef/DOI e web/source checks confirma identidade e relevancia. So depois disso vira sintese final.
 
 **Principio I/O (S145):** OPEN topic + CLOSED format. Nunca ambos abertos.
 - OPEN: "What are the most practice-changing..." (topico livre, nao-deterministico)
@@ -133,7 +166,7 @@ Execucao (orchestrador via Bash):
 node .claude/scripts/perplexity-research.mjs "<OPEN_PROMPT>"
 ```
 
-Script canonical em `.claude/scripts/perplexity-research.mjs` (S232 v6 Batch 4). Modelo `sonar-deep-research`, temperature 0.8, max_tokens 8000, return_citations + search_context_size high. SYSTEM prompt embutido (Tier 1 sources NEJM/Lancet/JAMA/BMJ/Ann Intern Med/Cochrane; markdown table only; PMIDs CANDIDATE).
+Script canonical em `.claude/scripts/perplexity-research.mjs` (S232 v6 Batch 4; hardening S261). Modelo `sonar-deep-research`, temperature 0.2, max_tokens 8000, return_citations + search_context_size high. SYSTEM prompt embutido (Tier 1 sources NEJM/Lancet/JAMA/BMJ/Ann Intern Med/Cochrane; markdown table only; PMIDs CANDIDATE).
 
 Regras: topico ABERTO ("What has changed in...", "What would surprise..."). Formato FECHADO (schema suffix no final do user prompt). Output parseavel.
 

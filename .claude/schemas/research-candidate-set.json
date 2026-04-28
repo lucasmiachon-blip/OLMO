@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lucas-miachon/OLMO/.claude/schemas/research-candidate-set.json",
+  "title": "Research Candidate Set",
+  "description": "High-recall capture schema for exploratory research pernas before Opus/MCP triage. Candidates are not final evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "produced_at",
+    "research_question_id",
+    "research_question",
+    "capture_perna",
+    "capture_mode",
+    "domain_context",
+    "candidate_documents",
+    "missing_expected_documents",
+    "provider_gaps"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "research_question_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "research_question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capture_perna": {
+      "type": "string",
+      "enum": [
+        "gemini",
+        "perplexity",
+        "codex-xhigh",
+        "evidence-researcher",
+        "nlm",
+        "opus-triage"
+      ]
+    },
+    "capture_mode": {
+      "type": "string",
+      "enum": [
+        "high_recall",
+        "triage",
+        "verification"
+      ]
+    },
+    "domain_context": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "candidate_documents": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "document_type",
+          "source_tier",
+          "indexing_signal",
+          "why_candidate",
+          "pmid",
+          "doi",
+          "url",
+          "fallback_id",
+          "landmark_signal",
+          "evidence_hierarchy",
+          "triage_status",
+          "validation_status"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "document_type": {
+            "type": "string",
+            "enum": [
+              "guideline",
+              "meta_analysis",
+              "systematic_review",
+              "rct",
+              "landmark_trial",
+              "book",
+              "consensus_statement",
+              "registry",
+              "web"
+            ]
+          },
+          "source_tier": {
+            "type": "string",
+            "enum": [
+              "tier1",
+              "tier2",
+              "reference_book",
+              "candidate_uncertain"
+            ]
+          },
+          "indexing_signal": {
+            "type": "string",
+            "description": "PubMed/MEDLINE, Cochrane, guideline organization, major society, textbook publisher, trial registry, Scite/Consensus signal, or other index/ranking signal."
+          },
+          "why_candidate": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pmid": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9]+$"
+          },
+          "doi": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fallback_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISBN, guideline org/year, registry id, or stable URL when PMID/DOI is not expected."
+          },
+          "landmark_signal": {
+            "type": "string",
+            "enum": [
+              "landmark",
+              "practice_changing",
+              "supporting",
+              "uncertain"
+            ]
+          },
+          "evidence_hierarchy": {
+            "type": "string",
+            "enum": [
+              "guideline",
+              "meta_analysis",
+              "systematic_review",
+              "rct",
+              "observational",
+              "reference_book",
+              "expert_consensus",
+              "other"
+            ]
+          },
+          "triage_status": {
+            "type": "string",
+            "enum": [
+              "candidate",
+              "triage_keep",
+              "triage_reject",
+              "defer"
+            ]
+          },
+          "validation_status": {
+            "type": "string",
+            "enum": [
+              "unverified",
+              "pmid_verified",
+              "doi_verified",
+              "url_verified",
+              "rejected_false_positive"
+            ]
+          }
+        }
+      }
+    },
+    "missing_expected_documents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "provider_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

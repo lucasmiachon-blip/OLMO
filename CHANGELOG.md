@@ -12,6 +12,7 @@
 - **Comparacao visivel:** contrato S269 ganhou diagrama ASCII do fluxo OPEN discovery -> CLOSED boundary -> NCBI confirmation -> comparison matrix, mais plano de comparacao legacy `.mjs` vs D-lite.
 - **Capture-first correction:** adicionado `.claude/schemas/research-candidate-set.json`; D-lite agora preserva recall/novelty dos scripts antigos antes de triagem Opus/MCP, em vez de forcar 3-5 findings finais cedo demais.
 - **ChatGPT-5.5/Codex como perna:** Codex/ChatGPT-5.5 xhigh ficou explicitado como perna #7 para captura cross-family e validacao critica, nao como substituto de Gemini/Perplexity/Google AI Studio.
+- **Reidratacao Claude+Codex:** criado `docs/research/S269-dlite-rehydration.md`; `CLAUDE.md`, `AGENTS.md`, `.claude/context-essentials.md`, `HANDOFF.md` e contrato S269 apontam para o mesmo estado/gaps.
 - **Research skill/handoff:** `.claude/skills/research/SKILL.md` agora aponta D-lite como experimental S269 sem promover para canonical; `HANDOFF.md` atualiza Lane B para o contrato e smoke novo.
 
 ### Aprendizados (max 5 li)

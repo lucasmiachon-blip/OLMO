@@ -46,6 +46,7 @@ node content/aulas/scripts/gemini-qa3.mjs --aula metanalise --slide {id} --inspe
 
 Quando Lucas disser "research", "pernas", "D-lite", "agents vs scripts" ou "migrar .mjs".
 
+Reidratacao completa da lane: `docs/research/S269-dlite-rehydration.md` (ler antes de editar runner/agents/skill).
 Plano de execucao: `.claude/plans/sleepy-wandering-firefly.md` somente secoes `S264.c` e `S265 carryover`.
 
 Estado:
@@ -57,6 +58,7 @@ Estado:
 - Runner agora tem `--verify-pmids` e `--validate-file` para separar descoberta livre de confirmacao rigorosa e incluir a perna Codex no mesmo boundary.
 - Runner default = `--output-kind candidates` para capturar muitos candidatos Tier 1/livros/guidelines/landmark trials/SOTA; `--output-kind final` so depois da triagem/verificacao.
 - Contrato profissional: `docs/research/sota-S269-agents-subagents-contract.md` inclui diagrama ASCII + comparison plan legacy `.mjs` vs D-lite.
+- Gaps principais resumidos: Gemini API 429/quota; sem candidate-first live re-bench; sem comparacao head-to-head; sem Opus triage runner; sem DOI/URL/ISBN verifier; sem matriz cost/latency/recall. Lista completa: `docs/research/S269-dlite-rehydration.md#open-gaps`.
 - Nao formalizar KBP-Candidate-D/E sem transcript/stop_reason proof ou re-bench.
 
 Gate barato:

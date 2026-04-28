@@ -2,11 +2,11 @@
 
 > ⚠️ **Claude Code NÃO lê este arquivo.** Consumer: Codex CLI + Gemini CLI (convenção própria dos CLIs externos). Claude Code governa-se por `CLAUDE.md` + `.claude/rules/` apenas. Este arquivo orienta cross-CLI strategy.
 
-## ROLE: VALIDAR (Codex) | PESQUISAR (Gemini) | Codex S259+ also RESEARCH perna #6
+## ROLE: VALIDAR (Codex) | PESQUISAR (Gemini) | Codex S259+ also RESEARCH perna #7
 
 - **Claude Code (Opus 4.7)** = FAZER (build, code, orchestrate)
 - **Gemini CLI (Gemini 3.1)** = PESQUISAR (multimodal, deep research, vision)
-- **Codex CLI (GPT-5.5 + `reasoning.effort=xhigh`)** = VALIDAR (review, audit, adversarial) + **RESEARCH S259 POC** (research perna #6 em /evidence pipeline; agent: `.claude/agents/codex-xhigh-researcher.md`)
+- **Codex CLI (GPT-5.5 + `reasoning.effort=xhigh`)** = VALIDAR (review, audit, adversarial) + **RESEARCH S259/S269** (research perna #7 em /evidence pipeline; agent: `.claude/agents/codex-xhigh-researcher.md`)
 
 Codex + Gemini são READ-ONLY por default (Claude Code não é vinculado por esta restrição). Report findings. Só editar quando Lucas aprovar explicitamente o escopo no thread atual.
 
@@ -42,6 +42,16 @@ codex exec -c reasoning.effort=xhigh --ephemeral -s read-only "<prompt>"
 S266 runtime note: do **not** pass `--model` from the Claude subagent path; `~/.codex/config.toml` default applies.
 
 Cross-family validation (OpenAI vs Anthropic vs Google ecosystems) é defesa contra hallucination compartilhada entre modelos da mesma família.
+
+## S269 D-lite research alignment (Claude Code + Codex)
+
+Source of truth for next session hydration: `docs/research/S269-dlite-rehydration.md`.
+
+Invariant curto:
+- Legacy Gemini/Perplexity `.mjs` remain canonical until D-lite re-bench proves equal/better recall and usefulness.
+- D-lite is capture-first (`ResearchCandidateSet`) before Opus/MCP triage and verification.
+- Codex/ChatGPT-5.5 xhigh is a real research perna, not a replacement for Gemini/Perplexity/Google AI Studio.
+- Gaps and comparison matrix live in the rehydration doc; update that file first, then short pointers.
 
 Full `.mjs` migration deferred S260+ gated by POC outcome (≥3 of 5 R-questions convergem com outras 5 pernas + cost ≤ $0.30 per question + PMID fabrication ≤ 10%).
 
