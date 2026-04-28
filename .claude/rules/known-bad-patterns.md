@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-54.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-55.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -167,3 +167,6 @@ globs: "**/*"
 
 ## KBP-53 OCR sem `--language` adequado = qualidade degradada
 → `.claude/skills/document-conversion/SKILL.md` §Pipeline 5 (Tesseract default usa training inferior; flag explícito `eng`/`por`/`eng+por` amarra dataset correto; sem flag em livro PT-BR puro = OCR de baixa fidelidade caractere-a-caractere)
+
+## KBP-54 API timeouts hardcoded decay sem gate periódico de bench
+→ `CHANGELOG.md §S274 Aprendizados` (S264 9/9 emit → S274 3/7 emit em 4 meses sem CI bench detect regression silently. Gemini.mjs:60 timeout 60s vs ~91s real do modelo; Perplexity.mjs:77 timeout 120s vs Cloudflare 60s idle drop server-side. Mitigation: schedule `/loop` mensal bench API latency curl test contra `.mjs` scripts canonical)

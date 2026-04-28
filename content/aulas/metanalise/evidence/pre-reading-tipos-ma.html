@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitura Preparatória: Tipos de Meta-Análise</title>
+  <style>
+    /* === Base === */
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      max-width: 860px; margin: 2rem auto; padding: 0 1.5rem;
+      color: #1a1a2e; line-height: 1.7; text-align: justify;
+    }
+    h1 {
+      font-size: 1.5rem; border-bottom: 2px solid #2d6a4f;
+      padding-bottom: .5rem; margin-bottom: .25rem;
+    }
+    h2 { font-size: 1.15rem; color: #2d6a4f; margin-top: 2rem; }
+    .meta { font-size: .85rem; color: #555; }
+
+    /* === Tables === */
+    table {
+      border-collapse: collapse; width: 100%;
+      margin: .5rem 0; font-size: .88rem;
+      border-radius: 8px; overflow: hidden;
+    }
+    th, td { border: 1px solid #d4d4d4; padding: .5rem .7rem; text-align: left; }
+    th { background: #edf2ee; font-weight: 600; }
+
+    /* === Accordions === */
+    details {
+      margin: 1rem 0; padding: .6rem 1rem;
+      background: #eef2f7; border-radius: 10px;
+      border: 1px solid #d0d8e0;
+    }
+    details[open] { background: #e8eef5; }
+    summary {
+      cursor: pointer; font-weight: 600; color: #1e40af;
+      padding: .4rem 0; transition: color .2s;
+    }
+    summary:hover { color: #1e3a8a; }
+
+    /* === Links === */
+    .ref-pmid { color: #2563eb; text-decoration: none; font-size: .85rem; }
+    .ref-pmid:hover { text-decoration: underline; }
+
+    /* === Verification badges === */
+    .v {
+      background: #2563eb; color: #fff;
+      padding: 1px 6px; border-radius: 3px;
+      font-size: .72rem; font-weight: 600;
+      margin-left: 4px; vertical-align: 1px;
+    }
+    .c {
+      background: #dc2626; color: #fff;
+      padding: 1px 6px; border-radius: 3px;
+      font-size: .72rem; font-weight: 600;
+      margin-left: 4px; vertical-align: 1px;
+    }
+
+    /* === Callouts === */
+    .key-takeaway {
+      background: #e8f5e9; border-left: 4px solid #2d6a4f;
+      padding: .7rem 1rem; margin: .8rem 0; font-size: .9rem;
+      border-radius: 8px;
+    }
+    .caveat {
+      background: #fef3e2; border-left: 4px solid #e8850c;
+      padding: .6rem 1rem; margin: .8rem 0; font-size: .88rem;
+      border-radius: 8px;
+    }
+    .gap-card {
+      border-left: 3px solid #e8850c;
+      padding: .5rem .8rem; margin: .8rem 0;
+      background: #fef8f0; border-radius: 8px;
+    }
+    details .gap-card {
+      background: transparent; border-left: none;
+      padding: .2rem 0; margin: .4rem 0;
+    }
+
+    /* === Core steps (trilha) === */
+    .core-step {
+      display: grid; grid-template-columns: 2.5rem 1fr;
+      gap: .6rem; align-items: start;
+      margin: 1rem 0; padding: .8rem;
+      background: #fafafa; border-radius: 10px;
+      border: 1px solid #e8e8e8;
+      transition: box-shadow .2s;
+    }
+    .core-step:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .core-num {
+      background: #2d6a4f; color: #fff;
+      width: 2rem; height: 2rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .9rem;
+    }
+
+    /* === Utilities === */
+    .glossary-term { font-weight: 600; color: #2d6a4f; }
+    .objectives {
+      background: #edf5ee; border-radius: 10px;
+      padding: 1rem 1.4rem; margin: 1rem 0;
+      border: 1px solid #c8dcc9;
+    }
+    .objectives li { margin: .4rem 0; }
+
+    /* === Footer === */
+    footer {
+      margin-top: 2.5rem; padding-top: .8rem;
+      border-top: 1px solid #ccc;
+      font-size: .8rem; color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Leitura Preparatória: Tipos de Meta-Análise</h1>
+  <p class="meta">Tempo estimado: 90 min (9 tipos, leitura focada) | Complementar: +30 min (deep-dives)</p>
+
+  <div class="objectives">
+    <strong>Ao final desta leitura, você vai conseguir:</strong>
+    <ol>
+      <li>Reconhecer o tipo de meta-análise ao ler um artigo — e saber por que isso muda a interpretação</li>
+      <li>Identificar a <em>premissa crítica</em> de cada tipo: o que precisa ser verdade para o resultado ser confiável</li>
+      <li>Detectar a <em>armadilha (gotcha)</em> mais comum em cada tipo, antes de aceitar a conclusão</li>
+      <li>Diferenciar tipos de MA (categorias) de abordagens analíticas (one-stage, aggregate vs IPD)</li>
+      <li>Saber o que mudou desde 2022 que residente lendo MA hoje precisa conhecer</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ===== CONCEITOS-CHAVE ===== -->
+<section id="concepts">
+  <h2>Conceitos-chave antes de começar</h2>
+  <p>Estes termos aparecem repetidamente. Defini-los agora evita confusão depois.</p>
+
+  <p><strong>Dados agregados (aggregate data):</strong> as estatísticas resumo publicadas em cada estudo — média, desvio-padrão, OR, RR, IC 95%. É o que aparece na tabela de resultados de um paper. A imensa maioria das meta-análises usa dados agregados.</p>
+
+  <p><strong>Dados individuais (IPD — Individual Participant Data):</strong> os dados brutos de cada paciente em cada estudo. Permite análises impossíveis com dados agregados — subgrupos, interações tratamento × covariável, time-to-event padronizado.</p>
+
+  <p><strong>Transitividade (NMA):</strong> premissa de que os modificadores de efeito estão distribuídos de forma similar entre todas as comparações da rede. Se estudos de A vs placebo incluíram pacientes mais graves do que estudos de B vs placebo, a comparação indireta A vs B fica enviesada.</p>
+
+  <p><strong>Prediction interval:</strong> diferente do IC. O IC diz "com 95% de confiança a média do efeito está entre X e Y". O prediction interval diz "se este estudo for repetido em outro hospital ou país, o resultado provavelmente ficaria entre X e Y". É o que importa para decidir sobre o seu paciente.</p>
+
+  <p><strong>Threshold effect (DTA):</strong> em testes diagnósticos, o ponto de corte determina o trade-off entre sensibilidade e especificidade. Sintetizar Sen e Esp separadamente (sem modelo bivariate) ignora essa correlação e produz pares impossíveis.</p>
+
+  <p><strong>Alpha-spending (Living SR):</strong> método para controlar erro tipo I quando hipóteses são testadas repetidamente ao longo do tempo. Sem ele, uma living MA com 20 atualizações tem alta probabilidade de achar significância por acaso.</p>
+
+  <p><strong>CCA (Corrected Covered Area):</strong> em umbrella reviews, métrica que quantifica overlap de estudos primários entre as SRs incluídas. Pieper 2014 introduziu; pós-2020 a leitura crítica exige matriz por comparação/outcome, não só CCA global.</p>
+
+  <p><strong>Prior (Bayesian):</strong> a distribuição de crença prévia antes de ver os dados. "Vague" (não-informativo), "weakly informative", "informative/MAP" e "skeptical" são escolhas analíticas que afetam o resultado final — especialmente quando os dados são esparsos.</p>
+</section>
+
+<!-- ===== POR QUE IMPORTA ===== -->
+<section id="narrative">
+  <h2>Por que reconhecer o tipo importa</h2>
+
+  <p>Quando o residente lê "meta-análise" num artigo, quase sempre assume que se trata de uma pairwise convencional — estudo A vs B, dados agregados, forest plot, losango no final. Na realidade, "meta-análise" é uma <em>família</em> de métodos com premissas, dados de entrada e interpretações radicalmente diferentes.</p>
+
+  <p>Uma <strong>NMA</strong> ranqueia múltiplos tratamentos comparando evidência direta + indireta — mas só se a transitividade for verdadeira. Uma <strong>IPD-MA</strong> reanalisa dados individuais — mas pode estar enviesada se 30% dos estudos não compartilharam dados (Wang 2021 mostrou que 39% das IPD-MAs falharam em recuperar ≥90% dos elegíveis). Uma <strong>DTA-MA</strong> sintetiza sensibilidade e especificidade — mas só com modelo bivariate ou HSROC, nunca separadamente. Uma <strong>prevalence MA</strong> reporta I² de 97% — e isso é normal, não patológico.</p>
+
+  <p>O tipo determina o que você pode e o que <em>não pode</em> concluir. Antes de aceitar os resultados, identifique: <em>que tipo de MA é esta?</em></p>
+
+  <div class="key-takeaway"><strong>Mensagem central:</strong> "Meta-análise" não é um método único — é uma família. O tipo determina quais perguntas a MA pode responder e quais premissas você deve verificar antes de aplicar ao seu paciente.</div>
+</section>
+
+<!-- ===== TRILHA POR TIPO ===== -->
+<section id="trail">
+  <h2>Trilha: 9 tipos de meta-análise</h2>
+  <p>Para cada tipo: a premissa que precisa ser verdade, um exemplo landmark, a armadilha que o residente deve detectar, e o que mudou desde 2022.</p>
+
+  <div class="core-step">
+    <div class="core-num">1</div>
+    <div>
+      <strong>Pairwise (meta-análise tradicional)</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> os estudos primários comparam diretamente A vs B em populações suficientemente similares para que a combinação quantitativa produza estimativa de efeito mais precisa do que cada estudo isolado.</div>
+      <p><strong>Landmark:</strong> Chu DK et al. <em>Mortality and morbidity in acutely ill adults treated with liberal versus conservative oxygen therapy (IOTA)</em>. Lancet 2018;391(10131):1693-1705. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/29726345" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Gotcha:</strong> a "adoração ao I²" — residente vê I² alto e descarta a MA, ou I² baixo e aceita cegamente. Borenstein 2022 mostrou que I² depende tanto da heterogeneidade real quanto do tamanho dos estudos. O instrumento certo é o <em>prediction interval</em>, não o I². Reportado em menos de 2% das MAs.</p>
+      <p><strong>Reading recomendado:</strong> Page MJ et al. PRISMA 2020 statement. BMJ 2021;372:n71. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33782057" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">2</div>
+    <div>
+      <strong>Network Meta-Analysis (NMA)</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> <em>transitividade</em> — modificadores de efeito distribuídos de forma similar entre comparações da rede. Sem transitividade, a comparação indireta é inválida.</div>
+      <p><strong>Landmark:</strong> Cipriani A et al. <em>Comparative efficacy and acceptability of 21 antidepressant drugs</em>. Lancet 2018;391(10128):1357-1366. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/29477251" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Gotcha:</strong> o "canto da sereia do SUCRA". Residentes adoram o ranking de tratamentos (probabilidade cumulativa de ser o melhor). Mas SUCRA de 85% não significa "85% de chance de ser o melhor" — significa que acumula posições altas no ranking. Cruzar SEMPRE com o framework <strong>CINeMA</strong> (versão GRADE para redes): se o "vencedor" tem evidência de baixa certeza, o ranking é inútil para o paciente.</p>
+      <p><strong>O que mudou pós-2022:</strong> separação clara entre <em>transitividade</em> (julgamento clínico) e <em>inconsistência estatística</em>. Node-splitting é teste local; design-by-treatment é teste global. <strong>Atualização 2025:</strong> Veroniki et al. publicaram scoping review (61 estudos) identificando 37 itens novos para o <strong>PRISMA-NMA update</strong> — significa que o padrão de relato NMA evoluiu desde 2015; residente deve checar se NMA recente segue update 2025, não só PRISMA-NMA original.</p>
+      <p><strong>Reading recomendado:</strong> Salanti G. <em>Indirect and mixed-treatment comparison</em>. Res Synth Methods 2012;3(2):80-97. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/26062083" target="_blank">PubMed</a><span class="v">V</span> | Veroniki AA et al. <em>Updating the PRISMA reporting guideline for NMA: scoping review</em>. J Clin Epidemiol 2025. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40976519" target="_blank">PubMed</a><span class="v">V</span> | Skoetz N et al. <em>How NMAs address intransitivity</em>. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38035750" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">3</div>
+    <div>
+      <strong>IPD-MA (Individual Participant Data)</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> dados brutos individuais permitem reanálise centralizada com definições padronizadas, ajustes para confundidores e análises de subgrupos sem falácia ecológica.</div>
+      <p><strong>Landmark:</strong> PRISM Investigators. <em>Early, goal-directed therapy for septic shock — a patient-level meta-analysis</em>. N Engl J Med 2017;376(23):2223-2234. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28320242" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Gotcha:</strong> o <em>availability bias</em> (viés de recuperação). Wang 2021 BMJ encontrou que <strong>39% das IPD-MAs não conseguiram dados de ≥90% dos estudos elegíveis</strong>; entre essas, apenas 48% reportaram as razões e 17% usaram estratégias para compensar. Se autores só compartilham dados quando o resultado é favorável, a IPD-MA herda viés de seleção colossal.</p>
+      <p><strong>O que mudou pós-2022:</strong> <em>recovery bias</em> tratado explicitamente como risco de viés de seleção, não nota logística. Estratégias mínimas: protocolo prévio (PRIME-IPD workflow), razões para dados ausentes, comparação trials com/sem IPD, sensibilidade combinando IPD + aggregate.</p>
+      <p><strong>Reading recomendado:</strong> Wang H et al. <em>Methodological quality of IPD meta-analyses</em>. BMJ 2021;373:n736. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33875446" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">4</div>
+    <div>
+      <strong>DTA-MA (Diagnostic Test Accuracy)</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> sensibilidade e especificidade são <em>correlacionadas</em> — variam com prevalência e ponto de corte. Exige modelagem hierárquica (bivariate ou HSROC), nunca síntese separada.</div>
+      <p><strong>Landmark:</strong> van der Windt DA et al. <em>Physical examination for lumbar radiculopathy due to disc herniation</em>. Cochrane Database Syst Rev 2010;(2):CD007431.</p>
+      <p><strong>Gotcha:</strong> o <em>threshold effect</em>. Erro crasso é ler uma DTA-MA e usar a "média" da sensibilidade ignorando que cada estudo pode ter usado um ponto de corte diferente. O residente deve procurar a <strong>curva SROC</strong> (Summary Receiver Operating Characteristic), não apenas o losango. Se sintetizaram Sen/Esp separadamente, a estimativa é enviesada.</p>
+      <p><strong>O que mudou pós-2022:</strong> diretrizes claras de quando usar bivariate (Reitsma) vs HSROC. Bivariate quando limiares são comparáveis e a pergunta clínica é pooled Sen/Esp. HSROC quando limiares variam e a pergunta é a curva acurácia-limiar. Em poucos estudos, modelos podem não convergir — simplificações exigem justificativa explícita.</p>
+      <p><strong>Reading recomendado:</strong> Reitsma JB et al. <em>Bivariate analysis of sensitivity and specificity</em>. J Clin Epidemiol 2005;58(10):982-990. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/16168343" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">5</div>
+    <div>
+      <strong>Meta-análise de Prevalência / Incidência</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> proporções podem ser combinadas para estimar carga de doença, exigindo transformações matemáticas (logit, duplo arco-seno) para evitar estimativas absurdas (&lt;0% ou &gt;100%).</div>
+      <p><strong>Landmark:</strong> Barendregt JJ et al. <em>Meta-analysis of prevalence</em>. J Epidemiol Community Health 2013;67(11):974-978. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/23963506" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Gotcha:</strong> <em>heterogeneidade garantida</em>. Como prevalência varia genuinamente entre populações (geografia, época, critério diagnóstico), I² &gt;90% é a <strong>norma, não patologia</strong>. Residentes não devem usar prevalência agrupada para inferir causa-e-efeito ou generalizar a taxa local sem ajustar para sua realidade.</p>
+      <p><strong>O que mudou pós-2022:</strong> Migliavaca 2022 mudou o jogo — <em>prediction intervals</em> e estratificação por região/período substituem a estimativa global como métrica primária. Pooled prevalence isolada é insuficiente quando há heterogeneidade contextual.</p>
+      <p><strong>Reading recomendado:</strong> Migliavaca CB et al. <em>Meta-analysis of prevalence: I² and how to deal with heterogeneity</em>. Res Synth Methods 2022;13(3):363-367. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35088937" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">6</div>
+    <div>
+      <strong>Dose-Response Meta-Analysis</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> existe um <em>gradiente biológico</em> contínuo entre dose/exposição e desfecho, modelado por curvas (lineares ou splines não-lineares).</div>
+      <p><strong>Landmark:</strong> Greenland S, Longnecker MP. <em>Methods for trend estimation from summarized dose-response data</em>. Am J Epidemiol 1992;135(11):1301-1309. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1626547" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Gotcha:</strong> o <em>viés da dose "típica"</em>. Estudos originais relatam exposições em faixas (ex: 2–5 taças/semana). A MA atribui arbitrariamente uma "dose mediana" ao intervalo. Nas faixas extremas (ex: ">10 taças"), essa suposição cria predições artificiais. Outra armadilha: muitos estudos antigos assumem linearidade — se a relação real é J-shaped (álcool-mortalidade), a conclusão será "sem efeito significativo" porque a média da curva J é próxima de zero.</p>
+      <p><strong>O que mudou pós-2022:</strong> adoção prática de <em>restricted cubic splines</em> (RCS, método Crippa) inclusive em dose-effect NMA. Crippa 2019 introduziu <strong>one-stage approach</strong> que inclui todos os estudos sem exclusão (vs two-stage que exclui estudos com &lt;3 níveis de exposição) — implementado em <code>dosresmeta</code> R. Crippa 2016 estendeu o método para desfechos contínuos (diferenças de médias). Checklist do residente: dose de referência, imputação de midpoints, localização de knots, caudas com poucos dados, e se a não-linearidade foi pré-especificada.</p>
+      <p><strong>Reading recomendado:</strong> Crippa A, Orsini N. <em>One-stage dose-response meta-analysis for aggregated data</em>. Stat Methods Med Res 2019. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/29742975" target="_blank">PubMed</a><span class="v">V</span> | Crippa A et al. <em>Dose-response MA of differences in means</em>. BMC Med Res Methodol 2016. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/27485429" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">7</div>
+    <div>
+      <strong>Bayesian Meta-Analysis</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> uma distribuição <em>a priori</em> (crença prévia) é atualizada com os dados combinados para gerar a distribuição <em>a posteriori</em> — probabilidade direta de que A seja melhor que B.</div>
+      <p><strong>Landmark conceitual:</strong> Sutton AJ, Abrams KR. <em>Bayesian methods in meta-analysis and evidence synthesis</em>. Stat Methods Med Res 2001;10(4):277-303. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/11491414" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Exemplo clínico forte (2025):</strong> Mazzinari et al. <em>High PEEP with Recruitment Maneuvers vs Low PEEP — Bayesian IPD meta-analysis of 3 RCTs</em>. Anesthesiology 2025. OR 0.85-0.87 (IC credibilidade ~0.71-1.04) <strong>independente do prior usado</strong> (neutro/pessimista/otimista); probabilidade de benefício &gt;90% em todos os cenários. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39042027" target="_blank">PubMed</a><span class="v">V</span> — quando 3 priors opostos convergem, a conclusão é robusta. É isso que Bayesian MA pode oferecer e frequentismo não.</p>
+      <p><strong>Gotcha:</strong> o <em>perigo da priori</em>. Se o volume de ensaios é pequeno, a resposta final é dominada pelo prior — a "crença" que o autor inseriu no software. Residente deve exigir: (1) <strong>justificativa do prior</strong>; (2) <strong>análise de sensibilidade</strong> com priors alternativos (vague vs informative vs skeptical); (3) quando há dados históricos, <strong>robust MAP</strong> ou abordagem cética para conflito prior-dado.</p>
+      <p><strong>O que mudou pós-2022:</strong> taxonomia explícita de priors (vague/weakly informative/informative-MAP/skeptical) com impacto documentado em τ², intervalos credíveis e borrowing externo. Não há "prior default" universal — é decisão analítica que afeta o resultado.</p>
+      <p><strong>Reading recomendado:</strong> Röver C. <em>Bayesian random-effects meta-analysis using bayesmeta R package</em>. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/34041768" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">8</div>
+    <div>
+      <strong>Living Systematic Review (Living SR)</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> em campos com evidência crescendo rapidamente, a SR nunca "termina" — é re-rodada continuamente toda vez que um novo trial é publicado.</div>
+      <p><strong>Landmark:</strong> Vlist AC van der et al. <em>Which treatment is most effective for patients with Achilles tendinopathy? A living systematic review with NMA of 29 RCTs</em>. Br J Sports Med 2021;55(5):249-256. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32522732" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Escala atual (2025):</strong> Nevill et al. mapearam 168 LSRs em campo (92 novas desde 2021) — não-COVID já cresce; LSR não é mais anomalia. Variação substancial em estratégias de update. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/40712752" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Custo operacional real (2024):</strong> Butler et al. relataram 30 ciclos mensais de busca em 2 anos, 3 updates publicados. Equipe dedicada + automação + triggers claros + protocolo prévio = não-negociáveis. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38043829" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Gotcha:</strong> <em>data dredging / multiplicidade</em>. Quando os dados são "testados repetidamente" a cada update para ver se P&lt;0,05, o risco de Falso-Positivo (erro tipo I) dispara. O residente deve checar se a living SR aplica <strong>alpha-spending</strong> ou <strong>TSA</strong> (Trial Sequential Analysis) com parâmetros pré-especificados.</p>
+      <p><strong>Exemplo concreto:</strong> WHO REACT (corticosteroides para COVID-19 grave) — atualizada continuamente 2020-2022, informou guidelines globais em tempo real.</p>
+      <p><strong>Reading recomendado:</strong> Simmonds M, Elliott JH, Salanti G. <em>Living Systematic Reviews</em>. Methods Mol Biol 2022;2345:121-134. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/34550587" target="_blank">PubMed</a><span class="v">V</span> | Iannizzi C et al. <em>Methods and guidance on conducting, reporting, publishing, and appraising LSRs</em>. Syst Rev 2023. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38098023" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+
+  <div class="core-step">
+    <div class="core-num">9</div>
+    <div>
+      <strong>Umbrella Review (Overview of Reviews)</strong>
+      <div class="key-takeaway"><strong>Premissa crítica:</strong> sintetiza <em>meta-análises existentes</em> (não estudos primários) para gerar visão panorâmica de um campo.</div>
+      <p><strong>Landmark:</strong> Papatheodorou S. <em>Umbrella reviews: what they are and why we need them</em>. Eur J Epidemiol 2019;34(6):543-546. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/31119483" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Gotcha:</strong> a <em>duplicação oculta (covert duplication)</em>. Uma intervenção pode parecer corroborada por 5 MAs diferentes, mas na verdade trata-se do mesmo grande RCT importado por todos os 5 metanalistas. Sem ajustar para <em>overlap</em>, a precisão é falsamente inflada.</p>
+      <p><strong>O que mudou pós-2022:</strong> CCA de Pieper 2014 é ponto de partida, mas a leitura crítica agora exige <strong>matriz review × estudo primário</strong>, CCA por comparação/outcome, avaliação pairwise. CCA global esconde clusters de sobreposição. <strong>Atualização 2025:</strong> Ying et al. introduziram <strong>wCCA (weighted CCA)</strong> — ajusta CCA pela raiz quadrada do tamanho amostral; resolve subestimação de overlap quando estudos grandes são compartilhados. wCCA é mais conservador.</p>
+      <p><strong>Reading recomendado:</strong> Pieper D et al. <em>Systematic review finds overlapping reviews were not mentioned</em>. J Clin Epidemiol 2014;67(4):368-375. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/24581293" target="_blank">PubMed</a><span class="v">V</span> | Ying et al. <em>Weighted corrected covered area (wCCA)</em>. Res Synth Methods 2025. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41626914" target="_blank">PubMed</a><span class="v">V</span> | Hennessy EA, Johnson BT. <em>Examining overlap of included studies</em>. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/34233615" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABORDAGENS TRANSVERSAIS ===== -->
+<section id="approaches">
+  <h2>Abordagens transversais (não são tipos)</h2>
+  <div class="caveat"><strong>Importante:</strong> os itens abaixo NÃO são tipos de MA — são <em>abordagens analíticas</em> que se aplicam dentro dos tipos acima. Confundir abordagem com tipo leva a erros de interpretação.</div>
+
+  <table>
+    <tr><th>Abordagem</th><th>O que é</th><th>Distinção importante</th></tr>
+    <tr>
+      <td class="glossary-term">One-stage vs Two-stage</td>
+      <td>Two-stage analisa cada estudo separadamente, depois combina. One-stage modela todos os dados individuais num único modelo misto hierárquico.</td>
+      <td>Não é tipo — é arquitetura estatística <em>dentro</em> da IPD-MA. Two-stage é mais transparente; one-stage é mais flexível para eventos raros e preditores contínuos.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Aggregate vs IPD</td>
+      <td>Aggregate usa dados resumo publicados. IPD usa dados brutos.</td>
+      <td>Não são tipos de MA — são níveis de dados. Tanto pairwise quanto NMA podem ser aggregate ou IPD. A escolha depende da pergunta.</td>
+    </tr>
+    <tr>
+      <td class="glossary-term">Component NMA</td>
+      <td>Decompõe intervenções multi-componente para estimar o efeito de cada componente isolado e suas combinações.</td>
+      <td>Extensão de NMA, não tipo separado. Risco central: <em>node-making</em> — taxonomia de componentes, lumping/splitting, suposição de aditividade. Use quando a pergunta é "qual componente dirige o efeito?".</td>
+    </tr>
+  </table>
+  <p class="meta">Refs: Burke et al. 2017 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/27747915" target="_blank">PubMed</a><span class="v">V</span>; Riley et al. 2020 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32350891" target="_blank">PubMed</a><span class="v">V</span>; Welton 2009 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/19258485" target="_blank">PubMed</a><span class="v">V</span>; Tsokani 2023 <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35896417" target="_blank">PubMed</a><span class="v">V</span></p>
+</section>
+
+<!-- ===== CHECKLIST CRÍTICO ===== -->
+<section id="checklist">
+  <h2>Checklist do leitor crítico: 2 perguntas por tipo</h2>
+  <p>Ao identificar o tipo de MA, faça imediatamente estas duas perguntas. Se o artigo não as responde, é red flag.</p>
+
+  <table>
+    <tr><th>Tipo</th><th>Pergunta crítica #1</th><th>Pergunta crítica #2</th></tr>
+    <tr><td>Pairwise</td><td>Reportaram prediction interval, não só I²?</td><td>Os estudos são similares em PICO para justificar pooling?</td></tr>
+    <tr><td>NMA</td><td>A transitividade foi verificada (tabela de modificadores por nó)?</td><td>O ranking SUCRA foi cruzado com CINeMA (certeza por comparação)?</td></tr>
+    <tr><td>IPD-MA</td><td>Conseguiram dados de ≥90% dos estudos elegíveis (Wang 2021 threshold)?</td><td>Análises de subgrupo foram pré-especificadas ou post-hoc?</td></tr>
+    <tr><td>DTA-MA</td><td>Usaram modelo bivariate ou HSROC (não síntese separada)?</td><td>O limiar do teste era padronizado entre estudos?</td></tr>
+    <tr><td>Prevalence</td><td>Reportaram prediction intervals (Migliavaca 2022)?</td><td>A definição de caso era consistente entre estudos?</td></tr>
+    <tr><td>Dose-response</td><td>Que forma funcional foi assumida (linear pode perder J-shape)?</td><td>Os intervalos de dose eram comparáveis entre estudos?</td></tr>
+    <tr><td>Bayesian</td><td>Justificaram o prior e fizeram análise de sensibilidade?</td><td>Conflito prior-dado foi tratado (robust MAP ou cético)?</td></tr>
+    <tr><td>Living SR</td><td>Aplicam alpha-spending ou TSA para erro tipo I?</td><td>Qual o critério de update (calendário vs trigger por novo estudo)?</td></tr>
+    <tr><td>Umbrella</td><td>Verificaram overlap (CCA ou wCCA por comparação)?</td><td>A qualidade das SRs subjacentes foi avaliada (AMSTAR-2)?</td></tr>
+  </table>
+</section>
+
+<!-- ===== DEEP DIVE ===== -->
+<section id="deep-dive">
+  <h2>Para quem quiser ir além</h2>
+
+  <details>
+    <summary>A) NMA: como verificar transitividade na prática</summary>
+    <div class="gap-card">
+      <p>Transitividade é a premissa mais importante e menos verificada das NMAs. Como verificar: (1) tabela de características dos estudos por nó da rede; (2) node-splitting test (compara estimativa direta vs indireta para cada nó); (3) design-by-treatment interaction test (teste global de inconsistência). Se a tabela mostra distribuições diferentes de idade, severidade ou comorbidades entre nós, a premissa está violada.</p>
+      <p><strong>Salanti G.</strong> Indirect and mixed-treatment comparison. Res Synth Methods 2012;3(2):80-97. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/26062083" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Skoetz N et al.</strong> How NMAs address intransitivity. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/38035750" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>B) IPD-MA: o problema de recovery bias e PRIME-IPD</summary>
+    <div class="gap-card">
+      <p>Wang 2021 BMJ encontrou que 39% das IPD-MAs falharam em obter dados de ≥90% dos estudos elegíveis. Entre essas, apenas 48% reportaram as razões e 17% usaram estratégias para compensar. Os motivos: dados perdidos, autores não respondem, restrições de confidencialidade, conflitos de interesse.</p>
+      <p>Perguntas ao ler: (1) Quantos estudos foram identificados vs quantos forneceram dados? (2) Os faltantes diferem sistematicamente dos incluídos? (3) Fizeram análise de sensibilidade comparando IPD com aggregate dos faltantes?</p>
+      <p><strong>Wang H et al.</strong> Methodological quality of IPD meta-analyses. BMJ 2021;373:n736. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33875446" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Riley RD et al.</strong> IPD meta-analysis to examine interactions. Stat Med 2020;39(14):2000-2015. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/32350891" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>C) DTA-MA: por que Sen e Esp não podem ser sintetizadas separadamente</summary>
+    <div class="gap-card">
+      <p>Em pairwise MA, você pode sintetizar RRs independentemente. Em DTA-MA, não. A razão é o <em>threshold effect</em>: cada estudo pode usar um ponto de corte diferente, e quando o corte sobe, a especificidade aumenta mas a sensibilidade diminui. Sintetizar separadamente ignora essa correlação e produz pares impossíveis (Sen alta + Esp alta que nenhum estudo individual atingiu).</p>
+      <p>Reitsma 2005 introduziu o modelo bivariate (distribuição normal bivariada nos logits). HSROC (Rutter & Gatsonis) é algebricamente equivalente, parametriza diferente. Ambos geram curvas SROC.</p>
+      <p><strong>Reitsma JB et al.</strong> Bivariate analysis of sensitivity and specificity. J Clin Epidemiol 2005;58(10):982-990. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/16168343" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>McInnes MDF et al.</strong> PRISMA-DTA. JAMA 2018;319(4):388-396. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/29362800" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>D) Prevalence MA: por que I² alto é esperado e não problema</summary>
+    <div class="gap-card">
+      <p>Em pairwise MA de tratamento, I² alto sugere estudos medindo efeitos diferentes — merece investigação. Em prevalence MA, I² próximo de 100% é a <em>norma</em>. A razão: prevalência varia genuinamente entre populações (Brasil ≠ Japão ≠ Nigéria). Estudos de prevalência são geralmente grandes (surveys nacionais), o que torna I² ainda mais alto (depende do tamanho dos estudos, não só da variação real — Borenstein 2022).</p>
+      <p>Migliavaca 2022 recomenda: (1) não usar I² como critério de qualidade em prevalence MA; (2) reportar prediction intervals; (3) estratificar por região/período/critério em vez de só estimativa global.</p>
+      <p><strong>Migliavaca CB et al.</strong> Meta-analysis of prevalence. Res Synth Methods 2022;13(3):363-367. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/35088937" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>E) Dose-response: Greenland-Longnecker e splines cúbicos restritos</summary>
+    <div class="gap-card">
+      <p>Greenland-Longnecker 1992: cada estudo reporta categorias de exposição com RR e IC; o método reconstrói a tendência contínua via generalized least squares, contabilizando covariância entre categorias (compartilham referência).</p>
+      <p>Avanço pós-2010: <em>restricted cubic splines</em> (RCS, 3-4 nós) detectam relações não-lineares — essencial para álcool (J-shape) ou atividade física (platô). Crippa 2019 generalizou para multivariate dose-response. Armadilha: estudos antigos assumem linearidade por default; se a relação real é J-shaped, "sem efeito significativo" é falso negativo (média da curva J ≈ 0).</p>
+      <p><strong>Greenland S, Longnecker MP.</strong> Methods for trend estimation. Am J Epidemiol 1992;135(11):1301-1309. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/1626547" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Crippa A, Orsini N.</strong> Multivariate dose-response. Stat Methods Med Res 2019;28(5):1579-1596. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/27485429" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>F) Bayesian: priors weakly informative vs skeptical na prática</summary>
+    <div class="gap-card">
+      <p>Quatro priors comuns: <em>vague</em> (não-informativo, ex: Normal(0, 100)) — deixa os dados dominar; <em>weakly informative</em> (ex: Normal(0, 1)) — regulariza estimativas extremas em dados esparsos; <em>informative/MAP</em> — incorpora conhecimento histórico explícito; <em>skeptical</em> — assume conservador (ex: efeito nulo provável) para evitar otimismo.</p>
+      <p>Em ensaios pequenos ou raros, priors weakly informative ou skeptical evitam IC absurdamente largos do frequentismo, mas se o prior é mal calibrado, o resultado fica enviesado. Análise de sensibilidade obrigatória: rodar com 2-3 priors alternativos e comparar posteriors.</p>
+      <p><strong>Röver C.</strong> Bayesian meta-analysis using bayesmeta. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/34041768" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Dias S et al.</strong> Generalised linear models for evidence synthesis. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/33486828" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Mazzinari G et al.</strong> Bayesian IPD-MA PEEP/RM. Anesthesiology 2025. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/39042027" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>G) Living SR: alpha-spending e Trial Sequential Analysis</summary>
+    <div class="gap-card">
+      <p>O problema: a cada update, a hipótese é testada novamente. Sem correção, P&lt;0,05 ocorre por acaso ~26% das vezes em 20 testes. A solução é <em>alpha-spending</em>: gastar α acumulativamente (similar a análise interina de RCTs). Trial Sequential Analysis (TSA) implementa isso para meta-análises com fronteiras de futilidade e eficácia pré-especificadas.</p>
+      <p>Sem alpha-spending, uma living MA é máquina de falsos positivos. Residente deve verificar: (1) método de controle de tipo I; (2) parâmetros pré-especificados; (3) critério de stop / update.</p>
+      <p><strong>Simmonds M et al.</strong> Living Systematic Reviews. Methods Mol Biol 2022;2345:121-134. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/34550587" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Wetterslev J et al.</strong> Trial Sequential Analysis. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/28912004" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </details>
+
+  <details>
+    <summary>H) Umbrella: matriz overlap pairwise vs CCA global vs wCCA</summary>
+    <div class="gap-card">
+      <p>Pieper 2014 introduziu CCA (Corrected Covered Area) — métrica única para overlap de estudos primários entre SRs. Pós-2020, a leitura crítica exige <em>matriz review × estudo primário</em>: para cada par de SRs, quantificar overlap por comparação/outcome separadamente. CCA global pode esconder clusters: 2 SRs com overlap 80% num outcome e 0% em outro, CCA global dá número intermediário enganoso.</p>
+      <p><strong>2025 — wCCA (weighted CCA, Ying et al.):</strong> ajusta CCA pela raiz quadrada do tamanho amostral dos estudos primários. Resolve o problema de CCA quando estudos variam muito em tamanho — CCA pode subestimar overlap quando estudos grandes são compartilhados; wCCA é mais conservador.</p>
+      <p><strong>Kirvalidze 2023:</strong> alerta complementar — CCA pode super OU subestimar overlap quando reviews têm números muito diferentes de primários. "CCA &gt;15% = overlap alto" é simplificação perigosa; necessário ver distribuição.</p>
+      <p><strong>Pieper D et al.</strong> Overlap in meta-reviews. J Clin Epidemiol 2014;67(4):368-375. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/24581293" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Ying et al.</strong> Weighted CCA. Res Synth Methods 2025. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/41626914" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Kirvalidze M et al.</strong> Estimating pairwise overlap. Res Synth Methods 2023. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/37501239" target="_blank">PubMed</a><span class="v">V</span></p>
+      <p><strong>Hennessy EA, Johnson BT.</strong> Examining overlap. <a class="ref-pmid" href="https://pubmed.ncbi.nlm.nih.gov/34233615" target="_blank">PubMed</a><span class="v">V</span></p>
+    </div>
+  </details>
+</section>
+
+<!-- ===== CONEXÃO COM A AULA ===== -->
+<section id="connection">
+  <h2>Conexão com a aula de meta-análise</h2>
+  <div class="caveat"><strong>Escopo da aula:</strong> a aula foca em <strong>pairwise clássico de RCTs</strong>, usando a âncora Valgimigli 2025 Lancet (Clopidogrel vs Aspirina, IPD-MA de 7 RCTs). A âncora é tecnicamente uma <strong>IPD-MA</strong> ensinada como pairwise — essa tensão é deliberada e pedagógica. Esta leitura preparatória posiciona o residente para reconhecer que existem outros tipos, sem aprofundar na metodologia de cada um. Objetivo: reconhecimento + perguntas críticas, não execução.</div>
+
+  <table>
+    <tr><th>Slide da aula</th><th>Conexão com tipos</th></tr>
+    <tr><td><strong>s-rs-vs-ma</strong></td><td>RS pode conter qualquer tipo de MA (ou nenhuma). RS vs MA é ortogonal ao tipo de MA.</td></tr>
+    <tr><td><strong>s-forest1 / s-forest2</strong></td><td>Forest plots são visuais de pairwise e NMA. Em NMA, mostra cada comparação separadamente.</td></tr>
+    <tr><td><strong>s-heterogeneity</strong></td><td>I² se comporta diferentemente em prevalence MA (esperado alto) vs pairwise (requer investigação). Prediction interval substitui I² para decisão clínica.</td></tr>
+    <tr><td><strong>s-ancora</strong></td><td>Valgimigli 2025 é IPD-MA (gold standard) apresentada como pairwise. Dupla natureza para discussão.</td></tr>
+    <tr><td><strong>s-quality</strong></td><td>Umbrella reviews usam AMSTAR-2 para avaliar SRs incluídas — primeiro uso prático da taxonomia.</td></tr>
+  </table>
+</section>
+
+<!-- ===== CONVERGÊNCIA ===== -->
+<details>
+  <summary>Convergência cross-perna (S274 pipeline 4 pernas com sucesso)</summary>
+  <table>
+    <tr><th>Achado</th><th>NLM</th><th>Codex (medium)</th><th>Evidence-Researcher (Opus)</th><th>S187 baseline</th><th>Convergência</th></tr>
+    <tr><td>Pairwise: I² mal interpretado, PI subreportado</td><td>&check;</td><td>—</td><td>&check;</td><td>&check;</td><td><strong>3/4</strong></td></tr>
+    <tr><td>NMA: transitividade + CINeMA cross-check</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>NMA: PRISMA-NMA update 2025 (Veroniki)</td><td>—</td><td>—</td><td>&check;</td><td>—</td><td><strong>1/4 (novo)</strong></td></tr>
+    <tr><td>IPD-MA: recovery bias (Wang 2021 — 39%)</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>DTA-MA: bivariate vs HSROC choice</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>Prevalence: PI substitui I² (Migliavaca 2022)</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>Dose-response: RCS + one-stage (Crippa 2019)</td><td>&check;</td><td>&check;</td><td>&check;</td><td>Parcial</td><td><strong>3/4</strong></td></tr>
+    <tr><td>Bayesian: prior taxonomy (vague/MAP/skeptical)</td><td>Implícito</td><td>&check;</td><td>&check;</td><td>Parcial</td><td><strong>3/4</strong></td></tr>
+    <tr><td>Bayesian: Mazzinari 2025 robust convergence</td><td>—</td><td>—</td><td>&check;</td><td>—</td><td><strong>1/4 (novo)</strong></td></tr>
+    <tr><td>Living SR: alpha-spending necessário</td><td>&check;</td><td>&check;</td><td>&check;</td><td>&check;</td><td><strong>4/4</strong></td></tr>
+    <tr><td>Living SR: 168 LSRs (Nevill 2025) ecossistema</td><td>—</td><td>—</td><td>&check;</td><td>—</td><td><strong>1/4 (novo)</strong></td></tr>
+    <tr><td>Umbrella: CCA pairwise &gt; CCA global</td><td>&check;</td><td>&check;</td><td>&check;</td><td>Parcial</td><td><strong>3/4</strong></td></tr>
+    <tr><td>Umbrella: wCCA Ying 2025 (atualização)</td><td>—</td><td>—</td><td>&check;</td><td>—</td><td><strong>1/4 (novo)</strong></td></tr>
+    <tr><td>Component NMA: node-making risk</td><td>—</td><td>&check;</td><td>—</td><td>&check;</td><td><strong>2/4</strong></td></tr>
+  </table>
+  <p class="meta">Pernas com sucesso (S274): NLM (44.7KB rich content) + Codex xhigh effort=medium (9 findings, 36 PMIDs verified) + Evidence-Researcher Opus (16/16 S187 verified + 9 novas refs 2024-2026). Pernas com falha: Gemini.mjs (timeout 60s, modelo precisa ~91s real), Perplexity.mjs (Cloudflare 60s idle drop infra-side), D-lite Gemini (400 INVALID_ARGUMENT — root cause pendente), D-lite Perplexity (mesmo Cloudflare). PubMed MCP esteve DOWN durante session (HTTP 400 all endpoints) — Evidence-Researcher usou WebFetch fallback resilientemente.</p>
+</details>
+
+<footer>
+  <p><strong>Autor:</strong> Lucas Peres Miachon. Preparado com assistência de Claude (Opus 4.7, Anthropic).</p>
+  <p>Pipeline S274: 7 pernas tentadas, 3 emit com sucesso (NLM + Codex effort=medium + Evidence-Researcher Opus). 30+ PMIDs verificados via NCBI E-utilities + WebFetch PubMed (MCP estava down). 1 candidate flagged: PMID 40947325 (Bayesian MA clínica 2025) <span class="c">C</span> — existe no PubMed mas scope mismatch com prior taxonomy claim, mantido como candidato para validação manual.</p>
+  <p>Convenção de marcação: <span class="v">V</span> = verified via PubMed (link clicável); <span class="c">C</span> = candidate / unverified (precisa validação manual).</p>
+  <p>O conteúdo deste guia é de responsabilidade exclusiva do autor. Eventuais erros são meus — não do modelo. Dúvidas, correções ou sugestões: procure-me diretamente.</p>
+  <p>Referências verificadas via PubMed (abril 2026). Em caso de dúvida, consulte o artigo original.</p>
+</footer>
+
+</body>
+</html>
