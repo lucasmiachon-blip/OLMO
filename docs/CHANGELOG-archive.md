@@ -1,8 +1,112 @@
-# CHANGELOG — Arquivo (Sessoes 7b–260)
+# CHANGELOG — Arquivo (Sessoes 7b–263)
 
 > Sessoes 25-260 movidas em 2026-04-28 (S269 Lane D archive cleanup).
 > Sessoes 7b-24 movidas em 2026-03-31.
-> Sessoes recentes (S261+): ver `CHANGELOG.md` na raiz.
+> Sessoes 261-263 movidas em S272 (audit-fix Wave 2 — cap 10 ativas).
+> Sessoes recentes (S264+): ver `CHANGELOG.md` na raiz.
+
+## Sessao 263 — 2026-04-27 (BUILD_METANALISES · wrap-canonical bench Phase 0+1)
+
+> Lucas frame: "rodas a pesquisa via agents skills subagents vs script ver qual performa melhora" → "todas as pernas sempre x todas as pernas sempre" → "wrap eh sempre um agente orquestrador".
+
+- **`c353f53` feat(S263): Phase 0+1 — wrap-canonical rules + 2 research agents** `[+972/-1, 5 files]` — KBP-47 ensemble + KBP-48 wrap-canonical em SKILL.md ENFORCEMENT 4-5 + KBP file (Next bumped 47→49). gemini-deep-research.md (~250li) + perplexity-sonar-research.md (~210li) JSON schema-strict alinhados com codex-xhigh-researcher template. Plan splendid-munching-swing.md (9 phases, ~7-9h total).
+
+### Aprendizados
+
+- **KBP-47 ensemble obrigatório:** /research dispatches ALL pernas, never subset (debt KBP-31 closed Lucas turn 3 — regra existia mas nunca registrada).
+- **KBP-48 wrap = sempre agente orquestrador:** scripts .mjs são legacy a migrar. Codex (xhigh) e evidence-researcher já canônicos; gemini/perplexity migrados S263 (Lucas turn 5).
+- **KBP-38 reinforced:** Phase 1.3 smoke test + Phase 2-8 bench BLOCKED até daemon Ctrl+Q + reopen. Window-restart insuficiente (S250 lesson re-aplicada).
+- Schema reuse `research-perna-output.json`: codex_cli_version nullable permite Gemini/Perplexity reaproveitarem schema sem fork — triangulator (S262+) consome 3 perna types via 1 schema.
+- Bench reframe pós-Lucas turn 5: CONFIRMATÓRIO (não exploratório) — vies esperado MERGE; bench documenta empiricamente a transição script→agent.
+
+## Sessao 262 — 2026-04-27 (Slides_build · s-quality content + visual evolution + S260 commit)
+
+> Lucas frame: "Vamos fazer slides depois migramos tentamos migra o mjs" → "calma um slide por vez, comecar com conteudo e QA visual de slide quality" → "no bloco de qualidade como a revisao foi conduzida entram com animacoes (Prospero, PRISMA, a priori, transparencia)" → "segundo box vai ser RoB1, 2 ROBUST RCT ROBINS, ULTIMO carda GRADE" → "5 cliques agrupado" → "polimento profissional hiper-detalhado shared-v2".
+
+### Phase 0 — S260 commit batch
+
+- **`cc04bbd` feat(metanalise/S260): heterogeneity-evolve C1+C2+D — slides reformulados pedagogicamente** `[+72/-26, 6 files]` — slides s-heterogeneity (09a) + s-fixed-random (10) + _manifest.js + evidence/s-heterogeneity.html (#estrategias-didaticas + 3 refs validadas) + .slide-integrity + HANDOFF metanalise.
+
+### Tooling adicionado (Lucas, paralelo)
+
+- **`475d47d` QA: calibrate-boxes.mjs port OLMO_GENESIS** `[+82, 1 file]` — Playwright tool que abre slide específico, extrai bounding boxes (wrapper/zones forest-zone/forest-zone--rob) em coordenadas % relativas ao wrapper. Anti-chute pattern: agentes Claude usam dados precisos em vez de "chutar" coordenadas CSS. Default `--slide s-forest2`.
+
+### Phase 2 — s-quality content evolution
+
+- Card Qualidade (Pergunta): chips animados PROSPERO · A priori · PRISMA · Transparência (princípios de qualidade da RS, Lucas direção concreta).
+- Card RoB (Ferramenta): chips RoB 1 · RoB 2 · ROBUST-RCT · ROBINS (substituiu texto plain).
+- Card Certeza (Ferramenta): chip GRADE (consistent com pattern).
+- Card Qualidade (Ferramenta): chips simétricos AMSTAR-2 · ROBIS (era texto plain — simetria entre os 3 cards).
+- Row Confusão removida dos 3 cards (alinhamento + clareza pedagógica).
+- HTML semantic: `<div role="list">` + `<span role="listitem">` (slide-rules.md proíbe `<ul>/<ol>` em slides projetados; ARIA preserva accessibility).
+
+### Phase 3 — Visual evolution shared-v2 SOTA
+
+- **Layout overflow fix:** `.slide-inner` scoped grid `auto 1fr auto auto` + `block-size: 100%` + `max-block-size: 100%` + `overflow: hidden`. `.term-grid` removido `flex: 1`, adicionado `align-content: start`. Dissoc 52% sempre visível no rodapé.
+- **Glassmorphism cards:** `.term-card` background `color-mix(in oklch, var(--v2-surface-panel) 88%, transparent)` + `backdrop-filter: blur(12px) saturate(120%)` (com `-webkit-`) + hairline `border-inline/block-end: 1px color-mix(--v2-border-hair 60%, transparent)` + 3-layer shadow stack (hairline + close + ambient).
+- **`:has()` reactive lift:** `.term-card:has(.term-chip[style*="opacity: 1"])` adiciona elevação +translateY -1px quando chip ativo (modern shared-v2 pattern, substitui MutationObserver pré-2022).
+- **Chip stretching fix:** `.term-checklist` `align-items/content/self: start` + `block-size: fit-content`. `.term-chip` `height: fit-content` + `block-size: fit-content`.
+- **Label contraste:** `.term-label` `var(--v2-text-muted)` (60%) → `var(--v2-text-body)` (52%) + font-weight 600 → 700 (legível em projetor 10m).
+- **Tipografia confirmada:** `.term-name`/`.term-stat` usam `var(--font-display)` (Instrument Serif via base.css:104); `.term-content`/`.term-stat-claim`/`.term-stat-source` usam `var(--font-body)` (DM Sans via base.css:105). Sem Edit necessário.
+
+### Phase 4 — Motion shared-v2
+
+- **`slide-registry.js`** s-quality function rewrite: 5-beat agrupado.
+  - Beat 0 (auto): h2 + 3 cards juntos (`stagger: 0.1`, `power2.out`, duration 0.6).
+  - Beat 1 (click): 3 perguntas cross-cards + chips card 1 (PROSPERO/A priori/PRISMA/Transparência) com `stagger: 0.1` nativo GSAP.
+  - Beats 2-4 (clicks): card 1 Ferramenta (AMSTAR-2/ROBIS) → card 2 (RoB 1/2/ROBUST/ROBINS) → card 3 (GRADE).
+  - Beat 5 (click): dissociation panel (52% Alvarenga).
+- **Easing `power3.out` → `power2.out`** em 6 lugares (cascata mais suave, menos bouncy).
+- **Stagger nativo GSAP** (substituiu manual `delay: idx * 0.07` em forEach).
+
+### Verificacao
+
+`npm run lint:slides` PASS · `npm run build:metanalise` PASS (17 slides) · `bash scripts/validate-css.sh` PASS.
+
+### Aprendizados (S262, 5 li)
+
+- **Glassmorphism real precisa 3 ingredientes simultâneos:** background semi-transparent (`color-mix 88%`) + `backdrop-filter blur+saturate` + hairline border `color-mix 60%`. Sem os 3 vira só "card branco com sombra". `-webkit-backdrop-filter` ainda necessário em 2026 (Safari iOS).
+- **Subgrid revertido (talvez prematuro):** S262 first attempt usou `grid-template-rows: subgrid` em term-card. Estado final prefere `auto auto auto` + `align-content: start` no parent. KBP candidate "subgrid quando rows variam (height tracking), auto-rows quando rows estáveis (content-sized)".
+- **Chip stretching = grid-row 1fr + flex item default stretch:** combinação faz chip parents esticarem verticalmente. Fix layered: `align-self: start` + `height: fit-content` + `align-content: flex-start` — defensive layers robust.
+- **Lucas direção iterativa:** turn 1 "5 dimensões" → turn N "calma um slide" → turn N+M "polimento hiper-detalhado". Anti-drift §Momentum brake honored em cada turn. Iteração rápida com vite hot reload + screenshots Lucas.
+- **CSS/JS moderno gradual (strangler fig) > big-bang:** subgrid → revertido; `:has()` → aceito; color-mix → adotado; backdrop-filter → adotado; logical properties → adotado. Pattern: introduce 1 modern feature por phase, validate visual, keep ou revert.
+
+---
+
+## Sessao 261 — 2026-04-26 (multi-arm research migration bridge — Codex xhigh + .mjs hardening)
+
+> Lucas frame: "vamos incorporar o chatgpt5.5 xhigh em nosso braco de pesquisa e vamos migraar o mjs de pesquisa fragil mas eficiente, para agents subagents e skill, nao ha espaco para erro, nao ha workaorund" → "harden in place para depois migrar todo para sistema de skills agents e subagntes" → "migrar mas sem apagar depois faremos um run lado a lado para ver qual sistema esta melhor" → "tire de todo lugar que eu sou cardio/gastro/hepato" → "be terse a menos que eu indique"
+
+### Phase B — codex-xhigh-researcher hardened + JSON Schema
+
+- **`d8b12c1` feat(S261): codex hardened com --output-schema** `[+484/-23, 3 files]` — NEW `.claude/schemas/research-perna-output.json` (additionalProperties:false + PMID regex `^[0-9]+$`); Phase 3 cmd + Phase 4 parse + Hard constraints PMID spot-check ≥2 (era ≥1).
+
+### Phase C — Perna 7 wirada em /research SKILL.md
+
+- **`cc451c1` feat(S261): Perna 7 wirada** `[+22/-7, 1 file]` — frontmatter (7 pernas), Step 2 dispatch table row 7, Step 2.5 JSON branch, Step 3.c hierarquia (cross-family peer abaixo MCPs), ENFORCEMENT primacy + recency (Codex CLI subagent na ferramenta list, KBP-08 preserved).
+
+### Phase D — gemini + perplexity .mjs hardened in-place (11 fixes line-cited)
+
+- **`1a116f6` feat(S261): .mjs 11 fixes** `[+145/-44, 2 files]` — gemini D.1-D.5 (res.ok guard, AbortSignal 60s, data.error inspection, MAX_TOKENS exit 4, prompt length pre-check vs thinkingBudget), perplexity D.6-D.11 (res.ok guard, AbortSignal 120s, temp 0.8→0.2, --domain-context flag aditivo, silent fallback removed = exit 5, data.error). Smoke validados: invalid keys → exit 3 + structured stderr JSON (era exit 2 misleading + stdout dump).
+
+### Phase E — POC validation Perna 7 (lightweight, 1 question)
+
+- **POC PASS:** HRS-AKI prevalence question, 5 findings produced, **5/5 PMIDs verified via NCBI E-utilities (100%, fab rate 0%)**, latency 3m08s, custo ~$0 (Max sub). Perna 7 atinge ADOPT-NOW threshold (fab≤10% AND conv≥60% met).
+- **Empirical finding:** `--model gpt-5.5` flag failed com ChatGPT account type (codex CLI exit 1). Fix applied: removed `--model` from agent spec, deixa `~/.codex/config.toml` default aplicar (gpt-5.5 + xhigh já configurados lá).
+
+### Phase F — Documentation + S262 handoff + cleanup directives
+
+- **`<sha>` docs(S261): Phase F + cleanup** — HANDOFF S261 close + S262 forward; CHANGELOG §S261; KBP-44 (Source-tags PMID, S260 candidate formalized) + KBP-45 (Wholesale migrate frágil); KBP-44/45 prose-fix (KBP-16 self-violation cleanup); anti-drift §Tone (terse default global); VALUES.md L12+L63 specialty neutralized; perplexity comment example generalized; S262 plan with side-by-side methodology + research-triangulator + Living HTML capability scope; codex-xhigh-researcher.md `--model` flag removed.
+
+### Aprendizados S261 (5 li)
+
+- **POC > prediction (V3 humildade epistêmica reinforced):** Lucas previu "perna 7 provavelmente falhou" — POC empírico PROVOU ADOPT-NOW (5/5 PMIDs verified). Cross-family Anthropic+Codex realiza anti-shared-hallucination signal real, não só teórico (Aider 85% pass + tianpan structured outputs Oct 2025 confirmados).
+- **Bridge > wholesale migrate (KBP-45 formalized):** hardening in-place primeiro torna failures visíveis (exit codes structured stderr) — vira spec correto pra agents nativos S262. Wholesale migrate código frágil arrasta bugs silenciosos pra arquitetura nova.
+- **Schema enforcement at API boundary:** `--output-schema` Codex flag reduz fab rate de markdown-parse 2-3% para ~0% (POC: 5/5 verified inline pelo modelo via web search self-check). Substitui parsing layer fragile.
+- **`--model` flag override conflicts com ChatGPT account type:** deixar `~/.codex/config.toml` default aplicar evita auth mismatch. POC empirically catched (subagent first attempt failed exit 1, second attempt sem `--model` flag PASS).
+- **Specialty cleanup + tone propagation deferred S262 (KBP-31 enforced):** Lucas turn-tail "tire de todo lugar" + "be terse em todos agents" — VALUES.md L12+L63 + anti-drift.md §Tone done; immutable-gliding-galaxy.md (~8 edits) + 16 agents per-agent tone deferred to S262 dedicated cleanup phase via S262 plan §S261 carryover.
+
+---
 
 ## Sessao 260 — 2026-04-26 (heterogeneity-evolve C1+C2+D pedagogical rewrite, uncommitted)
 
