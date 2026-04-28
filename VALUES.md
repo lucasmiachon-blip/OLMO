@@ -30,7 +30,7 @@ NÃO confundir com **over-engineering** — abstrações prematuras, frameworks 
 | **Governance** | VALUES.md 8 valores + evidence + ADR per arch decision | ISO-9001 quality manual + ARB 5 membros |
 | **Visualização** | Mermaid DAG por phase + architecture | UML class diagrams + sequence diagrams todos |
 | **Decisões** | Council 3-model methodology em high-stakes | Council 12-voice em qualquer escolha trivial |
-| **Code structure** | Dedicated agents (19) + skills (18) por domain | "AgenticBaseFactory" abstract class hierarchies |
+| **Code structure** | Dedicated agents (21) + skills (19) por domain | "AgenticBaseFactory" abstract class hierarchies |
 
 ### Heurística de decisão
 
