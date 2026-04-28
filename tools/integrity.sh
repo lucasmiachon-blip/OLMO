@@ -10,8 +10,8 @@
 #   INV-5: No untracked pollution dirs (.claude/.claude/, .claude/tmp/)
 #          present on filesystem.
 #
-# Grow incrementally: add INV-1 md-destino, INV-3 pointer-resolution,
-# INV-4 count-integrity in future commits.
+# Grow incrementally: add INV-1 md-destino, INV-3 pointer-resolution
+# in future commits. INV-4 count-integrity added in S271 (audit §7 ALTO).
 #
 # Usage: tools/integrity.sh
 #   env SESSION=S221  — override session label in report header
@@ -79,6 +79,60 @@ check_inv_2() {
   } >> "$REPORT"
 }
 
+check_inv_4() {
+  INV_COUNT=$((INV_COUNT + 1))
+  printf '## INV-4 Count integrity (FS vs declarative docs)\n\n' >> "$REPORT"
+
+  local fs_agents fs_skills
+  fs_agents=$(find .claude/agents -maxdepth 1 -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
+  fs_skills=$(find .claude/skills -mindepth 2 -maxdepth 2 -name 'SKILL.md' 2>/dev/null | wc -l | tr -d ' ')
+
+  local docs=("CLAUDE.md" "README.md" "docs/ARCHITECTURE.md")
+  local doc agents_in skills_in violations=0
+
+  for doc in "${docs[@]}"; do
+    if [[ ! -f "$doc" ]]; then
+      printf -- '- [SKIP] %s: missing\n' "$doc" >> "$REPORT"
+      continue
+    fi
+
+    agents_in=$(grep -oE -- '- [0-9]+ subagents' "$doc" 2>/dev/null | head -1 | grep -oE '[0-9]+' || true)
+    skills_in=$(grep -oE -- '- [0-9]+ skills' "$doc" 2>/dev/null | head -1 | grep -oE '[0-9]+' || true)
+
+    if [[ -z "$agents_in" && -z "$skills_in" ]]; then
+      printf -- '- [SKIP] %s: no declarative counts found\n' "$doc" >> "$REPORT"
+      continue
+    fi
+
+    if [[ -n "$agents_in" ]]; then
+      if [[ "$agents_in" != "$fs_agents" ]]; then
+        printf -- '- [FAIL] %s: claims %s subagents, FS=%s\n' "$doc" "$agents_in" "$fs_agents" >> "$REPORT"
+        violations=$((violations + 1))
+        VIOLATIONS=$((VIOLATIONS + 1))
+      else
+        printf -- '- [PASS] %s: %s subagents matches FS\n' "$doc" "$agents_in" >> "$REPORT"
+      fi
+    fi
+
+    if [[ -n "$skills_in" ]]; then
+      if [[ "$skills_in" != "$fs_skills" ]]; then
+        printf -- '- [FAIL] %s: claims %s skills, FS=%s\n' "$doc" "$skills_in" "$fs_skills" >> "$REPORT"
+        violations=$((violations + 1))
+        VIOLATIONS=$((VIOLATIONS + 1))
+      else
+        printf -- '- [PASS] %s: %s skills matches FS\n' "$doc" "$skills_in" >> "$REPORT"
+      fi
+    fi
+  done
+
+  {
+    echo ""
+    echo "FS truth: ${fs_agents} agents, ${fs_skills} skills"
+    echo "Total: ${violations} violations"
+    echo ""
+  } >> "$REPORT"
+}
+
 check_inv_5() {
   INV_COUNT=$((INV_COUNT + 1))
   printf '## INV-5 Untracked pollution\n\n' >> "$REPORT"
@@ -106,6 +160,7 @@ check_inv_5() {
 }
 
 check_inv_2
+check_inv_4
 check_inv_5
 
 {
