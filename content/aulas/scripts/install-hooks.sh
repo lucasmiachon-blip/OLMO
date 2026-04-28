@@ -31,7 +31,11 @@ set -e
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 SCRIPT="$REPO_ROOT/content/aulas/scripts/pre-push.sh"
-[ -f "$SCRIPT" ] && bash "$SCRIPT" || echo "pre-push.sh not found, skipping"
+if [ ! -f "$SCRIPT" ]; then
+  echo "ERROR: missing versioned hook script: $SCRIPT" >&2
+  exit 1
+fi
+bash "$SCRIPT"
 PUSHEOF
 
 chmod +x "$HOOKS_DIR/pre-push"

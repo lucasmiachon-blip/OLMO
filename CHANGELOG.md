@@ -6,12 +6,14 @@
 
 - **EC loop persistido e expandido:** `AGENTS.md`, `CLAUDE.md`, `.claude/rules/anti-drift.md`, `.claude/context-essentials.md` e pointers nos 3 writer agents (`debug-patch-editor`, `qa-engineer`, `evidence-researcher`). Loop canonico agora: Verificacao -> Evidencia -> Gap A3 -> Steelman -> Mudanca proposta -> Por que e mais profissional -> Pre-mortem -> Rollback/stop-loss -> Verificacao pos -> Learning capture -> AUTORIZACAO.
 - **C1 guard-write boundary fixed:** `.claude/hooks/guard-write-unified.sh` normaliza paths Windows/MSYS, bloqueia `Write/Edit` fora do repo OLMO e transforma path interno nao classificado em `ask`; `scripts/smoke/hooks-health.sh` adiciona T9b/T9c. Verificacao: mocks especificos PASS, `bash scripts/smoke/hooks-health.sh` PASS 16/16, `bash -n` PASS, `git diff --check` PASS.
+- **Lane C follow-up C2/A1/A2:** `done:cirrose:strict` adicionado, `pre-push.sh` versionado criado, `install-hooks.sh` fail-closed quando script versionado falta, `done-gate.js` chama npm via `cmd.exe` no Windows, hooks APL/StopFailure normalizados LF. Verificacao: `bash -n` PASS, `npm --prefix content/aulas run done:cirrose` Gate 1 PASS, strict bloqueia 2 blockers reais, `bash tools/integrity.sh` PASS 0 violations.
 - **Docs hygiene + roadmap constante:** `HANDOFF.md` atualizado para S268, C1 marcado resolvido, Lane C residuals priorizados; `.claude/plans/README.md` adiciona Now/Next/Later e arquiva 4 planos fechados; KBP-45 pointer atualizado para archive; `docs/audit/codex-adversarial-audit-S267.md` recebe follow-up S268.
 
 ### Aprendizados (max 5 li)
 
 - **Memoria de agente nao e governanca:** regra operacional precisa viver em AGENTS/CLAUDE/rules/context e pointers nos writer agents.
 - **Boundary sem fixture regressa:** C1 so vira fix real quando `outside repo -> block` e `unclassified in-repo -> ask` entram no smoke.
+- **Gate strict precisa falhar por razao real:** depois do fix, `done:cirrose:strict` falha por screenshots/ERROR-LOG pendentes, nao por comando inexistente.
 - **Roadmap constante reduz ruido:** active plans devem conter so Now/Background; historico vai para archive com pointer vivo e grep-pass.
 
 ## Sessao 267 — 2026-04-27 (rehydration + Codex statusline + audit persistence)

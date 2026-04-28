@@ -22,6 +22,7 @@
     "dev:metanalise": "vite --port 4102 --strictPort --open /metanalise/index.html",
     "dev:shared-v2": "vite --port 4103 --strictPort --open /shared-v2/_mocks/hero.html",
     "done:cirrose": "node scripts/done-gate.js cirrose",
+    "done:cirrose:strict": "node scripts/done-gate.js cirrose --strict",
     "qa:screenshots:cirrose": "node scripts/qa-capture.mjs --aula cirrose",
     "qa:screenshots:metanalise": "node scripts/qa-capture.mjs --aula metanalise",
     "qa:gate0:metanalise": "node scripts/gemini-qa3.mjs --aula metanalise --inspect",

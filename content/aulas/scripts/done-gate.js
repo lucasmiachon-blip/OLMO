@@ -24,6 +24,14 @@ const args = process.argv.slice(2);
 const strict = args.includes('--strict');
 const VALID_AULAS = ['cirrose', 'grade', 'metanalise'];
 
+function runCommand(bin, cmdArgs) {
+  const options = { cwd: root, stdio: 'pipe', encoding: 'utf-8' };
+  if (process.platform === 'win32' && bin === 'npm') {
+    return execFileSync('cmd.exe', ['/d', '/s', '/c', 'npm', ...cmdArgs], options);
+  }
+  return execFileSync(bin, cmdArgs, options);
+}
+
 // Detect aula: explicit arg > branch name > error
 function detectAula() {
   const explicit = args.find(a => a !== '--strict');
@@ -85,7 +93,7 @@ for (const { name, bin, args: cmdArgs, skip } of commands) {
     continue;
   }
   try {
-    execFileSync(bin, cmdArgs, { cwd: root, stdio: 'pipe', encoding: 'utf-8' });
+    runCommand(bin, cmdArgs);
     console.log(`  PASS  ${name}`);
   } catch (e) {
     const firstLine = (e.stderr || e.stdout || '').trim().split('\n')[0];

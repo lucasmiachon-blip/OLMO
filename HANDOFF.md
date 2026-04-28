@@ -11,6 +11,7 @@
 
 Estado local conhecido deste handoff:
 - S268 fechado: EC loop expandido, C1 guard-write fix, docs hygiene + plan archive.
+- S268 follow-up Lane C: C2/A1/A2 corrigidos; `done:cirrose:strict` existe, `pre-push.sh` versionado existe, `done-gate.js` funciona no Windows, hooks LF/syntax passam e `tools/integrity.sh` PASS 0 violations.
 - `.claude/statusline.sh` modificado em S267: adiciona barras de contexto e cota para Claude Code.
 - `C:\Users\lucas\.codex\config.toml` global atualizado fora do repo: `status_line = ["model-name", "context-used", "five-hour-limit", "weekly-limit", "used-tokens"]`; backup `config.toml.bak-statusline-20260427-211428`.
 - `.claude/.research-tmp/` existe como temp local ignorado; substrate canonico de bench fica em `.claude/.parallel-runs/2026-04-27-ma-types/`.
@@ -63,15 +64,16 @@ Quando Lucas disser "auditoria", "hardening", "gate", "harness", "seguranca" ou 
 Relatorio auditavel: `docs/audit/codex-adversarial-audit-S267.md`.
 
 Findings materiais ainda nao corrigidos:
-- `content/aulas/cirrose/DONE-GATE.md` promete `pre-push` e `done:cirrose:strict`, mas `content/aulas/scripts/pre-push.sh`, `.git/hooks/pre-push` e script npm strict nao existem.
-- `tools/integrity.sh` falhou por syntax errors em `hooks/apl-cache-refresh.sh` e `hooks/stop-failure-log.sh`; ambos aparecem `w/crlf`.
-- `node content/aulas/scripts/done-gate.js {aula}` falhou no Windows por `execFileSync('npm', ...)`; `npm --prefix content/aulas run build:{aula}` funcionou.
 - `uv run pytest -q` retornou `no tests ran`.
+- `.git/hooks/pre-push` local nao foi instalado nesta sessao; o script versionado existe. Se quiser hook local automatico, rodar deliberadamente `bash content/aulas/scripts/install-hooks.sh`.
 
 Resolvido S268:
 - C1 guard-write boundary: fora do repo -> block; path interno nao classificado -> ask; `bash scripts/smoke/hooks-health.sh` PASS 16/16.
+- C2 done-gate strict/pre-push: `done:cirrose:strict` adicionado, `content/aulas/scripts/pre-push.sh` criado, `install-hooks.sh` agora fail-closed se script versionado faltar.
+- A1 integrity hooks: `hooks/apl-cache-refresh.sh` e `hooks/stop-failure-log.sh` normalizados LF; `bash -n` PASS; `bash tools/integrity.sh` PASS 0 violations.
+- A2 Windows npm gate: `done-gate.js` usa `cmd.exe /d /s /c npm ...` no Windows; `npm --prefix content/aulas run done:cirrose` PASS Gate 1.
 
-Primeiro fix recomendado se esta lane for escolhida: C2 (`done:cirrose:strict`/pre-push) ou A1 (`tools/integrity.sh` por hooks CRLF/syntax).
+Primeiro fix recomendado se esta lane continuar: M1 pytest nominal (remover do repertorio ou adicionar smoke minimo). Senao, voltar para Lane B D-lite.
 
 ## 4. Roadmap constante
 
@@ -81,7 +83,7 @@ Now:
 - `[P1 BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` - referencia, nao abrir no start.
 
 Next:
-- Infra Lane C residuals: C2 done-gate strict/pre-push, A1 integrity hooks LF/syntax, A2 Windows npm gate.
+- Infra Lane C residual: M1 pytest nominal; opcional instalar hook local `pre-push`.
 
 Later:
 - Phases 6-8 master plan apos D-lite decision lock.
