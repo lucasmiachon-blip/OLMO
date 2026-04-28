@@ -134,7 +134,7 @@ Listar X sem (1), (2) ou (3) = pseudo-confessional (sinaliza awareness sem açã
 **Indicador de bias:** marca Cut 2+ vezes na mesma sessão = recalibrar threshold. "Não pressuponha que nada é profissional" (Lucas S254-tail). Cut é último recurso, não primeiro. Categoria-error (Cut quando devia ser Deferred) = perda de signal — Lucas later confirma os items como entrada futura, mostrando que Cut decisão foi viés conservador, não calibração honesta.
 
 ## Session docs
-- **HANDOFF.md:** pendencias only, max ~50 lines. No history — only future.
+- **HANDOFF.md:** pendências + lane pointers + roadmap; max ~60 lines. Carryover histórico vai para `CHANGELOG.md` ou per-lane plans (`content/aulas/metanalise/HANDOFF.md`, `.claude/plans/*.md`). Cap S271 reframe — original ~50 era aspiracional 226% over (audit S270 §A6); 60 calibrado para procedure (5) + 3 lanes × ~5 li (15) + roadmap (15) + regras (6) + headroom (~20).
 - **CHANGELOG.md:** append-only, 1 line per change. Aprendizados + residual verification combinado: max 5 linhas per session.
 - Update both every session with commits/state changes.
 - P0 items in HANDOFF: surface to Lucas at session start before feature work.
