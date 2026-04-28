@@ -6,7 +6,7 @@ globs: "**/*"
 # Known-Bad Patterns (Via Negativa)
 
 > Knowing what NOT to do is more robust than knowing what to do. — Taleb
-> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-49.
+> Governance: /insights appends. NEVER remove — only mark RESOLVED. Next: KBP-52.
 > Format: `## KBP-NN Name` + `→ pointer`. Prose vive no pointer target.
 
 ## KBP-01 Scope Creep
@@ -152,3 +152,12 @@ globs: "**/*"
 
 ## KBP-48 Wrap não-agente = legacy pattern (scripts .mjs solitários)
 → `.claude/skills/research/SKILL.md` §ENFORCEMENT #5 (external APIs/CLIs/MCPs wrappados como agentes Anthropic subagent runtime; scripts gemini-research.mjs / perplexity-research.mjs sao legacy a migrar S262)
+
+## KBP-49 Pandoc / native binary com input externo sem `--sandbox`
+→ `.claude/skills/document-conversion/SKILL.md` §ENFORCEMENT #6
+
+## KBP-50 Python tools no global Python sem venv isolado
+→ `.claude/skills/document-conversion/SKILL.md` §ENFORCEMENT #7
+
+## KBP-51 Concurrent agent commit unsafe
+→ `.claude/rules/anti-drift.md` §Concurrent agent commit safety

@@ -71,6 +71,15 @@ Adversarial validation é frame-bound — cobre apenas hipóteses formuladas. An
 - Write overwrites silently — forgotten sections vanish without warning.
 - Before touching a state file: Read it, list sections present, verify all sections survive after edit.
 - Adding S(N) content: append new section, do NOT remove S(N-1) history unless anti-drift §Session docs explicitly says to.
+- CHANGELOG.md cap: ate 10 sessoes ativas (~700 linhas). Sessoes mais antigas movem para `docs/CHANGELOG-archive.md` com footer `Sessoes anteriores (Xb-Y): docs/CHANGELOG-archive.md`. CHANGELOG bloated rouba contexto/atencao na reidratacao (Lucas S269 Lane D).
+
+## Concurrent agent commit safety (KBP-51)
+Quando outro agente edita os mesmos shared docs (HANDOFF/CHANGELOG/rules) na mesma janela:
+1. `git fetch origin` + `git status --short` antes de cada Edit em state file compartilhado.
+2. Stage per-file (NUNCA `-A` ou `git add .`) — outro agente pode ter untracked files que nao devem entrar no seu commit.
+3. Edit cirurgico em state files: Read range, Edit com `old_string` unico, NUNCA Write rewrite (perde mudancas do outro agente silenciosamente).
+4. Aguardar liberacao explicita do usuario quando ele avisar que outro agente esta editando concorrente — nao tentar Edit em race.
+5. `git pull --rebase` antes de push: se outro agente ja push'd, rebase preserva ordem linear.
 
 ## EC loop (pre-action gate)
 

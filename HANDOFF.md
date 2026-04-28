@@ -1,4 +1,4 @@
-# HANDOFF - Proxima sessao (S268)
+# HANDOFF - Proxima sessao (S269)
 
 > Reidrate por este arquivo primeiro. Nao leia `CHANGELOG.md` nem planos longos no inicio; use grep/range so quando a lane for escolhida.
 
@@ -10,6 +10,10 @@
 4. Abra apenas o plano da lane escolhida, por secao/grep, nao inteiro.
 
 Estado local conhecido deste handoff:
+- S269 Lane B: Research Agent Contract criado; D-lite novo adicionado sem deletar legado (`research-dlite-runner.mjs`, `gemini-dlite-research`, `perplexity-dlite-research`, smoke `research-dlite-contract.mjs`). Smoke local PASS.
+- S269 live smoke: Perplexity D-lite PASS com JSON valido + NCBI 2/2 PMIDs; Codex xhigh PASS via `--validate-file --verify-pmids` + NCBI 4/4 PMIDs; Gemini bloqueado por `429 RESOURCE_EXHAUSTED` depois de uma falha anterior por JSON truncado.
+- S269 correction: D-lite agora e capture-first. Novo schema `.claude/schemas/research-candidate-set.json` preserva recall/novelty dos scripts antigos antes de triagem Opus/MCP. Codex/ChatGPT-5.5 xhigh e perna #7 explicita para captura cross-family e validacao critica.
+- S269 Lane D `s269-document-conversion`: skill `.claude/skills/document-conversion/` criado (Pandoc 3.9.0.2 + xelatex MiKTeX 25.12 / Docling 2.91.0 / Calibre 9.7.0). EPUB Fletcher Epidemiologia 6ed → PDF 372pp/22.6MB A4 (~/Downloads, fora git por copyright). Docling em venv isolado `~/.venvs/document-conversion/` via uv 0.11.8 (pip-audit clean). Pandoc `--sandbox` default mitigation CVE-2025-51591. Plan `.claude/plans/toasty-greeting-crown.md`, case `examples/fletcher-epidemiologia-2026-04-27.md`.
 - S268 fechado: EC loop expandido, C1 guard-write fix, docs hygiene + plan archive.
 - S268 follow-up Lane C: C2/A1/A2 corrigidos; `done:cirrose:strict` existe, `pre-push.sh` versionado existe, `done-gate.js` funciona no Windows, hooks LF/syntax passam e `tools/integrity.sh` PASS 0 violations.
 - `.claude/statusline.sh` modificado em S267: adiciona barras de contexto e cota para Claude Code.
@@ -48,13 +52,18 @@ Estado:
 - Decisao atual: KEEP-SEPARATE provisional.
 - `.mjs` Gemini/Perplexity = hot path canonico empirico (9/9 emits).
 - `codex-xhigh-researcher` = thin-agent canonico para Codex.
-- `gemini-deep-research` e `perplexity-sonar-research` = EXPERIMENTAL ate D-lite refactor + re-bench.
+- `gemini-deep-research` e `perplexity-sonar-research` = EXPERIMENTAL legado; nao deletar.
+- S269 D-lite novo = thin runner + agents paralelos: `.claude/scripts/research-dlite-runner.mjs`, `.claude/agents/gemini-dlite-research.md`, `.claude/agents/perplexity-dlite-research.md`.
+- Runner agora tem `--verify-pmids` e `--validate-file` para separar descoberta livre de confirmacao rigorosa e incluir a perna Codex no mesmo boundary.
+- Runner default = `--output-kind candidates` para capturar muitos candidatos Tier 1/livros/guidelines/landmark trials/SOTA; `--output-kind final` so depois da triagem/verificacao.
+- Contrato profissional: `docs/research/sota-S269-agents-subagents-contract.md` inclui diagrama ASCII + comparison plan legacy `.mjs` vs D-lite.
 - Nao formalizar KBP-Candidate-D/E sem transcript/stop_reason proof ou re-bench.
 
 Gate barato:
 ```bash
 codex --version
 rg -n "D-lite|KEEP-SEPARATE|S265 carryover|Phase 9" .claude/plans/sleepy-wandering-firefly.md
+node scripts/smoke/research-dlite-contract.mjs
 ```
 
 ## 3. Lane C - Infra / auditoria Codex desta sessao
@@ -79,10 +88,11 @@ Primeiro fix recomendado se esta lane continuar: M1 pytest nominal (remover do r
 
 Now:
 - `[S267/S268 P0 metanalise]` `.claude/plans/curious-enchanting-tarjan.md` - s-forest1/s-forest2.
-- `[S267/S268 P0 D-lite]` `.claude/plans/sleepy-wandering-firefly.md` - D-lite refactor + re-bench wrappers.
+- `[S269 P0 D-lite]` `docs/research/sota-S269-agents-subagents-contract.md` + `.claude/scripts/research-dlite-runner.mjs` - local smoke PASS; next = optional live smoke/re-bench.
 - `[P1 BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` - referencia, nao abrir no start.
 
 Next:
+- Lane B: quando Gemini quota voltar, rodar re-bench cost-gated Gemini/Perplexity/Codex em >=6 emits; comparar contra `.mjs`; promover D-lite so se thresholds do contrato passarem.
 - Infra Lane C residual: M1 pytest nominal; opcional instalar hook local `pre-push`.
 
 Later:
