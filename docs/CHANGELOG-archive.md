@@ -1,9 +1,23 @@
-# CHANGELOG — Arquivo (Sessoes 7b–263)
+# CHANGELOG — Arquivo (Sessoes 7b–264)
 
 > Sessoes 25-260 movidas em 2026-04-28 (S269 Lane D archive cleanup).
 > Sessoes 7b-24 movidas em 2026-03-31.
-> Sessoes 261-263 movidas em S272 (audit-fix Wave 2 — cap 10 ativas).
-> Sessoes recentes (S264+): ver `CHANGELOG.md` na raiz.
+> Sessoes 261-264 movidas em S272 (cap 10 ativas: 261-263 Wave 2 + 264 session-close rotation).
+> Sessoes recentes (S265+): ver `CHANGELOG.md` na raiz.
+
+## Sessao 264 — 2026-04-27 (qa-editorial-metanalise · Phase 1 dead-code cleanup s-absoluto)
+
+> Lucas frame: "vamos so trabalhar nos slides forest" → "atualize os documentos de forma profissional para nao haver confusao quando vc hidratar".
+
+- **`ac65ba6` feat(metanalise/S264): Phase 1 — dead-code cleanup s-absoluto + KBP-44** `[+175/-24, 12 files]` — slide s-absoluto deletado em S186 (commit `20489a2`) deixou 11 refs stale. Cleanup categorias A (state files HANDOFF root L19 + metanalise/HANDOFF.md L15/36/79) + B (evidence broken pointers em 7 files: meta-narrativa, s-contrato L87/103, s-ancora, s-objetivos, s-forest-plot-final L305, evidence-harvest-S112 L51/89, research-gaps-report L54/214/279) + KBP-44 fix `08a-forest1.html:34` (PMID source-tag removed — s-forest2 já compliant). lint:slides + build:metanalise PASS.
+- **Refactor architectural batch deferred pós-clear** — 6 issues numerados Lucas turn 7. Plan completo: `.claude/plans/curious-enchanting-tarjan.md` (Phases A-G). Slides alvo: s-quality, s-forest1, s-forest2. Out of scope: s-contrato R11 REOPEN, qa-screenshots/s-absoluto/ dir delete (Lucas direta), reconcile geral metanalise/HANDOFF.md.
+
+### Aprendizados (max 5 li)
+
+- **HANDOFF stale vs manifest source of truth:** HANDOFF root referenciou `s-absoluto` (deletado há 41 commits). Detection: `_manifest.js` (S207, 17 slides) vs HANDOFF (16/16) divergence. KBP-40 generaliza para narrative state files.
+- **KBP-44 propagation paradox:** regra S260 ("PMID exclusivo evidence HTML") não auto-propaga — `s-forest1` ainda tinha PMID inline source-tag em S264. Single-slide rule changes raramente back-propagated mecanicamente. Lint candidate: `grep -rn "PMID:" content/aulas/metanalise/slides/`.
+- **Failsafe scoping pattern:** `.no-js section#s-forestN .forest-zone {opacity:1}` (scoped per-slide) é safe — anti-pattern oposto do bug `s-contrato` R11 (regra final unscoped vazando opacity:0 globalmente, score 5.9).
+- **`calibrate-boxes.mjs` (port S262 OLMO_GENESIS) é canon anti-chute:** Playwright headless extrai percentagens bounding box reais — substituir guess CSS percentages.
 
 ## Sessao 263 — 2026-04-27 (BUILD_METANALISES · wrap-canonical bench Phase 0+1)
 
