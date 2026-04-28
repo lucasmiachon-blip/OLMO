@@ -2,7 +2,7 @@
 
 > Estado operacional dos slides. Atualizar ao final de cada sessao.
 > Cross-ref: root `HANDOFF.md` (workflow de agentes, decisoes globais, security, pendentes herdados)
-> Migrado de wt-metanalise para monorepo em 2026-03-31. Ultima atualizacao: S157 (reconcile phantom + Context Melt fix).
+> Migrado de wt-metanalise para monorepo em 2026-03-31. Ultima atualizacao: S267 rehydrate sync (estado operacional S265 preservado).
 
 ---
 
@@ -80,7 +80,7 @@ Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia 
 
 ### Resumo
 
-- **DONE (4):** s-title, s-hook, s-contrato, s-quality (S262)
+- **DONE (4):** s-title, s-hook, s-contrato, s-quality (S265)
 - **QA (1):** s-objetivos
 - **LINT-PASS (12):** restantes (16 total deck — manifest = 17 slides; HANDOFF table will reconcile com s-pubbias1/2 e s-rob2 em sessão futura)
 

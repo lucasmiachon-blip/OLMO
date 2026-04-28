@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 267 — 2026-04-27 (rehydration + Codex statusline + audit persistence)
+
+> Lucas frame: "coloque contexto/cota no terminal" -> "vc eh codex diferente" -> pesquisar suporte Codex CLI -> "atualize tudo o plano... reidratar" -> "analise adversarial entrou?" -> cross-ref + commit/push.
+
+- **Codex CLI statusline global:** `C:\Users\lucas\.codex\config.toml` atualizado fora do repo com `status_line = ["model-name", "context-used", "five-hour-limit", "weekly-limit", "used-tokens"]`; backup criado `config.toml.bak-statusline-20260427-211428`. Build local `@openai/codex@0.125.0` aceita lista de strings; forma docs array-of-objects falhou nesta build.
+- **Claude Code statusline repo:** `.claude/statusline.sh` agora renderiza header OLMO + barra `ctx` + barras de cota dia/semana baseadas em contadores locais e limites env (`OLMO_*`/`CC_*`), com normalizacao Windows path `C:\...` -> `/mnt/c/...`.
+- **Rehydration compression:** `HANDOFF.md` virou roteador de 3 lanes (metanalise, D-lite research, infra audit); `.claude/context-essentials.md` reduzido para survival kit; `.claude/plans/README.md` instrui abrir planos longos so por `rg`/range.
+- **Codex adversarial audit persisted:** novo `docs/audit/codex-adversarial-audit-S267.md` guarda findings com evidencia linha/comando; `docs/audit/README.md`, `HANDOFF.md` e `context-essentials.md` apontam para ele.
+- **Metanalise handoff stale label:** `content/aulas/metanalise/HANDOFF.md` sincronizado para S267 rehydrate sync, preservando estado operacional S265 (`s-quality` DONE; `s-forest1/2` pendentes).
+
+### Aprendizados (max 5 li)
+
+- **Statusline Codex != Claude statusline:** Codex usa `~/.codex/config.toml`; Claude Code usa `.claude/statusline.sh`. Misturar os dois cria falsa sensacao de configuracao.
+- **Auditoria sem artefato vira memoria oral:** findings adversariais precisam de `docs/audit/*.md`; `HANDOFF.md` so deve conter ponteiro curto.
+- **Reidratar por lanes reduz contexto:** start = `HANDOFF.md` + `context-essentials`; plano longo so depois que Lucas escolhe a lane.
+
 ## Sessao 266 — 2026-04-27 (safety + truth-pass documental)
 
 > Lucas frame: "vamos em pequenos passos" → aprovar P0 safety → "atualize documental, commit e push" → priorizar documentos críticos antes de scripts/agents/subagents.

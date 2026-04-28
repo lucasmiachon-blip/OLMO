@@ -1,100 +1,85 @@
-# HANDOFF - Proxima Sessao (S266)
+# HANDOFF - Proxima sessao (S267)
 
-> S264.c bench CLOSED commit `1ff1f63` + Codex peer-review `b6e8f7c` GEMINI.md v3.7. S265 s-quality DONE outro agente `474f879`. Estado clean — Lucas fechando concurrent windows.
+> Reidrate por este arquivo primeiro. Nao leia `CHANGELOG.md` nem planos longos no inicio; use grep/range so quando a lane for escolhida.
 
-## 🔥 P0 — D-lite refactor track (bench Phase 9 — gated em decision.md signoff)
+## 0. Estado para reidratar em 90s
 
-> **Retomada planejada ~2 dias** (Lucas turn final S264.c: "isso aqui fica para daqui 2 dias"). Cooling-off period sobre decisão KEEP-SEPARATE provisional + cost-benefit reflection D-lite refactor.
+1. Rode `git status --short`.
+2. Leia `.claude/context-essentials.md`.
+3. Escolha UMA lane abaixo com Lucas.
+4. Abra apenas o plano da lane escolhida, por secao/grep, nao inteiro.
 
-S264.c outcome (KBP-39): **KEEP-SEPARATE provisional**. `.mjs` canonical Gemini/Perplexity hot path (9/9 ✅), `codex-xhigh-researcher` canonical thin-agent (0% fab consistent across 14 PMIDs), `evidence-researcher` canonical post §Fase 1.5, `gemini-deep-research` + `perplexity-sonar-research` **EXPERIMENTAL** até D-lite refactor + re-bench. Lucas signoff slot pending em `.claude/.parallel-runs/2026-04-27-ma-types/decision.md`.
+Estado local conhecido deste handoff:
+- `.claude/statusline.sh` modificado nesta sessao: adiciona barras de contexto e cota para Claude Code.
+- `C:\Users\lucas\.codex\config.toml` global atualizado fora do repo: `status_line = ["model-name", "context-used", "five-hour-limit", "weekly-limit", "used-tokens"]`; backup `config.toml.bak-statusline-20260427-211428`.
+- `.claude/.research-tmp/` existe como temp local ignorado; substrate canonico de bench fica em `.claude/.parallel-runs/2026-04-27-ma-types/`.
+- Codex CLI local: `@openai/codex@0.125.0`; statusline aceita lista de strings, nao array de objetos.
 
-D-lite spec (~30-60min per Codex peer-review — corpo dos agents já tem comandos, custo real é validação não rewrite): refactor gemini-deep + perplexity-sonar bodies para single-Bash deterministic (mirror codex-xhigh-researcher: API call → save raw → extract JSON → print final). Smoke + re-bench Phase 1.3 + Phase 3 single-Q. Lock MERGE (sunset .mjs) ou MERGE-BACK pos-evidence.
+## 1. Lane A - Metanalise QA editorial
 
-KBP-Candidate-D ("agent chattiness") + KBP-Candidate-E (SubagentStop hooks alternative architectural lever) formalize APENAS pos transcript+stop_reason proof OR D-lite re-bench (per Codex F3 + blind spot 1). KBP-48 reformulation defer S266+ ("APIs externas: contrato determinístico/auditável; if wrapped, agent thin + verifiable").
+Quando Lucas disser "slides", "metanalise", "forest", "quality" ou "QA".
 
-Substrate em `.claude/.parallel-runs/2026-04-27-ma-types/`: path-a/ 13 outputs + path-b/ 1 validated JSON + 14 raws + smoke/ + bench-log.md + agent-adjustments.md + codex-peer-review.md + comparison.tsv + decision.md.
+Fonte curta: `content/aulas/metanalise/HANDOFF.md`.
+Plano de execucao: `.claude/plans/curious-enchanting-tarjan.md`.
 
-### 🔄 Retake Protocol (S266+ daqui 2 dias — fresh session)
+Estado:
+- `s-quality` DONE apos S265 Phase A: wrapper `.term-content-block`, contraste ajustado, lint+build PASS.
+- Pendentes reais: `s-forest1` e `s-forest2` Phases B-G.
+- `s-contrato` R11=5.9 segue REOPEN, mas esta DEFERRED.
+- Regra: 1 slide x 1 gate x 1 invocacao; nao batch.
 
-**5-step hidratação (~5min, ANTES de qualquer dispatch):**
+Comandos minimos:
+```bash
+npm --prefix content/aulas run build:metanalise
+node content/aulas/scripts/lint-slides.js metanalise
+node content/aulas/scripts/gemini-qa3.mjs --aula metanalise --slide {id} --inspect
+```
 
-1. `git log --oneline -6` — confirm chain `19467d5 → 3eefa4e → b6e8f7c → 1ff1f63` (S264.c bench) + `474f879/184fed9` (S265 outro agente s-quality) + `ac65ba6` (S264 outro agente cleanup)
-2. Read `.claude/plans/sleepy-wandering-firefly.md` §S264.b (state briefing tables) + §S264.c (Codex recalibration + D-lite Phase 9 spec)
-3. Read `.claude/.parallel-runs/2026-04-27-ma-types/decision.md` — confirma Lucas signoff slot (KEEP-SEPARATE provisional) ou OVERRIDE recordado
-4. `claude agents | grep -E "gemini-deep-research|perplexity-sonar-research"` — registry confirm (KBP-38)
-5. `echo "GEMINI:${GEMINI_API_KEY:0:4} | PERPLEXITY:${PERPLEXITY_API_KEY:0:4} | CODEX:$(codex --version)"` — env keys + Codex CLI
+## 2. Lane B - Research D-lite / migracao .mjs vs agents
 
-**Decision branch:**
-- **Se Lucas SIGNOFF KEEP-SEPARATE:** prossiga D-lite refactor (specs abaixo). Outcome esperado MERGE (Path B canonical) ou MERGE-BACK (sunset wraps).
-- **Se Lucas OVERRIDE:** re-plan per Lucas frame. Possíveis: opt-in Option A (re-dispatch maxTurns:50+), Option B (orchestrator-parse raws), opção custom.
+Quando Lucas disser "research", "pernas", "D-lite", "agents vs scripts" ou "migrar .mjs".
 
-**D-lite refactor concrete targets** (per Codex peer-review: "corpo já tem comandos, custo real é validação"):
+Plano de execucao: `.claude/plans/sleepy-wandering-firefly.md` somente secoes `S264.c` e `S265 carryover`.
 
-| File | Mudança | LoC estimate |
-|---|---|---|
-| `.claude/agents/gemini-deep-research.md` | Body Phase 1-6 → collapse para 1 Bash invocation: curl Gemini API + jq extract findings + Write JSON path. Mantém preflight (Phase 1) + NCBI spot-check (Phase 2 optional). | ~40-60 li removidas |
-| `.claude/agents/perplexity-sonar-research.md` | Idem com Perplexity API + Tier 1 filter (Q1 já provou 4/4 PMIDs BMJ+Ann Intern Med). Avoid prose-then-extract pattern. | ~40-60 li removidas |
-| Pattern reference | `.claude/agents/codex-xhigh-researcher.md` body — thin wrapper canonical (S259 POC, 0% fab consistent) | model |
+Estado:
+- Decisao atual: KEEP-SEPARATE provisional.
+- `.mjs` Gemini/Perplexity = hot path canonico empirico (9/9 emits).
+- `codex-xhigh-researcher` = thin-agent canonico para Codex.
+- `gemini-deep-research` e `perplexity-sonar-research` = EXPERIMENTAL ate D-lite refactor + re-bench.
+- Nao formalizar KBP-Candidate-D/E sem transcript/stop_reason proof ou re-bench.
 
-**Validation gate (Phase 9 close):**
-1. Smoke ×1 each pos-edit (single Q "I² threshold for substantial") → verify clean emit + JSON schema valid + exit clean
-2. Re-bench Phase 3 single-Q (Q1 design primário ambos agents) → if 2/2 emit ✅ → **MERGE** (sunset .mjs); if ≤1/2 → **MERGE-BACK** (archive wraps)
-3. Decision lock em `decision.md` + KBP-Candidate-D/E formalize (pos-evidence) ou drop (se D-lite resolveu)
-4. Update SKILL.md KBP-48 reformulation ("APIs externas: contrato determinístico/auditável; if wrapped, agent thin + verifiable")
-5. Phases 6-8 master plan (`splendid-munching-swing.md`) unblock → Living HTML `s-ma-types.html` + slide 06-ma-types.html + QA (S267+)
+Gate barato:
+```bash
+codex --version
+rg -n "D-lite|KEEP-SEPARATE|S265 carryover|Phase 9" .claude/plans/sleepy-wandering-firefly.md
+```
 
-**Cross-window state outro agente (defer collisions):**
-- S265 s-quality DONE (`474f879`)
-- S266 P0 metanalise: Phases B-G `.claude/plans/curious-enchanting-tarjan.md` (s-forest1 + s-forest2 architectural refactor)
-- Escopos ortogonais: meu `.claude/agents/+parallel-runs/` ≠ outro agente `content/aulas/metanalise/`. Não conflita.
+## 3. Lane C - Infra / auditoria Codex desta sessao
 
-## 🔥 P0 — Metanálise QA editorial pipeline (carryover S260+)
+Quando Lucas disser "auditoria", "hardening", "gate", "harness", "seguranca" ou "integrity".
 
-QA editorial S265 (quality): **s-quality DONE** — Phase A architectural fix `.term-content-block` wrapper + quick wins contraste (chips 30%, label emphasis, borders 80%). Pendente s-forest1 + s-forest2 (Phases B-G plan `.claude/plans/curious-enchanting-tarjan.md`). s-contrato R11=5.9 segue REOPEN (CSS failsafe + subgrid) — DEFERRED. KBP-05 anti-batch. Bench Phase 6-8 integra com este P0.
+Relatorio auditavel: `docs/audit/codex-adversarial-audit-S267.md`.
 
-**Direção S266 (Lucas pre-/clear):** continuar QA dos slides metanalise (re-QA s-quality pós-Phase A + LINT-PASS pendentes — Lucas escolhe slide), depois possível criar slide novo (s-ma-types per bench Phases 6-8). **Um passo de cada vez** — não batch. Phases B-E architectural (calibration + tokens + glass + motion) deslocáveis pós-QA conforme Lucas decisão por slide.
+Findings materiais ainda nao corrigidos:
+- `.claude/settings.json` permite `Write`/`Edit`, mas `.claude/hooks/guard-write-unified.sh` deixou path nao guardado passar em teste sintetico.
+- `content/aulas/cirrose/DONE-GATE.md` promete `pre-push` e `done:cirrose:strict`, mas `content/aulas/scripts/pre-push.sh`, `.git/hooks/pre-push` e script npm strict nao existem.
+- `tools/integrity.sh` falhou por syntax errors em `hooks/apl-cache-refresh.sh` e `hooks/stop-failure-log.sh`; ambos aparecem `w/crlf`.
+- `node content/aulas/scripts/done-gate.js {aula}` falhou no Windows por `execFileSync('npm', ...)`; `npm --prefix content/aulas run build:{aula}` funcionou.
+- `uv run pytest -q` retornou `no tests ran`.
 
-## 🟡 P1 — carryover
+Primeiro fix recomendado se esta lane for escolhida: corrigir o gate que promete bloquear write externo e provar com fixture negativa/positiva.
 
-- **Specialty cleanup remaining** (S261 turn 7): `immutable-gliding-galaxy.md` 8 lines (L25/134/137/316/393/506/520/591) — remove cardio/gastro/hepato/reumato. VALUES.md done.
-- **Tone propagation per-agent** (S261 turn 8): 14 `.claude/agents/*.md` ainda (gemini-deep-research + perplexity-sonar-research já tone-aware nos specs S263). anti-drift.md §Tone global done.
-- **Tier 2 smoke tests live invocation** — hooks bypass para subprocess
-- **Agent .md spec drift archaeologist** — enum `{success,partial,reverted,unknown}` vs example `"tracking"` (5 min fix)
-- **RESOLVED S266:** `rm <file>` bypass — `Bash(*)` removed from global allow; `rm/rmdir` now BLOCK in `guard-bash-write.sh`; Chrome DevTools site-specific allows removed from global policy.
-- **Lib refactor consolidado** — PROJECT_ROOT define + REPO_SLUG sha256sum (3 hooks each)
-- **R3 Clínica Médica prep** — 217 dias
+## 4. Planos ativos
 
-## Hidratação S264 (3 passos)
+- `[S267 P0 metanalise]` `.claude/plans/curious-enchanting-tarjan.md` - s-forest1/s-forest2.
+- `[S267 P0 D-lite]` `.claude/plans/sleepy-wandering-firefly.md` - re-bench agents wrappers.
+- `[P1 BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` - referencia, nao abrir no start.
 
-1. `git log --oneline -5` — confirm S263 chain `c353f53`
-2. Read `.claude/plans/splendid-munching-swing.md` — 9 phases, Phase 0+1 done
-3. Pre-bench checklist (acima) ANTES de qualquer dispatch
+Pendentes de archive so sob demanda: `concurrent-nibbling-teacup.md`, `wobbly-foraging-pelican.md`, `S262-research-mjs-additive-migration.md`, `splendid-munching-swing.md`.
 
-## Cross-window protocol (S259+ reinforced)
+## 5. Regras de contexto
 
-- `git fetch && git status` antes de Edit em state files (KBP-25 + KBP-40)
-- `git branch --show-current` antes de commit
-- Conflict-prone files (HANDOFF/CHANGELOG/BACKLOG): Edit minimal sections, não rewrite
-- Daemon Ctrl+Q + reopen pra Agent registry refresh (KBP-38 reinforced S263)
-- "Liberdade depois escrutínio" (Lucas S259) — divergent search > converging too fast
-
-## Cautions ativas
-
-- **KBP-47** Pernas isolation = research subset trap (S263 formalized)
-- **KBP-48** Wrap não-agente = legacy pattern (S263 formalized)
-- **KBP-38** Agent registry refresh = daemon-level only (reinforced S263)
-- **KBP-42/43/44/45/46** previous (hook silent, literal colors, PMID-em-slide, wholesale migrate, subgrid contextual)
-- **Tone default = terse** (anti-drift.md §Tone — global)
-- **Codex agent `--model` flag REMOVED** — config.toml default applies
-- **Pernas pos-S264.c (KEEP-SEPARATE provisional):** Codex xhigh (P7) ✅ + evidence-researcher (P2) ✅ post §Fase 1.5 + .mjs canonical hot-path (P1+P5 9/9 emit) ✅ + gemini-deep + perplexity-sonar EXPERIMENTAL até D-lite refactor + re-bench
-- **KBP-Candidate-D (chattiness) + E (SubagentStop hooks):** PENDENTE evidence, formalize só post-D-lite re-bench OR transcript proof
-
-## Plans active
-
-- `[S266 P0]` `.claude/plans/sleepy-wandering-firefly.md` — S264.c bench close + D-lite track S266+ carryover (Phase 9 D-lite refactor + re-bench)
-- `[S266 P0 metanalise]` `.claude/plans/curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 (s-quality DONE S265)
-- `[CLOSED]` `.claude/plans/splendid-munching-swing.md` — bench Phase 0-8 done (Phase 9 D-lite movido pra sleepy-wandering-firefly.md)
-- `[S262 methodology source]` `.claude/plans/S262-research-mjs-additive-migration.md` — splendid concretizou
-- `[BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` — Conductor 2026
-
-Coautoria: Lucas + Opus 4.7 + Codex GPT-5.5 xhigh + Gemini 3.1 Pro + Perplexity sonar-deep-research + evidence-researcher | S263 wrap-canonical + 2 new pernas | 2026-04-27
+- `HANDOFF.md` + `.claude/context-essentials.md` sao suficientes para start.
+- `CHANGELOG.md` e planos longos entram apenas por `rg -n "termo" arquivo`.
+- Antes de editar state files: `git status --short`; se houver mudanca alheia, trabalhar com ela, nao reverter.
+- Codex/Gemini default read-only no AGENTS; editar apenas quando Lucas aprovar escopo no thread atual.

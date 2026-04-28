@@ -1,12 +1,19 @@
 # Plans — Índice e Convenção
 
-> Single source of truth para o estado dos plans OLMO. Atualizado: 2026-04-27 (S265 close).
+> Single source of truth para estado de plans. Atualizado para reidratação S267. Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
 
 ## Active plans (3)
 
 - **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` (Conductor 2026 single source of truth) — reference doc cross-session (12-arms taxonomy + KPIs + §16 backlog ref)
-- **[S266 P0 metanalise]** `curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 architectural refactor (Phase A done S265 commit `184fed9`)
-- **[S266 P0 D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track (Phase 9 gated em `decision.md` signoff, retomada ~2 dias)
+- **[S267 P0 metanalise]** `curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 architectural refactor (`s-quality` done S265; abrir so se Lucas escolher slides/metanalise)
+- **[S267 P0 D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track (`KEEP-SEPARATE provisional`; abrir so secoes `S264.c`/`S265 carryover` se Lucas escolher research)
+
+## Rehydrate protocol
+
+1. Ler `HANDOFF.md` + `.claude/context-essentials.md`.
+2. Escolher lane com Lucas.
+3. Abrir apenas ranges do plan escolhido via `rg -n`.
+4. Manter `CHANGELOG.md` como historico, nao como contexto inicial.
 
 ## Recently archived (S265)
 
