@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Sessao 273 — 2026-04-28 (remove-forest-overlays · pedagogical pivot Lane A)
+
+> Lucas frame: "tire os overlays do s-forest1 e 2 estao muito ruins" → pivot completo plan vigente curious-enchanting-tarjan.md (Phases B+C+D refinavam overlays) → novo plan swift-plotting-tome.md → execução auto mode.
+
+- **Decisões Lucas via AskUserQuestion:** s-forest1 → auto-only (clickReveals 5→0); s-forest2 preserva 3 beats não-overlay renumerados 1→3 (badge "15 MAs" / Cochrane logo / zoom RoB; clickReveals 8→3); slide novo "criar um" deferred S274+.
+- **Code Edits (14 Edits / 7 files):** HTMLs forest1/forest2 (zones removidas + data-reveal renumerado em forest2). CSS strip 5 blocos (zones forest1+forest2+RoB + 2 failsafes). slide-registry.js rewrites (s-forest1 ~10li auto-only, s-forest2 3-beat MAX). _manifest.js clickReveals.
+- **Docs sync:** `.claude/plans/curious-enchanting-tarjan.md` banner SUPERSEDED no topo (Phases B+C+D obsoletas; Phase A done preservada). `metanalise/HANDOFF.md` L62-63 notas atualizadas. Plan novo `.claude/plans/swift-plotting-tome.md` criado (escopo + decisões + Pre-mortem).
+- **Bonus:** `00-title.html` autor `Paulo da Ponte` → `Lucas Takeshi` (Edit Tier T inline).
+- **Verificação:** lint:slides clean · build:metanalise PASS (17 slides regen) · grep `data-reveal="[6-8]"` em metanalise = 0 · grep `forest-zone` em metanalise = 0.
+
+### Aprendizados (max 5 li)
+
+- **Pivot pedagógico mid-plan:** Phases B+C+D do curious-enchanting-tarjan.md viraram SUPERSEDED via banner (KBP-15 archival pattern) — judgment do domain expert (Lucas é o professor) > otimização teórica refinando algo decidido como ruim.
+- **Zone --rob beat 8 = código morto por inércia:** JS comment dizia "no overlay" mas HTML/CSS overlay existiam não-ativados. Remoção limpou ~20 li drift silencioso. KBP candidate: spot-check quando comment contradiz código.
+- **Race-safe paralelo no mesmo file:** 5 Edits CSS + 3 HTML + 2 JS rewrites paralelos (non-overlapping linhas/old_strings) — KBP-25 confirmado, velocity preserva atomicidade.
+
 ## Sessao 272 — 2026-04-28 (AUDIT_HARD · adversarial S272 + 6 fix mecânicos pós-audit)
 
 > Lucas frame: "auditor adversarial senior socio minoritario" → relatório 2380 palavras → "entre em plano e proponha sequencia de acao" → 6 waves Tier-S em auto mode.

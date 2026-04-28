@@ -59,8 +59,8 @@ Removidos S136: s-abstract (PRISMA = producao, nao appraisal), s-grade (permeia 
 | 6 | s-quality | DONE | **S262 evolution → S265 Phase A architectural fix.** Wrapper `.term-content-block` (grid `1fr auto`) encapsula term-grid + fixa dissoc no rodapé (overflow vertical resolved). Quick wins contraste: chip bg 18%→30%, label `--v2-text-body`→`--v2-text-emphasis` (S262→S265 iteração inline), borders 60%→80%. lint+build PASS. |
 | 7 | s-contrato | DONE | Evidence HTML S143. Click-reveal 2 cards. QA R11 PASS. |
 | 8 | s-pico | LINT-PASS | Evidence refatorado S144 (benchmark). h2 com RS. QA pendente. |
-| 9 | s-forest1 | LINT-PASS | Refactor architectural + QA pendentes (S264 pós-clear). Tokens + glassmorphism + motion stagger. Plan: `.claude/plans/curious-enchanting-tarjan.md` Phases C.1+D. |
-| 10 | s-forest2 | LINT-PASS | Refactor architectural + QA pendentes (S264 pós-clear). Calibration + tokens + aspect-ratio + bottom-row + motion. Plan: `.claude/plans/curious-enchanting-tarjan.md` Phases B+C+D. |
+| 9 | s-forest1 | LINT-PASS | Overlays removidos S273 (`.claude/plans/swift-plotting-tome.md`). Auto-only contemplativo (img + h2). clickReveals: 0. QA pendente. |
+| 10 | s-forest2 | LINT-PASS | Overlays removidos S273 (`.claude/plans/swift-plotting-tome.md`). Preserva 3 beats: badge "15 MAs", Cochrane logo, zoom RoB. clickReveals: 3. QA pendente. |
 | 11 | s-heterogeneity | LINT-PASS | QA pendente. **S260 reformulado pedagogicamente** (zero jargão, analogia "auscultar sopro"). |
 | 12 | s-fixed-random | LINT-PASS | QA pendente. **S260 reformulado pedagogicamente** (decisão a priori, sem "42%"). |
 

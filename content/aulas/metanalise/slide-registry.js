@@ -332,10 +332,9 @@ export const slideRegistry = {
       logo.addEventListener('click', (e) => e.stopPropagation());
     }
 
-    // Click-reveal: 8 beats (anatomy + MA count + Cochrane + RoB)
-    // 1: CI + diamond | 2: Weight | 3: Events | 4: Studies | 5: Het
-    // 6: MA count badge | 7: Cochrane logo (clipPath) | 8: RoB (highlight + zoom)
-    const MAX = 8;
+    // Click-reveal: 3 beats (overlays removed S273)
+    // 1: MA count badge | 2: Cochrane logo (clipPath) | 3: RoB zoom on .forest-annotated
+    const MAX = 3;
     let revealed = 0;
     const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
 
@@ -343,14 +342,14 @@ export const slideRegistry = {
       if (revealed >= MAX) return false;
       revealed++;
       const items = getGroup(revealed);
-      if (revealed === 7) {
+      if (revealed === 2) {
         // Cochrane logo: clipPath curtain L→R
         gsap.fromTo(items,
           { clipPath: 'inset(0 100% 0 0)', opacity: 1 },
           { clipPath: 'inset(0 0 0 0)', duration: 0.8, ease: 'power2.inOut' }
         );
-      } else if (revealed === 8) {
-        // RoB: zoom only — no yellow overlay (professor reads the column directly)
+      } else if (revealed === 3) {
+        // RoB: zoom on the annotated wrapper (no overlay)
         if (annotated) {
           gsap.to(annotated, {
             scale: 2,
@@ -361,10 +360,10 @@ export const slideRegistry = {
           });
         }
       } else {
-        // Beats 1-6: zone highlights + MA stat badge
+        // Beat 1: MA count badge fade-in
         gsap.fromTo(items,
           { opacity: 0 },
-          { opacity: 1, duration: 0.25, ease: 'power2.out' }
+          { opacity: 1, duration: 0.4, ease: 'power2.out' }
         );
       }
       items.forEach(el => el.classList.add('revealed'));
@@ -374,10 +373,11 @@ export const slideRegistry = {
     const retreat = () => {
       if (revealed <= 0) return false;
       const items = getGroup(revealed);
-      if (revealed === 8 && annotated) {
-        gsap.to(annotated, { scale: 1, xPercent: 0, duration: 0.4, ease: 'power2.out' });
-      }
-      if (revealed === 7) {
+      if (revealed === 3) {
+        if (annotated) {
+          gsap.to(annotated, { scale: 1, xPercent: 0, duration: 0.4, ease: 'power2.out' });
+        }
+      } else if (revealed === 2) {
         gsap.to(items, { clipPath: 'inset(0 100% 0 0)', duration: 0.4, ease: 'power2.in' });
       } else {
         gsap.to(items, { opacity: 0, duration: 0.25, ease: 'power2.in' });
@@ -393,7 +393,7 @@ export const slideRegistry = {
   },
 
   's-forest1': (slide, gsap) => {
-    // Auto: image fade-up on slide enter
+    // Auto-only: image fade-up — no click-reveal (overlays removed S273)
     const img = slide.querySelector('.forest-annotated img');
     if (img) {
       gsap.fromTo(img,
@@ -401,37 +401,6 @@ export const slideRegistry = {
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
       );
     }
-
-    // Click-reveal: 5 highlight zones, one per click
-    // Colored transparent overlays — professor narrates anatomy
-    const beats = [1, 2, 3, 4, 5];
-    let revealed = 0;
-    const getGroup = (n) => slide.querySelectorAll(`[data-reveal="${n}"]`);
-
-    const advance = () => {
-      if (revealed >= beats.length) return false;
-      revealed++;
-      const items = getGroup(revealed);
-      gsap.fromTo(items,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.35, ease: 'power2.out' }
-      );
-      items.forEach(el => el.classList.add('revealed'));
-      return true;
-    };
-
-    const retreat = () => {
-      if (revealed <= 0) return false;
-      const items = getGroup(revealed);
-      gsap.to(items, { opacity: 0, duration: 0.25, ease: 'power2.in' });
-      items.forEach(el => el.classList.remove('revealed'));
-      revealed--;
-      return true;
-    };
-
-    slide.__clickRevealNext = advance;
-    slide.__hookRetreat = retreat;
-    slide.__hookCurrentBeat = () => revealed;
   },
 
   's-rob2': (slide, gsap) => {

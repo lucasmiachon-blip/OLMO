@@ -1,3 +1,5 @@
+> **SUPERSEDED S273:** Phases B (calibration), C.1 (tokens), C.2 (zoom architectural), C.3 (rodapé seguro), D (motion staggering) eram refinamento dos `.forest-zone` overlays. Lucas decidiu remover overlays integralmente (`.claude/plans/swift-plotting-tome.md`). Phase A (s-quality wrapper `.term-content-block`) permanece DONE. Phases E/F/G podem ser re-aplicadas pós-remoção em sessão futura, mas escopo de slides muda (s-forest1/2 simplificados).
+
 # Plan: Refactor architectural s-quality + s-forest1 + s-forest2 (S264 — execução pós-clear)
 
 > **Status (2026-04-27 S265):** Phase 1 dead-code cleanup committed `ac65ba6` (S264). **Phase A done S265** (uncommitted): wrapper `.term-content-block` resolve overflow vertical s-quality + quick wins contraste (chips 30%, label emphasis, borders 80%). **Phases B-G remain** (s-forest1/s-forest2). lint+build PASS. Lucas validou visualmente.
