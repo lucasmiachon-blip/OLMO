@@ -14,9 +14,9 @@ Codex + Gemini são READ-ONLY por default (Claude Code não é vinculado por est
 
 > **Fork de `.claude/rules/anti-drift.md §EC tiers`** — re-sync ao mudar master. Tier system formaliza judgment de risco — não é todo Edit que precisa Pre-mortem/Steelman/[budget].
 
-- **Tier S (sempre full loop incluindo Pre-mortem + Steelman + budget):** Edits em `.claude/rules/*`, `settings.json`, `.claude/hooks/*`, `hooks/*`, `CLAUDE.md`, `AGENTS.md`. Self-modification do sistema, alta consequência cross-session.
-- **Tier M (sempre full loop):** refactor ≥3 files, migration, novo file ≥100 li, scope extension além do plan approved.
-- **Tier T (loop mínimo: Verificacao + Evidencia + Mudanca + Autorizacao):** typo fix, single-line óbvio, doc prose. Pre-mortem/Steelman/[budget] opcionais com motivo.
+- **Tier S (sempre full loop incluindo Pre-mortem + Steelman + budget):** Edits em `.claude/rules/*`, `settings.json`, `.claude/hooks/*`, `hooks/*`, `CLAUDE.md`, `AGENTS.md`. Self-modifications do sistema = alta consequência. Mudança em rule de governance + hook que enforça rules tem blast radius cross-session.
+- **Tier M (sempre full loop):** refactor ≥3 files, migration arquitetural, novo file ≥100 li, scope extension além do plan approved, novos agents/skills, deletes de hook/script versionado.
+- **Tier T (loop mínimo: Verificação + Evidência + Mudança + Autorização):** typo fix, single-line fix óbvio em arquivo já owned, doc prose Edit não-canônica. Pre-mortem/Steelman/[budget] opcionais — engenheiro experiente skipping com motivo é OK; aplicar mesmo assim não é teatro se motivo claro existe.
 
 ## Codex/Gemini EC loop obrigatorio
 
