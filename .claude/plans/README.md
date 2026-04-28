@@ -1,6 +1,6 @@
 # Plans — Índice e Convenção
 
-> Single source of truth para estado de plans. Atualizado para reidratação S272 (S271 audit governance close). Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
+> Single source of truth para estado de plans. Atualizado para reidratação S273 (S272 audit-fix mecânico + 6 waves Tier-S close). Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
 
 ## Active plans (3)
 
@@ -45,9 +45,13 @@
 - `archive/S270-audit-adversarial-15-findings.md` — auditoria adversarial OLMO 15 findings (1 CRÍTICO C1 Mermaid + 7 ALTO + 4 MÉDIO + 3 BAIXO); ~2050 palavras, 8 secoes formato fixo; commit `bceb3f4` push'd. Renamed from `snazzy-purring-dream.md` pre-archive S271.
 - `archive/S271-audit-fix-criticos.md` — execução mecânica do audit followup: 10 findings closed (C1+A1+A2+A3+A4+A5+A6+A7+M4+B2) + INV-4 count-integrity hook + KBP-52 codified; 5 findings deferred (M1+M2+M3+B1+B3). 5 commits: `e185b45`+`4b6828f`+`66b7bd8`+`ed599ae`+commit-atual. Renamed from `elegant-crafting-marshmallow.md` pre-archive.
 
+## Archived S272 (audit adversarial + 6 fix mecânicos)
+
+- `archive/S272-audit-adversarial-fix.md` — auditoria adversarial S272 (14 findings: 0 CRITICO + 4 ALTO + 6 MEDIO + 4 BAIXO; ~2380 palavras inline relatório) + 6 waves fix Tier-S em auto-mode. Findings closed: A1 (INV-4 v2 prompt/cmd breakdown + 5 docs sync 35 reg), A2 (VALUES.md count), A3 (AGENTS.md fork re-sync), A4 (CHANGELOG cap=10 truncate), M1 (model precedence clarify), M6 (Stop[1] telemetry proxy). 8 commits `ae5bae7`→`cf1830f`. Renamed from `purring-purring-bubble.md` pre-archive S272 close. Defer S273+: M2/M3/M4/M5/B1/B2/B3/B4 (8 findings com decisão Lucas off-thread).
+
 **Regra:** max 2 active sessões correntes + 1 BACKGROUND (immutable-gliding-galaxy = exception explicit-flagged). Cross-window concurrency permite até 3 active simultâneo se janelas paralelas cooperam (S264-265 pattern). Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close (S256 close pattern).
 
-## Archive (`.claude/plans/archive/` = 115 files)
+## Archive (`.claude/plans/archive/` = 116 files)
 
 Historical audit trail. Never delete; historical value > storage cost. Reference por grep quando necessário.
 
@@ -101,6 +105,7 @@ Historical audit trail. Never delete; historical value > storage cost. Reference
 | `archive/S258-hookscont-phase-D.md` | S258 | HISTORICAL — Phase C hooks runtime audit (0/32 teatro evidence) + Phase D 3 commits hooks improvements: D.1 hooks-health.sh +5 mock tests 14/14 PASS, D.2 drain_stdin lib DEFERRED S259+ (KBP-41 Cut calibration documented), D.3 audit doc 152li + KBP-42 codified. Renamed from `async-moseying-pebble.md` pre-archive. |
 | `archive/S270-audit-adversarial-15-findings.md` | S270 | HISTORICAL — auditoria adversarial 15 findings (1 CRITICO + 7 ALTO + 4 MEDIO + 3 BAIXO); commit `bceb3f4`. Renamed from `snazzy-purring-dream.md` pre-archive S271. |
 | `archive/S271-audit-fix-criticos.md` | S271 | HISTORICAL — audit followup execution (10/15 closed mechanically + INV-4 hook + KBP-52 + tier S/M/T system + Stop[1] prompt hook + HANDOFF truncate 113→52 + CATALOG.md created). 5 commits. Renamed from `elegant-crafting-marshmallow.md` pre-archive. |
+| `archive/S272-audit-adversarial-fix.md` | S272 | HISTORICAL — audit adversarial AUDIT_HARD: 14 findings inline relatório + 6 waves Tier-S auto-mode (A1+A2+A3+A4+M1+M6 closed). INV-4 v2 catches hook breakdown FS↔docs; M6 telemetry proxy ativa. 8 commits `ae5bae7`→`cf1830f`. Renamed from `purring-purring-bubble.md` pre-archive. |
 
 ## Quando criar novo plan file
 

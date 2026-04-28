@@ -1,4 +1,4 @@
-# HANDOFF - Proxima sessao (S272)
+# HANDOFF - Proxima sessao (S273)
 
 > Reidrate por este arquivo primeiro. Nao leia `CHANGELOG.md` nem planos longos no inicio; use grep/range so quando a lane for escolhida.
 
@@ -9,7 +9,7 @@
 3. Escolha UMA lane abaixo com Lucas.
 4. Abra apenas o plano da lane escolhida, por secao/grep, nao inteiro.
 
-**S271 closed** — audit governance loop fechado mecânicamente (5 commits S270+S271). Plans archived: `.claude/plans/archive/S270-audit-adversarial-15-findings.md` + `.claude/plans/archive/S271-audit-fix-criticos.md`. Stop[1] hook ativo aguarda soak test S272+. Catalog `.claude/CATALOG.md`: 6 `candidate-delete` skills (skill-creator/improve/automation/docs-audit/knowledge-ingest/nlm-skill) revisar S275-280 1-a-1 (audit §8 bulk delete proibido). Histórico completo: `CHANGELOG.md §S271`. Defer próximo audit pass: M1+M2+M3+B1+B3 (M4 já endereçado).
+**S272 closed** — audit adversarial S272 + 6 fix Tier-S mecânicos (8 commits `ae5bae7`→`cf1830f`). Plan archived: `.claude/plans/archive/S272-audit-adversarial-fix.md` (14 findings: 6 closed Wave 1-6 + 8 deferred). INV-4 v2 valida hook breakdown FS↔docs (33 cmd + 2 prompts = 35 reg); M6 Stop[1] telemetry proxy ativa em `.claude/stop1-telemetry.jsonl`. Catalog `.claude/CATALOG.md`: 6 `candidate-delete` skills revisar S275-280 1-a-1. Histórico: `CHANGELOG.md §S272`. Defer S273+: M2 regex (gate ≥3 sessions M6 data), M3/M4/M5/B1/B2/B3/B4 (decisão Lucas off-thread).
 
 ## 1. Lane A - Metanalise QA editorial
 
@@ -36,7 +36,7 @@ Now:
 - `[P1 BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` - referencia, nao abrir no start.
 - `[S273+ soak test]` Stop[1] prompt hook + M6 telemetry: validar tier-S Pre-mortem detection + scope-extension `[budget]` em uso real; cross-ref `.claude/stop1-telemetry.jsonl` com Stop[1] feedback messages no turn-replay; calibrar regex M2 após ≥3 sessions de dados.
 - `[S275-280 catalog review]` `.claude/CATALOG.md` 6 `candidate-delete` skills decisão 1-a-1 com Lucas; bulk delete proibido (audit S270 §8).
-- `[S273+ audit S272 deferred]` 8 findings com decisão Lucas: M3 (systematic-debugger↔debugging keep/cut), M4 (.claude/.parallel-runs/ retention), M5 (nlm-skill+skill-creator partial cleanup), B1 (tools/docling), B2 (gemini-review.mjs orphan), B3 (115 plans archive policy), B4 (README "7-layer" rewrite). Plano: `.claude/plans/purring-purring-bubble.md §Out-of-scope`.
+- `[S273+ audit S272 deferred]` 8 findings com decisão Lucas: M3 (systematic-debugger↔debugging keep/cut), M4 (.claude/.parallel-runs/ retention), M5 (nlm-skill+skill-creator partial cleanup), B1 (tools/docling), B2 (gemini-review.mjs orphan), B3 (115 plans archive policy), B4 (README "7-layer" rewrite). Plano archived: `.claude/plans/archive/S272-audit-adversarial-fix.md §Out-of-scope`.
 
 Next:
 - Lane B: quando Gemini quota voltar, rodar re-bench cost-gated Gemini/Perplexity/Codex em >=6 emits; comparar contra `.mjs`; promover D-lite so se thresholds do contrato passarem.
