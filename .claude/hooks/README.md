@@ -1,6 +1,6 @@
 # Hooks — Reference
 
-> 33 script files + 1 inline Stop hook = 34 hook registrations across 11 events in `.claude/settings.json` (verified S256 B.2 — Stop[1] inline agent removed Lucas D2 decision).
+> 33 command hooks + 2 inline prompts = 35 hook registrations across 11 events in `.claude/settings.json` (S272 INV-4 v2 audit-fix — S271 added Stop[1] tier-S Pre-mortem prompt bumping prompts 1→2).
 > Scripts live in 2 dirs: `.claude/hooks/` (17 — tool guards + antifragile) and `hooks/` (15 — lifecycle + APL + loop/failure hooks) plus `tools/integrity.sh`.
 > Config: `.claude/settings.json`. Local overrides (permissions only): `.claude/settings.local.json`.
 

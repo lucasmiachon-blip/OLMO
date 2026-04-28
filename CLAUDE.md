@@ -25,7 +25,7 @@ Consumer: MBE (via `$OLMO_INBOX`), ensino, concurso R3. Producer (daily org, Not
 Orquestração = **Claude Code nativo:**
 - 21 subagents em `.claude/agents/*.md` (filesystem count S269; inclui D-lite research wrappers experimentais)
 - 19 skills em `.claude/skills/*/SKILL.md`
-- Hooks em `.claude/hooks/` + `hooks/` (34 registrations: 33 command hooks + 1 inline prompt)
+- Hooks em `.claude/hooks/` + `hooks/` (35 registrations: 33 command hooks + 2 inline prompts)
 - MCP servers: shared inventory em `config/mcp/servers.json`; agent-scoped inline em `.claude/agents/*.md`; policy runtime em `.claude/settings.json`
 
 Pesquisa MBE + QA + inbox-pull: via subagents + skills. Research Pernas 1/5 seguem `.claude/scripts/{gemini,perplexity}-research.mjs` como hot path canônico até D-lite re-bench; `gemini-deep-research` e `perplexity-sonar-research` ficam experimentais. **S269 D-lite:** ler `docs/research/S269-dlite-rehydration.md`; invariant curto = capture-first, Codex/ChatGPT-5.5 xhigh e perna propria, Gemini/Perplexity/Google AI Studio nao sao substituidos, nao promover sem matriz de re-bench. Notion: crosstalk pattern documentado — runtime atual blocked by deny; ver `docs/ARCHITECTURE.md §Notion Crosstalk Pattern`.

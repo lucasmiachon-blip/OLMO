@@ -83,12 +83,23 @@ check_inv_4() {
   INV_COUNT=$((INV_COUNT + 1))
   printf '## INV-4 Count integrity (FS vs declarative docs)\n\n' >> "$REPORT"
 
-  local fs_agents fs_skills
+  local fs_agents fs_skills fs_total fs_cmds fs_prompts
   fs_agents=$(find .claude/agents -maxdepth 1 -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
   fs_skills=$(find .claude/skills -mindepth 2 -maxdepth 2 -name 'SKILL.md' 2>/dev/null | wc -l | tr -d ' ')
 
+  if command -v jq >/dev/null 2>&1; then
+    fs_total=$(jq '[.hooks | .. | objects | select(.type=="command" or .type=="prompt")] | length' .claude/settings.json 2>/dev/null || echo "")
+    fs_cmds=$(jq '[.hooks | .. | objects | select(.type=="command")] | length' .claude/settings.json 2>/dev/null || echo "")
+    fs_prompts=$(jq '[.hooks | .. | objects | select(.type=="prompt")] | length' .claude/settings.json 2>/dev/null || echo "")
+  else
+    fs_total=""; fs_cmds=""; fs_prompts=""
+    printf -- '- [SKIP] jq not in PATH — hook breakdown checks skipped\n' >> "$REPORT"
+  fi
+
   local docs=("CLAUDE.md" "README.md" "docs/ARCHITECTURE.md")
+  local hook_docs=("CLAUDE.md" "README.md" "docs/ARCHITECTURE.md" ".claude/hooks/README.md")
   local doc agents_in skills_in violations=0
+  local total_in cmds_in prompts_in
 
   for doc in "${docs[@]}"; do
     if [[ ! -f "$doc" ]]; then
@@ -107,8 +118,7 @@ check_inv_4() {
     if [[ -n "$agents_in" ]]; then
       if [[ "$agents_in" != "$fs_agents" ]]; then
         printf -- '- [FAIL] %s: claims %s subagents, FS=%s\n' "$doc" "$agents_in" "$fs_agents" >> "$REPORT"
-        violations=$((violations + 1))
-        VIOLATIONS=$((VIOLATIONS + 1))
+        violations=$((violations + 1)); VIOLATIONS=$((VIOLATIONS + 1))
       else
         printf -- '- [PASS] %s: %s subagents matches FS\n' "$doc" "$agents_in" >> "$REPORT"
       fi
@@ -117,17 +127,61 @@ check_inv_4() {
     if [[ -n "$skills_in" ]]; then
       if [[ "$skills_in" != "$fs_skills" ]]; then
         printf -- '- [FAIL] %s: claims %s skills, FS=%s\n' "$doc" "$skills_in" "$fs_skills" >> "$REPORT"
-        violations=$((violations + 1))
-        VIOLATIONS=$((VIOLATIONS + 1))
+        violations=$((violations + 1)); VIOLATIONS=$((VIOLATIONS + 1))
       else
         printf -- '- [PASS] %s: %s skills matches FS\n' "$doc" "$skills_in" >> "$REPORT"
       fi
     fi
   done
 
+  if [[ -n "$fs_total" ]]; then
+    for doc in "${hook_docs[@]}"; do
+      if [[ ! -f "$doc" ]]; then
+        printf -- '- [SKIP] %s: missing (hook check)\n' "$doc" >> "$REPORT"
+        continue
+      fi
+
+      total_in=$(grep -oE '[0-9]+ hook registrations?' "$doc" 2>/dev/null | head -1 | grep -oE '[0-9]+' || true)
+      cmds_in=$(grep -oE '[0-9]+ command hooks?' "$doc" 2>/dev/null | head -1 | grep -oE '[0-9]+' || true)
+      prompts_in=$(grep -oE '[0-9]+ inline prompts?' "$doc" 2>/dev/null | head -1 | grep -oE '[0-9]+' || true)
+
+      if [[ -z "$total_in" && -z "$cmds_in" && -z "$prompts_in" ]]; then
+        printf -- '- [SKIP] %s: no hook counts found\n' "$doc" >> "$REPORT"
+        continue
+      fi
+
+      if [[ -n "$total_in" ]]; then
+        if [[ "$total_in" != "$fs_total" ]]; then
+          printf -- '- [FAIL] %s: claims %s hook registrations, FS=%s\n' "$doc" "$total_in" "$fs_total" >> "$REPORT"
+          violations=$((violations + 1)); VIOLATIONS=$((VIOLATIONS + 1))
+        else
+          printf -- '- [PASS] %s: %s hook registrations matches FS\n' "$doc" "$total_in" >> "$REPORT"
+        fi
+      fi
+
+      if [[ -n "$cmds_in" ]]; then
+        if [[ "$cmds_in" != "$fs_cmds" ]]; then
+          printf -- '- [FAIL] %s: claims %s command hooks, FS=%s\n' "$doc" "$cmds_in" "$fs_cmds" >> "$REPORT"
+          violations=$((violations + 1)); VIOLATIONS=$((VIOLATIONS + 1))
+        else
+          printf -- '- [PASS] %s: %s command hooks matches FS\n' "$doc" "$cmds_in" >> "$REPORT"
+        fi
+      fi
+
+      if [[ -n "$prompts_in" ]]; then
+        if [[ "$prompts_in" != "$fs_prompts" ]]; then
+          printf -- '- [FAIL] %s: claims %s inline prompts, FS=%s\n' "$doc" "$prompts_in" "$fs_prompts" >> "$REPORT"
+          violations=$((violations + 1)); VIOLATIONS=$((VIOLATIONS + 1))
+        else
+          printf -- '- [PASS] %s: %s inline prompts matches FS\n' "$doc" "$prompts_in" >> "$REPORT"
+        fi
+      fi
+    done
+  fi
+
   {
     echo ""
-    echo "FS truth: ${fs_agents} agents, ${fs_skills} skills"
+    echo "FS truth: ${fs_agents} agents, ${fs_skills} skills, ${fs_total:-?} hooks (${fs_cmds:-?} cmd + ${fs_prompts:-?} prompt)"
     echo "Total: ${violations} violations"
     echo ""
   } >> "$REPORT"

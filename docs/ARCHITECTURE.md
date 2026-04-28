@@ -11,7 +11,7 @@
 **Orquestração real acontece em Claude Code:**
 - 21 subagents em `.claude/agents/*.md` (9 core + 7 debug-team + 5 research wrappers)
 - 19 skills em `.claude/skills/*/SKILL.md` (invocadas via Skill tool ou triggers)
-- 34 hook registrations em `.claude/settings.json` (33 command hooks + 1 inline Stop prompt)
+- 35 hook registrations em `.claude/settings.json` (33 command hooks + 2 inline Stop prompts)
 - MCP connections: shared inventory em `config/mcp/servers.json`; agent-scoped MCPs inline em `.claude/agents/*.md` (ver §MCP Connections abaixo); policy runtime em `.claude/settings.json`
 
 **Regra** (canônica em `.claude/rules/anti-drift.md` §Propose-before-pour): Lucas decide, agente executa.
@@ -79,7 +79,7 @@ graph LR
     style S fill:#9b59b6,color:#fff
 ```
 
-**33 command scripts + 1 inline prompt · 34 hook registrations em `settings.json`** (11 eventos: SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · StopFailure · PostToolUseFailure · SessionEnd).
+**33 command hooks + 2 inline prompts · 35 hook registrations em `settings.json`** (11 eventos: SessionStart · UserPromptSubmit · PreToolUse · PostToolUse · Notification · PreCompact · PostCompact · Stop · StopFailure · PostToolUseFailure · SessionEnd).
 APL (Ambient Productivity Layer): 3 hooks — pulse per prompt, cache at start, scorecard at stop.
 **Control plane (canonical):** `.claude/settings.json` = hooks array + permissions (deny/allow). `.claude/settings.local.json` = user-specific overrides ONLY (permissions.allow for per-user tool auth; NOT hook registrations). Agents auditing hook health must check `settings.json:hooks[]`, never `.local.json`. Reference: `.claude/hooks/README.md`.
 
