@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## Sessao 270 — 2026-04-28 (audit adversarial: 15 findings drift documental + ritual)
+
+> Lucas frame: "auditor adversarial senior" -> read-only plan-mode -> "commitado e algo para apontar amanha".
+
+- **Auditoria adversarial 4-fase:** mapeamento + steelman + teardown + pre-mortem produzidos via 3 Explore agents paralelos + spot-checks file:line. Output `.claude/plans/snazzy-purring-dream.md` (~2050 palavras, 8 secoes formato fixo: TL;DR, Steelman, Findings por severidade, Duplicacoes, Aspiracional vs operacional, Pre-mortem 6m, Acoes, O que NAO fazer).
+- **15 findings rastreaveis com file:line:** 1 CRITICO C1 (`docs/ARCHITECTURE.md:99` Mermaid `fill:#2ecc71` colore L3 verde-DONE enquanto `:110` declara "NOT IMPLEMENTED — cost-circuit-breaker.sh removed S230 audit"; hook ausente confirmado via `ls .claude/hooks/ hooks/ | grep -i circuit` vazio).
+- **7 ALTO:** count drift (CLAUDE=21/19, README=19/18 [internamente contradicto :17 vs :37], ARCHITECTURE=19/18 — FS=21/19 verificado); EC loop body em 5 arquivos sem master declarado (`anti-drift.md:84-107` + `AGENTS.md:13-29` + `CLAUDE.md` inline + `HANDOFF.md:23` + `context-essentials.md:25`); Pre-mortem definido 5x aplicado 0x em 10 sessoes (grep `Fase 4 - Pre-mortem` retorna so definicoes); `[budget]` gate 0 grep hits all-time (`anti-drift.md:32` auto-confessa "Habit sem gate mecanico decai"); broken refs `KBP-06`/`KBP-15` → `feedback_*.md` Glob 0 arquivos; HANDOFF.md 109 li vs anti-drift `:127` cap "max ~50" (218% over); catalog inflation 13/19 skills + 11/21 agents 0 hits S261-S269.
+- **4 MEDIO:** Stop[0] EC enforcement prompt-side nao hook; plans ativos 1941 li totais; KBP-26 pointer plan arquivado bug aberto; AGENTS.md duplica EC loop apesar de "Claude Code NAO le".
+- **3 BAIXO:** TODO Langfuse OTel S82 ~3 semanas; tone propagation `anti-drift.md:10` "16 agents pendentes" stale (FS agora 21); `tools/docling` candidato a delete sem follow-up.
+- **Steelman explicito antes de critique:** repo tem disciplina rara (S258 hook audit 0 teatro reconfirmado spot-check; KBP-31 candidate-commit gate fechou loop S269 commits 67c2688 15min antes do audit; ADR-0007 reframe demonstra processo vivo; pointer-only KBP format 51 entradas zero inline prose). Critica focada em "forma supera funcao", nao "tudo teatro".
+- **HANDOFF + CHANGELOG persistencia:** HANDOFF.md §0 Estado + §4 Roadmap Now apontam para plan; entry S270 nesta CHANGELOG. Audit findings nao implementados — Lucas decide entre 3 options nas Notas finais do plan.
+
+### Aprendizados (max 5 li)
+
+- **Diagrama vence footnote:** Mermaid screenshot propaga visual; tabela texto adjacente nao chega ao consumer. L3 verde-DONE com texto NOT IMPL = mentira propagavel via recall/slide.
+- **Aspiracional silencioso erode operacional:** Pre-mortem 0/10 sessoes + `[budget]` 0/all-time, ambos auto-confessados anti-drift `:32`. Risco: ritual EC inteiro perde credibilidade quando 1 fase falha visivelmente, mesmo com Verificacao+Steelman+Autorizacao operacionais.
+- **Audit como calibracao in vivo:** descoberto que esta sessao pulou Pre-mortem no EC do session-name write (trivial → pulado) demonstra a degradacao mapeada; segundo EC (commit) aplicou Fase 4 explicitamente, sinal que regra funciona quando trazida a frente.
+- **Plan file > report ephemeral:** persistir audit em `.claude/plans/` + pointer HANDOFF + entry CHANGELOG = template repetivel; report soltao em chat = dust pos /clear (KBP-29).
+- **3 Explore agents paralelos > sequential reads para audit broad scope:** breadth via agents (~2KB cada) + spot-checks diretos (file:line para citation) bate single-thread reads em ~10x velocidade preservando rigor KBP-32.
+
 ## Sessao 269 — 2026-04-28 (research D-lite anti-overengineering)
 
 > Lucas frame: construir agentes/subagents conforme SOTA, sem deletar antigos, contra overengineering e com teste profissional.

@@ -21,6 +21,7 @@ Estado local conhecido deste handoff:
 - `.claude/.research-tmp/` existe como temp local ignorado; substrate canonico de bench fica em `.claude/.parallel-runs/2026-04-27-ma-types/`.
 - Codex CLI local: `@openai/codex@0.125.0`; statusline aceita lista de strings, nao array de objetos.
 - EC loop obrigatorio persistido em `AGENTS.md`, `CLAUDE.md`, `.claude/rules/anti-drift.md` e `.claude/context-essentials.md`: Verificacao -> Evidencia -> Gap A3 -> Steelman -> Mudanca -> Por que profissional -> Pre-mortem -> Rollback/stop-loss -> Verificacao pos -> Learning capture -> AUTORIZACAO.
+- Audit adversarial S270 done: 15 findings em `.claude/plans/snazzy-purring-dream.md` (1 CRITICO L3 Mermaid `fill:#2ecc71` mente vs texto NOT IMPL; 7 ALTO incl. subagent count drift 21/19/19, EC loop body 5x sem master, Pre-mortem 0 aplicacoes em 10 sessoes, `[budget]` gate 0 hits, broken refs KBP-06/15 → `feedback_*.md` ausentes, HANDOFF 109 li vs cap 50, catalog inflation 13/19 skills + 11/21 agents zero-use 27d). Top action 30s = `ARCHITECTURE.md:99` `fill:#2ecc71` → `#95a5a6` + `[NOT IMPL]`.
 
 ## 1. Lane A - Metanalise QA editorial
 
@@ -92,6 +93,7 @@ Now:
 - `[S267/S268 P0 metanalise]` `.claude/plans/curious-enchanting-tarjan.md` - s-forest1/s-forest2.
 - `[S269 P0 D-lite]` `docs/research/sota-S269-agents-subagents-contract.md` + `.claude/scripts/research-dlite-runner.mjs` - local smoke PASS; next = optional live smoke/re-bench.
 - `[P1 BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` - referencia, nao abrir no start.
+- `[S270 P0 audit-adversarial]` `.claude/plans/snazzy-purring-dream.md` - decidir entre (a) C1 L3 Mermaid + A2 EC loop master+pointer 15min, (b) governance Pre-mortem/`[budget]` downgrade vs aplicacao, (c) defer findings e voltar Lane A/B/C.
 
 Next:
 - Lane B: quando Gemini quota voltar, rodar re-bench cost-gated Gemini/Perplexity/Codex em >=6 emits; comparar contra `.mjs`; promover D-lite so se thresholds do contrato passarem.
