@@ -29,7 +29,7 @@ Exception: within approved multi-step plan where all steps listed upfront.
 Operação substantiva (merge ≥3 files OU rewrite ≥100 li OU migration arquitetural OU novo file ≥100 li): propor approach high-level + 1 short example (5-10 li). Aguardar OK antes de gerar volume completo. Architectural pivots são cheap antes do pour, caros depois.
 
 ### Budget gate em scope extensions
-Scope extension (além do originalmente aprovado) exige proposal format: `[budget] custo estimado: Xmin | budget restante: Ymin | prosseguir?`. Habit sem gate mecânico decai.
+Scope extension (além do plan approved) exige format mecanicamente verificável: `[budget] calls atuais: N | última approval: K | delta: N-K | prosseguir?`. N obtido via APL statusline (`calls:NNN`) ou `cat ~/.claude/stats-cache.json | jq .calls`. K = call count na última approval registrada. Detectado em `settings.json` Stop[1] prompt hook se ausente em scope extension. Reframe call-based S271 — substituiu Xmin time-based porque mental math sobre tempo decai (audit S270 §A4 confirmou 0 hits all-time).
 
 ## Delegation gate (KBP-17)
 Before ANY Agent spawn, 3 questions:
@@ -80,6 +80,16 @@ Quando outro agente edita os mesmos shared docs (HANDOFF/CHANGELOG/rules) na mes
 3. Edit cirurgico em state files: Read range, Edit com `old_string` unico, NUNCA Write rewrite (perde mudancas do outro agente silenciosamente).
 4. Aguardar liberacao explicita do usuario quando ele avisar que outro agente esta editando concorrente — nao tentar Edit em race.
 5. `git pull --rebase` antes de push: se outro agente ja push'd, rebase preserva ordem linear.
+
+## EC tiers (when full loop is mandatory)
+
+Tier system formaliza judgment de risco — não é todo Edit que precisa Pre-mortem/Steelman/[budget]. Calibrate por consequência:
+
+- **Tier S (sempre full loop incluindo Pre-mortem + Steelman + budget):** Edits em `.claude/rules/*`, `settings.json`, `.claude/hooks/*`, `hooks/*`, `CLAUDE.md`, `AGENTS.md`. Self-modifications do sistema = alta consequência. Mudança em rule de governance + hook que enforça rules tem blast radius cross-session.
+- **Tier M (sempre full loop):** refactor ≥3 files, migration arquitetural, novo file ≥100 li, scope extension além do plan approved, novos agents/skills, deletes de hook/script versionado.
+- **Tier T (loop mínimo: Verificação + Evidência + Mudança + Autorização):** typo fix, single-line fix óbvio em arquivo já owned, doc prose Edit não-canônica. Pre-mortem/Steelman/[budget] opcionais — engenheiro experiente skipping com motivo é OK; aplicar mesmo assim não é teatro se motivo claro existe.
+
+Tier-S Edit sem `[EC] Fase 4 - Pre-mortem:` visível em user-facing text é detectado em `settings.json` Stop[1] prompt hook. Scope extension sem `[budget] calls atuais: N` visível também detectado. LOOP GUARD inerda pattern de Stop[0] (não duplica feedback mesma reason).
 
 ## EC loop (pre-action gate)
 

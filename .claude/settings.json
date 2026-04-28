@@ -412,6 +412,16 @@
       {
         "hooks": [
           {
+            "type": "prompt",
+            "prompt": "LOOP GUARD: If the conversation already contains 'Stop hook feedback' messages with the SAME reason you are about to give, respond {\"ok\":true} immediately. If the assistant is mid-conversation discussing implementation, asking for approval, in plan mode, or waiting for explicit Lucas authorization, respond {\"ok\":true}.\n\nFIRST CHECK — Tier S Pre-mortem (per .claude/rules/anti-drift.md §EC tiers): Did this turn contain Edit/Write tool calls touching paths matching: .claude/rules/, settings.json, .claude/hooks/, hooks/, CLAUDE.md, or AGENTS.md? If YES, search the assistant's user-facing text in this turn for the literal substring 'Fase 4 - Pre-mortem'. If absent, respond {\"ok\":false,\"reason\":\"Tier S Edit without Pre-mortem visible (anti-drift.md §EC tiers)\"}.\n\nSECOND CHECK — Scope extension budget gate: Did this turn contain Edit/Write/Agent tool calls modifying files NOT listed in the most recent approved plan §Mudança proposta? If YES (genuine scope extension), search user-facing text for the literal substring '[budget] calls atuais'. If absent, respond {\"ok\":false,\"reason\":\"Scope extension without [budget] gate visible (anti-drift.md §Budget gate)\"}.\n\nIf both checks pass OR neither tier S nor scope extension occurred this turn, respond {\"ok\":true}.\n\n$ARGUMENTS",
+            "timeout": 30,
+            "statusMessage": "Stop[1]: verificando Pre-mortem tier S + budget gate..."
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
             "type": "command",
             "command": "bash $CLAUDE_PROJECT_DIR/hooks/stop-quality.sh 2>>$CLAUDE_PROJECT_DIR/.claude/stop-stderr.log",
             "timeout": 5000

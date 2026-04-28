@@ -161,3 +161,6 @@ globs: "**/*"
 
 ## KBP-51 Concurrent agent commit unsafe
 → `.claude/rules/anti-drift.md` §Concurrent agent commit safety
+
+## KBP-52 Pre-mortem / [budget] decay sem tier-based enforcement
+→ `.claude/rules/anti-drift.md` §EC tiers + `settings.json` Stop[1] prompt hook (audit S270 §A3+§A4 confirmou 0 aplicações sem gate mecânico; reframe S271 com tier S/M/T + budget call-based)

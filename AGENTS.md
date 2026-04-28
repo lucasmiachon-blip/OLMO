@@ -10,6 +10,14 @@
 
 Codex + Gemini são READ-ONLY por default (Claude Code não é vinculado por esta restrição). Report findings. Só editar quando Lucas aprovar explicitamente o escopo no thread atual.
 
+## Codex/Gemini EC tiers (when full loop is mandatory)
+
+> **Fork de `.claude/rules/anti-drift.md §EC tiers`** — re-sync ao mudar master. Tier system formaliza judgment de risco — não é todo Edit que precisa Pre-mortem/Steelman/[budget].
+
+- **Tier S (sempre full loop incluindo Pre-mortem + Steelman + budget):** Edits em `.claude/rules/*`, `settings.json`, `.claude/hooks/*`, `hooks/*`, `CLAUDE.md`, `AGENTS.md`. Self-modification do sistema, alta consequência cross-session.
+- **Tier M (sempre full loop):** refactor ≥3 files, migration, novo file ≥100 li, scope extension além do plan approved.
+- **Tier T (loop mínimo: Verificacao + Evidencia + Mudanca + Autorizacao):** typo fix, single-line óbvio, doc prose. Pre-mortem/Steelman/[budget] opcionais com motivo.
+
 ## Codex/Gemini EC loop obrigatorio
 
 > **Fork de `.claude/rules/anti-drift.md §EC loop`** — re-sync ao mudar master. Codex/Gemini não leem CLAUDE.md, então o corpo está duplicado aqui propositalmente.
