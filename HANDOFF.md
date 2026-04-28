@@ -9,7 +9,7 @@
 3. Escolha UMA lane abaixo com Lucas.
 4. Abra apenas o plano da lane escolhida, por secao/grep, nao inteiro.
 
-S271 audit-fix complete — 4 commits (`e185b45` mecânicos C1+A1+A2+A5+B2 / `4b6828f` INV-4 count-integrity / `66b7bd8` A3+A4 EC tiers + Stop[1] + KBP-52 / next A6+A7). Audit `.claude/plans/snazzy-purring-dream.md` fechado mecanicamente; histórico full em `CHANGELOG.md §S271`. Catalog status: `.claude/CATALOG.md`. Defer próximo audit: M1-M4 + B1 + B3.
+**S271 closed** — audit governance loop fechado mecânicamente (5 commits S270+S271). Plans archived: `.claude/plans/archive/S270-audit-adversarial-15-findings.md` + `.claude/plans/archive/S271-audit-fix-criticos.md`. Stop[1] hook ativo aguarda soak test S272+. Catalog `.claude/CATALOG.md`: 6 `candidate-delete` skills (skill-creator/improve/automation/docs-audit/knowledge-ingest/nlm-skill) revisar S275-280 1-a-1 (audit §8 bulk delete proibido). Histórico completo: `CHANGELOG.md §S271`. Defer próximo audit pass: M1+M2+M3+B1+B3 (M4 já endereçado).
 
 ## 1. Lane A - Metanalise QA editorial
 
@@ -25,7 +25,7 @@ Gate: `node scripts/smoke/research-dlite-contract.mjs`.
 
 ## 3. Lane C - Infra / auditoria
 
-Triggers: "auditoria", "hardening", "gate", "harness", "seguranca", "integrity". Relatório S267: `docs/audit/codex-adversarial-audit-S267.md`. Audit S270: `.claude/plans/snazzy-purring-dream.md` (mecânicos done S271).
+Triggers: "auditoria", "hardening", "gate", "harness", "seguranca", "integrity". Relatório S267: `docs/audit/codex-adversarial-audit-S267.md`. Audit S270 fechado: `.claude/plans/archive/S270-audit-adversarial-15-findings.md` (15 findings: 10 closed S271 + 5 deferred M1+M2+M3+B1+B3).
 Estado: residual M1 pytest nominal (remover ou smoke mínimo); opcional `bash content/aulas/scripts/install-hooks.sh` para `.git/hooks/pre-push` local.
 
 ## 4. Roadmap constante
@@ -34,7 +34,8 @@ Now:
 - `[S267/S268 P0 metanalise]` `.claude/plans/curious-enchanting-tarjan.md` - s-forest1/s-forest2.
 - `[S269 P0 D-lite]` `docs/research/sota-S269-agents-subagents-contract.md` + `.claude/scripts/research-dlite-runner.mjs` - local smoke PASS; next = optional live smoke/re-bench.
 - `[P1 BACKGROUND]` `.claude/plans/immutable-gliding-galaxy.md` - referencia, nao abrir no start.
-- `[S271 audit-followup]` `.claude/plans/elegant-crafting-marshmallow.md` + `snazzy-purring-dream.md` — mecânicos C1+A1+A2+A3+A4+A5+B2 done; INV-4 hook done; A6 truncate + A7 CATALOG.md done. M1-M4+B1+B3 defer próximo pass.
+- `[S272+ soak test]` Stop[1] prompt hook validar tier-S Pre-mortem detection + scope-extension `[budget]` em uso real; calibrar prompt prose se false-positive recorrente.
+- `[S275-280 catalog review]` `.claude/CATALOG.md` 6 `candidate-delete` skills decisão 1-a-1 com Lucas; bulk delete proibido (audit S270 §8).
 
 Next:
 - Lane B: quando Gemini quota voltar, rodar re-bench cost-gated Gemini/Perplexity/Codex em >=6 emits; comparar contra `.mjs`; promover D-lite so se thresholds do contrato passarem.

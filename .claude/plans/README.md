@@ -1,12 +1,12 @@
 # Plans — Índice e Convenção
 
-> Single source of truth para estado de plans. Atualizado para reidratação S268. Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
+> Single source of truth para estado de plans. Atualizado para reidratação S272 (S271 audit governance close). Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
 
 ## Active plans (3)
 
 - **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` (Conductor 2026 single source of truth) — reference doc cross-session (12-arms taxonomy + KPIs + §16 backlog ref)
-- **[S267/S268 P0 metanalise]** `curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 architectural refactor (`s-quality` done S265; abrir so se Lucas escolher slides/metanalise)
-- **[S267/S268 P0 D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track (`KEEP-SEPARATE provisional`; abrir so secoes `S264.c`/`S265 carryover` se Lucas escolher research)
+- **[Lane A metanalise]** `curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 architectural refactor (`s-quality` done S265; abrir so se Lucas escolher slides/metanalise)
+- **[Lane B D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track (`KEEP-SEPARATE provisional`; abrir so secoes `S264.c`/`S265 carryover` se Lucas escolher research)
 
 ## Roadmap constante
 
@@ -40,9 +40,14 @@
 
 - `archive/S269-document-conversion-uv-hardening.md` — skill document-conversion criado + Fletcher PDF + uv venv hardening + KBP-49/50/51; commit `67c2688` push'd. Renamed from `toasty-greeting-crown.md` pre-archive.
 
+## Archived S270-S271 (audit governance close)
+
+- `archive/S270-audit-adversarial-15-findings.md` — auditoria adversarial OLMO 15 findings (1 CRÍTICO C1 Mermaid + 7 ALTO + 4 MÉDIO + 3 BAIXO); ~2050 palavras, 8 secoes formato fixo; commit `bceb3f4` push'd. Renamed from `snazzy-purring-dream.md` pre-archive S271.
+- `archive/S271-audit-fix-criticos.md` — execução mecânica do audit followup: 10 findings closed (C1+A1+A2+A3+A4+A5+A6+A7+M4+B2) + INV-4 count-integrity hook + KBP-52 codified; 5 findings deferred (M1+M2+M3+B1+B3). 5 commits: `e185b45`+`4b6828f`+`66b7bd8`+`ed599ae`+commit-atual. Renamed from `elegant-crafting-marshmallow.md` pre-archive.
+
 **Regra:** max 2 active sessões correntes + 1 BACKGROUND (immutable-gliding-galaxy = exception explicit-flagged). Cross-window concurrency permite até 3 active simultâneo se janelas paralelas cooperam (S264-265 pattern). Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close (S256 close pattern).
 
-## Archive (`.claude/plans/archive/` = 113 files)
+## Archive (`.claude/plans/archive/` = 115 files)
 
 Historical audit trail. Never delete; historical value > storage cost. Reference por grep quando necessário.
 
@@ -94,6 +99,8 @@ Historical audit trail. Never delete; historical value > storage cost. Reference
 | `archive/S256-hooks-execute-and-close.md` | S256 | HISTORICAL — current session execution plan (Phase 0+1+2+3 closed, Phase 5 close partial). Renamed from `snazzy-brewing-pearl.md` pre-archive. |
 | `archive/S258-hookscont.md` | S258 | HISTORICAL — Phase A 8 commits (KBP-32 VERIFY add to symptom-collector + 7 smoke tests Tier 1 ATIVO contract+fixture) + Phase B close (HANDOFF/CHANGELOG sync + plan archived). G2 finding: `claude agents call` pseudocode stale; real `claude -p --agent`; subprocess hooks bypass infra defer S259 Tier 2. Renamed from `async-moseying-pebble.md` pre-archive. |
 | `archive/S258-hookscont-phase-D.md` | S258 | HISTORICAL — Phase C hooks runtime audit (0/32 teatro evidence) + Phase D 3 commits hooks improvements: D.1 hooks-health.sh +5 mock tests 14/14 PASS, D.2 drain_stdin lib DEFERRED S259+ (KBP-41 Cut calibration documented), D.3 audit doc 152li + KBP-42 codified. Renamed from `async-moseying-pebble.md` pre-archive. |
+| `archive/S270-audit-adversarial-15-findings.md` | S270 | HISTORICAL — auditoria adversarial 15 findings (1 CRITICO + 7 ALTO + 4 MEDIO + 3 BAIXO); commit `bceb3f4`. Renamed from `snazzy-purring-dream.md` pre-archive S271. |
+| `archive/S271-audit-fix-criticos.md` | S271 | HISTORICAL — audit followup execution (10/15 closed mechanically + INV-4 hook + KBP-52 + tier S/M/T system + Stop[1] prompt hook + HANDOFF truncate 113→52 + CATALOG.md created). 5 commits. Renamed from `elegant-crafting-marshmallow.md` pre-archive. |
 
 ## Quando criar novo plan file
 

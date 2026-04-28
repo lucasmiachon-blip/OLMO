@@ -6,8 +6,7 @@
 - `git status --short` -> ler `HANDOFF.md` -> escolher UMA lane (metanalise, D-lite, infra).
 - Se a lane for D-lite/research: ler `docs/research/S269-dlite-rehydration.md` antes de qualquer Edit. Ele alinha Claude Code + Codex sobre scripts antigos, novos scripts, agents, skill e gaps.
 - Nao abrir `CHANGELOG.md` nem planos longos no start; usar `rg -n "termo" arquivo` e ler ranges.
-- Drift local conhecido: `.claude/statusline.sh` modificado; `.claude/.research-tmp/` ignorado como temp; Codex global statusline ja configurado fora do repo.
-- Auditoria infra S267 persistida em `docs/audit/codex-adversarial-audit-S267.md`; nao reconstruir por memoria.
+- Auditoria infra S267 persistida em `docs/audit/codex-adversarial-audit-S267.md`; auditoria adversarial S270 em `.claude/plans/archive/S270-audit-adversarial-15-findings.md`; S271 audit-fix execution em `.claude/plans/archive/S271-audit-fix-criticos.md`. Não reconstruir por memória.
 
 ## Scripts canonicos
 - Build aulas: `npm --prefix content/aulas run build:{aula}`.
