@@ -111,6 +111,26 @@ else
   test_case "T9: guard-write-unified blocks .claude/hooks/*" "block" "allow" "exit=$HOOK_EXIT_WU, out=${HOOK_OUTPUT_WU:0:80}"
 fi
 
+# --- Test 9b: guard-write-unified asks on unclassified in-repo paths ---
+HOOK_INPUT_WU_UNCLASS='{"tool_name":"Write","tool_input":{"file_path":"scratch/untracked-note.md","content":"x"},"hook_event_name":"PreToolUse"}'
+HOOK_OUTPUT_WU_UNCLASS=$(echo "$HOOK_INPUT_WU_UNCLASS" | bash .claude/hooks/guard-write-unified.sh 2>&1)
+HOOK_EXIT_WU_UNCLASS=$?
+if echo "$HOOK_OUTPUT_WU_UNCLASS" | grep -qE 'ask|UNCLASSIFIED|permissionDecision'; then
+  test_case "T9b: guard-write-unified asks on unclassified path" "ask" "ask" "exit=$HOOK_EXIT_WU_UNCLASS"
+else
+  test_case "T9b: guard-write-unified asks on unclassified path" "ask" "allow" "exit=$HOOK_EXIT_WU_UNCLASS, out=${HOOK_OUTPUT_WU_UNCLASS:0:80}"
+fi
+
+# --- Test 9c: guard-write-unified blocks outside-repo absolute paths ---
+HOOK_INPUT_WU_OUTSIDE='{"tool_name":"Write","tool_input":{"file_path":"C:/Users/lucas/outside.txt","content":"x"},"hook_event_name":"PreToolUse"}'
+HOOK_OUTPUT_WU_OUTSIDE=$(echo "$HOOK_INPUT_WU_OUTSIDE" | bash .claude/hooks/guard-write-unified.sh 2>&1)
+HOOK_EXIT_WU_OUTSIDE=$?
+if [[ $HOOK_EXIT_WU_OUTSIDE -ne 0 ]] || echo "$HOOK_OUTPUT_WU_OUTSIDE" | grep -qE 'block|fora do repo|permissionDecision'; then
+  test_case "T9c: guard-write-unified blocks outside repo" "block" "block" "exit=$HOOK_EXIT_WU_OUTSIDE"
+else
+  test_case "T9c: guard-write-unified blocks outside repo" "block" "allow" "exit=$HOOK_EXIT_WU_OUTSIDE, out=${HOOK_OUTPUT_WU_OUTSIDE:0:80}"
+fi
+
 # --- Test 10: guard-secrets handles git commit input (parseable + valid exit) ---
 # NOTE: full BLOCK path requires .env in stage. This validates HOOK RUNS + handles git command shape.
 HOOK_INPUT_SEC='{"tool_name":"Bash","tool_input":{"command":"git commit -m test"},"hook_event_name":"PreToolUse"}'

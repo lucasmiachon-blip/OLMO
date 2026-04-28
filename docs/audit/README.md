@@ -4,7 +4,7 @@ Relatorios auditaveis ficam aqui. `HANDOFF.md` deve apontar para o relatorio viv
 
 ## Ativos
 
-- `codex-adversarial-audit-S267.md` — auditoria adversarial Codex S267; boundary, done-gates, integrity hooks, Windows done-gate e pytest decorativo.
+- `codex-adversarial-audit-S267.md` — auditoria adversarial Codex S267; C1 boundary FIXED S268, pendentes: done-gates, integrity hooks, Windows done-gate e pytest decorativo.
 
 ## Historicos
 

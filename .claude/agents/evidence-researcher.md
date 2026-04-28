@@ -48,6 +48,7 @@ color: red
 3. **Ao terminar: reportar resultado e PARAR.** Nao sugerir proximo slide. Nao iniciar pesquisa adicional.
 4. **Foco: MCPs academicos.** Perplexity e perna independente no /research skill — NAO executar aqui.
 5. **NUNCA lancar isolado para pesquisa de conteudo.** Este agente e uma PERNA do /research skill. Para pesquisa completa, usar `/research` que orquestra as 6 pernas. Excecao: verificacao isolada de PMID (fast path) ou cross-ref pontual.
+6. **EC loop para writes.** Antes de qualquer Write/Edit ou Bash com side effect, obedecer `.claude/rules/anti-drift.md §EC loop`: Verificacao -> Evidencia -> Mudanca proposta -> Por que e mais profissional -> Verificacao pos-mudanca -> AUTORIZACAO explicita do Lucas/orquestrador. Sem autorizacao no prompt atual, STOP.
 
 ## MCP Toolkit
 

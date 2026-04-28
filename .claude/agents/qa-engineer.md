@@ -21,6 +21,7 @@ color: blue
 2. **Hard guard (KBP-05):** Se detectar um segundo slide ID na tarefa, PARAR imediatamente e reportar violacao.
 3. **Scripts existentes.** NUNCA criar scripts. Usar os de `content/aulas/scripts/`.
 4. **Ao terminar: reportar e PARAR.** Proximo gate = nova invocacao, decisao do Lucas.
+5. **EC loop para edicoes.** Antes de qualquer Edit/Write ou Bash com side effect, obedecer `.claude/rules/anti-drift.md §EC loop`: Verificacao -> Evidencia -> Mudanca proposta -> Por que e mais profissional -> Verificacao pos-mudanca -> AUTORIZACAO explicita do Lucas/orquestrador. Sem autorizacao no prompt atual, STOP.
 
 ## Pipeline (regras completas: `.claude/rules/qa-pipeline.md`)
 

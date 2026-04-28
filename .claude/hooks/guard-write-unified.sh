@@ -16,6 +16,22 @@ INPUT=$(cat 2>/dev/null || echo '{}')
 
 REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
 [ -z "$REPO_ROOT" ] && exit 0  # Not in git repo — hook not applicable
+REPO_ROOT=$(printf '%s' "$REPO_ROOT" | sed -E 's|\\|/|g; s|//+|/|g')
+REPO_ROOT=$(realpath -m "$REPO_ROOT" 2>/dev/null || printf '%s' "$REPO_ROOT")
+
+normalize_path_for_compare() {
+  local path="$1"
+  path=$(printf '%s' "$path" | sed -E 's|\\|/|g; s|//+|/|g')
+  if [[ "$path" =~ ^([A-Za-z]):/(.*)$ ]]; then
+    local drive
+    drive=$(printf '%s' "${BASH_REMATCH[1]}" | tr 'A-Z' 'a-z')
+    path="/mnt/${drive}/${BASH_REMATCH[2]}"
+  fi
+  if [[ "$path" != /* ]]; then
+    path="${REPO_ROOT}/${path}"
+  fi
+  realpath -m "$path" 2>/dev/null || printf '%s' "$path"
+}
 
 # ─── Single jq parse: extract file_path + tool_name ───
 PARSED=$(echo "$INPUT" | jq -r '[
@@ -36,6 +52,12 @@ fi
 
 # Normalize path: collapse //, remove ../ traversals, strip ./
 FILE_PATH=$(printf '%s' "$FILE_PATH" | sed -E 's|//|/|g; s|[^/]+/\.\./||g; s|^\./||')
+COMPARE_PATH=$(normalize_path_for_compare "$FILE_PATH")
+
+if [[ "$COMPARE_PATH" != "$REPO_ROOT" && "$COMPARE_PATH" != "$REPO_ROOT"/* ]]; then
+  printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"block","permissionDecisionReason":"BLOQUEADO: Write/Edit fora do repo OLMO: %s"}}\n' "$FILE_PATH"
+  exit 2
+fi
 
 # ═══ Guard 1: Generated files (index.html built by npm run build) ═══
 if [[ "$FILE_PATH" == *"content/aulas/"*"/index.html" ]]; then
@@ -150,5 +172,6 @@ for pattern in "${PRODUCT_PATTERNS[@]}"; do
   fi
 done
 
-# Not a guarded file — allow silently
+# Not a guarded file — ask explicitly instead of silent allow
+printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"[UNCLASSIFIED WRITE] %s nao esta em whitelist explicita. Lucas aprova?"}}\n' "$FILE_PATH"
 exit 0

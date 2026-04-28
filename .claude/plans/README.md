@@ -1,12 +1,21 @@
 # Plans — Índice e Convenção
 
-> Single source of truth para estado de plans. Atualizado para reidratação S267. Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
+> Single source of truth para estado de plans. Atualizado para reidratação S268. Nao ler plans longos no start; `HANDOFF.md` escolhe a lane e este README aponta o arquivo certo.
 
 ## Active plans (3)
 
 - **[P1 BACKGROUND]** `immutable-gliding-galaxy.md` (Conductor 2026 single source of truth) — reference doc cross-session (12-arms taxonomy + KPIs + §16 backlog ref)
-- **[S267 P0 metanalise]** `curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 architectural refactor (`s-quality` done S265; abrir so se Lucas escolher slides/metanalise)
-- **[S267 P0 D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track (`KEEP-SEPARATE provisional`; abrir so secoes `S264.c`/`S265 carryover` se Lucas escolher research)
+- **[S267/S268 P0 metanalise]** `curious-enchanting-tarjan.md` — Phases B-G s-forest1+s-forest2 architectural refactor (`s-quality` done S265; abrir so se Lucas escolher slides/metanalise)
+- **[S267/S268 P0 D-lite]** `sleepy-wandering-firefly.md` — bench D-lite refactor track (`KEEP-SEPARATE provisional`; abrir so secoes `S264.c`/`S265 carryover` se Lucas escolher research)
+
+## Roadmap constante
+
+| Horizonte | Item | Source of truth |
+|---|---|---|
+| Now | Metanalise QA editorial: s-forest1/s-forest2 | `curious-enchanting-tarjan.md` |
+| Now | D-lite research wrappers: refactor + re-bench | `sleepy-wandering-firefly.md` |
+| Next | Infra audit residuals: done-gate strict/pre-push, integrity hooks, Windows npm gate | `docs/audit/codex-adversarial-audit-S267.md` |
+| Later | Conductor 2026 / 12-bracos architecture | `immutable-gliding-galaxy.md` |
 
 ## Rehydrate protocol
 
@@ -20,16 +29,16 @@
 - `archive/S259-jazzy-sniffing-rabbit.md` — heterogeneity-evolve (S259 worker; superseded S260 commit `cc04bbd`)
 - `archive/S259-warm-snacking-hinton.md` — s-quality v2 (S259 orquestrador; superseded S262 commit `6fed511` + S265 Phase A `184fed9`)
 
-## Pending archive (cross-ref update needed — S266+)
+## Archived S268 (noise reduction)
 
-- `concurrent-nibbling-teacup.md` — KBP-45 anchor reference; mover requer KBP file ref update
-- `wobbly-foraging-pelican.md` — S262 Slides_build (committed `6fed511`); mover requer grep-pass ref check
-- `S262-research-mjs-additive-migration.md` — methodology source (splendid concretizou); mover requer SKILL.md/HANDOFF ref check
-- `splendid-munching-swing.md` — bench Phase 0-8 closed; bench janela domain (defer 2 dias per Lucas)
+- `archive/concurrent-nibbling-teacup.md` — KBP-45 anchor retained; pointer updated in `known-bad-patterns.md`.
+- `archive/wobbly-foraging-pelican.md` — S262 Slides_build committed (`6fed511`); historical.
+- `archive/S262-research-mjs-additive-migration.md` — methodology source superseded by S264/S268 D-lite track; historical.
+- `archive/splendid-munching-swing.md` — bench Phase 0-8 closed; decision persisted in `.claude/.parallel-runs/2026-04-27-ma-types/decision.md`.
 
 **Regra:** max 2 active sessões correntes + 1 BACKGROUND (immutable-gliding-galaxy = exception explicit-flagged). Cross-window concurrency permite até 3 active simultâneo se janelas paralelas cooperam (S264-265 pattern). Plans auto-gen do EnterPlanMode são session-bound (transient) — archived ou renamed pre-close (S256 close pattern).
 
-## Archive (`.claude/plans/archive/` = 105 files)
+## Archive (`.claude/plans/archive/` = 112 files)
 
 Historical audit trail. Never delete; historical value > storage cost. Reference por grep quando necessário.
 

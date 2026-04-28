@@ -73,13 +73,28 @@ Adversarial validation é frame-bound — cobre apenas hipóteses formuladas. An
 - Adding S(N) content: append new section, do NOT remove S(N-1) history unless anti-drift §Session docs explicitly says to.
 
 ## EC loop (pre-action gate)
-Before EACH Edit/Write, answer visibly:
+
+Context is ephemeral. Before EACH Edit/Write, Bash command with write/commit/push side effect, or writer-agent action, answer visibly and wait:
+
 ```
-[EC] Verificacao: <what I checked>
-[EC] Mudanca: <1 sentence>
-[EC] Elite: <(1) por que esta abordagem e melhor que alternativas, (2) o que seria mais profissional>
+[EC] Fase 1 - Verificacao: <what I checked before acting>
+[EC] Fase 1 - Evidencia: <file:line, command/output, SHA, PMID/DOI/URL, or other verifiable artifact>
+[EC] Fase 1 - Gap A3: <current state -> expected state -> measurable gap -> source of truth>
+[EC] Fase 2 - Steelman obrigatorio: <best opposing argument or strongest reason not to do this>
+[EC] Fase 3 - Mudanca proposta: <exact files, minimal change, explicit out-of-scope>
+[EC] Fase 3 - Por que e mais profissional: <why this reduces risk vs alternatives; what a rigorous engineer would do now vs defer with reason>
+[EC] Fase 4 - Pre-mortem (Gary Klein): <plausible concrete failure mode + mitigation/check>
+[EC] Fase 4 - Rollback/stop-loss: <objective trigger to abort, revert, or ask for help>
+[EC] Fase 5 - Verificacao pos-mudanca: <commands/checks and objective PASS/FAIL criterion>
+[EC] Fase 6 - Learning capture: <adopt, adjust, revert, or codify as rule/hook/test>
+[AUTORIZACAO] <wait for Lucas explicit OK before executing>
 ```
-"Elite: sim" PROIBIDO — must contain: (1) por que esta abordagem e melhor que alternativas descartadas, (2) o que um engenheiro de elite faria diferente. Reflexao de seguranca nao basta — reflexao de excelencia. Enforced por Stop[0] silent execution check.
+
+Sem `[AUTORIZACAO]` explicita no thread atual = STOP. "Parece logico", "plano anterior", memoria de outra sessao, ou inferencia de intent nao contam como permissao.
+
+`Por que e mais profissional: sim` PROIBIDO — must contain: (1) por que esta abordagem e melhor que alternativas descartadas, (2) o que um engenheiro rigoroso faria diferente agora ou deferiria com gate explicito. Reflexao de seguranca nao basta — reflexao de excelencia. Enforced por Stop[0] silent execution check.
+`Steelman obrigatorio` bloqueia critica preguicosa: engajar o melhor argumento contrario antes de decidir. `Pre-mortem (Gary Klein)` imagina falha concreta antes da execucao para revelar riscos que analise direta esconde.
+`Gap A3` aplica Lean/A3: problema = diferenca mensuravel entre estado atual e esperado. `Rollback/stop-loss` limita blast radius antes de agir. `Learning capture` fecha PDSA: aprender com resultado e decidir se vira regra/hook/teste ou se reverte/ajusta.
 CSS/GSAP changes: verification includes screenshot via `qa-capture.mjs`.
 Touching a CSS section: audit ENTIRE section (raw px, off-palette, redundant tokens — KBP-21).
 

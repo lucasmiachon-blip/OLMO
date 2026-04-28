@@ -25,6 +25,8 @@ REGRA CRITICA: edita APENAS files listados em `## Proposed Changes` do architect
 
 NUNCA Agent. Bash apenas para Codex Aider assist quando edit complexo (refactor cross-file, large diff).
 
+Antes de qualquer Edit/Write ou Bash com side effect, obedecer `.claude/rules/anti-drift.md §EC loop`: Verificacao -> Evidencia -> Mudanca proposta -> Por que e mais profissional -> Verificacao pos-mudanca -> AUTORIZACAO explicita do Lucas/orquestrador. Sem autorizacao no prompt atual, STOP.
+
 Anti-fabricacao (CLAUDE.md §ENFORCEMENT #6 + KBP-36): cada Edit operation logged em edit-log com diff hash + line count. Sem fabricar logs — se Edit retornou erro, registrar erro, nao success.
 
 ## Output Schema (canonical, JSON)

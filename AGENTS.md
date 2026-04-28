@@ -10,6 +10,26 @@
 
 Codex + Gemini são READ-ONLY por default (Claude Code não é vinculado por esta restrição). Report findings. Só editar quando Lucas aprovar explicitamente o escopo no thread atual.
 
+## Codex/Gemini EC loop obrigatorio
+
+Contexto e memoria de agente sao efemeros. Antes de qualquer edicao, comando com side effect, commit/push, ou mudanca operacional, Codex/Gemini devem tornar a decisao reproduzivel no thread atual:
+
+```text
+[EC] Fase 1 - Verificacao: o que foi checado antes de agir.
+[EC] Fase 1 - Evidencia: file:line, comando/output, SHA, PMID/DOI/URL, ou outro artefato verificavel.
+[EC] Fase 1 - Gap A3: estado atual -> estado esperado -> gap mensuravel -> fonte de verdade.
+[EC] Fase 2 - Steelman obrigatorio: melhor argumento contrario ou melhor razao para nao fazer.
+[EC] Fase 3 - Mudanca proposta: arquivos exatos, alteracao minima, fora-de-escopo explicito.
+[EC] Fase 3 - Por que e mais profissional: por que esta abordagem reduz risco melhor que alternativas; o que um engenheiro rigoroso faria agora vs deferiria com razao.
+[EC] Fase 4 - Pre-mortem (Gary Klein): falha concreta plausivel + mitigacao/verificacao.
+[EC] Fase 4 - Rollback/stop-loss: gatilho objetivo para abortar, reverter ou pedir ajuda.
+[EC] Fase 5 - Verificacao pos-mudanca: comando(s) e criterio objetivo PASS/FAIL.
+[EC] Fase 6 - Learning capture: adotar, ajustar, reverter ou codificar como regra/hook/teste.
+[AUTORIZACAO] Aguardar OK explicito do Lucas antes de executar.
+```
+
+Sem `[AUTORIZACAO]` explicita no thread atual = STOP e reportar. "Parece logico", "ja estava no plano" ou memoria de sessoes anteriores nao contam como permissao.
+
 ## S259 architectural POC: Codex as research perna
 
 Lucas signaled (S259) intent to migrate research orchestration de `.mjs` scripts (`content/aulas/scripts/*.mjs` — fragility reportada) → **agents/skill pattern** (SOTA Anthropic Claude Code 2026: subagents declarativos com tool isolation + skill markdown > imperative scripts).

@@ -142,7 +142,7 @@ globs: "**/*"
 → CHANGELOG.md §S260 Aprendizados
 
 ## KBP-45 Wholesale migrate código frágil arrasta bugs silenciosos pra arquitetura nova
-→ .claude/plans/concurrent-nibbling-teacup.md §Reframe SOTA-driven
+→ .claude/plans/archive/concurrent-nibbling-teacup.md §Reframe SOTA-driven
 
 ## KBP-46 Subgrid escolha contextual — não default cego em layouts content-stable
 → CHANGELOG.md §S262 Aprendizados (subgrid quando rows variam height-tracking cross-card; auto-rows + align-content quando rows estáveis content-sized; combinar com chip stretching layered fix `align-self: start` + `height: fit-content`)

@@ -19,5 +19,5 @@
 - Codex CLI `0.125.0` statusline usa strings: `model-name`, `context-used`, `five-hour-limit`, `weekly-limit`, `used-tokens`.
 
 ## Loop profissional
-- Antes de Edit: verificar evidencia (`file:line`/comando/SHA), declarar risco e verificacao, aguardar OK Lucas quando escopo nao estiver explicito.
+- Antes de side effect: EC loop visivel = Verificacao -> Evidencia -> Gap A3 -> Steelman obrigatorio -> Mudanca proposta -> Por que e mais profissional -> Pre-mortem (Gary Klein) -> Rollback/stop-loss -> Verificacao pos-mudanca -> Learning capture -> AUTORIZACAO Lucas. Sem OK explicito no thread atual = STOP.
 - Depois de Edit: rodar verificacao minima, reportar PASS/FAIL em ate 3 bullets.

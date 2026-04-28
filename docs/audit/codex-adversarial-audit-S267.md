@@ -5,8 +5,9 @@
 ## 1. TL;DR
 
 - Estado geral: o repo tem disciplina documental forte, mas gates e contratos críticos ainda aceitam teatro operacional.
-- Risco maior: boundary de escrita e done-gates prometem bloqueio/verificação, mas há paths silenciosos e comandos inexistentes.
-- Ação barata: corrigir primeiro o guard de `Write/Edit` e provar com fixtures negativas/positivas.
+- Risco maior remanescente: done-gates/integrity prometem bloqueio/verificação, mas ainda há comandos inexistentes e hooks shell quebrados.
+- S268 follow-up: C1 corrigido em `.claude/hooks/guard-write-unified.sh` + `scripts/smoke/hooks-health.sh`; `bash scripts/smoke/hooks-health.sh` PASS 16/16.
+- Próxima ação barata: resolver C2 (`done:cirrose:strict`/pre-push) ou A1 (`tools/integrity.sh` vermelho por hooks CRLF/syntax).
 
 ## 2. Steelman
 
@@ -15,6 +16,10 @@ O status quo tenta resolver um problema real: Lucas opera múltiplos CLIs/agente
 Também é defensável manter `.mjs` e agents em paralelo no research por enquanto. A evidência do bench diz que `.mjs` Gemini/Perplexity emitiu 9/9 no hot path, enquanto wrappers agentes ainda são experimentais. Migrar tudo por estética "agentic" antes do re-bench seria regressão, não modernização.
 
 ## 3. Findings por severidade
+
+### FOLLOW-UP S268
+
+**C1 — FIXED.** `guard-write-unified.sh` agora bloqueia `Write/Edit` fora do repo e transforma path interno não classificado em `permissionDecision:"ask"` em vez de allow silencioso. Regressões adicionadas: T9b (`scratch/untracked-note.md` -> ask) e T9c (`C:/Users/lucas/outside.txt` -> block) em `scripts/smoke/hooks-health.sh`. Verificação: mocks específicos PASS + `bash scripts/smoke/hooks-health.sh` PASS 16/16 + `bash -n` nos dois scripts PASS + `git diff --check` PASS.
 
 ### CRITICO
 
@@ -59,7 +64,7 @@ Evidência: `HANDOFF.md` pré-S267 misturava bench, metanálise, cautions e reta
 | `pre-push` roda done-gate strict | `content/aulas/cirrose/DONE-GATE.md:80` | `.git/hooks/pre-push` ausente | ASPIRACIONAL |
 | `done:cirrose:strict` existe | `content/aulas/cirrose/DONE-GATE.md:5` | `package.json` tem só `done:cirrose` | ASPIRACIONAL |
 | Hooks shell íntegros | `tools/integrity.sh` como gate operacional | `bash -n` falha em 2 hooks | QUEBRADO |
-| Write/Edit guard protege boundary | `.claude/hooks/guard-write-unified.sh` | allow final silencioso | PARCIAL |
+| Write/Edit guard protege boundary | `.claude/hooks/guard-write-unified.sh` | S268 mocks: protected block, product ask, unclassified ask, outside-repo block | FIXED |
 | pytest como verificação | comando operacional auditado | `no tests ran` | DECORATIVO |
 
 ## 6. Pre-mortem
@@ -72,7 +77,7 @@ Evidência: `HANDOFF.md` pré-S267 misturava bench, metanálise, cautions e reta
 
 | acao | impacto | custo | risco de nao fazer |
 |---|---|---:|---|
-| Fail-closed em `guard-write-unified.sh` para paths não whitelistados + fixtures | Alto | M | Boundary vira ficção. |
+| ~~Fail-closed em `guard-write-unified.sh` para paths não whitelistados + fixtures~~ | Alto | M | **DONE S268** — T9b/T9c em `hooks-health.sh`. |
 | Resolver contrato `done:cirrose:strict`/pre-push | Alto | P-M | Handoff/push sem gate real. |
 | Normalizar hooks shell para LF e corrigir syntax | Alto | P | Integrity gate sempre vermelho ou ignorado. |
 | Corrigir `done-gate.js` para Windows | Médio | P | Gate contornado manualmente. |
