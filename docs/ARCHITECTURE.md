@@ -189,6 +189,8 @@ Infra: MCP Notion **inventariado** em `config/mcp/servers.json`; runtime atual =
 trivial → Ollama ($0)  │  simple → Haiku  │  medium → Sonnet  │  complex → Opus
 ```
 
+**Subagent model precedence:** agent frontmatter `model:` (e.g., `.claude/agents/debug-strategist.md:8` → `opus`) overrides `CLAUDE_CODE_SUBAGENT_MODEL` env var (`.claude/settings.json:12` → `claude-sonnet-4-6`). Env var = default para agents sem `model:` pinned no frontmatter. <!-- HIPOTESE S272 audit M1: confirmar empiricamente via 1 invocation log de debug-strategist mostrando model real -->
+
 **Cross-model orchestration** — ver [`docs/adr/0003-multimodel-orchestration.md`](adr/0003-multimodel-orchestration.md) para framework 5-critérios (objetivo/trigger/artefato/custo/risco) + invocation gates Claude Code ↔ Codex ↔ Gemini ↔ Ollama + deferral rationale (Antigravity, ChatGPT deflate).
 
 **Cost**: $0 tier — Claude Code Max + Gemini CLI OAuth + Codex via ChatGPT Plus. API keys are used by QA (`content/aulas/scripts/gemini-qa3.mjs`) and research (`.claude/scripts/{gemini,perplexity}-research.mjs`) scripts. Research wrappers `gemini-deep-research`/`perplexity-sonar-research` are experimental until the S266 D-lite re-bench locks MERGE or MERGE-BACK.
